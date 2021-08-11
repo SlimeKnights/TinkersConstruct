@@ -32,7 +32,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
+    "tag": "tconstruct:modifiable/held"
   },
   "slots": {
     "abilities": 1

@@ -200,6 +200,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .build(consumer, prefix(TinkerModifiers.shiny, slotlessFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded.get())
+                         .setTools(TinkerTags.Items.HELD)
                          .addInputSalvage(Items.LEATHER, 0.7f)
                          .addInputSalvage(Items.PHANTOM_MEMBRANE, 0.3f)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
@@ -505,14 +506,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(Items.ENDER_PEARL, 2)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .setTools(TinkerTags.Items.HELD)
                          .buildSalvage(consumer, prefix(TinkerModifiers.bucketing, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.bucketing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get())
                          .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .setTools(TinkerTags.Items.HELD) // TODO: might want to switch from held if we add any armor related tank modifiers
                          .buildSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
     // expanders
@@ -528,7 +529,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.expanded, abilityFolder));
     // reach expander
     ModifierRecipeBuilder.modifier(TinkerModifiers.reach.get())
-                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .addInputSalvage(Items.PISTON, 0.9f)
                          .addInputSalvage(TinkerMaterials.queensSlime.getIngotTag(), 1.0f)
                          .addInputSalvage(Items.PISTON, 0.9f)
@@ -538,8 +538,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.reach, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.reach, abilityFolder));
     // block transformers
+    Ingredient heldWithDurability = new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromTag(TinkerTags.Items.HELD));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
+                         .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.pickaxeHead.get())))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
@@ -549,7 +550,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.pathing, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.pathing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.stripping.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
+                         .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get())))
@@ -559,7 +560,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.stripping, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.stripping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tilling.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
+                         .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallBlade.get())))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get())))
@@ -570,7 +571,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.tilling, abilityFolder));
     // glowing
     ModifierRecipeBuilder.modifier(TinkerModifiers.glowing.get())
-                         .setTools(TinkerTags.Items.DURABILITY)
+                         .setTools(heldWithDurability)
                          .addInput(Items.GLOWSTONE)
                          .addInputSalvage(Items.DAYLIGHT_DETECTOR, 0.9f)
                          .addInputSalvage(Items.SHROOMLIGHT, 0.4f)
@@ -580,7 +581,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.glowing, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.glowing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.firestarter.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromItems(TinkerTools.flintAndBronze)))
+                         .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.flintAndBronze)))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .addInputSalvage(Items.FLINT, 0.2f)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)

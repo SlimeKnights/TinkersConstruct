@@ -33,6 +33,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
@@ -183,14 +184,15 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST).addTag(HARVEST_PRIMARY).addTag(STONE_HARVEST);
     // melee primary and swords
     this.getOrCreateBuilder(MELEE).addTag(MELEE_PRIMARY).addTag(SWORD);
-    // modifier helper tag
+    // modifier helper tags
     this.getOrCreateBuilder(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
+    this.getOrCreateBuilder(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
 
     // general
     this.getOrCreateBuilder(MODIFIABLE)
         .addTag(MULTIPART_TOOL).addTag(DURABILITY)
         .addTag(MELEE_OR_HARVEST).addTag(AOE)
-        .addTag(ONE_HANDED).addTag(TWO_HANDED);
+        .addTag(HELD);
     this.getOrCreateBuilder(MantleTags.Items.OFFHAND_COOLDOWN).addTag(TinkerTags.Items.MELEE);
 
     // kamas are a shear type, when broken we don't pass it to loot tables

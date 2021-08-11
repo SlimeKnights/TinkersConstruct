@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:modifier_salvage",
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "tag": "tconstruct:modifiable/held"
   },
   "slots": {
     "upgrades": 1

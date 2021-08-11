@@ -5,7 +5,6 @@
     "#tconstruct:modifiable/durability",
     "#tconstruct:modifiable/melee_or_harvest",
     "#tconstruct:modifiable/aoe",
-    "#tconstruct:modifiable/one_handed",
-    "#tconstruct:modifiable/two_handed"
+    "#tconstruct:modifiable/held"
   ]
 }

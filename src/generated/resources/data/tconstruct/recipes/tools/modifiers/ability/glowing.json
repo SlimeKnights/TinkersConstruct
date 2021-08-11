@@ -12,7 +12,15 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/durability"
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/held"
+      }
+    ]
   },
   "slots": {
     "abilities": 1

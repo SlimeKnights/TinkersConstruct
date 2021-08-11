@@ -16,7 +16,15 @@
   "tools": {
     "type": "mantle:without",
     "base": {
-      "tag": "tconstruct:modifiable/durability"
+      "type": "mantle:intersection",
+      "ingredients": [
+        {
+          "tag": "tconstruct:modifiable/durability"
+        },
+        {
+          "tag": "tconstruct:modifiable/held"
+        }
+      ]
     },
     "without": [
       {
