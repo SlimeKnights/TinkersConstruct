@@ -9,10 +9,13 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
+import slimeknights.tconstruct.common.SoundUtils;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -173,6 +176,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
     this.inventoryWrapper.refreshInput(slot);
+  }
+  
+  @Override
+  protected void playCraftSound(PlayerEntity player) {
+    SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.BLOCK_ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getEntityWorld().rand.nextFloat());
   }
 
   /* Syncing */
