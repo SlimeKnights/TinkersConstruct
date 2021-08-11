@@ -6,11 +6,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
@@ -23,18 +27,23 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
+import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 
@@ -165,6 +174,96 @@ public class ToolEvents {
       if (source.isExplosion() && source.getTrueSource() != null && source.getTrueSource().getType() == EntityType.PLAYER) {
         // drops 1 - 8 scales
         ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.getEntityWorld().rand.nextInt(8)));
+      }
+    }
+  }
+
+  /**
+   * Determines how much to damage armor based on the given damage to the player
+   * @param damage  Amount to damage the player
+   * @return  Amount to damage the armor
+   */
+  private static int getArmorDamage(float damage) {
+    damage /= 4;
+    if (damage < 1) {
+      return 1;
+    }
+    return (int)damage;
+  }
+
+  // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
+  @SubscribeEvent(priority = EventPriority.LOW)
+  static void entityDamage(LivingHurtEvent event) {
+    LivingEntity entity = event.getEntityLiving();
+
+    // determine if there is any modifiable armor, if not nothing to do
+    // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
+    boolean hasTinkersArmor = false;
+    ToolStack[] toolStacks = new ToolStack[4];
+    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      ItemStack stack = entity.getItemStackFromSlot(slotType);
+      if (!stack.isEmpty() && TinkerTags.Items.ARMOR.contains(stack.getItem())) {
+        hasTinkersArmor = true;
+        toolStacks[slotType.getIndex()] = ToolStack.from(stack);
+      }
+    }
+    if (!hasTinkersArmor) {
+      return;
+    }
+
+    // first, fetch vanilla enchant level, assuming its not bypassed in vanilla
+    DamageSource source = event.getSource();
+    int vanillaModifier = 0;
+    if (!source.isDamageAbsolute()) {
+      vanillaModifier = EnchantmentHelper.getEnchantmentModifierDamage(entity.getArmorInventoryList(), source);
+    }
+
+    // next, determine how much tinkers armor wants to change it
+    // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
+    float modifierValue = vanillaModifier;
+    float originalDamage = event.getAmount();
+    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      ToolStack tool = toolStacks[slotType.getIndex()];
+      if (tool != null) {
+        for (ModifierEntry entry : tool.getModifierList()) {
+          modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), entity, source, slotType, modifierValue);
+        }
+      }
+    }
+
+    // TODO: consider hook for modifiers to change damage directly
+    // if we changed anything, run our logic
+    if (vanillaModifier != modifierValue) {
+      // fetch armor and toughness if blockable, passing in 0 to the logic will skip the armor calculations
+      float armor = 0, toughness = 0;
+      if (!source.isUnblockable()) {
+        armor = entity.getTotalArmorValue();
+        toughness = (float)entity.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
+      }
+
+      // set the final dealt damage
+      float finalDamage = ArmorUtil.getDamageForEvent(originalDamage, armor, toughness, vanillaModifier, modifierValue);
+      event.setAmount(finalDamage);
+
+      // armor is damaged less as a result of our math, so damage the armor based on the difference if there is one
+      if (!source.isUnblockable()) {
+        int damageMissed = getArmorDamage(originalDamage) - getArmorDamage(finalDamage);
+        // TODO: is this check sufficient for whether the armor should be damaged? I partly wonder if I need to use reflection to call damageArmor
+        if (damageMissed > 0 && entity instanceof PlayerEntity) {
+          for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+            // for our own armor, saves effort to damage directly with our utility
+            ToolStack tool = toolStacks[slotType.getIndex()];
+            if (tool != null && (!source.isFireDamage() || !tool.getItem().isImmuneToFire())) {
+              ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType);
+            } else {
+              // if not our armor, damage using vanilla like logic
+              ItemStack armorStack = entity.getItemStackFromSlot(slotType);
+              if (!armorStack.isEmpty() && (!source.isFireDamage() || !armorStack.getItem().isImmuneToFire()) && armorStack.getItem() instanceof ArmorItem) {
+                armorStack.damageItem(damageMissed, entity, e -> e.sendBreakAnimation(slotType));
+              }
+            }
+          }
+        }
       }
     }
   }

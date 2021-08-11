@@ -25,7 +25,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -53,6 +52,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -783,6 +783,24 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {}
 
 
+  /* Armor */
+
+  /**
+   * Gets the protection value of the armor from this modifier. A value of 1 blocks about 4% of damage, equivalent to 1 level of the protection enchantment.
+   * Maximum effect is 80% reduction from a modifier value of 20. Can also go negative, up to 180% increase from a modifier value of -20
+   * @param tool            Worn armor
+   * @param level           Modifier level
+   * @param entity          Entity wearing the armor
+   * @param source          Damage source
+   * @param slotType        Slot containing the armor
+   * @param modifierValue   Modifier value from previous modifiers to add
+   * @return  New modifier value
+   */
+  public float getProtectionModifier(IModifierToolStack tool, int level, LivingEntity entity, DamageSource source, EquipmentSlotType slotType, float modifierValue) {
+    return modifierValue;
+  }
+
+
   /* Display */
 
   /**
@@ -916,7 +934,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, ITag<Item> condition, float amount, List<ITextComponent> tooltip) {
     if (tool.hasTag(condition)) {
-      tooltip.add(applyStyle(new StringTextComponent("+" + slimeknights.tconstruct.library.utils.Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
+      tooltip.add(applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
                                .appendString(" ")
                                .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
     }

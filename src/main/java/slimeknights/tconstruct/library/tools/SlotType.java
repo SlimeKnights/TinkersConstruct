@@ -43,12 +43,12 @@ public final class SlotType {
 
   /** Common slot type for modifiers with many levels */
   public static final SlotType UPGRADE = create("upgrades", 0xFFCCBA47);
+  /** Slot type for protection based modifiers on armor */
+  public static final SlotType ARMOR = create("armor", 0xFFA8FFA0);
   /** Rare slot type for powerful and rather exclusive modifiers */
   public static final SlotType ABILITY = create("abilities", 0xFFB8A0FF);
   /** Slot type used in the soul forge */
   public static final SlotType SOUL = create("souls", -1);
-  /** Slot type for protection based modifiers on armor */
-  public static final SlotType ARMOR = create("armor", 0xFFA8FFA0);
 
   /** Just makes sure static initialization is done early enough */
   public static void init() {}

@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "armor": 1
+  },
+  "modifier": "tconstruct:fire_protection",
+  "min_level": 1,
+  "salvage": {
+    "item": "tconstruct:seared_reinforcement",
+    "full": false
+  }
+}

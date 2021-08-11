@@ -450,6 +450,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedDuct), TinkerFluids.moltenCobalt.get(), FluidValues.INGOT * 2, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.INGOT * 4))
                         .build(consumer, modResource("smeltery/melting/cobalt/seared_duct"));
+    // misc
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.searedReinforcement), TinkerFluids.searedStone.get(), FluidValues.INGOT)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
+                        .build(consumer, modResource(meltingFolder + "reinforcement"));
   }
 
   private void addFoundryRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -1166,6 +1170,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .build(consumer, modResource(folder + "emerald/gem"));
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_EMERALD), TinkerFluids.moltenEmerald.get(), FluidValues.GEM_BLOCK, 3.0f)
                         .build(consumer, modResource(folder + "emerald/block"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.emeraldReinforcement), TinkerFluids.moltenEmerald.get(), FluidValues.GEM / 3)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
+                        .build(consumer, modResource(metalFolder + "emerald/reinforcement"));
 
     // quartz
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.ORES_QUARTZ), TinkerFluids.moltenQuartz.get(), FluidValues.GEM, 1.5f)
@@ -1263,6 +1270,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .build(consumer, modResource(metalFolder + "gold/apple"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.GLISTERING_MELON_SLICE, Items.GOLDEN_CARROT), TinkerFluids.moltenGold.get(), FluidValues.NUGGET * 8)
                         .build(consumer, modResource(metalFolder + "gold/produce"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.goldReinforcement), TinkerFluids.moltenGold.get(), FluidValues.NUGGET * 3)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
+                        .build(consumer, modResource(metalFolder + "gold/reinforcement"));
     // armor
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.GOLDEN_HELMET), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 5)
                         .setDamagable()
@@ -1383,10 +1393,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // it may be silky, but its still rose gold
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.silkyCloth), TinkerFluids.moltenRoseGold.get(), FluidValues.INGOT)
                         .build(consumer, modResource(metalFolder + "rose_gold/silky_cloth"));
-    // slimesteel? Just doing it all at this point
+
+    // misc reinforcements
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.slimesteelReinforcement), TinkerFluids.moltenSlimesteel.get(), FluidValues.NUGGET * 3)
                         .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
                         .build(consumer, modResource(metalFolder + "slimesteel/reinforcement"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.bronzeReinforcement), TinkerFluids.moltenTinkersBronze.get(), FluidValues.NUGGET * 3)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
+                        .build(consumer, modResource(metalFolder + "tinkers_bronze/reinforcement"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.cobaltReinforcement), TinkerFluids.moltenCobalt.get(), FluidValues.NUGGET * 3)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
+                        .build(consumer, modResource(metalFolder + "cobalt/reinforcement"));
 
     // slime
     TinkerGadgets.slimeBoots.forEach((type, boots) -> {

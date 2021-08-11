@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "tconstruct:item/materials/reinforcement_slimesteel"
+        "layer0": "tconstruct:item/materials/reinforcement/slimesteel"
     }
 }
