@@ -39,6 +39,7 @@ import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -799,6 +800,52 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public float getProtectionModifier(IModifierToolStack tool, int level, LivingEntity entity, DamageSource source, EquipmentSlotType slotType, float modifierValue) {
     return modifierValue;
   }
+
+
+  /* Equipment events */
+
+  /**
+   * Called when a tinker tool is unequipped from an entity
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEquip(IModifierToolStack, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
+   *   <li>{@link #onEquipmentChange(IModifierToolStack, int, EquipmentChangeContext, EquipmentSlotType)}: Called on all other slots that did not change</li>
+   * </ul>
+   * @param tool         Tool unequipped
+   * @param level        Level of the modifier
+   * @param context      Context about the event
+   */
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {}
+
+  /**
+   * Called when a tinker tool is equipped to an entity
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onUnequip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
+   *   <li>{@link #onEquipmentChange(IModifierToolStack, int, EquipmentChangeContext, EquipmentSlotType)}: Called on all other slots did not change</li>
+   * </ul>
+   * @param tool         Tool equipped
+   * @param level        Level of the modifier
+   * @param context      Context about the event
+   */
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {}
+
+  /**
+   * Called when a stack in a different slot changed. Not called on the slot that changed
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onUnequip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
+   *   <li>{@link #onEquip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
+   * </ul>
+   * @param tool      Tool instance
+   * @param level     Modifier level
+   * @param context   Context describing the change
+   * @param slotType  Slot containing this tool, did not change
+   */
+  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {}
 
 
   /* Display */

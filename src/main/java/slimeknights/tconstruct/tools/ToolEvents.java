@@ -27,6 +27,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
@@ -41,9 +42,11 @@ import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 
@@ -262,6 +265,41 @@ public class ToolEvents {
                 armorStack.damageItem(damageMissed, entity, e -> e.sendBreakAnimation(slotType));
               }
             }
+          }
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onEquipmentChange(LivingEquipmentChangeEvent event) {
+    LivingEntity entity = event.getEntityLiving();
+    EquipmentSlotType changedSlot = event.getSlot();
+    EquipmentChangeContext context = new EquipmentChangeContext(entity, changedSlot, event.getFrom(), event.getTo());
+
+    // first, fire event to notify an item was removed
+    IModifierToolStack tool = context.getOriginalTool();
+    if (tool != null) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().onUnequip(tool, entry.getLevel(), context);
+      }
+    }
+
+    // next, fire event to notify an item was added
+    tool = context.getReplacementTool();
+    if (tool != null) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().onEquip(tool, entry.getLevel(), context);
+      }
+    }
+
+    // finally, fire events on all other slots to say something changed
+    for (EquipmentSlotType otherSlot : EquipmentSlotType.values()) {
+      if (otherSlot != changedSlot) {
+        tool = context.getToolInSlot(otherSlot);
+        if (tool != null) {
+          for (ModifierEntry entry : tool.getModifierList()) {
+            entry.getModifier().onEquipmentChange(tool, entry.getLevel(), context, otherSlot);
           }
         }
       }
