@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -196,21 +197,13 @@ public class ToolEvents {
 
   // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
   @SubscribeEvent(priority = EventPriority.LOW)
-  static void entityDamage(LivingHurtEvent event) {
+  static void livingHurt(LivingHurtEvent event) {
     LivingEntity entity = event.getEntityLiving();
 
     // determine if there is any modifiable armor, if not nothing to do
     // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
-    boolean hasTinkersArmor = false;
-    ToolStack[] toolStacks = new ToolStack[4];
-    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      ItemStack stack = entity.getItemStackFromSlot(slotType);
-      if (!stack.isEmpty() && TinkerTags.Items.ARMOR.contains(stack.getItem())) {
-        hasTinkersArmor = true;
-        toolStacks[slotType.getIndex()] = ToolStack.from(stack);
-      }
-    }
-    if (!hasTinkersArmor) {
+    EquipmentContext context = new EquipmentContext(entity);
+    if (!context.hasModifiableArmor()) {
       return;
     }
 
@@ -226,10 +219,10 @@ public class ToolEvents {
     float modifierValue = vanillaModifier;
     float originalDamage = event.getAmount();
     for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      ToolStack tool = toolStacks[slotType.getIndex()];
-      if (tool != null) {
+      IModifierToolStack tool = context.getToolInSlot(slotType);
+      if (tool != null && !tool.isBroken()) {
         for (ModifierEntry entry : tool.getModifierList()) {
-          modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), entity, source, slotType, modifierValue);
+          modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
         }
       }
     }
@@ -255,7 +248,7 @@ public class ToolEvents {
         if (damageMissed > 0 && entity instanceof PlayerEntity) {
           for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
             // for our own armor, saves effort to damage directly with our utility
-            ToolStack tool = toolStacks[slotType.getIndex()];
+            IModifierToolStack tool = context.getToolInSlot(slotType);
             if (tool != null && (!source.isFireDamage() || !tool.getItem().isImmuneToFire())) {
               ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType);
             } else {

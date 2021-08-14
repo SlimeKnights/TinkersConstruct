@@ -40,6 +40,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -791,13 +792,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Maximum effect is 80% reduction from a modifier value of 20. Can also go negative, up to 180% increase from a modifier value of -20
    * @param tool            Worn armor
    * @param level           Modifier level
-   * @param entity          Entity wearing the armor
-   * @param source          Damage source
+   * @param context         Equipment context of the entity wearing the armor
    * @param slotType        Slot containing the armor
+   * @param source          Damage source
    * @param modifierValue   Modifier value from previous modifiers to add
    * @return  New modifier value
    */
-  public float getProtectionModifier(IModifierToolStack tool, int level, LivingEntity entity, DamageSource source, EquipmentSlotType slotType, float modifierValue) {
+  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
     return modifierValue;
   }
 

@@ -28,12 +28,16 @@ public class RicochetModifier extends Modifier {
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> add(data, -level));
+    if (!tool.isBroken()) {
+      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> add(data, -level));
+    }
   }
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> add(data, level));
+    if (!tool.isBroken()) {
+      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> add(data, level));
+    }
   }
 
   /** Called on knockback to adjust player knockback */

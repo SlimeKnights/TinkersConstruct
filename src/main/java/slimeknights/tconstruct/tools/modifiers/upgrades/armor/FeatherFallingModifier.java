@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.tools.modifiers.armor.ProtectionModifier;
@@ -17,7 +17,7 @@ public class FeatherFallingModifier extends IncrementalModifier {
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, LivingEntity entity, DamageSource source, EquipmentSlotType slotType, float modifierValue) {
+  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
     if (source == DamageSource.FALL) {
       modifierValue += getScaledLevel(tool, level) * 3;
     }

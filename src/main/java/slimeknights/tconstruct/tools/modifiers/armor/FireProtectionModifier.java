@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 
@@ -42,7 +43,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, LivingEntity entity, DamageSource source, EquipmentSlotType slotType, float modifierValue) {
+  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
     if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isFireDamage()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
@@ -132,12 +133,16 @@ public class FireProtectionModifier extends IncrementalModifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    attemptTakeControl(context.getEntity(), context, context.getChangedSlot(), getScaledLevel(tool, level));
+    if (!tool.isBroken()) {
+      attemptTakeControl(context.getEntity(), context, context.getChangedSlot(), getScaledLevel(tool, level));
+    }
   }
 
   @Override
   public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
-    attemptTakeControl(context.getEntity(), context, slotType, getScaledLevel(tool, level));
+    if (!tool.isBroken()) {
+      attemptTakeControl(context.getEntity(), context, slotType, getScaledLevel(tool, level));
+    }
   }
 
   /* Ticking
