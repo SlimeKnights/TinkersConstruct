@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "minecraft:anvil"
+        },
+        {
+          "item": "minecraft:chipped_anvil"
+        },
+        {
+          "item": "minecraft:damaged_anvil"
+        }
+      ]
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "armor": 1
+  },
+  "result": {
+    "name": "tconstruct:knockback_resistance",
+    "level": 1
+  },
+  "max_level": 1
+}

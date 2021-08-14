@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "armor": 1
+  },
+  "modifier": "tconstruct:knockback_resistance",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:damaged_anvil",
+      "chance": 0.5
+    }
+  ]
+}

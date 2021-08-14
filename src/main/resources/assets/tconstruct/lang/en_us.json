@@ -1520,6 +1520,17 @@
   "modifier.tconstruct.sharpness.description": "Tool is so much sharper, dealing more damage!",
 
   "_comment": "Armor",
+  "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
+  "modifier.tconstruct.knockback_resistance.flavor": "A weighty subject",
+  "modifier.tconstruct.knockback_resistance.description": "Anvils are heavy, so it should keep you from being knocked back, right?",
+  "modifier.tconstruct.golden": "Golden",
+  "modifier.tconstruct.golden.flavor": "Good as gold",
+  "modifier.tconstruct.golden.description": "Gives your armor extra golden bling, piglins love it!",
+  "modifier.tconstruct.ricochet": "Ricochet",
+  "modifier.tconstruct.ricochet.flavor": "Extra bouncy",
+  "modifier.tconstruct.ricochet.description": "Bounce away further when attacked, for effective escapes",
+
+  "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "Protection",
   "modifier.tconstruct.protection.flavor": "Jack of all trades!",
   "modifier.tconstruct.protection.description": "Increases protection to all damage types",
@@ -1540,6 +1551,19 @@
   "modifier.tconstruct.projectile_protection.flavor": "Ding!",
   "modifier.tconstruct.projectile_protection.description": "Protects against damage from projectiles",
   "modifier.tconstruct.projectile_protection.resistance": "Projectile Resistance",
+
+  "_comment": "Armor - slot specific",
+  "modifier.tconstruct.speedy": "Speedy",
+  "modifier.tconstruct.speedy.flavor": "Keep going and going and going...",
+  "modifier.tconstruct.speedy.description": "Achieve speeds closer to that of rabbits",
+  "modifier.tconstruct.revitalizing": "Revitalizing",
+  "modifier.tconstruct.revitalizing.flavor": "Can feel the energy flowing",
+  "modifier.tconstruct.revitalizing.description": "Strengthens the heart, granting more hearts",
+  "modifier.tconstruct.feather_falling": "Feather Falling",
+  "modifier.tconstruct.feather_falling.flavor": "Floof",
+  "modifier.tconstruct.feather_falling.description": "Softens falls causing reduced damage",
+  "modifier.tconstruct.feather_falling.resistance": "Fall Resistance",
+
 
   "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "Unbreakable",

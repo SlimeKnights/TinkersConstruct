@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:speedy",
+  "min_level": 1,
+  "salvage": {
+    "item": "minecraft:rabbit_foot",
+    "full": false
+  }
+}

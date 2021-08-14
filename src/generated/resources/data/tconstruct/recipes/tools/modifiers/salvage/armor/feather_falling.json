@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:feather_falling",
+  "min_level": 1,
+  "salvage": {
+    "tag": "forge:slimeball/sky"
+  }
+}

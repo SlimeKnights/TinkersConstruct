@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRe
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.DragonScaleItem;
@@ -66,6 +67,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.tool.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.SpillingModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.BlastProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.FireProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.armor.KnockbackResistanceModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.MagicProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.ProjectileProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.ProtectionModifier;
@@ -117,6 +119,10 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RevitalizingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RicochetModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SpeedyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.ExperiencedModifier;
@@ -226,11 +232,20 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
 
   // armor
+  // protection
   public static final RegistryObject<ProtectionModifier> protection = MODIFIERS.register("protection", ProtectionModifier::new);
   public static final RegistryObject<FireProtectionModifier> fireProtection = MODIFIERS.register("fire_protection", FireProtectionModifier::new);
   public static final RegistryObject<BlastProtectionModifier> blastProtection = MODIFIERS.register("blast_protection", BlastProtectionModifier::new);
   public static final RegistryObject<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);
   public static final RegistryObject<ProjectileProtectionModifier> projectileProtection = MODIFIERS.register("projectile_protection", ProjectileProtectionModifier::new);
+  public static final RegistryObject<KnockbackResistanceModifier> knockbackResistance = MODIFIERS.register("knockback_resistance", KnockbackResistanceModifier::new);
+  // general
+  public static final RegistryObject<VolatileFlagModifier> golden = MODIFIERS.register("golden", () -> new VolatileFlagModifier(0xFFD83E, ModifiableArmorItem.PIGLIN_NEUTRAL));
+  public static final RegistryObject<RicochetModifier> ricochet = MODIFIERS.register("ricochet", RicochetModifier::new);
+  // piece specific
+  public static final RegistryObject<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
+  public static final RegistryObject<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
+  public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
 
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);

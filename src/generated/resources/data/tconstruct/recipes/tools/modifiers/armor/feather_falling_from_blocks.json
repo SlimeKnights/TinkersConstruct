@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "tconstruct:sky_slime"
+  },
+  "amount_per_item": 9,
+  "needed_per_level": 36,
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:feather_falling",
+    "level": 1
+  },
+  "max_level": 4
+}

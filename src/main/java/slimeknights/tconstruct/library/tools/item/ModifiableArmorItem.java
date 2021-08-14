@@ -19,12 +19,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
@@ -54,6 +56,9 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   // TODO: AT this
   private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 
+  /** Volatile modifier tag to make piglins neutal when worn */
+  public static final ResourceLocation PIGLIN_NEUTRAL = TConstruct.getResource("piglin_neutral");
+
   @Getter
   private final ToolDefinition toolDefinition;
   /** Cache of the tool built for rendering */
@@ -82,6 +87,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
     return false;
+  }
+
+  @Override
+  public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+    return ToolStack.from(stack).getVolatileData().getBoolean(PIGLIN_NEUTRAL);
   }
 
 

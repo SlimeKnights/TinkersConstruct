@@ -27,16 +27,21 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
@@ -185,7 +190,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.flintAndBronze, DURABILITY, MELEE, ONE_HANDED, AOE);
 
     // armor
-    addToolTags(TinkerTools.travelersGear, DURABILITY, ARMOR);
+    addArmorTags(TinkerTools.travelersGear, DURABILITY);
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
@@ -195,6 +200,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // modifier helper tags
     this.getOrCreateBuilder(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
     this.getOrCreateBuilder(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
+    this.getOrCreateBuilder(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
 
     // general
     this.getOrCreateBuilder(MODIFIABLE)
@@ -343,12 +349,23 @@ public class ItemTagProvider extends ItemTagsProvider {
     }
   }
 
+  private INamedTag<Item> getArmorTag(ArmorSlotType slotType) {
+    switch (slotType) {
+      case BOOTS: return BOOTS;
+      case LEGGINGS: return LEGGINGS;
+      case CHESTPLATE: return CHESTPLATES;
+      case HELMET: return HELMETS;
+    }
+    return ARMOR;
+  }
+
   @SafeVarargs
-  private final void addToolTags(EnumObject<?,? extends Item> enumObject, INamedTag<Item>... tags) {
-    enumObject.forEach(item -> {
+  private final void addArmorTags(EnumObject<ArmorSlotType,? extends Item> armor, INamedTag<Item>... tags) {
+    armor.forEach((type, item) -> {
       for (INamedTag<Item> tag : tags) {
         this.getOrCreateBuilder(tag).add(item);
       }
+      this.getOrCreateBuilder(getArmorTag(type)).add(item);
     });
   }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:rabbit_foot"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 5,
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:speedy",
+    "level": 1
+  },
+  "max_level": 3
+}

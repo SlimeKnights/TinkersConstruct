@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:travelers_boots",
-    "tconstruct:travelers_leggings",
-    "tconstruct:travelers_chestplate",
-    "tconstruct:travelers_helmet"
+    "#tconstruct:modifiable/armor/boots",
+    "#tconstruct:modifiable/armor/leggings",
+    "#tconstruct:modifiable/armor/chestplate",
+    "#tconstruct:modifiable/armor/helmets"
   ]
 }

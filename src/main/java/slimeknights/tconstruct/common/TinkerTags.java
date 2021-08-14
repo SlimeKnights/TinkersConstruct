@@ -223,6 +223,14 @@ public class TinkerTags {
 
     /** Modifiable items that are worn as armor */
     public static final IOptionalNamedTag<Item> ARMOR = tag("modifiable/armor");
+    /** Modifiable items that are worn as boots */
+    public static final IOptionalNamedTag<Item> BOOTS = tag("modifiable/armor/boots");
+    /** Modifiable items that are worn as leggings */
+    public static final IOptionalNamedTag<Item> LEGGINGS = tag("modifiable/armor/leggings");
+    /** Modifiable items that are worn as chestplates */
+    public static final IOptionalNamedTag<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
+    /** Modifiable items that are worn as helmets */
+    public static final IOptionalNamedTag<Item> HELMETS = tag("modifiable/armor/helmets");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
 
