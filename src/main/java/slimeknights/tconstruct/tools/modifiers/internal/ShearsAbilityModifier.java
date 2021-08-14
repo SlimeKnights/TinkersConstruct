@@ -17,6 +17,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -149,16 +150,4 @@ public class ShearsAbilityModifier extends SingleUseModifier {
     return null;
   }
 
-  /** Interface that allows another modifier to hook into the shears modifier */
-  public interface IShearModifier {
-    /**
-     * Called after a block is successfully harvested
-     * @param tool     Tool used in harvesting
-     * @param level    Modifier level
-     * @param player   Player shearing
-     * @param entity   Entity sheared
-     * @param isTarget If true, the sheared entity was targeted. If false, this is AOE shearing
-     */
-    void afterShearEntity(IModifierToolStack tool, int level, PlayerEntity player, Entity entity, boolean isTarget);
-  }
 }

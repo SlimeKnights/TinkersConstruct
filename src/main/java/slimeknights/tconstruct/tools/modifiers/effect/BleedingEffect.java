@@ -10,7 +10,7 @@ import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 
 import java.util.ArrayList;
 import java.util.List;

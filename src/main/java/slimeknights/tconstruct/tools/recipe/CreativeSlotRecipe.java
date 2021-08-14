@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
-import slimeknights.tconstruct.tools.modifiers.free.CreativeSlotModifier;
+import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
 
 import javax.annotation.Nullable;
 

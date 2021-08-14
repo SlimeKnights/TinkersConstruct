@@ -23,6 +23,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
@@ -288,16 +289,4 @@ public class HarvestAbilityModifier extends SingleUseModifier {
     return ActionResultType.PASS;
   }
 
-  public interface IHarvestModifier {
-    /**
-     * Called after a block is successfully harvested
-     * @param tool     Tool used in harvesting
-     * @param level    Tool level
-     * @param context  Item use context, cooresponds to the original targeted position
-     * @param world    Server world instance
-     * @param state    State before it was harvested
-     * @param pos      Position that was harvested, may be different from the context
-     */
-    void afterHarvest(IModifierToolStack tool, int level, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos);
-  }
 }
