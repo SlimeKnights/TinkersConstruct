@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "tconstruct:ichor_congealed_slime"
+  },
+  "amount_per_item": 4,
+  "needed_per_level": 36,
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:springy",
+    "level": 1
+  },
+  "max_level": 3
+}

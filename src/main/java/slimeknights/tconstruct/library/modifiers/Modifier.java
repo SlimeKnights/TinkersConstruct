@@ -790,6 +790,12 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /**
    * Gets the protection value of the armor from this modifier. A value of 1 blocks about 4% of damage, equivalent to 1 level of the protection enchantment.
    * Maximum effect is 80% reduction from a modifier value of 20. Can also go negative, up to 180% increase from a modifier value of -20
+   * <br/>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #isSourceBlocked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
+   *   <li>{@link #onAttacked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   * </ul>
    * @param tool            Worn armor
    * @param level           Modifier level
    * @param context         Equipment context of the entity wearing the armor
@@ -801,6 +807,44 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
     return modifierValue;
   }
+
+  /**
+   * Checks if this modifier blocks damage from the given source.
+   * <br/>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #getProtectionModifier(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
+   *   <li>{@link #onAttacked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   * </ul>
+   * @param tool       Tool being used
+   * @param level      Level of the modifier
+   * @param context    Context of entity and other equipment
+   * @param slotType   Slot containing the tool
+   * @param source     Damage source causing the attack
+   * @param amount     Amount of damage caused
+   * @return True if this attack should be blocked entirely
+   */
+  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount) {
+    return false;
+  }
+
+  /**
+   * Runs after an entity is attacked (and we know the attack will land). Note you can attack the entity here, but you are responsible for preventing infinite recursion if you do so (by detecting your own attack source for instance)
+   * <br/>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #isSourceBlocked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
+   *   <li>{@link #getProtectionModifier(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows reducing the attack damage.</li>
+   * </ul>
+   * @param tool             Tool being used
+   * @param level            Level of the modifier
+   * @param context          Context of entity and other equipment
+   * @param slotType         Slot containing the tool
+   * @param source           Damage source causing the attack
+   * @param amount           Amount of damage caused
+   * @param isDirectDamage   If true, this attack is direct damage from an entity
+   */
+  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {}
 
 
   /* Equipment events */

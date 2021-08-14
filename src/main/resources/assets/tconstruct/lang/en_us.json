@@ -1552,6 +1552,17 @@
   "modifier.tconstruct.projectile_protection.description": "Protects against damage from projectiles",
   "modifier.tconstruct.projectile_protection.resistance": "Projectile Resistance",
 
+  "_comment": "Armor - counterattack",
+  "modifier.tconstruct.thorns": "Thorns",
+  "modifier.tconstruct.thorns.flavor": "Quite metal",
+  "modifier.tconstruct.thorns.description": "Harness the power of the guardian, causing attackers to sometimes take damage",
+  "modifier.tconstruct.sticky": "Sticky",
+  "modifier.tconstruct.sticky.flavor": "Like Halloween",
+  "modifier.tconstruct.sticky.description": "Attackers may become stuck in place, or at least slowed",
+  "modifier.tconstruct.springy": "Springy",
+  "modifier.tconstruct.springy.flavor": "Ka-boing!",
+  "modifier.tconstruct.springy.description": "Attackers may bounce off your armor",
+
   "_comment": "Armor - slot specific",
   "modifier.tconstruct.speedy": "Speedy",
   "modifier.tconstruct.speedy.flavor": "Keep going and going and going...",

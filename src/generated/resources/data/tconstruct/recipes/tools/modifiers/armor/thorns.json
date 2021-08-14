@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:dusts/prismarine"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "tag": "forge:dusts/prismarine"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:thorns",
+    "level": 1
+  },
+  "max_level": 3
+}

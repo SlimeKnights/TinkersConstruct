@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:sticky",
+  "min_level": 1
+}

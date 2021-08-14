@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:springy",
+  "min_level": 1,
+  "salvage": {
+    "tag": "forge:slimeball/ichor"
+  }
+}

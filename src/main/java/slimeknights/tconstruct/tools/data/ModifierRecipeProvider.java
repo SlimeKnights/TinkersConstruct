@@ -485,6 +485,46 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.golden, armorSalvage))
                          .build(consumer, prefix(TinkerModifiers.golden, armorFolder));
+
+    // upgrade - counterattack
+    ModifierRecipeBuilder.modifier(TinkerModifiers.thorns.get())
+                         .setTools(TinkerTags.Items.ARMOR)
+                         .addInput(Tags.Items.DUSTS_PRISMARINE)
+                         .addInputSalvage(Items.BLAZE_ROD, 0.3f)
+                         .addInput(Tags.Items.DUSTS_PRISMARINE)
+                         .addSalvage(Items.PRISMARINE_SHARD, 0, 2)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(3)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.thorns, armorSalvage))
+                         .build(consumer, prefix(TinkerModifiers.thorns, armorFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.sticky.get())
+                         .setTools(TinkerTags.Items.ARMOR)
+                         .addInput(Blocks.COBWEB)
+                         .addInput(Blocks.COBWEB)
+                         .addInput(Blocks.COBWEB)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(3)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.sticky, armorSalvage))
+                         .build(consumer, prefix(TinkerModifiers.sticky, armorFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.springy.get())
+                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setInputSalvage(SlimeType.ICHOR.getSlimeballTag(), 1, 36, false)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(3)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.springy, armorSalvage))
+                                    .build(consumer, wrap(TinkerModifiers.springy, armorFolder, "_from_slimeballs"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.springy.get())
+                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4, 36)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(3)
+                                    .build(consumer, wrap(TinkerModifiers.springy, armorFolder, "_from_congealed"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.springy.get())
+                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setInput(TinkerWorld.slime.get(SlimeType.ICHOR), 9, 36)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(3)
+                                    .build(consumer, wrap(TinkerModifiers.springy, armorFolder, "_from_blocks"));
     // upgrade - leggings
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.speedy.get())
                                     .setTools(TinkerTags.Items.LEGGINGS)

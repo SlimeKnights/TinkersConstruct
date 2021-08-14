@@ -21,11 +21,13 @@ import net.minecraft.tileentity.BeehiveTileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -178,6 +180,55 @@ public class ToolEvents {
       if (source.isExplosion() && source.getTrueSource() != null && source.getTrueSource().getType() == EntityType.PLAYER) {
         // drops 1 - 8 scales
         ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.getEntityWorld().rand.nextInt(8)));
+      }
+    }
+  }
+
+  @SubscribeEvent(priority = EventPriority.LOW)
+  static void livingAttack(LivingAttackEvent event) {
+    LivingEntity entity = event.getEntityLiving();
+    // client side always returns false, so this should be fine?
+    if (entity.world.isRemote() || entity.getShouldBeDead()) {
+      return;
+    }
+    // I cannot think of a reason to run when invulnerable
+    DamageSource source = event.getSource();
+    if (entity.isInvulnerableTo(source)) {
+      return;
+    }
+
+    // determine if there is any modifiable armor, if not nothing to do
+    // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
+    EquipmentContext context = new EquipmentContext(entity);
+    if (!context.hasModifiableArmor()) {
+      return;
+    }
+    float amount = event.getAmount();
+
+    // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
+    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      IModifierToolStack toolStack = context.getToolInSlot(slotType);
+      if (toolStack != null && !toolStack.isBroken()) {
+        for (ModifierEntry entry : toolStack.getModifierList()) {
+          if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
+            event.setCanceled(true);
+            return;
+          }
+        }
+      }
+    }
+
+    // a lot of counterattack hooks want to detect direct attacks, so save time by calculating once
+    boolean isDirectDamage = source.getTrueSource() != null && source instanceof EntityDamageSource && !((EntityDamageSource)source).getIsThornsDamage();
+
+    // next, give modifiers a chance to respond to the entity being attacked, for counterattack hooks mainly
+    // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
+    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      IModifierToolStack toolStack = context.getToolInSlot(slotType);
+      if (toolStack != null && !toolStack.isBroken()) {
+        for (ModifierEntry entry : toolStack.getModifierList()) {
+          entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
+        }
       }
     }
   }
