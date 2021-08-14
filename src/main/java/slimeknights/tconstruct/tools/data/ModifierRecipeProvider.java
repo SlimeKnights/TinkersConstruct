@@ -474,15 +474,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.knockbackResistance, armorSalvage))
                          .build(consumer, prefix(TinkerModifiers.knockbackResistance, armorFolder));
-
-    // upgrade
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden.get())
                          .setTools(TinkerTags.Items.ARMOR)
                          .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .setSlots(SlotType.UPGRADE, 1)
+                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
+                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
+                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
+                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
+                         .setSlots(SlotType.ARMOR, 1)
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.golden, armorSalvage))
                          .build(consumer, prefix(TinkerModifiers.golden, armorFolder));
+    // upgrade - leggings
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.speedy.get())
                                     .setTools(TinkerTags.Items.LEGGINGS)
                                     .setInputSalvage(Items.RABBIT_FOOT, 1, 5, false)
@@ -497,6 +500,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.revitalizing, armorSalvage))
                                     .build(consumer, prefix(TinkerModifiers.revitalizing, armorFolder));
+    // upgrade - boots
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.featherFalling.get())
                                     .setTools(TinkerTags.Items.BOOTS)
                                     .setInputSalvage(SlimeType.SKY.getSlimeballTag(), 1, 36, false)
@@ -681,6 +685,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.expanded, abilityFolder));
     // reach expander
     ModifierRecipeBuilder.modifier(TinkerModifiers.reach.get())
+                         .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromTag(TinkerTags.Items.CHESTPLATES)))
                          .addInputSalvage(Items.PISTON, 0.9f)
                          .addInputSalvage(TinkerMaterials.queensSlime.getIngotTag(), 1.0f)
                          .addInputSalvage(Items.PISTON, 0.9f)

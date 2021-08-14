@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import java.util.List;
 
+import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 
@@ -39,6 +40,9 @@ public class EmeraldModifier extends SingleLevelModifier {
     }
     if (item.isIn(HARVEST)) {
       ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.IRON);
+    }
+    if (item.isIn(ARMOR)) {
+      ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
     }
   }
 

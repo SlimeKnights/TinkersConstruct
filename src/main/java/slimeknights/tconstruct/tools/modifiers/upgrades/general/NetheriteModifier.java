@@ -42,7 +42,7 @@ public class NetheriteModifier extends SingleLevelModifier {
     }
     if (item.isIn(ARMOR)) {
       ToolStats.ARMOR_TOUGHNESS.add(builder, level);
-      ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.1f);
+      ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
     }
   }
 }
