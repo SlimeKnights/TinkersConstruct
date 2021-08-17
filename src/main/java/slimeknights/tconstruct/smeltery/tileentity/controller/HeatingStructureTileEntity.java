@@ -282,25 +282,26 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
       TinkerNetwork.getInstance().sendToClientsAround(
         new StructureUpdatePacket(pos, newStructure.getMinPos(), newStructure.getMaxPos(), newStructure.getTanks()), world, pos);
 
-      // set master positions
-      newStructure.assignMaster(this, oldStructure);
-      setStructure(newStructure);
-
-      // update tank capability
+      // update tank capability, do first for update listeners on the drain blocks
       if (!fluidCapability.isPresent()) {
         fluidCapability = LazyOptional.of(() -> tank);
       }
-    } else {
-      if (oldStructure != null) {
-        oldStructure.clearMaster(this);
-      }
-      setStructure(null);
 
-      // update tank capability
+      // set master positions
+      newStructure.assignMaster(this, oldStructure);
+      setStructure(newStructure);
+    } else {
+      // remove tank capability
       if (fluidCapability.isPresent()) {
         fluidCapability.invalidate();
         fluidCapability = LazyOptional.empty();
       }
+
+      // clear positions
+      if (oldStructure != null) {
+        oldStructure.clearMaster(this);
+      }
+      setStructure(null);
     }
 
     // update the error position, we do on both success and failure for the sake of expanding positions

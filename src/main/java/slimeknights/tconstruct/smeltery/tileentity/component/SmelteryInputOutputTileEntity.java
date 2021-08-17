@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -58,14 +59,17 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   protected void setMaster(@Nullable BlockPos master, @Nullable Block block) {
     assert world != null;
 
-    // keep track of master before it changed
-    boolean masterChanged = !Objects.equals(getMasterPos(), master);
-    super.setMaster(master, block);
-
     // if we have a new master, invalidate handlers
-    if (world != null && masterChanged) {
+    boolean masterChanged = false;
+    BlockState oldState = getBlockState();
+    if (!Objects.equals(getMasterPos(), master)) {
       clearHandler();
-      world.notifyNeighborsOfStateChange(pos, getBlockState().getBlock());
+      masterChanged = true;
+    }
+    super.setMaster(master, block);
+    // if our state did not change, notify neighbors (redudant if the state did change)
+    if (masterChanged && oldState == getBlockState()) {
+      world.notifyNeighborsOfStateChange(pos, oldState.getBlock());
     }
   }
 
