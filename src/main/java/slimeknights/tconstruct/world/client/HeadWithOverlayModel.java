@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.gadgets.client;
+package slimeknights.tconstruct.world.client;
 
 import net.minecraft.client.renderer.entity.model.GenericHeadModel;
 
