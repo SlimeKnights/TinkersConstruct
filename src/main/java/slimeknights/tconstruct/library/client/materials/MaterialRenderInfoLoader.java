@@ -10,6 +10,7 @@ import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -70,7 +71,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
    * @return  Material render info
    */
   public Optional<MaterialRenderInfo> getRenderInfo(MaterialId materialId) {
-    return Optional.ofNullable(renderInfos.get(materialId));
+    return Optional.ofNullable(renderInfos.get(MaterialRegistry.getInstance().resolve(materialId)));
   }
 
   @Override

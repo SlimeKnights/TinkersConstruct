@@ -6,6 +6,10 @@ import com.google.gson.JsonObject;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.FalseCondition;
+import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
+import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.TConstruct;
@@ -23,9 +27,20 @@ class MaterialManagerTest extends BaseMcTest {
   private static MaterialManager materialManager;
   private final JsonFileLoader fileLoader = new JsonFileLoader(MaterialManager.GSON, MaterialManager.FOLDER);
 
+  /** Ensures the given condition serializer is registered */
+  private static void ensureSerializerRegistered(IConditionSerializer<?> serializer) {
+    try {
+      CraftingHelper.register(serializer);
+    } catch (Exception e) {
+      // NO-OP
+    }
+  }
+
   @BeforeAll
   static void setUp() {
     materialManager = new MaterialManager();
+    ensureSerializerRegistered(FalseCondition.Serializer.INSTANCE);
+    ensureSerializerRegistered(TrueCondition.Serializer.INSTANCE);
   }
 
   @Test
@@ -85,5 +100,53 @@ class MaterialManagerTest extends BaseMcTest {
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).isEmpty();
+  }
+
+  @Test
+  void conditional_conditionPass() {
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("conditional_pass");
+    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
+    assertThat(allMaterials).hasSize(1);
+  }
+
+  @Test
+  void conditional_conditionFail() {
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("conditional_fail");
+    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
+    assertThat(allMaterials).isEmpty();
+  }
+
+  @Test
+  void redirect_toExisting() {
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("redirect_always", "full");
+    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
+    assertThat(allMaterials).hasSize(1);
+    assertThat(materialManager.resolveRedirect(new MaterialId("tconstruct:redirect_always"))).isEqualTo(new MaterialId("tconstruct:full"));
+  }
+
+  @Test
+  void redirect_toNonexisting() {
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("redirect_always");
+    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
+    assertThat(allMaterials).isEmpty();
+    assertThat(materialManager.resolveRedirect(new MaterialId("tconstruct:redirect_always"))).isEqualTo(new MaterialId("tconstruct:redirect_always"));
+  }
+
+  @Test
+  void redirect_withMultipleConditions() {
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("full", "minimal", "redirect_conditional");
+    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
+    assertThat(allMaterials).hasSize(2);
+    assertThat(materialManager.resolveRedirect(new MaterialId("tconstruct:redirect_conditional"))).isEqualTo(new MaterialId("tconstruct:minimal"));
   }
 }

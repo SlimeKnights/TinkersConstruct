@@ -10,11 +10,15 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 public class UpdateMaterialsPacket implements IThreadsafePacket {
   private final Collection<IMaterial> materials;
+  private final Map<MaterialId,MaterialId> redirects;
 
   public UpdateMaterialsPacket(PacketBuffer buffer) {
     int materialCount = buffer.readInt();
@@ -29,6 +33,16 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       boolean hidden = buffer.readBoolean();
       this.materials.add(new Material(id, tier, sortOrder, craftable, Color.fromInt(color), hidden));
     }
+    // process redirects
+    int redirectCount = buffer.readVarInt();
+    if (redirectCount == 0) {
+      this.redirects = Collections.emptyMap();
+    } else {
+      this.redirects = new HashMap<>(redirectCount);
+      for (int i = 0; i < redirectCount; i++) {
+        this.redirects.put(new MaterialId(buffer.readString()), new MaterialId(buffer.readString()));
+      }
+    }
   }
 
   @Override
@@ -42,6 +56,11 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       // the color int getter is private
       buffer.writeInt(material.getColor().color);
       buffer.writeBoolean(material.isHidden());
+    });
+    buffer.writeVarInt(this.redirects.size());
+    this.redirects.forEach((key, value) -> {
+      buffer.writeString(key.toString());
+      buffer.writeString(value.toString());
     });
   }
 

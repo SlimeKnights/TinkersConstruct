@@ -13,6 +13,15 @@ import java.util.Optional;
 
 public interface IMaterialRegistry {
   /**
+   * Resolves any redirects in the given material ID. Should be called internally by all methods in the registry, but exposed for the sake of using outside
+   * @param id  Material ID
+   * @return  Redirected ID, or original ID if no cange
+   */
+  default MaterialId resolve(MaterialId id) {
+    return id;
+  }
+
+  /**
    * Gets a material by ID
    * @param id  Material ID
    * @return  Material, or IMaterial.UNKNOWN if missing

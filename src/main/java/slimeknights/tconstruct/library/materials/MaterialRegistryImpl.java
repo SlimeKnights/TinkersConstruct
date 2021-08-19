@@ -33,8 +33,13 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   @Override
+  public MaterialId resolve(MaterialId id) {
+    return materialManager.resolveRedirect(id);
+  }
+
+  @Override
   public IMaterial getMaterial(MaterialId id) {
-    return materialManager.getMaterial(id).orElse(IMaterial.UNKNOWN);
+    return materialManager.getMaterial(resolve(id)).orElse(IMaterial.UNKNOWN);
   }
 
   @Override
@@ -49,12 +54,12 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
 
   @Override
   public <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
-    return materialStatsManager.getStats(materialId, statsId);
+    return materialStatsManager.getStats(resolve(materialId), statsId);
   }
 
   @Override
   public Collection<IMaterialStats> getAllStats(MaterialId materialId) {
-    return materialStatsManager.getAllStats(materialId);
+    return materialStatsManager.getAllStats(resolve(materialId));
   }
 
   @Override
@@ -74,16 +79,16 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
 
   @Override
   public List<ModifierEntry> getDefaultTraits(MaterialId materialId) {
-    return materialTraitsManager.getDefaultTraits(materialId);
+    return materialTraitsManager.getDefaultTraits(resolve(materialId));
   }
 
   @Override
   public boolean hasUniqueTraits(MaterialId materialId, MaterialStatsId statsId) {
-    return materialTraitsManager.hasUniqueTraits(materialId, statsId);
+    return materialTraitsManager.hasUniqueTraits(resolve(materialId), statsId);
   }
 
   @Override
   public List<ModifierEntry> getTraits(MaterialId materialId, MaterialStatsId statsId) {
-    return materialTraitsManager.getTraits(materialId, statsId);
+    return materialTraitsManager.getTraits(resolve(materialId), statsId);
   }
 }

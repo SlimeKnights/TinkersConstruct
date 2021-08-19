@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials.json;
 
 import lombok.Data;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 
 import javax.annotation.Nullable;
@@ -19,4 +20,13 @@ public class MaterialJson {
   private final String textColor;
   @Nullable
   private final Boolean hidden;
+  @Nullable
+  private final Redirect[] redirect;
+
+  @Data
+  public static class Redirect {
+    private final ResourceLocation id;
+    @Nullable
+    private final ICondition condition;
+  }
 }

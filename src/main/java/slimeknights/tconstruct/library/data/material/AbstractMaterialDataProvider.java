@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.data.material;
 
-import com.mojang.datafixers.util.Pair;
+import lombok.Data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.text.Color;
@@ -19,7 +19,9 @@ import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Extendable material provider, useful for addons
@@ -41,7 +43,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   public static final int ORDER_END = 10;
 
   /** List of all added materials */
-  private final Map<MaterialId, Pair<IMaterial,ICondition>> allMaterials = new HashMap<>();
+  private final Map<MaterialId, DataMaterial> allMaterials = new HashMap<>();
 
   /** Boolean just in case material stats run first */
   private boolean addMaterialsRun = false;
@@ -66,7 +68,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   @Override
   public void act(DirectoryCache cache) {
     ensureAddMaterialsRun();
-    allMaterials.forEach((id, pair) -> saveThing(cache, pair.getFirst().getIdentifier(), convert(pair.getFirst(), pair.getSecond())));
+    allMaterials.forEach((id, data) -> saveThing(cache, id, convert(data)));
   }
 
   /**
@@ -75,20 +77,37 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
    */
   public Set<MaterialId> getAllMaterials() {
     ensureAddMaterialsRun();
-    return allMaterials.keySet();
+    // ignore any materials with no IMaterial defintion, means its purely a redirect and will never exist in game
+    return allMaterials.values().stream()
+                       .map(DataMaterial::getMaterial)
+                       .filter(Objects::nonNull)
+                       .map(IMaterial::getIdentifier)
+                       .collect(Collectors.toSet());
   }
 
 
-  /* Methods to use */
+  /* Base methods */
 
-  /** Adds a material to be generated with a condition */
-  protected void addMaterial(IMaterial material, @Nullable ICondition condition) {
-    allMaterials.put(material.getIdentifier(), Pair.of(material, condition));
+  /** Adds a material to be generated with a condition and redirect data */
+  protected void addMaterial(IMaterial material, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    allMaterials.put(material.getIdentifier(), new DataMaterial(material, condition, redirect));
   }
 
-  /** Creates a normal material with a condition */
-  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition) {
-    addMaterial(new Material(location, tier, order, craftable, Color.fromInt(color), hidden), condition);
+  /** Adds JSON to redirect an ID to another ID */
+  protected void addRedirect(MaterialId id, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    allMaterials.put(id, new DataMaterial(null, condition, redirect));
+  }
+
+  /** Adds JSON to redirect an ID to another ID */
+  protected void addRedirect(MaterialId id, MaterialJson.Redirect... redirect) {
+    addRedirect(id, null, redirect);
+  }
+
+  /* Material helpers */
+
+  /** Creates a normal material with a condition and a redirect */
+  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    addMaterial(new Material(location, tier, order, craftable, Color.fromInt(color), hidden), condition, redirect);
   }
 
   /** Creates a normal material */
@@ -103,15 +122,44 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
 
+  /* Redirect helpers */
+
+  /** Makes a conditional redirect to the given ID */
+  protected MaterialJson.Redirect conditionalRedirect(MaterialId id, @Nullable ICondition condition) {
+    return new MaterialJson.Redirect(id, condition);
+  }
+
+  /** Makes an unconditional redirect to the given ID */
+  protected MaterialJson.Redirect redirect(MaterialId id) {
+    return conditionalRedirect(id, null);
+  }
+
+
   /* Helpers */
 
   /**
    * Converts a material to JSON
-   * @param material   Material
-   * @param condition  Material condition
+   * @param data   Data to save
    * @return  Material JSON
    */
-  private MaterialJson convert(IMaterial material, @Nullable ICondition condition) {
-    return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().getName(), material.isHidden());
+  private MaterialJson convert(DataMaterial data) {
+    IMaterial material = data.getMaterial();
+    MaterialJson.Redirect[] redirect = data.getRedirect();
+    if (redirect != null && redirect.length == 0) {
+      redirect = null;
+    }
+    if (material == null) {
+      return new MaterialJson(data.getCondition(), null, null, null, null, null, redirect);
+    }
+    return new MaterialJson(data.getCondition(), material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().getName(), material.isHidden(), redirect);
+  }
+
+  @Data
+  private static class DataMaterial {
+    @Nullable
+    private final IMaterial material;
+    @Nullable
+    private final ICondition condition;
+    private final MaterialJson.Redirect[] redirect;
   }
 }

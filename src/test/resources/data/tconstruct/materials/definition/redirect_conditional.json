@@ -1,0 +1,16 @@
+{
+  "redirect": [
+    {
+      "id": "tconstruct:full",
+      "condition": {
+        "type": "forge:false"
+      }
+    },
+    {
+      "id": "tconstruct:minimal",
+      "condition": {
+        "type": "forge:true"
+      }
+    }
+  ]
+}

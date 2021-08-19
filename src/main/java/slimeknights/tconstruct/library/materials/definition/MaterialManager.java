@@ -19,16 +19,20 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -56,6 +60,8 @@ public class MaterialManager extends JsonReloadListener {
   private final Runnable onLoaded;
   /** Map of all materials */
   private Map<MaterialId,IMaterial> materials = Collections.emptyMap();
+  /** Map of material ID redirects */
+  private Map<MaterialId,MaterialId> redirects = Collections.emptyMap();
   /** Sorted list of visible materials */
   private List<IMaterial> sortedMaterials = Collections.emptyList();
 
@@ -95,6 +101,15 @@ public class MaterialManager extends JsonReloadListener {
   }
 
   /**
+   * Resolves any redirect for the given material ID
+   * @param materialId  Original material ID
+   * @return  Redirected ID, or original if no redirect is set up for this ID
+   */
+  public MaterialId resolveRedirect(MaterialId materialId) {
+    return redirects.getOrDefault(materialId, materialId);
+  }
+
+  /**
    * Recreates the fluid lookup and sorted list using the new materials list
    */
   private void onMaterialUpdate() {
@@ -107,30 +122,44 @@ public class MaterialManager extends JsonReloadListener {
   /**
    * Updates the material list from the server.list. Should only be called client side
    * @param materialList  Server material list
+   * @param redirects     Map of material redirects
    */
-  public void updateMaterialsFromServer(Collection<IMaterial> materialList) {
+  public void updateMaterialsFromServer(Collection<IMaterial> materialList, Map<MaterialId,MaterialId> redirects) {
     this.materials = materialList.stream()
       .filter(Objects::nonNull)
       .collect(Collectors.toMap(
         IMaterial::getIdentifier,
         Function.identity())
       );
+    this.redirects = redirects;
     onMaterialUpdate();
   }
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+    Map<MaterialId, MaterialId> redirects = new HashMap<>();
     this.materials = splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
-      .map(entry -> loadMaterial(entry.getKey(), entry.getValue().getAsJsonObject()))
+      .map(entry -> loadMaterial(entry.getKey(), entry.getValue().getAsJsonObject(), redirects))
       .filter(Objects::nonNull)
       .collect(Collectors.toMap(
         IMaterial::getIdentifier,
         material -> material)
       );
+    // validate redirects
+    Iterator<Entry<MaterialId,MaterialId>> redirectIterator = redirects.entrySet().iterator();
+    while (redirectIterator.hasNext()) {
+      Entry<MaterialId,MaterialId> entry = redirectIterator.next();
+      if (!this.materials.containsKey(entry.getValue())) {
+        log.error("Invalid material redirect {} as material {} does not exist", entry.getKey(), entry.getValue());
+        redirectIterator.remove();
+      }
+    }
+    this.redirects = redirects;
     onMaterialUpdate();
     
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
+    log.debug("Loaded redirects: {}", Util.toIndentedStringList(redirects.keySet()));
     log.info("{} materials loaded", materials.size());
   }
 
@@ -139,16 +168,11 @@ public class MaterialManager extends JsonReloadListener {
    * @return  Packet object
    */
   public Object getUpdatePacket() {
-    return new UpdateMaterialsPacket(materials.values());
-  }
-
-  /** Gets an int value or a default */
-  private static int orDefault(@Nullable Integer integer, int def) {
-    return integer == null ? def : integer;
+    return new UpdateMaterialsPacket(materials.values(), redirects);
   }
 
   @Nullable
-  private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject) {
+  private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject, Map<MaterialId, MaterialId> redirects) {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
       // condition
@@ -156,6 +180,20 @@ public class MaterialManager extends JsonReloadListener {
       if (condition != null && !condition.test()) {
         log.debug("Skipped loading material {} as it did not match the condition", materialId);
         return null;
+      }
+
+      // if defined, the material will redirect to another material
+      MaterialJson.Redirect[] redirectsJson = materialJson.getRedirect();
+      if (redirectsJson != null) {
+        for (MaterialJson.Redirect redirect : redirectsJson) {
+          ICondition redirectCondition = redirect.getCondition();
+          if (redirectCondition == null || redirectCondition.test()) {
+            MaterialId redirectTarget = new MaterialId(redirect.getId());
+            log.debug("Redirecting material {} to {}", materialId, redirectTarget);
+            redirects.put(new MaterialId(materialId), redirectTarget);
+            return null;
+          }
+        }
       }
 
       if (materialJson.getCraftable() == null) {
@@ -173,7 +211,7 @@ public class MaterialManager extends JsonReloadListener {
 
 
       // parse trait
-      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), isCraftable, color, hidden);
+      return new Material(materialId, LogicHelper.defaultIfNull(materialJson.getTier(), 0), LogicHelper.defaultIfNull(materialJson.getSortOrder(), 100), isCraftable, color, hidden);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
