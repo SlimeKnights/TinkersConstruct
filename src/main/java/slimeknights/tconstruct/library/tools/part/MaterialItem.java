@@ -126,7 +126,7 @@ public class MaterialItem extends Item implements IMaterialItem {
      * @param material  Material to add
      */
   protected static void addModTooltip(IMaterial material, List<ITextComponent> tooltip) {
-    if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
+    if (material != IMaterial.UNKNOWN) {
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(new TranslationTextComponent(ADDED_BY, DomainDisplayName.nameFor(material.getIdentifier().getNamespace())));
     }
