@@ -12,13 +12,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -128,13 +127,8 @@ public class MaterialItem extends Item implements IMaterialItem {
      */
   protected static void addModTooltip(IMaterial material, List<ITextComponent> tooltip) {
     if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
-      for (ModInfo modInfo : ModList.get().getMods()) {
-        if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
-          tooltip.add(new StringTextComponent(""));
-          tooltip.add(new TranslationTextComponent(ADDED_BY, modInfo.getDisplayName()));
-          break;
-        }
-      }
+      tooltip.add(StringTextComponent.EMPTY);
+      tooltip.add(new TranslationTextComponent(ADDED_BY, DomainDisplayName.nameFor(material.getIdentifier().getNamespace())));
     }
   }
 }

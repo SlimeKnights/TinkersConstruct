@@ -9,6 +9,7 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.data.ResourceValidator;
+import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
 import slimeknights.tconstruct.tables.TableClientEvents;
@@ -52,6 +53,7 @@ public class TinkerClient {
     TableClientEvents.addResourceListener(manager);
     SmelteryClientEvents.addResourceListener(manager);
     MaterialRenderInfoLoader.addResourceListener(manager);
+    DomainDisplayName.addResourceListener(manager);
     manager.addReloadListener(textureValidator);
     manager.addReloadListener(HarvestLevels.INSTANCE);
     ToolClientEvents.addResourceListener(manager);
