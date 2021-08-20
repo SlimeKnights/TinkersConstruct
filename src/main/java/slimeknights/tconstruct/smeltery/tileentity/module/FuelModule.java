@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -22,9 +23,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -154,7 +157,7 @@ public class FuelModule implements IIntArray {
   private int trySolidFuel(IItemHandler handler, boolean consume) {
     for (int i = 0; i < handler.getSlots(); i++) {
       ItemStack stack = handler.getStackInSlot(i);
-      int time = ForgeHooks.getBurnTime(stack) / 4;
+      int time = ForgeHooks.getBurnTime(stack, RecipeTypes.FUEL) / 4;
       if (time > 0) {
         if (consume) {
           ItemStack extracted = handler.extractItem(i, 1, false);
@@ -163,6 +166,22 @@ public class FuelModule implements IIntArray {
             fuelQuality = time;
             temperature = SOLID_TEMPERATURE;
             parent.markDirtyFast();
+            // return the container
+            ItemStack container = extracted.getContainerItem();
+            if (!container.isEmpty()) {
+              // if we cannot insert the container back, spit it on the ground
+              ItemStack notInserted = ItemHandlerHelper.insertItem(handler, container, false);
+              if (!notInserted.isEmpty()) {
+                World world = getWorld();
+                double x = (world.rand.nextFloat() * 0.5F) + 0.25D;
+                double y = (world.rand.nextFloat() * 0.5F) + 0.25D;
+                double z = (world.rand.nextFloat() * 0.5F) + 0.25D;
+                BlockPos pos = lastPos == null ? parent.getPos() : lastPos;
+                ItemEntity itementity = new ItemEntity(world, pos.getX() + x, pos.getY() + y, pos.getZ() + z, container);
+                itementity.setDefaultPickupDelay();
+                world.addEntity(itementity);
+              }
+            }
           } else {
             TConstruct.LOG.error("Invalid item removed from solid fuel handler");
           }
