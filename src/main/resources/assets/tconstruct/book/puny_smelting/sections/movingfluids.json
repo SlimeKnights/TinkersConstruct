@@ -1,7 +1,7 @@
 [
   {
     "name": "thruul",
-    "type": "image with text below",
+    "type": "imageText2",
     "data": "movingfluids/thruul.json"
   },
   {
