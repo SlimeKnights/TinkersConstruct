@@ -3,8 +3,8 @@
     "textures": {
         "top":      "tconstruct:block/slime/dirt/nylium_top",
         "overlay":  "tconstruct:block/slime/dirt/nylium_overlay",
-        "particle": "tconstruct:block/slime/dirt/earth",
-        "bottom":   "tconstruct:block/slime/dirt/earth",
-        "side":     "tconstruct:block/slime/dirt/earth"
+        "particle": "minecraft:block/dirt",
+        "bottom":   "minecraft:block/dirt",
+        "side":     "minecraft:block/dirt"
     }
 }
