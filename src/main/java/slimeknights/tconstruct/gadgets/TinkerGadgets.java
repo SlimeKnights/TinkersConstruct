@@ -112,7 +112,7 @@ public final class TinkerGadgets extends TinkerModule {
     return EntityType.Builder.<FancyItemFrameEntity>create(
       FancyItemFrameEntity::new, EntityClassification.MISC)
       .size(0.5F, 0.5F)
-      .setTrackingRange(160)
+      .setTrackingRange(10)
       .setUpdateInterval(Integer.MAX_VALUE)
       .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
       .setShouldReceiveVelocityUpdates(false);
@@ -120,7 +120,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final RegistryObject<EntityType<GlowballEntity>> glowBallEntity = ENTITIES.register("glow_ball", () -> {
     return EntityType.Builder.<GlowballEntity>create(GlowballEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
-      .setTrackingRange(64)
+      .setTrackingRange(4)
       .setUpdateInterval(10)
       .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
@@ -128,7 +128,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final RegistryObject<EntityType<EflnBallEntity>> eflnEntity = ENTITIES.register("efln_ball", () -> {
     return EntityType.Builder.<EflnBallEntity>create(EflnBallEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
-      .setTrackingRange(64)
+      .setTrackingRange(4)
       .setUpdateInterval(10)
       .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(TinkerGadgets.eflnEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
@@ -136,7 +136,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final RegistryObject<EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () -> {
     return EntityType.Builder.<QuartzShurikenEntity>create(QuartzShurikenEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
-      .setTrackingRange(64)
+      .setTrackingRange(4)
       .setUpdateInterval(10)
       .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
@@ -144,7 +144,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final RegistryObject<EntityType<FlintShurikenEntity>> flintShurikenEntity = ENTITIES.register("flint_shuriken", () -> {
     return EntityType.Builder.<FlintShurikenEntity>create(FlintShurikenEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
-      .setTrackingRange(64)
+      .setTrackingRange(4)
       .setUpdateInterval(10)
       .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);

@@ -6,8 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SnowballItem;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,23 +30,22 @@ public class ShurikenItem extends SnowballItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemStack = playerIn.getHeldItem(handIn);
-    if (!playerIn.abilities.isCreativeMode) {
-      itemStack.shrink(1);
+  public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    ItemStack stack = player.getHeldItem(hand);
+    world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+    player.getCooldownTracker().setCooldown(stack.getItem(), 4);
+    if(!world.isRemote) {
+      ShurikenEntityBase entity = this.entity.apply(world, player);
+      entity.setItem(stack);
+      entity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+      world.addEntity(entity);
+    }
+    player.addStat(Stats.ITEM_USED.get(this));
+    if (!player.abilities.isCreativeMode) {
+      stack.shrink(1);
     }
 
-    playerIn.getCooldownTracker().setCooldown(itemStack.getItem(), 4);
-
-    if(!worldIn.isRemote) {
-      ShurikenEntityBase entity = this.entity.apply(worldIn, playerIn);
-      entity.setItem(itemStack);
-      entity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-      worldIn.addEntity(entity);
-    }
-
-    playerIn.addStat(Stats.ITEM_USED.get(this));
-    return new ActionResult<>(ActionResultType.SUCCESS, itemStack);
+    return ActionResult.func_233538_a_(stack, world.isRemote());
   }
 
   @Override
