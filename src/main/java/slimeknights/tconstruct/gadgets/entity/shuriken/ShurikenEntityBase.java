@@ -68,7 +68,7 @@ public abstract class ShurikenEntityBase extends ProjectileItemEntity implements
     Entity entity = result.getEntity();
     entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), this.getDamage());
 
-    if (entity instanceof LivingEntity) {
+    if (!world.isRemote() && entity instanceof LivingEntity) {
       Vector3d motion = this.getMotion().normalize();
       ((LivingEntity) entity).applyKnockback(this.getKnockback(), -motion.x, -motion.z);
     }
