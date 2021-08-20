@@ -5,9 +5,9 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:blazing_blood",
+    "tag": "tconstruct:blood",
     "amount": 250
   },
   "result": "tconstruct:bloodbone",
-  "cooling_time": 106
+  "cooling_time": 40
 }

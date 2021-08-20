@@ -792,7 +792,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     String slimeFolder = folder + "slime/";
     this.slimeCasting(consumer, TinkerFluids.blood, false, SlimeType.BLOOD, slimeFolder);
     ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.bloodbone)
-                            .setFluidAndTime(TinkerFluids.blazingBlood, FluidValues.SLIMEBALL)
+                            .setFluidAndTime(TinkerFluids.blood, FluidValues.SLIMEBALL)
                             .setCast(Tags.Items.BONES, true)
                             .build(consumer, modResource(slimeFolder + "blood/bone"));
     this.slimeCasting(consumer, TinkerFluids.earthSlime, true, SlimeType.EARTH, slimeFolder);
