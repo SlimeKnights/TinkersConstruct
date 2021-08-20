@@ -1,0 +1,13 @@
+{
+  "title": "Enderslime Islands",
+  "image": {
+    "file": "tconstruct:book/images/islands/enderslime.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Enderslime islands can be found around the outer islands in the end as a breeding ground for ender slimes. I believe skyslimes and enderslimes were once the same before they came to our world, but living in their separate environments changed them."
+    }
+  ]
+}

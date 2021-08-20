@@ -168,6 +168,11 @@ public class TinkerTags {
     /** Items that are seeds for kama harvest */
     public static final IOptionalNamedTag<Item> SEEDS = tag("seeds");
 
+    /** Seeds that produce slimy grass */
+    public static final IOptionalNamedTag<Item> SLIMY_SEEDS = tag("slimy_grass_seeds");
+    /** Anything that works as a slimesling, flinging the player or mobs on use */
+    public static final IOptionalNamedTag<Item> SLIMESLINGS = tag("slimeslings");
+
     /*
      * Tool tags
      */

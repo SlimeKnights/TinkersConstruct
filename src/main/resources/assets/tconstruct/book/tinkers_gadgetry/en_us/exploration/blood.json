@@ -1,0 +1,13 @@
+{
+  "title": "Blood Islands",
+  "image": {
+	"file": "tconstruct:book/images/islands/blood.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "These blood red islands are occasionally found in the lava oceans of the nether. They tend to have a higher concentration of magma cubes than the rest of the nether, and also include an odd variant of fungus that seems to be a source of ichor."
+    }
+  ]
+}

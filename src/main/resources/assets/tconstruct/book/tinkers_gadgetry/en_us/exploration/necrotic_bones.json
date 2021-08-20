@@ -1,0 +1,12 @@
+{
+  "title": "Necrotic Bones",
+  "item": {
+    "id": "tconstruct:necrotic_bone"
+  },
+  "text": [
+    {
+      "text": "Bones from wither skeletons seem to have unique properties compared to the bones of regular skeletons. Selena an Nemea have managed to create tools out of these, and Thruul has used them in some clever modifiers. I have been working on producing a powder similar to bonemeal as I want to see the effect bones infused with wither would have on plants",
+      "paragraph": true
+    }
+  ]
+}

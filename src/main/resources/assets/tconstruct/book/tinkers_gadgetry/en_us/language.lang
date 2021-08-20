@@ -1,21 +1,25 @@
 // Sections
 intro=Introduction
-materials=Tool materials
-bowmaterials=Bow materials
-tools=Tools
-remove_modifiers=Remove Modifiers
-damage_tools=Damage Tools
-modifiers=Modifiers
-smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
 
-repairing=Repairing
-offhand=Offhand Harvesting
-bolt_core=Bolt Crafting
+gadgets=Gadgets
+gadgets.slimesling=Slimeslings
+gadgets.cake=Slime Cake
+gadgets.piggybackpack=Piggybackpack
+gadgets.flint_shuriken=Flint Shuriken
+gadgets.quartz_shuriken=Quartz Shuriken
+gadgets.efln=EFLN
+gadgets.glowball=Glowball
 
-modifier.effect=Effects:
-tool.properties=Properties:
+modifiers=Odd Modifiers
+modifiers.remove_modifiers=Remove Modifiers
+modifiers.damage_tools=Damage Tools
 
-wood.flavour=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
-stone.flavour=Rock solid
+exploration=Exploration
+exploration.skyslime=Skyslime Island
+exploration.earthslime=Earthslime Island
+exploration.clay=Clay Island
+exploration.grass_seeds=Slimy Grass Seeds
+exploration.blood=Blood Island
+exploration.necrotic_bones=Necrotic Bones
+exploration.enderslime=Enderslime Island
+exploration.dragon_scales=Dragon Scales

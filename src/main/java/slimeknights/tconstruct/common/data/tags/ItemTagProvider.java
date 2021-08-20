@@ -19,6 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -114,6 +115,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
     copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
     copy(TinkerTags.Blocks.PLANKLIKE, TinkerTags.Items.PLANKLIKE);
+
+    Builder<Item> slimeslings = this.getOrCreateBuilder(TinkerTags.Items.SLIMESLINGS);
+    TinkerGadgets.slimeSling.forEach(slimeslings::addItemEntry);
   }
 
   private void addWorld() {
@@ -215,6 +219,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
 						 TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
 						 TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
+
+    Builder<Item> slimySeeds = this.getOrCreateBuilder(TinkerTags.Items.SLIMY_SEEDS);
+    TinkerWorld.slimeGrassSeeds.forEach(slimySeeds::addItemEntry);
   }
 
   private void addSmeltery() {

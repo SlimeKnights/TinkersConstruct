@@ -1,0 +1,12 @@
+{
+  "title": "Slimeslings",
+  "item": {
+    "tag": "tconstruct:slimeslings"
+  },
+  "text": [
+    {
+      "text": "Slimeslings are my latest invention, allowing you to fling yourself or other creatures. Earth slime lets you kick off blocks to go great distances, skyslime does not send you as far but works in the air, ichor is effective for flinging enemies, and enderslime slings let you teleport across space. I am working on ways to apply modifiers to the sling to increase their power.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "index",
+    "type": "index",
+    "data": "exploration/index.json"
+  },
+  {
+    "name": "skyslime",
+    "type": "imageText2",
+    "data": "exploration/skyslime.json"
+  },
+  {
+    "name": "earthslime",
+    "type": "imageText2",
+    "data": "exploration/earthslime.json"
+  },
+  {
+    "name": "clay",
+    "type": "imageText2",
+    "data": "exploration/clay.json"
+  },
+  {
+    "name": "grass_seeds",
+    "type": "showcase",
+    "data": "exploration/grass_seeds.json"
+  },
+  {
+    "name": "blood",
+    "type": "imageText2",
+    "data": "exploration/blood.json"
+  },
+  {
+    "name": "necrotic_bones",
+    "type": "showcase",
+    "data": "exploration/necrotic_bones.json"
+  },
+  {
+    "name": "enderslime",
+    "type": "imageText2",
+    "data": "exploration/enderslime.json"
+  },
+  {
+    "name": "dragon_scales",
+    "type": "showcase",
+    "data": "exploration/dragon_scales.json"
+  }
+]

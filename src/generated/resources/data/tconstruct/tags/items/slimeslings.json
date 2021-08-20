@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:earth_slime_sling",
+    "tconstruct:sky_slime_sling",
+    "tconstruct:ichor_slime_sling",
+    "tconstruct:ender_slime_sling"
+  ]
+}

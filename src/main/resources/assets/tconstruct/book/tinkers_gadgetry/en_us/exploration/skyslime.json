@@ -1,0 +1,13 @@
+{
+  "title": "Skyslime Islands",
+  "image": {
+    "file": "tconstruct:book/images/islands/skyslime.png",
+    "width": 180,
+    "height": 91
+  },
+  "text": [
+    {
+      "text": "Skyslime islands can be found around the overworld floating above the terrain, and contain grass which is essential for skyslime breeding. Legend tells that skyslimes were invaders from another realm, though they are mostly confined to areas near the islands."
+    }
+  ]
+}
