@@ -231,29 +231,25 @@ public final class TinkerWorld extends TinkerModule {
   public static final RegistryObject<EntityType<SlimeEntity>> earthSlimeEntity = ENTITIES.register("earth_slime", () ->
     EntityType.Builder.create(SlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
-                      .setUpdateInterval(5)
-                      .setTrackingRange(64)
+                      .setTrackingRange(10)
                       .size(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.earthSlimeEntity.get().create(world)));
   public static final RegistryObject<EntityType<SkySlimeEntity>> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () ->
     EntityType.Builder.create(SkySlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
-                      .setUpdateInterval(5)
-                      .setTrackingRange(64)
+                      .setTrackingRange(20)
                       .size(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world)), 0x47eff5, 0xacfff4);
   public static final RegistryObject<EntityType<EnderSlimeEntity>> enderSlimeEntity = ENTITIES.registerWithEgg("ender_slime", () ->
     EntityType.Builder.create(EnderSlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
-                      .setUpdateInterval(5)
-                      .setTrackingRange(64)
+                      .setTrackingRange(32)
                       .size(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.enderSlimeEntity.get().create(world)), 0x6300B0, 0xD37CFF);
   public static final RegistryObject<EntityType<TerracubeEntity>> terracubeEntity = ENTITIES.registerWithEgg("terracube", () ->
     EntityType.Builder.create(TerracubeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
-                      .setUpdateInterval(5)
-                      .setTrackingRange(64)
+                      .setTrackingRange(8)
                       .size(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.terracubeEntity.get().create(world)), 0xAFB9D6, 0xA1A7B1);
 
@@ -300,10 +296,10 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    EntitySpawnPlacementRegistry.register(earthSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, new SlimePlacementPredicate<>(SlimeType.EARTH));
-    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, new SlimePlacementPredicate<>(SlimeType.SKY));
-    EntitySpawnPlacementRegistry.register(enderSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, new SlimePlacementPredicate<>(SlimeType.ENDER));
-    EntitySpawnPlacementRegistry.register(terracubeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, TerracubeEntity::canSpawnHere);
+    EntitySpawnPlacementRegistry.register(earthSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(SlimeType.EARTH));
+    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(SlimeType.SKY));
+    EntitySpawnPlacementRegistry.register(enderSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(SlimeType.ENDER));
+    EntitySpawnPlacementRegistry.register(terracubeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere);
 
     // compostables
     event.enqueueWork(() -> {

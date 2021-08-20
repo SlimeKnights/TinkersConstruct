@@ -3,12 +3,13 @@ package slimeknights.tconstruct.world.entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -25,7 +26,7 @@ public class TerracubeEntity extends SlimeEntity {
   /**
    * Checks if a slime can spawn at the given location
    */
-  public static boolean canSpawnHere(EntityType<? extends SlimeEntity> entityType, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+  public static boolean canSpawnHere(EntityType<? extends SlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
     if (world.getDifficulty() == Difficulty.PEACEFUL) {
       return false;
     }
@@ -36,7 +37,7 @@ public class TerracubeEntity extends SlimeEntity {
     if (world.getFluidState(pos).isTagged(FluidTags.WATER) && world.getFluidState(down).isTagged(FluidTags.WATER)) {
       return true;
     }
-    return world.getBlockState(down).canEntitySpawn(world, down, entityType);
+    return world.getBlockState(down).canEntitySpawn(world, down, entityType) && MonsterEntity.isValidLightLevel(world, pos, random);
   }
 
   @Override
