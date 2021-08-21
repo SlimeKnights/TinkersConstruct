@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/fancy_frame/clear_item_frame"
+      "tconstruct:gadgets/fancy_frame/reversed_reversed_gold"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:glass_panes/colorless"
+            "item": "tconstruct:reversed_gold_item_frame"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/fancy_frame/clear_item_frame"
+        "recipe": "tconstruct:gadgets/fancy_frame/reversed_reversed_gold"
       }
     }
   },

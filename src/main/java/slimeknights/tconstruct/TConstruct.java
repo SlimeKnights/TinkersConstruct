@@ -38,6 +38,7 @@ import slimeknights.tconstruct.common.data.tags.TileEntityTypeTagProvider;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.utils.Util;
@@ -206,6 +207,9 @@ public class TConstruct {
         case "ancient_axe_head": case "ancient_shovel_head": case "ancient_hoe_head": return Items.NETHERITE_SCRAP;
         // creative slot revamp
         case "creative_upgrade": case "creative_ability": return TinkerModifiers.creativeSlotItem.get();
+        // frame migration
+        case "cobalt_item_frame": return TinkerGadgets.itemFrame.get(FrameType.DIAMOND);
+        case "jewel_item_frame": return TinkerGadgets.itemFrame.get(FrameType.GOLD);
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

@@ -8,13 +8,13 @@
   ],
   "key": {
     "e": {
-      "item": "tconstruct:silky_cloth"
+      "tag": "forge:nuggets/netherite"
     },
     "M": {
-      "item": "minecraft:obsidian"
+      "item": "tconstruct:obsidian_pane"
     }
   },
   "result": {
-    "item": "tconstruct:jewel_item_frame"
+    "item": "tconstruct:netherite_item_frame"
   }
 }

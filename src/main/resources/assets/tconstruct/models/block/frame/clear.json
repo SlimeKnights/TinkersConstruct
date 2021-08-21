@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:block/fancy_item_frame",
+    "parent": "tconstruct:block/frame/base",
     "textures": {
         "particle": "minecraft:block/white_stained_glass",
         "wood": "minecraft:block/white_stained_glass",

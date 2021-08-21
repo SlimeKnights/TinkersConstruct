@@ -9,6 +9,7 @@ gadgets.flint_shuriken=Flint Shuriken
 gadgets.quartz_shuriken=Quartz Shuriken
 gadgets.efln=EFLN
 gadgets.glowball=Glowball
+gadgets.fancy_frames=Fancy Frames
 
 modifiers=Odd Modifiers
 modifiers.remove_modifiers=Remove Modifiers

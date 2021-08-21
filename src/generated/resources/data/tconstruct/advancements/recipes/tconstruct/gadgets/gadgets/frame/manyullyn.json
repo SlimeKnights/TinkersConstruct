@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/fancy_frame/cobalt_item_frame"
+      "tconstruct:gadgets/frame/manyullyn"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:cobalt_nugget"
+            "tag": "forge:nuggets/manyullyn"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/fancy_frame/cobalt_item_frame"
+        "recipe": "tconstruct:gadgets/frame/manyullyn"
       }
     }
   },

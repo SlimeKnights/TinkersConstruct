@@ -631,12 +631,12 @@
   "block.tconstruct.punji": "Punji Sticks",
   "block.tconstruct.punji.tooltip": "Pointy! Also sticks to walls.",
 
-  "item.tconstruct.jewel_item_frame": "Fancy Item Frame",
-  "item.tconstruct.aluminum_brass_item_frame": "Aluminium Brass Item Frame",
-  "item.tconstruct.cobalt_item_frame": "Cobalt Item Frame",
-  "item.tconstruct.manyullyn_item_frame": "Manyullyn Item Frame",
-  "item.tconstruct.gold_item_frame": "Golden Item Frame",
   "item.tconstruct.clear_item_frame": "Clear Item Frame",
+  "item.tconstruct.gold_item_frame": "Golden Item Frame",
+  "item.tconstruct.reversed_gold_item_frame": "Inverted Golden Item Frame",
+  "item.tconstruct.diamond_item_frame": "Diamond Item Frame",
+  "item.tconstruct.manyullyn_item_frame": "Manyullyn Item Frame",
+  "item.tconstruct.netherite_item_frame": "Netherite Item Frame",
 
   "item.tconstruct.glow_ball": "Glowball",
   "item.tconstruct.glow_ball.tooltip": "Not suited for consumption.",

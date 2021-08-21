@@ -8,10 +8,10 @@
   ],
   "key": {
     "e": {
-      "item": "tconstruct:manyullyn_nugget"
+      "tag": "forge:nuggets/manyullyn"
     },
     "M": {
-      "item": "minecraft:obsidian"
+      "item": "tconstruct:obsidian_pane"
     }
   },
   "result": {

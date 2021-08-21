@@ -6,20 +6,23 @@ import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -113,12 +116,19 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     // frames
     folder = "gadgets/fancy_frame/";
-    frameCrafting(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
-    frameCrafting(consumer, TinkerMaterials.cobalt.getNugget(), FrameType.COBALT);
-    frameCrafting(consumer, TinkerMaterials.manyullyn.getNugget(), FrameType.MANYULLYN);
-    frameCrafting(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
-    Item clearFrame = TinkerGadgets.itemFrame.get(FrameType.CLEAR);
-    ShapedRecipeBuilder.shapedRecipe(clearFrame)
+    frameCrafting(consumer, Tags.Items.NUGGETS_GOLD, FrameType.GOLD);
+    frameCrafting(consumer, TinkerMaterials.manyullyn.getNuggetTag(), FrameType.MANYULLYN);
+    frameCrafting(consumer, TinkerTags.Items.NUGGETS_NETHERITE, FrameType.NETHERITE);
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.itemFrame.get(FrameType.DIAMOND))
+                       .key('e', TinkerCommons.obsidianPane)
+                       .key('M', Tags.Items.GEMS_DIAMOND)
+                       .patternLine(" e ")
+                       .patternLine("eMe")
+                       .patternLine(" e ")
+                       .addCriterion("has_item", hasItem(Tags.Items.GEMS_DIAMOND))
+                       .setGroup(modPrefix("fancy_item_frame"))
+                       .build(consumer, modResource("gadgets/frame/" + FrameType.DIAMOND.getString()));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.itemFrame.get(FrameType.CLEAR))
                        .key('e', Tags.Items.GLASS_PANES_COLORLESS)
                        .key('M', Tags.Items.GLASS_COLORLESS)
                        .patternLine(" e ")
@@ -126,7 +136,21 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine(" e ")
                        .addCriterion("has_item", hasItem(Tags.Items.GLASS_PANES_COLORLESS))
                        .setGroup(modPrefix("fancy_item_frame"))
-                       .build(consumer, prefix(clearFrame, folder));
+                       .build(consumer, modResource(folder + FrameType.CLEAR.getString()));
+    Item goldFrame = TinkerGadgets.itemFrame.get(FrameType.GOLD);
+    Item reversedFrame = TinkerGadgets.itemFrame.get(FrameType.REVERSED_GOLD);
+    ShapelessRecipeBuilder.shapelessRecipe(reversedFrame)
+                          .addIngredient(goldFrame)
+                          .addIngredient(Items.REDSTONE_TORCH)
+                          .addCriterion("has_item", hasItem(goldFrame))
+                          .setGroup(modPrefix("reverse_fancy_item_frame"))
+                          .build(consumer, modResource(folder + FrameType.REVERSED_GOLD.getString()));
+    ShapelessRecipeBuilder.shapelessRecipe(goldFrame)
+                          .addIngredient(reversedFrame)
+                          .addIngredient(Items.REDSTONE_TORCH)
+                          .addCriterion("has_item", hasItem(reversedFrame))
+                          .setGroup(modPrefix("reverse_fancy_item_frame"))
+                          .build(consumer, modResource(folder + "reversed_reversed_gold"));
 
     String cakeFolder = "gadgets/cake/";
     TinkerGadgets.cake.forEach((slime, cake) -> {
@@ -195,17 +219,15 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param edges     Edge item
    * @param type      Frame type
    */
-  private void frameCrafting(Consumer<IFinishedRecipe> consumer, IItemProvider edges, FrameType type) {
-    Item frame = TinkerGadgets.itemFrame.get(type);
-    ShapedRecipeBuilder.shapedRecipe(frame)
+  private void frameCrafting(Consumer<IFinishedRecipe> consumer, ITag<Item> edges, FrameType type) {
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.itemFrame.get(type))
                        .key('e', edges)
-                       .key('M', Items.OBSIDIAN)
+                       .key('M', TinkerCommons.obsidianPane)
                        .patternLine(" e ")
                        .patternLine("eMe")
                        .patternLine(" e ")
                        .addCriterion("has_item", hasItem(edges))
                        .setGroup(modPrefix("fancy_item_frame"))
-                       .build(consumer, prefix(frame, "gadgets/fancy_frame/"));
-
+                       .build(consumer, modResource("gadgets/frame/" + type.getString()));
   }
 }

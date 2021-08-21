@@ -2,7 +2,6 @@ package slimeknights.tconstruct.gadgets;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -15,26 +14,14 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
 import slimeknights.tconstruct.gadgets.client.RenderShuriken;
-import slimeknights.tconstruct.gadgets.entity.FrameType;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerModels(ModelRegistryEvent event) {
-    // TODO: reinstate when Forge fixes itself
-    //StateContainer<Block, BlockState> dummyContainer = new StateContainer.Builder<Block, BlockState>(Blocks.AIR).add(BooleanProperty.create("map")).create(BlockState::new);
-    //for (FrameType frameType : FrameType.values()) {
-    //  ResourceLocation fancyFrame = new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame");
-    //  for (BlockState state : dummyContainer.getValidStates()) {
-    //    ModelLoader.addSpecialModel(BlockModelShapes.getModelLocation(fancyFrame, state));
-    //  }
-    //}
-
-    for (FrameType frameType : FrameType.values()) {
-      ModelLoader.addSpecialModel(new ModelResourceLocation(TConstruct.getResource(frameType.getString() + "_frame_empty"), "inventory"));
-      ModelLoader.addSpecialModel(new ModelResourceLocation(TConstruct.getResource(frameType.getString() + "_frame_map"), "inventory"));
-    }
+    FancyItemFrameRenderer.LOCATIONS_MODEL.forEach((type, loc) -> ModelLoader.addSpecialModel(loc));
+    FancyItemFrameRenderer.LOCATIONS_MODEL_MAP.forEach((type, loc) -> ModelLoader.addSpecialModel(loc));
   }
 
   @SubscribeEvent

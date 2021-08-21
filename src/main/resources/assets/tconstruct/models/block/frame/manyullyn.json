@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:block/fancy_item_frame",
+    "parent": "tconstruct:block/frame/base",
     "textures": {
         "particle": "tconstruct:block/storage/manyullyn",
         "wood": "tconstruct:block/storage/manyullyn",

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/fancy_frame/manyullyn_item_frame"
+      "tconstruct:gadgets/frame/netherite"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:manyullyn_nugget"
+            "tag": "forge:nuggets/netherite"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/fancy_frame/manyullyn_item_frame"
+        "recipe": "tconstruct:gadgets/frame/netherite"
       }
     }
   },

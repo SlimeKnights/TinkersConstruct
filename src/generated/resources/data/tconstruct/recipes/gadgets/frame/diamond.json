@@ -8,13 +8,13 @@
   ],
   "key": {
     "e": {
-      "item": "minecraft:gold_nugget"
+      "item": "tconstruct:obsidian_pane"
     },
     "M": {
-      "item": "minecraft:obsidian"
+      "tag": "forge:gems/diamond"
     }
   },
   "result": {
-    "item": "tconstruct:gold_item_frame"
+    "item": "tconstruct:diamond_item_frame"
   }
 }
