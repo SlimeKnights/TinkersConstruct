@@ -21,7 +21,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FireworkRocketItem;
@@ -76,6 +75,7 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeWartBlock;
 import slimeknights.tconstruct.world.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
+import slimeknights.tconstruct.world.entity.EarthSlimeEntity;
 import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
 import slimeknights.tconstruct.world.entity.SkySlimeEntity;
 import slimeknights.tconstruct.world.entity.SlimePlacementPredicate;
@@ -228,8 +228,8 @@ public final class TinkerWorld extends TinkerModule {
    * Entities
    */
   // our own copy of the slime to make spawning a bit easier
-  public static final RegistryObject<EntityType<SlimeEntity>> earthSlimeEntity = ENTITIES.register("earth_slime", () ->
-    EntityType.Builder.create(SlimeEntity::new, EntityClassification.MONSTER)
+  public static final RegistryObject<EntityType<EarthSlimeEntity>> earthSlimeEntity = ENTITIES.register("earth_slime", () ->
+    EntityType.Builder.create(EarthSlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(10)
                       .size(2.04F, 2.04F)
