@@ -25,9 +25,12 @@ public class MaterialRenderInfo {
   @Nullable
   private final ResourceLocation texture;
   private final String[] fallbacks;
-  /* color used to tint this model as an item colors handler */
+  /** color used to tint quads of this texture when the fallback is used */
   @Getter
   private final int vertexColor;
+  /** Extra light to add to the material, allows some materials to appear to glow slightly */
+  @Getter
+  private final int luminosity;
 
   /**
    * Tries to get a sprite for the given texture
@@ -52,20 +55,20 @@ public class MaterialRenderInfo {
    * @return  Pair of the sprite, and a boolean indicating whether the sprite should be tinted
    */
   public TintedSprite getSprite(RenderMaterial base, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
-    TextureAtlasSprite sprite = null;
+    TextureAtlasSprite sprite;
     if (texture != null) {
       sprite = trySprite(base, getSuffix(texture), spriteGetter);
       if (sprite != null) {
-        return TintedSprite.of(sprite, false);
+        return TintedSprite.of(sprite, -1);
       }
     }
     for (String fallback : fallbacks) {
       sprite = trySprite(base, fallback, spriteGetter);
       if (sprite != null) {
-        return TintedSprite.of(sprite, true);
+        return TintedSprite.of(sprite, vertexColor);
       }
     }
-    return TintedSprite.of(spriteGetter.apply(base), true);
+    return TintedSprite.of(spriteGetter.apply(base), vertexColor);
   }
 
   /**
@@ -109,6 +112,6 @@ public class MaterialRenderInfo {
   @Data(staticConstructor = "of")
   public static class TintedSprite {
     private final TextureAtlasSprite sprite;
-    private final boolean isTinted;
+    private final int color;
   }
 }

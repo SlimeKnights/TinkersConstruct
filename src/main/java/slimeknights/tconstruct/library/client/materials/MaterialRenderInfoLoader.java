@@ -140,6 +140,6 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     if (fallback == null) {
       fallback = new String[0];
     }
-    return new MaterialRenderInfo(id, texture, fallback, color);
+    return new MaterialRenderInfo(id, texture, fallback, color, json.getLuminosity());
   }
 }

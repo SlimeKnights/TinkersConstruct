@@ -54,7 +54,7 @@ public interface IBakedModifierModel {
   }
 
   /**
-   *
+   * Gets the color to tint this model. In general its better to use {@link slimeknights.tconstruct.library.client.model.ColoredItemLayerModel} as a baked color will be faster. Only use if you need dynamic colors
    * @param tool   Tool stack instance
    * @param entry  Modifier entry representing the relevant modifier
    * @param index  Localized tint index for this modifier, starting from 0. Only considers tint indexes this model handles as per {@link #getTintIndexes()}

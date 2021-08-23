@@ -9,4 +9,5 @@ public class MaterialRenderInfoJson {
   private final String[] fallbacks;
   private final String color;
   private final boolean skipUniqueTexture;
+  private final int luminosity;
 }

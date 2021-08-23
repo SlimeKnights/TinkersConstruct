@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,8 +29,6 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
-import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.NBTKeyModel;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
@@ -41,18 +38,15 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -116,21 +110,6 @@ public class ToolClientEvents extends ClientEventBase {
     registerToolItemColors(colors, TinkerTools.dagger);
     registerToolItemColors(colors, TinkerTools.sword);
     registerToolItemColors(colors, TinkerTools.cleaver);
-
-    // tint tool part textures for fallback
-    registerMaterialItemColors(colors, TinkerToolParts.repairKit);
-    // heads
-    registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
-    registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
-    registerMaterialItemColors(colors, TinkerToolParts.smallAxeHead);
-    registerMaterialItemColors(colors, TinkerToolParts.broadAxeHead);
-    registerMaterialItemColors(colors, TinkerToolParts.smallBlade);
-    registerMaterialItemColors(colors, TinkerToolParts.broadBlade);
-    // other parts
-    registerMaterialItemColors(colors, TinkerToolParts.toolBinding);
-    registerMaterialItemColors(colors, TinkerToolParts.largePlate);
-    registerMaterialItemColors(colors, TinkerToolParts.toolHandle);
-    registerMaterialItemColors(colors, TinkerToolParts.toughHandle);
   }
 
   // registered with FORGE bus
@@ -189,23 +168,9 @@ public class ToolClientEvents extends ClientEventBase {
     }
   }
 
-  /** Color handler instance for MaterialItem */
-  private static final IItemColor materialColorHandler = (stack, index) -> {
-    return Optional.of(IMaterialItem.getMaterialIdFromStack(stack))
-      .filter(material -> !material.equals(IMaterial.UNKNOWN_ID))
-      .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-      .map(MaterialRenderInfo::getVertexColor)
-      .orElse(-1);
-  };
-
-  /**
-   * Registers an item color handler for a part item, TODO: move to API class
-   * @param colors  Item colors instance
-   * @param item    Material item
-   */
-  public static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {
-    colors.register(materialColorHandler, item.get());
-  }
+  /** @deprecated No longer required, colors are baked into the model */
+  @Deprecated
+  public static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {}
 
   /**
    * Registers an item color handler for a part item, TODO: move to API class

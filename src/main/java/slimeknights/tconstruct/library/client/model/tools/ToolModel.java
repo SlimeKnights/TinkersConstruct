@@ -46,17 +46,13 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -81,44 +77,32 @@ public class ToolModel implements IModelGeometry<ToolModel> {
 
   /** Color handler instance for all tools, handles both material and modifier colors */
   public static final IItemColor COLOR_HANDLER = (stack, index) -> {
+    // TODO: reconsider material item colors, is there a usecase for dynamic colors as opposed to just an animated texture?
     if (index >= 0) {
-      ToolDefinition definition = ((IModifiable)stack.getItem()).getToolDefinition();
-      // first few indexes are tool parts
-      int parts = definition.getRequiredComponents().size();
-      if (index < parts) {
-        MaterialId material = MaterialIdNBT.from(stack).getMaterial(index);
-        if (!IMaterial.UNKNOWN_ID.equals(material)) {
-          return MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material)
-                                                  .map(MaterialRenderInfo::getVertexColor)
-                                                  .orElse(-1);
-        }
-      } else {
-        // for modifiers, we need the overrides instance to properly process
-        IBakedModel itemModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack.getItem());
-        if (itemModel != null && itemModel.getOverrides() instanceof MaterialOverrideHandler) {
-          MaterialOverrideHandler overrides = (MaterialOverrideHandler) itemModel.getOverrides();
-          ToolStack tool = ToolStack.from(stack);
-          // modifier model indexes start at the last part
-          int localIndex = parts;
-          for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
-            // colors are assumed to not be sensitive to the model's large status
-            IBakedModifierModel modifierModel = overrides.getModifierModel(entry.getModifier());
-            if (modifierModel != null) {
-              // indexes from [0,modelIndexes) are passed to this model
-              // if below the range, make the index model relative
-              // if above the range, add the count and let the next model handle it
-              int modelIndexes = modifierModel.getTintIndexes();
-              if (localIndex + modelIndexes > index) {
-                return modifierModel.getTint(tool, entry, index - localIndex);
-              }
-              localIndex += modelIndexes;
+      // for modifiers, we need the overrides instance to properly process
+      IBakedModel itemModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack.getItem());
+      if (itemModel != null && itemModel.getOverrides() instanceof MaterialOverrideHandler) {
+        MaterialOverrideHandler overrides = (MaterialOverrideHandler) itemModel.getOverrides();
+        ToolStack tool = ToolStack.from(stack);
+        // modifier model indexes start at the last part
+        int localIndex = 0;
+        for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
+          // colors are assumed to not be sensitive to the model's large status
+          IBakedModifierModel modifierModel = overrides.getModifierModel(entry.getModifier());
+          if (modifierModel != null) {
+            // indexes from [0,modelIndexes) are passed to this model
+            // if below the range, make the index model relative
+            // if above the range, add the count and let the next model handle it
+            int modelIndexes = modifierModel.getTintIndexes();
+            if (localIndex + modelIndexes > index) {
+              return modifierModel.getTint(tool, entry, index - localIndex);
             }
+            localIndex += modelIndexes;
           }
         }
       }
     }
     return -1;
-
   };
 
   /** List of tool parts in this model */
@@ -180,8 +164,8 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    */
   private static void addModifierQuads(Function<RenderMaterial, TextureAtlasSprite> spriteGetter, Map<Modifier,IBakedModifierModel> modifierModels, IModifierToolStack tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, TransformationMatrix transforms, boolean isLarge) {
     if (!modifierModels.isEmpty()) {
-      // keep a running tint index so models know where they should start
-      int modelIndex = tool.getDefinition().getRequiredComponents().size();
+      // keep a running tint index so models know where they should start, currently starts at 0 as the main model does not use tint indexes
+      int modelIndex = 0;
       for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
         IBakedModifierModel model = modifierModels.get(entry.getModifier());
         if (model != null) {

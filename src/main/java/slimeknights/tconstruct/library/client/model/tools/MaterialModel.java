@@ -34,7 +34,6 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.BakedItemModel;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
@@ -43,6 +42,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.model.ColoredItemLayerModel;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerClient;
@@ -148,30 +148,30 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, String name, int index, @Nullable MaterialId material) {
     RenderMaterial texture = owner.resolveTexture(name);
-    int tintIndex = -1;
+    int color = -1;
+    int light = 0;
     TextureAtlasSprite finalSprite = null;
     // if the base material is non-null, try to find the sprite for that material
     if (material != null) {
       // first, find a render info
-      Optional<MaterialRenderInfo> renderInfo = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
-      if(renderInfo.isPresent()) {
+      Optional<MaterialRenderInfo> optional = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
+      if (optional.isPresent()) {
         // determine the texture to use and whether or not to tint it
-        TintedSprite sprite = renderInfo.get().getSprite(texture, spriteGetter);
+        MaterialRenderInfo info = optional.get();
+        TintedSprite sprite = info.getSprite(texture, spriteGetter);
         finalSprite = sprite.getSprite();
-        if(sprite.isTinted()) {
-          tintIndex = index;
-        }
+        color = sprite.getColor();
+        light = info.getLuminosity();
       }
     }
 
     // if we have no material, or the material failed to fetch, use the default sprite and tint index
     if (finalSprite == null) {
       finalSprite = spriteGetter.apply(texture);
-      tintIndex = index;
     }
 
     // get quads
-    quadConsumer.accept(ItemLayerModel.getQuadsForSprite(tintIndex, finalSprite, transform));
+    quadConsumer.accept(ColoredItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light));
 
     // return sprite
     return finalSprite;
