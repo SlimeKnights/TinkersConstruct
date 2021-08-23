@@ -87,11 +87,7 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
     // render the item
     if (!stack.isEmpty()) {
       // if no frame, offset the item farther back
-      if (frameVisible) {
-        matrices.translate(0.0D, 0.0D, 0.4375D);
-      } else {
-        matrices.translate(0.0D, 0.0D, 0.5D);
-      }
+      matrices.translate(0.0D, 0.0D, 0.4375D);
 
       // determine rotation for the item inside
       MapData mapdata = null;
