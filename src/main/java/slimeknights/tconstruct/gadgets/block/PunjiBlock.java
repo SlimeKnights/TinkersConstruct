@@ -6,9 +6,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.BooleanProperty;
@@ -26,6 +28,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class PunjiBlock extends Block {
 
@@ -46,6 +50,12 @@ public class PunjiBlock extends Block {
                                             .with(NORTHEAST, false)
                                             .with(NORTHWEST, false)
                                             .with(WATERLOGGED, false));
+  }
+
+  @Nullable
+  @Override
+  public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
+    return PathNodeType.DAMAGE_OTHER;
   }
 
   @SuppressWarnings("deprecation")
