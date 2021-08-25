@@ -18,7 +18,7 @@ public class GuiButtonTool extends GuiButton
     int textureY;
     public String texture;
     public ToolGuiElement element;
-    private static ResourceLocation background;// = new
+    private ResourceLocation background;// = new
                                                // ResourceLocation("tinker",
                                                // "textures/gui/armorextended.png");
 
