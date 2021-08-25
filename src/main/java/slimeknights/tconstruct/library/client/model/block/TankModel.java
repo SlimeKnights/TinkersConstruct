@@ -27,6 +27,7 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
@@ -220,7 +221,7 @@ public class TankModel implements IModelGeometry<TankModel> {
      */
     private IBakedModel getCachedModel(FluidStack fluid, int capacity) {
       int increments = original.fluid.getIncrements();
-      return getCachedModel(new FluidStack(fluid.getFluid(), Math.min(fluid.getAmount() * increments / capacity, increments)));
+      return getCachedModel(new FluidStack(fluid.getFluid(), MathHelper.clamp(fluid.getAmount() * increments / capacity, 1, increments)));
     }
 
     @Nonnull
