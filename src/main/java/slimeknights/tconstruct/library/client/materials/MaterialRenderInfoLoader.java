@@ -9,6 +9,7 @@ import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -120,10 +121,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // parse color
     int color = 0xFFFFFFFF;
     if (json.getColor() != null) {
-      color = Integer.parseInt(json.getColor(), 16);
-      if((color & 0xFF000000) == 0) {
-        color |= 0xFF000000;
-      }
+      color = JsonHelper.parseColor(json.getColor());
     }
 
     MaterialId id = new MaterialId(loc);

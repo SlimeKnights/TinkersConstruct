@@ -38,11 +38,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import org.apache.commons.lang3.mutable.MutableObject;
+import slimeknights.mantle.client.model.MantleItemLayerModel;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.client.model.ColoredItemLayerModel;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerClient;
@@ -171,7 +171,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     // get quads
-    quadConsumer.accept(ColoredItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light));
+    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light));
 
     // return sprite
     return finalSprite;

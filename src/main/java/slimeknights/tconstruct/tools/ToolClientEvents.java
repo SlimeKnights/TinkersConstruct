@@ -29,8 +29,6 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.model.ColoredItemLayerModel;
-import slimeknights.tconstruct.library.client.model.NBTKeyModel;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableModifierModel;
@@ -64,8 +62,6 @@ public class ToolClientEvents extends ClientEventBase {
   static void registerModelLoaders(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("material"), MaterialModel.LOADER);
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("tool"), ToolModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("nbt_key"), NBTKeyModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("item_layer"), ColoredItemLayerModel.LOADER);
   }
 
   @SubscribeEvent

@@ -1,5 +1,5 @@
 {
-  "loader": "tconstruct:item_layer",
+  "loader": "mantle:item_layer",
   "parent": "forge:item/default",
   "textures": {
       "layer0": "tconstruct:item/materials/blazing_bone"

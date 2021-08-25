@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.mantle.util.JsonHelper;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -42,18 +43,9 @@ public class JsonUtils {
     return value;
   }
 
-  /**
-   * Gets a resource location from JSON, throwing a nice exception if invalid
-   * @param json  JSON object
-   * @param key   Key to fetch
-   * @return  Resource location parsed
-   */
+  /** @deprecated use {@link slimeknights.mantle.util.JsonHelper#getResourceLocation(JsonObject, String)} */
+  @Deprecated
   public static ResourceLocation getResourceLocation(JsonObject json, String key) {
-    String text = JSONUtils.getString(json, key);
-    ResourceLocation location = ResourceLocation.tryCreate(text);
-    if (location == null) {
-      throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
-    }
-    return location;
+    return JsonHelper.getResourceLocation(json, key);
   }
 }
