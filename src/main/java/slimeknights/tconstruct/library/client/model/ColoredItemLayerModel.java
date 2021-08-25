@@ -1,28 +1,103 @@
 package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.mojang.datafixers.util.Pair;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IModelTransform;
+import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.TransformationMatrix;
+import net.minecraftforge.client.model.BakedItemModel;
+import net.minecraftforge.client.model.IModelConfiguration;
+import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.ModelTransformComposition;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
+import net.minecraftforge.client.model.geometry.IModelGeometry;
 import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.TRSRTransformer;
+import slimeknights.mantle.util.JsonHelper;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
 /**
  * Clone of {@link ItemLayerModel} to propagate a hardcoded color in, allows reducing rendering time by bypassing item colors for a static color
  */
-public class ColoredItemLayerModel {
+@RequiredArgsConstructor
+public class ColoredItemLayerModel implements IModelGeometry<ColoredItemLayerModel> {
+  /** Model loader instance */
+  public static final Loader LOADER = new Loader();
+
   private static final Direction[] HORIZONTALS = {Direction.UP, Direction.DOWN};
   private static final Direction[] VERTICALS = {Direction.WEST, Direction.EAST};
+
+  /** Layers in the model */
+  private final List<LayerData> layers;
+  /** Textures fetched during baking */
+  private List<RenderMaterial> textures = Collections.emptyList();
+
+  /** Gets the layer at the given index */
+  private LayerData getLayer(int index) {
+    if (index < 0 || index >= layers.size()) {
+      return LayerData.DEFAULT;
+    }
+    return layers.get(index);
+  }
+
+  @Override
+  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
+    ImmutableList.Builder<RenderMaterial> builder = ImmutableList.builder();
+    for (int i = 0; owner.isTexturePresent("layer" + i); i++) {
+      builder.add(owner.resolveTexture("layer" + i));
+    }
+    textures = builder.build();
+    return textures;
+  }
+
+  @Override
+  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
+    // determine particle texture
+    TextureAtlasSprite particle = spriteGetter.apply(owner.isTexturePresent("particle") ? owner.resolveTexture("particle") : textures.get(0));
+    // bake in special properties
+    ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+    TransformationMatrix transform = modelTransform.getRotation();
+    for(int i = 0; i < textures.size(); i++) {
+      TextureAtlasSprite sprite = spriteGetter.apply(textures.get(i));
+      LayerData data = getLayer(i);
+      builder.addAll(getQuadsForSprite(data.getColor(), data.isNoTint() ? -1 : i, sprite, transform, data.getLuminosity()));
+    }
+    // transform data
+    ImmutableMap<TransformType,TransformationMatrix> transformMap = PerspectiveMapWrapper.getTransforms(new ModelTransformComposition(owner.getCombinedTransform(), modelTransform));
+    return new BakedItemModel(builder.build(), particle, Maps.immutableEnumMap(transformMap), overrides, true, owner.isSideLit());
+  }
 
   /**
    * Gets all quads for an item layer for the given sprite
@@ -238,7 +313,7 @@ public class ColoredItemLayerModel {
    * @param luminosity Extra light to add to the quad between 0 and 15
    * @return  Final quad
    */
-  private static BakedQuad buildQuad(TransformationMatrix transform, Direction side, TextureAtlasSprite sprite, int color, int tint, int luminosity,
+  protected static BakedQuad buildQuad(TransformationMatrix transform, Direction side, TextureAtlasSprite sprite, int color, int tint, int luminosity,
                                      float x0, float y0, float z0, float u0, float v0,
                                      float x1, float y1, float z1, float u1, float v1,
                                      float x2, float y2, float z2, float u2, float v2,
@@ -336,6 +411,60 @@ public class ColoredItemLayerModel {
 
     private int getIndex(int u, int v) {
       return v * vMax + u;
+    }
+  }
+
+  /**
+   * Parses a color as a string
+   * @param color  Color to parse
+   * @return  Parsed string
+   */
+  private static int parseColor(@Nullable String color) {
+    if (color == null || color.isEmpty()) {
+      return -1;
+    }
+    // two options, 6 character or 8 character, must not start with - sign
+    int length = color.length();
+    if (color.charAt(0) != '-') {
+      try {
+        // length of 8 must parse as long
+        if (length == 8) {
+          return (int)Long.parseLong(color, 16);
+        }
+        return Integer.parseInt(color, 16);
+      } catch (NumberFormatException ex) {
+        // NO-OP
+      }
+    }
+    throw new JsonSyntaxException("Invalid color '" + color + "'");
+  }
+
+  /** Class holding details about a single layer in the model */
+  @Data
+  private static class LayerData {
+    private static final LayerData DEFAULT = new LayerData(-1, 0, false);
+
+    private final int color;
+    private final int luminosity;
+    private final boolean noTint;
+
+    /** Parses the layer data from JSON */
+    public static LayerData fromJson(JsonObject json) {
+      int color = parseColor(JSONUtils.getString(json, "color", ""));
+      int luminosity = JSONUtils.getInt(json, "luminosity");
+      boolean noTint = JSONUtils.getBoolean(json, "no_tint", false);
+      return new LayerData(color, luminosity, noTint);
+    }
+  }
+
+  private static class Loader implements IModelLoader<ColoredItemLayerModel> {
+    @Override
+    public void onResourceManagerReload(IResourceManager resourceManager) {}
+
+    @Override
+    public ColoredItemLayerModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
+      List<LayerData> layers = JsonHelper.parseList(modelContents, "layers", LayerData::fromJson);
+      return new ColoredItemLayerModel(layers);
     }
   }
 }

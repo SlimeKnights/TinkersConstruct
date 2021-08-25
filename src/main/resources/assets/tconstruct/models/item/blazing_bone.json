@@ -1,6 +1,10 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "tconstruct:item/materials/blazing_bone"
-    }
+  "loader": "tconstruct:item_layer",
+  "parent": "forge:item/default",
+  "textures": {
+      "layer0": "tconstruct:item/materials/blazing_bone"
+  },
+  "layers": [
+    { "luminosity": 15 }
+  ]
 }
