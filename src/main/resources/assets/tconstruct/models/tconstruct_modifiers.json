@@ -6,13 +6,13 @@
   "tconstruct:overforced": "tconstruct:normal",
   "tconstruct:overslime":  "tconstruct:overslime",
 
-  "tconstruct:haste":      "tconstruct:normal",
+  "tconstruct:haste":      { "type": "tconstruct:normal", "luminosity": 7 },
   "tconstruct:blasting":   "tconstruct:normal",
-  "tconstruct:lightspeed": "tconstruct:normal",
+  "tconstruct:lightspeed": { "type": "tconstruct:normal", "luminosity": 15 },
   "tconstruct:hydraulic":  "tconstruct:normal",
 
   "tconstruct:knockback":   "tconstruct:normal",
-  "tconstruct:fiery":       "tconstruct:normal",
+  "tconstruct:fiery":       { "type": "tconstruct:normal", "luminosity": 10 },
   "tconstruct:experienced": "tconstruct:normal",
   "tconstruct:magnetic":    "tconstruct:normal",
 
@@ -24,7 +24,7 @@
 
   "tconstruct:luck":        "tconstruct:normal",
   "tconstruct:silky":       "tconstruct:normal",
-  "tconstruct:unbreakable": "tconstruct:normal",
+  "tconstruct:unbreakable": { "type": "tconstruct:normal", "luminosity": 2 },
   
   "tconstruct:tank":      "tconstruct:tank",
   "tconstruct:bucketing": "tconstruct:fluid"

@@ -92,6 +92,30 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     }
   }
 
+  /**
+   * Gets the loader for the given name
+   * @param key    Key for errors
+   * @param name   Loader name
+   * @return  Unbaked model, or null if an error occurred (error is logged)
+   */
+  @Nullable
+  private static IUnbakedModifierModel getLoader(String key, String name) {
+    // find a model name
+    ResourceLocation loader = ResourceLocation.tryCreate(name);
+    if (loader == null) {
+      log.error("Skipping modifier " + key + " as " + name + " is an invalid loader name");
+    } else {
+      // find a model
+      IUnbakedModifierModel model = MODIFIER_MODEL_OPTIONS.get(loader);
+      if (model == null) {
+        log.error("Skipping modifier " + key + " as the loader " + loader + " is unknown");
+      } else {
+        return model;
+      }
+    }
+    return null;
+  }
+
   @Override
   public void onReloadSafe(IResourceManager manager) {
     // fire an event so people can register loaders, was the easiest way to do so after modifiers are registered but before models load
@@ -139,23 +163,22 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
             JsonElement element = entry.getValue();
             if (element.isJsonNull()) {
               models.remove(modifier);
-            } else if (!element.isJsonPrimitive()) {
-              log.error("Skipping key " + key + " as the value is not a string");
-            } else {
-              // find a model name
-              ResourceLocation loader = ResourceLocation.tryCreate(element.getAsString());
-              if (loader == null) {
-                log.error("Skipping modifier " + key + " as the texture " + element.getAsString() + " is an invalid texture path");
-              } else {
-                // find a model
-                IUnbakedModifierModel model = MODIFIER_MODEL_OPTIONS.get(loader);
-                if (model == null) {
-                  log.error("Skipping modifier " + key + " as the loader " + loader + " is unknown");
-                } else {
-                  // finally save it
-                  models.put(modifier, model);
-                }
+              // object means we configure the unbaked model
+            } else if (element.isJsonObject()) {
+              JsonObject object = element.getAsJsonObject();
+              IUnbakedModifierModel model = getLoader(key, JSONUtils.getString(object, "type"));
+              // configure the model with the given JSON data
+              if (model != null) {
+                models.put(modifier, model.configure(object));
               }
+              // primitive means a string loader name
+            } else if (element.isJsonPrimitive()) {
+              IUnbakedModifierModel model = getLoader(key, element.getAsString());
+              if (model != null) {
+                models.put(modifier, model);
+              }
+            } else {
+              log.error("Skipping key " + key + " as the value is not a string");
             }
           }
         }
