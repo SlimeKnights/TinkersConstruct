@@ -3,19 +3,11 @@ package slimeknights.tconstruct.smeltery;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -39,11 +31,6 @@ import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.HeatingStructureTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
-import slimeknights.tconstruct.smeltery.item.TankItem;
-import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.DrainTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid= TConstruct.MOD_ID, value= Dist.CLIENT, bus= Bus.MOD)
@@ -117,74 +104,5 @@ public class SmelteryClientEvents extends ClientEventBase {
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("melter"), MelterModel.LOADER);
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("channel"), ChannelModel.LOADER);
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("fluid_texture"), FluidTextureModel.LOADER);
-  }
-
-  @SubscribeEvent
-  static void blockColors(ColorHandlerEvent.Block event) {
-    BlockColors colors = event.getBlockColors();
-    IBlockColor handler = (state, world, pos, index) -> {
-      if (pos != null && world != null) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof ITankTileEntity) {
-          FluidStack fluid = ((ITankTileEntity)te).getTank().getFluid();
-          return fluid.getFluid().getAttributes().getColor(fluid);
-        }
-      }
-      return -1;
-    };
-    TinkerSmeltery.searedTank.forEach(tank -> colors.register(handler, tank));
-    TinkerSmeltery.scorchedTank.forEach(tank -> colors.register(handler, tank));
-    colors.register(handler, TinkerSmeltery.searedLantern.get());
-    colors.register(handler, TinkerSmeltery.scorchedLantern.get());
-    colors.register(handler, TinkerSmeltery.searedMelter.get(), TinkerSmeltery.scorchedAlloyer.get());
-
-    // color the extra fluid textures
-    colors.register((state, world, pos, index) -> {
-      if (index == 1 && world != null && pos != null) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof ISmelteryTankHandler) {
-          FluidStack bottom = ((ISmelteryTankHandler)te).getTank().getFluidInTank(0);
-          if (!bottom.isEmpty()) {
-            return bottom.getFluid().getAttributes().getColor(bottom);
-          }
-        }
-      }
-      return -1;
-    }, TinkerSmeltery.smelteryController.get(), TinkerSmeltery.foundryController.get());
-    colors.register((state, world, pos, index) -> {
-      if (index == 1 && world != null && pos != null) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof DrainTileEntity) {
-          return ((DrainTileEntity)te).getDisplayFluid().getAttributes().getColor();
-        }
-      }
-      return -1;
-    }, TinkerSmeltery.searedDrain.get(), TinkerSmeltery.scorchedDrain.get());
-    colors.register((state, world, pos, index) -> {
-      if (index == 1 && world != null && pos != null) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof DuctTileEntity) {
-          return ((DuctTileEntity)te).getItemHandler().getFluid().getAttributes().getColor();
-        }
-      }
-      return -1;
-    }, TinkerSmeltery.searedDuct.get(), TinkerSmeltery.scorchedDuct.get());
-  }
-
-  @SubscribeEvent
-  static void itemColors(ColorHandlerEvent.Item event) {
-    ItemColors itemColors = event.getItemColors();
-    IItemColor handler = (stack, index) -> {
-      FluidTank tank = TankItem.getFluidTank(stack);
-      if (!tank.isEmpty()) {
-        FluidStack fluid = tank.getFluid();
-        return fluid.getFluid().getAttributes().getColor(fluid);
-      }
-      return -1;
-    };
-    TinkerSmeltery.searedTank.forEach(tank -> itemColors.register(handler, tank));
-    TinkerSmeltery.scorchedTank.forEach(tank -> itemColors.register(handler, tank));
-    itemColors.register(handler, TinkerSmeltery.searedLantern.get());
-    itemColors.register(handler, TinkerSmeltery.scorchedLantern.get());
   }
 }

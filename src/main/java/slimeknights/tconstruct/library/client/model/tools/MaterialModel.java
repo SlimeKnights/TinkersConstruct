@@ -38,7 +38,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import org.apache.commons.lang3.mutable.MutableObject;
-import slimeknights.mantle.client.model.MantleItemLayerModel;
+import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;

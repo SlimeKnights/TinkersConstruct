@@ -9,7 +9,7 @@
   "elements": [
     { "from": [ 0, 0, 0 ],
       "to": [ 16, 16, 16 ],
-      "faces": { "north": { "texture": "#fluid", "cullface": "north", "tintindex": 1 }}
+      "faces": { "north": { "texture": "#fluid", "cullface": "north" }}
     },
     { "from": [ 0, 0, 0 ],
       "to": [ 16, 16, 16 ],
