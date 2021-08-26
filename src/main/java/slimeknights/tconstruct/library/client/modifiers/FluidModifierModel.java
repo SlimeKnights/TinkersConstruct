@@ -12,6 +12,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ItemTextureQuadConverter;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
@@ -69,10 +70,11 @@ public class FluidModifierModel extends NormalModifierModel {
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge) {
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     // first, determine stored fluid
-    ImmutableList<BakedQuad> quads = super.getQuads(tool, entry, spriteGetter, transforms, isLarge);
+    ImmutableList<BakedQuad> quads = super.getQuads(tool, entry, spriteGetter, transforms, isLarge, startTintIndex, pixels);
     // modifier must be tank
+    // TODO: is there anything that can be done about the fluid? to prevent weird offsets?
     if (entry.getModifier() instanceof TankModifier) {
       TankModifier tank = (TankModifier) entry.getModifier();
       FluidStack fluid = tank.getFluid(tool);

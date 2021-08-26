@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.math.vector.TransformationMatrix;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -29,9 +30,6 @@ public class BreakableModifierModel implements IBakedModifierModel {
   private final int color;
   /** Luminosity to apply to the texture */
   private final int luminosity;
-  /* Caches of the small quad list */
-  @SuppressWarnings("unchecked")
-  private final ImmutableList<BakedQuad>[] quadCache = new ImmutableList[4];
 
   public BreakableModifierModel(@Nullable RenderMaterial normalSmall, @Nullable RenderMaterial brokenSmall, @Nullable RenderMaterial normalLarge, @Nullable RenderMaterial brokenLarge, int color, int luminosity) {
     this.color = color;
@@ -44,18 +42,17 @@ public class BreakableModifierModel implements IBakedModifierModel {
   }
 
   @Override
+  @Deprecated
   public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge) {
+    return getQuads(tool, entry, spriteGetter, transforms, isLarge, -1, null);
+  }
+
+  @Override
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     // first get the cache index
     int index = (isLarge ? 2 : 0) | (tool.isBroken() ? 1 : 0);
-    // if not cached, build
-    if (quadCache[index] == null) {
-      if (sprites[index] == null) {
-        quadCache[index] = ImmutableList.of();
-      } else {
-        quadCache[index] = MantleItemLayerModel.getQuadsForSprite(color, -1, spriteGetter.apply(sprites[index]), transforms, luminosity);
-      }
-    }
-    return quadCache[index];
+    // then return the quads
+    return MantleItemLayerModel.getQuadsForSprite(color, -1, spriteGetter.apply(sprites[index]), transforms, luminosity, pixels);
   }
 
   @RequiredArgsConstructor

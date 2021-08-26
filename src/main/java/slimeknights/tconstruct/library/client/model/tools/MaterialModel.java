@@ -39,6 +39,7 @@ import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
@@ -147,6 +148,21 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @return  Model quads
    */
   public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, String name, int index, @Nullable MaterialId material) {
+    return getPartQuads(quadConsumer, owner, spriteGetter, transform, name, index, material, null);
+  }
+
+  /**
+   * Gets the quads for a material for the given texture
+   * @param owner         Model owner
+   * @param spriteGetter  Sprite getter
+   * @param transform     Model transform
+   * @param name          Sprite name
+   * @param index         Sprite tint index
+   * @param material      Material to use
+   * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
+   * @return  Model quads
+   */
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, String name, int index, @Nullable MaterialId material, @Nullable ItemLayerPixels pixels) {
     RenderMaterial texture = owner.resolveTexture(name);
     int color = -1;
     int light = 0;
@@ -171,7 +187,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     // get quads
-    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light));
+    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light, pixels));
 
     // return sprite
     return finalSprite;

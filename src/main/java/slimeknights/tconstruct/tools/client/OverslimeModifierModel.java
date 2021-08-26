@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.math.vector.TransformationMatrix;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.client.modifiers.IUnbakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -44,11 +45,11 @@ public class OverslimeModifierModel extends NormalModifierModel {
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge) {
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     Modifier modifier = entry.getModifier();
     if (modifier instanceof OverslimeModifier && ((OverslimeModifier) modifier).getOverslime(tool) == 0) {
       return ImmutableList.of();
     }
-    return super.getQuads(tool, entry, spriteGetter, transforms, isLarge);
+    return super.getQuads(tool, entry, spriteGetter, transforms, isLarge, startTintIndex, pixels);
   }
 }

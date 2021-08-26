@@ -45,7 +45,9 @@ import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.ReversedListBuilder;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
@@ -68,6 +70,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -86,7 +89,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
         ToolStack tool = ToolStack.from(stack);
         // modifier model indexes start at the last part
         int localIndex = 0;
-        for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
+        List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
+        for (int i = modifiers.size() - 1; i >= 0; i--) {
+          ModifierEntry entry = modifiers.get(i);
           // colors are assumed to not be sensitive to the model's large status
           IBakedModifierModel modifierModel = overrides.getModifierModel(entry.getModifier());
           if (modifierModel != null) {
@@ -162,14 +167,17 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    * @param transforms      Transforms to apply
    * @param isLarge         If true, the quads are for a large tool
    */
-  private static void addModifierQuads(Function<RenderMaterial, TextureAtlasSprite> spriteGetter, Map<Modifier,IBakedModifierModel> modifierModels, IModifierToolStack tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, TransformationMatrix transforms, boolean isLarge) {
+  private static void addModifierQuads(Function<RenderMaterial, TextureAtlasSprite> spriteGetter, Map<Modifier,IBakedModifierModel> modifierModels, IModifierToolStack tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, ItemLayerPixels pixels, TransformationMatrix transforms, boolean isLarge) {
     if (!modifierModels.isEmpty()) {
       // keep a running tint index so models know where they should start, currently starts at 0 as the main model does not use tint indexes
       int modelIndex = 0;
-      for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
+      // reversed order to ensure the pixels is updated correctly
+      List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
+      for (int i = modifiers.size() - 1; i >= 0; i--) {
+        ModifierEntry entry = modifiers.get(i);
         IBakedModifierModel model = modifierModels.get(entry.getModifier());
         if (model != null) {
-          quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex));
+          quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
           modelIndex += model.getTintIndexes();
         }
       }
@@ -194,21 +202,27 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     boolean isBroken = tool != null && tool.isBroken();
     TextureAtlasSprite particle = null;
     // we create both builders always, though large may be unused
-    ImmutableList.Builder<BakedQuad> smallBuilder = ImmutableList.builder();
-    ImmutableList.Builder<BakedQuad> largeBuilder = ImmutableList.builder();
+    ReversedListBuilder<BakedQuad> smallBuilder = new ReversedListBuilder<>();
+    ReversedListBuilder<BakedQuad> largeBuilder = new ReversedListBuilder<>();
+    ItemLayerPixels smallPixels = new ItemLayerPixels();
+    ItemLayerPixels largePixels = new ItemLayerPixels();
     Consumer<ImmutableList<BakedQuad>> smallConsumer;
     Consumer<ImmutableList<BakedQuad>> largeConsumer = largeBuilder::addAll;
     // for large tools, we don't need non-south small quads
     if (largeTransforms != null) {
       smallConsumer = quads -> {
-        for (BakedQuad quad : quads) {
-          if (quad.getFace() == Direction.SOUTH) {
-            smallBuilder.add(quad);
-          }
-        }
+        smallBuilder.addAll(quads.stream().filter(quad -> quad.getFace() == Direction.SOUTH).collect(Collectors.toList()));
       };
     } else {
       smallConsumer = smallBuilder::addAll;
+    }
+
+    // add quads for all modifiers first, for the sake of the item layer pixels
+    if (tool != null && !modifierModels.isEmpty()) {
+      addModifierQuads(spriteGetter, modifierModels, tool, smallConsumer, smallPixels, TransformationMatrix.identity(), false);
+      if (largeTransforms != null) {
+        addModifierQuads(spriteGetter, modifierModels, tool, largeConsumer, largePixels, largeTransforms, true);
+      }
     }
 
     // add quads for all parts
@@ -219,25 +233,18 @@ public class ToolModel implements IModelGeometry<ToolModel> {
         largeConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, spriteGetter.apply(owner.resolveTexture(isBroken && owner.isTexturePresent("broken_large") ? "broken_large" : "tool_large")), largeTransforms));
       }
     } else {
-      for (ToolPart part : parts) {
+      for (int i = parts.size() - 1; i >= 0; i--) {
+        ToolPart part = parts.get(i);
         int index = part.getIndex();
         MaterialId material = null;
         if (index < materials.size()) {
           material = materials.get(index);
         }
         // add needed quads
-        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), index, material);
+        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), index, material, smallPixels);
         if (largeTransforms != null) {
-          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), index, material);
+          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), index, material, largePixels);
         }
-      }
-    }
-
-    // add quads for all modifiers
-    if (tool != null && !modifierModels.isEmpty()) {
-      addModifierQuads(spriteGetter, modifierModels, tool, smallConsumer, TransformationMatrix.identity(), false);
-      if (largeTransforms != null) {
-        addModifierQuads(spriteGetter, modifierModels, tool, largeConsumer, largeTransforms, true);
       }
     }
 

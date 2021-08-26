@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.math.vector.TransformationMatrix;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -29,9 +30,6 @@ public class NormalModifierModel implements IBakedModifierModel {
   private final int color;
   /** Luminosity to apply to the texture */
   private final int luminosity;
-  /** Cache of quads */
-  @SuppressWarnings("unchecked")
-  private final ImmutableList<BakedQuad>[] quads = new ImmutableList[2];
 
   public NormalModifierModel(@Nullable RenderMaterial smallTexture, @Nullable RenderMaterial largeTexture, int color, int luminosity) {
     this.color = color;
@@ -43,17 +41,16 @@ public class NormalModifierModel implements IBakedModifierModel {
     this(smallTexture, largeTexture, -1, 0);
   }
 
+  @Deprecated
   @Override
   public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge) {
+    return getQuads(tool, entry, spriteGetter, transforms, isLarge, -1, null);
+  }
+
+  @Override
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     int index = isLarge ? 1 : 0;
-    if (quads[index] == null) {
-      if (textures[index] == null) {
-        quads[index] = ImmutableList.of();
-      } else {
-        quads[index] = MantleItemLayerModel.getQuadsForSprite(color, -1, spriteGetter.apply(textures[index]), transforms, luminosity);
-      }
-    }
-    return quads[index];
+    return MantleItemLayerModel.getQuadsForSprite(color, -1, spriteGetter.apply(textures[index]), transforms, luminosity, pixels);
   }
 
   @RequiredArgsConstructor
