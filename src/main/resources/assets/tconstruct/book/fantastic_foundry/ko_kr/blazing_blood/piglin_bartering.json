@@ -1,0 +1,14 @@
+{
+  "title": "물물교환",
+  "image": {
+    "file": "tconstruct:book/images/bartering.png",
+    "width": 128,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "혹시, 당신은 비폭력적인가요? 좋습니다. 피글린은 앞을 밝히기 위해, 타오르는 액체가 담긴 랜턴을 들고 다닙니다. 금괴를 피글린에게 주면, 가끔 랜턴을 줄지도 몰라요.",
+      "paragraph": true
+    }
+  ]
+}
