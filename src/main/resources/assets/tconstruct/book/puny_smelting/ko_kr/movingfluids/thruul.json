@@ -1,7 +1,9 @@
 {
   "title": "트루얼",
   "image": {
-	"file": "tconstruct:book/images/thruul.png"
+    "file": "tconstruct:book/images/thruul.png",
+    "width": 120,
+    "height": 120
   },
   "text": [
     {
