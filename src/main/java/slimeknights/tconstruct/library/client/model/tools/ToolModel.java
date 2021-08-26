@@ -241,9 +241,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
           material = materials.get(index);
         }
         // add needed quads
-        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), index, material, smallPixels);
+        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), -1, material, smallPixels);
         if (largeTransforms != null) {
-          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), index, material, largePixels);
+          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), -1, material, largePixels);
         }
       }
     }
