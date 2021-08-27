@@ -994,8 +994,8 @@
   "item.tconstruct.sky_slime_spawn_egg": "하늘슬라임 생성 알",
   "entity.tconstruct.ender_slime": "엔더슬라임",
   "item.tconstruct.ender_slime_spawn_egg": "엔더슬라임 생성 알",
-  "entity.tconstruct.terracube": "점토슬라임",
-  "item.tconstruct.terracube_spawn_egg": "점토슬라임 생성 알",
+  "entity.tconstruct.terracube": "점토큐브",
+  "item.tconstruct.terracube_spawn_egg": "점토큐브 생성 알",
 
   "block.tconstruct.earth_slime_dirt": "땅슬라임 흙",
   "block.tconstruct.earth_slime_dirt.tooltip": "끈적끈적하지만, 높이 뛰어오를 수 있습니다.",
