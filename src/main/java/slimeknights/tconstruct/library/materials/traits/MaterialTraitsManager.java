@@ -100,7 +100,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
    * Gets the packet to send on player login
    * @return  Packet object
    */
-  public Object getUpdatePacket() {
+  public UpdateMaterialTraitsPacket getUpdatePacket() {
     return new UpdateMaterialTraitsPacket(materialTraits);
   }
 

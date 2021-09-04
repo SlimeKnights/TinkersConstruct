@@ -26,7 +26,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
@@ -34,10 +33,7 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
@@ -46,8 +42,6 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.events.MaterialsLoadedEvent;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -98,7 +92,6 @@ import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
@@ -108,12 +101,6 @@ public class JEIPlugin implements IModPlugin {
   public static final IIngredientType<EntityType> ENTITY_TYPE = () -> EntityType.class;
   public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
   public static final IIngredientType<Pattern> PATTERN_TYPE = () -> Pattern.class;
-
-  private final MaterialReloadListener materialReloader;
-  public JEIPlugin() {
-    this.materialReloader = new MaterialReloadListener();
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, MaterialsLoadedEvent.class, this.materialReloader);
-  }
 
   @Override
   public ResourceLocation getPluginUid() {
@@ -311,11 +298,6 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
-    // update part materials if possible
-    materialReloader.manager = manager;
-    if (MaterialRegistry.isFullyLoaded()) {
-      materialReloader.run();
-    }
 
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
@@ -382,38 +364,6 @@ public class JEIPlugin implements IModPlugin {
         return RetexturedBlockItem.getTextureName(itemStack);
       }
       return NONE;
-    }
-  }
-
-  /** Logic to run when the material registry reloads */
-  private static class MaterialReloadListener implements Consumer<MaterialsLoadedEvent> {
-    private IIngredientManager manager;
-
-    /** Run on the main thread when ready */
-    private void deferredRun() {
-      NonNullList<ItemStack> newStacks = NonNullList.create();
-      for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
-        item.fillItemGroup(ItemGroup.SEARCH, newStacks);
-      }
-      for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
-        item.fillItemGroup(ItemGroup.SEARCH, newStacks);
-      }
-      if (!newStacks.isEmpty()) {
-        manager.addIngredientsAtRuntime(VanillaTypes.ITEM, newStacks);
-      }
-    }
-
-    /** Runs the listener */
-    public void run() {
-      // note this does not remove old tool parts from the previous materials list, though that is only an issue if the reload command is used
-      if (manager != null && !MaterialRegistry.getMaterials().isEmpty()) {
-        Minecraft.getInstance().execute(this::deferredRun);
-      }
-    }
-
-    @Override
-    public void accept(MaterialsLoadedEvent event) {
-      run();
     }
   }
 }

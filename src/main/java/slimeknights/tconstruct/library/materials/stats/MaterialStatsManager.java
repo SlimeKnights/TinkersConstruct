@@ -190,7 +190,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
    * Gets the packet to send on player login
    * @return  Packet object
    */
-  public Object getUpdatePacket() {
+  public UpdateMaterialStatsPacket getUpdatePacket() {
     Map<MaterialId, Collection<IMaterialStats>> networkPayload =
       materialToStatsPerType.entrySet().stream()
                             .collect(Collectors.toMap(

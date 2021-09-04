@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
+import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.events.MaterialsLoadedEvent;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -55,7 +55,7 @@ public final class MaterialRegistry {
     INSTANCE = new MaterialRegistry();
     // add event listeners
     MinecraftForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::handleLogin);
+    MinecraftForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
     // on the client, mark materials not fully loaded when the client logs out.
     // this also runs when starting a world in SP, but its early enough that the player login event will correct the state later (see handleLogin method)
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
@@ -182,29 +182,44 @@ public final class MaterialRegistry {
     event.addListener(materialTraitsManager);
   }
 
-  /** Called when the player logs in to send packets */
-  private void handleLogin(PlayerLoggedInEvent event) {
-    PlayerEntity player = event.getPlayer();
+  /** Sends all relevant packets to the given player */
+  private void sendPackets(ServerPlayerEntity player, ISimplePacket[] packets) {
     // on an integrated server, the material registries have a single instance on both the client and the server thread
     // this means syncing is unneeded, and has the side-effect of recreating all the material instances (which can lead to unexpected behavior)
     // as a result, integrated servers just mark fullyLoaded as true without syncing anything, side-effect is listeners may run twice on single player
 
     // on a dedicated server, the client is running a separate game instance, this is where we send packets, plus fully loaded should already be true
     // this event is not fired when connecting to a server
-
-    if (player instanceof ServerPlayerEntity) {
-      // if the packet is being sent to ourself, skip sending, prevents reloading the material registry a second time on dedicated servers
+    if (player.connection.getNetworkManager().isLocalChannel()) {
+      // if the packet is being sent to ourself, skip sending, prevents recreating all material instances in the registry a second time on dedicated servers
       // note it will still send the packet if another client connects in LAN
-      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-      if (serverPlayer.connection.getNetworkManager().isLocalChannel()) {
-        fullyLoaded = true;
-        MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
-      } else {
-        TinkerNetwork network = TinkerNetwork.getInstance();
-        PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
-        network.send(target, materialManager.getUpdatePacket());
-        network.send(target, materialStatsManager.getUpdatePacket());
-        network.send(target, materialTraitsManager.getUpdatePacket());
+      fullyLoaded = true;
+      MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
+    } else {
+      TinkerNetwork network = TinkerNetwork.getInstance();
+      PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
+      for (ISimplePacket packet : packets) {
+        network.send(target, packet);
+      }
+    }
+  }
+
+  /** Called when the player logs in to send packets */
+  private void onDatapackSync(OnDatapackSyncEvent event) {
+    ISimplePacket[] packets = {
+      materialManager.getUpdatePacket(),
+      materialStatsManager.getUpdatePacket(),
+      materialTraitsManager.getUpdatePacket()
+    };
+
+    // send to single player
+    ServerPlayerEntity targetedPlayer = event.getPlayer();
+    if (targetedPlayer != null) {
+      sendPackets(targetedPlayer, packets);
+    } else {
+      // send to all players
+      for (ServerPlayerEntity player : event.getPlayerList().getPlayers()) {
+        sendPackets(player, packets);
       }
     }
   }

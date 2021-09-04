@@ -167,7 +167,7 @@ public class MaterialManager extends JsonReloadListener {
    * Gets the packet to send on player login
    * @return  Packet object
    */
-  public Object getUpdatePacket() {
+  public UpdateMaterialsPacket getUpdatePacket() {
     return new UpdateMaterialsPacket(materials.values(), redirects);
   }
 
