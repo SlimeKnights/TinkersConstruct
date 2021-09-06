@@ -24,7 +24,7 @@ public class EnderSlimeEntity extends SlimeEntity {
   }
 
   /** Randomly teleports an entity, mostly copied from chorus fruit */
-  private static void teleport(LivingEntity living) {
+  public static void teleport(LivingEntity living) {
     double posX = living.getPosX();
     double posY = living.getPosY();
     double posZ = living.getPosZ();

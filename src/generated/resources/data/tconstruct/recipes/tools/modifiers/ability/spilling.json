@@ -1,0 +1,44 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_channel"
+        },
+        {
+          "item": "tconstruct:scorched_channel"
+        }
+      ]
+    },
+    {
+      "tag": "tconstruct:tanks"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_channel"
+        },
+        {
+          "item": "tconstruct:scorched_channel"
+        }
+      ]
+    },
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/held"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:spilling",
+    "level": 1
+  }
+}

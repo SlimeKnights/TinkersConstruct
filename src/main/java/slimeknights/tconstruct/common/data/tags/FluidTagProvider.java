@@ -23,6 +23,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.skySlime);
     tagLocal(TinkerFluids.enderSlime);
     tagAll(TinkerFluids.magma);
+    tagLocal(TinkerFluids.venom);
     // basic molten
     tagLocal(TinkerFluids.searedStone);
     tagLocal(TinkerFluids.scorchedStone);
@@ -124,6 +125,48 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenConstantan.getLocalTag())
         .addTag(TinkerFluids.moltenPewter.getLocalTag())
         .addTag(TinkerFluids.moltenSteel.getLocalTag());
+
+    // spilling tags - reduces the number of recipes generated
+    this.getOrCreateBuilder(TinkerTags.Fluids.CLAY_SPILLING)
+        .addTag(TinkerFluids.moltenClay.getLocalTag())
+        .addTag(TinkerFluids.moltenPorcelain.getLocalTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.GLASS_SPILLING)
+        .addTag(TinkerFluids.moltenGlass.getLocalTag())
+        .addTag(TinkerFluids.moltenObsidian.getLocalTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.CHEAP_METAL_SPILLING)
+        .addTag(TinkerFluids.searedStone.getLocalTag())
+        .addTag(TinkerFluids.scorchedStone.getLocalTag())
+        .addTag(TinkerFluids.moltenIron.getLocalTag())
+        .addTag(TinkerFluids.moltenTin.getLocalTag())
+        .addTag(TinkerFluids.moltenAluminum.getLocalTag())
+        .addTag(TinkerFluids.moltenLead.getLocalTag())
+        .addTag(TinkerFluids.moltenSilver.getLocalTag())
+        .addTag(TinkerFluids.moltenNickel.getLocalTag())
+        .addTag(TinkerFluids.moltenZinc.getLocalTag())
+        .addTag(TinkerFluids.moltenPlatinum.getLocalTag())
+        .addTag(TinkerFluids.moltenTungsten.getLocalTag())
+        .addTag(TinkerFluids.moltenOsmium.getLocalTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.AVERAGE_METAL_SPILLING)
+        .addTag(TinkerFluids.moltenQuartz.getLocalTag())
+        .addTag(TinkerFluids.moltenEmerald.getLocalTag())
+        .addTag(TinkerFluids.moltenCobalt.getLocalTag())
+        .addTag(TinkerFluids.moltenTinkersBronze.getLocalTag())
+        .addTag(TinkerFluids.moltenRoseGold.getLocalTag())
+        .addTag(TinkerFluids.moltenSlimesteel.getLocalTag())
+        .addTag(TinkerFluids.moltenBronze.getLocalTag())
+        .addTag(TinkerFluids.moltenBrass.getLocalTag())
+        .addTag(TinkerFluids.moltenElectrum.getLocalTag())
+        .addTag(TinkerFluids.moltenInvar.getLocalTag())
+        .addTag(TinkerFluids.moltenConstantan.getLocalTag())
+        .addTag(TinkerFluids.moltenPewter.getLocalTag())
+        .addTag(TinkerFluids.moltenSteel.getLocalTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING)
+        .addTag(TinkerFluids.moltenDiamond.getLocalTag())
+        .addTag(TinkerFluids.moltenDebris.getLocalTag())
+        .addTag(TinkerFluids.moltenManyullyn.getLocalTag())
+        .addTag(TinkerFluids.moltenHepatizon.getLocalTag())
+        .addTag(TinkerFluids.moltenQueensSlime.getLocalTag())
+        .addTag(TinkerFluids.moltenNetherite.getLocalTag());
   }
 
   @Override

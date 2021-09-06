@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "tag": "tconstruct:molten_ender",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage_type": "magic",
+      "damage_amount": 1.0
+    },
+    {
+      "type": "tconstruct:teleport"
+    }
+  ]
+}

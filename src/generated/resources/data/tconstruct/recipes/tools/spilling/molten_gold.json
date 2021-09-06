@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "tag": "tconstruct:molten_gold",
+    "amount": 16
+  },
+  "effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage_type": "magic",
+      "damage_amount": 2.0
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 3
+    }
+  ]
+}

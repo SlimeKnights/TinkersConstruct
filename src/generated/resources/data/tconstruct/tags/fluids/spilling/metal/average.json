@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:molten_quartz",
+    "#tconstruct:molten_emerald",
+    "#tconstruct:molten_cobalt",
+    "#tconstruct:molten_tinkers_bronze",
+    "#tconstruct:molten_rose_gold",
+    "#tconstruct:molten_slimesteel",
+    "#tconstruct:molten_bronze",
+    "#tconstruct:molten_brass",
+    "#tconstruct:molten_electrum",
+    "#tconstruct:molten_invar",
+    "#tconstruct:molten_constantan",
+    "#tconstruct:molten_pewter",
+    "#tconstruct:molten_steel"
+  ]
+}

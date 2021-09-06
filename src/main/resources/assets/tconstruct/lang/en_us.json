@@ -1488,6 +1488,9 @@
   "modifier.tconstruct.bucketing": "Bucketing",
   "modifier.tconstruct.bucketing.flavor": "Slurp!",
   "modifier.tconstruct.bucketing.description": "Tool can pickup liquid, or place it when crouching",
+  "modifier.tconstruct.spilling": "Spilling",
+  "modifier.tconstruct.spilling.flavor": "Splish splash!",
+  "modifier.tconstruct.spilling.description": "Fluid contained in the weapon spills onto attacked targets, causing effects based on the fluid",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",

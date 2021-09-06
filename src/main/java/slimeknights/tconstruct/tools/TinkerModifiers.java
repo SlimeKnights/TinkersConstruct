@@ -5,10 +5,13 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -30,6 +33,13 @@ import slimeknights.tconstruct.library.recipe.modifiers.salvage.IncrementalModif
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -47,6 +57,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.tool.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.MeltingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.SilkyModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.tool.SpillingModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
@@ -202,6 +213,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
   public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0x3f3f3f, FluidValues.INGOT * 8));
   public static final RegistryObject<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
+  public static final RegistryObject<SpillingModifier> spilling = MODIFIERS.register("spilling", SpillingModifier::new);
   
   // right click abilities
   public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
@@ -294,6 +306,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ModifierSalvage.Serializer> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", ModifierSalvage.Serializer::new);
   public static final RegistryObject<IncrementalModifierSalvage.Serializer> incrementalModifierSalvageSerializer = RECIPE_SERIALIZERS.register("incremental_modifier_salvage", IncrementalModifierSalvage.Serializer::new);
   public static final RegistryObject<SpecialRecipeSerializer<CreativeSlotRecipe>> creativeSlotSerializer = RECIPE_SERIALIZERS.register("creative_slot_modifier", () -> new SpecialRecipeSerializer<>(CreativeSlotRecipe::new));
+  // modifiers
+  public static final RegistryObject<SpillingRecipe.Serializer> spillingSerializer = RECIPE_SERIALIZERS.register("spilling", SpillingRecipe.Serializer::new);
   // severing
   public static final RegistryObject<SeveringRecipe.Serializer> severingSerializer = RECIPE_SERIALIZERS.register("severing", SeveringRecipe.Serializer::new);
   public static final RegistryObject<AgeableSeveringRecipe.Serializer> ageableSeveringSerializer = RECIPE_SERIALIZERS.register("ageable_severing", AgeableSeveringRecipe.Serializer::new);
@@ -307,4 +321,13 @@ public final class TinkerModifiers extends TinkerModule {
    * Global loot managers
    */
   public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
+
+  @SubscribeEvent
+  void registerSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("damage"), DamageSpillingEffect.LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("effect"), EffectSpillingEffect.LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("set_fire"), SetFireSpillingEffect.LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("cure_effects"), CureEffectsSpillingEffect.LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("teleport"), TeleportSpillingEffect.LOADER);
+  }
 }

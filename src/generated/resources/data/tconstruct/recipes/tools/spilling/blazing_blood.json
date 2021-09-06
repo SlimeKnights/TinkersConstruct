@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "tag": "tconstruct:blazing_blood",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:damage",
+      "entity": "not_fire_immune",
+      "damage_type": "fire",
+      "damage_amount": 3.0
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 5
+    }
+  ]
+}

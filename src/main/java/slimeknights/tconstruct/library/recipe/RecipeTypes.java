@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -36,6 +37,7 @@ public interface RecipeTypes {
 
   // modifiers
   IRecipeType<SeveringRecipe> SEVERING = register("severing");
+  IRecipeType<SpillingRecipe> SPILLING = register("spilling");
 
   /** Internal recipe type for recipes that are not pulled by any specific crafting block */
   IRecipeType<IRecipe<?>> DATA = register("data");

@@ -8,18 +8,22 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.Effects;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -33,6 +37,14 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifi
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.DamageType;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.LivingEntityPredicate;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -61,6 +73,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     addItemRecipes(consumer);
     addModifierRecipes(consumer);
     addHeadRecipes(consumer);
+    addSpillingRecipes(consumer);
   }
 
   private void addItemRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -509,6 +522,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.HELD)
                          .buildSalvage(consumer, prefix(TinkerModifiers.bucketing, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.bucketing, abilityFolder));
+    SizedIngredient channels = SizedIngredient.fromItems(TinkerSmeltery.searedChannel, TinkerSmeltery.scorchedChannel);
+    ModifierRecipeBuilder.modifier(TinkerModifiers.spilling.get())
+                         .addInput(channels)
+                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(channels)
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addSalvage(TinkerMaterials.copper.getIngotTag(), 1, 2)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.HELD)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get())
                          .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
                          .setMaxLevel(5)
@@ -767,6 +792,115 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, modResource(folder + "turtle_shell"));
     // befleecing
     CustomRecipeBuilder.customRecipe(TinkerModifiers.sheepShearing.get()).build(consumer, modPrefix(folder + "sheep_wool"));
+  }
+
+
+  private void addSpillingRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "tools/spilling/";
+
+    // vanilla
+    SpillingRecipeBuilder.forFluid(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 20)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.WATER_SENSITIVE, DamageType.PIERCING, 2f))
+                         .build(consumer, modResource(folder + "water"));
+    SpillingRecipeBuilder.forFluid(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 20)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 2f))
+                         .addEffect(new SetFireSpillingEffect(10))
+                         .build(consumer, modResource(folder + "lava"));
+    SpillingRecipeBuilder.forFluid(Tags.Fluids.MILK, FluidAttributes.BUCKET_VOLUME / 10)
+                         .addEffect(new CureEffectsSpillingEffect(new ItemStack(Items.MILK_BUCKET)))
+                         .build(consumer, modResource(folder + "milk"));
+    // blaze - more damage, less fire
+    SpillingRecipeBuilder.forFluid(TinkerFluids.blazingBlood.getLocalTag(), bucketPart)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 3f))
+                         .addEffect(new SetFireSpillingEffect(5))
+                         .build(consumer, prefix(TinkerFluids.blazingBlood, folder));
+    // slime
+    int slimeballPiece = FluidValues.SLIMEBALL / 5;
+    // earth - lucky
+    SpillingRecipeBuilder.forFluid(TinkerFluids.earthSlime.getForgeTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.LUCK, 15, 1))
+                         .addEffect(new EffectSpillingEffect(Effects.SLOWNESS, 15, 1))
+                         .build(consumer, prefix(TinkerFluids.earthSlime, folder));
+    // sky - jump boost
+    SpillingRecipeBuilder.forFluid(TinkerFluids.skySlime.getLocalTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.JUMP_BOOST, 20, 1))
+                         .addEffect(new EffectSpillingEffect(Effects.SLOWNESS, 15, 1))
+                         .build(consumer, prefix(TinkerFluids.skySlime, folder));
+    // ender - levitation
+    SpillingRecipeBuilder.forFluid(TinkerFluids.enderSlime.getLocalTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.LEVITATION, 5, 1))
+                         .addEffect(new EffectSpillingEffect(Effects.SLOWNESS, 15, 1))
+                         .build(consumer, prefix(TinkerFluids.enderSlime, folder));
+    // slimelike
+    // blood - hunger
+    SpillingRecipeBuilder.forFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.HUNGER, 20, 1))
+                         .build(consumer, prefix(TinkerFluids.blood, folder));
+    // magma - fire resistance
+    SpillingRecipeBuilder.forFluid(TinkerFluids.magma.getLocalTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.FIRE_RESISTANCE, 25, 1))
+                         .build(consumer, prefix(TinkerFluids.magma, folder));
+    // soul - slowness and blindness
+    SpillingRecipeBuilder.forFluid(TinkerFluids.liquidSoul.getLocalTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.SLOWNESS, 25, 2))
+                         .addEffect(new EffectSpillingEffect(Effects.BLINDNESS, 5, 1))
+                         .build(consumer, prefix(TinkerFluids.liquidSoul, folder));
+    // ender - teleporting
+    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenEnder.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)
+                         .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 1f))
+                         .addEffect(TeleportSpillingEffect.INSTANCE)
+                         .build(consumer, prefix(TinkerFluids.moltenEnder, folder));
+
+    // multi-recipes
+    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.GLASS_SPILLING, FluidAttributes.BUCKET_VOLUME / 10)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1f))
+                         .addEffect(new SetFireSpillingEffect(3))
+                         .build(consumer, modResource(folder + "glass"));
+    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.CLAY_SPILLING, FluidAttributes.BUCKET_VOLUME / 20)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1.5f))
+                         .addEffect(new SetFireSpillingEffect(3))
+                         .build(consumer, modResource(folder + "clay"));
+
+    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.CHEAP_METAL_SPILLING, FluidValues.NUGGET)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1.5f))
+                         .addEffect(new SetFireSpillingEffect(7))
+                         .build(consumer, modResource(folder + "metal_cheap"));
+    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.AVERAGE_METAL_SPILLING, FluidValues.NUGGET)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 2f))
+                         .addEffect(new SetFireSpillingEffect(7))
+                         .build(consumer, modResource(folder + "metal_average"));
+    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING, FluidValues.NUGGET)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 2.5f))
+                         .addEffect(new SetFireSpillingEffect(7))
+                         .build(consumer, modResource(folder + "metal_expensive"));
+    // gold applies magic
+    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenGold.getLocalTag(), FluidValues.NUGGET)
+                         .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 2f))
+                         .addEffect(new SetFireSpillingEffect(3))
+                         .build(consumer, prefix(TinkerFluids.moltenGold, folder));
+    // pig iron fills you up magic
+    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenPigIron.getLocalTag(), FluidValues.NUGGET)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1f))
+                         .addEffect(new EffectSpillingEffect(Effects.SATURATION, 10, 1))
+                         .addEffect(new SetFireSpillingEffect(3))
+                         .build(consumer, prefix(TinkerFluids.moltenPigIron, folder));
+    // uranium also does poison
+    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenUranium.getLocalTag(), FluidValues.NUGGET)
+                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1.5f))
+                         .addEffect(new EffectSpillingEffect(Effects.POISON, 10, 1))
+                         .addEffect(new SetFireSpillingEffect(3))
+                         .build(consumer, prefix(TinkerFluids.moltenUranium, folder));
+  }
+
+  private void burningSpilling(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time) {
+    burningSpilling(consumer, fluid, damage, time, FluidValues.NUGGET);
+  }
+
+  private void burningSpilling(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time, int amount) {
+    SpillingRecipeBuilder.forFluid(fluid.getLocalTag(), amount)
+                         .addEffect(new DamageSpillingEffect(DamageType.FIRE, damage))
+                         .addEffect(new SetFireSpillingEffect(time))
+                         .build(consumer, prefix(fluid, "tools/spilling/"));
   }
 
   /** Just a helper for consistency of requirements errors */

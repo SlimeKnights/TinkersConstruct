@@ -234,6 +234,13 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
     public static final IOptionalNamedTag<Fluid> METAL_LIKE = tag("metal_like");
 
+    // spilling tags - used to reduce the number of spilling recipes
+    public static final IOptionalNamedTag<Fluid> CLAY_SPILLING = tag("spilling/clay");
+    public static final IOptionalNamedTag<Fluid> GLASS_SPILLING = tag("spilling/glass");
+    public static final IOptionalNamedTag<Fluid> CHEAP_METAL_SPILLING = tag("spilling/metal/cheap");
+    public static final IOptionalNamedTag<Fluid> AVERAGE_METAL_SPILLING = tag("spilling/metal/average");
+    public static final IOptionalNamedTag<Fluid> EXPENSIVE_METAL_SPILLING = tag("spilling/metal/expensive");
+
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(TConstruct.getResource(name));
     }

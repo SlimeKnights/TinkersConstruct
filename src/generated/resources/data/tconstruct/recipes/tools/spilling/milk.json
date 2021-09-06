@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "tag": "forge:milk",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:cure_effects",
+      "item": "minecraft:milk_bucket"
+    }
+  ]
+}
