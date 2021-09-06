@@ -810,7 +810,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new CureEffectsSpillingEffect(new ItemStack(Items.MILK_BUCKET)))
                          .build(consumer, modResource(folder + "milk"));
     // blaze - more damage, less fire
-    SpillingRecipeBuilder.forFluid(TinkerFluids.blazingBlood.getLocalTag(), bucketPart)
+    SpillingRecipeBuilder.forFluid(TinkerFluids.blazingBlood.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)
                          .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 3f))
                          .addEffect(new SetFireSpillingEffect(5))
                          .build(consumer, prefix(TinkerFluids.blazingBlood, folder));
