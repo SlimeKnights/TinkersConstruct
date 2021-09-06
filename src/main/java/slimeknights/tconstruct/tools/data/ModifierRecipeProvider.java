@@ -836,6 +836,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SpillingRecipeBuilder.forFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
                          .addEffect(new EffectSpillingEffect(Effects.HUNGER, 20, 1))
                          .build(consumer, prefix(TinkerFluids.blood, folder));
+    // venom - poison
+    SpillingRecipeBuilder.forFluid(TinkerFluids.venom.getLocalTag(), slimeballPiece)
+                         .addEffect(new EffectSpillingEffect(Effects.POISON, 25, 1))
+                         .build(consumer, prefix(TinkerFluids.venom, folder));
     // magma - fire resistance
     SpillingRecipeBuilder.forFluid(TinkerFluids.magma.getLocalTag(), slimeballPiece)
                          .addEffect(new EffectSpillingEffect(Effects.FIRE_RESISTANCE, 25, 1))

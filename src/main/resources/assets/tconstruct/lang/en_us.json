@@ -398,6 +398,11 @@
   "fluid.tconstruct.flowing_ender_slime": "Flowing Enderslime",
   "item.tconstruct.ender_slime_bucket": "Enderslime Bucket",
 
+  "block.tconstruct.venom_fluid": "Venom",
+  "fluid.tconstruct.venom": "Venom",
+  "fluid.tconstruct.flowing_venom": "Flowing Venom",
+  "item.tconstruct.venom_bucket": "Venom Bucket",
+
   "_comment": "Rock",
 
   "block.tconstruct.seared_stone_fluid": "Seared Stone",

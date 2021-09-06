@@ -1065,6 +1065,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // blood
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.ROTTEN_FLESH), TinkerFluids.blood.get(), FluidValues.SLIMEBALL / 5, 1.0f)
                         .build(consumer, modResource(folder + "slime/blood/flesh"));
+    // venom
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.SPIDER_EYE), TinkerFluids.venom.get(), FluidValues.SLIMEBALL / 5, 1.0f)
+                        .build(consumer, modResource(folder + "venom/eye"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.FERMENTED_SPIDER_EYE), TinkerFluids.venom.get(), FluidValues.SLIMEBALL * 2 / 5, 1.0f)
+                        .build(consumer, modResource(folder + "venom/fermented_eye"));
 
     // glass
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.SAND), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK, 1.5f)
@@ -1543,7 +1548,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.ZOMBIFIED_PIGLIN, EntityType.ZOGLIN, EntityType.ZOMBIE_HORSE),
                                        new FluidStack(TinkerFluids.blood.get(), FluidValues.SLIMEBALL / 10), 2)
                               .build(consumer, prefix(EntityType.ZOMBIE, folder));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.ZOMBIE_HEAD, TinkerWorld.heads.get(TinkerHeadType.HUSK), TinkerWorld.heads.get(TinkerHeadType.SPIDER), TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER)), TinkerFluids.blood.get(), FluidValues.SLIMEBALL * 2)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.ZOMBIE_HEAD, TinkerWorld.heads.get(TinkerHeadType.HUSK)), TinkerFluids.blood.get(), FluidValues.SLIMEBALL * 2)
                         .build(consumer, prefix(EntityType.ZOMBIE, headFolder));
     // drowned are weird, there is water flowing through their veins
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.DROWNED),
@@ -1551,6 +1556,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                               .build(consumer, prefix(EntityType.DROWNED, folder));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.heads.get(TinkerHeadType.DROWNED)), Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 4)
                         .build(consumer, prefix(EntityType.DROWNED, headFolder));
+    // melt spiders into venom
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SPIDER, EntityType.CAVE_SPIDER),
+                                       new FluidStack(TinkerFluids.venom.get(), FluidValues.SLIMEBALL / 10), 2)
+                              .build(consumer, prefix(EntityType.SPIDER, folder));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.heads.get(TinkerHeadType.SPIDER), TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER)), TinkerFluids.venom.get(), FluidValues.SLIMEBALL * 2)
+                        .build(consumer, prefix(EntityType.SPIDER, headFolder));
 
     // creepers are based on explosives, tnt is explosive, tnt is made from sand, sand melts into glass. therefore, creepers melt into glass
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.CREEPER),

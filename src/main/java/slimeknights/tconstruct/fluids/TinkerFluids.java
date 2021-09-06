@@ -24,6 +24,7 @@ public final class TinkerFluids extends TinkerModule {
 
   // basic
   public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", coolBuilder().density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> venom = FLUIDS.register("venom", coolBuilder().density(1400).viscosity(1300).temperature(310), Material.WATER, 0);
 
   // slime -  note second name parameter is forge tag name
   public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", "slime",  coolBuilder().density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
