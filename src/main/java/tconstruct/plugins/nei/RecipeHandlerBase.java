@@ -125,7 +125,7 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
         {
             Point mouse = GuiDraw.getMousePosition();
             Point offset = guiRecipe.getRecipePosition(recipe);
-            Point relMouse = new Point(mouse.x - ((guiRecipe.width - 176) / 2) - offset.x, mouse.y - ((guiRecipe.height - 166) / 2) - offset.y);
+            Point relMouse = new Point(mouse.x - guiRecipe.guiLeft - offset.x, mouse.y - guiRecipe.guiTop - offset.y);
 
             if (crecipe.getFluidTanks() != null)
             {
@@ -184,9 +184,9 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
     protected boolean transferFluidTank (GuiRecipe guiRecipe, int recipe, boolean usage)
     {
         CachedBaseRecipe crecipe = (CachedBaseRecipe) this.arecipes.get(recipe);
-        Point mousepos = GuiDraw.getMousePosition();
+        Point mouse = GuiDraw.getMousePosition();
         Point offset = guiRecipe.getRecipePosition(recipe);
-        Point relMouse = new Point(mousepos.x - ((guiRecipe.width - 176) / 2) - offset.x, mousepos.y - ((guiRecipe.height - 166) / 2) - offset.y);
+        Point relMouse = new Point(mouse.x - guiRecipe.guiLeft - offset.x, mouse.y - guiRecipe.guiTop - offset.y);
 
         if (crecipe.getFluidTanks() != null)
         {
