@@ -7,10 +7,6 @@
   },
   {
     "type": "modifier",
-    "data": "abilities/general/dual_wielding.json"
-  },
-  {
-    "type": "modifier",
     "data": "abilities/general/draconic.json"
   },
   {
@@ -20,10 +16,6 @@
   {
     "type": "modifier",
     "data": "abilities/general/luck.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/general/melting.json"
   },
   {
     "type": "modifier",
@@ -53,6 +45,23 @@
   {
     "type": "modifier",
     "data": "abilities/harvest/silky.json"
+  },
+  {
+    "name": "weapon",
+    "type": "tinkers_text",
+    "data": "abilities/weapon.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/dual_wielding.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/melting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
   },
   {
     "name": "interact",

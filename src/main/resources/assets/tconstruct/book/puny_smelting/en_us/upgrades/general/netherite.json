@@ -8,7 +8,7 @@
   "effects": [
     "Boosts durability, attack damage, mining speed, and makes it immune to external damage such as fire and lava",
     "Requires Diamond or Emerald to be applied",
-    "Single Use",
-	"Requires 1 Upgrade Slot"
+    "Single Level",
+    "Requires 1 Upgrade Slot"
   ]
 }

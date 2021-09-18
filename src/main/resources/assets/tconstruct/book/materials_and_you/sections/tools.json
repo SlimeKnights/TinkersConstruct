@@ -33,5 +33,10 @@
 	"name": "repairing",
     "type": "imageText2",
     "data": "tools/repairing.json"
+  },
+  {
+    "name": "part_swapping",
+    "type": "imageText2",
+    "data": "tools/part_swapping.json"
   }
 ]

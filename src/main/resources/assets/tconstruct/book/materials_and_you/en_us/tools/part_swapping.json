@@ -1,0 +1,14 @@
+{
+  "title": "Part Swapping",
+  "image": {
+    "file": "tconstruct:book/images/part_swapping.png",
+    "width": 136,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Ever wish you could undo a past mistake? Luckily you can on tools. If you want to change the material of one of the parts, place the tool with the desired new part in the tinker station. For tools that have multiple of the same part, try a few different slots to replace the right one.",
+      "paragraph": false
+    }
+  ]
+}

@@ -56,6 +56,10 @@
     "type": "modifier",
     "data": "abilities/weapon/melting.json"
   },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
+  },
 
   {
     "name": "interact",

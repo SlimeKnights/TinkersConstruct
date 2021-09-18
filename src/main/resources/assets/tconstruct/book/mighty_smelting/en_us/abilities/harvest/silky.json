@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Mined blocks drop themselves",
-    "Single Use",
+    "Single Level",
     "Requires 1 Ability Slot"
   ]
 }
