@@ -75,13 +75,23 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
 
 
   /** Adds recipes to melt and cast a material */
-  default void materialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, int fluidAmount, String folder) {
+  default void materialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, boolean forgeTag, int fluidAmount, String folder) {
     MaterialFluidRecipeBuilder.material(material)
-                              .setFluid(fluid.getLocalTag(), fluidAmount)
+                              .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), fluidAmount)
                               .setTemperature(fluid.get().getAttributes().getTemperature() - 300)
                               .build(consumer, modResource(folder + "casting/" + material.getPath()));
     MaterialMeltingRecipeBuilder.material(material, new FluidStack(fluid.get(), fluidAmount))
                                 .build(consumer, modResource(folder + "melting/" + material.getPath()));
+  }
+
+  /** Adds recipes to melt and cast a material of ingot size */
+  default void materialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, boolean forgeTag, String folder) {
+    materialMeltingCasting(consumer, material, fluid, forgeTag, FluidValues.INGOT, folder);
+  }
+
+  /** Adds recipes to melt and cast a material */
+  default void materialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, int fluidAmount, String folder) {
+    materialMeltingCasting(consumer, material, fluid, false, fluidAmount, folder);
   }
 
   /** Adds recipes to melt and cast a material of ingot size */

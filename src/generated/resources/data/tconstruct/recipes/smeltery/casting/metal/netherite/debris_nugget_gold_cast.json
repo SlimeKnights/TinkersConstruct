@@ -7,6 +7,8 @@
     "tag": "tconstruct:molten_debris",
     "amount": 16
   },
-  "result": "tconstruct:debris_nugget",
+  "result": {
+    "tag": "forge:nuggets/netherite_scrap"
+  },
   "cooling_time": 24
 }

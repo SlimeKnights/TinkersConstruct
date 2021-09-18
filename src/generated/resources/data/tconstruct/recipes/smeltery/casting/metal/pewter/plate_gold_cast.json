@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "tag": "tconstruct:molten_pewter",
+    "tag": "forge:molten_pewter",
     "amount": 144
   },
   "result": {

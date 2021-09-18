@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "tconstruct:molten_rose_gold",
+    "tag": "forge:molten_rose_gold",
     "amount": 144
   },
   "temperature": 550,

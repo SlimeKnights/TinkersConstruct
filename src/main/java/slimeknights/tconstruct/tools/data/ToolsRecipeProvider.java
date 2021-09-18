@@ -157,39 +157,39 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
 
     // melting and casting
     // tier 2
-    materialMeltingCasting(consumer, MaterialIds.iron, TinkerFluids.moltenIron, folder);
-    materialMeltingCasting(consumer, MaterialIds.copper, TinkerFluids.moltenCopper, folder);
-    materialMeltingCasting(consumer, MaterialIds.searedStone, TinkerFluids.searedStone, FluidValues.INGOT * 2, folder);
-    materialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, FluidValues.INGOT * 2, folder);
+    materialMeltingCasting(consumer, MaterialIds.iron,          TinkerFluids.moltenIron,    true,  folder);
+    materialMeltingCasting(consumer, MaterialIds.copper,        TinkerFluids.moltenCopper,  true,  folder);
+    materialMeltingCasting(consumer, MaterialIds.searedStone,   TinkerFluids.searedStone,   false, FluidValues.INGOT * 2, folder);
+    materialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, false, FluidValues.INGOT * 2, folder);
     // half a clay is 1 seared brick per grout amounts
-    materialComposite(consumer, MaterialIds.stone, MaterialIds.searedStone, TinkerFluids.moltenClay, FluidValues.SLIMEBALL, false, folder);
-    materialComposite(consumer, MaterialIds.wood, MaterialIds.slimewood, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, true, folder);
-    materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone, TinkerFluids.magma, FluidValues.SLIMEBALL, true, folder);
-    materialComposite(consumer, MaterialIds.bone, MaterialIds.bloodbone, TinkerFluids.blood, FluidValues.SLIMEBALL, false, folder);
+    materialComposite(consumer, MaterialIds.stone, MaterialIds.searedStone,   TinkerFluids.moltenClay, FluidValues.SLIMEBALL, false, folder);
+    materialComposite(consumer, MaterialIds.wood,  MaterialIds.slimewood,     TinkerFluids.earthSlime, FluidValues.SLIMEBALL, true,  folder);
+    materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone, TinkerFluids.magma,      FluidValues.SLIMEBALL, true,  folder);
+    materialComposite(consumer, MaterialIds.bone,  MaterialIds.bloodbone,     TinkerFluids.blood,      FluidValues.SLIMEBALL, false, folder);
 
     // tier 3
-    materialMeltingCasting(consumer, MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, folder);
-    materialMeltingCasting(consumer, MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, folder);
-    materialMeltingCasting(consumer, MaterialIds.roseGold, TinkerFluids.moltenRoseGold, folder);
-    materialMeltingCasting(consumer, MaterialIds.pigIron, TinkerFluids.moltenPigIron, folder);
-    materialMeltingCasting(consumer, MaterialIds.cobalt, TinkerFluids.moltenCobalt, folder);
+    materialMeltingCasting(consumer, MaterialIds.slimesteel,    TinkerFluids.moltenSlimesteel,    false, folder);
+    materialMeltingCasting(consumer, MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, folder);
+    materialMeltingCasting(consumer, MaterialIds.roseGold,      TinkerFluids.moltenRoseGold,      true,  folder);
+    materialMeltingCasting(consumer, MaterialIds.pigIron,       TinkerFluids.moltenPigIron,       false, folder);
+    materialMeltingCasting(consumer, MaterialIds.cobalt,        TinkerFluids.moltenCobalt,        true,  folder);
     materialComposite(consumer, MaterialIds.wood, MaterialIds.nahuatl, TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK, false, folder);
     MaterialMeltingRecipeBuilder.material(MaterialIds.nahuatl, new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_BLOCK))
                                 .build(consumer, modResource(folder + "melting/nahuatl"));
 
     // tier 4
-    materialMeltingCasting(consumer, MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, folder);
-    materialMeltingCasting(consumer, MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, folder);
-    materialMeltingCasting(consumer, MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, folder);
+    materialMeltingCasting(consumer, MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, folder);
+    materialMeltingCasting(consumer, MaterialIds.hepatizon,   TinkerFluids.moltenHepatizon,   true,  folder);
+    materialMeltingCasting(consumer, MaterialIds.manyullyn,   TinkerFluids.moltenManyullyn,   true,  folder);
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 5, false, folder);
 
     // tier 2 compat
-    materialMeltingCasting(consumer, MaterialIds.lead, TinkerFluids.moltenLead, folder);
-    materialMeltingCasting(consumer, MaterialIds.silver, TinkerFluids.moltenSilver, folder);
+    materialMeltingCasting(consumer, MaterialIds.lead,   TinkerFluids.moltenLead,   true, folder);
+    materialMeltingCasting(consumer, MaterialIds.silver, TinkerFluids.moltenSilver, true, folder);
     // tier 3 compat
-    materialMeltingCasting(consumer, MaterialIds.electrum, TinkerFluids.moltenElectrum, folder);
-    materialMeltingCasting(consumer, MaterialIds.bronze, TinkerFluids.moltenBronze, folder);
-    materialMeltingCasting(consumer, MaterialIds.steel, TinkerFluids.moltenSteel, folder);
-    materialMeltingCasting(consumer, MaterialIds.constantan, TinkerFluids.moltenConstantan, folder);
+    materialMeltingCasting(consumer, MaterialIds.electrum,   TinkerFluids.moltenElectrum,   true, folder);
+    materialMeltingCasting(consumer, MaterialIds.bronze,     TinkerFluids.moltenBronze,     true, folder);
+    materialMeltingCasting(consumer, MaterialIds.steel,      TinkerFluids.moltenSteel,      true, folder);
+    materialMeltingCasting(consumer, MaterialIds.constantan, TinkerFluids.moltenConstantan, true, folder);
   }
 }

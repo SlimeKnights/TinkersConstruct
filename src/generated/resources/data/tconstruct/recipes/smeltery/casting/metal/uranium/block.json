@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_uranium",
+    "tag": "forge:molten_uranium",
     "amount": 1296
   },
   "result": {

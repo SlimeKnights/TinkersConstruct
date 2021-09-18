@@ -40,7 +40,7 @@ public interface ICastCreationHelper extends IRecipeHelper {
    */
   default void castCreation(Consumer<IFinishedRecipe> consumer, Ingredient input, CastItemObject cast, String folder, String name) {
     ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluidAndTime(TinkerFluids.moltenGold, FluidValues.INGOT)
+                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.INGOT)
                             .setCast(input, true)
                             .setSwitchSlots()
                             .build(consumer, modResource(folder + "gold_casts/" + name));

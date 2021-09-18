@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_copper",
+    "tag": "forge:molten_copper",
     "amount": 16
   },
   "result": {

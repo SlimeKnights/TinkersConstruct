@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_osmium",
+    "tag": "forge:molten_osmium",
     "amount": 16
   },
   "result": {

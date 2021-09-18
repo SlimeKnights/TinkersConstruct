@@ -2,11 +2,11 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "tag": "tconstruct:molten_copper",
+      "tag": "forge:molten_copper",
       "amount": 288
     },
     {
-      "tag": "tconstruct:molten_cobalt",
+      "tag": "forge:molten_cobalt",
       "amount": 144
     },
     {

@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "tag": "tconstruct:molten_iron",
+    "tag": "forge:molten_iron",
     "amount": 576
   },
   "result": {

@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_ender",
+    "tag": "tconstruct:molten_ender",
     "amount": 250
   },
   "result": "minecraft:ender_eye",

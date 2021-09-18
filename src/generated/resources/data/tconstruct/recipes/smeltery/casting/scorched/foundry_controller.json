@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_obsidian",
+    "tag": "tconstruct:molten_obsidian",
     "amount": 1000
   },
   "result": "tconstruct:foundry_controller",

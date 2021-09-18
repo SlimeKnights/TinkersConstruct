@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "tag": "tconstruct:molten_electrum",
+    "tag": "forge:molten_electrum",
     "amount": 144
   },
   "result": {

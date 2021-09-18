@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "tag": "tconstruct:molten_invar",
+    "tag": "forge:molten_invar",
     "amount": 144
   },
   "result": {

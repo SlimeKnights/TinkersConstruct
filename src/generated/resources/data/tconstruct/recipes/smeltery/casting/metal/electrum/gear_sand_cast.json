@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_electrum",
+    "tag": "forge:molten_electrum",
     "amount": 576
   },
   "result": {

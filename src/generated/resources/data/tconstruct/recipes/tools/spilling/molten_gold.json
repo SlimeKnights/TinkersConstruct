@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:spilling",
   "fluid": {
-    "tag": "tconstruct:molten_gold",
+    "tag": "forge:molten_gold",
     "amount": 16
   },
   "effects": [

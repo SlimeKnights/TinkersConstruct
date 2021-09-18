@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/rod"
   },
   "fluid": {
-    "tag": "tconstruct:molten_uranium",
+    "tag": "forge:molten_uranium",
     "amount": 72
   },
   "result": {

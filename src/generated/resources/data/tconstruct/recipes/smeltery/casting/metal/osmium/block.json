@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_osmium",
+    "tag": "forge:molten_osmium",
     "amount": 1296
   },
   "result": {

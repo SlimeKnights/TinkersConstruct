@@ -17,7 +17,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
@@ -81,11 +80,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // reinforcements
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ironReinforcement)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), FluidValues.NUGGET * 3))
+                            .setFluidAndTime(TinkerFluids.moltenIron, true, FluidValues.NUGGET * 3)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .build(consumer, prefix(TinkerModifiers.ironReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.slimesteelReinforcement)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenSlimesteel.get(), FluidValues.NUGGET * 3))
+                            .setFluidAndTime(TinkerFluids.moltenSlimesteel, false, FluidValues.NUGGET * 3)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .build(consumer, prefix(TinkerModifiers.slimesteelReinforcement, folder));
 
@@ -841,7 +840,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new EffectSpillingEffect(Effects.POISON, 25, 1))
                          .build(consumer, prefix(TinkerFluids.venom, folder));
     // magma - fire resistance
-    SpillingRecipeBuilder.forFluid(TinkerFluids.magma.getLocalTag(), slimeballPiece)
+    SpillingRecipeBuilder.forFluid(TinkerFluids.magma.getForgeTag(), slimeballPiece)
                          .addEffect(new EffectSpillingEffect(Effects.FIRE_RESISTANCE, 25, 1))
                          .build(consumer, prefix(TinkerFluids.magma, folder));
     // soul - slowness and blindness
@@ -878,7 +877,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new SetFireSpillingEffect(7))
                          .build(consumer, modResource(folder + "metal_expensive"));
     // gold applies magic
-    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenGold.getLocalTag(), FluidValues.NUGGET)
+    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenGold.getForgeTag(), FluidValues.NUGGET)
                          .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 2f))
                          .addEffect(new SetFireSpillingEffect(3))
                          .build(consumer, prefix(TinkerFluids.moltenGold, folder));

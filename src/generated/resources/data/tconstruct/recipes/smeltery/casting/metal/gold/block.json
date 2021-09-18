@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "tag": "tconstruct:molten_gold",
+    "tag": "forge:molten_gold",
     "amount": 1296
   },
   "result": "minecraft:gold_block",

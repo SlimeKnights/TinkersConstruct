@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "tag": "tconstruct:molten_rose_gold",
+    "tag": "forge:molten_rose_gold",
     "amount": 144
   },
   "result": {

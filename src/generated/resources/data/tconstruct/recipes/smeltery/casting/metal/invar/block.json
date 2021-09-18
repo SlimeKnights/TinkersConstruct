@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_invar",
+    "tag": "forge:molten_invar",
     "amount": 1296
   },
   "result": {

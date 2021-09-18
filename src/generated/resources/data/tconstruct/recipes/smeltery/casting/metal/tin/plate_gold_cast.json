@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "tag": "tconstruct:molten_tin",
+    "tag": "forge:molten_tin",
     "amount": 144
   },
   "result": {

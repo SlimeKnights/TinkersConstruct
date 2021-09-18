@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "tag": "tconstruct:molten_manyullyn",
+    "tag": "forge:molten_manyullyn",
     "amount": 576
   },
   "result": {

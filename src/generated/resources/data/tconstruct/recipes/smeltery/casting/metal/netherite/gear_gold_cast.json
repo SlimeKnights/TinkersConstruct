@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "tag": "tconstruct:molten_netherite",
+    "tag": "forge:molten_netherite",
     "amount": 576
   },
   "result": {

@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "switch_slots": true,
   "fluid": {
-    "tag": "tconstruct:molten_gold",
+    "tag": "forge:molten_gold",
     "amount": 144
   },
   "result": "tconstruct:nugget_cast",

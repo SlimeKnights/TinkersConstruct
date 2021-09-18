@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_electrum",
+    "tag": "forge:molten_electrum",
     "amount": 1296
   },
   "result": {

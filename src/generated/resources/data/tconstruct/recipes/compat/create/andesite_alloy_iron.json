@@ -11,7 +11,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_iron",
+    "tag": "forge:molten_iron",
     "amount": 16
   },
   "result": "create:andesite_alloy",

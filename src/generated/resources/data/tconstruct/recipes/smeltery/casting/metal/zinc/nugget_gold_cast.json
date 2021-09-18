@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_zinc",
+    "tag": "forge:molten_zinc",
     "amount": 16
   },
   "result": {

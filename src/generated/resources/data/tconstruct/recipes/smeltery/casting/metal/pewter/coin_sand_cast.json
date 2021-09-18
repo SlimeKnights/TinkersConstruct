@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_pewter",
+    "tag": "forge:molten_pewter",
     "amount": 48
   },
   "result": {

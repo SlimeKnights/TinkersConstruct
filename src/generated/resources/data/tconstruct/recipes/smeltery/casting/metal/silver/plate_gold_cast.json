@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "tag": "tconstruct:molten_silver",
+    "tag": "forge:molten_silver",
     "amount": 144
   },
   "result": {

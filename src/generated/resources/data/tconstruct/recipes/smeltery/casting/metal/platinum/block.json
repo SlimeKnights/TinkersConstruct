@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_platinum",
+    "tag": "forge:molten_platinum",
     "amount": 1296
   },
   "result": {

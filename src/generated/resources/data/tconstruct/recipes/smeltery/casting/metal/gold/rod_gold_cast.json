@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/rod"
   },
   "fluid": {
-    "tag": "tconstruct:molten_gold",
+    "tag": "forge:molten_gold",
     "amount": 72
   },
   "result": {

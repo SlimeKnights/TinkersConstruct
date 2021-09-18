@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:magma",
+    "tag": "forge:magma",
     "amount": 125
   },
   "result": "tconstruct:scorched_brick",

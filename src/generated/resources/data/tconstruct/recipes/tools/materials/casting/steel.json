@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "tconstruct:molten_steel",
+    "tag": "forge:molten_steel",
     "amount": 144
   },
   "temperature": 950,

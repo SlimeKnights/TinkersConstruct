@@ -3,9 +3,9 @@
   "values": [
     "#tconstruct:molten_diamond",
     "#tconstruct:molten_debris",
-    "#tconstruct:molten_manyullyn",
-    "#tconstruct:molten_hepatizon",
+    "#forge:molten_manyullyn",
+    "#forge:molten_hepatizon",
     "#tconstruct:molten_queens_slime",
-    "#tconstruct:molten_netherite"
+    "#forge:molten_netherite"
   ]
 }

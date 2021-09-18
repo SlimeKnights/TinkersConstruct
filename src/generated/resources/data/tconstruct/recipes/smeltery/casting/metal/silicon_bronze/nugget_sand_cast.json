@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_tinkers_bronze",
+    "tag": "forge:molten_silicon_bronze",
     "amount": 16
   },
   "result": {

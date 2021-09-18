@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "tconstruct:molten_lead",
+    "tag": "forge:molten_lead",
     "amount": 144
   },
   "temperature": 330,

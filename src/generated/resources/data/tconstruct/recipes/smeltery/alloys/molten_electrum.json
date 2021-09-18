@@ -18,11 +18,11 @@
   ],
   "inputs": [
     {
-      "tag": "tconstruct:molten_gold",
+      "tag": "forge:molten_gold",
       "amount": 144
     },
     {
-      "tag": "tconstruct:molten_silver",
+      "tag": "forge:molten_silver",
       "amount": 144
     }
   ],

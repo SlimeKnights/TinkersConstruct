@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/coin"
   },
   "fluid": {
-    "tag": "tconstruct:molten_nickel",
+    "tag": "forge:molten_nickel",
     "amount": 48
   },
   "result": {

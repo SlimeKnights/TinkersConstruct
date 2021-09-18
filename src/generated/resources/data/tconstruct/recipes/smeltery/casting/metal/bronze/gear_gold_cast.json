@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "tag": "tconstruct:molten_bronze",
+    "tag": "forge:molten_bronze",
     "amount": 576
   },
   "result": {

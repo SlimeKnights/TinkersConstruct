@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "tag": "tconstruct:molten_brass",
+    "tag": "forge:molten_brass",
     "amount": 576
   },
   "result": {

@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "tag": "tconstruct:molten_platinum",
+    "tag": "forge:molten_platinum",
     "amount": 144
   },
   "result": {

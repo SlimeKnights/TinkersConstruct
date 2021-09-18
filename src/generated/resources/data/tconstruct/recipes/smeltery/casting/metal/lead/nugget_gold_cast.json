@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_lead",
+    "tag": "forge:molten_lead",
     "amount": 16
   },
   "result": {

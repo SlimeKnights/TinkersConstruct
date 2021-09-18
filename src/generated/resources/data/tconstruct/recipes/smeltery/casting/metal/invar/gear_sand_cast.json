@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_invar",
+    "tag": "forge:molten_invar",
     "amount": 576
   },
   "result": {

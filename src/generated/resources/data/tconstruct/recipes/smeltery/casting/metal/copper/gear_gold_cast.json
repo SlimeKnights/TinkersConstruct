@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "tag": "tconstruct:molten_copper",
+    "tag": "forge:molten_copper",
     "amount": 576
   },
   "result": {

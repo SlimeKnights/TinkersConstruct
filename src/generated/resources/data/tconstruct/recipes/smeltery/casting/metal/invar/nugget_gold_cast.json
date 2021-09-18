@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_invar",
+    "tag": "forge:molten_invar",
     "amount": 16
   },
   "result": {

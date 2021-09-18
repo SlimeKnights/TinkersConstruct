@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_tinkers_bronze",
+    "tag": "forge:molten_silicon_bronze",
     "amount": 16
   },
   "result": {

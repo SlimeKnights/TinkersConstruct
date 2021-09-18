@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_lead",
+    "tag": "forge:molten_lead",
     "amount": 16
   },
   "result": {

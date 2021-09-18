@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "tag": "tconstruct:molten_copper",
+    "tag": "forge:molten_copper",
     "amount": 144
   },
   "result": {

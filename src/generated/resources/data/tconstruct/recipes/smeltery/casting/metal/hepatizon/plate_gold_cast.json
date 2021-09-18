@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "tag": "tconstruct:molten_hepatizon",
+    "tag": "forge:molten_hepatizon",
     "amount": 144
   },
   "result": {

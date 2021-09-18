@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_aluminum",
+    "tag": "forge:molten_aluminum",
     "amount": 48
   },
   "result": {

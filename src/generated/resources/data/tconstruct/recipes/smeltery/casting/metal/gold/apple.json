@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tconstruct:molten_gold",
+    "tag": "forge:molten_gold",
     "amount": 1152
   },
   "result": "minecraft:golden_apple",

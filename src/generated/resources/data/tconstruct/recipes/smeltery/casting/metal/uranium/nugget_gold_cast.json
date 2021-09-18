@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "tag": "tconstruct:molten_uranium",
+    "tag": "forge:molten_uranium",
     "amount": 16
   },
   "result": {
