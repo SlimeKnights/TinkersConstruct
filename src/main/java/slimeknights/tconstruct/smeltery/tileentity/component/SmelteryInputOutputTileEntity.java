@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -61,15 +60,14 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
 
     // if we have a new master, invalidate handlers
     boolean masterChanged = false;
-    BlockState oldState = getBlockState();
     if (!Objects.equals(getMasterPos(), master)) {
       clearHandler();
       masterChanged = true;
     }
     super.setMaster(master, block);
-    // if our state did not change, notify neighbors (redudant if the state did change)
-    if (masterChanged && oldState == getBlockState()) {
-      world.notifyNeighborsOfStateChange(pos, oldState.getBlock());
+    // notify neighbors of the change (state change skips the notify flag)
+    if (masterChanged) {
+      world.updateBlock(pos, getBlockState().getBlock());
     }
   }
 
