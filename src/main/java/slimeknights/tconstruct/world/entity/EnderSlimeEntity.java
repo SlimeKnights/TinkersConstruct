@@ -8,9 +8,9 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class EnderSlimeEntity extends SlimeEntity {
@@ -38,7 +38,7 @@ public class EnderSlimeEntity extends SlimeEntity {
       }
 
       if (living.attemptTeleport(x, y, z, true)) {
-        SoundEvent soundevent = SoundEvents.ENTITY_ENDERMAN_TELEPORT; // TODO: unique sound
+        SoundEvent soundevent = Sounds.SLIME_TELEPORT.getSound();
         living.getEntityWorld().playSound(null, posX, posY, posZ, soundevent, SoundCategory.PLAYERS, 1.0F, 1.0F);
         living.playSound(soundevent, 1.0F, 1.0F);
         break;

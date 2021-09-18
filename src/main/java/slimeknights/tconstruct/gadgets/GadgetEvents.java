@@ -4,9 +4,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
@@ -53,7 +53,7 @@ public class GadgetEvents {
           entity.setOnGround(false);
         }
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
-        entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
+        entity.playSound(Sounds.SLIMY_BOUNCE.getSound(), 1f, 1f);
         SlimeBounceHandler.addBounceHandler(entity, entity.getMotion().y);
       }
     }

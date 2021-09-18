@@ -18,7 +18,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
@@ -32,6 +31,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
@@ -248,7 +248,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
             }
             setInventorySlotContents(OUTPUT, output);
           }
-          world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
+          world.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundCategory.AMBIENT, 0.5f, 4f);
 
           reset();
 

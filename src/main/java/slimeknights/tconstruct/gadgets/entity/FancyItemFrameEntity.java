@@ -14,8 +14,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -23,6 +21,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
 import javax.annotation.Nullable;
@@ -120,7 +119,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     if (getFrameId() == FrameType.DIAMOND.getId()) {
       if (!world.isRemote && updateComparator) {
         // play a sound as diamond is special
-        world.playSound(null, getPosX(), getPosY(), getPosZ(), SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        this.playSound(Sounds.ITEM_FRAME_CLICK.getSound(), 1.0f, 1.0f);
       }
       // diamond allows rotation between 0 and 16
       setRotationRaw(Math.min(rotationIn, 16), updateComparator);

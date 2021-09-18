@@ -1784,6 +1784,25 @@
   "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
 
 
+  "_comment": "Subtitles for sounds",
+
+  "subtitles.tconstruct.little_saw": "Saw used",
+  "subtitles.tconstruct.item_frame_click": "Item Frame clock clicks",
+  "subtitles.tconstruct.casting_cools": "Cast item cools",
+
+  "subtitles.tconstruct.slime_sling": "Slime Sling bounces",
+  "subtitles.tconstruct.slime_sling.teleport": "Slime Sling teleports",
+  "subtitles.tconstruct.throw.throwball": "Throwball flies",
+  "subtitles.tconstruct.throw.shuriken": "Shuriken flies",
+
+  "subtitles.tconstruct.necrotic_heal": "Life drained",
+
+  "subtitles.tconstruct.slime_teleport": "Slime teleports",
+  "subtitles.tconstruct.slimy_bounce": "Slimy bouncing",
+
+  "subtitles.tconstruct.equip.slime": "Slimy armor jiggles",
+
+
   "_comment": "Book Strings",
 
   "book.tconstruct.material.part_builder": "Can be made in the part builder",

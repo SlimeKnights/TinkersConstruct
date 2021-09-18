@@ -9,9 +9,9 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SlimeBootsItem extends ArmorTooltipItem {
@@ -50,7 +50,7 @@ public class SlimeBootsItem extends ArmorTooltipItem {
 
     @Override
     public SoundEvent getSoundEvent() {
-      return SoundEvents.BLOCK_SLIME_BLOCK_PLACE;
+      return Sounds.EQUIP_SLIME.getSound();
     }
 
     @Override

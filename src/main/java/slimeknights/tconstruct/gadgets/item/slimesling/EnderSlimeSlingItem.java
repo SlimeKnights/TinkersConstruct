@@ -4,10 +4,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
@@ -64,7 +64,7 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
         worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
       }
       playerServerMovement(player);
-      player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
+      player.playSound(Sounds.SLIME_SLING_TELEPORT.getSound(), 1f, 1f);
       onSuccess(player, stack);
     } else {
       playMissSound(player);

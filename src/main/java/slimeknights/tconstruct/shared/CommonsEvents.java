@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -16,6 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -47,8 +47,8 @@ public class CommonsEvents {
   }
 
   private static void bounce(Entity entity, float amount) {
-    entity.setMotion(entity.getMotion().add(0.0D, (double) amount, 0.0D));
-    entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 0.5f + amount, 1f);
+    entity.setMotion(entity.getMotion().add(0.0D, amount, 0.0D));
+    entity.playSound(Sounds.SLIMY_BOUNCE.getSound(), 0.5f + amount, 1f);
   }
 
   /** Tag for players who have received the book */
