@@ -420,7 +420,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                  TinkerFluids.searedStone.get(), FluidValues.INGOT * 4, 2f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK * 5))
                         .build(consumer, modResource(meltingFolder + "gauge"));
-    MeltingRecipeBuilder.melting(NBTIngredient.from(new ItemStack(TinkerSmeltery.searedLantern)), TinkerFluids.scorchedStone.get(), FluidValues.INGOT * 2, 1.0f)
+    MeltingRecipeBuilder.melting(NBTIngredient.from(new ItemStack(TinkerSmeltery.searedLantern)), TinkerFluids.searedStone.get(), FluidValues.INGOT * 2, 1.0f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_PANE))
                         .addByproduct(new FluidStack(TinkerFluids.moltenIron.get(), FluidValues.INGOT / 3))
                         .build(consumer, modResource(meltingFolder + "lantern"));

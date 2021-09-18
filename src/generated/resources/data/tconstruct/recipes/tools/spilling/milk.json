@@ -2,7 +2,7 @@
   "type": "tconstruct:spilling",
   "fluid": {
     "tag": "forge:milk",
-    "amount": 50
+    "amount": 100
   },
   "effects": [
     {

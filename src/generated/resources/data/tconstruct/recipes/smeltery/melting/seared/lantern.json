@@ -6,11 +6,11 @@
     "count": 1
   },
   "result": {
-    "fluid": "tconstruct:scorched_stone",
+    "fluid": "tconstruct:seared_stone",
     "amount": 288
   },
-  "temperature": 500,
-  "time": 50,
+  "temperature": 600,
+  "time": 53,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_glass",
