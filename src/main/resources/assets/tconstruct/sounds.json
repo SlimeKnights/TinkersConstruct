@@ -59,6 +59,12 @@
     ],
     "subtitle": "subtitles.tconstruct.enderporting"
   },
+  "extra_jump": {
+    "sounds": [
+      "damage/fallsmall"
+    ],
+    "subtitle": "subtitles.tconstruct.extra_jump"
+  },
 
   "slimy_bounce": {
     "sounds": [

@@ -11,11 +11,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.NBT;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
@@ -109,5 +114,31 @@ public final class ModifierUtil {
                                         (rand.nextFloat() - rand.nextFloat()) * 0.1F));
       world.addEntity(ent);
     }
+  }
+
+  /**
+   * Direct method to get the level of a modifier from a stack. If you need to get multiple modifier levels, using {@link ToolStack} is faster
+   * @param stack     Stack to check
+   * @param modifier  Modifier to search for
+   * @return  Modifier level, or 0 if not present or the stack is not modifiable
+   */
+  public static int getModifierLevel(ItemStack stack, Modifier modifier) {
+    if (!stack.isEmpty() && TinkerTags.Items.MODIFIABLE.contains(stack.getItem()) && !ToolDamageUtil.isBroken(stack)) {
+      CompoundNBT nbt = stack.getTag();
+      if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, NBT.TAG_LIST)) {
+        ListNBT list = nbt.getList(ToolStack.TAG_MODIFIERS, NBT.TAG_COMPOUND);
+        int size = list.size();
+        if (size > 0) {
+          String key = modifier.getId().toString();
+          for (int i = 0; i < size; i++) {
+            CompoundNBT entry = list.getCompound(i);
+            if (key.equals(entry.getString(ModifierNBT.TAG_MODIFIER))) {
+              return entry.getInt(ModifierNBT.TAG_LEVEL);
+            }
+          }
+        }
+      }
+    }
+    return 0;
   }
 }

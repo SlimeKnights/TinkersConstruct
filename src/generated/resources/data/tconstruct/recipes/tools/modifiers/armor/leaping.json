@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "minecraft:rabbit_foot"
+    },
+    {
+      "item": "tconstruct:sky_slime"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:leaping",
+    "level": 1
+  },
+  "max_level": 2
+}

@@ -19,8 +19,11 @@ import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -29,6 +32,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableModifierModel;
@@ -44,6 +48,7 @@ import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
+import slimeknights.tconstruct.tools.network.DoubleJumpPacket;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -78,6 +83,7 @@ public class ToolClientEvents extends ClientEventBase {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::renderHand);
+    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::detectDoubleJump);
   }
 
   @SubscribeEvent
@@ -163,6 +169,26 @@ public class ToolClientEvents extends ClientEventBase {
           event.setCanceled(true);
         }
       }
+    }
+  }
+
+  // registered with FORGE bus
+
+  /** If true, we were jumping last tick. Safe as a static value as we only care about a single player client side */
+  private static boolean wasJumping = false;
+
+  /** Called on player tick to see if we should jump again in mid air */
+  private static void detectDoubleJump(PlayerTickEvent event) {
+    Minecraft minecraft = Minecraft.getInstance();
+    if (minecraft.player != null && event.phase == Phase.START && event.side == LogicalSide.CLIENT) {
+      // ensure we pressed the key since the last tick, holding should not use all your jumps at once
+      boolean isJumping = minecraft.gameSettings.keyBindJump.isKeyDown();
+      if (!wasJumping && isJumping) {
+        if (TinkerModifiers.doubleJump.get().extraJump(event.player)) {
+          TinkerNetwork.getInstance().sendToServer(DoubleJumpPacket.INSTANCE);
+        }
+      }
+      wasJumping = isJumping;
     }
   }
 

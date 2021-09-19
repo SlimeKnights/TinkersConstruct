@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -56,6 +57,8 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.LeapingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.BucketingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.DuelWieldingModifier;
@@ -253,6 +256,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
   public static final RegistryObject<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
   public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
+  public static final RegistryObject<LeapingModifier> leaping = MODIFIERS.register("leaping", () -> new LeapingModifier(EquipmentSlotType.LEGS));
+  public static final RegistryObject<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", () -> new DoubleJumpModifier(EquipmentSlotType.FEET));
 
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);

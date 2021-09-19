@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ichor_slime"
+    },
+    {
+      "tag": "minecraft:beds"
+    },
+    {
+      "item": "tconstruct:ichor_slime"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:double_jump",
+    "level": 1
+  }
+}

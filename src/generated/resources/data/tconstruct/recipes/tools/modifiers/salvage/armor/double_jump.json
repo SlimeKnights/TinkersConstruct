@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:double_jump",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:phantom_membrane",
+      "chance": 0.3
+    },
+    {
+      "item": "minecraft:phantom_membrane",
+      "chance": 0.3
+    },
+    {
+      "item": "tconstruct:ichor_slime_ball",
+      "min": 4,
+      "max": 18
+    }
+  ]
+}

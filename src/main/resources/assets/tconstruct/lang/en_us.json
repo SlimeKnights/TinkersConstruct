@@ -1574,6 +1574,14 @@
   "modifier.tconstruct.feather_falling.flavor": "Floof",
   "modifier.tconstruct.feather_falling.description": "Softens falls causing reduced damage",
   "modifier.tconstruct.feather_falling.resistance": "Fall Resistance",
+  "modifier.tconstruct.leaping": "Leaping",
+  "modifier.tconstruct.leaping.flavor": "Leap tall buildings in a single bound!",
+  "modifier.tconstruct.leaping.description": "This piston boost on your legs should allow you to reach higher heights",
+  "modifier.tconstruct.double_jump": "Extra Jump",
+  "modifier.tconstruct.double_jump.double": "Double Jump",
+  "modifier.tconstruct.double_jump.triple": "Triple Jump",
+  "modifier.tconstruct.double_jump.flavor": "Up, up and away!",
+  "modifier.tconstruct.double_jump.description": "Lets you jump again in mid air. Higher levels add even more jumps!",
 
 
   "_comment": "Abilities",
@@ -2005,6 +2013,7 @@
   "subtitles.tconstruct.throw.shuriken": "Shuriken flies",
 
   "subtitles.tconstruct.necrotic_heal": "Life drained",
+  "subtitles.tconstruct.extra_jump": "Entity swooshed",
 
   "subtitles.tconstruct.slime_teleport": "Slime teleports",
   "subtitles.tconstruct.slimy_bounce": "Slimy bouncing",

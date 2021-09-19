@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModifierNBT {
-  protected static final String TAG_MODIFIER = "name";
-  protected static final String TAG_LEVEL = "level";
+  public static final String TAG_MODIFIER = "name";
+  public static final String TAG_LEVEL = "level";
 
   /** Instance containing no modifiers */
   static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
