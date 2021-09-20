@@ -593,6 +593,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.doubleJump, armorSalvage))
                          .build(consumer, prefix(TinkerModifiers.doubleJump, armorFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.bouncy.get())
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(TinkerMaterials.slimesteel.getIngotTag())
+                         .addInputSalvage(Items.PISTON, 0.6f)
+                         .addInput(TinkerMaterials.slimesteel.getIngotTag())
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
+                         .addSalvage(TinkerMaterials.slimesteel.getIngot(), 0, 2)
+                         .addSalvage(TinkerCommons.slimeball.get(SlimeType.SKY), 4, 18)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.bouncy, armorSalvage))
+                         .build(consumer, prefix(TinkerModifiers.bouncy, armorFolder));
 
     /*
      * ability

@@ -272,7 +272,6 @@ public class TinkerTags {
 
   public static class EntityTypes {
     private static void init() {}
-    public static final IOptionalNamedTag<EntityType<?>> BOUNCY = tag("bouncy");
     public static final IOptionalNamedTag<EntityType<?>> SLIMES = forgeTag("slimes");
     public static final IOptionalNamedTag<EntityType<?>> BACON_PRODUCER = tag("bacon_producer");
 

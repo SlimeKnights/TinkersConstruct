@@ -16,7 +16,6 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
   @Override
   public void registerTags() {
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.BOUNCY).add(TinkerWorld.skySlimeEntity.get());
     this.getOrCreateBuilder(TinkerTags.EntityTypes.SLIMES)
         .add(EntityType.SLIME, TinkerWorld.earthSlimeEntity.get(), TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
     this.getOrCreateBuilder(TinkerTags.EntityTypes.BACON_PRODUCER).add(EntityType.PIG, EntityType.PIGLIN, EntityType.HOGLIN);

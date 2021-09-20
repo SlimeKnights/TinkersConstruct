@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:bouncy",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:piston",
+      "chance": 0.6
+    },
+    {
+      "item": "tconstruct:slimesteel_ingot",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "item": "tconstruct:sky_slime_ball",
+      "min": 4,
+      "max": 18
+    }
+  ]
+}

@@ -57,6 +57,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.LeapingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.AutosmeltModifier;
@@ -258,6 +259,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
   public static final RegistryObject<LeapingModifier> leaping = MODIFIERS.register("leaping", () -> new LeapingModifier(EquipmentSlotType.LEGS));
   public static final RegistryObject<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", () -> new DoubleJumpModifier(EquipmentSlotType.FEET));
+  public static final RegistryObject<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
 
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);

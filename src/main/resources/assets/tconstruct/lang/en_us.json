@@ -712,17 +712,6 @@
   "item.tconstruct.ichor_slime_sling": "Ichor Sling",
   "item.tconstruct.ichor_slime_sling.tooltip": "Charge up, point at a creature, and send it flying!",
 
-  "item.tconstruct.earth_slime_boots": "Slime Boots",
-  "item.tconstruct.earth_slime_boots.tooltip": "Makes you bounce when landing",
-  "item.tconstruct.sky_slime_boots": "Skyslime Boots",
-  "item.tconstruct.sky_slime_boots.tooltip": "Makes you bounce when landing",
-  "item.tconstruct.ender_slime_boots": "Enderslime Boots",
-  "item.tconstruct.ender_slime_boots.tooltip": "Makes you bounce when landing",
-  "item.tconstruct.blood_slime_boots": "Congealed Blood Boots",
-  "item.tconstruct.blood_slime_boots.tooltip": "Makes you bounce when landing",
-  "item.tconstruct.ichor_slime_boots": "Ichor Boots",
-  "item.tconstruct.ichor_slime_boots.tooltip": "Makes you bounce when landing",
-
   "item.tconstruct.piggy_backpack": "Piggybackpack",
   "item.tconstruct.piggy_backpack.tooltip": "Use on a mob to pick it up",
   "effect.tconstruct.carry": "Carrying",
@@ -1582,6 +1571,9 @@
   "modifier.tconstruct.double_jump.triple": "Triple Jump",
   "modifier.tconstruct.double_jump.flavor": "Up, up and away!",
   "modifier.tconstruct.double_jump.description": "Lets you jump again in mid air. Higher levels add even more jumps!",
+  "modifier.tconstruct.bouncy": "Bouncy",
+  "modifier.tconstruct.bouncy.flavor": "Skybound!",
+  "modifier.tconstruct.bouncy.description": "Causes the ground to reflect you, as if you are constantly on slime blocks",
 
 
   "_comment": "Abilities",

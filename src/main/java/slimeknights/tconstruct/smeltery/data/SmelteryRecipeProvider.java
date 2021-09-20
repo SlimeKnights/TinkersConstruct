@@ -1406,12 +1406,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .build(consumer, modResource(metalFolder + "cobalt/reinforcement"));
 
     // slime
-    TinkerGadgets.slimeBoots.forEach((type, boots) -> {
-      if (type != SlimeType.ICHOR) { // no ichor fluid
-        MeltingRecipeBuilder.melting(Ingredient.fromItems(boots), TinkerFluids.slime.get(type).get(), FluidValues.SLIMEBALL * 2 + FluidValues.SLIME_CONGEALED * 2)
-                            .build(consumer, modResource(slimeFolder + type.getString() + "/boots"));
-      }
-    });
     TinkerGadgets.slimeSling.forEach((type, sling) -> {
       if (type != SlimeType.ICHOR) { // no ichor fluid
         MeltingRecipeBuilder.melting(Ingredient.fromItems(sling), TinkerFluids.slime.get(type).get(), FluidValues.SLIMEBALL * 3 + FluidValues.SLIME_CONGEALED)

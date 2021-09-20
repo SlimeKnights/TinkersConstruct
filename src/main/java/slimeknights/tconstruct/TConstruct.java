@@ -214,6 +214,12 @@ public class TConstruct {
         // frame migration
         case "cobalt_item_frame": return TinkerGadgets.itemFrame.get(FrameType.DIAMOND);
         case "jewel_item_frame": return TinkerGadgets.itemFrame.get(FrameType.GOLD);
+        // slime boots to modifier
+        case "earth_slime_boots": return TinkerWorld.slime.get(SlimeType.EARTH).asItem();
+        case "sky_slime_boots": return TinkerWorld.slime.get(SlimeType.SKY).asItem();
+        case "ichor_slime_boots": return TinkerWorld.slime.get(SlimeType.ICHOR).asItem();
+        case "ender_slime_boots": return TinkerWorld.slime.get(SlimeType.ENDER).asItem();
+        case "blood_slime_boots": return TinkerWorld.slime.get(SlimeType.BLOOD).asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

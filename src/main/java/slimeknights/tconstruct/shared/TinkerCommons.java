@@ -32,6 +32,7 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.json.SetFluidLootFunction;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
+import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
@@ -104,6 +105,7 @@ public final class TinkerCommons extends TinkerModule {
   @SubscribeEvent
   void commonSetupEvent(FMLCommonSetupEvent event) {
     TConstructCommand.init();
+    SlimeBounceHandler.init();
   }
 
   @SubscribeEvent

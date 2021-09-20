@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/slimesteel"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:ingots/slimesteel"
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:bouncy",
+    "level": 1
+  }
+}
