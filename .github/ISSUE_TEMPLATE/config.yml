@@ -3,6 +3,9 @@ contact_links:
  - name: SlimeKnights Discord
    url: https://discord.gg/njGrvuh
    about: Join our discord to discuss new features or to discuss behavior that may not be a bug.
+ - name: 1.16 FAQ
+   url: https://github.com/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ
+   about: Answers to frequently asked questions about 1.16
  - name: 1.16 Roadmap
    url: https://github.com/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap
    about: Read about plans for later 1.16 versions
