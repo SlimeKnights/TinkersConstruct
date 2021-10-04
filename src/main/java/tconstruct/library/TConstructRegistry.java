@@ -7,6 +7,7 @@ import org.apache.logging.log4j.*;
 import tconstruct.library.crafting.*;
 import tconstruct.library.modifier.ActiveArmorMod;
 import tconstruct.library.tools.*;
+import tconstruct.tools.TinkerTools;
 
 /**
  * A registry to store any relevant API work
@@ -371,7 +372,14 @@ public class TConstructRegistry
 
     public static ToolMaterial getMaterial (int key)
     {
-        return (toolMaterials.get(key));
+        if (toolMaterials.containsKey(key))
+        {
+            return (toolMaterials.get(key));
+        }
+
+        // This is probably an old tool whose material has been removed from the game.
+        // Fall back to wood.
+        return toolMaterials.get(TinkerTools.MaterialID.Wood);
     }
 
     /**
