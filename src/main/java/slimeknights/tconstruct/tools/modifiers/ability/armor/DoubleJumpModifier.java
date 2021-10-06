@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -14,21 +12,32 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Random;
 
 public class DoubleJumpModifier extends Modifier {
+  public static final ResourceLocation EXTRA_JUMPS = TConstruct.getResource("extra_jumps");
   public static final ResourceLocation JUMPS = TConstruct.getResource("jumps");
-  private final EquipmentSlotType slot;
 
   private ITextComponent levelOneName = null;
   private ITextComponent levelTwoName = null;
 
-  public DoubleJumpModifier(EquipmentSlotType slot) {
+  public DoubleJumpModifier() {
     super(0xFF950D);
-    this.slot = slot;
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onLand);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onLand);
+  }
+
+  @Override
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    ModifierUtil.addTotalArmorModifierLevel(tool, context, EXTRA_JUMPS, -level);
+  }
+
+  @Override
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    ModifierUtil.addTotalArmorModifierLevel(tool, context, EXTRA_JUMPS, level);
   }
 
   @Override
@@ -53,16 +62,15 @@ public class DoubleJumpModifier extends Modifier {
    * @param entity  Entity instance who wishes to jump again
    * @return  True if the entity jumpped, false if not
    */
-  public boolean extraJump(PlayerEntity entity) {
+  public static boolean extraJump(PlayerEntity entity) {
     // validate preconditions, no using when swimming, elytra, or on the ground
     if (!entity.isOnGround() && !entity.isOnLadder() && !entity.isInWaterOrBubbleColumn()) {
       // determine modifier level
-      ItemStack boots = entity.getItemStackFromSlot(slot);
-      int boost = ModifierUtil.getModifierLevel(boots, this);
-      if (boost > 0) {
+      int maxJumps = ModifierUtil.getTotalModifierLevel(entity, EXTRA_JUMPS);
+      if (maxJumps > 0) {
         return entity.getCapability(EntityModifierDataCapability.CAPABILITY).filter(data -> {
           int jumps = data.getInt(JUMPS);
-          if (jumps < boost) {
+          if (jumps < maxJumps) {
             entity.jump();
             Random random = entity.getEntityWorld().getRandom();
             for (int i = 0; i < 4; i++) {
@@ -80,7 +88,7 @@ public class DoubleJumpModifier extends Modifier {
   }
 
   /** Event handler to reset the number of times we have jumpped in mid air */
-  private void onLand(LivingFallEvent event) {
+  private static void onLand(LivingFallEvent event) {
     event.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
   }
 }

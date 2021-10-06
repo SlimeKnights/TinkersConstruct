@@ -2,33 +2,45 @@ package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 
 public class BouncyModifier extends SingleLevelModifier {
+  private static final ResourceLocation BOUNCY = TConstruct.getResource("bouncy");
   public BouncyModifier() {
     super(0x27C6C6);
-    MinecraftForge.EVENT_BUS.addListener(this::onFall);
+    MinecraftForge.EVENT_BUS.addListener(BouncyModifier::onFall);
+  }
+
+  @Override
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    ModifierUtil.addTotalArmorModifierLevel(tool, context, BOUNCY, -level);
+  }
+
+  @Override
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    ModifierUtil.addTotalArmorModifierLevel(tool, context, BOUNCY, level);
   }
 
   /** Called when an entity lands to handle the event */
-  private void onFall(LivingFallEvent event) {
+  private static void onFall(LivingFallEvent event) {
     LivingEntity living = event.getEntityLiving();
     // using fall distance as the event distance could be reduced by jump boost
     if (living == null || living.fallDistance <= 2f) {
       return;
     }
     // can the entity bounce?
-    ItemStack feet = living.getItemStackFromSlot(EquipmentSlotType.FEET);
-    if (ModifierUtil.getModifierLevel(feet, this) == 0) {
+    if (ModifierUtil.getTotalModifierLevel(living, BOUNCY) == 0) {
       return;
     }
 

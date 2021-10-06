@@ -29,9 +29,9 @@ public class SpringyModifier extends IncrementalModifier {
 
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
+    LivingEntity user = context.getEntity();
     Entity attacker = source.getTrueSource();
-    if (isDirectDamage && attacker instanceof LivingEntity) {
-      LivingEntity user = context.getEntity();
+    if (isDirectDamage && !user.getEntityWorld().isRemote && attacker instanceof LivingEntity) {
       user.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
         if (isInCharge(data, slotType)) {
           // choose a random slot to apply knockback, prevents max from getting too high
@@ -53,20 +53,26 @@ public class SpringyModifier extends IncrementalModifier {
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // remove slot in charge if that is us
-    context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-      if (isInCharge(data, context.getChangedSlot())) {
-        data.remove(SLOT_IN_CHARGE);
-      }
-    });
+    EquipmentSlotType slot = context.getChangedSlot();
+    LivingEntity entity = context.getEntity();
+    if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
+      entity.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
+        if (isInCharge(data, slot)) {
+          data.remove(SLOT_IN_CHARGE);
+        }
+      });
+    }
   }
 
   /** Marks this slot as in charge of springy if no slot is in charge */
   private static void attemptTakeCharge(LivingEntity entity, EquipmentSlotType slotType) {
-    entity.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-      if (!data.contains(SLOT_IN_CHARGE, NBT.TAG_ANY_NUMERIC)) {
-        data.putInt(SLOT_IN_CHARGE, slotType.getIndex());
-      }
-    });
+    if (slotType.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
+      entity.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
+        if (!data.contains(SLOT_IN_CHARGE, NBT.TAG_ANY_NUMERIC)) {
+          data.putInt(SLOT_IN_CHARGE, slotType.getIndex());
+        }
+      });
+    }
   }
 
   @Override
@@ -79,7 +85,7 @@ public class SpringyModifier extends IncrementalModifier {
   @Override
   public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
     if (!tool.isBroken()) {
-      attemptTakeCharge(context.getEntity(), context.getChangedSlot());
+      attemptTakeCharge(context.getEntity(), slotType);
     }
   }
 }

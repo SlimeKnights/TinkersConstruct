@@ -4,7 +4,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 
 public class DoubleJumpPacket implements IThreadsafePacket {
   public static final DoubleJumpPacket INSTANCE = new DoubleJumpPacket();
@@ -18,7 +18,7 @@ public class DoubleJumpPacket implements IThreadsafePacket {
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity player = context.getSender();
     if (player != null) {
-      TinkerModifiers.doubleJump.get().extraJump(player);
+      DoubleJumpModifier.extraJump(player);
     }
   }
 }

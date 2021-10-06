@@ -8,16 +8,20 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
@@ -140,5 +144,35 @@ public final class ModifierUtil {
       }
     }
     return 0;
+  }
+
+  /**
+   * Adds levels to the given key in entity modifier data for an armor modifier
+   * @param tool     Tool instance
+   * @param context  Equipment change context
+   * @param key      Key to modify
+   * @param amount   Amount to add
+   */
+  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, ResourceLocation key, int amount) {
+    if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
+      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
+        int totalLevels = data.getInt(key) + amount;
+        if (totalLevels <= 0) {
+          data.remove(key);
+        } else {
+          data.putInt(key, totalLevels);
+        }
+      });
+    }
+  }
+
+  /**
+   * Gets the total level from the key in the entity modifier data
+   * @param living  Living entity
+   * @param key     Key to get
+   * @return  Level from the key
+   */
+  public static int getTotalModifierLevel(LivingEntity living, ResourceLocation key) {
+    return living.getCapability(EntityModifierDataCapability.CAPABILITY).map(data -> data.getInt(key)).orElse(0);
   }
 }

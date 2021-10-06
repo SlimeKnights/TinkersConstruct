@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.network.DoubleJumpPacket;
 
 import java.util.List;
@@ -184,7 +185,7 @@ public class ToolClientEvents extends ClientEventBase {
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
       boolean isJumping = minecraft.gameSettings.keyBindJump.isKeyDown();
       if (!wasJumping && isJumping) {
-        if (TinkerModifiers.doubleJump.get().extraJump(event.player)) {
+        if (DoubleJumpModifier.extraJump(event.player)) {
           TinkerNetwork.getInstance().sendToServer(DoubleJumpPacket.INSTANCE);
         }
       }

@@ -1,39 +1,47 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class LeapingModifier extends Modifier {
-  // TODO: do I have to hardcode this to slot?
-  private final EquipmentSlotType slot;
-  public LeapingModifier(EquipmentSlotType slot) {
+  private static final ResourceLocation LEAPING = TConstruct.getResource("leaping");
+  public LeapingModifier() {
     super(0x6DBEBD);
-    this.slot = slot;
-    MinecraftForge.EVENT_BUS.addListener(this::onLivingFall);
-    MinecraftForge.EVENT_BUS.addListener(this::onLivingJump);
+    MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingFall);
+    MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingJump);
+  }
+
+  @Override
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    ModifierUtil.addTotalArmorModifierLevel(tool, context, LEAPING, -level);
+  }
+
+  @Override
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    ModifierUtil.addTotalArmorModifierLevel(tool, context, LEAPING, level);
   }
 
   /** Reduce fall distance for fall damage */
-  private void onLivingFall(LivingFallEvent event) {
+  private static void onLivingFall(LivingFallEvent event) {
     LivingEntity entity = event.getEntityLiving();
-    ItemStack leggings = entity.getItemStackFromSlot(slot);
-    int boost = ModifierUtil.getModifierLevel(leggings, this);
+    int boost = ModifierUtil.getTotalModifierLevel(entity, LEAPING);
     if (boost > 0) {
       event.setDistance(Math.max(event.getDistance() - boost, 0));
     }
   }
 
   /** Called on jumping to boost the jump height of the entity */
-  private void onLivingJump(LivingJumpEvent event) {
+  private static void onLivingJump(LivingJumpEvent event) {
     LivingEntity entity = event.getEntityLiving();
-    ItemStack leggings = entity.getItemStackFromSlot(slot);
-    int boost = ModifierUtil.getModifierLevel(leggings, this);
+    int boost = ModifierUtil.getTotalModifierLevel(entity, LEAPING);
     if (boost > 0) {
       entity.setMotion(entity.getMotion().add(0, boost * 0.1, 0));
     }

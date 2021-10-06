@@ -7,8 +7,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 public class RicochetModifier extends Modifier {
   private static final ResourceLocation LEVELS = TConstruct.getResource("ricochet_levels");
@@ -17,26 +17,17 @@ public class RicochetModifier extends Modifier {
     MinecraftForge.EVENT_BUS.addListener(this::livingKnockback);
   }
 
-  private static void add(ModDataNBT data, int amount) {
-    int totalLevels = data.getInt(LEVELS) + amount;
-    if (totalLevels <= 0) {
-      data.remove(LEVELS);
-    } else {
-      data.putInt(LEVELS, totalLevels);
-    }
-  }
-
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken()) {
-      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> add(data, -level));
+    if (!context.getEntity().getEntityWorld().isRemote) {
+      ModifierUtil.addTotalArmorModifierLevel(tool, context, LEVELS, -level);
     }
   }
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken()) {
-      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> add(data, level));
+    if (!context.getEntity().getEntityWorld().isRemote) {
+      ModifierUtil.addTotalArmorModifierLevel(tool, context, LEVELS, level);
     }
   }
 
