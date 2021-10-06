@@ -72,7 +72,9 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public abstract boolean isHandled(IDisplayableCastingRecipe recipe);
+  public boolean isHandled(IDisplayableCastingRecipe recipe) {
+    return true;
+  }
 
   @Override
   public Class<? extends IDisplayableCastingRecipe> getRecipeClass() {
