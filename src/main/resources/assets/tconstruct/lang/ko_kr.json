@@ -398,6 +398,11 @@
   "fluid.tconstruct.flowing_ender_slime": "흐르는 엔더슬라임",
   "item.tconstruct.ender_slime_bucket": "엔더슬라임 양동이",
 
+  "block.tconstruct.venom_fluid": "맹독",
+  "fluid.tconstruct.venom": "맹독",
+  "fluid.tconstruct.flowing_venom": "흐르는 맹독",
+  "item.tconstruct.venom_bucket": "맹독 양동이",
+
   "_comment": "돌",
 
   "block.tconstruct.seared_stone_fluid": "녹은 그을린 돌",
@@ -1486,6 +1491,9 @@
   "modifier.tconstruct.bucketing": "양동이",
   "modifier.tconstruct.bucketing.flavor": "풍덩!",
   "modifier.tconstruct.bucketing.description": "도구로 액체를 퍼낼 수 있고, 웅크리고 오른쪽 버튼을 눌러 액체를 부을 수 있습니다",
+   "modifier.tconstruct.spilling": "유출",
+  "modifier.tconstruct.spilling.flavor": "흩뿌리기!",
+  "modifier.tconstruct.spilling.description": "무기에 저장된 액체를 사용하여, 액체에 따른 효과를 부여합니다",
 
   "_comment": "수식어 슬롯 추가",
   "modifier.tconstruct.creative_slot": "크리에이티브 슬롯",
@@ -1756,16 +1764,16 @@
 
   "recipe.tconstruct.part_swapping.too_many_parts": "작업대의 성능이 낮아, 이 도구의 부품을 교환할 수 없습니다.",
 
-  "recipe.tconstruct.modifier.not_enough_upgrades": "이 수식어를 추가하려면 강화 슬롯이 %s개 이상 필요합니다",
-  "recipe.tconstruct.modifier.not_enough_abilities": "이 수식어를 추가하려면 능력 슬롯이 %s개 이상 필요합니다",
-  "recipe.tconstruct.modifier.validate_abilities": "변경하게 되면 능력 슬롯이 적어져, 변경할 수 없습니다",
+  "recipe.tconstruct.modifier.not_enough_slot": "이 수식어를 추가하려면 1개 이상의 %s 슬롯이 필요합니다",
+  "recipe.tconstruct.modifier.not_enough_slots": "이 수식어를 추가하려면 %s개 이상의 %s 슬롯이 필요합니다",
+  "recipe.tconstruct.modifier.validate_slots": "변경하게 되면 %s 슬롯이 적어져, 변경할 수 없습니다",
   "recipe.tconstruct.modifier.max_level": "%s 수식어는 최대 %s등급까지만 적용할 수 있습니다",
   "recipe.tconstruct.modifier.requirements_error": "수식어가 잘못되었습니다. 모드팩 제작자에게 문의하여 주세요.",
 
 
   "_comment": "GUI 메시지",
 
-  "gui.tconstruct.caption": "캡션",
+  "gui.tconstruct.caption": "설명",
   "gui.tconstruct.error": "오류",
   "gui.tconstruct.warning": "경고",
   "gui.tconstruct.general.hover": "자세한 내용을 확인하려면 항목 위로 마우스를 가져가세요",
@@ -1774,6 +1782,25 @@
   "gui.tconstruct.error.unknown_material": "알 수 없는 재료",
   "gui.tconstruct.error.useless_tool_part": "이 부품을 사용하여 도구를 만들 수 없습니다! \n\n재료 %s에 대한 정보가 없거나 도구가 %s을(를) 제작에 사용하지 않습니다",
   "gui.tconstruct.error.not_enough_durability": "내구도가 부족하여 부품을 교체할 수 없습니다! \n%d 이상의 내구도가 필요합니다",
+
+
+  "_comment": "소리 자막",
+
+  "subtitles.tconstruct.little_saw": "톱을 사용함",
+  "subtitles.tconstruct.item_frame_click": "아이템 액자 시계가 찰칵함",
+  "subtitles.tconstruct.casting_cools": "주조된 아이템이 식음",
+
+  "subtitles.tconstruct.slime_sling": "슬라임 새총을 튕김",
+  "subtitles.tconstruct.slime_sling.teleport": "슬라임 새총으로 순간이동함",
+  "subtitles.tconstruct.throw.throwball": "구체가 날아감",
+  "subtitles.tconstruct.throw.shuriken": "수리검이 날아감",
+
+  "subtitles.tconstruct.necrotic_heal": "생명을 흡수함",
+
+  "subtitles.tconstruct.slime_teleport": "슬라임처럼 순간이동함",
+  "subtitles.tconstruct.slimy_bounce": "슬라임처럼 튕겨 나감",
+
+  "subtitles.tconstruct.equip.slime": "슬라임 갑옷을 끌어당김",
 
 
   "_comment": "책 줄",
