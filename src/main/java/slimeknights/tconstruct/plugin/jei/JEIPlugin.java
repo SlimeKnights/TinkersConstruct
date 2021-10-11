@@ -315,6 +315,7 @@ public class JEIPlugin implements IModPlugin {
     optionalCast(manager, TinkerSmeltery.plateCast);
     optionalCast(manager, TinkerSmeltery.gearCast);
     optionalCast(manager, TinkerSmeltery.coinCast);
+    optionalCast(manager, TinkerSmeltery.wireCast);
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */

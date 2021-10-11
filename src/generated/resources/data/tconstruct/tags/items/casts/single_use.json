@@ -10,6 +10,7 @@
     "#tconstruct:casts/single_use/plate",
     "#tconstruct:casts/single_use/gear",
     "#tconstruct:casts/single_use/coin",
+    "#tconstruct:casts/single_use/wire",
     "#tconstruct:casts/single_use/pickaxe_head",
     "#tconstruct:casts/single_use/small_axe_head",
     "#tconstruct:casts/single_use/small_blade",

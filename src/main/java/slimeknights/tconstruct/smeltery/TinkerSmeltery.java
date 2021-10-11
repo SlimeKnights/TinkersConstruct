@@ -281,6 +281,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final CastItemObject plateCast  = ITEMS.registerCast("plate", SMELTERY_PROPS);
   public static final CastItemObject gearCast   = ITEMS.registerCast("gear",  SMELTERY_PROPS);
   public static final CastItemObject coinCast   = ITEMS.registerCast("coin",  SMELTERY_PROPS);
+  public static final CastItemObject wireCast   = ITEMS.registerCast("wire",  SMELTERY_PROPS);
   // small tool heads
   public static final CastItemObject pickaxeHeadCast  = ITEMS.registerCast("pickaxe_head", SMELTERY_PROPS);
   public static final CastItemObject smallAxeHeadCast = ITEMS.registerCast("small_axe_head", SMELTERY_PROPS);
@@ -291,7 +292,6 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final CastItemObject hammerHeadCast   = ITEMS.registerCast("hammer_head", SMELTERY_PROPS);
   public static final CastItemObject broadBladeCast   = ITEMS.registerCast("broad_blade", SMELTERY_PROPS);
   public static final CastItemObject broadAxeHeadCast = ITEMS.registerCast("broad_axe_head", SMELTERY_PROPS);
-  //  public static final ItemObject<Item> scytheHeadCast = ITEMS.register("scythe_head_cast", SMELTERY_PROPS);
   // bindings
   public static final CastItemObject toolBindingCast = ITEMS.registerCast("tool_binding", SMELTERY_PROPS);
   public static final CastItemObject largePlateCast  = ITEMS.registerCast("large_plate", SMELTERY_PROPS);

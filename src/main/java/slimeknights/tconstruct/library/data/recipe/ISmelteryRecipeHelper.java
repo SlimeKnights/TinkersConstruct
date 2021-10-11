@@ -115,6 +115,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     metalMeltingBase(consumer, fluid, FluidValues.INGOT * 4, "gears/" + name, 2.0f, prefix + "gear", true);
     metalMeltingBase(consumer, fluid, FluidValues.NUGGET * 3, "coins/" + name, 2 / 3f, prefix + "coin", true);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT / 2, "rods/" + name, 1 / 5f, prefix + "rod", true);
+    metalMeltingBase(consumer, fluid, FluidValues.INGOT / 2, "wires/" + name, 1 / 5f, prefix + "wire", true);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT, "sheetmetals/" + name, 1.0f, prefix + "sheetmetal", true);
   }
 
@@ -325,6 +326,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     tagCasting(consumer, fluid, forgeTag, FluidValues.INGOT * 4, TinkerSmeltery.gearCast, "gears/" + metal, folder + metal + "/gear", true);
     tagCasting(consumer, fluid, forgeTag, FluidValues.NUGGET * 3, TinkerSmeltery.coinCast, "coins/" + metal, folder + metal + "/coin", true);
     tagCasting(consumer, fluid, forgeTag, FluidValues.INGOT / 2, TinkerSmeltery.rodCast, "rods/" + metal, folder + metal + "/rod", true);
+    tagCasting(consumer, fluid, forgeTag, FluidValues.INGOT / 2, TinkerSmeltery.wireCast, "wires/" + metal, folder + metal + "/wire", true);
   }
 
   /**
@@ -367,6 +369,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     tagCasting(consumer, fluid, true, FluidValues.INGOT * 4, TinkerSmeltery.gearCast, "gears/" + name, folder + name + "/gear", true);
     tagCasting(consumer, fluid, true, FluidValues.NUGGET * 3, TinkerSmeltery.coinCast, "coins/" + name, folder + name + "/coin", true);
     tagCasting(consumer, fluid, true, FluidValues.INGOT / 2, TinkerSmeltery.rodCast, "rods/" + name, folder + name + "/rod", true);
+    tagCasting(consumer, fluid, true, FluidValues.INGOT / 2, TinkerSmeltery.wireCast, "wires/" + name, folder + name + "/wire", true);
     // block
     ITag<Item> block = getTag("forge", "storage_blocks/" + name);
     Consumer<IFinishedRecipe> wrapped = forceStandard ? consumer : withCondition(consumer, tagCondition("storage_blocks/" + name));

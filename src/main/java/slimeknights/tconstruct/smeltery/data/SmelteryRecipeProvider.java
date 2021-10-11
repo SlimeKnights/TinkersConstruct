@@ -951,6 +951,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     this.castCreation(withCondition(consumer, tagCondition("plates")), getTag("forge", "plates"), TinkerSmeltery.plateCast, castFolder);
     this.castCreation(withCondition(consumer, tagCondition("gears")), getTag("forge", "gears"), TinkerSmeltery.gearCast, castFolder);
     this.castCreation(withCondition(consumer, tagCondition("coins")), getTag("forge", "coins"), TinkerSmeltery.coinCast, castFolder);
+    this.castCreation(withCondition(consumer, tagCondition("wires")), getTag("forge", "wires"), TinkerSmeltery.wireCast, castFolder);
 
     // misc casting - gold
     ItemCastingRecipeBuilder.tableRecipe(Items.GOLDEN_APPLE)

@@ -258,6 +258,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.plateCast);
     addCast.accept(TinkerSmeltery.gearCast);
     addCast.accept(TinkerSmeltery.coinCast);
+    addCast.accept(TinkerSmeltery.wireCast);
     // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
     addCast.accept(TinkerSmeltery.smallAxeHeadCast);
