@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/enderium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/single_use/plate"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:molten_enderium",
+    "amount": 144
+  },
+  "result": {
+    "tag": "forge:plates/enderium"
+  },
+  "cooling_time": 76
+}

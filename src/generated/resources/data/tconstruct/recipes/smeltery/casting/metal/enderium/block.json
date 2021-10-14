@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/enderium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_enderium",
+    "amount": 1296
+  },
+  "result": {
+    "tag": "forge:storage_blocks/enderium"
+  },
+  "cooling_time": 229
+}

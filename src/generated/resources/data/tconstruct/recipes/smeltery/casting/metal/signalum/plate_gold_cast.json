@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/signalum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "fluid": {
+    "tag": "forge:molten_signalum",
+    "amount": 144
+  },
+  "result": {
+    "tag": "forge:plates/signalum"
+  },
+  "cooling_time": 70
+}

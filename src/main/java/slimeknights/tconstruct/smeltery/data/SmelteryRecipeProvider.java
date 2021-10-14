@@ -22,11 +22,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
+import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
@@ -39,6 +42,7 @@ import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.data.FluidTagEmptyCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -845,10 +849,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // ender pearls
     ItemCastingRecipeBuilder.tableRecipe(Items.ENDER_PEARL)
-                            .setFluidAndTime(TinkerFluids.moltenEnder, false, FluidValues.SLIMEBALL)
+                            .setFluidAndTime(TinkerFluids.moltenEnder, true, FluidValues.SLIMEBALL)
                             .build(consumer, modResource(folder + "ender/pearl"));
     ItemCastingRecipeBuilder.tableRecipe(Items.ENDER_EYE)
-                            .setFluidAndTime(TinkerFluids.moltenEnder, false, FluidValues.SLIMEBALL)
+                            .setFluidAndTime(TinkerFluids.moltenEnder, true, FluidValues.SLIMEBALL)
                             .setCast(Items.BLAZE_POWDER, true)
                             .build(consumer, modResource(folder + "ender/eye"));
 
@@ -1540,6 +1544,30 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenIron.getForgeTag(), FluidValues.INGOT)
                       .addInput(TinkerFluids.moltenLead.getForgeTag(), FluidValues.INGOT)
                       .build(wrapped, prefix(TinkerFluids.moltenPewter, folder));
+
+    // thermal alloys
+    Function<String,ICondition> fluidTagLoaded = name -> new NotCondition(new FluidTagEmptyCondition("forge", name));
+    // enderium
+    wrapped = withCondition(consumer, tagCondition("ingots/enderium"), tagCondition("ingots/lead"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenEnderium.get(), FluidValues.INGOT * 2)
+                      .addInput(TinkerFluids.moltenLead.getForgeTag(), FluidValues.INGOT * 3)
+                      .addInput(TinkerFluids.moltenDiamond.getLocalTag(), FluidValues.GEM)
+                      .addInput(TinkerFluids.moltenEnder.getForgeTag(), FluidValues.SLIMEBALL * 2)
+                      .build(wrapped, prefix(TinkerFluids.moltenEnderium, folder));
+    // lumium
+    wrapped = withCondition(consumer, tagCondition("ingots/lumium"), tagCondition("ingots/tin"), tagCondition("ingots/silver"), fluidTagLoaded.apply("glowstone"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenLumium.get(), FluidValues.INGOT * 4)
+                      .addInput(TinkerFluids.moltenTin.getForgeTag(), FluidValues.INGOT * 3)
+                      .addInput(TinkerFluids.moltenSilver.getForgeTag(), FluidValues.INGOT)
+                      .addInput(FluidIngredient.of(FluidTags.makeWrapperTag("forge:glowstone"), FluidValues.SLIMEBALL * 2))
+                      .build(wrapped, prefix(TinkerFluids.moltenLumium, folder));
+    // signalum
+    wrapped = withCondition(consumer, tagCondition("ingots/signalum"), tagCondition("ingots/copper"), tagCondition("ingots/silver"), fluidTagLoaded.apply("redstone"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenSignalum.get(), FluidValues.INGOT * 4)
+                      .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 3)
+                      .addInput(TinkerFluids.moltenSilver.getForgeTag(), FluidValues.INGOT)
+                      .addInput(FluidIngredient.of(FluidTags.makeWrapperTag("forge:redstone"), 400))
+                      .build(wrapped, prefix(TinkerFluids.moltenSignalum, folder));
   }
 
   private void addEntityMeltingRecipes(Consumer<IFinishedRecipe> consumer) {

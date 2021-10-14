@@ -633,6 +633,23 @@
   "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
   "item.tconstruct.molten_steel_bucket": "Molten Steel Bucket",
 
+  "_comment": "Thermal Alloys",
+
+  "block.tconstruct.molten_enderium_fluid": "Molten Enderium",
+  "fluid.tconstruct.molten_enderium": "Molten Enderium",
+  "fluid.tconstruct.flowing_molten_enderium": "Flowing Molten Enderium",
+  "item.tconstruct.molten_enderium_bucket": "Molten Enderium Bucket",
+
+  "block.tconstruct.molten_lumium_fluid": "Molten Lumium",
+  "fluid.tconstruct.molten_lumium": "Molten Lumium",
+  "fluid.tconstruct.flowing_molten_lumium": "Flowing Molten Lumium",
+  "item.tconstruct.molten_lumium_bucket": "Molten Lumium Bucket",
+
+  "block.tconstruct.molten_signalum_fluid": "Molten Signalum",
+  "fluid.tconstruct.molten_signalum": "Molten Signalum",
+  "fluid.tconstruct.flowing_molten_signalum": "Flowing Molten Signalum",
+  "item.tconstruct.molten_signalum_bucket": "Molten Signalum Bucket",
+
 
   "_comment": "Tinkers Gadgets",
 

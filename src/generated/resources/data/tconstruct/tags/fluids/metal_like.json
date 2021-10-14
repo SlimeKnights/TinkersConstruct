@@ -35,6 +35,9 @@
     "#forge:molten_invar",
     "#forge:molten_constantan",
     "#forge:molten_pewter",
-    "#forge:molten_steel"
+    "#forge:molten_steel",
+    "#forge:molten_enderium",
+    "#forge:molten_lumium",
+    "#forge:molten_signalum"
   ]
 }

@@ -849,7 +849,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new EffectSpillingEffect(Effects.BLINDNESS, 5, 1))
                          .build(consumer, prefix(TinkerFluids.liquidSoul, folder));
     // ender - teleporting
-    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenEnder.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)
+    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenEnder.getForgeTag(), FluidAttributes.BUCKET_VOLUME / 20)
                          .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 1f))
                          .addEffect(TeleportSpillingEffect.INSTANCE)
                          .build(consumer, prefix(TinkerFluids.moltenEnder, folder));

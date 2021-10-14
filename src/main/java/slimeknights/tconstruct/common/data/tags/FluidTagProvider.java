@@ -36,7 +36,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenEmerald);
     tagLocal(TinkerFluids.moltenQuartz);
     tagLocal(TinkerFluids.moltenDiamond);
-    tagLocal(TinkerFluids.moltenEnder);
+    tagAll(TinkerFluids.moltenEnder);
     tagLocal(TinkerFluids.blazingBlood);
     // ores
     tagAll(TinkerFluids.moltenIron);
@@ -76,6 +76,10 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagAll(TinkerFluids.moltenConstantan);
     tagAll(TinkerFluids.moltenPewter);
     tagAll(TinkerFluids.moltenSteel);
+    // thermal compat alloys
+    tagAll(TinkerFluids.moltenEnderium);
+    tagAll(TinkerFluids.moltenLumium);
+    tagAll(TinkerFluids.moltenSignalum);
 
     /* Normal tags */
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
@@ -85,19 +89,22 @@ public class FluidTagProvider extends FluidTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
         .addTag(TinkerFluids.magma.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
-        .addTag(TinkerFluids.moltenEnder.getLocalTag())
+        .addTag(TinkerFluids.moltenEnder.getForgeTag())
         .addTag(TinkerTags.Fluids.SLIME);
 
     // these fluids should get ingot and nugget values assigned even if they lack casting recipes
     this.getOrCreateBuilder(TinkerTags.Fluids.METAL_LIKE)
+        // non-metal
         .addTag(TinkerFluids.moltenEmerald.getLocalTag())
         .addTag(TinkerFluids.moltenQuartz.getLocalTag())
         .addTag(TinkerFluids.moltenDiamond.getLocalTag())
+        // vanilla ores
         .addTag(TinkerFluids.moltenIron.getForgeTag())
         .addTag(TinkerFluids.moltenGold.getForgeTag())
         .addTag(TinkerFluids.moltenCopper.getForgeTag())
         .addTag(TinkerFluids.moltenCobalt.getForgeTag())
         .addTag(TinkerFluids.moltenDebris.getLocalTag())
+        // base alloys
         .addTag(TinkerFluids.moltenSlimesteel.getLocalTag())
         .addTag(TinkerFluids.moltenTinkersBronze.getLocalTag())
         .addTag(TinkerFluids.moltenRoseGold.getForgeTag())
@@ -108,6 +115,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenSoulsteel.getLocalTag())
         .addTag(TinkerFluids.moltenNetherite.getForgeTag())
         .addTag(TinkerFluids.moltenKnightslime.getLocalTag())
+        // compat ores
         .addTag(TinkerFluids.moltenTin.getForgeTag())
         .addTag(TinkerFluids.moltenAluminum.getForgeTag())
         .addTag(TinkerFluids.moltenLead.getForgeTag())
@@ -118,13 +126,18 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenTungsten.getForgeTag())
         .addTag(TinkerFluids.moltenOsmium.getForgeTag())
         .addTag(TinkerFluids.moltenUranium.getForgeTag())
+        // compat alloys
         .addTag(TinkerFluids.moltenBronze.getForgeTag())
         .addTag(TinkerFluids.moltenBrass.getForgeTag())
         .addTag(TinkerFluids.moltenElectrum.getForgeTag())
         .addTag(TinkerFluids.moltenInvar.getForgeTag())
         .addTag(TinkerFluids.moltenConstantan.getForgeTag())
         .addTag(TinkerFluids.moltenPewter.getForgeTag())
-        .addTag(TinkerFluids.moltenSteel.getForgeTag());
+        .addTag(TinkerFluids.moltenSteel.getForgeTag())
+        // thermal alloys
+        .addTag(TinkerFluids.moltenEnderium.getForgeTag())
+        .addTag(TinkerFluids.moltenLumium.getForgeTag())
+        .addTag(TinkerFluids.moltenSignalum.getForgeTag());
 
     // spilling tags - reduces the number of recipes generated
     this.getOrCreateBuilder(TinkerTags.Fluids.CLAY_SPILLING)
@@ -166,7 +179,10 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenManyullyn.getForgeTag())
         .addTag(TinkerFluids.moltenHepatizon.getForgeTag())
         .addTag(TinkerFluids.moltenQueensSlime.getLocalTag())
-        .addTag(TinkerFluids.moltenNetherite.getForgeTag());
+        .addTag(TinkerFluids.moltenNetherite.getForgeTag())
+        .addTag(TinkerFluids.moltenEnderium.getForgeTag())
+        .addTag(TinkerFluids.moltenLumium.getForgeTag())
+        .addTag(TinkerFluids.moltenSignalum.getForgeTag());
   }
 
   @Override

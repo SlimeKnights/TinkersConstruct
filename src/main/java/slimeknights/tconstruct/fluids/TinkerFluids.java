@@ -50,7 +50,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenPorcelain = FLUIDS.register("molten_porcelain", hotBuilder().temperature(1000), Material.LAVA, 2);
   // fancy molten fluids
   public static final FluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian", hotBuilder().temperature(1300), Material.LAVA, 3);
-  public static final FluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender",    hotBuilder().temperature( 777), Material.LAVA, 5);
+  public static final FluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender", "ender", hotBuilder().temperature( 777), Material.LAVA, 5);
   public static final FluidObject<ForgeFlowingFluid> blazingBlood   = FLUIDS.register("blazing_blood",   hotBuilder().temperature(1800).density(3500), Material.LAVA, 15);
 
   // ores
@@ -96,6 +96,11 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenConstantan = FLUIDS.register("molten_constantan", hotBuilder().temperature(1220), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenPewter     = FLUIDS.register("molten_pewter",     hotBuilder().temperature( 700), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenSteel      = FLUIDS.register("molten_steel",      hotBuilder().temperature(1250), Material.LAVA, 13);
+
+  // thermal compat alloys
+  public static final FluidObject<ForgeFlowingFluid> moltenEnderium = FLUIDS.register("molten_enderium", hotBuilder().temperature(1650), Material.LAVA, 12);
+  public static final FluidObject<ForgeFlowingFluid> moltenLumium   = FLUIDS.register("molten_lumium",   hotBuilder().temperature(1350), Material.LAVA, 15);
+  public static final FluidObject<ForgeFlowingFluid> moltenSignalum = FLUIDS.register("molten_signalum", hotBuilder().temperature(1425), Material.LAVA, 13);
 
 
   /** Creates a builder for a cool fluid with textures */

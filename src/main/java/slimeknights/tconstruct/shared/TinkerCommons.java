@@ -26,6 +26,7 @@ import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.data.FluidTagEmptyCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.json.SetFluidLootFunction;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
@@ -101,6 +102,7 @@ public final class TinkerCommons extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
+    CraftingHelper.register(FluidTagEmptyCondition.SERIALIZER);
     lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootConditionType(ConfigEnabledCondition.SERIALIZER));
     lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootConditionType(BlockOrEntityCondition.SERIALIZER));
     lootSetFluid = Registry.register(Registry.LOOT_FUNCTION_TYPE, SetFluidLootFunction.ID, new LootFunctionType(new SetFluidLootFunction.Serializer()));

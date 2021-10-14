@@ -28,7 +28,11 @@ public enum SmelteryCompat {
   INVAR     (TinkerFluids.moltenInvar, false),
   CONSTANTAN(TinkerFluids.moltenConstantan, false),
   PEWTER    (TinkerFluids.moltenPewter, false),
-  STEEL     (TinkerFluids.moltenSteel, false);
+  STEEL     (TinkerFluids.moltenSteel, false),
+  // thermal alloys
+  ENDERIUM(TinkerFluids.moltenEnderium, false),
+  LUMIUM  (TinkerFluids.moltenLumium, false),
+  SIGNALUM(TinkerFluids.moltenSignalum, false);
 
   @Getter
   private final String name = this.name().toLowerCase(Locale.US);

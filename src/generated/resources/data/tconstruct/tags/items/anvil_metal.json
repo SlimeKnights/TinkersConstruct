@@ -36,6 +36,18 @@
     {
       "id": "#forge:storage_blocks/steel",
       "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/enderium",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/lumium",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/signalum",
+      "required": false
     }
   ]
 }

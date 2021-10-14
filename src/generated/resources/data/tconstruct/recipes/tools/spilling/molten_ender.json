@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:spilling",
   "fluid": {
-    "tag": "tconstruct:molten_ender",
+    "tag": "forge:ender",
     "amount": 50
   },
   "effects": [

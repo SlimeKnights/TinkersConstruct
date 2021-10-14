@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/lumium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "fluid": {
+    "tag": "forge:molten_lumium",
+    "amount": 16
+  },
+  "result": {
+    "tag": "forge:nuggets/lumium"
+  },
+  "cooling_time": 23
+}

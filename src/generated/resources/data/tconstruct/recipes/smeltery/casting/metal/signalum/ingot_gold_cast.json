@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/signalum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "fluid": {
+    "tag": "forge:molten_signalum",
+    "amount": 144
+  },
+  "result": {
+    "tag": "forge:ingots/signalum"
+  },
+  "cooling_time": 70
+}
