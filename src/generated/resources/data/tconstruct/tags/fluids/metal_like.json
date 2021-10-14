@@ -38,6 +38,8 @@
     "#forge:molten_steel",
     "#forge:molten_enderium",
     "#forge:molten_lumium",
-    "#forge:molten_signalum"
+    "#forge:molten_signalum",
+    "#forge:molten_refined_glowstone",
+    "#forge:molten_refined_obsidian"
   ]
 }

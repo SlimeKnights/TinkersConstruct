@@ -1065,7 +1065,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // compat
     for (SmelteryCompat compat : SmelteryCompat.values()) {
-      this.metalMelting(consumer, compat.getFluid().get(), compat.getName(), compat.isOre(), metalFolder, true, compat.getByproducts());
+      this.metalMelting(consumer, compat.getFluid().get(), compat.getName(), compat.isOre(), compat.hasDust(), metalFolder, true, compat.getByproducts());
     }
 
     // blood
@@ -1568,6 +1568,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenSilver.getForgeTag(), FluidValues.INGOT)
                       .addInput(FluidIngredient.of(FluidTags.makeWrapperTag("forge:redstone"), 400))
                       .build(wrapped, prefix(TinkerFluids.moltenSignalum, folder));
+
+    // refined obsidian, note glowstone is done as a composite
+    wrapped = withCondition(consumer, tagCondition("ingots/refined_obsidian"), tagCondition("ingots/osmium"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenRefinedObsidian.get(), FluidValues.INGOT)
+                      .addInput(TinkerFluids.moltenObsidian.getLocalTag(), FluidValues.GLASS_PANE)
+                      .addInput(TinkerFluids.moltenDiamond.getLocalTag(), FluidValues.GEM)
+                      .addInput(TinkerFluids.moltenOsmium.getForgeTag(), FluidValues.INGOT)
+                      .build(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
   }
 
   private void addEntityMeltingRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -1854,6 +1862,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(ItemNameIngredient.from(ceramicsId.apply("porcelain_bricks_wall")), true)
                             .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.NUGGET / 8)
                             .build(ceramicsConsumer, modResource(castingFolder + "golden_bricks_wall"));
+
+    // refined glowstone composite
+    Consumer<IFinishedRecipe> wrapped = withCondition(consumer, tagCondition("ingots/refined_glowstone"), tagCondition("ingots/osmium"));
+    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromTag(ItemTags.makeWrapperTag("forge:ingots/refined_glowstone"), 1))
+                            .setCast(Tags.Items.DUSTS_GLOWSTONE, true)
+                            .setFluidAndTime(TinkerFluids.moltenOsmium, FluidValues.INGOT)
+                            .build(wrapped, modResource(folder + "refined_glowstone_ingot"));
   }
 
 

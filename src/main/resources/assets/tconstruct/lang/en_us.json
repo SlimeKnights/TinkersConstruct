@@ -650,6 +650,18 @@
   "fluid.tconstruct.flowing_molten_signalum": "Flowing Molten Signalum",
   "item.tconstruct.molten_signalum_bucket": "Molten Signalum Bucket",
 
+  "_comment": "Mekanism Alloys",
+
+  "block.tconstruct.molten_refined_glowstone_fluid": "Molten Refined Glowstone",
+  "fluid.tconstruct.molten_refined_glowstone": "Molten Refined Glowstone",
+  "fluid.tconstruct.flowing_molten_refined_glowstone": "Flowing Molten Refined Glowstone",
+  "item.tconstruct.molten_refined_glowstone_bucket": "Molten Refined Glowstone Bucket",
+
+  "block.tconstruct.molten_refined_obsidian_fluid": "Molten Refined Obsidian",
+  "fluid.tconstruct.molten_refined_obsidian": "Molten Refined Obsidian",
+  "fluid.tconstruct.flowing_molten_refined_obsidian": "Flowing Molten Refined Obsidian",
+  "item.tconstruct.molten_refined_obsidian_bucket": "Molten Refined Obsidian Bucket",
+
 
   "_comment": "Tinkers Gadgets",
 

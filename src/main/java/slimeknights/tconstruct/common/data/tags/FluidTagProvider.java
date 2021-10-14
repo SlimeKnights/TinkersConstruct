@@ -80,6 +80,9 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagAll(TinkerFluids.moltenEnderium);
     tagAll(TinkerFluids.moltenLumium);
     tagAll(TinkerFluids.moltenSignalum);
+    // mekanism compat alloys
+    tagAll(TinkerFluids.moltenRefinedGlowstone);
+    tagAll(TinkerFluids.moltenRefinedObsidian);
 
     /* Normal tags */
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
@@ -137,7 +140,10 @@ public class FluidTagProvider extends FluidTagsProvider {
         // thermal alloys
         .addTag(TinkerFluids.moltenEnderium.getForgeTag())
         .addTag(TinkerFluids.moltenLumium.getForgeTag())
-        .addTag(TinkerFluids.moltenSignalum.getForgeTag());
+        .addTag(TinkerFluids.moltenSignalum.getForgeTag())
+        // thermal alloys
+        .addTag(TinkerFluids.moltenRefinedGlowstone.getForgeTag())
+        .addTag(TinkerFluids.moltenRefinedObsidian.getForgeTag());
 
     // spilling tags - reduces the number of recipes generated
     this.getOrCreateBuilder(TinkerTags.Fluids.CLAY_SPILLING)
@@ -172,7 +178,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenInvar.getForgeTag())
         .addTag(TinkerFluids.moltenConstantan.getForgeTag())
         .addTag(TinkerFluids.moltenPewter.getForgeTag())
-        .addTag(TinkerFluids.moltenSteel.getForgeTag());
+        .addTag(TinkerFluids.moltenSteel.getForgeTag())
+        .addTag(TinkerFluids.moltenRefinedGlowstone.getForgeTag());
     this.getOrCreateBuilder(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING)
         .addTag(TinkerFluids.moltenDiamond.getLocalTag())
         .addTag(TinkerFluids.moltenDebris.getLocalTag())
@@ -182,7 +189,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenNetherite.getForgeTag())
         .addTag(TinkerFluids.moltenEnderium.getForgeTag())
         .addTag(TinkerFluids.moltenLumium.getForgeTag())
-        .addTag(TinkerFluids.moltenSignalum.getForgeTag());
+        .addTag(TinkerFluids.moltenSignalum.getForgeTag())
+        .addTag(TinkerFluids.moltenRefinedObsidian.getForgeTag());
   }
 
   @Override

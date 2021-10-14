@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.data;
 
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import slimeknights.mantle.registration.object.FluidObject;
@@ -11,41 +12,56 @@ import java.util.Locale;
 /** Enum holding all relevant smeltery compat */
 public enum SmelteryCompat {
   // ores
-  TIN     (TinkerFluids.moltenTin,      true, Byproduct.COPPER),
-  ALUMINUM(TinkerFluids.moltenAluminum, true, Byproduct.IRON),
-  LEAD    (TinkerFluids.moltenLead,     true, Byproduct.SILVER, Byproduct.GOLD),
-  SILVER  (TinkerFluids.moltenSilver,   true, Byproduct.LEAD, Byproduct.GOLD),
-  NICKEL  (TinkerFluids.moltenNickel,   true, Byproduct.PLATINUM, Byproduct.IRON),
-  ZINC    (TinkerFluids.moltenZinc,     true, Byproduct.TIN, Byproduct.COPPER),
-  PLATINUM(TinkerFluids.moltenPlatinum, true, Byproduct.GOLD),
-  TUNGSTEN(TinkerFluids.moltenTungsten, true, Byproduct.PLATINUM, Byproduct.GOLD),
-  OSMIUM  (TinkerFluids.moltenOsmium,   true, Byproduct.IRON),
-  URANIUM (TinkerFluids.moltenUranium,  true, Byproduct.LEAD, Byproduct.COPPER),
+  TIN     (TinkerFluids.moltenTin,      Byproduct.COPPER),
+  ALUMINUM(TinkerFluids.moltenAluminum, Byproduct.IRON),
+  LEAD    (TinkerFluids.moltenLead,     Byproduct.SILVER, Byproduct.GOLD),
+  SILVER  (TinkerFluids.moltenSilver,   Byproduct.LEAD, Byproduct.GOLD),
+  NICKEL  (TinkerFluids.moltenNickel,   Byproduct.PLATINUM, Byproduct.IRON),
+  ZINC    (TinkerFluids.moltenZinc,     Byproduct.TIN, Byproduct.COPPER),
+  PLATINUM(TinkerFluids.moltenPlatinum, Byproduct.GOLD),
+  TUNGSTEN(TinkerFluids.moltenTungsten, Byproduct.PLATINUM, Byproduct.GOLD),
+  OSMIUM  (TinkerFluids.moltenOsmium,   Byproduct.IRON),
+  URANIUM (TinkerFluids.moltenUranium,  Byproduct.LEAD, Byproduct.COPPER),
   // alloys
-  BRONZE    (TinkerFluids.moltenBronze, false),
-  BRASS     (TinkerFluids.moltenBrass, false),
-  ELECTRUM  (TinkerFluids.moltenElectrum, false),
-  INVAR     (TinkerFluids.moltenInvar, false),
-  CONSTANTAN(TinkerFluids.moltenConstantan, false),
-  PEWTER    (TinkerFluids.moltenPewter, false),
-  STEEL     (TinkerFluids.moltenSteel, false),
+  BRONZE    (TinkerFluids.moltenBronze),
+  BRASS     (TinkerFluids.moltenBrass),
+  ELECTRUM  (TinkerFluids.moltenElectrum),
+  INVAR     (TinkerFluids.moltenInvar),
+  CONSTANTAN(TinkerFluids.moltenConstantan),
+  PEWTER    (TinkerFluids.moltenPewter),
+  STEEL     (TinkerFluids.moltenSteel),
   // thermal alloys
-  ENDERIUM(TinkerFluids.moltenEnderium, false),
-  LUMIUM  (TinkerFluids.moltenLumium, false),
-  SIGNALUM(TinkerFluids.moltenSignalum, false);
+  ENDERIUM(TinkerFluids.moltenEnderium),
+  LUMIUM  (TinkerFluids.moltenLumium),
+  SIGNALUM(TinkerFluids.moltenSignalum),
+  // mekanism alloys, they use dust as the not refined version of refined obsidian, so skip
+  REFINED_GLOWSTONE(TinkerFluids.moltenRefinedGlowstone, false),
+  REFINED_OBSIDIAN (TinkerFluids.moltenRefinedObsidian, false);
 
   @Getter
   private final String name = this.name().toLowerCase(Locale.US);
   private final FluidObject<? extends ForgeFlowingFluid> fluid;
   @Getter
   private final boolean isOre;
+  @Accessors(fluent = true)
+  @Getter
+  private final boolean hasDust;
   @Getter
   private final Byproduct[] byproducts;
 
-  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, boolean isOre, Byproduct... byproducts) {
+  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, boolean hasDust) {
     this.fluid = fluid;
-    this.isOre = isOre;
+    this.isOre = false;
+    this.byproducts = new Byproduct[0];
+    this.hasDust = hasDust;
+  }
+
+  /** Byproducts means its an ore, no byproucts are alloys */
+  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, Byproduct... byproducts) {
+    this.fluid = fluid;
+    this.isOre = byproducts.length > 0;
     this.byproducts = byproducts;
+    this.hasDust = true;
   }
 
   /** Gets teh fluid for this compat */

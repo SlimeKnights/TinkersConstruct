@@ -97,11 +97,12 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    * @param fluid       Fluid result
    * @param name        Resource name for tags
    * @param hasOre      If true, adds recipe for melting the ore
+   * @param hasDust     If false, the dust form of this item does not correspond to the ingot form
    * @param folder      Recipe folder
    * @param isOptional  If true, this recipe is entirely optional
    * @param byproducts  List of byproduct options for this metal, first one that is present will be used
    */
-  default void metalMelting(Consumer<IFinishedRecipe> consumer, Fluid fluid, String name, boolean hasOre, String folder, boolean isOptional, IByproduct... byproducts) {
+  default void metalMelting(Consumer<IFinishedRecipe> consumer, Fluid fluid, String name, boolean hasOre, boolean hasDust, String folder, boolean isOptional, IByproduct... byproducts) {
     String prefix = folder + "/" + name + "/";
     metalMeltingBase(consumer, fluid, FluidValues.METAL_BLOCK, "storage_blocks/" + name, 3.0f, prefix + "block", isOptional);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT, "ingots/" + name, 1.0f, prefix + "ingot", isOptional);
@@ -109,14 +110,31 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     if (hasOre) {
       oreMelting(consumer, fluid, FluidValues.INGOT, "ores/" + name, 1.5f, prefix + "ore", isOptional, byproducts);
     }
-    // dust is always optional, as we don't do dust
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT, "dusts/" + name, 0.75f, prefix + "dust", true);
+    // remaining forms are always optional as we don't ship them
+    // allow disabling dust as some mods treat dust as distinct from ingots
+    if (hasDust) {
+      metalMeltingBase(consumer, fluid, FluidValues.INGOT, "dusts/" + name, 0.75f, prefix + "dust", true);
+    }
     metalMeltingBase(consumer, fluid, FluidValues.INGOT, "plates/" + name, 1.0f, prefix + "plates", true);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT * 4, "gears/" + name, 2.0f, prefix + "gear", true);
     metalMeltingBase(consumer, fluid, FluidValues.NUGGET * 3, "coins/" + name, 2 / 3f, prefix + "coin", true);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT / 2, "rods/" + name, 1 / 5f, prefix + "rod", true);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT / 2, "wires/" + name, 1 / 5f, prefix + "wire", true);
     metalMeltingBase(consumer, fluid, FluidValues.INGOT, "sheetmetals/" + name, 1.0f, prefix + "sheetmetal", true);
+  }
+
+  /**
+   * Adds a basic ingot, nugget, block, ore melting recipe set
+   * @param consumer    Recipe consumer
+   * @param fluid       Fluid result
+   * @param name        Resource name for tags
+   * @param hasOre      If true, adds recipe for melting the ore
+   * @param folder      Recipe folder
+   * @param isOptional  If true, this recipe is entirely optional
+   * @param byproducts  List of byproduct options for this metal, first one that is present will be used
+   */
+  default void metalMelting(Consumer<IFinishedRecipe> consumer, Fluid fluid, String name, boolean hasOre, String folder, boolean isOptional, IByproduct... byproducts) {
+    metalMelting(consumer, fluid, name, hasOre, true, folder, isOptional, byproducts);
   }
 
 

@@ -48,6 +48,14 @@
     {
       "id": "#forge:storage_blocks/signalum",
       "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/refined_glowstone",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/refined_obsidian",
+      "required": false
     }
   ]
 }
