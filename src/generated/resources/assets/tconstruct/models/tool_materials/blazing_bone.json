@@ -1,0 +1,8 @@
+{
+  "fallbacks": [
+    "bone",
+    "rock"
+  ],
+  "color": "F2D500",
+  "luminosity": 15
+}

@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.data.material;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -22,19 +20,13 @@ import java.util.stream.Collectors;
 
 /** Base data generator for use in addons, depends on the regular material provider */
 public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvider {
-  private static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .setPrettyPrinting()
-    .disableHtmlEscaping()
-    .create();
-
   /** All material stats generated so far */
   private final Map<MaterialId,List<IMaterialStats>> allMaterialStats = new HashMap<>();
   /* Materials data provider for validation */
   private final AbstractMaterialDataProvider materials;
 
   public AbstractMaterialStatsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
-    super(gen, MaterialStatsManager.FOLDER, GSON);
+    super(gen, MaterialStatsManager.FOLDER);
     this.materials = materials;
   }
 

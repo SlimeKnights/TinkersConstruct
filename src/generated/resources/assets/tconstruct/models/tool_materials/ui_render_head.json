@@ -1,0 +1,8 @@
+{
+  "fallbacks": [
+    "metal"
+  ],
+  "color": "CACACA",
+  "skipUniqueTexture": true,
+  "luminosity": 0
+}

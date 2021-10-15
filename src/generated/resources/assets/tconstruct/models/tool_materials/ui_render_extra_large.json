@@ -1,0 +1,8 @@
+{
+  "fallbacks": [
+    "rock"
+  ],
+  "color": "236C45",
+  "skipUniqueTexture": true,
+  "luminosity": 0
+}

@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
+import slimeknights.tconstruct.tools.data.MaterialRenderInfoProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
@@ -107,14 +108,17 @@ public final class TinkerTools extends TinkerModule {
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
+    DataGenerator generator = event.getGenerator();
     if (event.includeServer()) {
-      DataGenerator generator = event.getGenerator();
       generator.addProvider(new ToolsRecipeProvider(generator));
       generator.addProvider(new ModifierRecipeProvider(generator));
       MaterialDataProvider materials = new MaterialDataProvider(generator);
       generator.addProvider(materials);
       generator.addProvider(new MaterialStatsDataProvider(generator, materials));
       generator.addProvider(new MaterialTraitsDataProvider(generator, materials));
+    }
+    if (event.includeClient()) {
+      generator.addProvider(new MaterialRenderInfoProvider(generator));
     }
   }
 }

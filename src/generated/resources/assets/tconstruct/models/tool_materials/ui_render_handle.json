@@ -1,0 +1,8 @@
+{
+  "fallbacks": [
+    "stick"
+  ],
+  "color": "745F38",
+  "skipUniqueTexture": true,
+  "luminosity": 0
+}
