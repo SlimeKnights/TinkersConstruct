@@ -2,6 +2,7 @@ package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Allows getting a list of items for display for a given material
@@ -24,7 +26,7 @@ public class MaterialItemList {
    * @param recipes  Recipes
    */
   public static void setRecipes(List<MaterialRecipe> recipes) {
-    RECIPE_LIST = recipes;
+    RECIPE_LIST = recipes.stream().filter(r -> r.getMaterial() != IMaterial.UNKNOWN).collect(Collectors.toList());
     ITEM_LISTS.clear();
   }
 

@@ -115,7 +115,10 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
       List<ItemStack> castItems = Arrays.asList(cast.getMatchingStacks());
       multiRecipes = MaterialCastingLookup
         .getAllCastingFluids().stream()
-        .filter(recipe -> !recipe.getOutput().isHidden() && result.canUseMaterial(recipe.getOutput()))
+        .filter(recipe -> {
+          IMaterial output = recipe.getOutput();
+          return output != IMaterial.UNKNOWN && !output.isHidden() && result.canUseMaterial(output);
+        })
         .map(recipe -> {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());
           int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);

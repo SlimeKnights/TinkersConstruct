@@ -90,7 +90,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
 
   @Override
   public boolean matches(ISingleItemInventory inv, World worldIn) {
-    return this.ingredient.test(inv.getStack());
+    return getMaterial() != IMaterial.UNKNOWN && this.ingredient.test(inv.getStack());
   }
 
   @Override

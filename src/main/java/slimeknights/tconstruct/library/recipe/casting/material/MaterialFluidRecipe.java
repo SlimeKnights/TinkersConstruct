@@ -55,10 +55,15 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
 
   /** Checks if the recipe matches the given inventory */
   public boolean matches(ICastingInventory inv) {
-    if (!fluid.test(inv.getFluid())) {
+    if (getOutput() == IMaterial.UNKNOWN || !fluid.test(inv.getFluid())) {
       return false;
     }
     if (inputId != null) {
+      // if the input ID is null, want to avoid checking this
+      // not null means we should have a material and it failed to find
+      if (getInput() == IMaterial.UNKNOWN) {
+        return false;
+      }
       ItemStack stack = inv.getStack();
       return !stack.isEmpty() && IMaterialItem.getMaterialIdFromStack(stack).equals(getInputId());
     }
@@ -84,11 +89,14 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
   /** Gets the material input for this recipe */
   @Nullable
   public IMaterial getInput() {
+    if (inputId == null) {
+      return null;
+    }
     // prevent caching if the registry is not loaded
     if (!MaterialRegistry.isFullyLoaded()) {
       return IMaterial.UNKNOWN;
     }
-    if (input == null && inputId != null) {
+    if (input == null) {
       input = MaterialRegistry.getMaterial(inputId);
     }
     return input;

@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -45,8 +46,12 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
       IRecipeType<?> type = getType();
       multiRecipes = MaterialCastingLookup
         .getAllCompositeFluids().stream()
-        .filter(recipe -> !recipe.getOutput().isHidden() && result.canUseMaterial(recipe.getOutput())
-                          && recipe.getInput() != null && !recipe.getInput().isHidden() && result.canUseMaterial(recipe.getInput()))
+        .filter(recipe -> {
+          IMaterial output = recipe.getOutput();
+          IMaterial input = recipe.getInput();
+          return output != IMaterial.UNKNOWN && input != null && input != IMaterial.UNKNOWN
+            && !output.isHidden() && !input.isHidden() && result.canUseMaterial(output) && result.canUseMaterial(input);
+        })
         .map(recipe -> {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());
           int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);

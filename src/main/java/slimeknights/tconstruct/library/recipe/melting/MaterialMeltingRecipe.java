@@ -49,11 +49,15 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
   @Override
   public boolean matches(IMeltingInventory inv, World worldIn) {
+    IMaterial input = getInput();
+    if (input == IMaterial.UNKNOWN) {
+      return false;
+    }
     ItemStack stack = inv.getStack();
     if (stack.isEmpty() || MaterialCastingLookup.getItemCost(stack.getItem()) == 0) {
       return false;
     }
-    return IMaterialItem.getMaterialFromStack(stack) == getInput();
+    return IMaterialItem.getMaterialFromStack(stack) == input;
   }
 
   @Override
