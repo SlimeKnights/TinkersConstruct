@@ -21,19 +21,13 @@ public final class MaterialIds {
   public static final MaterialId copper = id("copper");
   public static final MaterialId slimewood = id("slimewood");
   public static final MaterialId bloodbone = id("bloodbone");
-  // tier 2.5 - its an alloy but its not a higher mining level
-  public static final MaterialId roseGold = id("rose_gold");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId nahuatl = id("nahuatl");
   public static final MaterialId tinkersBronze = id("tinkers_bronze");
   public static final MaterialId pigIron = id("pig_iron");
-
-  // tier 2 (nether)
-  // nether wood
-  // public static final MaterialId witherBone = id("wither_bone");
+  public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
-  // nether stone, scorched stone?
   public static final MaterialId cobalt = id("cobalt");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
@@ -42,24 +36,21 @@ public final class MaterialIds {
   public static final MaterialId blazingBone = id("blazing_bone");
   //public static final MaterialId soulsteel = id("soulsteel");
 
-  // tier 2 (end)
-  //public static final MaterialId endstone = id("endstone");
-  // chorus
-
   // tier 2 (mod integration)
+  public static final MaterialId osmium = id("osmium");
+  public static final MaterialId tungsten = id("tungsten");
+  public static final MaterialId platinum = id("platinum");
   public static final MaterialId silver = id("silver");
   public static final MaterialId lead = id("lead");
+  public static final MaterialId whitestone = id("whitestone");
   // tier 3 (mod integration)
-  public static final MaterialId electrum = id("electrum");
-  public static final MaterialId bronze = id("bronze");
   public static final MaterialId steel = id("steel");
+  public static final MaterialId bronze = id("bronze");
   public static final MaterialId constantan = id("constantan");
-
-  // bowstring materials
-  //public static final MaterialId string = id("string");
-  //public static final MaterialId vine = id("vine");
-  //public static final MaterialId slimevine_blue = id("slimevine_blue");
-  //public static final MaterialId slimevine_purple = id("slimevine_purple");
+  public static final MaterialId invar = id("invar");
+  public static final MaterialId necronium = id("necronium");
+  public static final MaterialId electrum = id("electrum");
+  public static final MaterialId platedSlimewood = id("plated_slimewood");
 
   /**
    * Creates a new material ID

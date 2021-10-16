@@ -10,7 +10,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -143,13 +141,20 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
 
     // tier 2 (mod compat)
+    metalMaterialRecipe(consumer, MaterialIds.osmium, folder, "osmium", true);
+    metalMaterialRecipe(consumer, MaterialIds.tungsten, folder, "tungsten", true);
+    metalMaterialRecipe(consumer, MaterialIds.platinum, folder, "platinum", true);
     metalMaterialRecipe(consumer, MaterialIds.silver, folder, "silver", true);
     metalMaterialRecipe(consumer, MaterialIds.lead, folder, "lead", true);
-    metalMaterialRecipe(consumer, MaterialIds.electrum, folder, "electrum", true);
+    // no whitestone, use repair kits
     // tier 3 (mod integration)
-    metalMaterialRecipe(consumer, MaterialIds.bronze, folder, "bronze", true);
     metalMaterialRecipe(consumer, MaterialIds.steel, folder, "steel", true);
+    metalMaterialRecipe(consumer, MaterialIds.bronze, folder, "bronze", true);
     metalMaterialRecipe(consumer, MaterialIds.constantan, folder, "constantan", true);
+    metalMaterialRecipe(consumer, MaterialIds.invar, folder, "invar", true);
+    materialRecipe(withCondition(consumer, tagCondition("ingots/uranium")), MaterialIds.necronium, Ingredient.fromItems(TinkerMaterials.necroniumBone), 1, 1, folder + "necronium");
+    metalMaterialRecipe(consumer, MaterialIds.electrum, folder, "electrum", true);
+    // no plated slimewood, use repair kits
   }
 
   private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {
@@ -173,9 +178,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialMeltingCasting(consumer, MaterialIds.roseGold,      TinkerFluids.moltenRoseGold,      true,  folder);
     materialMeltingCasting(consumer, MaterialIds.pigIron,       TinkerFluids.moltenPigIron,       false, folder);
     materialMeltingCasting(consumer, MaterialIds.cobalt,        TinkerFluids.moltenCobalt,        true,  folder);
-    materialComposite(consumer, MaterialIds.wood, MaterialIds.nahuatl, TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK, false, folder);
-    MaterialMeltingRecipeBuilder.material(MaterialIds.nahuatl, new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_BLOCK))
-                                .build(consumer, modResource(folder + "melting/nahuatl"));
+    materialMeltingComposite(consumer, MaterialIds.wood, MaterialIds.nahuatl, TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK, false, folder);
 
     // tier 4
     materialMeltingCasting(consumer, MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, folder);
@@ -184,12 +187,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 5, false, folder);
 
     // tier 2 compat
-    materialMeltingCasting(consumer, MaterialIds.lead,   TinkerFluids.moltenLead,   true, folder);
-    materialMeltingCasting(consumer, MaterialIds.silver, TinkerFluids.moltenSilver, true, folder);
+    materialMeltingCasting(consumer, MaterialIds.osmium,   TinkerFluids.moltenOsmium,   true, folder);
+    materialMeltingCasting(consumer, MaterialIds.tungsten, TinkerFluids.moltenTungsten, true, folder);
+    materialMeltingCasting(consumer, MaterialIds.platinum, TinkerFluids.moltenPlatinum, true, folder);
+    materialMeltingCasting(consumer, MaterialIds.silver,   TinkerFluids.moltenSilver,   true, folder);
+    materialMeltingCasting(consumer, MaterialIds.lead,     TinkerFluids.moltenLead,     true, folder);
+    materialComposite(withCondition(consumer, tagCondition("ingots/aluminum")), MaterialIds.stone, MaterialIds.whitestone, TinkerFluids.moltenAluminum, FluidValues.INGOT, true, folder, "whitestone_from_aluminum");
+    materialComposite(withCondition(consumer, tagCondition("ingots/tin")),      MaterialIds.stone, MaterialIds.whitestone, TinkerFluids.moltenTin,      FluidValues.INGOT, true, folder, "whitestone_from_tin");
+    materialComposite(withCondition(consumer, tagCondition("ingots/zinc")),     MaterialIds.stone, MaterialIds.whitestone, TinkerFluids.moltenZinc,     FluidValues.INGOT, true, folder, "whitestone_from_zinc");
     // tier 3 compat
-    materialMeltingCasting(consumer, MaterialIds.electrum,   TinkerFluids.moltenElectrum,   true, folder);
-    materialMeltingCasting(consumer, MaterialIds.bronze,     TinkerFluids.moltenBronze,     true, folder);
-    materialMeltingCasting(consumer, MaterialIds.steel,      TinkerFluids.moltenSteel,      true, folder);
-    materialMeltingCasting(consumer, MaterialIds.constantan, TinkerFluids.moltenConstantan, true, folder);
+    materialMeltingCasting(consumer, MaterialIds.steel,          TinkerFluids.moltenSteel,      true, folder);
+    materialMeltingCasting(consumer, MaterialIds.bronze,         TinkerFluids.moltenBronze,     true, folder);
+    materialMeltingCasting(consumer, MaterialIds.constantan,     TinkerFluids.moltenConstantan, true, folder);
+    materialMeltingCasting(consumer, MaterialIds.invar,          TinkerFluids.moltenInvar,      true, folder);
+    materialMeltingCasting(consumer, MaterialIds.electrum,       TinkerFluids.moltenElectrum,   true, folder);
+    materialMeltingComposite(consumer, MaterialIds.necroticBone, MaterialIds.necronium,       TinkerFluids.moltenUranium, FluidValues.INGOT, true, folder);
+    materialMeltingComposite(consumer, MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
   }
 }

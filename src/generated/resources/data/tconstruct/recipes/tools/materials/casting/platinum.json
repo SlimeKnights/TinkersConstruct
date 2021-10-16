@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "tag": "forge:molten_platinum",
+    "amount": 144
+  },
+  "temperature": 970,
+  "output": "tconstruct:platinum"
+}

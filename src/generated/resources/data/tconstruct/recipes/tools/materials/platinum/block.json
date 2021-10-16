@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/platinum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/platinum"
+  },
+  "value": 9,
+  "needed": 1,
+  "material": "tconstruct:platinum",
+  "leftover": {
+    "tag": "forge:ingots/platinum"
+  }
+}

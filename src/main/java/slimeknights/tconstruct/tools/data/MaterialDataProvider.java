@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.OrCondition;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 
 public class MaterialDataProvider extends AbstractMaterialDataProvider {
@@ -52,12 +55,23 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     //addMaterialNoFluid(MaterialIds.endstone, 2, ORDER_END, true, 0xe0d890);
 
     // tier 2 (mod integration)
-    addCompatMetalMaterial(MaterialIds.lead,   2, ORDER_COMPAT, 0x575E79);
-    addCompatMetalMaterial(MaterialIds.silver, 2, ORDER_COMPAT, 0xD3DFE8);
+    addCompatMetalMaterial(MaterialIds.osmium,     2, ORDER_COMPAT + ORDER_GENERAL, 0xBED3CD);
+    addCompatMetalMaterial(MaterialIds.tungsten,   2, ORDER_COMPAT + ORDER_HARVEST, 0xD1C08B);
+    addCompatMetalMaterial(MaterialIds.platinum,   2, ORDER_COMPAT + ORDER_HARVEST, 0xA3E7FE);
+    addCompatMetalMaterial(MaterialIds.silver,     2, ORDER_COMPAT + ORDER_WEAPON,  0xD3DFE8);
+    addCompatMetalMaterial(MaterialIds.lead,       2, ORDER_COMPAT + ORDER_WEAPON,  0x575E79);
+    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS,
+                                           tagExistsCondition("ingots/aluminum"),
+                                           tagExistsCondition("ingots/tin"),
+                                           tagExistsCondition("ingots/zinc"));
+    addMaterial(MaterialIds.whitestone, 2, ORDER_COMPAT + ORDER_SPECIAL, false, 0xE0E9EC, false, condition);
     // tier 3 (mod integration)
-    addCompatMetalMaterial(MaterialIds.electrum,   3, ORDER_COMPAT,  0xD9C25F);
-    addCompatMetalMaterial(MaterialIds.bronze,     3, ORDER_HARVEST, 0xD58F36);
-    addCompatMetalMaterial(MaterialIds.steel,      3, ORDER_GENERAL, 0x959595);
-    addCompatMetalMaterial(MaterialIds.constantan, 3, ORDER_COMPAT,  0x9C5643);
+    addCompatMetalMaterial(MaterialIds.steel,           3, ORDER_COMPAT + ORDER_GENERAL, 0x959595);
+    addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST, 0xD58F36);
+    addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST, 0x9C5643);
+    addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON,  0xA3B1A8);
+    addCompatMetalMaterial(MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON,  0x7F9374, "uranium");
+    addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, 0xD9C25F);
+    addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
   }
 }

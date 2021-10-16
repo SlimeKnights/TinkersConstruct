@@ -80,6 +80,18 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
 
     // tier 2 (mod integration)
+    addMaterialStats(MaterialIds.osmium,
+                     new HeadMaterialStats(500, 4.5f, IRON, 2.0f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackSpeed(0.9f).withMiningSpeed(0.9f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.tungsten,
+                     new HeadMaterialStats(350, 6.5f, IRON, 1.75f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withMiningSpeed(1.1f).withAttackSpeed(0.9f).withAttackDamage(1.1f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.platinum,
+                     new HeadMaterialStats(400, 7.0f, IRON, 1.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(0.95f),
+                     ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.silver,
                      new HeadMaterialStats(300, 5.5f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withMiningSpeed(1.05f).withAttackSpeed(1.1f),
@@ -87,6 +99,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.lead,
                      new HeadMaterialStats(200, 5f, IRON, 2.5f),
                      HandleMaterialStats.DEFAULT.withAttackSpeed(0.8f).withAttackDamage(1.2f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.whitestone,
+                     new HeadMaterialStats(275, 6.0f, IRON, 1.25f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.1f).withAttackSpeed(0.9f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3
@@ -131,10 +147,23 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(675, 7.5f, DIAMOND, 1.75f),
                      HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.invar,
+                     new HeadMaterialStats(630, 5.5f, DIAMOND, 2.5f),
+                     HandleMaterialStats.DEFAULT.withMiningSpeed(0.9f).withAttackDamage(1.2f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.necronium,
+                     new HeadMaterialStats(357, 4.0f, DIAMOND, 2.75f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(1.15f).withAttackDamage(1.1f),
+                     ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.electrum,
                      new HeadMaterialStats(225, 9f, IRON, 1.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(1.15f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.platedSlimewood,
+                     new HeadMaterialStats(595, 5.0f, DIAMOND, 2.0f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.25f).withMiningSpeed(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.05f),
+                     ExtraMaterialStats.DEFAULT);
+
     // tier 4
     // vanilla netherite: 2031, 9f, NETHERITE, 4f
     addMaterialStats(MaterialIds.queensSlime,

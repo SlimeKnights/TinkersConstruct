@@ -11,7 +11,11 @@ import java.util.List;
 
 public class ReinforcedModifier extends IncrementalModifier {
   public ReinforcedModifier() {
-    super(0xcacaca);
+    this(0xcacaca);
+  }
+
+  protected ReinforcedModifier(int color) {
+    super(color);
   }
 
   /**
@@ -19,7 +23,7 @@ public class ReinforcedModifier extends IncrementalModifier {
    * @param level  Level from 0 to 10
    * @return  Percentage
    */
-  private static float getPercentage(float level) {
+  protected float getPercentage(float level) {
     // formula gives 25%, 45%, 60%, 70%, 75% for first 5 levels
     if (level < 5) {
       return 0.025f * level * (11 - level);
@@ -60,6 +64,6 @@ public class ReinforcedModifier extends IncrementalModifier {
     } else {
       reinforced = getPercentage(getScaledLevel(tool, level));
     }
-    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(reinforced)).appendString(" ").appendSibling(makeDisplayName())));
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(reinforced) + " ").appendSibling(makeDisplayName())));
   }
 }

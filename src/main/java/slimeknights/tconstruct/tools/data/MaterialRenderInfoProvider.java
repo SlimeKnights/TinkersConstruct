@@ -41,14 +41,21 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.blazingBone).color(0xF2D500).fallbacks("bone", "rock").luminosity(15);
 
     // tier 2 compat
-    buildRenderInfo(MaterialIds.lead).color(0x575E79).fallbacks("metal");
+    buildRenderInfo(MaterialIds.osmium).color(0xBED3CD).fallbacks("metal");
+    buildRenderInfo(MaterialIds.tungsten).color(0xD1C08B).fallbacks("metal");
+    buildRenderInfo(MaterialIds.platinum).color(0xA3E7FE).fallbacks("metal");
     buildRenderInfo(MaterialIds.silver).color(0xD3DFE8).fallbacks("metal");
+    buildRenderInfo(MaterialIds.lead).color(0x575E79).fallbacks("metal");
+    buildRenderInfo(MaterialIds.whitestone).color(0xE0E9EC).fallbacks("rock");
 
     // tier 3 compat
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
     buildRenderInfo(MaterialIds.bronze).color(0xD58F36).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0x9C5643).fallbacks("metal");
+    buildRenderInfo(MaterialIds.invar).color(0xA3B1A8).fallbacks("metal");
+    buildRenderInfo(MaterialIds.necronium).color(0x7F9374).fallbacks("bone", "metal");
     buildRenderInfo(MaterialIds.electrum).color(0xD9C25F).fallbacks("metal");
+    buildRenderInfo(MaterialIds.platedSlimewood).color(0xE6D08D).fallbacks("slime_metal", "metal");
 
     // UI internal
     buildInternalMaterial(0, 0xcacaca, "metal");

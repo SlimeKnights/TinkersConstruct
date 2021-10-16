@@ -79,6 +79,7 @@ import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.transfer.TinkerStationTransferInfo;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
@@ -284,6 +285,19 @@ public class JEIPlugin implements IModPlugin {
   }
 
   /**
+   * Hides an item if the related tag is empty
+   * @param manager  Ingredient manager
+   * @param item     Cast instance
+   * @param tagName  Tag to check
+   */
+  private static void optionalItem(IIngredientManager manager, IItemProvider item, String tagName) {
+    ITag<Item> tag = TagCollectionManager.getManager().getItemTags().get(new ResourceLocation("forge", tagName));
+    if (tag == null || tag.getAllElements().isEmpty()) {
+      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singletonList(new ItemStack(item)));
+    }
+  }
+
+  /**
    * Hides casts if the related tag is empty
    * @param manager  Ingredient manager
    * @param cast     Cast instance
@@ -316,6 +330,7 @@ public class JEIPlugin implements IModPlugin {
     optionalCast(manager, TinkerSmeltery.gearCast);
     optionalCast(manager, TinkerSmeltery.coinCast);
     optionalCast(manager, TinkerSmeltery.wireCast);
+    optionalItem(manager, TinkerMaterials.necroniumBone, "ingots/uranium");
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */

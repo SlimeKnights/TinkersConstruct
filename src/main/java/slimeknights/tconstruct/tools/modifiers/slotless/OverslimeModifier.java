@@ -3,8 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.slotless;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -12,25 +11,28 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 
-public class OverslimeModifier extends SingleUseModifier {
-  private static final String KEY_OVERSLIME_AMOUNT = TConstruct.makeTranslationKey("gui", "amount");
-  /** Key for remaining overslime on a tool */
-  private static final ResourceLocation KEY_OVERSLIME = TConstruct.getResource("overslime");
+public class OverslimeModifier extends DurabilityShieldModifier {
   /** Key for max overslime on a tool */
   private static final ResourceLocation KEY_OVERSLIME_CAP = TConstruct.getResource("overslime_cap");
   /** Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs */
   private static final ResourceLocation KEY_OVERSLIME_FRIEND = TConstruct.getResource("overslime_friend");
 
+  protected OverslimeModifier(int color) {
+    super(color);
+  }
+
   public OverslimeModifier() {
-    super(0x71DC85);
+    this(0x71DC85);
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    return getDisplayName().deepCopy().appendString(": " + getOverslime(tool) + " / " + getCapacity(tool));
+  public ITextComponent getDisplayName(int level) {
+    // display name without the level
+    return super.getDisplayName();
   }
 
 
@@ -50,24 +52,6 @@ public class OverslimeModifier extends SingleUseModifier {
     }
   }
 
-  @Override
-  public ValidatedResult validate(IModifierToolStack tool, int level) {
-    // clear excess overslime
-    if (level > 0) {
-      int cap = getCapacity(tool);
-      if (getOverslime(tool) > cap) {
-        setOverslime(tool, cap);
-      }
-    }
-    return ValidatedResult.PASS;
-  }
-
-  @Override
-  public void onRemoved(IModifierToolStack tool) {
-    // remove all overslime on removal
-    tool.getPersistentData().remove(getId());
-  }
-
 
   /* Hooks */
 
@@ -77,37 +61,8 @@ public class OverslimeModifier extends SingleUseModifier {
     return 150;
   }
 
-  @Override
-  public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
-    int overslime = getOverslime(toolStack);
-    if (overslime > 0) {
-      // if we have more overslime than amount, remove some overslime
-      if (overslime >= amount) {
-        setOverslime(toolStack, overslime - amount);
-        return 0;
-      }
-      // amount is more than overslime, reduce and clear overslime
-      amount -= overslime;
-      setOverslime(toolStack, 0);
-    }
-    return amount;
-  }
-
 
   /* Display */
-
-  @Override
-  public double getDamagePercentage(IModifierToolStack tool, int level) {
-    int overslime = getOverslime(tool);
-    if (overslime > 0) {
-      int cap = getCapacity(tool);
-      if (overslime > cap) {
-        return 0;
-      }
-      return ((double) (cap - overslime) / cap);
-    }
-    return Double.NaN;
-  }
 
   @Nullable
   @Override
@@ -128,9 +83,18 @@ public class OverslimeModifier extends SingleUseModifier {
 
   /* Data keys */
 
-  /** Gets the key for overslime */
+  /**
+   * Gets the key for overslime
+   * @deprecated use {@link #getShieldKey()}
+   */
+  @Deprecated
   public ResourceLocation getOverslimeKey() {
-    return KEY_OVERSLIME;
+    return getId();
+  }
+
+  @Override
+  protected ResourceLocation getShieldKey() {
+    return getOverslimeKey();
   }
 
   /** Gets the key for overslime capacity */
@@ -166,6 +130,11 @@ public class OverslimeModifier extends SingleUseModifier {
    */
   public int getCapacity(IModifierToolStack tool) {
     return getCapacity(tool.getVolatileData());
+  }
+
+  @Override
+  protected int getShieldCapacity(IModifierToolStack tool, int level) {
+    return getCapacity(tool);
   }
 
   /**
@@ -205,7 +174,7 @@ public class OverslimeModifier extends SingleUseModifier {
    * @return  Default cap
    */
   public int getOverslime(IModifierToolStack tool) {
-    return tool.getPersistentData().getInt(getOverslimeKey());
+    return getShield(tool);
   }
 
   /**
@@ -216,20 +185,23 @@ public class OverslimeModifier extends SingleUseModifier {
    */
   @Deprecated
   public void setOverslime(ModDataNBT persistentData, int amount) {
-    persistentData.putInt(getOverslimeKey(), Math.max(amount, 0));
+    setShield(persistentData, amount);
   }
 
   /**
    * Sets the overslime on a tool
    */
   public void setOverslime(IModifierToolStack tool, int amount) {
-    setOverslime(tool.getPersistentData(), Math.min(amount, getCapacity(tool)));
+    setShield(tool, 0, amount); // level is unused for overslime capacity
   }
 
   /**
    * Adds to the overslime on a tool
    */
   public void addOverslime(IModifierToolStack tool, int amount) {
-    setOverslime(tool, getOverslime(tool) + amount);
+    // yeah, I am hardcoding overworked. If you need something similar, put in an issue request on github
+    // grants +100% restoring per level
+    int overworked = tool.getModifierLevel(TinkerModifiers.overworked.get());
+    addShield(tool, 0, amount * (1 + overworked));
   }
 }

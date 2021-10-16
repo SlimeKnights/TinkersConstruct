@@ -71,6 +71,14 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
   }
 
   /**
+   * Declares the given material with no traits
+   * @param location  Material ID
+   */
+  protected void noTraits(MaterialId location) {
+    getOrCreateMaterialTraits(location);
+  }
+
+  /**
    * Adds a set of material stats for the given material ID
    * @param location  Material ID
    * @param traits    Traits to add

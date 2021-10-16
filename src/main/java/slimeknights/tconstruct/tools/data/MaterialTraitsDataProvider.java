@@ -50,12 +50,19 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting.get());
 
     // tier 2 - mod compat
+    addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense.get());
+    addDefaultTraits(MaterialIds.tungsten, TinkerModifiers.sharpweight.get());
+    addDefaultTraits(MaterialIds.platinum, TinkerModifiers.lustrous.get());
     addDefaultTraits(MaterialIds.lead, TinkerModifiers.heavy.get());
     addDefaultTraits(MaterialIds.silver, TinkerModifiers.smite.get());
+    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield.get());
     // tier 3 - mod compat
-    addDefaultTraits(MaterialIds.electrum, TinkerModifiers.experienced.get());
-    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.wellMaintained2.get());
     addDefaultTraits(MaterialIds.steel, TinkerModifiers.ductile.get());
+    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.wellMaintained2.get());
     addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate.get());
+    addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant.get());
+    addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay.get());
+    addDefaultTraits(MaterialIds.electrum, TinkerModifiers.experienced.get());
+    addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked.get(), TinkerModifiers.overslime.get());
   }
 }

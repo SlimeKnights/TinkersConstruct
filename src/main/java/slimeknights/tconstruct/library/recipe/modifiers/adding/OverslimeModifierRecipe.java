@@ -59,27 +59,21 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
-    int current = 0;
     OverslimeModifier overslime = TinkerModifiers.overslime.get();
-    int cap = overslime.getCapacity(tool);
     // if the tool lacks true overslime, add overslime
     if (tool.getUpgrades().getLevel(TinkerModifiers.overslime.get()) == 0) {
       // however, if we have overslime though a trait and reached our cap, also do nothing
       if (tool.getModifierLevel(TinkerModifiers.overslime.get()) > 0) {
-        current = overslime.getOverslime(tool);
-        if (current >= cap) {
+        if (overslime.getOverslime(tool) >= overslime.getCapacity(tool)) {
           return AT_CAPACITY;
         }
       }
-
       // truely add overslime, this will cost a slime crystal if full durability
       tool = tool.copy();
       tool.addModifier(TinkerModifiers.overslime.get(), 1);
-      cap = overslime.getCapacity(tool);
     } else {
       // ensure we are not at the cap already
-      current = overslime.getOverslime(tool);
-      if (current >= cap) {
+      if (overslime.getOverslime(tool) >= overslime.getCapacity(tool)) {
         return AT_CAPACITY;
       }
       // copy the tool as we will change it later
@@ -88,7 +82,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     // see how much value is available, update overslime to the max possible
     int available = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, restoreAmount);
-    overslime.setOverslime(tool, Math.min(current + available, cap));
+    overslime.addOverslime(tool, available);
     return ValidatedResult.success(tool.createStack());
   }
 

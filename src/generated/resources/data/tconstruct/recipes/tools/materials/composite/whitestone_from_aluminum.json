@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/aluminum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "input": "tconstruct:stone",
+  "fluid": {
+    "tag": "forge:molten_aluminum",
+    "amount": 144
+  },
+  "temperature": 425,
+  "output": "tconstruct:whitestone"
+}

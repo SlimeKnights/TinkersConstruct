@@ -1,0 +1,8 @@
+{
+  "fallbacks": [
+    "slime_metal",
+    "metal"
+  ],
+  "color": "E6D08D",
+  "luminosity": 0
+}

@@ -173,6 +173,9 @@ public class TinkerTags {
     /** Anything that works as a slimesling, flinging the player or mobs on use */
     public static final IOptionalNamedTag<Item> SLIMESLINGS = tag("slimeslings");
 
+    /** Stones that can be used for stoneshield */
+    public static final IOptionalNamedTag<Item> STONESHIELDS = tag("stoneshields");
+
     /*
      * Tool tags
      */

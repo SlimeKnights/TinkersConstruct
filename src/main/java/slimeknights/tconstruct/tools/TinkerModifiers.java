@@ -73,21 +73,28 @@ import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.VolatileFlagModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.CultivatedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.general.DenseModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.DuctileModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OverlordModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.general.OverworkedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.harvest.LustrousModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier2;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MomentumModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.harvest.SharpweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.TemperateModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ConductingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.melee.DecayModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.InsatibleModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.melee.InvariantModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
@@ -280,12 +287,20 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ConductingModifier> conducting = MODIFIERS.register("conducting", ConductingModifier::new);
 
   // traits - mod compat tier 2
+  public static final RegistryObject<DenseModifier> dense = MODIFIERS.register("dense", DenseModifier::new);
+  public static final RegistryObject<SharpweightModifier> sharpweight = MODIFIERS.register("sharpweight", SharpweightModifier::new);
+  public static final RegistryObject<LustrousModifier> lustrous = MODIFIERS.register("lustrous", LustrousModifier::new);
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
-  // experienced is also an upgrade
+  public static final RegistryObject<StoneshieldModifier> stoneshield = MODIFIERS.register("stoneshield", StoneshieldModifier::new);
+  // smite is also an upgrade
   // traits - mod compat tier 3
   public static final RegistryObject<DuctileModifier> ductile = MODIFIERS.register("ductile", DuctileModifier::new);
   public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
   public static final RegistryObject<TemperateModifier> temperate = MODIFIERS.register("temperate", TemperateModifier::new);
+  public static final RegistryObject<InvariantModifier> invariant = MODIFIERS.register("invariant", InvariantModifier::new);
+  public static final RegistryObject<DecayModifier> decay = MODIFIERS.register("decay", DecayModifier::new);
+  public static final RegistryObject<OverworkedModifier> overworked = MODIFIERS.register("overworked", OverworkedModifier::new);
+  // experienced is also an upgrade
 
   /*
    * Internal effects

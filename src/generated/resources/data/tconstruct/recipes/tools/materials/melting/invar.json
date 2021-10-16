@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:invar",
+  "temperature": 900,
+  "result": {
+    "fluid": "tconstruct:molten_invar",
+    "amount": 144
+  }
+}

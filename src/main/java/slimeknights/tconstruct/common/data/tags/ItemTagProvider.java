@@ -222,6 +222,15 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     Builder<Item> slimySeeds = this.getOrCreateBuilder(TinkerTags.Items.SLIMY_SEEDS);
     TinkerWorld.slimeGrassSeeds.forEach(slimySeeds::addItemEntry);
+
+    // contains any ground stones
+    this.getOrCreateBuilder(TinkerTags.Items.STONESHIELDS)
+        .addTag(Tags.Items.STONE)
+        .addTag(Tags.Items.COBBLESTONE)
+        .addTag(Tags.Items.SANDSTONE)
+        .addTag(Tags.Items.END_STONES)
+        .addTag(Tags.Items.GRAVEL) // for shovels and axes to use
+        .add(Items.NETHERRACK, Items.BASALT, Items.POLISHED_BASALT, Items.BLACKSTONE, Items.POLISHED_BLACKSTONE);
   }
 
   private void addSmeltery() {

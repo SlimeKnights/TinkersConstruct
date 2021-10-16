@@ -1,0 +1,8 @@
+{
+  "default": [
+    {
+      "name": "tconstruct:invariant",
+      "level": 1
+    }
+  ]
+}

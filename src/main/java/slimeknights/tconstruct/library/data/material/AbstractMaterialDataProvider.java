@@ -105,6 +105,11 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /* Material helpers */
 
+  /** Conditions on a forge tag existing */
+  protected static ICondition tagExistsCondition(String name) {
+    return new NotCondition(new TagEmptyCondition("forge", name));
+  }
+
   /** Creates a normal material with a condition and a redirect */
   protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
     addMaterial(new Material(location, tier, order, craftable, Color.fromInt(color), hidden), condition, redirect);
@@ -116,9 +121,14 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   /** Creates a new compat material */
-  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color) {
-    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath())));
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color, String ingotName) {
+    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("ingots/" + ingotName));
     addMaterial(location, tier, order, false, color & 0xFFFFFF, false, condition);
+  }
+
+  /** Creates a new compat material */
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color) {
+    addCompatMetalMaterial(location, tier, order, color, location.getPath());
   }
 
 

@@ -200,6 +200,7 @@
   "item.tconstruct.silky_jewel.tooltip": "Prevents a tool from damaging block drops",
   "item.tconstruct.necrotic_bone": "Necrotic Bone",
   "item.tconstruct.necrotic_bone.tooltip": "Dropped from wither skeletons",
+  "item.tconstruct.necronium_bone": "Necronium Bone",
   "item.tconstruct.bloodbone": "Bloodbone",
   "item.tconstruct.blazing_bone": "Blazing Bone",
   "item.tconstruct.dragon_scale": "Dragon Scale",
@@ -1300,6 +1301,18 @@
 
 
   "__comment": "Tier 2 Integration Materials",
+  "material.tconstruct.osmium": "Osmium",
+  "material.tconstruct.osmium.flavor": "Too dense to get most jokes",
+  "material.tconstruct.osmium.encyclopedia": "Prevents 33% of damage at the cost of an extra 25% repair cost at first level",
+
+  "material.tconstruct.tungsten": "Tungsten",
+  "material.tconstruct.tungsten.flavor": "Have you considered starting a heavy metal band?",
+  "material.tconstruct.tungsten.encyclopedia": "Grants +10% mining speed and -10% movement speed per level",
+
+  "material.tconstruct.platinum": "Platinum",
+  "material.tconstruct.platinum.flavor": "Its what winners use!",
+  "material.tconstruct.platinum.encyclopedia": "Grants +8 mining speed against ores",
+
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
   "material.tconstruct.lead.encyclopedia": "Grants +10% attack and -10% movement speed per level",
@@ -1308,9 +1321,9 @@
   "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
   "material.tconstruct.silver.encyclopedia": "Gives +2.5 damage against undead per level",
 
-  "material.tconstruct.electrum": "Electrum",
-  "material.tconstruct.electrum.flavor": "Good for electronic components.",
-  "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
+  "material.tconstruct.whitestone": "Whitestone",
+  "material.tconstruct.whitestone.flavor": "Take your useless white metals and make a useful tool",
+  "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 25% per level of granting +5 stoneshield",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -1326,6 +1339,21 @@
   "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
   "material.tconstruct.constantan.encyclopedia": "Grants +12.5% mining speed in extreme heat or cold",
 
+  "material.tconstruct.invar": "Invar",
+  "material.tconstruct.invar.flavor": "Resists both temperature and arrest.",
+  "material.tconstruct.invar.encyclopedia": "Grants +2.5 damage in biomes with neutral temperatures",
+
+  "material.tconstruct.electrum": "Electrum",
+  "material.tconstruct.electrum.flavor": "Good for electronic components.",
+  "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
+
+  "material.tconstruct.necronium": "Necronium",
+  "material.tconstruct.necronium.flavor": "This much decay probably only leaves it with a quarter life",
+  "material.tconstruct.necronium.encyclopedia": "Causes at least 5 seconds of wither, to your target and at a 25% chance to you",
+
+  "material.tconstruct.plated_slimewood": "Plated Slimewood",
+  "material.tconstruct.plated_slimewood.flavor": "All the shininess of brass with the squish of slime",
+  "material.tconstruct.plated_slimewood.encyclopedia": "Grants +100% to all methods of restoring overslime",
 
 
   "_comment": "Modifiers",
@@ -1651,12 +1679,23 @@
   "modifier.tconstruct.conducting.attack_damage": "Max Damage on Fire",
 
   "__comment": "Tier 2 Mod Compat Traits",
+  "modifier.tconstruct.dense": "Dense",
+  "modifier.tconstruct.dense.flavor": "Barely loses its shape",
+  "modifier.tconstruct.dense.description": "Tool lasts longer, but is harder to repair",
+  "modifier.tconstruct.sharpweight": "Sharpweight",
+  "modifier.tconstruct.sharpweight.flavor": "As opposed to a dumbweight",
+  "modifier.tconstruct.sharpweight.description": "Mines faster, but is extremely hard to move",
+  "modifier.tconstruct.lustrous": "Lustrous",
+  "modifier.tconstruct.lustrous.flavor": "The shiniest of ores!",
+  "modifier.tconstruct.lustrous.description": "Mines ores faster",
+  "modifier.tconstruct.lustrous.mining_speed": "Ore Mining",
   "modifier.tconstruct.heavy": "Heavy",
   "modifier.tconstruct.heavy.flavor": "Dense!",
   "modifier.tconstruct.heavy.description": "Hard to move while wielding, but it packs a heavy punch",
-  "modifier.tconstruct.holy": "Holy",
-  "modifier.tconstruct.holy.flavor": "Blessed Blade!",
-  "modifier.tconstruct.holy.description": "Let the undead fall to the might of your blade",
+  "modifier.tconstruct.stoneshield": "Stoneshield",
+  "modifier.tconstruct.stoneshield.flavor": "Masterful stonebending",
+  "modifier.tconstruct.stoneshield.description": "Mined stone protects the tool from future damage",
+
 
   "__comment": "Tier 3 Mod Compat Traits",
   "modifier.tconstruct.ductile": "Ductile",
@@ -1668,6 +1707,16 @@
   "modifier.tconstruct.temperate": "Temperate",
   "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
   "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
+  "modifier.tconstruct.invariant": "Invariant",
+  "modifier.tconstruct.invariant.flavor": "Couldn't care less",
+  "modifier.tconstruct.invariant.description": "Tool does more damage in neutral temperatures",
+  "modifier.tconstruct.invariant.attack_damage": "Neutral Damage",
+  "modifier.tconstruct.decay": "Decay",
+  "modifier.tconstruct.decay.flavor": "Radioactive Withering",
+  "modifier.tconstruct.decay.description": "Causes targets to wither away, but may also cause the holder to wither",
+  "modifier.tconstruct.overworked": "Overworked",
+  "modifier.tconstruct.overworked.flavor": "Underpaid",
+  "modifier.tconstruct.overworked.description": "Increases amount of overslime restored from all sources",
 
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Bleeding",
