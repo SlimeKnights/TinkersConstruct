@@ -38,9 +38,9 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   /** Order for mod integration materials */
   public static final int ORDER_COMPAT = 5;
   /** Order for nether materials in tiers 1-3 */
-  public static final int ORDER_NETHER = 7;
+  public static final int ORDER_NETHER = 10;
   /** Order for end materials in tiers 1-4 */
-  public static final int ORDER_END = 10;
+  public static final int ORDER_END = 15;
 
   /** List of all added materials */
   private final Map<MaterialId, DataMaterial> allMaterials = new HashMap<>();
