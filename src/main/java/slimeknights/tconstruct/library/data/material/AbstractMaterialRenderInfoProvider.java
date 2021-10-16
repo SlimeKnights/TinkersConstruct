@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.data.material;
 
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.DataGenerator;
@@ -17,7 +16,7 @@ import java.util.Map;
 /** Base data generator for use in addons */
 public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProvider {
   /** Map of material ID to builder, there is at most one builder for each ID */
-  private final Map<MaterialId,MaterialRenderInfoJson> allRenderInfo = new HashMap<>();
+  private final Map<MaterialId,RenderInfoBuilder> allRenderInfo = new HashMap<>();
 
   public AbstractMaterialRenderInfoProvider(DataGenerator gen) {
     super(gen, ResourcePackType.CLIENT_RESOURCES, "models/tool_materials");
@@ -30,31 +29,19 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   public void act(DirectoryCache cache) {
     addMaterialRenderInfo();
     // generate
-    allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId, info));
+    allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId, info.build()));
   }
 
 
   /* Helpers */
 
-  /** Converts a color int into a color string */
-  protected static String toColorString(int color) {
-    return String.format("%06X", color);
-  }
-
-  /** Adds a render info for the given material ID */
-  protected void addRenderInfo(MaterialId id, MaterialRenderInfoJson json) {
-    allRenderInfo.put(id, json);
-  }
-
   /** Starts a builder for a general render info */
-  protected RenderInfoBuilder buildRenderInfo(MaterialId id) {
-    return new RenderInfoBuilder(id);
+  protected RenderInfoBuilder buildRenderInfo(MaterialId materialId) {
+    return allRenderInfo.computeIfAbsent(materialId, id -> new RenderInfoBuilder());
   }
 
   @Accessors(fluent = true, chain = true)
-  @RequiredArgsConstructor
-  protected class RenderInfoBuilder {
-    private final MaterialId materialId;
+  protected static class RenderInfoBuilder {
     @Setter
     private ResourceLocation texture = null;
     private String[] fallbacks;
@@ -72,8 +59,8 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
     }
 
     /** Builds the material */
-    public void build() {
-      addRenderInfo(materialId, new MaterialRenderInfoJson(texture, fallbacks, toColorString(color), skipUniqueTexture ? Boolean.TRUE : null, luminosity));
+    public MaterialRenderInfoJson build() {
+      return new MaterialRenderInfoJson(texture, fallbacks, String.format("%06X", color), skipUniqueTexture ? Boolean.TRUE : null, luminosity);
     }
   }
 }
