@@ -63,7 +63,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(0.85f).withMiningSpeed(1.2f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.searedStone,
-                     new HeadMaterialStats(150, 5f, IRON, 2.25f),
+                     new HeadMaterialStats(225, 5f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.85f).withAttackDamage(1.15f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.scorchedStone,
@@ -75,7 +75,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(1.3f).withMiningSpeed(0.85f).withAttackDamage(0.85f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.bloodbone,
-                     new HeadMaterialStats(195, 5f, IRON, 2f),
+                     new HeadMaterialStats(175, 4.5f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(1.1f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
 
@@ -114,13 +114,13 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     // tier 3 (nether)
     addMaterialStats(MaterialIds.cobalt,
-                     new HeadMaterialStats(800, 7.5f, DIAMOND, 2.5f),
+                     new HeadMaterialStats(800, 7.5f, DIAMOND, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3 (mod integration)
     addMaterialStats(MaterialIds.steel,
-                     new HeadMaterialStats(775, 7f, DIAMOND, 2.5f),
+                     new HeadMaterialStats(775, 6f, DIAMOND, 2.75f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.bronze,
@@ -128,7 +128,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(1.10f).withMiningSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.constantan,
-                     new HeadMaterialStats(675, 6.5f, DIAMOND, 2.5f),
+                     new HeadMaterialStats(675, 7.5f, DIAMOND, 1.75f),
                      HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.electrum,
