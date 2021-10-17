@@ -9,6 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -24,7 +26,7 @@ import javax.annotation.Nullable;
  * Recipe to add additional slots with the creative modifier
  */
 @RequiredArgsConstructor
-public class CreativeSlotRecipe implements ITinkerStationRecipe {
+public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe {
   @Getter
   private final ResourceLocation id;
 
@@ -95,6 +97,11 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe {
       toolStack.rebuildStats();
     }
     return toolStack.createStack();
+  }
+
+  @Override
+  public Modifier getModifier() {
+    return TinkerModifiers.creativeSlot.get();
   }
 
   /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)} */

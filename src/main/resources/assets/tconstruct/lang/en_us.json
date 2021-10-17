@@ -1893,6 +1893,12 @@
   "book.tconstruct.tool.properties": "Properties:",
 
 
+  "_comment": "Commands",
+
+  "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
+  "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
+
+
   "_comment": "JEI Strings",
   "jei.tconstruct.time": "%s s",
   "jei.tconstruct.temperature": "%s°C",

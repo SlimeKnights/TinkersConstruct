@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -23,7 +24,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 /** Common interface for modifier recipes that can show in JEI */
-public interface IDisplayModifierRecipe {
+public interface IDisplayModifierRecipe extends IModifierRecipe {
   /**
    * Gets a list of ingredients to display in JEI. First entry is the tool without the modifier, then next 1-5 are items to add the modifier
    * @return  Display item list
@@ -35,6 +36,11 @@ public interface IDisplayModifierRecipe {
 
   /** Gets the modifier output of this recipe */
   ModifierEntry getDisplayResult();
+
+  @Override
+  default Modifier getModifier() {
+    return getDisplayResult().getModifier();
+  }
 
   /**
    * Gets the max level of this modifier
@@ -48,6 +54,16 @@ public interface IDisplayModifierRecipe {
   @Nullable
   default SlotCount getSlots() {
     return null;
+  }
+
+  @Nullable
+  @Override
+  default SlotType getSlotType() {
+    SlotCount count = getSlots();
+    if (count == null) {
+      return null;
+    }
+    return count.getType();
   }
 
   /** If true, this recipe has additional requirements */
