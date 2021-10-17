@@ -1869,6 +1869,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(Tags.Items.DUSTS_GLOWSTONE, true)
                             .setFluidAndTime(TinkerFluids.moltenOsmium, FluidValues.INGOT)
                             .build(wrapped, modResource(folder + "refined_glowstone_ingot"));
+    wrapped = withCondition(consumer, tagCondition("ingots/refined_obsidian"), tagCondition("ingots/osmium"));
+    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromTag(ItemTags.makeWrapperTag("forge:ingots/refined_obsidian"), 1))
+                            .setCast(ItemTags.makeWrapperTag("forge:dusts/refined_obsidian"), true)
+                            .setFluidAndTime(TinkerFluids.moltenOsmium, FluidValues.INGOT)
+                            .build(wrapped, modResource(folder + "refined_obsidian_ingot"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.necroniumBone)
                             .setFluidAndTime(TinkerFluids.moltenUranium, true, FluidValues.INGOT)
                             .setCast(TinkerTags.Items.WITHER_BONES, true)
