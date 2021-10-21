@@ -4,13 +4,16 @@ import com.google.gson.JsonObject;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.library.events.teleport.SpillingTeleportEvent;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
+import slimeknights.tconstruct.library.utils.TeleportHelper;
+import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 
 /** Effect that teleports the entity */
 public class TeleportSpillingEffect implements ISpillingEffect {
   public static final Loader LOADER = new Loader();
   public static final TeleportSpillingEffect INSTANCE = new TeleportSpillingEffect();
+  private static final ITeleportEventFactory TELEPORT_PREDICATE = SpillingTeleportEvent::new;
 
   private TeleportSpillingEffect() {}
 
@@ -18,7 +21,7 @@ public class TeleportSpillingEffect implements ISpillingEffect {
   public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
-      EnderSlimeEntity.teleport(target);
+      TeleportHelper.randomNearbyTeleport(target, TELEPORT_PREDICATE);
     }
   }
 

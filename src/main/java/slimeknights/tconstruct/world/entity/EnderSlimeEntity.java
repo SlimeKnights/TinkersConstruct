@@ -6,14 +6,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.events.teleport.EnderSlimeTeleportEvent;
+import slimeknights.tconstruct.library.utils.TeleportHelper;
+import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class EnderSlimeEntity extends SlimeEntity {
+  /** Predicate for this ender slime to allow teleporting */
+  private final ITeleportEventFactory teleportPredicate = (entity, x, y, z) -> new EnderSlimeTeleportEvent(entity, x, y, z, this);
+
   public EnderSlimeEntity(EntityType<? extends EnderSlimeEntity> type, World worldIn) {
     super(type, worldIn);
   }
@@ -23,34 +25,11 @@ public class EnderSlimeEntity extends SlimeEntity {
     return TinkerWorld.enderSlimeParticle.get();
   }
 
-  /** Randomly teleports an entity, mostly copied from chorus fruit */
-  public static void teleport(LivingEntity living) {
-    double posX = living.getPosX();
-    double posY = living.getPosY();
-    double posZ = living.getPosZ();
-
-    for(int i = 0; i < 16; ++i) {
-      double x = posX + (living.getRNG().nextDouble() - 0.5D) * 16.0D;
-      double y = MathHelper.clamp(posY + (double)(living.getRNG().nextInt(16) - 8), 0.0D, living.getEntityWorld().func_234938_ad_() - 1);
-      double z = posZ + (living.getRNG().nextDouble() - 0.5D) * 16.0D;
-      if (living.isPassenger()) {
-        living.stopRiding();
-      }
-
-      if (living.attemptTeleport(x, y, z, true)) {
-        SoundEvent soundevent = Sounds.SLIME_TELEPORT.getSound();
-        living.getEntityWorld().playSound(null, posX, posY, posZ, soundevent, SoundCategory.PLAYERS, 1.0F, 1.0F);
-        living.playSound(soundevent, 1.0F, 1.0F);
-        break;
-      }
-    }
-  }
-
   @Override
   public void applyEnchantments(LivingEntity slime, Entity target) {
     super.applyEnchantments(slime, target);
     if (target instanceof LivingEntity) {
-      teleport((LivingEntity) target);
+      TeleportHelper.randomNearbyTeleport((LivingEntity) target, teleportPredicate);
     }
   }
 
@@ -59,7 +38,7 @@ public class EnderSlimeEntity extends SlimeEntity {
     float oldHealth = getHealth();
     super.damageEntity(damageSrc, damageAmount);
     if (isAlive() && getHealth() < oldHealth) {
-      teleport(this);
+      TeleportHelper.randomNearbyTeleport(this, teleportPredicate);
     }
   }
 }
