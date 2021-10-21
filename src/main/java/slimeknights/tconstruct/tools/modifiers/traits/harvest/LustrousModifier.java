@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.harvest;
 
+import net.minecraft.block.Block;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.Tags;
@@ -24,7 +25,8 @@ public class LustrousModifier extends Modifier {
 
   @Override
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
-    if (isEffective && event.getState().isIn(Tags.Blocks.ORES)) {
+    Block block = event.getState().getBlock();
+    if (isEffective && (block.isIn(Tags.Blocks.ORES) || block.isIn(Tags.Blocks.STORAGE_BLOCKS))) {
       // grants +8 mining speed per level against ores
       event.setNewSpeed(event.getNewSpeed() + (level * 8 * tool.getModifier(ToolStats.MINING_SPEED)));
     }
