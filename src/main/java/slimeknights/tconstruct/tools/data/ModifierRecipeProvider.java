@@ -485,6 +485,25 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.golden, armorSalvage))
                          .build(consumer, prefix(TinkerModifiers.golden, armorFolder));
+    // 3 each for chest and legs, 2 each for boots and helmet, leads to 10 total
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
+                                    .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.CHESTPLATES), Ingredient.fromTag(TinkerTags.Items.LEGGINGS)))
+                                    .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(3)
+                                    .build(consumer, wrap(TinkerModifiers.revitalizing, armorFolder, "_large"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
+                                    .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.HELMETS), Ingredient.fromTag(TinkerTags.Items.BOOTS)))
+                                    .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(2)
+                                    .build(consumer, wrap(TinkerModifiers.revitalizing, armorFolder, "_small"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
+                                    .setTools(Ingredient.fromTag(TinkerTags.Items.ARMOR))
+                                    .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(3)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.revitalizing, armorSalvage));
 
     // upgrade - counterattack
     ModifierRecipeBuilder.modifier(TinkerModifiers.thorns.get())
@@ -533,13 +552,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(3)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.speedy, armorSalvage))
                                     .build(consumer, prefix(TinkerModifiers.speedy, armorFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
-                                    .setTools(TinkerTags.Items.LEGGINGS)
-                                    .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .setMaxLevel(5)
-                                    .buildSalvage(consumer, prefix(TinkerModifiers.revitalizing, armorSalvage))
-                                    .build(consumer, prefix(TinkerModifiers.revitalizing, armorFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.leaping.get())
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInputSalvage(Items.PISTON, 0.6f)

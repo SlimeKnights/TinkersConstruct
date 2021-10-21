@@ -248,12 +248,12 @@ public final class TinkerModifiers extends TinkerModule {
   // general
   public static final RegistryObject<VolatileFlagModifier> golden = MODIFIERS.register("golden", () -> new VolatileFlagModifier(0xFFD83E, ModifiableArmorItem.PIGLIN_NEUTRAL));
   public static final RegistryObject<RicochetModifier> ricochet = MODIFIERS.register("ricochet", RicochetModifier::new);
+  public static final RegistryObject<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
   // counterattack
   public static final RegistryObject<ThornsModifier> thorns = MODIFIERS.register("thorns", ThornsModifier::new);
   public static final RegistryObject<SpringyModifier> springy = MODIFIERS.register("springy", SpringyModifier::new);
   public static final RegistryObject<StickyModifier> sticky = MODIFIERS.register("sticky", StickyModifier::new);
   // piece specific
-  public static final RegistryObject<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
   public static final RegistryObject<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
   public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
   public static final RegistryObject<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);
