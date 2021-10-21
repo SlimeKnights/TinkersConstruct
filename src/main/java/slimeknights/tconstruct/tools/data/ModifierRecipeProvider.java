@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageS
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.DamageType;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.LivingEntityPredicate;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -831,9 +832,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new EffectSpillingEffect(Effects.SLOWNESS, 15, 1))
                          .build(consumer, prefix(TinkerFluids.enderSlime, folder));
     // slimelike
-    // blood - hunger
+    // blood - food
     SpillingRecipeBuilder.forFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(Effects.HUNGER, 20, 1))
+                         .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
+                         .addEffect(new EffectSpillingEffect(Effects.MINING_FATIGUE, 10, 1))
                          .build(consumer, prefix(TinkerFluids.blood, folder));
     // venom - poison
     SpillingRecipeBuilder.forFluid(TinkerFluids.venom.getLocalTag(), slimeballPiece)
@@ -883,9 +885,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerFluids.moltenGold, folder));
     // pig iron fills you up magic
     SpillingRecipeBuilder.forFluid(TinkerFluids.moltenPigIron.getLocalTag(), FluidValues.NUGGET)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1f))
-                         .addEffect(new EffectSpillingEffect(Effects.SATURATION, 10, 1))
-                         .addEffect(new SetFireSpillingEffect(3))
+                         .addEffect(new RestoreHungerSpillingEffect(2, 0.3f))
+                         .addEffect(new SetFireSpillingEffect(2))
                          .build(consumer, prefix(TinkerFluids.moltenPigIron, folder));
     // uranium also does poison
     SpillingRecipeBuilder.forFluid(TinkerFluids.moltenUranium.getLocalTag(), FluidValues.NUGGET)

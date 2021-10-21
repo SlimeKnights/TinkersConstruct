@@ -6,9 +6,14 @@
   },
   "effects": [
     {
+      "type": "tconstruct:restore_hunger",
+      "hunger": 1,
+      "saturation": 0.2
+    },
+    {
       "type": "tconstruct:effect",
-      "name": "minecraft:hunger",
-      "time": 20,
+      "name": "minecraft:mining_fatigue",
+      "time": 10,
       "level": 1
     }
   ]

@@ -6,20 +6,13 @@
   },
   "effects": [
     {
-      "type": "tconstruct:damage",
-      "entity": "not_fire_immune",
-      "damage_type": "fire",
-      "damage_amount": 1.0
-    },
-    {
-      "type": "tconstruct:effect",
-      "name": "minecraft:saturation",
-      "time": 10,
-      "level": 1
+      "type": "tconstruct:restore_hunger",
+      "hunger": 2,
+      "saturation": 0.3
     },
     {
       "type": "tconstruct:set_fire",
-      "time": 3
+      "time": 2
     }
   ]
 }

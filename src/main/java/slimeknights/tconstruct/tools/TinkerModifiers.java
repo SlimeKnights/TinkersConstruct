@@ -38,6 +38,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeL
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -344,5 +345,6 @@ public final class TinkerModifiers extends TinkerModule {
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("set_fire"), SetFireSpillingEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("cure_effects"), CureEffectsSpillingEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("teleport"), TeleportSpillingEffect.LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("restore_hunger"), RestoreHungerSpillingEffect.LOADER);
   }
 }
