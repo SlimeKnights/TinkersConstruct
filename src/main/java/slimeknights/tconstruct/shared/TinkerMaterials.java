@@ -19,7 +19,7 @@ import slimeknights.tconstruct.shared.block.OrientableBlock;
 import slimeknights.tconstruct.shared.block.SlimesteelBlock;
 
 /**
- * Contains bommon blocks and items used in crafting materials
+ * Contains common blocks and items used in crafting materials
  */
 @SuppressWarnings("unused")
 public final class TinkerMaterials extends TinkerModule {
