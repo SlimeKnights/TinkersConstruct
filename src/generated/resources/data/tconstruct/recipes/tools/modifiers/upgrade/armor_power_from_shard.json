@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:gems/quartz"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 36,
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:armor_power",
+    "level": 1
+  },
+  "max_level": 5
+}

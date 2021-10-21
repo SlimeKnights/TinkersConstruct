@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
+import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 
 import java.util.List;
 
@@ -62,27 +63,33 @@ public class ToolEvents {
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
     // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
-    ItemStack stack = event.getPlayer().getHeldItemMainhand();
-    if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
-      return;
-    }
-    ToolStack tool = ToolStack.from(stack);
-    if (!tool.isBroken()) {
-      List<ModifierEntry> modifiers = tool.getModifierList();
-      if (!modifiers.isEmpty()) {
-        // modifiers using additive boosts may want info on the original boosts provided
-        PlayerEntity player = event.getPlayer();
-        float miningSpeedModifier = Modifier.getMiningModifier(player);
-        boolean isEffective = stack.canHarvestBlock(event.getState());
-        Direction direction = BlockSideHitListener.getSideHit(player);
-        for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, direction, isEffective, miningSpeedModifier);
-          // if any modifier cancels mining, stop right here
-          if (event.isCanceled()) {
-            break;
+    PlayerEntity player = event.getPlayer();
+    ItemStack stack = player.getHeldItemMainhand();
+    if (TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+      ToolStack tool = ToolStack.from(stack);
+      if (!tool.isBroken()) {
+        List<ModifierEntry> modifiers = tool.getModifierList();
+        if (!modifiers.isEmpty()) {
+          // modifiers using additive boosts may want info on the original boosts provided
+          float miningSpeedModifier = Modifier.getMiningModifier(player);
+          boolean isEffective = stack.canHarvestBlock(event.getState());
+          Direction direction = BlockSideHitListener.getSideHit(player);
+          for (ModifierEntry entry : tool.getModifierList()) {
+            entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, direction, isEffective, miningSpeedModifier);
+            // if any modifier cancels mining, stop right here
+            if (event.isCanceled()) {
+              return;
+            }
           }
         }
       }
+    }
+
+    // next, add in armor haste
+    float armorHaste = ModifierUtil.getTotalModifierFloat(player, HasteModifier.HASTE);
+    if (armorHaste > 0) {
+      // adds in 10% per level
+      event.setNewSpeed(event.getNewSpeed() * (1 + 0.1f * armorHaste));
     }
   }
 

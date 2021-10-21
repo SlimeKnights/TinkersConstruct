@@ -239,8 +239,20 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                         .buildSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.magnetic, upgradeFolder));
+    // armor has a max level of 1 per piece, so 4 total
+    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
+                         .addInputSalvage(Items.COMPASS, 0.5f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setTools(TinkerTags.Items.ARMOR)
+                         .build(consumer, wrap(TinkerModifiers.magnetic, upgradeFolder, "_armor"));
+    // salvage supports either
+    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
+                         .addSalvage(Items.COMPASS, 0.5f)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.MELEE_OR_HARVEST), Ingredient.fromTag(TinkerTags.Items.ARMOR)))
+                         .buildSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage));
     // no salvage so we can potentially grant shiny in another way without being an apple farm, and no recipe as that leaves nothing to salvage
     ModifierRecipeBuilder.modifier(TinkerModifiers.shiny.get())
                          .addInput(Items.ENCHANTED_GOLDEN_APPLE)
@@ -261,16 +273,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      */
 
     // haste can use redstone or blocks
+    Ingredient chestplateMeleeHarvest = CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.MELEE_OR_HARVEST), Ingredient.fromTag(TinkerTags.Items.CHESTPLATES));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setTools(chestplateMeleeHarvest)
                                     .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
                                     .setSalvage(Items.REDSTONE, false)
-                                    .setMaxLevel(5) // +25 mining speed, vanilla +26
+                                    .setMaxLevel(5) // +25 mining speed, vanilla +26, +50% mining speed on chestplates
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.haste, upgradeSalvage))
                                     .build(consumer, wrap(TinkerModifiers.haste, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setTools(chestplateMeleeHarvest)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
                                     .setLeftover(new ItemStack(Items.REDSTONE))
                                     .setMaxLevel(5)
@@ -544,6 +557,22 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(3)
                                     .build(consumer, wrap(TinkerModifiers.springy, armorFolder, "_from_blocks"));
+    // upgrade - chestplate
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.armorPower.get())
+                                    .setTools(TinkerTags.Items.CHESTPLATES)
+                                    .setInput(Tags.Items.GEMS_QUARTZ, 1, 36)
+                                    .setSalvage(Items.QUARTZ, false)
+                                    .setMaxLevel(5) // +25% damage
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.armorPower, upgradeSalvage))
+                                    .build(consumer, wrap(TinkerModifiers.armorPower, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.armorPower.get())
+                                    .setTools(TinkerTags.Items.CHESTPLATES)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
+                                    .setLeftover(new ItemStack(Items.QUARTZ))
+                                    .setMaxLevel(5)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .build(consumer, wrap(TinkerModifiers.armorPower, upgradeFolder, "_from_block"));
     // upgrade - leggings
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.speedy.get())
                                     .setTools(TinkerTags.Items.LEGGINGS)

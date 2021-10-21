@@ -1,8 +1,13 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

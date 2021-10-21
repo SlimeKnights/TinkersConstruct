@@ -122,6 +122,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorPowerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RevitalizingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RicochetModifier;
@@ -253,10 +254,13 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ThornsModifier> thorns = MODIFIERS.register("thorns", ThornsModifier::new);
   public static final RegistryObject<SpringyModifier> springy = MODIFIERS.register("springy", SpringyModifier::new);
   public static final RegistryObject<StickyModifier> sticky = MODIFIERS.register("sticky", StickyModifier::new);
-  // piece specific
-  public static final RegistryObject<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
+  // chestplate
+  public static final RegistryObject<ArmorPowerModifier> armorPower = MODIFIERS.register("armor_power", ArmorPowerModifier::new);
+  // leggings
   public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
   public static final RegistryObject<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);
+  // boots
+  public static final RegistryObject<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
   public static final RegistryObject<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);
   public static final RegistryObject<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
 

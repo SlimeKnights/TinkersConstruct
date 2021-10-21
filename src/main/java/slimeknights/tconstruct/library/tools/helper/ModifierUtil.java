@@ -167,6 +167,26 @@ public final class ModifierUtil {
   }
 
   /**
+   * Adds levels to the given key in entity modifier data for an armor modifier
+   * @param tool     Tool instance
+   * @param context  Equipment change context
+   * @param key      Key to modify
+   * @param amount   Amount to add
+   */
+  public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, ResourceLocation key, float amount) {
+    if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
+      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
+        float totalLevels = data.getFloat(key) + amount;
+        if (totalLevels <= 0.005f) {
+          data.remove(key);
+        } else {
+          data.putFloat(key, totalLevels);
+        }
+      });
+    }
+  }
+
+  /**
    * Gets the total level from the key in the entity modifier data
    * @param living  Living entity
    * @param key     Key to get
@@ -174,5 +194,15 @@ public final class ModifierUtil {
    */
   public static int getTotalModifierLevel(LivingEntity living, ResourceLocation key) {
     return living.getCapability(EntityModifierDataCapability.CAPABILITY).map(data -> data.getInt(key)).orElse(0);
+  }
+
+  /**
+   * Gets the total level from the key in the entity modifier data
+   * @param living  Living entity
+   * @param key     Key to get
+   * @return  Level from the key
+   */
+  public static float getTotalModifierFloat(LivingEntity living, ResourceLocation key) {
+    return living.getCapability(EntityModifierDataCapability.CAPABILITY).map(data -> data.getFloat(key)).orElse(0f);
   }
 }
