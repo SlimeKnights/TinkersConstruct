@@ -50,8 +50,8 @@
     "data": "intro/partchest_craft.json"
   },
   {
-    "name": "modifierchest_craft",
+    "name": "tinkers_chest",
     "type": "crafting",
-    "data": "intro/modifierchest_craft.json"
+    "data": "intro/tinkerschest_craft.json"
   }
 ]

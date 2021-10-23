@@ -1,10 +1,11 @@
 // Sections - Materials And you
-intro=Introduction
-tools=Tools
 
 tier_one_materials=Tier 1 Materials
 tier_one_materials.subtext=Materials are the first part to making any tool. These materials can be placed in the part builder to create tool parts.
 
-repairing=Repairing
+intro=Introduction
+tools=Tools
+tools.part_swapping=Part Swapping
+tools.repairing=Repairing
 further_reading=Further Reading
 terminology=Terminology
