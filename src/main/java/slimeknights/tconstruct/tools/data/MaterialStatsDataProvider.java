@@ -51,6 +51,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(125, 2f, STONE, 1.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.65f).withAttackSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
+    // tier 1 - binding
+    addMaterialStats(MaterialIds.string, ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT);
 
     // tier 2
     // vanilla iron: 250, 6f, IRON, 2f
@@ -78,6 +81,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(175, 4.5f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(1.1f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.chain, ExtraMaterialStats.DEFAULT);
 
     // tier 2 (mod integration)
     addMaterialStats(MaterialIds.osmium,

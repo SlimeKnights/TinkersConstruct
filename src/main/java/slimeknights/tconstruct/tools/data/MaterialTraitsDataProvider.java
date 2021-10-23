@@ -24,6 +24,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.bone, TinkerModifiers.fractured.get());
     // tier 1 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic.get());
+    // tier 1 - binding
+    addDefaultTraits(MaterialIds.string, TinkerModifiers.stringy.get());
+    addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned.get());
 
     // tier 2
     addDefaultTraits(MaterialIds.iron, TinkerModifiers.sturdy.get());
@@ -33,6 +36,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging.get());
     // tier 2 - nether
     addDefaultTraits(MaterialIds.scorchedStone, TinkerModifiers.scorching.get());
+    // tier 2 - binding
+    addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced.get());
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast.get(), TinkerModifiers.overslime.get());

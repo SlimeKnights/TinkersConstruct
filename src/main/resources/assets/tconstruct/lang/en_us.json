@@ -1221,6 +1221,14 @@
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Heals up to 5% of damage dealt per level",
 
+  "material.tconstruct.string": "String",
+  "material.tconstruct.string.flavor": "Theoretically the best material.",
+  "material.tconstruct.string.encyclopedia": "Allows the tool to be repaired using string in the tinker station or crafting table",
+
+  "material.tconstruct.leather": "Leather",
+  "material.tconstruct.leather.flavor": "Killed a cow, tanned it's hide.",
+  "material.tconstruct.leather.encyclopedia": "Prevents the tool from taking more than 1 damage in an action",
+
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Iron",
@@ -1250,6 +1258,10 @@
   "material.tconstruct.rose_gold": "Rose Gold",
   "material.tconstruct.rose_gold.flavor": "Disclaimer: Not actually made with roses.",
   "material.tconstruct.rose_gold.encyclopedia": "Grants 1 extra upgrade slot per part",
+
+  "material.tconstruct.chain": "Chain",
+  "material.tconstruct.chain.flavor": "You too can become the chain user now.",
+  "material.tconstruct.chain.encyclopedia": "Tool takes 25% less damage",
 
 
   "__comment": "Tier 3 Materials",
@@ -1613,6 +1625,12 @@
   "modifier.tconstruct.fractured": "Fractured",
   "modifier.tconstruct.fractured.flavor": "Break a Leg!",
   "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
+  "modifier.tconstruct.stringy": "Stringy",
+  "modifier.tconstruct.stringy.flavor": "Like cheese, but less tasty",
+  "modifier.tconstruct.stringy.description": "Tool can be repaired using string",
+  "modifier.tconstruct.tanned": "Tanned",
+  "modifier.tconstruct.tanned.flavor": "Become a master leatherworker",
+  "modifier.tconstruct.tanned.description": "Tool no longer takes double or more damage from certain actions",
 
   "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "Sturdy",

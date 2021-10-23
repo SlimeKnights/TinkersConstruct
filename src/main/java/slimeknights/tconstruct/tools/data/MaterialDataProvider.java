@@ -25,6 +25,9 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.bone,  1, ORDER_SPECIAL, true, 0xE8E5D2);
     // tier 1 - nether
     addMaterial(MaterialIds.necroticBone,  1, ORDER_SPECIAL, true, 0x4D4D4D);
+    // tier 1 - binding
+    addMaterial(MaterialIds.string,  1, ORDER_BINDING, true, 0xFFFFFF);
+    addMaterial(MaterialIds.leather, 1, ORDER_BINDING, true, 0xC65C35);
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false, 0xD8D8D8);
@@ -34,6 +37,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.bloodbone,   2, ORDER_SPECIAL, false, 0xB30000);
     // tier 2 - nether
     addMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, false, 0x5B4C43);
+    // tier 2 - binding
+    addMaterial(MaterialIds.chain, 2, ORDER_BINDING, true, 0x3E4453);
 
     // tier 3
     addMaterial(MaterialIds.slimesteel,    3, ORDER_GENERAL, false, 0x27C6C6);

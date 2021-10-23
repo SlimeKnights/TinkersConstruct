@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:leather"
+  },
+  "value": 1,
+  "needed": 1,
+  "material": "tconstruct:leather"
+}

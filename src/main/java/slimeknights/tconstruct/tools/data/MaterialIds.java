@@ -14,6 +14,9 @@ public final class MaterialIds {
   public static final MaterialId bone = id("bone");
   // tier 1 - nether
   public static final MaterialId necroticBone = id("necrotic_bone");
+  // tier 1 - bindings
+  public static final MaterialId string = id("string");
+  public static final MaterialId leather = id("leather");
   // tier 2
   public static final MaterialId iron = id("iron");
   public static final MaterialId searedStone = id("seared_stone");
@@ -21,6 +24,8 @@ public final class MaterialIds {
   public static final MaterialId copper = id("copper");
   public static final MaterialId slimewood = id("slimewood");
   public static final MaterialId bloodbone = id("bloodbone");
+  // tier 2 - bindings
+  public static final MaterialId chain = id("chain");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId nahuatl = id("nahuatl");

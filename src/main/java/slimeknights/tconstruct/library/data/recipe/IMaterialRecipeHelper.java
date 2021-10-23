@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.data.recipe;
 
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
@@ -73,6 +74,11 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     materialRecipe(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, ItemOutput.fromTag(ingotTag, 1), folder + matName + "/block");
   }
 
+  /** Adds recipes to melt a material */
+  default void materialMelting(Consumer<IFinishedRecipe> consumer, MaterialId material, Fluid fluid, int fluidAmount, String folder) {
+    MaterialMeltingRecipeBuilder.material(material, new FluidStack(fluid, fluidAmount))
+                                .build(consumer, modResource(folder + "melting/" + material.getPath()));
+  }
 
   /** Adds recipes to melt and cast a material */
   default void materialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, boolean forgeTag, int fluidAmount, String folder) {
@@ -80,8 +86,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
                               .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), fluidAmount)
                               .setTemperature(fluid.get().getAttributes().getTemperature() - 300)
                               .build(consumer, modResource(folder + "casting/" + material.getPath()));
-    MaterialMeltingRecipeBuilder.material(material, new FluidStack(fluid.get(), fluidAmount))
-                                .build(consumer, modResource(folder + "melting/" + material.getPath()));
+    materialMelting(consumer, material, fluid.get(), fluidAmount, folder);
   }
 
   /** Adds recipes to melt and cast a material of ingot size */
@@ -101,8 +106,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
 
   /** Adds recipes to melt and cast a material of ingot size */
   default void materialMeltingComposite(Consumer<IFinishedRecipe> consumer, MaterialId input, MaterialId output, FluidObject<?> fluid, int amount, boolean forgeTag, String folder) {
-    MaterialMeltingRecipeBuilder.material(output, new FluidStack(fluid.get(), amount))
-                                .build(consumer, modResource(folder + "melting/" + output.getPath()));
+    materialMelting(consumer, output, fluid.get(), amount, folder);
     materialComposite(consumer, input, output, fluid, amount, forgeTag, folder);
   }
 

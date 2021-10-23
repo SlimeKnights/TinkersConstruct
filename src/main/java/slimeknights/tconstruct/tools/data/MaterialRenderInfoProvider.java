@@ -17,6 +17,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
+    buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
+    buildRenderInfo(MaterialIds.leather).color(0xC65C35);
 
     // tier 2
     buildRenderInfo(MaterialIds.iron).color(0xD8D8D8).fallbacks("metal");
@@ -25,6 +27,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.scorchedStone).color(0x5B4C43).fallbacks("rock");
     buildRenderInfo(MaterialIds.slimewood).color(0x82c873).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.bloodbone).color(0xB30000).fallbacks("bone", "rock");
+    buildRenderInfo(MaterialIds.chain).color(0x3E4453).fallbacks("chain", "metal");
 
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x27C6C6).fallbacks("slime_metal", "metal");

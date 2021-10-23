@@ -1,0 +1,8 @@
+{
+  "fallbacks": [
+    "chain",
+    "metal"
+  ],
+  "color": "3E4453",
+  "luminosity": 0
+}

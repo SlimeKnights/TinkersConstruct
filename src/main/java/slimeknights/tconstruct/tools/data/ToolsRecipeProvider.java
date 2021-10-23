@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -110,6 +109,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialRecipe(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, folder + "flint");
     materialRecipe(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, folder + "bone");
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");
+    materialRecipe(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 4, folder + "string");
+    materialRecipe(consumer, MaterialIds.leather, Ingredient.fromTag(Tags.Items.LEATHER), 1, 1, folder + "leather");
+    materialRecipe(consumer, MaterialIds.leather, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "leather_from_rabbit_hide"); // discount for using rabbit
+
     // tier 2
     metalMaterialRecipe(consumer, MaterialIds.iron, folder, "iron", false);
     materialRecipe(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick),       1, 2, folder + "seared_stone/brick");
@@ -123,12 +126,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialRecipe(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.bloodshroom.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.bloodshroom), folder + "slimewood/bloodshroom_logs");
     materialRecipe(consumer, MaterialIds.bloodbone, Ingredient.fromItems(TinkerMaterials.bloodbone), 1, 1, folder + "bloodbone");
     metalMaterialRecipe(consumer, MaterialIds.roseGold, folder, "rose_gold", false);
+    materialRecipe(consumer, MaterialIds.chain, Ingredient.fromItems(Blocks.CHAIN), 1, 1, folder + "chain");
     // tier 3
     metalMaterialRecipe(consumer, MaterialIds.slimesteel, folder, "slimesteel", false);
     materialRecipe(consumer, MaterialIds.nahuatl, Ingredient.fromItems(TinkerMaterials.nahuatl), 1, 1, folder + "nahuatl");
     metalMaterialRecipe(consumer, MaterialIds.tinkersBronze, folder, "silicon_bronze", false);
     metalMaterialRecipe(consumer, MaterialIds.pigIron, folder, "pig_iron", false);
-    materialRecipe(consumer, MaterialIds.pigIron, Ingredient.fromItems(TinkerCommons.bacon), 1, 4, folder + "pig_iron/bacon");
 
     // tier 2 (nether)
     // tier 3 (nether)
@@ -166,6 +169,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialMeltingCasting(consumer, MaterialIds.copper,        TinkerFluids.moltenCopper,  true,  folder);
     materialMeltingCasting(consumer, MaterialIds.searedStone,   TinkerFluids.searedStone,   false, FluidValues.INGOT * 2, folder);
     materialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, false, FluidValues.INGOT * 2, folder);
+    materialMelting(consumer, MaterialIds.chain, TinkerFluids.moltenIron.get(), FluidValues.INGOT + (FluidValues.NUGGET * 2), folder);
     // half a clay is 1 seared brick per grout amounts
     materialComposite(consumer, MaterialIds.stone, MaterialIds.searedStone,   TinkerFluids.moltenClay, FluidValues.SLIMEBALL, false, folder);
     materialComposite(consumer, MaterialIds.wood,  MaterialIds.slimewood,     TinkerFluids.earthSlime, FluidValues.SLIMEBALL, true,  folder);

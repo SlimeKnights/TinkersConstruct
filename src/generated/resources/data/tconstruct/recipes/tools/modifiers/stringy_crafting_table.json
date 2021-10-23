@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:crafting_modifier_repair",
+  "modifier": "tconstruct:stringy",
+  "ingredient": {
+    "tag": "forge:string"
+  },
+  "repair_amount": 25
+}

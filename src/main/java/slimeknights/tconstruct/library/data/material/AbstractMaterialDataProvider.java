@@ -41,6 +41,8 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   public static final int ORDER_NETHER = 10;
   /** Order for end materials in tiers 1-4 */
   public static final int ORDER_END = 15;
+  /** Order for materials that are just a binding */
+  public static final int ORDER_BINDING = 20;
 
   /** List of all added materials */
   private final Map<MaterialId, DataMaterial> allMaterials = new HashMap<>();

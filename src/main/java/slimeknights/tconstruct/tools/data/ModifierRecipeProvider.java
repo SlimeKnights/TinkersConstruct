@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectS
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -112,6 +113,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .addIngredient(TinkerTags.Items.WITHER_BONES)
                           .addCriterion("has_bone", hasItem(TinkerTags.Items.WITHER_BONES))
                           .build(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), modResource(folder + "wither_bone_conversion"));
+
+    // modifier repair
+    String repairFolder = folder + "repair/";
+    // stringy - from string
+    ModifierRepairRecipeBuilder.repair(TinkerModifiers.stringy.get(), Ingredient.fromTag(Tags.Items.STRING), 25)
+                               .buildCraftingTable(consumer, wrap(TinkerModifiers.stringy, folder, "_crafting_table"))
+                               .build(consumer, wrap(TinkerModifiers.stringy, folder, "_tinker_station"));
+    // pig iron - from bacon, only in the tinker station
+    ModifierRepairRecipeBuilder.repair(TinkerModifiers.tasty.get(), Ingredient.fromItems(TinkerCommons.bacon), 25)
+                               .build(consumer, prefix(TinkerModifiers.tasty, folder));
   }
 
   private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {
