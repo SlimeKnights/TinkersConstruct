@@ -207,6 +207,21 @@ public class ContentMaterial extends TinkerPage {
     return lineData;
   }
 
+  /** Checks if the given material has the given stat type */
+  private static boolean hasStatType(MaterialId materialId, MaterialStatsId statsId) {
+    return MaterialRegistry.getInstance().getMaterialStats(materialId, statsId).isPresent();
+  }
+
+  /** Gets the first material from the registry for the given stat type */
+  private static IMaterial getFirstMaterialWithType(MaterialStatsId statsId) {
+    for (IMaterial material : MaterialRegistry.getMaterials()) {
+      if (hasStatType(material.getIdentifier(), statsId)) {
+        return material;
+      }
+    }
+    return IMaterial.UNKNOWN;
+  }
+
   private void addDisplayItems(ArrayList<BookElement> list, int x, MaterialId materialId) {
     List<ItemElement> displayTools = Lists.newArrayList();
 
@@ -258,15 +273,26 @@ public class ContentMaterial extends TinkerPage {
       if (item instanceof IModifiable) {
         IModifiable tool = ((IModifiable) item);
         List<IToolPart> requirements = tool.getToolDefinition().getRequiredComponents();
+        // start building the tool with the given material
         List<IMaterial> materials = new ArrayList<>(requirements.size());
-        for (int i = 0; i < requirements.size(); i++) {
-          materials.add(i, MaterialRegistry.getInstance().getMaterial(materialId));
+        IMaterial material = MaterialRegistry.getMaterial(materialId);
+        boolean usedMaterial = false;
+        for (IToolPart part : requirements) {
+          if (hasStatType(materialId, part.getStatType())) {
+            materials.add(material);
+            usedMaterial = true;
+          } else {
+            materials.add(getFirstMaterialWithType(part.getStatType()));
+          }
         }
-        ItemStack display = ToolBuildHandler.buildItemFromMaterials(tool, materials);
-        displayTools.add(new TinkerItemElement(display));
 
-        if (displayTools.size() == 9) {
-          break;
+        // only add a stack if our material showed up
+        if (usedMaterial) {
+          ItemStack display = ToolBuildHandler.buildItemFromMaterials(tool, materials);
+          displayTools.add(new TinkerItemElement(display));
+          if (displayTools.size() == 9) {
+            break;
+          }
         }
       }
     }
