@@ -9,6 +9,7 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
@@ -23,6 +24,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Recipe to get the material from an ingredient
@@ -98,9 +100,21 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
     return NonNullList.from(Ingredient.EMPTY, ingredient);
   }
 
+  /** Cache of the display items list */
+  private List<ItemStack> displayItems = null;
+
   /** Gets a list of stacks for display in the recipe */
   public List<ItemStack> getDisplayItems() {
-    return Arrays.asList(ingredient.getMatchingStacks());
+    if (displayItems == null) {
+      if (needed > 1) {
+        displayItems = Arrays.stream(ingredient.getMatchingStacks())
+                             .map(stack -> ItemHandlerHelper.copyStackWithSize(stack, needed))
+                             .collect(Collectors.toList());
+      } else {
+        displayItems = Arrays.asList(ingredient.getMatchingStacks());
+      }
+    }
+    return displayItems;
   }
 
   /**
