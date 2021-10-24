@@ -52,6 +52,13 @@
     ],
     "subtitle": "subtitles.tconstruct.necrotic_heal"
   },
+  "enderporting": {
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ],
+    "subtitle": "subtitles.tconstruct.enderporting"
+  },
 
   "slimy_bounce": {
     "sounds": [

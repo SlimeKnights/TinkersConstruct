@@ -26,6 +26,7 @@ public enum Sounds {
 
   // modifiers
   NECROTIC_HEAL,
+  ENDERPORTING,
 
   // entity
   SLIME_TELEPORT,

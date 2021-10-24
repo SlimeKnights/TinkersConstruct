@@ -127,6 +127,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialRecipe(consumer, MaterialIds.bloodbone, Ingredient.fromItems(TinkerMaterials.bloodbone), 1, 1, folder + "bloodbone");
     metalMaterialRecipe(consumer, MaterialIds.roseGold, folder, "rose_gold", false);
     materialRecipe(consumer, MaterialIds.chain, Ingredient.fromItems(Blocks.CHAIN), 1, 1, folder + "chain");
+    materialRecipe(consumer, MaterialIds.skyslimeVine, Ingredient.fromItems(TinkerWorld.skySlimeVine), 1, 1, folder + "skyslime_vine");
     // tier 3
     metalMaterialRecipe(consumer, MaterialIds.slimesteel, folder, "slimesteel", false);
     materialRecipe(consumer, MaterialIds.nahuatl, Ingredient.fromItems(TinkerMaterials.nahuatl), 1, 1, folder + "nahuatl");
@@ -142,6 +143,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     metalMaterialRecipe(consumer, MaterialIds.hepatizon, folder, "hepatizon", false);
     materialRecipe(consumer, MaterialIds.blazingBone, Ingredient.fromItems(TinkerMaterials.blazingBone), 1, 1, folder + "blazing_bone");
     //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
+
+    // tier 5
+    materialRecipe(consumer, MaterialIds.enderslimeVine, Ingredient.fromItems(TinkerWorld.enderSlimeVine), 1, 1, folder + "enderslime_vine");
 
     // tier 2 (mod compat)
     metalMaterialRecipe(consumer, MaterialIds.osmium, folder, "osmium", true);

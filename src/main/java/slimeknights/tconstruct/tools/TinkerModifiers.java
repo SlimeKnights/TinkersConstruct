@@ -79,6 +79,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.DenseModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.DuctileModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.general.EnderportingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OvergrowthModifier;
@@ -88,6 +89,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifie
 import slimeknights.tconstruct.tools.modifiers.traits.general.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TastyModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.harvest.AirborneModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.LustrousModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
@@ -280,6 +282,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   public static final RegistryObject<RagingModifier> raging = MODIFIERS.register("raging", RagingModifier::new);
+  public static final RegistryObject<AirborneModifier> airborne = MODIFIERS.register("airborne", AirborneModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
@@ -293,6 +296,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MomentumModifier> momentum = MODIFIERS.register("momentum", MomentumModifier::new);
   public static final RegistryObject<InsatibleModifier> insatiable = MODIFIERS.register("insatiable", InsatibleModifier::new);
   public static final RegistryObject<ConductingModifier> conducting = MODIFIERS.register("conducting", ConductingModifier::new);
+  // traits - tier 5
+  public static final RegistryObject<EnderportingModifier> enderporting = MODIFIERS.register("enderporting", EnderportingModifier::new);
 
   // traits - mod compat tier 2
   public static final RegistryObject<DenseModifier> dense = MODIFIERS.register("dense", DenseModifier::new);

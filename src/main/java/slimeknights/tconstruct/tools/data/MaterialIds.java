@@ -26,6 +26,7 @@ public final class MaterialIds {
   public static final MaterialId bloodbone = id("bloodbone");
   // tier 2 - bindings
   public static final MaterialId chain = id("chain");
+  public static final MaterialId skyslimeVine = id("skyslime_vine");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId nahuatl = id("nahuatl");
@@ -40,6 +41,8 @@ public final class MaterialIds {
   public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId blazingBone = id("blazing_bone");
   //public static final MaterialId soulsteel = id("soulsteel");
+  // tier 5 - bindings
+  public static final MaterialId enderslimeVine = id("enderslime_vine");
 
   // tier 2 (mod integration)
   public static final MaterialId osmium = id("osmium");

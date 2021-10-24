@@ -38,7 +38,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 2 - nether
     addMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, false, 0x5B4C43);
     // tier 2 - binding
-    addMaterial(MaterialIds.chain, 2, ORDER_BINDING, true, 0x3E4453);
+    addMaterial(MaterialIds.chain,        2, ORDER_BINDING, true, 0x3E4453);
+    addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true, 0x00F4DA);
 
     // tier 3
     addMaterial(MaterialIds.slimesteel,    3, ORDER_GENERAL, false, 0x27C6C6);
@@ -55,6 +56,9 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false, 0x9261cc);
     addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, false, 0xDBCC0B);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
+
+    // tier 5 binding, temporarily in book 4
+    addMaterial(MaterialIds.enderslimeVine, 4, ORDER_BINDING, true, 0xa92dff);
 
     // tier 2 (end)
     //addMaterialNoFluid(MaterialIds.endstone, 2, ORDER_END, true, 0xe0d890);

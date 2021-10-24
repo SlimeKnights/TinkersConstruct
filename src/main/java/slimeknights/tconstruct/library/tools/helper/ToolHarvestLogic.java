@@ -290,6 +290,9 @@ public class ToolHarvestLogic {
             breakExtraBlock(tool, stack, context.forPosition(extraPos.toImmutable(), extraState));
           }
         }
+        for (ModifierEntry entry : tool.getModifierList()) {
+          entry.getModifier().finishBreakingBlocks(tool, entry.getLevel(), context);
+        }
       }
 
       // blocks done being broken, clear extra enchants added

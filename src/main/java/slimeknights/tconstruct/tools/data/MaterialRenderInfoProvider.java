@@ -28,6 +28,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.slimewood).color(0x82c873).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.bloodbone).color(0xB30000).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.chain).color(0x3E4453).fallbacks("chain", "metal");
+    buildRenderInfo(MaterialIds.skyslimeVine).color(0x00F4DA).fallbacks("vine");
 
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x27C6C6).fallbacks("slime_metal", "metal");
@@ -42,6 +43,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.hepatizon).color(0x60496b).fallbacks("metal");
     buildRenderInfo(MaterialIds.manyullyn).color(0x9261cc).fallbacks("metal");
     buildRenderInfo(MaterialIds.blazingBone).color(0xF2D500).fallbacks("bone", "rock").luminosity(15);
+    buildRenderInfo(MaterialIds.enderslimeVine).color(0xa92dff).fallbacks("vine");
 
     // tier 2 compat
     buildRenderInfo(MaterialIds.osmium).color(0xBED3CD).fallbacks("metal");

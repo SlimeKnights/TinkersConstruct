@@ -645,12 +645,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #removeBlock(IModifierToolStack, int, ToolHarvestContext)}: Called before the block is set to air.</li>
+   *   <li>{@link #finishBreakingBlocks(IModifierToolStack, int, ToolHarvestContext)}: Called after all blocks are broken instead of per block.</li>
    * </ul>
    * @param tool      Tool used
    * @param level     Modifier level
    * @param context   Harvest context
    */
   public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {}
+
+  /**
+   * Called after all blocks are broken on the target block
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, ToolHarvestContext)}: Called after each individual block is broken.</li>
+   * </ul>
+   * @param tool      Tool used
+   * @param level     Modifier level
+   * @param context   Harvest context
+   */
+  public void finishBreakingBlocks(IModifierToolStack tool, int level, ToolHarvestContext context) {}
 
 
   /* Attack hooks */

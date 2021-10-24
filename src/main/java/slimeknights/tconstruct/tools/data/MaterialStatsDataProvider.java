@@ -82,6 +82,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(1.1f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.chain, ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.skyslimeVine, ExtraMaterialStats.DEFAULT);
 
     // tier 2 (mod integration)
     addMaterialStats(MaterialIds.osmium,
@@ -190,5 +191,8 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     //                     new HeadMaterialStats(1120, 7.5f, NETHERITE, 3f),
     //                     HandleMaterialStats.DEFAULT.withAttackSpeed(1.1f).withAttackDamage(1.3f),
     //                     ExtraMaterialStats.DEFAULT);
+
+    // tier 5
+    addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
   }
 }

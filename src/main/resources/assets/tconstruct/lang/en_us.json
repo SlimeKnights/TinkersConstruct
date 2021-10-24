@@ -1263,6 +1263,10 @@
   "material.tconstruct.chain.flavor": "You too can become the chain user now.",
   "material.tconstruct.chain.encyclopedia": "Tool takes 25% less damage",
 
+  "material.tconstruct.skyslime_vine": "Slimy Vine",
+  "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
+  "material.tconstruct.skyslime_vine.encyclopedia": "Cancels out the mining speed reduction when not on the ground",
+
 
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Slimesteel",
@@ -1310,6 +1314,10 @@
   "__comment": "Tier End Materials",
   "material.tconstruct.endstone": "End",
   "material.tconstruct.knightslime": "Knightslime",
+
+  "material.tconstruct.enderslime_vine": "Slimy Vine",
+  "material.tconstruct.enderslime_vine.flavor": "The End?",
+  "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or killed monsters",
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -1654,10 +1662,12 @@
   "modifier.tconstruct.raging.flavor": "A desperate solution!",
   "modifier.tconstruct.raging.description": "Tool does more damage when the holder's health is low",
   "modifier.tconstruct.raging.attack_damage": "Damage at Low Health",
-
   "modifier.tconstruct.enhanced": "Enhanced",
   "modifier.tconstruct.enhanced.flavor": "Flashy!",
   "modifier.tconstruct.enhanced.description": "Rose gold goes great with a bonus upgrade!",
+  "modifier.tconstruct.airborne": "Airborne",
+  "modifier.tconstruct.airborne.flavor": "Take to the skies!",
+  "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air",
 
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "Overcast",
@@ -1695,6 +1705,12 @@
   "modifier.tconstruct.conducting.flavor": "Thermodynamic!",
   "modifier.tconstruct.conducting.description": "Tool deals multiplied damage when you are on fire",
   "modifier.tconstruct.conducting.attack_damage": "Max Damage on Fire",
+
+  "__comment": "Tier 5 Traits",
+  "modifier.tconstruct.enderporting": "Enderporting",
+  "modifier.tconstruct.enderporting.flavor": "Harness the power of the enderslime",
+  "modifier.tconstruct.enderporting.description": "Tool teleports the holder to mined blocks or killed entities",
+
 
   "__comment": "Tier 2 Mod Compat Traits",
   "modifier.tconstruct.dense": "Dense",
@@ -1891,6 +1907,7 @@
 
   "subtitles.tconstruct.slime_sling": "Slime Sling bounces",
   "subtitles.tconstruct.slime_sling.teleport": "Slime Sling teleports",
+  "subtitles.tconstruct.enderporting": "Entity enderports",
   "subtitles.tconstruct.throw.throwball": "Throwball flies",
   "subtitles.tconstruct.throw.shuriken": "Shuriken flies",
 

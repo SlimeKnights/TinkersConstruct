@@ -38,6 +38,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.scorchedStone, TinkerModifiers.scorching.get());
     // tier 2 - binding
     addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced.get());
+    addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne.get());
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast.get(), TinkerModifiers.overslime.get());
@@ -53,6 +54,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum.get());
     addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable.get());
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting.get());
+
+    // tier 5
+    addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.get());
 
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense.get());
