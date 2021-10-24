@@ -59,7 +59,7 @@ public final class ToolDefinitions {
     .build();
   public static final ToolDefinition BROAD_AXE = ToolDefinition
     .builder(ToolBaseStatDefinitions.BROAD_AXE)
-    .addPart(broadAxeHead).addPart(toughHandle).addPart(pickaxeHead).addPart(largePlate)
+    .addPart(broadAxeHead).addPart(toughHandle).addPart(pickaxeHead).addPart(toolBinding)
     .addModifier(TinkerModifiers.axeTransformHidden)
     .addModifier(TinkerModifiers.twoHanded)
     .build();
