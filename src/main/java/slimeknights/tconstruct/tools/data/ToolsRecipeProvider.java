@@ -112,6 +112,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialRecipe(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 4, folder + "string");
     materialRecipe(consumer, MaterialIds.leather, Ingredient.fromTag(Tags.Items.LEATHER), 1, 1, folder + "leather");
     materialRecipe(consumer, MaterialIds.leather, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "leather_from_rabbit_hide"); // discount for using rabbit
+    materialRecipe(consumer, MaterialIds.vine, Ingredient.fromItems(Items.VINE, Items.TWISTING_VINES, Items.WEEPING_VINES), 1, 1, folder + "vine");
 
     // tier 2
     metalMaterialRecipe(consumer, MaterialIds.iron, folder, "iron", false);

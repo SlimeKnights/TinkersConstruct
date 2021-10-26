@@ -352,6 +352,7 @@ public class ToolHarvestLogic {
     }
 
     // if we made a successful transform, client can stop early
+    Hand hand = context.getHand();
     if (didTransform || isCampfire) {
       if (world.isRemote()) {
         return ActionResultType.SUCCESS;
@@ -369,7 +370,7 @@ public class ToolHarvestLogic {
       }
 
       // if the tool breaks or it was a campfire, we are done
-      if (ToolDamageUtil.damage(tool, 1, player, stack) || isCampfire) {
+      if (ToolDamageUtil.damageAnimated(tool, 1, player, hand) || isCampfire) {
         return ActionResultType.SUCCESS;
       }
     }
@@ -378,7 +379,6 @@ public class ToolHarvestLogic {
     // note we consider anything effective, as hoes are not effective on all tillable blocks
     int totalTransformed = 0;
     if (player != null && !tool.isBroken()) {
-      Hand hand = context.getHand();
       for (BlockPos newPos : getAOEBlocks(tool, stack, player, original, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
         if (pos.equals(newPos)) {
           //in case it attempts to run the same position twice

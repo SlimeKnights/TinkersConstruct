@@ -17,6 +17,7 @@ public final class MaterialIds {
   // tier 1 - bindings
   public static final MaterialId string = id("string");
   public static final MaterialId leather = id("leather");
+  public static final MaterialId vine = id("vine");
   // tier 2
   public static final MaterialId iron = id("iron");
   public static final MaterialId searedStone = id("seared_stone");

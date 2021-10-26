@@ -125,7 +125,7 @@ public class ToolDamageUtil {
 
     // try each modifier
     for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getModifier().onDamageTool(tool, entry.getLevel(), amount);
+      amount = entry.getModifier().onDamageTool(tool, entry.getLevel(), amount, entity);
       // if no more damage, done
       if (amount < 0) {
         return false;

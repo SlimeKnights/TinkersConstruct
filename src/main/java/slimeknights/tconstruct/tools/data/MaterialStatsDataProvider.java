@@ -54,6 +54,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // tier 1 - binding
     addMaterialStats(MaterialIds.string, ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.vine, ExtraMaterialStats.DEFAULT);
 
     // tier 2
     // vanilla iron: 250, 6f, IRON, 2f

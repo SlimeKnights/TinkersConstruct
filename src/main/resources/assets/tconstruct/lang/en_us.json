@@ -1229,6 +1229,10 @@
   "material.tconstruct.leather.flavor": "Killed a cow, tanned it's hide.",
   "material.tconstruct.leather.encyclopedia": "Prevents the tool from taking more than 1 damage in an action",
 
+  "material.tconstruct.vine": "Vine",
+  "material.tconstruct.vine.flavor": "Keeps living, unlike the social network.",
+  "material.tconstruct.vine.encyclopedia": "Tool has up to a 75%% chance to resist damage in full sunlight",
+
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Iron",
@@ -1639,6 +1643,9 @@
   "modifier.tconstruct.tanned": "Tanned",
   "modifier.tconstruct.tanned.flavor": "Become a master leatherworker",
   "modifier.tconstruct.tanned.description": "Tool no longer takes double or more damage from certain actions",
+  "modifier.tconstruct.solar_powered": "Solar Powered",
+  "modifier.tconstruct.solar_powered.flavor": "Good for the environment",
+  "modifier.tconstruct.solar_powered.description": "Tool resists damage in sunlight",
 
   "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "Sturdy",

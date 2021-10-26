@@ -85,6 +85,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.general.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OverlordModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OverworkedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.general.SolarPoweredModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
@@ -275,6 +276,7 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - tier 1 bindings
   public static final RegistryObject<Modifier> stringy = MODIFIERS.register("stringy", () -> new Modifier(-1));
   public static final RegistryObject<TannedModifier> tanned = MODIFIERS.register("tanned", TannedModifier::new);
+  public static final RegistryObject<SolarPoweredModifier> solarPowered = MODIFIERS.register("solar_powered", SolarPoweredModifier::new);
   // traits - tier 2
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
   public static final RegistryObject<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);

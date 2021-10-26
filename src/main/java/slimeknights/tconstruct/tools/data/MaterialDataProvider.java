@@ -28,6 +28,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 1 - binding
     addMaterial(MaterialIds.string,  1, ORDER_BINDING, true, 0xFFFFFF);
     addMaterial(MaterialIds.leather, 1, ORDER_BINDING, true, 0xC65C35);
+    addMaterial(MaterialIds.vine,    1, ORDER_BINDING, true, 0x48B518);
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false, 0xD8D8D8);

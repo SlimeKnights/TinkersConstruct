@@ -381,8 +381,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param toolStack  Tool stack
    * @param level      Tool level
    * @param amount     Amount of damage to deal
+   * @param holder     Entity holding the tool
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
    */
+  public int onDamageTool(IModifierToolStack toolStack, int level, int amount, @Nullable LivingEntity holder) {
+    return onDamageTool(toolStack, level, amount);
+  }
+
+  /** @deprecated use {@link #onDamageTool(IModifierToolStack, int, int, LivingEntity)} */
+  @Deprecated
   public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
     return amount;
   }

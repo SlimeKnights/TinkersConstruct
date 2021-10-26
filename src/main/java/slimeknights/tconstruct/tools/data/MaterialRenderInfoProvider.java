@@ -19,6 +19,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
     buildRenderInfo(MaterialIds.leather).color(0xC65C35);
+    buildRenderInfo(MaterialIds.vine).color(0x48B518).fallbacks("vine");
 
     // tier 2
     buildRenderInfo(MaterialIds.iron).color(0xD8D8D8).fallbacks("metal");
