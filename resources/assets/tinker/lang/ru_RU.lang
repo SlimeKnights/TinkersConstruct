@@ -16,6 +16,8 @@ crafters.Smeltery=Плавильня
 crafters.Frypan=Сковорода
 inventory.knapsack=Ранец
 
+nei.options.keys.gui.tinkers_belt=Переключить пояс путешественника
+
 ToolStation.Crafter.name=Инженерная станция
 ToolStation.Parts.name=Конструктор деталей
 ToolStation.PatternChest.name=Сундук для схем
@@ -777,6 +779,7 @@ frypankill.tooltip=Это бедное животное встретило св�
 
 tconstruct.waila.empty=Пусто
 tconstruct.waila.liquidtag=Жидкость: 
+tconstruct.waila.progress=Процесс формовки:
 tconstruct.waila.amounttag=Количество: 
 tconstruct.waila.contains=Содержит: 
 tconstruct.waila.subtanks=Под-резервуары:
@@ -908,32 +911,32 @@ creativeModLock.tooltip=Применяется на:
 attribute.name.ammo.attackDamage=Основной урон
 attribute.name.ammo.maxAttackDamage=Макс. урон
 
-tool.pickaxe=кирка
-tool.shovel=лопата
-tool.hatchet=топорик
-tool.broadsword=палаш
-tool.longsword=полуторный меч
-tool.rapier=рапира
-tool.dagger=кинжал
-tool.cutlass=сабля
-tool.fryingpan=сковорода
-tool.battlesign=боевая табличка
-tool.mattock=мотыготопор
-tool.chisel=стамеска
-tool.lumberaxe=большой топор
-tool.cleaver=тесак
-tool.scythe=коса
-tool.excavator=копалка
-tool.hammer=молот
-tool.battleaxe=боевой топор
-tool.shortbow=короткий лук
-tool.longbow=длинный лук
-tool.crossbow=арбалет
-tool.arrowammo=стрелы
-tool.boltammo=болты
-tool.shuriken=сюрикэн
-tool.throwingknife=метательный нож
-tool.javelin=копьё
+tool.pickaxe=Кирка
+tool.shovel=Лопата
+tool.hatchet=Топорик
+tool.broadsword=Палаш
+tool.longsword=Полуторный меч
+tool.rapier=Рапира
+tool.dagger=Кинжал
+tool.cutlass=Сабля
+tool.fryingpan=Сковорода
+tool.battlesign=Боевая табличка
+tool.mattock=Мотыготопор
+tool.chisel=Стамеска
+tool.lumberaxe=Большой топор
+tool.cleaver=Тесак
+tool.scythe=Коса
+tool.excavator=Копалка
+tool.hammer=Молот
+tool.battleaxe=Боевой топор
+tool.shortbow=Короткий лук
+tool.longbow=Длинный лук
+tool.crossbow=Арбалет
+tool.arrowammo=Стрелы
+tool.boltammo=Болты
+tool.shuriken=Сюрикэн
+tool.throwingknife=Метательный нож
+tool.javelin=Копьё
 
 # Customization of default tool names based on tool and material
 #tool.shovel.wood=Wooden Shovel
@@ -942,7 +945,7 @@ tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
 
-manual.page.material1=Полная прочность
+manual.page.material1=Полная прочность инструмента
 manual.page.material2=Сердце
 manual.page.material3=Сердца(-дец)
 manual.page.material4=Особенность материала
@@ -1063,6 +1066,9 @@ option.tcon.castingchannel=Разливочный канал
 option.tcon.basin=Литейный резервуар
 option.tcon.table=Литейный стол
 option.tcon.smeltery=Статус плавильни
+
+fluid.molten.unstableIngots=Molten Unstable Ingots
+fluid.molten.bedrockiumIngots=Molten Bedrockium Ingots
 
 tool.pickaxe.netherrack=Кирка из камня Нижнего мира
 tool.shovel.netherrack=Лопата из камня Нижнего мира
