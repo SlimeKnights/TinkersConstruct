@@ -1067,8 +1067,8 @@ option.tcon.basin=Литейный резервуар
 option.tcon.table=Литейный стол
 option.tcon.smeltery=Статус плавильни
 
-fluid.molten.unstableIngots=Molten Unstable Ingots
-fluid.molten.bedrockiumIngots=Molten Bedrockium Ingots
+fluid.molten.unstableIngots=Расплавленный нестабильный слиток
+fluid.molten.bedrockiumIngots=Расплавленный слиток бедрокия 
 
 tool.pickaxe.netherrack=Кирка из камня Нижнего мира
 tool.shovel.netherrack=Лопата из камня Нижнего мира
