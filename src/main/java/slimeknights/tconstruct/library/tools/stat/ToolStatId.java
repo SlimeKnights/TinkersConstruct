@@ -18,7 +18,7 @@ public class ToolStatId extends ResourceLocation {
     super(resourceLocation.getNamespace(), resourceLocation.getPath());
   }
 
-  protected ToolStatId(String value) {
+  public ToolStatId(String value) {
     super(value);
   }
 
