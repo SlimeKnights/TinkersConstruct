@@ -121,7 +121,8 @@ public class TinkerWorld
         TinkerWorld.blueSlimeFluid.setBlock(TinkerWorld.slimePool);
 
         // Slime Islands
-        TinkerWorld.slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.gel").setHarvestLevel("axe", 0, 1);;
+        TinkerWorld.slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.gel");
+        TinkerWorld.slimeGel.setHarvestLevel("pickaxe", 0, 1);
         TinkerWorld.slimeGrass = new SlimeGrass().setStepSound(Block.soundTypeGrass).setLightOpacity(0).setBlockName("slime.grass");
         TinkerWorld.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.soundTypeGrass).setBlockName("slime.grass.tall");
         TinkerWorld.slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.leaves");
