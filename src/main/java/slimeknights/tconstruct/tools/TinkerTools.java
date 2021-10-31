@@ -28,6 +28,7 @@ import slimeknights.tconstruct.tools.data.MaterialRenderInfoProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
+import slimeknights.tconstruct.tools.data.ToolDefinitionDataGenerator;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
 import slimeknights.tconstruct.tools.item.broad.BroadAxeTool;
 import slimeknights.tconstruct.tools.item.broad.CleaverTool;
@@ -116,6 +117,7 @@ public final class TinkerTools extends TinkerModule {
       generator.addProvider(materials);
       generator.addProvider(new MaterialStatsDataProvider(generator, materials));
       generator.addProvider(new MaterialTraitsDataProvider(generator, materials));
+      generator.addProvider(new ToolDefinitionDataGenerator(generator));
     }
     if (event.includeClient()) {
       generator.addProvider(new MaterialRenderInfoProvider(generator));

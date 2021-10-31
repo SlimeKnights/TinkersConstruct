@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:pickaxe",
-      "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\"],tic_display:1b}"
+      "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"],tic_display:1b}"
     },
     "title": {
       "translate": "advancements.tconstruct.tools.tool_smith.title"

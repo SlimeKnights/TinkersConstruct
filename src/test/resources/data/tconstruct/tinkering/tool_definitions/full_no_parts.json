@@ -1,0 +1,30 @@
+{
+  "stats": {
+    "base": {
+      "tconstruct:durability": 100.0,
+      "tconstruct:attack_damage": 2.5,
+      "tconstruct:attack_speed": 3.75,
+      "tconstruct:mining_speed": 4
+    },
+	"multipliers": {
+      "tconstruct:durability": 1.5,
+      "tconstruct:attack_damage": 2,
+      "tconstruct:mining_speed": 0.5
+	}
+  },
+  "slots": {
+    "upgrades": 3,
+    "armor": 2,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "test:modifier_1",
+      "level": 1
+    },
+    {
+      "name": "test:modifier_2",
+      "level": 3
+    }
+  ]
+}

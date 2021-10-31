@@ -41,6 +41,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
@@ -116,6 +117,7 @@ public class TConstruct {
   @SubscribeEvent
   static void commonSetup(final FMLCommonSetupEvent event) {
     MaterialRegistry.init();
+    ToolDefinitionLoader.init();
   }
 
   @SubscribeEvent

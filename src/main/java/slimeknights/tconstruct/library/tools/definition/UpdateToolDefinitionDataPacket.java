@@ -40,6 +40,6 @@ public class UpdateToolDefinitionDataPacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(Context context) {
-    // TODO: ToolDefinitionLoader.getInstance().updateDataFromServer(dataMap);
+    ToolDefinitionLoader.getInstance().updateDataFromServer(dataMap);
   }
 }

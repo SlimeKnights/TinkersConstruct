@@ -18,7 +18,8 @@ import java.util.Set;
 import static slimeknights.mantle.util.LogicHelper.defaultIfNull;
 
 /**
- * Json format for tool definition JSON
+ * This class contains all data pack configurable data for a tool, before materials are factored in.
+ * Contains info about how to craft a tool and how it behaves.
  */
 @RequiredArgsConstructor
 public class ToolDefinitionData {
@@ -86,7 +87,11 @@ public class ToolDefinitionData {
     return getStats().getBase().getStat(toolStat, 0f);
   }
 
-  /** Gets the multiplier for this stat to use for modifiers */
+  /**
+   * Gets the multiplier for this stat to use for modifiers
+   *
+   * In most cases, its better to use {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack#getModifier(FloatToolStat)} as that takes the modifier multiplier into account
+   */
   public float getMultiplier(FloatToolStat toolStat) {
     return getStats().getMultipliers().getStat(toolStat, 1f);
   }
@@ -98,7 +103,7 @@ public class ToolDefinitionData {
    * Applies the extra tool stats to the tool like a modifier
    * @param builder  Tool stats builder
    */
-  public void buildStats(ModifierStatsBuilder builder) {
+  public void buildStatMultipliers(ModifierStatsBuilder builder) {
     if (stats != null) {
       DefinitionToolStats multipliers = stats.getMultipliers();
       for (FloatToolStat stat : multipliers.containedStats()) {

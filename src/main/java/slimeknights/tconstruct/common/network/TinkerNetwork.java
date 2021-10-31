@@ -13,6 +13,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
+import slimeknights.tconstruct.library.tools.definition.UpdateToolDefinitionDataPacket;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -69,6 +70,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateMaterialTraitsPacket.class, UpdateMaterialTraitsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateCraftingRecipePacket.class, UpdateCraftingRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateToolDefinitionDataPacket.class, UpdateToolDefinitionDataPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkDirection.PLAY_TO_CLIENT);

@@ -1,22 +1,20 @@
 package slimeknights.tconstruct.library.tools.stat;
 
-import com.google.common.collect.Streams;
+import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Extendable utilities for a stats builder.
@@ -26,7 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolStatsBuilder {
   /** Tool base stats, primarily for bonuses. The stat builder is responsible for using the bonuses */
-  protected final ToolBaseStatDefinition baseStats;
+  protected final ToolDefinitionData toolData;
 
   /**
    * Gets the stat builder for no tool parts
@@ -34,7 +32,7 @@ public class ToolStatsBuilder {
    * @return  Stats builder
    */
   public static ToolStatsBuilder noParts(ToolDefinition definition) {
-    return new ToolStatsBuilder(definition.getBaseStatDefinition());
+    return new ToolStatsBuilder(definition.getData());
   }
 
   /**
@@ -58,9 +56,9 @@ public class ToolStatsBuilder {
     StatsNBT.Builder builder = StatsNBT.builder();
     // start by adding in all relevant bonuses that are not handled elsewhere.
     // the handled check is needed becuase the immutable map builder does not like duplicate keys
-    for (FloatToolStat stat : baseStats.getAllBonuses()) {
+    for (FloatToolStat stat : toolData.getAllBaseStats()) {
       if (!handles(stat)) {
-        builder.set(stat, stat.getDefaultValue() + baseStats.getBonus(stat));
+        builder.set(stat, toolData.getBaseStat(stat));
       }
     }
     setStats(builder);
@@ -72,35 +70,43 @@ public class ToolStatsBuilder {
 
   /**
    * Fetches the given stat from the material, getting the default stats if missing
-   * @param statsId            Stat type
-   * @param material           Material type
-   * @param requiredComponent  Tool part requirement
+   * @param material   Material type
+   * @param statsId    Stat type
    * @param <T>  Stat type
    * @return  Stat, or default if the part type accepts it, null if the part type does not
    */
   @Nullable
-  public static <T extends IMaterialStats> T fetchStatsOrDefault(MaterialStatsId statsId, IMaterial material, IToolPart requiredComponent) {
-    if (statsId.equals(requiredComponent.getStatType())) {
+  public static <T extends IMaterialStats> T fetchStatsOrDefault(IMaterial material, MaterialStatsId statsId) {
       return MaterialRegistry.getInstance().<T>getMaterialStats(material.getIdentifier(), statsId)
         .orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
-    } else {
-      return null;
-    }
   }
 
   /**
    * Gets a list of all stats for the given part type
    * @param statsId             Stat type
    * @param materials           Materials list
-   * @param requiredComponents  List of required components, filters stat types
+   * @param parts  List of required components, filters stat types
    * @param <T>  Type of stats
    * @return  List of stats
    */
-  public static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<IToolPart> requiredComponents) {
-    return Streams.zip(materials.stream(), requiredComponents.stream(),
-                       (material, partMaterialType) -> ToolStatsBuilder.<T>fetchStatsOrDefault(statsId, material, partMaterialType))
-                  .filter(Objects::nonNull)
-                  .collect(Collectors.toList());
+  public static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<PartRequirement> parts) {
+    ImmutableList.Builder<T> builder = ImmutableList.builder();
+    // iterating both lists at once, precondition that they have the same size
+    int size = parts.size();
+    for (int i = 0; i < size; i++) {
+      // ensure stat type is valid
+      PartRequirement part = parts.get(i);
+      if (part.getStatType().equals(statsId)) {
+        T stats = fetchStatsOrDefault(materials.get(i), part.getStatType());
+        if (stats != null) {
+          // add a copy of the stat once per weight, lazy way to do weighting
+          for (int w = 0; w < part.getWeight(); w++) {
+            builder.add(stats);
+          }
+        }
+      }
+    }
+    return builder.build();
   }
 
   /**

@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.tools;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.AccessLevel;
 import lombok.Getter;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
@@ -25,8 +26,9 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
   private final List<HandleMaterialStats> handles;
   private final List<ExtraMaterialStats> extras;
 
-  public MeleeHarvestToolStatsBuilder(ToolBaseStatDefinition baseStats, List<HeadMaterialStats> heads, List<HandleMaterialStats> handles, List<ExtraMaterialStats> extras) {
-    super(baseStats);
+  @VisibleForTesting
+  public MeleeHarvestToolStatsBuilder(ToolDefinitionData toolData, List<HeadMaterialStats> heads, List<HandleMaterialStats> handles, List<ExtraMaterialStats> extras) {
+    super(toolData);
     this.heads = heads;
     this.handles = handles;
     this.extras = extras;
@@ -34,22 +36,14 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Creates a builder from the definition and materials */
   public static ToolStatsBuilder from(ToolDefinition toolDefinition, List<IMaterial> materials) {
-    List<IToolPart> requiredComponents = toolDefinition.getRequiredComponents();
+    ToolDefinitionData data = toolDefinition.getData();
+    List<PartRequirement> requiredComponents = data.getParts();
     // if the NBT is invalid, at least we can return the default stats builder, as an exception here could kill itemstacks
     if (materials.size() != requiredComponents.size()) {
       return ToolStatsBuilder.noParts(toolDefinition);
     }
-
-    ToolBaseStatDefinition baseStats = toolDefinition.getBaseStatDefinition();
-    List<HeadMaterialStats> headStats = listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents);
-    int primaryWeight = baseStats.getPrimaryHeadWeight();
-    if (primaryWeight > 1 && headStats.size() > 1) {
-      for (int i = 1; i < primaryWeight; i++) {
-        headStats.add(headStats.get(0));
-      }
-    }
-
-    return new MeleeHarvestToolStatsBuilder(baseStats, headStats,
+    return new MeleeHarvestToolStatsBuilder(data,
+                                            listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents),
                                             listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
                                             listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
     );
@@ -73,7 +67,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds durability for the tool */
   public float buildDurability() {
-    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability) + baseStats.getBonus(ToolStats.DURABILITY);
+    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability) + toolData.getBonus(ToolStats.DURABILITY);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getDurability, 1);
     // durability should never be below 1
     return Math.max(1, (int)(averageHeadDurability * averageHandleModifier));
@@ -81,7 +75,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds mining speed for the tool */
   public float buildMiningSpeed() {
-    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed) + baseStats.getBonus(ToolStats.MINING_SPEED);
+    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed) + toolData.getBonus(ToolStats.MINING_SPEED);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getMiningSpeed, 1);
 
     return (float)Math.max(0.1d, averageHeadSpeed * averageHandleModifier);
@@ -89,7 +83,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds attack speed for the tool */
   public float buildAttackSpeed() {
-    float baseSpeed = ToolStats.ATTACK_SPEED.getDefaultValue() + baseStats.getBonus(ToolStats.ATTACK_SPEED);
+    float baseSpeed = toolData.getBaseStat(ToolStats.ATTACK_SPEED);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getAttackSpeed, 1);
     return (float)Math.max(0, baseSpeed * averageHandleModifier);
   }
@@ -104,7 +98,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds attack damage for the tool */
   public float buildAttackDamage() {
-    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + baseStats.getBonus(ToolStats.ATTACK_DAMAGE);
+    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + toolData.getBonus(ToolStats.ATTACK_DAMAGE);
     double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
     return (float)Math.max(0.0d, averageHeadAttack * averageHandle);
   }

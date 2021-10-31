@@ -1,105 +1,96 @@
 package slimeknights.tconstruct.library.tools;
 
-import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraftforge.common.util.Lazy;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.RegistryObject;
+import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
+import slimeknights.tconstruct.library.tools.definition.ToolStatProviders;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
-import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
-import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
 
-import java.util.Collections;
+import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * The data defining a tinkers tool, e.g. a pickaxe or a hammer.
- * Note that this defines the tool metadata itself, not an instance of the tool.
- * Contains information about what's needed to craft the tool, how it behaves...
+ * This class serves primarily as a container where the datapack tool data will be injected on datapack load
  */
 public class ToolDefinition {
-  public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().build(), Collections::emptyList, Collections::emptyList);
-  /** Stat builder for tools with no parts */
-  public static final BiFunction<ToolDefinition,List<IMaterial>,? extends ToolStatsBuilder> NO_PARTS_STATS_BUILDER = (definition, materials) -> ToolStatsBuilder.noParts(definition);
-  /** Default stat builder for melee and harvest tools */
-  public static final BiFunction<ToolDefinition,List<IMaterial>,? extends ToolStatsBuilder> MELEE_HARVEST_STATS_BUILDER = MeleeHarvestToolStatsBuilder::from;
+  /** Empty tool definition instance to prevent the need for null for a fallback */
+  public static final ToolDefinition EMPTY = new ToolDefinition(TConstruct.getResource("empty"), new IToolStatProvider() {
+    @Override
+    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+      return StatsNBT.EMPTY;
+    }
 
-  /** Inherent stats of the tool. */
-  private final ToolBaseStatDefinition baseStatDefinition;
-  /** The tool parts required to build this tool. */
-  protected final Lazy<List<IToolPart>> requiredComponents;
-  /** Modifiers applied automatically by this tool */
-  protected final Lazy<List<ModifierEntry>> modifiers;
+    @Override
+    public boolean isMultipart() {
+      return false;
+    }
+  });
+
+  @Getter
+  private final ResourceLocation id;
   /** Function to convert from tool definition and materials into tool stats */
-  protected final BiFunction<ToolDefinition,List<IMaterial>,? extends ToolStatsBuilder> statsBuilder;
+  @Getter
+  private final IToolStatProvider statProvider;
 
-  /** Cached indices that can be used to repair this tool */
-  private int[] repairIndices;
+  /** Base data loaded from JSON, contains stats, traits, and starting slots */
+  @Getter
+  protected ToolDefinitionData data;
 
-  /**
-   * Full constructor for all parameters
-   * @param baseStatDefinition  Base stats
-   * @param requiredComponents  Required parts to make this tool, if empty requires no parts
-   * @param modifiers           Starting modifiers for this tool
-   * @param statsBuilder        Logic mapping a tool definition and material list to the tool stats builder
-   */
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers, BiFunction<ToolDefinition,List<IMaterial>,? extends ToolStatsBuilder> statsBuilder) {
-    this.baseStatDefinition = baseStatDefinition;
-    this.requiredComponents = Lazy.of(requiredComponents);
-    this.modifiers = Lazy.of(modifiers);
-    this.statsBuilder = statsBuilder;
-  }
-
-  /**
-   * Partial constructor using the melee/harvest stats builder
-   * @param baseStatDefinition  Base stats
-   * @param requiredComponents  Required parts to make this tool, if empty requires no parts
-   * @param modifiers           Starting modifiers for this tool
-   */
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers) {
-    this(baseStatDefinition, requiredComponents, modifiers, MELEE_HARVEST_STATS_BUILDER);
+  protected ToolDefinition(ResourceLocation id, IToolStatProvider statProvider) {
+    this.id = id;
+    this.statProvider = statProvider;
+    data = statProvider.getDefaultData();
   }
 
   /**
    * Creates an tool definition builder
-   * @param baseStats  Base stats
+   * @param id  Tool definition ID
    * @return Definition builder
    */
-  public static ToolDefinition.Builder builder(ToolBaseStatDefinition baseStats) {
-    return new Builder(baseStats);
+  public static ToolDefinition.Builder builder(ResourceLocation id) {
+    return new Builder(id);
   }
 
   /**
-   * Gets the current tools base stats definition
-   *
-   * @return the tools base stats definition
+   * Creates an tool definition builder
+   * @param item  Tool item
+   * @return Definition builder
    */
-  public ToolBaseStatDefinition getBaseStatDefinition() {
-    return this.baseStatDefinition;
+  public static ToolDefinition.Builder builder(RegistryObject<? extends IItemProvider> item) {
+    return builder(item.getId());
   }
 
   /**
-   * Gets the required components for the given tool definition, if empty this is a no part tool
-   * @return the required components
+   * Creates an tool definition builder
+   * @param item  Tool item
+   * @return Definition builder
    */
-  public List<IToolPart> getRequiredComponents() {
-    return this.requiredComponents.get();
+  public static ToolDefinition.Builder builder(ItemObject<? extends IItemProvider> item) {
+    return builder(item.getRegistryName());
   }
 
-  /** Checks if the tool uses multipart stats, equivelent to checking the required components are not empty */
+  /** Checks if the tool uses multipart stats, may not match {@link #getData()} if the JSON file was invalid*/
   public boolean isMultipart() {
-    return !getRequiredComponents().isEmpty();
+    return statProvider.isMultipart();
   }
 
   /**
@@ -108,70 +99,126 @@ public class ToolDefinition {
    * @return  Stats NBT
    */
   public StatsNBT buildStats(List<IMaterial> materials) {
-    return statsBuilder.apply(this, materials).buildStats();
+    return statProvider.buildStats(this, materials);
   }
 
-  /** Gets the modifiers applied by this tool */
-  public List<ModifierEntry> getModifiers() {
-    return modifiers.get();
-  }
 
   /* Repairing */
+
+  /** Cached indices that can be used to repair this tool */
+  private int[] repairIndices;
+
+  /** Largest weight of all repair parts */
+  private Integer maxRepairWeight;
 
   /** Returns a list of part material requirements for repair materials */
   public int[] getRepairParts() {
     if (repairIndices == null) {
       // get indices of all head parts
-      List<IToolPart> components = requiredComponents.get();
+      List<PartRequirement> components = getData().getParts();
       if (components.isEmpty()) {
         repairIndices = new int[0];
       } else {
         IMaterialRegistry registry = MaterialRegistry.getInstance();
         repairIndices = IntStream.range(0, components.size())
-                                 .filter(i -> registry.getDefaultStats(components.get(i).getStatType()) instanceof IRepairableMaterialStats)
+                                 .filter(i -> registry.getDefaultStats(components.get(i).getPart().getStatType()) instanceof IRepairableMaterialStats)
                                  .toArray();
       }
     }
     return repairIndices;
   }
 
+  /** Gets the largest weight for all repair parts */
+  public int getMaxRepairWeight() {
+    if (maxRepairWeight == null) {
+      int max = 1;
+      List<PartRequirement> parts = getData().getParts();
+      for (int i : getRepairParts()) {
+        int cmp = parts.get(i).getWeight();
+        if (cmp > max) {
+          max = cmp;
+        }
+      }
+      maxRepairWeight = max;
+    }
+    return maxRepairWeight;
+  }
+
+
+  /* Loader methods */
+
+  /** Validates the given tool data works with this tool definition. Throws if invalid */
+  public void validate(ToolDefinitionData data) {
+    statProvider.validate(data);
+  }
+
+  /** Updates the data in this tool definition from the JSON loader, should not be called directly other than by the loader */
+  public void setData(ToolDefinitionData data) {
+    this.data = data;
+    // clear caches
+    repairIndices = null;
+    maxRepairWeight = null;
+    baseStatDefinition = null;
+  }
+
+  /** Sets the tool data to the default, for the sake of erroring */
+  public void setDefaultData() {
+    setData(statProvider.getDefaultData());
+  }
+
+
+  /* Deprecated methods from before datapack transfer */
+
+  /** Cache of base stats definition, for deprecated hooks */
+  @Nullable @Deprecated
+  private ToolBaseStatDefinition baseStatDefinition;
+
+  /** @deprecated Use {@link #getData()} */
+  @Deprecated
+  public ToolBaseStatDefinition getBaseStatDefinition() {
+    if (baseStatDefinition == null) {
+      baseStatDefinition = new ToolBaseStatDefinition(getData());
+    }
+    return baseStatDefinition;
+  }
+
+  /** @deprecated Use {@link ToolDefinitionData#getParts()} */
+  @Deprecated
+  public List<IToolPart> getRequiredComponents() {
+    return getData().getParts().stream().map(PartRequirement::getPart).collect(Collectors.toList());
+  }
+
+  /** @deprecated use {@link ToolDefinitionData#getTraits()} */
+  @Deprecated
+  public List<ModifierEntry> getModifiers() {
+    return getData().getTraits();
+  }
+
+
   /** Builder to easily create a tool definition */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
-    private final ToolBaseStatDefinition baseStatDefinition;
-    private final ImmutableList.Builder<Supplier<? extends IToolPart>> parts = ImmutableList.builder();
-    private final ImmutableList.Builder<Supplier<? extends ModifierEntry>> modifiers = ImmutableList.builder();
+    private final ResourceLocation id;
     @Setter @Accessors(chain = true)
-    private BiFunction<ToolDefinition,List<IMaterial>,? extends ToolStatsBuilder> statsBuilder;
+    private IToolStatProvider statsProvider;
+    private boolean register = true;
 
-    /**
-     * Adds a tool part to the list of requirements
-     * @param part  Part supplier
-     * @return  Builder instance
-     */
-    public Builder addPart(Supplier<? extends IToolPart> part) {
-      parts.add(part);
+    /** Sets the tool to use a melee harvest tool stat provider, which requires at least 1 head part and uses any number of handle or bindings */
+    public Builder meleeHarvest() {
+      setStatsProvider(ToolStatProviders.MELEE_HARVEST);
       return this;
     }
 
-    /**
-     * Adds a modifier to the builder
-     * @param modifier  Modifier supplier
-     * @param level     Modifier level
-     * @return Builder instance
-     */
-    public Builder addModifier(Supplier<? extends Modifier> modifier, int level) {
-      modifiers.add(() -> new ModifierEntry(modifier.get(), level));
+    /** Sets the tool to not use parts */
+    public Builder noParts() {
+      setStatsProvider(ToolStatProviders.NO_PARTS);
       return this;
     }
 
-    /**
-     * Adds a modifier to the builder at level 1
-     * @param modifier  Modifier supplier
-     * @return Builder instance
-     */
-    public Builder addModifier(Supplier<? extends Modifier> modifier) {
-      return addModifier(modifier, 1);
+    /** Tells the definition to not be registered with the loader, used internally for testing. In general mods wont need this */
+    public Builder skipRegister() {
+      register = false;
+      return this;
     }
 
     /**
@@ -179,29 +226,14 @@ public class ToolDefinition {
      * @return  Tool definition
      */
     public ToolDefinition build() {
-      List<Supplier<? extends IToolPart>> parts = this.parts.build();
-      BiFunction<ToolDefinition,List<IMaterial>,? extends ToolStatsBuilder> statsBuilder = this.statsBuilder;
-      if (statsBuilder == null) {
-        statsBuilder = parts.isEmpty() ? NO_PARTS_STATS_BUILDER : MELEE_HARVEST_STATS_BUILDER;
+      if (statsProvider == null) {
+        throw new IllegalArgumentException("Stats provider is required for tools");
       }
-      List<Supplier<? extends ModifierEntry>> modifiers = this.modifiers.build();
-      return new ToolDefinition(baseStatDefinition, supplierListToSupplier(parts), supplierListToSupplier(modifiers), statsBuilder);
-    }
-
-    /** Converts a list of suppliers into a supplier of a list, specifically without resolving suppliers */
-    private static <T> Supplier<List<T>> supplierListToSupplier(List<Supplier<? extends T>> list) {
-      // quick exit if no entries
-      if (list.isEmpty()) {
-        return Collections::emptyList;
+      ToolDefinition definition = new ToolDefinition(id, statsProvider);
+      if (register) {
+        ToolDefinitionLoader.getInstance().registerToolDefinition(definition);
       }
-      // full supplier to convert
-      return () -> {
-        ImmutableList.Builder<T> builder = ImmutableList.builder();
-        for (Supplier<? extends T> supplier : list) {
-          builder.add(supplier.get());
-        }
-        return builder.build();
-      };
+      return definition;
     }
   }
 }

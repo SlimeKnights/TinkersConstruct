@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ToolDefinitionDataTest {
   /** Checks that the stats are all empty */
-  private void checkStatsEmpty(ToolDefinitionData.Stats stats) {
+  protected static void checkStatsEmpty(ToolDefinitionData.Stats stats) {
     DefinitionToolStats base = stats.getBase();
     assertThat(base).isNotNull();
     assertThat(base.containedStats()).isEmpty();
@@ -21,15 +21,20 @@ public class ToolDefinitionDataTest {
   }
 
   /** Checks that the stats are all empty */
-  private void checkToolDataEmpty(ToolDefinitionData data) {
-    assertThat(data.getParts()).isNotNull();
-    assertThat(data.getParts()).isEmpty();
+  protected static void checkToolDataNonPartsEmpty(ToolDefinitionData data) {
     assertThat(data.getStats()).isNotNull();
     checkStatsEmpty(data.getStats());
     assertThat(data.getSlots()).isNotNull();
     assertThat(data.getSlots().containedTypes()).isEmpty();
     assertThat(data.getTraits()).isNotNull();
     assertThat(data.getTraits()).isEmpty();
+  }
+
+  /** Checks that the stats are all empty */
+  protected static void checkToolDataEmpty(ToolDefinitionData data) {
+    assertThat(data.getParts()).isNotNull();
+    assertThat(data.getParts()).isEmpty();
+    checkToolDataNonPartsEmpty(data);
   }
 
   @Test
@@ -103,7 +108,7 @@ public class ToolDefinitionDataTest {
     ModifierStatsBuilder builder = ModifierStatsBuilder.builder();
     ToolStats.MINING_SPEED.add(builder, 5);
     ToolStats.ATTACK_DAMAGE.add(builder, 3);
-    ToolDefinitionData.EMPTY.buildStats(builder);
+    ToolDefinitionData.EMPTY.buildStatMultipliers(builder);
 
     StatsNBT stats = builder.build(StatsNBT.EMPTY);
     assertThat(stats.getContainedStats()).hasSize(2);
@@ -124,7 +129,7 @@ public class ToolDefinitionDataTest {
       .multiplier(ToolStats.MINING_SPEED, 5)
       .multiplier(ToolStats.ATTACK_SPEED, 2)
       .build();
-    data.buildStats(builder);
+    data.buildStatMultipliers(builder);
 
     StatsNBT stats = builder.build(StatsNBT.EMPTY);
     assertThat(stats.getContainedStats()).hasSize(3);

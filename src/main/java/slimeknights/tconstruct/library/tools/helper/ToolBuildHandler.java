@@ -58,18 +58,12 @@ public final class ToolBuildHandler {
    * @return  Tool for rendering
    */
   public static ItemStack buildToolForRendering(Item item, ToolDefinition definition) {
-    List<IToolPart> requirements = definition.getRequiredComponents();
-    int size = requirements.size();
+    int size = definition.getData().getParts().size();
     // if no parts, just return the item directly with the display tag
-    ItemStack stack;
-    if (size == 0) {
-      stack = new ItemStack(item);
-    } else {
-      List<MaterialId> toolMaterials = new ArrayList<>(size);
-      for (int i = 0; i < size; i++) {
-        toolMaterials.add(i, getRenderMaterial(i));
-      }
-      stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
+    ItemStack stack = new ItemStack(item);
+    if (definition.isMultipart()) {
+		// use all 5 render materials for display stacks, having too many materials is not a problem and its easier than making this reload sensitive
+      stack = new MaterialIdNBT(RENDER_MATERIALS).updateStack(stack);
     }
     stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
     return stack;
