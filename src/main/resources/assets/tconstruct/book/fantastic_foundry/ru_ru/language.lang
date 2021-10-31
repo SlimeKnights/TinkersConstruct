@@ -1,0 +1,25 @@
+// Sections - Fantastic Foundry
+intro=Вступление
+alloyer=Смешиватель
+tier_four_materials=Материалы 4-го уровня
+
+foundry=Литейная печь
+foundry.features=Характеристики
+foundry.byproducts=Побочная продукция
+foundry.controller=Контроллер
+foundry.structure=Структура
+foundry.structurereq=Требования к структуре
+foundry.scorched_tanks=Выжженные резервуары
+foundry.scorched_blocks=Выжженные блоки
+foundry.scorched_ladder=Выжженная лестница
+foundry.scorched_glass=Выжженное стекло
+foundry.scorched_drain=Выжженный слив
+foundry.scorched_duct=Выжженный туннель
+foundry.scorched_chute=Выжженный жёлоб
+foundry.fgui1=Графический интерфейс Литейной Печи
+foundry.fgui2=Foundry GUI Explination
+
+blazing_blood=Огненная кровь
+blazing_blood.carry=Перемещение существ
+blazing_blood.foundry=Литейная печь
+blazing_blood.melting=Переплавка
