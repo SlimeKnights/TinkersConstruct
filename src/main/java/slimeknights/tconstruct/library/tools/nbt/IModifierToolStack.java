@@ -29,7 +29,7 @@ public interface IModifierToolStack {
 
   /** Commonly used operation, getting a stat multiplier */
   default float getModifier(FloatToolStat stat) {
-    return getDefinition().getBaseStatDefinition().getModifier(stat);
+    return getDefinition().getData().getMultiplier(stat);
   }
 
   /** Checks if the tool has the given tag */

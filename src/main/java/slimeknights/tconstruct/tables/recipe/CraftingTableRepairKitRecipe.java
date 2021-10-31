@@ -95,10 +95,9 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   /** Gets the amount to repair for the given material */
   protected float getRepairAmount(IModifierToolStack tool, IMaterial repairMaterial) {
     MaterialStatsId repairStats = TinkerStationRepairRecipe.getDefaultStatsId(tool, repairMaterial);
-    IMaterial primaryMaterial = tool.getMaterial(tool.getDefinition().getRepairParts()[0]);
     float repairAmount = MaterialRecipe.getRepairDurability(repairMaterial.getIdentifier(), repairStats) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
-    if (repairAmount > 0 && repairMaterial != primaryMaterial) {
-      repairAmount /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();
+    if (repairAmount > 0) {
+      repairAmount *= TinkerStationRepairRecipe.getRepairWeight(tool, repairMaterial);
     }
     return repairAmount;
   }

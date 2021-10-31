@@ -27,6 +27,7 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.function.IntConsumer;
+import java.util.stream.IntStream;
 
 /** Recipe for repairing tools */
 @RequiredArgsConstructor
@@ -79,7 +80,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     if (repairIndex < 0) {
       return HeadMaterialStats.ID; // should never happen, but just for safety
     }
-    return tool.getDefinition().getRequiredComponents().get(repairIndex).getStatType();
+    return tool.getDefinition().getData().getParts().get(repairIndex).getStatType();
   }
 
   /** Gets the amount to repair per item */
@@ -206,6 +207,17 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     }
   }
 
+  /** Gets the repair weight for the given material */
+  public static float getRepairWeight(IModifierToolStack tool, IMaterial repairMaterial) {
+    ToolDefinition definition = tool.getDefinition();
+    // return the weight of the largest part matching this material
+    return IntStream.of(definition.getRepairParts())
+                    .filter(i -> tool.getMaterial(i) == repairMaterial)
+                    .map(i -> definition.getData().getParts().get(i).getWeight())
+                    .max().orElse(1)
+           / (float)definition.getMaxRepairWeight();
+  }
+
   /**
    * Gets the amount to repair from the given slot
    * @param tool            Tool instance
@@ -225,9 +237,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
         float durabilityPerItem = getRepairPerItem(tool, inv, slot, repairMaterial);
         if (durabilityPerItem > 0) {
           // if not the primary material, reduced effectiveness
-          if (repairMaterial != primaryMaterial) {
-            durabilityPerItem /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();
-          }
+          durabilityPerItem *= getRepairWeight(tool, repairMaterial);
 
           // adjust the factor based on modifiers
           // main example is wood, +25% per level

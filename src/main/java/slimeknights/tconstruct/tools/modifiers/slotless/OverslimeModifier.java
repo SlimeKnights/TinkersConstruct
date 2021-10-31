@@ -41,7 +41,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     // base cap
-    addCapacity(volatileData, (int)(50 * toolDefinition.getBaseStatDefinition().getModifier(ToolStats.DURABILITY)));
+    addCapacity(volatileData, (int)(50 * toolDefinition.getData().getMultiplier(ToolStats.DURABILITY)));
   }
 
   @Override

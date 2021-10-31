@@ -19,9 +19,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -159,7 +159,7 @@ public class ToolStack implements IModifierToolStack {
     tool.broken = false;
     tool.upgrades = ModifierNBT.EMPTY;
     // add slots
-    definition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
+    definition.getData().buildSlots(tool.getPersistentData());
     // update the materials
     tool.setMaterials(materials);
     return tool;
@@ -571,8 +571,8 @@ public class ToolStack implements IModifierToolStack {
     // first, rebuild the list of all modifiers
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
-    modBuilder.add(getDefinition().getModifiers());
-    List<IToolPart> parts = getDefinition().getRequiredComponents();
+    modBuilder.add(getDefinition().getData().getTraits());
+    List<PartRequirement> parts = getDefinition().getData().getParts();
     List<IMaterial> materials = getMaterialsList();
     int max = Math.min(materials.size(), parts.size());
     for (int i = 0; i < max; i++) {
@@ -584,7 +584,7 @@ public class ToolStack implements IModifierToolStack {
     // pass in the list to stats, note for no part tools this should always be empty
     StatsNBT stats = definition.buildStats(materials);
     ModifierStatsBuilder statBuilder = ModifierStatsBuilder.builder();
-    definition.getBaseStatDefinition().buildStats(statBuilder);
+    definition.getData().buildStatMultipliers(statBuilder);
 
     // next, update modifier related properties
     List<ModifierEntry> modifierList = allMods.getModifiers();
@@ -655,7 +655,7 @@ public class ToolStack implements IModifierToolStack {
       // if the tool is multipart, do nothing without materials
       if (!toolDefinition.isMultipart() || ToolStack.hasMaterials(stack)) {
         ToolStack tool = ToolStack.from(stack);
-        toolDefinition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
+        toolDefinition.getData().buildSlots(tool.getPersistentData());
         tool.rebuildStats();
       }
     }

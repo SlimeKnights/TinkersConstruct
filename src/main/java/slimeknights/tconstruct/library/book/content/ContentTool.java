@@ -32,10 +32,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -128,7 +128,7 @@ public class ContentTool extends TinkerPage {
 
     // determine the recipe to display
     if (this.parts == null || slotPos == null) {
-      List<IToolPart> required = tool.getToolDefinition().getRequiredComponents();
+      List<PartRequirement> required = tool.getToolDefinition().getData().getParts();
       // if no required components, do a crafting recipe lookup
       if (required.isEmpty()) {
         // get the stacks for the first crafting table recipe
@@ -155,7 +155,7 @@ public class ContentTool extends TinkerPage {
         ImmutableList.Builder<ItemStackList> partBuilder = ImmutableList.builder();
         for (int i = 0; i < required.size(); i++) {
           // mark the part as display to suppress the invalid material tooltip
-          ItemStack stack = required.get(i).withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i));
+          ItemStack stack = required.get(i).getPart().withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i));
           stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
           partBuilder.add(ItemStackList.of(stack));
         }

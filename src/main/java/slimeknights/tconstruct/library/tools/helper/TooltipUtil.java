@@ -12,11 +12,11 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -148,7 +148,7 @@ public class TooltipUtil {
    */
   public static void getComponents(IModifiable item, ItemStack stack, List<ITextComponent> tooltips) {
     // no components, nothing to do
-    List<IToolPart> components = item.getToolDefinition().getRequiredComponents();
+    List<PartRequirement> components = item.getToolDefinition().getData().getParts();
     if (components.isEmpty()) {
       return;
     }
@@ -165,9 +165,9 @@ public class TooltipUtil {
     // finally, display them all
     int max = components.size() - 1;
     for (int i = 0; i <= max; i++) {
-      IToolPart requirement = components.get(i);
+      PartRequirement requirement = components.get(i);
       IMaterial material = materials.get(i);
-      ItemStack partStack = requirement.withMaterial(material);
+      ItemStack partStack = requirement.getPart().withMaterial(material);
       tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
       MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
       if (i != max) {

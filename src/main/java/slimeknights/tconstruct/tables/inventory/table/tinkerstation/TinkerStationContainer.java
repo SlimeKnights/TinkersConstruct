@@ -108,8 +108,9 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
         if (slot instanceof TinkerStationInputSlot) {
           TinkerStationInputSlot inputSlot = (TinkerStationInputSlot) slot;
           Item filterItem = null;
-          if (!isHidden && filter != null && i <= filter.getRequiredComponents().size()) {
-            filterItem = filter.getRequiredComponents().get(i - 1).asItem();
+          // TODO: move to JSON, make serverside?
+          if (!isHidden && filter != null && i <= filter.getData().getParts().size()) {
+            filterItem = filter.getData().getParts().get(i - 1).getPart().asItem();
           }
           inputSlot.setFilter(filterItem);
         }

@@ -8,10 +8,10 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,13 +111,13 @@ public final class ToolBuildHandler {
 
   /** Makes a single sub item for the given materials */
   private static boolean addSubItem(IModifiable item, List<ItemStack> items, IMaterial material, IMaterial[] fixedMaterials) {
-    List<IToolPart> required = item.getToolDefinition().getRequiredComponents();
+    List<PartRequirement> required = item.getToolDefinition().getData().getParts();
     List<IMaterial> materials = new ArrayList<>(required.size());
     for (int i = 0; i < required.size(); i++) {
-      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
+      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).getPart().canUseMaterial(fixedMaterials[i])) {
         materials.add(fixedMaterials[i]);
       }
-      else if (required.get(i).canUseMaterial(material)) {
+      else if (required.get(i).getPart().canUseMaterial(material)) {
         materials.add(material);
       } else {
         return false;

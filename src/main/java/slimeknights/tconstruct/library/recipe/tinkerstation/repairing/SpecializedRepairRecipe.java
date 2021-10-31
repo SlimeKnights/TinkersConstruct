@@ -47,7 +47,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   @Override
   protected float getRepairPerItem(ToolStack tool, ITinkerStationInventory inv, int slot, IMaterial repairMaterial) {
     // just use the tools repair value
-    return (tool.getDefinition().getBaseStatDefinition().getBonus(ToolStats.DURABILITY) + 1) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
+    return tool.getDefinition().getData().getBaseStat(ToolStats.DURABILITY) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
   }
 
   @Override

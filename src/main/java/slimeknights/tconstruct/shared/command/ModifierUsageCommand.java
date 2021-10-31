@@ -86,7 +86,7 @@ public class ModifierUsageCommand {
     // finally, tool traits we limit to anything in the modifiable tag
     Set<Modifier> toolTraits = TinkerTags.Items.MODIFIABLE.getAllElements().stream()
                                                           .filter(item -> item instanceof IModifiable)
-                                                          .flatMap(item -> ((IModifiable) item).getToolDefinition().getModifiers().stream())
+                                                          .flatMap(item -> ((IModifiable) item).getToolDefinition().getData().getTraits().stream())
                                                           .map(ModifierEntry::getModifier)
                                                           .collect(Collectors.toSet());
 

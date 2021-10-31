@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
@@ -272,12 +273,12 @@ public class ContentMaterial extends TinkerPage {
     for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
       if (item instanceof IModifiable) {
         IModifiable tool = ((IModifiable) item);
-        List<IToolPart> requirements = tool.getToolDefinition().getRequiredComponents();
+        List<PartRequirement> requirements = tool.getToolDefinition().getData().getParts();
         // start building the tool with the given material
         List<IMaterial> materials = new ArrayList<>(requirements.size());
         IMaterial material = MaterialRegistry.getMaterial(materialId);
         boolean usedMaterial = false;
-        for (IToolPart part : requirements) {
+        for (PartRequirement part : requirements) {
           if (hasStatType(materialId, part.getStatType())) {
             materials.add(material);
             usedMaterial = true;

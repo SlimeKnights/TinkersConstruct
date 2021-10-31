@@ -32,7 +32,7 @@ public class MaintainedModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    volatileData.putInt(KEY_ORIGINAL_DURABILITY, (int)(baseStats.getFloat(ToolStats.DURABILITY) * toolDefinition.getBaseStatDefinition().getModifier(ToolStats.DURABILITY)));
+    volatileData.putInt(KEY_ORIGINAL_DURABILITY, (int)(baseStats.getFloat(ToolStats.DURABILITY) * toolDefinition.getData().getMultiplier(ToolStats.DURABILITY)));
   }
 
   /**

@@ -32,10 +32,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
@@ -335,17 +335,18 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       if (item instanceof IModifiable) {
         IModifiable tool = (IModifiable) item;
         IFormattableTextComponent text = new StringTextComponent("");
-        List<IToolPart> materialRequirements = tool.getToolDefinition().getRequiredComponents();
+        List<PartRequirement> materialRequirements = tool.getToolDefinition().getData().getParts();
         if (!materialRequirements.isEmpty()) {
           for (int i = 0; i < materialRequirements.size(); i++) {
-            IToolPart requirement = materialRequirements.get(i);
+            PartRequirement requirement = materialRequirements.get(i);
             IFormattableTextComponent textComponent = new StringTextComponent(" * ");
 
             ItemStack slotStack = this.container.getSlot(i + INPUT_SLOT).getStack();
-            if (requirement.asItem() != slotStack.getItem()) {
+            Item partItem = requirement.getPart().asItem();
+            if (partItem != slotStack.getItem()) {
               textComponent.mergeStyle(TextFormatting.RED);
             }
-            textComponent.appendSibling(new TranslationTextComponent(requirement.asItem().getTranslationKey())).appendString("\n");
+            textComponent.appendSibling(new TranslationTextComponent(partItem.getTranslationKey())).appendString("\n");
 
             text.appendSibling(textComponent);
           }
@@ -781,8 +782,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         }
         else {
           toolPartSlot.activate();
-          if (definition != null && i < definition.getRequiredComponents().size()) {
-            toolPartSlot.setIcon(new Pattern(Objects.requireNonNull(definition.getRequiredComponents().get(i).asItem().getRegistryName())));
+          if (definition != null) {
+            List<PartRequirement> parts = definition.getData().getParts();
+            if (i < parts.size()) {
+              toolPartSlot.setIcon(new Pattern(Objects.requireNonNull(parts.get(i).getPart().asItem().getRegistryName())));
+            }
           }
         }
       }

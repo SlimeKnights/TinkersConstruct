@@ -50,7 +50,7 @@ public class SpecializedRepairKitRecipe extends CraftingTableRepairKitRecipe imp
 
   @Override
   protected float getRepairAmount(IModifierToolStack tool, IMaterial repairMaterial) {
-    return (tool.getDefinition().getBaseStatDefinition().getBonus(ToolStats.DURABILITY) + 1) * 2f / MaterialRecipe.INGOTS_PER_REPAIR;
+    return tool.getDefinition().getData().getBaseStat(ToolStats.DURABILITY) + 1 * 2f / MaterialRecipe.INGOTS_PER_REPAIR;
   }
 
   @Override
