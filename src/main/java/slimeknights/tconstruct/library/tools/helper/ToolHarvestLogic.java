@@ -370,7 +370,10 @@ public class ToolHarvestLogic {
       }
 
       // if the tool breaks or it was a campfire, we are done
-      if (ToolDamageUtil.damageAnimated(tool, 1, player, hand) || isCampfire) {
+      if (ToolDamageUtil.damage(tool, 1, player, stack) || isCampfire) {
+        if (player != null) {
+          player.sendBreakAnimation(hand);
+        }
         return ActionResultType.SUCCESS;
       }
     }

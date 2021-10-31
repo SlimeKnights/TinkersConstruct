@@ -16,6 +16,6 @@ public class TannedModifier extends SingleUseModifier {
 
   @Override
   public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
-    return amount > 1 ? 1 : 0;
+    return amount >= 1 ? 1 : 0;
   }
 }
