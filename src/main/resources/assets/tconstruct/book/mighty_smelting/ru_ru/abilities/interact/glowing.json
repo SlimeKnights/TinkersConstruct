@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "That's a bright idea."
+    }
+	
+	
+  ],
+  "effects": [
+    "Interact to place glows",
+	"Placing glows consumes durability, even if the tool has unbreaking",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}

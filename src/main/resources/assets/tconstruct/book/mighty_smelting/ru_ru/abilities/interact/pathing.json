@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "If you can't find the golden brick road make your own dirt path road."
+    }
+  ],
+  "effects": [
+     "Allows you to make paths with your tools",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}
