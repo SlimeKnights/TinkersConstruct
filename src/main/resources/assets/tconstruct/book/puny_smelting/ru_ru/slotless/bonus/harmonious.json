@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "Music is good for the soul, and your tool. Maybe your tool has a soul?"
+    }
+  ],
+  "effects": [
+    "Adds an upgrade slot",
+    "Single Use"
+    
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:writable",
+  "text": [
+    {
+      "text": "As words flow through your head, your tool feels as if it could learn a little more as well. Perhaps you could also write with your tool."
+    }
+  ],
+  "effects": [
+    "Adds an upgrade slot",
+    "Single Use"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bane_of_sssss",
+  "text": [
+    {
+      "text": "The best upgrade for those with arachnophobia or creeperphobia. Spiders and creepers beware."
+    }
+  ],
+  "effects": [
+    "Increases damage and applies slowness to spiders and creepery crawlies",
+	"Multiple levels, each level increases damage further",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

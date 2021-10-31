@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "This upgrade is a bit over the top, wouldn't you say?"
+    }
+  ],
+  "effects": [
+    "Adds an overslime bar which is consumed before durability",
+    "Recharged with slime crystals",
+    "Different slime crystals recharge different amounts",
+    "Applies debuff to tools without slimy materials"
+  ]
+}
