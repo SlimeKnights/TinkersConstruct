@@ -1,9 +1,0 @@
-{
-    "slots": [
-        { "position": [ 31, 22 ] },
-        { "position": [ 22, 53 ] },
-        { "position": [ 51, 34 ] }
-    ],
-    "item": "tconstruct:mattock",
-    "sortIndex": 6
-}

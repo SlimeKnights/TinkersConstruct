@@ -1,9 +1,0 @@
-{
-    "slots": [
-        { "position": [ 53, 22 ] },
-        { "position": [ 15, 60 ] },
-        { "position": [ 33, 42 ] }
-    ],
-    "item": "tconstruct:pickaxe",
-    "sortIndex": 6
-}

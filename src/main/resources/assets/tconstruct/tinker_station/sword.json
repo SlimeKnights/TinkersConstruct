@@ -1,9 +1,0 @@
-{
-    "slots": [
-        { "position": [ 48, 26 ] },
-        { "position": [ 12, 62 ] },
-        { "position": [ 30, 44 ] }
-    ],
-    "item": "tconstruct:sword",
-    "sortIndex": 3
-}

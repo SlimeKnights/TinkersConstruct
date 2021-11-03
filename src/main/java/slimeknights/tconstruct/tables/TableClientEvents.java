@@ -17,7 +17,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
-import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
 import slimeknights.tconstruct.tables.client.inventory.TinkerChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
@@ -34,7 +33,6 @@ public class TableClientEvents extends ClientEventBase {
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
     manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
-    manager.addReloadListener(SlotInformationLoader.INSTANCE);
   }
 
   @SubscribeEvent

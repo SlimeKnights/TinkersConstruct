@@ -1,17 +1,14 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.tables.client.SlotInformationLoader;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
-import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
 import java.util.List;
@@ -21,6 +18,21 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   protected final TinkerStationScreen parent;
   protected int selected = 0;
   private int style = 0;
+
+  /** Logic to run when a button is pressed */
+  private final Button.IPressable ON_BUTTON_PRESSED = self -> {
+    for (Widget widget : TinkerStationButtonsScreen.this.buttons) {
+      if (widget instanceof SlotButtonItem) {
+        ((SlotButtonItem) widget).pressed = false;
+      }
+    }
+    if (self instanceof SlotButtonItem) {
+      SlotButtonItem slotInformationButton = (SlotButtonItem) self;
+      slotInformationButton.pressed = true;
+      TinkerStationButtonsScreen.this.selected = slotInformationButton.buttonId;
+      TinkerStationButtonsScreen.this.parent.onToolSelection(slotInformationButton.getLayout());
+    }
+  };
 
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;
@@ -34,53 +46,25 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
-
-    int index = 0;
     this.buttonCount = 0;
 
-    Button.IPressable onPressed = button -> {
-      for (Widget widget : TinkerStationButtonsScreen.this.buttons) {
-        if (widget instanceof SlotButtonItem) {
-          ((SlotButtonItem) widget).pressed = false;
-        }
-      }
+    // repair button
+    SlotButtonItem slotButtonItem = new SlotButtonItem(0, -1, -1, parent.getDefaultLayout(), ON_BUTTON_PRESSED);
+    this.addInfoButton(slotButtonItem);
+    if (0 == selected) {
+      slotButtonItem.pressed = true;
+    }
 
-      if (button instanceof SlotButtonItem) {
-        SlotButtonItem slotInformationButton = (SlotButtonItem) button;
-
-        slotInformationButton.pressed = true;
-
-        TinkerStationButtonsScreen.this.selected = slotInformationButton.buttonId;
-
-        TinkerStationButtonsScreen.this.parent.onToolSelection(slotInformationButton.data);
-      }
-    };
-
-    for (SlotInformation slotInformation : SlotInformationLoader.getSlotInformationList()) {
-      SlotButtonItem slotButtonItem = null;
-      if (slotInformation.isRepair()) {
-        // there are multiple repair slots, one for each relevant size
-        if (slotInformation.getPoints().size() == parent.getMaxInputs()) {
-          slotButtonItem = new SlotButtonItem(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
-            @Override
-            protected void drawIcon(MatrixStack matrices, Minecraft minecraft) {
-              minecraft.getTextureManager().bindTexture(Icons.ICONS);
-              Icons.ANVIL.draw(matrices, this.x, this.y);
-            }
-          };
-        }
-      }
-      // only slow tools if few enough inputs
-      else if (slotInformation.getPoints().size() <= parent.getMaxInputs()) {
-        slotButtonItem = new SlotButtonItem(index++, -1, -1, slotInformation.getToolForRendering(), slotInformation, onPressed);
-      }
-
-      // may skip some tools
-      if (slotButtonItem != null) {
+    // tool buttons
+    int index = 1;
+    for (StationSlotLayout layout : StationSlotLayoutLoader.getInstance().getSortedSlots()) {
+      if (layout.getInputSlots().size() <= parent.getMaxInputs()) {
+        slotButtonItem = new SlotButtonItem(index, -1, -1, layout, ON_BUTTON_PRESSED);
         this.addInfoButton(slotButtonItem);
-        if (index - 1 == selected) {
+        if (index == selected) {
           slotButtonItem.pressed = true;
         }
+        index++;
       }
     }
 

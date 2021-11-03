@@ -71,6 +71,11 @@ public class StationSlotLayout {
     return LogicHelper.defaultIfNull(input_slots, Collections.emptyList());
   }
 
+  /** Gets the number of input slots */
+  public int getInputCount() {
+    return getInputSlots().size();
+  }
+
   /** Gets the slot for the given index, includes the tool slot */
   public LayoutSlot getSlot(int index) {
     if (index == 0) {

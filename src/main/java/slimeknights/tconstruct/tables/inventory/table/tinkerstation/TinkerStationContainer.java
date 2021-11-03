@@ -3,10 +3,11 @@ package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
@@ -16,6 +17,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
   @Getter
@@ -36,17 +38,18 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       // send the player the current recipe, as we only sync to open containers
       tile.syncRecipe(inv.player);
 
-
       inputSlots = new ArrayList<>();
-      inputSlots.add(this.addSlot(new TinkerableSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0)));
+      inputSlots.add(this.addSlot(new TinkerStationSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0)));
 
       int index;
       for (index = 0; index < tile.getSizeInventory() - 1; index++) {
-        inputSlots.add(this.addSlot(new TinkerStationInputSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0)));
+        inputSlots.add(this.addSlot(new TinkerStationSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0)));
       }
 
       // add result slot, will fetch result cache
       this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 37));
+      // set initial slot filters and activations
+      setToolSelection(StationSlotLayoutLoader.getInstance().get(Objects.requireNonNull(tile.getBlockState().getBlock().getRegistryName())));
     }
     else {
       // requirement for final variable
@@ -79,40 +82,22 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
 
   /**
    * Updates the active slots from the screen
-   * @param activeSlots     Active slots
-   * @param mainSlotHidden  If true, main slot is hidden
-   * @param filter          Slot filter to apply, if null clear any filters
+   * @param layout     New layout
    */
-  public void setToolSelection(int activeSlots, boolean mainSlotHidden, @Nullable ToolDefinition filter) {
+  public void setToolSelection(StationSlotLayout layout) {
     assert this.tile != null;
-
-    if (activeSlots > this.tile.getSizeInventory()) {
-      activeSlots = this.tile.getSizeInventory();
-    }
-
-    for (int i = 0; i < this.tile.getSizeInventory(); i++) {
+    int maxSize = tile.getSizeInventory();
+    for (int i = 0; i < maxSize; i++) {
       Slot slot = this.inventorySlots.get(i);
-
       if (slot instanceof TinkerStationSlot) {
-        // activate or deactivate the slots
+        // activate or deactivate the slots, sets the filters
         TinkerStationSlot slotToolPart = (TinkerStationSlot) slot;
-        boolean isHidden = i == TinkerStationTileEntity.TINKER_SLOT ? mainSlotHidden : i > activeSlots;
-        if (isHidden) {
+        LayoutSlot layoutSlot = layout.getSlot(i);
+        if (layoutSlot.isHidden()) {
           slotToolPart.deactivate();
         }
         else {
-          slotToolPart.activate();
-        }
-
-        // update the filters
-        if (slot instanceof TinkerStationInputSlot) {
-          TinkerStationInputSlot inputSlot = (TinkerStationInputSlot) slot;
-          Item filterItem = null;
-          // TODO: move to JSON, make serverside?
-          if (!isHidden && filter != null && i <= filter.getData().getParts().size()) {
-            filterItem = filter.getData().getParts().get(i - 1).getPart().asItem();
-          }
-          inputSlot.setFilter(filterItem);
+          slotToolPart.activate(layoutSlot);
         }
       }
     }

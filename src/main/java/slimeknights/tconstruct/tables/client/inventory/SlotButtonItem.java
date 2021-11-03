@@ -2,23 +2,22 @@ package slimeknights.tconstruct.tables.client.inventory;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
+import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
 public class SlotButtonItem extends Button {
-
   protected static final ElementScreen BUTTON_PRESSED_GUI = new ElementScreen(144, 216, 18, 18, 256, 256);
   protected static final ElementScreen BUTTON_NORMAL_GUI = new ElementScreen(144 + 18 * 2, 216, 18, 18, 256, 256);
   protected static final ElementScreen BUTTON_HOVER_GUI = new ElementScreen(144 + 18 * 4, 216, 18, 18, 256, 256);
 
-  private final ItemStack icon;
-  public final SlotInformation data;
+  @Getter
+  private final StationSlotLayout layout;
   public boolean pressed;
   public final int buttonId;
 
@@ -27,19 +26,9 @@ public class SlotButtonItem extends Button {
   private ElementScreen hoverGui = BUTTON_HOVER_GUI;
   private ResourceLocation backgroundLocation = Icons.ICONS;
 
-  public SlotButtonItem(int buttonId, int x, int y, ITextComponent text, SlotInformation data, IPressable onPress) {
-    super(x, y, 18, 18, text, onPress);
-
-    this.icon = null;
-    this.data = data;
-    this.buttonId = buttonId;
-  }
-
-  public SlotButtonItem(int buttonId, int x, int y, ItemStack icon, SlotInformation data, IPressable onPress) {
-    super(x, y, 18, 18, icon.getDisplayName(), onPress);
-
-    this.icon = icon;
-    this.data = data;
+  public SlotButtonItem(int buttonId, int x, int y, StationSlotLayout layout, IPressable onPress) {
+    super(x, y, 18, 18, layout.getDisplayName(), onPress);
+    this.layout = layout;
     this.buttonId = buttonId;
   }
 
@@ -68,11 +57,12 @@ public class SlotButtonItem extends Button {
         this.normalGui.draw(matrices, this.x, this.y);
       }
 
-      this.drawIcon(matrices, Minecraft.getInstance());
+      //this.drawIcon(matrices, Minecraft.getInstance());
+      TinkerStationScreen.renderIcon(matrices, layout.getIcon(), this.x + 1, this.y + 1);
     }
   }
 
-  protected void drawIcon(MatrixStack matrices, Minecraft mc) {
-    mc.getItemRenderer().renderItemIntoGUI(this.icon, this.x + 1, this.y + 1);
-  }
+//  protected void drawIcon(MatrixStack matrices, Minecraft mc) {
+//    mc.getItemRenderer().renderItemIntoGUI(this.icon, this.x + 1, this.y + 1);
+//  }
 }
