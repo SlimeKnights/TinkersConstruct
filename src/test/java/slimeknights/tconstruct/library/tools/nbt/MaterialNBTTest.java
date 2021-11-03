@@ -10,11 +10,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MaterialRegistryExtension.class)
-class MaterialNBTTest {
+class MaterialNBTTest extends BaseMcTest {
 
   public static final IMaterial TEST_MATERIAL_1 = MaterialFixture.MATERIAL_1;
   public static final IMaterial TEST_MATERIAL_2 = MaterialFixture.MATERIAL_2;

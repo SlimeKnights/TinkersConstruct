@@ -6,10 +6,11 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ToolDefinitionDataTest {
+class ToolDefinitionDataTest extends BaseMcTest {
   /** Checks that the stats are all empty */
   protected static void checkStatsEmpty(ToolDefinitionData.Stats stats) {
     DefinitionToolStats base = stats.getBase();

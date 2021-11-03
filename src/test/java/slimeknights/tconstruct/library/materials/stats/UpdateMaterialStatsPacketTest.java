@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class UpdateMaterialStatsPacketTest {
+class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   public static final MaterialId MATERIAL_ID = MaterialFixture.MATERIAL_1.getIdentifier();
 

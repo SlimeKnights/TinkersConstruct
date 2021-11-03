@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.MergingJsonFileLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MaterialStatsManagerTest {
+class MaterialStatsManagerTest extends BaseMcTest {
   private static final MaterialStatsId STATS_ID_SIMPLE = new MaterialStatsId("test", "stat");
   private static final MaterialStatsId STATS_ID_DONT_CARE = new MaterialStatsId("dont", "care");
 

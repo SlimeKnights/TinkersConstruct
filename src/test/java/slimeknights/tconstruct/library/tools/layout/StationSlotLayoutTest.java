@@ -7,10 +7,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class StationSlotLayoutTest {
+class StationSlotLayoutTest extends BaseMcTest {
   @Test
   void layoutSlot_bufferReadWrite() {
     LayoutSlot slot = new LayoutSlot(new Pattern("test:pattern"), "name", 5, 6, Ingredient.fromItems(Items.BOOK));

@@ -2,10 +2,11 @@ package slimeknights.tconstruct.library.tools.stat;
 
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToolStatsModifierBuilderTest {
+class ToolStatsModifierBuilderTest extends BaseMcTest {
   private final StatsNBT emptyStatsNBT = StatsNBT.builder().build();
   private final StatsNBT testStatsNBT = StatsNBT.builder()
                                                 .set(ToolStats.DURABILITY, 100)

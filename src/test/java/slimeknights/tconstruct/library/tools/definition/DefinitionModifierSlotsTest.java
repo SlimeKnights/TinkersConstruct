@@ -9,11 +9,12 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-class DefinitionModifierSlotsTest {
+class DefinitionModifierSlotsTest extends BaseMcTest {
   @Test
   void emptyModifierSlots_ensureEmpty() {
     // ensure no stats present

@@ -9,11 +9,12 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-class DefinitionToolStatsTest {
+class DefinitionToolStatsTest extends BaseMcTest {
   @Test
   void emptyToolStats_ensureEmpty() {
     // ensure no stats present
