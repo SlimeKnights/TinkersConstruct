@@ -193,6 +193,8 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
         this.inventoryWrapper.refreshMaterial();
       }
       refresh(true);
+    } else if (slot == MATERIAL_SLOT && original.getCount() != stack.getCount()) {
+      this.craftingResult.clear();
     }
   }
 

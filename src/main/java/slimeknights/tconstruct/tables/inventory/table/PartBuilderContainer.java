@@ -11,6 +11,7 @@ import slimeknights.mantle.util.sync.LambdaIntReference;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +33,7 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
       this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 148, 33));
       // inputs
       this.addSlot(this.patternSlot = new PatternSlot(tile, 8, 34));
-      this.addSlot(this.inputSlot = new Slot(tile, PartBuilderTileEntity.MATERIAL_SLOT, 29, 34));
+      this.addSlot(this.inputSlot = new PartBuilderSlot(tile, PartBuilderTileEntity.MATERIAL_SLOT, 29, 34));
 
       // other inventories
       this.addChestSideInventory();
@@ -75,10 +76,25 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
     return slotIn != this.outputSlot && super.canMergeSlot(stack, slotIn);
   }
 
+  /** Slot to update recipe on change */
+  private static class PartBuilderSlot extends Slot {
+    private final LazyResultInventory craftResult;
+    public PartBuilderSlot(PartBuilderTileEntity tile, int index, int xPosition, int yPosition) {
+      super(tile, index, xPosition, yPosition);
+      craftResult = tile.getCraftingResult();
+    }
+
+    @Override
+    public void onSlotChanged() {
+      craftResult.clear();
+      super.onSlotChanged();
+    }
+  }
+
   /**
    * Slot for the pattern, updates buttons on change
    */
-  private static class PatternSlot extends Slot {
+  private static class PatternSlot extends PartBuilderSlot {
     private PatternSlot(PartBuilderTileEntity tile, int x, int y) {
       super(tile, PartBuilderTileEntity.PATTERN_SLOT, x, y);
     }
