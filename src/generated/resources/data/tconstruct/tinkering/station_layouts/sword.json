@@ -1,0 +1,37 @@
+{
+  "translation_key": "item.tconstruct.sword",
+  "icon": {
+    "item": "tconstruct:sword",
+    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"],tic_display:1b}"
+  },
+  "sortIndex": 3,
+  "input_slots": [
+    {
+      "icon": "tconstruct:small_blade",
+      "translation_key": "item.tconstruct.small_blade",
+      "x": 48,
+      "y": 26,
+      "filter": {
+        "item": "tconstruct:small_blade"
+      }
+    },
+    {
+      "icon": "tconstruct:tool_handle",
+      "translation_key": "item.tconstruct.tool_handle",
+      "x": 12,
+      "y": 62,
+      "filter": {
+        "item": "tconstruct:tool_handle"
+      }
+    },
+    {
+      "icon": "tconstruct:tool_handle",
+      "translation_key": "item.tconstruct.tool_handle",
+      "x": 30,
+      "y": 44,
+      "filter": {
+        "item": "tconstruct:tool_handle"
+      }
+    }
+  ]
+}

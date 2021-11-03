@@ -1,10 +1,11 @@
-package slimeknights.tconstruct.library.data;
+package slimeknights.tconstruct.library.data.tinkering;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.resources.ResourcePackType;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
@@ -19,11 +20,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /** Base datagenerator to generate tool definition data */
-public abstract class AbstractToolDefinitionDataGenerator extends GenericDataProvider {
+public abstract class AbstractToolDefinitionDataProvider extends GenericDataProvider {
   private final Map<ResourceLocation,ToolDefinitionDataBuilder> allTools = new HashMap<>();
+  /** Mod ID to filter definitions we care about */
   private final String modId;
 
-  public AbstractToolDefinitionDataGenerator(DataGenerator generator, String modId) {
+  public AbstractToolDefinitionDataProvider(DataGenerator generator, String modId) {
     super(generator, ResourcePackType.SERVER_DATA, ToolDefinitionLoader.FOLDER, ToolDefinitionLoader.GSON);
     this.modId = modId;
   }

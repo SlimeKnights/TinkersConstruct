@@ -42,6 +42,7 @@ import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
@@ -118,6 +119,7 @@ public class TConstruct {
   static void commonSetup(final FMLCommonSetupEvent event) {
     MaterialRegistry.init();
     ToolDefinitionLoader.init();
+    StationSlotLayoutLoader.init();
   }
 
   @SubscribeEvent

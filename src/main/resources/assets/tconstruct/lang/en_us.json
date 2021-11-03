@@ -1869,7 +1869,10 @@
   "gui.tconstruct.part_chest": "Part Chest",
 
   "gui.tconstruct.tinker_station": "Tinker Station",
+  "gui.tconstruct.tinker_station.repair_limited": "Repair & Modify",
+  "gui.tconstruct.tinker_station.repair_limited.description": "Allows creating all basic tools and applying most modifiers. Select a layout from the buttons on the left to get started.",
   "gui.tconstruct.tinker_station.repair": "Repair & Modify",
+  "gui.tconstruct.tinker_station.repair.description": "Create both small and broad tools and modify existing tools to fulfil your dreams! Select a layout from the buttons on the left to get started.",
   "gui.tconstruct.tinker_station.modifiers": "Modifiers",
   "gui.tconstruct.tinker_station.upgrades": "Upgrades & Abilities",
   "gui.tconstruct.tinker_station.traits": "Traits",

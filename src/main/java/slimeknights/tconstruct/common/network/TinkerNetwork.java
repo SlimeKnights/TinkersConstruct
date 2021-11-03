@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.network;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.IPacket;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
@@ -14,6 +15,7 @@ import slimeknights.tconstruct.library.materials.definition.UpdateMaterialsPacke
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
 import slimeknights.tconstruct.library.tools.definition.UpdateToolDefinitionDataPacket;
+import slimeknights.tconstruct.library.tools.layout.UpdateTinkerSlotLayoutsPacket;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -74,6 +76,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateTinkerSlotLayoutsPacket.class, UpdateTinkerSlotLayoutsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // smeltery
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
@@ -126,5 +129,21 @@ public class TinkerNetwork extends NetworkWrapper {
   @Override
   public void sendToTracking(Object msg, Entity entity) {
     this.network.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), msg);
+  }
+
+  /**
+   * Sends a packet to the whole player list
+   * @param targetedPlayer  Main player to target, if null uses whole list
+   * @param playerList      Player list to use if main player is null
+   * @param msg             Message to send
+   */
+  public void sendToPlayerList(@Nullable ServerPlayerEntity targetedPlayer, PlayerList playerList, Object msg) {
+    if (targetedPlayer != null) {
+      sendTo(msg, targetedPlayer);
+    } else {
+      for (ServerPlayerEntity player : playerList.getPlayers()) {
+        sendTo(msg, player);
+      }
+    }
   }
 }

@@ -1,0 +1,37 @@
+{
+  "translation_key": "item.tconstruct.mattock",
+  "icon": {
+    "item": "tconstruct:mattock",
+    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"],tic_display:1b}"
+  },
+  "sortIndex": 6,
+  "input_slots": [
+    {
+      "icon": "tconstruct:small_axe_head",
+      "translation_key": "item.tconstruct.small_axe_head",
+      "x": 31,
+      "y": 22,
+      "filter": {
+        "item": "tconstruct:small_axe_head"
+      }
+    },
+    {
+      "icon": "tconstruct:tool_handle",
+      "translation_key": "item.tconstruct.tool_handle",
+      "x": 22,
+      "y": 53,
+      "filter": {
+        "item": "tconstruct:tool_handle"
+      }
+    },
+    {
+      "icon": "tconstruct:pickaxe_head",
+      "translation_key": "item.tconstruct.pickaxe_head",
+      "x": 51,
+      "y": 34,
+      "filter": {
+        "item": "tconstruct:pickaxe_head"
+      }
+    }
+  ]
+}

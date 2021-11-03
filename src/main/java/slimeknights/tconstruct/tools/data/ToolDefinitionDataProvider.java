@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.data.AbstractToolDefinitionDataGenerator;
+import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -20,8 +20,8 @@ import static slimeknights.tconstruct.tools.TinkerToolParts.toolBinding;
 import static slimeknights.tconstruct.tools.TinkerToolParts.toolHandle;
 import static slimeknights.tconstruct.tools.TinkerToolParts.toughHandle;
 
-public class ToolDefinitionDataGenerator extends AbstractToolDefinitionDataGenerator {
-  public ToolDefinitionDataGenerator(DataGenerator generator) {
+public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvider {
+  public ToolDefinitionDataProvider(DataGenerator generator) {
     super(generator, TConstruct.MOD_ID);
   }
 

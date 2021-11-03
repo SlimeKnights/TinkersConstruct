@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
@@ -112,15 +111,7 @@ public class ToolDefinitionLoader extends JsonReloadListener {
   /** Called on datapack sync to send the tool data to all players */
   private void onDatapackSync(OnDatapackSyncEvent event) {
     UpdateToolDefinitionDataPacket packet = new UpdateToolDefinitionDataPacket(dataMap);
-    ServerPlayerEntity targetedPlayer = event.getPlayer();
-    TinkerNetwork network = TinkerNetwork.getInstance();
-    if (targetedPlayer != null) {
-      network.sendTo(packet, targetedPlayer);
-    } else {
-      for (ServerPlayerEntity player : event.getPlayerList().getPlayers()) {
-        network.sendTo(packet, player);
-      }
-    }
+    TinkerNetwork.getInstance().sendToPlayerList(event.getPlayer(), event.getPlayerList(), packet);
   }
 
   /** Adds the managers as datapack listeners */
