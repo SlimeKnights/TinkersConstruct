@@ -10,6 +10,8 @@ import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -130,6 +132,43 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                          .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlassPane))
                          .build(consumer, wrap(pane, folder, "_from_panes"));
     }
+    // fix vanilla recipes not using tinkers glass
+    String glassVanillaFolder = folder + "vanilla/";
+    Consumer<IFinishedRecipe> vanillaGlassConsumer = withCondition(consumer, ConfigEnabledCondition.GLASS_RECIPE_FIX);
+    ShapedRecipeBuilder.shapedRecipe(Blocks.BEACON)
+                       .key('S', Items.NETHER_STAR)
+                       .key('G', Tags.Items.GLASS_COLORLESS)
+                       .key('O', Blocks.OBSIDIAN)
+                       .patternLine("GGG")
+                       .patternLine("GSG")
+                       .patternLine("OOO")
+                       .addCriterion("has_nether_star", hasItem(Items.NETHER_STAR))
+                       .build(vanillaGlassConsumer, prefix(Blocks.BEACON, glassVanillaFolder));
+    ShapedRecipeBuilder.shapedRecipe(Blocks.DAYLIGHT_DETECTOR)
+                       .key('Q', Items.QUARTZ)
+                       .key('G', Tags.Items.GLASS_COLORLESS)
+                       .key('W', ItemTags.WOODEN_SLABS)
+                       .patternLine("GGG")
+                       .patternLine("QQQ")
+                       .patternLine("WWW")
+                       .addCriterion("has_quartz", hasItem(Items.QUARTZ))
+                       .build(vanillaGlassConsumer, prefix(Blocks.DAYLIGHT_DETECTOR, glassVanillaFolder));
+    ShapedRecipeBuilder.shapedRecipe(Items.END_CRYSTAL)
+                       .key('T', Items.GHAST_TEAR)
+                       .key('E', Items.ENDER_EYE)
+                       .key('G', Tags.Items.GLASS_COLORLESS)
+                       .patternLine("GGG")
+                       .patternLine("GEG")
+                       .patternLine("GTG")
+                       .addCriterion("has_ender_eye", hasItem(Items.ENDER_EYE))
+                       .build(vanillaGlassConsumer, prefix(Items.END_CRYSTAL, glassVanillaFolder));
+    ShapedRecipeBuilder.shapedRecipe(Items.GLASS_BOTTLE, 3)
+                       .key('#', Tags.Items.GLASS_COLORLESS)
+                       .patternLine("# #")
+                       .patternLine(" # ")
+                       .addCriterion("has_glass", hasItem(Tags.Items.GLASS_COLORLESS))
+                       .build(vanillaGlassConsumer, prefix(Items.GLASS_BOTTLE, glassVanillaFolder));
+
 
     // vanilla recipes
     ShapelessRecipeBuilder.shapelessRecipe(Items.FLINT)

@@ -29,6 +29,7 @@ public class Config {
     public final BooleanValue cheaperNetheriteAlloy;
     public final BooleanValue witherBoneDrop;
     public final BooleanValue witherBoneConversion;
+    public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
@@ -126,6 +127,12 @@ public class Config {
         .translation("tconstruct.configgui.witherBoneConversion")
         .worldRestart()
         .define("witherBoneConversion", true);
+
+      this.glassRecipeFix = builder
+        .comment("Fixes clear glass not being usable in vanilla recipes that require glass. Config option exists to disable easily in case this fix is redundant to another mod")
+        .translation("tconstruct.configgui.glassRecipeFix")
+        .worldRestart()
+        .define("glassRecipeFix", true);
 
       this.melterNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")

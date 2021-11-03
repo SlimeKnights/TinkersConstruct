@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "prop": "glass_recipe_fix",
+      "type": "tconstruct:config"
+    }
+  ],
+  "pattern": [
+    "# #",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:glass/colorless"
+    }
+  },
+  "result": {
+    "item": "minecraft:glass_bottle",
+    "count": 3
+  }
+}
