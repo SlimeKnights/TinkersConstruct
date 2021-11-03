@@ -7,7 +7,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
-import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UpdateMaterialPacketTest extends BaseMcTest {
+class UpdateMaterialPacketTest {
 
   public static final MaterialId MATERIAL_ID_1 = MaterialFixture.MATERIAL_1.getIdentifier();
   public static final MaterialId MATERIAL_ID_2 = MaterialFixture.MATERIAL_2.getIdentifier();

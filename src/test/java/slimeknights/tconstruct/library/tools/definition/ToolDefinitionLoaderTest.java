@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class ToolDefinitionLoaderTest extends BaseMcTest {
+class ToolDefinitionLoaderTest extends BaseMcTest {
   private static final ToolDefinitionData WRONG_DATA = ToolDefinitionDataBuilder.builder().stat(ToolStats.DURABILITY, 100).build();
   private static final JsonFileLoader fileLoader = new JsonFileLoader(ToolDefinitionLoader.GSON, ToolDefinitionLoader.FOLDER);
   private static final ToolDefinition NO_PARTS_MINIMAL = ToolDefinition.builder(TConstruct.getResource("minimal_no_parts")).noParts().build();

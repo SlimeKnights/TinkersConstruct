@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UpdateTinkerSlotLayoutsPacketTest extends BaseMcTest {
+class UpdateTinkerSlotLayoutsPacketTest extends BaseMcTest {
   @Test
   void packetReadWrite() {
     StationSlotLayout layout = StationSlotLayout

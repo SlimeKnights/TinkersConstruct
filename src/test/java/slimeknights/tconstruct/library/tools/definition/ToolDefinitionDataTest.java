@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToolDefinitionDataTest {
+class ToolDefinitionDataTest {
   /** Checks that the stats are all empty */
   protected static void checkStatsEmpty(ToolDefinitionData.Stats stats) {
     DefinitionToolStats base = stats.getBase();

@@ -5,11 +5,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ModDataNBTTest extends BaseMcTest {
+class ModDataNBTTest {
   private static final ResourceLocation testKey = new ResourceLocation("test");
   private static final ResourceLocation testKey2 = new ResourceLocation("test2");
 

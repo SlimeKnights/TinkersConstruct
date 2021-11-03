@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.tools.definition;
 
+import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
@@ -9,8 +11,9 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-public class DefinitionModifierSlotsTest {
+class DefinitionModifierSlotsTest {
   @Test
   void emptyModifierSlots_ensureEmpty() {
     // ensure no stats present
@@ -68,7 +71,7 @@ public class DefinitionModifierSlotsTest {
       .setSlots(SlotType.ARMOR, 1)
       .build();
 
-    JsonElement serialized = DefinitionModifierSlots.SERIALIZER.serialize(slots, DefinitionModifierSlots.class, null);
+    JsonElement serialized = DefinitionModifierSlots.SERIALIZER.serialize(slots, DefinitionModifierSlots.class, mock(JsonSerializationContext.class));
     assertThat(serialized.isJsonObject()).isTrue();
     JsonObject object = serialized.getAsJsonObject();
     assertThat(JSONUtils.getInt(object, SlotType.UPGRADE.getName())).isEqualTo(4);
@@ -81,7 +84,7 @@ public class DefinitionModifierSlotsTest {
     object.addProperty(SlotType.UPGRADE.getName(), 5);
     object.addProperty(SlotType.ARMOR.getName(), 7);
 
-    DefinitionModifierSlots slots = DefinitionModifierSlots.SERIALIZER.deserialize(object, DefinitionModifierSlots.class, null);
+    DefinitionModifierSlots slots = DefinitionModifierSlots.SERIALIZER.deserialize(object, DefinitionModifierSlots.class, mock(JsonDeserializationContext.class));
     assertThat(slots.containedTypes()).hasSize(2);
     assertThat(slots.containedTypes()).contains(SlotType.UPGRADE);
     assertThat(slots.containedTypes()).contains(SlotType.ARMOR);

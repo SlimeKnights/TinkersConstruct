@@ -24,7 +24,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class StationSlotLayoutLoaderTest extends BaseMcTest {
+class StationSlotLayoutLoaderTest extends BaseMcTest {
   private static final JsonFileLoader fileLoader = new JsonFileLoader(StationSlotLayoutLoader.GSON, StationSlotLayoutLoader.FOLDER);
 
   @BeforeAll
@@ -54,12 +54,12 @@ public class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(slots.get(0).getY()).isEqualTo(1);
     assertThat(slots.get(0).getIcon()).isNull();
     assertThat(slots.get(0).getFilter()).isNull();
-    assertThat(slots.get(0).getName()).isEmpty();
+    assertThat(slots.get(0).getTranslationKey()).isEmpty();
     assertThat(slots.get(1).getX()).isEqualTo(2);
     assertThat(slots.get(1).getY()).isEqualTo(3);
     assertThat(slots.get(1).getIcon()).isNull();
     assertThat(slots.get(1).getFilter()).isNull();
-    assertThat(slots.get(1).getName()).isEmpty();
+    assertThat(slots.get(1).getTranslationKey()).isEmpty();
   }
 
   @Test
@@ -78,14 +78,14 @@ public class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(layout.getToolSlot().getY()).isEqualTo(2);
     assertThat(layout.getToolSlot().getIcon()).isNull();
     assertThat(layout.getToolSlot().getFilter()).isNull();
-    assertThat(layout.getToolSlot().getName()).isEmpty();
+    assertThat(layout.getToolSlot().getTranslationKey()).isEmpty();
     List<LayoutSlot> slots = layout.getInputSlots();
     assertThat(slots).hasSize(1);
     assertThat(slots.get(0).getX()).isEqualTo(3);
     assertThat(slots.get(0).getY()).isEqualTo(4);
     assertThat(slots.get(0).getIcon()).isNull();
     assertThat(slots.get(0).getFilter()).isNull();
-    assertThat(slots.get(0).getName()).isEmpty();
+    assertThat(slots.get(0).getTranslationKey()).isEmpty();
   }
 
   /** Checks the given ingredient is just the given item */
@@ -121,7 +121,7 @@ public class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(slot.getY()).isEqualTo(2);
     assertThat(slot.getIcon()).isNotNull();
     assertThat(slot.getIcon().toString()).isEqualTo("test:pattern_1");
-    assertThat(slot.getName()).isEqualTo("name_1");
+    assertThat(slot.getTranslationKey()).isEqualTo("name_1");
     assertThat(slot.getFilter()).isNotNull();
     ingredientIsItem(slot.getFilter(), Items.IRON_NUGGET);
     // inputs
@@ -133,7 +133,7 @@ public class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(slot.getY()).isEqualTo(4);
     assertThat(slot.getIcon()).isNotNull();
     assertThat(slot.getIcon().toString()).isEqualTo("test:pattern_2");
-    assertThat(slot.getName()).isEqualTo("name_2");
+    assertThat(slot.getTranslationKey()).isEqualTo("name_2");
     assertThat(slot.getFilter()).isNotNull();
     ingredientIsItem(slot.getFilter(), Items.DIAMOND);
     // input 1
@@ -142,7 +142,7 @@ public class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(slot.getY()).isEqualTo(6);
     assertThat(slot.getIcon()).isNotNull();
     assertThat(slot.getIcon().toString()).isEqualTo("test:pattern_3");
-    assertThat(slot.getName()).isEqualTo("name_3");
+    assertThat(slot.getTranslationKey()).isEqualTo("name_3");
     assertThat(slot.getFilter()).isNotNull();
     ingredientIsItem(slot.getFilter(), Items.EMERALD);
     // input 2
@@ -151,7 +151,7 @@ public class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(slot.getY()).isEqualTo(8);
     assertThat(slot.getIcon()).isNotNull();
     assertThat(slot.getIcon().toString()).isEqualTo("test:pattern_4");
-    assertThat(slot.getName()).isEqualTo("name_4");
+    assertThat(slot.getTranslationKey()).isEqualTo("name_4");
     assertThat(slot.getFilter()).isNotNull();
     ingredientIsItem(slot.getFilter(), Items.STONE);
   }

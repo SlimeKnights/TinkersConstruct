@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.tools.definition;
 
+import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
@@ -9,8 +11,9 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-public class DefinitionToolStatsTest {
+class DefinitionToolStatsTest {
   @Test
   void emptyToolStats_ensureEmpty() {
     // ensure no stats present
@@ -70,7 +73,7 @@ public class DefinitionToolStatsTest {
       .addStat(ToolStats.ATTACK_SPEED, 2.5f)
       .build();
 
-    JsonElement serialized = DefinitionToolStats.SERIALIZER.serialize(stats, DefinitionToolStats.class, null);
+    JsonElement serialized = DefinitionToolStats.SERIALIZER.serialize(stats, DefinitionToolStats.class, mock(JsonSerializationContext.class));
     assertThat(serialized.isJsonObject()).isTrue();
     JsonObject object = serialized.getAsJsonObject();
     assertThat(JSONUtils.getFloat(object, ToolStats.DURABILITY.getName().toString())).isEqualTo(10);
@@ -83,7 +86,7 @@ public class DefinitionToolStatsTest {
     object.addProperty(ToolStats.DURABILITY.getName().toString(), 100);
     object.addProperty(ToolStats.ATTACK_SPEED.getName().toString(), 5.5f);
 
-    DefinitionToolStats stats = DefinitionToolStats.SERIALIZER.deserialize(object, DefinitionToolStats.class, null);
+    DefinitionToolStats stats = DefinitionToolStats.SERIALIZER.deserialize(object, DefinitionToolStats.class, mock(JsonDeserializationContext.class));
     assertThat(stats.containedStats()).hasSize(2);
     assertThat(stats.containedStats()).contains(ToolStats.DURABILITY);
     assertThat(stats.containedStats()).contains(ToolStats.ATTACK_SPEED);

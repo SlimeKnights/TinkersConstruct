@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
+class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
   private static final ResourceLocation EMPTY_ID = new ResourceLocation("test", "empty");
   private static final ResourceLocation FILLED_ID = new ResourceLocation("test", "filled");
 

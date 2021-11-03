@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.tools.definition;
 
+import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
@@ -13,8 +15,9 @@ import slimeknights.tconstruct.test.BaseMcTest;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-public class PartRequirementTest extends BaseMcTest {
+class PartRequirementTest extends BaseMcTest {
 
   @BeforeAll
   static void registerParts() {
@@ -43,7 +46,7 @@ public class PartRequirementTest extends BaseMcTest {
 
     // weight is optional if 1
     requirement = new PartRequirement(MaterialItemFixture.MATERIAL_ITEM, 1);
-    json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, null);
+    json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, mock(JsonSerializationContext.class));
     assertThat(json.isJsonObject()).isTrue();
     object = json.getAsJsonObject();
     assertThat(JSONUtils.getString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM.getRegistryName()).toString());
@@ -55,7 +58,7 @@ public class PartRequirementTest extends BaseMcTest {
     JsonObject json = new JsonObject();
     json.addProperty("item", Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM_HEAD.getRegistryName()).toString());
     json.addProperty("weight", 4);
-    PartRequirement requirement = PartRequirement.SERIALIZER.deserialize(json, PartRequirement.class, null);
+    PartRequirement requirement = PartRequirement.SERIALIZER.deserialize(json, PartRequirement.class, mock(JsonDeserializationContext.class));
     assertThat(requirement.getPart()).isEqualTo(MaterialItemFixture.MATERIAL_ITEM_HEAD);
     assertThat(requirement.getWeight()).isEqualTo(4);
 

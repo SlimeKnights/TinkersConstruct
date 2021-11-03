@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class StationSlotLayoutTest {
+class StationSlotLayoutTest {
   @Test
   void layoutSlot_bufferReadWrite() {
     LayoutSlot slot = new LayoutSlot(new Pattern("test:pattern"), "name", 5, 6, Ingredient.fromItems(Items.BOOK));
@@ -21,7 +21,7 @@ public class StationSlotLayoutTest {
     Pattern pattern = decoded.getIcon();
     assertThat(pattern).isNotNull();
     assertThat(pattern.toString()).isEqualTo("test:pattern");
-    assertThat(decoded.getName()).isEqualTo("name");
+    assertThat(decoded.getTranslationKey()).isEqualTo("name");
     assertThat(decoded.getX()).isEqualTo(5);
     assertThat(decoded.getY()).isEqualTo(6);
     Ingredient ingredient = decoded.getFilter();
