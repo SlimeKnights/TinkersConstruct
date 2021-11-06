@@ -8,7 +8,7 @@ public interface Icons {
   ResourceLocation ICONS = TConstruct.getResource("textures/gui/icons.png");
 
   //ElementScreen ANVIL = new ElementScreen(18 * 3, 0, 18, 18, 256, 256);
-  ElementScreen PATTERN = new ElementScreen(0, 18 * 12, 18, 18);
+  ElementScreen PATTERN = new ElementScreen(0, 18 * 12, 18, 18, 256, 256);
   //ElementScreen SHARD = new ElementScreen(18, 18 * 12, 18, 18);
   //ElementScreen BLOCK = new ElementScreen(18 * 2, 18 * 12, 18, 18);
   //ElementScreen PICKAXE = new ElementScreen(0, 18 * 13, 18, 18);
