@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity.controller;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags.Items;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -34,6 +36,11 @@ public class FoundryTileEntity extends HeatingStructureTileEntity {
   @Override
   protected MeltingModuleInventory createMeltingInventory() {
     return new ByproductMeltingModuleInventory(this, tank, Config.COMMON.foundryNuggetsPerOre::get);
+  }
+
+  @Override
+  protected boolean isDebugItem(ItemStack stack) {
+    return Items.FOUNDRY_DEBUG.contains(stack.getItem());
   }
 
   @Override

@@ -2,11 +2,9 @@ package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
 import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
@@ -20,22 +18,14 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
     super(builder);
   }
 
-  /** If true, the player is holding or wearing one of the debug items */
-  public static boolean holdingBook(PlayerEntity player) {
-    // either hand or head (mod compat goggles)
-    return TinkerTags.Items.STRUCTURE_DEBUG.contains(player.getHeldItemMainhand().getItem())
-           || TinkerTags.Items.STRUCTURE_DEBUG.contains(player.getHeldItemOffhand().getItem())
-           || TinkerTags.Items.STRUCTURE_DEBUG.contains(player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem());
-  }
-
   @Override
   protected boolean openGui(PlayerEntity player, World world, BlockPos pos) {
     super.openGui(player, world, pos);
-    // only need to update if holding the book
-    if (!world.isRemote && holdingBook(player)) {
+    // only need to update if holding the proper items
+    if (!world.isRemote) {
       TileEntityHelper.getTile(HeatingStructureTileEntity.class, world, pos).ifPresent(te -> {
         MultiblockResult result = te.getStructureResult();
-        if (!result.isSuccess()) {
+        if (!result.isSuccess() && te.showDebugBlockBorder(player)) {
           TinkerNetwork.getInstance().sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
         }
       });

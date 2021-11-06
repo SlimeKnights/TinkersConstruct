@@ -67,7 +67,6 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(ItemTags.LECTERN_BOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
     this.getOrCreateBuilder(TinkerTags.Items.GUIDEBOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
     this.getOrCreateBuilder(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
-    this.getOrCreateBuilder(TinkerTags.Items.STRUCTURE_DEBUG).addTag(TinkerTags.Items.TINKERS_GUIDES);
 
     Builder<Item> slimeballs = this.getOrCreateBuilder(Tags.Items.SLIMEBALLS);
     for (SlimeType type : SlimeType.values()) {
@@ -238,6 +237,20 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
     this.copy(TinkerTags.Blocks.SCORCHED_BLOCKS, TinkerTags.Items.SCORCHED_BLOCKS);
     this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
+
+    // smeltery and foundry structure blocks
+    this.getOrCreateBuilder(TinkerTags.Items.SMELTERY)
+        .addTag(TinkerTags.Items.SEARED_BLOCKS)
+        .addTag(TinkerTags.Items.SEARED_TANKS)
+        .add(TinkerSmeltery.smelteryController.asItem(), TinkerSmeltery.searedDrain.asItem(), TinkerSmeltery.searedChute.asItem(), TinkerSmeltery.searedDuct.asItem(), TinkerSmeltery.searedGlass.asItem(), TinkerSmeltery.searedLadder.asItem());
+    this.getOrCreateBuilder(TinkerTags.Items.FOUNDRY)
+        .addTag(TinkerTags.Items.SCORCHED_BLOCKS)
+        .addTag(TinkerTags.Items.SCORCHED_TANKS)
+        .add(TinkerSmeltery.foundryController.asItem(), TinkerSmeltery.scorchedDrain.asItem(), TinkerSmeltery.scorchedChute.asItem(), TinkerSmeltery.scorchedDuct.asItem(), TinkerSmeltery.scorchedGlass.asItem(), TinkerSmeltery.scorchedLadder.asItem());
+    // structure debug
+    this.getOrCreateBuilder(TinkerTags.Items.GENERAL_STRUCTURE_DEBUG);
+    this.getOrCreateBuilder(TinkerTags.Items.SMELTERY_DEBUG).addTag(TinkerTags.Items.GENERAL_STRUCTURE_DEBUG).addTag(TinkerTags.Items.SMELTERY);
+    this.getOrCreateBuilder(TinkerTags.Items.FOUNDRY_DEBUG).addTag(TinkerTags.Items.GENERAL_STRUCTURE_DEBUG).addTag(TinkerTags.Items.FOUNDRY);
 
     // tag each type of cast
     TagsProvider.Builder<Item> goldCasts = this.getOrCreateBuilder(TinkerTags.Items.GOLD_CASTS);

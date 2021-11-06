@@ -134,6 +134,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
     public static final IOptionalNamedTag<Item> SCORCHED_BLOCKS = tag("scorched_blocks");
+    public static final IOptionalNamedTag<Item> SMELTERY = tag("smeltery");
+    public static final IOptionalNamedTag<Item> FOUNDRY = tag("foundry");
 
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
@@ -157,7 +159,11 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> TINKERS_GUIDES = tag("guides");
 
     /** Any items in this tag will show the erroring block in smelteries and foundries when held or worn */
-    public static final IOptionalNamedTag<Item> STRUCTURE_DEBUG = tag("structure_debug");
+    public static final IOptionalNamedTag<Item> GENERAL_STRUCTURE_DEBUG = tag("structure_debug/general");
+    /** Any items in this tag will show the erroring block in smelteries when held or worn */
+    public static final IOptionalNamedTag<Item> SMELTERY_DEBUG = tag("structure_debug/smeltery");
+    /** Any items in this tag will show the erroring block in foundries when held or worn */
+    public static final IOptionalNamedTag<Item> FOUNDRY_DEBUG = tag("structure_debug/foundry");
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");

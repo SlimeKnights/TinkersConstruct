@@ -22,7 +22,6 @@ import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
-import slimeknights.tconstruct.smeltery.block.controller.HeatingControllerBlock;
 import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
@@ -59,7 +58,7 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
     if (errorPos != null && Minecraft.getInstance().player != null) {
       // either we must be holding the book, or the structure must be erroring and it be within 10 seconds of last update
       boolean highlightError = smeltery.isHighlightError();
-      if ((!structureValid && highlightError) || HeatingControllerBlock.holdingBook(Minecraft.getInstance().player)) {
+      if ((!structureValid && highlightError) || smeltery.showDebugBlockBorder(Minecraft.getInstance().player)) {
         // distance check, 512 is the squared length of the diagonal of a max size structure
         BlockPos pos = smeltery.getPos();
         BlockPos playerPos = Minecraft.getInstance().player.getPosition();

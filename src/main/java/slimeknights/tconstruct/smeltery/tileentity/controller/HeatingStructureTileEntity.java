@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -471,6 +472,16 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   /** If true, the error position should be visible */
   public boolean isHighlightError() {
     return errorVisibleFor > 0;
+  }
+
+  /** If true, the given item triggers debug blocks */
+  protected abstract boolean isDebugItem(ItemStack stack);
+
+  /** If true, debug blocks should show in the TESR to the given player */
+  public boolean showDebugBlockBorder(PlayerEntity player) {
+    return isDebugItem(player.getHeldItemMainhand())
+           || isDebugItem(player.getHeldItemOffhand())
+           || isDebugItem(player.getItemStackFromSlot(EquipmentSlotType.HEAD));
   }
 
 
