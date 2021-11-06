@@ -3,17 +3,11 @@
   "text": [
     {
       "text": "Fear me undead..."
-
     },
-	{
-      "text": "\n",
-	  "paragraph": true
-    },
-	{
-	 "text": "For I wield the power of melons infused with gold! Perhaps golden melon armor would make them stay away from me.",
-	 "paragraph": true
+    {
+      "text": "For I wield the power of melons infused with gold! Perhaps golden melon armor would make them stay away from me.",
+      "paragraph": true
     }
-	 
   ],
   "effects": [
     "Increases damage to the undead",
