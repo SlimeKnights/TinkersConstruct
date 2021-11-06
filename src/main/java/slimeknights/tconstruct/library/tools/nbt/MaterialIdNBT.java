@@ -11,6 +11,8 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.Constants.NBT;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
@@ -48,6 +50,25 @@ public class MaterialIdNBT {
       return IMaterial.UNKNOWN_ID;
     }
     return materials.get(index);
+  }
+
+  /** Resolves all redirects, replacing with material redirects */
+  public MaterialIdNBT resolveRedirects() {
+    boolean changed = false;
+    ImmutableList.Builder<MaterialId> builder = ImmutableList.builder();
+    IMaterialRegistry registry = MaterialRegistry.getInstance();
+    for (MaterialId id : materials) {
+      MaterialId resolved = registry.resolve(id);
+      if (resolved != id) {
+        changed = true;
+      }
+      builder.add(resolved);
+    }
+    // return a new instance only if things changed
+    if (changed) {
+      return new MaterialIdNBT(builder.build());
+    }
+    return this;
   }
 
   /**
@@ -100,5 +121,11 @@ public class MaterialIdNBT {
   public ItemStack updateStack(ItemStack stack) {
     stack.getOrCreateTag().put(ToolStack.TAG_MATERIALS, serializeToNBT());
     return stack;
+  }
+
+  /** Writes this material list to the given stack */
+  public CompoundNBT updateNBT(CompoundNBT nbt) {
+    nbt.put(ToolStack.TAG_MATERIALS, serializeToNBT());
+    return nbt;
   }
 }

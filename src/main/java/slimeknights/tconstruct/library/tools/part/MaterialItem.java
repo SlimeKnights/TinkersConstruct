@@ -4,6 +4,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -12,6 +13,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -36,12 +38,17 @@ public class MaterialItem extends Item implements IMaterialItem {
     super(properties);
   }
 
-  @Override
-  public Optional<MaterialId> getMaterialId(ItemStack stack) {
-    return Optional.ofNullable(stack.getTag())
+  /** Gets the material ID for the given NBT compound */
+  private static Optional<MaterialId> getMaterialId(@Nullable CompoundNBT nbt) {
+    return Optional.ofNullable(nbt)
                    .map(compoundNBT -> compoundNBT.getString(NBTTags.PART_MATERIAL))
                    .filter(string -> !string.isEmpty())
                    .map(MaterialId::tryCreate);
+  }
+
+  @Override
+  public Optional<MaterialId> getMaterialId(ItemStack stack) {
+    return getMaterialId(stack.getTag());
   }
 
   @Override
@@ -130,5 +137,18 @@ public class MaterialItem extends Item implements IMaterialItem {
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(new TranslationTextComponent(ADDED_BY, DomainDisplayName.nameFor(material.getIdentifier().getNamespace())));
     }
+  }
+
+  @Override
+  public boolean updateItemStackNBT(CompoundNBT nbt) {
+    // if the material exists and was changed, update it
+    if (nbt.contains("tag", NBT.TAG_COMPOUND)) {
+      CompoundNBT tag = nbt.getCompound("tag");
+      getMaterialId(tag).map(id -> {
+        MaterialId resolved = MaterialRegistry.getInstance().resolve(id);
+        return resolved == id ? null : resolved;
+      }).ifPresent(id -> tag.putString(NBTTags.PART_MATERIAL, id.toString()));
+    }
+    return true;
   }
 }

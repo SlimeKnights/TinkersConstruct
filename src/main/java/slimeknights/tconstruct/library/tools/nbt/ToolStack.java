@@ -44,7 +44,7 @@ public class ToolStack implements IModifierToolStack {
   public static final ResourceLocation ORIGINAL_DURABILITY_KEY = TConstruct.getResource("durability");
 
   // tinkers tags
-  protected static final String TAG_MATERIALS = "tic_materials";
+  public static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_MULTIPLIERS = "tic_multipliers";
   public static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
