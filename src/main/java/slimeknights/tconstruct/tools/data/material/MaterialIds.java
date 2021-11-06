@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.data;
+package slimeknights.tconstruct.tools.data.material;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

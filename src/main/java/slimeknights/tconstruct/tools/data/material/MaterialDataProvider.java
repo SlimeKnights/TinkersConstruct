@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.data;
+package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.crafting.conditions.ICondition;

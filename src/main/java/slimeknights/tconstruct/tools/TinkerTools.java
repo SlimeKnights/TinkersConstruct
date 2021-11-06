@@ -23,14 +23,15 @@ import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
-import slimeknights.tconstruct.tools.data.MaterialDataProvider;
-import slimeknights.tconstruct.tools.data.MaterialRenderInfoProvider;
-import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
-import slimeknights.tconstruct.tools.data.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
 import slimeknights.tconstruct.tools.data.ToolDefinitionDataProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
+import slimeknights.tconstruct.tools.data.material.MaterialDataProvider;
+import slimeknights.tconstruct.tools.data.material.MaterialRecipeProvider;
+import slimeknights.tconstruct.tools.data.material.MaterialRenderInfoProvider;
+import slimeknights.tconstruct.tools.data.material.MaterialStatsDataProvider;
+import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.item.broad.BroadAxeTool;
 import slimeknights.tconstruct.tools.item.broad.CleaverTool;
 import slimeknights.tconstruct.tools.item.broad.ExcavatorTool;
@@ -113,6 +114,7 @@ public final class TinkerTools extends TinkerModule {
     DataGenerator generator = event.getGenerator();
     if (event.includeServer()) {
       generator.addProvider(new ToolsRecipeProvider(generator));
+      generator.addProvider(new MaterialRecipeProvider(generator));
       generator.addProvider(new ModifierRecipeProvider(generator));
       MaterialDataProvider materials = new MaterialDataProvider(generator);
       generator.addProvider(materials);
