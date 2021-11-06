@@ -154,8 +154,8 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .key('s', TinkerTags.Items.SEARED_BLOCKS)
                          .key('t', TinkerTables.tinkerStation)
                          .patternLine("mmm")
-                         .patternLine("tst")
-                         .patternLine("sss")
+                         .patternLine("sts")
+                         .patternLine("s s")
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .build(consumer, modResource(folder + "tinkers_forge"));
@@ -175,8 +175,8 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .key('s', TinkerTags.Items.SCORCHED_BLOCKS)
                          .key('t', TinkerTables.tinkerStation)
                          .patternLine("mmm")
-                         .patternLine("tst")
-                         .patternLine("sss")
+                         .patternLine("sts")
+                         .patternLine("s s")
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .build(consumer, modResource(folder + "scorched_forge"));
