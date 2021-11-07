@@ -7,9 +7,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,7 +30,12 @@ public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierE
   }
 
   @Override
-  public List<ITextComponent> getTooltip(ModifierEntry entry, ITooltipFlag iTooltipFlag) {
-    return entry.getModifier().getDescriptionList();
+  public List<ITextComponent> getTooltip(ModifierEntry entry, ITooltipFlag flag) {
+    List<ITextComponent> tooltip = entry.getModifier().getDescriptionList();
+    if (flag.isAdvanced()) {
+      tooltip = new ArrayList<>(tooltip);
+      tooltip.add((new StringTextComponent(entry.getModifier().getId().toString())).mergeStyle(TextFormatting.DARK_GRAY));
+    }
+    return tooltip;
   }
 }

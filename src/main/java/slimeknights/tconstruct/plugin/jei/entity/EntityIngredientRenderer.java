@@ -11,6 +11,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
 
@@ -20,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -88,6 +91,9 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
   public List<ITextComponent> getTooltip(EntityType type, ITooltipFlag flag) {
     List<ITextComponent> tooltip = new ArrayList<>();
     tooltip.add(type.getName());
+    if (flag.isAdvanced()) {
+      tooltip.add((new StringTextComponent(Objects.requireNonNull(type.getRegistryName()).toString())).mergeStyle(TextFormatting.DARK_GRAY));
+    }
     return tooltip;
   }
 }

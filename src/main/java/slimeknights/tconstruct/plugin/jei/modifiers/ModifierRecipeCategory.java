@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
+  protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "modifiers.title");
 
   // translation

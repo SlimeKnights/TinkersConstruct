@@ -71,8 +71,8 @@ import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
 import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
+import slimeknights.tconstruct.plugin.jei.modifiers.ModifierBookmarkIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
-import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.MaterialItemList;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
@@ -130,7 +130,7 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerIngredients(IModIngredientRegistration registration) {
     registration.register(ENTITY_TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
-    registration.register(MODIFIER_TYPE, Collections.emptyList(), new ModifierIngredientHelper(), new ModifierIngredientRenderer(16));
+    registration.register(MODIFIER_TYPE, Collections.emptyList(), new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
     registration.register(PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
   }
 
