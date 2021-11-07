@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.DataGenerator;
-import slimeknights.tconstruct.library.data.material.AbstractMaterialRenderInfoProvider;
+import slimeknights.tconstruct.library.client.data.material.AbstractMaterialRenderInfoProvider;
+import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 
 public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvider {
-  public MaterialRenderInfoProvider(DataGenerator gen) {
-    super(gen);
+  public MaterialRenderInfoProvider(DataGenerator gen, AbstractMaterialSpriteProvider spriteProvider) {
+    super(gen, spriteProvider);
   }
 
   @Override
