@@ -1,8 +1,8 @@
 {
+  "texture": "tconstruct:manyullyn",
   "fallbacks": [
-    "rock"
+    "metal"
   ],
-  "color": "A15CF8",
-  "skipUniqueTexture": true,
+  "color": "9261CC",
   "luminosity": 0
 }
