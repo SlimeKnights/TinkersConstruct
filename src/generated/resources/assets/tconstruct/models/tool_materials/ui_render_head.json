@@ -1,8 +1,8 @@
 {
+  "texture": "tconstruct:iron",
   "fallbacks": [
     "metal"
   ],
-  "color": "CACACA",
-  "skipUniqueTexture": true,
+  "color": "D8D8D8",
   "luminosity": 0
 }
