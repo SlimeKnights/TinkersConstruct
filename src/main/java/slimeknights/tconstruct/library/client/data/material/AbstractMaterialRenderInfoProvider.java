@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /** Base data generator for use in addons */
 public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProvider {
@@ -45,19 +44,29 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
 
   /* Helpers */
 
-  /** Gets the fallback sprites for the given material */
-  @Nullable
-  private String[] getFallbacks(MaterialId materialId) {
-    return Optional.ofNullable(materialSprites)
-                   .map(sprites -> sprites.getMaterialInfo(materialId))
-                   .map(MaterialSpriteInfo::getFallbacks)
-                   .filter(bases -> bases.length > 0)
-                   .orElse(null);
+  /** Initializes a builder for the given material */
+  private RenderInfoBuilder getBuilder(MaterialId materialId) {
+    RenderInfoBuilder builder = new RenderInfoBuilder();
+    if (materialSprites != null) {
+      MaterialSpriteInfo spriteInfo = materialSprites.getMaterialInfo(materialId);
+      if (spriteInfo != null) {
+        String[] fallbacks = spriteInfo.getFallbacks();
+        if (fallbacks.length > 0) {
+          builder.fallbacks(fallbacks);
+        }
+        // colors are in AABBGGRR format, we want AARRGGBB, so swap red and blue
+        int color = spriteInfo.getTransformer().getFallbackColor();
+        if (color != 0xFFFFFFFF) {
+          builder.color((color & 0x00FF00) | ((color >> 16) & 0x0000FF) | ((color << 16) & 0xFF0000));
+        }
+      }
+    }
+    return builder;
   }
 
   /** Starts a builder for a general render info */
   protected RenderInfoBuilder buildRenderInfo(MaterialId materialId) {
-    return allRenderInfo.computeIfAbsent(materialId, id -> new RenderInfoBuilder().fallbacks(getFallbacks(id)));
+    return allRenderInfo.computeIfAbsent(materialId, this::getBuilder);
   }
 
   @Accessors(fluent = true, chain = true)

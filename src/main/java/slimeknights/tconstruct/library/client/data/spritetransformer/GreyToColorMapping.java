@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
@@ -101,13 +100,20 @@ public class GreyToColorMapping implements IColorMapping {
     if (alpha == 0) {
       return 0x00000000;
     }
-    // figure out our new greyscale from the given color
-    int grey = MathHelper.clamp((getRed(color) + getGreen(color) + getBlue(color)) / 3, 0, 255);
+    // figure out our new greyscale from the given color, we just base it on the largest
+    int red = getRed(color);
+    int green = getGreen(color);
+    int blue = getBlue(color);
+    int grey = Math.max(red, Math.max(green, blue));
     int newColor = getColor(grey);
     // if the original color was partially transparent, set the alpha
-    if (alpha < 255) {
-      newColor = (newColor & 0x00FFFFFF) | ((alpha * getAlpha(newColor) / 255) << 24);
-    }
+    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * getAlpha(newColor) / 255) << 24);
+    // if any of RGB are lower than the max, scale it down
+    if (red   < grey) newColor = (newColor & 0xFFFFFF00) | (((newColor & 0x000000FF) * red   / grey) & 0x000000FF);
+    if (green < grey) newColor = (newColor & 0xFFFF00FF) | (((newColor & 0x0000FF00) * green / grey) & 0x0000FF00);
+    if (blue  < grey) newColor = (newColor & 0xFF00FFFF) | (((newColor & 0x00FF0000) * blue  / grey) & 0x00FF0000);
+
+    // final color
     return newColor;
   }
 

@@ -59,6 +59,11 @@ public class SpriteReader {
     return null;
   }
 
+  /** Tracks the given image so when this reader is closed, that image is closed */
+  public void track(NativeImage transformed) {
+    openedImages.add(transformed);
+  }
+
   /** Closes all opened images */
   public void closeAll() {
     for (NativeImage image : openedImages) {

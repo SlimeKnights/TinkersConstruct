@@ -17,4 +17,9 @@ public class RecolorSpriteTransformer implements ISpriteTransformer {
       }
     }
   }
+
+  @Override
+  public int getFallbackColor() {
+    return colorMapping.mapColor(0xFFD8D8D8); // 216 on the greyscale, second color in most of our palettes
+  }
 }

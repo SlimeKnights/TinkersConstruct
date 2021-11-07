@@ -47,8 +47,8 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
     name.append(partProvider.getName());
     name.append(" - ");
     name.append(materialProviders[0].getName());
-    for (AbstractMaterialSpriteProvider provider : materialProviders) {
-      name.append(", ").append(provider.getName());
+    for (int i = 1; i < materialProviders.length; i++) {
+      name.append(", ").append(materialProviders[i].getName());
     }
     return name.toString();
   }
@@ -107,6 +107,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       }
       // successfully found a texture, now transform and save
       NativeImage transformed = material.getTransformer().transformCopy(base);
+      spriteReader.track(transformed);
       saveImage(cache, spritePath, transformed);
     }
   }
