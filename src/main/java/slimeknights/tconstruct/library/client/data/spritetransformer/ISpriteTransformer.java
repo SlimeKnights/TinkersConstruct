@@ -13,6 +13,11 @@ public interface ISpriteTransformer {
    */
   void transform(NativeImage image);
 
+  /** Gets the default color to use in tinting for this transformer, for the case where the texture is missing. Most commonly caused by one addon adding a tool and a different one adding a material */
+  default int getFallbackColor() {
+    return -1;
+  }
+
   /**
    * Creates a copy of the given sprite and applies the transform to it
    * @param image  Image to transform
