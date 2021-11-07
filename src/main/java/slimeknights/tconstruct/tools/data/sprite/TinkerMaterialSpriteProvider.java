@@ -117,6 +117,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF684420).addARGB(102, 0xFF895D31).addARGB(140, 0xFFB98541).addARGB(178, 0xFFD79D4D).addARGB(216, 0xFFEFC275).addARGB(255, 0xFFF4D99F).build());
+    buildMaterial(MaterialIds.nahuatl)
+      .meleeHarvest()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF100C1C).addARGB(102, 0xFF271E3D).addARGB(140, 0xFF49332E).addARGB(178, 0xFF543D30).addARGB(216, 0xFF664B2D).addARGB(255, 0xFF7A5C2D).build());
     buildMaterial(MaterialIds.pigIron)
       .meleeHarvest()
       .fallbacks("metal")
@@ -159,6 +162,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF001944).addARGB(102, 0xFF00296D).addARGB(140, 0xFF0043A5).addARGB(178, 0xFF186ACE).addARGB(216, 0xFF338FEA).addARGB(255, 0xFF59A6EF).build());
 
     // tier 4
+    buildMaterial(MaterialIds.queensSlime)
+      .meleeHarvest()
+      .fallbacks("slime_metal", "metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF510000).addARGB(102, 0xFF701D0B).addARGB(140, 0xFF635700).addARGB(178, 0xFF6C7C00).addARGB(216, 0xFFA0A000).addARGB(255, 0xFFFFCC00).build());
     buildMaterial(MaterialIds.hepatizon)
       .meleeHarvest()
       .fallbacks("metal")
