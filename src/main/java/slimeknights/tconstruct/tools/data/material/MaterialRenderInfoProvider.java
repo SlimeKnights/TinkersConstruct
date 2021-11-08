@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialRenderInfoProvider;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -67,16 +65,11 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");
 
     // UI internal
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(new ResourceLocation(TConstruct.MOD_ID, "iron")).fallbacks("metal");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(1)).color(0x745f38).texture(new ResourceLocation(TConstruct.MOD_ID, "wood")).fallbacks("wood", "stick");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(2)).color(0x2376dd).texture(new ResourceLocation(TConstruct.MOD_ID, "cobalt")).fallbacks("metal");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(3)).color(0x9261cc).texture(new ResourceLocation(TConstruct.MOD_ID, "manyullyn")).fallbacks("metal");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(4)).color(0xF98648).texture(new ResourceLocation(TConstruct.MOD_ID, "copper")).fallbacks("metal");
-  }
-
-  /** Adds an internal render material */
-  protected void buildInternalMaterial(int index, int color, String... fallbacks) {
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(index)).color(color).fallbacks(fallbacks).skipUniqueTexture(true);
+    buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");
+    buildRenderInfo(ToolBuildHandler.getRenderMaterial(1)).color(0x745f38).texture(MaterialIds.wood).fallbacks("wood", "stick");
+    buildRenderInfo(ToolBuildHandler.getRenderMaterial(2)).color(0x2376dd).texture(MaterialIds.cobalt).fallbacks("metal");
+    buildRenderInfo(ToolBuildHandler.getRenderMaterial(3)).color(0x9261cc).texture(MaterialIds.manyullyn).fallbacks("metal");
+    buildRenderInfo(ToolBuildHandler.getRenderMaterial(4)).color(0xF98648).texture(MaterialIds.copper).fallbacks("metal");
   }
 
   @Override
