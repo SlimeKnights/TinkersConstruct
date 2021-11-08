@@ -9,9 +9,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +32,11 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
   }
 
   @Override
-  public List<ITextComponent> getTooltip(Pattern pattern, ITooltipFlag iTooltipFlag) {
-    return Collections.singletonList(pattern.getDisplayName());
+  public List<ITextComponent> getTooltip(Pattern pattern, ITooltipFlag flag) {
+    if (flag.isAdvanced()) {
+      return Arrays.asList(pattern.getDisplayName(), new StringTextComponent(pattern.toString()).mergeStyle(TextFormatting.DARK_GRAY));
+    } else {
+      return Collections.singletonList(pattern.getDisplayName());
+    }
   }
 }
