@@ -124,7 +124,7 @@ public class GreyToColorMapping implements IColorMapping {
 
   /** Creates a new grey to color builder starting with greyscale 0 as white */
   public static Builder builderFromBlack() {
-    return builder().addABGR(0, 0x00000000);
+    return builder().addABGR(0, 0xFF000000);
   }
 
   /** Mapping from greyscale to color */
