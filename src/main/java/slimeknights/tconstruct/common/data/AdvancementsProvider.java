@@ -104,12 +104,17 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.stone);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);
+      with.accept(MaterialIds.leather);
+      with.accept(MaterialIds.string);
+      with.accept(MaterialIds.vine);
       // tier 2
       with.accept(MaterialIds.iron);
       with.accept(MaterialIds.searedStone);
       with.accept(MaterialIds.scorchedStone);
       with.accept(MaterialIds.copper);
       with.accept(MaterialIds.slimewood);
+      with.accept(MaterialIds.chain);
+      with.accept(MaterialIds.skyslimeVine);
       // tier 3
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.slimesteel);
@@ -121,6 +126,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.manyullyn);
       with.accept(MaterialIds.hepatizon);
       with.accept(MaterialIds.queensSlime);
+      with.accept(MaterialIds.enderslimeVine);
     });
     builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
       Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));

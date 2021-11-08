@@ -81,6 +81,45 @@
         ]
       }
     },
+    "leather": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:leather"
+            ]
+          }
+        ]
+      }
+    },
+    "string": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:string"
+            ]
+          }
+        ]
+      }
+    },
+    "vine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:vine"
+            ]
+          }
+        ]
+      }
+    },
     "iron": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -141,6 +180,32 @@
             "type": "tconstruct:tool",
             "materials": [
               "tconstruct:slimewood"
+            ]
+          }
+        ]
+      }
+    },
+    "chain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:chain"
+            ]
+          }
+        ]
+      }
+    },
+    "skyslime_vine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:skyslime_vine"
             ]
           }
         ]
@@ -262,6 +327,19 @@
           }
         ]
       }
+    },
+    "enderslime_vine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:enderslime_vine"
+            ]
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -281,6 +359,15 @@
       "necrotic_bone"
     ],
     [
+      "leather"
+    ],
+    [
+      "string"
+    ],
+    [
+      "vine"
+    ],
+    [
       "iron"
     ],
     [
@@ -294,6 +381,12 @@
     ],
     [
       "slimewood"
+    ],
+    [
+      "chain"
+    ],
+    [
+      "skyslime_vine"
     ],
     [
       "rose_gold"
@@ -321,6 +414,9 @@
     ],
     [
       "queens_slime"
+    ],
+    [
+      "enderslime_vine"
     ]
   ]
 }
