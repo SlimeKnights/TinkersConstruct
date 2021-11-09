@@ -33,10 +33,10 @@
   "block.tconstruct.blazewood_slab": "블레이즈나무 반 블록",
   "block.tconstruct.blazewood_stairs": "블레이즈나무 계단",
 
-  "block.tconstruct.nahuatl": "나우아틀 판자",
-  "block.tconstruct.nahuatl_slab": "나우아틀 반 블록",
-  "block.tconstruct.nahuatl_stairs": "나우아틀 계단",
-  "block.tconstruct.nahuatl_fence": "나우아틀 울타리",
+  "block.tconstruct.nahuatl": "나후이틀 판자",
+  "block.tconstruct.nahuatl_slab": "나후이틀 반 블록",
+  "block.tconstruct.nahuatl_stairs": "나후이틀 계단",
+  "block.tconstruct.nahuatl_fence": "나후이틀 울타리",
 
   "block.tconstruct.clear_glass": "투명한 유리",
   "block.tconstruct.clear_glass_pane": "투명한 유리판",
@@ -200,6 +200,7 @@
   "item.tconstruct.silky_jewel.tooltip": "도구가 블록을 훼손하지 않고 블록을 그대로 회수할 수 있게 됩니다.",
   "item.tconstruct.necrotic_bone": "영골",
   "item.tconstruct.necrotic_bone.tooltip": "위더 스켈레톤의 뼈입니다.",
+  "item.tconstruct.necronium_bone": "강골",
   "item.tconstruct.bloodbone": "혈골",
   "item.tconstruct.blazing_bone": "화골",
   "item.tconstruct.dragon_scale": "드래곤의 비늘",
@@ -258,6 +259,7 @@
   "item.tconstruct.gear_cast": "톱니 황금 금형",
   "item.tconstruct.plate_cast": "작은 플레이트 황금 금형",
   "item.tconstruct.coin_cast": "동전 황금 금형",
+  "item.tconstruct.wire_cast": "와이어 금형",
 
   "item.tconstruct.repair_kit_cast": "수리 키트 황금 금형",
 
@@ -297,6 +299,7 @@
   "item.tconstruct.gear_sand_cast": "톱니 모래 거푸집",
   "item.tconstruct.plate_sand_cast": "작은 플레이트 모래 거푸집",
   "item.tconstruct.coin_sand_cast": "동전 모래 거푸집",
+  "item.tconstruct.wire_sand_cast": "와이어 모래 거푸집",
 
   "item.tconstruct.repair_kit_sand_cast": "수리 키트 모래 거푸집",
 
@@ -336,6 +339,7 @@
   "item.tconstruct.gear_red_sand_cast": "톱니 붉은 모래 거푸집",
   "item.tconstruct.plate_red_sand_cast": "작은 플레이트 붉은 모래 거푸집",
   "item.tconstruct.coin_red_sand_cast": "동전 붉은 모래 거푸집",
+  "item.tconstruct.wire_red_sand_cast": "와이어 붉은 모래 거푸집",
 
   "item.tconstruct.repair_kit_red_sand_cast": "수리 키트 붉은 모래 거푸집",
 
@@ -629,6 +633,35 @@
   "fluid.tconstruct.molten_steel": "녹은 강철",
   "fluid.tconstruct.flowing_molten_steel": "흐르는 녹은 강철",
   "item.tconstruct.molten_steel_bucket": "녹은 강철 양동이",
+
+  "_comment": "Thermal 합금",
+
+  "block.tconstruct.molten_enderium_fluid": "녹은 엔더륨",
+  "fluid.tconstruct.molten_enderium": "녹은 엔더륨",
+  "fluid.tconstruct.flowing_molten_enderium": "흐르는 녹은 엔더륨",
+  "item.tconstruct.molten_enderium_bucket": "녹은 엔더륨 양동이",
+
+  "block.tconstruct.molten_lumium_fluid": "녹은 루미움",
+  "fluid.tconstruct.molten_lumium": "녹은 루미움",
+  "fluid.tconstruct.flowing_molten_lumium": "흐르는 녹은 루미움",
+  "item.tconstruct.molten_lumium_bucket": "녹은 루미움 양동이",
+
+  "block.tconstruct.molten_signalum_fluid": "녹은 시그날룸",
+  "fluid.tconstruct.molten_signalum": "녹은 시그날룸",
+  "fluid.tconstruct.flowing_molten_signalum": "흐르는 녹은 시그날룸",
+  "item.tconstruct.molten_signalum_bucket": "녹은 시그날룸 양동이",
+
+  "_comment": "Mekanism 합금",
+
+  "block.tconstruct.molten_refined_glowstone_fluid": "녹은 정제된 발광석",
+  "fluid.tconstruct.molten_refined_glowstone": "녹은 정제된 발광석",
+  "fluid.tconstruct.flowing_molten_refined_glowstone": "흐르는 녹은 정제된 발광석",
+  "item.tconstruct.molten_refined_glowstone_bucket": "녹은 정제된 발광석 양동이",
+
+  "block.tconstruct.molten_refined_obsidian_fluid": "녹은 정제된 흑요석",
+  "fluid.tconstruct.molten_refined_obsidian": "녹은 정제된 흑요석",
+  "fluid.tconstruct.flowing_molten_refined_obsidian": "흐르는 녹은 정제된 흑요석",
+  "item.tconstruct.molten_refined_obsidian_bucket": "녹은 정제된 흑요석 양동이",
 
 
   "_comment": "팅커스 장치",
@@ -1188,6 +1221,19 @@
   "material.tconstruct.necrotic_bone.flavor": "죽음이 찾아온다",
   "material.tconstruct.necrotic_bone.encyclopedia": "등급당 공격 피해의 최대 5%까지 체력을 회복합니다",
 
+  "material.tconstruct.string": "실",
+  "material.tconstruct.string.flavor": "이론적으로는 가장 좋은 재료입니다",
+  "material.tconstruct.string.encyclopedia": "팅커 작업대나 제작대에서 실을 사용하여 도구를 수리할 수 있습니다",
+
+  "material.tconstruct.leather": "가죽",
+  "material.tconstruct.leather.flavor": "소를 죽이거나, 토끼 가죽을 무두질하세요",
+  "material.tconstruct.leather.encyclopedia": "동작이 도구에 1회 이상의 손상을 주지 않습니다",
+
+  "material.tconstruct.vine": "덩굴",
+  "material.tconstruct.vine.flavor": "소셜 네트워크와는 달리 계속 살아있습니다",
+  "material.tconstruct.vine.encyclopedia": "햇빛에서 75%% 확률로 도구가 손상되지 않습니다",
+
+
   "__comment": "2등급 재료",
   "material.tconstruct.iron": "철",
   "material.tconstruct.iron.flavor": "철 지날 일 없는 단단한 금속입니다",
@@ -1217,14 +1263,23 @@
   "material.tconstruct.rose_gold.flavor": "부인서: 사실 장미로 만들어진 것이 아닙니다",
   "material.tconstruct.rose_gold.encyclopedia": "부품당 1개의 강화 슬롯을 추가합니다",
 
+  "material.tconstruct.chain": "사슬",
+  "material.tconstruct.chain.flavor": "이제 사슬잡이가 될 수 있습니다",
+  "material.tconstruct.chain.encyclopedia": "도구가 받는 손상이 25% 감소합니다",
+
+  "material.tconstruct.skyslime_vine": "슬라임 덩굴",
+  "material.tconstruct.skyslime_vine.flavor": "나비처럼 날아서 벌처럼 쏜다",
+  "material.tconstruct.skyslime_vine.encyclopedia": "땅에 서있지 않아도 채굴 속도가 감소하지 않습니다",
+
+
   "__comment": "3등급 재료",
   "material.tconstruct.slimesteel": "슬라임강철",
   "material.tconstruct.slimesteel.flavor": "슬라임을 강탈하면, 슬라임강철이 만들어 집니다",
   "material.tconstruct.slimesteel.encyclopedia": "등급당 슬라임 막이 25만큼 증가하고, 총 슬라임 막의 50%만큼 슬라임 막이 추가로 증가합니다",
 
-  "material.tconstruct.nahuatl": "나우아틀",
+  "material.tconstruct.nahuatl": "나후이틀",
   "material.tconstruct.nahuatl.flavor": "만약 \"흑요석\"이라고 적혀있다면, 그건 흑요석 부품이 아닙니다",
-  "material.tconstruct.nahuatl.encyclopedia": "최대 5번 50%의 확률로 출혈 피해를 줍니다. 등급이 높을수록 피해가 더 증가합니다",
+  "material.tconstruct.nahuatl.encyclopedia": "최대 5번 50% 확률로 출혈 피해를 줍니다. 등급이 높을수록 피해가 더 증가합니다",
 
   "material.tconstruct.tinkers_bronze": "팅커스 청동",
   "material.tconstruct.tinkers_bronze.flavor": "청동과 혼동하지 마세요",
@@ -1261,11 +1316,27 @@
 
 
   "__comment": "엔더 등급 재료",
-  "material.tconstruct.endstone": "엔더",
+  "material.tconstruct.endstone": "엔드",
   "material.tconstruct.knightslime": "기사슬라임",
+
+  "material.tconstruct.enderslime_vine": "슬라임 덩굴",
+  "material.tconstruct.enderslime_vine.flavor": "이걸로 끝이야?",
+  "material.tconstruct.enderslime_vine.encyclopedia": "채굴한 블록의 위치나 죽인 몬스터의 위치로 순간이동합니다",
 
 
   "__comment": "2등급 합금 재료",
+  "material.tconstruct.osmium": "오스뮴",
+  "material.tconstruct.osmium.flavor": "너무 단단해서 웬만한 농담으로는 못 뚫겠어요",
+  "material.tconstruct.osmium.encyclopedia": "25%만큼의 수리 재료를 추가로 소모하고, 33%만큼의 손상을 막습니다. 등급이 높을수록 수치가 증가합니다",
+
+  "material.tconstruct.tungsten": "텅스텐",
+  "material.tconstruct.tungsten.flavor": "헤비메탈 밴드를 시작해보지 않을래요?",
+  "material.tconstruct.tungsten.encyclopedia": "등급당 채굴 속도가 10% 증가하고, 이동 속도가 10% 증가합니다",
+
+  "material.tconstruct.platinum": "백금",
+  "material.tconstruct.platinum.flavor": "우승자가 사용하는 금속입니다!",
+  "material.tconstruct.platinum.encyclopedia": "광석에 대한 채굴 속도가 8만큼 증가합니다",
+
   "material.tconstruct.lead": "납",
   "material.tconstruct.lead.flavor": "무겁고 연한",
   "material.tconstruct.lead.encyclopedia": "등급당 공격 피해가 10%만큼 증가하고, 이동 속도가 10%만큼 감소합니다",
@@ -1274,9 +1345,9 @@
   "material.tconstruct.silver.flavor": "며칠만 지나면, 이렇게까지 반짝거리지는 않을 거예요",
   "material.tconstruct.silver.encyclopedia": "등급당 언데드에게 2.5만큼 추가 공격 피해를 줍니다",
 
-  "material.tconstruct.electrum": "호박금",
-  "material.tconstruct.electrum.flavor": "호박빛으로 빛나는 금입니다",
-  "material.tconstruct.electrum.encyclopedia": "등급당 블록과 몬스터로부터 경험치를 50%만큼 추가로 얻습니다",
+  "material.tconstruct.whitestone": "백석",
+  "material.tconstruct.whitestone.flavor": "쓸모없는 흰색 금속을 가지고 유용한 도구를 만드세요",
+  "material.tconstruct.whitestone.encyclopedia": "등급당 돌을 채굴할 때 25% 돌 방패를 5만큼 얻습니다",
 
 
   "__comment": "3등급 합금 재료",
@@ -1292,6 +1363,21 @@
   "material.tconstruct.constantan.flavor": "콘스탄탄탄탄탄탄탄... 죄송합니다. \"탄\"을 붙이는 게 생각보다 재미있네요",
   "material.tconstruct.constantan.encyclopedia": "극한의 열기나 추위에서 채굴 속도가 12.5%만큼 증가합니다",
 
+  "material.tconstruct.invar": "인바",
+  "material.tconstruct.invar.flavor": "온도와 정지에 모두 저항합니다",
+  "material.tconstruct.invar.encyclopedia": "중성 온도의 생물군계에서 공격 피해가 2.5만큼 증가합니다",
+
+  "material.tconstruct.electrum": "호박금",
+  "material.tconstruct.electrum.flavor": "호박빛으로 빛나는 금입니다",
+  "material.tconstruct.electrum.encyclopedia": "등급당 블록과 몬스터로부터 경험치를 50%만큼 추가로 얻습니다",
+
+  "material.tconstruct.necronium": "강골",
+  "material.tconstruct.necronium.flavor": "이 정도로 부식되면 수명이 급격히 줄어듭니다",
+  "material.tconstruct.necronium.encyclopedia": "적에게 5초 이상의 시듦을 주고, 사용자에게 25% 확률로 시듦을 줍니다",
+
+  "material.tconstruct.plated_slimewood": "도금된 슬라임나무",
+  "material.tconstruct.plated_slimewood.flavor": "끈적끈적한 슬라임과 황동의 모든 반짝임을 지니고 있습니다",
+  "material.tconstruct.plated_slimewood.encyclopedia": "슬라임 막의 복원률이 100%만큼 증가합니다",
 
 
   "_comment": "수식어",
@@ -1551,6 +1637,15 @@
   "modifier.tconstruct.fractured": "골절",
   "modifier.tconstruct.fractured.flavor": "뼈가 부러졌네!",
   "modifier.tconstruct.fractured.description": "부러진 뼛조각으로 인해 공구가 매우 날카로워집니다",
+  "modifier.tconstruct.stringy": "가느다람",
+  "modifier.tconstruct.stringy.flavor": "치즈 같지만, 덜 맛있어요",
+  "modifier.tconstruct.stringy.description": "실을 사용하여 도구를 수리할 수 있습니다",
+  "modifier.tconstruct.tanned": "무두질",
+  "modifier.tconstruct.tanned.flavor": "가죽 세공의 달인이 되세요",
+  "modifier.tconstruct.tanned.description": "도구가 특정 동작으로 1회 이상의 손상을 받지 않습니다",
+  "modifier.tconstruct.solar_powered": "태양열",
+  "modifier.tconstruct.solar_powered.flavor": "환경에 좋습니다",
+  "modifier.tconstruct.solar_powered.description": "햇빛에서 도구가 받는 손상이 감소합니다",
 
   "__comment": "2등급 특성",
   "modifier.tconstruct.sturdy": "튼튼함",
@@ -1574,10 +1669,12 @@
   "modifier.tconstruct.raging.flavor": "극단적인 해결책!",
   "modifier.tconstruct.raging.description": "사용자의 체력이 낮을수록 도구의 공격 피해가 증가합니다",
   "modifier.tconstruct.raging.attack_damage": "낮은 체력에서의 피해",
-
   "modifier.tconstruct.enhanced": "향상",
   "modifier.tconstruct.enhanced.flavor": "화려해!",
   "modifier.tconstruct.enhanced.description": "장밋빛 황금은 강화 슬롯과 잘 어울립니다!",
+  "modifier.tconstruct.airborne": "부유",
+  "modifier.tconstruct.airborne.flavor": "하늘로 날아가!",
+  "modifier.tconstruct.airborne.description": "공중에서 채굴해도 채굴 속도가 느려지지 않습니다",
 
   "__comment": "3등급 특성",
   "modifier.tconstruct.overcast": "과주조",
@@ -1605,24 +1702,41 @@
   "modifier.tconstruct.overlord.description": "내구도의 일부가 슬라임 막이 됩니다",
   "modifier.tconstruct.momentum": "가속도",
   "modifier.tconstruct.momentum.flavor": "더 빠르게, 더 빠르게!",
-  "modifier.tconstruct.momentum.description": "채굴 중에, 블록을 채굴하면 채굴할수록 채굴 속도가 증가합니다",
+  "modifier.tconstruct.momentum.description": "블록을 채굴하면 채굴할수록 채굴 속도가 증가합니다",
   "modifier.tconstruct.momentum.mining_speed": "가속 속도",
   "modifier.tconstruct.insatiable": "갈망",
   "modifier.tconstruct.insatiable.flavor": "피의 맛!",
-  "modifier.tconstruct.insatiable.description": "전투 중에, 적을 공격하면 공격할수록 공격 피해가 증가합니다",
+  "modifier.tconstruct.insatiable.description": "적을 공격하면 공격할수록 공격 피해가 증가합니다",
   "modifier.tconstruct.insatiable.attack_damage": "가속 속도",
   "modifier.tconstruct.conducting": "전도",
   "modifier.tconstruct.conducting.flavor": "열역학!",
   "modifier.tconstruct.conducting.description": "몸에 불이 붙으면 도구의 공격 피해가 증가합니다",
   "modifier.tconstruct.conducting.attack_damage": "화염 최대 피해",
 
+  "__comment": "5등급 특성",
+  "modifier.tconstruct.enderporting": "엔더이동",
+  "modifier.tconstruct.enderporting.flavor": "엔더슬라임의 힘을 활용하세요",
+  "modifier.tconstruct.enderporting.description": "사용자가 도구를 사용하여 채굴한 블록이나 죽인 엔티티의 위치로 순간이동합니다",
+
+
   "__comment": "호환되는 모드의 2등급 재료 특성",
+  "modifier.tconstruct.dense": "단단함",
+  "modifier.tconstruct.dense.flavor": "간신히 형태가 수정됩니다",
+  "modifier.tconstruct.dense.description": "도구가 오래 유지되지만, 수리하기 어려워집니다",
+  "modifier.tconstruct.sharpweight": "예리한 중량",
+  "modifier.tconstruct.sharpweight.flavor": "뭉툭한 중량과는 다릅니다",
+  "modifier.tconstruct.sharpweight.description": "채굴 속도가 증가하지만, 이동이 매우 어려워집니다",
+  "modifier.tconstruct.lustrous": "윤기",
+  "modifier.tconstruct.lustrous.flavor": "가장 빛나는 광석!",
+  "modifier.tconstruct.lustrous.description": "광석에 대한 채굴 속도가 빨라집니다",
+  "modifier.tconstruct.lustrous.mining_speed": "광석 채굴",
   "modifier.tconstruct.heavy": "무거움",
   "modifier.tconstruct.heavy.flavor": "고밀도!",
   "modifier.tconstruct.heavy.description": "휘두르면 움직이기 힘들지만, 강력합니다",
-  "modifier.tconstruct.holy": "신성함",
-  "modifier.tconstruct.holy.flavor": "축복받은 칼날!",
-  "modifier.tconstruct.holy.description": "언데드를 칼날의 힘으로 정화합니다",
+  "modifier.tconstruct.stoneshield": "돌 방패",
+  "modifier.tconstruct.stoneshield.flavor": "능숙한 돌 지배",
+  "modifier.tconstruct.stoneshield.description": "도구가 받는 손상을 채굴한 돌로 대신합니다",
+
 
   "__comment": "호환되는 모드의 3등급 재료 특성",
   "modifier.tconstruct.ductile": "연성",
@@ -1634,6 +1748,16 @@
   "modifier.tconstruct.temperate": "온대",
   "modifier.tconstruct.temperate.flavor": "극한의 채굴!",
   "modifier.tconstruct.temperate.description": "극한의 온도를 지닌 장소에 있을 때 채굴 속도가 증가합니다",
+  "modifier.tconstruct.invariant": "불변",
+  "modifier.tconstruct.invariant.flavor": "신경 쓸 필요가 전혀 없습니다",
+  "modifier.tconstruct.invariant.description": "중성 온도에서 도구의 공격 피해가 증가합니다",
+  "modifier.tconstruct.invariant.attack_damage": "중성 피해",
+  "modifier.tconstruct.decay": "부식",
+  "modifier.tconstruct.decay.flavor": "방사성 시듦",
+  "modifier.tconstruct.decay.description": "적에게도 시듦을 주지만, 사용자에게도 시듦을 줄 수 있습니다",
+  "modifier.tconstruct.overworked": "과작동",
+  "modifier.tconstruct.overworked.flavor": "저임금",
+  "modifier.tconstruct.overworked.description": "모든 아이템으로부터 복원되는 슬라임 막의 양이 증가합니다",
 
   "_comment": "물약 효과",
   "effect.tconstruct.bleeding": "출혈",
@@ -1747,7 +1871,10 @@
   "gui.tconstruct.part_chest": "부품 상자",
 
   "gui.tconstruct.tinker_station": "팅커 작업대",
+  "gui.tconstruct.tinker_station.repair_limited": "수리 & 수식어",
+  "gui.tconstruct.tinker_station.repair_limited.description": "기본적인 도구를 만들 수 있고 대부분의 수식어를 적용할 수 있습니다.",
   "gui.tconstruct.tinker_station.repair": "수리 & 수식어",
+  "gui.tconstruct.tinker_station.repair.description": "작고 넓은 도구를 만들 수 있고 모든 수식어를 적용할 수 있습니다!",
   "gui.tconstruct.tinker_station.modifiers": "수식어",
   "gui.tconstruct.tinker_station.upgrades": "강화 & 능력",
   "gui.tconstruct.tinker_station.traits": "특성",
@@ -1792,6 +1919,7 @@
 
   "subtitles.tconstruct.slime_sling": "슬라임 새총을 튕김",
   "subtitles.tconstruct.slime_sling.teleport": "슬라임 새총으로 순간이동함",
+  "subtitles.tconstruct.enderporting": "엔티티가 엔더이동함",
   "subtitles.tconstruct.throw.throwball": "구체가 날아감",
   "subtitles.tconstruct.throw.shuriken": "수리검이 날아감",
 
@@ -1803,13 +1931,18 @@
   "subtitles.tconstruct.equip.slime": "슬라임 갑옷을 끌어당김",
 
 
-  "_comment": "책 줄",
+  "_comment": "책",
 
   "book.tconstruct.material.part_builder": "부품 제작대에서 제작할 수 있습니다",
   "book.tconstruct.material.cast_from": "%s을(를) 주조하여 만들 수 있습니다",
   "book.tconstruct.material.composite_from": "%s을(를) %s 부품에다 주조하여 만들 수 있습니다",
   "book.tconstruct.modifiers.effect": "효과:",
   "book.tconstruct.tool.properties": "특성:",
+
+  "_comment": "명령어",
+
+  "command.tconstruct.slot_type.not_found": "%s 슬롯은 알 수 없는 종류입니다",
+  "command.tconstruct.modifier_usage": "게임 로그에 사용 가능한 수식어를 인쇄했습니다",
 
 
   "_comment": "JEI",
