@@ -368,8 +368,8 @@
 
   "block.tconstruct.blazing_blood_fluid": "Огненная кровь",
   "fluid.tconstruct.blazing_blood": "Огненная кровь",
-  "fluid.tconstruct.flowing_blazing_blood": "Flowing Blazing Blood",
-  "item.tconstruct.blazing_blood_bucket": "Ведро с огненной кровью",
+  "fluid.tconstruct.flowing_blazing_blood": "Текучая огненная кровь",
+  "item.tconstruct.blazing_blood_bucket": "Ведро огненной крови",
 
   "_comment": "Slime",
 
@@ -705,28 +705,28 @@
   "block.tconstruct.tinkers_chest.tooltip": "Вмещает до 64 стаков по 16 предметов",
 
   "block.tconstruct.cast_chest": "Ящик для литейных форм",
-  "block.tconstruct.cast_chest.tooltip": "Вмещает всех необходимые литейные формы",
+  "block.tconstruct.cast_chest.tooltip": "Вмещает все необходимые литейные формы",
 
   "item.tconstruct.pattern": "Шаблон",
 
   "_comment": "Tinkers Tools",
 
   "item.tconstruct.pickaxe": "Кирка",
-  "item.tconstruct.sledge_hammer": "Ручной молот",
-  "item.tconstruct.vein_hammer": "Vein Hammer",
+  "item.tconstruct.sledge_hammer": "Молот",
+  "item.tconstruct.vein_hammer": "Жильный топор",
 
   "item.tconstruct.mattock": "Киркомотыга",
-  "item.tconstruct.excavator": "Excavator",
+  "item.tconstruct.excavator": "Землекоп",
 
   "item.tconstruct.hand_axe": "Ручной топор",
-  "item.tconstruct.broad_axe": "Broad Axe",
+  "item.tconstruct.broad_axe": "Широколезвийный топор",
 
   "item.tconstruct.kama": "Кама",
-  "item.tconstruct.scythe": "Scythe",
+  "item.tconstruct.scythe": "Коса",
 
   "item.tconstruct.dagger": "Кинжал",
   "item.tconstruct.sword": "Меч",
-  "item.tconstruct.cleaver": "Cleaver",
+  "item.tconstruct.cleaver": "Тесак",
 
   "item.tconstruct.flint_and_bronze": "Бронзовое огниво",
 
@@ -754,67 +754,67 @@
 
   "item.tconstruct.pickaxe.description":"Кирка - это точный инструмент для копания. Она эффективна для добычи камня и руд.\nОна ломает блоки, ЯСНО?",
   "item.tconstruct.sledge_hammer.description": "Молот - это инструмент для копания. Он добывает блоки в широкой области.\nТакже эффективен против нежити.",
-  "item.tconstruct.vein_hammer.description": "The Vein Hammer is a broad mining tool. It harvests many connected blocks of the same type, perfect for ores.",
+  "item.tconstruct.vein_hammer.description": "Жильный молот - это широкий инструмент для добычи руд. Он выкапывает группу из соединённых блоков одного и того же типа. Идеален для руд.",
 
   "item.tconstruct.mattock.description": "Киркомотыга - это универсальный фермерский инструмент. Он эффективен при работе с деревом, землёй, гравием, песком и посевами.\nТолько не выкопайте себе могилу!",
-  "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
+  "item.tconstruct.excavator.description": "Землекоп - это широкий землеройный инструмент. Он выкапывает большие участки земли и снега в широкой области.\nТерраформирование!",
 
   "item.tconstruct.hand_axe.description": "Ручной топор рубит деревья и быстро справляется с листьями. Он также является эффективным оружием.\nБыстро-быстро!",
-  "item.tconstruct.broad_axe.description": "The Broad Axe fells small trees in a single swing, and makes quick work of large trees. It makes for a powerful heavy weapon.\nTimber!",
+  "item.tconstruct.broad_axe.description": "Широколезвийный топор вырубает небольшие деревья по взмаху и быстро расправляется с большими деревьями. Это мощное тяжёлое оружие.\nЛесовал!",
 
-  "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
-  "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
+  "item.tconstruct.kama.description": "Кама - это точный инструмент для жатвы, скашивания растений и стрижки животных.\nНажмите ПКМ, чтобы собрать и пересадить посевы",
+  "item.tconstruct.scythe.description": "Коса - это широкий инструмент для жатвы, скашивающий растения в большой области.\nНажмите ПКМ, чтобы собрать и пересадить посевы",
 
   "item.tconstruct.dagger.description": "Кинжал - лёгкое оружие, способное наносить быстрые удары из любой руки.",
   "item.tconstruct.sword.description": "Меч - универсальное оружие. Размашистые атаки сдерживают полчища врагов.\nТакже хорош против паутины!",
-  "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
+  "item.tconstruct.cleaver.description": "Тесак - это оружие для мастера плавильного дела. Высокая дальность атаки позволяет рассекать самых сильных противников.",
 
 
   "_comment": "Smeltery shared",
 
-  "block.tconstruct.tank.fluid": "Liquid %s",
+  "block.tconstruct.tank.fluid": "Жидкость %s",
   "block.tconstruct.tank.mb": "%d mb",
-  "block.tconstruct.tank.ingots": "%d ingots",
-  "block.tconstruct.tank.mixed": "%d ingots, %d mb",
+  "block.tconstruct.tank.ingots": "%d слитков",
+  "block.tconstruct.tank.mixed": "%d слитков, %d mb",
 
-  "block.tconstruct.tank.drained": "Drained %s mb %s",
-  "block.tconstruct.tank.filled": "Filled %s mb %s",
+  "block.tconstruct.tank.drained": "Опустошено %s mb %s",
+  "block.tconstruct.tank.filled": "Заполнено %s mb %s",
 
-  "block.tconstruct.channel.side.in": "Set side to flow inwards",
-  "block.tconstruct.channel.side.out": "Set side to flow outwards",
-  "block.tconstruct.channel.side.none": "Disallowed flowing on side",
-  "block.tconstruct.channel.down.out": "Allowed flowing down",
-  "block.tconstruct.channel.down.none": "Disallowed flowing down",
+  "block.tconstruct.channel.side.in": "Жидкость будет затекать с этой стороны",
+  "block.tconstruct.channel.side.out": "Жидкость будет вытекать с этой стороны",
+  "block.tconstruct.channel.side.none": "Жидкость не будет течь c этой стороны",
+  "block.tconstruct.channel.down.out": "Разрешено течь вниз",
+  "block.tconstruct.channel.down.none": "Запрещено течь вниз",
 
-  "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
-  "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
+  "death.attack.tconstruct.smeltery_heat": "%1$s пытался расплавиться",
+  "death.attack.tconstruct.smeltery_magic": "%1$s стал единым целым с плавильней",
 
-  "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
-  "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
-  "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
+  "gui.tconstruct.melting.no_recipe": "Предмет не может быть расплавлен.",
+  "gui.tconstruct.melting.no_heat": "Недостаточно тепла, чтобы расплавить этот предмет.",
+  "gui.tconstruct.melting.no_space": "Недостаточно свободного места для жидкости.",
 
-  "gui.tconstruct.melting.fuel.no_tank": "No tank in structure",
-  "gui.tconstruct.melting.fuel.empty": "No fuel found",
-  "gui.tconstruct.melting.fuel.solid": "Solid fuel",
-  "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
-  "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
+  "gui.tconstruct.melting.fuel.no_tank": "В структуре отсутствует резервуар",
+  "gui.tconstruct.melting.fuel.empty": "Топливо не найдено",
+  "gui.tconstruct.melting.fuel.solid": "Топливо твёрдое",
+  "gui.tconstruct.melting.fuel.temperature": "Температура: %s°C",
+  "gui.tconstruct.melting.fuel.invalid": "Неизвестный вид топлива!",
 
   "gui.tconstruct.duct": "Туннель",
 
   "multiblock.tconstruct.generic.no_attempt": "Обнаружение структуры ещё не запущено, обычно это ошибка мода",
   "multiblock.tconstruct.generic.not_loaded": "Структура находится за пределами загруженной области, обычно это ошибка мода",
   "multiblock.tconstruct.generic.too_high": "Structure requires blocks above the top of the world",
-  "multiblock.tconstruct.generic.too_large": "Structure inside is too large: currently %s×%s, max %s×%s, ",
+  "multiblock.tconstruct.generic.too_large": "Внутренний каркас структуры слишком большой: текущий %s×%s, максимальный %s×%s, ",
 
-  "multiblock.tconstruct.generic.invalid_inner_block": "Invalid block inside the structure",
-  "multiblock.tconstruct.generic.invalid_wall_block": "Invalid block in the walls",
-  "multiblock.tconstruct.generic.invalid_floor_block": "Invalid block in the floor",
-  "multiblock.tconstruct.generic.invalid_ceiling_block": "Invalid block in the ceiling",
-  "multiblock.tconstruct.generic.invalid_wall_frame": "Invalid block in the wall frame",
-  "multiblock.tconstruct.generic.invalid_floor_frame": "Invalid block on the edges of the floor",
-  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Invalid block on the edges of the ceiling",
+  "multiblock.tconstruct.generic.invalid_inner_block": "Недопустимый блок внутри структуры",
+  "multiblock.tconstruct.generic.invalid_wall_block": "Недопустимый блок в стенах",
+  "multiblock.tconstruct.generic.invalid_floor_block": "Недопустимый блок в полу",
+  "multiblock.tconstruct.generic.invalid_ceiling_block": "Недопустимый блок вверху",
+  "multiblock.tconstruct.generic.invalid_wall_frame": "Недопустимый блок в каркасе стен",
+  "multiblock.tconstruct.generic.invalid_floor_frame": "Недопустимый блок в краях пола",
+  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Недопустимый блок в краях сверху",
 
-  "multiblock.tconstruct.tiny.no_fuel_tank": "Must be placed above a fuel tank or a heater to function",
+  "multiblock.tconstruct.tiny.no_fuel_tank": "Для работы должен располагаться над топливным резервуаром или нагревателем",
 
 
   "_comment": "Tinkers Smeltery",
@@ -975,16 +975,16 @@
 
 
   "gui.tconstruct.fluid.kilobucket": "%s kb",
-  "gui.tconstruct.fluid.bucket": "%s b",
+  "gui.tconstruct.fluid.bucket": "%s в",
   "gui.tconstruct.fluid.millibucket": "%s mb",
-  "gui.tconstruct.fluid.ingot": "%s Ingots",
-  "gui.tconstruct.fluid.nugget": "%s Nuggets",
-  "gui.tconstruct.fluid.block": "%s Blocks",
-  "gui.tconstruct.fluid.pane": "%s Panes",
-  "gui.tconstruct.fluid.gem": "%s Gems",
-  "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
+  "gui.tconstruct.fluid.ingot": "%s слитков",
+  "gui.tconstruct.fluid.nugget": "%s кусочков",
+  "gui.tconstruct.fluid.block": "%s блоков",
+  "gui.tconstruct.fluid.pane": "%s панелей",
+  "gui.tconstruct.fluid.gem": "%s драгоценностей",
+  "gui.tconstruct.fluid.slimeball": "%s сгустков слизи",
 
-  "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
+  "gui.tconstruct.fluid.hold_shift": "Зажмите §e§oShift§r§7 для показа вёдер",
 
 
   "_comment": "Tinkers World",
@@ -1183,6 +1183,18 @@
   "material.tconstruct.necrotic_bone": "Некротическая кость",
   "material.tconstruct.necrotic_bone.flavor": "Вы хотите свести со мной счёты?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Исцеляет до 5% от наносимого урона за уровень",
+  
+  "material.tconstruct.string": "Нить",
+  "material.tconstruct.string.flavor": "Теоретически лучший материал.",
+  "material.tconstruct.string.encyclopedia": "Позволяет чинить инструмент с помощью нити в литейной станции или верстаке",
+
+  "material.tconstruct.leather": "Кожа",
+  "material.tconstruct.leather.flavor": "Убил корову, выдубил её шкуру.",
+  "material.tconstruct.leather.encyclopedia": "Предотвращает получение инструментом более 1 повреждения за действие",
+
+  "material.tconstruct.vine": "Лоза",
+  "material.tconstruct.vine.flavor": "Продолжает жить вне виртуальной сети",
+  "material.tconstruct.vine.encyclopedia": "Инструмент имеет до 75% шанса не сломаться при полном солнечном свете",
 
 
   "__comment": "Tier 2 Materials",
@@ -1213,7 +1225,14 @@
   "material.tconstruct.rose_gold": "Розовое золото",
   "material.tconstruct.rose_gold.flavor": "Оговорка: на самом деле делается не из роз.",
   "material.tconstruct.rose_gold.encyclopedia": "Добавляет 1 слот для улучшений за каждую часть",
+  
+  "material.tconstruct.chain": "Цепь",
+  "material.tconstruct.chain.flavor": "Теперь и вы можете использовать цепь",
+  "material.tconstruct.chain.encyclopedia": "Инструмент получает на 25% меньше повреждения",
 
+  "material.tconstruct.skyslime_vine": "Слизневая лоза",
+  "material.tconstruct.skyslime_vine.flavor": "Порхать как бабочка, жалить как пчела.",
+  "material.tconstruct.skyslime_vine.encyclopedia": "Погашает задержку скорости копания, когда вы находитесь не на поверхности блока.",
 
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Слизесталь",
@@ -1235,60 +1254,64 @@
 
 
   "__comment": "Tier Nether Materials",
-  "material.tconstruct.cobalt": "Cobalt",
-  "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
-  "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
+  "material.tconstruct.cobalt": "Кобальт",
+  "material.tconstruct.cobalt.flavor": "Кобальт. Материал Красной Армии.",
+  "material.tconstruct.cobalt.encyclopedia": "Увеличивает скорость копании и атаки на 7% за уровень",
 
-  "material.tconstruct.manyullyn": "Manyullyn",
-  "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
-  "material.tconstruct.manyullyn.encyclopedia": "Grants +2 damage per level after 8 consecutive hits",
+  "material.tconstruct.manyullyn": "Маньюлин",
+  "material.tconstruct.manyullyn.flavor": "Металл, который большинство Литейщиков никогда не произносят правильно. Также известен как материал для резки звёзд.",
+  "material.tconstruct.manyullyn.encyclopedia": "Даёт +2 урона за уровень после 8 попаданий подряд",
 
-  "material.tconstruct.hepatizon": "Hepatizon",
-  "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
-  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by 25% per level after mining 32 consecutive blocks",
+  "material.tconstruct.hepatizon": "Гепатизон",
+  "material.tconstruct.hepatizon.flavor": "Ге-па-ти-зон - отвари, разотри, положи в тушёнку.",
+  "material.tconstruct.hepatizon.encyclopedia": "Увеличивает скорость копания на 25% за уровень после добывания 32 блоков подряд",
 
-  "material.tconstruct.queens_slime": "Queen's Slime",
-  "material.tconstruct.queens_slime.flavor": "Princesses are evil, get yourself a Queen.",
+  "material.tconstruct.queens_slime": "Королевская слизь",
+  "material.tconstruct.queens_slime.flavor": "Принцессы - зло, найди себе Королеву.",
   "material.tconstruct.queens_slime.encyclopedia": "Reduces durability by 15% per level, 66% of that going towards overslime",
 
-  "material.tconstruct.blazing_bone": "Blazing Bone",
-  "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
+  "material.tconstruct.blazing_bone": "Горящая кость",
+  "material.tconstruct.blazing_bone.flavor": "Используйте всю мощь Незерской крепости - кость и пламя",
   "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
 
   "material.tconstruct.soulsteel": "Сталь душ",
 
 
   "__comment": "Tier End Materials",
-  "material.tconstruct.endstone": "End",
-  "material.tconstruct.knightslime": "Knightslime",
+  "material.tconstruct.endstone": "Энд",
+  "material.tconstruct.knightslime": "Рыцарская слизь",
+  
+  "material.tconstruct.enderslime_vine": "Слизневая лоза",
+  "material.tconstruct.enderslime_vine.flavor": "Конец?",
+  "material.tconstruct.enderslime_vine.encyclopedia": "Телепортирует владельца к месту нахождения добытых блоков или убитых монстров",
 
 
   "__comment": "Tier 2 Integration Materials",
-  "material.tconstruct.lead": "Lead",
-  "material.tconstruct.lead.flavor": "Could try and make a sandwhich out of this.",
-  "material.tconstruct.lead.encyclopedia": "Grants +10% attack and -10% movement speed per level",
+  "material.tconstruct.lead": "Свинец",
+  "material.tconstruct.lead.flavor": "Можно попробовать сделать из этого сэндвич.",
+  "material.tconstruct.lead.encyclopedia": "Даёт +10% к скорости атаки и -10% скорости передвижения за уровень",
 
-  "material.tconstruct.silver": "Silver",
-  "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
-  "material.tconstruct.silver.encyclopedia": "Gives +2.5 damage against undead per level",
+  "material.tconstruct.silver": "Серебро",
+  "material.tconstruct.silver.flavor": "Знаете, через несколько дней этот инструмент не будет выглядеть таким блестящим.",
+  "material.tconstruct.silver.encyclopedia": "Дёет +2,5 урона против нежити за уровень",
 
-  "material.tconstruct.electrum": "Electrum",
-  "material.tconstruct.electrum.flavor": "Good for electronic components.",
-  "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
+  "material.tconstruct.electrum": "Электрум",
+  "material.tconstruct.electrum.flavor": "Хорош для электронных компонентов.",
+  "material.tconstruct.electrum.encyclopedia": "Даёт +50% опыта за уровень с добытых блоков и монстров",
 
 
   "__comment": "Tier 3 Integration Materials",
-  "material.tconstruct.bronze": "Bronze",
-  "material.tconstruct.bronze.flavor": "Not to be confused with Tinker's Bronze.",
-  "material.tconstruct.bronze.encyclopedia": "Grants +12.5% mining speed per level at full durability",
+  "material.tconstruct.bronze": "Бронза",
+  "material.tconstruct.bronze.flavor": "Не путать с Литейной Бронзой",
+  "material.tconstruct.bronze.encyclopedia": "Даёт +12.5% к скорости копания за уровень при полной прочности",
 
-  "material.tconstruct.steel": "Steel",
-  "material.tconstruct.steel.flavor": "Basically 90% of material science",
-  "material.tconstruct.steel.encyclopedia": "Grants +4% durability, damage, and speed per level",
+  "material.tconstruct.steel": "Сталь",
+  "material.tconstruct.steel.flavor": "В основе 90% материаловедения",
+  "material.tconstruct.steel.encyclopedia": "Даёт +4% к прочности, урону и скорости за уровень",
 
-  "material.tconstruct.constantan": "Constantan",
-  "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
-  "material.tconstruct.constantan.encyclopedia": "Grants +12.5% mining speed in extreme heat or cold",
+  "material.tconstruct.constantan": "Константан",
+  "material.tconstruct.constantan.flavor": "Константантантантантан... Извините, это забавно добавлять больше \"тан.\"",
+  "material.tconstruct.constantan.encyclopedia": "Даёт +12,5% к скорости копания в экстремальных условиях жары или холода",
 
 
 
@@ -1371,7 +1394,7 @@
   "modifier.tconstruct.padded": "Padded",
   "modifier.tconstruct.padded.flavor": "Floof!",
   "modifier.tconstruct.padded.description": "Reduces the knockback of the tool, to stop your enemies from escaping",
-  "modifier.tconstruct.severing": "Отрезание",
+  "modifier.tconstruct.severing": "Отсечение",
   "modifier.tconstruct.severing.flavor": "Не только головы, но и ноги, и перья!",
   "modifier.tconstruct.severing.description": "Отрезает головы или другие части мобов, если это возможно!",
   "modifier.tconstruct.fiery": "Fiery",
@@ -1704,16 +1727,16 @@
   "key.tconstruct.shift": "Shift",
   "key.tconstruct.ctrl": "Ctrl",
 
-  "tooltip.tconstruct.tool.broken": "Broken",
-  "tooltip.tconstruct.tool.empty": "Empty",
-  "tooltip.tconstruct.hold_shift": "Hold %s for stats",
-  "tooltip.tconstruct.hold_ctrl": "Hold %s for more",
-  "tooltip.tconstruct.missing_data": "Missing tool data",
+  "tooltip.tconstruct.tool.broken": "Сломано",
+  "tooltip.tconstruct.tool.empty": "Пусто",
+  "tooltip.tconstruct.hold_shift": "Зажмите %s для характеристик",
+  "tooltip.tconstruct.hold_ctrl": "Зажмите %s для подробностей",
+  "tooltip.tconstruct.missing_data": "Данные инструмента отсутствуют",
 
-  "tooltip.tconstruct.part.added_by": "Material added by %s",
-  "tooltip.tconstruct.part.missing_material": "Missing material: %s",
-  "tooltip.tconstruct.part.missing_stats": "Material is missing the required stats:\n{0}",
-  "tooltip.tconstruct.part.missing_info": "Part has no data",
+  "tooltip.tconstruct.part.added_by": "Материал добавлен %s",
+  "tooltip.tconstruct.part.missing_material": "Материал отсутствует: %s",
+  "tooltip.tconstruct.part.missing_stats": "В материале отсутствует необходимые характеристики:\n{0}",
+  "tooltip.tconstruct.part.missing_info": "Часть не содержит данных",
 
   "_comment": "GUIs",
 
@@ -1728,66 +1751,92 @@
   "gui.tconstruct.crafting_station.uncraftable": "Этот предмет в настоящее время не может быть создан игроком.",
 
   "gui.tconstruct.part_builder": "Формировать частей",
-  "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot holds the material you want to craft your part out of.",
-  "gui.tconstruct.part_builder.material_value": "Material value: %s",
-  "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
+  "gui.tconstruct.part_builder.info": "Здесь вы можете создавать части инструментов, для воплощения своих литейных фантазий.\n\nЧтобы изготовить часть, положите шаблон в левый слот и выберите нужную часть. В оставшийся слот помещается материал, из которого вы хотите изготовить часть.",
+  "gui.tconstruct.part_builder.material_value": "Кол-во материала: %s",
+  "gui.tconstruct.part_builder.cost": "Стоимость части: %s",
   "gui.tconstruct.part_builder.trait": "Trait",
-  "gui.tconstruct.part_builder.uncraftable": "Cannot shape",
-  "gui.tconstruct.part_builder.uncraftable.tooltip": "Material cannot be shaped in the part builder. Other methods such as casting are required.",
+  "gui.tconstruct.part_builder.uncraftable": "Невозможно придать форму",
+  "gui.tconstruct.part_builder.uncraftable.tooltip": "Материалу нельзя придать форму в формирователе частей. Требуются другие способы, например, литьё.",
 
   "gui.tconstruct.tinkers_chest": "Сундук литейщика",
   "gui.tconstruct.cast_chest": "Ящик для литейных форм",
   "gui.tconstruct.part_chest": "Ящик для частей",
 
   "gui.tconstruct.tinker_station": "Литейная станция",
-  "gui.tconstruct.tinker_station.repair": "Repair & Modify",
-  "gui.tconstruct.tinker_station.modifiers": "Modifiers",
+  "gui.tconstruct.tinker_station.repair_limited": "Починка и Модификация",
+  "gui.tconstruct.tinker_station.repair_limited.description": "Позволяет создавать все основные инструменты и применять большинство модификаторов. Чтобы начать, выберите шаблон с помощью кнопок слева.",
+  "gui.tconstruct.tinker_station.repair": "Починка и Модификация",
+  "gui.tconstruct.tinker_station.repair.description": "Создавайте как малые, так и широкие инструменты и модифицируйте существующие инструменты, чтобы осуществить свои мечты! Чтобы начать, выберите шаблон с помощью кнопок слева.",
+  "gui.tconstruct.tinker_station.modifiers": "Улучшения",
   "gui.tconstruct.tinker_station.upgrades": "Upgrades & Abilities",
   "gui.tconstruct.tinker_station.traits": "Traits",
-  "gui.tconstruct.tinker_station.components": "Components",
-  "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
-  "gui.tconstruct.tinker_station.no_traits": "None :[",
+  "gui.tconstruct.tinker_station.components": "Компоненты",
+  "gui.tconstruct.tinker_station.info": "Основной способ для починки и замены частей в инструментах. Поместите инструмент, а материал слева, чтобы начать.",
+  "gui.tconstruct.tinker_station.no_traits": "Ничего :[",
 
-  "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
+  "gui.tconstruct.manual.cycle.recipes": "Перейти к другим рецептам",
 
-  "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
-  "recipe.tconstruct.damaging.broken": "Tool is already broken",
+  "recipe.tconstruct.tool_repair.fully_repaired": "Инструмент не повреждён",
+  "recipe.tconstruct.damaging.broken": "Инструмент уже сломан",
   "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
-  "recipe.tconstruct.remove_modifier.no_modifiers": "Tool does not have any removable modifiers",
+  "recipe.tconstruct.remove_modifier.no_modifiers": "Инструмент не имеет сменных модификаторов",
 
-  "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
+  "recipe.tconstruct.part_swapping.too_many_parts": "Стол слишком мал для замены частей на этом инструменте",
 
-  "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",
-  "recipe.tconstruct.modifier.not_enough_slots": "Need at least %s %s slots to add this modifier",
-  "recipe.tconstruct.modifier.validate_slots": "This change leaves the tool with too few %s slots",
-  "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
+  "recipe.tconstruct.modifier.not_enough_slot": "Для добавления этого модификатора требуется не менее 1 %s слота",
+  "recipe.tconstruct.modifier.not_enough_slots": "Необходимо не менее %s %s слотов для добавления этого модификатора",
+  "recipe.tconstruct.modifier.validate_slots": "С этой заменой инструмент останется с малым количеством %s слотов",
+  "recipe.tconstruct.modifier.max_level": "%s уровень не может быть выше %s",
   "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
 
   "_comment": "GUIs Messages",
 
-  "gui.tconstruct.caption": "Caption",
-  "gui.tconstruct.error": "ERROR",
-  "gui.tconstruct.warning": "WARNING",
-  "gui.tconstruct.general.hover": "Hover over the entries for more information",
-  "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
-  "gui.tconstruct.error.invalid_recipe": "Invalid Recipe!",
-  "gui.tconstruct.error.unknown_material": "Unknown Material",
-  "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
-  "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
-
+  "gui.tconstruct.caption": "Заголовок",
+  "gui.tconstruct.error": "ОШИБКА",
+  "gui.tconstruct.warning": "ПРЕДУПРЕЖДЕНИЕ",
+  "gui.tconstruct.general.hover": "Наведите курсор на надпись для получения дополнительной информации",
+  "gui.tconstruct.error.invalid_pattern": "Шаблон не содержит допустимую часть инструмента!",
+  "gui.tconstruct.error.invalid_recipe": "Неизвестный рецепт!",
+  "gui.tconstruct.error.unknown_material": "Неизвестный материал",
+  "gui.tconstruct.error.useless_tool_part": "Эта часть не может быть использована для создания какого-либо инструмента! \n\nЛибо в материале %s отсутствует какая-то информация, либо для создания инструментов не используется %s.",
+  "gui.tconstruct.error.not_enough_durability": "Недостаточно прочности для замены частей!\n%d требуется больше прочности.",
 
   "_comment": "Book Strings",
 
   "book.tconstruct.material.part_builder": "Можно создать в формирователе частей",
-  "book.tconstruct.material.cast_from": "Можно отлить из %s в литейных форма",
+  "book.tconstruct.material.cast_from": "Можно отлить из %s в литейных формах",
   "book.tconstruct.material.composite_from": "Можно отлить из %s на %s частей",
   "book.tconstruct.modifiers.effect": "Результаты:",
   "book.tconstruct.tool.properties": "Особенности:",
+  
+    "_comment": "Subtitles for sounds",
+
+  "subtitles.tconstruct.little_saw": "Saw used",
+  "subtitles.tconstruct.item_frame_click": "Item Frame clock clicks",
+  "subtitles.tconstruct.casting_cools": "Cast item cools",
+
+  "subtitles.tconstruct.slime_sling": "Slime Sling bounces",
+  "subtitles.tconstruct.slime_sling.teleport": "Slime Sling teleports",
+  "subtitles.tconstruct.enderporting": "Entity enderports",
+  "subtitles.tconstruct.throw.throwball": "Throwball flies",
+  "subtitles.tconstruct.throw.shuriken": "Shuriken flies",
+
+  "subtitles.tconstruct.necrotic_heal": "Life drained",
+
+  "subtitles.tconstruct.slime_teleport": "Slime teleports",
+  "subtitles.tconstruct.slimy_bounce": "Slimy bouncing",
+
+  "subtitles.tconstruct.equip.slime": "Slimy armor jiggles",
+
+  "_comment": "Commands",
+
+  "command.tconstruct.slot_type.not_found": "Неизвестный тип слота %s",
+  "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
 
 
   "_comment": "JEI Strings",
-  "jei.tconstruct.time": "%s s",
+  "jei.tconstruct.time": "%s сек",
   "jei.tconstruct.temperature": "%s°C",
 
   "jei.tconstruct.casting.basin": "Литейный резервуар",
@@ -1795,12 +1844,12 @@
   "jei.tconstruct.casting.cast_kept": "Отлитый предмет можно повторно использовать в других рецептах",
   "jei.tconstruct.casting.cast_consumed": "Предмет расходуется во время литья",
 
-  "jei.tconstruct.molding.title": "Molding",
-  "jei.tconstruct.molding.pattern_consumed": "Pattern is consumed on crafting",
+  "jei.tconstruct.molding.title": "Формирование",
+  "jei.tconstruct.molding.pattern_consumed": "Шаблон расходуется на создание",
 
-  "jei.tconstruct.melting.title": "Melting",
-  "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",
-  "jei.tconstruct.melting.ore": "Recipe output is boosted based on the controller type",
+  "jei.tconstruct.melting.title": "Переплавка",
+  "jei.tconstruct.melting.multiplier": "Множитель скорости: %sx",
+  "jei.tconstruct.melting.ore": "Время выполнения рецепта увеличивается в зависимости от типа контроллера",
   "jei.tconstruct.melting.time": "Время плавления: %s s",
   "jei.tconstruct.melting.smeltery": "В плавильне:",
   "jei.tconstruct.melting.melter": "В плавильной печи:",
@@ -1812,20 +1861,20 @@
 
   "jei.tconstruct.alloy.title": "Смешивание",
 
-  "jei.tconstruct.modifiers.title": "Modifiers",
-  "jei.tconstruct.modifiers.slot": "Modifier requires 1 %s slot to apply",
-  "jei.tconstruct.modifiers.slots": "Modifier requires %s %s slots to apply",
-  "jei.tconstruct.modifiers.free": "No modifier slots are required to apply",
+  "jei.tconstruct.modifiers.title": "Модификаторы",
+  "jei.tconstruct.modifiers.slot": "Для применения модификатора требуется 1 %s слот",
+  "jei.tconstruct.modifiers.slots": "Для применения модификатора требуется %s %s слотов",
+  "jei.tconstruct.modifiers.free": "Для применения модификатора не требуется слотов",
   "jei.tconstruct.modifiers.incremental": "Recipe is incremental, you can apply part of the input for a partial effect",
-  "jei.tconstruct.modifiers.max": "Max: ",
+  "jei.tconstruct.modifiers.max": "Макс: ",
 
-  "jei.tconstruct.severing.title": "Отрезание",
+  "jei.tconstruct.severing.title": "Отсечение",
 
   "jei.tconstruct.part_builder.title": "Формирователь частей",
-  "jei.tconstruct.part_builder.cost": "Cost: %s",
+  "jei.tconstruct.part_builder.cost": "Затраты: %s",
 
 
-  "_comment": "Tool Advancements",
+   "_comment": "Tool Advancements",
   "advancements.tconstruct.tools.materials_and_you.title": "Tinker In Training",
   "advancements.tconstruct.tools.materials_and_you.description": "Craft Materials and You, the introduction book into Tinkers' Construct",
   "advancements.tconstruct.tools.part_builder.title": "Part Builder",
@@ -1870,9 +1919,9 @@
   "advancements.tconstruct.smeltery.abilities.description": "Apply every single default ability modifier to a tool at least once",
 
   "_comment": "Foundry Advancements",
-  "advancements.tconstruct.foundry.fantastic_foundry.title": "Выплавка в Незере",
-  "advancements.tconstruct.foundry.fantastic_foundry.description": "Создайте фантастическое литьё, путеводитель по выплавке в Незере",
-  "advancements.tconstruct.foundry.alloyer.title": "Базовый смешиватель",
+  "advancements.tconstruct.foundry.fantastic_foundry.title": "Nether Smelting",
+  "advancements.tconstruct.foundry.fantastic_foundry.description": "Create fantastic foundry, the nether smelting guidebook",
+  "advancements.tconstruct.foundry.alloyer.title": "Basic Alloyer",
   "advancements.tconstruct.foundry.alloyer.description": "Create a basic alloying setup using an alloyer, a fuel tank, some ingot tanks, a casting table, a casting basin, and a faucet",
   "advancements.tconstruct.foundry.structure.title": "The Fantastic Foundry",
   "advancements.tconstruct.foundry.structure.description": "Craft a founry controller from alloyed obsidian, build a foundry, and open the foundry UI",
