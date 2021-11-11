@@ -77,3 +77,12 @@ body:
       description: If you answered "No" above, list other mods required to reproduce this. Should be less than 10 mods.
     validations:
       required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      description: "Confirm the following:"
+      options:
+        - label: "Confirm you have searched the tracker to see if your issue already exists"
+        - label: "Confirm you are not using performance enhancers, such as optifine"
+        - label: "Confirm you have tested without external core mods/mixins"
