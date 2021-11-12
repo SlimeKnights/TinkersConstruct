@@ -8,6 +8,11 @@ import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
+import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
+import slimeknights.tconstruct.shared.command.subcommand.ModifierUsageCommand;
+import slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand;
+import slimeknights.tconstruct.shared.command.subcommand.SlotsCommand;
 
 import java.util.function.Consumer;
 
@@ -16,6 +21,7 @@ public class TConstructCommand {
   /** Registers all TConstruct command related content */
   public static void init() {
     ArgumentTypes.register(TConstruct.resourceString("slot_type"), SlotTypeArgument.class, new ArgumentSerializer<>(SlotTypeArgument::slotType));
+    ArgumentTypes.register(TConstruct.resourceString("modifier"), ModifierArgument.class, new ArgumentSerializer<>(ModifierArgument::modifier));
 
     // add command listener
     MinecraftForge.EVENT_BUS.addListener(TConstructCommand::registerCommand);
@@ -33,6 +39,8 @@ public class TConstructCommand {
     LiteralArgumentBuilder<CommandSource> builder = Commands.literal(TConstruct.MOD_ID);
 
     // sub commands
+    register(builder, "modifiers", ModifiersCommand::register);
+    register(builder, "slots", SlotsCommand::register);
     register(builder, "modifier_usage", ModifierUsageCommand::register);
 
     // register final command

@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -127,6 +128,11 @@ public class ModifierRecipeLookup {
     }
   }
 
+  /** Gets the requirements for the given modifier */
+  public static Collection<ModifierRequirements> getRequirements(Modifier modifier) {
+    return REQUIREMENTS.get(modifier);
+  }
+
   /**
    * Validates that the tool meets all requirements. Typically called when modifiers are removed, but should be able to be called at any time after modifiers change.
    * @param stack  ItemStack containing the tool. Most of the time its just a tag check, so the correct item with any NBT is valid.
@@ -136,7 +142,7 @@ public class ModifierRecipeLookup {
   public static ValidatedResult checkRequirements(ItemStack stack, IModifierToolStack tool) {
     List<ModifierEntry> modifiers = tool.getModifierList();
     for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
-      for (ModifierRequirements requirements : REQUIREMENTS.get(entry.getModifier())) {
+      for (ModifierRequirements requirements : getRequirements(entry.getModifier())) {
         ValidatedResult result = requirements.check(stack, entry.getLevel(), modifiers);
         if (result.hasError()) {
           return result;

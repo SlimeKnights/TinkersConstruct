@@ -41,7 +41,11 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param value  New value
    */
   public void setSlots(SlotType type, int value) {
-    data.putInt(type.getName(), value);
+    if (value == 0) {
+      data.remove(type.getName());
+    } else {
+      data.putInt(type.getName(), value);
+    }
   }
 
   /**

@@ -31,6 +31,11 @@ public class CreativeSlotModifier extends SingleUseModifier {
   }
 
   @Override
+  public void onRemoved(IModifierToolStack tool) {
+    tool.getPersistentData().remove(KEY_SLOTS);
+  }
+
+  @Override
   public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     if (persistentData.contains(KEY_SLOTS, NBT.TAG_COMPOUND)) {
       CompoundNBT slots = persistentData.getCompound(KEY_SLOTS);
@@ -58,23 +63,23 @@ public class CreativeSlotModifier extends SingleUseModifier {
           if (slotType != null) {
             tooltip.add(new TranslationTextComponent(SLOT_PREFIX));
 
-
+            int count = slots.getInt(key);
             tooltip.add(
-              new StringTextComponent("* +" + slots.getInt(key) + " ")
+              new StringTextComponent((count > 0 ? "* +" : "* ") + count + " ")
                 .appendSibling(slotType.getDisplayName())
                 .modifyStyle(style -> style.setColor(slotType.getColor())));
 
-            // after that, the next valid slots need comma separation
+            // prevent printing creative label multiple times
             while (keys.hasNext()) {
               key = keys.next();
               SlotType slotType2 = SlotType.getIfPresent(key);
               if (slotType2 != null) {
-                tooltip.add(new StringTextComponent("* +" + slots.getInt(key) + " ")
+                count = slots.getInt(key);
+                tooltip.add(new StringTextComponent((count > 0 ? "* +" : "* ") + count + " ")
                               .appendSibling(slotType2.getDisplayName())
                               .modifyStyle(style -> style.setColor(slotType2.getColor())));
               }
             }
-            break;
           }
         }
       }

@@ -1819,7 +1819,7 @@
 
   "stat.tconstruct.slot.prefix.upgrades": "Upgrades: ",
   "stat.tconstruct.slot.prefix.abilities": "Abilities: ",
-  "stat.tconstruct.slot.prefix.soul": "Soul Slots: ",
+  "stat.tconstruct.slot.prefix.souls": "Soul Slots: ",
   "stat.tconstruct.slot.prefix.armor": "Armor Slots: ",
 
   "stat.tconstruct.slot.display.upgrades": "upgrade",
@@ -1942,6 +1942,23 @@
 
   "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
   "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
+
+  "command.tconstruct.modifiers.success.add.single": "Applied modifier %s to %s's item",
+  "command.tconstruct.modifiers.success.add.multiple": "Applied modifier %s to %s entities",
+  "command.tconstruct.modifiers.success.remove.single": "Removed modifier %s from %s's item",
+  "command.tconstruct.modifiers.success.remove.multiple": "Removed modifier %s from %s entities",
+  "command.tconstruct.modifiers.failure.too_few_levels": "Cannot remove modifier %s from to %s's item",
+
+  "command.tconstruct.slots.success.add.single": "Applied %s %s slots to %s's item",
+  "command.tconstruct.slots.success.add.multiple": "Applied %s %s slots to %s entities",
+  "command.tconstruct.slots.success.set.single": "Set %s slots to %s on %s's item",
+  "command.tconstruct.slots.success.set.multiple": "Set %s slots to %s on %s entities",
+  "command.tconstruct.slots.failure.invalid_count": "Cannot add zero slots, must add a positive or a negative value",
+
+  "command.tconstruct.held_modifiable.failed": "Nothing changed. Targets have no modifiable item in their hands or no targets were found",
+  "command.tconstruct.held_modifiable.failed.nonliving": "%s is not a valid entity for this command",
+  "command.tconstruct.held_modifiable.failed.no_item": "%s is not holding any item",
+  "command.tconstruct.held_modifiable.failed.invalid_item": "%s is not holding a modifiable item",
 
 
   "_comment": "JEI Strings",

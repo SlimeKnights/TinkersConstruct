@@ -111,6 +111,7 @@ public class ModifierNBT {
       if (entry.getModifier() == modifier && level > 0) {
         if (entry.getLevel() > level) {
           builder.add(new ModifierEntry(modifier, entry.getLevel() - level));
+          level = 0;
         } else {
           level -= entry.getLevel();
         }

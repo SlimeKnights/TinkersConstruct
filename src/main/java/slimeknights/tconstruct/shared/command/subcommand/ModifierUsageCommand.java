@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.shared.command;
+package slimeknights.tconstruct.shared.command.subcommand;
 
 import com.google.common.collect.HashMultimap;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -25,7 +25,8 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.shared.command.SlotTypeArgument.SlotTypeFilter;
+import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
+import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument.OptionalSlotType;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -38,7 +39,6 @@ import java.util.stream.Stream;
 
 /** Command that prints a list of all modifiers and how they are used in current datapacks */
 public class ModifierUsageCommand {
-  /** Tag has no values */
   private static final ITextComponent SUCCESS = new TranslationTextComponent("command.tconstruct.modifier_usage");
 
   /**
@@ -59,10 +59,10 @@ public class ModifierUsageCommand {
 
   /** Runs the actual command */
   private static int runRecipeWithFilter(CommandContext<CommandSource> context) throws CommandSyntaxException {
-    return runForType(context, ModifierUsages.RECIPE, context.getArgument("slot_type", SlotTypeFilter.class));
+    return runForType(context, ModifierUsages.RECIPE, SlotTypeArgument.getOptional(context, "slot_type"));
   }
 
-  private static int runForType(CommandContext<CommandSource> context, ModifierUsages filter, @Nullable SlotTypeFilter slotFilter) {
+  private static int runForType(CommandContext<CommandSource> context, ModifierUsages filter, @Nullable OptionalSlotType slotFilter) {
     // recipe modifiers are used in a displayable modifier recipe
     HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getWorld().getRecipeManager().getRecipes(RecipeTypes.TINKER_STATION).values().stream()
                                                              .filter(r -> r instanceof IModifierRecipe)

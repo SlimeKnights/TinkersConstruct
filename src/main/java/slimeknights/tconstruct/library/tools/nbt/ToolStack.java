@@ -460,9 +460,9 @@ public class ToolStack implements IModifierToolStack {
   }
 
   /**
-   * Adds a single modifier to this tool
-   * @param modifier  Modifier to add
-   * @param level     Level to add
+   * Removes a single modifier to this tool
+   * @param modifier  Modifier to remove
+   * @param level     Level to remove
    */
   public void removeModifier(Modifier modifier, int level) {
     if (level <= 0) {
