@@ -22,7 +22,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (!(entityLiving instanceof PlayerEntity)) {
+    if (worldIn.isRemote || !(entityLiving instanceof PlayerEntity)) {
       return;
     }
 

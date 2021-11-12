@@ -84,11 +84,11 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
 
   /** Plays the success sound and damages the sling */
   protected void onSuccess(PlayerEntity player, ItemStack sling) {
-    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+    player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), Sounds.SLIME_SLING.getSound(), player.getSoundCategory(), 1f, 1f);
     sling.damageItem(1, player, p -> p.sendBreakAnimation(p.getActiveHand()));
   }
 
   protected void playMissSound(PlayerEntity player) {
-    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, .5f);
+    player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), Sounds.SLIME_SLING.getSound(), player.getSoundCategory(), 1f, .5f);
   }
 }

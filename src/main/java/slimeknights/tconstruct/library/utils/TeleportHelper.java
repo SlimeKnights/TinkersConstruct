@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EntityTeleportEvent;
 import slimeknights.tconstruct.common.Sounds;
 
@@ -11,6 +12,9 @@ public class TeleportHelper {
 
   /** Randomly teleports an entity, mostly copied from chorus fruit */
   public static void randomNearbyTeleport(LivingEntity living, ITeleportEventFactory factory) {
+    if (living.getEntityWorld().isRemote) {
+      return;
+    }
     double posX = living.getPosX();
     double posY = living.getPosY();
     double posZ = living.getPosZ();
@@ -24,6 +28,7 @@ public class TeleportHelper {
       }
 
       EntityTeleportEvent event = factory.create(living, x, y, z);
+      MinecraftForge.EVENT_BUS.post(event);
       if (!event.isCanceled() && living.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
         SoundEvent soundevent = Sounds.SLIME_TELEPORT.getSound();
         living.getEntityWorld().playSound(null, posX, posY, posZ, soundevent, SoundCategory.PLAYERS, 1.0F, 1.0F);
