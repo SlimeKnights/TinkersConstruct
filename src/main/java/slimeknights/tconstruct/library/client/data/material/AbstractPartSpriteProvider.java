@@ -128,7 +128,7 @@ public abstract class AbstractPartSpriteProvider {
     @Getter
     private final MaterialStatsId statType;
     /** Cache of fetched images for each sprite name */
-    private final Map<String,NativeImage> sprites = new HashMap<>();
+    private transient final Map<String,NativeImage> sprites = new HashMap<>();
 
     /** Gets the texture for the given fallback name, use empty string for the default */
     @Nullable

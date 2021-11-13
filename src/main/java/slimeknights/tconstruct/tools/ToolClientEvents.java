@@ -29,7 +29,6 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.events.GeneratePartTexturesEvent;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableModifierModel;
@@ -45,8 +44,6 @@ import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
-import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
-import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -79,7 +76,6 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::generatePartTextures);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::renderHand);
   }
@@ -112,12 +108,6 @@ public class ToolClientEvents extends ClientEventBase {
     registerToolItemColors(colors, TinkerTools.dagger);
     registerToolItemColors(colors, TinkerTools.sword);
     registerToolItemColors(colors, TinkerTools.cleaver);
-  }
-
-  // registered with FORGE bus
-  private static void generatePartTextures(GeneratePartTexturesEvent event) {
-    event.addMaterialSprites(new TinkerMaterialSpriteProvider());
-    event.addPartSprites(new TinkerPartSpriteProvider());
   }
 
   // registered with FORGE bus

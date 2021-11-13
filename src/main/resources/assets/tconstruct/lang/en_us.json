@@ -1986,7 +1986,9 @@
   "command.tconstruct.held_modifiable.failed.invalid_item": "%s is not holding a modifiable item",
 
   "command.tconstruct.generate_part_textures.start": "Started generating part textures",
-  "command.tconstruct.generate_part_textures.finish": "Successfully generated part textures in %s s at %s",
+  "command.tconstruct.generate_part_textures.finish": "Successfully generated %s part textures in %s s at %s",
+  "command.tconstruct.generate_part_textures.no_materials": "No material's have generator info, nothing to generate",
+  "command.tconstruct.generate_part_textures.no_parts": "No part sprites present in resource packs",
 
 
   "_comment": "JEI Strings",

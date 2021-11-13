@@ -3,5 +3,54 @@
     "metal"
   ],
   "color": "60496B",
-  "luminosity": 0
+  "luminosity": 0,
+  "generator": {
+    "texture": "tconstruct:hepatizon",
+    "fallbacks": [
+      "metal"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "grey": 0,
+            "color": "FF000000"
+          },
+          {
+            "grey": 63,
+            "color": "FF1D0628"
+          },
+          {
+            "grey": 102,
+            "color": "FF281133"
+          },
+          {
+            "grey": 140,
+            "color": "FF311A3C"
+          },
+          {
+            "grey": 178,
+            "color": "FF452E50"
+          },
+          {
+            "grey": 216,
+            "color": "FF5F486A"
+          },
+          {
+            "grey": 255,
+            "color": "FF725B7D"
+          }
+        ]
+      }
+    },
+    "supportedStats": [
+      "tconstruct:head",
+      "tconstruct:handle",
+      "tconstruct:extra",
+      "tconstruct:repair_kit"
+    ],
+    "ignoreMaterialStats": false
+  }
 }

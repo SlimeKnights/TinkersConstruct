@@ -10,6 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -63,23 +66,36 @@ public abstract class AbstractMaterialSpriteProvider {
   }
 
   /** Data for material rendering */
-  @RequiredArgsConstructor
-  public static class MaterialSpriteInfo {
+  public static class MaterialSpriteInfo extends MaterialGeneratorJson {
     /** Material texture name for the material */
     @Getter
     private final ResourceLocation texture;
     /** List of fallbacks, first present one will be the base for building. If none exist, uses the default base */
     @Getter
     private final String[] fallbacks;
-    /** Transformer to update images */
-    @Getter
-    private final ISpriteTransformer transformer;
-    /** List of stat types supported by this material */
-    private final Set<MaterialStatsId> supportedStats;
 
-    /** If true, this stat type is supported */
+    public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, MaterialGeneratorJson generatorJson) {
+      super(generatorJson);
+      this.texture = texture;
+      this.fallbacks = fallbacks;
+    }
+
+    public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, ISpriteTransformer transformer, Set<MaterialStatsId> supportedStats) {
+      super(transformer, supportedStats, false);
+      this.texture = texture;
+      this.fallbacks = fallbacks;
+    }
+
+    @Override
     public boolean supportStatType(MaterialStatsId statType) {
-      return supportedStats.contains(statType);
+      if (super.supportStatType(statType)) {
+        return true;
+      }
+      // if material registry is loaded and we are not ignoring it, allow checking that
+      if (!ignoreMaterialStats && MaterialRegistry.isFullyLoaded()) {
+        return MaterialRegistry.getInstance().getMaterialStats(new MaterialId(texture), statType).isPresent();
+      }
+      return super.supportStatType(statType);
     }
   }
 

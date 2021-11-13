@@ -18,6 +18,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -130,8 +131,10 @@ public final class TinkerTools extends TinkerModule {
     if (event.includeClient()) {
       ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
       TinkerMaterialSpriteProvider materialSprites = new TinkerMaterialSpriteProvider();
+      TinkerPartSpriteProvider partSprites = new TinkerPartSpriteProvider();
       generator.addProvider(new MaterialRenderInfoProvider(generator, materialSprites));
-      generator.addProvider(new MaterialPartTextureGenerator(generator, existingFileHelper, new TinkerPartSpriteProvider(), materialSprites));
+      generator.addProvider(new GeneratorPartTextureJsonGenerator(generator, TConstruct.MOD_ID, partSprites));
+      generator.addProvider(new MaterialPartTextureGenerator(generator, existingFileHelper, partSprites, materialSprites));
     }
   }
 }

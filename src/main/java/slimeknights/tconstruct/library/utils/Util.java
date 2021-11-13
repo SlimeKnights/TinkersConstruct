@@ -127,4 +127,9 @@ public class Util {
     TConstruct.LOG.error("No direction for position {} and neighbor {}", pos, neighbor);
     return Direction.DOWN;
   }
+
+  /** Converts an ARGB color to a ABGR color or vice versa */
+  public static int translateColorBGR(int color) {
+    return (color & 0xFF00FF00) | (((color & 0x00FF0000) >> 16) & 0x000000FF) | (((color & 0x000000FF) << 16) & 0x00FF0000);
+  }
 }

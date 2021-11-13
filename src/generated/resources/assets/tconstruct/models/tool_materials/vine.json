@@ -3,5 +3,51 @@
     "vine"
   ],
   "color": "48B518",
-  "luminosity": 0
+  "luminosity": 0,
+  "generator": {
+    "texture": "tconstruct:vine",
+    "fallbacks": [
+      "vine"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "grey": 0,
+            "color": "FF000000"
+          },
+          {
+            "grey": 63,
+            "color": "FF143306"
+          },
+          {
+            "grey": 102,
+            "color": "FF183D08"
+          },
+          {
+            "grey": 140,
+            "color": "FF1F4E0A"
+          },
+          {
+            "grey": 178,
+            "color": "FF265F0D"
+          },
+          {
+            "grey": 216,
+            "color": "FF2E730F"
+          },
+          {
+            "grey": 255,
+            "color": "FF3A9313"
+          }
+        ]
+      }
+    },
+    "supportedStats": [
+      "tconstruct:extra"
+    ],
+    "ignoreMaterialStats": false
+  }
 }

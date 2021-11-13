@@ -1,12 +1,17 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
 import net.minecraft.client.renderer.texture.NativeImage;
+import slimeknights.tconstruct.library.utils.GenericRegisteredSerializer;
+import slimeknights.tconstruct.library.utils.GenericRegisteredSerializer.IJsonSerializable;
 
 /**
  * Interface for a function that transforms a sprite into another sprite
  */
 @FunctionalInterface
-public interface ISpriteTransformer {
+public interface ISpriteTransformer extends IJsonSerializable {
+  /** Serializer used for this transformer, can register your deserializers with it */
+  GenericRegisteredSerializer<ISpriteTransformer> SERIALIZER = new GenericRegisteredSerializer<>();
+
   /**
    * Transforms the given sprite
    * @param image  Image to transform

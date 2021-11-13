@@ -1,10 +1,23 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
+import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.utils.Util;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static net.minecraft.client.renderer.texture.NativeImage.getAlpha;
@@ -16,6 +29,9 @@ import static net.minecraft.client.renderer.texture.NativeImage.getRed;
 /** Color mapping that maps greyscale values to a palette for each value */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class GreyToColorMapping implements IColorMapping {
+  public static final ResourceLocation NAME = TConstruct.getResource("grey_to_color");
+  public static final Deserializer DESERIALIZER = new Deserializer();
+
   private final List<ColorMapping> mappings;
   private final Integer[] recolorCache = new Integer[256];
 
@@ -117,6 +133,41 @@ public class GreyToColorMapping implements IColorMapping {
     return newColor;
   }
 
+  @Override
+  public JsonObject serialize(JsonSerializationContext context) {
+    JsonObject object = new JsonObject();
+    object.addProperty("type", NAME.toString());
+    JsonArray colors = new JsonArray();
+    for (ColorMapping mapping : mappings) {
+      JsonObject pair = new JsonObject();
+      pair.addProperty("grey", mapping.grey);
+      pair.addProperty("color", String.format("%08X", Util.translateColorBGR(mapping.color)));
+      colors.add(pair);
+    }
+    object.add("palette", colors);
+    return object;
+  }
+
+  /** Serializer for a recolor sprite transformer */
+  protected static class Deserializer implements JsonDeserializer<GreyToColorMapping> {
+    @Override
+    public GreyToColorMapping deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+      JsonObject object = json.getAsJsonObject();
+      JsonArray palette = JSONUtils.getJsonArray(object, "palette");
+      GreyToColorMapping.Builder paletteBuilder = GreyToColorMapping.builder();
+      for (int i = 0; i < palette.size(); i++) {
+        JsonObject palettePair = JSONUtils.getJsonObject(palette.get(i), "palette["+i+']');
+        int grey = JSONUtils.getInt(palettePair, "grey");
+        int color = JsonHelper.parseColor(JSONUtils.getString(palettePair, "color"));
+        if (i == 0 && grey != 0) {
+          paletteBuilder.addABGR(0, 0xFF000000);
+        }
+        paletteBuilder.addARGB(grey, color);
+      }
+      return paletteBuilder.build();
+    }
+  }
+
   /** Creates a new grey to color builder */
   public static Builder builder() {
     return new Builder();
@@ -160,13 +211,12 @@ public class GreyToColorMapping implements IColorMapping {
     /** Adds a color to the palette in ARGB format */
     public Builder addARGB(int grey, int color) {
       checkGrey(grey);
-      int newColor = (color & 0xFF00FF00) | (((color & 0x00FF0000) >> 16) & 0x000000FF) | (((color & 0x000000FF) << 16) & 0x00FF0000);
-      builder.add(new ColorMapping(grey, newColor));
+      builder.add(new ColorMapping(grey, Util.translateColorBGR(color)));
       return this;
     }
 
     /** Builds a color mapping */
-    public IColorMapping build() {
+    public GreyToColorMapping build() {
       List<ColorMapping> list = builder.build();
       if (list.size() < 2) {
         throw new IllegalStateException("Too few colors in palette, must have at least 2");

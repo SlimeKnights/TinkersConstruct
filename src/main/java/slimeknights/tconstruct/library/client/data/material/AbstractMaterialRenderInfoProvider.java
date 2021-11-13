@@ -8,6 +8,8 @@ import net.minecraft.resources.ResourcePackType;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
@@ -23,7 +25,7 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   private final AbstractMaterialSpriteProvider materialSprites;
 
   public AbstractMaterialRenderInfoProvider(DataGenerator gen, @Nullable AbstractMaterialSpriteProvider materialSprites) {
-    super(gen, ResourcePackType.CLIENT_RESOURCES, "models/tool_materials");
+    super(gen, ResourcePackType.CLIENT_RESOURCES, MaterialRenderInfoLoader.FOLDER, MaterialRenderInfoLoader.GSON);
     this.materialSprites = materialSprites;
   }
 
@@ -59,6 +61,7 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
         if (color != 0xFFFFFFFF) {
           builder.color((color & 0x00FF00) | ((color >> 16) & 0x0000FF) | ((color << 16) & 0xFF0000));
         }
+        builder.generator(spriteInfo);
       }
     }
     return builder;
@@ -80,6 +83,8 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
     private boolean skipUniqueTexture;
     @Setter
     private int luminosity = 0;
+    @Setter
+    private MaterialGeneratorJson generator = null;
 
     /** Sets the fallback names */
     public RenderInfoBuilder fallbacks(@Nullable String... fallbacks) {
@@ -89,7 +94,7 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
 
     /** Builds the material */
     public MaterialRenderInfoJson build() {
-      return new MaterialRenderInfoJson(texture, fallbacks, String.format("%06X", color), skipUniqueTexture ? Boolean.TRUE : null, luminosity);
+      return new MaterialRenderInfoJson(texture, fallbacks, String.format("%06X", color), skipUniqueTexture ? Boolean.TRUE : null, luminosity, generator);
     }
   }
 }

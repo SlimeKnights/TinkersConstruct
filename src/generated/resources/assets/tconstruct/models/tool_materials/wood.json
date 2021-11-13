@@ -4,5 +4,55 @@
     "stick"
   ],
   "color": "876627",
-  "luminosity": 0
+  "luminosity": 0,
+  "generator": {
+    "texture": "tconstruct:wood",
+    "fallbacks": [
+      "wood",
+      "stick"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "grey": 0,
+            "color": "FF000000"
+          },
+          {
+            "grey": 63,
+            "color": "FF281E0B"
+          },
+          {
+            "grey": 102,
+            "color": "FF493615"
+          },
+          {
+            "grey": 140,
+            "color": "FF584014"
+          },
+          {
+            "grey": 178,
+            "color": "FF684E1E"
+          },
+          {
+            "grey": 216,
+            "color": "FF785A22"
+          },
+          {
+            "grey": 255,
+            "color": "FF896727"
+          }
+        ]
+      }
+    },
+    "supportedStats": [
+      "tconstruct:head",
+      "tconstruct:handle",
+      "tconstruct:extra",
+      "tconstruct:repair_kit"
+    ],
+    "ignoreMaterialStats": false
+  }
 }

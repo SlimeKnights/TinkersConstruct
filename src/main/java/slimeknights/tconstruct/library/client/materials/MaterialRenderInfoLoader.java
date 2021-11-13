@@ -10,8 +10,13 @@ import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
+import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
+import slimeknights.tconstruct.library.data.ResourceLocationSerializer;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.io.BufferedReader;
@@ -41,6 +46,9 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   /** GSON adapter for material info deserializing */
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(MaterialStatsId.class, new ResourceLocationSerializer<>(MaterialStatsId::new, TConstruct.MOD_ID))
+    .registerTypeHierarchyAdapter(ISpriteTransformer.class, ISpriteTransformer.SERIALIZER)
+    .registerTypeHierarchyAdapter(IColorMapping.class, IColorMapping.SERIALIZER)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
