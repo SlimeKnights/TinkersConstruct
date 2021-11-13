@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
 import slimeknights.tconstruct.library.tools.definition.UpdateToolDefinitionDataPacket;
 import slimeknights.tconstruct.library.tools.layout.UpdateTinkerSlotLayoutsPacket;
+import slimeknights.tconstruct.shared.network.GeneratePartTexturesPacket;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -60,8 +61,11 @@ public class TinkerNetwork extends NetworkWrapper {
       return;
     }
     instance = new TinkerNetwork();
+
+    // shared
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateNeighborsPacket.class, UpdateNeighborsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(GeneratePartTexturesPacket.class, GeneratePartTexturesPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkDirection.PLAY_TO_CLIENT);

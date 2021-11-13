@@ -6,13 +6,16 @@ import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.GenericTextureGenerator;
-import slimeknights.tconstruct.library.client.data.SpriteReader;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider.PartSpriteInfo;
+import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
+import slimeknights.tconstruct.library.client.data.util.DataGenSpriteReader;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 /**
  * Texture generator to generate textures for materials, supports adding a set of sprites to recolor, alongside a set of materials
@@ -27,7 +30,7 @@ import java.util.List;
 public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   /** Path to textures outputted by this generator */
   public static final String FOLDER = "textures/item/tool";
-  private final SpriteReader spriteReader;
+  private final DataGenSpriteReader spriteReader;
   /** Sprite provider */
   private final AbstractPartSpriteProvider partProvider;
   /** Materials to provide */
@@ -35,7 +38,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
 
   public MaterialPartTextureGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, AbstractMaterialSpriteProvider... materialProviders) {
     super(generator, FOLDER);
-    this.spriteReader = new SpriteReader(existingFileHelper, FOLDER);
+    this.spriteReader = new DataGenSpriteReader(existingFileHelper, FOLDER);
     this.partProvider = spriteProvider;
     this.materialProviders = materialProviders;
   }
@@ -68,10 +71,12 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
         throw new IllegalStateException(materialProvider.getName() + " has no materials, must have at least one material to generate");
       }
       // want cross product of textures
+      BiConsumer<ResourceLocation, NativeImage> saver = (path, image) -> saveImage(cache, path, image);
+      Predicate<ResourceLocation> shouldGenerate = path -> !spriteReader.exists(path);
       for (MaterialSpriteInfo material : materials) {
         for (PartSpriteInfo part : parts) {
           if (material.supportStatType(part.getStatType())) {
-            generateSprite(cache, material, part);
+            generateSprite(spriteReader, material, part, shouldGenerate, saver);
           }
         }
       }
@@ -80,8 +85,15 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
     partProvider.cleanCache();
   }
 
-  /** Generates a sprite for the given material */
-  private void generateSprite(DirectoryCache cache, MaterialSpriteInfo material, PartSpriteInfo part) {
+  /**
+   * Generates the given sprite
+   * @param spriteReader    Reader to find existing sprites
+   * @param material        Material for the sprite
+   * @param part            Part for the sprites
+   * @param shouldGenerate  Predicate to determine if the sprite should generate, given the local path to the sprite
+   * @param saver           Function to save the file
+   */
+  public static void generateSprite(AbstractSpriteReader spriteReader, MaterialSpriteInfo material, PartSpriteInfo part, Predicate<ResourceLocation> shouldGenerate, BiConsumer<ResourceLocation, NativeImage> saver) {
     // first step: see if this sprite has already been generated, if so nothing to do
     // path format: pNamespace:pPath_mNamespace_mPath
     ResourceLocation partPath = part.getPath();
@@ -90,7 +102,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       partPath.getPath() + "_" + materialTexture.getNamespace() + "_" + materialTexture.getPath());
 
     // image does not exist? first step is to find a base image
-    if (!spriteReader.exists(spritePath)) {
+    if (shouldGenerate.test(spritePath)) {
       NativeImage base = null;
       for (String fallback : material.getFallbacks()) {
         base = part.getTexture(spriteReader, fallback);
@@ -108,7 +120,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       // successfully found a texture, now transform and save
       NativeImage transformed = material.getTransformer().transformCopy(base);
       spriteReader.track(transformed);
-      saveImage(cache, spritePath, transformed);
+      saver.accept(spritePath, transformed);
     }
   }
 }

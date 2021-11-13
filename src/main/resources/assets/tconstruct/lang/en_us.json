@@ -1947,6 +1947,7 @@
   "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
   "command.tconstruct.stat_type.not_found": "Unknown stat type %s",
   "command.tconstruct.stat_type.wrong_type": "Invalid stat type %s, must inherit from %s",
+  "command.tconstruct.material.not_found": "Unknown material %s",
   "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
 
   "command.tconstruct.modifiers.success.add.single": "Applied modifier %s to %s's item",
@@ -1983,6 +1984,9 @@
   "command.tconstruct.held_modifiable.failed.nonliving": "%s is not a valid entity for this command",
   "command.tconstruct.held_modifiable.failed.no_item": "%s is not holding any item",
   "command.tconstruct.held_modifiable.failed.invalid_item": "%s is not holding a modifiable item",
+
+  "command.tconstruct.generate_part_textures.start": "Started generating part textures",
+  "command.tconstruct.generate_part_textures.finish": "Successfully generated part textures in %s s at %s",
 
 
   "_comment": "JEI Strings",

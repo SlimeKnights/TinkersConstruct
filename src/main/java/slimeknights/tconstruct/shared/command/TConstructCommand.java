@@ -11,6 +11,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
+import slimeknights.tconstruct.shared.command.subcommand.GeneratePartTexturesCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifierUsageCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand;
 import slimeknights.tconstruct.shared.command.subcommand.SlotsCommand;
@@ -46,6 +47,7 @@ public class TConstructCommand {
     register(builder, "tool_stats", StatsCommand::register);
     register(builder, "slots", SlotsCommand::register);
     register(builder, "modifier_usage", ModifierUsageCommand::register);
+    register(builder, "generate_part_textures", GeneratePartTexturesCommand::register);
 
     // register final command
     event.getDispatcher().register(builder);

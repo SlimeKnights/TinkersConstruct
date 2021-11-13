@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.client.data.SpriteReader;
+import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -132,7 +132,7 @@ public abstract class AbstractPartSpriteProvider {
 
     /** Gets the texture for the given fallback name, use empty string for the default */
     @Nullable
-    public NativeImage getTexture(SpriteReader spriteReader, String name) {
+    public NativeImage getTexture(AbstractSpriteReader spriteReader, String name) {
       if (sprites.containsKey(name)) {
         return sprites.get(name);
       }

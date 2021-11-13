@@ -37,9 +37,9 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   public static final MaterialRenderInfoLoader INSTANCE = new MaterialRenderInfoLoader();
 
   /** Folder to scan for material render info JSONS */
-  private static final String FOLDER = "models/tool_materials";
+  public static final String FOLDER = "models/tool_materials";
   /** GSON adapter for material info deserializing */
-  private static final Gson GSON = (new GsonBuilder())
+  public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()

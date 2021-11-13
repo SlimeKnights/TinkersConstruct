@@ -48,4 +48,21 @@ public class JsonUtils {
   public static ResourceLocation getResourceLocation(JsonObject json, String key) {
     return JsonHelper.getResourceLocation(json, key);
   }
+
+  /**
+   * Gets a resource location from the given json element
+   * @param json  Element
+   * @param key   Key
+   * @return  Resource location
+   * @throws JsonSyntaxException  If the resource location is invalid
+   */
+  public static ResourceLocation getResourceLocation(JsonElement json, String key) {
+    String text = JSONUtils.getString(json, key);
+    ResourceLocation location = ResourceLocation.tryCreate(text);
+    if (location == null) {
+      throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
+    } else {
+      return location;
+    }
+  }
 }

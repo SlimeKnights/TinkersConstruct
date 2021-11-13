@@ -63,7 +63,7 @@ public abstract class AbstractMaterialSpriteProvider {
   }
 
   /** Data for material rendering */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+  @RequiredArgsConstructor
   public static class MaterialSpriteInfo {
     /** Material texture name for the material */
     @Getter
