@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -16,13 +15,11 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 /** Modifier that adds a variable number of slots to a tool. Could easily be done via NBT editing, but this makes it easier */
 public class CreativeSlotModifier extends SingleUseModifier {
-  /** Key representing the prefix in the lang file */
-  private static final String SLOT_PREFIX = TConstruct.makeTranslationKey("modifier", "creative_slot.prefix");
   /** Key representing the slots object in the modifier */
   public static final ResourceLocation KEY_SLOTS = TConstruct.getResource("creative");
 
@@ -48,41 +45,34 @@ public class CreativeSlotModifier extends SingleUseModifier {
     }
   }
 
+  /** Formats the given slot type as a count */
+  private static ITextComponent formatCount(SlotType slotType, int count) {
+    return new StringTextComponent((count > 0 ? "+" : "") + count + " ")
+      .appendSibling(slotType.getDisplayName())
+      .modifyStyle(style -> style.setColor(slotType.getColor()));
+  }
+
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    if (detailed) {
-      IModDataReadOnly persistentData = tool.getPersistentData();
-      if (persistentData.contains(KEY_SLOTS, NBT.TAG_COMPOUND)) {
-        CompoundNBT slots = persistentData.getCompound(KEY_SLOTS);
+  public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
+    List<ITextComponent> tooltip = getDescriptionList();
+    IModDataReadOnly persistentData = tool.getPersistentData();
+    if (persistentData.contains(KEY_SLOTS, NBT.TAG_COMPOUND)) {
+      CompoundNBT slots = persistentData.getCompound(KEY_SLOTS);
 
-        // first, find the first valid slot
-        Iterator<String> keys = slots.keySet().iterator();
-        while (keys.hasNext()) {
-          String key = keys.next();
-          SlotType slotType = SlotType.getIfPresent(key);
-          if (slotType != null) {
-            tooltip.add(new TranslationTextComponent(SLOT_PREFIX));
-
-            int count = slots.getInt(key);
-            tooltip.add(
-              new StringTextComponent((count > 0 ? "* +" : "* ") + count + " ")
-                .appendSibling(slotType.getDisplayName())
-                .modifyStyle(style -> style.setColor(slotType.getColor())));
-
-            // prevent printing creative label multiple times
-            while (keys.hasNext()) {
-              key = keys.next();
-              SlotType slotType2 = SlotType.getIfPresent(key);
-              if (slotType2 != null) {
-                count = slots.getInt(key);
-                tooltip.add(new StringTextComponent((count > 0 ? "* +" : "* ") + count + " ")
-                              .appendSibling(slotType2.getDisplayName())
-                              .modifyStyle(style -> style.setColor(slotType2.getColor())));
-              }
-            }
+      // first one found has special behavior
+      boolean first = true;
+      for (String key : slots.keySet()) {
+        SlotType slotType = SlotType.getIfPresent(key);
+        if (slotType != null) {
+          if (first) {
+            // found a valid slot? copy the list once then add the rest
+            tooltip = new ArrayList<>(tooltip);
+            first = false;
           }
+          tooltip.add(formatCount(slotType, slots.getInt(key)));
         }
       }
     }
+    return tooltip;
   }
 }

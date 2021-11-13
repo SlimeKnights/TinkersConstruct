@@ -278,7 +278,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
             int level = entry.getLevel() - upgrades.getOrDefault(mod, 0);
             if (level > 0) {
               modifierNames.add(mod.getDisplayName(tool, level));
-              modifierInfo.add(mod.getDescription());
+              modifierInfo.add(mod.getDescription(tool, level));
             }
           }
         }
@@ -295,8 +295,9 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         for (ModifierEntry entry : modifiers) {
           Modifier mod = entry.getModifier();
           if (mod.shouldDisplay(true)) {
-            modifierNames.add(mod.getDisplayName(tool, entry.getLevel()));
-            modifierInfo.add(mod.getDescription());
+            int level = entry.getLevel();
+            modifierNames.add(mod.getDisplayName(tool, level));
+            modifierInfo.add(mod.getDescription(tool, level));
           }
         }
       }

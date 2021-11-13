@@ -1583,7 +1583,6 @@
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",
-  "modifier.tconstruct.creative_slot.prefix": "Creative: ",
   "modifier.tconstruct.creative_slot.flavor": "Dirty Cheater!",
   "modifier.tconstruct.creative_slot.description": "Cheated in additional modifier slots",
 

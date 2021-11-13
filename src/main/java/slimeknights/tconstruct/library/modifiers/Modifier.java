@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.utils.TooltipFlag;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -229,7 +230,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Gets the description for this modifier
    * @return  Description for this modifier
    */
-  public final List<ITextComponent> getDescriptionList() {
+  public List<ITextComponent> getDescriptionList() {
     if (descriptionList == null) {
       descriptionList = Arrays.asList(
         new TranslationTextComponent(getTranslationKey() + ".flavor").mergeStyle(TextFormatting.ITALIC),
@@ -239,16 +240,52 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Gets the description for this modifier, sensitive to the tool
+   * @param tool  Tool containing this modifier
+   * @param level Modifier level
+   * @return  Description for this modifier
+   */
+  public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
+    return getDescriptionList();
+  }
+
+  /** Converts a list of text components to a single text component, newline separated */
+  private static ITextComponent listToComponent(List<ITextComponent> list) {
+    if (list.isEmpty()) {
+      return StringTextComponent.EMPTY;
+    }
+    IFormattableTextComponent textComponent = new StringTextComponent("");
+    Iterator<ITextComponent> iterator = list.iterator();
+    textComponent.appendSibling(iterator.next());
+    while (iterator.hasNext()) {
+      textComponent.appendString("\n");
+      textComponent.appendSibling(iterator.next());
+    }
+    return textComponent;
+  }
+
+  /**
    * Gets the description for this modifier
    * @return  Description for this modifier
    */
   public final ITextComponent getDescription() {
     if (description == null) {
-      description = getDescriptionList().stream()
-                                        .reduce((c1, c2) -> new StringTextComponent("").appendSibling(c1).appendString("\n").appendSibling(c2))
-                                        .orElse(StringTextComponent.EMPTY);
+      description = listToComponent(getDescriptionList());
     }
     return description;
+  }
+
+  /**
+   * Gets the description for this modifier
+   * @return  Description for this modifier
+   */
+  public final ITextComponent getDescription(IModifierToolStack tool, int level) {
+    // if the method is not overridden, use the cached description component
+    List<ITextComponent> extendedDescription = getDescriptionList(tool, level);
+    if (extendedDescription == getDescriptionList()) {
+      return getDescription();
+    }
+    return listToComponent(extendedDescription);
   }
 
 
