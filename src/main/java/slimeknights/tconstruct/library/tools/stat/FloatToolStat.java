@@ -51,6 +51,11 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
     builder.updateStat(this, b -> b.add += value);
   }
 
+  @Override
+  public void applyBonus(ModifierStatsBuilder builder, double value) {
+    add(builder, value);
+  }
+
   /**
    * Multiplies the stat by the given value. Multiplication is applied after all addiiton
    * @param builder  Builder instance

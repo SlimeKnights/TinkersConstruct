@@ -10,9 +10,11 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
+import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
 import slimeknights.tconstruct.shared.command.subcommand.ModifierUsageCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand;
 import slimeknights.tconstruct.shared.command.subcommand.SlotsCommand;
+import slimeknights.tconstruct.shared.command.subcommand.StatsCommand;
 
 import java.util.function.Consumer;
 
@@ -21,6 +23,7 @@ public class TConstructCommand {
   /** Registers all TConstruct command related content */
   public static void init() {
     ArgumentTypes.register(TConstruct.resourceString("slot_type"), SlotTypeArgument.class, new ArgumentSerializer<>(SlotTypeArgument::slotType));
+    ArgumentTypes.register(TConstruct.resourceString("tool_stat"), ToolStatArgument.class, new ArgumentSerializer<>(ToolStatArgument::stat));
     ArgumentTypes.register(TConstruct.resourceString("modifier"), ModifierArgument.class, new ArgumentSerializer<>(ModifierArgument::modifier));
 
     // add command listener
@@ -40,6 +43,7 @@ public class TConstructCommand {
 
     // sub commands
     register(builder, "modifiers", ModifiersCommand::register);
+    register(builder, "tool_stats", StatsCommand::register);
     register(builder, "slots", SlotsCommand::register);
     register(builder, "modifier_usage", ModifierUsageCommand::register);
 

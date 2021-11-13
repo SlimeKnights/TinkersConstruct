@@ -1585,6 +1585,11 @@
   "modifier.tconstruct.creative_slot": "Creative Slot",
   "modifier.tconstruct.creative_slot.flavor": "Dirty Cheater!",
   "modifier.tconstruct.creative_slot.description": "Cheated in additional modifier slots",
+  "modifier.tconstruct.stat_override": "Stat Override",
+  "modifier.tconstruct.stat_override.flavor": "Hacker!",
+  "modifier.tconstruct.stat_override.description": "Tool stats modified using commands",
+  "modifier.tconstruct.stat_override.bonuses": "Bonuses:",
+  "modifier.tconstruct.stat_override.multipliers": "Multipliers:",
 
   "__comment": "Free Modifiers",
   "modifier.tconstruct.writable": "Writable",
@@ -1940,6 +1945,8 @@
   "_comment": "Commands",
 
   "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
+  "command.tconstruct.stat_type.not_found": "Unknown stat type %s",
+  "command.tconstruct.stat_type.wrong_type": "Invalid stat type %s, must inherit from %s",
   "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
 
   "command.tconstruct.modifiers.success.add.single": "Applied modifier %s to %s's item",
@@ -1953,6 +1960,24 @@
   "command.tconstruct.slots.success.set.single": "Set %s slots to %s on %s's item",
   "command.tconstruct.slots.success.set.multiple": "Set %s slots to %s on %s entities",
   "command.tconstruct.slots.failure.invalid_count": "Cannot add zero slots, must add a positive or a negative value",
+
+  "command.tconstruct.stats.success.bonus.modify.single": "%sIncreased by %s on %s's item",
+  "command.tconstruct.stats.success.bonus.modify.multiple": "%sIncreased by %s on %s entities",
+  "command.tconstruct.stats.success.bonus.set.single": "%sSet bonus to %s on %s's item",
+  "command.tconstruct.stats.success.bonus.set.multiple": "%sSet bonus to %s on %s entities",
+
+  "command.tconstruct.stats.success.multiply.modify.single": "%sMultiplied by %s on %s's item",
+  "command.tconstruct.stats.success.multiply.modify.multiple": "%sMultiplied by %s on %s entities",
+  "command.tconstruct.stats.success.multiply.set.single": "%sSet multiplier to %s on %s's item",
+  "command.tconstruct.stats.success.multiply.set.multiple": "%sSet multiplier to %s on %s entities",
+
+  "command.tconstruct.stats.success.reset.all.single": "Reset all tool stats bonuses and multipliers on %s's item",
+  "command.tconstruct.stats.success.reset.all.multiple": "Reset all tool stats bonuses and multipliers on %s entities",
+  "command.tconstruct.stats.success.reset.stat.single": "%sReset bonuses and multipliers on %s's item",
+  "command.tconstruct.stats.success.reset.stat.multiple": "%sReset bonuses and multipliers on %s entities",
+
+  "command.tconstruct.stats.failure.invalid_add": "Cannot add zero to a stat, must add a positive or negative number",
+  "command.tconstruct.stats.failure.invalid_multiply": "Cannot multiply a stat by 1, must multiply by a different positive number",
 
   "command.tconstruct.held_modifiable.failed": "Nothing changed. Targets have no modifiable item in their hands or no targets were found",
   "command.tconstruct.held_modifiable.failed.nonliving": "%s is not a valid entity for this command",

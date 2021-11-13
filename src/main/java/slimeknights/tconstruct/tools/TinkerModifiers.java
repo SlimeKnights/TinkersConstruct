@@ -74,6 +74,7 @@ import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifi
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
+import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.VolatileFlagModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.CultivatedModifier;
@@ -265,6 +266,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ExtraModifier> extraAbility = MODIFIERS.register("extra_ability", () -> new ExtraModifier(0xB8A0FF, SlotType.ABILITY, ModifierSource.SINGLE_LEVEL));
   // creative
   public static final RegistryObject<CreativeSlotModifier> creativeSlot = MODIFIERS.register("creative_slot", CreativeSlotModifier::new);
+  public static final RegistryObject<StatOverrideModifier> statOverride = MODIFIERS.register("stat_override", StatOverrideModifier::new);
 
   // traits - tier 1
   public static final RegistryObject<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);

@@ -4,6 +4,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,11 @@ public class ToolStats {
     }
     ALL_STATS.put(toolStat.getName(), toolStat);
     return toolStat;
+  }
+
+  /** Gets a collection of all stat keys */
+  public static Collection<IToolStat<?>> getAllStats() {
+    return ALL_STATS.values();
   }
 
   /** Creates a resource location for a Tinkers stat */

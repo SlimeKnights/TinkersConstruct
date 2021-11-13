@@ -29,9 +29,11 @@ public class Util {
 
   public static final DecimalFormat COMMA_FORMAT = new DecimalFormat("#,###,###.##", DecimalFormatSymbols.getInstance(Locale.US));
   public static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#%");
+  public static final DecimalFormat BONUS_FORMAT = new DecimalFormat("#.##");
   public static final DecimalFormat MULTIPLIER_FORMAT = new DecimalFormat("#.##x");
   public static final DecimalFormat PERCENT_BOOST_FORMAT = new DecimalFormat("#%");
   static {
+    BONUS_FORMAT.setPositivePrefix("+");
     PERCENT_BOOST_FORMAT.setPositivePrefix("+");
   }
 

@@ -45,6 +45,11 @@ public class TierToolStat implements IToolStat<TierBuilder> {
   }
 
   @Override
+  public void applyBonus(ModifierStatsBuilder builder, double value) {
+    set(builder, (int)value);
+  }
+
+  @Override
   public float build(TierBuilder builder, float value) {
     return Math.max(value, builder.tier);
   }

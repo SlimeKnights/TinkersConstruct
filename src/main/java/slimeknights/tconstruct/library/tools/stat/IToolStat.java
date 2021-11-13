@@ -23,6 +23,12 @@ public interface IToolStat<B> {
   /** Clamps the value into a valid range */
   float clamp(float value);
 
+  /**
+   * Applies the given float value as a bonus, used primarily for the stat override modifier
+   * Typically better to directly call one of the named methods such as {@link FloatToolStat#add(ModifierStatsBuilder, double)} or {@link TierToolStat#set(ModifierStatsBuilder, int)}
+   */
+  default void applyBonus(ModifierStatsBuilder builder, double value) {}
+
 
   /* Modifier stat builder */
 
