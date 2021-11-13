@@ -16,13 +16,15 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument.OptionalSlotType;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 /** Argument of a modifier slot type */
 @RequiredArgsConstructor(staticName = "slotType")
 public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
-  /* Tag collection name is invalid */
+  private static final Collection<String> EXAMPLES = Arrays.asList("upgrades", "abilities");
   private static final DynamicCommandExceptionType SLOT_TYPE_NOT_FOUND = new DynamicCommandExceptionType(name -> new TranslationTextComponent("command.tconstruct.slot_type.not_found", name));
 
   /** If true, slotless is allowed, producing null for a filter */
@@ -67,6 +69,11 @@ public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
       stream = Stream.concat(stream, Stream.of("slotless"));
     }
     return ISuggestionProvider.suggest(stream, builder);
+  }
+
+  @Override
+  public Collection<String> getExamples() {
+    return EXAMPLES;
   }
 
   @Data

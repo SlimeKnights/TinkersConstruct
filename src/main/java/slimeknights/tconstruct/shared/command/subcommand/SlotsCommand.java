@@ -39,17 +39,23 @@ public class SlotsCommand {
    */
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
     subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_GAME_COMMANDS))
-              .then(Commands.literal("add")
-                            .then(Commands.argument("targets", EntityArgument.entities())
+              .then(Commands.argument("targets", EntityArgument.entities())
+                            // slots <target> add <slot_type> [<count>]
+                            .then(Commands.literal("add")
                                           .then(Commands.argument("slot_type", SlotTypeArgument.slotType(false))
                                                         .executes(context -> run(context, Operation.ADD, 1))
                                                         .then(Commands.argument("count", IntegerArgumentType.integer())
-                                                                      .executes(context -> run(context, Operation.ADD, IntegerArgumentType.getInteger(context, "count")))))))
-              .then(Commands.literal("set")
-                            .then(Commands.argument("targets", EntityArgument.entities())
+                                                                      .executes(context -> run(context, Operation.ADD)))))
+                            // slots <target> set <slot_type> <count>
+                            .then(Commands.literal("set"))
                                           .then(Commands.argument("slot_type", SlotTypeArgument.slotType(false))
                                                         .then(Commands.argument("count", IntegerArgumentType.integer(0))
-                                                                      .executes(context -> run(context, Operation.SET, IntegerArgumentType.getInteger(context, "count")))))));
+                                                                      .executes(context -> run(context, Operation.SET)))));
+  }
+
+  /** Runs the command with a count argument */
+  private static int run(CommandContext<CommandSource> context, Operation op) throws CommandSyntaxException {
+    return run(context, op, IntegerArgumentType.getInteger(context, "count"));
   }
 
   /** Runs the command */

@@ -42,16 +42,17 @@ public class ModifiersCommand {
    */
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
     subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_GAME_COMMANDS))
-              .then(Commands.literal("add")
-                            .then(Commands.argument("targets", EntityArgument.entities())
+              .then(Commands.argument("targets", EntityArgument.entities())
+                            // modifiers <target> add <modifier> [<level>]
+                            .then(Commands.literal("add")
                                           .then(Commands.argument("modifier", ModifierArgument.modifier())
                                                         .executes(context -> add(context, 1))
                                                         .then(Commands.argument("level", IntegerArgumentType.integer(1))
-                                                                      .executes(context -> add(context, IntegerArgumentType.getInteger(context, "level")))))))
-              .then(Commands.literal("remove")
-                            .then(Commands.argument("targets", EntityArgument.entities())
+                                                                      .executes(context -> add(context, IntegerArgumentType.getInteger(context, "level"))))))
+                            // modifiers <target> remove <modifier> [<level>]
+                            .then(Commands.literal("remove")
                                           .then(Commands.argument("modifier", ModifierArgument.modifier())
-                                                        .executes(context -> remove(context, 1))
+                                                        .executes(context -> remove(context, -1))
                                                         .then(Commands.argument("level", IntegerArgumentType.integer(1))
                                                                       .executes(context -> remove(context, IntegerArgumentType.getInteger(context, "level")))))));
   }
@@ -109,16 +110,17 @@ public class ModifiersCommand {
       if (currentLevel == 0) {
         throw CANNOT_REMOVE.create(modifier.getDisplayName(level), living.getName());
       }
+      int removeLevel = level == -1 ? currentLevel : level;
       tool = tool.copy();
 
       // first remove hook, primarily for removing raw NBT which is highly discouraged using
-      int newLevel = currentLevel - 1;
+      int newLevel = currentLevel - removeLevel;
       if (newLevel <= 0) {
         modifier.beforeRemoved(tool, tool.getRestrictedNBT());
       }
 
       // remove the actual modifier
-      tool.removeModifier(modifier, level);
+      tool.removeModifier(modifier, removeLevel);
 
       // ensure the tool is still valid
       ValidatedResult validated = tool.validate();

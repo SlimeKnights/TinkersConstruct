@@ -48,12 +48,17 @@ public class ModifierUsageCommand {
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
     subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_EDIT_SPAWN))
               .executes(context -> runForType(context, ModifierUsages.ALL, null))
+              // modifier_usage all
               .then(Commands.literal("all").executes(context -> runForType(context, ModifierUsages.ALL, null)))
+              // modifier_usage recipe [<slot_type>]
               .then(Commands.literal("recipe")
                             .then(Commands.argument("slot_type", SlotTypeArgument.slotType()).executes(ModifierUsageCommand::runRecipeWithFilter))
                             .executes(context -> runForType(context, ModifierUsages.RECIPE, null)))
+              // modifier_usage material_trait
               .then(Commands.literal("material_trait").executes(context -> runForType(context, ModifierUsages.MATERIAL_TRAIT, null)))
+              // modifier_usage tool_trait
               .then(Commands.literal("tool_trait").executes(context -> runForType(context, ModifierUsages.TOOL_TRAIT, null)))
+              // modifier_usage unused
               .then(Commands.literal("unused").executes(context -> runForType(context, ModifierUsages.UNUSED, null)));
   }
 
