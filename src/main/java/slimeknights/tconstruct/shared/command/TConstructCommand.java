@@ -8,6 +8,7 @@ import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.shared.command.argument.MaterialArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
@@ -26,6 +27,7 @@ public class TConstructCommand {
     ArgumentTypes.register(TConstruct.resourceString("slot_type"), SlotTypeArgument.class, new ArgumentSerializer<>(SlotTypeArgument::slotType));
     ArgumentTypes.register(TConstruct.resourceString("tool_stat"), ToolStatArgument.class, new ArgumentSerializer<>(ToolStatArgument::stat));
     ArgumentTypes.register(TConstruct.resourceString("modifier"), ModifierArgument.class, new ArgumentSerializer<>(ModifierArgument::modifier));
+    ArgumentTypes.register(TConstruct.resourceString("material"), MaterialArgument.class, new ArgumentSerializer<>(MaterialArgument::material));
 
     // add command listener
     MinecraftForge.EVENT_BUS.addListener(TConstructCommand::registerCommand);
