@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.tools.data.sprite;
 
+import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
+import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 
@@ -162,10 +165,17 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF001944).addARGB(102, 0xFF00296D).addARGB(140, 0xFF0043A5).addARGB(178, 0xFF186ACE).addARGB(216, 0xFF338FEA).addARGB(255, 0xFF59A6EF).build());
 
     // tier 4
+    ResourceLocation baseTexture = TConstruct.getResource("item/materials/generator/queens_slime");
+    ResourceLocation highlightTexture = TConstruct.getResource("item/materials/generator/queens_slime_highlight");
+    ResourceLocation borderTexture = TConstruct.getResource("item/materials/generator/queens_slime_border");
     buildMaterial(MaterialIds.queensSlime)
       .meleeHarvest()
       .fallbacks("slime_metal", "metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF510000).addARGB(102, 0xFF701D0B).addARGB(140, 0xFF635700).addARGB(178, 0xFF6C7C00).addARGB(216, 0xFFA0A000).addARGB(255, 0xFFFFCC00).build());
+      .transformer(GreyToSpriteTransformer.builderFromBlack()
+                                          .addTexture( 63, borderTexture,    0xFFC8C8C8).addTexture(102, borderTexture)
+                                          .addTexture(140, baseTexture,      0xFFE1E1E1).addTexture(178, baseTexture)
+                                          .addTexture(216, highlightTexture, 0xFFE1E1E1).addTexture(255, highlightTexture)
+                                          .build());
     buildMaterial(MaterialIds.hepatizon)
       .meleeHarvest()
       .fallbacks("metal")

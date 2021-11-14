@@ -12,40 +12,40 @@
       "metal"
     ],
     "transformer": {
-      "type": "tconstruct:recolor_sprite",
-      "color_mapping": {
-        "type": "tconstruct:grey_to_color",
-        "palette": [
-          {
-            "grey": 0,
-            "color": "FF000000"
-          },
-          {
-            "grey": 63,
-            "color": "FF510000"
-          },
-          {
-            "grey": 102,
-            "color": "FF701D0B"
-          },
-          {
-            "grey": 140,
-            "color": "FF635700"
-          },
-          {
-            "grey": 178,
-            "color": "FF6C7C00"
-          },
-          {
-            "grey": 216,
-            "color": "FFA0A000"
-          },
-          {
-            "grey": 255,
-            "color": "FFFFCC00"
-          }
-        ]
-      }
+      "type": "tconstruct:grey_to_sprite",
+      "palette": [
+        {
+          "grey": 0,
+          "color": "FF000000"
+        },
+        {
+          "grey": 63,
+          "path": "tconstruct:item/materials/generator/queens_slime_border",
+          "tint": "FFC8C8C8"
+        },
+        {
+          "grey": 102,
+          "path": "tconstruct:item/materials/generator/queens_slime_border"
+        },
+        {
+          "grey": 140,
+          "path": "tconstruct:item/materials/generator/queens_slime",
+          "tint": "FFE1E1E1"
+        },
+        {
+          "grey": 178,
+          "path": "tconstruct:item/materials/generator/queens_slime"
+        },
+        {
+          "grey": 216,
+          "path": "tconstruct:item/materials/generator/queens_slime_highlight",
+          "tint": "FFE1E1E1"
+        },
+        {
+          "grey": 255,
+          "path": "tconstruct:item/materials/generator/queens_slime_highlight"
+        }
+      ]
     },
     "supportedStats": [
       "tconstruct:head",
