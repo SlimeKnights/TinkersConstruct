@@ -14,6 +14,9 @@
     "base": {
       "tconstruct:attack_damage": 1.5,
       "tconstruct:attack_speed": 1.0
+    },
+    "multipliers": {
+      "tconstruct:secondary_mining": 0.65
     }
   },
   "slots": {

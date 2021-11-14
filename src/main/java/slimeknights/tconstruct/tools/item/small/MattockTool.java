@@ -28,7 +28,6 @@ public class MattockTool extends ToolItem {
       if(!stack.hasTag()) {
         return 1f;
       }
-      // TODO: general modifiable
       ToolStack tool = ToolStack.from(stack);
       if (tool.isBroken()) {
         return 0.3f;
@@ -39,7 +38,7 @@ public class MattockTool extends ToolItem {
       // slower when a non-shovel block
       float speed = tool.getStats().getFloat(ToolStats.MINING_SPEED);
       if (!blockState.isToolEffective(ToolType.SHOVEL)) {
-        speed *= 0.75f;
+        speed = Math.max(1f, (speed + tool.getStats().getFloat(ToolStats.SECONDARY_MINING)) * tool.getModifier(ToolStats.SECONDARY_MINING));
       }
       return speed;
     }

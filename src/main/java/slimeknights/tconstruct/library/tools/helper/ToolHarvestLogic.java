@@ -101,17 +101,13 @@ public class ToolHarvestLogic {
     if(!stack.hasTag()) {
       return 1f;
     }
-
-    // TODO: general modifiable
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return 0.3f;
     }
-
     if (!isEffective(tool, stack, blockState)) {
       return 1f;
     }
-
     // calculate speed depending on stats
     return tool.getStats().getFloat(ToolStats.MINING_SPEED);
   }

@@ -85,6 +85,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_DAMAGE, 1.5f)
       .stat(ToolStats.ATTACK_SPEED, 1f)
       .smallToolStartingSlots()
+      .multiplier(ToolStats.SECONDARY_MINING, 0.65f)
       // traits
       .trait(TinkerModifiers.knockback, 1)
       .trait(TinkerModifiers.shovelTransformHidden);
