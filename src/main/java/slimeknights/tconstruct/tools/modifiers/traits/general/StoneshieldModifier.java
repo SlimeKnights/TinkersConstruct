@@ -31,8 +31,8 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     Iterator<ItemStack> iterator = generatedLoot.iterator();
     int addedShield = 0;
-    // 25% chance per level of consuming each stone
-    float chance = level * 0.25f;
+    // 20% chance per level of consuming each stone
+    float chance = level * 0.20f;
     while (iterator.hasNext()) {
       ItemStack stack = iterator.next();
       // if the item is a stone, num time
@@ -62,8 +62,8 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
 
     // if we found any stone, add shield
     if (addedShield > 0) {
-      // 5 stoneshield per stone eaten
-      addShield(tool, level, addedShield * 5);
+      // 3 stoneshield per stone eaten
+      addShield(tool, level, addedShield * 3);
     }
 
     return generatedLoot;
