@@ -68,10 +68,13 @@ public class ClientGeneratePartTexturesCommand {
   /** Generates all textures using the resource pack list */
   public static void generateTextures(Operation operation, String modId, String materialPath) {
     long time = System.nanoTime();
+    IResourceManager manager = Minecraft.getInstance().getResourceManager();
+    // the forge mod bus is annoying, but stuck using it due to the normal bus not existing at datagen time
+    MaterialPartTextureGenerator.runCallbacks(null, manager);
+
     PlayerEntity player = Minecraft.getInstance().player;
 
     // get the list of sprites
-    IResourceManager manager = Minecraft.getInstance().getResourceManager();
     List<PartSpriteInfo> partSprites = loadPartSprites(manager);
     if (partSprites.isEmpty()) {
       if (player != null) {
@@ -131,6 +134,7 @@ public class ClientGeneratePartTexturesCommand {
     // success message
     long deltaTime = System.nanoTime() - time;
     int count = generated.getValue();
+    MaterialPartTextureGenerator.runCallbacks(null, null);
     log.info("Finished generating {} textures in {} ms", count, deltaTime / 1000000f);
     if (Minecraft.getInstance().player != null) {
       Minecraft.getInstance().player.sendStatusMessage(new TranslationTextComponent(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, getOutputComponent(path.toFile())), false);

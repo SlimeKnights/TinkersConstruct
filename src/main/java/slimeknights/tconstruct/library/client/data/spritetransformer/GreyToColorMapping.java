@@ -17,8 +17,10 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 import static net.minecraft.client.renderer.texture.NativeImage.getAlpha;
 import static net.minecraft.client.renderer.texture.NativeImage.getBlue;
@@ -35,102 +37,43 @@ public class GreyToColorMapping implements IColorMapping {
   private final List<ColorMapping> mappings;
   private final Integer[] recolorCache = new Integer[256];
 
-  /**
-   * Interpolates two numbers
-   * @param a        First number
-   * @param b        Second number
-   * @param x        Amount of A, such that x / divisor is the percentage from A to B
-   * @param divisor  Divisor to use with X
-   * @return  Interpolated value
-   */
-  private static int interpolate(int a, int b, int x, int divisor) {
-    return a + (((b - a) * x) / divisor);
-  }
-
-  /** Gets the color value without using the cache */
-  private int getColorUncached(int grey) {
-    // we need to find up to two colors, a less and a greater than
-    // ideally we find a direct match, but if not we interpolate
-    int size = mappings.size();
-    ColorMapping first = mappings.get(0);
-    // grey is before the first point, return the first value
-    if (size == 1 || grey <= first.getGrey()) {
-      return first.getColor();
-    }
-
-    // grey is after the first point, so try to find two points its between
-    ColorMapping second = mappings.get(1);
-    for (int i = 1; i < size; i++) {
-      // locate an upper bound, once we find one we have a pair to use
-      int newGrey = second.getGrey();
-      if (grey < newGrey) {
-        break;
-      }
-      // if the upper bound is an exact match, nothing else to do
-      if (grey == newGrey) {
-        return second.getColor();
-      }
-      first = second;
-      second = mappings.get(i);
-    }
-
-    // if its bigger than the last, return the last value
-    if (grey > second.getGrey()) {
+  /** Function to interpolate color values of two colors */
+  private static final Interpolate<ColorMapping,Integer> INTERPOLATE_COLORS = (first, second, grey) -> {
+    if (first == null) {
+      assert second != null;
       return second.getColor();
     }
+    if (second == null) {
+      return first.getColor();
+    }
+    return interpolateColors(first.getColor(), first.getGrey(), second.getColor(), second.getGrey(), grey);
+  };
 
-    // at this point, grey is strictly between first and second, interpolate between the two
-    int diff = grey - first.getGrey();
-    int divisor = second.getGrey() - first.getGrey();
-    int colorA = first.getColor();
-    int colorB = second.getColor();
-    // interpolate each pair of colors
-    int alpha = interpolate(getAlpha(colorA), getAlpha(colorB), diff, divisor);
-    int red   = interpolate(getRed(colorA),   getRed(colorB),   diff, divisor);
-    int green = interpolate(getGreen(colorA), getGreen(colorB), diff, divisor);
-    int blue  = interpolate(getBlue(colorA),  getBlue(colorB),  diff, divisor);
-    return getCombined(alpha, blue, green, red);
-  }
+  /** Gets the grey value of a color */
+  private static final ToIntFunction<ColorMapping> GET_GREY = ColorMapping::getGrey;
 
   /**
    * Gets the color for the given greyscale from the palette, using the cache
    * @param grey  Grey value
    * @return  Color
    */
-  private int getColor(int grey) {
-    // if we already processed this color, use our old result
-    Integer cached = recolorCache[grey];
-    if (cached != null) {
-      return cached;
+  public int getColorForGrey(int grey) {
+    if (recolorCache[grey] == null) {
+      int calculated = getNearestByGrey(mappings, GET_GREY, grey, INTERPOLATE_COLORS);
+      recolorCache[grey] = calculated;
     }
-    int calculated = getColorUncached(grey);
-    recolorCache[grey] = calculated;
-    return calculated;
+    return recolorCache[grey];
   }
 
   @Override
   public int mapColor(int color) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
-    int alpha = getAlpha(color);
-    if (alpha == 0) {
+    if (getAlpha(color) == 0) {
       return 0x00000000;
     }
-    // figure out our new greyscale from the given color, we just base it on the largest
-    int red = getRed(color);
-    int green = getGreen(color);
-    int blue = getBlue(color);
-    int grey = Math.max(red, Math.max(green, blue));
-    int newColor = getColor(grey);
-    // if the original color was partially transparent, set the alpha
-    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * getAlpha(newColor) / 255) << 24);
-    // if any of RGB are lower than the max, scale it down
-    if (red   < grey) newColor = (newColor & 0xFFFFFF00) | (((newColor & 0x000000FF) * red   / grey) & 0x000000FF);
-    if (green < grey) newColor = (newColor & 0xFFFF00FF) | (((newColor & 0x0000FF00) * green / grey) & 0x0000FF00);
-    if (blue  < grey) newColor = (newColor & 0xFF00FFFF) | (((newColor & 0x00FF0000) * blue  / grey) & 0x00FF0000);
-
-    // final color
-    return newColor;
+    int grey = getGrey(color);
+    return scaleColor(color, getColorForGrey(grey), grey);
   }
 
   @Override
@@ -185,6 +128,19 @@ public class GreyToColorMapping implements IColorMapping {
     private final int color;
   }
 
+  /** Helper to interpolate two color mappings */
+  @FunctionalInterface
+  public interface Interpolate<T, R> {
+    /**
+     * Gets the interpolation of these two values, note only one of first and second will be null, never both
+     * @param first   First object
+     * @param second  Second object
+     * @param grey    Interpolation value
+     * @return  Result
+     */
+    R interpolate(@Nullable T first, @Nullable T second, int grey);
+  }
+
   /** Builder to create a palette of this type */
   public static class Builder {
     private final ImmutableList.Builder<ColorMapping> builder = ImmutableList.builder();
@@ -223,5 +179,100 @@ public class GreyToColorMapping implements IColorMapping {
       }
       return new GreyToColorMapping(list);
     }
+  }
+
+
+  /* Utilities */
+
+  /**
+   * Interpolates two numbers
+   * @param a        First number
+   * @param b        Second number
+   * @param x        Amount of A, such that x / divisor is the percentage from A to B
+   * @param divisor  Divisor to use with X
+   * @return  Interpolated value
+   */
+  public static int interpolate(int a, int b, int x, int divisor) {
+    return a + (((b - a) * x) / divisor);
+  }
+
+  /**
+   * Interpolates two colors
+   * @param colorBefore  First color
+   * @param greyBefore   Grey value of first color
+   * @param colorAfter   Second color
+   * @param greyAfter    Grey value of second color
+   * @param grey         Grey value for interpolation between the two, should be between greyBefore and greyAfter
+   * @return  Interpolated color
+   */
+  public static int interpolateColors(int colorBefore, int greyBefore, int colorAfter, int greyAfter, int grey) {
+    // at this point, grey is strictly between first and second, interpolate between the two
+    int diff = grey - greyBefore;
+    int divisor = greyAfter - greyBefore;
+    // interpolate each pair of colors
+    int alpha = interpolate(getAlpha(colorBefore), getAlpha(colorAfter), diff, divisor);
+    int red   = interpolate(getRed(colorBefore),   getRed(colorAfter),   diff, divisor);
+    int green = interpolate(getGreen(colorBefore), getGreen(colorAfter), diff, divisor);
+    int blue  = interpolate(getBlue(colorBefore),  getBlue(colorAfter),  diff, divisor);
+    return getCombined(alpha, blue, green, red);
+  }
+
+  /** Gets the largest grey value for the given color */
+  public static int getGrey(int color) {
+    return Math.max(getRed(color), Math.max(getGreen(color), getBlue(color)));
+  }
+
+  /** Scales the new color based on the original color values and the grey value */
+  public static int scaleColor(int original, int newColor, int grey) {
+    // if the original color was partially transparent, set the alpha
+    int alpha = getAlpha(original);
+    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * getAlpha(newColor) / 255) << 24);
+
+    // grey is based on largest, so scale down as needed
+    // if any of RGB are lower than the max, scale it down
+    int red = getRed(original);
+    if (red   < grey) newColor = (newColor & 0xFFFFFF00) | (((newColor & 0x000000FF) * red   / grey) & 0x000000FF);
+    int green = getGreen(original);
+    if (green < grey) newColor = (newColor & 0xFFFF00FF) | (((newColor & 0x0000FF00) * green / grey) & 0x0000FF00);
+    int blue = getBlue(original);
+    if (blue  < grey) newColor = (newColor & 0xFF00FFFF) | (((newColor & 0x00FF0000) * blue  / grey) & 0x00FF0000);
+
+    // final color
+    return newColor;
+  }
+
+  /** Gets the color value without using the cache */
+  public static <T, R> R getNearestByGrey(List<T> list, ToIntFunction<T> greyMap, int grey, Interpolate<T,R> interpolate) {
+    // we need to find up to two colors, a less and a greater than
+    // ideally we find a direct match, but if not we interpolate
+    int size = list.size();
+    T first = list.get(0);
+    // grey is before the first point, return the first value
+    if (size == 1 || grey <= greyMap.applyAsInt(first)) {
+      return interpolate.interpolate(null, first, grey);
+    }
+
+    // grey is after the first point, so try to find two points its between
+    T second = list.get(1);
+    for (int i = 1; i < size; i++) {
+      // locate an upper bound, once we find one we have a pair to use
+      int newGrey = greyMap.applyAsInt(second);
+      if (grey < newGrey) {
+        break;
+      }
+      // if the upper bound is an exact match, nothing else to do
+      if (grey == newGrey) {
+        return interpolate.interpolate(first, second, grey);
+      }
+      first = second;
+      second = list.get(i);
+    }
+
+    // if its bigger than the last, return the last value
+    if (grey > greyMap.applyAsInt(second)) {
+      return interpolate.interpolate(second, null, grey);
+    }
+    // actually got a pair inbetween, return that
+    return interpolate.interpolate(first, second, grey);
   }
 }

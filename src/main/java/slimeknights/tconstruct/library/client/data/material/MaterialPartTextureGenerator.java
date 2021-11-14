@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.client.data.material;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.GenericTextureGenerator;
@@ -11,7 +12,9 @@ import slimeknights.tconstruct.library.client.data.material.AbstractPartSpritePr
 import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.client.data.util.DataGenSpriteReader;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -31,6 +34,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   /** Path to textures outputted by this generator */
   public static final String FOLDER = "textures/item/tool";
   private final DataGenSpriteReader spriteReader;
+  private final ExistingFileHelper existingFileHelper;
   /** Sprite provider */
   private final AbstractPartSpriteProvider partProvider;
   /** Materials to provide */
@@ -39,6 +43,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   public MaterialPartTextureGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, AbstractMaterialSpriteProvider... materialProviders) {
     super(generator, FOLDER);
     this.spriteReader = new DataGenSpriteReader(existingFileHelper, FOLDER);
+    this.existingFileHelper = existingFileHelper;
     this.partProvider = spriteProvider;
     this.materialProviders = materialProviders;
   }
@@ -56,8 +61,11 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
     return name.toString();
   }
 
+
   @Override
   public void act(DirectoryCache cache) throws IOException {
+    runCallbacks(existingFileHelper, null);
+    
     // ensure we have parts
     List<PartSpriteInfo> parts = partProvider.getSprites();
     if (parts.isEmpty()) {
@@ -83,6 +91,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
     }
     spriteReader.closeAll();
     partProvider.cleanCache();
+    runCallbacks(null, null);
   }
 
   /**
@@ -122,5 +131,32 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       spriteReader.track(transformed);
       saver.accept(spritePath, transformed);
     }
+  }
+
+
+  /* Static callbacks, handled this way as the event bus is a pain to use during datagen */
+
+  /** List of callbacks */
+  private static final List<IPartTextureCallback> TEXTURE_CALLBACKS = new ArrayList<>();
+
+  /** Registers a callback to run whenever sprites are generated. */
+  public static void registerCallback(IPartTextureCallback callback) {
+    TEXTURE_CALLBACKS.add(callback);
+  }
+
+  /** Runs all callbacks */
+  public static void runCallbacks(@Nullable ExistingFileHelper existingFileHelper, @Nullable IResourceManager manager) {
+    for (IPartTextureCallback callback : TEXTURE_CALLBACKS) {
+      callback.accept(existingFileHelper, manager);
+    }
+  }
+
+  public interface IPartTextureCallback {
+    /**
+     * Tells the given callback that texture generating is either starting or ending. Both parameters being null means texture generating is ending
+     * @param existingFileHelper  If nonnull, datagenerators are starting
+     * @param manager             If nonnull, command is starting
+     */
+    void accept(@Nullable ExistingFileHelper existingFileHelper, @Nullable IResourceManager manager);
   }
 }
