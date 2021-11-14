@@ -212,17 +212,21 @@ public class AdvancementsProvider extends GenericDataProvider {
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<Supplier<? extends Modifier>> with = modifier -> builder.withCriterion(modifier.get().getId().getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier.get())).build()));
       with.accept(TinkerModifiers.luck);
+      with.accept(TinkerModifiers.reach);
+      with.accept(TinkerModifiers.unbreakable);
+      with.accept(TinkerModifiers.dualWielding);
       with.accept(TinkerModifiers.silky);
       with.accept(TinkerModifiers.autosmelt);
       with.accept(TinkerModifiers.expanded);
-      with.accept(TinkerModifiers.reach);
-      with.accept(TinkerModifiers.unbreakable);
       with.accept(TinkerModifiers.exchanging);
       with.accept(TinkerModifiers.melting);
+      with.accept(TinkerModifiers.bucketing);
+      with.accept(TinkerModifiers.spilling);
       with.accept(TinkerModifiers.glowing);
       with.accept(TinkerModifiers.pathing);
       with.accept(TinkerModifiers.stripping);
       with.accept(TinkerModifiers.tilling);
+      with.accept(TinkerModifiers.firestarter);
     });
 
     // foundry path

@@ -30,6 +30,48 @@
         ]
       }
     },
+    "reach": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:reach",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "unbreakable": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:unbreakable",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "dual_wielding": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:dual_wielding",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
     "silky": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -72,34 +114,6 @@
         ]
       }
     },
-    "reach": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:reach",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "unbreakable": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:unbreakable",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
     "exchanging": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -122,6 +136,34 @@
             "type": "tconstruct:tool",
             "modifiers": {
               "name": "tconstruct:melting",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "bucketing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:bucketing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "spilling": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:spilling",
               "level": 1
             }
           }
@@ -183,11 +225,34 @@
           }
         ]
       }
+    },
+    "firestarter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:firestarter",
+              "level": 1
+            }
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
       "luck"
+    ],
+    [
+      "reach"
+    ],
+    [
+      "unbreakable"
+    ],
+    [
+      "dual_wielding"
     ],
     [
       "silky"
@@ -199,16 +264,16 @@
       "expanded"
     ],
     [
-      "reach"
-    ],
-    [
-      "unbreakable"
-    ],
-    [
       "exchanging"
     ],
     [
       "melting"
+    ],
+    [
+      "bucketing"
+    ],
+    [
+      "spilling"
     ],
     [
       "glowing"
@@ -221,6 +286,9 @@
     ],
     [
       "tilling"
+    ],
+    [
+      "firestarter"
     ]
   ]
 }
