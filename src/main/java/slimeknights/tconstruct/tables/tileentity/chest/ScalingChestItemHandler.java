@@ -11,7 +11,7 @@ public abstract class ScalingChestItemHandler extends ItemStackHandler implement
   protected static final int DEFAULT_MAX = 256;
   /** Current size for display in containers */
   @Getter
-  private int visualSize = 0;
+  private int visualSize = 1;
   public ScalingChestItemHandler(int size) {
     super(size);
   }
