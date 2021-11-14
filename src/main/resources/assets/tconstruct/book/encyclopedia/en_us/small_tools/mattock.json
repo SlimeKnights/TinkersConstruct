@@ -6,7 +6,11 @@
   ],
   "properties": [
     "+1.5 Attack Damage",
-    "1.0 Attack Speed",
+    "110% Attack Modifier",
+    "0.9 Attack Speed",
+    "110% Mining Modifier",
+    "125% Durability Modifier",
+    "65% Effective on Wood",
     "Knockback I",
     "Makes paths"
   ]

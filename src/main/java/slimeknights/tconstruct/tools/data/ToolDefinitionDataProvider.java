@@ -83,8 +83,11 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(pickaxeHead)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 1.5f)
-      .stat(ToolStats.ATTACK_SPEED, 1f)
+      .stat(ToolStats.ATTACK_SPEED, 0.9f)
       .smallToolStartingSlots()
+      .multiplier(ToolStats.DURABILITY, 1.25f)
+      .multiplier(ToolStats.MINING_SPEED, 1.1f)
+      .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       .multiplier(ToolStats.SECONDARY_MINING, 0.65f)
       // traits
       .trait(TinkerModifiers.knockback, 1)
