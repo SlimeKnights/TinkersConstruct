@@ -7,6 +7,7 @@
   ],
   "effects": [
     "Adds another ability slot",
-    "Single Level"
+    "Single Level",
+    "Does not require an ability slot"
   ]
 }

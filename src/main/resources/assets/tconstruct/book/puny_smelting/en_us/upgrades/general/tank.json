@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-     "Increases the tank size of the tool",
-	"Tool becomes a portable fluid container that can be poured into",
+    "Increases the tank size of the tool",
+    "Tool becomes a portable fluid container",
     "Multiple levels, each level increases tank size further",
     "Requires 1 Upgrade Slot per level"
   ]
