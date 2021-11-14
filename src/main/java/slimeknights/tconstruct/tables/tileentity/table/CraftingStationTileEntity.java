@@ -15,6 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
@@ -167,27 +168,21 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       ItemStack original = this.getStackInSlot(i);
       ItemStack newStack = remaining.get(i);
 
-      // if the slot contains a stack, decrease by 1
-      if (!original.isEmpty()) {
-        original.shrink(1);
+      // if empty or size 1, set directly (decreases by 1)
+      if (original.isEmpty() || original.getCount() == 1) {
+        this.setInventorySlotContents(i, newStack);
       }
-
-      // if we have a new item, try merging it in
-      if (!newStack.isEmpty()) {
-        // if empty, set directly
-        if (original.isEmpty()) {
-          this.setInventorySlotContents(i, newStack);
-        }
-        else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
-          // if matching, merge
-          newStack.grow(original.getCount());
-          this.setInventorySlotContents(i, newStack);
-        }
-        else {
-          // otherwise, drop the item as the player
-          if (!player.inventory.addItemStackToInventory(newStack)) {
-            player.dropItem(newStack, false);
-          }
+      else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
+        // if matching, merge (decreasing by 1
+        newStack.grow(original.getCount() - 1);
+        this.setInventorySlotContents(i, newStack);
+      }
+      else {
+        // directly update the slot
+        this.setInventorySlotContents(i, ItemHandlerHelper.copyStackWithSize(original, original.getCount() - 1));
+        // otherwise, drop the item as the player
+        if (!newStack.isEmpty() && !player.inventory.addItemStackToInventory(newStack)) {
+          player.dropItem(newStack, false);
         }
       }
     }
