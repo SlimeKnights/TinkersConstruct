@@ -69,10 +69,10 @@ public abstract class AbstractMaterialSpriteProvider {
   public static class MaterialSpriteInfo extends MaterialGeneratorJson {
     /** Material texture name for the material */
     @Getter
-    private final ResourceLocation texture;
+    private transient final ResourceLocation texture;
     /** List of fallbacks, first present one will be the base for building. If none exist, uses the default base */
     @Getter
-    private final String[] fallbacks;
+    private transient final String[] fallbacks;
 
     public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, MaterialGeneratorJson generatorJson) {
       super(generatorJson);

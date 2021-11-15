@@ -6,11 +6,6 @@
   "color": "E8E5D2",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:bone",
-    "fallbacks": [
-      "bone",
-      "rock"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

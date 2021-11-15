@@ -2,8 +2,6 @@
   "color": "FFFFFF",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:string",
-    "fallbacks": [],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

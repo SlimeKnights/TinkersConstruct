@@ -5,8 +5,6 @@
   "color": "3B2754",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:nahuatl",
-    "fallbacks": [],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

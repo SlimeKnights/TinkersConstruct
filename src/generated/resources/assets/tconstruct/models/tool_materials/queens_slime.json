@@ -6,11 +6,6 @@
   "color": "809912",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:queens_slime",
-    "fallbacks": [
-      "slime_metal",
-      "metal"
-    ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",
       "palette": [

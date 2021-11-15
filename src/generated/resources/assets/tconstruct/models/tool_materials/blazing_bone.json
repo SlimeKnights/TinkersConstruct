@@ -6,11 +6,6 @@
   "color": "F2D500",
   "luminosity": 15,
   "generator": {
-    "texture": "tconstruct:blazing_bone",
-    "fallbacks": [
-      "bone",
-      "rock"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

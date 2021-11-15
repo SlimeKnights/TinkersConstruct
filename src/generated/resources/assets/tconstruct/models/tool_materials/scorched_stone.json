@@ -5,10 +5,6 @@
   "color": "5B4C43",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:scorched_stone",
-    "fallbacks": [
-      "rock"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
