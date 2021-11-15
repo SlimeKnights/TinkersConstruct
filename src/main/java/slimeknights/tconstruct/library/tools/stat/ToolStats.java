@@ -32,7 +32,7 @@ public class ToolStats {
   /** Mining level for breaking blocks */
   public static final TierToolStat HARVEST_LEVEL = register(new TierToolStat(name("harvest_level"), HarvestLevels.WOOD, HarvestLevels::getHarvestLevelName));
   /** Multiplier for mining speed on non-dirt blocks for the mattock */
-  public static final FloatToolStat SECONDARY_MINING = register(new FloatToolStat(name("secondary_mining"), 0xFF78A0CD, 0, -2048f, 2048f));
+  public static final FloatToolStat SECONDARY_MINING = register(new FloatToolStat(name("secondary_mining"), 0xFF78A0CD, 1, 0, 10f));
 
   /**
    * Gets the tool stat for the given name
