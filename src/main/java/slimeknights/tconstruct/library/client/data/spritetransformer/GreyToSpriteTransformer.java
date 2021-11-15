@@ -102,13 +102,13 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
     for (SpriteMapping mapping : sprites) {
       JsonObject pair = new JsonObject();
       pair.addProperty("grey", mapping.grey);
+      // color used by both types
+      if (mapping.color != -1 || mapping.path == null) {
+        pair.addProperty("color", String.format("%08X", Util.translateColorBGR(mapping.color)));
+      }
+      // path by one
       if (mapping.path != null) {
         pair.addProperty("path", mapping.path.toString());
-        if (mapping.color != -1) {
-          pair.addProperty("tint", String.format("%08X", Util.translateColorBGR(mapping.color)));
-        }
-      } else {
-        pair.addProperty("color", String.format("%08X", Util.translateColorBGR(mapping.color)));
       }
       colors.add(pair);
     }
@@ -130,14 +130,14 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
           paletteBuilder.addABGR(0, 0xFF000000);
         }
         // get the proper type
+        int color = -1;
+        if (palettePair.has("color")) {
+          color = JsonHelper.parseColor(JSONUtils.getString(palettePair, "color"));
+        }
         if (palettePair.has("path")) {
-          int color = -1;
-          if (palettePair.has("tint")) {
-            color = JsonHelper.parseColor(JSONUtils.getString(palettePair, "tint"));
-          }
           paletteBuilder.addTexture(grey, JsonHelper.getResourceLocation(palettePair, "path"), color);
         } else {
-          paletteBuilder.addARGB(grey, JsonHelper.parseColor(JSONUtils.getString(palettePair, "color")));
+          paletteBuilder.addARGB(grey, color);
         }
       }
       return paletteBuilder.build();

@@ -15,8 +15,8 @@
         },
         {
           "grey": 63,
-          "path": "tconstruct:item/materials/generator/queens_slime_border",
-          "tint": "FFC8C8C8"
+          "color": "FFC8C8C8",
+          "path": "tconstruct:item/materials/generator/queens_slime_border"
         },
         {
           "grey": 102,
@@ -24,8 +24,8 @@
         },
         {
           "grey": 140,
-          "path": "tconstruct:item/materials/generator/queens_slime",
-          "tint": "FFE1E1E1"
+          "color": "FFE1E1E1",
+          "path": "tconstruct:item/materials/generator/queens_slime"
         },
         {
           "grey": 178,
@@ -33,8 +33,8 @@
         },
         {
           "grey": 216,
-          "path": "tconstruct:item/materials/generator/queens_slime_highlight",
-          "tint": "FFE1E1E1"
+          "color": "FFE1E1E1",
+          "path": "tconstruct:item/materials/generator/queens_slime_highlight"
         },
         {
           "grey": 255,
