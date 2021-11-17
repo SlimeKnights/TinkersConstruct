@@ -513,7 +513,7 @@ tile.fluid.molten.iron.name=Расплавленное железо
 tile.fluid.molten.gold.name=Расплавленное золото
 tile.fluid.molten.copper.name=Расплавленная медь
 tile.fluid.molten.tin.name=Жидкое олово
-tile.fluid.molten.aluminum.name=Расплавленной алюминий
+tile.fluid.molten.aluminum.name=Расплавленный алюминий
 tile.fluid.molten.cobalt.name=Расплавленный кобальт
 tile.fluid.molten.ardite.name=Расплавленный ардит
 tile.fluid.molten.bronze.name=Расплавленная бронза
@@ -779,7 +779,7 @@ frypankill.tooltip=Это бедное животное встретило св�
 
 tconstruct.waila.empty=Пусто
 tconstruct.waila.liquidtag=Жидкость: 
-tconstruct.waila.progress=Процесс формовки:
+tconstruct.waila.progress=Процесс формовки: 
 tconstruct.waila.amounttag=Количество: 
 tconstruct.waila.contains=Содержит: 
 tconstruct.waila.subtanks=Под-резервуары:
