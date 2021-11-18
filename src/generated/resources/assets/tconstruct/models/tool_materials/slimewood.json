@@ -8,7 +8,8 @@
   "generator": {
     "texture": "tconstruct:slimewood",
     "fallbacks": [
-      "wood"
+      "wood",
+      "primitive"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

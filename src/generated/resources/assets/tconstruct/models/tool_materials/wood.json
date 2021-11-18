@@ -9,7 +9,8 @@
     "texture": "tconstruct:wood",
     "fallbacks": [
       "wood",
-      "stick"
+      "stick",
+      "primitive"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

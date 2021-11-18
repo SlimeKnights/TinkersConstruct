@@ -7,7 +7,7 @@
   "generator": {
     "texture": "tconstruct:enderslime_vine",
     "fallbacks": [
-      "vine"
+      "primitive"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

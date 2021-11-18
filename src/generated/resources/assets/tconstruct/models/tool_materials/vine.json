@@ -7,7 +7,7 @@
   "generator": {
     "texture": "tconstruct:vine",
     "fallbacks": [
-      "vine"
+      "primitive"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
