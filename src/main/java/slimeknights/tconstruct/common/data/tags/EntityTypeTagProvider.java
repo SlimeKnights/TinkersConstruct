@@ -26,7 +26,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.getOrCreateBuilder(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST);
 
     this.getOrCreateBuilder(TinkerTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.RARE_MOBS).add(EntityType.WITHER_SKELETON, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN, EntityType.EVOKER);
+    this.getOrCreateBuilder(TinkerTags.EntityTypes.RARE_MOBS).add(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN, EntityType.EVOKER);
   }
 
   @Override
