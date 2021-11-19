@@ -1,0 +1,9 @@
+// Add your dependencies here
+
+dependencies {
+    compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
+    compile("codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev")
+    compile("codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev")
+    compile("codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev")
+    compile "codechicken:ForgeMultipart:1.7.10-1.2.0.344:dev"
+}

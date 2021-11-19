@@ -1,0 +1,16 @@
+// Add any additional repositiroes for your dependencies here
+
+repositories {
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+    maven {
+        name = 'code chicken lib'
+        url 'https://maven.cil.li/'
+    }
+}

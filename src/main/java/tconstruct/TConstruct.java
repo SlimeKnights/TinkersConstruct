@@ -69,7 +69,7 @@ import java.util.Random;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
+@Mod(modid = "TConstruct", name = "TConstruct", version = TConstruct.modVersion,
         dependencies = "required-after:Forge@[10.13.3.1384,11.14);" +
                 "required-after:Mantle@[1.7.10-0.3.2,);" +
                 "after:MineFactoryReloaded@[1.7.10R2.8.0RC7,);" +
@@ -88,7 +88,7 @@ import java.util.Random;
                 )
 public class TConstruct
 {
-    public static final String modVersion = "${version}";
+    public static final String modVersion = "GRADLETOKEN_VERSION";
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
@@ -98,7 +98,7 @@ public class TConstruct
     public static final int stoneLiquidValue = ingotLiquidValue/8;
 
     public static final int liquidUpdateAmount = 6;
-    public static final String modID = "TConstruct";
+    public static final String modID = "GRADLETOKEN_MODID";
     public static final Logger logger = LogManager.getLogger(modID);
     public static final PacketPipeline packetPipeline = new PacketPipeline();
     public static Random random = new Random();
