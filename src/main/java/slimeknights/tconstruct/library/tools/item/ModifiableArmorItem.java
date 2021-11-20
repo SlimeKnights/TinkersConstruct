@@ -263,7 +263,6 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
-    // TODO: can we abstract this away somewhere?
 
     // don't care about non-living, they skip most tool context
     if (entityIn instanceof LivingEntity) {
@@ -271,23 +270,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
+        boolean isCorrectSlot = living.getItemStackFromSlot(slot) == stack;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, living, itemSlot, isSelected, false, stack);
+          entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, living, itemSlot, isSelected, isCorrectSlot, stack);
         }
-      }
-    }
-  }
-
-  @Override
-  public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-    // TODO: this is kinda messy looking those parameters passed for armor, makes me wonder if we want an armor tick method
-    ToolStack tool = ToolStack.from(stack);
-    List<ModifierEntry> modifiers = tool.getModifierList();
-    if (!modifiers.isEmpty()) {
-      // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
-      for (ModifierEntry entry : modifiers) {
-        entry.getModifier().onInventoryTick(tool, entry.getLevel(), world, player, -1, false, true, stack);
       }
     }
   }
