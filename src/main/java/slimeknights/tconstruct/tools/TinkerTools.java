@@ -54,6 +54,7 @@ import slimeknights.tconstruct.tools.item.small.MattockTool;
 import slimeknights.tconstruct.tools.item.small.PickaxeTool;
 import slimeknights.tconstruct.tools.item.small.SweepingSwordTool;
 import slimeknights.tconstruct.tools.item.small.SwordTool;
+import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher;
 
 import java.util.function.Supplier;
 

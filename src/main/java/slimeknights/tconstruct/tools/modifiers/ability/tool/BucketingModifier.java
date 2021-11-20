@@ -9,6 +9,7 @@ import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
@@ -27,6 +28,9 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -41,6 +45,20 @@ public class BucketingModifier extends TankModifier {
   @Override
   public int getPriority() {
     return 80; // little bit less so we get to add volatile data late
+  }
+
+  @Override
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+      ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1, true);
+    }
+  }
+
+  @Override
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+      ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1, true);
+    }
   }
 
   @Override
@@ -69,7 +87,7 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
     // only place fluid if sneaking, we contain at least a bucket, and its a block
     PlayerEntity player = context.getPlayer();
     if (player == null || !player.isSneaking()) {
@@ -136,10 +154,11 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
     if (player.isCrouching()) {
       return ActionResultType.PASS;
     }
+
     // need at least a bucket worth of empty space
     FluidStack fluidStack = getFluid(tool);
     if (getCapacity(tool) - fluidStack.getAmount() < FluidAttributes.BUCKET_VOLUME) {
@@ -153,7 +172,7 @@ public class BucketingModifier extends TankModifier {
     Direction face = trace.getFace();
     BlockPos target = trace.getPos();
     BlockPos offset = target.offset(face);
-    if (!world.isBlockModifiable(player, target) || !player.canPlayerEdit(offset, face, player.getHeldItem(hand))) {
+    if (!world.isBlockModifiable(player, target) || !player.canPlayerEdit(offset, face, player.getItemStackFromSlot(slotType))) {
       return ActionResultType.PASS;
     }
     // try to find a fluid here

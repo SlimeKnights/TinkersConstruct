@@ -1,5 +1,6 @@
-package slimeknights.tconstruct.tools;
+package slimeknights.tconstruct.tools.client;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -41,11 +42,14 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
-import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
@@ -84,7 +88,7 @@ public class ToolClientEvents extends ClientEventBase {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::renderHand);
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::detectDoubleJump);
+    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
   }
 
   @SubscribeEvent
@@ -161,15 +165,26 @@ public class ToolClientEvents extends ClientEventBase {
     if (hand != Hand.OFF_HAND || player == null) {
       return;
     }
-    ItemStack stack = player.getHeldItemMainhand();
-    if (stack.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
-      ToolStack tool = ToolStack.from(stack);
+    ItemStack mainhand = player.getHeldItemMainhand();
+    ItemStack offhand = event.getItemStack();
+    if (mainhand.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
+      ToolStack tool = ToolStack.from(mainhand);
       // special support for replacing modifier
       if (!tool.getVolatileData().getBoolean(IModifiable.DEFER_OFFHAND)) {
-        if (!(event.getItemStack().getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
+        if (!(offhand.getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
           event.setCanceled(true);
+          return;
         }
       }
+    }
+
+    // if the data is set, render the empty offhand
+    if (offhand.isEmpty() && !player.isInvisible() && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
+      MatrixStack matrices = event.getMatrixStack();
+      matrices.push();
+      Minecraft.getInstance().getFirstPersonRenderer().renderArmFirstPerson(matrices, event.getBuffers(), event.getLight(), event.getEquipProgress(), event.getSwingProgress(), player.getPrimaryHand().opposite());
+      matrices.pop();
+      event.setCanceled(true);
     }
   }
 
@@ -177,11 +192,15 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** If true, we were jumping last tick. Safe as a static value as we only care about a single player client side */
   private static boolean wasJumping = false;
+  /** If true, we were interacting last tick. Safe as a static value as we only care about a single player client side */
+  private static boolean wasHelmetInteracting = false;
 
-  /** Called on player tick to see if we should jump again in mid air */
-  private static void detectDoubleJump(PlayerTickEvent event) {
+  /** Called on player tick to handle keybinding presses */
+  private static void handleKeyBindings(PlayerTickEvent event) {
     Minecraft minecraft = Minecraft.getInstance();
     if (minecraft.player != null && event.phase == Phase.START && event.side == LogicalSide.CLIENT) {
+
+      // jumping in mid air for double jump
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
       boolean isJumping = minecraft.gameSettings.keyBindJump.isKeyDown();
       if (!wasJumping && isJumping) {
@@ -190,6 +209,15 @@ public class ToolClientEvents extends ClientEventBase {
         }
       }
       wasJumping = isJumping;
+
+      // helmet interaction
+      // TODO: holding right click probably should be on a timer, what does vanilla use?
+      boolean isHelmetInteracting = HELMET_INTERACT.isKeyDown();
+      if (!wasHelmetInteracting && isHelmetInteracting) {
+        TConstruct.LOG.info("Key is pressed");
+      }
+
+      wasHelmetInteracting = isHelmetInteracting;
     }
   }
 

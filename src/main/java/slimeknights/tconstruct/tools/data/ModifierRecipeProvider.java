@@ -767,7 +767,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(Items.ENDER_PEARL, 2)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.HELD)
+                         .setTools(TinkerTags.Items.INTERACTABLE)
                          .buildSalvage(consumer, prefix(TinkerModifiers.bucketing, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.bucketing, abilityFolder));
     SizedIngredient channels = SizedIngredient.fromItems(TinkerSmeltery.searedChannel, TinkerSmeltery.scorchedChannel);
@@ -779,14 +779,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addSalvage(TinkerMaterials.copper.getIngotTag(), 1, 2)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.HELD)
+                         .setTools(TinkerTags.Items.MELEE)
                          .buildSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get())
+    ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get()) // TODO: armor does not interact with chestplates for tanks, is that bad?
                          .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.HELD) // TODO: might want to switch from held if we add any armor related tank modifiers
+                         .setTools(TinkerTags.Items.INTERACTABLE)
                          .buildSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
     // expanders
@@ -812,7 +812,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.reach, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.reach, abilityFolder));
     // block transformers
-    Ingredient heldWithDurability = new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromTag(TinkerTags.Items.HELD));
+    Ingredient heldWithDurability = new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromTag(TinkerTags.Items.INTERACTABLE));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
                          .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.pickaxeHead.get())))

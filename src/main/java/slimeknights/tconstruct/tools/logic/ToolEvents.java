@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools;
+package slimeknights.tconstruct.tools.logic;
 
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.Block;
@@ -7,7 +7,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -18,11 +17,9 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +28,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -50,6 +46,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 
 import java.util.List;
@@ -90,28 +87,6 @@ public class ToolEvents {
     if (armorHaste > 0) {
       // adds in 10% per level
       event.setNewSpeed(event.getNewSpeed() * (1 + 0.1f * armorHaste));
-    }
-  }
-
-  @SubscribeEvent
-  static void interactWithEntity(EntityInteract event) {
-    // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
-    ItemStack stack = event.getItemStack();
-    if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
-      return;
-    }
-    ToolStack tool = ToolStack.from(stack);
-    PlayerEntity player = event.getPlayer();
-    Hand hand = event.getHand();
-    Entity target = event.getTarget();
-    for (ModifierEntry entry : tool.getModifierList()) {
-      // exit on first successful result
-      ActionResultType result = entry.getModifier().onEntityUseFirst(tool, entry.getLevel(), player, target, hand);
-      if (result.isSuccessOrConsume()) {
-        event.setCanceled(true);
-        event.setCancellationResult(result);
-        return;
-      }
     }
   }
 

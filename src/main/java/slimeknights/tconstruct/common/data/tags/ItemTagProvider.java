@@ -41,6 +41,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
@@ -200,6 +201,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // modifier helper tags
     this.getOrCreateBuilder(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
     this.getOrCreateBuilder(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
+    this.getOrCreateBuilder(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
     this.getOrCreateBuilder(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
 
     // general

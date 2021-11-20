@@ -204,8 +204,10 @@ public class TinkerTags {
 
     /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
     public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
-    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    /** Anything that is used in the player's hand */
     public static final IOptionalNamedTag<Item> HELD = tag("modifiable/held");
+    /** Anything that can use interaction modifiers */
+    public static final IOptionalNamedTag<Item> INTERACTABLE = tag("modifiable/interactable");
 
     /** Modifiable items that support melee attacks */
     public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");

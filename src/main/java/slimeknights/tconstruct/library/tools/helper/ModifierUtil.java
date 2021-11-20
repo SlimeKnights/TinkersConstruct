@@ -146,7 +146,6 @@ public final class ModifierUtil {
     return 0;
   }
 
-
   /**
    * Adds levels to the given key in entity modifier data for an armor modifier
    * @param tool     Tool instance
@@ -154,8 +153,8 @@ public final class ModifierUtil {
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
+  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
+    if (context.getChangedSlot().getSlotType() == Group.ARMOR && (allowBroken || !tool.isBroken())) {
       context.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
@@ -165,6 +164,17 @@ public final class ModifierUtil {
         }
       });
     }
+  }
+
+  /**
+   * Adds levels to the given key in entity modifier data for an armor modifier
+   * @param tool     Tool instance
+   * @param context  Equipment change context
+   * @param key      Key to modify
+   * @param amount   Amount to add
+   */
+  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
+    addTotalArmorModifierLevel(tool, context, key, amount, false);
   }
 
   /**

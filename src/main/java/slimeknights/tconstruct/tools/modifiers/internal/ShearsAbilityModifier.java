@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
@@ -16,7 +17,7 @@ import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -24,7 +25,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class ShearsAbilityModifier extends SingleUseModifier {
+public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   private final int range;
   @Getter
   private final int priority;
@@ -61,18 +62,18 @@ public class ShearsAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onEntityUseFirst(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand) {
+  public ActionResultType beforeEntityUse(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand, EquipmentSlotType slotType) {
     if (tool.isBroken()) {
       return ActionResultType.PASS;
     }
-    ItemStack stack = player.getHeldItem(hand);
+    ItemStack stack = player.getItemStackFromSlot(slotType);
 
     // use looting instead of fortune, as that is our hook with entity access
     // modifier can always use tags or the nullable parameter to distinguish if needed
     int looting = ModifierUtil.getLootingLevel(tool, player, target, null);
     World world = player.getEntityWorld();
     if (isShears(tool) && shearEntity(stack, tool, world, player, target, looting)) {
-      boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, hand);
+      boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
       this.swingTool(player, hand);
       runShearHook(tool, player, target, true);
 
@@ -84,7 +85,7 @@ public class ShearsAbilityModifier extends SingleUseModifier {
           for (LivingEntity aoeTarget : player.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(expanded, 0.25D, expanded))) {
             if (aoeTarget != player && aoeTarget != target && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity)aoeTarget).hasMarker())) {
               if (shearEntity(stack, tool, world, player, aoeTarget, looting)) {
-                broken = ToolDamageUtil.damageAnimated(tool, 1, player, hand);
+                broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
                 runShearHook(tool, player, aoeTarget, false);
                 if (broken) {
                   break;

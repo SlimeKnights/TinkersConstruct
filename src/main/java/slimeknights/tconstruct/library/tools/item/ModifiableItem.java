@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -296,9 +297,11 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
     ToolStack tool = ToolStack.from(stack);
-    if (shouldInteract(context.getPlayer(), tool, context.getHand())) {
+    Hand hand = context.getHand();
+    if (shouldInteract(context.getPlayer(), tool, hand)) {
+      EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context);
+        ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, slot);
         if (result.isSuccessOrConsume()) {
           return result;
         }
@@ -310,9 +313,11 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
     ToolStack tool = ToolStack.from(context.getItem());
-    if (shouldInteract(context.getPlayer(), tool, context.getHand())) {
+    Hand hand = context.getHand();
+    if (shouldInteract(context.getPlayer(), tool, hand)) {
+      EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context);
+        ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, slot);
         if (result.isSuccessOrConsume()) {
           return result;
         }
@@ -325,8 +330,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
+      EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().onEntityUse(tool, entry.getLevel(), playerIn, target, hand);
+        ActionResultType result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), playerIn, target, hand, slot);
         if (result.isSuccessOrConsume()) {
           return result;
         }
@@ -340,8 +346,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     ItemStack stack = playerIn.getHeldItem(hand);
     ToolStack tool = ToolStack.from(playerIn.getHeldItem(hand));
     if (shouldInteract(playerIn, tool, hand)) {
+      EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand);
+        ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand, slot);
         if (result.isSuccessOrConsume()) {
           return new ActionResult<>(result, stack);
         }

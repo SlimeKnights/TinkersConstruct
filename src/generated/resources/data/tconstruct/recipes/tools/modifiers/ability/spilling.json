@@ -32,7 +32,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/held"
+    "tag": "tconstruct:modifiable/melee"
   },
   "slots": {
     "abilities": 1

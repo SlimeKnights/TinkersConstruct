@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools;
+package slimeknights.tconstruct.tools.logic;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -25,7 +25,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.tools.EquipmentChangeWatcher.PlayerLastEquipment;
+import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher.PlayerLastEquipment;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
