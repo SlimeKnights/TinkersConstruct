@@ -41,6 +41,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
@@ -271,6 +272,15 @@ public class TConstruct {
    */
   public static ResourceLocation getResource(String name) {
     return new ResourceLocation(MOD_ID, name);
+  }
+
+  /**
+   * Gets a data key for the capability, mainly used for modifier markers
+   * @param name  Resource path
+   * @return  Location for tinkers
+   */
+  public static <T> TinkerDataKey<T> createKey(String name) {
+    return TinkerDataKey.of(getResource(name));
   }
 
   /**

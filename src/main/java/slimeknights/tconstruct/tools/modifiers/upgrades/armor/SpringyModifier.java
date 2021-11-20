@@ -5,26 +5,23 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
+
 public class SpringyModifier extends IncrementalModifier {
-  private static final ResourceLocation SLOT_IN_CHARGE = TConstruct.getResource("springy_slot");
+  private static final TinkerDataKey<SlotInCharge> SLOT_IN_CHARGE = TConstruct.createKey("springy");
   public SpringyModifier() {
     super(0xFF950D);
-  }
-
-  /** Checks if the given slot is in charge of this modifier */
-  private static boolean isInCharge(IModDataReadOnly data, EquipmentSlotType slotType) {
-    return data.contains(SLOT_IN_CHARGE, NBT.TAG_ANY_NUMERIC) && data.getInt(SLOT_IN_CHARGE) == slotType.getIndex();
   }
 
   @Override
@@ -32,8 +29,9 @@ public class SpringyModifier extends IncrementalModifier {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getTrueSource();
     if (isDirectDamage && !user.getEntityWorld().isRemote && attacker instanceof LivingEntity) {
-      user.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-        if (isInCharge(data, slotType)) {
+      user.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        // ensure this slot is in charge before continuing
+        if (Optional.ofNullable(data.get(SLOT_IN_CHARGE)).filter(slot -> slot.inCharge == slotType).isPresent()) {
           // choose a random slot to apply knockback, prevents max from getting too high
           EquipmentSlotType bouncingSlot = EquipmentSlotType.fromSlotTypeAndIndex(Group.ARMOR, RANDOM.nextInt(4));
           IModifierToolStack bouncingTool = context.getToolInSlot(bouncingSlot);
@@ -55,21 +53,11 @@ public class SpringyModifier extends IncrementalModifier {
     // remove slot in charge if that is us
     EquipmentSlotType slot = context.getChangedSlot();
     LivingEntity entity = context.getEntity();
-    if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-        if (isInCharge(data, slot)) {
-          data.remove(SLOT_IN_CHARGE);
-        }
-      });
-    }
-  }
-
-  /** Marks this slot as in charge of springy if no slot is in charge */
-  private static void attemptTakeCharge(LivingEntity entity, EquipmentSlotType slotType) {
-    if (slotType.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-        if (!data.contains(SLOT_IN_CHARGE, NBT.TAG_ANY_NUMERIC)) {
-          data.putInt(SLOT_IN_CHARGE, slotType.getIndex());
+    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
+      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
+        if (slotInCharge != null) {
+          slotInCharge.removeSlot(slot);
         }
       });
     }
@@ -77,15 +65,44 @@ public class SpringyModifier extends IncrementalModifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken()) {
-      attemptTakeCharge(context.getEntity(), context.getChangedSlot());
+    EquipmentSlotType slot = context.getChangedSlot();
+    LivingEntity entity = context.getEntity();
+    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
+      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
+        if (slotInCharge == null) {
+          slotInCharge = new SlotInCharge();
+          data.put(SLOT_IN_CHARGE, slotInCharge);
+        }
+        slotInCharge.addSlot(slot);
+      });
     }
   }
 
-  @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
-    if (!tool.isBroken()) {
-      attemptTakeCharge(context.getEntity(), slotType);
+  /** Tracker to determine which slot should be in charge */
+  private static class SlotInCharge {
+    private final boolean[] active = new boolean[4];
+    @Nullable
+    EquipmentSlotType inCharge = null;
+
+    /** Adds the given slot to the tracker */
+    void addSlot(EquipmentSlotType slotType) {
+      active[slotType.getIndex()] = true;
+      if (inCharge == null) {
+        inCharge = slotType;
+      }
+    }
+
+    /** Removes the given slot from the tracker */
+    void removeSlot(EquipmentSlotType slotType) {
+      active[slotType.getIndex()] = false;
+      for (EquipmentSlotType armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        if (active[slotType.getIndex()]) {
+          inCharge = armorSlot;
+          break;
+        }
+      }
+      inCharge = null;
     }
   }
 }

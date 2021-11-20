@@ -7,7 +7,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -18,6 +17,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -30,7 +30,7 @@ import java.util.List;
 
 public class MagneticModifier extends Modifier implements IHarvestModifier, IShearModifier {
   /** Player modifier data key for haste */
-  private static final ResourceLocation MAGNET = TConstruct.getResource("magnet");
+  private static final TinkerDataKey<Integer> MAGNET = TConstruct.createKey("magnet");
 
   public MagneticModifier() {
     super(0x720000);

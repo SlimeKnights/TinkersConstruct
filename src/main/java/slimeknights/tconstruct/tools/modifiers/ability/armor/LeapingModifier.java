@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class LeapingModifier extends Modifier {
-  private static final ResourceLocation LEAPING = TConstruct.getResource("leaping");
+  private static final TinkerDataKey<Integer> LEAPING = TConstruct.createKey("leaping");
   public LeapingModifier() {
     super(0x6DBEBD);
     MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingFall);

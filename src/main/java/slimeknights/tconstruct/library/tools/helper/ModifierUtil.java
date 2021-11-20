@@ -14,13 +14,13 @@ import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -146,6 +146,7 @@ public final class ModifierUtil {
     return 0;
   }
 
+
   /**
    * Adds levels to the given key in entity modifier data for an armor modifier
    * @param tool     Tool instance
@@ -153,14 +154,14 @@ public final class ModifierUtil {
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, ResourceLocation key, int amount) {
+  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
     if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
-      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-        int totalLevels = data.getInt(key) + amount;
+      context.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
           data.remove(key);
         } else {
-          data.putInt(key, totalLevels);
+          data.put(key, totalLevels);
         }
       });
     }
@@ -173,14 +174,14 @@ public final class ModifierUtil {
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, ResourceLocation key, float amount) {
+  public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
     if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
-      context.getEntity().getCapability(EntityModifierDataCapability.CAPABILITY).ifPresent(data -> {
-        float totalLevels = data.getFloat(key) + amount;
+      context.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        float totalLevels = data.get(key, 0f) + amount;
         if (totalLevels <= 0.005f) {
           data.remove(key);
         } else {
-          data.putFloat(key, totalLevels);
+          data.put(key, totalLevels);
         }
       });
     }
@@ -192,8 +193,8 @@ public final class ModifierUtil {
    * @param key     Key to get
    * @return  Level from the key
    */
-  public static int getTotalModifierLevel(LivingEntity living, ResourceLocation key) {
-    return living.getCapability(EntityModifierDataCapability.CAPABILITY).map(data -> data.getInt(key)).orElse(0);
+  public static int getTotalModifierLevel(LivingEntity living, TinkerDataKey<Integer> key) {
+    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0);
   }
 
   /**
@@ -202,7 +203,7 @@ public final class ModifierUtil {
    * @param key     Key to get
    * @return  Level from the key
    */
-  public static float getTotalModifierFloat(LivingEntity living, ResourceLocation key) {
-    return living.getCapability(EntityModifierDataCapability.CAPABILITY).map(data -> data.getFloat(key)).orElse(0f);
+  public static float getTotalModifierFloat(LivingEntity living, TinkerDataKey<Float> key) {
+    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
   }
 }

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.harvest;
 
 import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -9,6 +8,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -24,7 +24,7 @@ import java.util.List;
 public class HasteModifier extends IncrementalModifier {
   private static final ITextComponent MINING_SPEED = TConstruct.makeTranslation("modifier", "fake_attribute.mining_speed");
   /** Player modifier data key for haste */
-  public static final ResourceLocation HASTE = TConstruct.getResource("haste");
+  public static final TinkerDataKey<Float> HASTE = TConstruct.createKey("haste");
 
   public HasteModifier() {
     super(0x7F0901);

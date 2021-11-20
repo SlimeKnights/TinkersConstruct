@@ -46,7 +46,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRe
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -424,6 +424,6 @@ public final class TinkerModifiers extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    EntityModifierDataCapability.register();
+    TinkerDataCapability.register();
   }
 }
