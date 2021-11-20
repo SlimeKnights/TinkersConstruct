@@ -18,10 +18,10 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 

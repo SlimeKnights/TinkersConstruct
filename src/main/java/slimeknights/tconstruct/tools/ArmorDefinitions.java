@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.tools.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.ToolStatProviders;
 
 public class ArmorDefinitions {

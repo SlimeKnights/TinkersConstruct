@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.definition;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +10,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
