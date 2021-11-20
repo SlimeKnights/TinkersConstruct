@@ -13,4 +13,7 @@ repositories {
         name = 'code chicken lib'
         url 'https://maven.cil.li/'
     }
+    maven {
+        url = "https://jitpack.io"
+    }
 }

@@ -1,4 +1,4 @@
-//version: 1c18f850adb30b1b14861baf9f5c831841443bb0
+//version: 21647c763d3f6c90d59c900edae1248239c49dfb
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -25,6 +25,10 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            name = "Scala CI dependencies"
+            url = "https://repo1.maven.org/maven2/"
+        }
     }
     dependencies {
         classpath 'com.github.TheElan:ForgeGradle:1.2.2'
@@ -37,8 +41,9 @@ plugins {
     id("com.palantir.git-version") version("0.12.3")
 }
 
+apply plugin: 'scala'
 apply plugin: 'forge'
-apply plugin: 'idea'    
+apply plugin: 'idea'
 
 java {
     toolchain {
@@ -81,22 +86,28 @@ def checkPropertyExists(String propertyName) {
     }
 }
 
-String targetPackage = "src/main/java/" + modGroup.toString().replaceAll("\\.", "/")
-if(new File(targetPackage).exists() == false) {
-    throw new GradleException("Could not resolve \"modGroup\"! Could not find " + targetPackage)
+
+String javaSourceDir = "src/main/java/"
+String scalaSourceDir = "src/main/scala/"
+
+String targetPackageJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/")
+String targetPackageScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/")
+if((new File(targetPackageJava).exists() || new File(targetPackageScala).exists()) == false) {
+    throw new GradleException("Could not resolve \"modGroup\"! Could not find " + targetPackageJava + " or " + targetPackageScala)
 }
 
 if(apiPackage) {
-    targetPackage = "src/main/java/" + modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/")
-    if(new File(targetPackage).exists() == false) {
-        throw new GradleException("Could not resolve \"apiPackage\"! Could not find " + targetPackage)
+    targetPackageJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/")
+    targetPackageScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/")
+    if((new File(targetPackageJava).exists() || new File(targetPackageScala).exists()) == false) {
+        throw new GradleException("Could not resolve \"apiPackage\"! Could not find " + targetPackageJava + " or " + targetPackageScala)
     }
 }
 
 if(accessTransformersFile) {
-    targetPackage = "src/main/resources/META-INF/" + accessTransformersFile
-    if(new File(targetPackage).exists() == false) {
-        throw new GradleException("Could not resolve \"accessTransformersFile\"! Could not find " + targetPackage)
+    String targetFile = "src/main/resources/META-INF/" + accessTransformersFile
+    if(new File(targetFile).exists() == false) {
+        throw new GradleException("Could not resolve \"accessTransformersFile\"! Could not find " + targetFile)
     }
 }
 
@@ -105,21 +116,26 @@ if(usesMixins.toBoolean()) {
         throw new GradleException("\"mixinPlugin\" requires \"mixinsPackage\" and \"mixinPlugin\" to be set!")
     }
 
-    targetPackage = "src/main/java/" + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinsPackage.toString().replaceAll("\\.", "/")
-    if(new File(targetPackage).exists() == false) {
-        throw new GradleException("Could not resolve \"mixinsPackage\"! Could not find " + targetPackage)
+    targetPackageJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinsPackage.toString().replaceAll("\\.", "/")
+    targetPackageScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinsPackage.toString().replaceAll("\\.", "/")
+    if((new File(targetPackageJava).exists() || new File(targetPackageScala).exists()) == false) {
+        throw new GradleException("Could not resolve \"mixinsPackage\"! Could not find " + targetPackageJava + " or " + targetPackageScala)
     }
 
-    String targetFile = "src/main/java/" + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".java"
-    if(new File(targetFile).exists() == false) {
-        throw new GradleException("Could not resolve \"mixinPlugin\"! Could not find " + targetFile)
+    String targetFileJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".java"
+    String targetFileScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".scala"
+    String targetFileScalaJava = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".java"
+    if((new File(targetFileJava).exists() || new File(targetFileScala).exists() || new File(targetFileScalaJava).exists()) == false) {
+        throw new GradleException("Could not resolve \"mixinPlugin\"! Could not find " + targetFileJava + " or " + targetFileScala + " or " + targetFileScalaJava)
     }
 }
 
 if(coreModClass) {
-    String targetFile = "src/main/java/" + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".java"
-    if(new File(targetFile).exists() == false) {
-        throw new GradleException("Could not resolve \"coreModClass\"! Could not find " + targetFile)
+    String targetFileJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".java"
+    String targetFileScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".scala"
+    String targetFileScalaJava = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".java"
+    if((new File(targetFileJava).exists() || new File(targetFileScala).exists() || new File(targetFileScalaJava).exists()) == false) {
+        throw new GradleException("Could not resolve \"coreModClass\"! Could not find " + targetFileJava + " or " + targetFileScala + " or " + targetFileScalaJava)
     }
 }
 
