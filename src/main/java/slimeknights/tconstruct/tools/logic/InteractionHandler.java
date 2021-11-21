@@ -15,6 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -25,9 +26,12 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hooks.IHelmetInteractModifier;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.function.Function;
 
@@ -210,6 +214,22 @@ public class InteractionHandler {
       }
     }
     return ActionResultType.PASS;
+  }
+
+  /** Handles attacking using the chestplate */
+  @SubscribeEvent
+  static void onChestplateAttack(AttackEntityEvent event) {
+    PlayerEntity attacker = event.getPlayer();
+    if (attacker.getHeldItemMainhand().isEmpty()) {
+      ItemStack chestplate = attacker.getItemStackFromSlot(EquipmentSlotType.CHEST);
+      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
+        ToolStack tool = ToolStack.from(chestplate);
+        if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
+          ToolAttackUtil.attackEntity(IModifiableWeapon.DEFAULT, tool, attacker, Hand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, Hand.MAIN_HAND), false, EquipmentSlotType.CHEST);
+          event.setCanceled(true);
+        }
+      }
+    }
   }
 
   /**

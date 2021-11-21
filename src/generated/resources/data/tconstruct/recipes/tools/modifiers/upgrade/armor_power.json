@@ -1,11 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "tag": "forge:storage_blocks/quartz"
+    "item": "minecraft:magma_cream"
   },
-  "amount_per_item": 4,
+  "amount_per_item": 1,
   "needed_per_level": 36,
-  "leftover": "minecraft:quartz",
   "tools": {
     "tag": "tconstruct:modifiable/armor/chestplate"
   },

@@ -51,7 +51,7 @@ public class ConductingModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    if (tool.hasTag(TinkerTags.Items.MELEE)) {
+    if (tool.hasTag(TinkerTags.Items.MELEE_OR_UNARMED)) {
       tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(PERCENT_PER_LEVEL * level)).appendString(" ").appendSibling(ATTACK_DAMAGE)));
     }
   }

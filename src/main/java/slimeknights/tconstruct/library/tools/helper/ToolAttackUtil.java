@@ -40,6 +40,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -68,47 +69,56 @@ public class ToolAttackUtil {
     return () -> player.getCooledAttackStrength(0.5f);
   }
 
+  /** @deprecated use {@link #getAttributeAttackDamage(IModifierToolStack, LivingEntity, EquipmentSlotType)} */
+  @Deprecated
+  public static float getAttributeAttackDamage(IModifierToolStack tool, LivingEntity holder, Hand hand) {
+    return getAttributeAttackDamage(tool, holder, Util.getSlotType(hand));
+  }
+
   /**
    * Gets the attack damage for the given hand, acting as though it was used in the main hand
    *
    * If your goal is damage for display, you are better off checking the tool attack damage stat directly, then displaying relevant attribute modifiers in the tooltip
    * @param tool     Held tool
    * @param holder   Entity holding the tool
-   * @param hand     Hand used
+   * @param slotType Slot with tool
    * @return  Attack damage
    */
-  public static float getAttributeAttackDamage(IModifierToolStack tool, LivingEntity holder, Hand hand) {
-    if (hand == Hand.OFF_HAND && !holder.world.isRemote()) {
-      // first, get a map of existing damage modifiers to exclude
-      Multimap<Attribute,AttributeModifier> mainModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, holder.getHeldItemMainhand().getAttributeModifiers(EquipmentSlotType.MAINHAND).get(Attributes.ATTACK_DAMAGE));
-
-      // next, build a list of damage modifiers from the offhand stack, handled directly as it saves parsing the tool twice and lets us simplify by filtering
-      ImmutableList.Builder<AttributeModifier> listBuilder = ImmutableList.builder();
-      listBuilder.add(new AttributeModifier(OFFHAND_DAMAGE_MODIFIER_UUID, "tconstruct.tool.offhand_attack_damage", tool.getStats().getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
-      BiConsumer<Attribute, AttributeModifier> attributeConsumer = (attribute, modifier) -> {
-        if (attribute == Attributes.ATTACK_DAMAGE) {
-          listBuilder.add(modifier);
-        }
-      };
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().addAttributes(tool, entry.getLevel(), EquipmentSlotType.MAINHAND, attributeConsumer);
-      }
-      Multimap<Attribute,AttributeModifier> offhandModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, listBuilder.build());
-
-      // remove the old, add the new
-      AttributeModifierManager modifiers = holder.getAttributeManager();
-      modifiers.removeModifiers(mainModifiers);
-      modifiers.reapplyModifiers(offhandModifiers);
-      // fetch damage using these temporary modifiers
-      float damage = (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
-      // revert modifiers to the original state
-      modifiers.removeModifiers(offhandModifiers);
-      modifiers.reapplyModifiers(mainModifiers);
-      return damage;
-    } else {
-      // if is the held tool, attributes are already set up
+  public static float getAttributeAttackDamage(IModifierToolStack tool, LivingEntity holder, EquipmentSlotType slotType) {
+    if (slotType == EquipmentSlotType.MAINHAND || holder.world.isRemote) {
       return (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
+
+    // first, get a map of existing damage modifiers to exclude
+    ItemStack mainStack = holder.getHeldItemMainhand();
+    Multimap<Attribute,AttributeModifier> mainModifiers = null;
+    if (!mainStack.isEmpty()) {
+      mainModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, holder.getHeldItemMainhand().getAttributeModifiers(EquipmentSlotType.MAINHAND).get(Attributes.ATTACK_DAMAGE));
+    }
+
+    // next, build a list of damage modifiers from the offhand stack, handled directly as it saves parsing the tool twice and lets us simplify by filtering
+    ImmutableList.Builder<AttributeModifier> listBuilder = ImmutableList.builder();
+    listBuilder.add(new AttributeModifier(OFFHAND_DAMAGE_MODIFIER_UUID, "tconstruct.tool.offhand_attack_damage", tool.getStats().getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+    BiConsumer<Attribute, AttributeModifier> attributeConsumer = (attribute, modifier) -> {
+      if (attribute == Attributes.ATTACK_DAMAGE) {
+        listBuilder.add(modifier);
+      }
+    };
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getModifier().addAttributes(tool, entry.getLevel(), EquipmentSlotType.MAINHAND, attributeConsumer);
+    }
+    Multimap<Attribute,AttributeModifier> offhandModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, listBuilder.build());
+
+    // remove the old, add the new
+    AttributeModifierManager modifiers = holder.getAttributeManager();
+    if (mainModifiers != null) modifiers.removeModifiers(mainModifiers);
+    modifiers.reapplyModifiers(offhandModifiers);
+    // fetch damage using these temporary modifiers
+    float damage = (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    // revert modifiers to the original state
+    modifiers.removeModifiers(offhandModifiers);
+    if (mainModifiers != null) modifiers.reapplyModifiers(mainModifiers);
+    return damage;
   }
 
   /** Performs a standard attack */
@@ -126,13 +136,18 @@ public class ToolAttackUtil {
     return attackEntity(weapon, ToolStack.from(stack), attacker, Hand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, Hand.MAIN_HAND), false);
   }
 
+  /** Normal attacking from a tool in the hand */
+  public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand,
+                                      Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
+    return attackEntity(weapon, tool, attackerLiving, hand, targetEntity, cooldownFunction, isExtraAttack, Util.getSlotType(hand));
+  }
+
   /**
    * Base attack logic, used by normal attacks, projectiles, and extra attacks.
    * Based on {@link PlayerEntity#attackTargetEntityWithCurrentItem(Entity)}
    */
   public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand,
-                                     Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
-    // TODO: general modifiable
+                                     Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack, EquipmentSlotType sourceSlot) {
     // broken? give to vanilla
     if (tool.isBroken()) {
       return false;
@@ -160,7 +175,7 @@ public class ToolAttackUtil {
 
     // players base damage (includes tools damage stat)
     // hack for offhand attributes: remove mainhand temporarily, and apply offhand
-    float damage = getAttributeAttackDamage(tool, attackerLiving, hand);
+    float damage = getAttributeAttackDamage(tool, attackerLiving, sourceSlot);
 
     // missing: enchantment modifiers, we handle ourselves
 
@@ -175,7 +190,7 @@ public class ToolAttackUtil {
                          && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
 
     // shared context for all modifier hooks
-    ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand, targetEntity, targetLiving, isCritical, cooldown, isExtraAttack);
+    ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand, sourceSlot, targetEntity, targetLiving, isCritical, cooldown, isExtraAttack);
 
     // calculate actual damage
     // boost damage from traits
@@ -250,7 +265,7 @@ public class ToolAttackUtil {
     }
 
     // set hand for proper looting context
-    ModifierLootingHandler.setLootingHand(attackerLiving, hand);
+    ModifierLootingHandler.setLootingSlot(attackerLiving, sourceSlot);
 
     // prevent knockback if needed
     Optional<ModifiableAttributeInstance> knockbackModifier = getKnockbackAttribute(targetLiving);
@@ -367,7 +382,7 @@ public class ToolAttackUtil {
     if (attackerPlayer != null) {
       if (targetLiving != null) {
         if (!attackerLiving.world.isRemote && !isExtraAttack) {
-          ItemStack held = attackerLiving.getHeldItem(hand);
+          ItemStack held = attackerLiving.getItemStackFromSlot(sourceSlot);
           if (!held.isEmpty()) {
             held.hitEntity(targetLiving, attackerPlayer);
           }

@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.utils.HarvestLevels;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
-import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
 
 public class NetheriteModifier extends SingleLevelModifier {
   public NetheriteModifier() {
@@ -33,7 +33,7 @@ public class NetheriteModifier extends SingleLevelModifier {
     if (item.isIn(DURABILITY)) {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.20f));
     }
-    if (item.isIn(MELEE)) {
+    if (item.isIn(MELEE_OR_UNARMED)) {
       ToolStats.ATTACK_DAMAGE.multiply(builder, 1 + (level * 0.10f));
     }
     if (item.isIn(HARVEST)) {

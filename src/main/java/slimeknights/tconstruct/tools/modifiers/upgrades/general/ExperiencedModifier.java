@@ -50,7 +50,7 @@ public class ExperiencedModifier extends Modifier {
   private void onEntityKill(LivingExperienceDropEvent event) {
     PlayerEntity player = event.getAttackingPlayer();
     if (player != null) {
-      ToolStack tool = getHeldTool(player, ModifierLootingHandler.getLootingHand(player));
+      ToolStack tool = getHeldTool(player, ModifierLootingHandler.getLootingSlot(player));
       if (tool != null) {
         int level = tool.getModifierLevel(this);
         if (level > 0) {

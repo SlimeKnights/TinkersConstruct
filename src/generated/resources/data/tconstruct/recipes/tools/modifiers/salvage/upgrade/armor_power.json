@@ -9,7 +9,7 @@
   "modifier": "tconstruct:armor_power",
   "min_level": 1,
   "salvage": {
-    "item": "minecraft:quartz",
+    "item": "minecraft:magma_cream",
     "full": false
   }
 }

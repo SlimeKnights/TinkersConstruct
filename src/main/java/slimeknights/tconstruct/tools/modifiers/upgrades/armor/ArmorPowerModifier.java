@@ -21,7 +21,7 @@ public class ArmorPowerModifier extends IncrementalModifier {
   };
 
   public ArmorPowerModifier() {
-    super(0xEAE5DE);
+    super(0xEAA727);
   }
 
   @Override

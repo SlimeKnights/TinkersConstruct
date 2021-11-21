@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -174,7 +175,13 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
       throw new IllegalStateException("Must set input");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new FinishedRecipe(id, advancementId));
+    consumer.accept(new FinishedRecipe(id, advancementId, false));
+    if (includeUnarmed) {
+      if (requirements != ModifierMatch.ALWAYS) {
+        throw new IllegalStateException("Cannot use includeUnarmed with requirements");
+      }
+      consumer.accept(new FinishedRecipe(new ResourceLocation(id.getNamespace(), id.getPath() + "_unarmed"), null, true));
+    }
   }
 
   @Override
@@ -210,8 +217,8 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
   }
 
   private class FinishedRecipe extends ModifierFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
+    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, boolean withUnarmed) {
+      super(ID, advancementID, withUnarmed);
     }
 
     @Override

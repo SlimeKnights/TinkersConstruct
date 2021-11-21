@@ -1573,8 +1573,12 @@
 
   "_comment": "Armor - chestplate",
   "modifier.tconstruct.armor_power": "Power",
-  "modifier.tconstruct.armor_power.flavor": "The strength of quartz on your fists",
+  "modifier.tconstruct.armor_power.flavor": "Can you feel the power flowing through you?",
   "modifier.tconstruct.armor_power.description": "Makes your weapons stronger",
+  "modifier.tconstruct.unarmed": "Unarmed Attack",
+  "modifier.tconstruct.unarmed.flavor": "The monk option",
+  "modifier.tconstruct.unarmed.description": "Causes chestplate modifiers to boost unarmed attack damage",
+  "recipe.tconstruct.modifier.unarmed": "Requires the unarmed modifier to be added first",
 
   "_comment": "Armor - leggings",
   "modifier.tconstruct.speedy": "Speedy",

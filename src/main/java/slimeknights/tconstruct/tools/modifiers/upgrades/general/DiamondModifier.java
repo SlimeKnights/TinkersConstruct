@@ -12,10 +12,9 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
-import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
-import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
 
 public class DiamondModifier extends SingleLevelModifier {
   public DiamondModifier() {
@@ -32,14 +31,14 @@ public class DiamondModifier extends SingleLevelModifier {
     if (item.isIn(DURABILITY)) {
       ToolStats.DURABILITY.add(builder, level * 500);
     }
-    if (item.isIn(MELEE)) {
+    if (item.isIn(MELEE_OR_UNARMED)) {
       ToolStats.ATTACK_DAMAGE.add(builder, level * 1f);
     }
     if (item.isIn(HARVEST)) {
       ToolStats.MINING_SPEED.add(builder, level * 1f);
       ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.DIAMOND);
     }
-    if (item.isIn(ARMOR)) {
+    if (item.isIn(MELEE_OR_UNARMED)) {
       ToolStats.ARMOR.add(builder, level);
     }
   }

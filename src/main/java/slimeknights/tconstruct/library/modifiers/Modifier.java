@@ -1018,10 +1018,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   @Nullable
   public static ToolStack getHeldTool(@Nullable LivingEntity living, Hand hand) {
+    return getHeldTool(living, Util.getSlotType(hand));
+  }
+
+  /**
+   * Gets the tool stack from the given entities mainhand. Useful for specialized event handling in modifiers
+   * @param living  Entity instance
+   * @return  Tool stack
+   */
+  @Nullable
+  public static ToolStack getHeldTool(@Nullable LivingEntity living, EquipmentSlotType slot) {
     if (living == null) {
       return null;
     }
-    ItemStack stack = living.getHeldItem(hand);
+    ItemStack stack = living.getItemStackFromSlot(slot);
     if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
       return null;
     }
@@ -1091,6 +1101,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tooltip  Tooltip
    */
   protected void addDamageTooltip(IModifierToolStack tool, float amount, List<ITextComponent> tooltip) {
-    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE, amount, tooltip);
+    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
   }
 }
