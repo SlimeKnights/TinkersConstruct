@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:zoom",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:redstone",
+      "min": 0,
+      "max": 9
+    },
+    {
+      "item": "minecraft:glass_pane",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "tag": "forge:ingots/copper",
+      "min": 1,
+      "max": 2
+    }
+  ]
+}

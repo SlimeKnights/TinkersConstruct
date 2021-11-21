@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hooks.IHelmetInteractModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
@@ -209,5 +210,45 @@ public class InteractionHandler {
       }
     }
     return ActionResultType.PASS;
+  }
+
+  /**
+   * Handles interaction from a helmet
+   * @param player  Player instance
+   * @return true if the player has a modifiable helmet
+   */
+  public static boolean startHelmetInteract(PlayerEntity player) {
+    ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+    if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
+      ToolStack tool = ToolStack.from(helmet);
+      for (ModifierEntry entry : tool.getModifierList()) {
+        IHelmetInteractModifier helmetInteract = entry.getModifier().getModule(IHelmetInteractModifier.class);
+        if (helmetInteract != null && helmetInteract.startHelmetInteract(tool, entry.getLevel(), player)) {
+          break;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Notifies modifiers the helmet keybind was released
+   * @param player  Player instance
+   * @return true if the player has a modifiable helmet
+   */
+  public static boolean stopHelmetInteract(PlayerEntity player) {
+    ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+    if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
+      ToolStack tool = ToolStack.from(helmet);
+      for (ModifierEntry entry : tool.getModifierList()) {
+        IHelmetInteractModifier helmetInteract = entry.getModifier().getModule(IHelmetInteractModifier.class);
+        if (helmetInteract != null) {
+          helmetInteract.stopHelmetInteract(tool, entry.getLevel(), player);
+        }
+      }
+      return true;
+    }
+    return false;
   }
 }

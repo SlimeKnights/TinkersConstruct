@@ -1386,6 +1386,8 @@
 
   "_comment": "Modifiers",
 
+  "key.tconstruct.helmet_interact": "Helmet Interaction",
+
   "modifier.tconstruct.empty": "Invalid modifier",
   "modifier.tconstruct.empty.flavor": "Missing!",
   "modifier.tconstruct.empty.description": "Fallback for when a modifier is missing",
@@ -1555,6 +1557,14 @@
   "modifier.tconstruct.springy.flavor": "Ka-boing!",
   "modifier.tconstruct.springy.description": "Attackers may bounce off your armor",
 
+  "_comment": "Armor - helmet",
+  "modifier.tconstruct.zoom": "Zoom",
+  "modifier.tconstruct.zoom.flavor": "Makes your eyes faster!",
+  "modifier.tconstruct.zoom.description": "Allows you to see far away objects when interacting while sneaking",
+  "modifier.tconstruct.slurping": "Slurping",
+  "modifier.tconstruct.slurping.flavor": "Sluuuuuurrrp!",
+  "modifier.tconstruct.slurping.description": "Allows drinking the fluid in a helmet when interacting",
+
   "_comment": "Armor - chestplate",
   "modifier.tconstruct.armor_power": "Power",
   "modifier.tconstruct.armor_power.flavor": "The strength of quartz on your fists",
@@ -1658,7 +1668,7 @@
   "modifier.tconstruct.bucketing.description": "Tool can pickup liquid, or place it when crouching",
   "modifier.tconstruct.spilling": "Spilling",
   "modifier.tconstruct.spilling.flavor": "Splish splash!",
-  "modifier.tconstruct.spilling.description": "Fluid contained in the weapon spills onto attacked targets, causing effects based on the fluid",
+  "modifier.tconstruct.spilling.description": "Fluid contained in the weapon spills onto attacked targets, or when attacked for armor, causing effects based on the fluid",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",

@@ -623,6 +623,34 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.ricochet, armorFolder));
 
     // armor ability
+    // helmet
+    ModifierRecipeBuilder.modifier(TinkerModifiers.zoom.get())
+                         .setTools(TinkerTags.Items.HELMETS)
+                         .addInput(Tags.Items.GLASS_PANES)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                         .addInput(Tags.Items.GLASS_PANES)
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
+                         .addSalvage(Items.REDSTONE, 0, 9)
+                         .addSalvage(Items.GLASS_PANE, 0, 2)
+                         .addSalvage(TinkerMaterials.copper.getIngotTag(), 1, 2)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.zoom, armorSalvage))
+                         .build(consumer, prefix(TinkerModifiers.zoom, armorFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.slurping.get())
+                         .addInputSalvage(Items.GLASS_BOTTLE, 0.5f)
+                         .addInput(TinkerTags.Items.TANKS)
+                         .addInputSalvage(Items.GLASS_BOTTLE, 0.5f)
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addSalvage(TinkerMaterials.copper.getIngot(), 1, 2)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.HELMETS)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.slurping, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.slurping, abilityFolder));
+    // boots
     ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump.get())
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(TinkerWorld.slime.get(SlimeType.ICHOR))
@@ -779,14 +807,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addSalvage(TinkerMaterials.copper.getIngotTag(), 1, 2)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.MELEE)
+                         .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.MELEE), Ingredient.fromTag(TinkerTags.Items.CHESTPLATES)))
                          .buildSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get()) // TODO: armor does not interact with chestplates for tanks, is that bad?
                          .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.INTERACTABLE)
+                         .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.INTERACTABLE), Ingredient.fromTag(TinkerTags.Items.HELMETS)))
                          .buildSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
     // expanders
