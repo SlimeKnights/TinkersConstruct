@@ -515,19 +515,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
                                     .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.CHESTPLATES), Ingredient.fromTag(TinkerTags.Items.LEGGINGS)))
                                     .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
-                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setSlots(SlotType.ARMOR, 1)
                                     .setMaxLevel(3)
                                     .build(consumer, wrap(TinkerModifiers.revitalizing, armorFolder, "_large"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
                                     .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.HELMETS), Ingredient.fromTag(TinkerTags.Items.BOOTS)))
                                     .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
-                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setSlots(SlotType.ARMOR, 1)
                                     .setMaxLevel(2)
                                     .build(consumer, wrap(TinkerModifiers.revitalizing, armorFolder, "_small"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
                                     .setTools(Ingredient.fromTag(TinkerTags.Items.ARMOR))
                                     .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
-                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setSlots(SlotType.ARMOR, 1)
                                     .setMaxLevel(3)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.revitalizing, armorSalvage));
 

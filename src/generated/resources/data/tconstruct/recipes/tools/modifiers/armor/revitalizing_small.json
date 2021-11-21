@@ -14,7 +14,7 @@
     }
   ],
   "slots": {
-    "upgrades": 1
+    "armor": 1
   },
   "result": {
     "name": "tconstruct:revitalizing",
