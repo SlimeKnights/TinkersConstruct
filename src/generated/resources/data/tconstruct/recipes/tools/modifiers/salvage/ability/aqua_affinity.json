@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:aqua_affinity",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:scute",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "item": "minecraft:scute",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "item": "minecraft:prismarine_shard",
+      "min": 2,
+      "max": 8
+    },
+    {
+      "item": "minecraft:prismarine_crystals",
+      "min": 0,
+      "max": 4
+    }
+  ]
+}

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -44,6 +43,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -1059,7 +1059,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       }
     }
     // water
-    if (entity.areEyesInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
+    if (entity.areEyesInFluid(FluidTags.WATER) && !ModifierUtil.hasAquaAffinity(entity)) {
       modifier /= 5.0F;
     }
     if (!entity.isOnGround()) {

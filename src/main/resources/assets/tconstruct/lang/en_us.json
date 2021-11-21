@@ -1564,6 +1564,9 @@
   "modifier.tconstruct.slurping": "Slurping",
   "modifier.tconstruct.slurping.flavor": "Sluuuuuurrrp!",
   "modifier.tconstruct.slurping.description": "Allows drinking the fluid in a helmet when interacting",
+  "modifier.tconstruct.aqua_affinity": "Aqua Affinity",
+  "modifier.tconstruct.aqua_affinity.flavor": "Become one with the sea!",
+  "modifier.tconstruct.aqua_affinity.description": "Removes the mining penalty from mining underwater",
 
   "_comment": "Armor - chestplate",
   "modifier.tconstruct.armor_power": "Power",

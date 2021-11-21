@@ -16,6 +16,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.BeehiveTileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -47,6 +48,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.AquaAffinityModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 
 import java.util.List;
@@ -59,8 +61,14 @@ import java.util.List;
 public class ToolEvents {
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-    // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
     PlayerEntity player = event.getPlayer();
+
+    // if we are underwater, have the aqua affinity modifier, and are not under the effects of vanilla aqua affinity, cancel the underwater modifier
+    if (player.areEyesInFluid(FluidTags.WATER) && ModifierUtil.getTotalModifierLevel(player, AquaAffinityModifier.AQUA_AFFINITY) > 0 && !EnchantmentHelper.hasAquaAffinity(player)) {
+      event.setNewSpeed(event.getNewSpeed() * 5);
+    }
+
+    // tool break speed hook
     ItemStack stack = player.getHeldItemMainhand();
     if (TinkerTags.Items.HARVEST.contains(stack.getItem())) {
       ToolStack tool = ToolStack.from(stack);

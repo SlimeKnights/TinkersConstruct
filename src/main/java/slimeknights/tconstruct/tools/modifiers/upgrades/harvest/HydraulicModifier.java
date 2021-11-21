@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.harvest;
 
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
@@ -8,6 +7,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -34,7 +34,7 @@ public class HydraulicModifier extends IncrementalModifier {
     if (player.areEyesInFluid(FluidTags.WATER)) {
       bonus = 8;
       // if not enchanted with aqua affinity, multiply by 5 to cancel out the effects of water
-      if (!EnchantmentHelper.hasAquaAffinity(player)) {
+      if (!ModifierUtil.hasAquaAffinity(player)) {
         bonus *= 5;
       }
     } else if (player.getEntityWorld().isRainingAt(player.getPosition())) {

@@ -650,6 +650,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.HELMETS)
                          .buildSalvage(consumer, prefix(TinkerModifiers.slurping, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.slurping, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.aquaAffinity.get())
+                         .addInputSalvage(Items.SCUTE, 0, 2)
+                         .addInput(Tags.Items.GEMS_PRISMARINE, 4)
+                         .addInputSalvage(Items.SCUTE, 0, 2)
+                         .addInput(Tags.Items.DUSTS_PRISMARINE, 4)
+                         .addInput(Tags.Items.DUSTS_PRISMARINE, 4)
+                         .addSalvage(Items.PRISMARINE_SHARD, 2, 8)
+                         .addSalvage(Items.PRISMARINE_CRYSTALS, 0, 4)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.HELMETS)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
     // boots
     ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump.get())
                          .setTools(TinkerTags.Items.BOOTS)

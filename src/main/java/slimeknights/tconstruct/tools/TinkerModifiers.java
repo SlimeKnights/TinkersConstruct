@@ -56,6 +56,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.AquaAffinityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.LeapingModifier;
@@ -259,6 +260,7 @@ public final class TinkerModifiers extends TinkerModule {
   // helmet
   public static final RegistryObject<ZoomModifier> zoom = MODIFIERS.register("zoom", ZoomModifier::new);
   public static final RegistryObject<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
+  public static final RegistryObject<AquaAffinityModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", AquaAffinityModifier::new);
   // chestplate
   public static final RegistryObject<ArmorPowerModifier> armorPower = MODIFIERS.register("armor_power", ArmorPowerModifier::new);
   // leggings

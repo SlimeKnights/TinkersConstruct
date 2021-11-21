@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:scute",
+      "amount_needed": 2
+    },
+    {
+      "tag": "forge:gems/prismarine",
+      "amount_needed": 4
+    },
+    {
+      "item": "minecraft:scute",
+      "amount_needed": 2
+    },
+    {
+      "tag": "forge:dusts/prismarine",
+      "amount_needed": 4
+    },
+    {
+      "tag": "forge:dusts/prismarine",
+      "amount_needed": 4
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:aqua_affinity",
+    "level": 1
+  }
+}
