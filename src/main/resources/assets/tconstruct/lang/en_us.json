@@ -1914,7 +1914,7 @@
   "tool_stat.tconstruct.armor.description": "How much this protects you when worn.",
   "tool_stat.tconstruct.armor_toughness": "Armor Toughness: ",
   "tool_stat.tconstruct.armor_toughness.description": "How much this armor resists high damage blows.",
-  "tool_stat.tconstruct.knockback_resistance": "Knockback Resistance: ",
+  "tool_stat.tconstruct.knockback_resistance": "Knockback Resist: ",
   "tool_stat.tconstruct.knockback_resistance.description": "How much this armor reduces knockback.",
 
   "stat.tconstruct.handle": "Handle",
