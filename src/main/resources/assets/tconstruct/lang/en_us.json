@@ -771,6 +771,11 @@
   "item.tconstruct.travelers_chestplate": "Traveler's Vest",
   "item.tconstruct.travelers_leggings": "Traveler's Pants",
   "item.tconstruct.travelers_boots": "Traveler's Boots",
+  
+  "item.tconstruct.plate_helmet": "Plate Helmet",
+  "item.tconstruct.plate_chestplate": "Plate Chestplate",
+  "item.tconstruct.plate_leggings": "Plate Leggings",
+  "item.tconstruct.plate_boots": "Plate Boots",
 
 
   "_comment": "Tinkers Tool Parts",

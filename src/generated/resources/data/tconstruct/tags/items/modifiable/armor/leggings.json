@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:travelers_leggings"
+    "tconstruct:travelers_leggings",
+    "tconstruct:plate_leggings"
   ]
 }

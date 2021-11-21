@@ -106,6 +106,40 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.copper)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "travelers_station"));
+
+    // plate armor
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))
+                       .patternLine("mmm")
+                       .patternLine("ccc")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .key('c', Items.CHAIN)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_helmet"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.CHESTPLATE))
+                       .patternLine("m m")
+                       .patternLine("mmm")
+                       .patternLine("cmc")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .key('c', Items.CHAIN)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_chestplate"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.LEGGINGS))
+                       .patternLine("mmm")
+                       .patternLine("m m")
+                       .patternLine("c c")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .key('c', Items.CHAIN)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_leggings"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.BOOTS))
+                       .patternLine("m m")
+                       .patternLine("m m")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_boots"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.manyullyn)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "plate_station"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

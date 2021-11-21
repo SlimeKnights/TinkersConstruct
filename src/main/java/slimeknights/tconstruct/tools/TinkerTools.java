@@ -97,6 +97,7 @@ public final class TinkerTools extends TinkerModule {
 
   // armor
   public static final EnumObject<ArmorSlotType,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.TRAVELERS, type.getEquipmentSlot(), TOOL.get()));
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.PLATE, type.getEquipmentSlot(), TOOL.get()));
 
   /*
    * Particles
