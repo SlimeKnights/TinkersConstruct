@@ -1558,6 +1558,9 @@
   "modifier.tconstruct.springy.description": "Attackers may bounce off your armor",
 
   "_comment": "Armor - helmet",
+  "modifier.tconstruct.respiration": "Respiration",
+  "modifier.tconstruct.respiration.flavor": "Water has oxygen too",
+  "modifier.tconstruct.respiration.description": "Increases lung capacity",
   "modifier.tconstruct.zoom": "Zoom",
   "modifier.tconstruct.zoom.flavor": "Makes your eyes faster!",
   "modifier.tconstruct.zoom.description": "Allows you to see far away objects when interacting while sneaking",

@@ -557,6 +557,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(3)
                                     .build(consumer, wrap(TinkerModifiers.springy, armorFolder, "_from_blocks"));
+    // upgrade - helmet
+    ModifierRecipeBuilder.modifier(TinkerModifiers.respiration.get())
+                         .setTools(TinkerTags.Items.HELMETS)
+                         .addInput(ItemTags.FISHES)
+                         .addInputSalvage(Items.KELP, 0.5f)
+                         .addInput(ItemTags.FISHES)
+                         .addInputSalvage(Items.KELP, 0.5f)
+                         .setMaxLevel(3)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.respiration, upgradeSalvage))
+                         .build(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
     // upgrade - chestplate
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.armorPower.get())
                                     .setTools(TinkerTags.Items.CHESTPLATES)
