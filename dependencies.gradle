@@ -1,7 +1,6 @@
 // Add your dependencies here
 
 dependencies {
-    compile("mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf")
-    compile("codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev")
-    compile("com.github.GTNewHorizons:ForgeMultipart:unified-build-script-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:Mantle:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:ForgeMultipart:master-SNAPSHOT:dev")
 }
