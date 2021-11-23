@@ -1,4 +1,5 @@
-{
+{  
+  "_translators_comment": "Translated by Bytegm, DrHesperus, MuTBu",
   "_comment": "Tinkers Common",
 
   "block.tconstruct.sky_slime": "Блок небесной слизи",
@@ -182,13 +183,13 @@
   "item.tconstruct.bacon": "Бекон",
 
   "item.tconstruct.earth_slime_crystal": "Слизневый кристалл",
-  "item.tconstruct.earth_slime_crystal.tooltip": "Используется на СверхСлизневых инструментах",
+  "item.tconstruct.earth_slime_crystal.tooltip": "Используется на покрытых слизью инструментах",
   "item.tconstruct.sky_slime_crystal": "Кристалл небесной слизи",
-  "item.tconstruct.sky_slime_crystal.tooltip": "Используется на СверхСлизневых инструментах",
+  "item.tconstruct.sky_slime_crystal.tooltip": "Используется на покрытых слизью инструментах",
   "item.tconstruct.ichor_slime_crystal": "Ихоровый кристалл",
-  "item.tconstruct.ichor_slime_crystal.tooltip": "Используется на СверхСлизневых инструментах",
+  "item.tconstruct.ichor_slime_crystal.tooltip": "Используется на покрытых слизью инструментах",
   "item.tconstruct.ender_slime_crystal": "Кристалл эндер-слизи",
-  "item.tconstruct.ender_slime_crystal.tooltip": "Используется на СверхСлизневых инструментах",
+  "item.tconstruct.ender_slime_crystal.tooltip": "Используется на покрытых слизью инструментах",
 
   "item.tconstruct.iron_reinforcement": "Железное укрепление",
   "item.tconstruct.iron_reinforcement.tooltip": "Снижает вероятность поломки инструмента",
@@ -1064,16 +1065,16 @@
   "block.tconstruct.ender_ender_slime_grass": "Эндер-слизневая трава",
   "block.tconstruct.ender_ender_slime_grass.tooltip": "Позволяет прыгать выше и спаунит эндер-слизней в Энде",
 
-  "item.tconstruct.earth_slime_grass_seeds": "Семена слизневой травы",
+  "item.tconstruct.earth_slime_grass_seeds": "Слизневые семена",
   "item.tconstruct.earth_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву",
-  "item.tconstruct.sky_slime_grass_seeds": "Семена слизневой травы",
-  "item.tconstruct.sky_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву",
-  "item.tconstruct.blood_slime_grass_seeds": "Семена слизневого нилия",
-  "item.tconstruct.blood_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву",
-  "item.tconstruct.ichor_slime_grass_seeds": "Семена слизневого нилия",
-  "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву",
-  "item.tconstruct.ender_slime_grass_seeds": "Семена слизневой травы",
-  "item.tconstruct.ender_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву",
+  "item.tconstruct.sky_slime_grass_seeds": "Слизневые семена",
+  "item.tconstruct.sky_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву, или на лозу, чтобы получить слизневую лозу",
+  "item.tconstruct.blood_slime_grass_seeds": "Слизневые семена",
+  "item.tconstruct.blood_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневый нилий",
+  "item.tconstruct.ichor_slime_grass_seeds": "Слизневые семена",
+  "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневый нилий",
+  "item.tconstruct.ender_slime_grass_seeds": "Слизневые семена",
+  "item.tconstruct.ender_slime_grass_seeds.tooltip": "Посадите на дёрн или слизневую землю, чтобы получить слизневую траву, или на лозу, чтобы получить слизневую лозу",
 
   "block.tconstruct.earth_slime_leaves": "Слизневые листья",
   "block.tconstruct.sky_slime_leaves": "Слизневые листья",
@@ -1240,7 +1241,7 @@
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Слизесталь",
   "material.tconstruct.slimesteel.flavor": "Своруйте слизь, чтобы получить слизесталь",
-  "material.tconstruct.slimesteel.encyclopedia": "Даёт 25 дополнительной ёмкости СверхСлизи, +50% от общего количества за уровень",
+  "material.tconstruct.slimesteel.encyclopedia": "Даёт 25 дополнительной ёмкости к слизневому покрытию, +50% от общего количества за уровень",
 
   "material.tconstruct.nahuatl": "Дерево туле",
   "material.tconstruct.nahuatl.flavor": "Это не обсидиановая часть, если бы это было так, на ней было бы написано\"Обсидиан.\"",
@@ -1271,11 +1272,11 @@
 
   "material.tconstruct.queens_slime": "Королевская слизь",
   "material.tconstruct.queens_slime.flavor": "Принцессы - зло, найди себе Королеву.",
-  "material.tconstruct.queens_slime.encyclopedia": "Уменьшает прочность на 15% за уровень, 66% из которых идет на СверхСлизь",
+  "material.tconstruct.queens_slime.encyclopedia": "Уменьшает прочность на 15% за уровень, 66% из которых идет на слизневое покрытие",
 
   "material.tconstruct.blazing_bone": "Горящая кость",
   "material.tconstruct.blazing_bone.flavor": "Используйте всю мощь Незерской крепости - кость и пламя",
-  "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.encyclopedia": "Даёт +1% урона в секунду от огня, до +15% от 15 секунд в лаве. Бонус уменьшается с огнестойкостью.",
 
   "material.tconstruct.soulsteel": "Сталь душ",
 
@@ -1349,7 +1350,7 @@
   "modifier.tconstruct.reinforced.description": "Инструмент дольше тратит прочность",
   "modifier.tconstruct.overforced": "Перегруженный",
   "modifier.tconstruct.overforced.flavor": "Под защитой Слизи!",
-  "modifier.tconstruct.overforced.description": "Инструмент укрепляется с помощью слизи, что позволяет увеличить ёмкость для СверхСлизи",
+  "modifier.tconstruct.overforced.description": "Инструмент укрепляется с помощью слизи, что позволяет увеличить ёмкость слизневого покрытия",
   "modifier.tconstruct.emerald": "Изумруд",
   "modifier.tconstruct.emerald.flavor": "Шикарный!",
   "modifier.tconstruct.emerald.description": "Увеличивает прочность инструмента в зависимости от исходной прочности! Зловреды ненавидят это!",
@@ -1368,9 +1369,9 @@
   "modifier.tconstruct.netherite.description": "Используйте силу древнего металла, сделав инструмент более прочным и невосприимчивым к внешним повреждениям, таким как огонь",
   "recipe.tconstruct.modifier.netherite_requirements": "Для применения незерита необходим алмаз или изумруд",
 
-  "modifier.tconstruct.overslime": "СверхСлизь",
+  "modifier.tconstruct.overslime": "Слизневое покрытие",
   "modifier.tconstruct.overslime.flavor": "Липкий!",
-  "modifier.tconstruct.overslime.description": "Инструмент потребляет СверхСлизь вместо прочности, пока она не закончится! Не дружелюбен к инструментам, не имеющим слизи",
+  "modifier.tconstruct.overslime.description": "Инструмент потребляет слизь вместо прочности, пока она не закончится! Не дружелюбен к инструментам, не имеющим слизи",
 
   "_comment": "Tool or harvest",
   "modifier.tconstruct.experienced": "Опытный",
@@ -1605,7 +1606,7 @@
   "modifier.tconstruct.dwarven.description": "Чем глубже вы опускаетесь, тем быстрее копает инструмент, только не опускайтесь слишком глубоко",
   "modifier.tconstruct.overgrowth": "Обросший",
   "modifier.tconstruct.overgrowth.flavor": "Грибной!",
-  "modifier.tconstruct.overgrowth.description": "Инструмент медленно обрастает СверхСлизью",
+  "modifier.tconstruct.overgrowth.description": "Инструмент медленно обрастает слизью",
   "modifier.tconstruct.raging": "Яростный",
   "modifier.tconstruct.raging.flavor": "Отчаянный ход!",
   "modifier.tconstruct.raging.description": "Инструмент наносит больше урона при низком уровне здоровья владельца",
@@ -1620,7 +1621,7 @@
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "Покрытый",
   "modifier.tconstruct.overcast.flavor": "Толстый слой!",
-  "modifier.tconstruct.overcast.description": "Overslime can be made extra thick on this tool",
+  "modifier.tconstruct.overcast.description": "Утолщает слой слизневого покрытия на инструменте",
   "modifier.tconstruct.lacerating": "Разрывающий",
   "modifier.tconstruct.lacerating.flavor": "Острые края!",
   "modifier.tconstruct.lacerating.description": "Вызывает у цели кровотечение, нанося дополнительный урон",
@@ -1697,9 +1698,9 @@
   "modifier.tconstruct.decay": "Разложение",
   "modifier.tconstruct.decay.flavor": "Радиоактивное иссушение",
   "modifier.tconstruct.decay.description": "Вызывает иссушение целей, но также может привести к иссушению владельца",
-  "modifier.tconstruct.overworked": "Overworked",
-  "modifier.tconstruct.overworked.flavor": "Underpaid",
-  "modifier.tconstruct.overworked.description": "Increases amount of overslime restored from all sources",
+  "modifier.tconstruct.overworked": "Перегруженный",
+  "modifier.tconstruct.overworked.flavor": "Низкооплачиваемый",
+  "modifier.tconstruct.overworked.description": "Увеличивает объём слизневого покрытия, восстанавливаемого из всех источников",
 
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Кровотечение",
@@ -1826,7 +1827,7 @@
 
   "recipe.tconstruct.tool_repair.fully_repaired": "Инструмент не повреждён",
   "recipe.tconstruct.damaging.broken": "Инструмент уже сломан",
-  "recipe.tconstruct.overslime.at_capacity": "В инструменте больше нет места для СверхСлизи",
+  "recipe.tconstruct.overslime.at_capacity": "В инструменте больше нет места для слизи",
   "recipe.tconstruct.remove_modifier.no_modifiers": "Инструмент не имеет сменных модификаторов",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Стол слишком мал для замены частей на этом инструменте",
