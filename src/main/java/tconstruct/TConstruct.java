@@ -69,7 +69,7 @@ import java.util.Random;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
+@Mod(modid = TConstruct.modID, name = "TConstruct", version = TConstruct.modVersion,
         dependencies = "required-after:Forge@[10.13.3.1384,11.14);" +
                 "required-after:Mantle@[1.7.10-0.3.2,);" +
                 "after:MineFactoryReloaded@[1.7.10R2.8.0RC7,);" +
@@ -88,7 +88,7 @@ import java.util.Random;
                 )
 public class TConstruct
 {
-    public static final String modVersion = "${version}";
+    public static final String modVersion = "GRADLETOKEN_VERSION";
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
