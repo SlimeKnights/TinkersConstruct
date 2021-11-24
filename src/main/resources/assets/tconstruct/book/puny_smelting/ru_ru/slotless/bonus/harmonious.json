@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:harmonious",
   "text": [
     {
-      "text": "Music is good for the soul, and your tool. Maybe your tool has a soul?"
+      "text": "Музыка полезна для души и для вашего инструмента. Может быть, у вашего инструмента есть душа?"
     }
   ],
   "effects": [
-    "Adds an upgrade slot",
-    "Single Use"
+    "Добавляет дополнительный слот для улучшения",
+    "Одноразовый"
     
   ]
 }

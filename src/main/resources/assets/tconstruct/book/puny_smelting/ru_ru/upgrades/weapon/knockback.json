@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:knockback",
   "text": [
     {
-      "text": "Stop wasting energy running and make your foes waste energy returning to you."
+      "text": "Прекратите тратить энергию на бег и заставьте противников тратить энергию на возвращение к Вам."
     }
   ],
   "effects": [
-    "Knocks back enemies on hit",
-    "Multiple levels, increases force of knockback per level",
-    "Requires 1 Upgrade Slot per level"
+    "Отбрасывает врагов при попадании",
+    "Многоуровневый, сила отбрасывания увеличивается с уровнем",
+    "Требуется 1 слот для улучшения за уровень"
   ]
 }

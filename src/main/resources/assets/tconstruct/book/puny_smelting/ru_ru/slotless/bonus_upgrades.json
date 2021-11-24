@@ -1,11 +1,11 @@
 {
-  "title": "Extra Modifiers",
+  "title": "Дополнительные модификаторы",
   "text": [
     {
-      "text": "Everyone loves extra upgrades! These special modifiers will increase your upgrade potential."
+      "text": "Все любят дополнительные улучшения! Эти специальные модификаторы расширят возможности улучшений."
     },
     {
-      "text": "These modifiers can be applied to give you some extra upgrade slots for your tool! Now you can get everything you wanted without having to make a choice.",
+      "text": "Эти модификаторы могут быть применены, чтобы дать вам несколько дополнительных слотов для улучшений на вашем инструменте! Теперь вы можете получить все, что хотели, не делая выбора.",
       "paragraph": true
     }
   ]

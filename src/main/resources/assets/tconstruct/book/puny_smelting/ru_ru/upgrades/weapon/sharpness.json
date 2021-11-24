@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:sharpness",
   "text": [
     {
-      "text": "The sharper the blade, the sharper the wielder."
+      "text": "Чем острее клинок, тем острее его владелец."
     }
   ],
   "effects": [
-    "Increases damage of the tool",
-    "Multiple levels, each level further increases damage",
-    "Requires 1 Upgrade Slot per level"
+    "Увеличивает урон инструмента",
+    "Многоуровневый, каждый уровень увеличивает урон еще больше",
+    "Требуется 1 слот для улучшения за уровень"
   ]
 }

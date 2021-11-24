@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:sweeping_edge",
   "text": [
     {
-      "text": "Chim chiminey chim chiminey chim chim cher-ee, a sweep is as lucky as lucky can be."
+      "text": "Чим чиминей, чим чиминей, чим чим чер-э, Развёртка настолько удачна, насколько это возможно."
     }
   ],
   "effects": [
-     "Targets of the sweep attack take a larger percentage of the tools damage",
-    "Multiple levels, each level increases percentage of damage further",
-    "Requires 1 Upgrade Slot per level"
+     "Цели, атакованные разящей атакой, получают больший процент урона от инструментов",
+    "Многоуровневый, каждый уровень ещё больше увеличивает процент урона",
+    "Требуется 1 слот для улучшения за уровень"
   ]
 }

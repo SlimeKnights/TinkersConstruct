@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:smite",
   "text": [
     {
-      "text": "Fear me undead..."
+      "text": "Бойся меня, нежить..."
 
     },
 	{
@@ -10,14 +10,14 @@
 	  "paragraph": true
     },
 	{
-	 "text": "For I wield the power of melons infused with gold! Perhaps golden melon armor would make them stay away from me.",
+	 "text": "Ибо я обладаю силой арбузов, наполненных золотом! Возможно, доспехи из золотого арбуза заставят их держаться от меня подальше.",
 	 "paragraph": true
     }
 	 
   ],
   "effects": [
-    "Increases damage to the undead",
-    "Multiple levels, each level further increases damage",
-    "Requires 1 Upgrade Slot per level"
+    "Увеличивает урон по нежити",
+    "Многоуровневый, каждый уровень увеличивает урон еще больше",
+    "Требуется 1 слот для улучшения за уровень"
   ]
 }

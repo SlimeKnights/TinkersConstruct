@@ -1,11 +1,11 @@
 {
-  "title":"Slotless Modifiers",
+  "title":"Бесслотовые модификаторы",
   "text": [
     {
-      "text": "Run out of slots? Well good news, all of the modifiers in this section need no slots to apply, perhaps some may even give you more slots!"
+      "text": "Закончились слоты? Хорошие новости: все модификаторы в этом разделе не требуют слотов для применения, а некоторые даже могут дать Вам ещё больше слотов!"
     },
     {
-      "text": "It's slotless. You don't need an ability or upgrade slot to put it on? What more do you want? Cookies?",
+      "text": "Он бесслотовый. Вам нужны слоты для умения или улучшения, чтобы надеть его? Что ещё Вам нужно? Печенье?",
       "paragraph": true
     }
   ]

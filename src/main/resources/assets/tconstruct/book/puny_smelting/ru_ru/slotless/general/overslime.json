@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:overslime",
   "text": [
     {
-      "text": "This upgrade is a bit over the top, wouldn't you say?"
+      "text": "Вы не находите, что это улучшение слишком имбовое?"
     }
   ],
   "effects": [
-    "Adds an overslime bar which is consumed before durability",
-    "Recharged with slime crystals",
-    "Different slime crystals recharge different amounts",
-    "Applies debuff to tools without slimy materials"
+    "Добавляет шкалу слизневого покрытия, которая расходуется вместо прочности",
+    "Пополняется слизневыми кристаллами",
+    "Разные слизневые кристаллы пополняют объём в разном количестве",
+    "Накладывает отрицательный эффект на инструмент, не имеющий слизневых материалов"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:soulbound",
   "text": [
     {
-      "text": "Infusing your soul with an object doesn't sound healthy. But it is rather useful!"
+      "text": "Наполнить свою душу предметом - звучит совсем не безопасно. Но это довольно полезно!"
     }
   ],
   "effects": [
-    "Tool will remain with you upon an untimely demise",
-    "Single Level",
-    "Requires 1 Upgrade Slot"
+    "Инструмент останется с вами после безвременной кончины",
+    "Одноуровневый",
+    "Требуется 1 слот для улучшения"
   ]
 }
