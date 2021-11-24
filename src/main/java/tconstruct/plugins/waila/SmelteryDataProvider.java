@@ -2,8 +2,12 @@ package tconstruct.plugins.waila;
 
 import java.util.List;
 import mcp.mobius.waila.api.*;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
@@ -59,4 +63,8 @@ public class SmelteryDataProvider implements IWailaDataProvider
         return currenttip;
     }
 
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x, int y, int z) {
+        return tag;
+    }
 }

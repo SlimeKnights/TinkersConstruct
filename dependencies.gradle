@@ -3,4 +3,16 @@
 dependencies {
     compile("com.github.GTNewHorizons:Mantle:master-SNAPSHOT:dev")
     compile("com.github.GTNewHorizons:ForgeMultipart:master-SNAPSHOT:dev")
+    compileOnly("com.github.GTNewHorizons:inventory-tweaks:master-SNAPSHOT:api")
+    compileOnly("com.github.GTNewHorizons:waila:master-SNAPSHOT:api")
+    compileOnly("com.github.GTNewHorizons:Battlegear2:master-SNAPSHOT:api") {
+        transitive = false
+    }
+
+    compile("curse.maven:cofh-core-69162:2388751")
+    compileOnly("curse.maven:minefactory-reloaded-66672:2366150")
+    compileOnly("curse.maven:zelda-sword-skills-220540:2384889")
+    compileOnly("curse.maven:dynamic-sword-skills-226360:2495462")
+    compileOnly("curse.maven:notenoughkeys-224614:2276280")
+    compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
 }
