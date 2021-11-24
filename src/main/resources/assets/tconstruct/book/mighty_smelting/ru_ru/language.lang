@@ -21,8 +21,8 @@ smeltery.seared_chute=Обожжённый жёлоб
 smeltery.sgui1=Графический интерфейс Плавильни
 smeltery.sgui2=Smeltery GUI Explanation
 
-abilities=Способности
-abilities.general=§1§lGeneral§r
-abilities.harvest=§1§lHarvest§r
-abilities.weapon=§1§lWeapon§r
-abilities.interact=§1§lInteract§r
+abilities=Умения
+abilities.general=§1§lОсновные§r
+abilities.harvest=§1§lДля копания§r
+abilities.weapon=§1§lДля оружия§r
+abilities.interact=§1§lДля взаимодействия§r

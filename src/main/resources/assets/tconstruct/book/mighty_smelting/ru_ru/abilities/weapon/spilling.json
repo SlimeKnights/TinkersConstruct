@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:spilling",
   "text": [
     {
-      "text": "Kinda gross that your tool is leaking. But also very effective!"
+      "text": "Довольно мерзко, что твой инструмент протекает. Но и очень эффективно!"
     }
   ],
   "effects": [
-    "Drains tank on attacking",
-    "Various effects based on fluid, including fire and poison",
-    "Requires 1 Ability Slot, single level"
+    "Выливает содержимое резервуара при ударе",
+    "Различные эффекты на основе жидкости, включая лаву и яд",
+    "Требуется 1 слот для умений, одноуровневый"
   ]
 }

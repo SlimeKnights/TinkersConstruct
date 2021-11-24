@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:glowing",
   "text": [
     {
-      "text": "That's a bright idea."
+      "text": "Это блестящая идея."
     }
 	
 	
   ],
   "effects": [
-    "Interact to place glows",
-	"Placing glows consumes durability, even if the tool has unbreaking",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "Нажмите, чтобы осветить",
+	"Расстановка света расходует прочность, даже если инструмент неразрушаемый",
+    "Одноуровневый",
+    "Требуется 1 слот для умений"
   ]
 }

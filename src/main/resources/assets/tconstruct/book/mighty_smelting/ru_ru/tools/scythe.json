@@ -2,19 +2,19 @@
   "tool": "tconstruct:scythe",
   "text": [
     {
-      "text": "The Scythe is an adventurers broadest friend. Prefer venturing through the thick jungles, or delving into the deep spider infested caves? The scythe will always have your back for hacking through foliage. "
+      "text": "Коса - лучший друг искателей приключений. Предпочитаете пробираться через густые джунгли или погружаться в глубокие пещеры, кишащие пауками? Коса всегда прикроет вам спину, когда Вы пробираетесь через листву. "
     },
     {
       "text": "\n"
     },
     {
-      "text": "It is optimal for harvesting crops, leaves, hay bales, cob webs, a wide variety of foliage."
+      "text": "Эффективна для уборки урожая, листьев, снопов сена, паутины, растительности."
     }
   ],
   "properties": [
-    "Advanced harvesting tool",
-    "3x3 AoE Harvesting",
-    "Effective on all types of foliage",
-    "AoE attack capabilities"
+    "Продвинутый инструмент для уборки урожая",
+    "Область уборки урожая 3x3",
+    "Эффективна для всех типов листвы",
+    "Может атаковать по области"
   ]
 }

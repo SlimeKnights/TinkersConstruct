@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:dual_wielding",
   "text": [
     {
-      "text": "Duels are more honorable with dual wielding."
+      "text": "Дуэли становятся более благородными при использовании двух оружий."
     }
   ],
   "effects": [
-    "Allows you to duel wield your tools",
-    "Requires offhanded for two-handed tools",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "Позволяет использовать два инструмента сразу.",
+    "Для работы двуручных инструментов требуется вторая рука",
+    "Одноуровневый",
+    "Требуется 1 слот для умений"
   ]
 }

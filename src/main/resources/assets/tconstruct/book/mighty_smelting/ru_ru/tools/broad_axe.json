@@ -2,18 +2,18 @@
   "tool": "tconstruct:broad_axe",
   "text": [
     {
-      "text": "The Broad Axe is a high effeciency tree chopping tool. Able to destory trees in one fell swoop. "
+      "text": "Широколезвийный топор - это высокоэффективный инструмент для рубки деревьев. Он способен уничтожать деревья одним махом."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Optimal for cutting down forests in quick succession."
+      "text": "Оптимально подходит для быстрой вырубки лесов."
     }
   ],
   "properties": [
-    "Advanced chopping tool",
-    "Able to destroy a whole tree in one chop",
-    "Able to strip a whole tree in one interaction"
+    "Продвинутый инструмент для рубки",
+    "Способен уничтожить целое дерево за один удар",
+    "Способен обтесать полностью всё дерево за один клик"
   ]
 }

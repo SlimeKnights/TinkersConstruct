@@ -2,20 +2,20 @@
   "tool": "tconstruct:excavator",
   "text": [
     {
-      "text": "The Excavator is a broad digging tool. It harvests soil and snow in a wide range."
+      "text": "Землероп - это широкий инструмент для копания. Он добывает почву и снег в широкой области."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Useful for when you need to dig a lot of graves."
+      "text": "Пригодится, когда нужно выкопать много могил."
     }
   ],
   "properties": [
-    "Advanced digging tool",
-    "3x3 AoE Digging",
-    "Effective on dirt, sand and gravel",
-    "Can create path",
-    "Starts with Knockback II"
+    "Продвинутый инструмент для копания",
+    "Область копания 3x3",
+    "Эффективен на земле, песке и гравии",
+    "Может прокладывать тропы",
+    "После создания уже имеет Отбрасывание II"
   ]
 }

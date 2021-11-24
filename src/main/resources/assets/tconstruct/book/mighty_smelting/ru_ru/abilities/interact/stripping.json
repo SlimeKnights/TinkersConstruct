@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:stripping",
   "text": [
     {
-      "text": "Wait it's not that kind of stripping? THIS IS DISAPPOINTING."
+      "text": "Подождите, это разве не стриптиз? ЭТО РАЗОЧАРОВЫВАЕТ."
     }
   ],
   "effects": [
-    "Allows you to strip wood with your tools",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "Позволяет обтёсывать древесину с помощью инструментов",
+    "Одноуровневый",
+    "Требуется 1 слот для умений"
   ]
 }

@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:melting",
   "text": [
     {
-      "text": "Smeltery not portable enough? Try turning your tool into a handheld smeltery!"
+      "text": "Плавильня недостаточно портативна? Попробуйте превратить свой инструмент в переносную плавильню!"
     }
   ],
   "effects": [
-    "Melts attacked mobs into the tool's tank",
-    "Dropped items also are melted if possible",
-    "Tool can be emptied into a tank or a smeltery drain",
-    "Requires 1 Ability Slot, single level"
+    "Переплавляет атакованных мобов в резервуар инструмента",
+    "Выброшенные также по возможности плавятся",
+    "Инструмент можно опустошать или сливать в плавильню",
+    "Требуется 1 слот для умений, одноуровневый"
   ]
 }

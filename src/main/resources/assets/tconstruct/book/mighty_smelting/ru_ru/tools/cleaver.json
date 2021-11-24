@@ -2,19 +2,19 @@
   "tool": "tconstruct:cleaver",
   "text": [
     {
-      "text": "The Cleaver is a high damage, slow swinging weapon."
+      "text": "Тесак - это оружие с высоким уроном и медленным замахом."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Off with their heads!",
+      "text": "Долой их головы!",
 	  "paragraph": true
     }
   ],
   "properties": [
-    "Strong Weapon",
-    "Slow Swinging",
-    "Starts with Severing II"
+    "Сильное оружие",
+    "Медленно замахивается",
+    "После создания уже умеет Отсечение II"
   ]
 }

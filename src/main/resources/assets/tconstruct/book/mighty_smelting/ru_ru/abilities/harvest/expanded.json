@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:expanded",
   "text": [
     {
-      "text": "Bigger is always better right?"
+      "text": "Больше - всегда лучше, верно?"
     }
   ],
   "effects": [
-    "Increases mining width & height",
-	"Range is different on every tool",
-    "Multiple levels, each level increases width & height by one",
-    "Requires 1 Ability slot per level"
+    "Увеличивает ширину и высоту копания",
+	"Область для каждого инструмента разная",
+    "Многоуровневый, каждый уровень увеличивает высоту и ширину копания на 1 блок",
+    "Требуется 1 слот для умения за уровень"
   ]
 }

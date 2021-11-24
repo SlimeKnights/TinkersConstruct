@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:tilling",
   "text": [
     {
-      "text": "Don't waste diamonds on a hoe."
+      "text": "Не тратьте алмазы на мотыгу."
     }
   ],
   "effects": [
-     "Allows you to till the ground with your tool",
-    "Single Level",
-    "Requires 1 Ability Slot"
+     "Позволяет вспахивать землю с помощью инструмента",
+    "Одноуровневый",
+    "Требуется 1 слот для умений"
   ]
 }

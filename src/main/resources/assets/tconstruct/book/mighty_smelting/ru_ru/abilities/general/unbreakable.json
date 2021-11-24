@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:unbreakable",
   "text": [
     {
-      "text": "Broken things are not fun, thankfully things can be made unbreakable."
+      "text": "Сломанные вещи не приносят удовольствия, но, к счастью, их можно сделать неразрушаемыми."
     }
   ],
   "effects": [
-     "Your tool is now unbreakable",
-    "Single Level",
-    "Requires 1 Ability Slot, Reinforced 5, Netherite",
-    "Not effective if you try to eat your tool"
+     "Теперь ваш инструмент не сломается",
+    "Одноуровневый",
+    "Требуется 1 слот для умений, Усиление 5, Незерит",
+    "Не эффективен, если Вы пытаетесь съесть свой инструмент"
   ]
 }

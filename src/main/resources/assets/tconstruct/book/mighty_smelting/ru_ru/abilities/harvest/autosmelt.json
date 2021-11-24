@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:autosmelt",
   "text": [
     {
-      "text": "The fires of hell are useful for turning up the heat."
+      "text": "Адское пламя полезно для повышения температуры."
     }
   ],
   "effects": [
-    "Drops from all blocks are smelted if possible",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "Выпадающие блоки переплавятся, если это возможно",
+    "Одноуровневый",
+    "Требуется 1 слот для умений"
   ]
 }

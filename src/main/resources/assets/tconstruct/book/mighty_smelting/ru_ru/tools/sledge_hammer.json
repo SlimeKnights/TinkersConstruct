@@ -2,19 +2,19 @@
   "tool": "tconstruct:sledge_hammer",
   "text": [
     {
-      "text": "The Sledge Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead."
+      "text": "Молот - это широкий инструмент для копания. Он добывает блоки в широкой области и эффективен против нежити."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It is optimal for mining out large areas and long mining trips."
+      "text": "Он эффективен для выкапывания больших областей и длительного копания."
     }
   ],
   "properties": [
-    "Advanced mining tool",
-    "3x3 AoE Mining",
-    "Effective on stone and ores",
-    "Starts with Smite II"
+    "Продвинутый инструмент для копания",
+    "Выкапывает область 3x3",
+    "Эффективен для камня и руд",
+    "После создания уже имеет Кару II"
   ]
 }

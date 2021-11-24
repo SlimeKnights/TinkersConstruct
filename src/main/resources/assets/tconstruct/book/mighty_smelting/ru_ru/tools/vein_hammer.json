@@ -2,25 +2,25 @@
   "tool": "tconstruct:vein_hammer",
   "text": [
     {
-      "text": "The vein hammer is a broad mining tool. It harvests blocks of the same type in veins."
+      "text": "Жильный молот - это широкий инструмент для копания. Он выкапывает жилы из блоков одного типа."
     },
     {
       "text": "\n"
     },
 	{
-      "text": "It is optimal for getting all ores in a vein in one hit."
+      "text": "Выкапывает полностью всю жилу за один удар"
     },
 	{
       "text": "\n"
     },
     {
-      "text": "Disclaimer: Thruul Industries is not responsible for mass vein mining of property."
+      "text": "Предупреждение: Thruul Industries не несёт ответственности за массовую выкопку жил."
     }
   ],
   "properties": [
-    "Advanced mining tool",
-    "Vein mining",
-    "Effective on stone and ores",
-    "Bonus piercing damage"
+    "Продвинутый инструмент для копания",
+    "Выкапывает жилы",
+    "Эффективен для камня и руд",
+    "Дополнительно имеет пронзающий урон"
   ]
 }
