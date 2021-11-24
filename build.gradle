@@ -1,4 +1,4 @@
-//version: 21647c763d3f6c90d59c900edae1248239c49dfb
+//version: a553e159ecaf0fc236cf25b2c124ea90f92bb140
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -8,15 +8,12 @@ Please check https://github.com/SinTh0r4s/ExampleMod1.7.10/blob/main/build.gradl
 
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 import java.util.concurrent.TimeUnit
 
 buildscript {
     repositories {
-        maven {
-            name = "jitpack"
-            url = "https://jitpack.io"
-        }
         maven {
             name = "forge"
             url = "https://maven.minecraftforge.net"
@@ -29,25 +26,31 @@ buildscript {
             name = "Scala CI dependencies"
             url = "https://repo1.maven.org/maven2/"
         }
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io"
+        }
     }
     dependencies {
-        classpath 'com.github.TheElan:ForgeGradle:1.2.2'
+        classpath 'com.github.GTNewHorizons:ForgeGradle:1.2.4'
     }
 }
 
 plugins {
+    id 'idea'
+    id 'scala'
     id("org.ajoberstar.grgit") version("3.1.1")
     id("com.github.johnrengelman.shadow") version("4.0.4")
     id("com.palantir.git-version") version("0.12.3")
 }
 
-apply plugin: 'scala'
 apply plugin: 'forge'
-apply plugin: 'idea'
+
+def projectJavaVersion = JavaLanguageVersion.of(8)
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(projectJavaVersion)
     }
 }
 
@@ -166,7 +169,7 @@ minecraft {
         if(gradleTokenModName) {
             replace gradleTokenModName, modName
         }
-        if(gradleTokenModName) {
+        if(gradleTokenVersion) {
             replace gradleTokenVersion, versionDetails().lastTag
         }
         if(gradleTokenGroupName) {
@@ -186,6 +189,10 @@ configurations {
 }
 
 repositories {
+    maven {
+        name = "Overmind forge repo mirror"
+        url = "https://gregtech.overminddl1.com/"
+    }
     if(usesMixins.toBoolean()) {
         maven {
             name = "sponge"
@@ -218,19 +225,13 @@ dependencies {
 
 apply from: 'dependencies.gradle'
 
-task relocateShadowJar(type: ConfigureShadowRelocation) {
-    target = tasks.shadowJar
-    prefix = modGroup + ".shadow"
-}
-
-def mixinConfigJson = "mixins." + modId + ".json"
 def mixingConfigRefMap = "mixins." + modId + ".refmap.json"
 def refMap = "${tasks.compileJava.temporaryDir}" + File.separator + mixingConfigRefMap
 def mixinSrg = "${tasks.reobf.temporaryDir}" + File.separator + "mixins.srg"
 
 task generateAssets {
     if(usesMixins.toBoolean()) {
-        new File(projectDir.toString() + "/src/main/resources/", mixinConfigJson).text = """{
+        new File(projectDir.toString() + "/src/main/resources/", "mixins." + modId + ".json").text = """{
   "required": true,
   "minVersion": "0.7.11",
   "package": "${modGroup}.${mixinsPackage}",
@@ -244,61 +245,24 @@ task generateAssets {
     }
 }
 
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = modGroup + ".shadow"
+}
+
 shadowJar {
-    def manifestAttributes = [:]
-    if(containsMixinsAndOrCoreModOnly.toBoolean() == false) {
-        manifestAttributes += ["FMLCorePluginContainsFMLMod": true]
-    }
-
-    if(accessTransformersFile) {
-        manifestAttributes += ["FMLAT" : accessTransformersFile.toString()]
-    }
-
-    if(coreModClass) {
-        manifestAttributes += ["FMLCorePlugin": modGroup + "." + coreModClass]
-    }
-
-    if(usesMixins.toBoolean()) {
-        from refMap
-        manifestAttributes += [
-                "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
-                "MixinConfigs" : mixinConfigJson,
-                "ForceLoadAsMod" : containsMixinsAndOrCoreModOnly.toBoolean() == false
-        ]
-    }
     manifest {
-        attributes(manifestAttributes)
+        attributes(getManifestAttributes())
     }
 
-    minimize()
+    minimize()  // This will only allow shading for actually used classes
     configurations = [project.configurations.shadowImplementation]
     dependsOn(relocateShadowJar)
 }
 
 jar {
-    def manifestAttributes = [:]
-    if(containsMixinsAndOrCoreModOnly.toBoolean() == false) {
-        manifestAttributes += ["FMLCorePluginContainsFMLMod": true]
-    }
-
-    if(accessTransformersFile) {
-        manifestAttributes += ["FMLAT" : accessTransformersFile.toString()]
-    }
-
-    if(coreModClass) {
-        manifestAttributes += ["FMLCorePlugin": modGroup + "." + coreModClass]
-    }
-
-    if(usesMixins.toBoolean()) {
-        from refMap
-        manifestAttributes += [
-                "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
-                "MixinConfigs" : mixinConfigJson,
-                "ForceLoadAsMod" : containsMixinsAndOrCoreModOnly.toBoolean() == false
-        ]
-    }
     manifest {
-        attributes(manifestAttributes)
+        attributes(getManifestAttributes())
     }
 
     if(usesShadowedDependencies.toBoolean()) {
@@ -351,7 +315,7 @@ runClient {
 runServer {
     def arguments = []
 
-    if(usesMixins.toBoolean()) {
+    if (usesMixins.toBoolean()) {
         arguments += [
                 "--mods=../build/libs/$modId-${version}.jar",
                 "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
@@ -361,87 +325,105 @@ runServer {
     args(arguments)
 }
 
+tasks.withType(JavaExec).configureEach {
+    javaLauncher.set(
+            javaToolchains.launcherFor {
+                languageVersion = projectJavaVersion
+            }
+    )
+}
+
 processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+        {
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
 
-        // replace version and mcversion
-        expand "minecraftVersion": project.minecraft.version,
-                "modVersion": versionDetails().lastTag,
-                "modId": modId,
-                "modName": modName
+                // replace version and mcversion
+                expand "minecraftVersion": project.minecraft.version,
+                        "modVersion": versionDetails().lastTag,
+                        "modId": modId,
+                        "modName": modName
+            }
+
+            if(usesMixins.toBoolean()) {
+                from refMap
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
+
+def getManifestAttributes() {
+    def manifestAttributes = [:]
+    if(containsMixinsAndOrCoreModOnly.toBoolean() == false && (usesMixins.toBoolean() || coreModClass)) {
+        manifestAttributes += ["FMLCorePluginContainsFMLMod": true]
     }
 
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    if(accessTransformersFile) {
+        manifestAttributes += ["FMLAT" : accessTransformersFile.toString()]
     }
+
+    if(coreModClass) {
+        manifestAttributes += ["FMLCorePlugin": modGroup + "." + coreModClass]
+    }
+
+    if(usesMixins.toBoolean()) {
+        manifestAttributes += [
+                "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
+                "MixinConfigs" : "mixins." + modId + ".json",
+                "ForceLoadAsMod" : containsMixinsAndOrCoreModOnly.toBoolean() == false
+        ]
+    }
+    return manifestAttributes
 }
 
 task sourcesJar(type: Jar) {
     from (sourceSets.main.allJava)
     from (file("$projectDir/LICENSE"))
     getArchiveClassifier().set('sources')
+}
 
-    def manifestAttributes = [:]
-    if(containsMixinsAndOrCoreModOnly.toBoolean() == false) {
-        manifestAttributes += ["FMLCorePluginContainsFMLMod": true]
-    }
+task shadowDevJar(type: ShadowJar) {
+    from sourceSets.main.output
+    getArchiveClassifier().set("dev")
 
-    if(accessTransformersFile) {
-        manifestAttributes += ["FMLAT" : accessTransformersFile.toString()]
-    }
-
-    if(coreModClass) {
-        manifestAttributes += ["FMLCorePlugin": modGroup + "." + coreModClass]
-    }
-
-    if(usesMixins.toBoolean()) {
-        from refMap
-        manifestAttributes += [
-                "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
-                "MixinConfigs" : mixinConfigJson,
-                "ForceLoadAsMod" : containsMixinsAndOrCoreModOnly.toBoolean() == false
-        ]
-    }
     manifest {
-        attributes(manifestAttributes)
+        attributes(getManifestAttributes())
     }
+
+    minimize()  // This will only allow shading for actually used classes
+    configurations = [project.configurations.shadowImplementation]
+}
+
+task relocateShadowDevJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowDevJar
+    prefix = modGroup + ".shadow"
+}
+
+task circularResolverJar(type: Jar) {
+    dependsOn(relocateShadowDevJar)
+    dependsOn(shadowDevJar)
+    enabled = false
 }
 
 task devJar(type: Jar) {
     from sourceSets.main.output
     getArchiveClassifier().set("dev")
 
-    def manifestAttributes = [:]
-    if(containsMixinsAndOrCoreModOnly.toBoolean() == false) {
-        manifestAttributes += ["FMLCorePluginContainsFMLMod": true]
-    }
-
-    if(accessTransformersFile) {
-        manifestAttributes += ["FMLAT" : accessTransformersFile.toString()]
-    }
-
-    if(coreModClass) {
-        manifestAttributes += ["FMLCorePlugin": modGroup + "." + coreModClass]
-    }
-
-    if(usesMixins.toBoolean()) {
-        from refMap
-        manifestAttributes += [
-                "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
-                "MixinConfigs" : mixinConfigJson,
-                "ForceLoadAsMod" : containsMixinsAndOrCoreModOnly.toBoolean() == false
-        ]
-    }
     manifest {
-        attributes(manifestAttributes)
+        attributes(getManifestAttributes())
+    }
+
+    if(usesShadowedDependencies.toBoolean()) {
+        dependsOn(circularResolverJar)
+        enabled = false
     }
 }
 
@@ -466,6 +448,22 @@ artifacts {
     archives devJar
     if(apiPackage) {
         archives apiJar
+    }
+}
+
+// Crude handler to append custom maven repositories to maven dependency
+install{
+    repositories{
+        mavenInstaller{
+            pom.withXml {
+                def repositoriesNode = asNode().appendNode("repositories")
+                project.repositories.each { repository ->
+                    def repositoryNode = repositoriesNode.appendNode("repository")
+                    repositoryNode.appendNode("name", repository.name)
+                    repositoryNode.appendNode("url", repository.properties.get("url"))
+                }
+            }
+        }
     }
 }
 
