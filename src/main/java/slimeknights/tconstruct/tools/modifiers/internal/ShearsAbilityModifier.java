@@ -71,6 +71,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
     // use looting instead of fortune, as that is our hook with entity access
     // modifier can always use tags or the nullable parameter to distinguish if needed
     int looting = ModifierUtil.getLootingLevel(tool, player, target, null);
+    looting = ModifierUtil.getLeggingsLootingLevel(player, target, null, looting);
     World world = player.getEntityWorld();
     if (isShears(tool) && shearEntity(stack, tool, world, player, target, looting)) {
       boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);

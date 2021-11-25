@@ -8,13 +8,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.hooks.ILeggingLootModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
 
-public class LuckModifier extends Modifier {
+public class LuckModifier extends Modifier implements ILeggingLootModifier {
   public LuckModifier() {
     super(0x345EC3);
   }
@@ -29,6 +30,11 @@ public class LuckModifier extends Modifier {
   }
 
   @Override
+  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+    return super.getDisplayName(tool, level);
+  }
+
+  @Override
   public void applyHarvestEnchantments(IModifierToolStack tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
     consumer.accept(Enchantments.FORTUNE, level);
   }
@@ -36,5 +42,11 @@ public class LuckModifier extends Modifier {
   @Override
   public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting + level;
+  }
+
+  @Nullable
+  @Override
+  public <T> T getModule(Class<T> type) {
+    return tryModuleMatch(type, ILeggingLootModifier.class, this);
   }
 }

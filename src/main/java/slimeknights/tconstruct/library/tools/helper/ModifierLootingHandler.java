@@ -78,12 +78,19 @@ public class ModifierLootingHandler {
       // TODO: consider bow usage, as the attack time is not the same as the death time
       // TODO: extend to armor eventually
       LivingEntity holder = ((LivingEntity)source);
-      ItemStack held = holder.getItemStackFromSlot(getLootingSlot(holder));
+      EquipmentSlotType slotType = getLootingSlot(holder);
+      ItemStack held = holder.getItemStackFromSlot(slotType);
+      int level = event.getLootingLevel();
       if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
         ToolStack tool = ToolStack.from(held);
-        int newLevel = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
-        event.setLootingLevel(newLevel);
+        level = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
+        // ignore default looting if we are looting from another slot
+      } else if (slotType != EquipmentSlotType.MAINHAND) {
+        level = 0;
       }
+      // boot looting with pants
+      level = ModifierUtil.getLeggingsLootingLevel(holder, event.getEntityLiving(), damageSource, level);
+      event.setLootingLevel(level);
     }
   }
 

@@ -36,13 +36,9 @@ public class ZoomModifier extends SingleUseModifier implements IHelmetInteractMo
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(ZOOM_MULTIPLIER));
   }
 
-  @SuppressWarnings("unchecked")
   @Nullable
   @Override
   public <T> T getModule(Class<T> type) {
-    if (type == IHelmetInteractModifier.class) {
-      return (T) this;
-    }
-    return null;
+    return tryModuleMatch(type, IHelmetInteractModifier.class, this);
   }
 }

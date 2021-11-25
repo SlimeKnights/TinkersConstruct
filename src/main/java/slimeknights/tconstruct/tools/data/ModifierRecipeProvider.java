@@ -781,6 +781,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     };
     luckRecipes.accept(TinkerModifiers.luck.get(), TinkerTags.Items.MELEE_OR_HARVEST);
     luckRecipes.accept(TinkerModifiers.looting.get(), TinkerTags.Items.CHESTPLATES);
+    ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .addInputSalvage(Items.CORNFLOWER, 0.1f)
+                         .addInputSalvage(Items.RABBIT_FOOT, 0.15f)
+                         .addInput(Items.GOLDEN_CARROT)
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .addInputSalvage(Items.NAME_TAG, 0.1f)
+                         .addSalvage(Items.DIAMOND, 0.65f)
+                         .addSalvage(Items.CARROT, 0.75f) // all the magic is gone, its just a carrot now
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, wrap(TinkerModifiers.luck, abilitySalvage, "_pants"))
+                         .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_pants"));
     // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
                          .addInput(TinkerModifiers.silkyCloth)

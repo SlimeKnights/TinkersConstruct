@@ -1103,4 +1103,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   protected void addDamageTooltip(IModifierToolStack tool, float amount, List<ITextComponent> tooltip) {
     addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
   }
+
+  /** Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules */
+  @SuppressWarnings("unchecked")
+  @Nullable
+  protected static <M, E> E tryModuleMatch(Class<E> expected, Class<M> moduleType, M module) {
+    if (moduleType == expected) {
+      return (E) module;
+    }
+    return null;
+  }
 }

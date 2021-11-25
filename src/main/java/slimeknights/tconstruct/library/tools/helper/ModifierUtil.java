@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hooks.ILeggingLootModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -67,6 +69,19 @@ public final class ModifierUtil {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
       }
+      // lucky pants
+      if (player != null) {
+        ItemStack pants = player.getItemStackFromSlot(EquipmentSlotType.LEGS);
+        if (TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
+          ToolStack pantsTool = ToolStack.from(pants);
+          for (ModifierEntry entry : pantsTool.getModifierList()) {
+            ILeggingLootModifier leggingLuck = entry.getModifier().getModule(ILeggingLootModifier.class);
+            if (leggingLuck != null) {
+              leggingLuck.applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
+            }
+          }
+        }
+      }
       if (!enchantments.isEmpty()) {
         addedEnchants = true;
         EnchantmentHelper.setEnchantments(enchantments, stack);
@@ -105,6 +120,30 @@ public final class ModifierUtil {
       looting = entry.getModifier().getLootingValue(tool, entry.getLevel(), holder, target, damageSource, looting);
     }
     return looting;
+  }
+
+  /**
+   * Gets the looting value for the leggings
+   * @param holder         Entity holding the tool
+   * @param target         Target being looted
+   * @param damageSource   Damage source for looting, may ben null if no attack
+   * @param toolLooting    Looting from the tool
+   * @return  Looting value for the tool
+   */
+  public static int getLeggingsLootingLevel(LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int toolLooting) {
+    ItemStack pants = holder.getItemStackFromSlot(EquipmentSlotType.LEGS);
+    if (!pants.isEmpty() && TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
+      ToolStack pantsTool = ToolStack.from(pants);
+      if (!pantsTool.isBroken()) {
+        for (ModifierEntry entry : pantsTool.getModifierList()) {
+          ILeggingLootModifier leggingLuck = entry.getModifier().getModule(ILeggingLootModifier.class);
+          if (leggingLuck != null) {
+            toolLooting = leggingLuck.getLootingValue(pantsTool, entry.getLevel(), holder, target, damageSource, toolLooting);
+          }
+        }
+      }
+    }
+    return toolLooting;
   }
 
   /** Drops an item at the entity position */
