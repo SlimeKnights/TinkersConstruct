@@ -17,6 +17,8 @@ public interface IModifiable extends IItemProvider {
   ResourceLocation RARITY = TConstruct.getResource("rarity");
   /** Modifier key to defer tool interaction to the offhand if present */
   ResourceLocation DEFER_OFFHAND = TConstruct.getResource("defer_offhand");
+  /** Modifier key to entirely disable tool interaction */
+  ResourceLocation NO_INTERACTION = TConstruct.getResource("no_interaction");
 
   /** Gets the definition of this tool for building and applying modifiers */
   ToolDefinition getToolDefinition();

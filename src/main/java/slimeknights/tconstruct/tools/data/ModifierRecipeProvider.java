@@ -275,9 +275,22 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInputSalvage(Items.PHANTOM_MEMBRANE, 0.3f)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .setMaxLevel(1)
+                         .setSalvageLevelRange(1, 1)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .buildSalvage(consumer, prefix(TinkerModifiers.offhanded, upgradeSalvage))
-                         .build(consumer, prefix(TinkerModifiers.offhanded, upgradeFolder));
+                         .buildSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_1"))
+                         .build(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_1"));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded.get())
+                         .setTools(TinkerTags.Items.HELD)
+                         .addInputSalvage(Items.LEATHER, 0.7f)
+                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInput(SlimeType.ICHOR.getSlimeballTag())
+                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
+                         .setMaxLevel(2)
+                         .setMinSalvageLevel(2)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded.get(), 1))
+                         .setRequirementsError(makeRequirementsError("offhanded.level_2"))
+                         .buildSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_2"))
+                         .build(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_2"));
 
     /*
      * Speed

@@ -31,7 +31,7 @@ public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierE
 
   @Override
   public List<ITextComponent> getTooltip(ModifierEntry entry, ITooltipFlag flag) {
-    List<ITextComponent> tooltip = entry.getModifier().getDescriptionList();
+    List<ITextComponent> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
     if (flag.isAdvanced()) {
       tooltip = new ArrayList<>(tooltip);
       tooltip.add((new StringTextComponent(entry.getModifier().getId().toString())).mergeStyle(TextFormatting.DARK_GRAY));

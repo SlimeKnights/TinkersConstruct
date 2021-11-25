@@ -245,12 +245,21 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Gets the description for this modifier, sensitive to the tool
+   * @param level Modifier level
+   * @return  Description for this modifier
+   */
+  public List<ITextComponent> getDescriptionList(int level) {
+    return getDescriptionList();
+  }
+
+  /**
+   * Gets the description for this modifier, sensitive to the tool
    * @param tool  Tool containing this modifier
    * @param level Modifier level
    * @return  Description for this modifier
    */
   public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
-    return getDescriptionList();
+    return getDescriptionList(level);
   }
 
   /** Converts a list of text components to a single text component, newline separated */
@@ -277,6 +286,19 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       description = listToComponent(getDescriptionList());
     }
     return description;
+  }
+
+  /**
+   * Gets the description for this modifier
+   * @return  Description for this modifier
+   */
+  public final ITextComponent getDescription(int level) {
+    // if the method is not overridden, use the cached description component
+    List<ITextComponent> extendedDescription = getDescriptionList(level);
+    if (extendedDescription == getDescriptionList()) {
+      return getDescription();
+    }
+    return listToComponent(extendedDescription);
   }
 
   /**

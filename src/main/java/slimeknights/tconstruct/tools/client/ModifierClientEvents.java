@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
@@ -84,11 +85,17 @@ public class ModifierClientEvents {
     if (mainhand.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
       ToolStack tool = ToolStack.from(mainhand);
       // special support for replacing modifier
-      if (!tool.getVolatileData().getBoolean(IModifiable.DEFER_OFFHAND)) {
+      IModDataReadOnly volatileData = tool.getVolatileData();
+      boolean noInteraction = volatileData.getBoolean(IModifiable.NO_INTERACTION);
+      if (!noInteraction && !volatileData.getBoolean(IModifiable.DEFER_OFFHAND)) {
         if (!(offhand.getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
           event.setCanceled(true);
           return;
         }
+      }
+      // don't render empty offhand if main stack does not have upgraded offhanded
+      if (!noInteraction && offhand.isEmpty()) {
+        return;
       }
     }
 

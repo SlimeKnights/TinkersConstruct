@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -291,7 +292,11 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   /** If true, this interaction hook should defer to the offhand */
   protected static boolean shouldInteract(@Nullable LivingEntity player, ToolStack toolStack, Hand hand) {
-    return hand == Hand.OFF_HAND || player == null || !toolStack.getVolatileData().getBoolean(DEFER_OFFHAND) || player.getHeldItemOffhand().isEmpty();
+    IModDataReadOnly volatileData = toolStack.getVolatileData();
+    if (volatileData.getBoolean(NO_INTERACTION)) {
+      return false;
+    }
+    return hand == Hand.OFF_HAND || player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getHeldItemOffhand().isEmpty();
   }
   
   @Override

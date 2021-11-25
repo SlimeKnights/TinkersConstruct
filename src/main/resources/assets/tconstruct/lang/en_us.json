@@ -1402,8 +1402,12 @@
   "modifier.tconstruct.shiny.flavor": "Magical Energy Flows!",
   "modifier.tconstruct.shiny.description": "Tool glows with an enchanted glint",
   "modifier.tconstruct.offhanded": "Offhanded",
-  "modifier.tconstruct.offhanded.flavor": "Dont think about it too hard",
+  "modifier.tconstruct.offhanded.2": "Nohanded",
+  "modifier.tconstruct.offhanded.flavor": "Don't think about it too hard",
   "modifier.tconstruct.offhanded.description": "Disables the tools interaction abilities when the offhand is filled",
+  "modifier.tconstruct.offhanded.description.2": "Disables the tools interaction abilities entirely",
+  "recipe.tconstruct.modifier.offhanded.level_2": "Nohanded requires offhanded to apply",
+
 
   "_comment": "Durability",
   "modifier.tconstruct.reinforced": "Reinforced",

@@ -16,9 +16,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -26,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
@@ -234,7 +234,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
           for (ModifierEntry trait : traits) {
             Modifier mod = trait.getModifier();
             stats.add(mod.getDisplayName(trait.getLevel()));
-            tips.add(mod.getDescription());
+            tips.add(mod.getDescription(trait.getLevel()));
           }
         }
 

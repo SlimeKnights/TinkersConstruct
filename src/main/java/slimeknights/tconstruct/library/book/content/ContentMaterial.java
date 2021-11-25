@@ -184,7 +184,7 @@ public class ContentMaterial extends TinkerPage {
       Modifier mod = trait.getModifier();
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
 
-      List<ITextComponent> textComponents = mod.getDescriptionList();
+      List<ITextComponent> textComponents = mod.getDescriptionList(trait.getLevel());
       List<ITextComponent> formatted = new ArrayList<>();
 
 
