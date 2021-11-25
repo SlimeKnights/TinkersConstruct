@@ -76,6 +76,7 @@ import slimeknights.tconstruct.tools.modifiers.armor.BlastProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.FireProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.KnockbackResistanceModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.MagicProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.armor.MeleeProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.ProjectileProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.armor.ProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
@@ -246,6 +247,7 @@ public final class TinkerModifiers extends TinkerModule {
   // armor
   // protection
   public static final RegistryObject<ProtectionModifier> protection = MODIFIERS.register("protection", ProtectionModifier::new);
+  public static final RegistryObject<MeleeProtectionModifier> meleeProtection = MODIFIERS.register("melee_protection", MeleeProtectionModifier::new);
   public static final RegistryObject<FireProtectionModifier> fireProtection = MODIFIERS.register("fire_protection", FireProtectionModifier::new);
   public static final RegistryObject<BlastProtectionModifier> blastProtection = MODIFIERS.register("blast_protection", BlastProtectionModifier::new);
   public static final RegistryObject<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);

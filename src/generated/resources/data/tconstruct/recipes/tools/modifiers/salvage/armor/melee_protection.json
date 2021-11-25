@@ -6,7 +6,7 @@
   "slots": {
     "armor": 1
   },
-  "modifier": "tconstruct:protection",
+  "modifier": "tconstruct:melee_protection",
   "min_level": 1,
   "salvage": {
     "item": "tconstruct:cobalt_reinforcement",

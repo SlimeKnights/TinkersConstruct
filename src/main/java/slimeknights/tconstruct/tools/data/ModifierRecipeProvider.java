@@ -462,12 +462,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * armor
      */
     // protection
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.protection.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.meleeProtection.get())
                                     .setInputSalvage(TinkerModifiers.cobaltReinforcement, 1, 24, false)
                                     .setSlots(SlotType.ARMOR, 1)
                                     .setTools(TinkerTags.Items.ARMOR)
-                                    .buildSalvage(consumer, prefix(TinkerModifiers.protection, armorSalvage))
-                                    .build(consumer, prefix(TinkerModifiers.protection, armorFolder));
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.meleeProtection, armorSalvage))
+                                    .build(consumer, prefix(TinkerModifiers.meleeProtection, armorFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.projectileProtection.get())
                                     .setInputSalvage(TinkerModifiers.bronzeReinforcement, 1, 24, false)
                                     .setSlots(SlotType.ARMOR, 1)

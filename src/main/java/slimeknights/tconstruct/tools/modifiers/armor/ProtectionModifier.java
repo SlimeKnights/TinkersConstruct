@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ProtectionModifier extends IncrementalModifier {
   public ProtectionModifier() {
-    super(0x2376DD);
+    super(0xA8A8A8);
   }
 
   @Override
