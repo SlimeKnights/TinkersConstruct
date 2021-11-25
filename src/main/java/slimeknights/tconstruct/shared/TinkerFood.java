@@ -11,6 +11,9 @@ public final class TinkerFood {
   /* Bacon. What more is there to say? */
   public static final Food BACON = (new Food.Builder()).hunger(4).saturation(0.6F).build();
 
+  /** For the modifier */
+  public static final Food JEWELED_APPLE = (new Food.Builder()).hunger(4).saturation(1.2F).effect(() -> new EffectInstance(Effects.HASTE, 1200, 0), 1.0F).effect(() -> new EffectInstance(Effects.RESISTANCE, 2400, 0), 1.0F).setAlwaysEdible().build();
+
   /* Cake block is set up to take food as a parameter */
   public static final Food EARTH_CAKE = new Food.Builder().hunger(1).saturation(0.1f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.LUCK, 20 * 15, 0), 1.0f).build();
   public static final Food SKY_CAKE   = new Food.Builder().hunger(1).saturation(0.1f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.JUMP_BOOST, 20 * 20, 1), 1.0f).build();

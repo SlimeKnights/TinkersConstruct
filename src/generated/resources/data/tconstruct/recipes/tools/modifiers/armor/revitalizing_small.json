@@ -1,10 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "minecraft:ghast_tear"
+    "item": "tconstruct:jeweled_apple"
   },
   "amount_per_item": 1,
-  "needed_per_level": 5,
+  "needed_per_level": 2,
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/helmets"

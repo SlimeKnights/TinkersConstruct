@@ -115,6 +115,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .build(consumer, prefix(TinkerModifiers.cobaltReinforcement, folder));
 
+    // jeweled apple
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.jeweledApple)
+                            .setFluidAndTime(TinkerFluids.moltenDiamond, false, FluidValues.INGOT * 4)
+                            .setCast(Items.APPLE, true)
+                            .build(consumer, prefix(TinkerCommons.jeweledApple, folder));
+
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
                        .key('s', Tags.Items.STRING)
@@ -518,13 +524,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // 3 each for chest and legs, 2 each for boots and helmet, leads to 10 total
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
                                     .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.CHESTPLATES), Ingredient.fromTag(TinkerTags.Items.LEGGINGS)))
-                                    .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
+                                    .setInputSalvage(TinkerCommons.jeweledApple, 1, 2, false)
                                     .setSlots(SlotType.ARMOR, 1)
                                     .setMaxLevel(3)
                                     .build(consumer, wrap(TinkerModifiers.revitalizing, armorFolder, "_large"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
                                     .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.HELMETS), Ingredient.fromTag(TinkerTags.Items.BOOTS)))
-                                    .setInputSalvage(Items.GHAST_TEAR, 1, 5, false)
+                                    .setInputSalvage(TinkerCommons.jeweledApple, 1, 2, false)
                                     .setSlots(SlotType.ARMOR, 1)
                                     .setMaxLevel(2)
                                     .build(consumer, wrap(TinkerModifiers.revitalizing, armorFolder, "_small"));
