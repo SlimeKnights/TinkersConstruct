@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:modifier_salvage",
   "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
+    "tag": "tconstruct:modifiable/armor/chestplate"
   },
-  "modifier": "tconstruct:luck",
+  "modifier": "tconstruct:looting",
   "min_level": 3,
   "max_level": 3,
   "salvage": [

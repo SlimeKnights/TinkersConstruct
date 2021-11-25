@@ -1643,6 +1643,8 @@
   "modifier.tconstruct.looting": "Looting",
   "modifier.tconstruct.looting.flavor": "Luck of the Mobs!",
   "modifier.tconstruct.looting.description": "Gives you more nice things when killing mobs!",
+  "recipe.tconstruct.modifier.looting.level_2": "Looting II requires a different recipe for the first level",
+  "recipe.tconstruct.modifier.looting.level_3": ":ooting III requires a different recipe for the first two levels",
 
   "_comment": "Expanders",
   "modifier.tconstruct.expanded": "Expanded",

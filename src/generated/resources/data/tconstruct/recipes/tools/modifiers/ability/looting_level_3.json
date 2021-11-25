@@ -18,15 +18,15 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
+    "tag": "tconstruct:modifiable/armor/chestplate"
   },
   "requirements": {
-    "name": "tconstruct:luck",
+    "name": "tconstruct:looting",
     "level": 2,
-    "error": "recipe.tconstruct.modifier.luck.level_3"
+    "error": "recipe.tconstruct.modifier.looting.level_3"
   },
   "result": {
-    "name": "tconstruct:luck",
+    "name": "tconstruct:looting",
     "level": 1
   },
   "max_level": 3

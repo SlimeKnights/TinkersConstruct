@@ -23,13 +23,8 @@
   "slots": {
     "abilities": 1
   },
-  "requirements": {
-    "name": "tconstruct:unarmed",
-    "level": 1,
-    "error": "recipe.tconstruct.modifier.unarmed"
-  },
   "result": {
-    "name": "tconstruct:luck",
+    "name": "tconstruct:looting",
     "level": 1
   },
   "max_level": 1
