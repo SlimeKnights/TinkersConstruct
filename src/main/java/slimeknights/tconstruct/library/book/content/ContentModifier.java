@@ -134,7 +134,10 @@ public class ContentModifier extends TinkerPage {
   public void buildAndAddRecipeDisplay(BookData book, ArrayList<BookElement> list, @Nullable IDisplayModifierRecipe recipe, @Nullable BookScreen parent) {
     if (recipe != null) {
       List<List<ItemStack>> inputs = recipe.getDisplayItems();
-      ImageData img = IMG_SLOTS[inputs.size() - 2];
+      ImageData img = IMG_SLOTS[Math.min(inputs.size() - 2, 4)];
+      if (inputs.size() > 6) {
+        TConstruct.LOG.warn("Too many inputs in recipe {}, size {}", recipe, inputs.size() - 2);
+      }
       int[] slotsX = SLOTS_X;
       int[] slotsY = SLOTS_Y;
 
@@ -183,7 +186,7 @@ public class ContentModifier extends TinkerPage {
       this.parts.add(image);
       list.add(image);
 
-      for (int i = 1; i < inputs.size(); i++) {
+      for (int i = 1; i < Math.min(inputs.size(), 6); i++) {
         TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i - 1], imgY + slotsY[i - 1], 1f, inputs.get(i));
 
         if (parent != null)
