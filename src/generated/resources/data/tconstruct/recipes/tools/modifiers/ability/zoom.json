@@ -15,9 +15,6 @@
     },
     {
       "tag": "forge:ingots/copper"
-    },
-    {
-      "item": "tconstruct:sky_congealed_slime"
     }
   ],
   "tools": {

@@ -682,7 +682,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.GLASS_PANES)
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addInput(TinkerMaterials.copper.getIngotTag())
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
                          .addSalvage(Items.REDSTONE, 0, 9)
                          .addSalvage(Items.GLASS_PANE, 0, 2)
                          .addSalvage(TinkerMaterials.copper.getIngotTag(), 1, 2)
