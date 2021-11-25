@@ -4,12 +4,12 @@
     "tag": "tconstruct:modifiable/armor"
   },
   "slots": {
-    "armor": 1
+    "defense": 1
   },
-  "modifier": "tconstruct:revitalizing",
+  "modifier": "tconstruct:projectile_protection",
   "min_level": 1,
   "salvage": {
-    "item": "minecraft:ghast_tear",
+    "item": "tconstruct:bronze_reinforcement",
     "full": false
   }
 }

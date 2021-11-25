@@ -221,7 +221,7 @@
   "item.tconstruct.creative_slot.upgrades": "Creative Upgrade",
   "item.tconstruct.creative_slot.abilities": "Creative Ability",
   "item.tconstruct.creative_slot.souls": "Creative Soul Slot",
-  "item.tconstruct.creative_slot.armor": "Creative Armor Slot",
+  "item.tconstruct.creative_slot.defense": "Creative Defense Slot",
   "item.tconstruct.creative_slot.missing": "Missing or invalid NBT defining the slot type",
   "item.tconstruct.creative_slot.tooltip": "Adds an additional %s slot to a tool",
 
@@ -1946,12 +1946,12 @@
   "stat.tconstruct.slot.prefix.upgrades": "Upgrades: ",
   "stat.tconstruct.slot.prefix.abilities": "Abilities: ",
   "stat.tconstruct.slot.prefix.souls": "Soul Slots: ",
-  "stat.tconstruct.slot.prefix.armor": "Armor Slots: ",
+  "stat.tconstruct.slot.prefix.defense": "Defense Slots: ",
 
   "stat.tconstruct.slot.display.upgrades": "upgrade",
   "stat.tconstruct.slot.display.abilities": "ability",
   "stat.tconstruct.slot.display.souls": "soul",
-  "stat.tconstruct.slot.display.armor": "armor",
+  "stat.tconstruct.slot.display.defense": "defense",
 
 
   "_comment": "Tooltips",

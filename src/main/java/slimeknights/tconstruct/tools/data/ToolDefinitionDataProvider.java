@@ -242,7 +242,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .durabilityFactor(10)
       .stat(ToolStats.ARMOR, 1, 4, 5, 1)
       .startingSlots(SlotType.UPGRADE, 3)
-      .startingSlots(SlotType.ARMOR, 2)
+      .startingSlots(SlotType.DEFENSE, 2)
       .startingSlots(SlotType.ABILITY, 1);
 
     // plate armor
@@ -252,7 +252,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ARMOR_TOUGHNESS, 2f)
       .stat(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
       .startingSlots(SlotType.UPGRADE, 1)
-      .startingSlots(SlotType.ARMOR, 4)
+      .startingSlots(SlotType.DEFENSE, 4)
       .startingSlots(SlotType.ABILITY, 1);
 
     // slime suit
@@ -263,7 +263,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ARMOR_TOUGHNESS, 2f)
       .stat(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
       .startingSlots(SlotType.UPGRADE, 4)
-      .startingSlots(SlotType.ARMOR, 1)
+      .startingSlots(SlotType.DEFENSE, 1)
       .startingSlots(SlotType.ABILITY, 2, 1, 1, 2);
   }
 

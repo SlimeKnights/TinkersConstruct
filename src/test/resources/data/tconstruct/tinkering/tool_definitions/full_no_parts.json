@@ -14,7 +14,7 @@
   },
   "slots": {
     "upgrades": 3,
-    "armor": 2,
+    "defense": 2,
     "abilities": 1
   },
   "traits": [

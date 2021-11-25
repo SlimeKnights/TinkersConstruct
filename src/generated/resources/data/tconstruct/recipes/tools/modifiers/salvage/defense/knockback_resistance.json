@@ -4,7 +4,7 @@
     "tag": "tconstruct:modifiable/armor"
   },
   "slots": {
-    "armor": 1
+    "defense": 1
   },
   "modifier": "tconstruct:knockback_resistance",
   "min_level": 1,

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "tconstruct:seared_reinforcement"
+    "item": "tconstruct:emerald_reinforcement"
   },
   "amount_per_item": 1,
   "needed_per_level": 24,
@@ -9,10 +9,10 @@
     "tag": "tconstruct:modifiable/armor"
   },
   "slots": {
-    "armor": 1
+    "defense": 1
   },
   "result": {
-    "name": "tconstruct:fire_protection",
+    "name": "tconstruct:blast_protection",
     "level": 1
   }
 }

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.armor;
+package slimeknights.tconstruct.tools.modifiers.defense;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
@@ -10,14 +10,14 @@ import slimeknights.tconstruct.library.utils.TooltipFlag;
 
 import java.util.List;
 
-public class MagicProtectionModifier extends IncrementalModifier {
-  public MagicProtectionModifier() {
-    super(0xF4D362);
+public class BlastProtectionModifier extends IncrementalModifier {
+  public BlastProtectionModifier() {
+    super(0x17DD62);
   }
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isMagicDamage()) {
+    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isExplosion()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
@@ -27,4 +27,6 @@ public class MagicProtectionModifier extends IncrementalModifier {
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
     ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
+
+  // TODO: explosion knockback resistance
 }

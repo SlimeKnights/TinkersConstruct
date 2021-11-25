@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
-import slimeknights.tconstruct.tools.modifiers.armor.ProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.defense.ProtectionModifier;
 
 import java.util.List;
 

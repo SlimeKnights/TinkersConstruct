@@ -9,7 +9,7 @@
   },
   "slots": {
     "upgrades": 1,
-    "armor": 4,
+    "defense": 4,
     "abilities": 1
   }
 }

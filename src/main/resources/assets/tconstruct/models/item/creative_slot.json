@@ -7,7 +7,7 @@
     "upgrades": "tconstruct:item/slot/upgrade",
     "abilities": "tconstruct:item/slot/ability",
     "souls": "tconstruct:item/materials/hollow_gem",
-    "armor": "tconstruct:item/slot/armor"
+    "defense": "tconstruct:item/slot/defense"
   },
   "nbt_key": "slot",
   "extra_textures_key": "tconstruct:creative_slot"

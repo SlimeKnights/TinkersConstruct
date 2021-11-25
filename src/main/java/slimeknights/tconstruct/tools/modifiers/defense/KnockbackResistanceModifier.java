@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.armor;
+package slimeknights.tconstruct.tools.modifiers.defense;
 
 import net.minecraft.item.Item;
 import slimeknights.tconstruct.library.modifiers.Modifier;

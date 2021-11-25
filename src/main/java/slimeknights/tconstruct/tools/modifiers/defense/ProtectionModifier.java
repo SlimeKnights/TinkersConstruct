@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.armor;
+package slimeknights.tconstruct.tools.modifiers.defense;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;

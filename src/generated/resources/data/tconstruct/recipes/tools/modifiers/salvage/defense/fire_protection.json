@@ -4,12 +4,12 @@
     "tag": "tconstruct:modifiable/armor"
   },
   "slots": {
-    "armor": 1
+    "defense": 1
   },
-  "modifier": "tconstruct:melee_protection",
+  "modifier": "tconstruct:fire_protection",
   "min_level": 1,
   "salvage": {
-    "item": "tconstruct:cobalt_reinforcement",
+    "item": "tconstruct:seared_reinforcement",
     "full": false
   }
 }

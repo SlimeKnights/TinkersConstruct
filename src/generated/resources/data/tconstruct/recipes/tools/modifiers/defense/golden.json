@@ -21,7 +21,7 @@
     "tag": "tconstruct:modifiable/armor"
   },
   "slots": {
-    "armor": 1
+    "defense": 1
   },
   "result": {
     "name": "tconstruct:golden",
