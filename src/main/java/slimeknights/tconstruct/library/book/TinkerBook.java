@@ -53,10 +53,14 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentPadding.RIGHT_ID, ContentRightPadding.class);
 
     // tool transformers
+    ToolSectionTransformer armorTransformer = new ToolSectionTransformer("armor");
     MATERIALS_AND_YOU.addTransformer(ToolSectionTransformer.INSTANCE);
+    MATERIALS_AND_YOU.addTransformer(armorTransformer);
     MIGHTY_SMELTING.addTransformer(ToolSectionTransformer.INSTANCE);
+    FANTASTIC_FOUNDRY.addTransformer(armorTransformer);
     ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("small_tools"));
     ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("large_tools"));
+    ENCYCLOPEDIA.addTransformer(armorTransformer);
 
     // material tier transformers
     MATERIALS_AND_YOU.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1, false));
@@ -71,12 +75,15 @@ public class TinkerBook extends BookData {
 
     // modifier transformers
     ModifierSectionTransformer upgrades = new ModifierSectionTransformer("upgrades");
+    ModifierSectionTransformer defense = new ModifierSectionTransformer("defense");
     ModifierSectionTransformer slotless = new ModifierSectionTransformer("slotless");
     ModifierSectionTransformer abilities = new ModifierSectionTransformer("abilities");
     PUNY_SMELTING.addTransformer(upgrades);
+    PUNY_SMELTING.addTransformer(defense);
     PUNY_SMELTING.addTransformer(slotless);
     MIGHTY_SMELTING.addTransformer(abilities);
     ENCYCLOPEDIA.addTransformer(upgrades);
+    ENCYCLOPEDIA.addTransformer(defense);
     ENCYCLOPEDIA.addTransformer(slotless);
     ENCYCLOPEDIA.addTransformer(abilities);
 

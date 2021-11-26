@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "Plate Leggings are defensive leggings, with high protection, and low upgrade slots and high defense slots." }
+  ],
+  "properties": [
+    "450 Durability",
+    "+5 Armor",
+    "1 Upgrade Slots",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

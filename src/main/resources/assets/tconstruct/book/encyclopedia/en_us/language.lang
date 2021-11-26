@@ -6,6 +6,9 @@ small_tools.info=Tool Information
 large_tools=Broad Tools
 large_tools.info=Tool Information
 
+armor=Armor
+armor.info=Armor Information
+
 tier_one_materials=Tier 1 Materials
 tier_two_materials=Tier 2 Materials
 tier_three_materials=Tier 3 Materials
@@ -16,6 +19,12 @@ upgrades.subtext=Each tool gets a limited total number of upgrades slots.
 upgrades.general=§1§lGeneral§r
 upgrades.harvest=§1§lHarvest§r
 upgrades.weapon=§1§lWeapon§r
+upgrades.armor=§1§lArmor§r
+
+defense=Defense
+defense.subtext=Instead of material traits, armor will include defense slots to improve protection.
+defense.protection=§1§lProtection§r
+defense.special=§1§lSpecial§r
 
 slotless=Slotless
 slotless.subtext=Slotless modifiers do not require any slots.
@@ -27,6 +36,7 @@ abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stro
 abilities.general=§1§lGeneral§r
 abilities.harvest=§1§lHarvest§r
 abilities.interact=§1§lInteraction§r
+abilities.armor=§1§lArmor§r
 
 modifier.effect=Effects:
 tool.properties=Properties:

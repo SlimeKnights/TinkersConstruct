@@ -18,7 +18,7 @@
   },
   {
     "type": "modifier",
-    "data": "upgrades/general/experienced.json"
+    "data": "upgrades/general/magnetic.json"
   },
   {
     "type": "modifier",
@@ -66,10 +66,6 @@
     "type": "modifier",
     "data": "upgrades/harvest/lightspeed.json"
   },
-  {
-    "type": "modifier",
-    "data": "upgrades/harvest/magnetic.json"
-  },
 
   {
     "name": "weapon",
@@ -88,7 +84,11 @@
     "type": "modifier",
     "data": "upgrades/weapon/cooling.json"
   },
-   {
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/experienced.json"
+  },
+  {
     "type": "modifier",
     "data": "upgrades/weapon/fiery.json"
   },
@@ -119,5 +119,47 @@
   {
     "type": "modifier",
     "data": "upgrades/weapon/sweeping_edge.json"
+  },
+
+  {
+    "name": "armor",
+    "type": "tinkers_text",
+    "data": "upgrades/armor.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/feather_falling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/leaping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/power.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/respiration.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/speedy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/springy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/sticky.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/thorns.json"
   }
 ]

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "Has a 15% chance per level to apply up to 1.5 seconds (plus 0.5 seconds per level) of slowness to the attacker. Applies effect from the piece with the largest bonus."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

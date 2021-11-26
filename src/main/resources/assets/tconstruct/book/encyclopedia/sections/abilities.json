@@ -89,5 +89,39 @@
   {
     "type": "modifier",
     "data": "abilities/interact/tilling.json"
+  },
+
+  {
+    "name": "armor",
+    "type": "tinkers_text",
+    "data": "abilities/armor.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/aqua_affinity.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/bouncy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/double_jump.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/looting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/slurping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/unarmed_attack.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/zoom.json"
   }
 ]

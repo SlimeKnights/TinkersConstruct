@@ -39,6 +39,20 @@
     }
   },
   {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:travelers_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0
+        }
+      }
+    }
+  },
+  {
     "name": "tier_one_materials",
     "icon": {
       "item": {
@@ -83,11 +97,26 @@
     }
   },
   {
+    "name": "defense",
+    "data": "sections/defense.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "defense"
+        }
+      }
+    }
+  },
+  {
     "name": "slotless",
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot"
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "slotless"
+        }
       }
     }
   },

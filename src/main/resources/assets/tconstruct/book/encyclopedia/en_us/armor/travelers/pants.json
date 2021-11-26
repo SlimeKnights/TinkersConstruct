@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { "text": "Traveler's Pants are a balanced set of leggings, with medium protection, and average upgrade and defense slots." }
+  ],
+  "properties": [
+    "150 Durability",
+    "+4 Armor",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

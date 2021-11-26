@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { "text": "Traveler's Goggles are a balanced helmet, with low protection, and average upgrade and defense slots." }
+  ],
+  "properties": [
+    "110 Durability",
+    "+1 Armor",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}
