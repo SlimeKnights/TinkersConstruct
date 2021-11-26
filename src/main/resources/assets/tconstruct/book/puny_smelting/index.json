@@ -60,7 +60,10 @@
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot"
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "slotless"
+        }
       }
     }
   }
