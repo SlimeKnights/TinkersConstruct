@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class RicochetModifier extends Modifier {
-  private static final TinkerDataKey<Integer> LEVELS = TConstruct.createKey("levels");
+  private static final TinkerDataKey<Integer> LEVELS = TConstruct.createKey("ricochet");
   public RicochetModifier() {
     super(0x76BE6D);
     MinecraftForge.EVENT_BUS.addListener(this::livingKnockback);
@@ -36,7 +36,7 @@ public class RicochetModifier extends Modifier {
     event.getEntityLiving().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       int levels = data.get(LEVELS, 0);
       if (levels > 0) {
-        // adds +10% knockback per level
+        // adds +20% knockback per level
         event.setStrength(event.getStrength() * (1 + levels * 0.2f));
       }
     });

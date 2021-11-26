@@ -32,16 +32,25 @@ public class SpringyModifier extends IncrementalModifier {
       user.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         // ensure this slot is in charge before continuing
         if (Optional.ofNullable(data.get(SLOT_IN_CHARGE)).filter(slot -> slot.inCharge == slotType).isPresent()) {
-          // choose a random slot to apply knockback, prevents max from getting too high
-          EquipmentSlotType bouncingSlot = EquipmentSlotType.fromSlotTypeAndIndex(Group.ARMOR, RANDOM.nextInt(4));
-          IModifierToolStack bouncingTool = context.getToolInSlot(bouncingSlot);
-          if (bouncingTool != null && !bouncingTool.isBroken()) {
-            // 50% change per level of it applying, means happens every time at level 2 or 3
-            float bouncingLevel = getScaledLevel(bouncingTool, bouncingTool.getModifierLevel(this));
-            if (bouncingLevel > 1 || (RANDOM.nextFloat() < bouncingLevel * 0.5f)) {
-              // does 0.5 base, plus up to 0.5f per level -- for comparison, 0.4 is normal knockback, 0.9 is with knockback 1
-              ((LivingEntity)attacker).applyKnockback(0.5f * RANDOM.nextFloat() * bouncingLevel, -MathHelper.sin(attacker.rotationYaw * (float)Math.PI / 180F), MathHelper.cos(attacker.rotationYaw * (float)Math.PI / 180F));
+          // each slot attempts to apply, we keep the largest one, consistent with other counter attack modifiers
+          float bestBonus = 0;
+          for (EquipmentSlotType bouncingSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
+            IModifierToolStack bouncingTool = context.getToolInSlot(bouncingSlot);
+            if (bouncingTool != null && !bouncingTool.isBroken()) {
+              // 15% chance per level of it applying
+              float bouncingLevel = getScaledLevel(bouncingTool, bouncingTool.getModifierLevel(this));
+              if (RANDOM.nextFloat() < (bouncingLevel * 0.15f)) {
+                // does 0.5 base, plus up to 0.5f per level -- for comparison, 0.4 is normal knockback, 0.9 is with knockback 1
+                float newBonus = 0.5f * RANDOM.nextFloat() * bouncingLevel;
+                if (newBonus > bestBonus) {
+                  bestBonus = newBonus;
+                }
+              }
             }
+          }
+          // did we end up with any bonus?
+          if (bestBonus > 0) {
+            ((LivingEntity)attacker).applyKnockback(bestBonus, -MathHelper.sin(attacker.rotationYaw * (float)Math.PI / 180F), MathHelper.cos(attacker.rotationYaw * (float)Math.PI / 180F));
           }
         }
       });
