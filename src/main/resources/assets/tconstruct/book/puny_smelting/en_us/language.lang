@@ -6,10 +6,11 @@ casting=Casting
 tier_two_materials=Tier 2 Materials
 
 upgrades=Upgrades
-upgrades.general=§1§lGeneral§r
-upgrades.harvest=§1§lHarvest§r
-upgrades.weapon=§1§lWeapon§r
+upgrades.group_general=General
+upgrades.group_harvest=Harvest
+upgrades.group_weapon=Weapon
+upgrades.group_damage=Bonus Damage
 
 slotless=Slotless Modifier
-slotless.slotless=§1§lSlotless§r
-slotless.bonus_upgrades=§1§lUpgrades++§r
+slotless.group_slotless=Slotless
+slotless.group_bonus_upgrades=Upgrades++

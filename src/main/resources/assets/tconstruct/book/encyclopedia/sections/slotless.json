@@ -1,6 +1,6 @@
 [
   {
-    "name": "general",
+    "name": "group_general",
     "type": "tinkers_text",
     "data": "slotless/general.json"
   },
@@ -18,7 +18,7 @@
   },
 
   {
-    "name": "bonus",
+    "name": "group_bonus",
     "type": "tinkers_text",
     "data": "slotless/bonus.json"
   },

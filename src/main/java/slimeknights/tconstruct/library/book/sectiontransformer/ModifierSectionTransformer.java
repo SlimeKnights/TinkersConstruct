@@ -3,12 +3,11 @@ package slimeknights.tconstruct.library.book.sectiontransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.book.content.ContentListing;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
-public class ModifierSectionTransformer extends ContentListingSectionTransformer {
+public class ModifierSectionTransformer extends ContentGroupingSectionTransformer {
   public static final ModifierSectionTransformer INSTANCE = new ModifierSectionTransformer("modifiers");
 
   public ModifierSectionTransformer(String name) {
@@ -16,16 +15,36 @@ public class ModifierSectionTransformer extends ContentListingSectionTransformer
   }
 
   @Override
-  protected void processPage(BookData book, ContentListing listing, PageData page) {
+  protected boolean processPage(BookData book, GroupingBuilder builder, PageData page) {
+    // modifiers add including their name
     if (page.content instanceof ContentModifier) {
       ModifierId modifierId = new ModifierId(((ContentModifier) page.content).modifierID);
       if (TinkerRegistries.MODIFIERS.containsKey(modifierId)) {
         Modifier modifier = TinkerRegistries.MODIFIERS.getValue(modifierId);
         assert modifier != null; // contains key was true
-        listing.addEntry(modifier.getDisplayName().getString(), page);
+        String title = page.getTitle();
+        // if name is not translatable, use the modifier name
+        if (page.name.equals(title)) {
+          title = modifier.getDisplayName().getString();
+        }
+        builder.addPage(title, page);
+        return true;
       }
-    } else {
-      super.processPage(book, listing, page);
+      return false;
+      // starting with group means start a new column
+    } else if (page.name.startsWith("group_")) {
+      // skip adding the page if no data
+      if (page.data.isEmpty()) {
+        builder.addGroup(page.getTitle(), null);
+        return false;
+      } else {
+        builder.addGroup(page.getTitle(), page);
+        return true;
+      }
+      // anything other than hidden continues same column
+    } else if (!page.name.equals("hidden")) {
+      builder.addPage(page.getTitle(), page);
     }
+    return true;
   }
 }

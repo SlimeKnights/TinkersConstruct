@@ -1,6 +1,6 @@
 [
   {
-    "name": "general",
+    "name": "group_general",
     "type": "tinkers_text",
     "data": "abilities/general.json"
   },
@@ -18,7 +18,25 @@
   },
 
   {
-    "name": "harvest",
+    "name": "group_weapon",
+    "type": "tinkers_text",
+    "data": "abilities/weapon.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/dual_wielding.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/melting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
+  },
+
+  {
+    "name": "group_harvest",
     "type": "tinkers_text",
     "data": "abilities/harvest.json"
   },
@@ -44,25 +62,7 @@
   },
 
   {
-    "name": "weapon",
-    "type": "tinkers_text",
-    "data": "abilities/weapon.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/weapon/dual_wielding.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/weapon/melting.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/weapon/spilling.json"
-  },
-
-  {
-    "name": "interact",
+    "name": "group_interact",
     "type": "tinkers_text",
     "data": "abilities/interact.json"
   },
@@ -92,7 +92,7 @@
   },
 
   {
-    "name": "armor",
+    "name": "group_armor",
     "type": "tinkers_text",
     "data": "abilities/armor.json"
   },

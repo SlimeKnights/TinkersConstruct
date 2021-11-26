@@ -1,6 +1,6 @@
 [
   {
-    "name": "general",
+    "name": "group_general",
     "type": "tinkers_text",
     "data": "upgrades/general.json"
   },
@@ -46,31 +46,37 @@
   },
 
   {
-    "name": "harvest",
+    "name": "group_weapon",
     "type": "tinkers_text",
-    "data": "upgrades/harvest.json"
+    "data": "upgrades/weapon.json"
   },
   {
     "type": "modifier",
-    "data": "upgrades/harvest/blasting.json"
+    "data": "upgrades/weapon/experienced.json"
   },
   {
     "type": "modifier",
-    "data": "upgrades/harvest/haste.json"
+    "data": "upgrades/weapon/fiery.json"
   },
   {
     "type": "modifier",
-    "data": "upgrades/harvest/hydraulic.json"
+    "data": "upgrades/weapon/knockback.json"
   },
-   {
+  {
     "type": "modifier",
-    "data": "upgrades/harvest/lightspeed.json"
+    "data": "upgrades/weapon/necrotic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/severing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/sweeping_edge.json"
   },
 
   {
-    "name": "weapon",
-    "type": "tinkers_text",
-    "data": "upgrades/weapon.json"
+    "name": "group_damage"
   },
   {
     "type": "modifier",
@@ -86,29 +92,9 @@
   },
   {
     "type": "modifier",
-    "data": "upgrades/weapon/experienced.json"
-  },
-  {
-    "type": "modifier",
-    "data": "upgrades/weapon/fiery.json"
-  },
-  {
-    "type": "modifier",
-    "data": "upgrades/weapon/knockback.json"
-  },
-   {
-    "type": "modifier",
-    "data": "upgrades/weapon/necrotic.json"
-  },
-  {
-    "type": "modifier",
     "data": "upgrades/weapon/piercing.json"
   },
-   {
-    "type": "modifier",
-    "data": "upgrades/weapon/severing.json"
-  },
-   {
+  {
     "type": "modifier",
     "data": "upgrades/weapon/sharpness.json"
   },
@@ -116,13 +102,31 @@
     "type": "modifier",
     "data": "upgrades/weapon/smite.json"
   },
+
+  {
+    "name": "group_harvest",
+    "type": "tinkers_text",
+    "data": "upgrades/harvest.json"
+  },
   {
     "type": "modifier",
-    "data": "upgrades/weapon/sweeping_edge.json"
+    "data": "upgrades/harvest/blasting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/haste.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/hydraulic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/lightspeed.json"
   },
 
   {
-    "name": "armor",
+    "name": "group_armor",
     "type": "tinkers_text",
     "data": "upgrades/armor.json"
   },

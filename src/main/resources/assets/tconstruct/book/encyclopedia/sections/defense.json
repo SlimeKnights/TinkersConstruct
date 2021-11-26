@@ -1,6 +1,6 @@
 [
   {
-    "name": "protection",
+    "name": "group_protection",
     "type": "tinkers_text",
     "data": "defense/protection.json"
   },
@@ -26,7 +26,7 @@
   },
 
   {
-    "name": "special",
+    "name": "group_special",
     "type": "tinkers_text",
     "data": "defense/special.json"
   },

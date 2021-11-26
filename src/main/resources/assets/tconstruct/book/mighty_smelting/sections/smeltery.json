@@ -4,6 +4,7 @@
     "type": "index",
     "data": "smeltery/index.json"
   },
+
   {
     "name": "features",
     "type": "text",
@@ -33,6 +34,21 @@
     "type": "text",
     "data": "smeltery/alloying.json"
   },
+  {
+    "name": "hidden",
+    "type": "right_padding"
+  },
+  {
+    "name": "sgui1",
+    "type": "imageText2",
+    "data": "smeltery/gui1.json"
+  },
+  {
+    "name": "sgui2",
+    "type": "text",
+    "data": "smeltery/gui2.json"
+  },
+
   {
     "name": "seared_tanks",
     "type": "showcase",
@@ -67,19 +83,5 @@
     "name": "seared_chute",
     "type": "showcase",
     "data": "smeltery/seared_chute.json"
-  },
-  {
-    "name": "hidden",
-    "type": "right_padding"
-  },
-  {
-    "name": "sgui1",
-    "type": "imageText2",
-    "data": "smeltery/gui1.json"
-  },
-  {
-    "name": "sgui2",
-    "type": "text",
-    "data": "smeltery/gui2.json"
   }
  ]
