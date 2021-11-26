@@ -10,6 +10,9 @@
       "entity": "water_sensitive",
       "damage_type": "piercing",
       "damage_amount": 2.0
+    },
+    {
+      "type": "tconstruct:extinguish"
     }
   ]
 }

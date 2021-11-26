@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import com.google.gson.JsonObject;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.network.PacketBuffer;
 
 /**
@@ -18,4 +19,20 @@ public interface ISpillingEffectLoader<T extends ISpillingEffect> {
 
   /** Writes this effect to the packet buffer */
   default void write(T effect, PacketBuffer buffer) {}
+
+  /** Loader instance for a spilling effect with only one implementation */
+  @RequiredArgsConstructor
+  class Singleton<T extends ISpillingEffect> implements ISpillingEffectLoader<T> {
+    private final T instance;
+
+    @Override
+    public T deserialize(JsonObject json) {
+      return instance;
+    }
+
+    @Override
+    public T read(PacketBuffer buffer) {
+      return instance;
+    }
+  }
 }
