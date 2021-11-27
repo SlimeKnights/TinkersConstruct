@@ -5,7 +5,7 @@
       "text": "Grants +20% durability, +10% attack damage, +10% mining speed, +5% knockback resistance, and +1 armor toughness. Increases the mining level to netherite, and makes the tool invulnerable when dropped."
     },
     {
-      "text": "Tools and armor will only receive applicable stat boosts, for instance held tools will not receive armor toughness.",
+      "text": "Tools and armor will only receive applicable stat boosts.",
       "paragraph": true
     }
   ],
