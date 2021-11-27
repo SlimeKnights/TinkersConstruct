@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
 import slimeknights.tconstruct.tables.TableClientEvents;
-import slimeknights.tconstruct.tools.client.ToolClientEvents;
+import slimeknights.tconstruct.tools.ToolClientEvents;
 import slimeknights.tconstruct.world.WorldClientEvents;
 
 import java.util.function.Consumer;

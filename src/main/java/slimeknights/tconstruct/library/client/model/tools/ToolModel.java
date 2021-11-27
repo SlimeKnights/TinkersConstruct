@@ -18,6 +18,7 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
@@ -55,6 +56,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -70,6 +72,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -109,6 +112,15 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     }
     return -1;
   };
+
+  /**
+   * Registers an item color handler for a part item
+   * @param colors  Item colors instance
+   * @param item    Material item
+   */
+  public static void registerItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
+    colors.register(ToolModel.COLOR_HANDLER, item.get());
+  }
 
   /** List of tool parts in this model */
   private final List<ToolPart> toolParts;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.client;
+package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -35,7 +35,7 @@ import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
-import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
@@ -43,6 +43,8 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Supplier;
+
+import static slimeknights.tconstruct.library.client.model.tools.ToolModel.registerItemColors;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
@@ -93,22 +95,22 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool textures for fallback
     // rock
-    registerToolItemColors(colors, TinkerTools.pickaxe);
-    registerToolItemColors(colors, TinkerTools.sledgeHammer);
-    registerToolItemColors(colors, TinkerTools.veinHammer);
+    registerItemColors(colors, TinkerTools.pickaxe);
+    registerItemColors(colors, TinkerTools.sledgeHammer);
+    registerItemColors(colors, TinkerTools.veinHammer);
     // dirt
-    registerToolItemColors(colors, TinkerTools.mattock);
-    registerToolItemColors(colors, TinkerTools.excavator);
+    registerItemColors(colors, TinkerTools.mattock);
+    registerItemColors(colors, TinkerTools.excavator);
     // wood
-    registerToolItemColors(colors, TinkerTools.handAxe);
-    registerToolItemColors(colors, TinkerTools.broadAxe);
+    registerItemColors(colors, TinkerTools.handAxe);
+    registerItemColors(colors, TinkerTools.broadAxe);
     // scythe
-    registerToolItemColors(colors, TinkerTools.kama);
-    registerToolItemColors(colors, TinkerTools.scythe);
+    registerItemColors(colors, TinkerTools.kama);
+    registerItemColors(colors, TinkerTools.scythe);
     // weapon
-    registerToolItemColors(colors, TinkerTools.dagger);
-    registerToolItemColors(colors, TinkerTools.sword);
-    registerToolItemColors(colors, TinkerTools.cleaver);
+    registerItemColors(colors, TinkerTools.dagger);
+    registerItemColors(colors, TinkerTools.sword);
+    registerItemColors(colors, TinkerTools.cleaver);
   }
 
   /** If true, we were jumping last tick. Safe as a static value as we only care about a single player client side */
@@ -152,12 +154,9 @@ public class ToolClientEvents extends ClientEventBase {
   @Deprecated
   public static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {}
 
-  /**
-   * Registers an item color handler for a part item, TODO: move to API class
-   * @param colors  Item colors instance
-   * @param item    Material item
-   */
+  /** @deprecated use {@link ToolModel#registerItemColors(ItemColors, Supplier)} */
+  @Deprecated
   public static void registerToolItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
-    colors.register(ToolModel.COLOR_HANDLER, item.get());
+    registerItemColors(colors, item);
   }
 }
