@@ -1,3 +1,5 @@
 {
-    "recipe": "tconstruct:gadgets/piggy_backpack"
+  "title": "Piggybackpack Crafting",
+  "recipe": "tconstruct:gadgets/piggy_backpack",
+  "grid_size": "small"
 }

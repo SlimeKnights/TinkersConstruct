@@ -21,6 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
+import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
@@ -29,7 +30,6 @@ import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
@@ -50,7 +50,7 @@ import static slimeknights.tconstruct.library.book.content.ContentModifier.IMG_T
 import static slimeknights.tconstruct.library.book.content.ContentModifier.TEX_SIZE;
 
 @OnlyIn(Dist.CLIENT)
-public class ContentTool extends TinkerPage {
+public class ContentTool extends PageContent {
   public static final transient String ID = "tool";
   private static final transient String KEY_PROPERTIES = TConstruct.makeTranslationKey("book", "tool.properties");
 
@@ -187,7 +187,7 @@ public class ContentTool extends TinkerPage {
 
     // description
     int h = BookScreen.PAGE_WIDTH / 3 - 10;
-    int y = 16;
+    int y = getTitleHeight();
     list.add(new TextElement(padding, y, BookScreen.PAGE_WIDTH - padding * 2, h, text));
 
     // do we want to show the crafting recipe here perhaps? or just nothing?

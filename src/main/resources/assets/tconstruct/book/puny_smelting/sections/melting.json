@@ -11,7 +11,7 @@
   },
   {
     "name": "meltergui",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "melting/meltergui.json"
   },
   {

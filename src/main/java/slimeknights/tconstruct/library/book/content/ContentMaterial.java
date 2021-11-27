@@ -15,6 +15,7 @@ import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.mantle.client.book.data.BookData;
+import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
@@ -24,7 +25,6 @@ import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -51,7 +51,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
-public class ContentMaterial extends TinkerPage {
+public class ContentMaterial extends PageContent {
   private static final ITextComponent PART_BUILDER = TConstruct.makeTranslation("book", "material.part_builder");
   private static final String CAST_FROM = TConstruct.makeTranslationKey("book", "material.cast_from");
   private static final String COMPOSITE_FROM = TConstruct.makeTranslationKey("book", "material.composite_from");
@@ -88,10 +88,10 @@ public class ContentMaterial extends TinkerPage {
     this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, material.getIdentifier());
 
     int col_margin = 22;
-    int top = 15;
+    int top = getTitleHeight();
     int left = rightSide ? 0 : col_margin;
 
-    int y = top + 10;
+    int y = top + 5;
     int x = left + 5;
     int w = BookScreen.PAGE_WIDTH / 2 - 5;
 
@@ -269,7 +269,7 @@ public class ContentMaterial extends TinkerPage {
       }
     }
 
-    int y = 10;
+    int y = getTitleHeight() - 5;
     for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
       if (item instanceof IModifiable) {
         IModifiable tool = ((IModifiable) item);

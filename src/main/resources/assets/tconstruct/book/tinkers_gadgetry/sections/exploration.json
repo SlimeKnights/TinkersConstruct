@@ -6,17 +6,17 @@
   },
   {
     "name": "skyslime",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "exploration/skyslime.json"
   },
   {
     "name": "earthslime",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "exploration/earthslime.json"
   },
   {
     "name": "clay",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "exploration/clay.json"
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "name": "blood",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "exploration/blood.json"
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "name": "enderslime",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "exploration/enderslime.json"
   },
   {

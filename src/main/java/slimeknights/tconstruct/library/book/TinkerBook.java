@@ -7,14 +7,8 @@ import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.book.content.ContentImageText2;
-import slimeknights.tconstruct.library.book.content.ContentIndex;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
-import slimeknights.tconstruct.library.book.content.ContentPadding;
-import slimeknights.tconstruct.library.book.content.ContentPadding.ContentLeftPadding;
-import slimeknights.tconstruct.library.book.content.ContentPadding.ContentRightPadding;
-import slimeknights.tconstruct.library.book.content.ContentPadding.PaddingBookTransformer;
-import slimeknights.tconstruct.library.book.content.ContentShowcase;
 import slimeknights.tconstruct.library.book.content.ContentTextTinkers;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
@@ -47,10 +41,6 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentMaterial.ID, ContentMaterial.class);
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
-    BookLoader.registerPageType(ContentIndex.ID, ContentIndex.class);
-    BookLoader.registerPageType(ContentShowcase.ID, ContentShowcase.class);
-    BookLoader.registerPageType(ContentPadding.LEFT_ID, ContentLeftPadding.class);
-    BookLoader.registerPageType(ContentPadding.RIGHT_ID, ContentRightPadding.class);
 
     // tool transformers
     ToolSectionTransformer armorTransformer = new ToolSectionTransformer("armor");
@@ -106,7 +96,7 @@ public class TinkerBook extends BookData {
     book.addRepository(new FileRepository(id.getNamespace() + ":book/" + id.getPath()));
     book.addTransformer(BookTransformer.indexTranformer());
     // padding needs to be last to ensure page counts are right
-    book.addTransformer(PaddingBookTransformer.INSTANCE);
+    book.addTransformer(BookTransformer.paddingTransformer());
   }
 
   /**

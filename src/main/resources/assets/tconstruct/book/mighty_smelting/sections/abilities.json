@@ -1,7 +1,7 @@
 [
   {
     "name": "group_general",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "abilities/general.json"
   },
   {
@@ -23,7 +23,7 @@
 
   {
     "name": "group_weapon",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "abilities/weapon.json"
   },
   {
@@ -41,7 +41,7 @@
 
   {
     "name": "group_harvest",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "abilities/harvest.json"
   },
   {
@@ -67,7 +67,7 @@
 
   {
     "name": "group_interact",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "abilities/interact.json"
   },
   {

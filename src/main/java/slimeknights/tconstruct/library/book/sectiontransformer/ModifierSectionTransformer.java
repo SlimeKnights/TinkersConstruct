@@ -2,16 +2,22 @@ package slimeknights.tconstruct.library.book.sectiontransformer;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
+import slimeknights.mantle.client.book.transformer.ContentGroupingSectionTransformer;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
+/** Section transformer to generate an index with modifier names */
 public class ModifierSectionTransformer extends ContentGroupingSectionTransformer {
   public static final ModifierSectionTransformer INSTANCE = new ModifierSectionTransformer("modifiers");
 
+  public ModifierSectionTransformer(String name, boolean largeTitle, boolean centerTitle) {
+    super(name, largeTitle, centerTitle);
+  }
+
   public ModifierSectionTransformer(String name) {
-    super(name);
+    super(name, null, null);
   }
 
   @Override

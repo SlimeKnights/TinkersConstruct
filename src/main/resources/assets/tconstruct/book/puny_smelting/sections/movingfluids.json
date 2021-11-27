@@ -1,7 +1,7 @@
 [
   {
     "name": "thruul",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "movingfluids/thruul.json"
   },
   {
@@ -10,33 +10,33 @@
     "data": "movingfluids/intro.json"
   },
   {
-	"name": "faucets",
+    "name": "faucets",
     "type": "image with text below",
-	"data": "movingfluids/faucet.json"
+    "data": "movingfluids/faucet.json"
   },
   {
-	"name": "faucets2",
+    "name": "faucets2",
     "type": "text",
-	"data": "movingfluids/faucet2.json"
+    "data": "movingfluids/faucet2.json"
   },
   {
-	"name": "channels",
+    "name": "channels",
     "type": "image with text below",
-	"data": "movingfluids/channel.json"
+    "data": "movingfluids/channel.json"
   },
   {
-	"name": "channels2",
+    "name": "channels2",
     "type": "text",
-	"data": "movingfluids/channel2.json"
+    "data": "movingfluids/channel2.json"
   },
   {
-	"name": "copper_cans",
+    "name": "copper_cans",
     "type": "text",
-	"data": "movingfluids/copper_can.json"
+    "data": "movingfluids/copper_can.json"
   },
   {
-	"name": "copper_cans_craft",
+    "name": "copper_cans_craft",
     "type": "crafting",
-	"data": "movingfluids/copper_can_craft.json"
+    "data": "movingfluids/copper_can_craft.json"
   }
 ]

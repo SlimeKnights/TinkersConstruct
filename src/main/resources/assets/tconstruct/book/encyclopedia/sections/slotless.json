@@ -1,7 +1,7 @@
 [
   {
     "name": "group_general",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "slotless/general.json"
   },
    {
@@ -19,7 +19,7 @@
 
   {
     "name": "group_bonus",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "slotless/bonus.json"
   },
   {

@@ -1,6 +1,8 @@
 {
-    "title": "Fantastic Foundry",
-    "subtitle": "by Nemea",
-    "drawSectionListText": true,
-    "coverColor": 0x5F4739
+  "title": "Fantastic Foundry",
+  "subtitle": "by Nemea",
+  "drawSectionListText": true,
+  "coverColor": 0x5F4739,
+  "largePageTitles": true,
+  "centerPageTitles": false
 }

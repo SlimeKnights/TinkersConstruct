@@ -36,7 +36,7 @@
   },
   {
     "name": "fgui1",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "foundry/gui1.json"
   },
   {

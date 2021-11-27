@@ -1,8 +1,8 @@
- {
-  "title":"Alloyer GUI",
-    "image": {
-     "file": "tconstruct:book/images/alloyergui.png",
-	 "width": 166,
+{
+  "title": "Alloyer GUI",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
     "height": 78
   },
   "text": [

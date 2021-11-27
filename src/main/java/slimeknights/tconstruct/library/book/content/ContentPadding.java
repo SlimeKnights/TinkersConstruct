@@ -1,28 +1,11 @@
 package slimeknights.tconstruct.library.book.content;
 
-import lombok.Getter;
-import slimeknights.mantle.client.book.BookTransformer;
-import slimeknights.mantle.client.book.data.BookData;
-import slimeknights.mantle.client.book.data.PageData;
-import slimeknights.mantle.client.book.data.SectionData;
-import slimeknights.mantle.client.book.data.content.ContentBlank;
+/** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPadding} */
+@Deprecated
+public abstract class ContentPadding extends slimeknights.mantle.client.book.data.content.ContentPadding {
 
-import java.util.Iterator;
-import java.util.List;
-
-/**
- * Variant of blank pages that only adds the page on a specific side, useful to force the next page to the left or right regardless of the number of pages before
- * TODO: move to Mantle
- */
-@Getter
-public abstract class ContentPadding extends ContentBlank {
-  public static final String LEFT_ID = "left_padding";
-  public static final String RIGHT_ID = "right_padding";
-
-  /** If true, this page is padding the left side, false pads the right side */
-  public abstract boolean isLeft();
-
-  /** Left variant */
+  /** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPadding.ContentLeftPadding} */
+  @Deprecated
   public static class ContentLeftPadding extends ContentPadding {
     @Override
     public boolean isLeft() {
@@ -30,7 +13,8 @@ public abstract class ContentPadding extends ContentBlank {
     }
   }
 
-  /** Right variant */
+  /** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPadding.ContentRightPadding} */
+  @Deprecated
   public static class ContentRightPadding extends ContentPadding {
     @Override
     public boolean isLeft() {
@@ -38,44 +22,11 @@ public abstract class ContentPadding extends ContentBlank {
     }
   }
 
-  /** Transformer to make this page type work */
-  public static class PaddingBookTransformer extends BookTransformer {
-    /** Regular transformer considering indexes */
-    public static final PaddingBookTransformer INSTANCE = new PaddingBookTransformer();
-    /** Transformer that ignores the index icon section transformer */
-    public static final PaddingBookTransformer NO_INDEX = new PaddingBookTransformer();
-
-    private PaddingBookTransformer() {}
-
-    @Override
-    public void transform(BookData bookData) {
-      // first page is on the right side
-      boolean previousLeft = true;
-
-      // index transformer does not truely add pages, so manually offset previousLeft based on that count
-      if (this != NO_INDEX) {
-        List<SectionData> visibleSections = bookData.getVisibleSections(null);
-        if (!visibleSections.isEmpty()) {
-          int count = visibleSections.size() - 1; // remove index transformer section
-          int pages = count / 9;
-          if (count % 9 == 0) pages++;
-          previousLeft = pages % 2 == 1;
-        }
-      }
-
-      // iterate through all pages, tracking whehter we are left or right
-      for (SectionData section : bookData.sections) {
-        Iterator<PageData> pageIterator = section.pages.iterator();
-        while (pageIterator.hasNext()) {
-          PageData data = pageIterator.next();
-          // if its left and the current page is odd, or its right and the current page is even, skip
-          if (data.content instanceof ContentPadding && ((ContentPadding) data.content).isLeft() == previousLeft) {
-            pageIterator.remove();
-          } else {
-            previousLeft = !previousLeft;
-          }
-        }
-      }
-    }
+  /** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPadding.ContentRightPadding.PaddingBookTransformer} */
+  @Deprecated
+  public static class PaddingBookTransformer {
+    /** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPadding.ContentRightPadding.PaddingBookTransformer#INSTANCE} */
+    @Deprecated
+    public static final slimeknights.mantle.client.book.data.content.ContentPadding.PaddingBookTransformer INSTANCE = slimeknights.mantle.client.book.data.content.ContentPadding.PaddingBookTransformer.INSTANCE;
   }
 }

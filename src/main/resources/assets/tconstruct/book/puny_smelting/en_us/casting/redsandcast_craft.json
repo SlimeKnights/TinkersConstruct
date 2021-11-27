@@ -1,3 +1,5 @@
 {
-    "recipe": "tconstruct:smeltery/red_sand_cast"
+  "title": "Red Sand Cast Crafting",
+  "recipe": "tconstruct:smeltery/red_sand_cast",
+  "grid_size": "small"
 }

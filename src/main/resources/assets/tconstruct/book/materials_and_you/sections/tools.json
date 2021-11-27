@@ -30,13 +30,13 @@
     "data": "tools/pickaxe.json"
   },
   {
-	"name": "repairing",
-    "type": "imageText2",
+    "name": "repairing",
+    "type": "image with text below",
     "data": "tools/repairing.json"
   },
   {
     "name": "part_swapping",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "tools/part_swapping.json"
   }
 ]

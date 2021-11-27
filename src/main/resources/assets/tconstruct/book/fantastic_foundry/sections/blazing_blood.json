@@ -6,12 +6,12 @@
   },
   {
     "name": "intro",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "blazing_blood/intro.json"
   },
   {
     "name": "carry",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "blazing_blood/carry.json"
   },
   {
@@ -21,7 +21,7 @@
   },
   {
     "name": "foundry",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "blazing_blood/foundry.json"
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "name": "piglin_bartering",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "blazing_blood/piglin_bartering.json"
   }
 ]

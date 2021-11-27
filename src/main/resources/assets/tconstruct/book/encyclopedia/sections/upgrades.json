@@ -1,7 +1,7 @@
 [
   {
     "name": "group_general",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "upgrades/general.json"
   },
   {
@@ -47,7 +47,7 @@
 
   {
     "name": "group_weapon",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "upgrades/weapon.json"
   },
   {
@@ -105,7 +105,7 @@
 
   {
     "name": "group_harvest",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "upgrades/harvest.json"
   },
   {
@@ -127,7 +127,7 @@
 
   {
     "name": "group_armor",
-    "type": "tinkers_text",
+    "type": "text",
     "data": "upgrades/armor.json"
   },
   {

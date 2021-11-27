@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
+import slimeknights.mantle.client.book.transformer.SectionTransformer;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 
-@OnlyIn(Dist.CLIENT)
+/** @deprecated use {@link slimeknights.mantle.client.book.transformer.ContentListingSectionTransformer} */
+@Deprecated
 public class ContentListingSectionTransformer extends SectionTransformer {
-
   public ContentListingSectionTransformer(String sectionName) {
     super(sectionName);
   }

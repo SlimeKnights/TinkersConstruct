@@ -1,8 +1,8 @@
 {
-  "title":"Smeltery GUI",
-    "image": {
-     "file": "tconstruct:book/images/smeltergui.png",
-	 "width": 179,
+  "title": "Smeltery GUI",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
     "height": 74
   },
   "text": [
