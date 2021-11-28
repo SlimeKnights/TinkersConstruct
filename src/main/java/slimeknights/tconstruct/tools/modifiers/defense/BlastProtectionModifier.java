@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modifiers.defense;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -13,19 +12,18 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
+import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier.BlastData;
 
-public class BlastProtectionModifier extends IncrementalModifier {
+public class BlastProtectionModifier extends AbstractProtectionModifier<BlastData> {
   /** Entity data key for the data associated with this modifier */
   private static final TinkerDataKey<BlastData> BLAST_DATA = TConstruct.createKey("blast_protection");
   public BlastProtectionModifier() {
-    super(0x17DD62);
+    super(0x17DD62, BLAST_DATA);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, ExplosionEvent.Detonate.class, BlastProtectionModifier::onExplosionDetonate);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingUpdateEvent.class, BlastProtectionModifier::livingTick);
   }
@@ -39,37 +37,13 @@ public class BlastProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-        BlastData blastData = data.get(BLAST_DATA);
-        if (blastData != null) {
-          blastData.level.set(slot, 0);
-          blastData.wasKnockback = false;
-        }
-      });
-    }
+  protected BlastData createData() {
+    return new BlastData();
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR && !tool.isBroken()) {
-      float scaledLevel = getScaledLevel(tool, level);
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-        BlastData blastData = data.get(BLAST_DATA);
-        if (blastData == null) {
-          // not calculated yet? add all vanilla values to the tracker
-          blastData = new BlastData();
-          data.put(BLAST_DATA, blastData);
-        }
-        // add ourself to the data
-        blastData.level.set(slot, scaledLevel);
-      });
-    }
+  protected void reset(BlastData data) {
+    data.wasKnockback = false;
   }
 
   /** On explosion, checks if any blast protected entity is involved, if so marks them for knockback update next tick */
@@ -83,7 +57,7 @@ public class BlastProtectionModifier extends IncrementalModifier {
         entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
           // if the entity has blast protection and the blast protection level is bigger than vanilla, time to process
           BlastData blastData = data.get(BLAST_DATA);
-          if (blastData != null && blastData.level.getMax() > 0) {
+          if (blastData != null && blastData.getMax() > 0) {
             // explosion is valid as long as the entity's eye is not directly on the explosion
             double x = entity.getPosX() - center.x;
             double z = entity.getPosZ() - center.z;
@@ -109,11 +83,11 @@ public class BlastProtectionModifier extends IncrementalModifier {
         BlastData blastData = data.get(BLAST_DATA);
         if (blastData != null && blastData.wasKnockback) {
           blastData.wasKnockback = false;
-          float max = blastData.level.getMax();
+          float max = blastData.getMax();
           if (max > 0) {
             // due to MC-198809, vanilla does not actually reduce the knockback except on levels higher than obtainable in survival (blast prot VII)
             // thus, we only care about our own level for reducing
-            double scale = 1 - (blastData.level.getMax() * 0.15f);
+            double scale = 1 - (blastData.getMax() * 0.15f);
             if (scale <= 0) {
               living.setMotion(Vector3d.ZERO);
             } else {
@@ -127,9 +101,7 @@ public class BlastProtectionModifier extends IncrementalModifier {
   }
 
   /** Data object for the modifier */
-  private static class BlastData {
-    /** Max level of the modifier */
-    ModifierMaxLevel level = new ModifierMaxLevel();
+  protected static class BlastData extends ModifierMaxLevel {
     /** If true, the entity was knocked back and needs their velocity adjusted */
     boolean wasKnockback = false;
   }

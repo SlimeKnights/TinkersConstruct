@@ -18,7 +18,7 @@ public class MeleeProtectionModifier extends IncrementalModifier {
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
     // by melee, we mean not projectiles, fire, magic, or explosions
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && !source.isFireDamage() && !source.isMagicDamage() && !source.isProjectile() && !source.isExplosion() && source != DamageSource.FALL) {
+    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && !source.isFireDamage() && !source.isMagicDamage() && !source.isProjectile() && !source.isExplosion()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
