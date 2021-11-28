@@ -10,9 +10,11 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -23,8 +25,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -84,6 +90,60 @@ public class BucketingModifier extends TankModifier {
   private static boolean cannotContainFluid(World world, BlockPos pos, BlockState state, Fluid fluid) {
     Block block = state.getBlock();
     return !state.isReplaceable(fluid) && (!(block instanceof ILiquidContainer) || !((ILiquidContainer)block).canContainFluid(world, pos, state, fluid));
+  }
+
+  @Override
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slot) {
+    if (slot.getSlotType() != Group.ARMOR) {
+      return ActionResultType.PASS;
+    }
+
+    World world = context.getWorld();
+    BlockPos target = context.getPos();
+    // must have a TE that has a fluid handler capability
+    TileEntity te = world.getTileEntity(target);
+    if (te == null) {
+      return ActionResultType.PASS;
+    }
+    Direction face = context.getFace();
+    LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
+    if (!capability.isPresent()) {
+      return ActionResultType.PASS;
+    }
+
+    // only the server needs to deal with actually handling stuff
+    if (!world.isRemote) {
+      PlayerEntity player = context.getPlayer();
+      boolean sneaking = player != null && player.isSneaking();
+      capability.ifPresent(cap -> {
+        FluidStack fluidStack = getFluid(tool);
+        // sneaking fills, not sneak drains
+        if (sneaking) {
+          // must have something to fill
+          if (!fluidStack.isEmpty()) {
+            int added = cap.fill(fluidStack, FluidAction.EXECUTE);
+            if (added > 0) {
+              fluidStack.shrink(added);
+              setFluid(tool, fluidStack);
+            }
+          }
+          // if nothing currently, will drain whatever
+        } else if (fluidStack.isEmpty()) {
+          FluidStack drained = cap.drain(getCapacity(tool), FluidAction.EXECUTE);
+          if (!drained.isEmpty()) {
+            setFluid(tool, drained);
+          }
+        } else {
+          // filter drained to be the same as the current fluid
+          FluidStack drained = cap.drain(new FluidStack(fluidStack, getCapacity(tool) - fluidStack.getAmount()), FluidAction.EXECUTE);
+          if (!drained.isEmpty() && drained.isFluidEqual(fluidStack)) {
+            fluidStack.grow(drained.getAmount());
+            setFluid(tool, fluidStack);
+          }
+        }
+      });
+    }
+    return ActionResultType.func_233537_a_(world.isRemote);
   }
 
   @Override
