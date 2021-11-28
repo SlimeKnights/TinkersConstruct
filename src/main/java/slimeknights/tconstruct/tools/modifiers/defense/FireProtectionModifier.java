@@ -94,6 +94,10 @@ public class FireProtectionModifier extends IncrementalModifier {
           for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
             fireData.vanilla.set(slotType, getEnchantmentLevel(context, slotType));
           }
+          // fetch fire timer as well
+          int fireTimer = entity.getFireTimer();
+          if (fireTimer > 0) {
+            fireData.finish = entity.ticksExisted + fireTimer + 1;
           }
           data.put(FIRE_DATA, fireData);
         }
@@ -158,8 +162,13 @@ public class FireProtectionModifier extends IncrementalModifier {
                 // remove 15% of fire per level
                 newFire -= MathHelper.floor(currentFire * maxLevel * 0.15f);
               }
+              if (newFire < 0) {
+                newFire = 0;
+                fireData.finish = 0;
+              } else {
+                fireData.finish = newFire + entity.ticksExisted + 1; // set 1 higher make it slightly faster if increasing fire multiple times in the same tick (fire blocks)
+              }
               entity.forceFireTicks(newFire);
-              fireData.finish = newFire + entity.ticksExisted + 1; // set 1 higher make it slightly faster if increasing fire multiple times in the same tick (fire blocks)
             }
           }
         }
