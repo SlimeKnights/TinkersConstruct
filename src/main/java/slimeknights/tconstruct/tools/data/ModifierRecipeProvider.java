@@ -533,6 +533,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.golden, defenseSalvage))
                          .build(consumer, prefix(TinkerModifiers.golden, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.turtleShell.get())
+                                    .setInputSalvage(Items.SCUTE, 1, 5, false)
+                                    .setSlots(SlotType.DEFENSE, 1)
+                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.turtleShell, defenseSalvage))
+                                    .build(consumer, prefix(TinkerModifiers.turtleShell, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.dragonborn.get())
+                                    .setInputSalvage(TinkerModifiers.dragonScale, 1, 10, false)
+                                    .setSlots(SlotType.DEFENSE, 1)
+                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.dragonScale, defenseSalvage))
+                                    .build(consumer, prefix(TinkerModifiers.dragonScale, defenseFolder));
     // 3 each for chest and legs, 2 each for boots and helmet, leads to 10 total
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.revitalizing.get())
                                     .setTools(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.CHESTPLATES), Ingredient.fromTag(TinkerTags.Items.LEGGINGS)))

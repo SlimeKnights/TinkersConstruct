@@ -73,6 +73,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.tool.MeltingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.SpillingModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.defense.DragonbornModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.FireProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.KnockbackResistanceModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.MagicProtectionModifier;
@@ -80,6 +81,7 @@ import slimeknights.tconstruct.tools.modifiers.defense.MeleeProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.ProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.RevitalizingModifier;
+import slimeknights.tconstruct.tools.modifiers.defense.TurtleShellModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
@@ -255,6 +257,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);
   public static final RegistryObject<ProjectileProtectionModifier> projectileProtection = MODIFIERS.register("projectile_protection", ProjectileProtectionModifier::new);
   public static final RegistryObject<KnockbackResistanceModifier> knockbackResistance = MODIFIERS.register("knockback_resistance", KnockbackResistanceModifier::new);
+  public static final RegistryObject<TurtleShellModifier> turtleShell = MODIFIERS.register("turtle_shell", TurtleShellModifier::new);
+  public static final RegistryObject<DragonbornModifier> dragonborn = MODIFIERS.register("dragonborn", DragonbornModifier::new);
   // general
   public static final RegistryObject<VolatileFlagModifier> golden = MODIFIERS.register("golden", () -> new VolatileFlagModifier(0xFFD83E, ModifiableArmorItem.PIGLIN_NEUTRAL));
   public static final RegistryObject<RicochetModifier> ricochet = MODIFIERS.register("ricochet", RicochetModifier::new);
