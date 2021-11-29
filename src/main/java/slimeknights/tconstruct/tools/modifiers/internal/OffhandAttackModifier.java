@@ -10,8 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -20,7 +21,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-public class OffhandAttackModifier extends InteractionModifier.SingleUse {
+public class OffhandAttackModifier extends SingleUseModifier {
   public static final ResourceLocation DUEL_WIELDING = TConstruct.getResource("duel_wielding");
 
   public OffhandAttackModifier(int color) {
@@ -73,5 +74,19 @@ public class OffhandAttackModifier extends InteractionModifier.SingleUse {
       return ActionResultType.CONSUME;
     }
     return ActionResultType.PASS;
+  }
+
+  @Override
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlotType.OFFHAND) {
+      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setForceEnable(true));
+    }
+  }
+
+  @Override
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlotType.OFFHAND) {
+      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setForceEnable(false));
+    }
   }
 }
