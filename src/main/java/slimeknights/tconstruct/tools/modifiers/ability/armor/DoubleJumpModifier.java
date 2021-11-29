@@ -26,7 +26,7 @@ public class DoubleJumpModifier extends Modifier {
   private ITextComponent levelTwoName = null;
 
   public DoubleJumpModifier() {
-    super(0xFF950D);
+    super(0x01cbcd);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onLand);
   }
 

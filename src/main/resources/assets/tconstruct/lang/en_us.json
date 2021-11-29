@@ -1607,7 +1607,7 @@
   "modifier.tconstruct.feather_falling.flavor": "Floof",
   "modifier.tconstruct.feather_falling.description": "Softens falls causing reduced damage",
   "modifier.tconstruct.feather_falling.resistance": "Fall Resistance",
-  "modifier.tconstruct.double_jump": "Extra Jump",
+  "modifier.tconstruct.double_jump": "Double Jump",
   "modifier.tconstruct.double_jump.double": "Double Jump",
   "modifier.tconstruct.double_jump.triple": "Triple Jump",
   "modifier.tconstruct.double_jump.flavor": "Up, up and away!",

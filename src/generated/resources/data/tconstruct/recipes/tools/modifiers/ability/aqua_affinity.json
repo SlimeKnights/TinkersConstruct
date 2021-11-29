@@ -2,24 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:scute",
-      "amount_needed": 2
+      "item": "minecraft:prismarine_bricks"
     },
     {
-      "tag": "forge:gems/prismarine",
-      "amount_needed": 4
+      "item": "minecraft:heart_of_the_sea"
     },
     {
-      "item": "minecraft:scute",
-      "amount_needed": 2
+      "item": "minecraft:prismarine_bricks"
     },
     {
-      "tag": "forge:dusts/prismarine",
-      "amount_needed": 4
+      "item": "minecraft:dark_prismarine"
     },
     {
-      "tag": "forge:dusts/prismarine",
-      "amount_needed": 4
+      "item": "minecraft:dark_prismarine"
     }
   ],
   "tools": {

@@ -2,19 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "forge:ingots/slimesteel"
+      "item": "tconstruct:sky_congealed_slime"
     },
     {
-      "item": "minecraft:piston"
-    },
-    {
-      "tag": "forge:ingots/slimesteel"
+      "item": "tconstruct:ender_congealed_slime"
     },
     {
       "item": "tconstruct:sky_congealed_slime"
     },
     {
-      "item": "tconstruct:sky_congealed_slime"
+      "item": "tconstruct:ichor_congealed_slime"
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime"
     }
   ],
   "tools": {

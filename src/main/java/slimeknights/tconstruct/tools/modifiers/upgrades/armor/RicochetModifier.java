@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 public class RicochetModifier extends Modifier {
   private static final TinkerDataKey<Integer> LEVELS = TConstruct.createKey("ricochet");
   public RicochetModifier() {
-    super(0x76BE6D);
+    super(0x01cbcd);
     MinecraftForge.EVENT_BUS.addListener(this::livingKnockback);
   }
 

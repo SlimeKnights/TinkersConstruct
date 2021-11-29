@@ -2,13 +2,10 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:obsidian_pane"
+      "item": "minecraft:piston"
     },
     {
-      "tag": "tconstruct:congealed_slime"
-    },
-    {
-      "item": "tconstruct:obsidian_pane"
+      "item": "tconstruct:sky_slime"
     }
   ],
   "tools": {

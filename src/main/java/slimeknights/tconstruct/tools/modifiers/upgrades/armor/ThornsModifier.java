@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ThornsModifier extends IncrementalModifier {
   public ThornsModifier() {
-    super(0x91C2AC);
+    super(0x9FA76D);
   }
 
   @Override

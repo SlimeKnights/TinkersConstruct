@@ -11,10 +11,6 @@
   "max_level": 1,
   "salvage": [
     {
-      "item": "minecraft:cornflower",
-      "chance": 0.1
-    },
-    {
       "tag": "forge:ingots/copper",
       "min": 2,
       "max": 2

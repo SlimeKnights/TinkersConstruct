@@ -2,7 +2,14 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:cornflower"
+      "ingredient": [
+        {
+          "item": "minecraft:cornflower"
+        },
+        {
+          "item": "minecraft:blue_orchid"
+        }
+      ]
     },
     {
       "item": "minecraft:rabbit_foot"

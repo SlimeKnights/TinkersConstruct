@@ -10,10 +10,6 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "minecraft:piston",
-      "chance": 0.6
-    },
-    {
       "item": "tconstruct:slimesteel_ingot",
       "min": 0,
       "max": 2

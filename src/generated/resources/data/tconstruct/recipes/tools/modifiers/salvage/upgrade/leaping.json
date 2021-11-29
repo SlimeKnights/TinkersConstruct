@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:modifier_salvage",
+  "type": "tconstruct:incremental_modifier_salvage",
   "tools": {
     "tag": "tconstruct:modifiable/armor/leggings"
   },
@@ -8,19 +8,8 @@
   },
   "modifier": "tconstruct:leaping",
   "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:piston",
-      "chance": 0.6
-    },
-    {
-      "item": "minecraft:rabbit_foot",
-      "chance": 0.2
-    },
-    {
-      "item": "tconstruct:sky_slime_ball",
-      "min": 4,
-      "max": 9
-    }
-  ]
+  "salvage": {
+    "item": "minecraft:rabbit_foot",
+    "full": false
+  }
 }

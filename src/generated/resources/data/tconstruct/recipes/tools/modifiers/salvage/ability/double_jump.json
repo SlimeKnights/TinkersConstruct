@@ -10,17 +10,25 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "minecraft:phantom_membrane",
-      "chance": 0.3
+      "item": "minecraft:piston",
+      "chance": 0.9
+    },
+    {
+      "item": "minecraft:piston",
+      "chance": 0.9
     },
     {
       "item": "minecraft:phantom_membrane",
       "chance": 0.3
     },
     {
-      "item": "tconstruct:ichor_slime_ball",
-      "min": 4,
-      "max": 18
+      "item": "minecraft:phantom_membrane",
+      "chance": 0.3
+    },
+    {
+      "item": "tconstruct:sky_slime_ball",
+      "min": 2,
+      "max": 9
     }
   ]
 }

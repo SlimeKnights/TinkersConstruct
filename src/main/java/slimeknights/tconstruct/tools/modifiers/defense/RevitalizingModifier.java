@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
+package slimeknights.tconstruct.tools.modifiers.defense;
 
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -20,7 +20,7 @@ public class RevitalizingModifier extends IncrementalModifier {
     UUID.fromString("462e7ca8-3228-11ec-8d3d-0242ac130003")
   };
   public RevitalizingModifier() {
-    super(0xCFF1F1);
+    super(0x8cf4e2);
   }
 
   @Override

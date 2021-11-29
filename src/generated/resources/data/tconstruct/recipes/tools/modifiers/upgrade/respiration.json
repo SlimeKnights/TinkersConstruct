@@ -5,10 +5,13 @@
       "tag": "minecraft:fishes"
     },
     {
-      "item": "minecraft:kelp"
+      "tag": "forge:glass/colorless"
     },
     {
       "tag": "minecraft:fishes"
+    },
+    {
+      "item": "minecraft:kelp"
     },
     {
       "item": "minecraft:kelp"

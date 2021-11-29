@@ -114,7 +114,15 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/harvest/reach.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/armor/slurping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
   },
   {
     "type": "modifier",

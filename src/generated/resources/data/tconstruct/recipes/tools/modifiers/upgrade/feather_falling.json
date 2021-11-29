@@ -1,10 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "tconstruct:sky_congealed_slime"
+    "item": "minecraft:feather"
   },
-  "amount_per_item": 4,
-  "needed_per_level": 36,
+  "amount_per_item": 1,
+  "needed_per_level": 40,
   "tools": {
     "tag": "tconstruct:modifiable/armor/boots"
   },

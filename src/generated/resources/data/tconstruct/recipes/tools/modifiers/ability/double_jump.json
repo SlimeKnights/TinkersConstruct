@@ -2,13 +2,13 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:ichor_slime"
+      "item": "minecraft:piston"
     },
     {
-      "tag": "minecraft:beds"
+      "item": "tconstruct:sky_slime"
     },
     {
-      "item": "tconstruct:ichor_slime"
+      "item": "minecraft:piston"
     },
     {
       "item": "minecraft:phantom_membrane"

@@ -10,12 +10,8 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "tconstruct:obsidian_pane",
-      "chance": 0.4
-    },
-    {
-      "item": "tconstruct:obsidian_pane",
-      "chance": 0.4
+      "item": "minecraft:piston",
+      "chance": 0.9
     }
   ]
 }

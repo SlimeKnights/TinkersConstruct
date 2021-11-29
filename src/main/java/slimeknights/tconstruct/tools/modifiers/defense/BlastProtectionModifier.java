@@ -6,6 +6,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -16,8 +17,11 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier.BlastData;
+
+import java.util.List;
 
 public class BlastProtectionModifier extends AbstractProtectionModifier<BlastData> {
   /** Entity data key for the data associated with this modifier */
@@ -34,6 +38,11 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
+    ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
   @Override

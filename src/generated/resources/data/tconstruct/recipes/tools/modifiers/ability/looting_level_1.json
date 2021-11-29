@@ -5,7 +5,14 @@
       "tag": "forge:ingots/copper"
     },
     {
-      "item": "minecraft:cornflower"
+      "ingredient": [
+        {
+          "item": "minecraft:cornflower"
+        },
+        {
+          "item": "minecraft:blue_orchid"
+        }
+      ]
     },
     {
       "tag": "forge:ingots/copper"

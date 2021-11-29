@@ -9,6 +9,7 @@
   "modifier": "tconstruct:feather_falling",
   "min_level": 1,
   "salvage": {
-    "tag": "forge:slimeball/sky"
+    "item": "minecraft:feather",
+    "full": false
   }
 }

@@ -20,7 +20,7 @@ public class SpeedyModifier extends IncrementalModifier {
     UUID.fromString("16020022-3228-11ec-8d3d-0242ac130003")
   };
   public SpeedyModifier() {
-    super(0xD8B281);
+    super(0x7F0901);
   }
 
   @Override

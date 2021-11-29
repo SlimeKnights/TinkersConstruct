@@ -10,10 +10,6 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "minecraft:cornflower",
-      "chance": 0.1
-    },
-    {
       "item": "minecraft:rabbit_foot",
       "chance": 0.15
     },

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FeatherFallingModifier extends IncrementalModifier {
   public FeatherFallingModifier() {
-    super(0x6DBEBD);
+    super(-1);
   }
 
   @Override

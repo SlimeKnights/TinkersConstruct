@@ -9,7 +9,7 @@
   "modifier": "tconstruct:speedy",
   "min_level": 1,
   "salvage": {
-    "item": "minecraft:rabbit_foot",
+    "item": "minecraft:redstone",
     "full": false
   }
 }

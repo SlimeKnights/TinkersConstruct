@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "tconstruct:sky_slime"
+    "tag": "forge:storage_blocks/redstone"
   },
   "amount_per_item": 9,
-  "needed_per_level": 36,
+  "needed_per_level": 45,
   "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
+    "tag": "tconstruct:modifiable/armor/leggings"
   },
   "slots": {
     "upgrades": 1
   },
   "result": {
-    "name": "tconstruct:feather_falling",
+    "name": "tconstruct:speedy",
     "level": 1
   },
-  "max_level": 4
+  "max_level": 3
 }
