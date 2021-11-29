@@ -1,22 +1,20 @@
 {
-  "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
-  },
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },
   "modifier": "tconstruct:thorns",
   "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:blaze_rod",
-      "chance": 0.3
-    },
-    {
-      "item": "minecraft:prismarine_shard",
-      "min": 0,
-      "max": 2
-    }
-  ]
+  "salvage": {
+    "item": "minecraft:cactus",
+    "full": false
+  }
 }

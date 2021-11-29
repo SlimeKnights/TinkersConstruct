@@ -1,10 +1,13 @@
 {
-  "type": "tconstruct:incremental_modifier",
-  "input": {
-    "item": "tconstruct:ichor_congealed_slime"
-  },
-  "amount_per_item": 4,
-  "needed_per_level": 36,
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "tconstruct:ichor_slime"
+    }
+  ],
   "tools": {
     "tag": "tconstruct:modifiable/armor"
   },

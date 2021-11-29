@@ -1,9 +1,14 @@
 {
   "type": "tconstruct:modifier_salvage",
   "tools": [
-    {
-      "tag": "tconstruct:modifiable/melee_or_harvest"
-    },
+    [
+      {
+        "tag": "tconstruct:modifiable/melee_or_harvest"
+      },
+      {
+        "tag": "tconstruct:modifiable/armor/leggings"
+      }
+    ],
     {
       "tag": "tconstruct:modifiable/armor/chestplate"
     }

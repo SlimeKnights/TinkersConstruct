@@ -14,6 +14,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/general/experienced.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/general/fireprimer.json"
   },
   {
@@ -52,10 +56,6 @@
   },
   {
     "type": "modifier",
-    "data": "upgrades/weapon/experienced.json"
-  },
-  {
-    "type": "modifier",
     "data": "upgrades/weapon/fiery.json"
   },
   {
@@ -69,6 +69,10 @@
   {
     "type": "modifier",
     "data": "upgrades/weapon/severing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/sticky.json"
   },
   {
     "type": "modifier",

@@ -1,13 +1,8 @@
 {
   "type": "tconstruct:incremental_modifier_salvage",
-  "tools": [
-    {
-      "tag": "tconstruct:modifiable/melee"
-    },
-    {
-      "tag": "tconstruct:modifiable/armor/chestplate"
-    }
-  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
   "slots": {
     "upgrades": 1
   },

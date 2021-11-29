@@ -17,8 +17,8 @@
     "error": "recipe.tconstruct.modifier.unarmed"
   },
   "result": {
-    "name": "tconstruct:piercing",
+    "name": "tconstruct:thorns",
     "level": 1
   },
-  "max_level": 5
+  "max_level": 3
 }

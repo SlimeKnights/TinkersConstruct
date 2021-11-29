@@ -1,19 +1,18 @@
 {
-  "type": "tconstruct:modifier",
-  "inputs": [
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:cobweb"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 5,
+  "tools": [
     {
-      "item": "minecraft:cobweb"
+      "tag": "tconstruct:modifiable/melee"
     },
     {
-      "item": "minecraft:cobweb"
-    },
-    {
-      "item": "minecraft:cobweb"
+      "tag": "tconstruct:modifiable/armor"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
-  },
   "slots": {
     "upgrades": 1
   },

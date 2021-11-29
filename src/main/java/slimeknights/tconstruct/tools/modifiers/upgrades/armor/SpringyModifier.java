@@ -7,18 +7,19 @@ import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class SpringyModifier extends IncrementalModifier {
+public class SpringyModifier extends Modifier {
   private static final TinkerDataKey<SlotInCharge> SLOT_IN_CHARGE = TConstruct.createKey("springy");
   public SpringyModifier() {
     super(0xFF950D);
@@ -38,10 +39,9 @@ public class SpringyModifier extends IncrementalModifier {
             IModifierToolStack bouncingTool = context.getToolInSlot(bouncingSlot);
             if (bouncingTool != null && !bouncingTool.isBroken()) {
               // 15% chance per level of it applying
-              float bouncingLevel = getScaledLevel(bouncingTool, bouncingTool.getModifierLevel(this));
-              if (RANDOM.nextFloat() < (bouncingLevel * 0.15f)) {
+              if (RANDOM.nextFloat() < (level * 0.25f)) {
                 // does 0.5 base, plus up to 0.5f per level -- for comparison, 0.4 is normal knockback, 0.9 is with knockback 1
-                float newBonus = 0.5f * RANDOM.nextFloat() * bouncingLevel;
+                float newBonus = 0.5f * RANDOM.nextFloat() * level;
                 if (newBonus > bestBonus) {
                   bestBonus = newBonus;
                 }
@@ -86,6 +86,11 @@ public class SpringyModifier extends IncrementalModifier {
         slotInCharge.addSlot(slot);
       });
     }
+  }
+  @Override
+  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+    // unarmed bonus
+    return knockback + level * 0.5f;
   }
 
   /** Tracker to determine which slot should be in charge */

@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:incremental_modifier_salvage",
+  "type": "tconstruct:modifier_salvage",
   "tools": {
     "tag": "tconstruct:modifiable/armor"
   },
@@ -8,7 +8,10 @@
   },
   "modifier": "tconstruct:springy",
   "min_level": 1,
-  "salvage": {
-    "tag": "forge:slimeball/ichor"
-  }
+  "salvage": [
+    {
+      "item": "minecraft:piston",
+      "chance": 0.9
+    }
+  ]
 }
