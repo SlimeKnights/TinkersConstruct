@@ -19,7 +19,7 @@ public class ZoomModifier extends SingleUseModifier implements IHelmetInteractMo
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    context.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(ZOOM_MULTIPLIER));
+    context.getTinkerData().ifPresent(data -> data.remove(ZOOM_MULTIPLIER));
   }
 
   @Override

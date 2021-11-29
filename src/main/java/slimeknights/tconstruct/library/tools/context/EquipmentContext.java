@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -22,6 +24,8 @@ public class EquipmentContext {
   protected final boolean[] fetchedTool = new boolean[6];
   /** Array of tools currently on the entity */
   protected final IModifierToolStack[] toolsInSlots = new IModifierToolStack[6];
+  /** Cached tinker data capability, saves capability lookup times slightly */
+  private LazyOptional<TinkerDataCapability.Holder> tinkerData = null;
 
   /** Gets a tool stack if the stack is modifiable, null otherwise */
   @Nullable
@@ -55,5 +59,13 @@ public class EquipmentContext {
       }
     }
     return false;
+  }
+
+  /** Gets the tinker data capability */
+  public LazyOptional<TinkerDataCapability.Holder> getTinkerData() {
+    if (tinkerData == null) {
+      tinkerData = entity.getCapability(TinkerDataCapability.CAPABILITY);
+    }
+    return tinkerData;
   }
 }

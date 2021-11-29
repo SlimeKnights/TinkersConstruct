@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType.Group;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -29,7 +28,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
     if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);
         if (modData != null) {
           modData.set(slot, 0);
@@ -47,7 +46,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
     EquipmentSlotType slot = context.getChangedSlot();
     if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR && !tool.isBroken()) {
       float scaledLevel = getScaledLevel(tool, level);
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);
         if (modData == null) {
           // not calculated yet? add all vanilla values to the tracker

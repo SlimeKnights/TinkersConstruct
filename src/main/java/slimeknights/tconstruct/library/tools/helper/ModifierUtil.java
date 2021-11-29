@@ -195,7 +195,7 @@ public final class ModifierUtil {
    */
   public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
     if (context.getChangedSlot().getSlotType() == Group.ARMOR && (allowBroken || !tool.isBroken())) {
-      context.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
           data.remove(key);
@@ -226,7 +226,7 @@ public final class ModifierUtil {
    */
   public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
     if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
-      context.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         float totalLevels = data.get(key, 0f) + amount;
         if (totalLevels <= 0.005f) {
           data.remove(key);

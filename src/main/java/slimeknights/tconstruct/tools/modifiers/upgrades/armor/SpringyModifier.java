@@ -61,9 +61,8 @@ public class SpringyModifier extends Modifier {
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // remove slot in charge if that is us
     EquipmentSlotType slot = context.getChangedSlot();
-    LivingEntity entity = context.getEntity();
-    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !context.getEntity().getEntityWorld().isRemote) {
+      context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge != null) {
           slotInCharge.removeSlot(slot);
@@ -75,9 +74,8 @@ public class SpringyModifier extends Modifier {
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     EquipmentSlotType slot = context.getChangedSlot();
-    LivingEntity entity = context.getEntity();
-    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !context.getEntity().getEntityWorld().isRemote) {
+      context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge == null) {
           slotInCharge = new SlotInCharge();

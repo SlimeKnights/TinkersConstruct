@@ -64,7 +64,7 @@ public class FireProtectionModifier extends IncrementalModifier {
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
     if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData != null) {
           // clear level
@@ -86,7 +86,7 @@ public class FireProtectionModifier extends IncrementalModifier {
     EquipmentSlotType slot = context.getChangedSlot();
     if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR && !tool.isBroken()) {
       float scaledLevel = getScaledLevel(tool, level);
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData == null) {
           // not calculated yet? add all vanilla values to the tracker
@@ -114,7 +114,7 @@ public class FireProtectionModifier extends IncrementalModifier {
     EquipmentSlotType slot = context.getChangedSlot();
     if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR) {
       // so another slot changed, update vanilla fire data
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         // only need to check if we are in charge of fire data
         if (fireData != null && fireData.modifier.getMaxSlot() == slotType) {
