@@ -6,6 +6,7 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -58,6 +59,15 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
   public ModifierRecipeBuilder addInput(SizedIngredient ingredient) {
     this.inputs.add(ingredient);
     return this;
+  }
+
+  /**
+   * Adds an input to the recipe
+   * @param ingredient  Input
+   * @return  Builder instance
+   */
+  public ModifierRecipeBuilder addInput(Ingredient ingredient) {
+    return addInput(SizedIngredient.of(ingredient));
   }
 
   /**

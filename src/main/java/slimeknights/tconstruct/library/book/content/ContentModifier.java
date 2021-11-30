@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -64,8 +65,17 @@ public class ContentModifier extends PageContent {
   public String[] effects;
   public boolean more_text_space = false;
 
+  @SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal"})
+  @SerializedName("required_mod")
+  private String requiredMod = "";
+
   @SerializedName("modifier_id")
   public String modifierID;
+
+  /** Checks if this modifier has the required mods to load */
+  public boolean hasRequiredMod() {
+    return requiredMod == null || requiredMod.isEmpty() || ModList.get().isLoaded(requiredMod);
+  }
 
   @Override
   public void load() {

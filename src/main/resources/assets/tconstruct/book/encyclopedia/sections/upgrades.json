@@ -48,6 +48,10 @@
     "type": "modifier",
     "data": "upgrades/general/tank.json"
   },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/the_one_probe.json"
+  },
 
   {
     "name": "group_weapon",
@@ -135,6 +139,7 @@
     "data": "upgrades/armor.json"
   },
   {
+    "name": "feather_falling",
     "type": "modifier",
     "data": "upgrades/armor/feather_falling.json"
   },

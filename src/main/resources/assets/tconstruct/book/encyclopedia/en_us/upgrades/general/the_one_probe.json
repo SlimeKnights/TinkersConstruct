@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "required_mod": "theoneprobe",
+  "text": [
+    {
+      "text": "Shows information about the targeted block, just like the one probe item."
+    },
+    {
+      "text": "Must be wearing the helmet to get information, or holding the tool in either hand.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 upgrade slot"
+  ]
+}

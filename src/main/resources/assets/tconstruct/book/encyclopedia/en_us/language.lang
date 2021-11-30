@@ -21,6 +21,7 @@ upgrades.group_harvest=Harvest
 upgrades.group_weapon=Weapon
 upgrades.group_damage=Damage Boost
 upgrades.group_armor=Armor
+upgrades.feather_falling=Feather Fall
 
 defense=Defense
 defense.subtext=Instead of material traits, armor will include defense slots to improve protection.

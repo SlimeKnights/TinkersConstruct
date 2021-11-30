@@ -24,17 +24,20 @@ public class ModifierSectionTransformer extends ContentGroupingSectionTransforme
   protected boolean processPage(BookData book, GroupingBuilder builder, PageData page) {
     // modifiers add including their name
     if (page.content instanceof ContentModifier) {
-      ModifierId modifierId = new ModifierId(((ContentModifier) page.content).modifierID);
-      if (TinkerRegistries.MODIFIERS.containsKey(modifierId)) {
-        Modifier modifier = TinkerRegistries.MODIFIERS.getValue(modifierId);
-        assert modifier != null; // contains key was true
-        String title = page.getTitle();
-        // if name is not translatable, use the modifier name
-        if (page.name.equals(title)) {
-          title = modifier.getDisplayName().getString();
+      ContentModifier modifierContent = (ContentModifier)page.content;
+      if (modifierContent.hasRequiredMod()) {
+        ModifierId modifierId = new ModifierId(modifierContent.modifierID);
+        if (TinkerRegistries.MODIFIERS.containsKey(modifierId)) {
+          Modifier modifier = TinkerRegistries.MODIFIERS.getValue(modifierId);
+          assert modifier != null; // contains key was true
+          String title = page.getTitle();
+          // if name is not translatable, use the modifier name
+          if (page.name.equals(title)) {
+            title = modifier.getDisplayName().getString();
+          }
+          builder.addPage(title, page);
+          return true;
         }
-        builder.addPage(title, page);
-        return true;
       }
       return false;
       // starting with group means start a new column

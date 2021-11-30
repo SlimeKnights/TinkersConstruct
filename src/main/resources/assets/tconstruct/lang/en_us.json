@@ -1886,6 +1886,11 @@
   "modifier.tconstruct.overworked.flavor": "Underpaid",
   "modifier.tconstruct.overworked.description": "Increases amount of overslime restored from all sources",
 
+  "_comment": "Compat Modifiers",
+  "modifier.tconstruct.the_one_probe": "The One Probe",
+  "modifier.tconstruct.the_one_probe.flavor": "Sciency!",
+  "modifier.tconstruct.the_one_probe.description": "Shows information about the targeted block when held or on a helmet.",
+
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Bleeding",
   "effect.tconstruct.magnetic": "Magnetic",

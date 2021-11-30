@@ -148,6 +148,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.general.OffhandedModifie
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.OverforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.SoulboundModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.general.TOPModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.BlastingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.FortuneModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
@@ -388,6 +389,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<DecayModifier> decay = MODIFIERS.register("decay", DecayModifier::new);
   public static final RegistryObject<OverworkedModifier> overworked = MODIFIERS.register("overworked", OverworkedModifier::new);
   // experienced is also an upgrade
+
+  // mod compat
+  public static final RegistryObject<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);
 
   /*
    * Internal effects
