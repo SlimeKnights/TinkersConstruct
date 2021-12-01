@@ -145,6 +145,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/harvest/haste.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/armor/leaping.json"
   },
   {

@@ -4,5 +4,6 @@
   "drawSectionListText": true,
   "coverColor": 0xA96D4C,
   "largePageTitles": false,
-  "centerPageTitles": true
+  "centerPageTitles": true,
+  "drawFourColumnIndex": true
 }
