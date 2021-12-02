@@ -2132,6 +2132,7 @@
   "_comment": "JEI Strings",
   "jei.tconstruct.time": "%s s",
   "jei.tconstruct.temperature": "%s°C",
+  "jei.tconstruct.modifier_ingredient": "%s Modifier",
 
   "jei.tconstruct.casting.basin": "Casting Basin",
   "jei.tconstruct.casting.table": "Casting Table",

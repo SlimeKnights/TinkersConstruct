@@ -40,10 +40,12 @@ import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
@@ -92,6 +94,7 @@ import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -129,8 +132,21 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerIngredients(IModIngredientRegistration registration) {
+    assert Minecraft.getInstance().world != null;
+    RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+    List<ModifierEntry> modifiers = Collections.emptyList();
+    if (Config.CLIENT.showModifiersInJEI.get()) {
+      modifiers = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class)
+                              .stream()
+                              .map(recipe -> recipe.getDisplayResult().getModifier())
+                              .distinct()
+                              .sorted(Comparator.comparing(Modifier::getId))
+                              .map(mod -> new ModifierEntry(mod, 1))
+                              .collect(Collectors.toList());
+    }
+
     registration.register(ENTITY_TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
-    registration.register(MODIFIER_TYPE, Collections.emptyList(), new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
+    registration.register(MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
     registration.register(PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
   }
 

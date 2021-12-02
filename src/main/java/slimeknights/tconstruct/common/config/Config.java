@@ -258,6 +258,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue extraToolTips;
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
+    public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -289,6 +290,11 @@ public class Config {
         .comment("If true, the game will log all modifier textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
         .translation("tconstruct.configgui.logMissingMaterialTextures")
         .define("logMissingModifierTextures", false);
+
+      this.showModifiersInJEI = builder
+        .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
+        .translation("tconstruct.configgui.showModifiersInJEI")
+        .define("showModifiersInJEI", false);
 
       builder.pop();
     }
