@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:ricochet",
   "text": [
     {
-      "text": "Increases knockback by 20% per level."
+      "text": "Increases knockback received by 20% per level."
     }
   ],
   "more_text_space": true,

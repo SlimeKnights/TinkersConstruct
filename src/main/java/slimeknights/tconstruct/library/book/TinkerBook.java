@@ -69,8 +69,8 @@ public class TinkerBook extends BookData {
     ModifierSectionTransformer slotless = new ModifierSectionTransformer("slotless");
     ModifierSectionTransformer abilities = new ModifierSectionTransformer("abilities");
     PUNY_SMELTING.addTransformer(upgrades);
-    PUNY_SMELTING.addTransformer(defense);
     PUNY_SMELTING.addTransformer(slotless);
+    MIGHTY_SMELTING.addTransformer(defense);
     MIGHTY_SMELTING.addTransformer(abilities);
     ENCYCLOPEDIA.addTransformer(upgrades);
     ENCYCLOPEDIA.addTransformer(defense);
