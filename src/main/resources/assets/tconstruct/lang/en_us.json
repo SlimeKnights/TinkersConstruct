@@ -2083,6 +2083,7 @@
   "_comment": "Commands",
 
   "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
+  "command.tconstruct.fluid.not_found": "Unknown fluid %s",
   "command.tconstruct.stat_type.not_found": "Unknown stat type %s",
   "command.tconstruct.stat_type.wrong_type": "Invalid stat type %s, must inherit from %s",
   "command.tconstruct.material.not_found": "Unknown material %s",

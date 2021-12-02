@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
@@ -14,11 +15,20 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeL
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.particle.FluidParticleData;
 
 /** Modifier to handle spilling recipes */
 public class SpillingModifier extends TankModifier {
   public SpillingModifier() {
     super(0xF98648, FluidAttributes.BUCKET_VOLUME);
+  }
+
+  /** Spawns particles at the given entity */
+  private static void spawnParticles(Entity target, FluidStack fluid) {
+    if (target.world instanceof ServerWorld) {
+      ((ServerWorld)target.world).spawnParticle(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getPosX(), target.getPosYHeight(0.5), target.getPosZ(), 10, 0.1, 0.2, 0.1, 0.2);
+    }
   }
 
   @Override
@@ -37,6 +47,7 @@ public class SpillingModifier extends TankModifier {
               attacker, attacker instanceof LivingEntity ? ((LivingEntity) attacker) : null,
               false, 1.0f, false);
             FluidStack remaining = recipe.applyEffects(fluid, level, attackContext);
+            spawnParticles(attacker, fluid);
             if (player == null || !player.isCreative()) {
               setFluid(tool, remaining);
             }
@@ -54,6 +65,7 @@ public class SpillingModifier extends TankModifier {
         SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(context.getAttacker().getEntityWorld().getRecipeManager(), fluid.getFluid());
         if (recipe != null) {
           FluidStack remaining = recipe.applyEffects(fluid, level, context);
+          spawnParticles(context.getTarget(), fluid);
           PlayerEntity player = context.getPlayerAttacker();
           if (player == null || !player.isCreative()) {
             setFluid(tool, remaining);
