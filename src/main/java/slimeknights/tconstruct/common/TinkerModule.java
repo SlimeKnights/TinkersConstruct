@@ -139,7 +139,7 @@ public abstract class TinkerModule {
 
   /** Builder that pre-supplies glass properties */
   protected static AbstractBlock.Properties glassBuilder(MaterialColor color) {
-    return builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS)
+    return builder(Material.GLASS, color, ToolType.PICKAXE, SoundType.GLASS)
       .setRequiresTool().hardnessAndResistance(0.3F).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)
       .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
   }
