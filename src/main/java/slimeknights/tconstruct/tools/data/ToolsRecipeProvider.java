@@ -9,8 +9,11 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
+import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -140,6 +143,15 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.manyullyn)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "plate_station"));
+
+    // slimesuit
+    ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
+                            .setCast(Items.RABBIT_FOOT, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
+                            .build(consumer, modResource(armorFolder + "slime_boots"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.rabbit)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slime_boots_station"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

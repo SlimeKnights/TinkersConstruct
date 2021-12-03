@@ -14,10 +14,10 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.M
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -133,7 +133,7 @@ public abstract class AbstractMaterialSpriteProvider {
       statType(HeadMaterialStats.ID);
       statType(HandleMaterialStats.ID);
       statType(ExtraMaterialStats.ID);
-      statType(TinkerPartSpriteProvider.REPAIR_KIT);
+      statType(RepairKitStats.ID);
       return this;
     }
 

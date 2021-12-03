@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPack
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -87,6 +88,7 @@ public final class MaterialRegistry {
     registry.registerStatType(HeadMaterialStats.DEFAULT, HeadMaterialStats.class);
     registry.registerStatType(HandleMaterialStats.DEFAULT, HandleMaterialStats.class);
     registry.registerStatType(ExtraMaterialStats.DEFAULT, ExtraMaterialStats.class);
+    registry.registerStatType(RepairKitStats.DEFAULT, RepairKitStats.class);
   }
 
   @VisibleForTesting

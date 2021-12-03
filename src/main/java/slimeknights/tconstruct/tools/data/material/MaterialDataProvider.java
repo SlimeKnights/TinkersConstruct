@@ -83,5 +83,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON,  0x7F9374, "uranium");
     addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, 0xD9C25F);
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
+
+    // slimesuit
+    addMaterial(MaterialIds.rabbit, 0, ORDER_GENERAL, true, 0xC79E67, true, null);
   }
 }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.inventory.EquipmentSlotType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -257,14 +258,13 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
     // slime suit
     defineArmor(ArmorDefinitions.SLIMESUIT)
-      .durabilityFactor(20)
-      .stat(ToolStats.ARMOR,  0, 1, 0, 0)
-      //.stat(ToolStats.KNOCKBACK_RESISTANCE, 0.0f) // TODO: negative knockback resistance
-      .stat(ToolStats.ARMOR_TOUGHNESS, 2f)
-      .stat(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
-      .startingSlots(SlotType.UPGRADE, 4)
-      .startingSlots(SlotType.DEFENSE, 1)
-      .startingSlots(SlotType.ABILITY, 2, 1, 1, 2);
+      .durabilityFactor(42)
+      .stat(ToolStats.ARMOR, 0)
+      .startingSlots(SlotType.UPGRADE, 5)
+      .startingSlots(SlotType.DEFENSE, 0)
+      .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
+      .trait(EquipmentSlotType.FEET, TinkerModifiers.bouncy)
+      .trait(EquipmentSlotType.FEET, TinkerModifiers.leaping, 1);
   }
 
   @Override

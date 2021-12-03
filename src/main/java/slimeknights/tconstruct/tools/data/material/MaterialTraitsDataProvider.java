@@ -74,5 +74,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay.get());
     addDefaultTraits(MaterialIds.electrum, TinkerModifiers.experienced.get());
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked.get(), TinkerModifiers.overslime.get());
+
+    // slimesuit
+    noTraits(MaterialIds.rabbit);
   }
 }

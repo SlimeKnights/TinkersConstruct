@@ -22,7 +22,7 @@ public class ArmorDefinitions {
 
   /** High modifiers armor set */
   public static final ModifiableArmorMaterial SLIMESUIT = ModifiableArmorMaterial
-    .builder(TConstruct.getResource("slimesuit"))
+    .builder(TConstruct.getResource("slime"))
     .setStatsProvider(ToolStatProviders.NO_PARTS)
     .setSoundEvent(Sounds.EQUIP_SLIME.getSound())
     .build();

@@ -61,6 +61,9 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
 
+  // slimesuit
+  public static final MaterialId rabbit = id("rabbit");
+
   /**
    * Creates a new material ID
    * @param name  ID name

@@ -778,6 +778,8 @@
   "item.tconstruct.plate_leggings": "Plate Leggings",
   "item.tconstruct.plate_boots": "Plate Boots",
 
+  "item.tconstruct.slime_boots": "Slimeboots",
+
 
   "_comment": "Tinkers Tool Parts",
 
@@ -1332,6 +1334,10 @@
   "material.tconstruct.enderslime_vine": "Slimy Vine",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
   "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or killed monsters",
+
+  "__comment": "Slimesuit materials",
+  "material.tconstruct.rabbit": "Rabbit Hide",
+
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -1949,6 +1955,8 @@
 
   "stat.tconstruct.extra": "Extra",
   "tool_stat.tconstruct.extra.no_stats": "No stats",
+
+  "stat.tconstruct.repair_kit": "Repair Kit",
 
   "stat.tconstruct.mining_level.wood": "Wood",
   "stat.tconstruct.mining_level.stone": "Stone",

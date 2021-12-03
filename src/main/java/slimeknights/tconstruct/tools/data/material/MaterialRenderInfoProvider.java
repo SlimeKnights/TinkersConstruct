@@ -64,6 +64,9 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.electrum).color(0xFFEA65).fallbacks("metal");
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");
 
+    // slimesuit
+    buildRenderInfo(MaterialIds.rabbit);
+
     // UI internal
     buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");
     buildRenderInfo(ToolBuildHandler.getRenderMaterial(1)).color(0x745f38).texture(MaterialIds.wood).fallbacks("wood", "stick");

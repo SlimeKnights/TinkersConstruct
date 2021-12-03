@@ -54,7 +54,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");
     materialRecipe(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 4, folder + "string");
     materialRecipe(consumer, MaterialIds.leather, Ingredient.fromTag(Tags.Items.LEATHER), 1, 1, folder + "leather");
-    materialRecipe(consumer, MaterialIds.leather, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "leather_from_rabbit_hide"); // discount for using rabbit
     materialRecipe(consumer, MaterialIds.vine, Ingredient.fromItems(Items.VINE, Items.TWISTING_VINES, Items.WEEPING_VINES), 1, 1, folder + "vine");
 
     // tier 2
@@ -106,6 +105,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(withCondition(consumer, tagCondition("ingots/uranium")), MaterialIds.necronium, Ingredient.fromItems(TinkerMaterials.necroniumBone), 1, 1, folder + "necronium");
     metalMaterialRecipe(consumer, MaterialIds.electrum, folder, "electrum", true);
     // no plated slimewood, use repair kits
+
+    // slimesuit
+    materialRecipe(consumer, MaterialIds.rabbit, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "rabbit_hide");
   }
 
   private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {

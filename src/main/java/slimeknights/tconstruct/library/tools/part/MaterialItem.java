@@ -76,7 +76,7 @@ public class MaterialItem extends Item implements IMaterialItem {
         MaterialId materialId = MaterialId.tryCreate(showOnlyId);
         if (materialId != null) {
           IMaterial material = MaterialRegistry.getMaterial(materialId);
-          if (material != IMaterial.UNKNOWN && canUseMaterial(material)) {
+          if (material != IMaterial.UNKNOWN && !material.isHidden() && canUseMaterial(material)) {
             items.add(this.withMaterial(MaterialRegistry.getMaterial(materialId)));
             added = true;
           }

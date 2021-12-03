@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:rabbit_foot"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:ender_slime",
+    "amount": 4000
+  },
+  "result": {
+    "item": "tconstruct:slime_boots",
+    "nbt": "{tic_broken:0b,Damage:0}"
+  },
+  "cooling_time": 168
+}
