@@ -3,8 +3,6 @@ package slimeknights.tconstruct.library.data.tinkering;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.resources.ResourcePackType;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +17,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -99,12 +98,12 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
   protected class ArmorDataBuilder {
     private final ResourceLocation name;
     private final ToolDefinitionDataBuilder[] builders;
-    private final List<EquipmentSlotType> slotTypes;
+    private final List<ArmorSlotType> slotTypes;
     private ArmorDataBuilder(ModifiableArmorMaterial armorMaterial) {
       this.name = new ResourceLocation(armorMaterial.getName());
       this.builders = new ToolDefinitionDataBuilder[4];
-      ImmutableList.Builder<EquipmentSlotType> slotTypes = ImmutableList.builder();
-      for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      ImmutableList.Builder<ArmorSlotType> slotTypes = ImmutableList.builder();
+      for (ArmorSlotType slotType : ArmorSlotType.values()) {
         ToolDefinition definition = armorMaterial.getArmorDefinition(slotType);
         if (definition != null) {
           this.builders[slotType.getIndex()] = define(definition);
@@ -115,10 +114,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     }
 
     /** Gets the builder for the given slot */
-    protected ToolDefinitionDataBuilder getBuilder(EquipmentSlotType slotType) {
-      if (slotType.getSlotType() != Group.ARMOR) {
-        throw new IllegalArgumentException("Invalid armor slot " + slotType);
-      }
+    protected ToolDefinitionDataBuilder getBuilder(ArmorSlotType slotType) {
       ToolDefinitionDataBuilder builder = builders[slotType.getIndex()];
       if (builder == null) {
         throw new IllegalArgumentException("Unsupported slot type " + slotType + " for material " + name);
@@ -130,7 +126,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     /* Parts */
 
     /** Adds a part to the builder */
-    protected ArmorDataBuilder part(EquipmentSlotType slotType, IToolPart part, int weight) {
+    protected ArmorDataBuilder part(ArmorSlotType slotType, IToolPart part, int weight) {
       getBuilder(slotType).part(part, weight);
       return this;
     }
@@ -139,14 +135,14 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     /* Stats */
 
     /** Adds a bonus to the builder */
-    public ArmorDataBuilder stat(EquipmentSlotType slotType, FloatToolStat stat, float value) {
+    public ArmorDataBuilder stat(ArmorSlotType slotType, FloatToolStat stat, float value) {
       getBuilder(slotType).stat(stat, value);
       return this;
     }
 
     /** Sets the same bonus on all pieces */
     public ArmorDataBuilder stat(FloatToolStat stat, float value) {
-      for (EquipmentSlotType slotType : slotTypes) {
+      for (ArmorSlotType slotType : slotTypes) {
         stat(slotType, stat, value);
       }
       return this;
@@ -169,36 +165,36 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
      * @return  Builder
      */
     public ArmorDataBuilder durabilityFactor(float maxDamageFactor) {
-      for (EquipmentSlotType slotType : slotTypes) {
+      for (ArmorSlotType slotType : slotTypes) {
         stat(slotType, ToolStats.DURABILITY, MAX_DAMAGE_ARRAY[slotType.getIndex()] * maxDamageFactor);
       }
       return this;
     }
 
     /** Applies a global multiplier to a single slot */
-    public ArmorDataBuilder multiplier(EquipmentSlotType slotType, FloatToolStat stat, float value) {
+    public ArmorDataBuilder multiplier(ArmorSlotType slotType, FloatToolStat stat, float value) {
       getBuilder(slotType).multiplier(stat, value);
       return this;
     }
 
     /** Applies a global multiplier to all slots */
     public ArmorDataBuilder multiplier(FloatToolStat stat, float value) {
-      for (EquipmentSlotType slotType : slotTypes) {
+      for (ArmorSlotType slotType : slotTypes) {
         multiplier(slotType, stat, value);
       }
       return this;
     }
 
     /** Sets the starting slots for the given type, unspecified defaults to 0 */
-    public ArmorDataBuilder startingSlots(EquipmentSlotType equipmentSlotType, SlotType slotType, int value) {
-      getBuilder(equipmentSlotType).startingSlots(slotType, value);
+    public ArmorDataBuilder startingSlots(ArmorSlotType armorSlot, SlotType slotType, int value) {
+      getBuilder(armorSlot).startingSlots(slotType, value);
       return this;
     }
 
     /** Sets the starting slots for all types */
     public ArmorDataBuilder startingSlots(SlotType slotType, int value) {
-      for (EquipmentSlotType equipmentSlotType : slotTypes) {
-        startingSlots(equipmentSlotType, slotType, value);
+      for (ArmorSlotType armorSlot : slotTypes) {
+        startingSlots(armorSlot, slotType, value);
       }
       return this;
     }
@@ -218,23 +214,23 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     /* Traits */
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(EquipmentSlotType slotType, Modifier modifier, int level) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, Modifier modifier, int level) {
       getBuilder(slotType).trait(modifier, level);
       return this;
     }
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(EquipmentSlotType slotType, Supplier<? extends Modifier> modifier, int level) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, Supplier<? extends Modifier> modifier, int level) {
       return trait(slotType, modifier.get(), level);
     }
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(EquipmentSlotType slotType, Modifier modifier) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, Modifier modifier) {
       return trait(slotType, modifier, 1);
     }
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(EquipmentSlotType slotType, Supplier<? extends Modifier> modifier) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, Supplier<? extends Modifier> modifier) {
       return trait(slotType, modifier, 1);
     }
   }

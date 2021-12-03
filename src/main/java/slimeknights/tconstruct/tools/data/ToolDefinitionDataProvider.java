@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.inventory.EquipmentSlotType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -10,6 +9,7 @@ import slimeknights.tconstruct.tools.ArmorDefinitions;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.ToolDefinitions;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
@@ -263,8 +263,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.UPGRADE, 5)
       .startingSlots(SlotType.DEFENSE, 0)
       .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
-      .trait(EquipmentSlotType.FEET, TinkerModifiers.bouncy)
-      .trait(EquipmentSlotType.FEET, TinkerModifiers.leaping, 1);
+      .trait(ArmorSlotType.BOOTS, TinkerModifiers.bouncy)
+      .trait(ArmorSlotType.BOOTS, TinkerModifiers.leaping, 1);
   }
 
   @Override

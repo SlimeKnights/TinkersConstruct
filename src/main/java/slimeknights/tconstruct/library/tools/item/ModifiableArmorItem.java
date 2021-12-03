@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -68,8 +69,8 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     this.toolDefinition = toolDefinition;
   }
 
-  public ModifiableArmorItem(ModifiableArmorMaterial material, EquipmentSlotType slotType, Properties properties) {
-    this(material, slotType, properties, Objects.requireNonNull(material.getArmorDefinition(slotType), "Missing tool definition for " + slotType));
+  public ModifiableArmorItem(ModifiableArmorMaterial material, ArmorSlotType slotType, Properties properties) {
+    this(material, slotType.getEquipmentSlot(), properties, Objects.requireNonNull(material.getArmorDefinition(slotType), "Missing tool definition for " + slotType));
   }
 
   /* Basic properties */

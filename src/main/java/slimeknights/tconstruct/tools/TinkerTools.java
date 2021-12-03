@@ -96,9 +96,9 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<ModifiableItem> flintAndBronze = ITEMS.register("flint_and_bronze", () -> new ModifiableItem(TOOL.get(), ToolDefinitions.FLINT_AND_BRONZE));
 
   // armor
-  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.TRAVELERS, type.getEquipmentSlot(), TOOL.get()));
-  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.PLATE, type.getEquipmentSlot(), TOOL.get()));
-  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> slimesuit = ITEMS.registerEnum("slime", new ArmorSlotType[]{ArmorSlotType.BOOTS}, type -> new ModifiableArmorItem(ArmorDefinitions.SLIMESUIT, type.getEquipmentSlot(), TOOL.get()));
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.TRAVELERS, type, TOOL.get()));
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.PLATE, type, TOOL.get()));
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> slimesuit = ITEMS.registerEnum("slime", new ArmorSlotType[]{ArmorSlotType.BOOTS}, type -> new ModifiableArmorItem(ArmorDefinitions.SLIMESUIT, type, TOOL.get()));
 
   /*
    * Particles

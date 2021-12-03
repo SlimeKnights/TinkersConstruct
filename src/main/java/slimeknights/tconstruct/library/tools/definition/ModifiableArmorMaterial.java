@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +12,7 @@ import net.minecraft.util.SoundEvents;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 
@@ -44,13 +44,13 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
    * @return  Armor definition
    */
   @Nullable
-  public ToolDefinition getArmorDefinition(EquipmentSlotType slotType) {
+  public ToolDefinition getArmorDefinition(ArmorSlotType slotType) {
     return armorDefinitions[slotType.getIndex()];
   }
 
   /** Gets the value of a stat for the given slot */
-  private float getStat(FloatToolStat toolStat, EquipmentSlotType slotType) {
-    ToolDefinition toolDefinition = getArmorDefinition(slotType);
+  private float getStat(FloatToolStat toolStat, @Nullable ArmorSlotType slotType) {
+    ToolDefinition toolDefinition = slotType == null ? null : getArmorDefinition(slotType);
     float defaultValue = toolStat.getDefaultValue();
     if (toolDefinition == null) {
       return defaultValue;
@@ -66,22 +66,22 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
 
   @Override
   public int getDurability(EquipmentSlotType slotIn) {
-    return (int)getStat(ToolStats.DURABILITY, slotIn);
+    return (int)getStat(ToolStats.DURABILITY, ArmorSlotType.fromEquipment(slotIn));
   }
 
   @Override
   public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-    return (int)getStat(ToolStats.ARMOR, slotIn);
+    return (int)getStat(ToolStats.ARMOR, ArmorSlotType.fromEquipment(slotIn));
   }
 
   @Override
   public float getToughness() {
-    return getStat(ToolStats.ARMOR_TOUGHNESS, EquipmentSlotType.CHEST);
+    return getStat(ToolStats.ARMOR_TOUGHNESS, ArmorSlotType.CHESTPLATE);
   }
 
   @Override
   public float getKnockbackResistance() {
-    return getStat(ToolStats.KNOCKBACK_RESISTANCE, EquipmentSlotType.CHEST);
+    return getStat(ToolStats.KNOCKBACK_RESISTANCE, ArmorSlotType.CHESTPLATE);
   }
 
   @Override
@@ -96,13 +96,13 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
 
 
   /** Gets a builder for a modifiable armor material, creates tool definition for the selected slots */
-  public static Builder builder(ResourceLocation name, EquipmentSlotType... slotTypes) {
+  public static Builder builder(ResourceLocation name, ArmorSlotType... slotTypes) {
     return new Builder(name, slotTypes);
   }
 
   /** Gets a builder for a modifiable armor material, creates tool definition for all four armor slots */
   public static Builder builder(ResourceLocation name) {
-    return builder(name, ARMOR_SLOTS);
+    return builder(name, ArmorSlotType.values());
   }
 
   /**
@@ -111,26 +111,20 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
   public static class Builder {
     private final ResourceLocation name;
     private final ToolDefinition.Builder[] builders;
-    private final EquipmentSlotType[] slotTypes;
+    private final ArmorSlotType[] slotTypes;
     @Setter @Accessors(chain = true)
     private SoundEvent soundEvent = SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
-    protected Builder(ResourceLocation baseName, EquipmentSlotType[] slotTypes) {
+    protected Builder(ResourceLocation baseName, ArmorSlotType[] slotTypes) {
       this.name = baseName;
       builders = new ToolDefinition.Builder[4];
       this.slotTypes = slotTypes;
-      for (EquipmentSlotType slot : slotTypes) {
-        if (slot.getSlotType() != Group.ARMOR) {
-          throw new IllegalArgumentException("Invalid armor slot " + slot);
-        }
-        builders[slot.getIndex()] = ToolDefinition.builder(new ResourceLocation(baseName.getNamespace(), baseName.getPath() + "_" + slot.getName()));
+      for (ArmorSlotType slot : slotTypes) {
+        builders[slot.getIndex()] = ToolDefinition.builder(new ResourceLocation(baseName.getNamespace(), baseName.getPath() + "_" + slot.getString()));
       }
     }
 
     /** Gets the builder for the given slot */
-    private ToolDefinition.Builder getBuilder(EquipmentSlotType slotType) {
-      if (slotType.getSlotType() != Group.ARMOR) {
-        throw new IllegalArgumentException("Invalid armor slot " + slotType);
-      }
+    private ToolDefinition.Builder getBuilder(ArmorSlotType slotType) {
       ToolDefinition.Builder builder = builders[slotType.getIndex()];
       if (builder == null) {
         throw new IllegalArgumentException("Unsupported slot type " + slotType + " for material " + name);
@@ -139,14 +133,14 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
     }
 
     /** Sets the stat provider for the given slot */
-    public Builder setStatsProvider(EquipmentSlotType slot, IToolStatProvider statProvider) {
+    public Builder setStatsProvider(ArmorSlotType slot, IToolStatProvider statProvider) {
       getBuilder(slot).setStatsProvider(statProvider);
       return this;
     }
 
     /** Sets the stat provider for all slots slot */
     public Builder setStatsProvider(IToolStatProvider statProvider) {
-      for (EquipmentSlotType slotType : slotTypes) {
+      for (ArmorSlotType slotType : slotTypes) {
         setStatsProvider(slotType, statProvider);
       }
       return this;
@@ -154,7 +148,7 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
 
     /** Tells the definition to not be registered with the loader, used internally for testing. In general mods wont need this */
     public Builder skipRegister() {
-      for (EquipmentSlotType slotType : slotTypes) {
+      for (ArmorSlotType slotType : slotTypes) {
         getBuilder(slotType).skipRegister();
       }
       return this;
@@ -163,7 +157,7 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
     /** Builds the final material */
     public ModifiableArmorMaterial build() {
       ToolDefinition[] toolDefinitions = new ToolDefinition[4];
-      for (EquipmentSlotType slotType : slotTypes) {
+      for (ArmorSlotType slotType : slotTypes) {
         toolDefinitions[slotType.getIndex()] = builders[slotType.getIndex()].build();
       }
       return new ModifiableArmorMaterial(name, soundEvent, toolDefinitions);
