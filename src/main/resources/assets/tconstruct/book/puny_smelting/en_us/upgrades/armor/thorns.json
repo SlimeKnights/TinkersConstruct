@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "What a prick."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Has a chance to damage attackers when hit",
+    "Multiple levels, each level further increases the chance",
+    "Requires 1 upgrade slot per level"
+  ]
+}

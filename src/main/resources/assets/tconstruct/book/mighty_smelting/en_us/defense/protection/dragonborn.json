@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "Dovah ko krif dilos ahrk qah."
+    },
+    {
+      "text": "Tinker, You can't read dragon tongue? Nonsense what do they teach these days. That says, Dragons that fly are deadly and protected.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Increases protection and attack damage when airborn",
+    "Multiple levels, each level further increases protection and damage",
+    "Requires 1 defense slot"
+  ]
+}

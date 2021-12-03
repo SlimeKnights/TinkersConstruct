@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Allows drinking fluid containing in the helmet to perform effects using the helmet keybind, mirroring effects from spilling."
+    },
+    {
+      "text": "Right clicking a tank with helmet fills it", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

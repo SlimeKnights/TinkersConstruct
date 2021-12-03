@@ -93,5 +93,47 @@
   {
     "type": "modifier",
     "data": "abilities/interact/tilling.json"
+  },
+  
+  {
+    "name": "group_armor",
+    "type": "text",
+    "data": "abilities/armor.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/aqua_affinity.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/bouncy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/double_jump.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/looting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/reach.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/slurping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/unarmed_attack.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/zoom.json"
   }
 ]

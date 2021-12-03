@@ -67,6 +67,18 @@
         }
       }
     }
+  },
+  {
+    "name": "defense",
+    "data": "sections/defense.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "defense"
+        }
+      }
+    }
   }
   
 ]
