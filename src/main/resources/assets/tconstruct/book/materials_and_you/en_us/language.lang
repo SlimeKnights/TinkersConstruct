@@ -3,6 +3,7 @@
 tier_one_materials=Tier 1 Materials
 tier_one_materials.subtext=Materials are the first part to making any tool. These materials can be placed in the part builder to create tool parts.
 
+
 intro=Introduction
 tools=Tools
 tools.part_swapping=Part Swapping
@@ -14,3 +15,4 @@ modifiers.slotless=Slotless
 modifiers.abilities=Abilities
 modifiers.defense=Defense
 further_reading=Further Reading
+travelers=Traveler's Gear

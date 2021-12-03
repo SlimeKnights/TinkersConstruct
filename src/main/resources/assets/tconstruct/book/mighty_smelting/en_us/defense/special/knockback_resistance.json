@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Here I stand, not even a tank will move me."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Decreases knockback recieved",
+    "Single level",
+    "Requires 1 defense slot"
+  ]
+}

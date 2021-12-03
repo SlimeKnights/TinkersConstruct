@@ -4,6 +4,7 @@ entity_melting=Entity Melting
 tier_three_materials=Tier 3 Materials
 tools=Broad Tools
 tools.subtext=Broad tools all require the use of a tinker's anvil to create
+defense=Defense
 
 smeltery=Smeltery
 smeltery.features=Features
@@ -26,3 +27,6 @@ abilities.group_general=General
 abilities.group_harvest=Harvest
 abilities.group_weapon=Weapon
 abilities.group_interact=Interact
+abilities.group_armor=Armor
+defense.group_protection=Protection
+defense.group_special=Special

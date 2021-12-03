@@ -119,5 +119,48 @@
   {
     "type": "modifier",
     "data": "upgrades/harvest/magnetic.json"
+  },
+  
+  {
+    "name": "group_armor",
+    "type": "text",
+    "data": "upgrades/armor.json"
+  },
+  {
+    "name": "feather_falling",
+    "type": "modifier",
+    "data": "upgrades/armor/feather_falling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/leaping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/power.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/respiration.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/speedy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/springy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/sticky.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/thorns.json"
   }
 ]
