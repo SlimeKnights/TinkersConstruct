@@ -36,7 +36,7 @@
     }
   },
   {
-    "name": "plate",
+    "name": "armor",
     "data": "sections/armor.json",
     "icon": {
       "item": {

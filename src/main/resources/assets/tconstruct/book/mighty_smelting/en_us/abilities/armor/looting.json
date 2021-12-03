@@ -5,7 +5,7 @@
       "text": "Punching so hard that more comes out."
     }
   ],
-  "more_text_space": true,
+  "more_text_space": false,
   "effects": [
     "Increases mob drops and block drops for unarmed attacks",
     "Maximum of 3 levels, different recipe for each level",
