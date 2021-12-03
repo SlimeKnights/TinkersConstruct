@@ -294,7 +294,7 @@ public class Config {
       this.showModifiersInJEI = builder
         .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
         .translation("tconstruct.configgui.showModifiersInJEI")
-        .define("showModifiersInJEI", false);
+        .define("showModifiersInJEI", true);
 
       builder.pop();
     }
