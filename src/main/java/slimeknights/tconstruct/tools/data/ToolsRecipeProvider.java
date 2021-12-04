@@ -7,21 +7,28 @@ import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.world.TinkerHeadType;
+import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.Collections;
 import java.util.function.Consumer;
 
 public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterialRecipeHelper, IToolRecipeHelper {
@@ -145,6 +152,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .build(consumer, modResource(armorRepairFolder + "plate_station"));
 
     // slimesuit
+    slimeskullCasting(consumer, MaterialIds.gunpowder, Items.CREEPER_HEAD, armorFolder);
+    slimeskullCasting(consumer, MaterialIds.enderPearl, TinkerWorld.heads.get(TinkerHeadType.ENDERMAN), armorFolder);
     ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
@@ -170,5 +179,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     partRecipes(consumer, TinkerToolParts.largePlate,  TinkerSmeltery.largePlateCast,  4, partFolder, castFolder);
     partRecipes(consumer, TinkerToolParts.toolHandle,  TinkerSmeltery.toolHandleCast,  1, partFolder, castFolder);
     partRecipes(consumer, TinkerToolParts.toughHandle, TinkerSmeltery.toughHandleCast, 3, partFolder, castFolder);
+  }
+
+  /** Helper to create a casting recipe for a slimeskull variant */
+  private void slimeskullCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, IItemProvider skull, String folder) {
+    MaterialIdNBT nbt = new MaterialIdNBT(Collections.singletonList(material));
+    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
+                            .setCast(skull, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 5)
+                            .build(consumer, modResource(folder + "slime_skull/" + material.getPath()));
   }
 }

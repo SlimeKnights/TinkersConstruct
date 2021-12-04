@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:creeper_head"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:ender_slime",
+    "amount": 5000
+  },
+  "result": {
+    "item": "tconstruct:slime_helmet",
+    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:gunpowder\"]}"
+  },
+  "cooling_time": 187
+}

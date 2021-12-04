@@ -107,6 +107,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // no plated slimewood, use repair kits
 
     // slimesuit
+    materialRecipe(consumer, MaterialIds.gunpowder, Ingredient.fromTag(Tags.Items.GUNPOWDER), 1, 4, folder + "gunpowder");
+    materialRecipe(consumer, MaterialIds.enderPearl, Ingredient.fromTag(Tags.Items.ENDER_PEARLS), 1, 1, folder + "ender_pearl");
     materialRecipe(consumer, MaterialIds.rabbit, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "rabbit_hide");
   }
 

@@ -10,6 +10,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
@@ -258,11 +259,12 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
     // slime suit
     defineArmor(ArmorDefinitions.SLIMESUIT)
-      .durabilityFactor(42)
+      .stat(ToolStats.DURABILITY, 546, 630, 672, 362)
       .stat(ToolStats.ARMOR, 0)
       .startingSlots(SlotType.UPGRADE, 5)
       .startingSlots(SlotType.DEFENSE, 0)
       .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
+      .part(ArmorSlotType.HELMET, SkullStats.ID, 1)
       .trait(ArmorSlotType.BOOTS, TinkerModifiers.bouncy)
       .trait(ArmorSlotType.BOOTS, TinkerModifiers.leaping, 1);
   }

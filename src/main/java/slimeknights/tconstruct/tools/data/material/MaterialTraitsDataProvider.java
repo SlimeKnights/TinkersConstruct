@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvider {
   public MaterialTraitsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
@@ -76,6 +77,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked.get(), TinkerModifiers.overslime.get());
 
     // slimesuit
+    addTraits(MaterialIds.gunpowder, SkullStats.ID, TinkerModifiers.selfDestructive.get(), TinkerModifiers.creeperDisguise.get());
+    addTraits(MaterialIds.enderPearl, SkullStats.ID, TinkerModifiers.enderdodging.get(), TinkerModifiers.endermanDisguise.get());
     noTraits(MaterialIds.rabbit);
   }
 }

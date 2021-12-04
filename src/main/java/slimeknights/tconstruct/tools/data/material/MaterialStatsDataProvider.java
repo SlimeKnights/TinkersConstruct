@@ -7,6 +7,7 @@ import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
@@ -198,6 +199,8 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
 
     // slimesuit
-    addMaterialStats(MaterialIds.rabbit, new RepairKitStats(100));
+    addMaterialStats(MaterialIds.gunpowder, new SkullStats(60, 0));
+    addMaterialStats(MaterialIds.enderPearl, new SkullStats(150, 0));
+    addMaterialStats(MaterialIds.rabbit,   new RepairKitStats(100));
   }
 }

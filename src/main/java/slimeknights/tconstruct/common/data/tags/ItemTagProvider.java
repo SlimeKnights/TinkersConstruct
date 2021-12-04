@@ -194,6 +194,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addArmorTags(TinkerTools.travelersGear, DURABILITY);
     addArmorTags(TinkerTools.plateArmor,    DURABILITY);
     addArmorTags(TinkerTools.slimesuit,     DURABILITY);
+    addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest

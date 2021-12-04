@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourcePackType;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -126,8 +127,14 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     /* Parts */
 
     /** Adds a part to the builder */
-    protected ArmorDataBuilder part(ArmorSlotType slotType, IToolPart part, int weight) {
+    public ArmorDataBuilder part(ArmorSlotType slotType, IToolPart part, int weight) {
       getBuilder(slotType).part(part, weight);
+      return this;
+    }
+
+    /** Adds a part to the builder */
+    public ArmorDataBuilder part(ArmorSlotType slotType, MaterialStatsId statsId, int weight) {
+      getBuilder(slotType).part(statsId, weight);
       return this;
     }
 

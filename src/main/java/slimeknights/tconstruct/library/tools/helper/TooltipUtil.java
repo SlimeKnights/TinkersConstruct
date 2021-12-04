@@ -79,7 +79,7 @@ public class TooltipUtil {
       }
     }
 
-    return ITinkerStationDisplay.getCombinedItemName(baseName, nameMaterials);
+    return ITinkerStationDisplay.getCombinedItemName(stack, baseName, nameMaterials);
   }
 
   /**

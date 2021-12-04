@@ -778,6 +778,9 @@
   "item.tconstruct.plate_leggings": "Plate Leggings",
   "item.tconstruct.plate_boots": "Plate Boots",
 
+  "item.tconstruct.slime_helmet": "Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.gunpowder": "Creeper Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Enderman Slimeskull",
   "item.tconstruct.slime_boots": "Slimeboots",
 
 
@@ -1340,6 +1343,8 @@
   "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or killed monsters",
 
   "__comment": "Slimesuit materials",
+  "material.tconstruct.gunpowder": "Gunpowder",
+  "material.tconstruct.ender_pearl": "Ender Pearl",
   "material.tconstruct.rabbit": "Rabbit Hide",
 
 
@@ -1903,6 +1908,12 @@
   "modifier.tconstruct.enderdodging": "Enderdodging",
   "modifier.tconstruct.enderdodging.flavor": "Agility of an enderman",
   "modifier.tconstruct.enderdodging.description": "Allows dodging projectiles by teleporting, and randomly escape attacks by teleporting",
+  "modifier.tconstruct.creeper_disguise": "Creeper Disguise",
+  "modifier.tconstruct.creeper_disguise.flavor": "Kinda Creepy",
+  "modifier.tconstruct.creeper_disguise.description": "Makes you look more like a creeper to other creepers",
+  "modifier.tconstruct.enderman_disguise": "Enderman Disguise",
+  "modifier.tconstruct.enderman_disguise.flavor": "Tall and lanky",
+  "modifier.tconstruct.enderman_disguise.description": "Makes you look more like a enderman to other enderman",
 
   "_comment": "Compat Modifiers",
   "modifier.tconstruct.the_one_probe": "The One Probe",

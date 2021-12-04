@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -131,6 +132,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.MobDisguiseModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorPowerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
@@ -395,6 +397,8 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - slimeskull
   public static final RegistryObject<SelfDestructiveModifier> selfDestructive = MODIFIERS.register("self_destructive", SelfDestructiveModifier::new);
   public static final RegistryObject<EnderdodgingModifier> enderdodging = MODIFIERS.register("enderdodging", EnderdodgingModifier::new);
+  public static final RegistryObject<MobDisguiseModifier> creeperDisguise = MODIFIERS.register("creeper_disguise", () -> new MobDisguiseModifier(0x95D78E, EntityType.CREEPER));
+  public static final RegistryObject<MobDisguiseModifier> endermanDisguise = MODIFIERS.register("enderman_disguise", () -> new MobDisguiseModifier(0xCC00FA, EntityType.ENDERMAN));
 
   // mod compat
   public static final RegistryObject<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);

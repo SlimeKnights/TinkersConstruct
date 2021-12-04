@@ -1,7 +1,12 @@
 {
+  "parts": [
+    {
+      "stat": "tconstruct:skull"
+    }
+  ],
   "stats": {
     "base": {
-      "tconstruct:durability": 462.0,
+      "tconstruct:durability": 362.0,
       "tconstruct:armor": 0.0
     }
   },
