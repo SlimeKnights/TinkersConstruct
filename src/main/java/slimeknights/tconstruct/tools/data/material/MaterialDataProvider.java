@@ -87,6 +87,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // slimesuit - marked tier 6 to push to tne end of repair kits
     addMaterial(MaterialIds.gunpowder,  6, ORDER_SPECIAL, true, 0x95D78E);
     addMaterial(MaterialIds.enderPearl, 6, ORDER_SPECIAL, true, 0x349988);
+    addMaterial(MaterialIds.spider,     6, ORDER_SPECIAL, true, 0x9D1E2D);
+    addMaterial(MaterialIds.venom,      6, ORDER_SPECIAL, true, 0xEDEDED);
     addMaterial(MaterialIds.rabbit,     6, ORDER_GENERAL, true, 0xC79E67, true, null);
   }
 }

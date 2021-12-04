@@ -65,6 +65,8 @@ public final class MaterialIds {
   public static final MaterialId gunpowder = id("gunpowder");
   public static final MaterialId enderPearl = id("ender_pearl");
   public static final MaterialId rabbit = id("rabbit");
+  public static final MaterialId spider = id("spider");
+  public static final MaterialId venom = id("venom");
 
   /**
    * Creates a new material ID

@@ -8,6 +8,9 @@
     {
       "type": "tconstruct:cure_effects",
       "item": "minecraft:milk_bucket"
+    },
+    {
+      "type": "tconstruct:strong_bones"
     }
   ]
 }

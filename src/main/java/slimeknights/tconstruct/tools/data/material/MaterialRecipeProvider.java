@@ -17,6 +17,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.ingredient.FluidContainerIngredient;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -110,6 +111,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.gunpowder, Ingredient.fromTag(Tags.Items.GUNPOWDER), 1, 4, folder + "gunpowder");
     materialRecipe(consumer, MaterialIds.enderPearl, Ingredient.fromTag(Tags.Items.ENDER_PEARLS), 1, 1, folder + "ender_pearl");
     materialRecipe(consumer, MaterialIds.rabbit, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "rabbit_hide");
+    materialRecipe(consumer, MaterialIds.spider, Ingredient.fromItems(Items.SPIDER_EYE), 1, 4, folder + "spider");
+    materialRecipe(consumer, MaterialIds.venom, FluidContainerIngredient.fromFluid(TinkerFluids.venom, false), 4, 1, folder + "venom_bucket");
   }
 
   private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {

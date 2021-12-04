@@ -77,8 +77,11 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked.get(), TinkerModifiers.overslime.get());
 
     // slimesuit
-    addTraits(MaterialIds.gunpowder, SkullStats.ID, TinkerModifiers.selfDestructive.get(), TinkerModifiers.creeperDisguise.get());
+    addTraits(MaterialIds.gunpowder,  SkullStats.ID, TinkerModifiers.selfDestructive.get(), TinkerModifiers.creeperDisguise.get());
     addTraits(MaterialIds.enderPearl, SkullStats.ID, TinkerModifiers.enderdodging.get(), TinkerModifiers.endermanDisguise.get());
+    addTraits(MaterialIds.bone,       SkullStats.ID, TinkerModifiers.strongBones.get(), TinkerModifiers.skeletonDisguise.get());
+    addTraits(MaterialIds.spider,     SkullStats.ID, TinkerModifiers.boonOfSssss.get(), TinkerModifiers.spiderDisguise.get());
+    addTraits(MaterialIds.venom,      SkullStats.ID, TinkerModifiers.mithridatism.get(), TinkerModifiers.caveSpiderDisguise.get());
     noTraits(MaterialIds.rabbit);
   }
 }

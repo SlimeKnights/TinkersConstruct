@@ -199,8 +199,11 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
 
     // slimesuit
-    addMaterialStats(MaterialIds.gunpowder, new SkullStats(60, 0));
+    addMaterialStats(MaterialIds.gunpowder,  new SkullStats(60, 0));
     addMaterialStats(MaterialIds.enderPearl, new SkullStats(150, 0));
-    addMaterialStats(MaterialIds.rabbit,   new RepairKitStats(100));
+    addMaterialStats(MaterialIds.bone,       new SkullStats(100, 0));
+    addMaterialStats(MaterialIds.spider,     new SkullStats(75, 0));
+    addMaterialStats(MaterialIds.venom,      new SkullStats(65, 0));
+    addMaterialStats(MaterialIds.rabbit,     new RepairKitStats(100));
   }
 }

@@ -154,6 +154,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     // slimesuit
     slimeskullCasting(consumer, MaterialIds.gunpowder, Items.CREEPER_HEAD, armorFolder);
     slimeskullCasting(consumer, MaterialIds.enderPearl, TinkerWorld.heads.get(TinkerHeadType.ENDERMAN), armorFolder);
+    slimeskullCasting(consumer, MaterialIds.bone, Items.SKELETON_SKULL, armorFolder);
+    slimeskullCasting(consumer, MaterialIds.spider, TinkerWorld.heads.get(TinkerHeadType.SPIDER), armorFolder);
+    slimeskullCasting(consumer, MaterialIds.venom, TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER), armorFolder);
     ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)

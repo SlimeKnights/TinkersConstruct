@@ -781,6 +781,8 @@
   "item.tconstruct.slime_helmet": "Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.gunpowder": "Creeper Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Enderman Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.bone": "Skeleton Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.venom": "Cave Spider Slimeskull",
   "item.tconstruct.slime_boots": "Slimeboots",
 
 
@@ -1345,6 +1347,8 @@
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Gunpowder",
   "material.tconstruct.ender_pearl": "Ender Pearl",
+  "material.tconstruct.spider": "Spider",
+  "material.tconstruct.venom": "Venom",
   "material.tconstruct.rabbit": "Rabbit Hide",
 
 
@@ -1908,12 +1912,31 @@
   "modifier.tconstruct.enderdodging": "Enderdodging",
   "modifier.tconstruct.enderdodging.flavor": "Agility of an enderman",
   "modifier.tconstruct.enderdodging.description": "Allows dodging projectiles by teleporting, and randomly escape attacks by teleporting",
+  "modifier.tconstruct.strong_bones": "Strong Bones",
+  "modifier.tconstruct.strong_bones.flavor": "Got Milk?",
+  "modifier.tconstruct.strong_bones.description": "Drinking milk temporarily boosts resistance",
+  "modifier.tconstruct.boon_of_sssss": "Boon of Sssss",
+  "modifier.tconstruct.boon_of_sssss.flavor": "The potions are strong with this one",
+  "modifier.tconstruct.boon_of_sssss.description": "Increases duration of positive effects",
+  "modifier.tconstruct.mithridatism": "Mithridatism",
+  "modifier.tconstruct.mithridatism.flavor": "Gradual Immunity",
+  "modifier.tconstruct.mithridatism.description": "Immune to becoming poisoned, if only it worked on existing poison...",
+
   "modifier.tconstruct.creeper_disguise": "Creeper Disguise",
   "modifier.tconstruct.creeper_disguise.flavor": "Kinda Creepy",
   "modifier.tconstruct.creeper_disguise.description": "Makes you look more like a creeper to other creepers",
   "modifier.tconstruct.enderman_disguise": "Enderman Disguise",
   "modifier.tconstruct.enderman_disguise.flavor": "Tall and lanky",
-  "modifier.tconstruct.enderman_disguise.description": "Makes you look more like a enderman to other enderman",
+  "modifier.tconstruct.enderman_disguise.description": "Makes you look more like a enderman to other endermen",
+  "modifier.tconstruct.skeleton_disguise": "Skeleton Disguise",
+  "modifier.tconstruct.skeleton_disguise.flavor": "Need more meat on those bones",
+  "modifier.tconstruct.skeleton_disguise.description": "Makes you look more like a skeleton to other skeletons",
+  "modifier.tconstruct.spider_disguise": "Spider Disguise",
+  "modifier.tconstruct.spider_disguise.flavor": "Ssssssssssssssss",
+  "modifier.tconstruct.spider_disguise.description": "Makes you look more like a skeleton to other skeletons",
+  "modifier.tconstruct.cave_spider_disguise": "Cave Spider Disguise",
+  "modifier.tconstruct.cave_spider_disguise.flavor": "Venomous",
+  "modifier.tconstruct.cave_spider_disguise.description": "Makes you look more like a cave spider to other cave spiders",
 
   "_comment": "Compat Modifiers",
   "modifier.tconstruct.the_one_probe": "The One Probe",
@@ -1981,6 +2004,7 @@
   "tool_stat.tconstruct.extra.no_stats": "No stats",
 
   "stat.tconstruct.repair_kit": "Repair Kit",
+  "stat.tconstruct.skull": "Slimeskull",
 
   "stat.tconstruct.mining_level.wood": "Wood",
   "stat.tconstruct.mining_level.stone": "Stone",
