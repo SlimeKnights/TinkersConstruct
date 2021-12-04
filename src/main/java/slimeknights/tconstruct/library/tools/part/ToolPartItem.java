@@ -40,11 +40,6 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public boolean canUseMaterial(IMaterial material) {
-    return MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).isPresent();
-  }
-
-  @Override
   public MaterialStatsId getStatType() {
     return this.materialStatId;
   }

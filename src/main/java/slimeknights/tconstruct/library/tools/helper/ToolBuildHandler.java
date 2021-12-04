@@ -114,10 +114,10 @@ public final class ToolBuildHandler {
     List<PartRequirement> required = item.getToolDefinition().getData().getParts();
     List<IMaterial> materials = new ArrayList<>(required.size());
     for (int i = 0; i < required.size(); i++) {
-      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).getPart().canUseMaterial(fixedMaterials[i])) {
+      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
         materials.add(fixedMaterials[i]);
       }
-      else if (required.get(i).getPart().canUseMaterial(material)) {
+      else if (required.get(i).canUseMaterial(material)) {
         materials.add(material);
       } else {
         return false;

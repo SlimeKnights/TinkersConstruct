@@ -69,7 +69,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         }
         // part not in list
         Item item = stack.getItem();
-        if (!(item instanceof IToolPart) || parts.stream().noneMatch(p -> p.getPart().asItem() == item)) {
+        if (!(item instanceof IToolPart) || parts.stream().noneMatch(p -> p.matches(item))) {
           return false;
         }
         foundItem = true;
@@ -116,9 +116,9 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         // we have a part and its not at this index, find the first copy of this part
         // means slot only matters if a tool uses a part twice
         int index = i;
-        if (i >= parts.size() || parts.get(i).getPart().asItem() != item) {
+        if (i >= parts.size() || !parts.get(i).matches(item)) {
           index = IntStream.range(0, parts.size())
-                           .filter(pi -> parts.get(pi).getPart().asItem() == item)
+                           .filter(pi -> parts.get(pi).matches(item))
                            .findFirst().orElse(-1);
           if (index == -1) {
             return ValidatedResult.PASS;
