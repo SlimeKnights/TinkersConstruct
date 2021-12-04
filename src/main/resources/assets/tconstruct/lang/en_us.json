@@ -840,6 +840,8 @@
   "death.attack.tconstruct.smeltery_heat.player": "%1$s tried to make molten player whilst fighting %2$s",
   "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
   "death.attack.tconstruct.smeltery_magic.player": "%1$s has become one with the smeltery whilst fighting %2$s",
+  "death.attack.tconstruct.self_destruct": "%1$s self destructed",
+  "death.attack.tconstruct.self_destruct.player": "%1$s self destructed whilst fighting %2$s",
 
   "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
   "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
@@ -1893,6 +1895,14 @@
   "modifier.tconstruct.overworked": "Overworked",
   "modifier.tconstruct.overworked.flavor": "Underpaid",
   "modifier.tconstruct.overworked.description": "Increases amount of overslime restored from all sources",
+
+  "_comment": "Slimeskull traits",
+  "modifier.tconstruct.self_destructive": "Self Destructive",
+  "modifier.tconstruct.self_destructive.flavor": "Not super healthy",
+  "modifier.tconstruct.self_destructive.description": "Can explode by interacting with the helmet while sneaking",
+  "modifier.tconstruct.enderdodging": "Enderdodging",
+  "modifier.tconstruct.enderdodging.flavor": "Agility of an enderman",
+  "modifier.tconstruct.enderdodging.description": "Allows dodging projectiles by teleporting, and randomly escape attacks by teleporting",
 
   "_comment": "Compat Modifiers",
   "modifier.tconstruct.the_one_probe": "The One Probe",

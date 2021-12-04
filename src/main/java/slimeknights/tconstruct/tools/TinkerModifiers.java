@@ -130,6 +130,8 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorPowerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LeapingModifier;
@@ -389,6 +391,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<DecayModifier> decay = MODIFIERS.register("decay", DecayModifier::new);
   public static final RegistryObject<OverworkedModifier> overworked = MODIFIERS.register("overworked", OverworkedModifier::new);
   // experienced is also an upgrade
+
+  // traits - slimeskull
+  public static final RegistryObject<SelfDestructiveModifier> selfDestructive = MODIFIERS.register("self_destructive", SelfDestructiveModifier::new);
+  public static final RegistryObject<EnderdodgingModifier> enderdodging = MODIFIERS.register("enderdodging", EnderdodgingModifier::new);
 
   // mod compat
   public static final RegistryObject<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);
