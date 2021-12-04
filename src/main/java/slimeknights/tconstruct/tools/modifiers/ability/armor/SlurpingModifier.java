@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IHelmetInteractModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -28,7 +28,7 @@ import slimeknights.tconstruct.shared.particle.FluidParticleData;
 import javax.annotation.Nullable;
 
 /** Modifier to handle spilling recipes on helmets */
-public class SlurpingModifier extends TankModifier implements IHelmetInteractModifier {
+public class SlurpingModifier extends TankModifier implements IArmorInteractModifier {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final TinkerDataKey<SlurpingInfo> SLURP_FINISH_TIME = TConstruct.createKey("slurping_finish");
   public SlurpingModifier() {
@@ -37,7 +37,7 @@ public class SlurpingModifier extends TankModifier implements IHelmetInteractMod
   }
 
   @Override
-  public boolean startHelmetInteract(IModifierToolStack tool, int level, PlayerEntity player) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
     if (!player.isSneaking()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
@@ -115,7 +115,7 @@ public class SlurpingModifier extends TankModifier implements IHelmetInteractMod
   }
 
   @Override
-  public void stopHelmetInteract(IModifierToolStack tool, int level, PlayerEntity player) {
+  public void stopArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(SLURP_FINISH_TIME));
   }
 
@@ -123,7 +123,7 @@ public class SlurpingModifier extends TankModifier implements IHelmetInteractMod
   @Nullable
   @Override
   public <T> T getModule(Class<T> type) {
-    if (type == IHelmetInteractModifier.class) {
+    if (type == IArmorInteractModifier.class) {
       return (T) this;
     }
     return super.getModule(type);

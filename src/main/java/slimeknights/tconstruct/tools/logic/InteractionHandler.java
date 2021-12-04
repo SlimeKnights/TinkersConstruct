@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IHelmetInteractModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -242,8 +242,8 @@ public class InteractionHandler {
     if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
       ToolStack tool = ToolStack.from(helmet);
       for (ModifierEntry entry : tool.getModifierList()) {
-        IHelmetInteractModifier helmetInteract = entry.getModifier().getModule(IHelmetInteractModifier.class);
-        if (helmetInteract != null && helmetInteract.startHelmetInteract(tool, entry.getLevel(), player)) {
+        IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
+        if (helmetInteract != null && helmetInteract.startArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD)) {
           break;
         }
       }
@@ -262,9 +262,9 @@ public class InteractionHandler {
     if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
       ToolStack tool = ToolStack.from(helmet);
       for (ModifierEntry entry : tool.getModifierList()) {
-        IHelmetInteractModifier helmetInteract = entry.getModifier().getModule(IHelmetInteractModifier.class);
+        IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
         if (helmetInteract != null) {
-          helmetInteract.stopHelmetInteract(tool, entry.getLevel(), player);
+          helmetInteract.stopArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD);
         }
       }
       return true;

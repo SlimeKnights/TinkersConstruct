@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.ILeggingLootModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -75,7 +75,7 @@ public final class ModifierUtil {
         if (TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
-            ILeggingLootModifier leggingLuck = entry.getModifier().getModule(ILeggingLootModifier.class);
+            IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
             if (leggingLuck != null) {
               leggingLuck.applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
             }
@@ -136,7 +136,7 @@ public final class ModifierUtil {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
         for (ModifierEntry entry : pantsTool.getModifierList()) {
-          ILeggingLootModifier leggingLuck = entry.getModifier().getModule(ILeggingLootModifier.class);
+          IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
           if (leggingLuck != null) {
             toolLooting = leggingLuck.getLootingValue(pantsTool, entry.getLevel(), holder, target, damageSource, toolLooting);
           }

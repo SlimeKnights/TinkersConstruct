@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
 
 /** Modifier hooks for wearing leggings boosting loot. One as a module in case you want to only apply the bonus to leggings/not leggings */
-public interface ILeggingLootModifier {
+public interface IArmorLootModifier {
   /**
    * Adds harvest loot table related enchantments from this modifier's effect to the tool, called before breaking a block.
    * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed. Only affects tinker tools

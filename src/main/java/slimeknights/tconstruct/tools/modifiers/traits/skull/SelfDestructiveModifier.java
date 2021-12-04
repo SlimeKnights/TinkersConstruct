@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.Explosion;
@@ -15,7 +16,7 @@ import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IHelmetInteractModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -24,7 +25,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class SelfDestructiveModifier extends SingleUseModifier implements IHelmetInteractModifier {
+public class SelfDestructiveModifier extends SingleUseModifier implements IArmorInteractModifier {
   private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(UUID.fromString("68ee3026-1d50-4eb4-914e-a8b05fbfdb71"), TConstruct.prefix("self_destruct_slowdown"), -0.9f, Operation.MULTIPLY_TOTAL);
   private static final DamageSource OUT_OF_WORLD = (new DamageSource(TConstruct.prefix("self_destruct"))).setDamageBypassesArmor().setDamageAllowedInCreativeMode().setExplosion();
   private static final TinkerDataKey<Integer> FUSE_FINISH = TConstruct.createKey("self_destruct_finish");
@@ -34,7 +35,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IHelme
   }
 
   @Override
-  public boolean startHelmetInteract(IModifierToolStack tool, int level, PlayerEntity player) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
     if (player.isSneaking()) {
       player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(FUSE_FINISH, player.ticksExisted + 30));
       player.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
@@ -57,7 +58,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IHelme
   }
 
   @Override
-  public void stopHelmetInteract(IModifierToolStack tool, int level, PlayerEntity player) {
+  public void stopArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(FUSE_FINISH));
     restoreSpeed(player);
   }
@@ -71,7 +72,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IHelme
   @Nullable
   @Override
   public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IHelmetInteractModifier.class, this);
+    return tryModuleMatch(type, IArmorInteractModifier.class, this);
   }
 
   /** Called on player tick to update the fuse */
