@@ -1925,6 +1925,7 @@
   "effect.tconstruct.magnetic": "Magnetic",
   "effect.tconstruct.momentum": "Momentum",
   "effect.tconstruct.insatiable": "Insatiable",
+  "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",
 
   "_comment": "Roman numerals",
   "roman_numeral.value.1": "I",

@@ -28,7 +28,7 @@ public class InsatibleModifier extends Modifier {
     if (!context.isExtraAttack() && context.isFullyCharged()) {
       LivingEntity attacker = context.getAttacker();
       int effectLevel = Math.min(7, TinkerModifiers.insatiableEffect.get().getLevel(attacker) + 1);
-      TinkerModifiers.insatiableEffect.get().apply(attacker, 5 * 20, effectLevel);
+      TinkerModifiers.insatiableEffect.get().apply(attacker, 5 * 20, effectLevel, true);
     }
     return 0;
   }

@@ -56,7 +56,19 @@ public class TinkerEffect extends Effect {
    * @return  Applied instance
    */
   public EffectInstance apply(LivingEntity entity, int duration, int level) {
-    EffectInstance effect = new EffectInstance(this, duration, level, false, false);
+    return this.apply(entity, duration, level, false);
+  }
+
+  /**
+   * Applies this potion to an entity
+   * @param entity    Entity
+   * @param duration  Duration
+   * @param level     Effect level
+   * @param showIcon  If true, shows an icon in the HUD
+   * @return  Applied instance
+   */
+  public EffectInstance apply(LivingEntity entity, int duration, int level, boolean showIcon) {
+    EffectInstance effect = new EffectInstance(this, duration, level, false, false, showIcon);
     entity.addPotionEffect(effect);
     return effect;
   }

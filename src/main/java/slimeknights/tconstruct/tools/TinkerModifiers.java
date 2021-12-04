@@ -85,6 +85,7 @@ import slimeknights.tconstruct.tools.modifiers.defense.RevitalizingModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.TurtleShellModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
+import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.FirestarterModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier;
@@ -406,11 +407,12 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Internal effects
    */
-  private static final IntFunction<Supplier<TinkerEffect>> MARKER_EFFECT = color -> () -> new TinkerEffect(EffectType.BENEFICIAL, color, false);
+  private static final IntFunction<Supplier<TinkerEffect>> MARKER_EFFECT = color -> () -> new NoMilkEffect(EffectType.BENEFICIAL, color, true);
   public static RegistryObject<BleedingEffect> bleeding = POTIONS.register("bleeding", BleedingEffect::new);
   public static RegistryObject<MagneticEffect> magneticEffect = POTIONS.register("magnetic", MagneticEffect::new);
   public static RegistryObject<TinkerEffect> momentumEffect = POTIONS.register("momentum", MARKER_EFFECT.apply(0x60496b));
   public static RegistryObject<TinkerEffect> insatiableEffect = POTIONS.register("insatiable", MARKER_EFFECT.apply(0x9261cc));
+  public static RegistryObject<TinkerEffect> teleportCooldownEffect = POTIONS.register("teleport_cooldown", () -> new NoMilkEffect(EffectType.HARMFUL, 0xCC00FA, true));
 
   /*
    * Recipes

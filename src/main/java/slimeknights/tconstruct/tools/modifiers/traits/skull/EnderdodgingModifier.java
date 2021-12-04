@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class EnderdodgingModifier extends SingleUseModifier {
   private static final ITeleportEventFactory FACTORY = EnderdodgingTeleportEvent::new;
@@ -20,8 +21,13 @@ public class EnderdodgingModifier extends SingleUseModifier {
   @Override
   public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount) {
     // teleport always from projectiles
-    if (source instanceof IndirectEntityDamageSource) {
-      return TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY);
+    LivingEntity self = context.getEntity();
+    if (!self.isPotionActive(TinkerModifiers.teleportCooldownEffect.get()) && source instanceof IndirectEntityDamageSource) {
+      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
+        TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 0, true);
+        return true;
+      }
+      return false;
     }
     return false;
   }
@@ -29,8 +35,11 @@ public class EnderdodgingModifier extends SingleUseModifier {
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // teleport randomly from other damage
-    if (source.getTrueSource() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
-      TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY);
+    LivingEntity self = context.getEntity();
+    if (!self.isPotionActive(TinkerModifiers.teleportCooldownEffect.get()) && source.getTrueSource() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
+      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
+        TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 1, true);
+      }
     }
   }
 }
