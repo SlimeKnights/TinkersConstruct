@@ -837,7 +837,9 @@
   "block.tconstruct.channel.down.none": "Disallowed flowing down",
 
   "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
+  "death.attack.tconstruct.smeltery_heat.player": "%1$s tried to make molten player whilst fighting %2$s",
   "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
+  "death.attack.tconstruct.smeltery_magic.player": "%1$s has become one with the smeltery whilst fighting %2$s",
 
   "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
   "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
