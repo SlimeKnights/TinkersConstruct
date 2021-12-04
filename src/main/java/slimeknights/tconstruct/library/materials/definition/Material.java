@@ -4,27 +4,39 @@ import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
-@Getter
 public class Material implements IMaterial {
   /** Default white color */
   protected static final Color WHITE = Color.fromInt(0xFFFFFF);
 
   /** This resource location uniquely identifies a material. */
+  @Getter
   private final MaterialId identifier;
   /** Materials tier, mostly for sorting right now */
+  @Getter
   private final int tier;
   /** Materials order within the tier, for sorting */
+  @Getter
   private final int sortOrder;
 
   /** Material can be crafted into parts in the PartBuilder */
+  @Getter
   private final boolean craftable;
   /** Key used for localizing the material */
+  @Getter
   private final String translationKey;
   /** the text color for this material */
+  @Getter
   private final Color color;
   /** if true, this material is hidden */
+  @Getter
   private final boolean hidden;
+  /** Cache of display name text component */
+  private ITextComponent displayName = null;
+  /** Cache of colored display name text component */
+  private ITextComponent coloredDisplayName = null;
 
   /**
    * Materials should only be created by the MaterialManager, except when used for data gen
@@ -42,6 +54,22 @@ public class Material implements IMaterial {
 
   protected Material(ResourceLocation identifier, boolean craftable, boolean hidden) {
     this(identifier, 0, -1, craftable, WHITE, hidden);
+  }
+
+  @Override
+  public ITextComponent getDisplayName() {
+    if (displayName == null) {
+      displayName = new TranslationTextComponent(getTranslationKey());
+    }
+    return displayName;
+  }
+
+  @Override
+  public ITextComponent getColoredDisplayName() {
+    if (coloredDisplayName == null) {
+      coloredDisplayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(getColor()));
+    }
+    return coloredDisplayName;
   }
 
   @Override

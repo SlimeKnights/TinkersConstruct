@@ -82,7 +82,7 @@ public class ContentMaterial extends PageContent {
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     IMaterial material = this.material.get();
 
-    this.addTitle(list, new TranslationTextComponent(material.getTranslationKey()).getString(), true, material.getColor().getColor());
+    this.addTitle(list, material.getDisplayName().getString(), true, material.getColor().getColor());
 
     // the cool tools to the left/right
     this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, material.getIdentifier());
@@ -264,7 +264,7 @@ public class ContentMaterial extends PageContent {
         FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
         elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(COMPOSITE_FROM,
                                                                             firstFluid.getFluid().getAttributes().getDisplayName(firstFluid),
-                                                                            new TranslationTextComponent(input.getTranslationKey())));
+                                                                            input.getDisplayName()));
         displayTools.add(elementItem);
       }
     }
