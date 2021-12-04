@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.ExtraModifier.ModifierSource;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
@@ -49,6 +50,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRe
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -58,7 +60,6 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.AquaAffinityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
@@ -277,7 +278,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<RespirationModifier> respiration = MODIFIERS.register("respiration", RespirationModifier::new);
   public static final RegistryObject<ZoomModifier> zoom = MODIFIERS.register("zoom", ZoomModifier::new);
   public static final RegistryObject<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
-  public static final RegistryObject<AquaAffinityModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", AquaAffinityModifier::new);
+  public static final RegistryObject<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(0x3FA442, TinkerDataKeys.AQUA_AFFINITY, true));
   // chestplate
   public static final RegistryObject<UnarmedModifier> unarmed = MODIFIERS.register("unarmed", UnarmedModifier::new);
   public static final RegistryObject<ArmorPowerModifier> armorPower = MODIFIERS.register("armor_power", ArmorPowerModifier::new);

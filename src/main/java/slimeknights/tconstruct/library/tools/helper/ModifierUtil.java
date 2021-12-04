@@ -23,12 +23,12 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.AquaAffinityModifier;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -259,6 +259,6 @@ public final class ModifierUtil {
 
   /** Checks if the entity has aqua affinity from either enchants or modifiers */
   public static boolean hasAquaAffinity(LivingEntity living) {
-    return ModifierUtil.getTotalModifierLevel(living, AquaAffinityModifier.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
+    return ModifierUtil.getTotalModifierLevel(living, TinkerDataKeys.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
   }
 }

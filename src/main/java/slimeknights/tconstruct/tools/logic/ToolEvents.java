@@ -39,6 +39,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
@@ -48,7 +49,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.AquaAffinityModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 
 import java.util.List;
@@ -64,7 +64,7 @@ public class ToolEvents {
     PlayerEntity player = event.getPlayer();
 
     // if we are underwater, have the aqua affinity modifier, and are not under the effects of vanilla aqua affinity, cancel the underwater modifier
-    if (player.areEyesInFluid(FluidTags.WATER) && ModifierUtil.getTotalModifierLevel(player, AquaAffinityModifier.AQUA_AFFINITY) > 0 && !EnchantmentHelper.hasAquaAffinity(player)) {
+    if (player.areEyesInFluid(FluidTags.WATER) && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.AQUA_AFFINITY) > 0 && !EnchantmentHelper.hasAquaAffinity(player)) {
       event.setNewSpeed(event.getNewSpeed() * 5);
     }
 

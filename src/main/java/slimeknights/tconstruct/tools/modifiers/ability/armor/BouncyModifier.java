@@ -8,28 +8,16 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 
-public class BouncyModifier extends SingleLevelModifier {
+public class BouncyModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> BOUNCY = TConstruct.createKey("bouncy");
   public BouncyModifier() {
-    super(0x27C6C6);
+    super(0x27C6C6, BOUNCY, true);
     MinecraftForge.EVENT_BUS.addListener(BouncyModifier::onFall);
-  }
-
-  @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierLevel(tool, context, BOUNCY, -level);
-  }
-
-  @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierLevel(tool, context, BOUNCY, level);
   }
 
   /** Called when an entity lands to handle the event */

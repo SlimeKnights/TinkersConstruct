@@ -9,16 +9,13 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Random;
 
-public class DoubleJumpModifier extends Modifier {
+public class DoubleJumpModifier extends TotalArmorLevelModifier {
   public static final TinkerDataKey<Integer> JUMPS = TConstruct.createKey("jumps");
   public static final TinkerDataKey<Integer> EXTRA_JUMPS = TConstruct.createKey("extra_jumps");
 
@@ -26,18 +23,8 @@ public class DoubleJumpModifier extends Modifier {
   private ITextComponent levelTwoName = null;
 
   public DoubleJumpModifier() {
-    super(0x01cbcd);
+    super(0x01cbcd, EXTRA_JUMPS);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onLand);
-  }
-
-  @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierLevel(tool, context, EXTRA_JUMPS, -level);
-  }
-
-  @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierLevel(tool, context, EXTRA_JUMPS, level);
   }
 
   @Override
