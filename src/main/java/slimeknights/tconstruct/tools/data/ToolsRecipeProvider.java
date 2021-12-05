@@ -164,7 +164,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     slimeskullCasting(consumer, MaterialIds.fish,       TinkerWorld.heads.get(TinkerHeadType.DROWNED),     armorFolder);
 
     // slimelytra
-    ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
+    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
                             .setCast(Items.ELYTRA, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 8)
                             .build(consumer, modResource(armorFolder + "slimelytra"));
@@ -173,7 +173,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .build(consumer, modResource(armorRepairFolder + "slimelytra_station"));
 
     // slimeshell
-    ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS))
+    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS))
                             .setCast(Items.SHULKER_SHELL, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 7)
                             .build(consumer, modResource(armorFolder + "slimeshell"));
@@ -182,7 +182,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .build(consumer, modResource(armorRepairFolder + "slimeshell_station"));
 
     // boots
-    ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
+    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
                             .build(consumer, modResource(armorFolder + "slime_boots"));
@@ -212,7 +212,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
   /** Helper to create a casting recipe for a slimeskull variant */
   private void slimeskullCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, IItemProvider skull, String folder) {
     MaterialIdNBT nbt = new MaterialIdNBT(Collections.singletonList(material));
-    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
+    ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
                             .setCast(skull, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 5)
                             .build(consumer, modResource(folder + "slime_skull/" + material.getPath()));
