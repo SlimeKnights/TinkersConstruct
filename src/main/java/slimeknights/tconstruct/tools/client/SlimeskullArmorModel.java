@@ -59,12 +59,23 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
   @Override
   public void render(MatrixStack matrixStackIn, IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
     if (base != null) {
+      matrixStackIn.push();
+      matrixStackIn.translate(0.0D, this.isChild ? -0.015D : -0.02D, 0.0D);
       base.render(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      matrixStackIn.pop();
     }
     if (headModel != null && headTexture != null && buffer != null) {
       IVertexBuilder headBuilder = buffer.getBuffer(RenderType.getEntityCutoutNoCullZOffset(headTexture));
+      if (this.isChild) {
+        matrixStackIn.push();
+        matrixStackIn.scale(0.75F, 0.75F, 0.75F);
+        matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+      }
       headModel.func_225603_a_(0, this.bipedHead.rotateAngleY * 180f / (float)(Math.PI), this.bipedHead.rotateAngleX * 180f / (float)(Math.PI));
       headModel.render(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
+      if (this.isChild) {
+        matrixStackIn.pop();
+      }
     }
   }
 
