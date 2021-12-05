@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
@@ -92,7 +93,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
-    return ToolStack.from(stack).getVolatileData().getBoolean(PIGLIN_NEUTRAL);
+    return ModifierUtil.checkVolatileFlag(stack, PIGLIN_NEUTRAL);
   }
 
 
@@ -125,12 +126,12 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   public boolean hasEffect(ItemStack stack) {
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
-    return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
+    return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
   @Override
   public Rarity getRarity(ItemStack stack) {
-    int rarity = ToolStack.from(stack).getVolatileData().getInt(RARITY);
+    int rarity = ModifierUtil.getVolatileInt(stack, RARITY);
     return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
   }
 
@@ -139,12 +140,12 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean hasCustomEntity(ItemStack stack) {
-    return ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY);
+    return ModifierUtil.checkVolatileFlag(stack, INDESTRUCTIBLE_ENTITY);
   }
 
   @Override
   public Entity createEntity(World world, Entity original, ItemStack stack) {
-    if (ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY)) {
+    if (ModifierUtil.checkVolatileFlag(stack, INDESTRUCTIBLE_ENTITY)) {
       IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;
