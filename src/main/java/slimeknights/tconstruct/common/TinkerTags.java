@@ -181,6 +181,8 @@ public class TinkerTags {
 
     /** Stones that can be used for stoneshield */
     public static final IOptionalNamedTag<Item> STONESHIELDS = tag("stoneshields");
+    /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
+    public static final IOptionalNamedTag<Item> FIREBALLS = tag("fireballs");
 
     /*
      * Tool tags

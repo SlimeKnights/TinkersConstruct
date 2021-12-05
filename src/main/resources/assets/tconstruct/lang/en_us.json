@@ -791,6 +791,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh":  "Zombie Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.potato":        "Husk Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.fish":          "Drowned Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone":  "Blaze Slimeskull",
 
 
   "_comment": "Tinkers Tool Parts",
@@ -1342,6 +1343,7 @@
   "material.tconstruct.blazing_bone": "Blazing Bone",
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
   "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.skull_encyclopedia": "Allows spitting firecharges from the inventory as fireballs. Has a cooldown of 15 seconds and does not work underwater",
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
@@ -1967,6 +1969,9 @@
   "modifier.tconstruct.breathtaking": "Breathtaking",
   "modifier.tconstruct.breathtaking.flavor": "Simply amazing",
   "modifier.tconstruct.breathtaking.description": "Melee attacks take air from enemies",
+  "modifier.tconstruct.firebreath": "Firebreath",
+  "modifier.tconstruct.firebreath.flavor": "Rather spicy",
+  "modifier.tconstruct.firebreath.description": "Allows you to spit firecharges by interacting with your helmet",
 
   "modifier.tconstruct.creeper_disguise": "Creeper Disguise",
   "modifier.tconstruct.creeper_disguise.flavor": "Kinda Creepy",
@@ -1998,6 +2003,9 @@
   "modifier.tconstruct.drowned_disguise": "Drowned Disguise",
   "modifier.tconstruct.drowned_disguise.flavor": "Gurgle gurrr gurgle",
   "modifier.tconstruct.drowned_disguise.description": "Makes you look more like a drowned to other drowned",
+  "modifier.tconstruct.blaze_disguise": "Blaze Disguise",
+  "modifier.tconstruct.blaze_disguise.flavor": "Would be more convincing if you were on fire",
+  "modifier.tconstruct.blaze_disguise.description": "Makes you look more like a blaze to other blazes",
 
   "_comment": "Compat Modifiers",
   "modifier.tconstruct.the_one_probe": "The One Probe",
@@ -2010,6 +2018,7 @@
   "effect.tconstruct.momentum": "Momentum",
   "effect.tconstruct.insatiable": "Insatiable",
   "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",
+  "effect.tconstruct.fireball_cooldown": "Fireball Cooldown",
   "effect.tconstruct.calcified": "Calcified",
 
   "_comment": "Roman numerals",

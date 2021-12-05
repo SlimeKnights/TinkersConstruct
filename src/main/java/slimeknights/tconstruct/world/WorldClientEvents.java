@@ -99,8 +99,7 @@ public class WorldClientEvents extends ClientEventBase {
     // skull rendering
     GenericHeadModel normalHead = new GenericHeadModel(0, 0, 64, 32);
     GenericHeadModel tinkersOverlayHead = new HeadWithOverlayModel(0, 0, 0, 16, 32, 32);
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.BLAZE, normalHead);
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.BLAZE, new ResourceLocation("textures/entity/blaze.png"));
+    registerHeadModel(TinkerHeadType.BLAZE, MaterialIds.blazingBone, normalHead, new ResourceLocation("textures/entity/blaze.png"));
     registerHeadModel(TinkerHeadType.ENDERMAN, MaterialIds.enderPearl, new GenericHeadModel(0, 0, 32, 16), TConstruct.getResource("textures/entity/skull/enderman.png"));
     SlimeskullArmorModel.registerHeadModel(MaterialIds.gunpowder, normalHead, new ResourceLocation("textures/entity/creeper/creeper.png"));
     // skeleton

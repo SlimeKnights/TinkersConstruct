@@ -246,6 +246,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(Tags.Items.END_STONES)
         .addTag(Tags.Items.GRAVEL) // for shovels and axes to use
         .add(Items.NETHERRACK, Items.BASALT, Items.POLISHED_BASALT, Items.BLACKSTONE, Items.POLISHED_BLACKSTONE);
+    this.getOrCreateBuilder(TinkerTags.Items.FIREBALLS).add(Items.FIRE_CHARGE);
   }
 
   private void addSmeltery() {
