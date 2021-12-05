@@ -85,6 +85,14 @@
     }
   },
   {
+    "name": "skull_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:skeleton_skull"
+      }
+    }
+  },
+  {
     "name": "upgrades",
     "data": "sections/upgrades.json",
     "icon": {

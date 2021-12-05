@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.book.content.ContentTextTinkers;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.ToolSectionTransformer;
+import slimeknights.tconstruct.library.book.sectiontransformer.materials.SkullMaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
@@ -48,6 +49,7 @@ public class TinkerBook extends BookData {
     MATERIALS_AND_YOU.addTransformer(armorTransformer);
     MIGHTY_SMELTING.addTransformer(ToolSectionTransformer.INSTANCE);
     FANTASTIC_FOUNDRY.addTransformer(armorTransformer);
+    TINKERS_GADGETRY.addTransformer(armorTransformer);
     ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("small_tools"));
     ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("large_tools"));
     ENCYCLOPEDIA.addTransformer(armorTransformer);
@@ -57,11 +59,13 @@ public class TinkerBook extends BookData {
     PUNY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2, false));
     MIGHTY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3, false));
     FANTASTIC_FOUNDRY.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4, false));
+    TINKERS_GADGETRY.addTransformer(new SkullMaterialSectionTransformer("skull_materials", false));
     // detailed transformers
     ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1, true));
     ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2, true));
     ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3, true));
     ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4, true));
+    ENCYCLOPEDIA.addTransformer(new SkullMaterialSectionTransformer("skull_materials", true));
 
     // modifier transformers
     ModifierSectionTransformer upgrades = new ModifierSectionTransformer("upgrades");

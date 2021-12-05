@@ -1244,10 +1244,12 @@
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
   "material.tconstruct.bone.encyclopedia": "Adds an extra 0.75 damage per part",
+  "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Heals up to 5% of damage dealt per level",
+  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
 
   "material.tconstruct.string": "String",
   "material.tconstruct.string.flavor": "Theoretically the best material.",
@@ -1286,6 +1288,7 @@
   "material.tconstruct.bloodbone": "Bloodbone",
   "material.tconstruct.bloodbone.flavor": "Isn't the blood supposed to be inside the bone?",
   "material.tconstruct.bloodbone.encyclopedia": "Boosts damage at low health, up to +4 damage per level at 1 heart",
+  "material.tconstruct.bloodbone.skull_encyclopedia": "Projectiles cause slowness to the target. After drinking milk, melee attacks cause slowness and the level is stronger.",
 
   "material.tconstruct.rose_gold": "Rose Gold",
   "material.tconstruct.rose_gold.flavor": "Disclaimer: Not actually made with roses.",
@@ -1353,12 +1356,26 @@
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Gunpowder",
+  "material.tconstruct.gunpowder.skull_encyclopedia": "Holding the helmet interact key causes the wearer to explode",
+
   "material.tconstruct.ender_pearl": "Ender Pearl",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 30 second cooldown",
+
   "material.tconstruct.spider": "Spider",
+  "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 50% longer",
+
   "material.tconstruct.venom": "Venom",
+  "material.tconstruct.venom.skull_encyclopedia": "Makes the wearer immune to poison, though will not remove existing poison",
+
   "material.tconstruct.rotten_flesh": "Rotten Flesh",
+  "material.tconstruct.rotten_flesh.skull_encyclopedia": "Melee attacks increase the targets fire time based on the wearer's fire time",
+
   "material.tconstruct.potato": "Potato",
+  "material.tconstruct.potato.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
+
   "material.tconstruct.fish": "Fish",
+  "material.tconstruct.fish.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
+
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.rabbit": "Rabbit Hide",
@@ -2177,6 +2194,7 @@
   "book.tconstruct.material.part_builder": "Can be made in the part builder",
   "book.tconstruct.material.cast_from": "Can be casted from %s in casts",
   "book.tconstruct.material.composite_from": "Can be casted from %s on %s parts",
+  "book.tconstruct.material.skull_from": "Can be created from casting Enderslime on a %s in a basin",
   "book.tconstruct.modifiers.effect": "Effects:",
   "book.tconstruct.tool.properties": "Properties:",
 
