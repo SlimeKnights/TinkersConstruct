@@ -207,6 +207,15 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.venom)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builder().addARGB(0, 0xE07F7F7F).addARGB(63, 0xE59B9B9B).addARGB(102, 0xE6A1A1A1).addARGB(140, 0xE9A7A7A7).addARGB(178, 0xEDBBBBBB).addARGB(216, 0xF3D4D4D4).addARGB(255, 0xF8EFEFEF).build());
+    buildMaterial(MaterialIds.rottenFlesh)
+      .statType(RepairKitStats.ID)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF28140A).addARGB(102, 0xFF522C10).addARGB(140, 0xFF6F4D1B).addARGB(178, 0xFF6A5D18).addARGB(216, 0xFFB44420).addARGB(255, 0xFFC5815A).build());
+    buildMaterial(MaterialIds.potato)
+      .statType(RepairKitStats.ID)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF86693E).addARGB(102, 0xFF9D772E).addARGB(140, 0xFFAF8444).addARGB(178, 0xFFC8973A).addARGB(216, 0xFFD9AA51).addARGB(255, 0xFFD9AA51).build());
+    buildMaterial(MaterialIds.fish)
+      .statType(RepairKitStats.ID)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF593824).addARGB(102, 0xFF6B442B).addARGB(140, 0xFF986D4E).addARGB(178, 0xFFB18953).addARGB(216, 0xFFC6A271).addARGB(255, 0xFFD6C5AD).build());
     buildMaterial(MaterialIds.rabbit)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF3F2F1F).addARGB(102, 0xFF4E3A27).addARGB(140, 0xFF826041).addARGB(178, 0xFFA88054).addARGB(216, 0xFFB48B5B).addARGB(255, 0xFFC79E67).build());

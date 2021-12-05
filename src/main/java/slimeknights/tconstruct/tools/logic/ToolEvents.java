@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -185,37 +186,50 @@ public class ToolEvents {
       return;
     }
 
-    // determine if there is any modifiable armor, if not nothing to do
-    // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
-    EquipmentContext context = new EquipmentContext(entity);
-    if (!context.hasModifiableArmor()) {
-      return;
-    }
-    float amount = event.getAmount();
+    // a lot of counterattack hooks want to detect direct attacks, so save time by calculating once
+    boolean isDirectDamage = source.getTrueSource() != null && source instanceof EntityDamageSource && !((EntityDamageSource)source).getIsThornsDamage();
 
-    // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      IModifierToolStack toolStack = context.getToolInSlot(slotType);
-      if (toolStack != null && !toolStack.isBroken()) {
-        for (ModifierEntry entry : toolStack.getModifierList()) {
-          if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
-            event.setCanceled(true);
-            return;
+    // determine if there is any modifiable armor, handles the target wearing modifiable armor
+    EquipmentContext context = new EquipmentContext(entity);
+    float amount = event.getAmount();
+    if (context.hasModifiableArmor()) {
+      // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
+      for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        IModifierToolStack toolStack = context.getToolInSlot(slotType);
+        if (toolStack != null && !toolStack.isBroken()) {
+          for (ModifierEntry entry : toolStack.getModifierList()) {
+            if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
+              event.setCanceled(true);
+              return;
+            }
+          }
+        }
+      }
+
+      // next, give modifiers a chance to respond to the entity being attacked, for counterattack hooks mainly
+      // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
+      for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        IModifierToolStack toolStack = context.getToolInSlot(slotType);
+        if (toolStack != null && !toolStack.isBroken()) {
+          for (ModifierEntry entry : toolStack.getModifierList()) {
+            entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
           }
         }
       }
     }
 
-    // a lot of counterattack hooks want to detect direct attacks, so save time by calculating once
-    boolean isDirectDamage = source.getTrueSource() != null && source instanceof EntityDamageSource && !((EntityDamageSource)source).getIsThornsDamage();
-
-    // next, give modifiers a chance to respond to the entity being attacked, for counterattack hooks mainly
-    // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      IModifierToolStack toolStack = context.getToolInSlot(slotType);
-      if (toolStack != null && !toolStack.isBroken()) {
-        for (ModifierEntry entry : toolStack.getModifierList()) {
-          entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
+    // next, consider the attacker is wearing modifiable armor
+    Entity attacker = source.getTrueSource();
+    if (attacker instanceof LivingEntity) {
+      context = new EquipmentContext((LivingEntity) attacker);
+      if (context.hasModifiableArmor()) {
+        for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+          IModifierToolStack toolStack = context.getToolInSlot(slotType);
+          if (toolStack != null && !toolStack.isBroken()) {
+            for (ModifierEntry entry : toolStack.getModifierList()) {
+              entry.getModifier().attackWithArmor(toolStack, entry.getLevel(), context, slotType, entity, source, amount, isDirectDamage);
+            }
+          }
         }
       }
     }

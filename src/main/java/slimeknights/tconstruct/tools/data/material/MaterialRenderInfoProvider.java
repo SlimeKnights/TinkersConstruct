@@ -70,6 +70,9 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.rabbit);
     buildRenderInfo(MaterialIds.spider);
     buildRenderInfo(MaterialIds.venom);
+    buildRenderInfo(MaterialIds.rottenFlesh);
+    buildRenderInfo(MaterialIds.potato);
+    buildRenderInfo(MaterialIds.fish);
 
     // UI internal
     buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");

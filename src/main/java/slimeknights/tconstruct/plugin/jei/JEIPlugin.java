@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import com.google.common.collect.ImmutableList;
+import lombok.RequiredArgsConstructor;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -90,6 +91,8 @@ import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
 import javax.annotation.Nullable;
@@ -265,9 +268,13 @@ public class JEIPlugin implements IModPlugin {
     }
 
     // tools
-    ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
+    Item slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
+    registry.registerSubtypeInterpreter(slimeskull, new ToolSubtypeInterpreter(true));
+    ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter(false);
     for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
-      registry.registerSubtypeInterpreter(item, toolInterpreter);
+      if (item != slimeskull) {
+        registry.registerSubtypeInterpreter(item, toolInterpreter);
+      }
     }
 
     registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
@@ -359,7 +366,11 @@ public class JEIPlugin implements IModPlugin {
   }
 
   /** Subtype interpreter for tools, treats the tool as unique in ingredient list, generic in recipes */
+  @RequiredArgsConstructor
   public static class ToolSubtypeInterpreter implements ISubtypeInterpreter {
+    /** If true, considers materials in both ingredients and recipes */
+    private final boolean always;
+
     @Override
     public String apply(ItemStack itemStack) {
       return NONE;
@@ -367,7 +378,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public String apply(ItemStack itemStack, UidContext context) {
-      if (context == UidContext.Ingredient) {
+      if (always || context == UidContext.Ingredient) {
         StringBuilder builder = new StringBuilder();
         List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
         if (!materialList.isEmpty()) {

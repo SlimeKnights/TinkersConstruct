@@ -7,6 +7,7 @@ import net.minecraft.util.IndirectEntityDamageSource;
 import slimeknights.tconstruct.library.events.teleport.EnderdodgingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
@@ -25,6 +26,7 @@ public class EnderdodgingModifier extends SingleUseModifier {
     if (!self.isPotionActive(TinkerModifiers.teleportCooldownEffect.get()) && source instanceof IndirectEntityDamageSource) {
       if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
         TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 0, true);
+        ToolDamageUtil.damageAnimated(tool, (int)amount, self, slotType);
         return true;
       }
       return false;

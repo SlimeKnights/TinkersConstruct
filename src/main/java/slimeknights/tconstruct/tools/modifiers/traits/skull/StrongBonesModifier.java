@@ -19,11 +19,14 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class StrongBonesModifier extends TotalArmorLevelModifier {
   public static final SpillingEffect SPILLING_EFFECT = new SpillingEffect();
   public static final ISpillingEffectLoader<SpillingEffect> SPILLING_EFFECT_LOADER = new ISpillingEffectLoader.Singleton<>(SPILLING_EFFECT);
   private static final TinkerDataKey<Integer> STRONG_BONES = TConstruct.createKey("strong_bones");
+  /** Key for modifiers that are boosted by drinking milk */
+  public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
   public StrongBonesModifier() {
     super(-1, STRONG_BONES, true);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingEntityUseItemEvent.Finish.class, StrongBonesModifier::onItemFinishUse);
@@ -47,6 +50,9 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
       effect.getCurativeItems().clear();
       effect.getCurativeItems().add(new ItemStack(living.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem()));
       living.addPotionEffect(effect);
+    }
+    if (ModifierUtil.getTotalModifierLevel(living, CALCIFIABLE) > 0) {
+      TinkerModifiers.calcifiedEffect.get().apply(living, duration, 0, true);
     }
   }
 

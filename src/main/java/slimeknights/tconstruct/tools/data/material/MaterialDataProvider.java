@@ -85,10 +85,13 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
 
     // slimesuit - marked tier 6 to push to tne end of repair kits
-    addMaterial(MaterialIds.gunpowder,  6, ORDER_SPECIAL, true, 0x95D78E);
-    addMaterial(MaterialIds.enderPearl, 6, ORDER_SPECIAL, true, 0x349988);
-    addMaterial(MaterialIds.spider,     6, ORDER_SPECIAL, true, 0x9D1E2D);
-    addMaterial(MaterialIds.venom,      6, ORDER_SPECIAL, true, 0xEDEDED);
-    addMaterial(MaterialIds.rabbit,     6, ORDER_GENERAL, true, 0xC79E67, true, null);
+    addMaterial(MaterialIds.gunpowder,   6, 0, true, 0x95D78E);
+    addMaterial(MaterialIds.rottenFlesh, 6, 1, true, 0x6F4D1B);
+    addMaterial(MaterialIds.potato,      6, 2, true, 0xD9AA51);
+    addMaterial(MaterialIds.fish,        6, 3, true, 0xC6A271);
+    addMaterial(MaterialIds.spider,      6, 4, true, 0x9D1E2D);
+    addMaterial(MaterialIds.venom,       6, 5, true, 0xEDEDED);
+    addMaterial(MaterialIds.enderPearl,  6, 6, true, 0x349988);
+    addMaterial(MaterialIds.rabbit,      6, 7, true, 0xC79E67, true, null);
   }
 }

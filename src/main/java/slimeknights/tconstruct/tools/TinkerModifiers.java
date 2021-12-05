@@ -134,11 +134,16 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BoonOfSssss;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.BreathtakingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.FrosttouchModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.MithridatismModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.MobDisguiseModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.PlagueModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorPowerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LeapingModifier;
@@ -403,14 +408,24 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SelfDestructiveModifier> selfDestructive = MODIFIERS.register("self_destructive", SelfDestructiveModifier::new);
   public static final RegistryObject<EnderdodgingModifier> enderdodging = MODIFIERS.register("enderdodging", EnderdodgingModifier::new);
   public static final RegistryObject<StrongBonesModifier> strongBones = MODIFIERS.register("strong_bones", StrongBonesModifier::new);
+  public static final RegistryObject<FrosttouchModifier> frosttouch = MODIFIERS.register("frosttouch", FrosttouchModifier::new);
+  public static final RegistryObject<WitheredModifier> withered = MODIFIERS.register("withered", WitheredModifier::new);
   public static final RegistryObject<BoonOfSssss> boonOfSssss = MODIFIERS.register("boon_of_sssss", BoonOfSssss::new);
   public static final RegistryObject<MithridatismModifier> mithridatism = MODIFIERS.register("mithridatism", MithridatismModifier::new);
+  public static final RegistryObject<WildfireModifier> wildfire = MODIFIERS.register("wildfire", WildfireModifier::new);
+  public static final RegistryObject<PlagueModifier> plague = MODIFIERS.register("plague", PlagueModifier::new);
+  public static final RegistryObject<BreathtakingModifier> breathtaking = MODIFIERS.register("breathtaking", BreathtakingModifier::new);
   // disguise
   public static final RegistryObject<MobDisguiseModifier> creeperDisguise = MODIFIERS.register("creeper_disguise", () -> new MobDisguiseModifier(0x95D78E, EntityType.CREEPER));
   public static final RegistryObject<MobDisguiseModifier> endermanDisguise = MODIFIERS.register("enderman_disguise", () -> new MobDisguiseModifier(0xCC00FA, EntityType.ENDERMAN));
   public static final RegistryObject<MobDisguiseModifier> skeletonDisguise = MODIFIERS.register("skeleton_disguise", () -> new MobDisguiseModifier(0xD3D3D3, EntityType.SKELETON));
+  public static final RegistryObject<MobDisguiseModifier> strayDisguise = MODIFIERS.register("stray_disguise", () -> new MobDisguiseModifier(0xC5D6D5, EntityType.STRAY));
+  public static final RegistryObject<MobDisguiseModifier> witherSkeletonDisguise = MODIFIERS.register("wither_skeleton_disguise", () -> new MobDisguiseModifier(0x343434, EntityType.WITHER_SKELETON));
   public static final RegistryObject<MobDisguiseModifier> spiderDisguise = MODIFIERS.register("spider_disguise", () -> new MobDisguiseModifier(0x605448, EntityType.SPIDER));
   public static final RegistryObject<MobDisguiseModifier> caveSpiderDisguise = MODIFIERS.register("cave_spider_disguise", () -> new MobDisguiseModifier(0x153A34, EntityType.CAVE_SPIDER));
+  public static final RegistryObject<MobDisguiseModifier> zombieDisguise = MODIFIERS.register("zombie_disguise", () -> new MobDisguiseModifier(0x487532, EntityType.ZOMBIE));
+  public static final RegistryObject<MobDisguiseModifier> huskDisguise = MODIFIERS.register("husk_disguise", () -> new MobDisguiseModifier(0x59503B, EntityType.HUSK));
+  public static final RegistryObject<MobDisguiseModifier> drownedDisguise = MODIFIERS.register("drowned_disguise", () -> new MobDisguiseModifier(0x56847E, EntityType.DROWNED));
 
   // mod compat
   public static final RegistryObject<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);
@@ -424,6 +439,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static RegistryObject<TinkerEffect> momentumEffect = POTIONS.register("momentum", MARKER_EFFECT.apply(0x60496b));
   public static RegistryObject<TinkerEffect> insatiableEffect = POTIONS.register("insatiable", MARKER_EFFECT.apply(0x9261cc));
   public static RegistryObject<TinkerEffect> teleportCooldownEffect = POTIONS.register("teleport_cooldown", () -> new NoMilkEffect(EffectType.HARMFUL, 0xCC00FA, true));
+  public static RegistryObject<TinkerEffect> calcifiedEffect = POTIONS.register("calcified", () -> new NoMilkEffect(EffectType.BENEFICIAL, -1, true));
 
   /*
    * Recipes
@@ -467,7 +483,7 @@ public final class TinkerModifiers extends TinkerModule {
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("teleport"), TeleportSpillingEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("restore_hunger"), RestoreHungerSpillingEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("extinguish"), ExtinguishSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("strong_bones"), StrongBonesModifier.SPILLING_EFFECT_LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("calcified"), StrongBonesModifier.SPILLING_EFFECT_LOADER);
   }
 
   @SubscribeEvent

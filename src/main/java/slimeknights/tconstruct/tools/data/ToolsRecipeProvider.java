@@ -152,11 +152,17 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .build(consumer, modResource(armorRepairFolder + "plate_station"));
 
     // slimesuit
-    slimeskullCasting(consumer, MaterialIds.gunpowder, Items.CREEPER_HEAD, armorFolder);
-    slimeskullCasting(consumer, MaterialIds.enderPearl, TinkerWorld.heads.get(TinkerHeadType.ENDERMAN), armorFolder);
-    slimeskullCasting(consumer, MaterialIds.bone, Items.SKELETON_SKULL, armorFolder);
-    slimeskullCasting(consumer, MaterialIds.spider, TinkerWorld.heads.get(TinkerHeadType.SPIDER), armorFolder);
-    slimeskullCasting(consumer, MaterialIds.venom, TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER), armorFolder);
+    slimeskullCasting(consumer, MaterialIds.gunpowder,    Items.CREEPER_HEAD,          armorFolder);
+    slimeskullCasting(consumer, MaterialIds.bone,         Items.SKELETON_SKULL,        armorFolder);
+    slimeskullCasting(consumer, MaterialIds.necroticBone, Items.WITHER_SKELETON_SKULL, armorFolder);
+    slimeskullCasting(consumer, MaterialIds.rottenFlesh,  Items.ZOMBIE_HEAD,           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.enderPearl, TinkerWorld.heads.get(TinkerHeadType.ENDERMAN),    armorFolder);
+    slimeskullCasting(consumer, MaterialIds.bloodbone,  TinkerWorld.heads.get(TinkerHeadType.STRAY),       armorFolder);
+    slimeskullCasting(consumer, MaterialIds.spider,     TinkerWorld.heads.get(TinkerHeadType.SPIDER),      armorFolder);
+    slimeskullCasting(consumer, MaterialIds.venom,      TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER), armorFolder);
+    slimeskullCasting(consumer, MaterialIds.potato,     TinkerWorld.heads.get(TinkerHeadType.HUSK),        armorFolder);
+    slimeskullCasting(consumer, MaterialIds.fish,       TinkerWorld.heads.get(TinkerHeadType.DROWNED),     armorFolder);
+
     ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
