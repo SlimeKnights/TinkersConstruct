@@ -28,6 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
@@ -60,6 +61,8 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   /** Volatile modifier tag to make piglins neutal when worn */
   public static final ResourceLocation PIGLIN_NEUTRAL = TConstruct.getResource("piglin_neutral");
+  /** Volatile modifier tag to make this item an elytra */
+  public static final ResourceLocation ELYTRA = TConstruct.getResource("elyta");
 
   @Getter
   private final ToolDefinition toolDefinition;
@@ -257,6 +260,36 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     }
 
     return builder.build();
+  }
+
+
+  /* Elytra */
+
+  @Override
+  public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+    return slot == EquipmentSlotType.CHEST && !ToolDamageUtil.isBroken(stack) && ModifierUtil.checkVolatileFlag(stack, ELYTRA);
+  }
+
+  @Override
+  public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+    if (slot == EquipmentSlotType.CHEST) {
+      ToolStack tool = ToolStack.from(stack);
+      if (!tool.isBroken()) {
+        // if any modifier says stop flying, stop flying
+        for (ModifierEntry entry : tool.getModifierList()) {
+          IElytraFlightModifier elytraFlight = entry.getModifier().getModule(IElytraFlightModifier.class);
+          if (elytraFlight != null && !elytraFlight.elytraFlightTick(tool, entry.getLevel(), entity, flightTicks)) {
+            return false;
+          }
+        }
+        // damage the tool and keep flying
+        if (!entity.world.isRemote && (flightTicks + 1) % 20 == 0) {
+          ToolDamageUtil.damageAnimated(tool, 1, entity, EquipmentSlotType.CHEST);
+        }
+        return true;
+      }
+    }
+    return false;
   }
 
 

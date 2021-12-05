@@ -151,7 +151,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "plate_station"));
 
-    // slimesuit
+    // slimeskull
     slimeskullCasting(consumer, MaterialIds.gunpowder,    Items.CREEPER_HEAD,          armorFolder);
     slimeskullCasting(consumer, MaterialIds.bone,         Items.SKELETON_SKULL,        armorFolder);
     slimeskullCasting(consumer, MaterialIds.necroticBone, Items.WITHER_SKELETON_SKULL, armorFolder);
@@ -163,6 +163,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     slimeskullCasting(consumer, MaterialIds.potato,     TinkerWorld.heads.get(TinkerHeadType.HUSK),        armorFolder);
     slimeskullCasting(consumer, MaterialIds.fish,       TinkerWorld.heads.get(TinkerHeadType.DROWNED),     armorFolder);
 
+    // slimelytra
+    ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
+                            .setCast(Items.ELYTRA, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 8)
+                            .build(consumer, modResource(armorFolder + "slimelytra"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE)), MaterialIds.phantom)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimelytra_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimelytra_station"));
+
+    // boots
     ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)

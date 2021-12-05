@@ -198,7 +198,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // tier 5
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
 
-    // slimesuit
+    // slimeskull
     addMaterialStats(MaterialIds.gunpowder,    new SkullStats( 60, 0));
     addMaterialStats(MaterialIds.enderPearl,   new SkullStats(225, 0));
     addMaterialStats(MaterialIds.bone,         new SkullStats(100, 0));
@@ -209,6 +209,8 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.rottenFlesh,  new SkullStats(155, 2));
     addMaterialStats(MaterialIds.potato,       new SkullStats(165, 2));
     addMaterialStats(MaterialIds.fish,         new SkullStats(145, 2));
-    addMaterialStats(MaterialIds.rabbit,       new RepairKitStats(100));
+    // slimesuit
+    addMaterialStats(MaterialIds.phantom, new RepairKitStats(115));
+    addMaterialStats(MaterialIds.rabbit,  new RepairKitStats(100));
   }
 }

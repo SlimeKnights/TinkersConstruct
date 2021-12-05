@@ -61,7 +61,7 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
 
-  // slimesuit
+  // slimeskull
   public static final MaterialId gunpowder = id("gunpowder");
   public static final MaterialId enderPearl = id("ender_pearl");
   public static final MaterialId spider = id("spider");
@@ -69,6 +69,8 @@ public final class MaterialIds {
   public static final MaterialId rottenFlesh = id("rotten_flesh");
   public static final MaterialId potato = id("potato");
   public static final MaterialId fish = id("fish");
+  // slimesuit
+  public static final MaterialId phantom = id("phantom");
   public static final MaterialId rabbit = id("rabbit");
 
   /**

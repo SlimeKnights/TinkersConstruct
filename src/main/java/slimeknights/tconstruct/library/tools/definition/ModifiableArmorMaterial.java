@@ -64,6 +64,11 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
     return name.toString();
   }
 
+  /** Gets the name as a resource location */
+  public ResourceLocation getNameLocation() {
+    return name;
+  }
+
   @Override
   public int getDurability(EquipmentSlotType slotIn) {
     return (int)getStat(ToolStats.DURABILITY, ArmorSlotType.fromEquipment(slotIn));

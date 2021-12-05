@@ -84,7 +84,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, 0xD9C25F);
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
 
-    // slimesuit - marked tier 6 to push to tne end of repair kits
+    // slimeskull - marked tier 6 to push to tne end of repair kits
     addMaterial(MaterialIds.gunpowder,   6, 0, true, 0x95D78E);
     addMaterial(MaterialIds.rottenFlesh, 6, 1, true, 0x6F4D1B);
     addMaterial(MaterialIds.potato,      6, 2, true, 0xD9AA51);
@@ -92,6 +92,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.spider,      6, 4, true, 0x9D1E2D);
     addMaterial(MaterialIds.venom,       6, 5, true, 0xEDEDED);
     addMaterial(MaterialIds.enderPearl,  6, 6, true, 0x349988);
-    addMaterial(MaterialIds.rabbit,      6, 7, true, 0xC79E67, true, null);
+    // slimesuit - hidden as we don't need to see material variants
+    addMaterial(MaterialIds.phantom, 6, 7, true, 0xC3B9A1, true, null);
+    addMaterial(MaterialIds.rabbit,  6, 9, true, 0xC79E67, true, null);
   }
 }

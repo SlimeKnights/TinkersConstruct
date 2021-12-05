@@ -107,16 +107,18 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.electrum, folder, "electrum", true);
     // no plated slimewood, use repair kits
 
-    // slimesuit
+    // slimeskull
     materialRecipe(consumer, MaterialIds.gunpowder,   Ingredient.fromTag(Tags.Items.GUNPOWDER),                      1, 4, folder + "gunpowder");
     materialRecipe(consumer, MaterialIds.enderPearl,  Ingredient.fromTag(Tags.Items.ENDER_PEARLS),                   1, 1, folder + "ender_pearl");
-    materialRecipe(consumer, MaterialIds.rabbit,      Ingredient.fromItems(Items.RABBIT_HIDE),                       1, 2, folder + "rabbit_hide");
     materialRecipe(consumer, MaterialIds.spider,      Ingredient.fromItems(Items.SPIDER_EYE),                        1, 4, folder + "spider");
     materialRecipe(consumer, MaterialIds.venom,       FluidContainerIngredient.fromFluid(TinkerFluids.venom, false), 4, 1, folder + "venom_bucket");
     materialRecipe(consumer, MaterialIds.rottenFlesh, Ingredient.fromItems(Items.ROTTEN_FLESH),                      1, 1, folder + "rotten_flesh");
     materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromTag(Tags.Items.CROPS_POTATO),                   1, 1, folder + "potato");
     materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromItems(Items.POISONOUS_POTATO),                  1, 2, folder + "potato_poisonous");
     materialRecipe(consumer, MaterialIds.fish,        Ingredient.fromTag(ItemTags.FISHES),                           1, 1, folder + "fish");
+    // slimesuit
+    materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.RABBIT_HIDE),         1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.rabbit,  Ingredient.fromItems(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
   }
 
   private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {

@@ -64,15 +64,17 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.electrum).color(0xFFEA65).fallbacks("metal");
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");
 
-    // slimesuit
+    // slimeskull
     buildRenderInfo(MaterialIds.gunpowder);
     buildRenderInfo(MaterialIds.enderPearl).fallbacks("contrast");
-    buildRenderInfo(MaterialIds.rabbit);
     buildRenderInfo(MaterialIds.spider);
     buildRenderInfo(MaterialIds.venom);
     buildRenderInfo(MaterialIds.rottenFlesh);
     buildRenderInfo(MaterialIds.potato);
     buildRenderInfo(MaterialIds.fish);
+    // slimesuit
+    buildRenderInfo(MaterialIds.phantom);
+    buildRenderInfo(MaterialIds.rabbit);
 
     // UI internal
     buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");

@@ -779,6 +779,8 @@
   "item.tconstruct.plate_boots": "Plate Boots",
 
   "item.tconstruct.slime_helmet": "Slimeskull",
+  "item.tconstruct.slime_chestplate": "Slimelytra",
+  "item.tconstruct.slime_boots": "Slimeboots",
   "item.tconstruct.slime_helmet.material.tconstruct.gunpowder":     "Creeper Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Enderman Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Skeleton Slimeskull",
@@ -788,7 +790,6 @@
   "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh":  "Zombie Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.potato":        "Husk Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.fish":          "Drowned Slimeskull",
-  "item.tconstruct.slime_boots": "Slimeboots",
 
 
   "_comment": "Tinkers Tool Parts",
@@ -1357,8 +1358,8 @@
   "material.tconstruct.rotten_flesh": "Rotten Flesh",
   "material.tconstruct.potato": "Potato",
   "material.tconstruct.fish": "Fish",
+  "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.rabbit": "Rabbit Hide",
-
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -1628,6 +1629,9 @@
   "modifier.tconstruct.unarmed.flavor": "The monk option",
   "modifier.tconstruct.unarmed.description": "Causes chestplate modifiers to boost unarmed attack damage",
   "recipe.tconstruct.modifier.unarmed": "Requires the unarmed modifier to be added first",
+  "modifier.tconstruct.wings": "Wings",
+  "modifier.tconstruct.wings.flavor": "The sky is yours",
+  "modifier.tconstruct.wings.description": "Allows you to soar through the air by jumping while in mid air",
 
   "_comment": "Armor - leggings",
   "modifier.tconstruct.speedy": "Speedy",

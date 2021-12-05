@@ -265,6 +265,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.DEFENSE, 0)
       .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
       .part(ArmorSlotType.HELMET, SkullStats.ID, 1)
+      .trait(ArmorSlotType.CHESTPLATE, TinkerModifiers.wings)
       .trait(ArmorSlotType.BOOTS, TinkerModifiers.bouncy)
       .trait(ArmorSlotType.BOOTS, TinkerModifiers.leaping, 1);
   }

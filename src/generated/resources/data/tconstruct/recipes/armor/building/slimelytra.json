@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:elytra"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:ender_slime",
+    "amount": 8000
+  },
+  "result": {
+    "item": "tconstruct:slime_chestplate",
+    "nbt": "{tic_broken:0b,Damage:0}"
+  },
+  "cooling_time": 237
+}
