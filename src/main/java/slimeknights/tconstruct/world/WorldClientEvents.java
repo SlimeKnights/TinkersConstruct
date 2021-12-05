@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.block.SkullBlock.ISkullType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -23,7 +24,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.world.client.HeadWithOverlayModel;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
@@ -96,22 +100,22 @@ public class WorldClientEvents extends ClientEventBase {
     GenericHeadModel normalHead = new GenericHeadModel(0, 0, 64, 32);
     GenericHeadModel tinkersOverlayHead = new HeadWithOverlayModel(0, 0, 0, 16, 32, 32);
     SkullTileEntityRenderer.MODELS.put(TinkerHeadType.BLAZE, normalHead);
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.ENDERMAN, new GenericHeadModel(0, 0, 32, 16));
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.STRAY, tinkersOverlayHead);
     SkullTileEntityRenderer.SKINS.put(TinkerHeadType.BLAZE, new ResourceLocation("textures/entity/blaze.png"));
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.ENDERMAN, TConstruct.getResource("textures/entity/skull/enderman.png"));
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.STRAY, TConstruct.getResource("textures/entity/skull/stray.png"));
+    registerHeadModel(TinkerHeadType.ENDERMAN, MaterialIds.enderPearl, new GenericHeadModel(0, 0, 32, 16), TConstruct.getResource("textures/entity/skull/enderman.png"));
+    SlimeskullArmorModel.registerHeadModel(MaterialIds.gunpowder, normalHead, new ResourceLocation("textures/entity/creeper/creeper.png"));
+    // skeleton
+    SlimeskullArmorModel.registerHeadModel(MaterialIds.bone, normalHead, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
+    SlimeskullArmorModel.registerHeadModel(MaterialIds.necroticBone, normalHead, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
+    registerHeadModel(TinkerHeadType.STRAY, MaterialIds.bloodbone, tinkersOverlayHead, TConstruct.getResource("textures/entity/skull/stray.png"));
     // zombies
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.HUSK, new GenericHeadModel(0, 0, 64, 64));
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.DROWNED, tinkersOverlayHead);
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.HUSK, new ResourceLocation("textures/entity/zombie/husk.png"));
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.DROWNED, TConstruct.getResource("textures/entity/skull/drowned.png"));
+    GenericHeadModel zombieHead = new GenericHeadModel(0, 0, 64, 64);
+    SlimeskullArmorModel.registerHeadModel(MaterialIds.rottenFlesh, zombieHead, new ResourceLocation("textures/entity/zombie/zombie.png"));
+    registerHeadModel(TinkerHeadType.HUSK, MaterialIds.potato, zombieHead, new ResourceLocation("textures/entity/zombie/husk.png"));
+    registerHeadModel(TinkerHeadType.DROWNED, MaterialIds.fish, tinkersOverlayHead, TConstruct.getResource("textures/entity/skull/drowned.png"));
     // spider
     GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.SPIDER, spiderHead);
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.CAVE_SPIDER, spiderHead);
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.CAVE_SPIDER, new ResourceLocation("textures/entity/spider/cave_spider.png"));
+    registerHeadModel(TinkerHeadType.SPIDER, MaterialIds.spider, spiderHead, new ResourceLocation("textures/entity/spider/spider.png"));
+    registerHeadModel(TinkerHeadType.CAVE_SPIDER, MaterialIds.venom, spiderHead, new ResourceLocation("textures/entity/spider/cave_spider.png"));
   }
 
   @SubscribeEvent
@@ -175,5 +179,12 @@ public class WorldClientEvents extends ClientEventBase {
     }
 
     return SlimeColorizer.getColorForPos(pos, type);
+  }
+
+  /** Registers a skull with the entity renderer and the slimeskull renderer */
+  private static void registerHeadModel(ISkullType skull, MaterialId materialId, GenericHeadModel head, ResourceLocation texture) {
+    SkullTileEntityRenderer.MODELS.put(skull, head);
+    SkullTileEntityRenderer.SKINS.put(skull, texture);
+    SlimeskullArmorModel.registerHeadModel(materialId, head, texture);
   }
 }

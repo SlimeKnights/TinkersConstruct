@@ -42,6 +42,7 @@ import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.SlimelytraItem;
+import slimeknights.tconstruct.tools.item.SlimeskullItem;
 import slimeknights.tconstruct.tools.item.broad.BroadAxeTool;
 import slimeknights.tconstruct.tools.item.broad.CleaverTool;
 import slimeknights.tconstruct.tools.item.broad.ExcavatorTool;
@@ -100,8 +101,9 @@ public final class TinkerTools extends TinkerModule {
   public static final EnumObject<ArmorSlotType,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.TRAVELERS, type, TOOL.get()));
   public static final EnumObject<ArmorSlotType,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.PLATE, type, TOOL.get()));
   public static final EnumObject<ArmorSlotType,ModifiableArmorItem> slimesuit = new EnumObject.Builder<ArmorSlotType,ModifiableArmorItem>(ArmorSlotType.class)
-    .putAll(ITEMS.registerEnum("slime", new ArmorSlotType[] {ArmorSlotType.BOOTS, ArmorSlotType.LEGGINGS, ArmorSlotType.HELMET}, type -> new ModifiableArmorItem(ArmorDefinitions.SLIMESUIT, type, TOOL.get())))
+    .putAll(ITEMS.registerEnum("slime", new ArmorSlotType[] {ArmorSlotType.BOOTS, ArmorSlotType.LEGGINGS}, type -> new ModifiableArmorItem(ArmorDefinitions.SLIMESUIT, type, TOOL.get())))
     .put(ArmorSlotType.CHESTPLATE, ITEMS.register("slime_chestplate", () -> new SlimelytraItem(ArmorDefinitions.SLIMESUIT, TOOL.get())))
+    .put(ArmorSlotType.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, TOOL.get())))
     .build();
 
   /*
