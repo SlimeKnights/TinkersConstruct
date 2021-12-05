@@ -780,6 +780,7 @@
 
   "item.tconstruct.slime_helmet": "Slimeskull",
   "item.tconstruct.slime_chestplate": "Slimelytra",
+  "item.tconstruct.slime_leggings": "Slimeshell",
   "item.tconstruct.slime_boots": "Slimeboots",
   "item.tconstruct.slime_helmet.material.tconstruct.gunpowder":     "Creeper Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Enderman Slimeskull",
@@ -1359,6 +1360,7 @@
   "material.tconstruct.potato": "Potato",
   "material.tconstruct.fish": "Fish",
   "material.tconstruct.phantom": "Phantom Membrane",
+  "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.rabbit": "Rabbit Hide",
 
 

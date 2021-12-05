@@ -118,6 +118,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.fish,        Ingredient.fromTag(ItemTags.FISHES),                           1, 1, folder + "fish");
     // slimesuit
     materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.RABBIT_HIDE),         1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.chorus,  Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");
     materialRecipe(consumer, MaterialIds.rabbit,  Ingredient.fromItems(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
   }
 

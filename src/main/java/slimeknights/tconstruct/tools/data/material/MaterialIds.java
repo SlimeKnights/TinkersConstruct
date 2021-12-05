@@ -71,6 +71,7 @@ public final class MaterialIds {
   public static final MaterialId fish = id("fish");
   // slimesuit
   public static final MaterialId phantom = id("phantom");
+  public static final MaterialId chorus = id("chorus");
   public static final MaterialId rabbit = id("rabbit");
 
   /**

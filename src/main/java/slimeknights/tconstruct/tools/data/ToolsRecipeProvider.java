@@ -172,6 +172,15 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slimelytra_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "slimelytra_station"));
 
+    // slimeshell
+    ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS))
+                            .setCast(Items.SHULKER_SHELL, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 7)
+                            .build(consumer, modResource(armorFolder + "slimeshell"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS)), MaterialIds.chorus)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimeshell_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimeshell_station"));
+
     // boots
     ItemCastingRecipeBuilder.tableRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)

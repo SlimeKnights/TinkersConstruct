@@ -220,6 +220,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.phantom)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());
+    buildMaterial(MaterialIds.chorus)
+      .statType(RepairKitStats.ID)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4F2A4F).addARGB(102, 0xFF593559).addARGB(140, 0xFF643C64).addARGB(178, 0xFF774D77).addARGB(216, 0xFF8F648F).addARGB(255, 0xFFA47CA4).build());
     buildMaterial(MaterialIds.rabbit)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF3F2F1F).addARGB(102, 0xFF4E3A27).addARGB(140, 0xFF826041).addARGB(178, 0xFFA88054).addARGB(216, 0xFFB48B5B).addARGB(255, 0xFFC79E67).build());

@@ -74,6 +74,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.fish);
     // slimesuit
     buildRenderInfo(MaterialIds.phantom);
+    buildRenderInfo(MaterialIds.chorus);
     buildRenderInfo(MaterialIds.rabbit);
 
     // UI internal

@@ -89,6 +89,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.fish,         SkullStats.ID, TinkerModifiers.breathtaking.get(), TinkerModifiers.drownedDisguise.get());
     // slimesuit
     noTraits(MaterialIds.phantom);
+    noTraits(MaterialIds.chorus);
     noTraits(MaterialIds.rabbit);
   }
 }
