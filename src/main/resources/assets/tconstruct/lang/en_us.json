@@ -1244,7 +1244,7 @@
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
-  "material.tconstruct.bone.encyclopedia": "Adds an extra 0.75 damage per part",
+  "material.tconstruct.bone.encyclopedia": "Converts 0.5 damage into 1 piercing damage",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",

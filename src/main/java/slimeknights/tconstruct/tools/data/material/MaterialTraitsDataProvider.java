@@ -22,7 +22,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.wood, TinkerModifiers.cultivated.get());
     addDefaultTraits(MaterialIds.stone, TinkerModifiers.stonebound.get());
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged.get());
-    addDefaultTraits(MaterialIds.bone, TinkerModifiers.fractured.get());
+    addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing.get());
     // tier 1 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic.get());
     // tier 1 - binding
