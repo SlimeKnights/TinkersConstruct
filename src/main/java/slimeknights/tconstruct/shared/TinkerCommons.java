@@ -33,7 +33,6 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.json.SetFluidLootFunction;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.recipe.ingredient.FluidContainerIngredient;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -123,7 +122,6 @@ public final class TinkerCommons extends TinkerModule {
     lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootConditionType(BlockOrEntityCondition.SERIALIZER));
     lootSetFluid = Registry.register(Registry.LOOT_FUNCTION_TYPE, SetFluidLootFunction.ID, new LootFunctionType(new SetFluidLootFunction.Serializer()));
     CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
-    CraftingHelper.register(FluidContainerIngredient.ID, FluidContainerIngredient.SERIALIZER);
   }
 
   @SubscribeEvent

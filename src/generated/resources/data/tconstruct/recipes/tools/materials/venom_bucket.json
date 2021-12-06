@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "tconstruct:venom",
     "amount": 1000,
-    "type": "tconstruct:fluid_container",
+    "type": "mantle:fluid_container",
     "display": {
       "item": "tconstruct:venom_bucket"
     }
