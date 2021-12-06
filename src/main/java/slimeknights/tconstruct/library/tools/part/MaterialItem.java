@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.part;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -10,9 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
@@ -121,17 +117,19 @@ public class MaterialItem extends Item implements IMaterialItem {
     return new TranslationTextComponent(materialKey).appendString(" ").appendSibling(new TranslationTextComponent(key));
   }
 
+  @Nullable
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-    addModTooltip(getMaterial(stack), tooltip);
+  public String getCreatorModId(ItemStack stack) {
+    ResourceLocation id = getMaterialId(stack).map(loc -> (ResourceLocation)loc).orElse(getRegistryName());
+    return id == null ? null : id.getNamespace();
   }
 
-    /**
-     * Adds the mod that added the material to the tooltip
-     * @param tooltip   Tooltip list
-     * @param material  Material to add
-     */
+
+  /**
+   * Adds the mod that added the material to the tooltip
+   * @param tooltip   Tooltip list
+   * @param material  Material to add
+   */
   protected static void addModTooltip(IMaterial material, List<ITextComponent> tooltip) {
     if (material != IMaterial.UNKNOWN) {
       tooltip.add(StringTextComponent.EMPTY);

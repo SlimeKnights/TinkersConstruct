@@ -63,8 +63,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
           tooltip.add(TooltipUtil.TOOLTIP_HOLD_SHIFT);
         }
       }
-      // and finally, mod
-      addModTooltip(material, tooltip);
+      // mod handled by getCreatorModId
     }
   }
 
