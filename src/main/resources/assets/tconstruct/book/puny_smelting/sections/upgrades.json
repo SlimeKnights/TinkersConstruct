@@ -64,9 +64,12 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/weapon/sticky.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/weapon/sweeping_edge.json"
   },
-
   {
     "name": "group_damage"
   },
@@ -154,10 +157,6 @@
   {
     "type": "modifier",
     "data": "upgrades/armor/springy.json"
-  },
-  {
-    "type": "modifier",
-    "data": "upgrades/armor/sticky.json"
   },
   {
     "type": "modifier",

@@ -9,6 +9,7 @@
   "effects": [
     "Increases mob drops and block drops for unarmed attacks",
     "Maximum of 3 levels, different recipe for each level",
+	"Different recipie for leggings",
     "Requires 1 Ability Slot for the first level, following levels do not need another slot"
   ]
 }

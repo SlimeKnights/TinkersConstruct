@@ -4,13 +4,10 @@
     {
       "text": "Mmm, sticky."
     },
-    {
-      "text": "Can be applied to weapons and armor.", "paragraph": true
-    }
   ],
-  "more_text_space": true,
+  "more_text_space": false,
   "effects": [
-    "Applies slowdown on hit or when hitting", 
+    "Applies slowdown on hit",
     "Multiple levels, each level increases slowdown chance",
     "Requires 1 upgrade slot per level"
   ]
