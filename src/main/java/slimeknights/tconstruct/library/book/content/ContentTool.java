@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -154,10 +155,13 @@ public class ContentTool extends PageContent {
       } else {
         ImmutableList.Builder<ItemStackList> partBuilder = ImmutableList.builder();
         for (int i = 0; i < required.size(); i++) {
-          // mark the part as display to suppress the invalid material tooltip
-          ItemStack stack = required.get(i).getPart().withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i));
-          stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
-          partBuilder.add(ItemStackList.of(stack));
+          IToolPart part = required.get(i).getPart();
+          if (part != null) {
+            // mark the part as display to suppress the invalid material tooltip
+            ItemStack stack = part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i));
+            stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            partBuilder.add(ItemStackList.of(stack));
+          }
         }
         this.parts = partBuilder.build();
       }

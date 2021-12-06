@@ -3,14 +3,14 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.ILeggingLootModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
 
-public class SilkyModifier extends SingleUseModifier implements ILeggingLootModifier {
+public class SilkyModifier extends SingleUseModifier implements IArmorLootModifier {
   public SilkyModifier() {
     super(0xF7CDBB);
   }
@@ -23,6 +23,6 @@ public class SilkyModifier extends SingleUseModifier implements ILeggingLootModi
   @Nullable
   @Override
   public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, ILeggingLootModifier.class, this);
+    return tryModuleMatch(type, IArmorLootModifier.class, this);
   }
 }

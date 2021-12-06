@@ -18,7 +18,13 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
+    "type": "mantle:without",
+    "base": {
+      "tag": "tconstruct:modifiable/armor/boots"
+    },
+    "without": {
+      "item": "tconstruct:slime_boots"
+    }
   },
   "slots": {
     "abilities": 1

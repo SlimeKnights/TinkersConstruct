@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.tools.part;
 
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 /**
@@ -11,4 +13,9 @@ public interface IToolPart extends IMaterialItem {
    * @return  Stat type for the given item
    */
   MaterialStatsId getStatType();
+
+  @Override
+  default boolean canUseMaterial(IMaterial material) {
+    return MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.getStatType()).isPresent();
+  }
 }

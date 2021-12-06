@@ -920,6 +920,18 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {}
 
+  /**
+   * Called when an entity is attacked and this entity is the attacker
+   * @param tool             Tool being used
+   * @param level            Level of the modifier
+   * @param context          Context of entity and other equipment
+   * @param slotType         Slot containing the tool
+   * @param target           Entity that was attacked
+   * @param source           Damage source used in the attack
+   * @param amount           Amount of damage caused
+   * @param isDirectDamage   If true, this attack is direct damage from an entity
+   */
+  public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
 
   /* Equipment events */
 

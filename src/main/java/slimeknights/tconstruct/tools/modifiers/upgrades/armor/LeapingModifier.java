@@ -5,28 +5,16 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
-public class LeapingModifier extends IncrementalModifier {
+public class LeapingModifier extends IncrementalArmorLevelModifier {
   private static final TinkerDataKey<Float> LEAPING = TConstruct.createKey("leaping");
   public LeapingModifier() {
-    super(0xD8B281);
+    super(0xD8B281, LEAPING);
     MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingFall);
     MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingJump);
-  }
-
-  @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierFloat(tool, context, LEAPING, -getScaledLevel(tool, level));
-  }
-
-  @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierFloat(tool, context, LEAPING, getScaledLevel(tool, level));
   }
 
   /** Reduce fall distance for fall damage */

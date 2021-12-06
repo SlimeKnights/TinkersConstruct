@@ -45,14 +45,14 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
   }
 
   private static void onPotionStart(PotionEvent.PotionAddedEvent event) {
-    LivingEntity living = event.getEntityLiving();
-    living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-      ModifierMaxLevel magicData = data.get(MAGIC_DATA);
-      if (magicData != null) {
-        float max = magicData.getMax();
-        if (max > 0) {
-          EffectInstance newEffect = event.getPotionEffect();
-          if (!newEffect.getPotion().isBeneficial()) {
+    EffectInstance newEffect = event.getPotionEffect();
+    if (!newEffect.getPotion().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
+      LivingEntity living = event.getEntityLiving();
+      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        ModifierMaxLevel magicData = data.get(MAGIC_DATA);
+        if (magicData != null) {
+          float max = magicData.getMax();
+          if (max > 0) {
             // decrease duration by 5% per level
             int duration = (int)(newEffect.getDuration() * (1 - (max * 0.05f)));
             if (duration < 0) {
@@ -61,7 +61,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
             newEffect.duration = duration;
           }
         }
-      }
-    });
+      });
+    }
   }
 }

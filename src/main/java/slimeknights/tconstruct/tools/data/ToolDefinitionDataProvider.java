@@ -9,6 +9,8 @@ import slimeknights.tconstruct.tools.ArmorDefinitions;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.ToolDefinitions;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
@@ -257,14 +259,16 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
     // slime suit
     defineArmor(ArmorDefinitions.SLIMESUIT)
-      .durabilityFactor(20)
-      .stat(ToolStats.ARMOR,  0, 1, 0, 0)
-      //.stat(ToolStats.KNOCKBACK_RESISTANCE, 0.0f) // TODO: negative knockback resistance
-      .stat(ToolStats.ARMOR_TOUGHNESS, 2f)
-      .stat(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
-      .startingSlots(SlotType.UPGRADE, 4)
-      .startingSlots(SlotType.DEFENSE, 1)
-      .startingSlots(SlotType.ABILITY, 2, 1, 1, 2);
+      .stat(ToolStats.DURABILITY, 546, 630, 672, 362)
+      .stat(ToolStats.ARMOR, 0)
+      .startingSlots(SlotType.UPGRADE, 5)
+      .startingSlots(SlotType.DEFENSE, 0)
+      .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
+      .part(ArmorSlotType.HELMET, SkullStats.ID, 1)
+      .trait(ArmorSlotType.CHESTPLATE, TinkerModifiers.wings)
+      .trait(ArmorSlotType.LEGGINGS, TinkerModifiers.protection, 3)
+      .trait(ArmorSlotType.BOOTS, TinkerModifiers.bouncy)
+      .trait(ArmorSlotType.BOOTS, TinkerModifiers.leaping, 1);
   }
 
   @Override

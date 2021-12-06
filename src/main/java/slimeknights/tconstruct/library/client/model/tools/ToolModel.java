@@ -152,14 +152,29 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       }
     } else {
       for (ToolPart part : toolParts) {
-        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false), null);
-        if (part.hasBroken()) {
-          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
-        }
-        if (isLarge) {
-          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
+        // if material variants, fetch textures from the material model
+        if (part.hasMaterials()) {
+          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false), null);
           if (part.hasBroken()) {
-            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
+            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
+          }
+          if (isLarge) {
+            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
+            if (part.hasBroken()) {
+              MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
+            }
+          }
+        } else {
+          // static texture
+          allTextures.add(owner.resolveTexture(part.getName(false, false)));
+          if (part.hasBroken()) {
+            allTextures.add(owner.resolveTexture(part.getName(true, false)));
+          }
+          if (isLarge) {
+            allTextures.add(owner.resolveTexture(part.getName(false, true)));
+            if (part.hasBroken()) {
+              allTextures.add(owner.resolveTexture(part.getName(true, true)));
+            }
           }
         }
       }
@@ -247,15 +262,25 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     } else {
       for (int i = parts.size() - 1; i >= 0; i--) {
         ToolPart part = parts.get(i);
-        int index = part.getIndex();
-        MaterialId material = null;
-        if (index < materials.size()) {
-          material = materials.get(index);
-        }
-        // add needed quads
-        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), -1, material, smallPixels);
-        if (largeTransforms != null) {
-          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), -1, material, largePixels);
+        if (part.hasMaterials()) {
+          // part with materials
+          int index = part.getIndex();
+          MaterialId material = null;
+          if (index < materials.size()) {
+            material = materials.get(index);
+          }
+          // add needed quads
+          particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), -1, material, smallPixels);
+          if (largeTransforms != null) {
+            MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), -1, material, largePixels);
+          }
+        } else {
+          // part without materials
+          particle = spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, false)));
+          smallConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, particle, TransformationMatrix.identity()));
+          if (largeTransforms != null) {
+            largeConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, true))), largeTransforms));
+          }
         }
       }
     }
@@ -296,6 +321,11 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       return broken != null;
     }
 
+    /** If true, this part has material variants */
+    public boolean hasMaterials() {
+      return index >= 0;
+    }
+
     /**
      * Gets the name for this part
      * @param isBroken  If true, this part is broken
@@ -316,7 +346,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     /** Reads a part from JSON */
     public static ToolPart read(JsonObject json) {
       String name = JSONUtils.getString(json, "name");
-      int index = JSONUtils.getInt(json, "index");
+      int index = JSONUtils.getInt(json, "index", -1);
       String broken = null;
       if (json.has("broken")) {
         broken = JSONUtils.getString(json, "broken");

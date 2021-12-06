@@ -10,28 +10,15 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
-public class RespirationModifier extends Modifier {
+public class RespirationModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> RESPIRATION = TConstruct.createKey("respiration");
   public RespirationModifier() {
-    super(0x47BF4A);
+    super(0x47BF4A, RESPIRATION);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingUpdateEvent.class, RespirationModifier::livingTick);
-  }
-
-  @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierLevel(tool, context, RESPIRATION, level);
-  }
-
-  @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    ModifierUtil.addTotalArmorModifierLevel(tool, context, RESPIRATION, -level);
   }
 
   /** Big mess of conditions from living tick for when air goes down */

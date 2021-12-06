@@ -193,6 +193,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     // armor
     addArmorTags(TinkerTools.travelersGear, DURABILITY);
     addArmorTags(TinkerTools.plateArmor,    DURABILITY);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY);
+    addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
@@ -244,6 +246,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(Tags.Items.END_STONES)
         .addTag(Tags.Items.GRAVEL) // for shovels and axes to use
         .add(Items.NETHERRACK, Items.BASALT, Items.POLISHED_BASALT, Items.BLACKSTONE, Items.POLISHED_BLACKSTONE);
+    this.getOrCreateBuilder(TinkerTags.Items.FIREBALLS).add(Items.FIRE_CHARGE);
   }
 
   private void addSmeltery() {

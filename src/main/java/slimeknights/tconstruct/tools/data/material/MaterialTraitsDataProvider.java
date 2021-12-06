@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvider {
   public MaterialTraitsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
@@ -21,7 +22,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.wood, TinkerModifiers.cultivated.get());
     addDefaultTraits(MaterialIds.stone, TinkerModifiers.stonebound.get());
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged.get());
-    addDefaultTraits(MaterialIds.bone, TinkerModifiers.fractured.get());
+    addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing.get());
     // tier 1 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic.get());
     // tier 1 - binding
@@ -74,5 +75,22 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay.get());
     addDefaultTraits(MaterialIds.electrum, TinkerModifiers.experienced.get());
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked.get(), TinkerModifiers.overslime.get());
+
+    // slimeskull
+    addTraits(MaterialIds.gunpowder,    SkullStats.ID, TinkerModifiers.selfDestructive.get(), TinkerModifiers.creeperDisguise.get());
+    addTraits(MaterialIds.enderPearl,   SkullStats.ID, TinkerModifiers.enderdodging.get(), TinkerModifiers.endermanDisguise.get());
+    addTraits(MaterialIds.bone,         SkullStats.ID, TinkerModifiers.strongBones.get(), TinkerModifiers.skeletonDisguise.get());
+    addTraits(MaterialIds.bloodbone,    SkullStats.ID, TinkerModifiers.frosttouch.get(), TinkerModifiers.strayDisguise.get());
+    addTraits(MaterialIds.necroticBone, SkullStats.ID, TinkerModifiers.withered.get(), TinkerModifiers.witherSkeletonDisguise.get());
+    addTraits(MaterialIds.spider,       SkullStats.ID, TinkerModifiers.boonOfSssss.get(), TinkerModifiers.spiderDisguise.get());
+    addTraits(MaterialIds.venom,        SkullStats.ID, TinkerModifiers.mithridatism.get(), TinkerModifiers.caveSpiderDisguise.get());
+    addTraits(MaterialIds.rottenFlesh,  SkullStats.ID, TinkerModifiers.wildfire.get(), TinkerModifiers.zombieDisguise.get());
+    addTraits(MaterialIds.potato,       SkullStats.ID, TinkerModifiers.plague.get(), TinkerModifiers.huskDisguise.get());
+    addTraits(MaterialIds.fish,         SkullStats.ID, TinkerModifiers.breathtaking.get(), TinkerModifiers.drownedDisguise.get());
+    addTraits(MaterialIds.blazingBone,  SkullStats.ID, TinkerModifiers.firebreath.get(), TinkerModifiers.blazeDisguise.get());
+    // slimesuit
+    noTraits(MaterialIds.phantom);
+    noTraits(MaterialIds.chorus);
+    noTraits(MaterialIds.rabbit);
   }
 }

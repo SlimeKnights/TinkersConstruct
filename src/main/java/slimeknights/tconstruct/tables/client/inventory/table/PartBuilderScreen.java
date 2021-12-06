@@ -14,7 +14,6 @@ import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -193,7 +192,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
    */
   private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
     IMaterial material = materialRecipe.getMaterial();
-    this.infoPanelScreen.setCaption(new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())));
+    this.infoPanelScreen.setCaption(material.getColoredDisplayName());
 
     // determine how much material we have
     // get exact number of material, rather than rounded

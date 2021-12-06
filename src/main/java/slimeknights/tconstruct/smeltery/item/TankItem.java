@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.TConstruct;
@@ -35,13 +36,24 @@ public class TankItem extends BlockTooltipItem {
     this.limitStackSize = limitStackSize;
   }
 
+  /** Checks if the tank item is filled */
+  private static boolean isFilled(ItemStack stack) {
+    // has a container if not empty
+    CompoundNBT nbt = stack.getTag();
+    return nbt != null && nbt.contains(NBTTags.TANK, NBT.TAG_COMPOUND);
+  }
+
+  @Override
+  public ItemStack getContainerItem(ItemStack stack) {
+    return isFilled(stack) ? new ItemStack(this) : ItemStack.EMPTY;
+  }
+
   @Override
   public int getItemStackLimit(ItemStack stack) {
     if (!limitStackSize) {
       return super.getItemStackLimit(stack);
     }
-    FluidTank tank = getFluidTank(stack);
-    return tank.isEmpty() ? 64 : 16;
+    return isFilled(stack) ? 16: 64;
   }
 
   @Override

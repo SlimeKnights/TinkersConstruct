@@ -47,7 +47,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     // each part must match the given slot
     int i;
     for (i = 0; i < parts.size(); i++) {
-      if (parts.get(i).getPart().asItem() != inv.getInput(i).getItem()) {
+      if (!parts.get(i).matches(inv.getInput(i).getItem())) {
         return false;
       }
     }

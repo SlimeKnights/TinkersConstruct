@@ -1,31 +1,28 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import java.util.List;
+import java.util.Set;
 
 /** Material section transformer for a given tier and material set */
 @OnlyIn(Dist.CLIENT)
 public class TieredMaterialSectionTransformer extends AbstractMaterialSectionTransformer {
-  private static final List<MaterialStatsId> VISIBLE_STATS = ImmutableList.of(HeadMaterialStats.ID, HandleMaterialStats.ID, ExtraMaterialStats.ID);
+  private static final Set<MaterialStatsId> VISIBLE_STATS = ImmutableSet.of(HeadMaterialStats.ID, HandleMaterialStats.ID, ExtraMaterialStats.ID);
 
   private final int materialTier;
   public TieredMaterialSectionTransformer(String sectionName, int materialTier, boolean detailed) {
     super(sectionName, detailed);
     this.materialTier = materialTier;
   }
-
-
 
   @Override
   protected boolean isValidMaterial(IMaterial material) {
@@ -34,10 +31,8 @@ public class TieredMaterialSectionTransformer extends AbstractMaterialSectionTra
     }
     // only show material stats for types with the proper stat types, as otherwise the page will be empty
     // if you want to show another stat type, just override this method/implement the parent class
-    MaterialId id = material.getIdentifier();
-    IMaterialRegistry registry = MaterialRegistry.getInstance();
-    for (MaterialStatsId stats : VISIBLE_STATS) {
-      if (registry.getMaterialStats(id, stats).isPresent()) {
+    for (IMaterialStats stats : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
+      if (VISIBLE_STATS.contains(stats.getIdentifier())) {
         return true;
       }
     }

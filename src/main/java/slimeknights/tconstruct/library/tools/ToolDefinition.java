@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -121,7 +122,7 @@ public class ToolDefinition {
       } else {
         IMaterialRegistry registry = MaterialRegistry.getInstance();
         repairIndices = IntStream.range(0, components.size())
-                                 .filter(i -> registry.getDefaultStats(components.get(i).getPart().getStatType()) instanceof IRepairableMaterialStats)
+                                 .filter(i -> registry.getDefaultStats(components.get(i).getStatType()) instanceof IRepairableMaterialStats)
                                  .toArray();
       }
     }
@@ -185,7 +186,7 @@ public class ToolDefinition {
   /** @deprecated Use {@link ToolDefinitionData#getParts()} */
   @Deprecated
   public List<IToolPart> getRequiredComponents() {
-    return getData().getParts().stream().map(PartRequirement::getPart).collect(Collectors.toList());
+    return getData().getParts().stream().map(PartRequirement::getPart).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   /** @deprecated use {@link ToolDefinitionData#getTraits()} */

@@ -15,20 +15,21 @@ import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.ILeggingLootModifier;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.AquaAffinityModifier;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public final class ModifierUtil {
         if (TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
-            ILeggingLootModifier leggingLuck = entry.getModifier().getModule(ILeggingLootModifier.class);
+            IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
             if (leggingLuck != null) {
               leggingLuck.applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
             }
@@ -136,7 +137,7 @@ public final class ModifierUtil {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
         for (ModifierEntry entry : pantsTool.getModifierList()) {
-          ILeggingLootModifier leggingLuck = entry.getModifier().getModule(ILeggingLootModifier.class);
+          IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
           if (leggingLuck != null) {
             toolLooting = leggingLuck.getLootingValue(pantsTool, entry.getLevel(), holder, target, damageSource, toolLooting);
           }
@@ -259,6 +260,24 @@ public final class ModifierUtil {
 
   /** Checks if the entity has aqua affinity from either enchants or modifiers */
   public static boolean hasAquaAffinity(LivingEntity living) {
-    return ModifierUtil.getTotalModifierLevel(living, AquaAffinityModifier.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
+    return ModifierUtil.getTotalModifierLevel(living, TinkerDataKeys.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
+  }
+
+  /** Shortcut to get a volatile flag when the tool stack is not needed otherwise */
+  public static boolean checkVolatileFlag(ItemStack stack, ResourceLocation flag) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getBoolean(flag.toString());
+    }
+    return false;
+  }
+
+  /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
+  public static int getVolatileInt(ItemStack stack, ResourceLocation flag) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getInt(flag.toString());
+    }
+    return 0;
   }
 }

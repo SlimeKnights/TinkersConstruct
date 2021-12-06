@@ -21,7 +21,7 @@ import java.util.List;
 public class PiercingModifier extends IncrementalModifier {
   private static final ResourceLocation PIERCING_DEBUFF = TConstruct.getResource("piercing_debuff");
   public PiercingModifier() {
-    super(0x9FA76D);
+    super(0xD1D37A);
   }
 
   @Override

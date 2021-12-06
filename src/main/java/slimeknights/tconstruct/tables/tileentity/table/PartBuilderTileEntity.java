@@ -188,13 +188,18 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
   public void setInventorySlotContents(int slot, ItemStack stack) {
     ItemStack original = getStackInSlot(slot);
     super.setInventorySlotContents(slot, stack);
-    if (stack.getItem() != original.getItem()) {
-      if (slot == MATERIAL_SLOT) {
+    if (slot == MATERIAL_SLOT) {
+      // if item or NBT changed, update
+      if (original.getItem() != stack.getItem() || !ItemStack.areItemStackTagsEqual(original, stack)) {
         this.inventoryWrapper.refreshMaterial();
+        refresh(true);
+        // if size changed, we are still the same material but might no longer have enough
+      } else if (original.getCount() != stack.getCount()) {
+        this.craftingResult.clear();
       }
+      // any other slot, only an item change means update
+    } else if (original.getItem() != stack.getItem()) {
       refresh(true);
-    } else if (slot == MATERIAL_SLOT && original.getCount() != stack.getCount()) {
-      this.craftingResult.clear();
     }
   }
 
@@ -220,13 +225,18 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
    * @param slot    Slot
    * @param amount  Amount to shrink
    */
-  private void shrinkSlot(int slot, int amount) {
+  private void shrinkSlot(int slot, int amount, PlayerEntity player) {
     ItemStack stack = getStackInSlot(slot);
     if (!stack.isEmpty()) {
+      ItemStack container = stack.getContainerItem().copy();
+      if (amount > 0) {
+        container.setCount(container.getCount() * amount);
+      }
       if (stack.getCount() <= amount) {
-        setInventorySlotContents(slot, ItemStack.EMPTY);
+        setInventorySlotContents(slot, container);
       } else {
         stack.shrink(amount);
+        ItemHandlerHelper.giveItemToPlayer(player, container);
       }
     }
   }
@@ -254,8 +264,8 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
     }
 
     // shrink the inputs
-    shrinkSlot(MATERIAL_SLOT, recipe.getItemsUsed(inventoryWrapper));
-    shrinkSlot(PATTERN_SLOT, 1);
+    shrinkSlot(MATERIAL_SLOT, recipe.getItemsUsed(inventoryWrapper), player);
+    shrinkSlot(PATTERN_SLOT, 1, player);
 
     // sync display, mainly for the material value
     if (world != null && !world.isRemote) {

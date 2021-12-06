@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -14,11 +13,10 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -28,12 +26,12 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MagneticModifier extends Modifier implements IHarvestModifier, IShearModifier {
+public class MagneticModifier extends TotalArmorLevelModifier implements IHarvestModifier, IShearModifier {
   /** Player modifier data key for haste */
   private static final TinkerDataKey<Integer> MAGNET = TConstruct.createKey("magnet");
 
   public MagneticModifier() {
-    super(0x720000);
+    super(0x720000, MAGNET);
     MinecraftForge.EVENT_BUS.addListener(MagneticModifier::onLivingTick);
   }
 
@@ -80,20 +78,7 @@ public class MagneticModifier extends Modifier implements IHarvestModifier, IShe
 
   // armor
 
-  @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR) {
-      ModifierUtil.addTotalArmorModifierLevel(tool, context, MAGNET, level);
-    }
-  }
-
-  @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR) {
-      ModifierUtil.addTotalArmorModifierLevel(tool, context, MAGNET, -level);
-    }
-  }
-
+  /** Called to perform the magnet for armor */
   private static void onLivingTick(LivingUpdateEvent event) {
     LivingEntity entity = event.getEntityLiving();
     if ((entity.ticksExisted & 1) == 0) {

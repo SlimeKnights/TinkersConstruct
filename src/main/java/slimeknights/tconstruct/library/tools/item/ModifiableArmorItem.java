@@ -28,10 +28,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
@@ -41,6 +43,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -58,6 +61,8 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   /** Volatile modifier tag to make piglins neutal when worn */
   public static final ResourceLocation PIGLIN_NEUTRAL = TConstruct.getResource("piglin_neutral");
+  /** Volatile modifier tag to make this item an elytra */
+  public static final ResourceLocation ELYTRA = TConstruct.getResource("elyta");
 
   @Getter
   private final ToolDefinition toolDefinition;
@@ -68,8 +73,8 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     this.toolDefinition = toolDefinition;
   }
 
-  public ModifiableArmorItem(ModifiableArmorMaterial material, EquipmentSlotType slotType, Properties properties) {
-    this(material, slotType, properties, Objects.requireNonNull(material.getArmorDefinition(slotType), "Missing tool definition for " + slotType));
+  public ModifiableArmorItem(ModifiableArmorMaterial material, ArmorSlotType slotType, Properties properties) {
+    this(material, slotType.getEquipmentSlot(), properties, Objects.requireNonNull(material.getArmorDefinition(slotType), "Missing tool definition for " + slotType));
   }
 
   /* Basic properties */
@@ -91,7 +96,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
-    return ToolStack.from(stack).getVolatileData().getBoolean(PIGLIN_NEUTRAL);
+    return ModifierUtil.checkVolatileFlag(stack, PIGLIN_NEUTRAL);
   }
 
 
@@ -124,12 +129,12 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   public boolean hasEffect(ItemStack stack) {
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
-    return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
+    return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
   @Override
   public Rarity getRarity(ItemStack stack) {
-    int rarity = ToolStack.from(stack).getVolatileData().getInt(RARITY);
+    int rarity = ModifierUtil.getVolatileInt(stack, RARITY);
     return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
   }
 
@@ -138,12 +143,12 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean hasCustomEntity(ItemStack stack) {
-    return ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY);
+    return ModifierUtil.checkVolatileFlag(stack, INDESTRUCTIBLE_ENTITY);
   }
 
   @Override
   public Entity createEntity(World world, Entity original, ItemStack stack) {
-    if (ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY)) {
+    if (ModifierUtil.checkVolatileFlag(stack, INDESTRUCTIBLE_ENTITY)) {
       IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;
@@ -255,6 +260,36 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     }
 
     return builder.build();
+  }
+
+
+  /* Elytra */
+
+  @Override
+  public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+    return slot == EquipmentSlotType.CHEST && !ToolDamageUtil.isBroken(stack) && ModifierUtil.checkVolatileFlag(stack, ELYTRA);
+  }
+
+  @Override
+  public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+    if (slot == EquipmentSlotType.CHEST) {
+      ToolStack tool = ToolStack.from(stack);
+      if (!tool.isBroken()) {
+        // if any modifier says stop flying, stop flying
+        for (ModifierEntry entry : tool.getModifierList()) {
+          IElytraFlightModifier elytraFlight = entry.getModifier().getModule(IElytraFlightModifier.class);
+          if (elytraFlight != null && !elytraFlight.elytraFlightTick(tool, entry.getLevel(), entity, flightTicks)) {
+            return false;
+          }
+        }
+        // damage the tool and keep flying
+        if (!entity.world.isRemote && (flightTicks + 1) % 20 == 0) {
+          ToolDamageUtil.damageAnimated(tool, 1, entity, EquipmentSlotType.CHEST);
+        }
+        return true;
+      }
+    }
+    return false;
   }
 
 

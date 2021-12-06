@@ -64,6 +64,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -719,7 +721,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.doubleJump, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.doubleJump, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.bouncy.get())
-                         .setTools(TinkerTags.Items.BOOTS)
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.BOOTS), Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))))
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
@@ -1176,6 +1178,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, modResource(folder + "lava"));
     SpillingRecipeBuilder.forFluid(Tags.Fluids.MILK, FluidAttributes.BUCKET_VOLUME / 10)
                          .addEffect(new CureEffectsSpillingEffect(new ItemStack(Items.MILK_BUCKET)))
+                         .addEffect(StrongBonesModifier.SPILLING_EFFECT)
                          .build(consumer, modResource(folder + "milk"));
     // blaze - more damage, less fire
     SpillingRecipeBuilder.forFluid(TinkerFluids.blazingBlood.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)

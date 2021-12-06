@@ -9,8 +9,8 @@ import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
@@ -66,7 +66,7 @@ public class IndestructibleItemEntity extends ItemEntity {
 
   /** Checks if the given stack has a custom entity */
   public static boolean hasCustomEntity(ItemStack stack) {
-    return ToolStack.from(stack).getVolatileData().getBoolean(IModifiable.INDESTRUCTIBLE_ENTITY);
+    return ModifierUtil.checkVolatileFlag(stack, IModifiable.INDESTRUCTIBLE_ENTITY);
   }
 
   /**
@@ -78,7 +78,7 @@ public class IndestructibleItemEntity extends ItemEntity {
    */
   @Nullable
   public static Entity createFrom(World world, Entity original, ItemStack stack) {
-    if (ToolStack.from(stack).getVolatileData().getBoolean(IModifiable.INDESTRUCTIBLE_ENTITY)) {
+    if (ModifierUtil.checkVolatileFlag(stack, IModifiable.INDESTRUCTIBLE_ENTITY)) {
       IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;

@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -137,12 +138,12 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   public boolean hasEffect(ItemStack stack) {
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
-    return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
+    return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
   @Override
   public Rarity getRarity(ItemStack stack) {
-    int rarity = ToolStack.from(stack).getVolatileData().getInt(RARITY);
+    int rarity = ModifierUtil.getVolatileInt(stack, RARITY);
     return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
   }
 

@@ -45,5 +45,26 @@
     "name": "plate_boots",
     "type": "tool",
     "data": "armor/plate/boots.json"
+  },
+
+  {
+    "name": "slimeskull",
+    "type": "tool",
+    "data": "armor/slime/skull.json"
+  },
+  {
+    "name": "slimelytra",
+    "type": "tool",
+    "data": "armor/slime/slimelytra.json"
+  },
+  {
+    "name": "slimeshell",
+    "type": "tool",
+    "data": "armor/slime/shell.json"
+  },
+  {
+    "name": "slime_boots",
+    "type": "tool",
+    "data": "armor/slime/boots.json"
   }
 ]

@@ -10,9 +10,18 @@ armor=Armor
 armor.info=Armor Information
 
 tier_one_materials=Tier 1 Materials
+tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
+
 tier_two_materials=Tier 2 Materials
+tier_two_materials.subtext=These materials require melting and casting to create, and may be a bit more rare
+
 tier_three_materials=Tier 3 Materials
+tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
+
 tier_four_materials=Tier 4 Materials
+tier_four_materials.subtext=These materials cannot be found without traveling to the Nether
+skull_materials=Slimeskulls
+skull_materials.subtext=This section describes the effects of all types of skulls in creating a slimeskull
 
 upgrades=Upgrades
 upgrades.subtext=Each tool gets a limited total number of upgrades slots.
@@ -44,7 +53,3 @@ abilities.group_armor=Armor
 modifier.effect=Effects:
 tool.properties=Properties:
 
-tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
-tier_two_materials.subtext=These materials require melting and casting to create, and may be a bit more rare
-tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
-tier_four_materials.subtext=These materials cannot be found without traveling to the Nether

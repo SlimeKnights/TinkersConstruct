@@ -79,7 +79,7 @@ public class TooltipUtil {
       }
     }
 
-    return ITinkerStationDisplay.getCombinedItemName(baseName, nameMaterials);
+    return ITinkerStationDisplay.getCombinedItemName(stack, baseName, nameMaterials);
   }
 
   /**
@@ -234,8 +234,7 @@ public class TooltipUtil {
     for (int i = 0; i <= max; i++) {
       PartRequirement requirement = components.get(i);
       IMaterial material = materials.get(i);
-      ItemStack partStack = requirement.getPart().withMaterial(material);
-      tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+      tooltips.add(requirement.nameForMaterial(material).deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
       MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
       if (i != max) {
         tooltips.add(StringTextComponent.EMPTY);
