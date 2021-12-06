@@ -11,13 +11,13 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidContainerIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.ingredient.FluidContainerIngredient;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -117,7 +117,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromItems(Items.POISONOUS_POTATO),                  1, 2, folder + "potato_poisonous");
     materialRecipe(consumer, MaterialIds.fish,        Ingredient.fromTag(ItemTags.FISHES),                           1, 1, folder + "fish");
     // slimesuit
-    materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.RABBIT_HIDE),         1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.PHANTOM_MEMBRANE),    1, 1, folder + "phantom_membrane");
     materialRecipe(consumer, MaterialIds.chorus,  Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");
     materialRecipe(consumer, MaterialIds.rabbit,  Ingredient.fromItems(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
   }
@@ -169,5 +169,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.electrum,       TinkerFluids.moltenElectrum,   true, folder);
     materialMeltingComposite(consumer, MaterialIds.necroticBone, MaterialIds.necronium,       TinkerFluids.moltenUranium, FluidValues.INGOT, true, folder);
     materialMeltingComposite(consumer, MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
+
+    // slimesuit
+    materialMeltingCasting(consumer, MaterialIds.venom, TinkerFluids.venom, FluidAttributes.BUCKET_VOLUME / 4, folder);
   }
 }
