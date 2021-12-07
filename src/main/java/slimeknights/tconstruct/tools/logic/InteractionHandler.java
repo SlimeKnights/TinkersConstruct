@@ -238,16 +238,18 @@ public class InteractionHandler {
    * @return true if the player has a modifiable helmet
    */
   public static boolean startHelmetInteract(PlayerEntity player) {
-    ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-    if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
-      ToolStack tool = ToolStack.from(helmet);
-      for (ModifierEntry entry : tool.getModifierList()) {
-        IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
-        if (helmetInteract != null && helmetInteract.startArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD)) {
-          break;
+    if (!player.isSpectator()) {
+      ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+      if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
+        ToolStack tool = ToolStack.from(helmet);
+        for (ModifierEntry entry : tool.getModifierList()) {
+          IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
+          if (helmetInteract != null && helmetInteract.startArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD)) {
+            break;
+          }
         }
+        return true;
       }
-      return true;
     }
     return false;
   }
@@ -258,16 +260,18 @@ public class InteractionHandler {
    * @return true if the player has a modifiable helmet
    */
   public static boolean stopHelmetInteract(PlayerEntity player) {
-    ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-    if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
-      ToolStack tool = ToolStack.from(helmet);
-      for (ModifierEntry entry : tool.getModifierList()) {
-        IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
-        if (helmetInteract != null) {
-          helmetInteract.stopArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD);
+    if (!player.isSpectator()) {
+      ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+      if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
+        ToolStack tool = ToolStack.from(helmet);
+        for (ModifierEntry entry : tool.getModifierList()) {
+          IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
+          if (helmetInteract != null) {
+            helmetInteract.stopArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD);
+          }
         }
+        return true;
       }
-      return true;
     }
     return false;
   }
