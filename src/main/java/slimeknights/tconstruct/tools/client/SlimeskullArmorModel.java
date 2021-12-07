@@ -66,14 +66,20 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
     }
     if (headModel != null && headTexture != null && buffer != null) {
       IVertexBuilder headBuilder = buffer.getBuffer(RenderType.getEntityCutoutNoCullZOffset(headTexture));
-      if (this.isChild) {
+      boolean needsPush = this.isChild || (this.isSneak && base != null);
+      if (needsPush) {
         matrixStackIn.push();
-        matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-        matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+        if (isChild) {
+          matrixStackIn.scale(0.75F, 0.75F, 0.75F);
+          matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+        }
+        if (isSneak && base != null) {
+          matrixStackIn.translate(0, base.bipedHead.rotationPointY / 16.0F, 0);
+        }
       }
       headModel.func_225603_a_(0, this.bipedHead.rotateAngleY * 180f / (float)(Math.PI), this.bipedHead.rotateAngleX * 180f / (float)(Math.PI));
       headModel.render(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
-      if (this.isChild) {
+      if (needsPush) {
         matrixStackIn.pop();
       }
     }
