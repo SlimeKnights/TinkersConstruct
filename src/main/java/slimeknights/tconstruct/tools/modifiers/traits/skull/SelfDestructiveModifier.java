@@ -27,8 +27,11 @@ import java.util.UUID;
 
 public class SelfDestructiveModifier extends SingleUseModifier implements IArmorInteractModifier {
   private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(UUID.fromString("68ee3026-1d50-4eb4-914e-a8b05fbfdb71"), TConstruct.prefix("self_destruct_slowdown"), -0.9f, Operation.MULTIPLY_TOTAL);
-  private static final DamageSource OUT_OF_WORLD = (new DamageSource(TConstruct.prefix("self_destruct"))).setDamageBypassesArmor().setDamageAllowedInCreativeMode().setExplosion();
+  /** Self damage source */
+  private static final DamageSource SELF_DESTRUCT = (new DamageSource(TConstruct.prefix("self_destruct"))).setDamageBypassesArmor().setExplosion();
+  /** Key for the time the fuse finises */
   private static final TinkerDataKey<Integer> FUSE_FINISH = TConstruct.createKey("self_destruct_finish");
+
   public SelfDestructiveModifier() {
     super(0x95D78E);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerTickEvent.class, SelfDestructiveModifier::playerTick);
@@ -82,7 +85,11 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
         Integer fuseFinish = data.get(FUSE_FINISH);
         if (fuseFinish != null && fuseFinish <= event.player.ticksExisted) {
           event.player.world.createExplosion(event.player, event.player.getPosX(), event.player.getPosY(), event.player.getPosZ(), 3, Explosion.Mode.DESTROY);
-          event.player.attackEntityFrom(OUT_OF_WORLD, Float.MAX_VALUE);
+          event.player.attackEntityFrom(SELF_DESTRUCT, 99999);
+          if (event.player.getHealth() > 0) {
+            restoreSpeed(event.player);
+          }
+          data.remove(FUSE_FINISH);
         }
       });
     }
