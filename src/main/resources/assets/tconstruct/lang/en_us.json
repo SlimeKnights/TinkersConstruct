@@ -1621,6 +1621,7 @@
   "modifier.tconstruct.thorns": "Thorns",
   "modifier.tconstruct.thorns.flavor": "Quite metal",
   "modifier.tconstruct.thorns.description": "Harness the power of the guardian, causing attackers to sometimes take damage",
+  "modifier.tconstruct.thorns.attack_damage": "Pierce Damage",
   "modifier.tconstruct.sticky": "Sticky",
   "modifier.tconstruct.sticky.flavor": "Like Halloween",
   "modifier.tconstruct.sticky.description": "Attackers may become stuck in place, or at least slowed",
