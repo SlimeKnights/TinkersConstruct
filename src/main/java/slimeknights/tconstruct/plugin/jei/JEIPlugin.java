@@ -187,7 +187,15 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(moldingRecipes, TConstructRecipeCategoryUid.molding);
 
     // modifiers
-    List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class);
+    List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class)
+                                                               .stream()
+                                                               .sorted((r1, r2) -> {
+                                                                 SlotType t1 = r1.getSlotType();
+                                                                 SlotType t2 = r2.getSlotType();
+                                                                 String n1 = t1 == null ? "" : t1.getName();
+                                                                 String n2 = t2 == null ? "" : t2.getName();
+                                                                 return n1.compareTo(n2);
+                                                               }).collect(Collectors.toList());
     register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);
 
     // beheading
