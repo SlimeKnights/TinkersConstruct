@@ -43,15 +43,26 @@ public class ToolStack implements IModifierToolStack {
   @Deprecated
   public static final ResourceLocation ORIGINAL_DURABILITY_KEY = TConstruct.getResource("durability");
 
-  // tinkers tags
+  // persistent NBT
+  /** Tag for list of materials */
   public static final String TAG_MATERIALS = "tic_materials";
-  protected static final String TAG_STATS = "tic_stats";
-  protected static final String TAG_MULTIPLIERS = "tic_multipliers";
+  /** Tag for extra arbitrary modifier data */
   public static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
-  public static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data";
+  /** Tag for recipe based modifier */
   public static final String TAG_UPGRADES = "tic_upgrades";
-  public static final String TAG_MODIFIERS = "tic_modifiers";
+  /** Tag marking a tool as broken */
   public static final String TAG_BROKEN = "tic_broken";
+
+  // volatile NBT
+  /** Tag for calculated stats */
+  protected static final String TAG_STATS = "tic_stats";
+  /** Tag for tool stat global multipliers */
+  protected static final String TAG_MULTIPLIERS = "tic_multipliers";
+  /** Tag for arbitrary modifier data rebuilt on stat rebuild */
+  public static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data";
+  /** Tag for merged modifiers of upgrades and traits */
+  public static final String TAG_MODIFIERS = "tic_modifiers";
+
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
@@ -646,6 +657,39 @@ public class ToolStack implements IModifierToolStack {
   }
 
   /**
+   * Checks if the given tool NBT needs initialization
+   * @param nbt         NBT instance
+   * @param definition  Tool definition
+   * @return  If true, initialization is needed
+   */
+  private static boolean needsInitialization(@Nullable CompoundNBT nbt, ToolDefinition definition) {
+    // cannot initialize if datapacks are not loaded
+    if (definition.getData() == definition.getStatProvider().getDefaultData()) {
+      return false;
+    }
+    // no NBT? initialize if we don't need more data
+    if (nbt == null) {
+      return !definition.isMultipart();
+    }
+    // have data but no materials? cannot initialize yet
+    if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, NBT.TAG_LIST)) {
+      return false;
+    }
+    // no stats? not initialized
+    return !nbt.contains(TAG_STATS, NBT.TAG_COMPOUND);
+  }
+
+  /**
+   * Ensures the given item stack is initialized. Called in crafting hooks
+   * @param stack ItemStack to initialize
+   */
+  public static void ensureInitialized(ItemStack stack) {
+    if (stack.getItem() instanceof IModifiable) {
+      ensureInitialized(stack, ((IModifiable) stack.getItem()).getToolDefinition());
+    }
+  }
+
+  /**
    * Ensures the given item stack is initialized. Intended to be called in {@link Item#onCreated(ItemStack, World, PlayerEntity)}
    * @param stack           ItemStack to initialize
    * @param toolDefinition  Tool definition
@@ -653,11 +697,40 @@ public class ToolStack implements IModifierToolStack {
   public static void ensureInitialized(ItemStack stack, ToolDefinition toolDefinition) {
     if (!ToolStack.isInitialized(stack)) {
       // if the tool is multipart, do nothing without materials
-      if (!toolDefinition.isMultipart() || ToolStack.hasMaterials(stack)) {
+      if (needsInitialization(stack.getTag(), toolDefinition)) {
         ToolStack tool = ToolStack.from(stack);
         toolDefinition.getData().buildSlots(tool.getPersistentData());
         tool.rebuildStats();
       }
+    }
+  }
+
+  /**
+   * Rebuilds the item stack when loaded from NBT
+   * stops things from being wrong if modifiers or materials change
+   * @param item        Item to build
+   * @param compound    Full stack NBT including item
+   * @param definition  Tool definition
+   */
+  public static void verifyTag(Item item, CompoundNBT compound, ToolDefinition definition) {
+    // skip if no definition data loaded
+    if (definition.getData() != definition.getStatProvider().getDefaultData() && compound.contains("tag", NBT.TAG_COMPOUND)) {
+      CompoundNBT nbt = compound.getCompound("tag");
+      // if the stack has materials, resolve all material redirects
+      if (nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
+        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, NBT.TAG_STRING));
+        MaterialIdNBT resolved = stored.resolveRedirects();
+        if (resolved != stored) {
+          resolved.updateNBT(nbt);
+        }
+      }
+      ToolStack tool = ToolStack.from(item, definition, nbt);
+      // if uninitialized, add slots
+      if (needsInitialization(nbt, definition)) {
+        definition.getData().buildSlots(tool.getPersistentData());
+      }
+      // build stats regardless
+      tool.rebuildStats();
     }
   }
 }

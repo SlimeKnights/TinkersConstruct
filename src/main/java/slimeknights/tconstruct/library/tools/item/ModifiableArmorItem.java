@@ -110,10 +110,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean updateItemStackNBT(CompoundNBT nbt) {
-    // when the itemstack is loaded from NBT we recalculate all the data
-    // stops things from being wrong if modifiers or materials change
-    ToolStack.from(this, getToolDefinition(), nbt.getCompound("tag")).rebuildStats();
-    // return value shouldn't matter since it's never checked
+    ToolStack.verifyTag(this, nbt, getToolDefinition());
     return true;
   }
 

@@ -9,6 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -97,7 +98,10 @@ public class TooltipUtil {
       // if not initialized, show no data tooltip on non-standard items
     } else if (!ToolStack.isInitialized(stack)) {
       if (item.getToolDefinition().isMultipart()) {
-        tooltip.add(NO_DATA);
+        CompoundNBT nbt = stack.getTag();
+        if (nbt == null || !nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
+          tooltip.add(NO_DATA);
+        }
       }
     } else {
       switch (tooltipKey) {

@@ -32,7 +32,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -43,7 +42,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -105,24 +103,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Override
   public boolean updateItemStackNBT(CompoundNBT nbt) {
-    // get the internal tag, because this method is weird
-    if (nbt.contains("tag", NBT.TAG_COMPOUND)) {
-      CompoundNBT tag = nbt.getCompound("tag");
-
-      // if the stack has materials, resolve all material redirects
-      if (tag.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
-        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(tag.getList(ToolStack.TAG_MATERIALS, NBT.TAG_STRING));
-        MaterialIdNBT resolved = stored.resolveRedirects();
-        if (resolved != stored) {
-          resolved.updateNBT(tag);
-        }
-      }
-
-      // when the itemstack is loaded from NBT we recalculate all the data
-      // stops things from being wrong if modifiers or materials change
-      ToolStack.from(this, getToolDefinition(), tag).rebuildStats();
-    }
-    // return value shouldn't matter since it's never checked
+    ToolStack.verifyTag(this, nbt, getToolDefinition());
     return true;
   }
 
