@@ -178,13 +178,16 @@ public class ContentMaterial extends PageContent {
     }
 
     // said parts next to the name
+    int textOffset = 0;
     if (!parts.isEmpty()) {
       ItemElement display = new TinkerItemElement(x, y + 1, 0.5f, parts);
       list.add(display);
+      textOffset = 10;
     }
 
     // and the name itself
-    TextElement name = new TextElement(x + 10, y, w - 10, 10, stats.get().getLocalizedName().getString());
+    TextElement name = new TextElement(x + textOffset, y, w - textOffset, 10, stats.get().getLocalizedName().getString());
+    name.text[0].bold = true;
     name.text[0].underlined = true;
     list.add(name);
     y += 12;

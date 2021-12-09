@@ -24,3 +24,9 @@ exploration.blood=Blood Island
 exploration.necrotic_bones=Necrotic Bones
 exploration.enderslime=Enderslime Island
 exploration.dragon_scales=Dragon Scales
+
+armor=Armor
+armor.subtext=Mixing slime with various mob parts produces an interesting set of armor. Its not the most defensive, but it can really enhance your abilities.
+
+skull_materials=Skull Materials
+skull_materials.subtext=Placing one of these skulls in a casting basin and adding enderslime can enhance their ability as a helmet.

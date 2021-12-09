@@ -1245,11 +1245,13 @@
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
   "material.tconstruct.bone.encyclopedia": "Converts 0.5 damage into 1 piercing damage",
+  "material.tconstruct.bone.skull_flavor": "Got Milk?",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Heals up to 5% of damage dealt per level",
+  "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
 
   "material.tconstruct.string": "String",
@@ -1289,6 +1291,7 @@
   "material.tconstruct.bloodbone": "Bloodbone",
   "material.tconstruct.bloodbone.flavor": "Isn't the blood supposed to be inside the bone?",
   "material.tconstruct.bloodbone.encyclopedia": "Boosts damage at low health, up to +4 damage per level at 1 heart",
+  "material.tconstruct.bloodbone.skull_flavor": "Chills straight to the bone",
   "material.tconstruct.bloodbone.skull_encyclopedia": "Projectiles cause slowness to the target. After drinking milk, melee attacks cause slowness and the level is stronger.",
 
   "material.tconstruct.rose_gold": "Rose Gold",
@@ -1343,6 +1346,7 @@
   "material.tconstruct.blazing_bone": "Blazing Bone",
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
   "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.skull_flavor": "I told them this is technically firespit, not firebreath, but apparently I don't get to decide the names for things I invent",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Allows spitting firecharges from the inventory as fireballs. Has a cooldown of 5 seconds and does not work underwater",
 
   "material.tconstruct.soulsteel": "Soulsteel",
@@ -1358,24 +1362,31 @@
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Gunpowder",
+  "material.tconstruct.gunpowder.skull_flavor": "Whose nice things are being destroyed now, creeper?",
   "material.tconstruct.gunpowder.skull_encyclopedia": "Holding the helmet interact key causes the wearer to explode",
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
+  "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
   "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 30 second cooldown",
 
   "material.tconstruct.spider": "Spider",
+  "material.tconstruct.spider.skull_flavor": "Spiders are a master of potions, maybe their secret can help me enhance potions...",
   "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 50% longer",
 
   "material.tconstruct.venom": "Venom",
+  "material.tconstruct.venom.skull_flavor": "Perfect for battles of wits, when you have to decide and drink to find out who is right.",
   "material.tconstruct.venom.skull_encyclopedia": "Makes the wearer immune to poison, though will not remove existing poison",
 
   "material.tconstruct.rotten_flesh": "Rotten Flesh",
+  "material.tconstruct.rotten_flesh.skull_flavor": "This is fine",
   "material.tconstruct.rotten_flesh.skull_encyclopedia": "Melee attacks increase the targets fire time based on the wearer's fire time",
 
   "material.tconstruct.potato": "Potato",
+  "material.tconstruct.potato.skull_flavor": "Violation of quarantine",
   "material.tconstruct.potato.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
 
   "material.tconstruct.fish": "Fish",
+  "material.tconstruct.fish.skull_flavor": "Knocks the wind right out of them",
   "material.tconstruct.fish.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
   "material.tconstruct.phantom": "Phantom Membrane",

@@ -2,7 +2,7 @@
   "tool": "tconstruct:slime_boots",
   "text": [
     { "text": "Slime Boots are high mobility boots, with no protection or defense slots and high upgrade slots." },
-    { "text": "To create these fantastic boots, pour enderslime on a rabbits foot. The boots can later be repaired using rabbit hide.", "paragraph": true }
+    { "text": "They can be created by pouring enderslime on a rabbits foot, and are repaired with rabbit hide.", "paragraph": true }
   ],
   "properties": [
     "546 Durability",

@@ -2,7 +2,7 @@
   "tool": "tconstruct:slime_chestplate",
   "text": [
     { "text": "The slimelytra is the latest in flight technology." },
-    { "text": "To create these futuristic wings, you simply need to pour enderslime on an elytra. The slimelytra can later be repaired using phantom membranes.", "paragraph": true }
+    { "text": "Created by pouring enderslime on an elytra, these wings can also be repaired with phantom membranes.", "paragraph": true }
   ],
   "properties": [
     "672 Durability",
