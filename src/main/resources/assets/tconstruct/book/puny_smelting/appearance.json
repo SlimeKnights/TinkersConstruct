@@ -1,6 +1,8 @@
 {
-    "title": "Puny Smelting",
-    "subtitle": "by Thruul M'Gon",
-    "drawSectionListText": true,
-    "coverColor": 0xb6b9c6
+  "title": "Puny Smelting",
+  "subtitle": "by Thruul M'Gon",
+  "drawSectionListText": true,
+  "coverColor": 0xb6b9c6,
+  "largePageTitles": true,
+  "centerPageTitles": true
 }

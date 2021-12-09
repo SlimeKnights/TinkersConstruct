@@ -1,17 +1,30 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.harvest;
 
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.Util;
 
-public class HasteModifier extends IncrementalModifier {
+import java.util.List;
+
+public class HasteModifier extends IncrementalArmorLevelModifier {
+  private static final ITextComponent MINING_SPEED = TConstruct.makeTranslation("modifier", "fake_attribute.mining_speed");
+  /** Player modifier data key for haste */
+  public static final TinkerDataKey<Float> HASTE = TConstruct.createKey("haste");
+
   public HasteModifier() {
-    super(0xAA0F01);
+    super(0x7F0901, HASTE);
   }
 
   @Override
@@ -32,5 +45,18 @@ public class HasteModifier extends IncrementalModifier {
     ToolStats.MINING_SPEED.add(builder, scaledLevel * 5f);
     // maxes at 125%, number chosen to be comparable DPS to quartz
     ToolStats.ATTACK_SPEED.multiply(builder, 1 + scaledLevel * 0.05f);
+  }
+
+
+  // armor
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag flag) {
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      double boost = 0.1 * getScaledLevel(tool, level);
+      if (boost != 0) {
+        tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).appendString(" ").appendSibling(MINING_SPEED)));
+      }
+    }
   }
 }

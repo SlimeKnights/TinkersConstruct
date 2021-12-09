@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:unarmed",
+  "text": [
+    {
+      "text": "Allows applying modifiers to boost the damage of an empty hand, and allows punching with the offhand."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

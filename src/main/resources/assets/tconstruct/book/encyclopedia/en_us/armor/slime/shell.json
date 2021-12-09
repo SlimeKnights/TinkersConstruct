@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_leggings",
+  "text": [
+    { "text": "Slimeshell are still in development. We are attempting to harness the storage of shulker boxes, but so far just have their defense." },
+    { "text": "They are created by pouring enderslime on a shulker shell, and repaired with popped chorus.", "paragraph": true }
+  ],
+  "properties": [
+    "630 Durability",
+    "5 Upgrade Slots",
+    "0 Defense Slots",
+    "1 Ability Slot",
+    "Protection III"
+  ]
+}

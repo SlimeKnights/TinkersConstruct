@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_boots",
+  "text": [
+    { "text": "What are thoooose?" },
+	{
+      "text": "Going into the nether requires hard boots to protect your feet! Nobody ever thinks of how hot that ground actually is.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "High Durability",
+    "High Armor",
+    "1 Upgrade Slots",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

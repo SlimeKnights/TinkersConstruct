@@ -12,10 +12,6 @@
     {
       "item": "minecraft:piston",
       "chance": 0.9
-    },
-    {
-      "tag": "tconstruct:slime_block",
-      "chance": 0.3
     }
   ]
 }

@@ -11,7 +11,7 @@
   },
   {
     "name": "alloyergui1",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "alloyer/gui1.json"
   },
   {

@@ -107,7 +107,7 @@ public class StatOverrideModifier extends SingleUseModifier {
 
   @Override
   public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
-    List<ITextComponent> defaultList = getDescriptionList();
+    List<ITextComponent> defaultList = getDescriptionList(level);
 
     // create the list when we first try to add text
     MutableObject<List<ITextComponent>> resultList = new MutableObject<>();

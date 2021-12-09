@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:modifiable/armor/boots",
+    "#tconstruct:modifiable/armor/leggings",
+    "#tconstruct:modifiable/armor/chestplate",
+    "#tconstruct:modifiable/armor/helmets"
+  ]
+}

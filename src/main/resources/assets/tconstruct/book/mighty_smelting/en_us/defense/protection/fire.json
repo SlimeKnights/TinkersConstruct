@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fire_protection",
+  "text": [
+    {
+      "text": "Through the fire and the flames."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Decreases fire damage and burn time",
+    "Multiple levels, each level further decreases damage and burn time.",
+    "Requires 1 defense slot"
+  ]
+}

@@ -40,20 +40,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
   @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     // slime
-    String folder = "gadgets/slimeboots/";
-    for (SlimeType slime : SlimeType.values()) {
-      ResourceLocation name = modResource(folder + slime.getString());
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
-                         .setGroup("tconstruct:slime_boots")
-                         .key('#', TinkerWorld.congealedSlime.get(slime))
-                         .key('X', slime.getSlimeballTag())
-                         .patternLine("X X")
-                         .patternLine("# #")
-                         .addCriterion("has_item", hasItem(slime.getSlimeballTag()))
-                         .build(consumer, name);
-    }
-
-    folder = "gadgets/slimesling/";
+    String folder = "gadgets/slimesling/";
     for (SlimeType slime : SlimeType.TRUE_SLIME) {
       ResourceLocation name = modResource(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))

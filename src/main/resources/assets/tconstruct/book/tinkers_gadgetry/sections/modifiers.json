@@ -6,12 +6,12 @@
   },
   {
     "name": "damage_tools",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "modifiers/damage_tools.json"
   },
   {
     "name": "remove_modifiers",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "modifiers/remove_modifiers.json"
   }
 ]

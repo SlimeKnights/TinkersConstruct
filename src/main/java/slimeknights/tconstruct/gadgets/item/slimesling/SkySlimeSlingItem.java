@@ -3,12 +3,13 @@ package slimeknights.tconstruct.gadgets.item.slimesling;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SkySlimeSlingItem extends BaseSlimeSlingItem {
+  private static final float DEGREE_TO_RAD = (float) Math.PI / 180.0F;
 
   public SkySlimeSlingItem(Properties props) {
     super(props, SlimeType.SKY);
@@ -48,10 +49,11 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
     player.setSprinting(true);
 
     float speed = f / 3F;
+    Vector3d look = player.getLookVec();
     player.addVelocity(
-      (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
-      speed,
-      (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
+      (look.x * speed),
+      (1 + look.y) * speed / 2f,
+      (look.z * speed));
 
     playerServerMovement(player);
     onSuccess(player, stack);

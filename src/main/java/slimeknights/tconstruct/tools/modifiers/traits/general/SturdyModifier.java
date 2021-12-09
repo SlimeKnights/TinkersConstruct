@@ -14,6 +14,6 @@ public class SturdyModifier extends Modifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.1f));
+    ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.15f));
   }
 }

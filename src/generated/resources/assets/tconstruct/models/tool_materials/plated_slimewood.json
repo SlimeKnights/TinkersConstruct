@@ -6,11 +6,6 @@
   "color": "FFE170",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:plated_slimewood",
-    "fallbacks": [
-      "slime_metal",
-      "metal"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

@@ -5,9 +5,14 @@
       "tag": "tconstruct:tanks"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/held"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/interactable"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

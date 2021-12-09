@@ -181,6 +181,8 @@ public class TinkerTags {
 
     /** Stones that can be used for stoneshield */
     public static final IOptionalNamedTag<Item> STONESHIELDS = tag("stoneshields");
+    /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
+    public static final IOptionalNamedTag<Item> FIREBALLS = tag("fireballs");
 
     /*
      * Tool tags
@@ -205,7 +207,11 @@ public class TinkerTags {
     /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
     public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    public static final IOptionalNamedTag<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
+    /** Anything that is used in the player's hand */
     public static final IOptionalNamedTag<Item> HELD = tag("modifiable/held");
+    /** Anything that can use interaction modifiers */
+    public static final IOptionalNamedTag<Item> INTERACTABLE = tag("modifiable/interactable");
 
     /** Modifiable items that support melee attacks */
     public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
@@ -220,6 +226,17 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> HARVEST_PRIMARY = tag("modifiable/harvest/primary");
     /** Modifiable items that can break stone blocks */
     public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
+
+    /** Modifiable items that are worn as armor */
+    public static final IOptionalNamedTag<Item> ARMOR = tag("modifiable/armor");
+    /** Modifiable items that are worn as boots */
+    public static final IOptionalNamedTag<Item> BOOTS = tag("modifiable/armor/boots");
+    /** Modifiable items that are worn as leggings */
+    public static final IOptionalNamedTag<Item> LEGGINGS = tag("modifiable/armor/leggings");
+    /** Modifiable items that are worn as chestplates */
+    public static final IOptionalNamedTag<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
+    /** Modifiable items that are worn as helmets */
+    public static final IOptionalNamedTag<Item> HELMETS = tag("modifiable/armor/helmets");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
 
@@ -261,7 +278,6 @@ public class TinkerTags {
 
   public static class EntityTypes {
     private static void init() {}
-    public static final IOptionalNamedTag<EntityType<?>> BOUNCY = tag("bouncy");
     public static final IOptionalNamedTag<EntityType<?>> SLIMES = forgeTag("slimes");
     public static final IOptionalNamedTag<EntityType<?>> BACON_PRODUCER = tag("bacon_producer");
 

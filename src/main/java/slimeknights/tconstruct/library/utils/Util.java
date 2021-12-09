@@ -4,7 +4,9 @@
 
 package slimeknights.tconstruct.library.utils;
 
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.ForgeI18n;
@@ -131,5 +133,10 @@ public class Util {
   /** Converts an ARGB color to a ABGR color or vice versa */
   public static int translateColorBGR(int color) {
     return (color & 0xFF00FF00) | (((color & 0x00FF0000) >> 16) & 0x000000FF) | (((color & 0x000000FF) << 16) & 0x00FF0000);
+  }
+
+  /** Gets the slot type from a hand */
+  public static EquipmentSlotType getSlotType(Hand hand) {
+    return hand == Hand.OFF_HAND ? EquipmentSlotType.OFFHAND : EquipmentSlotType.MAINHAND;
   }
 }

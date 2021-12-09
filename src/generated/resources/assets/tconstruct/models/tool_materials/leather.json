@@ -2,8 +2,6 @@
   "color": "C65C35",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:leather",
-    "fallbacks": [],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

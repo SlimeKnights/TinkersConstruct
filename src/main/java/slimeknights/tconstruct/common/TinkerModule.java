@@ -27,11 +27,11 @@ import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
+import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
-import slimeknights.tconstruct.common.registration.FluidDeferredRegisterExtension;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -43,13 +43,21 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Contains base helpers for all Tinker modules
+ * Contains base helpers for all Tinker modules. Should not be extended by other mods, this is only for internal usage.
  */
 public abstract class TinkerModule {
+  protected TinkerModule() {
+    // "seal" this class to prevent other mods from using our deferred registers, basically, prevent anyone from outside our package from instantiating an instance. Yes, it happened
+    // if you are a mod dev and need a protected method here, just copy it, they are all trivial
+    if (!this.getClass().getName().startsWith("slimeknights.tconstruct.")) {
+      throw new IllegalStateException("TinkerModule being extended from invalid package " + this.getClass().getName() + ". This is a bug with the mod containing that class, they should create their own deferred registers.");
+    }
+  }
+
   // deferred register instances
   protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.MOD_ID);
   protected static final ItemDeferredRegisterExtension ITEMS = new ItemDeferredRegisterExtension(TConstruct.MOD_ID);
-  protected static final FluidDeferredRegisterExtension FLUIDS = new FluidDeferredRegisterExtension(TConstruct.MOD_ID);
+  protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.MOD_ID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.MOD_ID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.MOD_ID);
   protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.MOD_ID);
@@ -131,7 +139,7 @@ public abstract class TinkerModule {
 
   /** Builder that pre-supplies glass properties */
   protected static AbstractBlock.Properties glassBuilder(MaterialColor color) {
-    return builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS)
+    return builder(Material.GLASS, color, ToolType.PICKAXE, SoundType.GLASS)
       .setRequiresTool().hardnessAndResistance(0.3F).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)
       .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
   }

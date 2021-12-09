@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Has a 25% chance per level to apply up to 2 blocks of knockback per level to the attacker. Applies effect from the piece with the largest bonus."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

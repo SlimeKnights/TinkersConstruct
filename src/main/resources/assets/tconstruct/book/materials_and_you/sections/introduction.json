@@ -11,7 +11,7 @@
   },
   {
     "name": "partbuilder",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "intro/partbuilder.json"
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "name": "tinkerstation",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "intro/tinkerstation.json"
   },
   {

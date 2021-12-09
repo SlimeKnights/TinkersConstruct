@@ -1,6 +1,8 @@
 {
-    "title": "Materials and You",
-    "subtitle": "by Selena",
-    "drawSectionListText": true,
-    "coverColor": 0xffce85
+  "title": "Materials and You",
+  "subtitle": "by Selena",
+  "drawSectionListText": true,
+  "coverColor": 0xffce85,
+  "largePageTitles": false,
+  "centerPageTitles": true
 }

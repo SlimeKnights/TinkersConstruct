@@ -13,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -41,7 +40,6 @@ import slimeknights.tconstruct.gadgets.item.GlowBallItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
 import slimeknights.tconstruct.gadgets.item.ShurikenItem;
-import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.BaseSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.EarthSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
@@ -90,7 +88,6 @@ public final class TinkerGadgets extends TinkerModule {
     .put(SlimeType.ICHOR, ITEMS.register("ichor_slime_sling", () -> new IchorSlimeSlingItem(SLING_PROPS)))
     .put(SlimeType.ENDER, ITEMS.register("ender_slime_sling", () -> new EnderSlimeSlingItem(SLING_PROPS)))
     .build();
-  public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
@@ -161,7 +158,6 @@ public final class TinkerGadgets extends TinkerModule {
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
     PiggybackCapability.register();
-    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
     event.enqueueWork(() -> {
       cake.forEach(block -> ComposterBlock.registerCompostable(1.0f, block));
       ComposterBlock.registerCompostable(1.0f, magmaCake.get());

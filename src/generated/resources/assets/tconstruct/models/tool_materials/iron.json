@@ -5,10 +5,6 @@
   "color": "D8D8D8",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:iron",
-    "fallbacks": [
-      "metal"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

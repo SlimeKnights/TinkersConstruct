@@ -11,6 +11,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidContainerIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -54,7 +55,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");
     materialRecipe(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 4, folder + "string");
     materialRecipe(consumer, MaterialIds.leather, Ingredient.fromTag(Tags.Items.LEATHER), 1, 1, folder + "leather");
-    materialRecipe(consumer, MaterialIds.leather, Ingredient.fromItems(Items.RABBIT_HIDE), 1, 2, folder + "leather_from_rabbit_hide"); // discount for using rabbit
     materialRecipe(consumer, MaterialIds.vine, Ingredient.fromItems(Items.VINE, Items.TWISTING_VINES, Items.WEEPING_VINES), 1, 1, folder + "vine");
 
     // tier 2
@@ -106,6 +106,20 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(withCondition(consumer, tagCondition("ingots/uranium")), MaterialIds.necronium, Ingredient.fromItems(TinkerMaterials.necroniumBone), 1, 1, folder + "necronium");
     metalMaterialRecipe(consumer, MaterialIds.electrum, folder, "electrum", true);
     // no plated slimewood, use repair kits
+
+    // slimeskull
+    materialRecipe(consumer, MaterialIds.gunpowder,   Ingredient.fromTag(Tags.Items.GUNPOWDER),                      1, 4, folder + "gunpowder");
+    materialRecipe(consumer, MaterialIds.enderPearl,  Ingredient.fromTag(Tags.Items.ENDER_PEARLS),                   1, 1, folder + "ender_pearl");
+    materialRecipe(consumer, MaterialIds.spider,      Ingredient.fromItems(Items.SPIDER_EYE),                        1, 4, folder + "spider");
+    materialRecipe(consumer, MaterialIds.venom,       FluidContainerIngredient.fromFluid(TinkerFluids.venom, false), 4, 1, folder + "venom_bucket");
+    materialRecipe(consumer, MaterialIds.rottenFlesh, Ingredient.fromItems(Items.ROTTEN_FLESH),                      1, 1, folder + "rotten_flesh");
+    materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromTag(Tags.Items.CROPS_POTATO),                   1, 1, folder + "potato");
+    materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromItems(Items.POISONOUS_POTATO),                  1, 2, folder + "potato_poisonous");
+    materialRecipe(consumer, MaterialIds.fish,        Ingredient.fromTag(ItemTags.FISHES),                           1, 1, folder + "fish");
+    // slimesuit
+    materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.PHANTOM_MEMBRANE),    1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.chorus,  Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");
+    materialRecipe(consumer, MaterialIds.rabbit,  Ingredient.fromItems(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
   }
 
   private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {
@@ -155,5 +169,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.electrum,       TinkerFluids.moltenElectrum,   true, folder);
     materialMeltingComposite(consumer, MaterialIds.necroticBone, MaterialIds.necronium,       TinkerFluids.moltenUranium, FluidValues.INGOT, true, folder);
     materialMeltingComposite(consumer, MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
+
+    // slimesuit
+    materialMeltingCasting(consumer, MaterialIds.venom, TinkerFluids.venom, FluidAttributes.BUCKET_VOLUME / 4, folder);
   }
 }

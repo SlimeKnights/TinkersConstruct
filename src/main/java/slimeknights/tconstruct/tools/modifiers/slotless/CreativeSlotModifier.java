@@ -54,7 +54,7 @@ public class CreativeSlotModifier extends SingleUseModifier {
 
   @Override
   public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
-    List<ITextComponent> tooltip = getDescriptionList();
+    List<ITextComponent> tooltip = getDescriptionList(level);
     IModDataReadOnly persistentData = tool.getPersistentData();
     if (persistentData.contains(KEY_SLOTS, NBT.TAG_COMPOUND)) {
       CompoundNBT slots = persistentData.getCompound(KEY_SLOTS);

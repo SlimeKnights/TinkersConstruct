@@ -1,9 +1,9 @@
 {
   "title": "Gold Casts",
   "image": {
-     "file": "tconstruct:book/images/gold_pick.png",
-	 "width": 170,
-     "height": 90
+    "file": "tconstruct:book/images/gold_pick.png",
+    "width": 170,
+    "height": 90
   },
   "text": [
     {

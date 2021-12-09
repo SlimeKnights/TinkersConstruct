@@ -1,34 +1,30 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableModifierModel;
@@ -38,19 +34,24 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.Mod
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
+import slimeknights.tconstruct.tools.logic.InteractionHandler;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
+import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
-import java.util.List;
 import java.util.function.Supplier;
+
+import static slimeknights.tconstruct.library.client.model.tools.ToolModel.registerItemColors;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
+  /** Keybinding for interacting using a helmet */
+  private static final KeyBinding HELMET_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.z"), "key.categories.gameplay");
+
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
@@ -76,8 +77,10 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::renderHand);
+    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
+
+    // keybinds
+    ClientRegistry.registerKeyBinding(HELMET_INTERACT);
   }
 
   @SubscribeEvent
@@ -92,77 +95,58 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool textures for fallback
     // rock
-    registerToolItemColors(colors, TinkerTools.pickaxe);
-    registerToolItemColors(colors, TinkerTools.sledgeHammer);
-    registerToolItemColors(colors, TinkerTools.veinHammer);
+    registerItemColors(colors, TinkerTools.pickaxe);
+    registerItemColors(colors, TinkerTools.sledgeHammer);
+    registerItemColors(colors, TinkerTools.veinHammer);
     // dirt
-    registerToolItemColors(colors, TinkerTools.mattock);
-    registerToolItemColors(colors, TinkerTools.excavator);
+    registerItemColors(colors, TinkerTools.mattock);
+    registerItemColors(colors, TinkerTools.excavator);
     // wood
-    registerToolItemColors(colors, TinkerTools.handAxe);
-    registerToolItemColors(colors, TinkerTools.broadAxe);
+    registerItemColors(colors, TinkerTools.handAxe);
+    registerItemColors(colors, TinkerTools.broadAxe);
     // scythe
-    registerToolItemColors(colors, TinkerTools.kama);
-    registerToolItemColors(colors, TinkerTools.scythe);
+    registerItemColors(colors, TinkerTools.kama);
+    registerItemColors(colors, TinkerTools.scythe);
     // weapon
-    registerToolItemColors(colors, TinkerTools.dagger);
-    registerToolItemColors(colors, TinkerTools.sword);
-    registerToolItemColors(colors, TinkerTools.cleaver);
+    registerItemColors(colors, TinkerTools.dagger);
+    registerItemColors(colors, TinkerTools.sword);
+    registerItemColors(colors, TinkerTools.cleaver);
   }
 
-  // registered with FORGE bus
-  private static void onTooltipEvent(ItemTooltipEvent event) {
-    if (event.getItemStack().getItem() instanceof IModifiableDisplay) {
-      boolean isShift = Screen.hasShiftDown();
-      boolean isCtrl = !isShift && ((IModifiableDisplay) event.getItemStack().getItem()).getToolDefinition().isMultipart() && Screen.hasControlDown();
-      MutableInt removedWhenIn = new MutableInt(0);
-      event.getToolTip().removeIf(text -> {
-        // its hard to find the blank line before attributes, so shift just removes all of them
-        if ((isShift || (isCtrl && removedWhenIn.intValue() > 0)) && text == StringTextComponent.EMPTY) {
-          return true;
-        }
-        // the attack damage and attack speed ones are formatted weirdly, suppress on both tooltips
-        if ((isShift || isCtrl) && " ".equals(text.getUnformattedComponentText())) {
-          List<ITextComponent> siblings = text.getSiblings();
-          if (!siblings.isEmpty() && siblings.get(0) instanceof TranslationTextComponent) {
-            return ((TranslationTextComponent) siblings.get(0)).getKey().startsWith("attribute.modifier.equals.");
-          }
-        }
-        if (text instanceof TranslationTextComponent) {
-          String key = ((TranslationTextComponent)text).getKey();
+  /** If true, we were jumping last tick. Safe as a static value as we only care about a single player client side */
+  private static boolean wasJumping = false;
+  /** If true, we were interacting last tick. Safe as a static value as we only care about a single player client side */
+  private static boolean wasHelmetInteracting = false;
 
-          // we want to ignore all modifiers after "when in off hand" as its typically redundant to the main hand, you will see without shift
-          if ((isCtrl || isShift) && key.startsWith("item.modifiers.")) {
-            removedWhenIn.add(1);
-            return true;
-          }
+  /** Called on player tick to handle keybinding presses */
+  private static void handleKeyBindings(PlayerTickEvent event) {
+    Minecraft minecraft = Minecraft.getInstance();
+    if (minecraft.player != null && event.phase == Phase.START && event.side == LogicalSide.CLIENT && !minecraft.player.isSpectator()) {
 
-          // suppress durability from advanced, we display our own
-          return key.equals("item.durability")
-                 // the "when in main hand" text, don't need on either tooltip
-            || ((isCtrl || (isShift && removedWhenIn.intValue() > 1)) && key.startsWith("attribute.modifier."));
-        }
-        return false;
-      });
-    }
-  }
-
-  // registered with FORGE bus
-  private static void renderHand(RenderHandEvent event) {
-    Hand hand = event.getHand();
-    PlayerEntity player = Minecraft.getInstance().player;
-    if (hand != Hand.OFF_HAND || player == null) {
-      return;
-    }
-    ItemStack stack = player.getHeldItemMainhand();
-    if (stack.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
-      ToolStack tool = ToolStack.from(stack);
-      // special support for replacing modifier
-      if (!tool.getVolatileData().getBoolean(IModifiable.DEFER_OFFHAND)) {
-        if (!(event.getItemStack().getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
-          event.setCanceled(true);
+      // jumping in mid air for double jump
+      // ensure we pressed the key since the last tick, holding should not use all your jumps at once
+      boolean isJumping = minecraft.gameSettings.keyBindJump.isKeyDown();
+      if (!wasJumping && isJumping) {
+        if (DoubleJumpModifier.extraJump(event.player)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.DOUBLE_JUMP);
         }
       }
+      wasJumping = isJumping;
+
+      // helmet interaction
+      boolean isHelmetInteracting = HELMET_INTERACT.isKeyDown();
+      if (!wasHelmetInteracting && isHelmetInteracting) {
+        if (InteractionHandler.startHelmetInteract(event.player)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_HELMET_INTERACT);
+        }
+      }
+      if (wasHelmetInteracting && !isHelmetInteracting) {
+        if (InteractionHandler.stopHelmetInteract(event.player)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_HELMET_INTERACT);
+        }
+      }
+
+      wasHelmetInteracting = isHelmetInteracting;
     }
   }
 
@@ -170,12 +154,9 @@ public class ToolClientEvents extends ClientEventBase {
   @Deprecated
   public static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {}
 
-  /**
-   * Registers an item color handler for a part item, TODO: move to API class
-   * @param colors  Item colors instance
-   * @param item    Material item
-   */
+  /** @deprecated use {@link ToolModel#registerItemColors(ItemColors, Supplier)} */
+  @Deprecated
   public static void registerToolItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
-    colors.register(ToolModel.COLOR_HANDLER, item.get());
+    registerItemColors(colors, item);
   }
 }

@@ -5,9 +5,12 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.ArmorDefinitions;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.ToolDefinitions;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
@@ -234,6 +237,38 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.firestarterHidden)
       .trait(TinkerModifiers.fiery);
+
+
+    // travelers armor
+    defineArmor(ArmorDefinitions.TRAVELERS)
+      .durabilityFactor(10)
+      .stat(ToolStats.ARMOR, 1, 4, 5, 1)
+      .startingSlots(SlotType.UPGRADE, 3)
+      .startingSlots(SlotType.DEFENSE, 2)
+      .startingSlots(SlotType.ABILITY, 1);
+
+    // plate armor
+    defineArmor(ArmorDefinitions.PLATE)
+      .durabilityFactor(30)
+      .stat(ToolStats.ARMOR, 2, 5, 7, 2)
+      .stat(ToolStats.ARMOR_TOUGHNESS, 2f)
+      .stat(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
+      .startingSlots(SlotType.UPGRADE, 1)
+      .startingSlots(SlotType.DEFENSE, 4)
+      .startingSlots(SlotType.ABILITY, 1);
+
+    // slime suit
+    defineArmor(ArmorDefinitions.SLIMESUIT)
+      .stat(ToolStats.DURABILITY, 546, 630, 672, 362)
+      .stat(ToolStats.ARMOR, 0)
+      .startingSlots(SlotType.UPGRADE, 5)
+      .startingSlots(SlotType.DEFENSE, 0)
+      .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
+      .part(ArmorSlotType.HELMET, SkullStats.ID, 1)
+      .trait(ArmorSlotType.CHESTPLATE, TinkerModifiers.wings)
+      .trait(ArmorSlotType.LEGGINGS, TinkerModifiers.protection, 3)
+      .trait(ArmorSlotType.BOOTS, TinkerModifiers.bouncy)
+      .trait(ArmorSlotType.BOOTS, TinkerModifiers.leaping, 1);
   }
 
   @Override

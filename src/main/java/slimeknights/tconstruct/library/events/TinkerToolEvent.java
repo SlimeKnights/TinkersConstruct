@@ -5,6 +5,7 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.math.BlockPos;
@@ -38,15 +39,29 @@ public abstract class TinkerToolEvent extends Event {
     private final ServerWorld world;
     private final BlockState state;
     private final BlockPos pos;
-    @Nullable
-    private final PlayerEntity player;
-    public ToolHarvestEvent(ItemStack stack, IModifierToolStack tool, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
-      super(stack, tool);
+    private final EquipmentSlotType slotType;
+
+    public ToolHarvestEvent(IModifierToolStack tool, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos, EquipmentSlotType slotType) {
+      super(getItem(context, slotType), tool);
       this.context = context;
       this.world = world;
       this.state = state;
       this.pos = pos;
-      this.player = player;
+      this.slotType = slotType;
+    }
+
+    /** Gets the item for the event */
+    private static ItemStack getItem(ItemUseContext context, EquipmentSlotType slotType) {
+      PlayerEntity player = context.getPlayer();
+      if (player != null) {
+        return player.getItemStackFromSlot(slotType);
+      }
+      return context.getItem();
+    }
+
+    @Nullable
+    public PlayerEntity getPlayer() {
+      return context.getPlayer();
     }
 
     /** Fires this event and posts the result */

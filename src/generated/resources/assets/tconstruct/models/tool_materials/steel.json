@@ -5,10 +5,6 @@
   "color": "959595",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:steel",
-    "fallbacks": [
-      "metal"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

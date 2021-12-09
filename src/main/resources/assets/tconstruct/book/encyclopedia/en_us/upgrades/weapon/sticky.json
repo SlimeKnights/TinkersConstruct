@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "Applies up to 1.5 seconds (plus 1 seconds per level) of slowness to the attacker."
+    },
+    {
+      "text": "On chestplates, the bonus applies if it has the unarmed modifier. Other armor has a different effect", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

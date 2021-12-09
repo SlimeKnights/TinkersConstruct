@@ -14,10 +14,10 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.M
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -69,10 +69,10 @@ public abstract class AbstractMaterialSpriteProvider {
   public static class MaterialSpriteInfo extends MaterialGeneratorJson {
     /** Material texture name for the material */
     @Getter
-    private final ResourceLocation texture;
+    private transient final ResourceLocation texture;
     /** List of fallbacks, first present one will be the base for building. If none exist, uses the default base */
     @Getter
-    private final String[] fallbacks;
+    private transient final String[] fallbacks;
 
     public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, MaterialGeneratorJson generatorJson) {
       super(generatorJson);
@@ -133,7 +133,7 @@ public abstract class AbstractMaterialSpriteProvider {
       statType(HeadMaterialStats.ID);
       statType(HandleMaterialStats.ID);
       statType(ExtraMaterialStats.ID);
-      statType(TinkerPartSpriteProvider.REPAIR_KIT);
+      statType(RepairKitStats.ID);
       return this;
     }
 

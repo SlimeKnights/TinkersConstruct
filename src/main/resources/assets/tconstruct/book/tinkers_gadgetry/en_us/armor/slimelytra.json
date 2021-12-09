@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    { "text": "Tired of walking? Try flying with these futuristic wings!" },
+    { "text": "To create these futuristic wings, you simply need to pour enderslime on an elytra. The slimelytra can later be repaired using phantom membranes.", "paragraph": true }
+  ],
+  "properties": [
+    "High Durability",
+    "No Armor or Defense Slots",
+    "5 Upgrade Slots",
+    "1 Ability Slot"
+  ]
+}

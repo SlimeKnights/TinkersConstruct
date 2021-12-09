@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:fire_protection",
+  "text": [
+    {
+      "text": "Grants +8% resistance against fire damage, such as from lava or blazes. Caps at 80% across the whole set, or 10 levels."
+    },
+    {
+      "text": "Reduces the duration of fire by 15% per level of the highest level piece.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Requires 1 defense slot"
+  ]
+}

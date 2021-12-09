@@ -5,7 +5,7 @@
       "text": "Increases the tank capacity of the tool by 8 ingots (or 1152 mb) per level. Useful alongside abilities such as bucketing or melting."
     },
     {
-      "text": "Tools with tanks have the ability to be filled and drained by interacting with fluid tank blocks.",
+      "text": "Tools with tanks have the ability to be filled and drained by interacting with fluid tank blocks. On armor the piece must be held to fill or empty a tank.",
       "paragraph": true
     }
   ],

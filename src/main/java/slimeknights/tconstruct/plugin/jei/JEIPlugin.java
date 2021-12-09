@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import com.google.common.collect.ImmutableList;
+import lombok.RequiredArgsConstructor;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -40,10 +41,12 @@ import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
@@ -88,10 +91,13 @@ import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -129,8 +135,21 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerIngredients(IModIngredientRegistration registration) {
+    assert Minecraft.getInstance().world != null;
+    RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+    List<ModifierEntry> modifiers = Collections.emptyList();
+    if (Config.CLIENT.showModifiersInJEI.get()) {
+      modifiers = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class)
+                              .stream()
+                              .map(recipe -> recipe.getDisplayResult().getModifier())
+                              .distinct()
+                              .sorted(Comparator.comparing(Modifier::getId))
+                              .map(mod -> new ModifierEntry(mod, 1))
+                              .collect(Collectors.toList());
+    }
+
     registration.register(ENTITY_TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
-    registration.register(MODIFIER_TYPE, Collections.emptyList(), new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
+    registration.register(MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
     registration.register(PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
   }
 
@@ -168,7 +187,15 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(moldingRecipes, TConstructRecipeCategoryUid.molding);
 
     // modifiers
-    List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class);
+    List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class)
+                                                               .stream()
+                                                               .sorted((r1, r2) -> {
+                                                                 SlotType t1 = r1.getSlotType();
+                                                                 SlotType t2 = r2.getSlotType();
+                                                                 String n1 = t1 == null ? "" : t1.getName();
+                                                                 String n2 = t2 == null ? "" : t2.getName();
+                                                                 return n1.compareTo(n2);
+                                                               }).collect(Collectors.toList());
     register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);
 
     // beheading
@@ -249,9 +276,13 @@ public class JEIPlugin implements IModPlugin {
     }
 
     // tools
-    ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
+    Item slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
+    registry.registerSubtypeInterpreter(slimeskull, new ToolSubtypeInterpreter(true));
+    ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter(false);
     for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
-      registry.registerSubtypeInterpreter(item, toolInterpreter);
+      if (item != slimeskull) {
+        registry.registerSubtypeInterpreter(item, toolInterpreter);
+      }
     }
 
     registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
@@ -343,7 +374,11 @@ public class JEIPlugin implements IModPlugin {
   }
 
   /** Subtype interpreter for tools, treats the tool as unique in ingredient list, generic in recipes */
+  @RequiredArgsConstructor
   public static class ToolSubtypeInterpreter implements ISubtypeInterpreter {
+    /** If true, considers materials in both ingredients and recipes */
+    private final boolean always;
+
     @Override
     public String apply(ItemStack itemStack) {
       return NONE;
@@ -351,7 +386,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public String apply(ItemStack itemStack, UidContext context) {
-      if (context == UidContext.Ingredient) {
+      if (always || context == UidContext.Ingredient) {
         StringBuilder builder = new StringBuilder();
         List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
         if (!materialList.isEmpty()) {

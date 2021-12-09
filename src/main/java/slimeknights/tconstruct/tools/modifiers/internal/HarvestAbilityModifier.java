@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -22,7 +23,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
@@ -34,7 +35,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class HarvestAbilityModifier extends SingleUseModifier {
+public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
   private final int priority;
   
   public HarvestAbilityModifier(int color, int priority) {
@@ -189,10 +190,11 @@ public class HarvestAbilityModifier extends SingleUseModifier {
    * @param world    World instance
    * @param state    State to harvest
    * @param pos      Position to harvest
-   * @param stack    Stack used to break
+   * @param slotType Slot used to harvest
    * @return  True if harvested
    */
-  private static boolean harvest(ItemUseContext context, ItemStack stack, IModifierToolStack tool, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+  private static boolean harvest(ItemUseContext context, IModifierToolStack tool, ServerWorld world, BlockState state, BlockPos pos, EquipmentSlotType slotType) {
+    PlayerEntity player = context.getPlayer();
     // first, check main harvestable tag
     Block block = state.getBlock();
     if (!TinkerTags.Blocks.HARVESTABLE.contains(block)) {
@@ -200,7 +202,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
     }
     // try harvest event
     boolean didHarvest = false;
-    Result result = new ToolHarvestEvent(stack, tool, context, world, state, pos, player).fire();
+    Result result = new ToolHarvestEvent(tool, context, world, state, pos, slotType).fire();
     if (result != Result.DEFAULT) {
       didHarvest = result == Result.ALLOW;
 
@@ -214,7 +216,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
 
       // normal crops like wheat or carrots
     } else if (TinkerTags.Blocks.HARVESTABLE_CROPS.contains(block)) {
-      didHarvest = harvestCrop(stack, world, state, pos, player);
+      didHarvest = harvestCrop(context.getItem(), world, state, pos, player);
     }
 
     // if we successfully harvested, run the modifier hook
@@ -231,7 +233,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
     if (tool.isBroken()) {
       return ActionResultType.PASS;
     }
@@ -255,7 +257,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
         boolean didHarvest = false;
         boolean broken = false;
         ItemStack stack = context.getItem();
-        if (harvest(context, stack, tool, server, state, pos, player)) {
+        if (harvest(context, tool, server, state, pos, slotType)) {
           didHarvest = true;
           broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
         }
@@ -265,7 +267,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
         if (!broken && player != null && item instanceof IModifiableHarvest) {
           for (BlockPos newPos : ((IModifiableHarvest)item).getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
-            if (harvest(context, stack, tool, server, world.getBlockState(newPos), newPos, player)) {
+            if (harvest(context, tool, server, world.getBlockState(newPos), newPos, slotType)) {
               didHarvest = true;
               if (survival && ToolDamageUtil.damage(tool, 1, player, stack)) {
                 broken = true;
@@ -288,5 +290,4 @@ public class HarvestAbilityModifier extends SingleUseModifier {
     }
     return ActionResultType.PASS;
   }
-
 }

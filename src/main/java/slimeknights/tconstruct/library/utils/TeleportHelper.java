@@ -11,9 +11,9 @@ import slimeknights.tconstruct.common.Sounds;
 public class TeleportHelper {
 
   /** Randomly teleports an entity, mostly copied from chorus fruit */
-  public static void randomNearbyTeleport(LivingEntity living, ITeleportEventFactory factory) {
+  public static boolean randomNearbyTeleport(LivingEntity living, ITeleportEventFactory factory) {
     if (living.getEntityWorld().isRemote) {
-      return;
+      return true;
     }
     double posX = living.getPosX();
     double posY = living.getPosY();
@@ -33,9 +33,10 @@ public class TeleportHelper {
         SoundEvent soundevent = Sounds.SLIME_TELEPORT.getSound();
         living.getEntityWorld().playSound(null, posX, posY, posZ, soundevent, SoundCategory.PLAYERS, 1.0F, 1.0F);
         living.playSound(soundevent, 1.0F, 1.0F);
-        break;
+        return true;
       }
     }
+    return false;
   }
 
   /** Predicate to test if the entity can teleport, typically just fires a cancelable event */

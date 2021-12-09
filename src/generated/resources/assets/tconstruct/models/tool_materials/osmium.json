@@ -5,10 +5,6 @@
   "color": "C1E6F4",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:osmium",
-    "fallbacks": [
-      "metal"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

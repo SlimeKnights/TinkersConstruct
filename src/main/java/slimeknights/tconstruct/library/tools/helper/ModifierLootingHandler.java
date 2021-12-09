@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -10,10 +11,11 @@ import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -21,7 +23,7 @@ import java.util.UUID;
  */
 public class ModifierLootingHandler {
   /** If contained in the set, they should use the offhand for looting */
-  private static final Set<UUID> LOOTING_OFFHAND = new HashSet<>();
+  private static final Map<UUID,EquipmentSlotType> LOOTING_OFFHAND = new HashMap<>();
   private static boolean init = false;
 
   /** Initializies this listener */
@@ -34,22 +36,34 @@ public class ModifierLootingHandler {
     MinecraftForge.EVENT_BUS.addListener(ModifierLootingHandler::onLeaveServer);
   }
 
+  /** @deprecated use {@link #setLootingSlot(LivingEntity, EquipmentSlotType)} */
+  @Deprecated
+  public static void setLootingHand(LivingEntity entity, Hand hand) {
+    setLootingSlot(entity, Util.getSlotType(hand));
+  }
+
   /**
    * Sets the hand used for looting, so the tool is fetched from the proper context
-   * @param entity  Player to set
-   * @param hand    Hand
+   * @param entity    Player to set
+   * @param slotType  Slot type
    */
-  public static void setLootingHand(LivingEntity entity, Hand hand) {
-    if (hand == Hand.OFF_HAND) {
-      LOOTING_OFFHAND.add(entity.getUniqueID());
-    } else {
+  public static void setLootingSlot(LivingEntity entity, EquipmentSlotType slotType) {
+    if (slotType == EquipmentSlotType.MAINHAND) {
       LOOTING_OFFHAND.remove(entity.getUniqueID());
+    } else {
+      LOOTING_OFFHAND.put(entity.getUniqueID(), slotType);
     }
   }
 
-  /** Gets the hand to use for looting */
+  /** @deprecated use {@link #getLootingSlot(LivingEntity)} */
+  @Deprecated
   public static Hand getLootingHand(@Nullable LivingEntity entity) {
-    return entity != null && LOOTING_OFFHAND.contains(entity.getUniqueID()) ? Hand.OFF_HAND : Hand.MAIN_HAND;
+    return entity != null && LOOTING_OFFHAND.get(entity.getUniqueID()) == EquipmentSlotType.OFFHAND ? Hand.OFF_HAND : Hand.MAIN_HAND;
+  }
+
+  /** Gets the slot to use for looting */
+  public static EquipmentSlotType getLootingSlot(@Nullable LivingEntity entity) {
+    return entity != null ? LOOTING_OFFHAND.getOrDefault(entity.getUniqueID(), EquipmentSlotType.MAINHAND) : EquipmentSlotType.MAINHAND;
   }
 
   /** Applies the looting bonus for modifiers */
@@ -64,12 +78,19 @@ public class ModifierLootingHandler {
       // TODO: consider bow usage, as the attack time is not the same as the death time
       // TODO: extend to armor eventually
       LivingEntity holder = ((LivingEntity)source);
-      ItemStack held = holder.getHeldItem(getLootingHand(holder));
+      EquipmentSlotType slotType = getLootingSlot(holder);
+      ItemStack held = holder.getItemStackFromSlot(slotType);
+      int level = event.getLootingLevel();
       if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
         ToolStack tool = ToolStack.from(held);
-        int newLevel = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
-        event.setLootingLevel(newLevel);
+        level = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
+        // ignore default looting if we are looting from another slot
+      } else if (slotType != EquipmentSlotType.MAINHAND) {
+        level = 0;
       }
+      // boot looting with pants
+      level = ModifierUtil.getLeggingsLootingLevel(holder, event.getEntityLiving(), damageSource, level);
+      event.setLootingLevel(level);
     }
   }
 

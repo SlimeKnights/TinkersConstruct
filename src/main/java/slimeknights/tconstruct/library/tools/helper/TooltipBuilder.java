@@ -71,6 +71,20 @@ public class TooltipBuilder {
     return this;
   }
 
+  /**
+   * Adds the given stat to the tooltip if above 0
+   *
+   * @param stat  Stat to add
+   * @return the tooltip builder
+   */
+  public TooltipBuilder addOptional(IToolStat<?> stat) {
+    float value = tool.getStats().getFloat(stat);
+    if (value > 0) {
+      this.tooltips.add(stat.formatValue(value));
+    }
+    return this;
+  }
+
   /** Applies formatting for durability with a reference durability */
   public static ITextComponent formatDurability(int durability, int ref, boolean textIfBroken) {
     if (textIfBroken && durability == 0) {

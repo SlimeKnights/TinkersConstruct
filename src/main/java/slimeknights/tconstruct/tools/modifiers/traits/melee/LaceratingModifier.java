@@ -20,7 +20,7 @@ public class LaceratingModifier extends Modifier {
       target.setLastAttackedEntity(context.getAttacker());
       // potions are 0 indexed instead of 1 indexed
       // 81 ticks will do about 5 damage at level 1
-      TinkerModifiers.bleeding.get().apply(target, 1 + 20 * (2 + (RANDOM.nextInt(level + 3))), level - 1);
+      TinkerModifiers.bleeding.get().apply(target, 1 + 20 * (2 + (RANDOM.nextInt(level + 3))), level - 1, true);
     }
     return 0;
   }

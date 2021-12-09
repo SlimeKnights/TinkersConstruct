@@ -34,5 +34,22 @@
         "id": "tconstruct:sky_slime_sapling"
       }
     }
+  },
+  {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:slime_boots"
+      }
+    }
+  },
+  {
+    "name": "skull_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:skeleton_skull"
+      }
+    }
   }
 ]

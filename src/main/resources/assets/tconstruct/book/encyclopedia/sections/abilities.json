@@ -1,7 +1,7 @@
 [
   {
-    "name": "general",
-    "type": "tinkers_text",
+    "name": "group_general",
+    "type": "text",
     "data": "abilities/general.json"
   },
   {
@@ -18,8 +18,26 @@
   },
 
   {
-    "name": "harvest",
-    "type": "tinkers_text",
+    "name": "group_weapon",
+    "type": "text",
+    "data": "abilities/weapon.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/dual_wielding.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/melting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
+  },
+
+  {
+    "name": "group_harvest",
+    "type": "text",
     "data": "abilities/harvest.json"
   },
   {
@@ -44,26 +62,8 @@
   },
 
   {
-    "name": "weapon",
-    "type": "tinkers_text",
-    "data": "abilities/weapon.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/weapon/dual_wielding.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/weapon/melting.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/weapon/spilling.json"
-  },
-
-  {
-    "name": "interact",
-    "type": "tinkers_text",
+    "name": "group_interact",
+    "type": "text",
     "data": "abilities/interact.json"
   },
   {
@@ -89,5 +89,47 @@
   {
     "type": "modifier",
     "data": "abilities/interact/tilling.json"
+  },
+
+  {
+    "name": "group_armor",
+    "type": "text",
+    "data": "abilities/armor.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/aqua_affinity.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/bouncy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/double_jump.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/looting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/reach.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/slurping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/weapon/spilling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/unarmed_attack.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/zoom.json"
   }
 ]

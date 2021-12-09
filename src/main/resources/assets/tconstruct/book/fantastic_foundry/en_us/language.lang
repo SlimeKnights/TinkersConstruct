@@ -1,7 +1,7 @@
 // Sections - Fantastic Foundry
 intro=Introduction
+
 alloyer=Alloyer
-tier_four_materials=Tier 4 Materials
 
 foundry=Foundry
 foundry.features=Features
@@ -22,4 +22,12 @@ foundry.fgui2=Foundry GUI Explination
 blazing_blood=Blazing Blood
 blazing_blood.carry=Carrying
 blazing_blood.foundry=Foundry
+blazing_blood.head=Head Melting
 blazing_blood.melting=Melting
+blazing_blood.piglin_bartering=Pigling Bartering
+
+armor=Plate Armor
+armor.subtext=Armor is crafted in the Crafting Station instead of the Tinker Station or Anvil. The mighty plate armor boasts a high defense, but less modifiability. Who needs extra features when you can be protected?
+
+tier_four_materials=Tier 4 Materials
+tier_four_materials.subtext=Materials which require blazing blood to craft.

@@ -6,6 +6,8 @@ import slimeknights.tconstruct.library.data.material.AbstractMaterialStatsDataPr
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairKitStats;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
@@ -195,5 +197,22 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
 
     // tier 5
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
+
+    // slimeskull
+    addMaterialStats(MaterialIds.gunpowder,    new SkullStats( 60, 0));
+    addMaterialStats(MaterialIds.enderPearl,   new SkullStats(225, 0));
+    addMaterialStats(MaterialIds.bone,         new SkullStats(100, 0));
+    addMaterialStats(MaterialIds.bloodbone,    new SkullStats(175, 1));
+    addMaterialStats(MaterialIds.necroticBone, new SkullStats(125, 0));
+    addMaterialStats(MaterialIds.spider,       new SkullStats( 75, 0));
+    addMaterialStats(MaterialIds.venom,        new SkullStats( 65, 0));
+    addMaterialStats(MaterialIds.rottenFlesh,  new SkullStats(155, 2));
+    addMaterialStats(MaterialIds.potato,       new SkullStats(165, 2));
+    addMaterialStats(MaterialIds.fish,         new SkullStats(145, 2));
+    addMaterialStats(MaterialIds.blazingBone,  new SkullStats(205, 1));
+    // slimesuit
+    addMaterialStats(MaterialIds.phantom, new RepairKitStats(115));
+    addMaterialStats(MaterialIds.chorus,  new RepairKitStats( 65));
+    addMaterialStats(MaterialIds.rabbit,  new RepairKitStats(100));
   }
 }

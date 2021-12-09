@@ -59,6 +59,12 @@
     ],
     "subtitle": "subtitles.tconstruct.enderporting"
   },
+  "extra_jump": {
+    "sounds": [
+      "damage/fallsmall"
+    ],
+    "subtitle": "subtitles.tconstruct.extra_jump"
+  },
 
   "slimy_bounce": {
     "sounds": [
@@ -85,6 +91,58 @@
       "mob/slime/big4"
     ],
     "subtitle": "subtitles.tconstruct.equip.slime"
+  },
+  "equip.travelers": {
+    "sounds": [
+      "item/armor/equip_chain1",
+      "item/armor/equip_chain2",
+      "item/armor/equip_chain3",
+      "item/armor/equip_chain4",
+      "item/armor/equip_chain5",
+      "item/armor/equip_chain6"
+    ],
+    "subtitle": "subtitles.tconstruct.equip.travelers"
+  },
+  "equip.plate": {
+    "sounds": [
+      {
+        "name": "item/armor/equip_netherite1",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite2",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite3",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite4",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite1",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "item/armor/equip_netherite2",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "item/armor/equip_netherite3",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "item/armor/equip_netherite4",
+        "volume": 0.8,
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.tconstruct.equip.plate"
   },
 
   "frypan_hit": {

@@ -1,8 +1,8 @@
- {
-  "title":"Foundry GUI",
-    "image": {
-     "file": "tconstruct:book/images/foundrygui.png",
-	 "width": 161,
+{
+  "title": "Foundry GUI",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
     "height": 82
   },
   "text": [

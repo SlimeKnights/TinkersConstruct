@@ -8,7 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.client.book.data.BookData;
+import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.ArrowButton;
@@ -20,7 +22,6 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.CycleRecipeElement;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
-public class ContentModifier extends TinkerPage {
+public class ContentModifier extends PageContent {
   public static final transient String ID = "modifier";
   public static final transient int TEX_SIZE = 256;
   public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
@@ -64,8 +65,17 @@ public class ContentModifier extends TinkerPage {
   public String[] effects;
   public boolean more_text_space = false;
 
+  @SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal"})
+  @SerializedName("required_mod")
+  private String requiredMod = "";
+
   @SerializedName("modifier_id")
   public String modifierID;
+
+  /** Checks if this modifier has the required mods to load */
+  public boolean hasRequiredMod() {
+    return requiredMod == null || requiredMod.isEmpty() || ModList.get().isLoaded(requiredMod);
+  }
 
   @Override
   public void load() {
@@ -93,14 +103,15 @@ public class ContentModifier extends TinkerPage {
     this.addTitle(list, this.modifier.getDisplayName().getString(), true, this.modifier.getColor());
 
     // description
+    int y = getTitleHeight();
     int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
-    list.add(new TextElement(5, 16, BookScreen.PAGE_WIDTH - 10, h, text));
+    list.add(new TextElement(5, y, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {
       TextData head = new TextData(I18n.format(KEY_EFFECTS));
       head.underlined = true;
 
-      list.add(new TextElement(5, 16 + h, BookScreen.PAGE_WIDTH / 2 - 5, BookScreen.PAGE_HEIGHT - h - 20, head));
+      list.add(new TextElement(5, y + h, BookScreen.PAGE_WIDTH / 2 - 5, BookScreen.PAGE_HEIGHT - h - 20, head));
 
       List<TextData> effectData = Lists.newArrayList();
 
@@ -110,7 +121,7 @@ public class ContentModifier extends TinkerPage {
         effectData.add(new TextData("\n"));
       }
 
-      list.add(new TextElement(5, 30 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new TextElement(5, y + 14 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
     }
 
     if (recipes.size() > 1) {
@@ -134,7 +145,10 @@ public class ContentModifier extends TinkerPage {
   public void buildAndAddRecipeDisplay(BookData book, ArrayList<BookElement> list, @Nullable IDisplayModifierRecipe recipe, @Nullable BookScreen parent) {
     if (recipe != null) {
       List<List<ItemStack>> inputs = recipe.getDisplayItems();
-      ImageData img = IMG_SLOTS[inputs.size() - 2];
+      ImageData img = IMG_SLOTS[Math.min(inputs.size() - 2, 4)];
+      if (inputs.size() > 6) {
+        TConstruct.LOG.warn("Too many inputs in recipe {}, size {}", recipe, inputs.size() - 2);
+      }
       int[] slotsX = SLOTS_X;
       int[] slotsY = SLOTS_Y;
 
@@ -183,7 +197,7 @@ public class ContentModifier extends TinkerPage {
       this.parts.add(image);
       list.add(image);
 
-      for (int i = 1; i < inputs.size(); i++) {
+      for (int i = 1; i < Math.min(inputs.size(), 6); i++) {
         TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i - 1], imgY + slotsY[i - 1], 1f, inputs.get(i));
 
         if (parent != null)

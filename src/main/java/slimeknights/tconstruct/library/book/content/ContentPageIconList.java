@@ -7,18 +7,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
+import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
-import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.PageIconLinkElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class ContentPageIconList extends TinkerPage {
+public class ContentPageIconList extends PageContent {
 
   protected final int width;
   protected final int height;
@@ -70,7 +70,7 @@ public class ContentPageIconList extends TinkerPage {
     int yOff = 0;
     if (this.title != null) {
       this.addTitle(list, this.title, false);
-      yOff = 20;
+      yOff = getTitleHeight();
     }
 
     if(this.subText != null) {

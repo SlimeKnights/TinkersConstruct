@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/held"
+  },
+  "requirements": {
+    "name": "tconstruct:offhanded",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.offhanded.level_2"
+  },
+  "result": {
+    "name": "tconstruct:offhanded",
+    "level": 1
+  },
+  "max_level": 2
+}

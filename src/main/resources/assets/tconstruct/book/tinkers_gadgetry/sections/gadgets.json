@@ -11,12 +11,12 @@
   },
   {
     "name": "cake",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "gadgets/cake.json"
   },
   {
     "name": "piggybackpack",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "gadgets/piggybackpack.json"
   },
   {
@@ -40,7 +40,7 @@
   },
   {
     "name": "fancy_frames",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "gadgets/fancy_frame.json"
   },
   {

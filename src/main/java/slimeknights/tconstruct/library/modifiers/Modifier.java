@@ -3,13 +3,13 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -25,7 +25,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -40,8 +39,11 @@ import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -53,6 +55,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -66,6 +69,7 @@ import java.util.function.BiConsumer;
  * Interface representing both modifiers and traits.
  * Any behavior special to either one is handled elsewhere.
  */
+@SuppressWarnings("unused")
 @RequiredArgsConstructor
 public class Modifier implements IForgeRegistryEntry<Modifier> {
 
@@ -148,7 +152,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Translation key
    */
   protected String makeTranslationKey() {
-    return Util.makeTranslationKey("modifier", registryName);
+    return Util.makeTranslationKey("modifier", Objects.requireNonNull(registryName));
   }
 
   /**
@@ -241,12 +245,21 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Gets the description for this modifier, sensitive to the tool
+   * @param level Modifier level
+   * @return  Description for this modifier
+   */
+  public List<ITextComponent> getDescriptionList(int level) {
+    return getDescriptionList();
+  }
+
+  /**
+   * Gets the description for this modifier, sensitive to the tool
    * @param tool  Tool containing this modifier
    * @param level Modifier level
    * @return  Description for this modifier
    */
   public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
-    return getDescriptionList();
+    return getDescriptionList(level);
   }
 
   /** Converts a list of text components to a single text component, newline separated */
@@ -273,6 +286,19 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       description = listToComponent(getDescriptionList());
     }
     return description;
+  }
+
+  /**
+   * Gets the description for this modifier
+   * @return  Description for this modifier
+   */
+  public final ITextComponent getDescription(int level) {
+    // if the method is not overridden, use the cached description component
+    List<ITextComponent> extendedDescription = getDescriptionList(level);
+    if (extendedDescription == getDescriptionList()) {
+      return getDescription();
+    }
+    return listToComponent(extendedDescription);
   }
 
   /**
@@ -470,22 +496,56 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /* Interaction hooks */
 
+  /** @deprecated use {@link #beforeBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)} */
+  @Deprecated
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+    return ActionResultType.PASS;
+  }
+
+  /** @deprecated use {@link #afterBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)} */
+  @Deprecated
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+    return ActionResultType.PASS;
+  }
+
+  /** @deprecated use {@link #beforeEntityUse(IModifierToolStack, int, PlayerEntity, Entity, Hand, EquipmentSlotType)} */
+  @Deprecated
+  public ActionResultType onEntityUseFirst(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /** @deprecated use {@link #afterEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand, EquipmentSlotType)} */
+  @Deprecated
+  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /** @deprecated use {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)} */
+  @Deprecated
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
   /**
    * Called when this item is used when targeting a block, <i>before</i> the block is activated.
    * In general it is better to use {@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)} for consistency with vanilla items.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Runs after the block is activated, preferred hook. </li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #afterEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand, EquipmentSlotType)}: Processes use actions on entities.</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)}: Runs after the block is activated, preferred hook. </li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param context        Full item use context
+   * @param slot           Slot performing interaction, may mismatch the hand in context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slot) {
+    if (slot.getSlotType() == Group.HAND) {
+      return beforeBlockUse(tool, level, context);
+    }
     return ActionResultType.PASS;
   }
 
@@ -495,81 +555,97 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
-   *   <li>{@link #beforeBlockUse(IModifierToolStack, int, ItemUseContext)}: Runs before the block is activated, can be used to prevent block interaction entirely but less consistent with vanilla </li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #afterEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand, EquipmentSlotType)}: Processes use actions on entities.</li>
+   *   <li>{@link #beforeBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)}: Runs before the block is activated, can be used to prevent block interaction entirely but less consistent with vanilla </li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param context        Full item use context
+   * @param slot           Slot performing interaction, may mismatch the hand in context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slot) {
+    if (slot.getSlotType() == Group.HAND) {
+      return afterBlockUse(tool, level, context);
+    }
     return ActionResultType.PASS;
   }
 
   /**
-    * Called when this item is used when targeting an entity. Runs before the native entity interaction hooks and on all entities instead of just living
+   * Called when this item is used when targeting an entity. Runs before the native entity interaction hooks and on all entities instead of just living
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Standard interaction hook, generally preferred over this one</li>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #afterEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand, EquipmentSlotType)}: Standard interaction hook, generally preferred over this one</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param player         Player holding tool
    * @param target         Target
-   * @param hand           Current hand
+   * @param hand           Hand performing interaction, for chestplates this may be either hand, for all other slots it is the hand that slot is simulating
+   * @param slot           Slot performing interaction
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onEntityUseFirst(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand) {
+  public ActionResultType beforeEntityUse(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand, EquipmentSlotType slot) {
+    if (slot.getSlotType() == Group.HAND) {
+      return onEntityUseFirst(tool, level, player, target, hand);
+    }
     return ActionResultType.PASS;
   }
 
   /**
-   * Called when this item is used when targeting an entity.
+   * Called when this item is used when targeting an entity, after normal interaction
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onEntityUseFirst(IModifierToolStack, int, PlayerEntity, Entity, Hand)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #beforeEntityUse(IModifierToolStack, int, PlayerEntity, Entity, Hand, EquipmentSlotType)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param player         Player holding tool
    * @param target         Target
-   * @param hand           Current hand
+   * @param hand           Hand performing interaction, for chestplates this may be either hand, for all other slots it is the hand that slot is simulating
+   * @param slot           Slot performing interaction
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
+  public ActionResultType afterEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand, EquipmentSlotType slot) {
+    if (slot.getSlotType() == Group.HAND) {
+      return onEntityUse(tool, level, player, target, slot == EquipmentSlotType.OFFHAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
+    }
     return ActionResultType.PASS;
   }
 
   /**
-    * Called when this item is used, after all other hooks PASS.
+   * Called when this item is used, after all other hooks PASS.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext, EquipmentSlotType)}: Processes use actions on blocks.</li>
+   *   <li>{@link #afterEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand, EquipmentSlotType)}: Processes use actions on entities.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param world          World containing tool
    * @param player         Player holding tool
-   * @param hand           Current hand
+   * @param hand           Hand performing interaction, for chestplates this may be either hand, for all other slots it is the hand that slot is simulating
+   * @param slot           Slot performing interaction
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slot) {
+    if (slot.getSlotType() == Group.HAND) {
+      return onToolUse(tool, level, world, player, slot == EquipmentSlotType.OFFHAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
+    }
     return ActionResultType.PASS;
   }
 
   /**
    * Called when the player stops using the tool.
-   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}.
    * <br>
    * Alternatives:
    * <ul>
@@ -588,7 +664,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when the use duration on this tool reaches the end.
-   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
    * <br>
    * Alternatives:
    * <ul>
@@ -783,6 +859,126 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {}
 
 
+  /* Armor */
+
+  /**
+   * Gets the protection value of the armor from this modifier. A value of 1 blocks about 4% of damage, equivalent to 1 level of the protection enchantment.
+   * Maximum effect is 80% reduction from a modifier value of 20. Can also go negative, up to 180% increase from a modifier value of -20
+   * <br/>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #isSourceBlocked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
+   *   <li>{@link #onAttacked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   * </ul>
+   * @param tool            Worn armor
+   * @param level           Modifier level
+   * @param context         Equipment context of the entity wearing the armor
+   * @param slotType        Slot containing the armor
+   * @param source          Damage source
+   * @param modifierValue   Modifier value from previous modifiers to add
+   * @return  New modifier value
+   */
+  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
+    return modifierValue;
+  }
+
+  /**
+   * Checks if this modifier blocks damage from the given source.
+   * <br/>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #getProtectionModifier(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
+   *   <li>{@link #onAttacked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   * </ul>
+   * @param tool       Tool being used
+   * @param level      Level of the modifier
+   * @param context    Context of entity and other equipment
+   * @param slotType   Slot containing the tool
+   * @param source     Damage source causing the attack
+   * @param amount     Amount of damage caused
+   * @return True if this attack should be blocked entirely
+   */
+  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount) {
+    return false;
+  }
+
+  /**
+   * Runs after an entity is attacked (and we know the attack will land). Note you can attack the entity here, but you are responsible for preventing infinite recursion if you do so (by detecting your own attack source for instance)
+   * <br/>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #isSourceBlocked(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
+   *   <li>{@link #getProtectionModifier(IModifierToolStack, int, EquipmentContext, EquipmentSlotType, DamageSource, float)}: Allows reducing the attack damage.</li>
+   * </ul>
+   * @param tool             Tool being used
+   * @param level            Level of the modifier
+   * @param context          Context of entity and other equipment
+   * @param slotType         Slot containing the tool
+   * @param source           Damage source causing the attack
+   * @param amount           Amount of damage caused
+   * @param isDirectDamage   If true, this attack is direct damage from an entity
+   */
+  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {}
+
+  /**
+   * Called when an entity is attacked and this entity is the attacker
+   * @param tool             Tool being used
+   * @param level            Level of the modifier
+   * @param context          Context of entity and other equipment
+   * @param slotType         Slot containing the tool
+   * @param target           Entity that was attacked
+   * @param source           Damage source used in the attack
+   * @param amount           Amount of damage caused
+   * @param isDirectDamage   If true, this attack is direct damage from an entity
+   */
+  public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
+
+  /* Equipment events */
+
+  /**
+   * Called when a tinker tool is unequipped from an entity
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEquip(IModifierToolStack, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
+   *   <li>{@link #onEquipmentChange(IModifierToolStack, int, EquipmentChangeContext, EquipmentSlotType)}: Called on all other slots that did not change</li>
+   * </ul>
+   * @param tool         Tool unequipped
+   * @param level        Level of the modifier
+   * @param context      Context about the event
+   */
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {}
+
+  /**
+   * Called when a tinker tool is equipped to an entity
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onUnequip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
+   *   <li>{@link #onEquipmentChange(IModifierToolStack, int, EquipmentChangeContext, EquipmentSlotType)}: Called on all other slots did not change</li>
+   * </ul>
+   * @param tool         Tool equipped
+   * @param level        Level of the modifier
+   * @param context      Context about the event
+   */
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {}
+
+  /**
+   * Called when a stack in a different slot changed. Not called on the slot that changed
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onUnequip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
+   *   <li>{@link #onEquip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
+   * </ul>
+   * @param tool      Tool instance
+   * @param level     Modifier level
+   * @param context   Context describing the change
+   * @param slotType  Slot containing this tool, did not change
+   */
+  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {}
+
+
   /* Display */
 
   /**
@@ -856,10 +1052,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   @Nullable
   public static ToolStack getHeldTool(@Nullable LivingEntity living, Hand hand) {
+    return getHeldTool(living, Util.getSlotType(hand));
+  }
+
+  /**
+   * Gets the tool stack from the given entities mainhand. Useful for specialized event handling in modifiers
+   * @param living  Entity instance
+   * @return  Tool stack
+   */
+  @Nullable
+  public static ToolStack getHeldTool(@Nullable LivingEntity living, EquipmentSlotType slot) {
     if (living == null) {
       return null;
     }
-    ItemStack stack = living.getHeldItem(hand);
+    ItemStack stack = living.getItemStackFromSlot(slot);
     if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
       return null;
     }
@@ -897,7 +1103,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       }
     }
     // water
-    if (entity.areEyesInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
+    if (entity.areEyesInFluid(FluidTags.WATER) && !ModifierUtil.hasAquaAffinity(entity)) {
       modifier /= 5.0F;
     }
     if (!entity.isOnGround()) {
@@ -916,7 +1122,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, ITag<Item> condition, float amount, List<ITextComponent> tooltip) {
     if (tool.hasTag(condition)) {
-      tooltip.add(applyStyle(new StringTextComponent("+" + slimeknights.tconstruct.library.utils.Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
+      tooltip.add(applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
                                .appendString(" ")
                                .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
     }
@@ -929,6 +1135,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tooltip  Tooltip
    */
   protected void addDamageTooltip(IModifierToolStack tool, float amount, List<ITextComponent> tooltip) {
-    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE, amount, tooltip);
+    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
+  }
+
+  /** Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules */
+  @SuppressWarnings("unchecked")
+  @Nullable
+  protected static <M, E> E tryModuleMatch(Class<E> expected, Class<M> moduleType, M module) {
+    if (moduleType == expected) {
+      return (E) module;
+    }
+    return null;
   }
 }

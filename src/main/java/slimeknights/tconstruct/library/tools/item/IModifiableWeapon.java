@@ -10,6 +10,9 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
  * Interface for extra hooks needed on modifyable weapons
  */
 public interface IModifiableWeapon {
+  /** Weapon with default behavior */
+  IModifiableWeapon DEFAULT = new IModifiableWeapon() {};
+
   /**
    * Actually deal damage to the entity we hit. Can be overridden for special behaviour
    *

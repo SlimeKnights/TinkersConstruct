@@ -17,9 +17,14 @@
       "tag": "forge:slimeball/ender"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
   "slots": {
     "abilities": 1
   },

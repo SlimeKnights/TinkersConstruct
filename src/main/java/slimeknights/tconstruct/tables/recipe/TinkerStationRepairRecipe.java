@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInvent
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -24,8 +25,8 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import javax.annotation.Nullable;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
@@ -75,10 +76,11 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   /** Gets the default stats ID to use if the item is not a tool part */
+  @Nullable
   public static MaterialStatsId getDefaultStatsId(IModifierToolStack tool, IMaterial repairMaterial) {
     int repairIndex = getRepairIndex(tool, repairMaterial);
     if (repairIndex < 0) {
-      return HeadMaterialStats.ID; // should never happen, but just for safety
+      return null; // default to the first repair stats
     }
     return tool.getDefinition().getData().getParts().get(repairIndex).getStatType();
   }
@@ -87,17 +89,18 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   protected float getRepairPerItem(ToolStack tool, ITinkerStationInventory inv, int slot, IMaterial repairMaterial) {
     ItemStack stack = inv.getInput(slot);
     // repair kit first
+    ToolDefinitionData toolData = tool.getDefinition().getData();
     if (stack.getItem() == TinkerToolParts.repairKit.get()) {
       // multiply by 2 (part cost), divide again by the repair factor to get the final percent
-      return MaterialRecipe.getRepairDurability(repairMaterial.getIdentifier(), getDefaultStatsId(tool, repairMaterial)) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
+      return MaterialRecipe.getRepairDurability(toolData, repairMaterial.getIdentifier(), getDefaultStatsId(tool, repairMaterial)) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
     } else {
       // material recipe fallback
       MaterialRecipe recipe = inv.getInputMaterial(slot);
       if (recipe != null) {
         if (stack.getItem() instanceof IToolPart) {
-          return recipe.getRepairPerItem(((IToolPart)stack.getItem()).getStatType());
+          return recipe.getRepairPerItem(toolData, ((IToolPart)stack.getItem()).getStatType());
         }
-        return recipe.getRepairPerItem(getDefaultStatsId(tool, repairMaterial));
+        return recipe.getRepairPerItem(toolData, getDefaultStatsId(tool, repairMaterial));
       }
     }
     return 0;

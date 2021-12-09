@@ -4,6 +4,7 @@
     "type": "index",
     "data": "foundry/index.json"
   },
+
   {
     "name": "features",
     "type": "text",
@@ -29,6 +30,21 @@
     "type": "text",
     "data": "foundry/structurerequirements.json"
   },
+  {
+    "name": "hidden",
+    "type": "right_padding"
+  },
+  {
+    "name": "fgui1",
+    "type": "image with text below",
+    "data": "foundry/gui1.json"
+  },
+  {
+    "name": "fgui2",
+    "type": "text",
+    "data": "foundry/gui2.json"
+  },
+
   {
     "name": "scorched_tanks",
     "type": "showcase",
@@ -63,19 +79,5 @@
     "name": "scorched_chute",
     "type": "showcase",
     "data": "foundry/scorched_chute.json"
-  },
-  {
-    "name": "hidden",
-    "type": "right_padding"
-  },
-  {
-    "name": "fgui1",
-    "type": "imageText2",
-    "data": "foundry/gui1.json"
-  },
-  {
-    "name": "fgui2",
-    "type": "text",
-    "data": "foundry/gui2.json"
   }
 ]

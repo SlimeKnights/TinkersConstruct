@@ -84,6 +84,9 @@ public class IncrementalModifier extends Modifier {
    * @return  Level, possibly reduced by an incomplete level
    */
   public float getScaledLevel(IModDataReadOnly persistentData, int level) {
+    if (level <= 0) {
+      return 0;
+    }
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
     if (neededPerLevel > 0) {
       // if amount == needed per level, returns level

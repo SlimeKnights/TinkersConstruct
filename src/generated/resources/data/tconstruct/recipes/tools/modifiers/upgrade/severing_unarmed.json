@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:wither_bones"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "forge:wither_bones"
+    },
+    {
+      "item": "minecraft:tnt"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "requirements": {
+    "name": "tconstruct:unarmed",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.unarmed"
+  },
+  "result": {
+    "name": "tconstruct:severing",
+    "level": 1
+  },
+  "max_level": 5
+}

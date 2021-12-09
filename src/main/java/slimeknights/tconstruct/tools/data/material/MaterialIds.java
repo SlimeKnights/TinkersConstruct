@@ -61,6 +61,19 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
 
+  // slimeskull
+  public static final MaterialId gunpowder = id("gunpowder");
+  public static final MaterialId enderPearl = id("ender_pearl");
+  public static final MaterialId spider = id("spider");
+  public static final MaterialId venom = id("venom");
+  public static final MaterialId rottenFlesh = id("rotten_flesh");
+  public static final MaterialId potato = id("potato");
+  public static final MaterialId fish = id("fish");
+  // slimesuit
+  public static final MaterialId phantom = id("phantom");
+  public static final MaterialId chorus = id("chorus");
+  public static final MaterialId rabbit = id("rabbit");
+
   /**
    * Creates a new material ID
    * @param name  ID name

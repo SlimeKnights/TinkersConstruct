@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.materials.definition;
 
 import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.TConstruct;
 
 public interface IMaterial extends Comparable<IMaterial> {
@@ -36,6 +38,22 @@ public interface IMaterial extends Comparable<IMaterial> {
    */
   default String getTranslationKey() {
     return Util.makeTranslationKey("material", getIdentifier());
+  }
+
+  /**
+   * Gets the display name for this material
+   * @return the translation key
+   */
+  default ITextComponent getDisplayName() {
+    return new TranslationTextComponent(getTranslationKey());
+  }
+
+  /**
+   * Gets the display name for this material
+   * @return the translation key
+   */
+  default ITextComponent getColoredDisplayName() {
+    return new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(getColor()));
   }
 
   /**

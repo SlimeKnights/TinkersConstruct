@@ -8,6 +8,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -195,5 +196,75 @@ public class ToolDamageUtil {
     // ensure we never repair more than max durability
     int newDamage = damage - Math.min(amount, damage);
     tool.setDamage(newDamage);
+  }
+
+
+  /* Durability display */
+
+
+  public static boolean showDurabilityBar(ItemStack stack) {
+    if (!stack.getItem().isDamageable()) {
+      return false;
+    }
+    ToolStack tool = ToolStack.from(stack);
+    // if any modifier wishes to show when undamaged, let them
+    for (ModifierEntry entry : tool.getModifierList()) {
+      Boolean show = entry.getModifier().showDurabilityBar(tool, entry.getLevel());
+      if (show != null) {
+        return show;
+      }
+    }
+    return tool.getDamage() > 0;
+  }
+
+  /**
+   * Helper to avoid unneeded tool stack parsing
+   * @param tool  Tool stack
+   * @return  Durability for display
+   */
+  private static double getDamagePercentage(ToolStack tool) {
+    // first modifier who wishs to handle it wins
+    for (ModifierEntry entry : tool.getModifierList()) {
+      double display = entry.getModifier().getDamagePercentage(tool, entry.getLevel());
+      if (!Double.isNaN(display)) {
+        return display;
+      }
+    }
+
+    // no one took it? just use regular durability
+    return (double) tool.getDamage() / tool.getStats().getInt(ToolStats.DURABILITY);
+  }
+
+  /**
+   * Gets the durability to display on the stack durability bar
+   * @param stack  Stack instance
+   * @return  Damage taken between 0 and 1
+   */
+  public static double getDamageForDisplay(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
+      return 1;
+    }
+    // always show at least 5% when not broken
+    return 0.95 * getDamagePercentage(tool);
+  }
+
+  /**
+   * Gets the RGB to display durability at
+   * @param stack  Stack instance
+   * @return  RGB value
+   */
+  public static int getRGBDurabilityForDisplay(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+
+    // first modifier who wishs to handle it wins
+    for (ModifierEntry entry : tool.getModifierList()) {
+      int rgb = entry.getModifier().getDurabilityRGB(tool, entry.getLevel());
+      // not a problem to check against -1, the top 16 bits are unused
+      if (rgb != -1) {
+        return rgb;
+      }
+    }
+    return MathHelper.hsvToRGB(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
   }
 }

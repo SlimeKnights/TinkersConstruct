@@ -8,6 +8,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
@@ -18,6 +19,8 @@ import java.util.List;
 /** Special modifier ingredient renderer used for ingredients in the bookmark menu */
 public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<ModifierEntry> {
   INSTANCE;
+
+  private static final String WRAPPER_KEY = "jei.tconstruct.modifier_ingredient";
 
   @Override
   public void render(MatrixStack matrixStack, int x, int y, @Nullable ModifierEntry entry) {
@@ -34,7 +37,7 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
   @Override
   public List<ITextComponent> getTooltip(ModifierEntry entry, ITooltipFlag flag) {
     List<ITextComponent> list = new ArrayList<>();
-    list.add(entry.getModifier().getDisplayName(entry.getLevel()));
+    list.add(new TranslationTextComponent(WRAPPER_KEY, new TranslationTextComponent(entry.getModifier().getTranslationKey())));
     if (flag.isAdvanced()) {
       list.add((new StringTextComponent(entry.getModifier().getId().toString())).mergeStyle(TextFormatting.DARK_GRAY));
     }

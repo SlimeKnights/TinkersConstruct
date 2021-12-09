@@ -329,4 +329,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       SlotCount.write(recipe.getSlots(), buffer);
     }
   }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + '{' + id + '}';
+  }
 }

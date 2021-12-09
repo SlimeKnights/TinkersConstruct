@@ -13,7 +13,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
@@ -24,6 +26,7 @@ import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
+import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
@@ -37,6 +40,9 @@ import slimeknights.tconstruct.tools.data.material.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.item.SlimelytraItem;
+import slimeknights.tconstruct.tools.item.SlimeskullItem;
 import slimeknights.tconstruct.tools.item.broad.BroadAxeTool;
 import slimeknights.tconstruct.tools.item.broad.CleaverTool;
 import slimeknights.tconstruct.tools.item.broad.ExcavatorTool;
@@ -50,6 +56,7 @@ import slimeknights.tconstruct.tools.item.small.MattockTool;
 import slimeknights.tconstruct.tools.item.small.PickaxeTool;
 import slimeknights.tconstruct.tools.item.small.SweepingSwordTool;
 import slimeknights.tconstruct.tools.item.small.SwordTool;
+import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher;
 
 import java.util.function.Supplier;
 
@@ -90,6 +97,15 @@ public final class TinkerTools extends TinkerModule {
 
   public static final ItemObject<ModifiableItem> flintAndBronze = ITEMS.register("flint_and_bronze", () -> new ModifiableItem(TOOL.get(), ToolDefinitions.FLINT_AND_BRONZE));
 
+  // armor
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.TRAVELERS, type, TOOL.get()));
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorSlotType.values(), type -> new ModifiableArmorItem(ArmorDefinitions.PLATE, type, TOOL.get()));
+  public static final EnumObject<ArmorSlotType,ModifiableArmorItem> slimesuit = new EnumObject.Builder<ArmorSlotType,ModifiableArmorItem>(ArmorSlotType.class)
+    .putAll(ITEMS.registerEnum("slime", new ArmorSlotType[] {ArmorSlotType.BOOTS, ArmorSlotType.LEGGINGS}, type -> new ModifiableArmorItem(ArmorDefinitions.SLIMESUIT, type, TOOL.get())))
+    .put(ArmorSlotType.CHESTPLATE, ITEMS.register("slime_chestplate", () -> new SlimelytraItem(ArmorDefinitions.SLIMESUIT, TOOL.get())))
+    .put(ArmorSlotType.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, TOOL.get())))
+    .build();
+
   /*
    * Particles
    */
@@ -108,6 +124,11 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Events
    */
+
+  @SubscribeEvent
+  void commonSetup(FMLCommonSetupEvent event) {
+    EquipmentChangeWatcher.register();
+  }
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {

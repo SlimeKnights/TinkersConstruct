@@ -18,6 +18,7 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
@@ -55,6 +56,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -70,6 +72,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -110,6 +113,15 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     return -1;
   };
 
+  /**
+   * Registers an item color handler for a part item
+   * @param colors  Item colors instance
+   * @param item    Material item
+   */
+  public static void registerItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
+    colors.register(ToolModel.COLOR_HANDLER, item.get());
+  }
+
   /** List of tool parts in this model */
   private final List<ToolPart> toolParts;
   /** If true, this is a large tool and uses double resolution textures in hand */
@@ -140,14 +152,29 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       }
     } else {
       for (ToolPart part : toolParts) {
-        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false), null);
-        if (part.hasBroken()) {
-          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
-        }
-        if (isLarge) {
-          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
+        // if material variants, fetch textures from the material model
+        if (part.hasMaterials()) {
+          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false), null);
           if (part.hasBroken()) {
-            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
+            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
+          }
+          if (isLarge) {
+            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
+            if (part.hasBroken()) {
+              MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
+            }
+          }
+        } else {
+          // static texture
+          allTextures.add(owner.resolveTexture(part.getName(false, false)));
+          if (part.hasBroken()) {
+            allTextures.add(owner.resolveTexture(part.getName(true, false)));
+          }
+          if (isLarge) {
+            allTextures.add(owner.resolveTexture(part.getName(false, true)));
+            if (part.hasBroken()) {
+              allTextures.add(owner.resolveTexture(part.getName(true, true)));
+            }
           }
         }
       }
@@ -235,15 +262,25 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     } else {
       for (int i = parts.size() - 1; i >= 0; i--) {
         ToolPart part = parts.get(i);
-        int index = part.getIndex();
-        MaterialId material = null;
-        if (index < materials.size()) {
-          material = materials.get(index);
-        }
-        // add needed quads
-        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), -1, material, smallPixels);
-        if (largeTransforms != null) {
-          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), -1, material, largePixels);
+        if (part.hasMaterials()) {
+          // part with materials
+          int index = part.getIndex();
+          MaterialId material = null;
+          if (index < materials.size()) {
+            material = materials.get(index);
+          }
+          // add needed quads
+          particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), -1, material, smallPixels);
+          if (largeTransforms != null) {
+            MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), -1, material, largePixels);
+          }
+        } else {
+          // part without materials
+          particle = spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, false)));
+          smallConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, particle, TransformationMatrix.identity()));
+          if (largeTransforms != null) {
+            largeConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, true))), largeTransforms));
+          }
         }
       }
     }
@@ -284,6 +321,11 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       return broken != null;
     }
 
+    /** If true, this part has material variants */
+    public boolean hasMaterials() {
+      return index >= 0;
+    }
+
     /**
      * Gets the name for this part
      * @param isBroken  If true, this part is broken
@@ -304,7 +346,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     /** Reads a part from JSON */
     public static ToolPart read(JsonObject json) {
       String name = JSONUtils.getString(json, "name");
-      int index = JSONUtils.getInt(json, "index");
+      int index = JSONUtils.getInt(json, "index", -1);
       String broken = null;
       if (json.has("broken")) {
         broken = JSONUtils.getString(json, "broken");

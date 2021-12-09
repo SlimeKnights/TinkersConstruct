@@ -41,6 +41,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
@@ -214,6 +215,12 @@ public class TConstruct {
         // frame migration
         case "cobalt_item_frame": return TinkerGadgets.itemFrame.get(FrameType.DIAMOND);
         case "jewel_item_frame": return TinkerGadgets.itemFrame.get(FrameType.GOLD);
+        // slime boots to modifier
+        case "earth_slime_boots": return TinkerWorld.slime.get(SlimeType.EARTH).asItem();
+        case "sky_slime_boots": return TinkerWorld.slime.get(SlimeType.SKY).asItem();
+        case "ichor_slime_boots": return TinkerWorld.slime.get(SlimeType.ICHOR).asItem();
+        case "ender_slime_boots": return TinkerWorld.slime.get(SlimeType.ENDER).asItem();
+        case "blood_slime_boots": return TinkerWorld.slime.get(SlimeType.BLOOD).asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -265,6 +272,15 @@ public class TConstruct {
    */
   public static ResourceLocation getResource(String name) {
     return new ResourceLocation(MOD_ID, name);
+  }
+
+  /**
+   * Gets a data key for the capability, mainly used for modifier markers
+   * @param name  Resource path
+   * @return  Location for tinkers
+   */
+  public static <T> TinkerDataKey<T> createKey(String name) {
+    return TinkerDataKey.of(getResource(name));
   }
 
   /**

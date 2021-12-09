@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:thorns",
+  "min_level": 1,
+  "salvage": {
+    "item": "minecraft:cactus",
+    "full": false
+  }
+}

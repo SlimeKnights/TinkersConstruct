@@ -6,11 +6,6 @@
   "color": "2A2A2A",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:necrotic_bone",
-    "fallbacks": [
-      "bone",
-      "rock"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

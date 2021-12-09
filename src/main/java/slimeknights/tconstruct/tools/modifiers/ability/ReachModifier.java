@@ -4,7 +4,6 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraftforge.common.ForgeMod;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -28,9 +27,7 @@ public class ReachModifier extends Modifier {
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
     if (slot != EquipmentSlotType.OFFHAND) {
-      // its very strong on armor, so less of a boost
-      float bonus = slot.getSlotType() == Group.ARMOR ? 0.5f : 1.0f;
-      consumer.accept(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_UUIDS[slot.getSlotIndex()], "tconstruct.modifier.reach", bonus * level, Operation.ADDITION));
+      consumer.accept(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_UUIDS[slot.getSlotIndex()], "tconstruct.modifier.reach", level, Operation.ADDITION));
     }
   }
 }

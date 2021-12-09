@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -19,6 +20,7 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.shared.client.FluidParticle;
 
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
@@ -60,6 +62,11 @@ public class CommonsClientEvents extends ClientEventBase {
       registerBlockItemColorAlias(blockColors, itemColors, block);
       registerBlockItemColorAlias(blockColors, itemColors, pane);
     }
+  }
+
+  @SubscribeEvent
+  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+    Minecraft.getInstance().particles.registerFactory(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
   }
 
   private static FontRenderer unicodeRenderer;

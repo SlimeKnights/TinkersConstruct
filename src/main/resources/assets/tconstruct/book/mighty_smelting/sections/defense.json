@@ -1,0 +1,53 @@
+[
+  {
+    "name": "group_protection",
+    "type": "text",
+    "data": "defense/protection.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/blast.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/fire.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/magic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/melee.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/projectile.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/turtle_shell.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/protection/dragonborn.json"
+  },
+
+  {
+    "name": "group_special",
+    "type": "text",
+    "data": "defense/special.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/special/golden.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/special/knockback_resistance.json"
+  },
+  {
+    "type": "modifier",
+    "data": "defense/special/revitalizing.json"
+  }
+]

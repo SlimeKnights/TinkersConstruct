@@ -54,10 +54,10 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     // slots
     assertThat(data.getSlots().containedTypes()).hasSize(3);
     assertThat(data.getSlots().containedTypes()).contains(SlotType.UPGRADE);
-    assertThat(data.getSlots().containedTypes()).contains(SlotType.ARMOR);
+    assertThat(data.getSlots().containedTypes()).contains(SlotType.DEFENSE);
     assertThat(data.getSlots().containedTypes()).contains(SlotType.ABILITY);
     assertThat(data.getStartingSlots(SlotType.UPGRADE)).isEqualTo(3);
-    assertThat(data.getStartingSlots(SlotType.ARMOR)).isEqualTo(2);
+    assertThat(data.getStartingSlots(SlotType.DEFENSE)).isEqualTo(2);
     assertThat(data.getStartingSlots(SlotType.ABILITY)).isEqualTo(1);
     // traits
     assertThat(data.getTraits()).hasSize(2);

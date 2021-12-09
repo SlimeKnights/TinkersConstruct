@@ -1,0 +1,32 @@
+[
+  {
+    "name": "index",
+    "type": "index",
+    "data": "modifiers/index.json"
+  },
+  {
+    "name": "traits",
+    "type": "text",
+    "data": "modifiers/traits.json"
+  },
+  {
+    "name": "upgrades",
+    "type": "text",
+    "data": "modifiers/upgrades.json"
+  },
+  {
+    "name": "slotless",
+    "type": "text",
+    "data": "modifiers/slotless.json"
+  },
+  {
+    "name": "abilities",
+    "type": "text",
+    "data": "modifiers/abilities.json"
+  },
+  {
+    "name": "defense",
+    "type": "text",
+    "data": "modifiers/defense.json"
+  }
+]

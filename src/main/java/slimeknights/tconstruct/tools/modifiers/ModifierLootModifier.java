@@ -31,7 +31,7 @@ public class ModifierLootModifier extends LootModifier {
       Entity entity = context.get(LootParameters.KILLER_ENTITY);
       if (entity instanceof LivingEntity) {
         LivingEntity living = (LivingEntity) entity;
-        stack = living.getHeldItem(ModifierLootingHandler.getLootingHand(living));
+        stack = living.getItemStackFromSlot(ModifierLootingHandler.getLootingSlot(living));
       }
     }
     // hopefully one of the two worked

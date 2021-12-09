@@ -16,14 +16,18 @@ import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -157,28 +161,48 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
     return itemCost * this.needed % this.value;
   }
 
+  /** @deprecated use {@link #getRepairPerItem(ToolDefinitionData, MaterialStatsId)} */
+  public float getRepairPerItem(@Nullable MaterialStatsId statsId) {
+    return getRepairPerItem(ToolDefinitionData.EMPTY, statsId);
+  }
+
   /**
    * Gets the amount to repair per item for tool repair
+   * @param data     Tool defintion data for fallback
+   * @param statsId  Preferred stats ID, if null no preference
    * @return  Float amount per item to repair
    */
-  public float getRepairPerItem(MaterialStatsId statsId) {
+  public float getRepairPerItem(ToolDefinitionData data, @Nullable MaterialStatsId statsId) {
     if (repairPerItem == null) {
       // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by ingots per repair
-      repairPerItem = this.getValue() * getRepairDurability(materialId, statsId) / INGOTS_PER_REPAIR / this.getNeeded();
+      repairPerItem = this.getValue() * getRepairDurability(data, materialId, statsId) / INGOTS_PER_REPAIR / this.getNeeded();
     }
     return repairPerItem;
   }
 
+  /** @deprecated use {@link #getRepairDurability(ToolDefinitionData, MaterialId, MaterialStatsId)} */
+  @Deprecated
+  public static int getRepairDurability(MaterialId materialId, @Nullable MaterialStatsId statsId) {
+    return getRepairDurability(ToolDefinitionData.EMPTY, materialId, statsId);
+  }
+
   /**
    * Gets the head durability for the given material
-   * @param materialId  Material
+   * @param toolData      Stats fallback for missing tool materials
+   * @param materialId    Material
+   * @param statsId       Stats to use for repair, if null uses the first found stats with durability
    * @return  Head durability
    */
-  public static int getRepairDurability(MaterialId materialId, MaterialStatsId statsId) {
-    return MaterialRegistry.getInstance().getMaterialStats(materialId, statsId)
-      .filter(stats -> stats instanceof IRepairableMaterialStats)
-      .map(stats -> ((IRepairableMaterialStats)stats).getDurability())
-      .orElse(0);
+  public static int getRepairDurability(ToolDefinitionData toolData, MaterialId materialId, @Nullable MaterialStatsId statsId) {
+    Optional<IMaterialStats> optional;
+    if (statsId != null) {
+      // if given an ID, use that stat type
+      optional = MaterialRegistry.getInstance().getMaterialStats(materialId, statsId).filter(stats -> stats instanceof IRepairableMaterialStats);
+    } else {
+      // if no ID given, just find the first repairable stats
+      optional = MaterialRegistry.getInstance().getAllStats(materialId).stream().filter(stats -> stats instanceof IRepairableMaterialStats).findFirst();
+    }
+    return optional.map(stats -> ((IRepairableMaterialStats)stats).getDurability()).orElseGet(() -> (int)toolData.getBaseStat(ToolStats.DURABILITY));
   }
 
   /**

@@ -32,7 +32,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/held"
+    "tag": "tconstruct:modifiable/interactable"
   },
   "slots": {
     "abilities": 1

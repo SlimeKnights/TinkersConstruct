@@ -31,9 +31,14 @@
       "tag": "forge:ingots/copper"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/held"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
   "slots": {
     "abilities": 1
   },

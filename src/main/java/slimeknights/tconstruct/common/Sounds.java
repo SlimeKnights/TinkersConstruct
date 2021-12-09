@@ -27,6 +27,7 @@ public enum Sounds {
   // modifiers
   NECROTIC_HEAL,
   ENDERPORTING,
+  EXTRA_JUMP,
 
   // entity
   SLIME_TELEPORT,
@@ -34,6 +35,8 @@ public enum Sounds {
 
   // equip sounds
   EQUIP_SLIME("equip.slime"),
+  EQUIP_TRAVELERS("equip.travelers"),
+  EQUIP_PLATE("equip.plate"),
 
   // unused
   FRYING_PAN_BOING("frypan_hit"),

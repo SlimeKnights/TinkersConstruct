@@ -1,7 +1,7 @@
 [
   {
-	"name": "slotless",
-    "type": "tinkers_text",
+    "name": "group_slotless",
+    "type": "text",
     "data": "slotless/slotless.json"
   },
   {
@@ -12,13 +12,14 @@
     "type": "modifier",
     "data": "slotless/general/shiny.json"
   },
-   {
+  {
     "type": "modifier",
     "data": "slotless/general/worldbound.json"
   },
+
   {
-    "name": "bonus_upgrades",
-    "type": "tinkers_text",
+    "name": "group_bonus_upgrades",
+    "type": "text",
     "data": "slotless/bonus_upgrades.json"
   },
   {

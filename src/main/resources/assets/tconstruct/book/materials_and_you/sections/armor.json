@@ -1,0 +1,22 @@
+[
+  {
+    "name": "travelers_goggles",
+    "type": "tool",
+    "data": "armor/goggles.json"
+  },
+  {
+    "name": "travelers_vest",
+    "type": "tool",
+    "data": "armor/vest.json"
+  },
+  {
+    "name": "travelers_pants",
+    "type": "tool",
+    "data": "armor/pants.json"
+  },
+  {
+    "name": "travelers_boots",
+    "type": "tool",
+    "data": "armor/boots.json"
+  }
+]

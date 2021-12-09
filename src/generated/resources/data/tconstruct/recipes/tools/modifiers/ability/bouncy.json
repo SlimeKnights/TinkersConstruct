@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    },
+    {
+      "item": "tconstruct:ender_congealed_slime"
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime"
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime"
+    }
+  ],
+  "tools": {
+    "type": "mantle:without",
+    "base": {
+      "tag": "tconstruct:modifiable/armor/boots"
+    },
+    "without": {
+      "item": "tconstruct:slime_boots"
+    }
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:bouncy",
+    "level": 1
+  }
+}

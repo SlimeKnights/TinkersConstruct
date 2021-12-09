@@ -30,6 +30,8 @@ import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
+import slimeknights.tconstruct.tools.network.OnChestplateUsePacket;
+import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import javax.annotation.Nullable;
 
@@ -81,6 +83,10 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateTinkerSlotLayoutsPacket.class, UpdateTinkerSlotLayoutsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+
+    // modifiers
+    instance.registerPacket(TinkerControlPacket.class, TinkerControlPacket::read, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(OnChestplateUsePacket.class, OnChestplateUsePacket::read, NetworkDirection.PLAY_TO_SERVER);
 
     // smeltery
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);

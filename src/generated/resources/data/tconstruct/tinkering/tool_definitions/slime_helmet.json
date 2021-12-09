@@ -1,0 +1,18 @@
+{
+  "parts": [
+    {
+      "stat": "tconstruct:skull"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:durability": 362.0,
+      "tconstruct:armor": 0.0
+    }
+  },
+  "slots": {
+    "upgrades": 5,
+    "defense": 0,
+    "abilities": 1
+  }
+}

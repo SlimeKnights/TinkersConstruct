@@ -3,7 +3,6 @@ package slimeknights.tconstruct.world;
 import net.minecraft.block.SkullBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -202,7 +201,6 @@ public class WorldEvents {
       if (lookingEntity.getType() == ((TinkerHeadType)((SkullBlock)((BlockItem)item).getBlock()).skullType).getType()) {
         event.modifyVisibility(0.5f);
       }
-      EntityType<?> lookingType = lookingEntity.getType();
     }
   }
 

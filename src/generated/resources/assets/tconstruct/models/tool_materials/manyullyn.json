@@ -5,10 +5,6 @@
   "color": "9261CC",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:manyullyn",
-    "fallbacks": [
-      "metal"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

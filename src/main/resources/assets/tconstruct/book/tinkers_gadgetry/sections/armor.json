@@ -1,0 +1,22 @@
+[
+  {
+    "name": "slimeskull",
+    "type": "tool",
+    "data": "armor/skull.json"
+  },
+  {
+    "name": "slimelytra",
+    "type": "tool",
+    "data": "armor/slimelytra.json"
+  },
+  {
+    "name": "slimeshell",
+    "type": "tool",
+    "data": "armor/shell.json"
+  },
+  {
+    "name": "slimeboots",
+    "type": "tool",
+    "data": "armor/boots.json"
+  }
+]

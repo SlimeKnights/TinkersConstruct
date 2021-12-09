@@ -1,0 +1,38 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "minecraft:cornflower"
+        },
+        {
+          "item": "minecraft:blue_orchid"
+        }
+      ]
+    },
+    {
+      "item": "minecraft:rabbit_foot"
+    },
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:name_tag"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:luck",
+    "level": 1
+  },
+  "max_level": 1
+}

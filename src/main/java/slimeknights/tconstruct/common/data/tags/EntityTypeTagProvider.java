@@ -16,7 +16,6 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
   @Override
   public void registerTags() {
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.BOUNCY).add(TinkerWorld.skySlimeEntity.get());
     this.getOrCreateBuilder(TinkerTags.EntityTypes.SLIMES)
         .add(EntityType.SLIME, TinkerWorld.earthSlimeEntity.get(), TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
     this.getOrCreateBuilder(TinkerTags.EntityTypes.BACON_PRODUCER).add(EntityType.PIG, EntityType.PIGLIN, EntityType.HOGLIN);
@@ -26,7 +25,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.getOrCreateBuilder(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST);
 
     this.getOrCreateBuilder(TinkerTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.RARE_MOBS).add(EntityType.WITHER_SKELETON, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN, EntityType.EVOKER);
+    this.getOrCreateBuilder(TinkerTags.EntityTypes.RARE_MOBS).add(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN, EntityType.EVOKER);
   }
 
   @Override

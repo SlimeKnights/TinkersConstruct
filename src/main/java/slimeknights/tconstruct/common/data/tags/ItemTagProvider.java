@@ -14,7 +14,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import slimeknights.mantle.data.MantleTags;
+import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -26,17 +26,25 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MULTIPART_TOOL;
@@ -182,6 +190,12 @@ public class ItemTagProvider extends ItemTagsProvider {
     // specialized
     addToolTags(TinkerTools.flintAndBronze, DURABILITY, MELEE, ONE_HANDED, AOE);
 
+    // armor
+    addArmorTags(TinkerTools.travelersGear, DURABILITY);
+    addArmorTags(TinkerTools.plateArmor,    DURABILITY);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY);
+    addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
+
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST).addTag(HARVEST_PRIMARY).addTag(STONE_HARVEST);
@@ -189,14 +203,16 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(MELEE).addTag(MELEE_PRIMARY).addTag(SWORD);
     // modifier helper tags
     this.getOrCreateBuilder(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
+    this.getOrCreateBuilder(MELEE_OR_UNARMED).addTag(MELEE).addTag(CHESTPLATES);
     this.getOrCreateBuilder(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
+    this.getOrCreateBuilder(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
+    this.getOrCreateBuilder(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
 
     // general
     this.getOrCreateBuilder(MODIFIABLE)
         .addTag(MULTIPART_TOOL).addTag(DURABILITY)
         .addTag(MELEE_OR_HARVEST).addTag(AOE)
         .addTag(HELD);
-    this.getOrCreateBuilder(MantleTags.Items.OFFHAND_COOLDOWN).addTag(TinkerTags.Items.MELEE);
 
     // kamas are a shear type, when broken we don't pass it to loot tables
     this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
@@ -230,6 +246,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(Tags.Items.END_STONES)
         .addTag(Tags.Items.GRAVEL) // for shovels and axes to use
         .add(Items.NETHERRACK, Items.BASALT, Items.POLISHED_BASALT, Items.BLACKSTONE, Items.POLISHED_BLACKSTONE);
+    this.getOrCreateBuilder(TinkerTags.Items.FIREBALLS).add(Items.FIRE_CHARGE);
   }
 
   private void addSmeltery() {
@@ -336,5 +353,25 @@ public class ItemTagProvider extends ItemTagsProvider {
     for (INamedTag<Item> tag : tags) {
       this.getOrCreateBuilder(tag).add(item);
     }
+  }
+
+  private INamedTag<Item> getArmorTag(ArmorSlotType slotType) {
+    switch (slotType) {
+      case BOOTS: return BOOTS;
+      case LEGGINGS: return LEGGINGS;
+      case CHESTPLATE: return CHESTPLATES;
+      case HELMET: return HELMETS;
+    }
+    return ARMOR;
+  }
+
+  @SafeVarargs
+  private final void addArmorTags(EnumObject<ArmorSlotType,? extends Item> armor, INamedTag<Item>... tags) {
+    armor.forEach((type, item) -> {
+      for (INamedTag<Item> tag : tags) {
+        this.getOrCreateBuilder(tag).add(item);
+      }
+      this.getOrCreateBuilder(getArmorTag(type)).add(item);
+    });
   }
 }

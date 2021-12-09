@@ -9,9 +9,12 @@ import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -22,11 +25,18 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -41,6 +51,20 @@ public class BucketingModifier extends TankModifier {
   @Override
   public int getPriority() {
     return 80; // little bit less so we get to add volatile data late
+  }
+
+  @Override
+  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+      ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1, true);
+    }
+  }
+
+  @Override
+  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+      ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1, true);
+    }
   }
 
   @Override
@@ -69,7 +93,61 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slot) {
+    if (slot.getSlotType() != Group.ARMOR) {
+      return ActionResultType.PASS;
+    }
+
+    World world = context.getWorld();
+    BlockPos target = context.getPos();
+    // must have a TE that has a fluid handler capability
+    TileEntity te = world.getTileEntity(target);
+    if (te == null) {
+      return ActionResultType.PASS;
+    }
+    Direction face = context.getFace();
+    LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
+    if (!capability.isPresent()) {
+      return ActionResultType.PASS;
+    }
+
+    // only the server needs to deal with actually handling stuff
+    if (!world.isRemote) {
+      PlayerEntity player = context.getPlayer();
+      boolean sneaking = player != null && player.isSneaking();
+      capability.ifPresent(cap -> {
+        FluidStack fluidStack = getFluid(tool);
+        // sneaking fills, not sneak drains
+        if (sneaking) {
+          // must have something to fill
+          if (!fluidStack.isEmpty()) {
+            int added = cap.fill(fluidStack, FluidAction.EXECUTE);
+            if (added > 0) {
+              fluidStack.shrink(added);
+              setFluid(tool, fluidStack);
+            }
+          }
+          // if nothing currently, will drain whatever
+        } else if (fluidStack.isEmpty()) {
+          FluidStack drained = cap.drain(getCapacity(tool), FluidAction.EXECUTE);
+          if (!drained.isEmpty()) {
+            setFluid(tool, drained);
+          }
+        } else {
+          // filter drained to be the same as the current fluid
+          FluidStack drained = cap.drain(new FluidStack(fluidStack, getCapacity(tool) - fluidStack.getAmount()), FluidAction.EXECUTE);
+          if (!drained.isEmpty() && drained.isFluidEqual(fluidStack)) {
+            fluidStack.grow(drained.getAmount());
+            setFluid(tool, fluidStack);
+          }
+        }
+      });
+    }
+    return ActionResultType.func_233537_a_(world.isRemote);
+  }
+
+  @Override
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
     // only place fluid if sneaking, we contain at least a bucket, and its a block
     PlayerEntity player = context.getPlayer();
     if (player == null || !player.isSneaking()) {
@@ -136,10 +214,11 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
     if (player.isCrouching()) {
       return ActionResultType.PASS;
     }
+
     // need at least a bucket worth of empty space
     FluidStack fluidStack = getFluid(tool);
     if (getCapacity(tool) - fluidStack.getAmount() < FluidAttributes.BUCKET_VOLUME) {
@@ -153,7 +232,7 @@ public class BucketingModifier extends TankModifier {
     Direction face = trace.getFace();
     BlockPos target = trace.getPos();
     BlockPos offset = target.offset(face);
-    if (!world.isBlockModifiable(player, target) || !player.canPlayerEdit(offset, face, player.getHeldItem(hand))) {
+    if (!world.isBlockModifiable(player, target) || !player.canPlayerEdit(offset, face, player.getItemStackFromSlot(slotType))) {
       return ActionResultType.PASS;
     }
     // try to find a fluid here

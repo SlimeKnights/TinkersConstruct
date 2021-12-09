@@ -9,6 +9,7 @@ import net.minecraft.block.TNTBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -20,7 +21,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
@@ -34,7 +35,7 @@ import java.util.Collections;
 /**
  * Modifier that starts a fire at the given position
  */
-public class FirestarterModifier extends SingleUseModifier {
+public class FirestarterModifier extends InteractionModifier.SingleUse {
   @Getter
   private final int priority;
   public FirestarterModifier(int color, int priority) {
@@ -48,13 +49,13 @@ public class FirestarterModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
+  public ActionResultType afterEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand, EquipmentSlotType slotType) {
     if (target instanceof CreeperEntity) {
       CreeperEntity creeper = (CreeperEntity) target;
       player.world.playSound(player, creeper.getPosX(), creeper.getPosY(), creeper.getPosZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, creeper.getSoundCategory(), 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
       if (!player.world.isRemote) {
         creeper.ignite();
-        ToolDamageUtil.damageAnimated(tool, 1, player, hand);
+        ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
       }
       return ActionResultType.func_233537_a_(player.world.isRemote);
     }
@@ -89,7 +90,7 @@ public class FirestarterModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
     if (tool.isBroken()) {
       return ActionResultType.PASS;
     }
@@ -98,7 +99,6 @@ public class FirestarterModifier extends SingleUseModifier {
     BlockPos pos = context.getPos();
     Direction sideHit = context.getFace();
     BlockState state = world.getBlockState(pos);
-    ItemStack stack = context.getItem();
 
     // if targeting fire, offset to behind the fire
     boolean targetingFire = false;
@@ -115,15 +115,15 @@ public class FirestarterModifier extends SingleUseModifier {
     }
 
     // burn it all in AOE
-    Hand hand = context.getHand();
     Direction horizontalFacing = context.getPlacementHorizontalFacing();
     // first burn the center, unless we already know its fire
     boolean didIgnite = false;
+    ItemStack stack = context.getItem();
     if (!targetingFire) {
       didIgnite = ignite(tool, world, pos, state, sideHit, horizontalFacing, player);
       if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack)) {
         if (player != null) {
-          player.sendBreakAnimation(hand);
+          player.sendBreakAnimation(slotType);
         }
         return ActionResultType.func_233537_a_(world.isRemote);
       }
@@ -134,7 +134,7 @@ public class FirestarterModifier extends SingleUseModifier {
         didIgnite = true;
         if (ToolDamageUtil.damage(tool, 1, player, stack)) {
           if (player != null) {
-            player.sendBreakAnimation(hand);
+            player.sendBreakAnimation(slotType);
           }
           break;
         }

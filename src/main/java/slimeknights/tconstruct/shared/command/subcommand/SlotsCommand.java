@@ -47,10 +47,10 @@ public class SlotsCommand {
                                                         .then(Commands.argument("count", IntegerArgumentType.integer())
                                                                       .executes(context -> run(context, Operation.ADD)))))
                             // slots <target> set <slot_type> <count>
-                            .then(Commands.literal("set"))
+                            .then(Commands.literal("set")
                                           .then(Commands.argument("slot_type", SlotTypeArgument.slotType(false))
                                                         .then(Commands.argument("count", IntegerArgumentType.integer(0))
-                                                                      .executes(context -> run(context, Operation.SET)))));
+                                                                      .executes(context -> run(context, Operation.SET))))));
   }
 
   /** Runs the command with a count argument */

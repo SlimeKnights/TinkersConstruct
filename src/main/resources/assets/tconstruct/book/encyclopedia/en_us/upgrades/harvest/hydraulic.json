@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:hydraulic",
   "text": [
     {
-      "text": "Grants +4 mining speed per level in the rain. When underwater, instead grants +8 mining speed per level, bypassing the normal debuff from mining underwater"
+      "text": "Grants +4 mining speed per level in the rain. When underwater, instead grants +8 mining speed per level, bypassing the normal debuff from mining underwater."
     }
   ],
   "more_text_space": true,

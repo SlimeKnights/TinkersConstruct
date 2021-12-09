@@ -1,16 +1,20 @@
 package slimeknights.tconstruct.library.tools.context;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.Hand;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Object for common context for weapon attack hooks */
-@Data
+@Getter
+@RequiredArgsConstructor
 public class ToolAttackContext {
   /** Entity doing the attacking */
   @Nonnull
@@ -21,6 +25,8 @@ public class ToolAttackContext {
   /** Hand containing the tool */
   @Nonnull
   private final Hand hand;
+  @Nonnull
+  private final EquipmentSlotType slotType;
   /** Originally targeted entity, may be different from {@link #getTarget()} for multipart entities */
   @Nonnull
   private final Entity target;
@@ -33,6 +39,10 @@ public class ToolAttackContext {
   private final float cooldown;
   /** If true, this is a secondary attack, such as for scythes */
   private final boolean isExtraAttack;
+
+  public ToolAttackContext(LivingEntity attacker, @Nullable PlayerEntity playerAttacker, Hand hand, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
+    this(attacker, playerAttacker, hand, Util.getSlotType(hand), target, livingTarget, isCritical, cooldown, isExtraAttack);
+  }
 
   /** Returns true if this attack is fully charged */
   public boolean isFullyCharged() {

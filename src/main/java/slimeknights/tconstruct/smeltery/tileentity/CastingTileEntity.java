@@ -35,6 +35,7 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -127,6 +128,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       if (recipe != null) {
         // if hand is empty, pick up the result (hand empty will only match recipes with no mold item)
         ItemStack result = recipe.getCraftingResult(moldingInventory);
+        result.onCrafting(world, player, 1);
         if (held.isEmpty()) {
           setInventorySlotContents(INPUT, ItemStack.EMPTY);
           player.setHeldItem(hand, result);
@@ -237,6 +239,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
           // actual recipe result
           ItemStack output = currentRecipe.getCraftingResult(castingInventory);
+          ToolStack.ensureInitialized(output); // its possible we are casting a modifiable tool
           if (currentRecipe.switchSlots()) {
             if (!currentRecipe.isConsumed()) {
               setInventorySlotContents(OUTPUT, getStackInSlot(INPUT));

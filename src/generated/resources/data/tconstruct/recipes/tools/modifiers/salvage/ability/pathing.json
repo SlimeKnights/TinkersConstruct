@@ -9,7 +9,7 @@
           "tag": "tconstruct:modifiable/durability"
         },
         {
-          "tag": "tconstruct:modifiable/held"
+          "tag": "tconstruct:modifiable/interactable"
         }
       ]
     },

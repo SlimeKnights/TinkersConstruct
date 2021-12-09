@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.common.collect.ImmutableList;
 import lombok.NoArgsConstructor;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -29,7 +30,15 @@ public class ToolDefinitionDataBuilder {
    * Adds a part to the builder
    */
   public ToolDefinitionDataBuilder part(IToolPart part, int weight) {
-    parts.add(new PartRequirement(part, weight));
+    parts.add(PartRequirement.ofPart(part, weight));
+    return this;
+  }
+
+  /**
+   * Adds a stat requirement to the builder, for tools that don't have normal tool building recipes
+   */
+  public ToolDefinitionDataBuilder part(MaterialStatsId stat, int weight) {
+    parts.add(PartRequirement.ofStat(stat, weight));
     return this;
   }
 

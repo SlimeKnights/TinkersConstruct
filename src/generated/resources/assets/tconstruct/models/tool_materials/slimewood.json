@@ -6,11 +6,6 @@
   "color": "82C873",
   "luminosity": 0,
   "generator": {
-    "texture": "tconstruct:slimewood",
-    "fallbacks": [
-      "wood",
-      "primitive"
-    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {

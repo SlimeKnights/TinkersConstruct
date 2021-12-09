@@ -6,6 +6,7 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -14,6 +15,7 @@ import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RandomItem;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -57,6 +59,15 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
   public ModifierRecipeBuilder addInput(SizedIngredient ingredient) {
     this.inputs.add(ingredient);
     return this;
+  }
+
+  /**
+   * Adds an input to the recipe
+   * @param ingredient  Input
+   * @return  Builder instance
+   */
+  public ModifierRecipeBuilder addInput(Ingredient ingredient) {
+    return addInput(SizedIngredient.of(ingredient));
   }
 
   /**
@@ -231,7 +242,13 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
       throw new IllegalStateException("Must have at least 1 input");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new FinishedRecipe(id, advancementId));
+    consumer.accept(new FinishedRecipe(id, advancementId, false));
+    if (includeUnarmed) {
+      if (requirements != ModifierMatch.ALWAYS) {
+        throw new IllegalStateException("Cannot use includeUnarmed with requirements");
+      }
+      consumer.accept(new FinishedRecipe(new ResourceLocation(id.getNamespace(), id.getPath() + "_unarmed"), null, true));
+    }
   }
 
   @Override
@@ -245,8 +262,8 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
   }
 
   private class FinishedRecipe extends ModifierFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
+    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, boolean withUnarmed) {
+      super(ID, advancementID, withUnarmed);
     }
 
     @Override

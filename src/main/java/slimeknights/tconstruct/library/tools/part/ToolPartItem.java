@@ -40,11 +40,6 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public boolean canUseMaterial(IMaterial material) {
-    return MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).isPresent();
-  }
-
-  @Override
   public MaterialStatsId getStatType() {
     return this.materialStatId;
   }
@@ -68,8 +63,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
           tooltip.add(TooltipUtil.TOOLTIP_HOLD_SHIFT);
         }
       }
-      // and finally, mod
-      addModTooltip(material, tooltip);
+      // mod handled by getCreatorModId
     }
   }
 

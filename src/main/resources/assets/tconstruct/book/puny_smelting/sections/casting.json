@@ -14,7 +14,7 @@
   },
   {
     "name": "sand_cast2",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "casting/sandcast2.json"
   },
   {
@@ -29,12 +29,12 @@
   },
   {
     "name": "gold_cast",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "casting/goldcast.json"
   },
   {
     "name": "other_cast",
-    "type": "imageText2",
+    "type": "image with text below",
     "data": "casting/othercast.json"
   }
 ]

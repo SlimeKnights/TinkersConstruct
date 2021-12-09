@@ -10,10 +10,13 @@ import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -23,7 +26,8 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.fromTag(TinkerTags.Items.MODIFIABLE));
-
+  protected static final Lazy<ModifierMatch> UNARMED_MODIFIER = Lazy.of(() -> ModifierMatch.entry(TinkerModifiers.unarmed.get()));
+  protected static final String UNARMED_ERROR = TConstruct.makeTranslationKey("recipe", "modifier.unarmed");
   // shared
   protected final ModifierEntry result;
   protected Ingredient tools = Ingredient.EMPTY;
@@ -36,6 +40,13 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   // salvage recipe
   protected int salvageMinLevel = 1;
   protected int salvageMaxLevel = 0;
+  protected boolean includeUnarmed = false;
+
+  /** Generates a second copy of this recipe for the sake of the unarmed modifier */
+  public T includeUnarmed() {
+    this.includeUnarmed = true;
+    return (T) this;
+  }
 
   /**
    * Sets the list of tools this modifier can be applied to
@@ -159,12 +170,19 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   public abstract T buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id);
 
   /** Writes common JSON components between the two types */
-  private void writeCommon(JsonObject json) {
+  private void writeCommon(JsonObject json, @Nullable Boolean unarmed) {
+    Ingredient ingredient = tools;
     if (tools == Ingredient.EMPTY) {
-      json.add("tools", DEFAULT_TOOL.get().serialize());
-    } else {
-      json.add("tools", tools.serialize());
+      ingredient = DEFAULT_TOOL.get();
     }
+    // if true, only chestplates
+    if (unarmed == Boolean.TRUE) {
+      ingredient = Ingredient.fromTag(TinkerTags.Items.CHESTPLATES);
+      // if null, both
+    } else if (unarmed == null) {
+      ingredient = CompoundIngredient.from(ingredient, Ingredient.fromTag(TinkerTags.Items.CHESTPLATES));
+    }
+    json.add("tools", ingredient.serialize());
     if (slotType != null && slots > 0) {
       JsonObject slotJson = new JsonObject();
       slotJson.addProperty(slotType.getName(), slots);
@@ -174,14 +192,23 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
   /** Base logic to write all relevant builder fields to JSON */
   protected abstract class ModifierFinishedRecipe extends AbstractFinishedRecipe {
-    public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    private final boolean withUnarmed;
+    public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, boolean withUnarmed) {
       super(ID, advancementID);
+      this.withUnarmed = withUnarmed;
+    }
+    public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      this(ID, advancementID, false);
     }
 
     @Override
     public void serialize(JsonObject json) {
-      writeCommon(json);
-      if (requirements != ModifierMatch.ALWAYS) {
+      writeCommon(json, withUnarmed);
+      if (withUnarmed) {
+        JsonObject reqJson = UNARMED_MODIFIER.get().serialize();
+        reqJson.addProperty("error", UNARMED_ERROR);
+        json.add("requirements", reqJson);
+      } else if (requirements != ModifierMatch.ALWAYS) {
         JsonObject reqJson = requirements.serialize();
         reqJson.addProperty("error", requirementsError);
         json.add("requirements", reqJson);
@@ -201,7 +228,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
     @Override
     public void serialize(JsonObject json) {
-      writeCommon(json);
+      writeCommon(json, includeUnarmed ? null : false);
       json.addProperty("modifier", result.getModifier().getId().toString());
       json.addProperty("min_level", salvageMinLevel);
       if (salvageMaxLevel != 0) {

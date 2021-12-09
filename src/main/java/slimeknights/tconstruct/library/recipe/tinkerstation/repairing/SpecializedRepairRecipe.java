@@ -9,12 +9,9 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 
@@ -42,12 +39,6 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
       repairMaterial = MaterialRegistry.getMaterial(repairMaterialID);
     }
     return repairMaterial;
-  }
-
-  @Override
-  protected float getRepairPerItem(ToolStack tool, ITinkerStationInventory inv, int slot, IMaterial repairMaterial) {
-    // just use the tools repair value
-    return tool.getDefinition().getData().getBaseStat(ToolStats.DURABILITY) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
   }
 
   @Override
