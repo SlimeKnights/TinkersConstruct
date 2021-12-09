@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -101,6 +102,7 @@ public class ModifiersCommand {
   /** Runs the command */
   private static int remove(CommandContext<CommandSource> context, int level) throws CommandSyntaxException {
     Modifier modifier = ModifierArgument.getModifier(context, "modifier");
+    MutableInt maxRemove = new MutableInt(1);
     List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
       // add modifier
       ToolStack tool = ToolStack.from(stack);
@@ -111,6 +113,9 @@ public class ModifiersCommand {
         throw CANNOT_REMOVE.create(modifier.getDisplayName(level), living.getName());
       }
       int removeLevel = level == -1 ? currentLevel : level;
+      if (removeLevel > maxRemove.intValue()) {
+        maxRemove.setValue(removeLevel);
+      }
       tool = tool.copy();
 
       // first remove hook, primarily for removing raw NBT which is highly discouraged using
@@ -155,9 +160,9 @@ public class ModifiersCommand {
     CommandSource source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendFeedback(new TranslationTextComponent(REMOVE_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
+      source.sendFeedback(new TranslationTextComponent(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendFeedback(new TranslationTextComponent(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
+      source.sendFeedback(new TranslationTextComponent(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
     }
     return size;
   }
