@@ -70,15 +70,15 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     .mergeStyle(TextFormatting.DARK_GRAY);
 
   // parameters to display the still filled slots when changing layout
-  private static final int STILL_FILLED_X = 87;
+  private static final int STILL_FILLED_X = 112;
   private static final int STILL_FILLED_Y = 62;
-  private static final int STILL_FILLED_SPACING = 20;
+  private static final int STILL_FILLED_SPACING = 18;
 
   // texture
   private static final ResourceLocation TINKER_STATION_TEXTURE = TConstruct.getResource("textures/gui/tinker_station.png");
   // texture elements
   private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(0, 210, 91, 12, 256, 256);
-  private static final ElementScreen ITEM_COVER = new ElementScreen(176, 18, 80, 64);
+  private static final ElementScreen ITEM_COVER = new ElementScreen(176, 18, 70, 64);
   // slots
   private static final ElementScreen SLOT_BACKGROUND = new ElementScreen(176, 0, 18, 18);
   private static final ElementScreen SLOT_BORDER = new ElementScreen(194, 0, 18, 18);
@@ -212,7 +212,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       LayoutSlot layoutSlot = currentLayout.getSlot(i);
       if (layoutSlot.isHidden()) {
         // put the position in the still filled line
-        slot.xPos = STILL_FILLED_X + STILL_FILLED_SPACING * stillFilled;
+        slot.xPos = STILL_FILLED_X - STILL_FILLED_SPACING * stillFilled;
         slot.yPos = STILL_FILLED_Y;
         stillFilled++;
         if (slot instanceof TinkerStationSlot) {
