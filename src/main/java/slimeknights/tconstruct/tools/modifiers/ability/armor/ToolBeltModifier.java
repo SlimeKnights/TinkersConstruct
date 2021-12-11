@@ -41,7 +41,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType equipmentSlot) {
     if (!player.isSneaking()) {
       if (player.world.isRemote) {
-        return true;
+        return false; // TODO: see below
       }
 
       int slots = getSlots(level);
@@ -96,8 +96,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
           }
         }
       }
-
-      return true;
+      //return true; TODO: tuning to make this a blocking interaction
     }
     return false;
   }

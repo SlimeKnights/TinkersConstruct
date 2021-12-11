@@ -44,7 +44,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType equipmentSlot) {
     if (!player.isSneaking()) {
       if (player.world.isRemote) {
-        return true;
+        return false; // TODO: see below
       }
       // offhand must be able to go in the pants
       ItemStack offhand = player.getHeldItemOffhand();
@@ -79,7 +79,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
         }
         // update offhand, return true if something happened
         player.setHeldItem(Hand.OFF_HAND, newOffhand);
-        return true;
+        //return true; TODO: tuning to make this a blocking interaction
       }
     }
     return false;
