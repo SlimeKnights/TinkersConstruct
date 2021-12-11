@@ -237,14 +237,14 @@ public class InteractionHandler {
    * @param player  Player instance
    * @return true if the player has a modifiable helmet
    */
-  public static boolean startHelmetInteract(PlayerEntity player) {
+  public static boolean startArmorInteract(PlayerEntity player, EquipmentSlotType slotType) {
     if (!player.isSpectator()) {
-      ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-      if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
+      ItemStack helmet = player.getItemStackFromSlot(slotType);
+      if (TinkerTags.Items.ARMOR.contains(helmet.getItem())) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
           IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
-          if (helmetInteract != null && helmetInteract.startArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD)) {
+          if (helmetInteract != null && helmetInteract.startArmorInteract(tool, entry.getLevel(), player, slotType)) {
             break;
           }
         }
@@ -259,15 +259,15 @@ public class InteractionHandler {
    * @param player  Player instance
    * @return true if the player has a modifiable helmet
    */
-  public static boolean stopHelmetInteract(PlayerEntity player) {
+  public static boolean stopArmorInteract(PlayerEntity player, EquipmentSlotType slotType) {
     if (!player.isSpectator()) {
-      ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-      if (TinkerTags.Items.HELMETS.contains(helmet.getItem())) {
+      ItemStack helmet = player.getItemStackFromSlot(slotType);
+      if (TinkerTags.Items.ARMOR.contains(helmet.getItem())) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
           IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
           if (helmetInteract != null) {
-            helmetInteract.stopArmorInteract(tool, entry.getLevel(), player, EquipmentSlotType.HEAD);
+            helmetInteract.stopArmorInteract(tool, entry.getLevel(), player, slotType);
           }
         }
         return true;

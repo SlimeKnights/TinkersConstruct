@@ -1453,6 +1453,7 @@
   "_comment": "Modifiers",
 
   "key.tconstruct.helmet_interact": "Helmet Interaction",
+  "key.tconstruct.leggings_interact": "Leggings Interaction",
 
   "modifier.tconstruct.empty": "Invalid modifier",
   "modifier.tconstruct.empty.flavor": "Missing!",

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.network;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -12,7 +13,8 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
  */
 public enum TinkerControlPacket implements IThreadsafePacket {
   DOUBLE_JUMP,
-  START_HELMET_INTERACT, STOP_HELMET_INTERACT;
+  START_HELMET_INTERACT, STOP_HELMET_INTERACT,
+  START_LEGGINGS_INTERACT, STOP_LEGGINGS_INTERACT;
 
   public static TinkerControlPacket read(PacketBuffer buffer) {
     return buffer.readEnumValue(TinkerControlPacket.class);
@@ -32,10 +34,16 @@ public enum TinkerControlPacket implements IThreadsafePacket {
           DoubleJumpModifier.extraJump(player);
           break;
         case START_HELMET_INTERACT:
-          InteractionHandler.startHelmetInteract(player);
+          InteractionHandler.startArmorInteract(player, EquipmentSlotType.HEAD);
           break;
         case STOP_HELMET_INTERACT:
-          InteractionHandler.stopHelmetInteract(player);
+          InteractionHandler.stopArmorInteract(player, EquipmentSlotType.HEAD);
+          break;
+        case START_LEGGINGS_INTERACT:
+          InteractionHandler.startArmorInteract(player, EquipmentSlotType.LEGS);
+          break;
+        case STOP_LEGGINGS_INTERACT:
+          InteractionHandler.stopArmorInteract(player, EquipmentSlotType.LEGS);
           break;
       }
     }
