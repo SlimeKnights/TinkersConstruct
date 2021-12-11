@@ -8,6 +8,7 @@
   "effects": [
     "Increases mob drops and block drops",
     "Maximum of 3 levels, different recipe for each level",
-    "Requires 1 Ability Slot for the first level, following levels do not need another slot"
+    "Different recipe for leggings",
+    "First level requires 1 ability slot"
   ]
 }
