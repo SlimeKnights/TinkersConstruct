@@ -16,14 +16,19 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "tconstruct:slimesteel_ingot",
-      "min": 0,
-      "max": 2
+      "item": "minecraft:slime_ball",
+      "min": 4,
+      "max": 32
     },
     {
       "item": "tconstruct:sky_slime_ball",
       "min": 4,
-      "max": 18
+      "max": 32
+    },
+    {
+      "item": "tconstruct:ichor_slime_ball",
+      "min": 4,
+      "max": 16
     }
   ]
 }
