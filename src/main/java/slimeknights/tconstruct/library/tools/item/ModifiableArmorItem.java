@@ -18,6 +18,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -32,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -43,6 +47,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
@@ -117,6 +122,16 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
     ToolStack.ensureInitialized(stack, getToolDefinition());
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack stack = playerIn.getHeldItem(handIn);
+    ActionResultType result = ToolInventoryCapability.tryOpenContainer(stack, null, getToolDefinition(), playerIn, Util.getSlotType(handIn));
+    if (result.isSuccessOrConsume()) {
+      return new ActionResult<>(result, stack);
+    }
+    return super.onItemRightClick(worldIn, playerIn, handIn);
   }
 
 

@@ -183,6 +183,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> STONESHIELDS = tag("stoneshields");
     /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
     public static final IOptionalNamedTag<Item> FIREBALLS = tag("fireballs");
+    /** Items in this tag cannot be placed inside tool inventories */
+    public static final IOptionalNamedTag<Item> TOOL_INVENTORY_BLACKLIST = tag("inventory_blacklist");
 
     /*
      * Tool tags

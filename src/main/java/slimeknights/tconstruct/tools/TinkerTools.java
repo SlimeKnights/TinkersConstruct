@@ -4,6 +4,7 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -27,6 +28,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
@@ -42,6 +44,7 @@ import slimeknights.tconstruct.tools.data.material.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
+import slimeknights.tconstruct.tools.inventory.ToolContainer;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.SlimelytraItem;
 import slimeknights.tconstruct.tools.item.SlimeskullItem;
@@ -108,20 +111,20 @@ public final class TinkerTools extends TinkerModule {
     .put(ArmorSlotType.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, TOOL.get())))
     .build();
 
-  /*
-   * Particles
-   */
+  /* Particles */
   public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new BasicParticleType(false));
   public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new BasicParticleType(false));
 
-  /*
-   * Entities
-   */
+  /* Entities */
   public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
     return EntityType.Builder.<IndestructibleItemEntity>create(IndestructibleItemEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
       .immuneToFire();
   });
+
+  /* Containers */
+  public static final RegistryObject<ContainerType<ToolContainer>> toolContainer = CONTAINERS.register("tool_container", ToolContainer::forClient);
+
 
   /*
    * Events
@@ -131,6 +134,7 @@ public final class TinkerTools extends TinkerModule {
   void commonSetup(FMLCommonSetupEvent event) {
     EquipmentChangeWatcher.register();
     ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
+    ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
   }
 
   @SubscribeEvent

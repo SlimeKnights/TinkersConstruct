@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -341,7 +342,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
         }
       }
     }
-    return ActionResult.resultPass(stack);
+    ActionResultType result = ToolInventoryCapability.tryOpenContainer(stack, tool, playerIn, Util.getSlotType(hand));
+    return new ActionResult<>(result, stack);
   }
 
   @Override

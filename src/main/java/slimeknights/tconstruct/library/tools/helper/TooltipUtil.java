@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -61,17 +62,26 @@ public class TooltipUtil {
    * @return  Display name including the head material
    */
   public static ITextComponent getDisplayName(ItemStack stack, ToolDefinition toolDefinition) {
+    return getDisplayName(stack, null, toolDefinition);
+  }
+
+  /**
+   * Gets the display name for a tool including the head material in the name
+   * @param stack  Stack instance
+   * @param tool   Tool instance
+   * @return  Display name including the head material
+   */
+  public static ITextComponent getDisplayName(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition toolDefinition) {
     List<PartRequirement> components = toolDefinition.getData().getParts();
     ITextComponent baseName = new TranslationTextComponent(stack.getTranslationKey());
     if (components.isEmpty()) {
       return baseName;
     }
-
     // if the tool is not named we use the repair tools for a prefix like thing
-    List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
     // we save all the ones for the name in a set so we don't have the same material in it twice
     Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
-
+    if (tool == null) tool = ToolStack.from(stack);
+    List<IMaterial> materials = tool.getMaterialsList();
     if (materials.size() == components.size()) {
       for (int i = 0; i < components.size(); i++) {
         if (i < materials.size() && MaterialRegistry.getInstance().canRepair(components.get(i).getStatType())) {
@@ -79,7 +89,6 @@ public class TooltipUtil {
         }
       }
     }
-
     return ITinkerStationDisplay.getCombinedItemName(stack, baseName, nameMaterials);
   }
 

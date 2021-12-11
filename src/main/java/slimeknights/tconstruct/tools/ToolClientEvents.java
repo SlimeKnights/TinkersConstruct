@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.settings.KeyBinding;
@@ -36,6 +37,7 @@ import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
@@ -81,6 +83,9 @@ public class ToolClientEvents extends ClientEventBase {
 
     // keybinds
     ClientRegistry.registerKeyBinding(HELMET_INTERACT);
+
+    // screens
+    ScreenManager.registerFactory(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
   }
 
   @SubscribeEvent
