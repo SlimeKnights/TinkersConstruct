@@ -34,6 +34,8 @@ import java.util.function.Supplier;
 public class ToolInventoryCapability implements IItemHandlerModifiable {
   /** Boolean key to set in volatile mod data to enable the fluid capability */
   public static final ResourceLocation TOTAL_SLOTS = TConstruct.getResource("total_item_slots");
+  /** Boolean key to set in volatile mod data to enable the fluid capability */
+  public static final ResourceLocation INCLUDE_OFFHAND = TConstruct.getResource("inventory_show_offhand");
 
   /** Supplier to the tool instance */
   private final Supplier<? extends IModifierToolStack> tool;
@@ -82,7 +84,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   }
 
   /** If true, the given stack is blacklisted from being stored in a tool */
-  private static boolean isBlacklisted(ItemStack stack) {
+  public static boolean isBlacklisted(ItemStack stack) {
     return TinkerTags.Items.TOOL_INVENTORY_BLACKLIST.contains(stack.getItem()) || stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent();
   }
 

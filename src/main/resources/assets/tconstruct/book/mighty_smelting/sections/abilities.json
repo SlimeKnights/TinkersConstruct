@@ -118,7 +118,15 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/pockets.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/harvest/reach.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/shield_strap.json"
   },
   {
     "type": "modifier",
@@ -127,6 +135,10 @@
   {
     "type": "modifier",
     "data": "abilities/weapon/spilling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/tool_belt.json"
   },
   {
     "type": "modifier",

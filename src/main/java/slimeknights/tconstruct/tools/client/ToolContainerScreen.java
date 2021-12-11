@@ -13,6 +13,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
+import slimeknights.tconstruct.library.tools.layout.Patterns;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.inventory.ToolContainer;
@@ -38,6 +39,8 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
   /** Selected slot texture X position */
   private static final int SELECTED_X = 176;
 
+  /** Total number of slots in the inventory */
+  private final int slots;
   /** Number of rows in this inventory */
   private final int inventoryRows;
   /** Number of slots in the final row */
@@ -47,6 +50,9 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
   public ToolContainerScreen(ToolContainer container, PlayerInventory inv, ITextComponent title) {
     super(container, inv, title);
     int slots = container.getItemHandler().getSlots();
+    if (container.isShowOffhand()) {
+      slots++;
+    }
     int inventoryRows = slots / 9;
     int slotsInLastRow = slots % 9;
     if (slotsInLastRow == 0) {
@@ -54,6 +60,7 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
     } else {
       inventoryRows++;
     }
+    this.slots = slots;
     this.inventoryRows = inventoryRows;
     this.slotsInLastRow = slotsInLastRow;
     this.ySize = 114 + this.inventoryRows * 18;
@@ -110,10 +117,13 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
     // last row may not have all slots
     this.blit(matrixStack, rowLeft, rowStart + inventoryRows * SLOT_SIZE, 0, SLOTS_START, slotsInLastRow * SLOT_SIZE, SLOT_SIZE);
 
-    // draw a red background on the selected slot index
+    // draw a background on the selected slot index
     int selectedSlot = container.getSelectedHotbarSlot();
     if (selectedSlot != -1) {
-      int slotIndex = container.getItemHandler().getSlots() + 27 + selectedSlot;
+      int slotIndex = slots - 1;
+      if (selectedSlot != 10) {
+        slotIndex += 28 + selectedSlot;
+      }
       if (slotIndex < container.inventorySlots.size()) {
         Slot slot = container.getSlot(slotIndex);
         this.blit(matrixStack, xStart + slot.xPos - 2, yStart + slot.yPos - 2, SELECTED_X, 0, SLOT_SIZE + 2, SLOT_SIZE + 2);
@@ -146,6 +156,15 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
           }
         }
         start += size;
+      }
+    }
+
+    // offhand icon
+    if (container.isShowOffhand()) {
+      Slot slot = container.getSlot(slots - 1);
+      if (!slot.getHasStack()) {
+        TextureAtlasSprite sprite = spriteGetter.apply(Patterns.SHIELD.getTexture());
+        blit(matrixStack, xStart + slot.xPos, yStart + slot.yPos, 100, 16, 16, sprite);
       }
     }
   }

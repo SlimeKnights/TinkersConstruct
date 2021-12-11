@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:tool_belt",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:leather",
+      "chance": 0.7
+    },
+    {
+      "tag": "forge:ingots/cobalt",
+      "chance": 0.7
+    },
+    {
+      "item": "minecraft:leather",
+      "chance": 0.7
+    },
+    {
+      "item": "minecraft:leather",
+      "chance": 0.4
+    },
+    {
+      "item": "minecraft:leather",
+      "chance": 0.4
+    }
+  ]
+}

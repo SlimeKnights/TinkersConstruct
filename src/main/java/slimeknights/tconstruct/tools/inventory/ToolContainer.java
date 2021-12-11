@@ -14,6 +14,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
@@ -34,6 +36,9 @@ public class ToolContainer extends Container {
   private final PlayerEntity player;
   @Getter
   private final int selectedHotbarSlot;
+  @Getter
+  private final boolean showOffhand;
+
   public ToolContainer(int id, PlayerInventory playerInventory, ItemStack stack, IItemHandlerModifiable itemHandler, EquipmentSlotType slotType) {
     this(TinkerTools.toolContainer.get(), id, playerInventory, stack, itemHandler, slotType);
   }
@@ -57,6 +62,17 @@ public class ToolContainer extends Container {
     for (int i = 0; i < slots; i++) {
       this.addSlot(new ItemHandlerSlot(itemHandler, i, 8 + (i % 9) * SLOT_SIZE, (REPEAT_BACKGROUND_START + 1) + (i / 9) * SLOT_SIZE));
     }
+    // add offhand if requested
+    this.showOffhand = ModifierUtil.checkVolatileFlag(stack, ToolInventoryCapability.INCLUDE_OFFHAND);
+    if (this.showOffhand) {
+      int x = 8 + (slots % 9) * SLOT_SIZE;
+      int y = (REPEAT_BACKGROUND_START + 1) + (slots / 9) * SLOT_SIZE;
+      if (slotType == EquipmentSlotType.OFFHAND) {
+        this.addSlot(new ReadOnlySlot(playerInventory, 40, x, y));
+      } else {
+        this.addSlot(new Slot(playerInventory, 40, x, y));
+      }
+    }
 
     // add player slots
     int playerY = 32 + SLOT_SIZE * ((slots + 8) / 9);
@@ -66,7 +82,7 @@ public class ToolContainer extends Container {
       }
     }
     int hotbarStart = playerY + 58;
-    selectedHotbarSlot = slotType == EquipmentSlotType.MAINHAND ? playerInventory.currentItem : -1;
+    selectedHotbarSlot = slotType == EquipmentSlotType.MAINHAND ? playerInventory.currentItem : (slotType == EquipmentSlotType.OFFHAND ? 10 : -1);
     for(int c = 0; c < 9; ++c) {
       if (c == selectedHotbarSlot) {
         this.addSlot(new ReadOnlySlot(playerInventory, c, 8 + c * 18, hotbarStart));

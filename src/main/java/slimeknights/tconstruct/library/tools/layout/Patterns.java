@@ -12,6 +12,8 @@ public class Patterns {
   public static final Pattern LAPIS = pattern("lapis");
   public static final Pattern INGOT = pattern("ingot");
   public static final Pattern GEM = pattern("gem");
+  /** Shield for tool offhand slot */
+  public static final Pattern SHIELD = pattern("shield");
 
   /** Repair icon, not an outline but a button icon */
   public static final Pattern REPAIR = pattern("button_repair");

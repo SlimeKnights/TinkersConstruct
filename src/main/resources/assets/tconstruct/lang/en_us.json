@@ -1677,6 +1677,14 @@
   "modifier.tconstruct.pockets": "Pockets",
   "modifier.tconstruct.pockets.flavor": "Wondrous invention!",
   "modifier.tconstruct.pockets.description": "The pants have pockets, allowing you to store additional items which can be accessed by sneaking and interacting",
+  "modifier.tconstruct.shield_strap": "Shield Strap",
+  "modifier.tconstruct.shield_strap.flavor": "Ideal to protect and to attack",
+  "modifier.tconstruct.shield_strap.description": "Interacting with the leggings allows swapping the offhand item",
+  "modifier.tconstruct.tool_belt": "Tool Belt",
+  "modifier.tconstruct.tool_belt.flavor": "Ever wish for more hands?",
+  "modifier.tconstruct.tool_belt.description": "Interacting with the leggings allows swapping the hotbar",
+
+  "modifier.tconstruct.inventory_cannot_remove": "Making this change would cause an item stored in this tool to be deleted",
 
   "_comment": "Armor - boots",
   "modifier.tconstruct.feather_falling": "Feather Falling",

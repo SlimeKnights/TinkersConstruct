@@ -719,6 +719,26 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.pockets, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.pockets, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.shieldStrap.get())
+                         .addInputSalvage(TinkerWorld.skySlimeVine, 0.25f)
+                         .addInputSalvage(TinkerMaterials.slimesteel.getIngotTag(), 0.7f)
+                         .addInputSalvage(TinkerWorld.skySlimeVine, 0.25f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.shieldStrap, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.shieldStrap, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.toolBelt.get())
+                         .addInputSalvage(Items.LEATHER, 0.7f)
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.7f)
+                         .addInputSalvage(Items.LEATHER, 0.7f)
+                         .addInputSalvage(Items.LEATHER, 0.4f)
+                         .addInputSalvage(Items.LEATHER, 0.4f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.toolBelt, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.toolBelt, abilityFolder));
     // boots
     ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump.get())
                          .setTools(TinkerTags.Items.BOOTS)
