@@ -65,6 +65,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.PocketsModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.StrengthModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.UnarmedModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
@@ -149,6 +150,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModif
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorKnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorPowerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LeapingModifier;
@@ -293,8 +295,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
   public static final RegistryObject<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(0x3FA442, TinkerDataKeys.AQUA_AFFINITY, true));
   // chestplate
+  public static final RegistryObject<ArmorKnockbackModifier> armorKnockback = MODIFIERS.register("knockback_armor", ArmorKnockbackModifier::new);
   public static final RegistryObject<UnarmedModifier> unarmed = MODIFIERS.register("unarmed", UnarmedModifier::new);
   public static final RegistryObject<ArmorPowerModifier> armorPower = MODIFIERS.register("armor_power", ArmorPowerModifier::new);
+  public static final RegistryObject<StrengthModifier> strength = MODIFIERS.register("strength", StrengthModifier::new);
   // leggings
   public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
   public static final RegistryObject<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);

@@ -611,25 +611,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.respiration, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
     // upgrade - chestplate
-    ModifierRecipeBuilder.modifier(TinkerModifiers.unarmed.get())
+    ModifierRecipeBuilder.modifier(TinkerModifiers.armorKnockback.get())
                          .setTools(TinkerTags.Items.CHESTPLATES)
-                         .addInputSalvage(Items.LEATHER, 0.5f)
-                         .addInput(Tags.Items.GEMS_DIAMOND)
-                         .addInputSalvage(Items.LEATHER, 0.5f)
-                         .addInput(Tags.Items.STRING)
-                         .addInput(Tags.Items.STRING)
-                         .addSalvage(Items.DIAMOND, 0.25f)
-                         .setMaxLevel(1)
-                         .setSlots(SlotType.ABILITY, 1)
-                         .buildSalvage(consumer, prefix(TinkerModifiers.unarmed, abilitySalvage))
-                         .build(consumer, prefix(TinkerModifiers.unarmed, abilityFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.armorPower.get())
-                                    .setTools(TinkerTags.Items.CHESTPLATES)
-                                    .setInputSalvage(TinkerCommons.slimeball.get(SlimeType.ICHOR), 1, 36, false)
-                                    .setMaxLevel(5) // +25% damage
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .buildSalvage(consumer, prefix(TinkerModifiers.armorPower, upgradeSalvage))
-                                    .build(consumer, prefix(TinkerModifiers.armorPower, upgradeFolder));
+                         .addInputSalvage(Items.PISTON, 0.9f)
+                         .addInput(TinkerWorld.slime.get(SlimeType.EARTH))
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(3)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.armorKnockback, upgradeSalvage))
+                         .build(consumer, prefix(TinkerModifiers.armorKnockback, upgradeFolder));
     // upgrade - leggings
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.speedy.get())
                                     .setTools(TinkerTags.Items.LEGGINGS)
@@ -720,6 +709,25 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.HELMETS)
                          .buildSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
+    // chestplate
+    ModifierRecipeBuilder.modifier(TinkerModifiers.unarmed.get())
+                         .setTools(TinkerTags.Items.CHESTPLATES)
+                         .addInputSalvage(Items.LEATHER, 0.5f)
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .addInputSalvage(Items.LEATHER, 0.5f)
+                         .addInput(Tags.Items.STRING)
+                         .addInput(Tags.Items.STRING)
+                         .addSalvage(Items.DIAMOND, 0.25f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.unarmed, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.unarmed, abilityFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.strength.get())
+                                    .setTools(TinkerTags.Items.CHESTPLATES)
+                                    .setInputSalvage(TinkerCommons.slimeball.get(SlimeType.ICHOR), 1, 72, false)
+                                    .setSlots(SlotType.ABILITY, 1)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.strength, abilitySalvage))
+                                    .build(consumer, prefix(TinkerModifiers.strength, abilityFolder));
     // leggings
     ModifierRecipeBuilder.modifier(TinkerModifiers.pockets.get())
                          .setTools(TinkerTags.Items.LEGGINGS)

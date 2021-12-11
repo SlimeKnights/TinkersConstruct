@@ -136,11 +136,11 @@
   },
   {
     "type": "modifier",
-    "data": "upgrades/armor/leaping.json"
+    "data": "upgrades/armor/knockback.json"
   },
   {
     "type": "modifier",
-    "data": "upgrades/armor/power.json"
+    "data": "upgrades/armor/leaping.json"
   },
   {
     "type": "modifier",

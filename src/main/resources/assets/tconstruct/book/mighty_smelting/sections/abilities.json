@@ -138,6 +138,10 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/strength.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/armor/tool_belt.json"
   },
   {

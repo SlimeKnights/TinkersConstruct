@@ -206,7 +206,8 @@ public class ToolAttackUtil {
     }
 
     // forge patches in the knockback attribute for use on players
-    float knockback = (float)attackerLiving.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+    // vanilla halves the knockback attribute later, we half it in all our hooks, so halving the attribute makes it equivelent
+    float knockback = (float)attackerLiving.getAttributeValue(Attributes.ATTACK_KNOCKBACK) / 2f;
     // vanilla applies 0.4 knockback to living via the attack hook
     if (targetLiving != null) {
       knockback += 0.4f;

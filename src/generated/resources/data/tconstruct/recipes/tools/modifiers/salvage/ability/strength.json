@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:strength",
+  "min_level": 1,
+  "salvage": {
+    "item": "tconstruct:ichor_slime_ball",
+    "full": false
+  }
+}

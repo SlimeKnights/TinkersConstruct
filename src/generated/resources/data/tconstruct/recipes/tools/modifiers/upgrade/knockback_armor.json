@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "minecraft:slime_block"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:knockback_armor",
+    "level": 1
+  },
+  "max_level": 3
+}

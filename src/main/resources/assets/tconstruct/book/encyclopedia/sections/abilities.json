@@ -126,6 +126,10 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/strength.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/weapon/spilling.json"
   },
   {

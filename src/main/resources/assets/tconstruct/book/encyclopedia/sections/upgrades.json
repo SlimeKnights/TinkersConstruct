@@ -149,15 +149,15 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/armor/knockback.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/armor/leaping.json"
   },
   {
     "type": "modifier",
     "data": "upgrades/armor/pocket_chain.json"
-  },
-  {
-    "type": "modifier",
-    "data": "upgrades/armor/power.json"
   },
   {
     "type": "modifier",
