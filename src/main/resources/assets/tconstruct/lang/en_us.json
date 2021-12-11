@@ -1685,7 +1685,7 @@
   "modifier.tconstruct.tool_belt.description": "Interacting with the leggings allows swapping the hotbar",
   "modifier.tconstruct.pocket_chain": "Pocket Chain",
   "modifier.tconstruct.pocket_chain.flavor": "One Chain to Bind Them",
-  "modifier.tconstruct.pocket_chain.description": "Allows accessing all slots for tool belt or shield strap by sneaking and interacting",
+  "modifier.tconstruct.pocket_chain.description": "Allows accessing all slots for tool belt or shield strap by sneaking and interacting, and adds +1 slot",
   "recipe.tconstruct.modifier.pocket_chain": "Pocket Chain requires Tool Belt or Shield Strap",
 
   "modifier.tconstruct.inventory_cannot_remove": "Making this change would cause an item stored in this tool to be deleted",

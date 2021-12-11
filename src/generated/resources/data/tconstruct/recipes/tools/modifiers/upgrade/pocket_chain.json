@@ -2,7 +2,7 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:tripwire_hook"
+      "tag": "forge:ingots/cobalt"
     },
     {
       "item": "minecraft:chain"
@@ -13,6 +13,9 @@
   ],
   "tools": {
     "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "upgrades": 1
   },
   "requirements": {
     "options": [

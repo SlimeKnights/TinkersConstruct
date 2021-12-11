@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.modifiers.impl;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -9,13 +8,13 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 import javax.annotation.Nullable;
 import java.util.function.BiFunction;
@@ -40,14 +39,9 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
     this.slotsPerLevel = slotsPerLevel;
   }
 
-  /** Gets the number of slots for the given level */
-  protected int getSlots(int level) {
-    return level * slotsPerLevel;
-  }
-
   @Override
-  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    ToolInventoryCapability.addSlots(volatileData, getSlots(level));
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+    ToolInventoryCapability.addSlots(volatileData, getSlots(context, level));
   }
 
   @Override
@@ -60,7 +54,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
           return HAS_ITEMS;
         }
         // determine the largest index we are using
-        int maxSlots = getSlots(level);
+        int maxSlots = getSlots(tool, level);
         for (int i = 0; i < listNBT.size(); i++) {
           CompoundNBT compoundNBT = listNBT.getCompound(i);
           if (compoundNBT.getInt(TAG_SLOT) >= maxSlots) {
@@ -80,7 +74,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   @Override
   public ItemStack getStack(IModifierToolStack tool, int level, int slot) {
     IModDataReadOnly modData = tool.getPersistentData();
-    if (slot < getSlots(level) && modData.contains(inventoryKey, NBT.TAG_LIST)) {
+    if (slot < getSlots(tool, level) && modData.contains(inventoryKey, NBT.TAG_LIST)) {
       ListNBT list = tool.getPersistentData().get(inventoryKey, GET_COMPOUND_LIST);
       for (int i = 0; i < list.size(); i++) {
         CompoundNBT compound = list.getCompound(i);
@@ -94,7 +88,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
 
   @Override
   public void setStack(IModifierToolStack tool, int level, int slot, ItemStack stack) {
-    if (slot < getSlots(level)) {
+    if (slot < getSlots(tool, level)) {
       ListNBT list;
       ModDataNBT modData = tool.getPersistentData();
       // if the tag exists, fetch it
@@ -129,9 +123,14 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
     }
   }
 
+  /** Gets the number of slots for this modifier */
+  public int getSlots(IToolContext tool, int level) {
+    return level * slotsPerLevel;
+  }
+
   @Override
   public final int getSlots(IModifierToolStack tool, int level) {
-    return getSlots(level);
+    return getSlots((IToolContext) tool, level);
   }
 
   @Nullable

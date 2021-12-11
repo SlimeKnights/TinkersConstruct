@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -606,18 +607,19 @@ public class ToolStack implements IModifierToolStack {
     } else {
       ModDataNBT volatileData = new ModDataNBT();
 
+      // context for further modifier hooks
+      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), allMods, stats, persistentModData, volatileData);
+
       // build persistent data first, its a parameter to the other two hooks
       IModDataReadOnly persistentData = getPersistentData();
       ToolDefinition toolDefinition = getDefinition();
       for (ModifierEntry entry : modifierList) {
-        entry.getModifier().addVolatileData(item, toolDefinition, stats, persistentData, entry.getLevel(), volatileData);
+        entry.getModifier().addVolatileData(context, entry.getLevel(), volatileData);
       }
 
       // regular stats last so we can include volatile data
       for (ModifierEntry entry : modifierList) {
-        Modifier mod = entry.getModifier();
-        int level = entry.getLevel();
-        mod.addToolStats(item, toolDefinition, stats, persistentData, volatileData, level, statBuilder);
+        entry.getModifier().addToolStats(context, entry.getLevel(), statBuilder);
       }
 
       // set into NBT

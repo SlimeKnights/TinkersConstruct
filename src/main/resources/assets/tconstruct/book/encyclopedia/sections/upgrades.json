@@ -153,6 +153,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/armor/pocket_chain.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/armor/power.json"
   },
   {

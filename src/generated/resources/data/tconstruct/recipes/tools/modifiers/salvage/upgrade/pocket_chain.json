@@ -3,9 +3,16 @@
   "tools": {
     "tag": "tconstruct:modifiable/armor/leggings"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "modifier": "tconstruct:pocket_chain",
   "min_level": 1,
   "salvage": [
+    {
+      "tag": "forge:ingots/cobalt",
+      "chance": 0.3
+    },
     {
       "item": "minecraft:chain",
       "chance": 0.7

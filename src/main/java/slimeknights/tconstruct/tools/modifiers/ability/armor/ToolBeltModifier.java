@@ -7,13 +7,17 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -24,7 +28,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   private static final ResourceLocation KEY = TConstruct.getResource("tool_belt");
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
   public ToolBeltModifier() {
-    super(0x893B25, KEY, 1);
+    super(0x893B25, KEY, 4);
   }
 
   @Override
@@ -33,8 +37,8 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   }
 
   @Override
-  protected int getSlots(int level) {
-    return level == 2 ? 9 : 4;
+  public int getSlots(IToolContext tool, int level) {
+    return Math.min(9, level * 4 + tool.getModifierLevel(TinkerModifiers.pocketChain.get()));
   }
 
   @Override
@@ -44,7 +48,8 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
         return false; // TODO: see below
       }
 
-      int slots = getSlots(level);
+      boolean didChange = false;
+      int slots = getSlots(tool, level);
       ModDataNBT persistentData = tool.getPersistentData();
       ListNBT list;
       boolean[] swapped = new boolean[slots];
@@ -72,6 +77,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
                   } else {
                     iterator.remove();
                   }
+                  didChange = true;
                 }
                 swapped[slot] = true;
               }
@@ -93,8 +99,14 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
           if (!hotbar.isEmpty() && !isBlacklisted(hotbar)) {
             list.add(write(hotbar, i));
             player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+            didChange = true;
           }
         }
+      }
+
+      // sound effect
+      if (didChange) {
+        player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
       }
       //return true; TODO: tuning to make this a blocking interaction
     }

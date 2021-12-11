@@ -1,15 +1,15 @@
-package slimeknights.tconstruct.tools.modifiers.slotless;
+package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
 
-public class PocketChainModifier extends SingleUseModifier implements IArmorInteractModifier {
+public class PocketChainModifier extends SingleLevelModifier implements IArmorInteractModifier {
   public PocketChainModifier() {
     super(0x3E4453);
   }
