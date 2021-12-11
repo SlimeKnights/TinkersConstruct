@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:reach",
   "text": [
     {
-      "text": "Increases the maximum distance from the player this tool can mine by 1 block per level. On chestplates, increases reach of your held tool."
+      "text": "Increases the maximum distance from the player this tool can mine or place blocks by 1 block per level. On chestplates, increases reach of your held tool."
     }
   ],
   "more_text_space": true,

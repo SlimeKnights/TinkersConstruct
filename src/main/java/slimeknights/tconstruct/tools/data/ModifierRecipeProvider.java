@@ -739,6 +739,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .buildSalvage(consumer, prefix(TinkerModifiers.toolBelt, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.toolBelt, abilityFolder));
+    // half of pockets as a slotless
+    ModifierRecipeBuilder.modifier(TinkerModifiers.pocketChain.get())
+                         .addInput(Items.TRIPWIRE_HOOK)
+                         .addInputSalvage(Items.CHAIN, 0.7f)
+                         .addInputSalvage(Items.CHAIN, 0.4f)
+                         .setMaxLevel(1)
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .setRequirementsError(makeRequirementsError("pocket_chain"))
+                         .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.shieldStrap.get()), ModifierMatch.entry(TinkerModifiers.toolBelt.get())))
+                         .buildSalvage(consumer, prefix(TinkerModifiers.pocketChain, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.pocketChain, abilityFolder));
     // boots
     ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump.get())
                          .setTools(TinkerTags.Items.BOOTS)

@@ -10,9 +10,13 @@
   },
   {
     "type": "modifier",
+    "data": "slotless/general/pocket_chain.json"
+  },
+  {
+    "type": "modifier",
     "data": "slotless/general/shiny.json"
   },
-   {
+  {
     "type": "modifier",
     "data": "slotless/general/worldbound.json"
   },

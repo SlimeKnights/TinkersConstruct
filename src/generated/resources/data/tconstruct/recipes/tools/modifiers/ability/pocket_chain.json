@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:tripwire_hook"
+    },
+    {
+      "item": "minecraft:chain"
+    },
+    {
+      "item": "minecraft:chain"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "requirements": {
+    "options": [
+      {
+        "name": "tconstruct:shield_strap",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:tool_belt",
+        "level": 1
+      }
+    ],
+    "matches_needed": 1,
+    "error": "recipe.tconstruct.modifier.pocket_chain"
+  },
+  "result": {
+    "name": "tconstruct:pocket_chain",
+    "level": 1
+  },
+  "max_level": 1
+}

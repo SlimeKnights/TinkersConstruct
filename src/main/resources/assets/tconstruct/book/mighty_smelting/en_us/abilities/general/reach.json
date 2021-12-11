@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Increases reach distance",
+    "Increases reach distance for blocks and mining",
     "Multiple levels, each level allows you to reach further",
     "Requires 1 Ability Slot per level"
   ]

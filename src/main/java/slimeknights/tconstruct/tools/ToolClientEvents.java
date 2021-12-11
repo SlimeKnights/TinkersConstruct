@@ -55,7 +55,7 @@ public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using a helmet */
   private static final KeyBinding HELMET_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.z"), "key.categories.gameplay");
   /** Keybinding for interacting using leggings */
-  private static final KeyBinding LEGGINGS_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.m"), "key.categories.gameplay");
+  private static final KeyBinding LEGGINGS_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.i"), "key.categories.gameplay");
 
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor

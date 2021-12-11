@@ -14,6 +14,10 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/general/reach.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/general/unbreakable.json"
   },
 
@@ -51,10 +55,6 @@
   {
     "type": "modifier",
     "data": "abilities/harvest/expanded.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/harvest/reach.json"
   },
   {
     "type": "modifier",
@@ -115,10 +115,6 @@
   {
     "type": "modifier",
     "data": "abilities/armor/pockets.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/harvest/reach.json"
   },
   {
     "type": "modifier",
