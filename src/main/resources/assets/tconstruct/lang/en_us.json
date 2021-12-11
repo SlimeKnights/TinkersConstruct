@@ -1674,6 +1674,9 @@
   "modifier.tconstruct.leaping": "Leaping",
   "modifier.tconstruct.leaping.flavor": "Leap tall buildings in a single bound!",
   "modifier.tconstruct.leaping.description": "This piston boost on your legs should allow you to reach higher heights",
+  "modifier.tconstruct.pockets": "Pockets",
+  "modifier.tconstruct.pockets.flavor": "Wondrous invention!",
+  "modifier.tconstruct.pockets.description": "The pants have pockets, allowing you to store additional items which can be accessed by sneaking and interacting",
 
   "_comment": "Armor - boots",
   "modifier.tconstruct.feather_falling": "Feather Falling",

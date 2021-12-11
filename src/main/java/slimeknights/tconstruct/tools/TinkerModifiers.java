@@ -62,6 +62,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.PocketsModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.UnarmedModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
@@ -294,6 +295,7 @@ public final class TinkerModifiers extends TinkerModule {
   // leggings
   public static final RegistryObject<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
   public static final RegistryObject<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);
+  public static final RegistryObject<PocketsModifier> pockets = MODIFIERS.register("pockets", PocketsModifier::new);
   // boots
   public static final RegistryObject<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
   public static final RegistryObject<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);

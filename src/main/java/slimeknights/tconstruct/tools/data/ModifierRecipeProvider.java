@@ -708,6 +708,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.HELMETS)
                          .buildSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
+    // leggings
+    ModifierRecipeBuilder.modifier(TinkerModifiers.pockets.get())
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .addInputSalvage(Items.SHULKER_SHELL, 0.9f)
+                         .addInputSalvage(Tags.Items.INGOTS_IRON, 0.7f)
+                         .addInputSalvage(Items.SHULKER_SHELL, 0.9f)
+                         .addInputSalvage(Items.LEATHER, 0.4f)
+                         .addInputSalvage(Items.LEATHER, 0.4f)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.pockets, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.pockets, abilityFolder));
     // boots
     ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump.get())
                          .setTools(TinkerTags.Items.BOOTS)
