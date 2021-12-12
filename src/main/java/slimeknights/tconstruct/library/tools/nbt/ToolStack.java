@@ -608,11 +608,9 @@ public class ToolStack implements IModifierToolStack {
       ModDataNBT volatileData = new ModDataNBT();
 
       // context for further modifier hooks
-      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), allMods, stats, persistentModData, volatileData);
+      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), allMods, stats, getPersistentData(), volatileData);
 
       // build persistent data first, its a parameter to the other two hooks
-      IModDataReadOnly persistentData = getPersistentData();
-      ToolDefinition toolDefinition = getDefinition();
       for (ModifierEntry entry : modifierList) {
         entry.getModifier().addVolatileData(context, entry.getLevel(), volatileData);
       }
