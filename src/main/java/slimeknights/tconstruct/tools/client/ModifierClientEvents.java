@@ -11,8 +11,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,7 +22,6 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -55,35 +52,11 @@ import java.util.List;
 public class ModifierClientEvents {
   @SubscribeEvent
   static void onTooltipEvent(ItemTooltipEvent event) {
+    // suppress durability from advanced, we display our own
     if (event.getItemStack().getItem() instanceof IModifiableDisplay) {
-      boolean isShift = Screen.hasShiftDown();
-      boolean isCtrl = !isShift && ((IModifiableDisplay) event.getItemStack().getItem()).getToolDefinition().isMultipart() && Screen.hasControlDown();
-      MutableInt removedWhenIn = new MutableInt(0);
       event.getToolTip().removeIf(text -> {
-        // its hard to find the blank line before attributes, so shift just removes all of them
-        if ((isShift || (isCtrl && removedWhenIn.intValue() > 0)) && text == StringTextComponent.EMPTY) {
-          return true;
-        }
-        // the attack damage and attack speed ones are formatted weirdly, suppress on both tooltips
-        if ((isShift || isCtrl) && " ".equals(text.getUnformattedComponentText())) {
-          List<ITextComponent> siblings = text.getSiblings();
-          if (!siblings.isEmpty() && siblings.get(0) instanceof TranslationTextComponent) {
-            return ((TranslationTextComponent) siblings.get(0)).getKey().startsWith("attribute.modifier.equals.");
-          }
-        }
         if (text instanceof TranslationTextComponent) {
-          String key = ((TranslationTextComponent)text).getKey();
-
-          // we want to ignore all modifiers after "when in off hand" as its typically redundant to the main hand, you will see without shift
-          if ((isCtrl || isShift) && key.startsWith("item.modifiers.")) {
-            removedWhenIn.add(1);
-            return true;
-          }
-
-          // suppress durability from advanced, we display our own
-          return key.equals("item.durability")
-                 // the "when in main hand" text, don't need on either tooltip
-                 || ((isCtrl || (isShift && removedWhenIn.intValue() > 1)) && key.startsWith("attribute.modifier."));
+          return ((TranslationTextComponent)text).getKey().equals("item.durability");
         }
         return false;
       });

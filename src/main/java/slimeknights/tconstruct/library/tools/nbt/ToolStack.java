@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -67,9 +68,13 @@ public class ToolStack implements IModifierToolStack {
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
+  public static final String TAG_HIDE_FLAGS = "HideFlags";
+
+  /** Flags for vanilla tooltip parts to hide */
+  private static final int HIDE_FLAGS = TooltipDisplayFlags.ENCHANTMENTS.func_242397_a() | TooltipDisplayFlags.MODIFIERS.func_242397_a();
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
-  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, ModifierUtil.TAG_HIDE_FLAGS);
+  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, TAG_HIDE_FLAGS);
 
   /** Item representing this tool */
   @Getter
@@ -580,6 +585,9 @@ public class ToolStack implements IModifierToolStack {
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
   public void rebuildStats() {
+    // hide enchants and attributes, enchant hiding is so we can implement modifiers such as silk, and attribute hiding is because we add attributes ourself (filtered)
+    nbt.putInt(TAG_HIDE_FLAGS, HIDE_FLAGS);
+
     // first, rebuild the list of all modifiers
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());

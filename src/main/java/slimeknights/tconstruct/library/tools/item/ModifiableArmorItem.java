@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -245,15 +244,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     return false;
   }
 
+
   @Override
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (slot != getEquipmentSlot() || nbt == null || nbt.getBoolean(TooltipUtil.KEY_DISPLAY)) {
+  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
+    if (slot != getEquipmentSlot()) {
       return ImmutableMultimap.of();
     }
 
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-    ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
@@ -272,6 +270,15 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     }
 
     return builder.build();
+  }
+
+  @Override
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    if (slot != getEquipmentSlot() || nbt == null) {
+      return ImmutableMultimap.of();
+    }
+    return getAttributeModifiers(ToolStack.from(stack), slot);
   }
 
 
@@ -337,12 +344,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    TooltipUtil.addInformation(this, stack, tooltip, TooltipKey.fromScreen(), flagIn == TooltipFlags.ADVANCED);
+    TooltipUtil.addInformation(this, stack, worldIn, tooltip, TooltipKey.fromScreen(), flagIn);
   }
 
   @Override
-  public List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
-    return TooltipUtil.getArmorStats(tool, tooltips, tooltipFlag);
+  public List<ITextComponent> getStatInformation(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
+    tooltips = TooltipUtil.getArmorStats(tool, tooltips, tooltipFlag);
+    TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_ARMOR_ATTRIBUTES, getEquipmentSlot());
+    return tooltips;
   }
 
   /* Display items */

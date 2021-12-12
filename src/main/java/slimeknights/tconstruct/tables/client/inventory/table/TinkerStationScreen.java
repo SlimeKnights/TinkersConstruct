@@ -257,7 +257,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         ITinkerStationDisplay display = (ITinkerStationDisplay) toolStack.getItem();
         this.tinkerInfo.setCaption(display.getLocalizedName());
         // TODO: tooltips on these?
-        this.tinkerInfo.setText(display.getStatInformation(tool, new ArrayList<>(), TooltipFlag.DETAILED));
+        assert minecraft != null;
+        this.tinkerInfo.setText(display.getStatInformation(tool, minecraft.player, new ArrayList<>(), TooltipFlag.DETAILED));
       }
       else {
         this.tinkerInfo.setCaption(toolStack.getDisplayName());

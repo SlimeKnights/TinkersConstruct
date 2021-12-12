@@ -78,9 +78,20 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addOptional(IToolStat<?> stat) {
+    return addOptional(stat, 1.0f);
+  }
+
+  /**
+   * Adds the given stat to the tooltip if above 0, scaling by the given value
+   *
+   * @param stat  Stat to add
+   * @param scale Amount to scale this value by
+   * @return the tooltip builder
+   */
+  public TooltipBuilder addOptional(IToolStat<?> stat, float scale) {
     float value = tool.getStats().getFloat(stat);
     if (value > 0) {
-      this.tooltips.add(stat.formatValue(value));
+      this.tooltips.add(stat.formatValue(value * scale));
     }
     return this;
   }

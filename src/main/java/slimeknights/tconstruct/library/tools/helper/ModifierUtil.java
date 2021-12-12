@@ -11,7 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
@@ -43,7 +42,8 @@ public final class ModifierUtil {
   /** Vanilla enchantments tag */
   public static final String TAG_ENCHANTMENTS = "Enchantments";
   /** Vanilla tag to hide certain tooltips */
-  public static final String TAG_HIDE_FLAGS = "HideFlags";
+  @Deprecated
+  public static final String TAG_HIDE_FLAGS = ToolStack.TAG_HIDE_FLAGS;
 
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
@@ -86,7 +86,6 @@ public final class ModifierUtil {
       if (!enchantments.isEmpty()) {
         addedEnchants = true;
         EnchantmentHelper.setEnchantments(enchantments, stack);
-        stack.getOrCreateTag().putInt(TAG_HIDE_FLAGS, TooltipDisplayFlags.ENCHANTMENTS.func_242397_a());
       }
     }
     return addedEnchants;
@@ -100,7 +99,6 @@ public final class ModifierUtil {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
       nbt.remove(TAG_ENCHANTMENTS);
-      nbt.remove(TAG_HIDE_FLAGS);
     }
   }
 
