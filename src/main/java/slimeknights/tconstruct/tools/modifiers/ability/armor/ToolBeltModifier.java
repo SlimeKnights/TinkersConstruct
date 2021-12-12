@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.Iterator;
 
 import static slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.isBlacklisted;
 
@@ -51,45 +49,31 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
       boolean didChange = false;
       int slots = getSlots(tool, level);
       ModDataNBT persistentData = tool.getPersistentData();
-      ListNBT list;
+      ListNBT list = new ListNBT();
       boolean[] swapped = new boolean[slots];
       // if we have existing items, swap stacks at each index
       if (persistentData.contains(KEY, NBT.TAG_LIST)) {
-        list = persistentData.get(KEY, GET_COMPOUND_LIST);
-        if (!list.isEmpty()) {
-          Iterator<INBT> iterator = list.iterator();
-          while (iterator.hasNext()) {
-            INBT next = iterator.next();
-            if (next.getId() == NBT.TAG_COMPOUND) {
-              CompoundNBT compoundNBT = (CompoundNBT)next;
-              int slot = compoundNBT.getInt(TAG_SLOT);
-              if (slot < slots) {
-                // ensure we can store the hotbar item
-                ItemStack hotbar = player.inventory.getStackInSlot(slot);
-                if (hotbar.isEmpty() || !isBlacklisted(hotbar)) {
-                  // swap the two items
-                  ItemStack parsed = ItemStack.read(compoundNBT);
-                  player.inventory.setInventorySlotContents(slot, parsed);
-                  if (!hotbar.isEmpty()) {
-                    compoundNBT.keySet().clear();
-                    hotbar.write(compoundNBT);
-                    compoundNBT.putInt(TAG_SLOT, slot);
-                  } else {
-                    iterator.remove();
-                  }
-                  didChange = true;
+        ListNBT original = persistentData.get(KEY, GET_COMPOUND_LIST);
+        if (!original.isEmpty()) {
+          for (int i = 0; i < original.size(); i++) {
+            CompoundNBT compoundNBT = original.getCompound(i);
+            int slot = compoundNBT.getInt(TAG_SLOT);
+            if (slot < slots) {
+              // ensure we can store the hotbar item
+              ItemStack hotbar = player.inventory.getStackInSlot(slot);
+              if (hotbar.isEmpty() || !isBlacklisted(hotbar)) {
+                // swap the two items
+                ItemStack parsed = ItemStack.read(compoundNBT);
+                player.inventory.setInventorySlotContents(slot, parsed);
+                if (!hotbar.isEmpty()) {
+                  list.add(write(hotbar, slot));
                 }
-                swapped[slot] = true;
+                didChange = true;
               }
-            } else {
-              iterator.remove();
+              swapped[slot] = true;
             }
           }
         }
-      } else {
-        // no items
-        list = new ListNBT();
-        persistentData.put(KEY, list);
       }
 
       // list is empty, makes loop simplier
@@ -106,6 +90,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
 
       // sound effect
       if (didChange) {
+        persistentData.put(KEY, list);
         player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
       }
       //return true; TODO: tuning to make this a blocking interaction

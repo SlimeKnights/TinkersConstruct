@@ -58,33 +58,28 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
       if (offhand.isEmpty() || !ToolInventoryCapability.isBlacklisted(offhand)) {
         ItemStack newOffhand = ItemStack.EMPTY;
         ModDataNBT persistentData = tool.getPersistentData();
-        ListNBT list;
+        ListNBT list = new ListNBT();
         // if we have existing items, shift all back by 1
         if (persistentData.contains(KEY, NBT.TAG_LIST)) {
-          list = persistentData.get(KEY, GET_COMPOUND_LIST);
-          boolean removeFirst = false; // if true, need to remove list element at index 0
-          for (int i = 0; i < list.size(); i++) {
-            CompoundNBT compoundNBT = list.getCompound(i);
+          ListNBT original = persistentData.get(KEY, GET_COMPOUND_LIST);
+          for (int i = 0; i < original.size(); i++) {
+            CompoundNBT compoundNBT = original.getCompound(i);
             int slot = compoundNBT.getInt(TAG_SLOT);
             if (slot == 0) {
               newOffhand = ItemStack.read(compoundNBT);
-              removeFirst = true;
             } else if (slot < slots) {
-              compoundNBT.putInt(TAG_SLOT, slot - 1);
+              CompoundNBT copy = compoundNBT.copy();
+              copy.putInt(TAG_SLOT, slot - 1);
+              list.add(copy);
             }
           }
-          if (removeFirst) {
-            list.remove(0);
-          }
-        } else {
-          list = new ListNBT();
-          persistentData.put(KEY, list);
         }
         // add old offhand to the list
         if (!offhand.isEmpty()) {
           list.add(write(offhand, slots - 1));
         }
         // update offhand
+        persistentData.put(KEY, list);
         player.setHeldItem(Hand.OFF_HAND, newOffhand);
 
         // sound effect
