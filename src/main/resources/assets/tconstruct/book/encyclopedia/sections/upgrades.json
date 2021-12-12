@@ -149,6 +149,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/armor/item_frame.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/armor/knockback.json"
   },
   {

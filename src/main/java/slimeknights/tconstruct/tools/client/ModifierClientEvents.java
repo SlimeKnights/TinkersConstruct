@@ -39,10 +39,15 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.Orientation2D;
+import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
 /** Modifier event hooks that run client side */
@@ -137,36 +142,57 @@ public class ModifierClientEvents {
   /* Renders the next shield strap item above the offhand item */
 
   /** Cache of the current item to render */
+  private static final int SLOT_BACKGROUND_SIZE = 22;
+
   @Nonnull
   private static ItemStack nextOffhand = ItemStack.EMPTY;
+
+  /** Items to render for the item frame modifier */
+  private static final List<ItemStack> itemFrames = new ArrayList<>();
 
   /** Update the slot in the first shield slot */
   @SubscribeEvent
   static void equipmentChange(ToolEquipmentChangeEvent event) {
-    if (!Config.CLIENT.renderShieldSlotItem.get()) {
-      return;
-    }
     EquipmentChangeContext context = event.getContext();
-    if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlotType.LEGS) {
-      IModifierToolStack tool = context.getToolInSlot(EquipmentSlotType.LEGS);
-      if (tool != null) {
-        int level = tool.getModifierLevel(TinkerModifiers.shieldStrap.get());
-        if (level > 0) {
-          nextOffhand = TinkerModifiers.shieldStrap.get().getStack(tool, level, 0);
-          return;
+    if (Config.CLIENT.renderShieldSlotItem.get()) {
+      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlotType.LEGS) {
+        IModifierToolStack tool = context.getToolInSlot(EquipmentSlotType.LEGS);
+        if (tool != null) {
+          ShieldStrapModifier modifier = TinkerModifiers.shieldStrap.get();
+          int level = tool.getModifierLevel(modifier);
+          if (level > 0) {
+            nextOffhand = modifier.getStack(tool, level, 0);
+            return;
+          }
+        }
+        nextOffhand = ItemStack.EMPTY;
+      }
+    }
+
+    if (Config.CLIENT.renderItemFrame.get()) {
+      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlotType.HEAD) {
+        itemFrames.clear();
+        IModifierToolStack tool = context.getToolInSlot(EquipmentSlotType.HEAD);
+        if (tool != null) {
+          ItemFrameModifier modifier = TinkerModifiers.itemFrame.get();
+          int level = tool.getModifierLevel(modifier);
+          if (level > 0) {
+            modifier.getAllStacks(tool, level, itemFrames);
+          }
         }
       }
-      nextOffhand = ItemStack.EMPTY;
     }
   }
 
   /** Render the item in the first shield slot */
   @SubscribeEvent
   static void renderHotbar(RenderGameOverlayEvent.Post event) {
-    if (!Config.CLIENT.renderShieldSlotItem.get()) {
+    boolean renderShield = Config.CLIENT.renderShieldSlotItem.get() && !nextOffhand.isEmpty();
+    boolean renderItemFrame = Config.CLIENT.renderItemFrame.get() && !itemFrames.isEmpty();
+    if (!renderItemFrame && !renderShield) {
       return;
     }
-    if (event.getType() == ElementType.HOTBAR && !nextOffhand.isEmpty()) {
+    if (event.getType() == ElementType.HOTBAR) {
       Minecraft mc = Minecraft.getInstance();
       PlayerController playerController = Minecraft.getInstance().playerController;
       if (playerController != null && playerController.getCurrentGameType() != GameType.SPECTATOR) {
@@ -176,13 +202,70 @@ public class ModifierClientEvents {
           RenderSystem.enableBlend();
           RenderSystem.defaultBlendFunc();
 
-          mc.getTextureManager().bindTexture(Icons.ICONS);
+          int scaledWidth = mc.getMainWindow().getScaledWidth();
+          int scaledHeight = mc.getMainWindow().getScaledHeight();
+          MatrixStack matrixStack = event.getMatrixStack();
+          float partialTicks = event.getPartialTicks();
 
           // want just above the normal hotbar item
-          int x = mc.getMainWindow().getScaledWidth() / 2 + (player.getPrimaryHand().opposite() == HandSide.LEFT ? -117 : 101);
-          int y = mc.getMainWindow().getScaledHeight() - 38;
-          Screen.blit(event.getMatrixStack(), x - 3, y - 3, player.getHeldItemOffhand().isEmpty() ? 211 : 189, 0, 22, 22, 256, 256);
-          mc.ingameGUI.renderHotbarItem(x, y, event.getPartialTicks(), player, nextOffhand);
+          if (renderShield) {
+            mc.getTextureManager().bindTexture(Icons.ICONS);
+            int x = scaledWidth / 2 + (player.getPrimaryHand().opposite() == HandSide.LEFT ? -117 : 101);
+            int y = scaledHeight - 38;
+            Screen.blit(matrixStack, x - 3, y - 3, player.getHeldItemOffhand().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+            mc.ingameGUI.renderHotbarItem(x, y, partialTicks, player, nextOffhand);
+          }
+
+          if (renderItemFrame) {
+            // determine how many items need to be rendered
+            int columns = Config.CLIENT.itemsPerRow.get();
+            int count = itemFrames.size();
+            // need to split items over multiple lines potentially
+            int rows = count / columns;
+            int inLastRow = count % columns;
+            // if we have an exact number, means we should have full in last row
+            if (inLastRow == 0) {
+              inLastRow = columns;
+            } else {
+              // we have an incomplete row that was not counted
+              rows++;
+            }
+            // determine placement of the items
+            Orientation2D location = Config.CLIENT.itemFrameLocation.get();
+            Orientation1D xOrientation = location.getX();
+            Orientation1D yOrientation = location.getY();
+            int xStart = xOrientation.align(scaledWidth - SLOT_BACKGROUND_SIZE * columns) + Config.CLIENT.itemFrameXOffset.get();
+            int yStart = yOrientation.align(scaledHeight - SLOT_BACKGROUND_SIZE * rows) + Config.CLIENT.itemFrameYOffset.get();
+
+            // draw backgrounds
+            mc.getTextureManager().bindTexture(Icons.ICONS);
+            int lastRow = rows - 1;
+            for (int r = 0; r < lastRow; r++) {
+              for (int c = 0; c < columns; c++) {
+                Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+              }
+            }
+            // last row will be aligned in the direction of x orientation (center, left, or right)
+            int lastRowOffset = xOrientation.align((columns - inLastRow) * 2) * SLOT_BACKGROUND_SIZE / 2;
+            for (int c = 0; c < inLastRow; c++) {
+              Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+            }
+
+            // draw items
+            int i = 0;
+            xStart += 3; yStart += 3; // offset from item start instead of frame start
+            for (int r = 0; r < lastRow; r++) {
+              for (int c = 0; c < columns; c++) {
+                mc.ingameGUI.renderHotbarItem(xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
+                i++;
+              }
+            }
+            // align last row
+            for (int c = 0; c < inLastRow; c++) {
+              mc.ingameGUI.renderHotbarItem(xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
+              i++;
+            }
+          }
 
           RenderSystem.disableRescaleNormal();
           RenderSystem.disableBlend();

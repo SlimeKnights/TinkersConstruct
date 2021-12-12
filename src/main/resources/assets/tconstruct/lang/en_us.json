@@ -1654,6 +1654,9 @@
   "modifier.tconstruct.aqua_affinity": "Aqua Affinity",
   "modifier.tconstruct.aqua_affinity.flavor": "Become one with the sea!",
   "modifier.tconstruct.aqua_affinity.description": "Removes the mining penalty from mining underwater",
+  "modifier.tconstruct.item_frame": "Item Frame",
+  "modifier.tconstruct.item_frame.flavor": "I see everything",
+  "modifier.tconstruct.item_frame.description": "Adds inventory slots to the helmet for items to observe. Perfect for clocks and compasses",
 
   "_comment": "Armor - chestplate",
   "modifier.tconstruct.knockback_armor": "Knockback",

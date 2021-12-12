@@ -35,6 +35,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -610,6 +611,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.UPGRADE, 1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.respiration, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.itemFrame.get())
+                         .setTools(TinkerTags.Items.HELMETS)
+                         .addInput(Ingredient.fromStacks(TinkerGadgets.itemFrame.values().stream().map(ItemStack::new)))
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.itemFrame, upgradeSalvage))
+                         .build(consumer, prefix(TinkerModifiers.itemFrame, upgradeFolder));
     // upgrade - chestplate
     ModifierRecipeBuilder.modifier(TinkerModifiers.armorKnockback.get())
                          .setTools(TinkerTags.Items.CHESTPLATES)
