@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -219,16 +220,24 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** @deprecated use {@link #addInformation(IModifierToolStack, int, List, TooltipFlag)} */
   @Deprecated
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {}
+  
+  /** @deprecated use {@link #addInformation(IModifierToolStack, int, PlayerEntity, List, TooltipFlag)} */
+  @Deprecated
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
+    addInformation(tool, level, tooltip, tooltipFlag == TooltipFlag.ADVANCED, tooltipFlag == TooltipFlag.DETAILED);
+  }
 
   /**
    * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
    * @param tool         Tool instance
    * @param level        Tool level
+   * @param player       Player holding this tool
    * @param tooltip      Tooltip
+   * @param tooltipKey   Shows if the player is holding shift, control, or neither
    * @param tooltipFlag  Flag determining tooltip type
    */
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
-    addInformation(tool, level, tooltip, tooltipFlag == TooltipFlag.ADVANCED, tooltipFlag == TooltipFlag.DETAILED);
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    addInformation(tool, level, tooltip, tooltipFlag);
   }
 
   /**
@@ -1128,7 +1137,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, ITag<Item> condition, float amount, List<ITextComponent> tooltip) {
     if (tool.hasTag(condition)) {
-      tooltip.add(applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
+      tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(amount * tool.getModifier(stat)))
                                .appendString(" ")
                                .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
     }

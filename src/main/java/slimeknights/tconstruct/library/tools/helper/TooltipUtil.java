@@ -147,7 +147,7 @@ public class TooltipUtil {
     } else {
       switch (tooltipKey) {
         case SHIFT:
-          item.getStatInformation(ToolStack.from(stack), player, tooltip, tooltipFlag);
+          item.getStatInformation(ToolStack.from(stack), player, tooltip, tooltipKey, tooltipFlag);
           break;
         case CONTROL:
           if (item.getToolDefinition().isMultipart()) {
@@ -196,6 +196,13 @@ public class TooltipUtil {
     }
   }
 
+
+  /** @deprecated use {@link #getDefaultStats(IModifierToolStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
+  @Deprecated
+  public static List<ITextComponent> getDefaultStats(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) {
+    return getDefaultStats(tool, null, tooltip, TooltipKey.NORMAL, flag);
+  }
+
   /**
    * Gets the  default information for the given tool stack
    *
@@ -204,7 +211,7 @@ public class TooltipUtil {
    * @param flag      Tooltip flag
    * @return List from the parameter after filling
    */
-  public static List<ITextComponent> getDefaultStats(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) {
+  public static List<ITextComponent> getDefaultStats(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     Item item = tool.getItem();
     if (TinkerTags.Items.DURABILITY.contains(item)) {
@@ -222,11 +229,16 @@ public class TooltipUtil {
     }
 
     builder.addAllFreeSlots();
-
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, flag);
+      entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
     }
     return builder.getTooltips();
+  }
+
+  /** @deprecated {@link #getArmorStats(IModifierToolStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
+  @Deprecated
+  public static List<ITextComponent> getArmorStats(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) { 
+    return getArmorStats(tool, null, tooltip, TooltipKey.NORMAL, flag);
   }
 
   /**
@@ -237,7 +249,7 @@ public class TooltipUtil {
    * @param flag      Tooltip flag
    * @return List from the parameter after filling
    */
-  public static List<ITextComponent> getArmorStats(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) {
+  public static List<ITextComponent> getArmorStats(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     Item item = tool.getItem();
     if (TinkerTags.Items.DURABILITY.contains(item)) {
@@ -255,7 +267,7 @@ public class TooltipUtil {
     builder.addAllFreeSlots();
 
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, flag);
+      entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
     }
     return builder.getTooltips();
   }

@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
@@ -258,7 +259,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         this.tinkerInfo.setCaption(display.getLocalizedName());
         // TODO: tooltips on these?
         assert minecraft != null;
-        this.tinkerInfo.setText(display.getStatInformation(tool, minecraft.player, new ArrayList<>(), TooltipFlag.DETAILED));
+        this.tinkerInfo.setText(display.getStatInformation(tool, minecraft.player, new ArrayList<>(), TooltipKey.fromScreen(), TooltipFlag.DETAILED));
       }
       else {
         this.tinkerInfo.setCaption(toolStack.getDisplayName());

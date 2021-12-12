@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -34,10 +35,10 @@ public interface ITinkerStationDisplay extends IItemProvider {
     return new TranslationTextComponent(asItem().getTranslationKey());
   }
 
-  /** @deprecated use {@link #getStatInformation(IModifierToolStack, PlayerEntity, List, TooltipFlag)} */
+  /** @deprecated use {@link #getStatInformation(IModifierToolStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
   @Deprecated
   default List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
-    return TooltipUtil.getDefaultStats(tool, tooltips, tooltipFlag);
+    return getStatInformation(tool, null, tooltips, TooltipKey.NORMAL, tooltipFlag);
   }
 
   /**
@@ -46,8 +47,8 @@ public interface ITinkerStationDisplay extends IItemProvider {
    * @param tooltips     List of tooltips for display
    * @param tooltipFlag  Determines the type of tooltip to display
    */
-  default List<ITextComponent> getStatInformation(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
-    tooltips = getStatInformation(tool, tooltips, tooltipFlag);
+  default List<ITextComponent> getStatInformation(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
+    tooltips = TooltipUtil.getDefaultStats(tool, player, tooltips, key, tooltipFlag);
     TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_MELEE_ATTRIBUTES, EquipmentSlotType.MAINHAND);
     return tooltips;
   }
