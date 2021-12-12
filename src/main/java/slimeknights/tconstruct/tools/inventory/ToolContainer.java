@@ -38,6 +38,8 @@ public class ToolContainer extends Container {
   private final int selectedHotbarSlot;
   @Getter
   private final boolean showOffhand;
+  /** Index of the first player inventory slot */
+  private final int playerInventoryStart;
 
   public ToolContainer(int id, PlayerInventory playerInventory, ItemStack stack, IItemHandlerModifiable itemHandler, EquipmentSlotType slotType) {
     this(TinkerTools.toolContainer.get(), id, playerInventory, stack, itemHandler, slotType);
@@ -74,6 +76,8 @@ public class ToolContainer extends Container {
       }
     }
 
+    this.playerInventoryStart = this.inventorySlots.size();
+
     // add player slots
     int playerY = 32 + SLOT_SIZE * ((slots + 8) / 9);
     for(int r = 0; r < 3; ++r) {
@@ -95,5 +99,32 @@ public class ToolContainer extends Container {
   @Override
   public boolean canInteractWith(PlayerEntity playerIn) {
     return player == playerIn;
+  }
+
+  @Override
+  public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    if (this.playerInventoryStart < 0) {
+      return ItemStack.EMPTY;
+    }
+    ItemStack result = ItemStack.EMPTY;
+    Slot slot = this.inventorySlots.get(index);
+    if (slot != null && slot.getHasStack()) {
+      ItemStack slotStack = slot.getStack();
+      result = slotStack.copy();
+      int end = this.inventorySlots.size();
+      if (index < this.playerInventoryStart) {
+        if (!this.mergeItemStack(slotStack, this.playerInventoryStart, end, true)) {
+          return ItemStack.EMPTY;
+        }
+      } else if (!this.mergeItemStack(slotStack, 0, this.playerInventoryStart, false)) {
+        return ItemStack.EMPTY;
+      }
+      if (slotStack.isEmpty()) {
+        slot.putStack(ItemStack.EMPTY);
+      } else {
+        slot.onSlotChanged();
+      }
+    }
+    return result;
   }
 }
