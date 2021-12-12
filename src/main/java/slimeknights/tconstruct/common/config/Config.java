@@ -259,6 +259,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
+    public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -295,6 +296,15 @@ public class Config {
         .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
         .translation("tconstruct.configgui.showModifiersInJEI")
         .define("showModifiersInJEI", true);
+
+      builder.comment("Settings related to modifiers").push("modifiers");
+      {
+
+        this.renderShieldSlotItem = builder
+          .comment("If true, the shield slot legging modifier will render the next offhand item above the offhand slot.")
+          .define("renderShieldSlotItem", true);
+      }
+      builder.pop();
 
       builder.pop();
     }

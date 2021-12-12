@@ -1,17 +1,24 @@
 package slimeknights.tconstruct.tools.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,16 +27,22 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /** Modifier event hooks that run client side */
@@ -118,5 +131,63 @@ public class ModifierClientEvents {
         event.setNewfov(event.getNewfov() * zoom);
       }
     });
+  }
+
+
+  /* Renders the next shield strap item above the offhand item */
+
+  /** Cache of the current item to render */
+  @Nonnull
+  private static ItemStack nextOffhand = ItemStack.EMPTY;
+
+  /** Update the slot in the first shield slot */
+  @SubscribeEvent
+  static void equipmentChange(ToolEquipmentChangeEvent event) {
+    if (!Config.CLIENT.renderShieldSlotItem.get()) {
+      return;
+    }
+    EquipmentChangeContext context = event.getContext();
+    if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlotType.LEGS) {
+      IModifierToolStack tool = context.getToolInSlot(EquipmentSlotType.LEGS);
+      if (tool != null) {
+        int level = tool.getModifierLevel(TinkerModifiers.shieldStrap.get());
+        if (level > 0) {
+          nextOffhand = TinkerModifiers.shieldStrap.get().getStack(tool, level, 0);
+          return;
+        }
+      }
+      nextOffhand = ItemStack.EMPTY;
+    }
+  }
+
+  /** Render the item in the first shield slot */
+  @SubscribeEvent
+  static void renderHotbar(RenderGameOverlayEvent.Post event) {
+    if (!Config.CLIENT.renderShieldSlotItem.get()) {
+      return;
+    }
+    if (event.getType() == ElementType.HOTBAR && !nextOffhand.isEmpty()) {
+      Minecraft mc = Minecraft.getInstance();
+      PlayerController playerController = Minecraft.getInstance().playerController;
+      if (playerController != null && playerController.getCurrentGameType() != GameType.SPECTATOR) {
+        PlayerEntity player = Minecraft.getInstance().player;
+        if (player != null && player == mc.getRenderViewEntity()) {
+          RenderSystem.enableRescaleNormal();
+          RenderSystem.enableBlend();
+          RenderSystem.defaultBlendFunc();
+
+          mc.getTextureManager().bindTexture(Icons.ICONS);
+
+          // want just above the normal hotbar item
+          int x = mc.getMainWindow().getScaledWidth() / 2 + (player.getPrimaryHand().opposite() == HandSide.LEFT ? -117 : 101);
+          int y = mc.getMainWindow().getScaledHeight() - 38;
+          Screen.blit(event.getMatrixStack(), x - 3, y - 3, player.getHeldItemOffhand().isEmpty() ? 211 : 189, 0, 22, 22, 256, 256);
+          mc.ingameGUI.renderHotbarItem(x, y, event.getPartialTicks(), player, nextOffhand);
+
+          RenderSystem.disableRescaleNormal();
+          RenderSystem.disableBlend();
+        }
+      }
+    }
   }
 }
