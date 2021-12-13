@@ -161,6 +161,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/armor/lightspeed.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/armor/pocket_chain.json"
   },
   {
@@ -170,6 +174,10 @@
   {
     "type": "modifier",
     "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/soulspeed.json"
   },
   {
     "type": "modifier",

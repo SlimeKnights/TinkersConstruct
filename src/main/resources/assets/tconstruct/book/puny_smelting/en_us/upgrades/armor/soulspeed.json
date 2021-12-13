@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Apparently, souls are ideal running fast. Is this ethically okay?"
+    }
+  ],
+  "effects": [
+    "Increases movement speed on soul sand",
+    "Multiple levels, each level further increases speed",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

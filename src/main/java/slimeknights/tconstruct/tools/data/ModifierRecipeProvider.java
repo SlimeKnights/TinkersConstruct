@@ -680,6 +680,30 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(4)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.featherFalling, upgradeSalvage))
                                     .build(consumer, prefix(TinkerModifiers.featherFalling, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.soulspeed.get())
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInputSalvage(Items.MAGMA_BLOCK, 0.2f)
+                         .addInputSalvage(Items.CRYING_OBSIDIAN, 0.4f)
+                         .addInputSalvage(Items.MAGMA_BLOCK, 0.2f)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(3)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.soulspeed, upgradeSalvage))
+                         .build(consumer, prefix(TinkerModifiers.soulspeed, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeedArmor.get())
+                                    .setTools(TinkerTags.Items.BOOTS)
+                                    .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 64)
+                                    .setSalvage(Items.GLOWSTONE_DUST, false)
+                                    .setMaxLevel(3) // 45% running speed at max, conditionally
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.lightspeedArmor, upgradeSalvage))
+                                    .build(consumer, wrap(TinkerModifiers.lightspeedArmor, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeedArmor.get())
+                                    .setTools(TinkerTags.Items.BOOTS)
+                                    .setInput(Blocks.GLOWSTONE, 4, 64)
+                                    .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
+                                    .setMaxLevel(3)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .build(consumer, wrap(TinkerModifiers.lightspeedArmor, upgradeFolder, "_from_block"));
     // upgrade - all
     ModifierRecipeBuilder.modifier(TinkerModifiers.ricochet.get())
                          .setTools(TinkerTags.Items.ARMOR)
