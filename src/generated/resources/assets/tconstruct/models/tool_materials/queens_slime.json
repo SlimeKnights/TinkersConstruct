@@ -4,7 +4,7 @@
     "metal"
   ],
   "color": "809912",
-  "luminosity": 0,
+  "luminosity": 9,
   "generator": {
     "transformer": {
       "type": "tconstruct:grey_to_sprite",
