@@ -100,6 +100,8 @@ import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
+import slimeknights.tconstruct.tools.modifiers.slotless.FarsightedModifier;
+import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.VolatileFlagModifier;
@@ -247,6 +249,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
   public static final RegistryObject<VolatileFlagModifier> shiny = MODIFIERS.register("shiny", () -> new VolatileFlagModifier(0xFFA3EF, IModifiable.SHINY, Rarity.EPIC));
   public static final RegistryObject<OffhandedModifier> offhanded = MODIFIERS.register("offhanded", OffhandedModifier::new);
+  public static final RegistryObject<FarsightedModifier> farsighted = MODIFIERS.register("farsighted", FarsightedModifier::new);
+  public static final RegistryObject<NearsightedModifier> nearsighted = MODIFIERS.register("nearsighted", NearsightedModifier::new);
 
   // harvest
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);

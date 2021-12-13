@@ -280,6 +280,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.ENCHANTED_GOLDEN_APPLE)
                          .setMaxLevel(1)
                          .build(consumer, prefix(TinkerModifiers.shiny, slotlessFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.farsighted.get())
+                                    .setTools(TinkerTags.Items.MODIFIABLE)
+                                    .setInput(Tags.Items.CROPS_CARROT, 1, 45)
+                                    .build(consumer, prefix(TinkerModifiers.farsighted, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.nearsighted.get())
+                                    .setTools(TinkerTags.Items.MODIFIABLE)
+                                    .setInput(Items.INK_SAC, 1, 45)
+                                    .build(consumer, prefix(TinkerModifiers.nearsighted, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded.get())
                          .setTools(TinkerTags.Items.HELD)
                          .addInputSalvage(Items.LEATHER, 0.7f)

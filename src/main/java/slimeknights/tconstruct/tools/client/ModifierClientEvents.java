@@ -27,6 +27,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
+import slimeknights.tconstruct.library.modifiers.data.FloatMultiplier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -40,7 +41,6 @@ import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 
 import javax.annotation.Nonnull;
@@ -104,9 +104,9 @@ public class ModifierClientEvents {
   @SubscribeEvent
   static void handleZoom(FOVUpdateEvent event) {
     event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-      Float zoom = data.get(ZoomModifier.ZOOM_MULTIPLIER);
+      FloatMultiplier zoom = data.get(TinkerDataKeys.FOV_MODIFIER);
       if (zoom != null) {
-        event.setNewfov(event.getNewfov() * zoom);
+        event.setNewfov(event.getNewfov() * zoom.getValue());
       }
     });
   }

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "Manyullyn is a great material, but there are many good materials that are easier to access, take some time and try them out before rushing to the end."
+    }
+  ],
+  "effects": [
+    "Decreases FOV on the held tool or worn armor",
+    "Multi-use",
+    "Slotless"
+  ]
+}

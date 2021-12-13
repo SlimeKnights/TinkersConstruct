@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "Decreases the FOV by 5% per level while wearing this armor or holding this tool."
+    },
+    {
+      "text": "This modifier is ideal to cancel out the FOV change from the speedy modifier, but you may find other uses for it.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-use",
+    "Slotless"
+  ]
+}

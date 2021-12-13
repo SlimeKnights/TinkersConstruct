@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "You need to move on from cobblestone tools eventually."
+    }
+  ],
+  "effects": [
+    "Increases FOV on the held tool or worn armor",
+    "Multi-use",
+    "Slotless"
+  ]
+}
