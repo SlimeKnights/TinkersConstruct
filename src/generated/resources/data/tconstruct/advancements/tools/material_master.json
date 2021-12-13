@@ -328,6 +328,19 @@
         ]
       }
     },
+    "blazing_bone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:blazing_bone"
+            ]
+          }
+        ]
+      }
+    },
     "enderslime_vine": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -414,6 +427,9 @@
     ],
     [
       "queens_slime"
+    ],
+    [
+      "blazing_bone"
     ],
     [
       "enderslime_vine"

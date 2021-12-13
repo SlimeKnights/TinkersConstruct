@@ -36,6 +36,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -71,6 +72,7 @@ import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -590,7 +592,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInputSalvage(Blocks.CACTUS, 1, 25, false)
                                     .setMaxLevel(3)
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .buildSalvage(consumer, prefix(TinkerModifiers.thorns, upgradeSalvage))
                                     .build(consumer, prefix(TinkerModifiers.thorns, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sticky.get())
@@ -622,7 +623,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.itemFrame.get())
                          .setTools(TinkerTags.Items.HELMETS)
-                         .addInput(Ingredient.fromStacks(TinkerGadgets.itemFrame.values().stream().map(ItemStack::new)))
+                         .addInput(Ingredient.fromStacks(Arrays.stream(FrameType.values())
+                                                               .filter(type -> type != FrameType.CLEAR)
+                                                               .map(type -> new ItemStack(TinkerGadgets.itemFrame.get(type)))))
                          .setSlots(SlotType.UPGRADE, 1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.itemFrame, upgradeSalvage))
                          .build(consumer, prefix(TinkerModifiers.itemFrame, upgradeFolder));

@@ -1,0 +1,210 @@
+{
+  "parent": "tconstruct:world/slimesuit",
+  "display": {
+    "icon": {
+      "item": "tconstruct:slime_helmet",
+      "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:gunpowder\"]}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.world.slimeskull.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.world.slimeskull.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "gunpowder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:gunpowder"
+            ]
+          }
+        ]
+      }
+    },
+    "bone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:bone"
+            ]
+          }
+        ]
+      }
+    },
+    "necrotic_bone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:necrotic_bone"
+            ]
+          }
+        ]
+      }
+    },
+    "rotten_flesh": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:rotten_flesh"
+            ]
+          }
+        ]
+      }
+    },
+    "ender_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:ender_pearl"
+            ]
+          }
+        ]
+      }
+    },
+    "bloodbone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:bloodbone"
+            ]
+          }
+        ]
+      }
+    },
+    "spider": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:spider"
+            ]
+          }
+        ]
+      }
+    },
+    "venom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:venom"
+            ]
+          }
+        ]
+      }
+    },
+    "potato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:potato"
+            ]
+          }
+        ]
+      }
+    },
+    "fish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:fish"
+            ]
+          }
+        ]
+      }
+    },
+    "blazing_bone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:blazing_bone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "gunpowder"
+    ],
+    [
+      "bone"
+    ],
+    [
+      "necrotic_bone"
+    ],
+    [
+      "rotten_flesh"
+    ],
+    [
+      "ender_pearl"
+    ],
+    [
+      "bloodbone"
+    ],
+    [
+      "spider"
+    ],
+    [
+      "venom"
+    ],
+    [
+      "potato"
+    ],
+    [
+      "fish"
+    ],
+    [
+      "blazing_bone"
+    ]
+  ]
+}
