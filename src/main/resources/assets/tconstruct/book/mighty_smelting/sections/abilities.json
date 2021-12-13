@@ -114,7 +114,23 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/flamewake.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/frost_walker.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/armor/looting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/path_maker.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/plowing.json"
   },
   {
     "type": "modifier",
@@ -134,6 +150,10 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/snowdrift.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/weapon/spilling.json"
   },
   {
@@ -145,6 +165,7 @@
     "data": "abilities/armor/tool_belt.json"
   },
   {
+    "name": "unarmed",
     "type": "modifier",
     "data": "abilities/armor/unarmed_attack.json"
   },

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "Who thought it was a good idea to combine flint and bronze with boots? I cannot safely step anywhere now!"
+    }
+  ],
+  "effects": [
+    "Leaves fires where you walk",
+    "Area boosted by expanded",
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

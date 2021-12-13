@@ -28,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -40,6 +41,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
@@ -53,6 +55,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Event subscriber for tool events
@@ -311,6 +314,26 @@ public class ToolEvents {
                 armorStack.damageItem(damageMissed, entity, e -> e.sendBreakAnimation(slotType));
               }
             }
+          }
+        }
+      }
+    }
+  }
+
+  /** Called the modifier hook when an entity's position changes */
+  @SubscribeEvent
+  static void livingWalk(LivingUpdateEvent event) {
+    LivingEntity living = event.getEntityLiving();
+    // this event runs before vanilla updates prevBlockPos
+    BlockPos pos = living.getPosition();
+    if (!living.world.isRemote() && living.isAlive() && !Objects.equals(living.prevBlockpos, pos)) {
+      ItemStack boots = living.getItemStackFromSlot(EquipmentSlotType.FEET);
+      if (!boots.isEmpty() && TinkerTags.Items.BOOTS.contains(boots.getItem())) {
+        ToolStack tool = ToolStack.from(boots);
+        for (ModifierEntry entry : tool.getModifierList()) {
+          IArmorWalkModifier hook = entry.getModifier().getModule(IArmorWalkModifier.class);
+          if (hook != null) {
+            hook.onWalk(tool, entry.getLevel(), living, living.prevBlockpos, pos);
           }
         }
       }

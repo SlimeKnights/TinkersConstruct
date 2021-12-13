@@ -207,6 +207,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
     this.getOrCreateBuilder(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
     this.getOrCreateBuilder(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
+    this.getOrCreateBuilder(AOE).addTag(BOOTS); // boot walk modifiers
 
     // general
     this.getOrCreateBuilder(MODIFIABLE)

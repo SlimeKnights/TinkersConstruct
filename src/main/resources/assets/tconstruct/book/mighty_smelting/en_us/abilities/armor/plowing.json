@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:plowing",
+  "text": [
+    {
+      "text": "Ever needed to create a big farm? Like a really big farm? Now you can."
+    }
+  ],
+  "effects": [
+    "Creates farmland as you walk",
+    "Area boosted by expanded",
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

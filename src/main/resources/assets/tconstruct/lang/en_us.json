@@ -1719,6 +1719,22 @@
   "modifier.tconstruct.bouncy.flavor": "Skybound!",
   "modifier.tconstruct.bouncy.description": "Causes the ground to reflect you, as if you are constantly on slime blocks",
 
+  "modifier.tconstruct.frost_walker": "Frost Walker",
+  "modifier.tconstruct.frost_walker.flavor": "Where's My Super Suit?",
+  "modifier.tconstruct.frost_walker.description": "Causes water blocks to temporarily freeze",
+  "modifier.tconstruct.path_maker": "Path Maker",
+  "modifier.tconstruct.path_maker.flavor": "Lead the way",
+  "modifier.tconstruct.path_maker.description": "Leaves paths wherever you step",
+  "modifier.tconstruct.plowing": "Plowing",
+  "modifier.tconstruct.plowing.flavor": "Tractors were invented in 1892",
+  "modifier.tconstruct.plowing.description": "Tills the blocks in your path",
+  "modifier.tconstruct.snowdrift": "Snowdrift",
+  "modifier.tconstruct.snowdrift.flavor": "Golem golem",
+  "modifier.tconstruct.snowdrift.description": "Leave a trail of snow like a snow golem",
+  "modifier.tconstruct.flamewake": "Flamewake",
+  "modifier.tconstruct.flamewake.flavor": "This is fine!",
+  "modifier.tconstruct.flamewake.description": "Leave a trail of fire in your wake",
+
 
   "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "Unbreakable",

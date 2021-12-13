@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:path_maker",
+  "text": [
+    {
+      "text": "Tired of forgetting the way back home? Why not leave a constant trail? Trample the earth as you walk and never forget where you have been!"
+    }
+  ],
+  "effects": [
+    "Creates paths as you walk",
+    "Area boosted by expanded",
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

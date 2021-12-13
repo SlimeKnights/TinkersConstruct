@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "Look at the snow golem. Isn't he so cool, leaving trails of snow? Don't you wish you could leave trails of snow too?"
+    }
+  ],
+  "effects": [
+    "Creates snow as you walk",
+    "Does not work in warm biomes",
+    "Area boosted by expanded",
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

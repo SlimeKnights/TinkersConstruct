@@ -68,6 +68,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
+import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.BiConsumer;
@@ -799,6 +800,68 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.bouncy, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.bouncy, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.frostWalker.get())
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(Items.BLUE_ICE)
+                         .addInputSalvage(TinkerWorld.heads.get(TinkerHeadType.STRAY), 0.5f)
+                         .addInput(Items.BLUE_ICE)
+                         .addInput(Items.BLUE_ICE)
+                         .addInput(Items.BLUE_ICE)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.frostWalker, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.frostWalker, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.snowdrift.get())
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(Items.SNOW_BLOCK)
+                         .addInput(Items.CARVED_PUMPKIN)
+                         .addInput(Items.SNOW_BLOCK)
+                         .addInput(Items.SNOW_BLOCK)
+                         .addInput(Items.SNOW_BLOCK)
+                         .addSalvage(Items.SNOWBALL, 0, 16)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
+    Ingredient bootsWithDuraibility = IngredientIntersection.intersection(Ingredient.fromTag(TinkerTags.Items.BOOTS), Ingredient.fromTag(TinkerTags.Items.DURABILITY));
+    SizedIngredient pickaxeHead = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.pickaxeHead.get()));
+    SizedIngredient smallAxeHead = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get()));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.pathMaker.get())
+                         .setTools(bootsWithDuraibility)
+                         .addInput(pickaxeHead)
+                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInput(smallAxeHead)
+                         .addInput(pickaxeHead)
+                         .addInput(smallAxeHead)
+                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.pathMaker, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.pathMaker, abilityFolder));
+    SizedIngredient smallBlade = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallBlade.get()));
+    SizedIngredient toolBinding = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get()));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.plowing.get())
+                         .setTools(bootsWithDuraibility)
+                         .addInput(smallBlade)
+                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInput(toolBinding)
+                         .addInput(smallBlade)
+                         .addInput(toolBinding)
+                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.plowing, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.plowing, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.flamewake.get())
+                         .setTools(bootsWithDuraibility)
+                         .addInputSalvage(Items.FLINT, 0.2f)
+                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(Items.FLINT, 0.2f)
+                         .addInputSalvage(Items.FLINT, 0.2f)
+                         .addInputSalvage(Items.FLINT, 0.2f)
+                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.flamewake, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.flamewake, abilityFolder));
 
     /*
      * ability
@@ -988,9 +1051,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     Ingredient heldWithDurability = new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromTag(TinkerTags.Items.INTERACTABLE));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
                          .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
-                         .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.pickaxeHead.get())))
+                         .addInput(pickaxeHead)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
-                         .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
+                         .addInput(smallAxeHead)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
@@ -1008,9 +1071,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.stripping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tilling.get())
                          .setTools(new IngredientWithout(heldWithDurability, Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
-                         .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallBlade.get())))
+                         .addInput(smallBlade)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
-                         .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get())))
+                         .addInput(toolBinding)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
