@@ -63,6 +63,10 @@ public class TooltipUtil {
   public static final ITextComponent TOOLTIP_HOLD_CTRL = TConstruct.makeTranslation("tooltip", "hold_ctrl", TConstruct.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC));
   /** Tooltip for when tool data is missing */
   private static final ITextComponent NO_DATA = TConstruct.makeTranslation("tooltip", "missing_data").mergeStyle(TextFormatting.GRAY);
+  /** Tooltip for when a tool is uninitialized */
+  private static final ITextComponent UNINITIALIZED = TConstruct.makeTranslation("tooltip", "uninitialized").mergeStyle(TextFormatting.GRAY);
+  /** Extra tooltip for multipart tools with no materials */
+  private static final ITextComponent RANDOM_MATERIALS = TConstruct.makeTranslation("tooltip", "random_materials").mergeStyle(TextFormatting.GRAY);
 
   /**
    * If true, this stack was created for display, so some of the tooltip is suppressed
@@ -129,6 +133,7 @@ public class TooltipUtil {
    */
   public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     // if the display tag is set, just show modifiers
+    ToolDefinition definition = item.getToolDefinition();
     if (isDisplay(stack)) {
       ToolStack tool = ToolStack.from(stack);
       for (ModifierEntry entry : tool.getModifierList()) {
@@ -136,12 +141,17 @@ public class TooltipUtil {
           tooltip.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
         }
       }
+      // No definition?
+    } else if (!definition.isDataLoaded()) {
+      tooltip.add(NO_DATA);
+
       // if not initialized, show no data tooltip on non-standard items
     } else if (!ToolStack.isInitialized(stack)) {
-      if (item.getToolDefinition().isMultipart()) {
+      tooltip.add(UNINITIALIZED);
+      if (definition.isMultipart()) {
         CompoundNBT nbt = stack.getTag();
         if (nbt == null || !nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
-          tooltip.add(NO_DATA);
+          tooltip.add(RANDOM_MATERIALS);
         }
       }
     } else {
@@ -150,7 +160,7 @@ public class TooltipUtil {
           item.getStatInformation(ToolStack.from(stack), player, tooltip, tooltipKey, tooltipFlag);
           break;
         case CONTROL:
-          if (item.getToolDefinition().isMultipart()) {
+          if (definition.isMultipart()) {
             TooltipUtil.getComponents(item, stack, tooltip);
             break;
           }

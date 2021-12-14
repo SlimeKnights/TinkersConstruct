@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.fixture;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.Lazy;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
@@ -14,6 +15,12 @@ import java.util.List;
 public final class ToolDefinitionFixture {
   private static final ResourceLocation DEFINITION_ID = new ResourceLocation("test", "test_tool");
   private static final IToolStatProvider TEST_STATS_PROVIDER = new IToolStatProvider() {
+    private final Lazy<ToolDefinitionData> DATA = Lazy.of(
+      () -> ToolDefinitionDataBuilder.builder()
+                                     .part(MaterialItemFixture.MATERIAL_ITEM_HEAD)
+                                     .part(MaterialItemFixture.MATERIAL_ITEM_HANDLE)
+                                     .part(MaterialItemFixture.MATERIAL_ITEM_EXTRA)
+                                     .build());
     @Override
     public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
       return MeleeHarvestToolStatsBuilder.from(definition, materials).buildStats();
@@ -26,11 +33,7 @@ public final class ToolDefinitionFixture {
 
     @Override
     public ToolDefinitionData getDefaultData() {
-      return ToolDefinitionDataBuilder.builder()
-                                      .part(MaterialItemFixture.MATERIAL_ITEM_HEAD)
-                                      .part(MaterialItemFixture.MATERIAL_ITEM_HANDLE)
-                                      .part(MaterialItemFixture.MATERIAL_ITEM_EXTRA)
-                                      .build();
+      return DATA.get();
     }
   };
 

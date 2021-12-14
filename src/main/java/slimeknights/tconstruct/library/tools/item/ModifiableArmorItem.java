@@ -321,6 +321,9 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     // don't care about non-living, they skip most tool context
     if (entityIn instanceof LivingEntity) {
       ToolStack tool = ToolStack.from(stack);
+      if (!worldIn.isRemote) {
+        tool.ensureHasData();
+      }
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;

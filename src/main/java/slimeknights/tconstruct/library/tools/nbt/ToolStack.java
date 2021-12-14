@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -581,6 +582,20 @@ public class ToolStack implements IModifierToolStack {
     return ValidatedResult.PASS;
   }
 
+  /** Called on inventory tick to ensure the tool has all required data, prevents tools with no stats from existing */
+  public void ensureHasData() {
+    // no stats but definition ready? rebuild time
+    if (definition.isDataLoaded() && !nbt.contains(TAG_STATS, NBT.TAG_COMPOUND)) {
+      // add starting modifier slots
+      definition.getData().buildSlots(getPersistentData());
+      // do we need materials?
+      if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, NBT.TAG_LIST)) {
+        setMaterialsRaw(new MaterialNBT(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false)));
+      }
+      rebuildStats();
+    }
+  }
+
   /**
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
@@ -672,7 +687,7 @@ public class ToolStack implements IModifierToolStack {
    */
   private static boolean needsInitialization(@Nullable CompoundNBT nbt, ToolDefinition definition) {
     // cannot initialize if datapacks are not loaded
-    if (definition.getData() == definition.getStatProvider().getDefaultData()) {
+    if (!definition.isDataLoaded()) {
       return false;
     }
     // no NBT? initialize if we don't need more data
@@ -722,7 +737,7 @@ public class ToolStack implements IModifierToolStack {
    */
   public static void verifyTag(Item item, CompoundNBT compound, ToolDefinition definition) {
     // skip if no definition data loaded
-    if (definition.getData() != definition.getStatProvider().getDefaultData() && compound.contains("tag", NBT.TAG_COMPOUND)) {
+    if (definition.isDataLoaded() && compound.contains("tag", NBT.TAG_COMPOUND)) {
       CompoundNBT nbt = compound.getCompound("tag");
       // if the stack has materials, resolve all material redirects
       if (nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
