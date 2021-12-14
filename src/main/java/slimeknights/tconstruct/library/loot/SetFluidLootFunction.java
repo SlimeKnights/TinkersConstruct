@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.json;
+package slimeknights.tconstruct.library.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -22,6 +22,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
  */
 public class SetFluidLootFunction extends LootFunction {
   public static final ResourceLocation ID = TConstruct.getResource("set_fluid");
+  public static final Serializer SERIALIZER = new Serializer();
 
   /** Fluid to add to the item */
   private final FluidStack fluid;
@@ -54,7 +55,7 @@ public class SetFluidLootFunction extends LootFunction {
   }
 
   /** Serializer logic for the function */
-  public static class Serializer extends LootFunction.Serializer<SetFluidLootFunction> {
+  private static class Serializer extends LootFunction.Serializer<SetFluidLootFunction> {
     @Override
     public void serialize(JsonObject json, SetFluidLootFunction loot, JsonSerializationContext context) {
       super.serialize(json, loot, context);

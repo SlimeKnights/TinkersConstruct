@@ -33,6 +33,11 @@ public class Config {
     public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
 
+    // loot
+    public final BooleanValue slimyLootChests;
+    public final IntValue barterBlazingBlood;
+    public final IntValue tinkerToolBonusChest;
+
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
     public final ConfigValue<Integer> foundryNuggetsPerOre;
@@ -157,6 +162,26 @@ public class Config {
       }
 
       builder.pop(2);
+
+      builder.comment(
+        "Options related to loot table injections. Note some of the changes are done via global loot managers, these only control injecting loot into loot pools",
+        "If your modpack makes extensive loot table changes, many of these may be automatically disabled. You can also manually set up tables for more control.").push("loot");
+
+      slimyLootChests = builder
+        .comment("Adds slimy saplings and seeds into various loot chests. Helps for worlds without slime islands")
+        .worldRestart()
+        .define("slimy_loot", true);
+      barterBlazingBlood = builder
+        .comment("Weight of blazing blood in the piglin bartering tables. Set to 0 to disable")
+        .worldRestart()
+        .defineInRange("barter_blazing_blood", 20, 0, 100);
+      tinkerToolBonusChest = builder
+        .comment("Weight of tinker tools in the vanilla spawn bonus chest, randomly replacing the vanilla axe or shovel. Tool will have a random tier 1 head and binding, plus a wooden handle. Set to 0 to disable.",
+                 "For comparison, vanilla wooden axes and pickaxes have a weight of 3, and stone axes/pickaxes have a weight of 1")
+        .worldRestart()
+        .defineInRange("tinker_tool_bonus_chest", 2, 0, 25);
+
+      builder.pop();
 
       builder.comment("Everything to do with world generation").push("worldgen");
 

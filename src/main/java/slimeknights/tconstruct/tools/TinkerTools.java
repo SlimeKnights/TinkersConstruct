@@ -8,7 +8,9 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.loot.LootFunctionType;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -23,6 +25,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
+import slimeknights.tconstruct.library.loot.AddToolDataFunction;
+import slimeknights.tconstruct.library.loot.RandomMaterial;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
@@ -73,10 +77,14 @@ public final class TinkerTools extends TinkerModule {
     SlotType.init();
     BlockSideHitListener.init();
     ModifierLootingHandler.init();
+    RandomMaterial.init();
   }
 
   /** Creative tab for all tool items */
   public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.MOD_ID, "tools", () -> TinkerTools.pickaxe.get().getRenderTool());
+
+  /** Loot function type for tool add data */
+  public static LootFunctionType lootAddToolData;
 
   /*
    * Items
@@ -140,6 +148,7 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
+    lootAddToolData = Registry.register(Registry.LOOT_FUNCTION_TYPE, AddToolDataFunction.ID, new LootFunctionType(AddToolDataFunction.SERIALIZER));
   }
 
   @SubscribeEvent
