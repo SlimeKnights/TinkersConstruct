@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:path_maker",
   "text": [
     {
-      "text": "Ignites fires around where you step. Area of effect increased by expanded."
+      "text": "Flattens grass as you step, leaving a path behind. Expanded increases the area of effect."
     }
   ],
   "more_text_space": true,
