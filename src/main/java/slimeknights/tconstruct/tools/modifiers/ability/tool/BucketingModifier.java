@@ -19,6 +19,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -118,11 +119,13 @@ public class BucketingModifier extends TankModifier {
       capability.ifPresent(cap -> {
         FluidStack fluidStack = getFluid(tool);
         // sneaking fills, not sneak drains
+        SoundEvent sound = null;
         if (sneaking) {
           // must have something to fill
           if (!fluidStack.isEmpty()) {
             int added = cap.fill(fluidStack, FluidAction.EXECUTE);
             if (added > 0) {
+              sound = fluidStack.getFluid().getAttributes().getEmptySound(fluidStack);
               fluidStack.shrink(added);
               setFluid(tool, fluidStack);
             }
@@ -132,6 +135,7 @@ public class BucketingModifier extends TankModifier {
           FluidStack drained = cap.drain(getCapacity(tool), FluidAction.EXECUTE);
           if (!drained.isEmpty()) {
             setFluid(tool, drained);
+            sound = drained.getFluid().getAttributes().getFillSound(drained);
           }
         } else {
           // filter drained to be the same as the current fluid
@@ -139,7 +143,11 @@ public class BucketingModifier extends TankModifier {
           if (!drained.isEmpty() && drained.isFluidEqual(fluidStack)) {
             fluidStack.grow(drained.getAmount());
             setFluid(tool, fluidStack);
+            sound = drained.getFluid().getAttributes().getFillSound(drained);
           }
+        }
+        if (sound != null) {
+          world.playSound(null, target, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
       });
     }
