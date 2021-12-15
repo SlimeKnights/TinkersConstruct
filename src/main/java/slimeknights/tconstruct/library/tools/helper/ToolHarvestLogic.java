@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.play.server.SChangeBlockPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -271,7 +272,7 @@ public class ToolHarvestLogic {
                                                           isEffective(tool, stack, state));
 
       // add enchants
-      boolean addedEnchants = ModifierUtil.applyHarvestEnchants(tool, stack, context);
+      ListNBT originalEnchants = ModifierUtil.applyHarvestEnchantments(tool, stack, context);
       // need to calculate the iterator before we break the block, as we need the reference hardness from the center
       Iterable<BlockPos> extraBlocks = context.isEffective() ? getAOEBlocks(tool, stack, player, state, world, pos, sideHit, AOEMatchType.BREAKING) : Collections.emptyList();
 
@@ -292,8 +293,8 @@ public class ToolHarvestLogic {
       }
 
       // blocks done being broken, clear extra enchants added
-      if (addedEnchants) {
-        ModifierUtil.clearEnchantments(stack);
+      if (originalEnchants != null) {
+        ModifierUtil.restoreEnchantments(stack, originalEnchants);
       }
     }
 

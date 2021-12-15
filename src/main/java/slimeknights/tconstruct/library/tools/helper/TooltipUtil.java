@@ -13,6 +13,9 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -136,11 +139,7 @@ public class TooltipUtil {
     ToolDefinition definition = item.getToolDefinition();
     if (isDisplay(stack)) {
       ToolStack tool = ToolStack.from(stack);
-      for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getModifier().shouldDisplay(false)) {
-          tooltip.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
-        }
-      }
+      addModifierNames(stack, tool, tooltip);
       // No definition?
     } else if (!definition.isDataLoaded()) {
       tooltip.add(NO_DATA);
@@ -167,7 +166,7 @@ public class TooltipUtil {
           // intentional fallthrough
         default:
           ToolStack tool = ToolStack.from(stack);
-          getDefaultInfo(tool, tooltip);
+          getDefaultInfo(stack, tool, tooltip);
           addAttributes(item, tool, player, tooltip, SHOW_ALL_ATTRIBUTES, EquipmentSlotType.values());
           break;
       }
@@ -180,7 +179,38 @@ public class TooltipUtil {
    * @param tooltips  Tooltip list
    */
   public static void getDefaultInfo(ItemStack stack, List<ITextComponent> tooltips) {
-    getDefaultInfo(ToolStack.from(stack), tooltips);
+    getDefaultInfo(stack, ToolStack.from(stack), tooltips);
+  }
+
+  /**
+   * Adds modifier names to the tooltip
+   * @param stack      Stack instance. If empty, skips adding enchantment names
+   * @param tool       Tool instance
+   * @param tooltips   Tooltip list
+   */
+  public static void addModifierNames(ItemStack stack, IModifierToolStack tool, List<ITextComponent> tooltips) {
+    for (ModifierEntry entry : tool.getModifierList()) {
+      if (entry.getModifier().shouldDisplay(false)) {
+        tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+      }
+    }
+    if (!stack.isEmpty()) {
+      CompoundNBT tag = stack.getTag();
+      if (tag != null && tag.contains("Enchantments", NBT.TAG_LIST)) {
+        ListNBT enchantments = tag.getList("Enchantments", NBT.TAG_COMPOUND);
+        for (int i = 0; i < enchantments.size(); ++i) {
+          CompoundNBT enchantmentTag = enchantments.getCompound(i);
+          // TODO: tag to whitelist/blacklist enchantments in the tooltip, depends on which ones we reimplement and which work on their own
+          Registry.ENCHANTMENT.getOptional(ResourceLocation.tryCreate(enchantmentTag.getString("id")))
+                              .ifPresent(enchantment -> tooltips.add(enchantment.getDisplayName(enchantmentTag.getInt("lvl"))));
+        }
+      }
+    }
+  }
+
+  /** Adds default info without enchantments */
+  public static void getDefaultInfo(IModifierToolStack tool, List<ITextComponent> tooltips) {
+    getDefaultInfo(ItemStack.EMPTY, tool, tooltips);
   }
 
   /**
@@ -188,17 +218,13 @@ public class TooltipUtil {
    * @param tool      Tool stack instance
    * @param tooltips  Tooltip list
    */
-  public static void getDefaultInfo(IModifierToolStack tool, List<ITextComponent> tooltips) {
+  public static void getDefaultInfo(ItemStack stack, IModifierToolStack tool, List<ITextComponent> tooltips) {
     // shows as broken when broken, hold shift for proper durability
     if (tool.getItem().isDamageable() && !tool.isUnbreakable()) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
-    for (ModifierEntry entry : tool.getModifierList()) {
-      if (entry.getModifier().shouldDisplay(false)) {
-        tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
-      }
-    }
+    addModifierNames(stack, tool, tooltips);
     tooltips.add(StringTextComponent.EMPTY);
     tooltips.add(TOOLTIP_HOLD_SHIFT);
     if (tool.getDefinition().isMultipart()) {

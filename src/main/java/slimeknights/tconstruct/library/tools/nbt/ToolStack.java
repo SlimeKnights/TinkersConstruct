@@ -600,7 +600,7 @@ public class ToolStack implements IModifierToolStack {
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
   public void rebuildStats() {
-    // hide enchants and attributes, enchant hiding is so we can implement modifiers such as silk, and attribute hiding is because we add attributes ourself (filtered)
+    // hide enchants and attributes, both are added ourself (filtered)
     nbt.putInt(TAG_HIDE_FLAGS, HIDE_FLAGS);
 
     // first, rebuild the list of all modifiers
