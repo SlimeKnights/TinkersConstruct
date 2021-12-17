@@ -28,8 +28,12 @@ public class ClientInteractionHandler {
   private static boolean cancelNextOffhand = false;
 
   /** Implements the client side of chestplate {@link slimeknights.tconstruct.library.modifiers.Modifier#onToolUse(slimeknights.tconstruct.library.tools.nbt.IModifierToolStack, int, net.minecraft.world.World, net.minecraft.entity.player.PlayerEntity, net.minecraft.util.Hand, net.minecraft.inventory.EquipmentSlotType)} */
-  @SubscribeEvent
+  @SubscribeEvent(priority = EventPriority.LOW)
   static void chestplateToolUse(PlayerInteractEvent.RightClickEmpty event) {
+    // not sure if anyone sets the result, but just in case listen to it so they can stop us running
+    if (event.getCancellationResult() != ActionResultType.PASS) {
+      return;
+    }
     // figure out if we have a chestplate making us care
     PlayerEntity player = event.getPlayer();
     ItemStack chestplate = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
@@ -46,6 +50,8 @@ public class ClientInteractionHandler {
         if (hand == Hand.MAIN_HAND) {
           cancelNextOffhand = true;
         }
+        // set the result so later listeners see we did something
+        event.setCancellationResult(result);
       }
     }
   }

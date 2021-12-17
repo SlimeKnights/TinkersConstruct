@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -45,7 +46,7 @@ public class InteractionHandler {
    * Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#beforeEntityUse(IModifierToolStack, int, PlayerEntity, Entity, Hand, EquipmentSlotType)}
    * Also implements {@link slimeknights.tconstruct.library.modifiers.Modifier#afterEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand, EquipmentSlotType)} for chestplates
    */
-  @SubscribeEvent
+  @SubscribeEvent(priority = EventPriority.LOW)
   static void interactWithEntity(EntityInteract event) {
     ItemStack stack = event.getItemStack();
     PlayerEntity player = event.getPlayer();
@@ -131,7 +132,7 @@ public class InteractionHandler {
   }
 
   /** Implements modifier hooks for a chestplate right clicking a block with an empty hand */
-  @SubscribeEvent
+  @SubscribeEvent(priority = EventPriority.LOW)
   static void chestplateInteractWithBlock(PlayerInteractEvent.RightClickBlock event) {
     // only handle chestplate interacts if the current hand is empty
     PlayerEntity player = event.getPlayer();
