@@ -286,6 +286,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
     public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
 
     // framed modifier
     public final ForgeConfigSpec.BooleanValue renderItemFrame;
@@ -329,6 +330,11 @@ public class Config {
         .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
         .translation("tconstruct.configgui.showModifiersInJEI")
         .define("showModifiersInJEI", true);
+
+      this.maxSmelteryItemQuads = builder
+        .comment("Maximum number of quads to render for items in the smeltery. Most blocks are about 6 quads, items like ingots are around 26.",
+                 "Setting this lower will cause fewer items to be renderer (but never a partial item). Set to -1 to allow unlimited quads, and 0 to disable the item renderer.")
+        .defineInRange("maxSmelteryItemQuads", 3500, -1, Short.MAX_VALUE);
 
       builder.comment("Settings related to modifiers").push("modifiers");
       {

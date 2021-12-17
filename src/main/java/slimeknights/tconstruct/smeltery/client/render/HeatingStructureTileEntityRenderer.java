@@ -5,10 +5,12 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderState.LineState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -21,6 +23,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.data.EmptyModelData;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
@@ -95,25 +100,47 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
     Direction facing = state.get(ControllerBlock.FACING);
     Quaternion itemRotation = Vector3f.YP.rotationDegrees(-90.0F * (float)facing.getHorizontalIndex());
     MeltingModuleInventory inventory = smeltery.getMeltingInventory();
-    for (int i = 0; i < inventory.getSlots(); i++) {
-      ItemStack stack = inventory.getStackInSlot(i);
-      if (!stack.isEmpty()) {
-        // calculate position inside the smeltery from slot index
-        int height = i / layer;
-        int layerIndex = i % layer;
-        int offsetX = layerIndex % xd;
-        int offsetZ = layerIndex / xd;
-        BlockPos itemPos = minPos.add(offsetX, height, offsetZ);
+    Minecraft mc = Minecraft.getInstance();
+    ItemRenderer itemRenderer = mc.getItemRenderer();
+    int max = Config.CLIENT.maxSmelteryItemQuads.get();
+    if (max != 0) {
+      int quadsRendered = 0;
+      for (int i = 0; i < inventory.getSlots(); i++) {
+        ItemStack stack = inventory.getStackInSlot(i);
+        if (!stack.isEmpty()) {
+          // calculate position inside the smeltery from slot index
+          int height = i / layer;
+          int layerIndex = i % layer;
+          int offsetX = layerIndex % xd;
+          int offsetZ = layerIndex / xd;
+          BlockPos itemPos = minPos.add(offsetX, height, offsetZ);
 
-        // offset to the slot position in the structure, scale, and rotate the item
-        matrices.push();
-        matrices.translate(offsetX + 0.5f, height + 0.5f, offsetZ + 0.5f);
-        matrices.rotate(itemRotation);
-        matrices.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
-        Minecraft.getInstance().getItemRenderer()
-                 .renderItem(stack, TransformType.NONE, WorldRenderer.getCombinedLight(world, itemPos),
-                             OverlayTexture.NO_OVERLAY, matrices, buffer);
-        matrices.pop();
+          // offset to the slot position in the structure, scale, and rotate the item
+          matrices.push();
+          matrices.translate(offsetX + 0.5f, height + 0.5f, offsetZ + 0.5f);
+          matrices.rotate(itemRotation);
+          matrices.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
+          IBakedModel model = itemRenderer.getItemModelWithOverrides(stack, world, null);
+          itemRenderer.renderItem(stack, TransformType.NONE, false, matrices, buffer, WorldRenderer.getCombinedLight(world, itemPos), OverlayTexture.NO_OVERLAY, model);
+          matrices.pop();
+
+          // done as quads rather than items as its not that expensive to draw blocks, items are the problem
+          if (max != -1) {
+            // builtin has no quads, lets pretend its 100 as they are more expensive
+            if (model.isBuiltInRenderer()) {
+              quadsRendered += 100;
+            } else {
+              // not setting the seed on the random and ignoring the forge layered model stuff means this is just an estimate, but since this is for the sake of performance its not a huge deal for it to be exact
+              for (Direction direction : Direction.values()) {
+                quadsRendered += model.getQuads(null, direction, TConstruct.RANDOM, EmptyModelData.INSTANCE).size();
+              }
+              quadsRendered += model.getQuads(null, null, TConstruct.RANDOM, EmptyModelData.INSTANCE).size();
+            }
+            if (quadsRendered > max) {
+              break;
+            }
+          }
+        }
       }
     }
 
