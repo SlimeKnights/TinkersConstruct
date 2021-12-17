@@ -58,6 +58,7 @@ import slimeknights.tconstruct.tools.item.broad.ExcavatorTool;
 import slimeknights.tconstruct.tools.item.broad.ScytheTool;
 import slimeknights.tconstruct.tools.item.broad.SledgeHammerTool;
 import slimeknights.tconstruct.tools.item.broad.VeinHammerTool;
+import slimeknights.tconstruct.tools.item.small.DaggerTool;
 import slimeknights.tconstruct.tools.item.small.HandAxeTool;
 import slimeknights.tconstruct.tools.item.small.HarvestTool;
 import slimeknights.tconstruct.tools.item.small.KamaTool;
@@ -104,7 +105,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
   public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));
 
-  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new SwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.DAGGER));
+  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new DaggerTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.DAGGER));
   public static final ItemObject<SweepingSwordTool> sword = ITEMS.register("sword", () -> new SweepingSwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.SWORD));
   public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.CLEAVER));
 
