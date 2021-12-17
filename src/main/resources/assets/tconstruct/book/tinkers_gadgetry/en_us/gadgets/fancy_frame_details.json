@@ -1,7 +1,7 @@
 {
   "title": "Fancy Item Frames",
   "text": [
-    { "text": "• Clear: Turn invisible when an item is placed inside." },
+    { "text": "• Clear: Turn invisible when an item is placed inside, and allow interacting with the block behind when filled and not sneaking." },
     { "text": "\n" },
     { "text": "• Gold: Gradually rotates the item automatically. Crafting with a redstone torch reverses the direction." },
     { "text": "\n" },

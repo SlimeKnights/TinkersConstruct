@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.gadgets.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -13,7 +15,9 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -23,6 +27,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 
@@ -52,6 +57,21 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   /** Resets the rotation timer to 0 */
   public void updateRotationTimer(boolean overturn) {
     this.rotationTimer = overturn ? -DIAMOND_TIMER : 0;
+  }
+
+  @Override
+  public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
+    if (!player.isSneaking() && getFrameId() == FrameType.CLEAR.getId() && !getDisplayedItem().isEmpty()) {
+      BlockPos behind = getPosition().offset(facingDirection.getOpposite());
+      BlockState state = world.getBlockState(behind);
+      if (!state.isAir(world, behind)) {
+        ActionResultType result = state.onBlockActivated(world, player, hand, Util.createTraceResult(behind, facingDirection, false));
+        if (result.isSuccessOrConsume()) {
+          return result;
+        }
+      }
+    }
+    return super.processInitialInteract(player, hand);
   }
 
   @Override

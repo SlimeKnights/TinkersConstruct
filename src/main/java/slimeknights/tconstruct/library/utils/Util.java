@@ -9,6 +9,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -138,5 +140,19 @@ public class Util {
   /** Gets the slot type from a hand */
   public static EquipmentSlotType getSlotType(Hand hand) {
     return hand == Hand.OFF_HAND ? EquipmentSlotType.OFFHAND : EquipmentSlotType.MAINHAND;
+  }
+
+  /** Converts a position and a side hit into a hit vector */
+  public static Vector3d toHitVec(BlockPos pos, Direction sideHit) {
+    return new Vector3d(
+      pos.getX() + 0.5D + sideHit.getXOffset() * 0.5D,
+      pos.getY() + 0.5D + sideHit.getYOffset() * 0.5D,
+      pos.getZ() + 0.5D + sideHit.getZOffset() * 0.5D
+    );
+  }
+
+  /** Creates a block raytrace from the given position and side, targets the block center */
+  public static BlockRayTraceResult createTraceResult(BlockPos pos, Direction sideHit, boolean empty) {
+    return new BlockRayTraceResult(toHitVec(pos, empty ? sideHit.getOpposite() : sideHit), sideHit, pos, false);
   }
 }
