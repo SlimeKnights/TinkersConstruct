@@ -87,8 +87,8 @@ body:
   - type: checkboxes
     id: confirmations
     attributes:
-      label: Check all actions you have performed
-      description: "Confirm the following:"
+      label: Confirm the following
+      description: Check all actions you have performed
       options:
         - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
         - label: "Confirm you have searched the tracker to see if your issue already exists"
