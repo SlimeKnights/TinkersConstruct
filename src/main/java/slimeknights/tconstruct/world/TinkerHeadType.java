@@ -20,7 +20,11 @@ public enum TinkerHeadType implements ISkullType, IStringSerializable {
   DROWNED(EntityType.DROWNED.delegate),
   // spider
   SPIDER(EntityType.SPIDER.delegate),
-  CAVE_SPIDER(EntityType.CAVE_SPIDER.delegate);
+  CAVE_SPIDER(EntityType.CAVE_SPIDER.delegate),
+  // piglin
+  PIGLIN(EntityType.PIGLIN.delegate),
+  PIGLIN_BRUTE(EntityType.field_242287_aj.delegate),
+  ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN.delegate);
 
   private final Supplier<EntityType<?>> type;
 

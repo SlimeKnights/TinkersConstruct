@@ -29,6 +29,7 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.world.client.HeadWithOverlayModel;
+import slimeknights.tconstruct.world.client.PiglinHeadModel;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.TerracubeRenderer;
@@ -115,6 +116,14 @@ public class WorldClientEvents extends ClientEventBase {
     GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
     registerHeadModel(TinkerHeadType.SPIDER, MaterialIds.spider, spiderHead, new ResourceLocation("textures/entity/spider/spider.png"));
     registerHeadModel(TinkerHeadType.CAVE_SPIDER, MaterialIds.venom, spiderHead, new ResourceLocation("textures/entity/spider/cave_spider.png"));
+    // piglins
+    GenericHeadModel piglinHead = new PiglinHeadModel();
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.PIGLIN, piglinHead);
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.PIGLIN, new ResourceLocation("textures/entity/piglin/piglin.png"));
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.PIGLIN_BRUTE, piglinHead);
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.PIGLIN_BRUTE, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.ZOMBIFIED_PIGLIN, piglinHead);
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.ZOMBIFIED_PIGLIN, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
   }
 
   @SubscribeEvent

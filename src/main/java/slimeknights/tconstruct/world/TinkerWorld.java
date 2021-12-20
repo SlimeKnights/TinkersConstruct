@@ -64,6 +64,8 @@ import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.BloodSlimeBlock;
 import slimeknights.tconstruct.world.block.CongealedSlimeBlock;
+import slimeknights.tconstruct.world.block.PiglinHeadBlock;
+import slimeknights.tconstruct.world.block.PiglinWallHeadBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeFungusBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -220,8 +222,8 @@ public final class TinkerWorld extends TinkerModule {
   }
 
   // heads
-  public static final EnumObject<TinkerHeadType,SkullBlock>     heads     = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", type -> new SkullBlock(type, AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)));
-  public static final EnumObject<TinkerHeadType,WallSkullBlock> wallHeads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "wall_head", type -> new WallSkullBlock(type, AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F).lootFrom(() -> heads.get(type))));
+  public static final EnumObject<TinkerHeadType,SkullBlock>     heads     = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", TinkerWorld::makeHead);
+  public static final EnumObject<TinkerHeadType,WallSkullBlock> wallHeads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "wall_head", TinkerWorld::makeWallHead);
   public static final EnumObject<TinkerHeadType,WallOrFloorItem> headItems = ITEMS.registerEnum(TinkerHeadType.values(), "head", type -> new WallOrFloorItem(heads.get(type), wallHeads.get(type), HEAD_PROPS));
 
   /*
@@ -326,9 +328,7 @@ public final class TinkerWorld extends TinkerModule {
       event.enqueueWork(() -> {
         ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
         builder.addAll(TileEntityType.SKULL.validBlocks);
-        //noinspection Convert2MethodRef
         TinkerWorld.heads.forEach(head -> builder.add(head));
-        //noinspection Convert2MethodRef
         TinkerWorld.wallHeads.forEach(head -> builder.add(head));
         TileEntityType.SKULL.validBlocks = builder.build();
       });
@@ -380,5 +380,26 @@ public final class TinkerWorld extends TinkerModule {
       DataGenerator datagenerator = event.getGenerator();
       datagenerator.addProvider(new WorldRecipeProvider(datagenerator));
     }
+  }
+
+
+  /* helpers */
+
+  /** Creates a skull block for the given head type */
+  private static SkullBlock makeHead(TinkerHeadType type) {
+    AbstractBlock.Properties props = AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F);
+    if (type == TinkerHeadType.PIGLIN || type == TinkerHeadType.PIGLIN_BRUTE || type == TinkerHeadType.ZOMBIFIED_PIGLIN) {
+      return new PiglinHeadBlock(type, props);
+    }
+    return new SkullBlock(type, props);
+  }
+
+  /** Creates a skull wall block for the given head type */
+  private static WallSkullBlock makeWallHead(TinkerHeadType type) {
+    AbstractBlock.Properties props = AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F).lootFrom(() -> heads.get(type));
+    if (type == TinkerHeadType.PIGLIN || type == TinkerHeadType.PIGLIN_BRUTE || type == TinkerHeadType.ZOMBIFIED_PIGLIN) {
+      return new PiglinWallHeadBlock(type, props);
+    }
+    return new WallSkullBlock(type, props);
   }
 }
