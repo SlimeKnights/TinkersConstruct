@@ -29,7 +29,7 @@ public class EquipmentChangeContext extends EquipmentContext {
     this.original = original;
     this.replacement = replacement;
     this.originalTool = getToolStackIfModifiable(original);
-    int replacementIndex = changedSlot.getIndex();
+    int replacementIndex = changedSlot.getSlotIndex();
     toolsInSlots[replacementIndex] = getToolStackIfModifiable(replacement);
     fetchedTool[replacementIndex] = true;
   }
