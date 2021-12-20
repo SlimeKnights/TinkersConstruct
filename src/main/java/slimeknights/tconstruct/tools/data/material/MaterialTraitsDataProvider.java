@@ -89,6 +89,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.copper,       SkullStats.ID, TinkerModifiers.breathtaking.get(), TinkerModifiers.drownedDisguise.get());
     addTraits(MaterialIds.blazingBone,  SkullStats.ID, TinkerModifiers.firebreath.get(), TinkerModifiers.blazeDisguise.get());
     // slimesuit
+    noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.phantom);
     noTraits(MaterialIds.chorus);
     noTraits(MaterialIds.rabbit);

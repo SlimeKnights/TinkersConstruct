@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "tag": "tconstruct:ender_slime",
+    "amount": 250
+  },
+  "temperature": 70,
+  "output": "tconstruct:enderslime"
+}

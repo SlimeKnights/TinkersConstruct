@@ -190,6 +190,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.rabbit)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "slime_boots_station"));
+
+    // general repair with enderslime
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.slimesuit.values().stream().map(ItemStack::new)), MaterialIds.enderslime)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimesuit_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimesuit_station"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

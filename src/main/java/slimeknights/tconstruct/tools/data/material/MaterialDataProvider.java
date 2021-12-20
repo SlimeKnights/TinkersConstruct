@@ -93,9 +93,10 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.venom,       6, 5, true,  0xEDEDED);
     addMaterial(MaterialIds.enderPearl,  6, 6, true,  0x349988);
     // slimesuit - hidden as we don't need to see material variants
-    addMaterial(MaterialIds.phantom, 6, 9, true, 0xC3B9A1, true, null);
-    addMaterial(MaterialIds.chorus,  6, 9, true, 0x8F648F, true, null);
-    addMaterial(MaterialIds.rabbit,  6, 9, true, 0xC79E67, true, null);
+    addMaterial(MaterialIds.enderslime, 6, 9, true, 0xD37CFF);
+    addMaterial(MaterialIds.phantom,    6, 9, true, 0xC3B9A1);
+    addMaterial(MaterialIds.chorus,     6, 9, true, 0x8F648F);
+    addMaterial(MaterialIds.rabbit,     6, 9, true, 0xC79E67);
     // old slimeskull materials
     addRedirect(new MaterialId(TConstruct.MOD_ID, "potato"), redirect(MaterialIds.iron));
     addRedirect(new MaterialId(TConstruct.MOD_ID, "fish"),   redirect(MaterialIds.copper));
