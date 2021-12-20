@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:poisonous_potato"
-  },
-  "value": 1,
-  "needed": 2,
-  "material": "tconstruct:potato"
-}

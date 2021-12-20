@@ -1,7 +1,7 @@
 {
-  "craftable": true,
-  "tier": 6,
-  "sortOrder": 2,
-  "textColor": "#D9AA51",
-  "hidden": false
+  "redirect": [
+    {
+      "id": "tconstruct:iron"
+    }
+  ]
 }

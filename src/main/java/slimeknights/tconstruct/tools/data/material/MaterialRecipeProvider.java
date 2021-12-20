@@ -113,9 +113,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.spider,      Ingredient.fromItems(Items.SPIDER_EYE),                        1, 4, folder + "spider");
     materialRecipe(consumer, MaterialIds.venom,       FluidContainerIngredient.fromFluid(TinkerFluids.venom, false), 4, 1, folder + "venom_bucket");
     materialRecipe(consumer, MaterialIds.rottenFlesh, Ingredient.fromItems(Items.ROTTEN_FLESH),                      1, 1, folder + "rotten_flesh");
-    materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromTag(Tags.Items.CROPS_POTATO),                   1, 1, folder + "potato");
-    materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromItems(Items.POISONOUS_POTATO),                  1, 2, folder + "potato_poisonous");
-    materialRecipe(consumer, MaterialIds.fish,        Ingredient.fromTag(ItemTags.FISHES),                           1, 1, folder + "fish");
     // slimesuit
     materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.PHANTOM_MEMBRANE),    1, 1, folder + "phantom_membrane");
     materialRecipe(consumer, MaterialIds.chorus,  Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "item": "tconstruct:husk_head"
+    "item": "tconstruct:drowned_head"
   },
   "cast_consumed": true,
   "fluid": {
@@ -10,7 +10,7 @@
   },
   "result": {
     "item": "tconstruct:slime_helmet",
-    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:potato\"]}"
+    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:copper\"]}"
   },
   "cooling_time": 187
 }

@@ -210,12 +210,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.rottenFlesh)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF28140A).addARGB(102, 0xFF522C10).addARGB(140, 0xFF6F4D1B).addARGB(178, 0xFF6A5D18).addARGB(216, 0xFFB44420).addARGB(255, 0xFFC5815A).build());
-    buildMaterial(MaterialIds.potato)
-      .statType(RepairKitStats.ID)
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF86693E).addARGB(102, 0xFF9D772E).addARGB(140, 0xFFAF8444).addARGB(178, 0xFFC8973A).addARGB(216, 0xFFD9AA51).addARGB(255, 0xFFD9AA51).build());
-    buildMaterial(MaterialIds.fish)
-      .statType(RepairKitStats.ID)
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF593824).addARGB(102, 0xFF6B442B).addARGB(140, 0xFF986D4E).addARGB(178, 0xFFB18953).addARGB(216, 0xFFC6A271).addARGB(255, 0xFFD6C5AD).build());
     // slimesuit
     buildMaterial(MaterialIds.phantom)
       .statType(RepairKitStats.ID)

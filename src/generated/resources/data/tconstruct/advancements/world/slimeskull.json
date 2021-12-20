@@ -129,7 +129,7 @@
         ]
       }
     },
-    "potato": {
+    "iron": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -137,13 +137,13 @@
             "type": "tconstruct:tool",
             "item": "tconstruct:slime_helmet",
             "materials": [
-              "tconstruct:potato"
+              "tconstruct:iron"
             ]
           }
         ]
       }
     },
-    "fish": {
+    "copper": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -151,7 +151,7 @@
             "type": "tconstruct:tool",
             "item": "tconstruct:slime_helmet",
             "materials": [
-              "tconstruct:fish"
+              "tconstruct:copper"
             ]
           }
         ]
@@ -198,10 +198,10 @@
       "venom"
     ],
     [
-      "potato"
+      "iron"
     ],
     [
-      "fish"
+      "copper"
     ],
     [
       "blazing_bone"

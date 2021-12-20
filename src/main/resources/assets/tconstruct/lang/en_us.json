@@ -789,8 +789,8 @@
   "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Wither Skeleton Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.venom":         "Cave Spider Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh":  "Zombie Slimeskull",
-  "item.tconstruct.slime_helmet.material.tconstruct.potato":        "Husk Slimeskull",
-  "item.tconstruct.slime_helmet.material.tconstruct.fish":          "Drowned Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.iron":          "Husk Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.copper":        "Drowned Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone":  "Blaze Slimeskull",
 
 
@@ -1271,6 +1271,8 @@
   "material.tconstruct.iron": "Iron",
   "material.tconstruct.iron.flavor": "Ironic. He could save others from death, but not himself.",
   "material.tconstruct.iron.encyclopedia": "Gives an extra 10% durability per part",
+  "material.tconstruct.iron.skull_flavor": "Violation of quarantine",
+  "material.tconstruct.iron.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
 
   "material.tconstruct.seared_stone": "Seared Stone",
   "material.tconstruct.seared_stone.flavor": "Hotter Grout.",
@@ -1283,6 +1285,8 @@
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
   "material.tconstruct.copper.encyclopedia": "Grants more mining speed at lower depths, up to +10% per level",
+  "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",
+  "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
   "material.tconstruct.slimewood": "Slimewood",
   "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
@@ -1381,13 +1385,6 @@
   "material.tconstruct.rotten_flesh.skull_flavor": "This is fine",
   "material.tconstruct.rotten_flesh.skull_encyclopedia": "Melee attacks increase the targets fire time based on the wearer's fire time",
 
-  "material.tconstruct.potato": "Potato",
-  "material.tconstruct.potato.skull_flavor": "Violation of quarantine",
-  "material.tconstruct.potato.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
-
-  "material.tconstruct.fish": "Fish",
-  "material.tconstruct.fish.skull_flavor": "Knocks the wind right out of them",
-  "material.tconstruct.fish.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.chorus": "Chorus",

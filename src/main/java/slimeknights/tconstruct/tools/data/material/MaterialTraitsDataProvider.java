@@ -85,8 +85,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.spider,       SkullStats.ID, TinkerModifiers.boonOfSssss.get(), TinkerModifiers.spiderDisguise.get());
     addTraits(MaterialIds.venom,        SkullStats.ID, TinkerModifiers.mithridatism.get(), TinkerModifiers.caveSpiderDisguise.get());
     addTraits(MaterialIds.rottenFlesh,  SkullStats.ID, TinkerModifiers.wildfire.get(), TinkerModifiers.zombieDisguise.get());
-    addTraits(MaterialIds.potato,       SkullStats.ID, TinkerModifiers.plague.get(), TinkerModifiers.huskDisguise.get());
-    addTraits(MaterialIds.fish,         SkullStats.ID, TinkerModifiers.breathtaking.get(), TinkerModifiers.drownedDisguise.get());
+    addTraits(MaterialIds.iron,         SkullStats.ID, TinkerModifiers.plague.get(), TinkerModifiers.huskDisguise.get());
+    addTraits(MaterialIds.copper,       SkullStats.ID, TinkerModifiers.breathtaking.get(), TinkerModifiers.drownedDisguise.get());
     addTraits(MaterialIds.blazingBone,  SkullStats.ID, TinkerModifiers.firebreath.get(), TinkerModifiers.blazeDisguise.get());
     // slimesuit
     noTraits(MaterialIds.phantom);

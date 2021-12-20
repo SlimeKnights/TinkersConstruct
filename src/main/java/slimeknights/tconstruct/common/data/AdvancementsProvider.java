@@ -344,8 +344,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.bloodbone);
       with.accept(MaterialIds.spider);
       with.accept(MaterialIds.venom);
-      with.accept(MaterialIds.potato);
-      with.accept(MaterialIds.fish);
+      with.accept(MaterialIds.iron);
+      with.accept(MaterialIds.copper);
       with.accept(MaterialIds.blazingBone);
     });
   }

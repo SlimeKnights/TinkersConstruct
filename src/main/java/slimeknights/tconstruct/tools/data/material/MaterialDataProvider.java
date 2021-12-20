@@ -3,8 +3,10 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 public class MaterialDataProvider extends AbstractMaterialDataProvider {
   public MaterialDataProvider(DataGenerator gen) {
@@ -85,16 +87,17 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
 
     // slimeskull - marked tier 6 to push to tne end of repair kits
-    addMaterial(MaterialIds.gunpowder,   6, 0, true, 0x95D78E);
-    addMaterial(MaterialIds.rottenFlesh, 6, 1, true, 0x6F4D1B);
-    addMaterial(MaterialIds.potato,      6, 2, true, 0xD9AA51);
-    addMaterial(MaterialIds.fish,        6, 3, true, 0xC6A271);
-    addMaterial(MaterialIds.spider,      6, 4, true, 0x9D1E2D);
-    addMaterial(MaterialIds.venom,       6, 5, true, 0xEDEDED);
-    addMaterial(MaterialIds.enderPearl,  6, 6, true, 0x349988);
+    addMaterial(MaterialIds.gunpowder,   6, 1, true,  0x95D78E);
+    addMaterial(MaterialIds.rottenFlesh, 6, 2, true,  0x6F4D1B);
+    addMaterial(MaterialIds.spider,      6, 4, true,  0x9D1E2D);
+    addMaterial(MaterialIds.venom,       6, 5, true,  0xEDEDED);
+    addMaterial(MaterialIds.enderPearl,  6, 6, true,  0x349988);
     // slimesuit - hidden as we don't need to see material variants
     addMaterial(MaterialIds.phantom, 6, 9, true, 0xC3B9A1, true, null);
     addMaterial(MaterialIds.chorus,  6, 9, true, 0x8F648F, true, null);
     addMaterial(MaterialIds.rabbit,  6, 9, true, 0xC79E67, true, null);
+    // old slimeskull materials
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "potato"), redirect(MaterialIds.iron));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "fish"),   redirect(MaterialIds.copper));
   }
 }
