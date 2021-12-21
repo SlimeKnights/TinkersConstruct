@@ -1,7 +1,7 @@
 {
   "title": "운반용 돼지 배낭",
   "image": {
-	"file": "tconstruct:book/images/piggybackpack.png",
+    "file": "tconstruct:book/images/piggybackpack.png",
     "width": 140,
     "height": 80
   },

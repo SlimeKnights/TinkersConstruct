@@ -1,4 +1,5 @@
 // 섹션 - 팅커스 장치
+
 intro=소개
 
 gadgets=장치
@@ -24,3 +25,9 @@ exploration.blood=핏빛 섬
 exploration.necrotic_bones=영골
 exploration.enderslime=엔더슬라임 섬
 exploration.dragon_scales=드래곤의 비늘
+
+armor=갑옷
+armor.subtext=다양한 몬스터의 부위와 슬라임을 혼합하면 흥미로운 갑옷이 만들어져, 방어적이지는 않지만, 강력한 능력을 지니고 있어.
+
+skull_materials=머리 재료
+skull_materials.subtext=이 머리 중 하나를 쇳물받이에 넣고 엔더슬라임을 넣으면, 해당 몬스터의 능력을 사용할 수 있는 투구를 만들 수 있어.

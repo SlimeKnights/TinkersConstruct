@@ -1,7 +1,7 @@
 {
   "title": "점토 섬",
   "image": {
-	"file": "tconstruct:book/images/islands/clay.png",
+    "file": "tconstruct:book/images/islands/clay.png",
     "width": 180,
     "height": 87
   },

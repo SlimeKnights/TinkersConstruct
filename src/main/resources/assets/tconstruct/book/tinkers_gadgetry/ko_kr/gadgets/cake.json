@@ -1,7 +1,7 @@
 {
   "title": "슬라임 케이크",
   "image": {
-	"file": "tconstruct:book/images/cake.png",
+    "file": "tconstruct:book/images/cake.png",
     "width": 180,
     "height": 67
   },
