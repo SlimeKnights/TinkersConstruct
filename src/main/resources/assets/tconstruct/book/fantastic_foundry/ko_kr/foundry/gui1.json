@@ -1,8 +1,8 @@
  {
-  "title":"용해소 GUI",
+  "title": "용해소 GUI",
     "image": {
      "file": "tconstruct:book/images/foundrygui.png",
-	 "width": 161,
+     "width": 161,
     "height": 82
   },
   "text": [
@@ -10,5 +10,5 @@
       "text": "기본적인 용해소GUI입니다. 그 이상도 이하도 아닙니다.",
       "paragraph": true
     }
-	]
+    ]
 }

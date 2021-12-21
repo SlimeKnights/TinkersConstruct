@@ -1,7 +1,7 @@
 // 섹션 - 환상적인 용해소
+
 intro=소개
 alloyer=합금기
-tier_four_materials=4등급 재료
 
 foundry=용해소
 foundry.features=특징
@@ -24,4 +24,10 @@ blazing_blood.carry=운반
 blazing_blood.foundry=용해소
 blazing_blood.head=머리 용해
 blazing_blood.melting=용해
-blazing_blood.piglin_bartering=물물교환
+blazing_blood.piglin_bartering=피글린 물물교환
+
+armor=판금 갑옷
+armor.subtext=판금 갑옷은 제작대 대신에 팅커 작업대나 모루를 사용하여 제작할 수 있습니다! 강력한 판금 갑옷은 높은 방어력을 자랑하지만, 변형성이 떨어집니다. 안전히 보호할 수 있는데, 추가 기능까지 필요한가요?
+
+tier_four_materials=4등급 재료
+tier_four_materials.subtext=블레이즈 피가 필요한 재료입니다.
