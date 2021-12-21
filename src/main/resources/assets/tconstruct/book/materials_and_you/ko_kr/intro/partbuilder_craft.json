@@ -1,5 +1,5 @@
 {
-    "title":"제작법",
-
-    "recipe": "tconstruct:tables/part_builder"
+  "title": "부품 제작대 제작법",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small"
 }
