@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "눈 골렘처럼 추운 생물군계에서 눈의 흔적을 남깁니다. 확장 수식어가 적용되면, 효과의 반경이 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}
