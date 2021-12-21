@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -10,14 +11,15 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 
 import java.util.Random;
 
 public class DoubleJumpModifier extends TotalArmorLevelModifier {
-  public static final TinkerDataKey<Integer> JUMPS = TConstruct.createKey("jumps");
-  public static final TinkerDataKey<Integer> EXTRA_JUMPS = TConstruct.createKey("extra_jumps");
+  private static final ResourceLocation JUMPS = TConstruct.getResource("jumps");
+  private static final TinkerDataKey<Integer> EXTRA_JUMPS = TConstruct.createKey("extra_jumps");
 
   private ITextComponent levelOneName = null;
   private ITextComponent levelTwoName = null;
@@ -53,10 +55,10 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
     // validate preconditions, no using when swimming, elytra, or on the ground
     if (!entity.isOnGround() && !entity.isOnLadder() && !entity.isInWaterOrBubbleColumn()) {
       // determine modifier level
-      return entity.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> {
-        int maxJumps = data.get(EXTRA_JUMPS, 0);
-        if (maxJumps > 0) {
-          int jumps = data.get(JUMPS, 0);
+      int maxJumps = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(EXTRA_JUMPS)).orElse(0);
+      if (maxJumps > 0) {
+        return entity.getCapability(PersistentDataCapability.CAPABILITY).filter(data -> {
+          int jumps = data.getInt(JUMPS);
           if (jumps < maxJumps) {
             entity.jump();
             Random random = entity.getEntityWorld().getRandom();
@@ -64,18 +66,18 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
               entity.getEntityWorld().addParticle(ParticleTypes.HAPPY_VILLAGER, entity.getPosX() - 0.25f + random.nextFloat() * 0.5f, entity.getPosY(), entity.getPosZ() - 0.25f + random.nextFloat() * 0.5f, 0, 0, 0);
             }
             entity.playSound(Sounds.EXTRA_JUMP.getSound(), 0.5f, 0.5f);
-            data.put(JUMPS, jumps + 1);
+            data.putInt(JUMPS, jumps + 1);
             return true;
           }
-        }
-        return false;
-      }).isPresent();
+          return false;
+        }).isPresent();
+      }
     }
     return false;
   }
 
   /** Event handler to reset the number of times we have jumpped in mid air */
   private static void onLand(LivingFallEvent event) {
-    event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
+    event.getEntity().getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
   }
 }

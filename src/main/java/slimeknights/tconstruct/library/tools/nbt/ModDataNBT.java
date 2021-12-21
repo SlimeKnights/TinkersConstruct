@@ -1,38 +1,23 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.tools.SlotType;
-
-import java.util.function.BiFunction;
 
 /**
  * NBT representing extra data on the tool, including modifier slots and a wrapper around the compound for namespaced data.
  * On a typical tool, there are two copies of this class, one for persistent data, and one that rebuilds when the modifiers refresh
  * Note unlike other NBT classes, the data inside this one is mutable as most of it is directly used by the tools.
  */
-@EqualsAndHashCode
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ModDataNBT implements IModDataReadOnly {
-  /** Compound representing modifier data */
-  @Getter(AccessLevel.PROTECTED)
-  private final CompoundNBT data;
+public class ModDataNBT extends NamespacedNBT implements IModDataReadOnly {
+  public ModDataNBT() {}
 
-  /**
-   * Creates a new mod data containing empty data
-   */
-  public ModDataNBT() {
-    this(new CompoundNBT());
+  protected ModDataNBT(CompoundNBT nbt) {
+    super(nbt);
   }
 
   @Override
   public int getSlots(SlotType type) {
-    return data.getInt(type.getName());
+    return getData().getInt(type.getName());
   }
 
   /**
@@ -42,9 +27,9 @@ public class ModDataNBT implements IModDataReadOnly {
    */
   public void setSlots(SlotType type, int value) {
     if (value == 0) {
-      data.remove(type.getName());
+      getData().remove(type.getName());
     } else {
-      data.putInt(type.getName(), value);
+      getData().putInt(type.getName(), value);
     }
   }
 
@@ -59,68 +44,6 @@ public class ModDataNBT implements IModDataReadOnly {
     }
   }
 
-  @Override
-  public <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
-    return function.apply(data, name.toString());
-  }
-
-  @Override
-  public boolean contains(ResourceLocation name, int type) {
-    return data.contains(name.toString(), type);
-  }
-
-  /**
-   * Sets the given NBT into the data
-   * @param name  Key name
-   * @param nbt   NBT value
-   */
-  public void put(ResourceLocation name, INBT nbt) {
-    data.put(name.toString(), nbt);
-  }
-
-  /**
-   * Sets an integer from the mod data
-   * @param name  Name
-   * @param value  Integer value
-   */
-  public void putInt(ResourceLocation name, int value) {
-    data.putInt(name.toString(), value);
-  }
-
-  /**
-   * Sets an boolean from the mod data
-   * @param name  Name
-   * @param value  Boolean value
-   */
-  public void putBoolean(ResourceLocation name, boolean value) {
-    data.putBoolean(name.toString(), value);
-  }
-
-  /**
-   * Sets an float from the mod data
-   * @param name  Name
-   * @param value  Float value
-   */
-  public void putFloat(ResourceLocation name, float value) {
-    data.putFloat(name.toString(), value);
-  }
-
-  /**
-   * Reads a string from the mod data
-   * @param name  Name
-   * @param value  String value
-   */
-  public void putString(ResourceLocation name, String value) {
-    data.putString(name.toString(), value);
-  }
-
-  /**
-   * Removes the given key from the NBT
-   * @param name  Key to remove
-   */
-  public void remove(ResourceLocation name) {
-    data.remove(name.toString());
-  }
 
   /**
    * Parses the mod data from NBT
