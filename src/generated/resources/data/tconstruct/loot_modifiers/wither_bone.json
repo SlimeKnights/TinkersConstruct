@@ -12,6 +12,6 @@
   "original": {
     "item": "minecraft:bone"
   },
-  "replacement": "tconstruct:necronium_bone",
+  "replacement": "tconstruct:necrotic_bone",
   "type": "mantle:replace_item"
 }
