@@ -24,23 +24,22 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
       return;
     }
 
-    PlayerEntity player = (PlayerEntity) entityLiving;
-    float f = getForce(stack, timeLeft);
-
     // check if player was targeting a block
+    PlayerEntity player = (PlayerEntity) entityLiving;
     BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
     if (mop.getType() == RayTraceResult.Type.BLOCK) {
-      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-
       // we fling the inverted player look vector
+      float f = getForce(stack, timeLeft);
       Vector3d vec = player.getLookVec().normalize();
       player.addVelocity(vec.x * -f,
-        vec.y * -f / 3f,
-        vec.z * -f);
-
-      playerServerMovement(player);
+                         vec.y * -f / 3f,
+                         vec.z * -f);
       SlimeBounceHandler.addBounceHandler(player);
-      onSuccess(player, stack);
+
+      if (!worldIn.isRemote) {
+        player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+        onSuccess(player, stack);
+      }
     } else {
       playMissSound(player);
     }
