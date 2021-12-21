@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "등급당 점프 높이가 0.5블록만큼, 안전한 낙하 거리가 1블록만큼 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 2등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}
