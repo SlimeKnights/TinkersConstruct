@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:unarmed",
+  "text": [
+    {
+      "text": "에브리바디 쿵푸 파이팅!"
+    }
+  ],
+  "effects": [
+    "맨손 피해가 증가합니다",
+    "단일 등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

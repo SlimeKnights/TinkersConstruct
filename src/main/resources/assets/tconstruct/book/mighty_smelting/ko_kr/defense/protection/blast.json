@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blast_protection",
+  "text": [
+    {
+      "text": "오 이런, 크리퍼군."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "폭발 피해와 밀치기가 감소한다",
+    "다중 등급, 등급당 저항이 증가한다",
+    "1개의 수비 슬롯 사용"
+  ]
+}

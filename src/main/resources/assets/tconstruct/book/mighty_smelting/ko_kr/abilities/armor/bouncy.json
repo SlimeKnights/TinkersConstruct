@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "세상은 트램펄린이다."
+    }
+  ],
+  "effects": [
+    "착지하면 튕긴다",
+    "단일 등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}
