@@ -110,6 +110,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // no plated slimewood, use repair kits
 
     // slimeskull
+    metalMaterialRecipe(consumer, MaterialIds.gold, folder, "gold", false);
     materialRecipe(consumer, MaterialIds.gunpowder,   Ingredient.fromTag(Tags.Items.GUNPOWDER),                      1, 4, folder + "gunpowder");
     materialRecipe(consumer, MaterialIds.enderPearl,  Ingredient.fromTag(Tags.Items.ENDER_PEARLS),                   1, 1, folder + "ender_pearl");
     materialRecipe(consumer, MaterialIds.spider,      Ingredient.fromItems(Items.SPIDER_EYE),                        1, 4, folder + "spider");
@@ -173,6 +174,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingComposite(consumer, MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
 
     // slimesuit
+    materialMeltingCasting(consumer, MaterialIds.gold, TinkerFluids.moltenGold, FluidValues.INGOT, folder);
     materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.venom, TinkerFluids.venom, FluidAttributes.BUCKET_VOLUME / 4, folder);
   }

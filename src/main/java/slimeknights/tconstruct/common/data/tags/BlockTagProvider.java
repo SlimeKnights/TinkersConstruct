@@ -123,6 +123,8 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.HARVESTABLE_STACKABLE);
     // just logs for lumber axe, but modpack makers can add more
     this.getOrCreateBuilder(TinkerTags.Blocks.TREE_LOGS).addTag(BlockTags.LOGS);
+    // blocks that drop gold and should drop more gold
+    this.getOrCreateBuilder(TinkerTags.Blocks.CHRYSOPHILITE_ORES).addTag(Tags.Blocks.ORES_GOLD).add(Blocks.GILDED_BLACKSTONE);
   }
 
 

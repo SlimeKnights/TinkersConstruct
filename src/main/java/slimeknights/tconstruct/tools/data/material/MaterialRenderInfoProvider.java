@@ -65,6 +65,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");
 
     // slimeskull
+    buildRenderInfo(MaterialIds.gold).color(0xFDF55F).fallbacks("metal");
     buildRenderInfo(MaterialIds.gunpowder);
     buildRenderInfo(MaterialIds.enderPearl).fallbacks("contrast");
     buildRenderInfo(MaterialIds.spider);

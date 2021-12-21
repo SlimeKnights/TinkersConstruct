@@ -8,8 +8,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.loot.LootConditionType;
+import net.minecraft.loot.LootFunctionType;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -103,6 +106,8 @@ import slimeknights.tconstruct.tools.modifiers.internal.PaddedModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteBonusFunction;
+import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteLootCondition;
 import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.FarsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
@@ -145,6 +150,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BoonOfSssss;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BreathtakingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.FirebreathModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.FrosttouchModifier;
@@ -451,6 +457,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<PlagueModifier> plague = MODIFIERS.register("plague", PlagueModifier::new);
   public static final RegistryObject<BreathtakingModifier> breathtaking = MODIFIERS.register("breathtaking", BreathtakingModifier::new);
   public static final RegistryObject<FirebreathModifier> firebreath = MODIFIERS.register("firebreath", FirebreathModifier::new);
+  public static final RegistryObject<ChrysophiliteModifier> chrysophilite = MODIFIERS.register("chrysophilite", ChrysophiliteModifier::new);
   public static final RegistryObject<GoldGuardModifier> goldGuard = MODIFIERS.register("gold_guard", GoldGuardModifier::new);
   public static final RegistryObject<RevengeModifier> revenge = MODIFIERS.register("revenge", RevengeModifier::new);
   // disguise
@@ -465,6 +472,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MobDisguiseModifier> huskDisguise = MODIFIERS.register("husk_disguise", () -> new MobDisguiseModifier(0x59503B, EntityType.HUSK));
   public static final RegistryObject<MobDisguiseModifier> drownedDisguise = MODIFIERS.register("drowned_disguise", () -> new MobDisguiseModifier(0x56847E, EntityType.DROWNED));
   public static final RegistryObject<MobDisguiseModifier> blazeDisguise = MODIFIERS.register("blaze_disguise", () -> new MobDisguiseModifier(0xFC9600, EntityType.BLAZE));
+  public static final RegistryObject<MobDisguiseModifier> piglinDisguise = MODIFIERS.register("piglin_disguise", () -> new MobDisguiseModifier(0xE8A074, EntityType.PIGLIN));
   public static final RegistryObject<MobDisguiseModifier> piglinBruteDisguise = MODIFIERS.register("piglin_brute_disguise", () -> new MobDisguiseModifier(0xF5DA2A, EntityType.field_242287_aj));
   public static final RegistryObject<MobDisguiseModifier> zombifiedPiglinDisguise = MODIFIERS.register("zombified_piglin_disguise", () -> new MobDisguiseModifier(0x698E45, EntityType.ZOMBIFIED_PIGLIN));
 
@@ -506,11 +514,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SpecialRecipeSerializer<MooshroomDemushroomingRecipe>> mooshroomDemushroomingSerializer = RECIPE_SERIALIZERS.register("mooshroom_demushrooming", () -> new SpecialRecipeSerializer<>(MooshroomDemushroomingRecipe::new));
   public static final RegistryObject<SpecialRecipeSerializer<SheepShearingRecipe>> sheepShearing = RECIPE_SERIALIZERS.register("sheep_shearing", () -> new SpecialRecipeSerializer<>(SheepShearingRecipe::new));
 
-  /*
-   * Global loot managers
+  /**
+   * Loot
    */
   public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
-
+  public static LootConditionType chrysophiliteLootCondition;
+  public static LootFunctionType chrysophiliteBonusFunction;
 
   /*
    * Events
@@ -531,5 +540,11 @@ public final class TinkerModifiers extends TinkerModule {
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
     TinkerDataCapability.register();
+  }
+
+  @SubscribeEvent
+  void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    chrysophiliteLootCondition = Registry.register(Registry.LOOT_CONDITION_TYPE, ChrysophiliteLootCondition.ID, new LootConditionType(ChrysophiliteLootCondition.SERIALIZER));
+    chrysophiliteBonusFunction = Registry.register(Registry.LOOT_FUNCTION_TYPE, ChrysophiliteBonusFunction.ID, new LootFunctionType(ChrysophiliteBonusFunction.SERIALIZER));
   }
 }

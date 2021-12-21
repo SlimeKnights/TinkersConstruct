@@ -195,6 +195,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790CC9).addARGB(140, 0xFF9727DD).addARGB(178, 0xFFA936ED).addARGB(216, 0xFFBF58F7).addARGB(255, 0xFFD37CFF).build());
 
     // slimeskull
+    buildMaterial(MaterialIds.gold)
+      .statType(RepairKitStats.ID)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB26411).addARGB(102, 0xFFB26411).addARGB(140, 0xFFE9B115).addARGB(178, 0xFFFAD64A).addARGB(216, 0xFFFDF55F).addARGB(255, 0xFFFFFDE0).build());
     buildMaterial(MaterialIds.gunpowder)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2D2D2D).addARGB(102, 0xFF3E3E3E).addARGB(140, 0xFF494949).addARGB(178, 0xFF545454).addARGB(216, 0xFF727272).addARGB(255, 0xFF8A8A8A).build());

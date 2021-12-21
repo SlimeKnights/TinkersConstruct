@@ -1,0 +1,14 @@
+{
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "name": "tconstruct:chrysophilite",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:piglin_disguise",
+        "level": 1
+      }
+    ]
+  }
+}

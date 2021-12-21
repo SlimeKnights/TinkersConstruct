@@ -171,6 +171,20 @@
         ]
       }
     },
+    "gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:gold"
+            ]
+          }
+        ]
+      }
+    },
     "rose_gold": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -233,6 +247,9 @@
     ],
     [
       "blazing_bone"
+    ],
+    [
+      "gold"
     ],
     [
       "rose_gold"

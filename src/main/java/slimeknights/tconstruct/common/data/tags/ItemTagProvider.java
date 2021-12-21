@@ -227,6 +227,9 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(Tags.Items.SEEDS)
         .add(Items.CARROT, Items.POTATO, Items.NETHER_WART);
 
+    // tags for modifiers
+    copy(TinkerTags.Blocks.CHRYSOPHILITE_ORES, TinkerTags.Items.CHRYSOPHILITE_ORES);
+
     // tag for tool parts, mostly used by JEI right now
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
         .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),

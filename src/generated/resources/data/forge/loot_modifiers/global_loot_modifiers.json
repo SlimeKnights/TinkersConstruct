@@ -2,6 +2,7 @@
   "replace": false,
   "entries": [
     "tconstruct:wither_bone",
-    "tconstruct:modifier_hook"
+    "tconstruct:modifier_hook",
+    "tconstruct:chrysophilite_modifier"
   ]
 }

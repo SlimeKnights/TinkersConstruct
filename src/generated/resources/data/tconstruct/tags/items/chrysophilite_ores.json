@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/gold",
+    "minecraft:gilded_blackstone"
+  ]
+}
