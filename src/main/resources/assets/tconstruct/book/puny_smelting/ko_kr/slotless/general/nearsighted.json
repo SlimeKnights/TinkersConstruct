@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "결국 조약돌 도구에서 떠나야 하지."
+    }
+  ],
+  "effects": [
+    "도구를 들거나 갑옷을 착용한다면 시야각이 증가한다",
+    "다중 등급",
+    "미슬롯"
+  ]
+}

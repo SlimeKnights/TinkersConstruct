@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "으, 끈적거리는군."
+    },
+  ],
+  "more_text_space": false,
+  "effects": [
+    "공격한 적에게 속도 감소를 준다",
+    "다중 등급, 등급당 속도 감소 확률이 증가한다",
+    "등급당 1개의 강화 슬롯을 사용한다"
+  ]
+}
