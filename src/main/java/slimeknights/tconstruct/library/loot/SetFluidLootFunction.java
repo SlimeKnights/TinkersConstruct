@@ -3,55 +3,31 @@ package slimeknights.tconstruct.library.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootFunction;
 import net.minecraft.loot.LootFunctionType;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-/**
- * Loot function to set the fluid on a dropped item
- */
-public class SetFluidLootFunction extends LootFunction {
+/** @deprecated use {@link slimeknights.mantle.loot.function.SetFluidLootFunction} */
+@Deprecated
+public class SetFluidLootFunction extends slimeknights.mantle.loot.function.SetFluidLootFunction {
   public static final ResourceLocation ID = TConstruct.getResource("set_fluid");
   public static final Serializer SERIALIZER = new Serializer();
-
-  /** Fluid to add to the item */
   private final FluidStack fluid;
   protected SetFluidLootFunction(ILootCondition[] conditionsIn, FluidStack fluid) {
-    super(conditionsIn);
+    super(conditionsIn, fluid);
     this.fluid = fluid;
-  }
-
-  @Override
-  protected ItemStack doApply(ItemStack stack, LootContext context) {
-    return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-                .map(handler -> {
-                  handler.fill(fluid.copy(), FluidAction.EXECUTE);
-                  return handler.getContainer();
-                }).orElse(stack);
+    TConstruct.LOG.warn("Using deprecated loot function '{}', use 'mantle:set_fluid' instead", ID);
   }
 
   @Override
   public LootFunctionType getFunctionType() {
     return TinkerCommons.lootSetFluid;
-  }
-
-  /**
-   * Creates a new builder with the given fluid
-   * @param fluid  Fluid to set
-   * @return  Builder instance
-   */
-  public static LootFunction.Builder<?> builder(FluidStack fluid) {
-    return builder(conditions -> new SetFluidLootFunction(conditions, fluid));
   }
 
   /** Serializer logic for the function */

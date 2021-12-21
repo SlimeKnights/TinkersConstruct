@@ -29,6 +29,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.AdvancementsProvider;
+import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
 import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
@@ -138,6 +139,7 @@ public class TConstruct {
       datagenerator.addProvider(new TileEntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new AdvancementsProvider(datagenerator));
+      datagenerator.addProvider(new GlobalLootModifiersProvider(datagenerator));
     }
   }
 

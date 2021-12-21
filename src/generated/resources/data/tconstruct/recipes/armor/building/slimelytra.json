@@ -8,9 +8,6 @@
     "tag": "tconstruct:ender_slime",
     "amount": 8000
   },
-  "result": {
-    "item": "tconstruct:slime_chestplate",
-    "nbt": "{tic_broken:0b,Damage:0}"
-  },
+  "result": "tconstruct:slime_chestplate",
   "cooling_time": 237
 }
