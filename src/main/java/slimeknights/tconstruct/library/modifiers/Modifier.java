@@ -1128,6 +1128,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Adds a flat bonus tooltip
+   * @param name     Bonus name
+   * @param bonus    Bonus amount
+   * @param tooltip  Tooltip list
+   */
+  protected void addFlatBoost(ITextComponent name, double bonus, List<ITextComponent> tooltip) {
+    tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(bonus) + " ").appendSibling(name)));
+  }
+
+  /**
+   * Adds a percent bonus tooltip
+   * @param name     Bonus name
+   * @param bonus    Bonus amount
+   * @param tooltip  Tooltip list
+   */
+  protected void addPercentTooltip(ITextComponent name, double bonus, List<ITextComponent> tooltip) {
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").appendSibling(name)));
+  }
+
+  /**
    * Adds a tooltip showing a bonus stat
    * @param tool       Tool instance
    * @param stat       Stat added
@@ -1137,9 +1157,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, ITag<Item> condition, float amount, List<ITextComponent> tooltip) {
     if (tool.hasTag(condition)) {
-      tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(amount * tool.getModifier(stat)))
-                               .appendString(" ")
-                               .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
+      addFlatBoost(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getModifier(stat), tooltip);
     }
   }
 

@@ -4,9 +4,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -14,13 +13,13 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class MomentumModifier extends Modifier {
+  private static final ITextComponent MINING_SPEED = TConstruct.makeTranslation("modifier", "momentum.mining_speed");
   public MomentumModifier() {
     super(0x60496b);
   }
@@ -66,9 +65,7 @@ public class MomentumModifier extends Modifier {
       } else {
         bonus = level * 0.25f;
       }
-      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus))
-                               .appendString(" ")
-                               .appendSibling(new TranslationTextComponent(getTranslationKey() + ".mining_speed"))));
+      addPercentTooltip(MINING_SPEED, bonus, tooltip);
     }
   }
 }

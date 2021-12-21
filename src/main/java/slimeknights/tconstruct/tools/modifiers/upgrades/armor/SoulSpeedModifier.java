@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
@@ -13,14 +14,18 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -122,5 +127,15 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorWalkModifier.class, this);
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+    // must either have no player or a player on soulsand
+    if (player == null || key != TooltipKey.SHIFT || (!player.isElytraFlying() && player.world.getBlockState(getOnPosition(player)).isIn(BlockTags.SOUL_SPEED_BLOCKS))) {
+      // multiplies boost by 10 and displays as a percent as the players base movement speed is 0.1 and is in unknown units
+      // percentages make sense
+      addPercentTooltip(getDisplayName(), 0.3f + level * 0.105f, tooltip);
+    }
   }
 }

@@ -5,17 +5,22 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.LightType;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 public class LightspeedArmorModifier extends IncrementalModifier implements IArmorWalkModifier {
@@ -47,7 +52,7 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
     int light = living.world.getLightFor(LightType.BLOCK, pos);
     if (light > 5) {
       int scaledLight = light - 5;
-      attribute.applyNonPersistentModifier(new AttributeModifier(ATTRIBUTE_BONUS, "tconstruct.modifier.lightspeed", scaledLight * 0.005f * getScaledLevel(tool, level), Operation.ADDITION));
+      attribute.applyNonPersistentModifier(new AttributeModifier(ATTRIBUTE_BONUS, "tconstruct.modifier.lightspeed", scaledLight * 0.0015f * getScaledLevel(tool, level), Operation.ADDITION));
 
       // damage boots
       if (RANDOM.nextFloat() < (0.005f * scaledLight)) {
@@ -76,5 +81,21 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorWalkModifier.class, this);
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+    // multiplies boost by 10 and displays as a percent as the players base movement speed is 0.1 and is in unknown units
+    // percentages make sense
+    float boost;
+    if (player != null && key == TooltipKey.SHIFT) {
+      int light = player.world.getLightFor(LightType.BLOCK, player.getPosition());
+      boost = 0.015f * (light - 5) * getScaledLevel(tool, level);
+    } else {
+      boost = 0.15f * getScaledLevel(tool, level);
+    }
+    if (boost > 0) {
+      addPercentTooltip(getDisplayName(), boost, tooltip);
+    }
   }
 }
