@@ -795,6 +795,8 @@
   "item.tconstruct.slime_helmet.material.tconstruct.iron":          "Husk Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.copper":        "Drowned Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone":  "Blaze Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.rose_gold":     "Piglin Brute Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.pig_iron":      "Zombified Piglin Slimeskull",
 
 
   "_comment": "Tinkers Tool Parts",
@@ -1304,6 +1306,8 @@
   "material.tconstruct.rose_gold": "Rose Gold",
   "material.tconstruct.rose_gold.flavor": "Disclaimer: Not actually made with roses.",
   "material.tconstruct.rose_gold.encyclopedia": "Grants 1 extra upgrade slot per part",
+  "material.tconstruct.rose_gold.skull_flavor": "Putting that arm shield to good use",
+  "material.tconstruct.rose_gold.skull_encyclopedia": "Boosts health by 1 heart, plus an additional heart per piece of golden armor.",
 
   "material.tconstruct.chain": "Chain",
   "material.tconstruct.chain.flavor": "You too can become the chain user now.",
@@ -1330,6 +1334,8 @@
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
   "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger and 0.1 saturation per level",
+  "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
+  "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 15 seconds of strength when damaged by another mob",
 
 
 
@@ -2038,6 +2044,13 @@
   "modifier.tconstruct.firebreath": "Firebreath",
   "modifier.tconstruct.firebreath.flavor": "Rather spicy",
   "modifier.tconstruct.firebreath.description": "Allows you to spit firecharges by interacting with your helmet",
+  "modifier.tconstruct.gold_guard": "Gold Guard",
+  "modifier.tconstruct.gold_guard.flavor": "Means you love gold",
+  "modifier.tconstruct.gold_guard.description": "Increases health based on how much gold you are wearing",
+  "modifier.tconstruct.gold_guard.health": "Gold Health",
+  "modifier.tconstruct.revenge": "Revenge",
+  "modifier.tconstruct.revenge.flavor": "Perfect for counterattacks",
+  "modifier.tconstruct.revenge.description": "Makes you stronger after you are attacked",
 
   "modifier.tconstruct.creeper_disguise": "Creeper Disguise",
   "modifier.tconstruct.creeper_disguise.flavor": "Kinda Creepy",
@@ -2072,6 +2085,12 @@
   "modifier.tconstruct.blaze_disguise": "Blaze Disguise",
   "modifier.tconstruct.blaze_disguise.flavor": "Would be more convincing if you were on fire",
   "modifier.tconstruct.blaze_disguise.description": "Makes you look more like a blaze to other blazes",
+  "modifier.tconstruct.piglin_brute_disguise": "Piglin Brute Disguise",
+  "modifier.tconstruct.piglin_brute_disguise.flavor": "Is this scar convincing?",
+  "modifier.tconstruct.piglin_brute_disguise.description": "Makes you look more like a piglin brute to other piglin brutes",
+  "modifier.tconstruct.zombified_piglin_disguise": "Zombified Piglin Disguise",
+  "modifier.tconstruct.zombified_piglin_disguise.flavor": "Is it a pig? A man? A zombie?",
+  "modifier.tconstruct.zombified_piglin_disguise.description": "Makes you look more like a zombified piglin to other zombified piglins",
 
   "_comment": "Compat Modifiers",
   "modifier.tconstruct.the_one_probe": "The One Probe",

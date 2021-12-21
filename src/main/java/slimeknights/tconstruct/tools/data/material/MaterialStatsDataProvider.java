@@ -210,6 +210,8 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.iron,         new SkullStats(165, 2));
     addMaterialStats(MaterialIds.copper,       new SkullStats(145, 2));
     addMaterialStats(MaterialIds.blazingBone,  new SkullStats(205, 1));
+    addMaterialStats(MaterialIds.roseGold,     new SkullStats(175, 1));
+    addMaterialStats(MaterialIds.pigIron,      new SkullStats(150, 2));
     // slimesuit
     addMaterialStats(MaterialIds.enderslime, new RepairKitStats( 25));
     addMaterialStats(MaterialIds.phantom,    new RepairKitStats(115));

@@ -61,6 +61,7 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
     if (base != null) {
       matrixStackIn.push();
       matrixStackIn.translate(0.0D, this.isChild ? -0.015D : -0.02D, 0.0D);
+      matrixStackIn.scale(1.01f, 1.0f, 1.01f);
       base.render(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       matrixStackIn.pop();
     }

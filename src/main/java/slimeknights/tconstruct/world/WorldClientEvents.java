@@ -120,10 +120,8 @@ public class WorldClientEvents extends ClientEventBase {
     GenericHeadModel piglinHead = new PiglinHeadModel();
     SkullTileEntityRenderer.MODELS.put(TinkerHeadType.PIGLIN, piglinHead);
     SkullTileEntityRenderer.SKINS.put(TinkerHeadType.PIGLIN, new ResourceLocation("textures/entity/piglin/piglin.png"));
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.PIGLIN_BRUTE, piglinHead);
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.PIGLIN_BRUTE, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
-    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.ZOMBIFIED_PIGLIN, piglinHead);
-    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.ZOMBIFIED_PIGLIN, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
+    registerHeadModel(TinkerHeadType.PIGLIN_BRUTE,     MaterialIds.roseGold, piglinHead, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
+    registerHeadModel(TinkerHeadType.ZOMBIFIED_PIGLIN, MaterialIds.pigIron,  piglinHead, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
   }
 
   @SubscribeEvent

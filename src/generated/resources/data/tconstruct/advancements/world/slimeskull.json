@@ -170,6 +170,34 @@
           }
         ]
       }
+    },
+    "rose_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:rose_gold"
+            ]
+          }
+        ]
+      }
+    },
+    "pig_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "item": "tconstruct:slime_helmet",
+            "materials": [
+              "tconstruct:pig_iron"
+            ]
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -205,6 +233,12 @@
     ],
     [
       "blazing_bone"
+    ],
+    [
+      "rose_gold"
+    ],
+    [
+      "pig_iron"
     ]
   ]
 }
