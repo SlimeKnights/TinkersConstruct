@@ -1,0 +1,1415 @@
+{
+  "_comment": "Tinkers Allgemein",
+
+  "block.tconstruct.grout": "Mörtel",
+  "block.tconstruct.grout.tooltip": "Ich bin Mörtel!",
+
+  "block.tconstruct.sky_slime": "Himmelsschleimblock",
+  "block.tconstruct.sky_slime.tooltip": "Klebt an Schleim und Honig",
+  "block.tconstruct.ichor_slime": "Sekretblock",
+  "block.tconstruct.ichor_slime.tooltip": "Klebt alle klebrigen Blöcke außer Sekretblöcken",
+  "block.tconstruct.ender_slime": "Enderschleim ",
+  "block.tconstruct.ender_slime.tooltip": "Klebt,wenn er geschoben wird, aber nicht, wenn er an einem weiteren klebrigen Block angrenzt",
+  "block.tconstruct.blood_slime": "Blutblock",
+  "block.tconstruct.blood_slime.tooltip": "Federnd, aber nicht klebrig",
+
+  "block.tconstruct.earth_congealed_slime": "erstarrter Schleimblock",
+  "block.tconstruct.earth_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
+  "block.tconstruct.sky_congealed_slime": "erstarrter Himmelsschleimblock",
+  "block.tconstruct.sky_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
+  "block.tconstruct.ender_congealed_slime": "erstarrter Enderschleim",
+  "block.tconstruct.ender_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
+  "block.tconstruct.blood_congealed_slime": "geronnener Blutblock",
+  "block.tconstruct.blood_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
+  "block.tconstruct.ichor_congealed_slime": "erstarrter Sekretschleim",
+  "block.tconstruct.ichor_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
+
+  "block.tconstruct.mud_bricks": "Lehmziegel",
+  "block.tconstruct.mud_bricks_slab": "Lehmziegelstufe",
+  "block.tconstruct.mud_bricks_stairs": "Lehmziegeltreppe",
+
+  "block.tconstruct.lavawood": "Lavaholz",
+  "block.tconstruct.lavawood_slab": "Lavaholzstufe",
+  "block.tconstruct.lavawood_stairs": "Lavaholztreppe",
+
+  "block.tconstruct.blazewood": "Lohenholz",
+  "block.tconstruct.blazewood_slab": "Lohenholzstufe",
+  "block.tconstruct.blazewood_stairs": "Lohenholztreppe",
+
+  "block.tconstruct.clear_glass": "klares Glas",
+  "block.tconstruct.clear_glass_pane": "klare Glasscheibe",
+
+  "block.tconstruct.white_clear_stained_glass": "Klares weißes Glas",
+  "block.tconstruct.orange_clear_stained_glass": "Klares orangenes Glas",
+  "block.tconstruct.magenta_clear_stained_glass": "Klares magentafarbiges Glas",
+  "block.tconstruct.light_blue_clear_stained_glass": "Klares hellblaues Glas",
+  "block.tconstruct.yellow_clear_stained_glass": "Klares gelbes Glas",
+  "block.tconstruct.lime_clear_stained_glass": "Klares hellgrünes Glas",
+  "block.tconstruct.pink_clear_stained_glass": "Klares pinkes Glas",
+  "block.tconstruct.gray_clear_stained_glass": "Klares graues Glas",
+  "block.tconstruct.light_gray_clear_stained_glass": "Klares hellgraues Glas",
+  "block.tconstruct.cyan_clear_stained_glass": "Klares türkises Glas",
+  "block.tconstruct.purple_clear_stained_glass": "Klares violettes Glas",
+  "block.tconstruct.blue_clear_stained_glass": "Klares blaues Glas",
+  "block.tconstruct.brown_clear_stained_glass": "Klares braunes Glas",
+  "block.tconstruct.green_clear_stained_glass": "Klares grünes Glas",
+  "block.tconstruct.red_clear_stained_glass": "Klares rotes Glas",
+  "block.tconstruct.black_clear_stained_glass": "Klares schwarzes Glas",
+
+  "block.tconstruct.white_clear_stained_glass_pane": "Klare weiße Glasscheibe",
+  "block.tconstruct.orange_clear_stained_glass_pane": "Klare orangene Glasscheibe",
+  "block.tconstruct.magenta_clear_stained_glass_pane": "Klare magentafarbene Glasscheibe",
+  "block.tconstruct.light_blue_clear_stained_glass_pane": "Klare hellblaue Glasscheibe",
+  "block.tconstruct.yellow_clear_stained_glass_pane": "Klare gelbe Glasscheibe",
+  "block.tconstruct.lime_clear_stained_glass_pane": "Klare hellgrüne Glasscheibe",
+  "block.tconstruct.pink_clear_stained_glass_pane": "Klare pinke Glasscheibe",
+  "block.tconstruct.gray_clear_stained_glass_pane": "Klare graue Glasscheibe",
+  "block.tconstruct.light_gray_clear_stained_glass_pane": "Klare hellgraue Glasscheibe",
+  "block.tconstruct.cyan_clear_stained_glass_pane": "Klare türkise Glasscheibe",
+  "block.tconstruct.purple_clear_stained_glass_pane": "Klare violette Glasscheibe",
+  "block.tconstruct.blue_clear_stained_glass_pane": "Klare blaue Glasscheibe",
+  "block.tconstruct.brown_clear_stained_glass_pane": "Klare braune Glasscheibe",
+  "block.tconstruct.green_clear_stained_glass_pane": "Klare grüne Glasscheibe",
+  "block.tconstruct.red_clear_stained_glass_pane": "Klare rote Glasscheibe",
+  "block.tconstruct.black_clear_stained_glass_pane": "Klare schwarze Glasscheibe",
+
+  "block.tconstruct.soul_glass": "Seelenglas",
+  "block.tconstruct.soul_glass_pane": "Seelenglasscheibe",
+
+  "block.tconstruct.glow": "Glühen",
+  "block.tconstruct.silky_jewel_block": "Seidiger Juwelenblock",
+  "block.tconstruct.silky_jewel_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+
+
+  "__comment": "Metallerze",
+
+  "block.tconstruct.copper_ore": "Kupfererz",
+  "block.tconstruct.copper_block": "Kupferblock",
+  "block.tconstruct.copper_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.copper_ingot": "Kupferbarren",
+  "item.tconstruct.copper_nugget": "Kupferklumpen",
+
+  "block.tconstruct.cobalt_ore": "Nether Kobalterz",
+  "block.tconstruct.cobalt_block": "Kobaltblock",
+  "block.tconstruct.cobalt_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.cobalt_ingot": "Kobaltbarren",
+  "item.tconstruct.cobalt_nugget": "Kobaltklumpen",
+
+
+  "__comment": "Tier 3 Metalle",
+
+  "block.tconstruct.slimesteel_block": "Schleimstahlblock",
+  "block.tconstruct.slimesteel_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.slimesteel_ingot": "Schleimstahlbarren",
+  "item.tconstruct.slimesteel_nugget": "Schleimstahlnugget",
+
+  "block.tconstruct.tinkers_bronze_block": "Tinker Bronzeblock",
+  "block.tconstruct.tinkers_bronze_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.tinkers_bronze_ingot": "Tinker Bronzebarren",
+  "item.tconstruct.tinkers_bronze_nugget": "Tinker's Bronzeklumpen",
+
+  "block.tconstruct.rose_gold_block": "Rotgoldblock",
+  "block.tconstruct.rose_gold_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.rose_gold_ingot": "Rotgoldbarren",
+  "item.tconstruct.rose_gold_nugget": "Rotgoldklumpen",
+
+  "block.tconstruct.pig_iron_block": "Roheisenblock",
+  "block.tconstruct.pig_iron_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.pig_iron_ingot": "Roheisenbarren",
+  "item.tconstruct.pig_iron_nugget": "Roheisenklumpen",
+
+
+  "__comment": "Tier 4 Metalle",
+
+  "block.tconstruct.manyullyn_block": "Manyullynblock",
+  "block.tconstruct.manyullyn_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.manyullyn_ingot": "Manyullynbarren",
+  "item.tconstruct.manyullyn_nugget": "Manyullynklumpen",
+
+  "block.tconstruct.hepatizon_block": "Hepatizonblock",
+  "block.tconstruct.hepatizon_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.hepatizon_ingot": "Hepatizonbarren",
+  "item.tconstruct.hepatizon_nugget": "Hepatizonklumpen",
+
+  "block.tconstruct.queens_slime_block": "Königinnen Schleimblock",
+  "block.tconstruct.queens_slime_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.queens_slime_ingot": "Königinnen Schleimbarren",
+  "item.tconstruct.queens_slime_nugget": "Königinnen Schleimklumpen",
+
+  "block.tconstruct.soulsteel_block": "Seelenstahlblock",
+  "block.tconstruct.soulsteel_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.soulsteel_ingot": "Seelenstahlbarren",
+  "item.tconstruct.soulsteel_nugget": "Seelenstahlklumpen",
+
+  "item.tconstruct.netherite_nugget": "Netheriteklumpen",
+  "item.tconstruct.debris_nugget": "Trümmerhaufen",
+  "item.tconstruct.debris_nugget.tooltip": "Kleine Scherbe von altem Netherit, kann eventuell zur Bergung eingeschmolzen werden",
+
+
+  "__comment": "Tier 5 Metalle",
+
+  "block.tconstruct.knightslime_block": "Ritterschleimblock",
+  "block.tconstruct.knightslime_block.tooltip": "Kann als Leuchtfeuer-Fundament genutzt werden",
+  "item.tconstruct.knightslime_ingot": "Ritterschleimbarren",
+  "item.tconstruct.knightslime_ingot.tooltip": "Schleimig, metallisch aber auch steinig? Faszinierend!",
+  "item.tconstruct.knightslime_nugget": "Ritterschleimklumpen",
+
+  "item.tconstruct.materials_and_you": "Materialien und du",
+  "item.tconstruct.materials_and_you.tooltip": "Das Buch für jeden Bastler\nby Selena",
+  "item.tconstruct.tinkers_gadgetry": "Bastler Spielereien",
+  "item.tconstruct.tinkers_gadgetry.tooltip": "Das Buch für Anwendungsmöglichkeiten von Schleim im Alltag\nby Melvin",
+
+
+  "item.tconstruct.puny_smelting": "Kleine Schmelzerei",
+  "item.tconstruct.puny_smelting.tooltip": "Schmelzen und Gießen für Dummies\nby Thruul M'Gon",
+  "item.tconstruct.mighty_smelting": "Mächtige Schmelzerei",
+  "item.tconstruct.mighty_smelting.tooltip": "Schmelzen, Gießen und Legieren für Fortgeschrittene\nby Thruul M'Gon",
+
+  "item.tconstruct.sky_slime_ball": "Himmelsschleimball",
+  "item.tconstruct.ender_slime_ball": "Enderschleimball",
+  "item.tconstruct.blood_slime_ball": "geronnenes Blut",
+  "item.tconstruct.ichor_slime_ball": "Sekretball",
+
+  "item.tconstruct.bacon": "Speck",
+  "item.tconstruct.beef_jerky": "Rind-Trockenfleisch",
+  "item.tconstruct.beef_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.chicken_jerky": "Hühnchen-Trockenfleisch",
+  "item.tconstruct.chicken_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.pork_jerky": "Schweine-Trockenfleisch",
+  "item.tconstruct.pork_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.mutton_jerky": "Hammel-Trockenfleisch Jerky",
+  "item.tconstruct.mutton_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.rabbit_jerky": "Hasen-Trockenfleisch",
+  "item.tconstruct.rabbit_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.fish_jerky": "Kabeljau-Trockenfleisch",
+  "item.tconstruct.fish_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.salmon_jerky": "Lachs-Trockenfleisch",
+  "item.tconstruct.salmon_jerky.tooltip": "Sättigend!",
+  "item.tconstruct.clownfish_jerky": "Tropenfisch-Trockenfleisch",
+  "item.tconstruct.clownfish_jerky.tooltip": "Vielfarbig!",
+  "item.tconstruct.pufferfish_jerky": "Kugelfisch-Trockenfleisch",
+  "item.tconstruct.pufferfish_jerky.tooltip": "Sicher zum Essen!",
+  "item.tconstruct.monster_jerky": "Monster-Trockenfleisch",
+  "item.tconstruct.monster_jerky.tooltip": "Sicher zum Essen!",
+
+
+
+  "item.tconstruct.earth_slime_drop": "gelantinenartiger Schleimdrop",
+  "item.tconstruct.sky_slime_drop": "gelantinenartiger Himmelsschleimdrop",
+  "item.tconstruct.ichor_slime_drop": "gelantinenartiger Sekretdrop",
+  "item.tconstruct.ender_slime_drop": "gelantinenartiger Enderschleim Drop",
+  "item.tconstruct.blood_slime_drop": "geronnenes Blutdrop",
+
+  "item.tconstruct.seared_brick": "gebrannter Ziegel",
+  "item.tconstruct.mud_brick": "Lehmziegel",
+  "item.tconstruct.mud_brick.tooltip": "Baublöcke für klein und groß",
+  "item.tconstruct.dried_brick": "getrockneter Ziegelstein",
+
+  "item.tconstruct.earth_slime_crystal": "Schleimkristall",
+  "item.tconstruct.earth_slime_crystal.tooltip": "Wird zum Überziehen von Werkzeugen mit Schleim benötigt",
+  "item.tconstruct.sky_slime_crystal": "Himmelsschleimkristall",
+  "item.tconstruct.sky_slime_crystal.tooltip": "Wird zum Überziehen von Werkzeugen mit Schleim benötigt",
+  "item.tconstruct.ichor_slime_crystal": "Sekretkristall",
+  "item.tconstruct.ichor_slime_crystal.tooltip": "Wird zum Überziehen von Werkzeugen mit Schleim benötigt",
+  "item.tconstruct.ender_slime_crystal": "Enderschleimkristall",
+  "item.tconstruct.ender_slime_crystal.tooltip": "Wird zum Überziehen von Werkzeugen mit Schleim benötigt",
+
+  "item.tconstruct.reinforcement": "Verstärker",
+  "item.tconstruct.reinforcement.tooltip": "Reduziert die Chance, das ein Werkzeug schaden erleidet",
+  "item.tconstruct.silky_cloth": "Seidenstoff",
+  "item.tconstruct.silky_cloth.tooltip": "Verhindert, dass ein Toll ein Drop beschädigt.",
+  "item.tconstruct.silky_jewel": "Silky Jewel",
+  "item.tconstruct.silky_jewel.tooltip": "Verhindert, dass ein Toll ein Drop beschädigt. Auch Silk Touch genannt.",
+  "item.tconstruct.necrotic_bone": "nekrotischer Knochen",
+  "item.tconstruct.creative_upgrade": "Kreatives Upgrade",
+  "item.tconstruct.creative_upgrade.tooltip": "Schaltet einen zusätzlichen Upgradeplatz eines Werkzeuges frei",
+  "item.tconstruct.creative_ability": "Kreative Fähigkeit",
+  "item.tconstruct.creative_ability.tooltip": "Schaltet einen zusätzlichen Upgradeplatz eines Werkzeuges frei",
+  "item.tconstruct.ancient_shovel_head": "antiker Schaufelkopf",
+  "item.tconstruct.ancient_axe_head": "antiker Axtkopf",
+  "item.tconstruct.ancient_hoe_head": "Antiker Sensenkopf",
+
+  "item.tconstruct.copper_can": "Kupferkanne",
+  "item.tconstruct.copper_can.tooltip": "Stapelbarer Behälter der ein Barren an Flüssigkeit halten kann",
+  "item.tconstruct.copper_can.contents": "Contains: 1 ingot %s",
+
+
+  "_comment": "Tinkers Gold Casts",
+
+  "item.tconstruct.blank_cast": " goldene Gussform ungeformte",
+  "item.tconstruct.ingot_cast": "goldene Gussform Barren",
+  "item.tconstruct.nugget_cast": "goldene Gussform Klumpen",
+  "item.tconstruct.gem_cast": "goldene Gussform Edelstein",
+  "item.tconstruct.rod_cast": "goldene Gussform Stab",
+
+  "item.tconstruct.gear_cast": "goldene Gussform Zahnrad",
+  "item.tconstruct.plate_cast": "goldene Gussform kleine Platte",
+  "item.tconstruct.coin_cast": "goldene Gussform Münze",
+
+  "item.tconstruct.repair_kit_cast": "goldene Gussform Reparaturkit",
+
+  "_comment": "Small Head Gold Casts",
+
+  "item.tconstruct.pickaxe_head_cast": "goldene Gussform Spitzhackenkopf",
+  "item.tconstruct.small_axe_head_cast": "goldene Gussform kleiner Axtkopf",
+  "item.tconstruct.sword_blade_cast": "goldene Gussform kleine Klinge",
+  "item.tconstruct.sign_head_cast": "Goldene Gussform Schild",
+  "item.tconstruct.bow_limb_cast": "goldene Gussform Bogenschenkel",
+
+  "_comment": "Large Head Gold Casts",
+
+  "item.tconstruct.hammer_head_cast": "goldene Gussform Hammerkopf",
+  "item.tconstruct.broad_axe_head_cast": "goldene Gussform Breitaxtkopf",
+  "item.tconstruct.broad_blade_cast": "goldene Gussform Breitschwertklinge",
+
+  "_comment": "Binding Gold Casts",
+
+  "item.tconstruct.tool_binding_cast": "goldene Gussform Werkzeugbindung",
+  "item.tconstruct.large_plate_cast": "goldene Gussform große Platte",
+
+  "_comment": "Tool Handle Gold Casts",
+
+  "item.tconstruct.tool_handle_cast": "goldene Gussform Werkzeuggriff",
+  "item.tconstruct.tough_handle_cast": "goldene Gussform robuster Werkzeuggriff",
+
+
+  "_comment": "Tinkers Sand Casts",
+
+  "item.tconstruct.blank_sand_cast": "Sandgussform ungeformt",
+  "item.tconstruct.ingot_sand_cast": "Sandgussform Barren",
+  "item.tconstruct.nugget_sand_cast": "Sandgussform Klumpen",
+  "item.tconstruct.gem_sand_cast": "Sandgussform Edelstein",
+  "item.tconstruct.rod_sand_cast": "Sandgussform Stab",
+
+  "item.tconstruct.gear_sand_cast": "Sandgussform Zahnrad",
+  "item.tconstruct.plate_sand_cast": "Sandgussform schmale Platte",
+  "item.tconstruct.coin_sand_cast": "Sandgussform Münze",
+
+  "item.tconstruct.repair_kit_sand_cast": "Sandgussform Reparaturkit",
+
+  "_comment": "Small Head Sand Casts",
+
+  "item.tconstruct.pickaxe_head_sand_cast": "Sandgussform Spitzhackenkopf",
+  "item.tconstruct.small_axe_head_sand_cast": "Sandgussform kleiner Axtkopf",
+  "item.tconstruct.sword_blade_sand_cast": "Sandgussform Klinge",
+  "item.tconstruct.sign_head_sand_cast": "Sandgussform Schild",
+  "item.tconstruct.bow_limb_sand_cast": "Sandgussform Bogenschenkel",
+
+  "_comment": "Large Head Sand Casts",
+
+  "item.tconstruct.hammer_head_sand_cast": "Sandgussform Hammerkopf",
+  "item.tconstruct.broad_axe_head_sand_cast": "Sandgussform Breitaxtkopf",
+  "item.tconstruct.broad_blade_sand_cast": "Sandgussform Breitschwertklinge",
+
+  "_comment": "Binding Sand Casts",
+
+  "item.tconstruct.tool_binding_sand_cast": "BSandgussform Werkzeugbindung",
+  "item.tconstruct.large_plate_sand_cast": "Sandgussform große Platte",
+
+  "_comment": "Tool Handle Sand Casts",
+
+  "item.tconstruct.tool_handle_sand_cast": "Sandgussform Werkzeuggriff",
+  "item.tconstruct.tough_handle_sand_cast": "Sandgussform robuster Werkzeuggriff",
+
+
+  "_comment": "Tinkers Red Sand Casts",
+
+  "item.tconstruct.blank_red_sand_cast": "rote Sandgussform ungeformt",
+  "item.tconstruct.ingot_red_sand_cast": "rote Sandgussform Barren",
+  "item.tconstruct.nugget_red_sand_cast": "rote Sandgussform Klumpen",
+  "item.tconstruct.gem_red_sand_cast": "rote Sandgussform Edelstein",
+  "item.tconstruct.rod_red_sand_cast": "rote Sandgussform Stab",
+
+  "item.tconstruct.gear_red_sand_cast": "rote Sandgussform Zahnrad",
+  "item.tconstruct.plate_red_sand_cast": "rote Sandgussform kleine Platte",
+  "item.tconstruct.coin_red_sand_cast": "rote Sandgussform Münze",
+
+  "item.tconstruct.repair_kit_red_sand_cast": "rote Sandgussform Reparaturkit",
+
+  "_comment": "Small Head Red Sand Casts",
+
+  "item.tconstruct.pickaxe_head_red_sand_cast": "rote Sandgussform Spitzhackenkopf",
+  "item.tconstruct.small_axe_head_red_sand_cast": "rote Sandgussform kleiner Axtkopf",
+  "item.tconstruct.sword_blade_red_sand_cast": "rote Sandgussform Klinge",
+  "item.tconstruct.sign_head_red_sand_cast": "rote Sandgussform Schild",
+  "item.tconstruct.bow_limb_red_sand_cast": "rote Sandgussform Bogenschenkel",
+
+  "_comment": "Large Head Red Sand Casts",
+
+  "item.tconstruct.hammer_head_red_sand_cast": "rote Sandgussform Hammerkopf",
+  "item.tconstruct.broad_axe_head_red_sand_cast": "rote Sandgussform Breitaxt",
+  "item.tconstruct.broad_blade_red_sand_cast": "rote Sandgussform Breitschwertklinge",
+
+  "_comment": "Binding Red Sand Casts",
+
+  "item.tconstruct.tool_binding_red_sand_cast": "rote Sandgussform Werkzeugbindung",
+  "item.tconstruct.large_plate_red_sand_cast": "rote Sandgussform große Platte",
+
+  "_comment": "Tool Handle Red Sand Casts",
+
+  "item.tconstruct.tool_handle_red_sand_cast": "rote Sandgussform Werkzeuggriff",
+  "item.tconstruct.tough_handle_red_sand_cast": "rote Sandgussform robuster Werkzeuggriff",
+
+
+  "_comment": "Tinkers Fluids",
+
+  "fluid.tconstruct.milk": "Milch",
+
+  "block.tconstruct.molten_blaze_fluid": "geschmolzene Lohen",
+  "fluid.tconstruct.molten_blaze": "geschmolzene Lohen",
+  "fluid.tconstruct.flowing_molten_blaze": "fließendes geschmolzene Lohen",
+  "item.tconstruct.molten_blaze_bucket": "geschmolzene Lohen ",
+
+  "_comment": "Slime",
+
+  "block.tconstruct.blood_fluid": "Blut",
+  "fluid.tconstruct.blood": "Blut",
+  "fluid.tconstruct.flowing_blood": "flüssiges Blut",
+  "item.tconstruct.blood_bucket": "Eimer voll Blut",
+
+  "block.tconstruct.earth_slime_fluid": "Schleim",
+  "fluid.tconstruct.earth_slime": "Schleim",
+  "fluid.tconstruct.flowing_earth_slime": "flüssiger Schleim",
+  "item.tconstruct.earth_slime_bucket": "Eimer voll Schleim",
+
+  "block.tconstruct.sky_slime_fluid": "Himmelsschleim",
+  "fluid.tconstruct.sky_slime": "Himmelsschleim",
+  "fluid.tconstruct.flowing_sky_slime": "flüssiger Himmelsschleim",
+  "item.tconstruct.sky_slime_bucket": "Eimer voll Himmelsschleim",
+
+  "block.tconstruct.magma_cream_fluid": "Magmacreme",
+  "fluid.tconstruct.magma_cream": "Magmacreme",
+  "fluid.tconstruct.flowing_magma_cream": "flüssige Magmacreme",
+  "item.tconstruct.magma_cream_bucket": "Magmacreme Eimer",
+
+  "block.tconstruct.ender_slime_fluid": "Enderschleim",
+  "fluid.tconstruct.ender_slime": "Enderschleim",
+  "fluid.tconstruct.flowing_ender_slime": "flüssiger Enderschleim",
+  "item.tconstruct.ender_slime_bucket": "Enderschleim Eimer",
+
+  "_comment": "Rock",
+
+  "block.tconstruct.seared_stone_fluid": "gebrannter Stein",
+  "fluid.tconstruct.seared_stone": "geschmolzener Stein",
+  "fluid.tconstruct.flowing_seared_stone": "fließend geschmolzener Stein",
+  "item.tconstruct.seared_stone_bucket": "geschmolzener Stein Eimer",
+
+  "block.tconstruct.molten_clay_fluid": "Schmelzton",
+  "fluid.tconstruct.molten_clay": "Schmelzton",
+  "fluid.tconstruct.flowing_molten_clay": "fließend geschmolzener Lehm",
+  "item.tconstruct.molten_clay_bucket": "geschmolzener Lehm Eimer",
+
+  "block.tconstruct.molten_glass_fluid": "geschmolzenes Glas",
+  "fluid.tconstruct.molten_glass": "geschmolzenes Glas",
+  "fluid.tconstruct.flowing_molten_glass": "fließend geschmolzenes Glas",
+  "item.tconstruct.molten_glass_bucket": "geschmolzenes Glas Eimer",
+
+  "block.tconstruct.liquid_soul_fluid": "flüssige Seele",
+  "fluid.tconstruct.liquid_soul": "flüssige Seele",
+  "fluid.tconstruct.flowing_liquid_soul": "fließend flüssige Seele",
+  "item.tconstruct.liquid_soul_bucket": "flüssige Seele Eimer",
+
+
+  "block.tconstruct.molten_obsidian_fluid": "geschmolzenes Obsidian",
+  "fluid.tconstruct.molten_obsidian": "geschmolzenes Obsidian",
+  "fluid.tconstruct.flowing_molten_obsidian": "fließend geschmolzener Obsidian",
+  "item.tconstruct.molten_obsidian_bucket": "geschmolzener Obsidian Eimer",
+
+  "block.tconstruct.molten_emerald_fluid": "geschmolzener Smaragd",
+  "fluid.tconstruct.molten_emerald": "geschmolzener Smaragd",
+  "fluid.tconstruct.flowing_molten_emerald": "fließend geschmolzener Smaragd",
+  "item.tconstruct.molten_emerald_bucket": "geschmolzener Smaragd Eimer",
+
+  "block.tconstruct.molten_ender_fluid": "geschmolzenes Ender",
+  "fluid.tconstruct.molten_ender": "geschmolzenes Ender",
+  "fluid.tconstruct.flowing_molten_ender": "fließend geschmolzener Ender",
+  "item.tconstruct.molten_ender_bucket": "geschmolzener Ender Eimer",
+
+  "_comment": "Ores",
+
+  "block.tconstruct.molten_iron_fluid": "geschmolzenes Eisen",
+  "fluid.tconstruct.molten_iron": "geschmolzenes Eisen",
+  "fluid.tconstruct.flowing_molten_iron": "fließend geschmolzenes Eisen",
+  "item.tconstruct.molten_iron_bucket": "geschmolzenes Eisen Eimer",
+
+  "block.tconstruct.molten_gold_fluid": "geschmolzenes Gold",
+  "fluid.tconstruct.molten_gold": "geschmolzenes Gold",
+  "fluid.tconstruct.flowing_molten_gold": "fließend geschmolzenes Gold",
+  "item.tconstruct.molten_gold_bucket": "geschmolzenes Gold Eimer",
+
+  "block.tconstruct.molten_copper_fluid": "geschmolzenes Kupfer",
+  "fluid.tconstruct.molten_copper": "geschmolzenes Kupfer",
+  "fluid.tconstruct.flowing_molten_copper": "fließend geschmolzenes Kupfer",
+  "item.tconstruct.molten_copper_bucket": "geschmolzenes Kupfer Eimer",
+
+  "block.tconstruct.molten_cobalt_fluid": "geschmolzenes Kobalt",
+  "fluid.tconstruct.molten_cobalt": "geschmolzenes Kobalt",
+  "fluid.tconstruct.flowing_molten_cobalt": "fließend geschmolzenes Kobalt",
+  "item.tconstruct.molten_cobalt_bucket": "geschmolzenes Kobalt Eimer",
+
+  "block.tconstruct.molten_debris_fluid": "geschmolzene Trümmer",
+  "fluid.tconstruct.molten_debris": "geschmolzene Trümmer",
+  "fluid.tconstruct.flowing_molten_debris": "fließend geschmolzene Trümmer",
+  "item.tconstruct.molten_debris_bucket": "geschmolzene Trümmer Eimer",
+
+  "_comment": "Tier 3 Alloys",
+
+  "block.tconstruct.molten_slimesteel_fluid": "geschmolzener Schleimstahl",
+  "fluid.tconstruct.molten_slimesteel": "geschmolzener Schleimstahl",
+  "fluid.tconstruct.flowing_molten_slimesteel": "fließend geschmolzener Schleimstahl",
+  "item.tconstruct.molten_slimesteel_bucket": "geschmolzener Schleimstahl Eimer",
+
+  "block.tconstruct.molten_tinkers_bronze_fluid": "geschmolzenes Bastelbronze",
+  "fluid.tconstruct.molten_tinkers_bronze": "geschmolzenes Bastelbronze",
+  "fluid.tconstruct.flowing_molten_tinkers_bronze": "fließend geschmolzenes Bastelbronze",
+  "item.tconstruct.molten_tinkers_bronze_bucket": "geschmolzenes bastelbronze Eimer",
+
+  "block.tconstruct.molten_rose_gold_fluid": "geschmolzenes Rotgold",
+  "fluid.tconstruct.molten_rose_gold": "geschmolzenes Rotgold",
+  "fluid.tconstruct.flowing_molten_rose_gold": "fließend geschmolzenes Rotgold",
+  "item.tconstruct.molten_rose_gold_bucket": "geschmolzenes Rotgold Bucket",
+
+  "block.tconstruct.molten_pig_iron_fluid": "geschmolzenes Roheisen",
+  "fluid.tconstruct.molten_pig_iron": "geschmolzenes Roheisen",
+  "fluid.tconstruct.flowing_molten_pig_iron": "fließend geschmolzenes Roheisen",
+  "item.tconstruct.molten_pig_iron_bucket": "geschmolzenes Roheisen Eimer",
+
+  "_comment": "Tier 4 Alloys",
+
+  "block.tconstruct.molten_manyullyn_fluid": "geschmolzenes Manyullyn",
+  "fluid.tconstruct.molten_manyullyn": "geschmolzenes Manyullyn",
+  "fluid.tconstruct.flowing_molten_manyullyn": "fließend geschmolzenes Manyullyn",
+  "item.tconstruct.molten_manyullyn_bucket": "geschmolzenes Manyullyn Eimer",
+
+  "block.tconstruct.molten_hepatizon_fluid": "geschmolzenes Hepatizon",
+  "fluid.tconstruct.molten_hepatizon": "geschmolzenes Hepatizon",
+  "fluid.tconstruct.flowing_molten_hepatizon": "fließend geschmolzenes Hepatizon",
+  "item.tconstruct.molten_hepatizon_bucket": "geschmolzenes Hepatizon Eimer",
+
+  "block.tconstruct.molten_queens_slime_fluid": "geschmolzener Königinnenschleim",
+  "fluid.tconstruct.molten_queens_slime": "geschmolzener Königinnenschleim",
+  "fluid.tconstruct.flowing_molten_queens_slime": "fließend geschmolzener Königinnenschleim",
+  "item.tconstruct.molten_queens_slime_bucket": "geschmolzener Königinnenschleim Eimer",
+
+  "block.tconstruct.molten_soulsteel_fluid": "geschmolzener Seelenstahl",
+  "fluid.tconstruct.molten_soulsteel": "geschmolzener Seelenstahl",
+  "fluid.tconstruct.flowing_molten_soulsteel": "fließend geschmolzener Seelenstahl",
+  "item.tconstruct.molten_soulsteel_bucket": "geschmolzener Seelenstahl Bucket",
+
+  "block.tconstruct.molten_netherite_fluid": "geschmolzenes Netherite",
+  "fluid.tconstruct.molten_netherite": "geschmolzenes Netherite",
+  "fluid.tconstruct.flowing_molten_netherite": "fließend geschmolzenes Netherite",
+  "item.tconstruct.molten_netherite_bucket": "geschmolzenes Netherite Eimer",
+
+  "block.tconstruct.molten_knightslime_fluid": "geschmolzener Ritterschleim",
+  "fluid.tconstruct.molten_knightslime": "geschmolzener Ritterschleim",
+  "fluid.tconstruct.flowing_molten_knightslime": "fließend geschmolzener Ritterschleim",
+  "item.tconstruct.molten_knightslime_bucket": "geschmolzener Ritterschleim Eimer",
+
+  "_comment": "Compat Ores",
+
+  "block.tconstruct.molten_tin_fluid": "geschmolzenes Zinn",
+  "fluid.tconstruct.molten_tin": "geschmolzenes Zinn",
+  "fluid.tconstruct.flowing_molten_tin": "fließend geschmolzenes Zinn",
+  "item.tconstruct.molten_tin_bucket": "geschmolzenes Zinn Eimer",
+
+  "block.tconstruct.molten_aluminum_fluid": "geschmolzenes Aluminum",
+  "fluid.tconstruct.molten_aluminum": "geschmolzenes Aluminum",
+  "fluid.tconstruct.flowing_molten_aluminum": "fließend geschmolzenes Aluminum",
+  "item.tconstruct.molten_aluminum_bucket": "geschmolzenes Aluminum Eimer",
+
+  "block.tconstruct.molten_lead_fluid": "geschmolzenes Blei",
+  "fluid.tconstruct.molten_lead": "geschmolzenes Blei",
+  "fluid.tconstruct.flowing_molten_lead": "fließend geschmolzenes Blei",
+  "item.tconstruct.molten_lead_bucket": "geschmolzenes Blei Eimer",
+
+  "block.tconstruct.molten_silver_fluid": "geschmolzenes Silber",
+  "fluid.tconstruct.molten_silver": "geschmolzenes Silber",
+  "fluid.tconstruct.flowing_molten_silver": "fließend geschmolzenes Silber",
+  "item.tconstruct.molten_silver_bucket": "geschmolzenes Silber Eimer",
+
+  "block.tconstruct.molten_nickel_fluid": "geschmolzenes Nickel",
+  "fluid.tconstruct.molten_nickel": "geschmolzenes Nickel",
+  "fluid.tconstruct.flowing_molten_nickel": "fließend geschmolzenes Nickel",
+  "item.tconstruct.molten_nickel_bucket": "geschmolzenes Nickel Eimer",
+
+  "block.tconstruct.molten_zinc_fluid": "geschmolzenes Zink",
+  "fluid.tconstruct.molten_zinc": "geschmolzenes Zink",
+  "fluid.tconstruct.flowing_molten_zinc": "fließend geschmolzenes Zink",
+  "item.tconstruct.molten_zinc_bucket": "geschmolzenes Zinc Eimer",
+
+  "block.tconstruct.molten_platinum_fluid": "geschmolzenes Platin",
+  "fluid.tconstruct.molten_platinum": "geschmolzenes Platin",
+  "fluid.tconstruct.flowing_molten_platinum": "fließend geschmolzenes Platin",
+  "item.tconstruct.molten_platinum_bucket": "geschmolzenes Platin Eimer",
+
+  "block.tconstruct.molten_tungsten_fluid": "geschmolzener Wolfram",
+  "fluid.tconstruct.molten_tungsten": "geschmolzener Wolfram",
+  "fluid.tconstruct.flowing_molten_tungsten": "fließend geschmolzener Wolfram",
+  "item.tconstruct.molten_tungsten_bucket": "geschmolzener Wolfram Eimer",
+
+  "block.tconstruct.molten_osmium_fluid": "geschmolzenes Osmium",
+  "fluid.tconstruct.molten_osmium": "geschmolzenes Osmium",
+  "fluid.tconstruct.flowing_molten_osmium": "fließend geschmolzenes Osmium",
+  "item.tconstruct.molten_osmium_bucket": "geschmolzenes Osmium Eimer",
+
+  "block.tconstruct.molten_uranium_fluid": "geschmolzenes Uran",
+  "fluid.tconstruct.molten_uranium": "geschmolzenes Uran",
+  "fluid.tconstruct.flowing_molten_uranium": "fließend geschmolzenes Uran",
+  "item.tconstruct.molten_uranium_bucket": "geschmolzenes Uran Eimer",
+
+  "_comment": "Compat Alloys",
+
+  "block.tconstruct.molten_bronze_fluid": "geschmolzenes Bronze",
+  "fluid.tconstruct.molten_bronze": "geschmolzenes Bronze",
+  "fluid.tconstruct.flowing_molten_bronze": "fließend geschmolzenes Bronze",
+  "item.tconstruct.molten_bronze_bucket": "geschmolzenes Bronze Eimer",
+
+  "block.tconstruct.molten_brass_fluid": "geschmolzenes Messing",
+  "fluid.tconstruct.molten_brass": "geschmolzenes Messing",
+  "fluid.tconstruct.flowing_molten_brass": "fließend geschmolzenes Messing",
+  "item.tconstruct.molten_brass_bucket": "geschmolzenes Messing Eimer",
+
+  "block.tconstruct.molten_electrum_fluid": "geschmolzenes Elektrum",
+  "fluid.tconstruct.molten_electrum": "geschmolzenes Elektrum",
+  "fluid.tconstruct.flowing_molten_electrum": "fließend geschmolzenes Elektrum",
+  "item.tconstruct.molten_electrum_bucket": "geschmolzenes Elektrum Bucket",
+
+  "block.tconstruct.molten_invar_fluid": "geschmolzenes Invar",
+  "fluid.tconstruct.molten_invar": "geschmolzenes Invar",
+  "fluid.tconstruct.flowing_molten_invar": "fließend geschmolzenes Invar",
+  "item.tconstruct.molten_invar_bucket": "geschmolzenes Invar Eimer",
+
+  "block.tconstruct.molten_constantan_fluid": "geschmolzenes Konstantan",
+  "fluid.tconstruct.molten_constantan": "geschmolzenes Konstantan",
+  "fluid.tconstruct.flowing_molten_constantan": "fließend geschmolzenes Konstantan",
+  "item.tconstruct.molten_constantan_bucket": "geschmolzenes Konstantan Bucket",
+
+  "block.tconstruct.molten_pewter_fluid": "geschmolzener Zinn",
+  "fluid.tconstruct.molten_pewter": "geschmolzener Zinn",
+  "fluid.tconstruct.flowing_molten_pewter": "fließend geschmolzener Zinn",
+  "item.tconstruct.molten_pewter_bucket": "geschmolzener Zinn Eimer",
+
+  "block.tconstruct.molten_steel_fluid": "geschmolzener Stahl",
+  "fluid.tconstruct.molten_steel": "geschmolzener Stahl",
+  "fluid.tconstruct.flowing_molten_steel": "fließend geschmolzener Stahl",
+  "item.tconstruct.molten_steel_bucket": "geschmolzener Stahl Eimer ",
+
+
+  "_comment": "Tinkers Gadgets",
+
+  "block.tconstruct.stone_torch": "Steinfackel",
+  "block.tconstruct.stone_ladder": "Steinleiter",
+
+  "block.tconstruct.punji": "Punji Stäbe",
+  "block.tconstruct.punji.tooltip": "Spitz! Verbindet sich mit Mauern",
+
+  "block.tconstruct.wooden_rail": "Holzschiene",
+  "block.tconstruct.wooden_dropper_rail": "Trichterholzschiene",
+  "block.tconstruct.wooden_dropper_rail.tooltip": "Trichterloren können\nin das Inventar darunter einfügen",
+
+  "block.tconstruct.dried_clay": "getrockneter Ton",
+  "block.tconstruct.dried_clay_bricks": "getrocknete Ziegelsteine",
+  "block.tconstruct.dried_clay_slab": "getrocknete Ziegelstufe",
+  "block.tconstruct.dried_clay_bricks_slab": "getrocknete Ziegelsteinstufe",
+  "block.tconstruct.dried_clay_stairs": "getrocknete Lehmtreppe",
+  "block.tconstruct.dried_clay_bricks_stairs": "getrocknete Ziegeltreppe",
+
+  "item.tconstruct.stone_stick": "Steinstab",
+
+  "item.tconstruct.jewel_item_frame": "Zierrahmen",
+  "item.tconstruct.aluminum_brass_item_frame": "Aluminium-Messing Rahmen",
+  "item.tconstruct.cobalt_item_frame": "Kobaltrahmen",
+  "item.tconstruct.manyullyn_item_frame": "Manyullynrahmen",
+  "item.tconstruct.gold_item_frame": "Goldrahmen",
+  "item.tconstruct.clear_item_frame": "Durchsichtiger Rahmen",
+
+  "item.tconstruct.glow_ball": "Leuchtball",
+  "item.tconstruct.glow_ball.tooltip": "Nicht für den Verbrauch gedacht!",
+  "item.tconstruct.efln_ball": "EFLN",
+  "item.tconstruct.efln_ball.tooltip": "Explodiert! Sicher für den Bergbau",
+
+  "item.tconstruct.quartz_shuriken": "Quarz Shuriken",
+  "item.tconstruct.quartz_shuriken.tooltip": "Eine Wurfwaffe mit erhöhtem Schaden",
+  "item.tconstruct.flint_shuriken": "Feuerstein Shuriken",
+  "item.tconstruct.flint_shuriken.tooltip": "Eine Wurfwaffe mit erhöhtem Rückstoß",
+
+  "item.tconstruct.earth_slime_sling": "Schleimschleuder",
+  "item.tconstruct.earth_slime_sling.tooltip": "Aufladen, tief zielen, fliegen!\nNutz Schleimstiefel wenn du an deinem leben hängst!",
+  "item.tconstruct.sky_slime_sling": "Himmelsschleimschleuder",
+  "item.tconstruct.sky_slime_sling.tooltip": "Aufladen, tief zielen, fliegen!\nNutz Schleimstiefel wenn du an deinem leben hängst!",
+  "item.tconstruct.ender_slime_sling": "Enderschleimschleuder",
+  "item.tconstruct.ender_slime_sling.tooltip": "Aufladen, auf eine Wand zielen, auf der anderen Seite landen!",
+  "item.tconstruct.ichor_slime_sling": "Sekretschleuder",
+  "item.tconstruct.ichor_slime_sling.tooltip": "Aufladen, auf ein Lebewesen zielen, und lasse es fliegen!",
+
+  "item.tconstruct.earth_slime_boots": "Schleimstiefel",
+  "item.tconstruct.earth_slime_boots.tooltip": "Lässt dich beim Landen hüpfen",
+  "item.tconstruct.sky_slime_boots": "Himmelsschleimstiefel",
+  "item.tconstruct.sky_slime_boots.tooltip": "Lässt dich beim Landen hüpfen",
+  "item.tconstruct.ender_slime_boots": "Enderschleimstiefel",
+  "item.tconstruct.ender_slime_boots.tooltip": "Lässt dich beim Landen hüpfen",
+  "item.tconstruct.blood_slime_boots": "geronnene Bluitstiefel",
+  "item.tconstruct.blood_slime_boots.tooltip": "Lässt dich beim Landen hüpfen",
+  "item.tconstruct.ichor_slime_boots": "Sekretstiefel",
+  "item.tconstruct.ichor_slime_boots.tooltip": "Lässt dich beim Landen hüpfen",
+
+  "item.tconstruct.piggy_backpack": "SChweinchen-Rucksack",
+  "item.tconstruct.piggy_backpack.tooltip": "Wird benutzt um ein Tier/Monster aufzuheben",
+  "effect.tconstruct.carry": "Am tragen",
+
+  "item.tconstruct.hard_spaghetti": "Unglaublich harte Weizenstäbe",
+  "item.tconstruct.hard_spaghetti.tooltip": "Unglaublich harte Weizenstäbe",
+  "item.tconstruct.soggy_spaghetti": "Matschige Nudeln",
+  "item.tconstruct.soggy_spaghetti.tooltip": "So durchweicht, dass sogar \ndeine Spaghetti-arme sie biegen.\nHäng sie auf und lass sie trocknen",
+
+  "item.tconstruct.cold_spaghetti": "kalte getrocknete Nudeln",
+  "item.tconstruct.cold_spaghetti.tooltip": "Besser aber immer noch eklig schmeckend.\nSie aufzuwärmen macht sie genießbarer.\nSo gut, dass sie dich vielleicht auf die Beine bringen.",
+
+  "_comment": "Tinkers Tables",
+
+  "block.tconstruct.crafting_station": "Werkbank",
+
+  "block.tconstruct.tinker_station": "Bastlerstation",
+  "block.tconstruct.tinkers_anvil": "Bastleramboss",
+
+  "block.tconstruct.part_builder": "bauteilkonstrukteur",
+
+  "block.tconstruct.part_chest": "Bauteilkiste",
+  "block.tconstruct.part_chest.tooltip": "Kann bis zu 256 Bauteile lagern",
+
+  "block.tconstruct.modifier_chest": "Modifiziererkiste",
+  "block.tconstruct.modifier_chest.tooltip": "Kann bis zu 64 Stapel Modifizierer lagern",
+
+  "block.tconstruct.cast_chest": "Gussformtruhe",
+  "block.tconstruct.cast_chest.tooltip": "Kann alle relevanten Gussformen lagern",
+
+  "item.tconstruct.pattern": "Muster",
+
+  "_comment": "Tinkers Tools",
+
+  "item.tconstruct.pickaxe": "Spitzhacke",
+  "item.tconstruct.sledge_hammer": "Vorschlaghammer",
+  "item.tconstruct.vein_hammer": "Aderhammer",
+
+  "item.tconstruct.mattock": "Mattock",
+  "item.tconstruct.excavator": "Schaufel",
+
+  "item.tconstruct.hand_axe": "Handbeil",
+  "item.tconstruct.broad_axe": "Breitaxt",
+
+  "item.tconstruct.kama": "Kama",
+  "item.tconstruct.scythe": "Sense",
+
+  "item.tconstruct.broad_sword": "Breitschwert",
+  "item.tconstruct.cleaver": "Spaltbeil",
+
+
+  "_comment": "Tinkers Tool Parts",
+
+  "item.tconstruct.repair_kit": "Reparatursatz",
+
+  "item.tconstruct.pickaxe_head": "Spitzhackenkopf",
+  "item.tconstruct.hammer_head": "Hammerkopf",
+
+  "item.tconstruct.small_axe_head": "schmaler Axtkopf",
+  "item.tconstruct.broad_axe_head": "Breitaxtkopf",
+
+  "item.tconstruct.sword_blade": "Schwertklinge",
+  "item.tconstruct.broad_blade": "Breitschwertklinge",
+
+  "item.tconstruct.tool_handle": "Werkzeuggriff",
+  "item.tconstruct.tough_handle": "Zäher Werkzeuggriff",
+  "item.tconstruct.tool_binding": "Werkzeugbindung",
+  "item.tconstruct.large_plate": "Große Platte",
+
+
+  "_conment": "Tool Descriptions",
+
+  "item.tconstruct.pickaxe.description":"Präzises Bergbauwerkzeug. Effizient bei Stein und Erz.\nEs macht Blöcke kaputt, OK?",
+  "item.tconstruct.sledge_hammer.description": "Der Vorschlaghammer ist ein großes Bergbauwerkzeug. Es zerstört Blöcke in großem radius.\nAuch effizient gegen Untote",
+  "item.tconstruct.vein_hammer.description": "Der Aderhammer ist ein großes Bergbauwerkzeug. Es baut aneinanderliegende Blöcke des selben Types ab \n Perfekt für Erzadern",
+
+  "item.tconstruct.mattock.description": "Der Mattock ist ein vielfältiges Werkzeug. Effektiv bei Holz, Erde, Sand, Kies und Pflanzen.\nGrab dir aber nicht dein eigenes Grab!",
+  "item.tconstruct.excavator.description": "Die Schaufel ist ein großes grabgerät. Es baut Erdreich und Schnee in großem Radius ab. \nTerraforming!",
+
+
+
+  "item.tconstruct.hand_axe.description": "Die Handaxt zerkleinert Holz und macht kurzen Prozess mit Laub. Außerdem ist sie eine effektive Waffe.\nSchlag zu, Schlag zu, Schlag zu!",
+  "item.tconstruct.broad_axe.description": "Mit einer Breitaxt lassen sich kleine Bäume mit einem Schlag fällen und große Bäume schnell bearbeiten. Es ist auch eine effektive Waffe. \n BAUM FÄLLT!",
+
+  "item.tconstruct.kama.description": "Das Kama ist ein Präzisionsmähwerkzeug, das Pflanzen abmäht und Tiere scheren kann.\n Rechtsklick: Ernten und umsetzen von Pflanzen.",
+  "item.tconstruct.scythe.description": "Die Sense ist ein breites Mähwerkzeug, das Pflanzen in einem großen Bereich mäht. \n Rechtsklick: Ernten und umsetzen von Pflanzen.",
+
+  "item.tconstruct.broad_sword.description": "Das Breitschwert ist eine Universalwaffe. Schwungvolle Angriffe halten ganze Horden in Schach. Hilft auch gegen Spinnweben!",
+  "item.tconstruct.cleaver.description": "Das Cleaver ist eine Waffe für Schmiedemeister. Angriffe mit hoher Reichweite durchdringt die härtesten Gegner.",
+
+
+  "_comment": "Tinkers Smeltery",
+
+  "block.tconstruct.seared_stone": "gebrannter Stein",
+  "block.tconstruct.seared_stone.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+  "block.tconstruct.seared_stone_slab": "gebrannte Steinstufe",
+  "block.tconstruct.seared_stone_stairs": "gebrannte Steintreppe",
+
+  "block.tconstruct.seared_cobble": "gebrannter Bruchstein",
+  "block.tconstruct.seared_cobble.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+  "block.tconstruct.seared_cobble_slab": "gebrannte Bruchsteinstufe",
+  "block.tconstruct.seared_cobble_stairs": "gebrannte Bruchsteintreppe",
+  "block.tconstruct.seared_cobble_wall": "gebrannte Bruchsteinmauer",
+
+  "block.tconstruct.seared_bricks": "gebrannte Steinziegel",
+  "block.tconstruct.seared_bricks.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+  "block.tconstruct.seared_bricks_slab": "gebrannte Steinziegelstufe",
+  "block.tconstruct.seared_bricks_stairs": "gebrannte Steinziegeltreppe",
+  "block.tconstruct.seared_bricks_wall": "gebrannte Steinziegelmauer",
+
+  "block.tconstruct.seared_paver": "gebranntes Pflasterstein",
+  "block.tconstruct.seared_paver.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+  "block.tconstruct.seared_paver_slab": "gebrannte Pflastersteinstufe",
+  "block.tconstruct.seared_paver_stairs": "gebrannte Pflastersteintreppe",
+
+  "block.tconstruct.seared_cracked_bricks": "rissiger gebrannter Stein",
+  "block.tconstruct.seared_cracked_bricks.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+  "block.tconstruct.seared_fancy_bricks": "schön aussehender gebrannter Stein",
+  "block.tconstruct.seared_fancy_bricks.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+  "block.tconstruct.seared_triangle_bricks": "dreieckiger gebrannter Stein",
+  "block.tconstruct.seared_triangle_bricks.tooltip": "Teil der Schmelze. Sicher für Dekoration.",
+
+  "block.tconstruct.seared_glass": "gebranntes Glass",
+  "block.tconstruct.seared_glass.tooltip": "Teil der Schmelze. Sicher für Dekoration.\nKann keine Flüssigkeiten lagern",
+  "block.tconstruct.seared_glass_pane": "gebrannte Glasscheibe",
+  "block.tconstruct.seared_glass_pane.tooltip": "Kann nicht in der Schmelze verwendet werden.",
+
+
+  "block.tconstruct.seared_ladder": "gebrannte Leiter",
+  "block.tconstruct.seared_ladder.tooltip": "erklimmbarer Teil der Schmelze. Sicher für Dekoration.",
+
+  "block.tconstruct.seared_tank": "gebrannter Tank",
+  "block.tconstruct.seared_tank.tooltip": "Herz der Schmelzerei\nBehält die Flüssigkeit nach dem Abbau.",
+  "block.tconstruct.seared_gauge": "gebrannte Gauge",
+  "block.tconstruct.seared_gauge.tooltip": "Ideal für Metall. Lagert bis zu 3 geschmolzene Blöcke\nBehält die Flüssigkeit nach dem Abbau.",
+  "block.tconstruct.seared_window": "gebranntes Fenster",
+  "block.tconstruct.seared_window.tooltip": "Alternativer Schmelztank.\nRetains liquid when broken.",
+  "block.tconstruct.tank.fluid": "Flüssigkeit %s",
+  "block.tconstruct.tank.mb": "%d mb",
+  "block.tconstruct.tank.ingots": "%d Barren",
+  "block.tconstruct.tank.mixed": "%d Barren, %d mb",
+
+  "block.tconstruct.tank.drained": "Abgelassen %s mb %s",
+  "block.tconstruct.tank.filled": "Gefüllt %s mb %s",
+
+  "block.tconstruct.faucet": "gebrannter Hahn",
+  "block.tconstruct.faucet.tooltip": "Entleert Flüssigkeit aus Schmelzöfen und Tanks",
+  "block.tconstruct.casting_basin": "Gussbecken",
+  "block.tconstruct.casting_basin.tooltip": "Gießen von Gegenständen mit geschmolzenen Metallen aus einer Schmelzerei",
+  "block.tconstruct.casting_table": "Gusstisch",
+  "block.tconstruct.casting_table.tooltip": "Gießen von Gegenständen mit geschmolzenen Metallen aus einer Schmelzerei",
+
+  "block.tconstruct.channel": "gebrannter Kanal",
+  "block.tconstruct.channel.tooltip": "verteilt die Flüssigkeit aus dem Hahn darüber",
+  "block.tconstruct.channel.side.in": "Seite einstellen, nach innen zu fließen",
+  "block.tconstruct.channel.side.out": "Seite einstellen, nach außen zu fließen",
+  "block.tconstruct.channel.side.none": "Seite einstellen, fließen zu verbieten",
+  "block.tconstruct.channel.down.out": "Runterfließen erlauben",
+  "block.tconstruct.channel.down.none": "Runterfließen verbieten",
+
+  "block.tconstruct.melter": "Schmelzgerät",
+  "block.tconstruct.melter.tooltip": "Erste Schmelze.\nPlatziere das Gerät über einem gebrannten Tank oder Heizgerät, um es zu erhitzen.",
+  "gui.tconstruct.melter": "Schmelzgerät",
+  "gui.tconstruct.melting.capacity": "kapazität:",
+  "gui.tconstruct.melting.available": "Frei:",
+  "gui.tconstruct.melting.used": "Belegt:",
+
+  "block.tconstruct.seared_heater": "Heizgerät",
+  "block.tconstruct.seared_heater.tooltip": "Festbrennstoffquelle für das Schmelzgerät",
+  "gui.tconstruct.heater": "Heizgerät",
+
+  "block.tconstruct.smeltery_controller": "Schmelzsteuerung",
+  "block.tconstruct.smeltery_controller.tooltip": "Kopf der Schmelze",
+  "gui.tconstruct.smeltery": "Schmelze",
+  "death.attack.tconstruct.smeltery_heat": "%1$s versuchte geschmolzenen Mensch zu machen",
+  "death.attack.tconstruct.smeltery_magic": "%1$s wurde eins mit der Schmelze",
+
+  "block.tconstruct.seared_drain": "gebrannte Drainage",
+  "block.tconstruct.seared_drain.tooltip": "Ein- und Ausgang der Schmelzflüssigkeiten",
+  "block.tconstruct.seared_duct": "gebranntes Rohr",
+  "block.tconstruct.seared_duct.tooltip": "Filtert Schmelzflüssigkeit ein- und ausgehend mithilfe einer Kupferkanne und Eimer",
+  "gui.tconstruct.duct": "Rohr",
+  "block.tconstruct.seared_chute": "gebrannte Rutsche",
+  "block.tconstruct.seared_chute.tooltip": "Ein- und Ausgang für Schmelzgegenstände",
+
+  "gui.tconstruct.melting.no_recipe": "Gegenstand kann nicht geschmolzen werden.",
+  "gui.tconstruct.melting.no_heat": "Nicht genügend Hitze für diesen Gegenstand.",
+  "gui.tconstruct.melting.no_space": "Nicht genügend Platz für das Schmelzen.",
+
+  "gui.tconstruct.melting.fuel.no_tank": "Kein Tank vorhanden",
+  "gui.tconstruct.melting.fuel.empty": "Kein Brennstoff gefunden",
+  "gui.tconstruct.melting.fuel.solid": "Festbrennstoff",
+  "gui.tconstruct.melting.fuel.temperature": "Temperatur: %s°C",
+  "gui.tconstruct.melting.fuel.invalid": "ungültiger Schmelzbrennstoff!",
+
+  "gui.tconstruct.fluid.kilobucket": "%s kb",
+  "gui.tconstruct.fluid.bucket": "%s b",
+  "gui.tconstruct.fluid.millibucket": "%s mb",
+  "gui.tconstruct.fluid.ingot": "%s Barren",
+  "gui.tconstruct.fluid.nugget": "%s Klumpen",
+  "gui.tconstruct.fluid.block": "%s Blöcke",
+  "gui.tconstruct.fluid.pane": "%s Scheiben",
+  "gui.tconstruct.fluid.gem": "%s Edelsteine",
+  "gui.tconstruct.fluid.slimeball": "%s Schleimbälle",
+
+  "gui.tconstruct.fluid.hold_shift": "Halte §e§oShift§r§7 für Eimer",
+
+  "_comment": "Tinkers World",
+
+  "entity.tconstruct.sky_slime": "Himmelsschleim",
+  "item.tconstruct.sky_slime_spawn_egg": "Himmelsschleim Spawn-Ei",
+
+  "block.tconstruct.earth_slime_dirt": "Erdschleimerde",
+  "block.tconstruct.earth_slime_dirt.tooltip": "Schleimig, aber lässt dich höher springen",
+  "block.tconstruct.sky_slime_dirt": "Himmelsschleimerde",
+  "block.tconstruct.sky_slime_dirt.tooltip": "Schleimig, aber lässt dich höher springen",
+  "block.tconstruct.ender_slime_dirt": "Enderschleimerde",
+  "block.tconstruct.ender_slime_dirt.tooltip": "Schleimig, aber lässt dich höher springen",
+  "block.tconstruct.ichor_slime_dirt": "Sekretschleimerde",
+  "block.tconstruct.ichor_slime_dirt.tooltip": "Schleimig, aber lässt dich höher springen",
+
+  "block.tconstruct.sky_vanilla_slime_grass": "Schleimiges Gras",
+  "block.tconstruct.sky_vanilla_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.blood_vanilla_slime_grass": "Schleimiges Gras",
+  "block.tconstruct.blood_vanilla_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ender_vanilla_slime_grass": "Schleimiges Gras",
+  "block.tconstruct.ender_vanilla_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ichor_vanilla_slime_grass": "Schleimiges Gras",
+  "block.tconstruct.ichor_vanilla_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+
+  "block.tconstruct.sky_earth_slime_grass": "Erdschleimgras",
+  "block.tconstruct.sky_earth_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.blood_earth_slime_grass": "Erdschleimgras",
+  "block.tconstruct.blood_earth_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ender_earth_slime_grass": "Erdschleimgras",
+  "block.tconstruct.ender_earth_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ichor_earth_slime_grass": "Erdschleimgras",
+  "block.tconstruct.ichor_earth_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+
+  "block.tconstruct.sky_sky_slime_grass": "Himmelsschleimgras",
+  "block.tconstruct.sky_sky_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.blood_sky_slime_grass": "Himmelsschleimgras",
+  "block.tconstruct.blood_sky_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ender_sky_slime_grass": "Himmelsschleimgras",
+  "block.tconstruct.ender_sky_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ichor_sky_slime_grass": "Himmelsschleimgras",
+  "block.tconstruct.ichor_sky_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+
+  "block.tconstruct.sky_ender_slime_grass": "Enderschleimgras",
+  "block.tconstruct.sky_ender_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.blood_ender_slime_grass": "Enderschleimgras",
+  "block.tconstruct.blood_ender_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ender_ender_slime_grass": "Enderschleimgras",
+  "block.tconstruct.ender_ender_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ichor_ender_slime_grass": "Enderschleimgras",
+  "block.tconstruct.ichor_ender_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+
+  "block.tconstruct.sky_ichor_slime_grass": "Sekretschleimgras",
+  "block.tconstruct.sky_ichor_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.blood_ichor_slime_grass": "Sekretschleimgras",
+  "block.tconstruct.blood_ichor_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ender_ichor_slime_grass": "Sekretschleimgras",
+  "block.tconstruct.ender_ichor_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+  "block.tconstruct.ichor_ichor_slime_grass": "Sekretschleimgras",
+  "block.tconstruct.ichor_ichor_slime_grass.tooltip": "So weich! Lässt dich höher springen",
+
+  "item.tconstruct.sky_slime_grass_seeds": "Schleimige Graskörner",
+  "item.tconstruct.sky_slime_grass_seeds.tooltip": "Auf Erde oder schleimiger Erde platzieren für schleimiges Gras",
+  "item.tconstruct.blood_slime_grass_seeds": "Schleimige Graskörner",
+  "item.tconstruct.blood_slime_grass_seeds.tooltip": "Auf Erde oder schleimiger Erde platzieren für schleimiges Gras",
+  "item.tconstruct.ichor_slime_grass_seeds": "Schleimige Graskörner",
+  "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Auf Erde oder schleimiger Erde platzieren für schleimiges Gras",
+  "item.tconstruct.ender_slime_grass_seeds": "Schleimige Graskörner",
+  "item.tconstruct.ender_slime_grass_seeds.tooltip": "Auf Erde oder schleimiger Erde platzieren für schleimiges Gras",
+
+  "block.tconstruct.sky_slime_leaves": "Schleimige Blätter",
+  "block.tconstruct.blood_slime_leaves": "Schleimige Blätter",
+  "block.tconstruct.ender_slime_leaves": "Schleimige Blätter",
+  "block.tconstruct.ichor_slime_leaves": "Schleimige Blätter",
+
+  "block.tconstruct.sky_slime_tall_grass": "Hohes schleimiges Gras",
+  "block.tconstruct.blood_slime_tall_grass": "Hohes schleimiges Gras",
+  "block.tconstruct.ender_slime_tall_grass": "Hohes schleimiges Gras",
+  "block.tconstruct.ichor_slime_tall_grass": "Hohes schleimiges Gras",
+
+  "block.tconstruct.sky_slime_fern": "Schleimiges Farn",
+  "block.tconstruct.blood_slime_fern": "Schleimiges Farn",
+  "block.tconstruct.ender_slime_fern": "Schleimiges Farn",
+  "block.tconstruct.ichor_slime_fern": "Schleimiges Farn",
+
+  "block.tconstruct.sky_slime_sapling": "Himmelsschleim Setzling",
+  "block.tconstruct.sky_slime_sapling.tooltip": "Wächst nur auf schleimiger Erde oder schleimigen Gras",
+  "block.tconstruct.blood_slime_sapling": "Blut Setzling",
+  "block.tconstruct.blood_slime_sapling.tooltip": "Wächst nur auf schleimiger Erde oder schleimigen Gras",
+  "block.tconstruct.ender_slime_sapling": "Enderschleim Setzling",
+  "block.tconstruct.ender_slime_sapling.tooltip": "Wächst nur auf schleimiger Erde oder schleimigen Gras",
+  "block.tconstruct.ichor_slime_sapling": "Sekret Setzling",
+  "block.tconstruct.ichor_slime_sapling.tooltip": "Wächst nur auf schleimiger Erde oder schleimigen Gras",
+
+  "block.tconstruct.ender_slime_vine": "Schleimige Ranke",
+  "block.tconstruct.sky_slime_vine": "Schleimige Ranke",
+
+
+  "__comment": "Tier 1 Materials",
+  "material.tconstruct.wood": "Holz",
+  "material.tconstruct.wood.format": "Holz %s",
+  "material.tconstruct.stone": "Stein",
+  "material.tconstruct.flint": "Feuerstein",
+  "material.tconstruct.bone": "Knochen",
+  "material.tconstruct.necrotic_bone": "nekrotischer Knochen",
+
+  "__comment": "Tier 2 Materials",
+  "material.tconstruct.iron": "Eisen",
+  "material.tconstruct.seared_stone": "gebrannter Stein",
+  "material.tconstruct.copper": "Kupfer",
+  "material.tconstruct.slimewood": "Schleimholz",
+  "material.tconstruct.rose_gold": "Rotgold",
+
+  "__comment": "Tier 3 Materials",
+  "material.tconstruct.slimesteel": "Schleimstahl",
+  "material.tconstruct.nahuatl": "Nahuatl",
+  "material.tconstruct.tinkers_bronze": "Bastelbronze",
+  "material.tconstruct.pig_iron": "Roheisen",
+
+
+  "__comment": "Tier Nether Materials",
+  "material.tconstruct.cobalt": "Kobalt",
+  "material.tconstruct.manyullyn": "Manyullyn",
+  "material.tconstruct.hepatizon": "Hepatizon",
+  "material.tconstruct.queens_slime": "Königinnenschleim",
+  "material.tconstruct.soulsteel": "Seelenstahl",
+
+
+  "__comment": "Tier End Materials",
+  "material.tconstruct.endstone": "Endstein",
+  "material.tconstruct.knightslime": "Ritterschleim",
+
+
+  "__comment": "Tier 2 Integration Materials",
+  "material.tconstruct.lead": "Blei",
+  "material.tconstruct.silver": "Silber",
+  "material.tconstruct.electrum": "Elektrum",
+
+  "__comment": "Tier 3 Integration Materials",
+  "material.tconstruct.bronze": "Bronze",
+  "material.tconstruct.steel": "Stahl",
+  "material.tconstruct.constantan": "Konstantan",
+
+
+  "_comment": "Modifiers",
+
+  "modifier.tconstruct.empty": "Unerlaubter Modifikator",
+  "modifier.tconstruct.empty.flavor": "Fehlend!",
+  "modifier.tconstruct.empty.description": "Fallback für den Fall, dass ein Modifikator fehlt",
+
+  "_comment": "Durability",
+  "modifier.tconstruct.reinforced": "Verstärkt",
+  "modifier.tconstruct.reinforced.flavor": "Unzerbrechlich!",
+  "modifier.tconstruct.reinforced.description": "Das Werkzeug nimmt seltener Schaden",
+  "modifier.tconstruct.emerald": "Smaragd",
+  "modifier.tconstruct.emerald.flavor": "Schön!",
+  "modifier.tconstruct.emerald.description": "Erhöht die Haltbarkeit in Abhängigkeit von der Basis-Haltbarkeit! Illager hassen es!",
+  "modifier.tconstruct.diamond": "Diamant",
+  "modifier.tconstruct.diamond.flavor": "Reich!",
+  "modifier.tconstruct.diamond.description": "Erhöht Haltbarkeit7!",
+  "modifier.tconstruct.worldbound": "Worldbound",
+  "modifier.tconstruct.worldbound.flavor": "Antik!",
+  "modifier.tconstruct.worldbound.description": "Eine grobe Version von Netherit, die Immunität gegen Schaden wie Feuer oder Eis, aber keine zusätzliche Stärke gewährt",
+  "modifier.tconstruct.soulbound": "Seelenverwandt",
+  "modifier.tconstruct.soulbound.flavor": "Ein Band fürs Leben und darüber hinaus!",
+  "modifier.tconstruct.soulbound.description": "Werkzeug verbleibt im Inventar nach dem Tod!",
+  "modifier.tconstruct.netherite": "Netherite",
+  "modifier.tconstruct.netherite.flavor": "Veredelt!",
+  "modifier.tconstruct.netherite.description": "Nutze die Kraft des alten Metalls um das Werkzeug stärker zu machen und gegen äußeren Schaden zu immunisieren.",
+  "modifier.tconstruct.overslime": "Schleimüberzug",
+  "modifier.tconstruct.overslime.flavor": "Schleimig!",
+  "modifier.tconstruct.overslime.description": "Werkzeug verbraucht Schleimüberzug anstelle von Haltbarkeit, bis er ausgeht!\n Pass auf, dass dir der Schleim nicht ausgeht",
+
+  "_comment": "Tool or harvest",
+  "modifier.tconstruct.experienced": "Erfahrener",
+  "modifier.tconstruct.experienced.flavor": "Überflieger!",
+  "modifier.tconstruct.experienced.description": "Bekomme XP fürs Abbauen von Blöcken und dem töten von Monstern",
+  "modifier.tconstruct.magnetic": "Magnetisch",
+  "modifier.tconstruct.magnetic.flavor": "magnetische Persönlichkeit!",
+  "modifier.tconstruct.magnetic.description": "Das Schlagen von Gegenständen zieht Gegenstände in der Nähe an?!",
+
+  "modifier.tconstruct.haste": "Eile",
+  "modifier.tconstruct.haste.1": "Eile",
+  "modifier.tconstruct.haste.2": "eiliger",
+  "modifier.tconstruct.haste.3": "Am eiligsten",
+  "modifier.tconstruct.haste.4": "Am aller eiligsten",
+  "modifier.tconstruct.haste.5": "Am aller aller eiligsten",
+  "modifier.tconstruct.haste.flavor": "Wissenschaft!",
+  "modifier.tconstruct.haste.description": "Magischer roter Staub lässt Werkzeuge schneller schwingen und Blöcke abbauen!",
+
+  "modifier.tconstruct.blasting": "Sprengung",
+  "modifier.tconstruct.blasting.flavor": "explosiver Bergbau!",
+  "modifier.tconstruct.blasting.description": "Das Werkzeug bricht Blöcke mit geringem Explosionswiderstand, wie z. B. Erze, schneller!",
+  "modifier.tconstruct.hydraulic": "hydraulisch",
+  "modifier.tconstruct.hydraulic.flavor": "Nutze die Kraft des Wassers!",
+  "modifier.tconstruct.hydraulic.description": "Werkzeuge bauen unter Wasser oder im Regen schneller ab",
+  "modifier.tconstruct.lightspeed": "Lichtgeschwindigkeit",
+  "modifier.tconstruct.lightspeed.flavor": "Heller ist schneller!",
+  "modifier.tconstruct.lightspeed.description": "Werkzeuge bauen beleuchtete Blöcke schneller ab!",
+
+  "_comment": "Weapon",
+  "modifier.tconstruct.knockback": "Rückstoß",
+  "modifier.tconstruct.knockback.flavor": "Weeeeee!",
+  "modifier.tconstruct.knockback.description": "Kreaturen schlagen lässt sie weiter fliegen!",
+  "modifier.tconstruct.beheading": "Enthauptung",
+  "modifier.tconstruct.beheading.flavor": "Geladener Creeper an einem Stab",
+  "modifier.tconstruct.beheading.description": "Sprengt potentiell die Köpfe von Mobs ab!",
+  "modifier.tconstruct.fiery": "Feurig",
+  "modifier.tconstruct.fiery.flavor": "Durchtränkt mit den Feuern der Hölle!",
+  "modifier.tconstruct.fiery.description": "Entzündet Ziele",
+  "modifier.tconstruct.necrotic": "Nekrotisch",
+  "modifier.tconstruct.necrotic.flavor": "Vampirisch!",
+  "modifier.tconstruct.necrotic.description": "Gegner zu schlagen nimmt deren Leben um deins aufzufüllen.",
+
+  "_comment": "Damage boost",
+  "modifier.tconstruct.smite": "Bann",
+  "modifier.tconstruct.smite.flavor": "Stirb, üble Kreatur!",
+  "modifier.tconstruct.smite.description": "Untot fürchten die Macht der Melone!",
+  "modifier.tconstruct.smite.damage": "Untote Schaden",
+  "modifier.tconstruct.bane_of_arthropods": "Fluch der Gliederfüßer",
+  "modifier.tconstruct.bane_of_arthropods.flavor": "So grob!",
+  "modifier.tconstruct.bane_of_arthropods.description": "Werkzeug macht Bonus-Schaden gegen Spinnen und andere gruselige Krabbeltiere!",
+  "modifier.tconstruct.bane_of_arthropods.damage": "Gliederfuß Schaden",
+  "modifier.tconstruct.antiaquatic": "Antiaquatic",
+  "modifier.tconstruct.antiaquatic.flavor": "Faktisch eine Angel!",
+  "modifier.tconstruct.antiaquatic.description": "Werkzeug macht extra Schaden bei Wasserkreaturen!",
+  "modifier.tconstruct.antiaquatic.damage": "Antiaquatic Schaden",
+  "modifier.tconstruct.cooling": "Kühlend",
+  "modifier.tconstruct.cooling.flavor": "Eisig!",
+  "modifier.tconstruct.cooling.description": "Werkzeug macht extra Schaden bei Feuerkreaturen!",
+  "modifier.tconstruct.cooling.damage": "Eisschaden",
+
+  "modifier.tconstruct.sharpness": "Schärfe",
+  "modifier.tconstruct.sharpness.1": "scharf",
+  "modifier.tconstruct.sharpness.2": "schärfer",
+  "modifier.tconstruct.sharpness.3": "am schärfsten",
+  "modifier.tconstruct.sharpness.4": "am aller schärfsten",
+  "modifier.tconstruct.sharpness.5": "am aller aller schärfsten",
+  "modifier.tconstruct.sharpness.flavor": "Wie scharf?",
+  "modifier.tconstruct.sharpness.description": "Werkzeug ist viel schärferer und macht mehr Schaden",
+
+  "_comment": "Abilities",
+  "modifier.tconstruct.silky": "seidenweich",
+  "modifier.tconstruct.silky.flavor": "Samt wie Seide!",
+  "modifier.tconstruct.silky.description": "Behutsamkeit",
+  "modifier.tconstruct.expanded": "erweitert",
+  "modifier.tconstruct.expanded.flavor": "Vergiss den Gymtag nicht!",
+  "modifier.tconstruct.expanded.description": "Werkzeugbereich ist größer als davor",
+  "modifier.tconstruct.reach": "reichweite",
+  "modifier.tconstruct.reach.flavor": "Telekinese!",
+  "modifier.tconstruct.reach.description": "Erreiche Blöcke und Kreaturen die weiter entfernt sind wenn du das Werkzeug hälst!",
+  "modifier.tconstruct.autosmelt": "Autosmelt",
+  "modifier.tconstruct.autosmelt.flavor": "Höllenfeuer im Werkzeug!",
+  "modifier.tconstruct.autosmelt.description": "Das Werkzeug schmilzt alle möglichen Drops beim Abbau",
+  "modifier.tconstruct.pathing": "Pfaden!",
+  "modifier.tconstruct.pathing.flavor": "Wohin wir gehen, brauchen wir Straßen!",
+  "modifier.tconstruct.pathing.description": "Werkzeug das einen Trampelpfad macht",
+  "modifier.tconstruct.stripping": "Strippen",
+  "modifier.tconstruct.stripping.flavor": "zieht das Holz gleich aus!",
+  "modifier.tconstruct.stripping.description": "Das Werkzeug kann die Rinde vom Holz schälen",
+  "modifier.tconstruct.tilling": "Farmen",
+  "modifier.tconstruct.tilling.flavor": "Bis wir uns wieder sehen!",
+  "modifier.tconstruct.tilling.description": "Werkzeug kann Erde umgraben",
+  "modifier.tconstruct.glowing": "Glühend",
+  "modifier.tconstruct.glowing.flavor": "Shine bright, tonight, you and I!",
+  "modifier.tconstruct.glowing.description": "In der Hocke platziert man ein Glühball. Kostet aber Haltbarkeit.",
+
+  "modifier.tconstruct.melting": "Schmelzen",
+  "modifier.tconstruct.melting.flavor": "Ein Schmelzer am Stock!",
+  "modifier.tconstruct.melting.description": "Schmilzt attackiert Tier, Monster und deren Drops!",
+  "modifier.tconstruct.tank": "Tank",
+  "modifier.tconstruct.tank.filled": "Tank: %s mb %s",
+  "modifier.tconstruct.tank.capacity": "Tank Kapazität: %s mb",
+  "modifier.tconstruct.tank.flavor": "Größer ist immer besser!",
+  "modifier.tconstruct.tank.description": "Das Werkzeug hat einen Tank um Flüssigkeiten zu halten",
+  "modifier.tconstruct.bucketing": "Eimern",
+  "modifier.tconstruct.bucketing.flavor": "Schlürf!",
+  "modifier.tconstruct.bucketing.description": "Werkzeug kann Flüssigkeit aufheben oder platzieren",
+
+  "modifier.tconstruct.luck": "Glück",
+  "modifier.tconstruct.luck.1": "Glück",
+  "modifier.tconstruct.luck.2": "Mehr Glück",
+  "modifier.tconstruct.luck.3": "Am meisten Glück ",
+  "modifier.tconstruct.luck.beyond": "Glück++",
+  "modifier.tconstruct.luck.flavor": "Auffallend!",
+  "modifier.tconstruct.luck.description": "Gibt mehr tolle Dinge beim abbauen oder töten!",
+
+  "_comment": "Bonus modifier slots",
+  "modifier.tconstruct.creative_upgrade": "Kreativ Upgrade",
+  "modifier.tconstruct.creative_upgrade.flavor": "Dreckiger Cheater!",
+  "modifier.tconstruct.creative_upgrade.description": "Wer hat da einen Upgrade-Slot geschummelt?",
+  "modifier.tconstruct.creative_ability": "Kreative Fähigkeiten",
+  "modifier.tconstruct.creative_ability.flavor": "Thron aus Lügen!",
+  "modifier.tconstruct.creative_ability.description": "Werkzeug besitz unverdiente zusätzliche Fähigkeitenslots",
+
+  "__comment": "Free Modifiers",
+  "modifier.tconstruct.writable": "Beschreibbar",
+  "modifier.tconstruct.writable.flavor": "Intellektuell!",
+  "modifier.tconstruct.writable.description": "Mehr Wörter. Mehr Upgrades. Logisch,oder?!",
+  "modifier.tconstruct.harmonious": "Harmonisch",
+  "modifier.tconstruct.harmonious.flavor": "Wie eine Symphonie der Modifikatoren!",
+  "modifier.tconstruct.harmonious.description": "Erlaubt einen weiteren Platz um im Harmonie zu schwingen!",
+  "modifier.tconstruct.recapitated": "Rekapituliert",
+  "modifier.tconstruct.recapitated.flavor": "Denk nach!",
+  "modifier.tconstruct.recapitated.description": "Setzt das Werkzeug um ein Upgrade voraus!",
+  "modifier.tconstruct.resurrected": "Auferstehung",
+  "modifier.tconstruct.resurrected.flavor": "Back to Life!",
+  "modifier.tconstruct.resurrected.description": "Respawnt einen der Upgrade-Slots!",
+  "modifier.tconstruct.gilded": "Vergoldet",
+  "modifier.tconstruct.gilded.flavor": "gleichwertiger Austausch!",
+  "modifier.tconstruct.gilded.description": "Tauscht einen Fähigkeitenplatz gegen zwei Upgrade-Slots!",
+  "modifier.tconstruct.draconic": "Draknoisch ",
+  "modifier.tconstruct.draconic.flavor": "Eroberte das Ende",
+  "modifier.tconstruct.draconic.description": "Der Kopf der Riesenbestie ermöglicht einen zweiten Fähigkeitenslot!",
+
+
+  "__comment": "Tier 1 Traits",
+  "modifier.tconstruct.fake_attribute.mining_speed": "Abbaugeschwindigekeit",
+
+  "modifier.tconstruct.cultivated": "Kultiviert",
+  "modifier.tconstruct.cultivated.flavor": "Ökonomisch!",
+  "modifier.tconstruct.cultivated.description": "Werkzeug wächst beim reparieren wortwörtlich mehr Material",
+  "modifier.tconstruct.jagged": "Zackig",
+  "modifier.tconstruct.jagged.flavor": "Scharfe Kanten machen es scharf!",
+  "modifier.tconstruct.jagged.description": "Jeder verlorene Punkt Haltbarkeit erhöht den Schaden, verringert aber die Abbau-Geschwindigkeit",
+  "modifier.tconstruct.stonebound": "Steinverwandte",
+  "modifier.tconstruct.stonebound.flavor": "Dein Werkzeug liebt Stein über alles!",
+  "modifier.tconstruct.stonebound.description": "Das Werkzeug arbeitet schneller, wenn es sich abnutzt, richtet aber weniger Schaden an",
+  "modifier.tconstruct.fractured": "Gebrochen",
+  "modifier.tconstruct.fractured.flavor": "Hals- und Beinbruch!",
+  "modifier.tconstruct.fractured.description": "Das Werkzeug ist extra scharf wegen den Knochenstücken",
+
+  "__comment": "Tier 2 Traits",
+  "modifier.tconstruct.sturdy": "Stabil",
+  "modifier.tconstruct.sturdy.flavor": "Gut gemacht!",
+  "modifier.tconstruct.sturdy.description": "Aus dem stärksten Eisen gemacht",
+  "modifier.tconstruct.searing": "Versengt",
+  "modifier.tconstruct.searing.flavor": "Harness the Smeltery!",
+  "modifier.tconstruct.searing.description": "Das Werkzeug verursacht einen Bonus-Feuerschaden in heißen Bereichen, aber weniger Gesamtschaden in kalten Bereichen",
+  "modifier.tconstruct.dwarven": "Dwarven",
+  "modifier.tconstruct.dwarven.flavor": "Ein Bergarbeiter's Freund!",
+  "modifier.tconstruct.dwarven.description": "Je tiefer,desto besser baut das Werkzeug ab, aber grab lieber nicht zu tief",
+  "modifier.tconstruct.overgrowth": "Überwachsen",
+  "modifier.tconstruct.overgrowth.flavor": "Pilz!",
+  "modifier.tconstruct.overgrowth.description": "Das Werkzeug bildet langsam overslime",
+
+  "modifier.tconstruct.enhanced": "Verbessert",
+  "modifier.tconstruct.enhanced.flavor": "Glänzend!",
+  "modifier.tconstruct.enhanced.description": "Rotgold passt hervorragend zu einem Bonus-Upgrade!",
+
+  "__comment": "Tier 3 Traits",
+  "modifier.tconstruct.overcast": "Bedeckt",
+  "modifier.tconstruct.overcast.flavor": "Dicke Abdeckung!",
+  "modifier.tconstruct.overcast.description": "Overslime kann extra dick aufgetragen werden",
+  "modifier.tconstruct.lacerating": "Zerreißend",
+  "modifier.tconstruct.lacerating.flavor": "Scharfe Kanten!",
+  "modifier.tconstruct.lacerating.description": "Bringt den Gegner dazu zu bluten und mehr Schaden zu bekommen",
+  "modifier.tconstruct.maintained": "Gepflegt",
+  "modifier.tconstruct.maintained.flavor": "Bleibt länger scharf!",
+  "modifier.tconstruct.maintained.description": "Werkzeug baut schneller ab, wenn mehr Haltbarkeit vorhanden ist",
+  "modifier.tconstruct.maintained.boost": " (+%s Schnelligkeit)",
+  "modifier.tconstruct.lightweight": "Leichtbauweise",
+  "modifier.tconstruct.lightweight.flavor": "Wie eine Scherbe!",
+  "modifier.tconstruct.lightweight.description": "Das Werkzeug ist für seine größe unglaublich leicht und ermöglicht schneller Handhabung",
+  "modifier.tconstruct.tasty": "Schmackhaft",
+  "modifier.tconstruct.tasty.flavor": "Mjam jam jam",
+  "modifier.tconstruct.tasty.description": "Riecht so gut, dass du an deinem Werkzeug ablecken willst",
+
+  "death.attack.tconstruct.bleed": "%1$s verblutete",
+  "death.attack.tconstruct.bleed.item": "%1$s verblutete an den Wunden, zugefügt von %2$s",
+
+  "__comment": "Tier 4 Traits",
+  "modifier.tconstruct.overlord": "Overlord",
+  "modifier.tconstruct.overlord.flavor": "Regal!",
+  "modifier.tconstruct.overlord.description": "Werkzeug nimmt einen Teil der Haltbarkeit als neue Overslimemotive",
+  "modifier.tconstruct.momentum": "Momentum",
+  "modifier.tconstruct.momentum.flavor": "Nicht schnell genug? Dann werd schneller!",
+  "modifier.tconstruct.momentum.description": "Abbaugeschwindigkeit wird schneller solange du beim abbauen bleibst",
+  "modifier.tconstruct.insatiable": "Unersättlich",
+  "modifier.tconstruct.insatiable.flavor": "Blutdurst!",
+  "modifier.tconstruct.insatiable.description": "Während des Kampfes wir der Schaden bei jedem Treffer größer",
+
+  "__comment": "Tier 2 Mod Compat Traits",
+  "modifier.tconstruct.heavy": "Schwer",
+  "modifier.tconstruct.heavy.flavor": "Dicht!",
+  "modifier.tconstruct.heavy.description": "Schwer zu bewegen beim schwingen, hat dafür aber eine enorme Schlagkraft",
+  "modifier.tconstruct.holy": "Heilig",
+  "modifier.tconstruct.holy.flavor": "gesegnete Klinge!",
+  "modifier.tconstruct.holy.description": "Die Untoten fallen allein durch die Macht der Klinge",
+
+  "__comment": "Tier 3 Mod Compat Traits",
+  "modifier.tconstruct.ductile": "Duktil",
+  "modifier.tconstruct.ductile.flavor": "gut umgeformt!",
+  "modifier.tconstruct.ductile.description": "Das Werkzeug hat eine längere Lebensdauer, baut schneller ab und beschädigt mehr",
+  "modifier.tconstruct.maintained_2": "Gewartet",
+  "modifier.tconstruct.maintained_2.flavor": "Wird einfacher scharf!",
+  "modifier.tconstruct.maintained_2.description": "Werkzeuge bauen schneller ab wenn es eine höhere ",
+  "modifier.tconstruct.temperate": "Temperiert",
+  "modifier.tconstruct.temperate.flavor": "Extremebergbau!",
+  "modifier.tconstruct.temperate.description": "Werkzeug baut in extremen Temperaturen schneller ab.",
+
+  "_comment": "Internal effects",
+  "effect.tconstruct.bleeding": "Blutend",
+  "effect.tconstruct.magnetic": "Magnetisch",
+  "effect.tconstruct.momentum": "Momentum",
+  "effect.tconstruct.insatiable": "Inkompatibel",
+
+  "_comment": "Stats",
+
+  "stat.tconstruct.attack_speed": "Attackiergeschwindigkeit: ",
+  "stat.tconstruct.attack_speed.description": "Basiswert für die Berechnung der Angriffsgeschwindigkeit.\nUngefähr Angriffe in voller Stärke pro Sekunde.",
+
+  "stat.tconstruct.head": "Kopf",
+  "stat.tconstruct.head.durability": "Haltbarkeit: ",
+  "stat.tconstruct.head.durability.description": "Basiswert für die Berechnung der Haltbarkeit.\nNormalerweise ein wesentlicher Bestandteil der Gesamtlebensdauer eines Werkzeugs.",
+  "stat.tconstruct.head.mining_speed": "Abbaugeschwindigkeit: ",
+  "stat.tconstruct.head.mining_speed.description": "Wie schnell ein Werkzeug mit einem Werkzeugkopf aus diesem Material Blöcke abbauen kann.\nWird vielleicht von anderen Werkzeugteilen beeinflusst",
+  "stat.tconstruct.head.harvest_level": "Abbaulevel: ",
+  "stat.tconstruct.head.harvest_level.description": "Welchen Arten von Blöcken ein Werkzeug mit einem Werkzeugkopf aus diesem Material bearbeiten kann.",
+  "stat.tconstruct.head.attack": "Angriff: ",
+  "stat.tconstruct.head.attack.description": "Basiswert für Angriffsberechnung\nDas Endergebnis hängt von dem Werkzeug selbst und den anderen verwendeten Komponenten ab.",
+
+  "stat.tconstruct.handle": "Griff",
+  "stat.tconstruct.handle.durability": "Haltbarkeit: ",
+  "stat.tconstruct.handle.durability.description": "Die Gesamtlebensdauer des Werkzeuges wird mit diesem Wert multipliziert.",
+  "stat.tconstruct.handle.attack_damage": "Angriffsschaden: ",
+  "stat.tconstruct.handle.attack_damage.description": "Der gesamte Angriffsschaden des Werkzeugs wird mit diesem Wert multipliziert.",
+  "stat.tconstruct.handle.attack_speed": "Angriffsgeschwindigekeit: ",
+  "stat.tconstruct.handle.attack_speed.description": "Die Gesamt-Angriffsgeschwindigkeit des Werkzeugs wird mit diesem Wert multipliziert.",
+  "stat.tconstruct.handle.mining_speed": "Abbaugeschwindigkeit: ",
+  "stat.tconstruct.handle.mining_speed.description": "Die gesamte Abbaugeschwindigkeit des Werkzeugs wird mit diesem Wert multipliziert.",
+
+  "stat.tconstruct.extra": "Extra",
+  "stat.tconstruct.extra.no_stats": "Keine Statistiken",
+
+  "stat.tconstruct.mining_level.wood": "Holz",
+  "stat.tconstruct.mining_level.stone": "Stein",
+  "stat.tconstruct.mining_level.iron": "Eisen",
+  "stat.tconstruct.mining_level.diamond": "Diamant",
+  "stat.tconstruct.mining_level.netherite": "Netherite",
+
+
+  "_comment": "Tooltips",
+
+  "key.tconstruct.shift": "Umschalt",
+  "key.tconstruct.ctrl": "Strg",
+
+  "tooltip.tconstruct.tool.upgrades": "Upgrades: ",
+  "tooltip.tconstruct.tool.abilities": "Fähigkeiten: ",
+  "tooltip.tconstruct.tool.broken": "Kaputt",
+  "tooltip.tconstruct.tool.empty": "Leer",
+  "tooltip.tconstruct.hold_shift": "Halte %s für Statistiken ",
+  "tooltip.tconstruct.hold_ctrl": "Halte %s für mehr Infos",
+
+  "tooltip.part.material_added_by": "Material hinzugefügt von %s",
+  "tooltip.part.missing_material": "Fehlendes Material: %s",
+  "tooltip.part.missing_stats": "Material fehlt die erforderliche Statistik:\n{0}",
+  "tooltip.part.missing_info": "Teil hat keine Daten",
+
+  "_comment": "GUIs",
+
+  "itemGroup.tconstruct.general": "Tinkers' Allgemeine Gegenstände",
+  "itemGroup.tconstruct.tools": "Tinkers' Werkzeuge",
+  "itemGroup.tconstruct.tool_parts": "Tinkers' Werkzeugteile",
+  "itemGroup.tconstruct.smeltery": "Tinkers' Schmelze",
+  "itemGroup.tconstruct.world": "Tinkers' Welt",
+  "itemGroup.tconstruct.gadgets": "Tinkers' Geräte",
+
+  "gui.tconstruct.crafting_station": "Bastelstation",
+  "gui.tconstruct.crafting_station.uncraftable": "Dieser Gegenstand kann derzeit nicht vom Spieler hergestellt werden",
+
+  "gui.tconstruct.part_builder": "bauteilkonstrukteur",
+  "gui.tconstruct.part_builder.info": "Hier können Werkzeugteile hergestellt werden um alle Fantasien zu erfüllen.\n\nUm ein Teil herzustellen, legen Sie einfach ein leeres Muster in den linken Schlitz und wählen Sie das gewünschte Teil aus. Der verbleibende Schlitz enthält das Material, aus dem Sie Ihr Teil fertigen möchten.",
+  "gui.tconstruct.part_builder.material_value": "Materialwert: %s",
+  "gui.tconstruct.part_builder.cost": "Musterkosten: %s",
+  "gui.tconstruct.part_builder.trait": "Eigenschaft",
+  "gui.tconstruct.part_builder.uncraftable": "kann nicht geformt werden",
+  "gui.tconstruct.part_builder.uncraftable.tooltip": "Das Material kann nicht im Bauteilkonstrukteur geformt werden. Andere Methoden wie z. B. das Gießen sind erforderlich.",
+
+  "gui.tconstruct.modifier_chest": "Modifikatortruhe",
+  "gui.tconstruct.cast_chest": "Gussformtruhe",
+  "gui.tconstruct.part_chest": "Bauteiltruhe",
+
+  "gui.tconstruct.tinker_station": "Tinker Station",
+  "gui.tconstruct.tinker_station.repair": "Reparieren & Modifizieren",
+  "gui.tconstruct.tinker_station.modifiers": "Modifikatoren",
+  "gui.tconstruct.tinker_station.components": "Komponenten",
+  "gui.tconstruct.tinker_station.info": "Der wichtigste Weg, um Ihre Werkzeuge zu reparieren oder zu wechseln. Legen Sie ein Werkzeug und ein Material auf der linken Seite an, um zu beginnen.",
+  "gui.tconstruct.tinker_station.no_traits": "Nichts :[",
+
+  "gui.tconstruct.manual.cycle.recipes": "Zu anderen Rezepten gehen",
+
+  "recipe.tconstruct.tool_repair.fully_repaired": "Werkzeug ist nicht beschädigt",
+
+  "recipe.tconstruct.part_swapping.too_many_parts": "Der Tisch ist zu klein, um Teile an diesem Werkzeug zu tauschen",
+
+  "recipe.tconstruct.modifier.not_enough_upgrades": "Braucht mindestens %s Upgrade-slots um den Modifikator hinzuzufügen",
+  "recipe.tconstruct.modifier.not_enough_abilities": "Braucht mindestens %s Fähigkeitenslots um den Modifikator hinzuzufügen",
+  "recipe.tconstruct.modifier.validate_upgrades": "Diese Änderung führt dazu, dass das Werkzeug zu wenige Upgrade-Slots hat",
+  "recipe.tconstruct.modifier.validate_abilities": "Diese Änderung lässt das Werkzeug mit zu wenigen Fähigkeitsslots zurück",
+  "recipe.tconstruct.modifier.max_level": "%s level kann nicht größer sein als %s",
+  "recipe.tconstruct.modifier.requirements_error": "Werkzeugstatus ungültig für einen der Modifikatoren. Wenden Sie sich an Ihren Modpack-Hersteller und fordern Sie einen aussagekräftigeren Fehler an.",
+
+  "recipe.tconstruct.modifier.netherite_requirements": "Netherite braucht mindestens Diamant oder Smaragd um aufgetragen zu werden ",
+
+
+  "_comment": "GUIs Messages",
+
+  "gui.tconstruct.caption": "Caption",
+  "gui.tconstruct.error": "FEHLER",
+  "gui.tconstruct.warning": "WARNUNG",
+  "gui.tconstruct.general.hover": "Bewege den Mauszeiger über die Einträge für weiter Informationen",
+  "gui.tconstruct.error.invalid_pattern": "Muster enthält kein gültiges Werkzeugteil!",
+  "gui.tconstruct.error.invalid_recipe": "Ungültiges Rezept!",
+  "gui.tconstruct.error.unknown_material": "Unbekanntes Material",
+  "gui.tconstruct.error.useless_tool_part": "Dieses Teil kann nicht zur Herstellung eines Werkzeuges verwendet werden!\n\nEntweder fehlen dem Material %s einige Informationen oder kein Werkzeug verwendet a(n) %s in seiner Herstellung.",
+  "gui.tconstruct.error.not_enough_durability": "Nicht genügend Haltbarkeit um die Teile auszutauschen\n%d mehr haltbarkeit erforderlich.",
+
+  "_comment": "JEI Strings",
+  "jei.tconstruct.time": "%s s",
+  "jei.tconstruct.temperature": "%s°C",
+
+  "jei.tconstruct.casting.basin": "Gussbecken",
+  "jei.tconstruct.casting.table": "Gusstisch",
+  "jei.tconstruct.casting.cast_kept": "Gegossener Artikel kann in späteren Rezepten wiederverwendet werden",
+  "jei.tconstruct.casting.cast_consumed": "Gegossener Gegenstand wird beim Werfen verbraucht",
+
+  "jei.tconstruct.molding.title": "Gießen",
+  "jei.tconstruct.molding.pattern_consumed": "Muster wird beim Basteln verbraucht",
+
+  "jei.tconstruct.melting.title": "Schmelzen",
+  "jei.tconstruct.melting.multiplier": "Geschwindigkeitsmultiplikator: %sx",
+  "jei.tconstruct.melting.ore": "Die Rezepteausgabe wird auf Basis des Controllertyps angehoben",
+  "jei.tconstruct.melting.time": "Schmelzzeit: %s s",
+  "jei.tconstruct.melting.smeltery": "In der Schmelze:",
+  "jei.tconstruct.melting.melter": "In Schmelzgerät:",
+
+  "jei.tconstruct.entity_melting.title": "Objektschmelze",
+  "jei.tconstruct.entity_melting.per_hearts": "Pro %s Herzschaden",
+  "jei.tconstruct.entity_melting.per_heart": "Pro 1.0 Herzschaden",
+
+  "jei.tconstruct.alloy.title": "Legieren",
+
+  "jei.tconstruct.modifiers.title": "Modifikatoren",
+  "jei.tconstruct.modifiers.ability": "Modifikator erfordert 1 Fähigkeitsslot zur Anwendung",
+  "jei.tconstruct.modifiers.abilities": "Modifikator benötigt %s Fähigkeitsslots zur Anwendung",
+  "jei.tconstruct.modifiers.upgrade": "Modifikator erfordert 1 Upgrade-Slot zur Anwendung",
+  "jei.tconstruct.modifiers.upgrades": "Modifikator erfordert %s Upgrade-Slots zur Anwendung",
+  "jei.tconstruct.modifiers.free": "Es werden keine Modifier-Slots zur Anwendung benötigt",
+  "jei.tconstruct.modifiers.incremental": "Rezept ist inkrementell, Sie können einen Teil der Eingabe für einen partiellen Effekt anwenden",
+  "jei.tconstruct.modifiers.max": "Max: ",
+
+  "jei.tconstruct.beheading.title": "Enthauptung"
+}
