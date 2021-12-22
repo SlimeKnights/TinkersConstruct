@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import slimeknights.mantle.inventory.SingleItemHandler;
@@ -60,13 +59,13 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
    * Gets the fluid filter for this duct
    * @return  Fluid filter
    */
-  public Fluid getFluid() {
+  public FluidStack getFluid() {
     ItemStack stack = getStack();
     if (stack.isEmpty()) {
-      return Fluids.EMPTY;
+      return FluidStack.EMPTY;
     }
     return FluidUtil.getFluidHandler(stack)
-                    .map(handler -> handler.getFluidInTank(0).getFluid())
-                    .orElse(Fluids.EMPTY);
+                    .map(handler -> handler.getFluidInTank(0))
+                    .orElse(FluidStack.EMPTY);
   }
 }

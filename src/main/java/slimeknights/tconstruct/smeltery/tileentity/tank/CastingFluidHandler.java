@@ -63,7 +63,7 @@ public class CastingFluidHandler implements IFluidHandler {
     int capacity = this.capacity;
     if (filter == null || this.capacity == 0) {
       Fluid fluid = resource.getFluid();
-      capacity = tile.initNewCasting(fluid, action);
+      capacity = tile.initNewCasting(resource, action);
       if (capacity <= 0) {
         return 0;
       }

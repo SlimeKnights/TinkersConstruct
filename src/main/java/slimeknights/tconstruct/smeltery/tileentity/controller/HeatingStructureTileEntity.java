@@ -5,8 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -352,9 +350,10 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
    * Updates the fluid displayed in the block, only used client side
    * @param fluid  Fluid
    */
-  private void updateDisplayFluid(Fluid fluid) {
+  private void updateDisplayFluid(FluidStack fluid) {
     if (world != null && world.isRemote) {
       // update ourself
+      fluid = IDisplayFluidListener.normalizeFluid(fluid);
       modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
       this.requestModelDataUpdate();
       BlockState state = getBlockState();
@@ -376,11 +375,11 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   @Override
   public void addDisplayListener(IDisplayFluidListener listener) {
     fluidDisplayListeners.add(new WeakReference<>(listener));
-    listener.notifyDisplayFluidUpdated(tank.getFluidInTank(0).getFluid());
+    listener.notifyDisplayFluidUpdated(IDisplayFluidListener.normalizeFluid(tank.getFluidInTank(0)));
   }
 
   @Override
-  public void notifyFluidsChanged(FluidChange type, Fluid fluid) {
+  public void notifyFluidsChanged(FluidChange type, FluidStack fluid) {
     if (type == FluidChange.ORDER_CHANGED) {
       updateDisplayFluid(fluid);
     } else {
@@ -497,8 +496,8 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     super.read(state, nbt);
     if (nbt.contains(TAG_TANK, NBT.TAG_COMPOUND)) {
       tank.read(nbt.getCompound(TAG_TANK));
-      Fluid first = tank.getFluidInTank(0).getFluid();
-      if (first != Fluids.EMPTY) {
+      FluidStack first = tank.getFluidInTank(0);
+      if (!first.isEmpty()) {
         updateDisplayFluid(first);
       }
     }

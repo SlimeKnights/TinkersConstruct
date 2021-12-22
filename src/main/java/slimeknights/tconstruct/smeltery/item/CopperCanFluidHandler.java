@@ -5,6 +5,7 @@ import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -52,9 +53,15 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     return CopperCanItem.getFluid(container);
   }
 
+  /** Gets the contained fluid */
+  @Nullable
+  private CompoundNBT getFluidTag() {
+    return CopperCanItem.getFluidTag(container);
+  }
+
   @Override
   public FluidStack getFluidInTank(int tank) {
-    return new FluidStack(getFluid(), FluidValues.INGOT);
+    return new FluidStack(getFluid(), FluidValues.INGOT, getFluidTag());
   }
 
 
@@ -68,7 +75,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     }
     // update fluid and return
     if (action.execute()) {
-      CopperCanItem.setFluid(container, resource.getFluid());
+      CopperCanItem.setFluid(container, resource);
     }
     return FluidValues.INGOT;
   }
@@ -85,9 +92,9 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, FluidValues.INGOT);
+    FluidStack output = new FluidStack(fluid, FluidValues.INGOT, getFluidTag());
     if (action.execute()) {
-      CopperCanItem.setFluid(container, Fluids.EMPTY);
+      CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }
     return output;
   }
@@ -104,9 +111,9 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, FluidValues.INGOT);
+    FluidStack output = new FluidStack(fluid, FluidValues.INGOT, getFluidTag());
     if (action.execute()) {
-      CopperCanItem.setFluid(container, Fluids.EMPTY);
+      CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }
     return output;
   }
