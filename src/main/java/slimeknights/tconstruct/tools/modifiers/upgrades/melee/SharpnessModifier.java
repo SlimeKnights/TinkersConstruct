@@ -4,7 +4,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -31,10 +30,6 @@ public class SharpnessModifier extends IncrementalModifier {
   public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is stupidly low
     // we instead do +1, 2,  3, 4,   5
-    float bonus = getScaledLevel(persistentData, level);
-    if (item.isIn(TinkerTags.Items.CHESTPLATES)) {
-      bonus *= 1.5f; // does more damage for unarmed
-    }
-    ToolStats.ATTACK_DAMAGE.add(builder, bonus);
+    ToolStats.ATTACK_DAMAGE.add(builder, getScaledLevel(persistentData, level));
   }
 }

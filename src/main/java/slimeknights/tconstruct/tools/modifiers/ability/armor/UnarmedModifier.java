@@ -21,7 +21,7 @@ public class UnarmedModifier extends OffhandAttackModifier {
 
   @Override
   public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.6f);
+    ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.4f);
     // main hand has 4.0 attack speed, so make the offhand have that too
     ToolStats.ATTACK_SPEED.add(builder, 4.0 - baseStats.getFloat(ToolStats.ATTACK_SPEED));
   }
