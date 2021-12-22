@@ -216,6 +216,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   @Override
   public void tick() {
     // no recipe
+    // TODO: should consider the case where the tank has fluid, but there is no current recipe
+    // would like to avoid doing a recipe lookup every tick, so need some way to handle the case of no recipe found, ideally without fluid voiding
     if (world == null || currentRecipe == null) {
       return;
     }
@@ -445,19 +447,14 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   public void writeSynced(CompoundNBT tags) {
     super.writeSynced(tags);
     tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
-    tags.putInt(TAG_TIMER, timer);
-  }
-
-  @Override
-  @Nonnull
-  public CompoundNBT write(CompoundNBT tags) {
-    tags = super.write(tags);
+    if (currentRecipe != null || recipeName != null) {
+      tags.putInt(TAG_TIMER, timer);
+    }
     if (currentRecipe != null) {
       tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
     } else if (recipeName != null) {
       tags.putString(TAG_RECIPE, recipeName.toString());
     }
-    return tags;
   }
 
   @Override
