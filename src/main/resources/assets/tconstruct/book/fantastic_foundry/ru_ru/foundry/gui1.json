@@ -1,0 +1,14 @@
+ {
+  "title":"Графический интерфейс Литейной Печи",
+    "image": {
+     "file": "tconstruct:book/images/foundrygui.png",
+	 "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Это базовый интерфейс Литейной Печи. Не больше, не меньше.",
+      "paragraph": true
+    }
+	]
+}

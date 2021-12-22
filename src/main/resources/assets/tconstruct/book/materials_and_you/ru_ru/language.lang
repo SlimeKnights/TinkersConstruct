@@ -1,0 +1,11 @@
+// Sections - Materials And you
+
+tier_one_materials=Материалы 1-го уровня
+tier_one_materials.subtext=Из данных материалов изготавливаются начальные части ваших первых инструментов в формирователе частей.
+
+intro=Вступление
+tools=Инструменты
+tools.part_swapping=Замена частей
+tools.repairing=Починка
+further_reading=Дополнительно
+terminology=Терминология
