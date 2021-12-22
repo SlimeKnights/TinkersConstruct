@@ -1,7 +1,10 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:silky_jewel_block",
-    "#forge:storage_blocks/rose_gold"
+    "tconstruct:cast_chest",
+    "tconstruct:piglin_head",
+    "tconstruct:piglin_brute_head",
+    "tconstruct:piglin_wall_head",
+    "tconstruct:piglin_brute_wall_head"
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:gold_reinforcement",
+    "tconstruct:gold_item_frame",
+    "tconstruct:reversed_gold_item_frame",
+    "tconstruct:molten_gold_bucket",
+    "#tconstruct:casts/gold"
+  ]
+}
