@@ -34,17 +34,10 @@ public class BouncyModifier extends TotalArmorLevelModifier {
 
     // reduced fall damage when crouching
     if (living.isSuppressingBounce()) {
-      event.setDamageMultiplier(0.2f);
+      event.setDamageMultiplier(0.5f);
       return;
     } else {
       event.setDamageMultiplier(0.0f);
-    }
-
-    // skip further client processing on players
-    if (living.getEntityWorld().isRemote) {
-      living.playSound(Sounds.SLIMY_BOUNCE.getSound(), 1f, 1f);
-      SlimeBounceHandler.addBounceHandler(living);
-      return;
     }
 
     // server players behave differently than non-server players, they have no velocity during the event, so we need to reverse engineer it
@@ -60,16 +53,18 @@ public class BouncyModifier extends TotalArmorLevelModifier {
       // preserve momentum
       SlimeBounceHandler.addBounceHandler(living);
     } else {
-      // for non-players, need to deferr the bounce
+      // for non-players, need to defer the bounce
       // only slow down half as much when bouncing
       living.setMotion(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
       SlimeBounceHandler.addBounceHandler(living, living.getMotion().y);
     }
     // update airborn status
-    living.isAirBorne = true;
-    living.setOnGround(false);
     event.setDistance(0.0F);
-    event.setCanceled(true);
+    if (!living.world.isRemote) {
+      living.isAirBorne = true;
+      event.setCanceled(true);
+      living.setOnGround(false); // need to be on ground for server to process this event
+    }
     living.playSound(Sounds.SLIMY_BOUNCE.getSound(), 1f, 1f);
   }
 }

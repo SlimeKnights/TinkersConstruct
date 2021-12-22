@@ -20,7 +20,7 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (!(entityLiving instanceof PlayerEntity)) {
+    if (!entityLiving.isOnGround() || !(entityLiving instanceof PlayerEntity)) {
       return;
     }
 
