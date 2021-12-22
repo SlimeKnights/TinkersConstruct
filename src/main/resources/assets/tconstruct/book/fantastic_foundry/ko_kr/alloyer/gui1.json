@@ -1,0 +1,14 @@
+ {
+  "title": "합금기 GUI",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "기본적인 합금기 GUI입니다. 그 이상도 이하도 아닙니다.",
+      "paragraph": true
+    }
+    ]
+}

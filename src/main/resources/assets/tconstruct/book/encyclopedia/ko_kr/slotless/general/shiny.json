@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "마법이 부여된 것처럼 도구를 빛나게 합니다. 그냥 장식용입니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "단일 등급",
+    "무슬롯"
+  ]
+}

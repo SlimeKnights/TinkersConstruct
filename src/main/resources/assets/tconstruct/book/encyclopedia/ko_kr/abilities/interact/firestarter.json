@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "도구를 사용하여 불을 붙일 수 있습니다. 점화는 1의 내구도를 사용합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

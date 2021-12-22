@@ -1,0 +1,10 @@
+{
+  "title": "용해소",
+  "subText": "용해소만큼 환상적인 것은 없습니다.",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "세부 정보" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "블록" }
+  ]
+}

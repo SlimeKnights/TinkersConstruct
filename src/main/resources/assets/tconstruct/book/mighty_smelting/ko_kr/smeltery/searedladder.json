@@ -1,0 +1,12 @@
+{
+  "title": "그을린 사다리",
+  "item": {
+    "id": "tconstruct:seared_ladder"
+  },
+  "text": [
+    {
+      "text": "그을린 사다리는 제련소를 쉽게 오르거나 빠져나갈 수 있다. 그렇기에, 나중에 제련소를 더 크게 만들 계획이 있다면 유용하다.",
+      "paragraph": true
+    }
+  ]
+}

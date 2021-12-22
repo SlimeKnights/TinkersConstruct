@@ -1,0 +1,11 @@
+{
+  "title": "제련소 관리기",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png"
+  },
+  "text": [
+    {
+      "text": "용해기를 사용하여 가열기에 주괴 4개만큼의 구리를 부으면, 제련소 관리기를 만들 수 있다."
+    }
+  ]
+}

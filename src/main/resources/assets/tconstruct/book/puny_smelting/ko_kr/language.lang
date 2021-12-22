@@ -1,0 +1,20 @@
+// 섹션 - 간단한 제련
+
+intro=소개
+melter=용해기
+moving_fluids=액체 이동
+casting=주조
+tier_two_materials=2등급 재료
+
+upgrades=강화
+upgrades.subtext=강화를 통해 도구를 강력하게 만들 수 있다만, 강화 슬롯이 필요하다.
+upgrades.group_general=일반
+upgrades.group_harvest=수확
+upgrades.group_weapon=무기
+upgrades.group_damage=추가 피해
+upgrades.group_armor=갑옷
+
+slotless=무슬롯 수식어
+slotless.subtext=무슬롯 수식어는 슬롯을 사용하지 않으며, 원한다면 전부 사용할 수 있다.
+slotless.group_slotless=무슬롯
+slotless.group_bonus_upgrades=강화++

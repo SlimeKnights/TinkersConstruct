@@ -1,0 +1,9 @@
+{
+  "title": "팅커 백과사전",
+  "subtitle": "셀레나 지음",
+  "drawSectionListText": true,
+  "coverColor": 0xA96D4C,
+  "largePageTitles": false,
+  "centerPageTitles": true,
+  "drawFourColumnIndex": true
+}

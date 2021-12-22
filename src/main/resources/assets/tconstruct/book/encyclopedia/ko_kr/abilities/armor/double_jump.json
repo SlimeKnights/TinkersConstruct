@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "공중에서 한 번 더 점프할 수 있게 됩니다. 등급이 증가하면 점프 횟수가 증가하여 삼단 점프를 할 수도 있습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1개의 능력 슬롯 사용"
+  ]
+}

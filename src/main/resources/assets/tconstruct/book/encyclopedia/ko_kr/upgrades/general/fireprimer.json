@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "부싯돌과 청동의 점화 범위이 1만큼 증가합니다. 확장 수식어와 동일하지만 강화 슬롯을 사용합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 강화 슬롯 사용"
+  ]
+}

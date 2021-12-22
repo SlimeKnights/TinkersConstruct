@@ -1,0 +1,14 @@
+{
+  "title": "부품 제작대",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "나무 틀을 틀 슬롯에 놓고, 만들고자 하는 부품을 선택하고, 손으로 모양을 잡을 수 있을 만한 부드러운 재료를 넣고, 모양을 잡으면 부품을 만들 수 있습니다.",
+      "paragraph": true
+    }
+    ]
+}

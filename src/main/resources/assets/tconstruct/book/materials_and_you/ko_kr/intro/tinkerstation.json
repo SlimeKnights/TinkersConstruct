@@ -1,0 +1,14 @@
+{
+  "title": "팅커 작업대",
+  "image": {
+    "file": "tconstruct:book/images/tinkerstation.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "이건 여기, 저건 저기에 놔두시고... 아! 이건 반대예요.",
+      "paragraph": true
+    }
+    ]
+}

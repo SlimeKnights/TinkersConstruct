@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:path_maker",
+  "text": [
+    {
+      "text": "밟은 장소의 잔디를 짓누르고, 길을 만듭니다. 확장 수식어가 적용되면, 효과의 범위가 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

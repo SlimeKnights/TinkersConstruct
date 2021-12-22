@@ -1,0 +1,13 @@
+{
+  "title": "핏빛 섬",
+  "image": {
+    "file": "tconstruct:book/images/islands/blood.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "이 핏빛 붉은 섬은 가끔 용암의 바다에서 발견돼. 핏빛 섬은 다른 네더의 지역보다 더 많은 마그마 큐브가 생성되고, 또한 이코르의 근원으로 보이는 이상한 변종 균이 있어."
+    }
+  ]
+}

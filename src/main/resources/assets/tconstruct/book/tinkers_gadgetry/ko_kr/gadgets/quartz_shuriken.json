@@ -1,0 +1,12 @@
+{
+  "title": "석영 수리검",
+  "item": {
+    "id": "tconstruct:quartz_shuriken"
+  },
+  "text": [
+    {
+      "text": "석영은 부싯돌보다 훨씬 가볍고, 훨씬 날카로워. 석영으로 만든 수리검이 몬스터에게 훨씬 더 큰 피해를 주지만, 멀리 밀쳐내지는 못했어.",
+      "paragraph": true
+    }
+  ]
+}
