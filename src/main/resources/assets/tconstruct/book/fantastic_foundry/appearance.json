@@ -1,0 +1,10 @@
+{
+  "coverTexture": "tconstruct:book/images/covers/fantastic_foundry_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/fantastic_foundry_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0xBF8A7A,
+  "drawSectionListText": true,
+  "largePageTitles": true,
+  "centerPageTitles": false
+}
