@@ -14,14 +14,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Effects;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.EntityIngredient;
+import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
@@ -33,6 +36,7 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.data.FluidTagEmptyCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -54,6 +58,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageS
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.LivingEntityPredicate;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
@@ -1422,6 +1427,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new EffectSpillingEffect(Effects.POISON, 10, 1))
                          .addEffect(new SetFireSpillingEffect(3))
                          .build(consumer, prefix(TinkerFluids.moltenUranium, folder));
+
+    // potion fluid compat
+    ResourceLocation potionTag = new ResourceLocation("forge", "potion");
+    // standard potion is 250 mb, but we want a smaller number. For the effects, we really want to divide into 4 pieces
+    SpillingRecipeBuilder.forFluid(FluidIngredient.of(FluidTags.createOptional(potionTag), FluidAttributes.BUCKET_VOLUME / 8))
+                         .addEffect(new PotionFluidEffect(0.5f))
+                         .build(withCondition(consumer, new NotCondition(new FluidTagEmptyCondition(potionTag))), modResource(folder + "potion_fluid"));
   }
 
   private void burningSpilling(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time) {

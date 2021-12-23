@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEff
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
@@ -535,6 +536,7 @@ public final class TinkerModifiers extends TinkerModule {
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("teleport"), TeleportSpillingEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("restore_hunger"), RestoreHungerSpillingEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("extinguish"), ExtinguishSpillingEffect.LOADER);
+    SpillingRecipeLookup.registerEffect(TConstruct.getResource("potion_fluid"), PotionFluidEffect.LOADER);
     SpillingRecipeLookup.registerEffect(TConstruct.getResource("calcified"), StrongBonesModifier.SPILLING_EFFECT_LOADER);
   }
 
