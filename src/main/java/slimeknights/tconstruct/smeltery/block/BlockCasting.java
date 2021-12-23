@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -10,7 +9,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -29,11 +27,6 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -42,6 +35,9 @@ import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class BlockCasting extends BlockInventory implements IFaucetDepth {
 
@@ -54,7 +50,6 @@ public class BlockCasting extends BlockInventory implements IFaucetDepth {
     setCreativeTab(TinkerRegistry.tabSmeltery);
   }
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(CastingType type : CastingType.values()) {

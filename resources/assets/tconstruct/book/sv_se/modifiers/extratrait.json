@@ -1,0 +1,17 @@
+{
+  "modifier": "extratrait",
+  "text": [
+    {
+      "text": "Ta en verktygsdel och prägla den på verktyget! Det är som att erstätta verktygsdelen, men bättre! Verktyget får attributer från delen som läggs till på de befintliga delarna (men inte dess värden)."
+    }
+  ],
+  "effects": [
+    "Lägger till attributer från en annan del",
+    "Attributer är detsamma som att byta ut en del",
+    "Präglingen är slutgiltig och kan inte ändras",
+    "Kräver ingen modifierare"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe"
+  ]
+}

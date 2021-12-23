@@ -1,0 +1,18 @@
+{
+  "modifier": "fins",
+  "text": [
+    {
+      "text": "Vi tar en fisk... och fäster den på en pil. Självklart! Det får dem att simma under vatten! Nu kan jag skjuta saker under vatten!"
+    }
+  ],
+  "effects": [
+    "Projektiler ignorerar vatten",
+    "Logiskt",
+    "Varkar vettigt"
+  ],
+  "demoTool": [
+    "tconstruct:arrow",
+    "tconstruct:bolt",
+    "tconstruct:shuriken"
+  ]
+}

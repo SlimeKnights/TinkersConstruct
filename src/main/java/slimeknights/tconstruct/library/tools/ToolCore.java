@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,17 +24,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -61,6 +49,15 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.traits.InfiTool;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
@@ -422,7 +419,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       // only valid ones
       if(hasValidMaterials(tool)) {
         subItems.add(tool);
-        if(!Config.listAllMaterials) {
+        if(!Config.listAllToolMaterials) {
           break;
         }
       }

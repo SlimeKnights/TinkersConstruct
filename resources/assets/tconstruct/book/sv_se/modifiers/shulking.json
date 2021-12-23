@@ -1,0 +1,19 @@
+{
+  "modifier": "shulking",
+  "text": [
+    {
+      "text": "Ger ditt verktyg förmågan att imitera en shulker. Slå fiender för att göra dem försvarslösa i luften."
+    }
+  ],
+  "effects": [
+    "Varje poäng ökar hur länge fiender svävar",
+    "Får fiender att sväva iväg",
+    "Buskul",
+    "Bara en nivå"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

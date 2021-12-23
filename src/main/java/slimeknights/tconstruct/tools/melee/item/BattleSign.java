@@ -12,6 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -20,11 +21,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -34,6 +30,9 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 // BattleSign Ability: Blocks more damage and can reflect projectiles. The ultimate defensive weapon.
 public class BattleSign extends TinkerToolCore {
@@ -196,5 +195,10 @@ public class BattleSign extends TinkerToolCore {
   @Override
   public ToolNBT buildTagData(List<Material> materials) {
     return buildDefaultTag(materials);
+  }
+  
+  @Override
+  public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+    return false;
   }
 }

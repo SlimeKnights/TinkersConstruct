@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.fluid;
 
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
-public class FluidTankBase<T extends TileEntity> extends FluidTank {
+public class FluidTankBase<T extends MantleTileEntity> extends FluidTank {
 
   protected T parent;
 
@@ -60,5 +60,7 @@ public class FluidTankBase<T extends TileEntity> extends FluidTank {
     if(parent instanceof IFluidTankUpdater) {
       ((IFluidTankUpdater) parent).onTankContentsChanged();
     }
+    // make sure the chunk knows data changed
+    parent.markDirtyFast();
   }
 }

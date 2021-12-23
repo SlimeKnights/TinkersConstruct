@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.smeltery;
 
 import com.google.common.collect.Lists;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StringUtils;
@@ -12,13 +11,11 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.FluidTankProperties;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-
-import java.util.List;
-import java.util.ListIterator;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
-
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import java.util.List;
+import java.util.ListIterator;
 
 public class SmelteryTank implements IFluidTank, IFluidHandler {
 
@@ -109,7 +106,10 @@ public class SmelteryTank implements IFluidTank, IFluidHandler {
     int used = getFluidAmount();
 
     int usable = Math.min(maxCapacity - used, resource.amount);
-
+    // could be negative if the smeltery size changes then you try filling it
+    if(usable <= 0) {
+      return 0;
+    }
     if(!doFill) {
       return usable;
     }

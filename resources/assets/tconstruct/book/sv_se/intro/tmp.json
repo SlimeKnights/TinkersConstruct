@@ -1,0 +1,16 @@
+{
+  "title":"De förlorade sidorna",
+  "text": [
+    {
+      "text": "Välkommen till den andra utgåvan av Materialen och du: Hur man överlever den första dagen och vidare. Tyvärr verkar det som att en del sidor har försvunnit!"
+    },
+    {
+      "text": "Denna bok är för tillfället ofullständig, men den innehåller alla verktygsmaterial och -modifierare. I senare utgåvor kommer den innehålla mer information, så se till att komma tillbaka emellanåt!",
+      "paragraph": true
+    },
+    {
+      "text": "Just det, om du undrar vad som hände med koppar, aluminium, m.m. så lägger bara TConstruct till kobolt- och arditemalm i nether, men genererar inte längre vanlig malm. Den har däremot stöd för alla moddar som lägger till dem automatiskt.",
+      "paragraph": true
+    }
+  ]
+}

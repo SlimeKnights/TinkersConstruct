@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,14 +14,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -35,6 +26,12 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 public class ToolPart extends MaterialItem implements IToolPart {
 
@@ -57,7 +54,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
         // check if the material makes sense for this item (is it usable to build stuff?)
         if(canUseMaterial(mat)) {
           subItems.add(getItemstackWithMaterial(mat));
-          if(!Config.listAllMaterials) {
+          if(!Config.listAllPartMaterials) {
             break;
           }
         }

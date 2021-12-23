@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.common.block;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,16 +24,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
@@ -47,6 +39,9 @@ import slimeknights.tconstruct.tools.common.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.common.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.common.tileentity.TileTinkerChest;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolStation;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
@@ -113,7 +108,6 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     return super.onBlockActivated(world, pos, state, player, hand, side, clickX, clickY, clickZ);
   }
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     // crafting station is boring

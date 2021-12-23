@@ -1,0 +1,20 @@
+{
+  "tool": "hatchet",
+  "text": [
+    {
+      "text": "Handyxan är ett enkelt verktyg för att hugga ned saker. Det är effektivt på trä och löv. Ingen hållbarhet konsumeras när den används för att bryta löv."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "När handyxan används i strid kan du inaktivera en motståndares sköld."
+    }
+  ],
+  "properties": [
+    "Enkelt grävverktyg",
+    "Effektiv på trä",
+    "Bryter löv riktigt snabbt",
+    "Använder inte hållbarhet på löv"
+  ]
+}

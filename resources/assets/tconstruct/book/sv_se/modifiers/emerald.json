@@ -1,0 +1,19 @@
+{
+  "modifier": "emerald",
+  "text": [
+    {
+      "text": "När en smaragd fästs på ett verktygs svagaste punkt blir det riktigt elastiskt och sagolikt. Bybor kommer kanske åtrå ditt verktyg, så var försiktig."
+    }
+  ],
+  "effects": [
+    "Grundhållbarheten ökar med 50 %",
+    "Brytningsnivån ökas till järn",
+    "Bara en nivå",
+    "Dyrt!"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:cleaver"
+  ]
+}

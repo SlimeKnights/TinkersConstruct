@@ -1,0 +1,11 @@
+{
+  "title": "Smältverk",
+  "image": {
+	"file": "tconstruct:textures/gui/book/smeltery.png"
+  },
+  "text": [
+    {
+      "text": "Smältverk kan se ut på olika sätt, men det här är mitt. Och det smälter saker riktigt bra."
+    }
+  ]
+}

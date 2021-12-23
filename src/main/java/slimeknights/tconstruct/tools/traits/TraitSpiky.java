@@ -24,17 +24,17 @@ public class TraitSpiky extends AbstractTrait {
 
   @Override
   public void onPlayerHurt(ItemStack tool, EntityPlayer player, EntityLivingBase attacker, LivingHurtEvent event) {
-    dealSpikyDamage(false, tool, player, attacker);
+    dealSpikyDamage(false, tool, player, attacker, event);
   }
 
   @Override
   public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
     Entity target = event.getSource().getTrueSource();
-    dealSpikyDamage(true, tool, player, target);
+    dealSpikyDamage(true, tool, player, target, event);
   }
 
-  private void dealSpikyDamage(boolean isBlocking, ItemStack tool, EntityPlayer player, Entity target) {
-    if(target instanceof EntityLivingBase && target.isEntityAlive() && target != player) {
+  private void dealSpikyDamage(boolean isBlocking, ItemStack tool, EntityPlayer player, Entity target, LivingHurtEvent event) {
+    if(target instanceof EntityLivingBase && target.isEntityAlive() && target != player && !isThornsDamage(event.getSource())) {
       float damage = ToolHelper.getActualDamage(tool, player);
       if(!isBlocking) {
         damage /= 2;
@@ -50,5 +50,9 @@ public class TraitSpiky extends AbstractTrait {
       }
       target.hurtResistantTime = oldHurtResistantTime; // reset to old time
     }
+  }
+
+  private boolean isThornsDamage(DamageSource damageSource) {
+    return damageSource instanceof EntityDamageSource && ((EntityDamageSource) damageSource).getIsThornsDamage();
   }
 }

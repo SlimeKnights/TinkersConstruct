@@ -6,11 +6,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
-
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.MultiServantLogic;
+
+import java.util.List;
 
 /**
  * Base class for a rectangular multiblock detection
@@ -167,9 +166,13 @@ public abstract class MultiblockDetection {
       if(world.isBlockLoaded(pos)) {
         TileEntity slave = world.getTileEntity(pos);
         if(slave instanceof MultiServantLogic && slave.getWorld() != null) {
-          ((MultiServantLogic) slave).overrideMaster(master);
-          IBlockState state = world.getBlockState(pos);
-          world.notifyBlockUpdate(pos, state, state, 3);
+          MultiServantLogic logic = (MultiServantLogic)slave;
+          BlockPos current = logic.getMasterPosition();
+          if (current == null || !current.equals(master)) {
+            logic.overrideMaster(master);
+            IBlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
+          }
         }
       }
     }

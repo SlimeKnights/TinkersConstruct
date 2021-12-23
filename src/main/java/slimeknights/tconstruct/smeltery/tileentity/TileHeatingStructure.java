@@ -81,18 +81,21 @@ public abstract class TileHeatingStructure<T extends MultiblockDetection> extend
         // heat item if possible
         if(itemTempRequired[i] > 0) {
           // fuel is present, turn up the heat
-          if(hasFuel() && canHeat(i)) {
-            // are we done heating?
-            if(itemTemperatures[i] >= itemTempRequired[i]) {
-              if(onItemFinishedHeating(stack, i)) {
-                itemTemperatures[i] = 0;
-                itemTempRequired[i] = 0;
+          if(hasFuel()) {
+            // if the temperature is high enough for the slot
+            if(canHeat(i)) {
+              // are we done heating?
+              if(itemTemperatures[i] >= itemTempRequired[i]) {
+                if(onItemFinishedHeating(stack, i)) {
+                  itemTemperatures[i] = 0;
+                  itemTempRequired[i] = 0;
+                }
               }
-            }
-            // otherwise turn up the heat
-            else {
-              itemTemperatures[i] += heatSlot(i);
-              heatedItem = true;
+              // otherwise turn up the heat
+              else {
+                itemTemperatures[i] += heatSlot(i);
+                heatedItem = true;
+              }
             }
           }
           else {

@@ -93,7 +93,7 @@ public class ChannelRenderer extends FastTESR<TileChannel> {
 
         // only render the extra piece if no channel on this side
         if(!(world.getBlockState(offsetPos).getBlock() instanceof BlockChannel)) {
-          RenderUtil.putTexturedQuad(renderer, flowing, x1, 0.375, z1, x2-x1, 0.09375, z2-z1, side, color, brightness, true);
+          RenderUtil.putATexturedQuad(renderer, flowing, x1, 0.375, z1, x2-x1, 0.09375, z2-z1, side, color, brightness, true);
         }
 
         // next, direction of flow
@@ -106,19 +106,19 @@ public class ChannelRenderer extends FastTESR<TileChannel> {
           oneOutput = rotation;
         }
 
-        RenderUtil.putRotatedQuad(renderer, flowing, x1, 0.46875, z1, x2-x1, z2-z1, rotation, color, brightness, true);
+        RenderUtil.putARotatedQuad(renderer, flowing, x1, 0.46875, z1, x2-x1, z2-z1, rotation, color, brightness, true);
       } else {
         // sides of main sliver
-        RenderUtil.putTexturedQuad(renderer, flowing, 0.375, 0.375, 0.375, 0.25, 0.09375, 0.25, side, color, brightness, true);
+        RenderUtil.putATexturedQuad(renderer, flowing, 0.375, 0.375, 0.375, 0.25, 0.09375, 0.25, side, color, brightness, true);
       }
     }
 
     // the stuff in the center
     // if we have just one output, have the center flow towards that
     if(outputs == 1) {
-      RenderUtil.putRotatedQuad(renderer, flowing, 0.375, 0.46875, 0.375, 0.25, 0.25, oneOutput, color, brightness, true);
+      RenderUtil.putARotatedQuad(renderer, flowing, 0.375, 0.46875, 0.375, 0.25, 0.25, oneOutput, color, brightness, true);
     } else {
-      RenderUtil.putTexturedQuad(renderer, still, 0.375, 0.46875, 0.375, 0.25, 0, 0.25, EnumFacing.UP, color, brightness, false);
+      RenderUtil.putATexturedQuad(renderer, still, 0.375, 0.46875, 0.375, 0.25, 0, 0.25, EnumFacing.UP, color, brightness, false);
     }
 
     // downwards flow
@@ -140,18 +140,18 @@ public class ChannelRenderer extends FastTESR<TileChannel> {
 
         y1 = 0;
         h = 0.125;
-        RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.NORTH, color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.EAST,  color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.SOUTH, color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.WEST,  color, brightness, true);
+        RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.NORTH, color, brightness, true);
+        RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.EAST,  color, brightness, true);
+        RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.SOUTH, color, brightness, true);
+        RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.WEST,  color, brightness, true);
 
         if(yMin < 0) {
           y1 = yMin;
           h = -yMin;
-          RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.NORTH, color, brightness, true);
-          RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.EAST,  color, brightness, true);
-          RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.SOUTH, color, brightness, true);
-          RenderUtil.putTexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.WEST,  color, brightness, true);
+          RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.NORTH, color, brightness, true);
+          RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.EAST,  color, brightness, true);
+          RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.SOUTH, color, brightness, true);
+          RenderUtil.putATexturedQuad(renderer, flowing, xz1, y1, xz1, wd, h, wd, EnumFacing.WEST,  color, brightness, true);
         }
 
       } else {
@@ -159,7 +159,10 @@ public class ChannelRenderer extends FastTESR<TileChannel> {
         h = 0;
       }
       // draw at current bottom
-      RenderUtil.putTexturedQuad(renderer, still, xz1, y1, xz1, wd, h, wd, EnumFacing.DOWN,  color, brightness, false);
+      RenderUtil.putATexturedQuad(renderer, still, xz1, y1, xz1, wd, h, wd, EnumFacing.DOWN,  color, brightness, false);
     }
+
+    // Reset
+    renderer.setTranslation(0.0D, 0.0D, 0.0D);
   }
 }

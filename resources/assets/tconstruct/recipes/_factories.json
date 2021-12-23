@@ -1,5 +1,6 @@
 {
     "recipes": {
+        "shaped_fallback": "slimeknights.tconstruct.library.ShapedFallbackRecipe$Factory",
         "table_recipe": "slimeknights.tconstruct.tools.common.TableRecipeFactory"
     },
     "conditions": {

@@ -1,0 +1,21 @@
+{
+  "modifier": "soulbound",
+  "text": [
+    {
+      "text": "Ett kärt par. Du älskar ditt verktyg. Inte ens döden kan skilja er åt."
+    }
+  ],
+  "effects": [
+    "Verktyget ligger kvar i din utrustning när du dör",
+    "Bara en nivå",
+    "Kräver INTE en modifierare"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "top": "tconstruct:blocks/smeltery/seared_tank_top",
+        "side": "tconstruct:blocks/smeltery/seared_tank_side",
+        "fluid": "blocks/water_still"    
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#top" },
+                "up":    { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#side" },
+                "east":  { "texture": "#side" }
+            }
+        },
+        {   "from": [ 3, 16, 3 ],
+            "to": [ 13, 17, 13 ],
+            "faces": {
+                "up":  { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#side" },
+                "east":  { "texture": "#side" }
+            }
+        },
+        {   "from": [ 0.08, 0.08, 0.08 ],
+            "to": [ 15.92, 4, 15.92 ],
+            "faces": {
+                "down":  { "texture": "#fluid", "tintindex": 0 },
+                "up":    { "texture": "#fluid", "tintindex": 0 },
+                "north": { "texture": "#fluid", "tintindex": 0 },
+                "south": { "texture": "#fluid", "tintindex": 0 },
+                "west":  { "texture": "#fluid", "tintindex": 0 },
+                "east":  { "texture": "#fluid", "tintindex": 0 }
+            }
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+  "title":"Den brända ugnen",
+  "image": {
+	"file": "tconstruct:textures/gui/book/seared_furnace.png"
+  },
+  "text": [
+    {
+      "text": "Den brända ugnen är ugnarnas mästare, som kan smälta en fjärdedels föremålsgrupp samtidigt och tillagar mat snabbare."
+    }
+  ]
+}

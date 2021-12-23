@@ -16,19 +16,15 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.worldgen.SlimeTreeGenerator;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class BlockSlimeSapling extends BlockSapling {
 
@@ -41,7 +37,6 @@ public class BlockSlimeSapling extends BlockSapling {
   }
 
   @Override
-  @SideOnly(Side.CLIENT)
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(FoliageType type : FoliageType.values()) {
       list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(FOLIAGE, type))));

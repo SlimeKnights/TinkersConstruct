@@ -10,11 +10,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -22,6 +17,9 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class LongSword extends SwordCore {
 
@@ -53,7 +51,7 @@ public class LongSword extends SwordCore {
   @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack) {
-    return EnumAction.NONE;
+    return EnumAction.BOW;
   }
 
   @Override
@@ -98,7 +96,9 @@ public class LongSword extends SwordCore {
     int time = this.getMaxItemUseDuration(stack) - timeLeft;
     if(time > 5) {
       if(player instanceof EntityPlayer) {
-        ((EntityPlayer) player).addExhaustion(0.2F);
+        EntityPlayer entityPlayer = ((EntityPlayer) player);
+        entityPlayer.addExhaustion(0.2F);
+        entityPlayer.getCooldownTracker().setCooldown(stack.getItem(), 3);
       }
       player.setSprinting(true);
 

@@ -1,0 +1,22 @@
+{
+  "title": "Reparera",
+  "text": [
+    {
+      "text": "När du använder dina verktyg kommer de ta skada. När all hållbarhet är borta kommer de gå sönder. :("
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "För att fixa det behöver du reparera ditt verktyg. Du behöver inte vänta tills det går sönder, du kan reparera det när som helst!"
+    },
+    {
+      "text": "Det är enkelt att reparera. Lägg verktyget i en verktygsstation eller -smedja och lägg till föremål som motsvarar verktygets huvud. Om verktygets huvud är gjord av flera delar kan du använda ett av dessa material. Om du reparerar med flera material samtidigt får du bonushållbarhet.",
+      "paragraph": true
+    },
+    {
+      "text": "Du kan även reparera dina verktyg när du är djupt ned under marken eller på äventyr långt borta från din bas.",
+      "paragraph": true
+    }
+  ]
+}

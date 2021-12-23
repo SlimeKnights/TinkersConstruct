@@ -4,14 +4,15 @@
     "data": "sections/intro_tmp.json",
     "icon": {
       "item": {
-        "id": "tconstruct:tooltables",
-        "damage": 0
+        "id": "tconstruct:edible",
+        "damage": 1
       }
     }
   },
   {
     "name": "tools",
     "data": "sections/tools.json",
+    "module": "TinkerTools",
     "icon": {
       "item": {
         "id": "minecraft:iron_pickaxe",
@@ -21,6 +22,7 @@
   },
   {
     "name": "materials",
+    "module": "TinkerTools",
     "icon": {
       "item": {
         "id": "minecraft:iron_ingot"
@@ -28,8 +30,18 @@
     }
   },
   {
+    "name": "bowmaterials",
+    "module": "TinkerRangedWeapons",
+    "icon": {
+      "item": {
+        "id": "minecraft:bow"
+      }
+    }
+  },
+  {
     "name": "modifiers",
     "data": "sections/modifiers.json",
+    "module": "TinkerTools",
     "icon": {
       "item": {
         "id": "minecraft:redstone"
@@ -39,6 +51,7 @@
   {
     "name": "smeltery",
     "data": "sections/smeltery.json",
+    "module": "TinkerSmeltery",
     "icon": {
       "item": {
         "id": "tconstruct:smeltery_controller"
@@ -48,6 +61,7 @@
   {
     "name": "seared_furnace",
     "data": "sections/seared_furnace.json",
+    "module": "TinkerSmeltery",
     "icon": {
       "item": {
         "id": "tconstruct:seared_furnace_controller"
@@ -57,17 +71,10 @@
   {
     "name": "tinker_tank",
     "data": "sections/tinker_tank.json",
+    "module": "TinkerSmeltery",
     "icon": {
       "item": {
         "id": "tconstruct:tinker_tank_controller"
-      }
-    }
-  },
-  {
-    "name": "bowmaterials",
-    "icon": {
-      "item": {
-        "id": "minecraft:bow"
       }
     }
   }

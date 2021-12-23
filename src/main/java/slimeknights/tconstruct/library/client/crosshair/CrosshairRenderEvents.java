@@ -10,7 +10,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
@@ -25,7 +24,7 @@ public final class CrosshairRenderEvents {
   private CrosshairRenderEvents() {}
 
   @SubscribeEvent
-  public void onCrosshairRender(RenderGameOverlayEvent event) {
+  public void onCrosshairRender(RenderGameOverlayEvent.Pre event) {
     if(event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
       return;
     }

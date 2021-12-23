@@ -1,0 +1,42 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "top": "tconstruct:blocks/smeltery/seared_tank_top",
+    "side": "tconstruct:blocks/smeltery/seared_tank_side"
+  },
+  "elements": [
+    { "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#top" },
+        "up":    { "texture": "#top" },
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side" },
+        "east":  { "texture": "#side" }
+      }
+    },
+    { "from": [ 3, 16, 3 ],
+      "to": [ 13, 17, 13 ],
+      "faces": {
+        "up":  { "texture": "#top" },
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side" },
+        "east":  { "texture": "#side" }
+      }
+    }
+  ],
+  "overrides": [
+      { "predicate": { "amount": 0.0000 }, "model": "tconstruct:block/tank/tank" },
+      { "predicate": { "amount": 0.0001 }, "model": "tconstruct:block/tank/tank/0" },
+      { "predicate": { "amount": 0.0625 }, "model": "tconstruct:block/tank/tank/1" },
+      { "predicate": { "amount": 0.1875 }, "model": "tconstruct:block/tank/tank/2" },
+      { "predicate": { "amount": 0.3125 }, "model": "tconstruct:block/tank/tank/3" },
+      { "predicate": { "amount": 0.4375 }, "model": "tconstruct:block/tank/tank/4" },
+      { "predicate": { "amount": 0.5625 }, "model": "tconstruct:block/tank/tank/5" },
+      { "predicate": { "amount": 0.6875 }, "model": "tconstruct:block/tank/tank/6" },
+      { "predicate": { "amount": 0.8125 }, "model": "tconstruct:block/tank/tank/7" },
+      { "predicate": { "amount": 0.9375 }, "model": "tconstruct:block/tank/tank/8" }
+  ]
+}

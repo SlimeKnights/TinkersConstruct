@@ -1,0 +1,21 @@
+{
+  "modifier": "mending_moss",
+  "text": [
+    {
+      "text": "Lite mossa har vuxit på ditt verktygs slitna kanter. När den förtrollas med lite erfarenhet slås den samman med verktyget som återställs gradvis."
+    }
+  ],
+  "effects": [
+    "Lagrar erfarenhet som plockas upp",
+    "Maximala lagringsmängden ökas med modifierarnivån",
+    "Reparerar långsamt verktyg med tiden",
+    "Repareras endast i föremålsmenyn eller sekundära handen",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

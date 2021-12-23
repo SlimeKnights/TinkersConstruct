@@ -1,0 +1,19 @@
+{
+  "tool": "kama",
+  "text": [
+    {
+      "text": "Kama är ett ensidigt skördeverktyg som klipper ned plantor och klipper djur."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Högerklicka för att skörda alla fullväxta grödor eller sockerrör i området och plantera om dem på nytt."
+    }
+  ],
+  "properties": [
+    "Skörda grödor med högerklick",
+    "Klipper block och djur",
+    "Effektiv på plantor"
+  ]
+}

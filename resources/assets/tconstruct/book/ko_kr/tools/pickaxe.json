@@ -2,13 +2,13 @@
   "tool": "pickaxe",
   "text": [
     {
-      "text": "곡괭이는 암석, 광석 블록들을 파괴하는데 효과적인 도구입니다."
+      "text": "§l곡괭이§r는 암석, 광석 블록들을 파괴하는 데 효과적인 도구입니다."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It breaks blocks, OK?"
+      "text": "말 그대로 블록을 파괴하는 도구입니다."
     }
   ],
   "properties": [

@@ -1,0 +1,20 @@
+{
+  "tool": "longbow",
+  "text": [
+    {
+      "text": "Långbågen är det perfekta vapnet för att döda på distans. Det avfyras långsamt, men träffar hårt."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Perfekt när man vill dra nytta av sin positionsfördel, du behöver bara se till att träffa."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Använder Tinkers pilar",
+    "Långsam men träffar hårt",
+    "Kan använda vanliga pilar, men är mindre effektiva"
+  ]
+}

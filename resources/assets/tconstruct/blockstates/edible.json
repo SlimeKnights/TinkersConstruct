@@ -11,6 +11,7 @@
         "slimeball_purple": [{ "textures": { "layer0": "tconstruct:items/materials/slimeball_purple" }}],
         "slimeball_blood":  [{ "textures": { "layer0": "tconstruct:items/materials/slimeball_blood" }}],
         "slimeball_magma":  [{ "textures": { "layer0": "tconstruct:items/materials/slimeball_magma" }}],
+        "slimeball_pink":   [{ "textures": { "layer0": "tconstruct:items/materials/slimeball_pink" }}],
 		
         "jerky_beef":    [{ "textures": { "layer0": "tconstruct:items/food/jerky_beef" }}],
         "jerky_chicken": [{ "textures": { "layer0": "tconstruct:items/food/jerky_chicken" }}],

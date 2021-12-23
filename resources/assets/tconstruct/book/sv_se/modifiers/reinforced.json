@@ -1,0 +1,19 @@
+{
+  "modifier": "reinforced",
+  "text": [
+    {
+      "text": "När en förstärkningsplatta läggs till på ett verktyg verkar den hjälpa till att förbättra dess hållbarhet och göra det starkare."
+    }
+  ],
+  "effects": [
+    "Lägger till en chans att inte konsumera hållbarhet",
+    "Grupperas med föregående förstärkningsnivåer",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

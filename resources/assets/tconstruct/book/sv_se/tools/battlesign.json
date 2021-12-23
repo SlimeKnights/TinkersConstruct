@@ -1,0 +1,20 @@
+{
+  "tool": "battlesign",
+  "text": [
+    {
+      "text": "Stridsskylten är ett steg framåt i vapenteknologin. Det är ett defensivt vapen som även fungerar som en sköld."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "När den används för att blockera reduceras skada, reflekterar lite skada och reflekterar alla projektiler."
+    }
+  ],
+  "properties": [
+    "Defensivt vapen",
+    "Låg skada",
+    "Kan användas som sköld",
+    "Projektiler reflekteras vid blockering"
+  ]
+}

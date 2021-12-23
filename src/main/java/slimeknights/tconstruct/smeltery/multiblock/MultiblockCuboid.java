@@ -38,6 +38,11 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     int masterY = center.getY();
     center = getOuterPos(world, center, EnumFacing.DOWN, 64).up();
 
+    // below lowest internal position
+    if (!hasFrame && masterY < center.getY()) {
+      return null;
+    }
+
     // distances to the edges including the outer blocks
     int edges[] = new int[4];
     // order: south/west/north/east

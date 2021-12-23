@@ -12,8 +12,8 @@ tile.tconstruct.tooltables.partchest.name=部品チェスト
 tile.tconstruct.tooltables.partchest.tooltip=大量の部品を格納できる
 tile.tconstruct.toolforge.name=道具鍛冶台
 
-tile.tconstruct.soil.grout.name=モルタル
-tile.tconstruct.soil.grout.tooltip=私がモルタルだ！
+tile.tconstruct.soil.grout.name=グラウト
+tile.tconstruct.soil.grout.tooltip=私がグラウトだ！
 tile.tconstruct.soil.slimy_mud_green.name=緑色のべとつく泥
 tile.tconstruct.soil.slimy_mud_green.tooltip=移動速度が落ちるが、ジャンプ力が上がる
 tile.tconstruct.soil.slimy_mud_blue.name=青色のべとつく泥
@@ -37,15 +37,15 @@ tile.tconstruct.metal.cobalt.name=コバルトブロック
 tile.tconstruct.metal.ardite.name=アーダイトブロック
 tile.tconstruct.metal.manyullyn.name=マニュリンブロック
 tile.tconstruct.metal.knightslime.name=ナイトスライムブロック
-tile.tconstruct.metal.pigiron.name=豚鉄ブロック
-tile.tconstruct.metal.alubrass.name=アルミ黄銅ブロック
+tile.tconstruct.metal.pigiron.name=ブタ鉄ブロック
+tile.tconstruct.metal.alubrass.name=アルミブラスブロック
 tile.tconstruct.metal.silky_jewel.name=シルキージュエルブロック
 
-tile.tconstruct.firewood.lavawood.name=ラーヴァウッド
+tile.tconstruct.firewood.lavawood.name=ラヴァウッド
 tile.tconstruct.firewood.firewood.name=ファイアウッド
-tile.tconstruct.firewood_slab.lavawood.name=ラーヴァウッドのハーフブロック
+tile.tconstruct.firewood_slab.lavawood.name=ラヴァウッドのハーフブロック
 tile.tconstruct.firewood_slab.firewood.name=ファイアウッドのハーフブロック
-tile.tconstruct.lavawood_stairs.name=ラーヴァウッドの階段
+tile.tconstruct.lavawood_stairs.name=ラヴァウッドの階段
 tile.tconstruct.firewood_stairs.name=ファイアウッドの階段
 
 tile.tconstruct.clear_glass.name=クリアガラス
@@ -126,7 +126,7 @@ tile.tconstruct.seared.brick_small.name=焼成レンガ(小)
 tile.tconstruct.seared.road.name=焼成石(道)
 tile.tconstruct.seared.tile.name=焼成石(タイル)
 tile.tconstruct.seared.creeper.name=焼成石(クリーパー)
-tile.tconstruct.seared.tooltip=乾式製錬炉の部品\n装飾にも使用可能
+tile.tconstruct.seared.tooltip=溶解炉の部品\n装飾にも使用可能
 
 tile.tconstruct.seared_slab.stone.name=焼成石のハーフブロック
 tile.tconstruct.seared_slab.cobble.name=焼成丸石のハーフブロック
@@ -154,23 +154,23 @@ tile.tconstruct.seared_stairs_road.name=焼成レンガ(道)の階段
 tile.tconstruct.seared_stairs_tile.name=焼成レンガ(タイル)の階段
 tile.tconstruct.seared_stairs_creeper.name=焼成レンガ(クリーパー)の階段
 
-tile.tconstruct.smeltery_controller.name=製錬炉制御器
-tile.tconstruct.smeltery_controller.tooltip=乾式製錬炉の頭脳
-tile.tconstruct.smeltery_io.drain.name=製錬炉排液口
-tile.tconstruct.smeltery_io.drain.tooltip=乾式製錬炉から液体を出し入れする口
+tile.tconstruct.smeltery_controller.name=溶解炉コントローラー
+tile.tconstruct.smeltery_controller.tooltip=溶解炉の頭脳
+tile.tconstruct.smeltery_io.drain.name=溶解炉排液口
+tile.tconstruct.smeltery_io.drain.tooltip=溶解炉から液体を出し入れする口
 tile.tconstruct.casting.table.name=鋳造台
 tile.tconstruct.casting.basin.name=鋳造鉢
-tile.tconstruct.casting.tooltip=乾式製錬炉から溶融金属を出してアイテム化する
+tile.tconstruct.casting.tooltip=溶解炉から溶けた金属を出してアイテム化する
 tile.tconstruct.faucet.name=水栓
-tile.tconstruct.faucet.tooltip=乾式製錬炉から液体を流し出す
+tile.tconstruct.faucet.tooltip=溶解炉から液体を流し出す
 tile.tconstruct.channel.name=鋳造樋
 tile.tconstruct.channel.tooltip=水栓から液体を流すパイプ
 tile.tconstruct.seared_tank.tank.name=焼成タンク
 tile.tconstruct.seared_tank.gauge.name=焼成ゲージ
 tile.tconstruct.seared_tank.window.name=焼成ウィンドウ
-tile.tconstruct.seared_tank.tooltip=乾式製錬炉の心臓部\nブロック化しても中の液体を保持する
+tile.tconstruct.seared_tank.tooltip=溶解炉の心臓部\nブロック化しても中の液体を保持する
 tile.tconstruct.seared_glass.glass.name=焼成ガラス
-tile.tconstruct.seared_glass.glass.tooltip=乾式製錬炉の一部として使える\n装飾にも使える\n液体は保持しない
+tile.tconstruct.seared_glass.glass.tooltip=溶解炉の一部として使える\n装飾にも使える\n液体は保持しない
 
 tile.tconstruct.seared_furnace_controller.name=焼成かまど制御器
 tile.tconstruct.tinker_tank_controller.name=ティンカータンク制御器
@@ -255,8 +255,8 @@ item.tconstruct.edible.slimeball_blue.name=青色のスライムボール
 item.tconstruct.edible.slimeball_purple.name=紫色のスライムボール
 item.tconstruct.edible.slimeball_blood.name=凝固した血液
 item.tconstruct.edible.slimeball_magma.name=マグマスライムボール
-item.tconstruct.edible.jerky_beef.name=牛肉のジャーキー
-item.tconstruct.edible.jerky_chicken.name=鶏肉のジャーキー
+item.tconstruct.edible.jerky_beef.name=ビーフジャーキー
+item.tconstruct.edible.jerky_chicken.name=チキンジャーキー
 item.tconstruct.edible.jerky_pork.name=ベーコンのジャーキー
 item.tconstruct.edible.jerky_mutton.name=羊肉のジャーキー
 item.tconstruct.edible.jerky_rabbit.name=ウサギ肉のジャーキー
@@ -304,16 +304,16 @@ item.tconstruct.ingots.ardite.name=アーダイトインゴット
 item.tconstruct.ingots.manyullyn.name=マニュリンインゴット
 item.tconstruct.ingots.knightslime.name=ナイトスライムインゴット
 item.tconstruct.ingots.knightslime.tooltip=べとべとするがメタリックな石?\n何だかわからないがすごい！
-item.tconstruct.ingots.pigiron.name=豚鉄インゴット
-item.tconstruct.ingots.pigiron.tooltip=ブヒ！
-item.tconstruct.ingots.alubrass.name=アルミ黄銅インゴット
+item.tconstruct.ingots.pigiron.name=ブタ鉄インゴット
+item.tconstruct.ingots.pigiron.tooltip=ブーブー！
+item.tconstruct.ingots.alubrass.name=アルミブラスインゴット
 
 item.tconstruct.nuggets.cobalt.name=コバルト塊
 item.tconstruct.nuggets.ardite.name=アーダイト塊
 item.tconstruct.nuggets.manyullyn.name=マニュリン塊
 item.tconstruct.nuggets.knightslime.name=ナイトスライム塊
-item.tconstruct.nuggets.pigiron.name=豚鉄塊
-item.tconstruct.nuggets.alubrass.name=アルミ黄銅塊
+item.tconstruct.nuggets.pigiron.name=ブタ鉄塊
+item.tconstruct.nuggets.alubrass.name=アルミブラス塊
 
 item.tconstruct.pattern.blank=空白の木型
 item.tconstruct.pattern.name=%sの木型
@@ -424,7 +424,7 @@ item.tconstruct.piggybackpack.tooltip=右クリックでMobを背負う
 item.tconstruct.stone_stick.name=石の棒
 
 item.tconstruct.fancy_frame.jewel.name=ファンシーな額縁
-item.tconstruct.fancy_frame.alubrass.name=アルミ黄銅の額縁
+item.tconstruct.fancy_frame.alubrass.name=アルミブラスの額縁
 item.tconstruct.fancy_frame.cobalt.name=コバルトの額縁
 item.tconstruct.fancy_frame.ardite.name=アーダイトの額縁
 item.tconstruct.fancy_frame.manyullyn.name=マニュリンの額縁
@@ -464,41 +464,41 @@ item.tconstruct.spaghetti.cold.tooltip=だいぶ良くなったが、まだま�
 #   Entities    #
 #################
 
-entity.tconstruct.blueslime.name=青スライム
+entity.tconstruct.blueslime.name=ブルースライム
 
 #################
 #    Liquids    #
 #################
 
-fluid.tconstruct.stone.name=溶融石
-fluid.tconstruct.obsidian.name=溶融黒曜石
-fluid.tconstruct.clay.name=溶融粘土
-fluid.tconstruct.dirt.name=液体土
-fluid.tconstruct.iron.name=溶融鉄
-fluid.tconstruct.gold.name=溶融金
-fluid.tconstruct.pigiron.name=溶融豚鉄
-fluid.tconstruct.cobalt.name=溶融コバルト
-fluid.tconstruct.ardite.name=溶融アーダイト
-fluid.tconstruct.manyullyn.name=溶融マニュリン
-fluid.tconstruct.knightslime.name=溶融ナイトスライム
-fluid.tconstruct.emerald.name=溶融エメラルド
-fluid.tconstruct.glass.name=溶融ガラス
+fluid.tconstruct.stone.name=溶けた石
+fluid.tconstruct.obsidian.name=溶けた黒曜石
+fluid.tconstruct.clay.name=溶けた粘土
+fluid.tconstruct.dirt.name=液体の土
+fluid.tconstruct.iron.name=溶けた鉄
+fluid.tconstruct.gold.name=溶けた金
+fluid.tconstruct.pigiron.name=溶けたブタ鉄
+fluid.tconstruct.cobalt.name=溶けたコバルト
+fluid.tconstruct.ardite.name=溶けたアーダイト
+fluid.tconstruct.manyullyn.name=溶けたマニュリン
+fluid.tconstruct.knightslime.name=溶けたナイトスライム
+fluid.tconstruct.emerald.name=溶けたエメラルド
+fluid.tconstruct.glass.name=溶けたガラス
 fluid.tconstruct.blood.name=血液
 fluid.tconstruct.milk.name=ミルク
 fluid.tconstruct.blueslime.name=液体青スライム
 fluid.tconstruct.purpleslime.name=液体紫スライム
-fluid.tconstruct.brass.name=溶融黄銅
-fluid.tconstruct.copper.name=溶融銅
-fluid.tconstruct.tin.name=溶融錫
-fluid.tconstruct.bronze.name=溶融青銅
-fluid.tconstruct.zinc.name=溶融亜鉛
-fluid.tconstruct.lead.name=溶融鉛
-fluid.tconstruct.nickel.name=溶融ニッケル
-fluid.tconstruct.silver.name=溶融銀
-fluid.tconstruct.electrum.name=溶融エレクトラム
-fluid.tconstruct.steel.name=溶融鋼鉄
-fluid.tconstruct.aluminum.name=溶融アルミニウム
-fluid.tconstruct.alubrass.name=溶融アルミ黄銅
+fluid.tconstruct.brass.name=溶けた黄銅
+fluid.tconstruct.copper.name=溶けた銅
+fluid.tconstruct.tin.name=溶けた錫
+fluid.tconstruct.bronze.name=溶けた青銅
+fluid.tconstruct.zinc.name=溶けた亜鉛
+fluid.tconstruct.lead.name=溶けた鉛
+fluid.tconstruct.nickel.name=溶けたニッケル
+fluid.tconstruct.silver.name=溶けた銀
+fluid.tconstruct.electrum.name=溶けたエレクトラム
+fluid.tconstruct.steel.name=溶けた鋼鉄
+fluid.tconstruct.aluminum.name=溶けたアルミニウム
+fluid.tconstruct.alubrass.name=溶けたアルミブラス
 
 #################
 #    Potions    #
@@ -894,7 +894,7 @@ ui.mininglevel.obsidian=黒曜石
 ui.mininglevel.cobalt=コバルト
 
 # Death messages
-death.attack.smeltery=%sは溶融プレイヤーを作ろうとした
+death.attack.smeltery=%sは溶けたプレイヤーを作ろうとした
 death.attack.splinter=%sは破片を捕まえた。強烈だった
 death.attack.bleed=%1$sは%2$sからの攻撃で出血して死んだ
 death.attack.bleed.item=%1$sは%2$sの%3$sによる攻撃で出血して死んだ
@@ -975,10 +975,10 @@ gui.castchest.name=鋳型チェスト
 gui.partchest.name=部品チェスト
 
 # Smeltery
-gui.smeltery.name=乾式精錬炉
+gui.smeltery.name=溶解炉
 gui.smeltery.progress.no_recipe=このアイテムは溶かせません
 gui.smeltery.progress.no_heat=このアイテムを溶かすために必要な温度に達していません
-gui.smeltery.progress.no_space=乾式製錬炉の容量に空きが足りません
+gui.smeltery.progress.no_space=溶解炉の容量に空きが足りません
 gui.smeltery.fuel=燃料
 gui.smeltery.fuel.empty=燃料がありません
 gui.smeltery.fuel.invalid=§4%sは乾式製錬炉の燃料ではありません！
@@ -1008,7 +1008,7 @@ gui.itemrack.name=アイテムラック
 gui.dryingrack.name=乾燥ラック
 
 # JEI Plugin
-gui.jei.smelting.title=乾式製錬炉
+gui.jei.smelting.title=溶解炉
 gui.jei.alloy.title=合金
 gui.jei.casting.title=鋳造
 gui.jei.casting.consume=素材を消費します！

@@ -5,7 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
@@ -28,7 +27,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       // this adds a variant of each material to the creative menu
       for(Material mat : TinkerRegistry.getAllMaterials()) {
         subItems.add(getItemstackWithMaterial(mat));
-        if(!Config.listAllMaterials) {
+        if(!Config.listAllPartMaterials) {
           break;
         }
       }

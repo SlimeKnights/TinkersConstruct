@@ -1,0 +1,11 @@
+{
+  "title":"Tinkertanken",
+  "image": {
+	"file": "tconstruct:textures/gui/book/tinker_tank.png"
+  },
+  "text": [
+    {
+      "text": "Tinkertanken är en enorm tank som håller mycket mer vätska än ett smältverk, men utan hetta kan man varken göra legeringar eller smälta."
+    }
+  ]
+}

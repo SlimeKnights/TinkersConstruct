@@ -1,0 +1,21 @@
+{
+  "tool": "scythe",
+  "text": [
+    {
+      "text": "Lien är ett mångsidigt skördeverktyg. Det är effektivt på plantor och attackerar fiender i ett brett område."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Högerklicka för att skörda alla fullväxta grödor eller sockerrör i området och plantera om dem på nytt."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Områdesattack",
+    "Skördar områden på 3x3",
+    "Effektiv på grödor och plantor",
+    "Högerklick: Skördar och planterar inom ett område"
+  ]
+}

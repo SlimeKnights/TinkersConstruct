@@ -24,10 +24,23 @@ public class AlloyRecipe {
   public AlloyRecipe(FluidStack result, FluidStack... input) {
     this.result = result;
 
+    if(result == null || result.getFluid() == null) {
+      throw new TinkerAPIException("Invalid Alloy recipe: No result for alloy present");
+    }
+    if(input == null || input.length < 2) {
+      throw new TinkerAPIException("Invalid Alloy recipe: Less than 2 fluids to alloy");
+    }
+
     ImmutableList.Builder<FluidStack> builder = ImmutableList.builder();
     for(FluidStack liquid : input) {
+      if(liquid == null) {
+        throw new TinkerAPIException("Invalid Alloy recipe: Input cannot be null");
+      }
       if(liquid.amount < 1) {
         throw new TinkerAPIException("Invalid Alloy recipe: Fluid amount can't be less than 1");
+      }
+      if(liquid.containsFluid(result)) {
+        throw new TinkerAPIException("Invalid Alloy recipe: Result cannot be contained in inputs");
       }
       builder.add(liquid);
     }
@@ -68,5 +81,13 @@ public class AlloyRecipe {
 
   public FluidStack getResult() {
     return result;
+  }
+
+  public boolean isValid() {
+    return result != null && result.getFluid() != null && fluids.size() >= 2 && fluids.stream().allMatch(this::validFluid);
+  }
+
+  private boolean validFluid(FluidStack fluid) {
+    return fluid != null && fluid.getFluid() != null && fluid.amount > 0;
   }
 }

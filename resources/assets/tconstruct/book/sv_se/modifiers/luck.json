@@ -1,0 +1,25 @@
+{
+  "modifier": "luck",
+  "text": [
+    {
+      "text": "Verktyg som täcks med lapis är en gåva till fru Fortuna. Hon välsignar ditt verktyg med stor lycka och plundring."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Måste placeras på projektilen för avståndsvapen."
+    }
+  ],
+  "effects": [
+    "Lägger till tur och plundring",
+    "Har en chans att öka turen när verktyget används",
+    "När mer lapis läggs till används bara en modifierare",
+    "Inte kompatibel med silkesvante"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

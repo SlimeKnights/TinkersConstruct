@@ -2,7 +2,6 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -11,17 +10,15 @@ import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 import org.apache.logging.log4j.Logger;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.RecipeUtil;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public final class Config {
 
@@ -47,6 +44,8 @@ public final class Config {
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
   public static double oreToIngotRatio = 2;
+  public static boolean matchVanillaSlimeblock = false;
+  public static boolean limitPiggybackpack = false;
   private static String[] craftingStationBlacklistArray = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };
@@ -60,6 +59,14 @@ public final class Config {
       "ic2"
   };
   public static Set<String> craftingStationBlacklist = Collections.emptySet();
+  public static String[] oredictMeltingIgnore = {
+          "dustRedstone",
+          "plankWood",
+          "stickWood",
+          "stickTreatedWood",
+          "string",
+          "minecraft:chest:0"
+  };
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -78,9 +85,12 @@ public final class Config {
   public static boolean renderInventoryNullLayer = true;
   public static boolean extraTooltips = true;
   public static boolean listAllTables = true;
-  public static boolean listAllMaterials = true;
+  public static boolean listAllToolMaterials = true;
+  public static boolean listAllPartMaterials = true;
   public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
   public static boolean dumpTextureMap = false; // requires debug module
+  public static boolean testIMC = false; // requires debug module
+  public static boolean temperatureCelsius = true;
 
   /* Config File */
 
@@ -201,6 +211,17 @@ public final class Config {
       prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
+      prop = configFile.get(cat, "matchVanillaSlimeblock", matchVanillaSlimeblock);
+      prop.setComment("If true, requires slimeballs in the vanilla slimeblock recipe to match in color, otherwise gives a pink slimeblock");
+      matchVanillaSlimeblock = prop.getBoolean();
+      prop.setRequiresMcRestart(true);
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "limitPiggybackpack", limitPiggybackpack);
+      prop.setComment("If true, piggybackpacks can only pick up players and mobs that can be leashed in vanilla. If false any mob can be picked up.");
+      limitPiggybackpack = prop.getBoolean();
+      propOrder.add(prop.getName());
+
       prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklistArray);
       prop.setComment("Blacklist of registry names or TE classnames for the crafting station to connect to. Mainly for compatibility.");
       craftingStationBlacklistArray = prop.getStringList();
@@ -211,6 +232,16 @@ public final class Config {
       prop.setComment("Preferred mod ID for oredictionary outputs. Top most mod ID will be the preferred output ID, and if none is found the first output stack is used.");
       orePreference = prop.getStringList();
       RecipeUtil.setOrePreferences(orePreference);
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "oredictMeltingIgnore", oredictMeltingIgnore);
+      prop.setComment("List of items to ignore when generating melting recipes from the crafting registry. For example, ignoring sticks allows metal pickaxes to melt down.\nFormat: oreName or modid:item[:meta]. If meta is unset, uses wildcard");
+      oredictMeltingIgnore = prop.getStringList();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "testIMC", testIMC);
+      prop.setComment("REQUIRES DEBUG MODULE. Tests all IMC integrations with dummy recipes. May significantly impact gameplay, so its advised you disable this outside of dev environements.");
+      testIMC = prop.getBoolean();
       propOrder.add(prop.getName());
     }
     // Worldgen
@@ -246,7 +277,7 @@ public final class Config {
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "slimeIslandsOnlyGenerateInSurfaceWorlds", slimeIslandsOnlyGenerateInSurfaceWorlds);
-      prop.setComment("If true, slime islands wont generate in dimensions which aren't of type surface. This means they wont generate in modded cave dimensions like the deep dark.");
+      prop.setComment("If false, slime islands only generate in dimensions which are of type surface. This means they won't generate in modded cave dimensions like the Deep Dark. Note that the name of this property is inverted: It must be set to false to prevent slime islands from generating in non-surface dimensions.");
       slimeIslandsOnlyGenerateInSurfaceWorlds = prop.getBoolean();
       propOrder.add(prop.getName());
 
@@ -301,10 +332,22 @@ public final class Config {
       listAllTables = prop.getBoolean();
       propOrder.add(prop.getName());
 
-      prop = configFile.get(cat, "listAllMaterials", listAllMaterials);
-      prop.setComment("If true all material variants of the different parts, tools,... will be listed in creative. Set to false to only have the first found material for all items (usually wood).");
-      listAllMaterials = prop.getBoolean();
+      configFile.renameProperty(cat, "listAllMaterials", "listAllToolMaterials");
+      prop = configFile.get(cat, "listAllToolMaterials", listAllToolMaterials);
+      prop.setComment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).");
+      listAllToolMaterials = prop.getBoolean();
       propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "listAllPartMaterials", listAllToolMaterials); // property was split, so defailt to the value of tool materials
+      prop.setComment("If true all material variants of the different parts will be listed in creative. Set to false to only have the first found material for all parts (usually wood).");
+      listAllPartMaterials = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "temperatureCelsius", temperatureCelsius);
+      prop.setComment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for devs");
+      temperatureCelsius = prop.getBoolean();
+      propOrder.add(prop.getName());
+      Util.setTemperaturePref(temperatureCelsius);
 
       prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
       prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");

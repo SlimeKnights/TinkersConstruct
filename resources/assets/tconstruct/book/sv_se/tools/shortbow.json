@@ -1,0 +1,19 @@
+{
+  "tool": "shortbow",
+  "text": [
+    {
+      "text": "Kortbågen är ett snabbt och smidigt alternativ för strider på avstånd. Det avfyrar snabbare än den vanliga varianten och gör det möjligt att röra sig snabbare på bekostnad av mindre skada."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Om du vill förvandla dina fiender till nåldynor är kortbågen någonting för dig."
+    }
+  ],
+  "properties": [
+    "Snabb och smidig",
+    "Använder Tinkers pilar",
+    "Kan använda vanliga pilar, men de är mindre effektiva"
+  ]
+}

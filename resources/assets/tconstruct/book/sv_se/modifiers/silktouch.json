@@ -1,0 +1,20 @@
+
+{
+  "modifier": "silktouch",
+  "text": [
+    {
+      "text": "När en stor guldklump och en trådbunt läggs på verktyget verkar det få silkeslena egenskaper."
+    },
+    { "text": "\n" },
+    { "text": "Jag kan inte fatta att det inte är smör!" }
+  ],
+  "effects": [
+    "Gör det möjligt att skörda block direkt",
+    "Inte kompatibel med tur eller autosmältning",
+    "Bara en nivå"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

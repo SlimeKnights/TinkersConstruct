@@ -1,40 +1,44 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "transform": "forge:default-block",
-        "model": "slime"
-    },
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "slime"
+  },
 	"variants": {
-        "type=green": {
-            "model": "slime",
-            "textures": {
-                "particle": "minecraft:blocks/slime",
-                "texture": "minecraft:blocks/slime"
-            }
-        },
-        "type=blue": {
-            "model": "slime",
-            "textures": {
-                "particle": "tconstruct:blocks/slime/slime_blue",
-                "texture": "tconstruct:blocks/slime/slime_blue"
-            }
-        },
-        "type=purple": {
-            "model": "slime",
-            "textures": {
-                "particle": "tconstruct:blocks/slime/slime_purple",
-                "texture": "tconstruct:blocks/slime/slime_purple"
-            }
-        },
-        "type=blood": {
-            "model": "slime",
-            "textures": {
-                "particle": "tconstruct:blocks/slime/slime_blood",
-                "texture": "tconstruct:blocks/slime/slime_blood"
-            }
-        },
-        "type=magma": {
-            "model": "tconstruct:slime_magma"
+    "type": {
+      "green": {
+        "textures": {
+          "particle": "minecraft:blocks/slime",
+          "texture": "minecraft:blocks/slime"
         }
+      },
+      "blue": {
+        "textures": {
+          "particle": "tconstruct:blocks/slime/slime_blue",
+          "texture": "tconstruct:blocks/slime/slime_blue"
+        }
+      },
+      "purple": {
+        "textures": {
+          "particle": "tconstruct:blocks/slime/slime_purple",
+          "texture": "tconstruct:blocks/slime/slime_purple"
+        }
+      },
+      "blood": {
+        "textures": {
+          "particle": "tconstruct:blocks/slime/slime_blood",
+          "texture": "tconstruct:blocks/slime/slime_blood"
+        }
+      },
+      "pink": {
+        "textures": {
+          "particle": "tconstruct:blocks/slime/slime_pink",
+          "texture": "tconstruct:blocks/slime/slime_pink"
+        }
+      },
+      "magma": {
+        "model": "tconstruct:slime_magma"
+      }
     }
+  }
 }

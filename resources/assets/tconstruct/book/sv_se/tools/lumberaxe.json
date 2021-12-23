@@ -1,0 +1,21 @@
+{
+  "tool": "lumberaxe",
+  "text": [
+    {
+      "text": "Skogshuggaryxan är ett mångsidigt huggverktyg. Det kan fälla hela träd i ett svep eller samla in trä i ett brett område."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Ett träd kan endast identifieras om det har löv längst upp."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Avancerat grävverktyg",
+    "Fäller ett helt träd i ett svep",
+    "Gräver områden på 3x3x3",
+    "Effektiv på trä"
+  ]
+}

@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.library.fluid;
 
-import net.minecraft.tileentity.TileEntity;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 
-public class FluidTankAnimated extends FluidTankBase<TileEntity> {
+public class FluidTankAnimated extends FluidTankBase<MantleTileEntity> {
 
   public float renderOffset;
 
-  public FluidTankAnimated(int capacity, TileEntity parent) {
+  public FluidTankAnimated(int capacity, MantleTileEntity parent) {
     super(capacity, parent);
   }
 

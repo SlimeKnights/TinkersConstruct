@@ -1,0 +1,13 @@
+{
+  "title":"Skörda med sekundär hand",
+  "text": [
+    {
+      "text": "Tinkers verktyg låter dig skörda block med både din primära och sekundära hand. För att göra det lägger du helt enkelt ett verktyg som kan skörda block i din sekundära hand och ett annat verktyg i din primära. När du bryter ett block kommer det effektiva verktyget automatiskt användas, så det är bara att bryta blocken som vanligt."
+    }
+  ],
+  "image": {
+    "file": "tconstruct:textures/gui/book/offhand.png",
+    "width": 150,
+    "height": 75
+  }
+}

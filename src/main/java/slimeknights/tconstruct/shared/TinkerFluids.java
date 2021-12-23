@@ -182,7 +182,7 @@ public class TinkerFluids extends TinkerPulse {
 
       // blood for the blood god
       blood = fluidClassic("blood", 0x540000);
-      blood.setTemperature(420);
+      blood.setTemperature(336);
       registerClassicBlock(registry, blood);
     }
 

@@ -1,0 +1,15 @@
+{
+  "tool": "shuriken",
+  "text": [
+    {
+      "text": "Kaststjärnan är ett snabbt kastvapen som kan kastas omedelbart. De kan även kastas med den sekundära handen och gör det möjligt att kontrollera p.g.a. dess höga hastighet."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Snabbt dödligt vapen",
+    "Dödlig",
+    "Ninjaaktig",
+    "Kan kastas från den sekundära handen"
+  ]
+}

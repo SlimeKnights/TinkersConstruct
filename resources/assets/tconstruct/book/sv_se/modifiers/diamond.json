@@ -1,0 +1,21 @@
+{
+  "modifier": "diamond",
+  "text": [
+    {
+      "text": "När en diamant läggs till på kanten av ditt verktyg blir det mer elastisk och ökar vad verktyget kan bryta. Det blir även lite trendigare."
+    }
+  ],
+  "effects": [
+    "Extra hållbarhet",
+    "Smärre ökade värden",
+    "Brytningsnivån ökas med ett, upp till obsidian",
+    "Bara en nivå",
+    "Sagolikt!"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

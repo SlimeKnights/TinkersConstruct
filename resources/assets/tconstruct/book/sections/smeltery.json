@@ -13,8 +13,5 @@
     "name": "structure",
     "type": "structure",
     "data": "smeltery/multiblock.json"
-  },
-  {
-    "type": "blank"
   }
 ]

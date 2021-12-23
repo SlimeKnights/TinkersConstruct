@@ -1,0 +1,19 @@
+{
+  "tool": "longsword",
+  "text": [
+    {
+      "text": "Långsvärdet är ett offensivt vapen. Det används ofta när man ska kasta sig in i strider i full hastighet. Det är långsammare än bredsvärdet men är bättre på att utdela skada."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Håll ned högerklick för att ladda upp ett framåthopp."
+    }
+  ],
+  "properties": [
+    "Skadan är lite bättre än medelmåttligt, men långsammare",
+    "Högerklick: Hoppa framåt",
+    "Inte i sekundära handen"
+  ]
+}

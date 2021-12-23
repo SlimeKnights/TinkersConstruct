@@ -1,0 +1,21 @@
+{
+  "tool": "frypan",
+  "text": [
+    {
+      "text": "Stekpannan är ett tungt vapen som använder ren vikt för att hejda fiender. Den har knuff som standard när den tillverkas."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "När högerklick hålls ned laddas ett kraftfullt slag upp, så kraftfull att den utdelar bonusskada, knuffar tillbaka fiender längre bort och tillagar alla föremål som de tappar."
+    }
+  ],
+  "properties": [
+    "Medelmåttig skada",
+    "Har knuff från början",
+    "Högerklick: Uppladdat slag",
+    "Uppladdade slag tillagar mat som fiender tappar",
+    "Inte i sekundär hand"
+  ]
+}

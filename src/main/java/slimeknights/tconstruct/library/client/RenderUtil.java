@@ -66,12 +66,12 @@ public final class RenderUtil {
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
     // x/y/z2 - x/y/z1 is because we need the width/height/depth
-    putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, false, upsideDown);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true, upsideDown);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true, upsideDown);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, true, upsideDown);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true, upsideDown);
-    putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, false, upsideDown);
+    putATexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, false, upsideDown);
+    putATexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true, upsideDown);
+    putATexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true, upsideDown);
+    putATexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, true, upsideDown);
+    putATexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true, upsideDown);
+    putATexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, false, upsideDown);
 
     tessellator.draw();
 
@@ -159,12 +159,12 @@ public final class RenderUtil {
           double z1 = zs[z];
           double z2 = zs[z + 1] - z1;
 
-          if(x == 0) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.WEST, color, brightness, true, upsideDown);
-          if(x == xd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.EAST, color, brightness, true, upsideDown);
-          if(y == 0) putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.DOWN, color, brightness, false, upsideDown);
-          if(y == yd) putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.UP, color, brightness, false, upsideDown);
-          if(z == 0) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.NORTH, color, brightness, true, upsideDown);
-          if(z == zd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.SOUTH, color, brightness, true, upsideDown);
+          if(x == 0) putATexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.WEST, color, brightness, true, upsideDown);
+          if(x == xd) putATexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.EAST, color, brightness, true, upsideDown);
+          if(y == 0) putATexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.DOWN, color, brightness, false, upsideDown);
+          if(y == yd) putATexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.UP, color, brightness, false, upsideDown);
+          if(z == 0) putATexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.NORTH, color, brightness, true, upsideDown);
+          if(z == zd) putATexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.SOUTH, color, brightness, true, upsideDown);
         }
       }
     }
@@ -185,21 +185,21 @@ public final class RenderUtil {
                                        int color, int brightness) {
     boolean flowing = false;
     TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(location.toString());
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, flowing);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, flowing);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, flowing);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, flowing);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, flowing);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, flowing);
+    putATexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, flowing);
+    putATexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, flowing);
+    putATexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, flowing);
+    putATexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, flowing);
+    putATexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, flowing);
+    putATexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, flowing);
   }
 
-  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int color, int brightness, boolean flowing) {
-    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, color, brightness, flowing, false);
+  public static void putATexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                      int color, int brightness, boolean flowing) {
+    putATexturedQuad(renderer, sprite, x, y, z, w, h, d, face, color, brightness, flowing, false);
   }
 
-  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int color, int brightness, boolean flowing, boolean flipHorizontally) {
+  public static void putATexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                      int color, int brightness, boolean flowing, boolean flipHorizontally) {
     int l1 = brightness >> 0x10 & 0xFFFF;
     int l2 = brightness & 0xFFFF;
 
@@ -208,17 +208,17 @@ public final class RenderUtil {
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, l1, l2, flowing, flipHorizontally);
+    putATexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, l1, l2, flowing, flipHorizontally);
   }
 
-  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
-    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, light1, light2, flowing, false);
+  public static void putATexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                      int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+    putATexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, light1, light2, flowing, false);
   }
 
   // x and x+w has to be within [0,1], same for y/h and z/d
-  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int r, int g, int b, int a, int light1, int light2, boolean flowing, boolean flipHorizontally) {
+  public static void putATexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                      int r, int g, int b, int a, int light1, int light2, boolean flowing, boolean flipHorizontally) {
     // safety
     if(sprite == null) {
       return;
@@ -335,8 +335,8 @@ public final class RenderUtil {
   /**
    * Similar to putTexturedQuad, except its only for upwards quads and a rotation is specified
    */
-  public static void putRotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
-      int color, int brightness, boolean flowing) {
+  public static void putARotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
+                                     int color, int brightness, boolean flowing) {
     int l1 = brightness >> 0x10 & 0xFFFF;
     int l2 = brightness & 0xFFFF;
 
@@ -345,14 +345,14 @@ public final class RenderUtil {
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    putRotatedQuad(renderer, sprite, x, y, z, w, d, rotation, r, g, b, a, l1, l2, flowing);
+    putARotatedQuad(renderer, sprite, x, y, z, w, d, rotation, r, g, b, a, l1, l2, flowing);
   }
 
   /**
    * Similar to putTexturedQuad, except its only for upwards quads and a rotation is specified
    */
-  public static void putRotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
-      int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+  public static void putARotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
+                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
     // safety
     if(sprite == null) {
       return;
@@ -488,5 +488,24 @@ public final class RenderUtil {
 
   public static int blue(int c) {
     return (c) & 0xFF;
+  }
+
+  /*
+   * VANILLA FIX ANTI-HACK SECTION
+   * Basically vanillafix changes the method content, which causes crashes.
+   * So we renamed the methods since the author is MIA for many months now.
+   * These methods are only here to let vanillafix think their hacks still work, since the game wont start otherwise.
+   */
+
+  @Deprecated
+  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                      int r, int g, int b, int a, int light1, int light2, boolean flowing, boolean flipHorizontally) {
+
+  }
+
+  @Deprecated
+  public static void putRotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
+                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+
   }
 }

@@ -1,0 +1,21 @@
+{
+  "tool": "cleaver",
+  "text": [
+    {
+      "text": "Köttyxan är ett tungt offensivt vapen. Den utdelar kraftfulla slag, men är svår att bära."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Varje dödande slag har en chans att halshugga fienden. Av med huvudet!"
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Offensivt vapen",
+    "Mycket skada, men långsam",
+    "Avhuggande II",
+    "Tvåhandsvapen, kan inte bäras i den sekundära handen"
+  ]
+}

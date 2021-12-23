@@ -11,14 +11,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -30,6 +22,12 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BoltCore extends ToolPart {
 
@@ -46,7 +44,7 @@ public class BoltCore extends ToolPart {
         // check if the material makes sense for this item (is it usable to build stuff?)
         if(canUseMaterial(mat) && mat.hasStats(MaterialTypes.SHAFT)) {
           subItems.add(getItemstackWithMaterials(mat, TinkerMaterials.iron));
-          if(!Config.listAllMaterials) {
+          if(!Config.listAllToolMaterials) {
             break;
           }
         }

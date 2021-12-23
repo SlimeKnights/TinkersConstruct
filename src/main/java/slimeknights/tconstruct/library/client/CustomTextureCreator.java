@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.item.Item;
@@ -16,11 +17,13 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -244,14 +247,21 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   }
 
   public static boolean exists(String res) {
+    List<IResource> resources = null;
     try {
       ResourceLocation loc = new ResourceLocation(res);
       loc = new ResourceLocation(loc.getResourceDomain(), "textures/" + loc.getResourcePath() + ".png");
-      Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
-      return true;
+      resources = Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
     } catch(IOException e) {
       return false;
+    } finally {
+      if (resources != null) {
+        for(IResource resource : resources) {
+          IOUtils.closeQuietly(resource);
+        }
+      }
     }
+    return true;
   }
 
   @Override

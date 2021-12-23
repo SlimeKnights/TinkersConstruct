@@ -1,20 +1,13 @@
 package slimeknights.tconstruct.tools.tools;
 
 import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
-
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -23,6 +16,8 @@ import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import java.util.List;
 
 public class Hatchet extends AoeToolCore {
 
@@ -94,28 +89,12 @@ public class Hatchet extends AoeToolCore {
       TinkerTools.proxy.spawnAttackParticle(Particles.HATCHET_ATTACK, player, 0.8d);
     }
 
-    // vanilla axe shieldbreak attack. See EntityPlayer#attackTargetEntityWithCurrentItem()
-    if(hit && !ToolHelper.isBroken(stack) && !player.getEntityWorld().isRemote && entity instanceof EntityPlayer) {
-      EntityPlayer entityplayer = (EntityPlayer) entity;
-      ItemStack itemstack2 = player.getHeldItemMainhand();
-      ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
-
-      // todo: possibly check for itemUseAction instead of is shield?
-      if(itemstack2.getItem() == this && itemstack3.getItem() == Items.SHIELD) {
-        float f3 = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(player) * 0.05F;
-
-        if(player.isSprinting()) {
-          f3 += 0.75F;
-        }
-
-        if(player.getRNG().nextFloat() < f3) {
-          entityplayer.getCooldownTracker().setCooldown(Items.SHIELD, 100);
-          player.getEntityWorld().setEntityState(entityplayer, (byte) 30);
-        }
-      }
-    }
-
     return hit;
+  }
+
+  @Override
+  public boolean canDisableShield(ItemStack stack, ItemStack shield, EntityLivingBase entity, EntityLivingBase attacker) {
+    return true;
   }
 
   @Override

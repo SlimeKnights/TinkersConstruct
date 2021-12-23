@@ -13,11 +13,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.item.ItemTooltip;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.Sounds;
@@ -26,6 +21,8 @@ import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
+
+import javax.annotation.Nonnull;
 
 public class ItemSlimeSling extends ItemTooltip {
 
@@ -113,10 +110,9 @@ public class ItemSlimeSling extends ItemTooltip {
   }
 
   @Override
-  @SideOnly(Side.CLIENT)
   public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
     if(this.isInCreativeTab(tab)) {
-      for(SlimeType type : SlimeType.values()) {
+      for(SlimeType type : SlimeType.VISIBLE_COLORS) {
         subItems.add(new ItemStack(this, 1, type.getMeta()));
       }
     }

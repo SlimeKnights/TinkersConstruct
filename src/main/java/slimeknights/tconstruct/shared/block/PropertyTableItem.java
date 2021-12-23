@@ -94,12 +94,17 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
       if(Float.compare(tableItem.r, r) != 0) {
         return false;
       }
-      return stack != null ? stack.equals(tableItem.stack) : tableItem.stack == null;
+      return stack != null ? ItemStack.areItemStacksEqual(stack, tableItem.stack) : tableItem.stack == null;
     }
 
     @Override
     public int hashCode() {
-      int result = stack != null ? stack.hashCode() : 0;
+      int result = 0;
+      if(stack != null) {
+        result = stack.getItem().hashCode();
+        result = 31 * result + (stack.getCount());
+        result = 31 * result + (stack.getTagCompound() != null ? stack.getTagCompound().hashCode() : 0);
+      }
       result = 31 * result + (x != +0.0f ? Float.floatToIntBits(x) : 0);
       result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
       result = 31 * result + (z != +0.0f ? Float.floatToIntBits(z) : 0);
