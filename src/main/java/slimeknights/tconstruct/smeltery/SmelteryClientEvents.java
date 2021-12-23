@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
+import slimeknights.tconstruct.smeltery.client.CopperCanModel;
 import slimeknights.tconstruct.smeltery.client.SingleItemScreenFactory;
 import slimeknights.tconstruct.smeltery.client.inventory.AlloyerScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
@@ -104,5 +105,6 @@ public class SmelteryClientEvents extends ClientEventBase {
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("melter"), MelterModel.LOADER);
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("channel"), ChannelModel.LOADER);
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("fluid_texture"), FluidTextureModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("copper_can"), CopperCanModel.LOADER);
   }
 }
