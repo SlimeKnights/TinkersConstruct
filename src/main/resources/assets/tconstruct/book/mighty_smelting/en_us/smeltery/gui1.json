@@ -1,0 +1,14 @@
+{
+  "title": "Smeltery GUI",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "Your basic smeltery GUI. No more, no less.",
+      "paragraph": true
+    }
+	]
+}

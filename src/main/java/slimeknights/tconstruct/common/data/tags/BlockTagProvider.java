@@ -10,12 +10,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
-import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
@@ -23,19 +22,18 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockTagProvider extends BlockTagsProvider {
 
   public BlockTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
-    super(generatorIn, TConstruct.modID, existingFileHelper);
+    super(generatorIn, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override
   protected void registerTags() {
     this.addCommon();
-    this.addGadgets();
     this.addTools();
     this.addWorld();
     this.addSmeltery();
@@ -44,21 +42,20 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   private void addCommon() {
     // ores
-    addMetalTags(TinkerMaterials.copper);
-    addMetalTags(TinkerMaterials.cobalt);
+    addMetalTags(TinkerMaterials.copper, false);
+    addMetalTags(TinkerMaterials.cobalt, true);
     // tier 3
-    addMetalTags(TinkerMaterials.slimesteel);
-    addMetalTags(TinkerMaterials.tinkersBronze);
-    addMetalTags(TinkerMaterials.roseGold);
-    addMetalTags(TinkerMaterials.pigIron);
+    addMetalTags(TinkerMaterials.slimesteel, false);
+    addMetalTags(TinkerMaterials.tinkersBronze, false);
+    addMetalTags(TinkerMaterials.roseGold, false);
+    addMetalTags(TinkerMaterials.pigIron, false);
     // tier 4
-    addMetalTags(TinkerMaterials.queensSlime);
-    addMetalTags(TinkerMaterials.manyullyn);
-    addMetalTags(TinkerMaterials.hepatizon);
-    addMetalTags(TinkerMaterials.soulsteel);
+    addMetalTags(TinkerMaterials.queensSlime, true);
+    addMetalTags(TinkerMaterials.manyullyn, true);
+    addMetalTags(TinkerMaterials.hepatizon, true);
+    addMetalTags(TinkerMaterials.soulsteel, true);
     // tier 5
-    addMetalTags(TinkerMaterials.knightslime);
-    this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).add(TinkerModifiers.silkyJewelBlock.get());
+    addMetalTags(TinkerMaterials.knightslime, false);
 
     // glass
     this.getOrCreateBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
@@ -90,6 +87,11 @@ public class BlockTagProvider extends BlockTagsProvider {
         builder.addOptionalTag(new ResourceLocation("forge", "storage_blocks/" + compat.getName()));
       }
     }
+
+    // allow using wood variants to make tables
+    this.getOrCreateBuilder(TinkerTags.Blocks.PLANKLIKE)
+        .addTag(BlockTags.PLANKS)
+        .add(TinkerCommons.lavawood.get(), TinkerCommons.blazewood.get(), TinkerMaterials.nahuatl.get());
   }
 
   private void addTools() {
@@ -99,10 +101,6 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
     this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
-
-    this.getOrCreateBuilder(BlockTags.GUARDED_BY_PIGLINS)
-        .add(TinkerModifiers.silkyJewelBlock.get())
-        .addTag(TinkerMaterials.roseGold.getBlockTag());
 
     // can harvest crops and sugar cane
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_STACKABLE)
@@ -120,53 +118,83 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.HARVESTABLE_STACKABLE);
     // just logs for lumber axe, but modpack makers can add more
     this.getOrCreateBuilder(TinkerTags.Blocks.TREE_LOGS).addTag(BlockTags.LOGS);
+    // blocks that drop gold and should drop more gold
+    this.getOrCreateBuilder(TinkerTags.Blocks.CHRYSOPHILITE_ORES).addTag(Tags.Blocks.ORES_GOLD).add(Blocks.GILDED_BLACKSTONE);
   }
 
 
   private void addWorld() {
+    // ores
+    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
+    this.getOrCreateBuilder(Tags.Blocks.ORES)
+        .addTag(TinkerTags.Blocks.ORES_COBALT)
+        .addTag(TinkerTags.Blocks.ORES_COPPER);
+
+    // allow the enderman to hold more blocks
+    TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
+    endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get(), TinkerSmeltery.netherGrout.get());
+
+    // wood
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS)
+        .addTag(TinkerWorld.greenheart.getLogBlockTag())
+        .addTag(TinkerWorld.skyroot.getLogBlockTag())
+        .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_PLANKS).add(TinkerWorld.greenheart.get(), TinkerWorld.skyroot.get(), TinkerWorld.bloodshroom.get());
+    this.getOrCreateBuilder(BlockTags.PLANKS).addTag(TinkerTags.Blocks.SLIMY_PLANKS);
+    this.getOrCreateBuilder(BlockTags.LOGS).addTag(TinkerTags.Blocks.SLIMY_LOGS);
+    this.addWoodTags(TinkerWorld.greenheart, true);
+    this.addWoodTags(TinkerWorld.skyroot, true);
+    this.addWoodTags(TinkerWorld.bloodshroom, false);
+
+    // slime blocks
     TagsProvider.Builder<Block> slimeBlockBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIME_BLOCK);
     TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
-    TagsProvider.Builder<Block> logBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS);
-    logBuilder.addTag(TinkerWorld.greenheart.getLogBlockTag())
-              .addTag(TinkerWorld.skyroot.getLogBlockTag())
-              .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
     for (SlimeType type : SlimeType.values()) {
       slimeBlockBuilder.add(TinkerWorld.slime.get(type));
-      Block congealed = TinkerWorld.congealedSlime.get(type);
-      congealedBuilder.add(congealed);
-      logBuilder.add(congealed); // for old worlds
+      congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
     }
+    // old world compat, make congealed support leaves
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_TREE_TRUNKS).addTag(TinkerTags.Blocks.SLIMY_LOGS).addTag(TinkerTags.Blocks.CONGEALED_SLIME);
 
+    // foliage
     TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
+    TagsProvider.Builder<Block> wartBuilder = this.getOrCreateBuilder(BlockTags.WART_BLOCKS);
     TagsProvider.Builder<Block> saplingBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);
     for (SlimeType type : SlimeType.values()) {
-      leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
-      saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
+      if (type.isNether()) {
+        wartBuilder.add(TinkerWorld.slimeLeaves.get(type));
+        endermanHoldable.add(TinkerWorld.slimeSapling.get(type));
+      } else {
+        leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
+        saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
+      }
     }
     this.getOrCreateBuilder(BlockTags.LEAVES).addTag(TinkerTags.Blocks.SLIMY_LEAVES);
     this.getOrCreateBuilder(BlockTags.SAPLINGS).addTag(TinkerTags.Blocks.SLIMY_SAPLINGS);
 
-    this.getOrCreateBuilder(Tags.Blocks.ORES)
-        .addTag(TinkerTags.Blocks.ORES_COBALT)
-        .addTag(TinkerTags.Blocks.ORES_COPPER);
-    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
     Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
-    TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach(slimyGrass::addItemEntry));
+    Builder<Block> slimyNylium = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_NYLIUM);
+    Builder<Block> slimySoil = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SOIL);
+    for (SlimeType type : SlimeType.values()) {
+      (type.isNether() ? slimyNylium : slimyGrass).addTag(type.getGrassBlockTag());
+      slimySoil.addTag(type.getDirtBlockTag());
+    }
+    TinkerWorld.slimeGrass.forEach((dirtType, blockObj) -> blockObj.forEach((grassType, block) -> {
+      this.getOrCreateBuilder(grassType.getGrassBlockTag()).add(block);
+      this.getOrCreateBuilder(dirtType.getDirtBlockTag()).add(block);
+    }));
+    TinkerWorld.slimeDirt.forEach((type, block) -> this.getOrCreateBuilder(type.getDirtBlockTag()).add(block));
+    endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
 
-    // allow the enderman to hold more blocks
-    TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
-    endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get());
-    TinkerWorld.slimeDirt.forEach(endermanHoldable::addItemEntry);
-    TinkerWorld.slimeGrass.forEach((key, type) -> type.forEach(endermanHoldable::addItemEntry));
-
-    addWoodTags(TinkerWorld.greenheart, true);
-    addWoodTags(TinkerWorld.skyroot, true);
-    addWoodTags(TinkerWorld.bloodshroom, false);
-  }
-
-  private void addGadgets() {
-    this.getOrCreateBuilder(BlockTags.RAILS).add(TinkerGadgets.woodenRail.get(), TinkerGadgets.woodenDropperRail.get());
+    this.getOrCreateBuilder(BlockTags.GUARDED_BY_PIGLINS)
+        .add(TinkerTables.castChest.get(),
+             // piglins do not appreciate you touching their corpses
+             TinkerWorld.heads.get(TinkerHeadType.PIGLIN), TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE),
+             TinkerWorld.wallHeads.get(TinkerHeadType.PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.PIGLIN_BRUTE));
+    // piglins are not a fan of zombie piglin corpses though
+    this.getOrCreateBuilder(BlockTags.PIGLIN_REPELLENTS)
+        .add(TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.ZOMBIFIED_PIGLIN));
   }
 
   private void addSmeltery() {
@@ -187,7 +215,11 @@ public class BlockTagProvider extends BlockTagsProvider {
       TinkerSmeltery.scorchedBricks.get(),
       TinkerSmeltery.scorchedRoad.get(),
       TinkerSmeltery.chiseledScorchedBricks.get());
-    this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence());
+    this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence(), TinkerMaterials.nahuatl.getFence());
+
+    this.getOrCreateBuilder(TinkerTags.Blocks.CISTERN_CONNECTIONS)
+        // cannot add channels as it requires a block state property to properly detect, look into a way to fix this later
+        .add(TinkerSmeltery.searedFaucet.get(), TinkerSmeltery.scorchedFaucet.get());
 
     // tanks
     Builder<Block> searedTankBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_TANKS);
@@ -197,6 +229,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // structure tags
     // melter supports the heater as a tank
+    this.getOrCreateBuilder(TinkerTags.Blocks.HEATER_CONTROLLERS)
+        .add(TinkerSmeltery.searedMelter.get(), TinkerSmeltery.scorchedAlloyer.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.FUEL_TANKS)
         .add(TinkerSmeltery.searedHeater.get())
         .addTag(TinkerTags.Blocks.SEARED_TANKS)
@@ -244,10 +278,11 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // climb seared ladder
     this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get(), TinkerSmeltery.scorchedLadder.get());
+    this.getOrCreateBuilder(BlockTags.DRAGON_IMMUNE).add(TinkerCommons.obsidianPane.get());
   }
 
   private void addFluids() {
-    this.getOrCreateBuilder(BlockTags.STRIDER_WARM_BLOCKS).add(TinkerFluids.magmaCream.getBlock(), TinkerFluids.moltenBlaze.getBlock());
+    this.getOrCreateBuilder(BlockTags.STRIDER_WARM_BLOCKS).add(TinkerFluids.magma.getBlock(), TinkerFluids.blazingBlood.getBlock());
   }
 
   @Override
@@ -259,9 +294,11 @@ public class BlockTagProvider extends BlockTagsProvider {
    * Adds relevant tags for a metal object
    * @param metal  Metal object
    */
-  private void addMetalTags(MetalItemObject metal) {
+  private void addMetalTags(MetalItemObject metal, boolean beacon) {
     this.getOrCreateBuilder(metal.getBlockTag()).add(metal.get());
-    this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).addTag(metal.getBlockTag());
+    if (beacon) {
+      this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).addTag(metal.getBlockTag());
+    }
     this.getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(metal.getBlockTag());
   }
 
@@ -275,13 +312,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Adds all tags relevant to the given wood object */
   private void addWoodTags(WoodBlockObject object, boolean doesBurn) {
-    // planks
-    this.getOrCreateBuilder(BlockTags.PLANKS).add(object.get());
+    // planks, handled by slimy planks tag
+    //this.getOrCreateBuilder(BlockTags.PLANKS).add(object.get());
     this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(object.getSlab());
     this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(object.getStairs());
     // logs
     this.getOrCreateBuilder(object.getLogBlockTag()).add(object.getLog(), object.getStrippedLog(), object.getWood(), object.getStrippedWood());
-    this.getOrCreateBuilder(doesBurn ? BlockTags.LOGS_THAT_BURN : BlockTags.LOGS).addTag(object.getLogBlockTag());
+
     // doors
     this.getOrCreateBuilder(BlockTags.WOODEN_FENCES).add(object.getFence());
     this.getOrCreateBuilder(Tags.Blocks.FENCES_WOODEN).add(object.getFence());
@@ -293,12 +330,19 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(BlockTags.WOODEN_BUTTONS).add(object.getButton());
     this.getOrCreateBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(object.getPressurePlate());
 
-    if (!doesBurn) {
+    if (doesBurn) {
+      // regular logs is handled by slimy logs tag
+      this.getOrCreateBuilder(BlockTags.LOGS_THAT_BURN).addTag(object.getLogBlockTag());
+    } else {
       this.getOrCreateBuilder(BlockTags.NON_FLAMMABLE_WOOD)
           .add(object.get(), object.getSlab(), object.getStairs(),
                object.getFence(), object.getFenceGate(), object.getDoor(), object.getTrapdoor(),
                object.getPressurePlate(), object.getButton())
           .addTag(object.getLogBlockTag());
     }
+
+    // signs
+    this.getOrCreateBuilder(BlockTags.STANDING_SIGNS).add(object.getSign());
+    this.getOrCreateBuilder(BlockTags.WALL_SIGNS).add(object.getWallSign());
   }
 }

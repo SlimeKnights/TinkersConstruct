@@ -1,0 +1,42 @@
+[
+  {
+    "name": "info",
+    "type": "text",
+    "data": "small_tools/info.json"
+  },
+  {
+    "name": "sword",
+    "type": "tool",
+    "data": "small_tools/sword.json"
+  },
+  {
+    "name": "dagger",
+    "type": "tool",
+    "data": "small_tools/dagger.json"
+  },
+  {
+    "name": "axe",
+    "type": "tool",
+    "data": "small_tools/hand_axe.json"
+  },
+  {
+    "name": "kama",
+    "type": "tool",
+    "data": "small_tools/kama.json"
+  },
+  {
+    "name": "mattock",
+    "type": "tool",
+    "data": "small_tools/mattock.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tool",
+    "data": "small_tools/pickaxe.json"
+  },
+  {
+    "name": "flint_and_bronze",
+    "type": "tool",
+    "data": "small_tools/flint_and_bronze.json"
+  }
+]

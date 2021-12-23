@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "So first you want to take their heads off, and now you want to put them back on? Who are you? Frankenstein?"
+    }
+  ],
+  "effects": [
+    "Adds an Upgrade Slot",
+    "Single Use"
+  ]
+}

@@ -2,8 +2,10 @@ package slimeknights.tconstruct.gadgets.item.slimesling;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -11,6 +13,7 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
@@ -22,7 +25,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (!(entityLiving instanceof PlayerEntity)) {
+    if (worldIn.isRemote || !(entityLiving instanceof PlayerEntity)) {
       return;
     }
 
@@ -50,7 +53,10 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
       player.getCooldownTracker().setCooldown(stack.getItem(), 3);
       target.applyKnockback(f , -look.x, -look.z);
-      playerServerMovement(target);
+      if (player instanceof ServerPlayerEntity) {
+        ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+        TinkerNetwork.getInstance().sendVanillaPacket(new SEntityVelocityPacket(player), playerMP);
+      }
       onSuccess(player, stack);
     } else {
       playMissSound(player);

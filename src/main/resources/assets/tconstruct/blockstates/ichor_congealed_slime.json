@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/congealed/ichor_slime"
+            "model": "tconstruct:block/slime/congealed/ichor"
         }
     }
 }

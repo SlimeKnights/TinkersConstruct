@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:pockets",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:shulker_shell",
+      "chance": 0.9
+    },
+    {
+      "tag": "forge:ingots/iron",
+      "chance": 0.7
+    },
+    {
+      "item": "minecraft:shulker_shell",
+      "chance": 0.9
+    },
+    {
+      "item": "minecraft:leather",
+      "chance": 0.4
+    },
+    {
+      "item": "minecraft:leather",
+      "chance": 0.4
+    }
+  ]
+}

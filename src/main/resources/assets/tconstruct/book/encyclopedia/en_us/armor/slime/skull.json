@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    { "text": "The slimeskull is a helmet that copies abilities from monsters. It is created from pouring enderslime on a mob head, with the head type determining the effects." },
+    { "text": "The slimeskull section of the book has more information on variants.", "paragraph": true }
+  ],
+  "properties": [
+    "+362 Bonus Durability",
+    "5 Upgrade Slots",
+    "0 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

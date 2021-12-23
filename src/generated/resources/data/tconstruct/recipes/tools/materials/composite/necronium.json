@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "input": "tconstruct:necrotic_bone",
+  "fluid": {
+    "tag": "forge:molten_uranium",
+    "amount": 144
+  },
+  "temperature": 830,
+  "output": "tconstruct:necronium"
+}

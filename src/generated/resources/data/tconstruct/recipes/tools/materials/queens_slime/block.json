@@ -5,5 +5,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:queens_slime"
+  "material": "tconstruct:queens_slime",
+  "leftover": {
+    "tag": "forge:ingots/queens_slime"
+  }
 }

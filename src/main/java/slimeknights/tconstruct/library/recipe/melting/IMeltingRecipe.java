@@ -5,7 +5,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -74,7 +74,7 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
    * @return  Time factor
    */
   static float calcTimeFactor(int amount) {
-    return (float)Math.sqrt(amount / (float)MaterialValues.INGOT);
+    return (float)Math.sqrt(amount / (float)FluidValues.INGOT);
   }
 
   /**

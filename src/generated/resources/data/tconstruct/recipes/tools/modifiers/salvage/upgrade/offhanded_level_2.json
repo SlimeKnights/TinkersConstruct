@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/held"
+  },
+  "modifier": "tconstruct:offhanded",
+  "min_level": 2,
+  "salvage": [
+    {
+      "item": "minecraft:leather",
+      "chance": 0.7
+    },
+    {
+      "item": "minecraft:netherite_scrap",
+      "chance": 0.35
+    }
+  ]
+}

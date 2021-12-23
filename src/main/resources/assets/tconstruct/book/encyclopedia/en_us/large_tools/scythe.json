@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    { "text": "The Scythe is a broad reaping tool, effective on plants or monsters in a 3x3x3 range." },
+    { "text": "Expanders alternate between width/height and depth, while silky grants AOE shearing.", "paragraph": true }
+  ],
+  "properties": [
+    "+1 Attack Damage",
+    "0.8 Attack Speed",
+    "45% Mining Modifier",
+    "250% Durability Modifier",
+    "AOE Attack",
+    "Tills dirt",
+    "Harvest plants"
+  ]
+}

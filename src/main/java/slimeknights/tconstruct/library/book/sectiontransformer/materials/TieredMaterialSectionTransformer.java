@@ -1,31 +1,41 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
-import net.minecraft.item.ItemStack;
+import com.google.common.collect.ImmutableSet;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.client.book.data.content.PageContent;
-import slimeknights.tconstruct.library.book.content.ContentMaterial;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import java.util.List;
+import java.util.Set;
 
+/** Material section transformer for a given tier and material set */
 @OnlyIn(Dist.CLIENT)
 public class TieredMaterialSectionTransformer extends AbstractMaterialSectionTransformer {
+  private static final Set<MaterialStatsId> VISIBLE_STATS = ImmutableSet.of(HeadMaterialStats.ID, HandleMaterialStats.ID, ExtraMaterialStats.ID);
 
   private final int materialTier;
-
-  public TieredMaterialSectionTransformer(String sectionName, int materialTier) {
-    super(sectionName);
+  public TieredMaterialSectionTransformer(String sectionName, int materialTier, boolean detailed) {
+    super(sectionName, detailed);
     this.materialTier = materialTier;
   }
 
   @Override
   protected boolean isValidMaterial(IMaterial material) {
-    return material.getTier() == this.materialTier;
-  }
-
-  @Override
-  protected PageContent getPageContent(IMaterial material, List<ItemStack> displayStacks) {
-    return new ContentMaterial(material, displayStacks);
+    if (material.getTier() != this.materialTier) {
+      return false;
+    }
+    // only show material stats for types with the proper stat types, as otherwise the page will be empty
+    // if you want to show another stat type, just override this method/implement the parent class
+    for (IMaterialStats stats : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
+      if (VISIBLE_STATS.contains(stats.getIdentifier())) {
+        return true;
+      }
+    }
+    return false;
   }
 }

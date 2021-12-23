@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "Fear me undead..."
+    },
+    {
+      "text": "For I wield the power of melons infused with gold! Perhaps golden melon armor would make them stay away from me.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Increases damage to the undead",
+    "Multiple levels, each level further increases damage",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

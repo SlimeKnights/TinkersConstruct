@@ -1,0 +1,8 @@
+{
+  "title": "Fantastic Foundry Crafting",
+  "recipe": "tconstruct:common/fantastic_foundry",
+  "grid_size": "small",
+  "description": [
+    { "text": "Hottest new technology in molten metals. Skip the smeltery, start with a foundry!" }
+  ]
+}

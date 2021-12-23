@@ -1,0 +1,9 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "tool":   "tconstruct:item/tool/armor/travelers/boots",
+    "broken": "tconstruct:item/tool/armor/travelers/boots_broken"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/boot_modifiers/" ]
+}

@@ -13,17 +13,18 @@ import net.minecraft.world.World;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -34,7 +35,7 @@ import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class ModifierRemovalRecipe implements ITinkerStationRecipe {
-  private static final ValidatedResult NO_MODIFIERS = ValidatedResult.failure(Util.makeTranslationKey("recipe", "remove_modifier.no_modifiers"));
+  private static final ValidatedResult NO_MODIFIERS = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "remove_modifier.no_modifiers"));
 
   @Getter
   private final ResourceLocation id;
@@ -49,13 +50,9 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     return IncrementalModifierRecipe.containsOnlyIngredient(inv, ingredient);
   }
 
-  @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
-    ToolStack tool = ToolStack.from(inv.getTinkerableStack());
-    List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
-    if (modifiers.isEmpty()) {
-      return NO_MODIFIERS;
-    }
+  /** Gets the modifier entry being removed */
+  @Nullable
+  private ModifierEntry getModifierToRemove(ITinkerStationInventory inv, List<ModifierEntry> modifiers) {
     // sums all filled slots for the removal index, should be able to reach any index, but requires 1 wet sponge for every 5
     int removeIndex = -1;
     for (int i = 0; i < inv.getInputCount(); i++) {
@@ -66,7 +63,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     }
     // shouldn't be possible, but better than a crash just in case
     if (removeIndex == -1) {
-      return ValidatedResult.PASS;
+      return null;
     }
     // we start at the most recent modifier, moving backwards
     if (removeIndex >= modifiers.size()) {
@@ -74,25 +71,46 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     } else {
       removeIndex = modifiers.size() - removeIndex - 1;
     }
-    // restore slots
-    tool = tool.copy();
-    Modifier toRemove = modifiers.get(removeIndex).getModifier();
-    int slots = ModifierRecipeLookup.getUpgradeSlots(toRemove);
-    // -1 means no upgrade recipe defined, so try abilities
-    if (slots > -1) {
-      tool.getPersistentData().addUpgrades(slots);
-    } else {
-      slots = ModifierRecipeLookup.getAbilitySlots(toRemove);
-      if (slots > 0) {
-        tool.getPersistentData().addAbilities(slots);
-      }
+    return modifiers.get(removeIndex);
+  }
+
+  @Override
+  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+    ItemStack toolStack = inv.getTinkerableStack();
+    ToolStack tool = ToolStack.from(toolStack);
+    List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
+    if (modifiers.isEmpty()) {
+      return NO_MODIFIERS;
     }
+
+    // find the modifier to remove
+    ModifierEntry toRemove = getModifierToRemove(inv, modifiers);
+    if (toRemove == null) {
+      return ValidatedResult.PASS;
+    }
+
+    // salvage
+    tool = tool.copy();
+    Modifier modifier = toRemove.getModifier();
+    AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, modifier, toRemove.getLevel());
+
+    // restore the slots
+    if (salvage != null) {
+      salvage.updateTool(tool);
+    }
+
+    // first remove hook, primarily for removing raw NBT which is highly discouraged using
+    int newLevel = tool.getModifierLevel(modifier) - 1;
+    if (newLevel <= 0) {
+      modifier.beforeRemoved(tool, tool.getRestrictedNBT());
+    }
+
     // remove the actual modifier
-    tool.removeModifier(toRemove, 1);
-    // if the modifier is incremental, clear progress on level
-    // means you don't pick up in the middle, or hinder previous levels
-    if (ModifierRecipeLookup.getNeededPerLevel(toRemove) > 0) {
-      tool.getPersistentData().remove(toRemove.getId());
+    tool.removeModifier(modifier, 1);
+
+    // second remove hook, useful for removing modifier specific state data
+    if (newLevel <= 0) {
+      modifier.onRemoved(tool);
     }
 
     // ensure the tool is still valid
@@ -100,16 +118,45 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     if (validated.hasError()) {
       return validated;
     }
+    // if this was the last level, validate the tool is still valid without it
+    if (newLevel <= 0) {
+      validated = modifier.validate(tool, 0);
+      if (validated.hasError()) {
+        return validated;
+      }
+    }
+
+    // check the modifier requirements
+    ItemStack resultStack = tool.createStack(); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
+    validated = ModifierRecipeLookup.checkRequirements(resultStack, tool);
+    if (validated.hasError()) {
+      return validated;
+    }
+    
     // successfully removed
-    return ValidatedResult.success(tool.createStack());
+    return ValidatedResult.success(resultStack);
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+    // return salvage items for modifier, using the original tool as that still has the modifier
+    if (isServer) {
+      ItemStack toolStack = inv.getTinkerableStack();
+      ToolStack tool = ToolStack.from(toolStack);
+      ModifierEntry toRemove = getModifierToRemove(inv, tool.getUpgrades().getModifiers());
+      if (toRemove != null) {
+        AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getModifier(), toRemove.getLevel());
+        if (salvage != null) {
+          salvage.acceptItems(tool, inv::giveItem, TConstruct.RANDOM);
+        }
+      }
+    }
+
+    // remove the input item, done second as we need its location for salvage
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
       if (!stack.isEmpty() && ingredient.test(stack)) {
-        inv.shrinkInput(i, 1, container);
+        inv.shrinkInput(i, 1, container.copy());
         break;
       }
     }

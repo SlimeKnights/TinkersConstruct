@@ -1,0 +1,230 @@
+{
+  "parent": "tconstruct:smeltery/gold_casting",
+  "display": {
+    "icon": {
+      "item": "tconstruct:hammer_head_cast"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.cast_collector.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.cast_collector.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "blank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:blank_cast"
+          }
+        ]
+      }
+    },
+    "ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:ingot_cast"
+          }
+        ]
+      }
+    },
+    "nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:nugget_cast"
+          }
+        ]
+      }
+    },
+    "gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:gem_cast"
+          }
+        ]
+      }
+    },
+    "rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:rod_cast"
+          }
+        ]
+      }
+    },
+    "repair_kit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:repair_kit_cast"
+          }
+        ]
+      }
+    },
+    "pickaxe_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:pickaxe_head_cast"
+          }
+        ]
+      }
+    },
+    "small_axe_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:small_axe_head_cast"
+          }
+        ]
+      }
+    },
+    "small_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:small_blade_cast"
+          }
+        ]
+      }
+    },
+    "hammer_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:hammer_head_cast"
+          }
+        ]
+      }
+    },
+    "broad_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:broad_blade_cast"
+          }
+        ]
+      }
+    },
+    "broad_axe_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:broad_axe_head_cast"
+          }
+        ]
+      }
+    },
+    "tool_binding": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:tool_binding_cast"
+          }
+        ]
+      }
+    },
+    "large_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:large_plate_cast"
+          }
+        ]
+      }
+    },
+    "tool_handle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:tool_handle_cast"
+          }
+        ]
+      }
+    },
+    "tough_handle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:tough_handle_cast"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "blank"
+    ],
+    [
+      "ingot"
+    ],
+    [
+      "nugget"
+    ],
+    [
+      "gem"
+    ],
+    [
+      "rod"
+    ],
+    [
+      "repair_kit"
+    ],
+    [
+      "pickaxe_head"
+    ],
+    [
+      "small_axe_head"
+    ],
+    [
+      "small_blade"
+    ],
+    [
+      "hammer_head"
+    ],
+    [
+      "broad_blade"
+    ],
+    [
+      "broad_axe_head"
+    ],
+    [
+      "tool_binding"
+    ],
+    [
+      "large_plate"
+    ],
+    [
+      "tool_handle"
+    ],
+    [
+      "tough_handle"
+    ]
+  ]
+}

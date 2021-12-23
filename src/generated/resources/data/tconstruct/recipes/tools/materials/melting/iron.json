@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:iron",
+  "temperature": 800,
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 144
+  }
+}

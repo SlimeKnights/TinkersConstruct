@@ -5,5 +5,6 @@
   },
   "value": 2,
   "needed": 1,
-  "material": "tconstruct:seared_stone"
+  "material": "tconstruct:seared_stone",
+  "leftover": "tconstruct:seared_brick"
 }

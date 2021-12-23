@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.BackgroundContainerScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
  */
 public class SingleItemScreenFactory implements IScreenFactory<SingleItemContainer,BackgroundContainerScreen<SingleItemContainer>> {
   private static final int HEIGHT = 133;
-  private static final ResourceLocation DEFAULT = Util.getResource("textures/gui/blank.png");
+  private static final ResourceLocation DEFAULT = TConstruct.getResource("textures/gui/blank.png");
 
   /**
    * Gets the background path for the given tile

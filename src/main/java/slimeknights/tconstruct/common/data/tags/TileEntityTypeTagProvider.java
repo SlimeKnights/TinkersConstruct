@@ -16,15 +16,15 @@ import java.nio.file.Path;
 
 public class TileEntityTypeTagProvider extends TagsProvider<TileEntityType<?>> {
   public TileEntityTypeTagProvider(DataGenerator generatorIn, @Nullable ExistingFileHelper existingFileHelper) {
-    super(generatorIn, Registry.BLOCK_ENTITY_TYPE, TConstruct.modID, existingFileHelper, "tile_entity_types");
+    super(generatorIn, Registry.BLOCK_ENTITY_TYPE, TConstruct.MOD_ID, existingFileHelper, "tile_entity_types");
   }
 
   @Override
   protected void registerTags() {
     this.getOrCreateBuilder(TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST)
         .add(TinkerTables.craftingStationTile.get(), TinkerTables.tinkerStationTile.get(), TinkerTables.partBuilderTile.get(),
-             TinkerTables.partChestTile.get(), TinkerTables.modifierChestTile.get(), TinkerTables.castChestTile.get(),
-             TinkerSmeltery.basin.get(), TinkerSmeltery.table.get(), TinkerSmeltery.smeltery.get());
+						 TinkerTables.partChestTile.get(), TinkerTables.tinkersChestTile.get(), TinkerTables.castChestTile.get(),
+						 TinkerSmeltery.basin.get(), TinkerSmeltery.table.get(), TinkerSmeltery.smeltery.get());
 
   }
 

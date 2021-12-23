@@ -5,6 +5,11 @@
     "data": "tools/sword.json"
   },
   {
+    "name": "dagger",
+    "type": "tool",
+    "data": "tools/dagger.json"
+  },
+  {
     "name": "axe",
     "type": "tool",
     "data": "tools/axe.json"
@@ -25,8 +30,13 @@
     "data": "tools/pickaxe.json"
   },
   {
-	"name": "repairing",
-    "type": "imageText2",
+    "name": "repairing",
+    "type": "image with text below",
     "data": "tools/repairing.json"
+  },
+  {
+    "name": "part_swapping",
+    "type": "image with text below",
+    "data": "tools/part_swapping.json"
   }
 ]

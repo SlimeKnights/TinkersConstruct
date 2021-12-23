@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:necronium",
+  "temperature": 830,
+  "result": {
+    "fluid": "tconstruct:molten_uranium",
+    "amount": 144
+  }
+}

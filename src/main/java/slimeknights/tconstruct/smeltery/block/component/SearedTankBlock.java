@@ -13,6 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,15 +21,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class SearedTankBlock extends SearedBlock {
+public class SearedTankBlock extends SearedBlock implements ITankBlock {
   @Getter
   private final int capacity;
   public SearedTankBlock(Properties properties, int capacity) {
@@ -93,12 +95,19 @@ public class SearedTankBlock extends SearedBlock {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
+  @Override
+  public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+    ItemStack stack = new ItemStack(this);
+    TileEntityHelper.getTile(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
+    return stack;
+  }
+
   @AllArgsConstructor
   public enum TankType implements IStringSerializable {
     FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
     FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
-    INGOT_TANK(MaterialValues.INGOT * 32),
-    INGOT_GAUGE(MaterialValues.INGOT * 32);
+    INGOT_TANK(FluidValues.INGOT * 32),
+    INGOT_GAUGE(FluidValues.INGOT * 32);
 
     @Getter
     private final int capacity;

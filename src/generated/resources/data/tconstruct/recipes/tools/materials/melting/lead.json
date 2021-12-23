@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:lead",
+  "temperature": 330,
+  "result": {
+    "fluid": "tconstruct:molten_lead",
+    "amount": 144
+  }
+}

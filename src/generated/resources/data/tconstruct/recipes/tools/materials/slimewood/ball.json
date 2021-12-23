@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "tag": "forge:slimeball/green"
-  },
-  "value": 1,
-  "needed": 1,
-  "material": "tconstruct:slimewood"
-}

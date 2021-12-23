@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "forge:rods"
+  },
+  "cast_consumed": true,
+  "switch_slots": true,
+  "fluid": {
+    "tag": "forge:molten_gold",
+    "amount": 144
+  },
+  "result": "tconstruct:rod_cast",
+  "cooling_time": 57
+}

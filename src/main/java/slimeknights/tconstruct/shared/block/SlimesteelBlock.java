@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
@@ -35,5 +37,10 @@ public class SlimesteelBlock extends Block {
         entity.setMotion(vector3d.x, -vector3d.y * d0, vector3d.z);
       }
     }
+  }
+
+  @Override
+  public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    return false;
   }
 }

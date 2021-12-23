@@ -82,7 +82,7 @@ public class DynInventoryScreen extends ModuleScreen {
 
     if (this.sliderActive) {
       this.slider.show();
-      max = this.slotCount / this.columns - this.rows + 1; // the assumption here is that for an active slider this always is >0
+      max = (this.slotCount - 1) / this.columns - this.rows + 1; // the assumption here is that for an active slider this always is >0
     } else {
       slider.hide();
     }
@@ -152,27 +152,31 @@ public class DynInventoryScreen extends ModuleScreen {
   // updates slot visibility
   public void updateSlots() {
     // calculate displayed slots
+    int oldFirstSlot = this.firstSlotId;
+    int oldLastSlot = this.lastSlotId;
     this.firstSlotId = this.slider.getValue() * this.columns;
     this.lastSlotId = Math.min(this.slotCount, this.firstSlotId + this.rows * this.columns);
+    if (oldFirstSlot != this.firstSlotId || oldLastSlot != this.lastSlotId) {
+      for (Slot slot : this.container.inventorySlots) {
+        if (this.shouldDrawSlot(slot)) {
+          // calc position of the slot
+          int offset = slot.getSlotIndex() - this.firstSlotId;
+          int x = (offset % this.columns) * DynInventoryScreen.slot.w;
+          int y = (offset / this.columns) * DynInventoryScreen.slot.h;
 
-    for (Slot slot : this.container.inventorySlots) {
-      if (this.shouldDrawSlot(slot)) {
-        // calc position of the slot
-        int offset = slot.getSlotIndex() - this.firstSlotId;
-        int x = (offset % this.columns) * DynInventoryScreen.slot.w;
-        int y = (offset / this.columns) * DynInventoryScreen.slot.h;
-
-        slot.xPos = xOffset + x + 1;
-        slot.yPos = yOffset + y + 1;
-      } else {
-        slot.xPos = 0;
-        slot.yPos = 0;
+          slot.xPos = xOffset + x + 1;
+          slot.yPos = yOffset + y + 1;
+        } else {
+          slot.xPos = 0;
+          slot.yPos = 0;
+        }
       }
     }
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    assert this.minecraft != null;
     this.minecraft.getTextureManager().bindTexture(GenericScreen.LOCATION);
     if (!this.slider.isHidden()) {
       this.slider.draw(matrices);

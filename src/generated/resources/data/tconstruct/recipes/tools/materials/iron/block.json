@@ -5,5 +5,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:iron"
+  "material": "tconstruct:iron",
+  "leftover": {
+    "tag": "forge:ingots/iron"
+  }
 }

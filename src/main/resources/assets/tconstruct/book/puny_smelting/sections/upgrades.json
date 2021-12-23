@@ -1,0 +1,177 @@
+[
+  {
+    "name": "group_general",
+    "type": "text",
+    "data": "upgrades/general.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/diamond.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/emerald.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/experienced.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/netherite.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/overforced.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/reinforced.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/soulbound.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/general/tank.json"
+  },
+
+  {
+    "name": "group_weapon",
+    "type": "text",
+    "data": "upgrades/weapon.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/fiery.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/knockback.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/necrotic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/padded.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/severing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/sticky.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/sweeping_edge.json"
+  },
+  {
+    "name": "group_damage"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/antiaquatic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/baneofsssss.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/cooling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/piercing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/sharpness.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/weapon/smite.json"
+  },
+
+  {
+    "name": "group_harvest",
+    "type": "text",
+    "data": "upgrades/harvest.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/blasting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/haste.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/hydraulic.json"
+  },
+   {
+    "type": "modifier",
+    "data": "upgrades/harvest/lightspeed.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/harvest/magnetic.json"
+  },
+  
+  {
+    "name": "group_armor",
+    "type": "text",
+    "data": "upgrades/armor.json"
+  },
+  {
+    "name": "feather_falling",
+    "type": "modifier",
+    "data": "upgrades/armor/feather_falling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/knockback.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/item_frame.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/leaping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/lightspeed.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/respiration.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/soulspeed.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/speedy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/springy.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/thorns.json"
+  }
+]

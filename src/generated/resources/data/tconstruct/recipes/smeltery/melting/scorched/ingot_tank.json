@@ -1,7 +1,9 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "item": "tconstruct:scorched_ingot_tank"
+    "type": "forge:nbt",
+    "item": "tconstruct:scorched_ingot_tank",
+    "count": 1
   },
   "result": {
     "fluid": "tconstruct:scorched_stone",
@@ -11,8 +13,8 @@
   "time": 125,
   "byproducts": [
     {
-      "fluid": "tconstruct:molten_glass",
-      "amount": 3000
+      "fluid": "tconstruct:molten_quartz",
+      "amount": 432
     }
   ]
 }

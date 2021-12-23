@@ -1,0 +1,46 @@
+{
+  "translation_key": "item.tconstruct.broad_axe",
+  "icon": {
+    "item": "tconstruct:broad_axe",
+    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"],tic_display:1b}"
+  },
+  "sortIndex": 12,
+  "input_slots": [
+    {
+      "icon": "tconstruct:broad_axe_head",
+      "translation_key": "item.tconstruct.broad_axe_head",
+      "x": 25,
+      "y": 20,
+      "filter": {
+        "item": "tconstruct:broad_axe_head"
+      }
+    },
+    {
+      "icon": "tconstruct:tough_handle",
+      "translation_key": "item.tconstruct.tough_handle",
+      "x": 21,
+      "y": 52,
+      "filter": {
+        "item": "tconstruct:tough_handle"
+      }
+    },
+    {
+      "icon": "tconstruct:pickaxe_head",
+      "translation_key": "item.tconstruct.pickaxe_head",
+      "x": 50,
+      "y": 48,
+      "filter": {
+        "item": "tconstruct:pickaxe_head"
+      }
+    },
+    {
+      "icon": "tconstruct:tool_binding",
+      "translation_key": "item.tconstruct.tool_binding",
+      "x": 44,
+      "y": 29,
+      "filter": {
+        "item": "tconstruct:tool_binding"
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_constantan",
+    "tag": "forge:molten_constantan",
     "amount": 1296
   },
   "result": {

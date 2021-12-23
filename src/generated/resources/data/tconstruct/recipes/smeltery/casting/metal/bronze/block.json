@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_bronze",
+    "tag": "forge:molten_bronze",
     "amount": 1296
   },
   "result": {

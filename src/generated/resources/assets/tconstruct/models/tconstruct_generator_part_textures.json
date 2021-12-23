@@ -1,0 +1,393 @@
+{
+  "replace": false,
+  "parts": [
+    {
+      "path": "tconstruct:parts/large_plate",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:parts/small_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:parts/tool_handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:parts/tough_handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:parts/tool_binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:parts/repair_kit",
+      "statType": "tconstruct:repair_kit"
+    },
+    {
+      "path": "tconstruct:pickaxe/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:pickaxe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:pickaxe/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:pickaxe/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sledge_hammer/large/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:vein_hammer/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/large/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/large/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:vein_hammer/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:vein_hammer/large/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:mattock/pick",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:mattock/broken_axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:mattock/axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:mattock/broken_pick",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/grip",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:excavator/binding",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:excavator/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/large/grip",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:excavator/large/binding",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:excavator/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:hand_axe/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:hand_axe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:hand_axe/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:broad_axe/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:broad_axe/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/large/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/large/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:broad_axe/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:broad_axe/large/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/large/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:broad_axe/large/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:kama/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:kama/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:kama/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:scythe/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:scythe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:scythe/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:scythe/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:scythe/accessory",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:scythe/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:scythe/large/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:scythe/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:scythe/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:scythe/large/accessory",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:dagger/crossguard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:dagger/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:dagger/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sword/guard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:sword/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:sword/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:sword/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/guard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:cleaver/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/broken_shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:cleaver/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/large/shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/large/guard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:cleaver/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/large/broken_shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:cleaver/large/handle",
+      "statType": "tconstruct:handle"
+    }
+  ]
+}

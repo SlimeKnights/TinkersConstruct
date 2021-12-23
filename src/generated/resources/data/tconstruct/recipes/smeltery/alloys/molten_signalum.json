@@ -1,0 +1,52 @@
+{
+  "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/signalum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/copper",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:redstone",
+        "type": "tconstruct:fluid_tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:molten_copper",
+      "amount": 432
+    },
+    {
+      "tag": "forge:molten_silver",
+      "amount": 144
+    },
+    {
+      "tag": "forge:redstone",
+      "amount": 400
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_signalum",
+    "amount": 576
+  },
+  "temperature": 1125
+}

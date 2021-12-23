@@ -23,9 +23,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 
 import java.awt.Color;
@@ -34,11 +34,11 @@ import java.util.List;
 
 /** Shared logic between melting and foundry */
 public abstract class AbstractMeltingCategory implements IRecipeCategory<MeltingRecipe> {
-  protected static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
-  protected static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "melting.time");
-  protected static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
-  protected static final String KEY_MULTIPLIER = Util.makeTranslationKey("jei", "melting.multiplier");
-  protected static final ITextComponent TOOLTIP_ORE = new TranslationTextComponent(Util.makeTranslationKey("jei", "melting.ore"));
+  protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
+  protected static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "melting.time");
+  protected static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
+  protected static final String KEY_MULTIPLIER = TConstruct.makeTranslationKey("jei", "melting.multiplier");
+  protected static final ITextComponent TOOLTIP_ORE = new TranslationTextComponent(TConstruct.makeTranslationKey("jei", "melting.ore"));
 
   @Getter
   private final IDrawable background;

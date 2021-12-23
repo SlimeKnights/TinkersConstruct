@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:large_plate",
+    "type": "tconstruct:material"
+  },
+  "cast_consumed": true,
+  "switch_slots": true,
+  "fluid": {
+    "tag": "forge:molten_gold",
+    "amount": 144
+  },
+  "result": "tconstruct:large_plate_cast",
+  "cooling_time": 57
+}

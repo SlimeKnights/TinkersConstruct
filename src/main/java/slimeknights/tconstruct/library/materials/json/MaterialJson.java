@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.materials.json;
 import lombok.Data;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 
@@ -18,13 +17,16 @@ public class MaterialJson {
   @Nullable
   private final Integer sortOrder;
   @Nullable
-  private final ResourceLocation fluid;
-  @Nullable
-  private final Integer fluidPerUnit;
-  @Nullable
   private final String textColor;
   @Nullable
-  private final Integer temperature;
+  private final Boolean hidden;
   @Nullable
-  private final ModifierEntry[] traits;
+  private final Redirect[] redirect;
+
+  @Data
+  public static class Redirect {
+    private final ResourceLocation id;
+    @Nullable
+    private final ICondition condition;
+  }
 }

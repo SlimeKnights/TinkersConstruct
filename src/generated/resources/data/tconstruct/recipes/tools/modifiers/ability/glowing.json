@@ -12,12 +12,22 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
   },
   "result": {
     "name": "tconstruct:glowing",
     "level": 1
   },
-  "max_level": 1,
-  "ability_slots": 1
+  "max_level": 1
 }

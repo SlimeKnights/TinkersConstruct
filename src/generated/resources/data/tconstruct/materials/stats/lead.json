@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:lead",
-  "stats": [
-    {
-      "id": "tconstruct:head",
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
+      "durability": 1.0,
+      "miningSpeed": 1.0,
+      "attackSpeed": 0.8,
+      "attackDamage": 1.2
+    },
+    "tconstruct:head": {
       "durability": 200,
       "miningSpeed": 5.0,
       "harvestLevel": 2,
       "attack": 2.5
-    },
-    {
-      "id": "tconstruct:handle",
-      "durability": 1.0,
-      "miningSpeed": 1.0,
-      "attackSpeed": 0.7,
-      "attackDamage": 1.25
-    },
-    {
-      "id": "tconstruct:extra"
     }
-  ]
+  }
 }

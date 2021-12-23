@@ -14,30 +14,31 @@ import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
-import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
+import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.List;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
-  private static final ITextComponent INFO_TEXT = Util.makeTranslation("gui", "part_builder.info");
-  private static final ITextComponent TRAIT_TITLE = Util.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
-  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = Util.makeTranslation("gui", "part_builder.uncraftable").mergeStyle(TextFormatting.RED);
-  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL_TOOLTIP = Util.makeTranslation("gui", "part_builder.uncraftable.tooltip");
+  private static final ITextComponent INFO_TEXT = TConstruct.makeTranslation("gui", "part_builder.info");
+  private static final ITextComponent TRAIT_TITLE = TConstruct.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = TConstruct.makeTranslation("gui", "part_builder.uncraftable").mergeStyle(TextFormatting.RED);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL_TOOLTIP = TConstruct.makeTranslation("gui", "part_builder.uncraftable.tooltip");
 
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
+  private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/partbuilder.png");
 
   /** Part builder side panel */
   protected PartInfoPanelScreen infoPanelScreen;
@@ -52,7 +53,6 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
    * row, this value would be 4 (representing the index of the first slot on the second row).
    */
   private int recipeIndexOffset = 0;
-  private boolean hasPatternInPatternSlot;
 
   public PartBuilderScreen(PartBuilderContainer container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
@@ -82,6 +82,44 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
   }
 
+  /**
+   * Gets the button at the given mouse location
+   * @param mouseX  X position of button
+   * @param mouseY  Y position of button
+   * @return  Button index, or -1 if none
+   */
+  private int getButtonAt(int mouseX, int mouseY) {
+    List<Pattern> buttons = tile.getSortedButtons();
+    if (!buttons.isEmpty()) {
+      int x = this.cornerX + 51;
+      int y = this.cornerY + 15;
+      int maxIndex = Math.min((this.recipeIndexOffset + 12), buttons.size());
+      for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
+        int relative = l - this.recipeIndexOffset;
+        double buttonX = mouseX - (double) (x + relative % 4 * 18);
+        double buttonY = mouseY - (double) (y + relative / 4 * 18);
+        if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D) {
+          return l;
+        }
+      }
+    }
+    return -1;
+  }
+
+  @Override
+  protected void renderHoveredTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
+    super.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+
+    // determime which button we are hovering
+    List<Pattern> buttons = tile.getSortedButtons();
+    if (!buttons.isEmpty()) {
+      int index = getButtonAt(mouseX, mouseY);
+      if (index >= 0) {
+        renderTooltip(matrixStack, buttons.get(index).getDisplayName(), mouseX, mouseY);
+      }
+    }
+  }
+
   /** Draw backgrounds for all patterns */
   private void drawRecipesBackground(MatrixStack matrices, int mouseX, int mouseY, int left, int top) {
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
@@ -90,7 +128,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       int x = left + relative % 4 * 18;
       int y = top + (relative / 4) * 18;
       int u = this.ySize;
-      if (i == this.container.getSelectedPartRecipe()) {
+      if (i == this.tile.getSelectedIndex()) {
         u += 18;
       } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
         u += 36;
@@ -106,31 +144,30 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
     Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
     // iterate all recipes
-    List<PartRecipe> list = this.container.getPartRecipes();
+    List<Pattern> list = this.tile.getSortedButtons();
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
     for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18 + 1;
       int y = top + (relative / 4) * 18 + 1;
       // get the sprite for the pattern and draw
-      PartRecipe recipe = list.get(i);
-      ResourceLocation pattern = recipe.getPattern();
-      TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(pattern.getNamespace(), "gui/tinker_pattern/" + pattern.getPath()));
+      Pattern pattern = list.get(i);
+      TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
       blit(matrices, x, y, 100, 16, 16, sprite);
     }
   }
 
   @Override
   public void updateDisplay() {
-    // update slider
-    this.hasPatternInPatternSlot = this.container.hasPatternInPatternSlot();
-    if (!this.hasPatternInPatternSlot) {
+    // if we can no longer scroll, reset scrollbar progress
+    // fixes the case where we added an item and lost recipes
+    if (!canScroll()) {
       this.sliderProgress = 0.0F;
       this.recipeIndexOffset = 0;
     }
 
     // update part recipe cost
-    PartRecipe partRecipe = this.container.getPartRecipe();
+    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
     if (partRecipe != null) {
       this.infoPanelScreen.setPatternCost(partRecipe.getCost());
     } else {
@@ -138,7 +175,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     }
 
     // update material
-    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
+    MaterialRecipe materialRecipe = this.tile.getMaterialRecipe();
     if (materialRecipe != null) {
       this.setDisplayForMaterial(materialRecipe);
     } else {
@@ -155,15 +192,15 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
    */
   private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
     IMaterial material = materialRecipe.getMaterial();
-    this.infoPanelScreen.setCaption(new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())));
+    this.infoPanelScreen.setCaption(material.getColoredDisplayName());
 
     // determine how much material we have
     // get exact number of material, rather than rounded
-    float value = materialRecipe.getMaterialValue(this.container.getCraftInventory());
-    IFormattableTextComponent formatted = new StringTextComponent(Util.df.format(value));
+    float value = materialRecipe.getMaterialValue(this.tile.getInventoryWrapper());
+    IFormattableTextComponent formatted = new StringTextComponent(Util.COMMA_FORMAT.format(value));
 
     // if we have a part recipe, mark material red when not enough
-    PartRecipe partRecipe = this.container.getPartRecipe();
+    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
     if (partRecipe != null && value < partRecipe.getCost()) {
       formatted = formatted.mergeStyle(TextFormatting.DARK_RED);
     }
@@ -181,19 +218,6 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       tips.add(StringTextComponent.EMPTY);
     }
 
-    List<ModifierEntry> traits = material.getTraits();
-    if (!traits.isEmpty()) {
-      stats.add(TRAIT_TITLE);
-      tips.add(StringTextComponent.EMPTY);
-      for (ModifierEntry trait : traits) {
-        Modifier mod = trait.getModifier();
-        stats.add(mod.getDisplayName(trait.getLevel()));
-        tips.add(mod.getDescription());
-      }
-      stats.add(StringTextComponent.EMPTY);
-      tips.add(StringTextComponent.EMPTY);
-    }
-
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
       List<ITextComponent> info = stat.getLocalizedInfo();
 
@@ -203,6 +227,15 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
         stats.addAll(info);
         tips.addAll(stat.getLocalizedDescriptions());
+
+        List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(material.getIdentifier(), stat.getIdentifier());
+        if (!traits.isEmpty()) {
+          for (ModifierEntry trait : traits) {
+            Modifier mod = trait.getModifier();
+            stats.add(mod.getDisplayName(trait.getLevel()));
+            tips.add(mod.getDescription(trait.getLevel()));
+          }
+        }
 
         stats.add(StringTextComponent.EMPTY);
         tips.add(StringTextComponent.EMPTY);
@@ -229,26 +262,21 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       return false;
     }
 
-    if (this.hasPatternInPatternSlot) {
-      int x = this.cornerX + 51;
-      int y = this.cornerY + 15;
-      int maxIndex = Math.min((this.recipeIndexOffset + 12), this.getPartRecipeCount());
-      for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
-        int relative = l - this.recipeIndexOffset;
-        double buttonX = mouseX - (double) (x + relative % 4 * 18);
-        double buttonY = mouseY - (double) (y + relative / 4 * 18);
-
-        assert this.minecraft != null;
-        if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
-          Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-          assert this.minecraft.playerController != null;
-          this.minecraft.playerController.sendEnchantPacket((this.container).windowId, l);
-          return true;
-        }
+    List<Pattern> buttons = tile.getSortedButtons();
+    if (!buttons.isEmpty()) {
+      // handle button click
+      int index = getButtonAt((int)mouseX, (int)mouseY);
+      assert this.minecraft != null && this.minecraft.player != null;
+      if (index >= 0 && this.container.enchantItem(this.minecraft.player, index)) {
+        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+        assert this.minecraft.playerController != null;
+        this.minecraft.playerController.sendEnchantPacket((this.container).windowId, index);
+        return true;
       }
+
       // scrollbar position
-      x = this.cornerX + 126;
-      y = this.cornerY + 15;
+      int x = this.cornerX + 126;
+      int y = this.cornerY + 15;
       if (mouseX >= x && mouseX < (x + 12) && mouseY >= y && mouseY < (y + 54)) {
         this.clickedOnScrollBar = true;
       }
@@ -322,12 +350,12 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
   /** Gets the number of part recipes */
   private int getPartRecipeCount() {
-    return container.getPartRecipes().size();
+    return tile.getSortedButtons().size();
   }
 
   /** If true, we can scroll */
   private boolean canScroll() {
-    return this.hasPatternInPatternSlot && this.getPartRecipeCount() > 12;
+    return this.getPartRecipeCount() > 12;
   }
 
   /** Gets the number of hidden part recipe rows */

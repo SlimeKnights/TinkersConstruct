@@ -1,9 +1,19 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "minecraft:logs"
+    "type": "mantle:without",
+    "base": {
+      "tag": "minecraft:logs"
+    },
+    "without": {
+      "tag": "tconstruct:slimy_logs"
+    }
   },
   "value": 4,
   "needed": 1,
-  "material": "tconstruct:wood"
+  "material": "tconstruct:wood",
+  "leftover": {
+    "item": "minecraft:stick",
+    "count": 2
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "tag": "forge:molten_invar",
+    "amount": 144
+  },
+  "temperature": 900,
+  "output": "tconstruct:invar"
+}

@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -21,7 +22,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -30,7 +30,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.BlockFlags;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
 import javax.annotation.Nullable;
@@ -39,11 +40,11 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ChannelBlock extends Block {
-	private static final ITextComponent SIDE_IN = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.side.in"));
-	private static final ITextComponent SIDE_OUT = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.side.out"));
-	private static final ITextComponent SIDE_NONE = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.side.none"));
-	private static final ITextComponent DOWN_OUT = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.down.out"));
-	private static final ITextComponent DOWN_NONE = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.down.none"));
+	private static final ITextComponent SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
+	private static final ITextComponent SIDE_OUT = TConstruct.makeTranslation("block", "channel.side.out");
+	private static final ITextComponent SIDE_NONE = TConstruct.makeTranslation("block", "channel.side.none");
+	private static final ITextComponent DOWN_OUT = TConstruct.makeTranslation("block", "channel.down.out");
+	private static final ITextComponent DOWN_NONE = TConstruct.makeTranslation("block", "channel.down.none");
 	private static final Map<ChannelConnection,ITextComponent> SIDE_CONNECTION = Util.make(new EnumMap<>(ChannelConnection.class), map -> {
 		map.put(ChannelConnection.IN, SIDE_IN);
 		map.put(ChannelConnection.OUT, SIDE_OUT);
@@ -144,6 +145,11 @@ public class ChannelBlock extends Block {
 		DIRECTION_MAP.values().forEach(builder::add);
 	}
 
+  @Override
+  public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    return false;
+  }
+
 	/* Basic block logic */
 
 	/**
@@ -207,7 +213,7 @@ public class ChannelBlock extends Block {
 		ChannelConnection connection = ChannelConnection.NONE;
     BlockPos placedOn = pos.offset(side.getOpposite());
     // on another channel means in or out
-    if (world.getBlockState(placedOn).isIn(this)) {
+    if (world.getBlockState(placedOn).matchesBlock(this)) {
       PlayerEntity player = context.getPlayer();
       connection = player != null && player.isSneaking() ? ChannelConnection.IN : ChannelConnection.OUT;
     } else if (isFluidHandler(world, side, placedOn)) {
@@ -222,7 +228,7 @@ public class ChannelBlock extends Block {
 	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
 		// down only cares about connected or not
 		if (facing == Direction.DOWN) {
-			if (state.get(DOWN) && !canConnect(world, facing, facingState, facingPos)) {
+			if (state.get(DOWN) && facingState.isAir(world, facingPos)) {
 				state = state.with(DOWN, false);
 			}
 			return state;
@@ -232,12 +238,12 @@ public class ChannelBlock extends Block {
 		if (facing != Direction.UP) {
 			// if the change was from another channel, copy, but invert its connection
 			EnumProperty<ChannelConnection> prop = DIRECTION_MAP.get(facing);
-			if (facingState.getBlock() == this) {
+			if (facingState.matchesBlock(this)) {
 				state = state.with(prop, facingState.get(DIRECTION_MAP.get(facing.getOpposite())).getOpposite());
 			} else {
-				// in is invalid as it must point to a block, out is only valid if facing a fluid handler
+				// out is only valid if facing a fluid handler
 				ChannelConnection connection = state.get(prop);
-				if (connection == ChannelConnection.IN || (connection == ChannelConnection.OUT && !isFluidHandler(world, facing.getOpposite(), facingPos))) {
+				if (connection != ChannelConnection.NONE && facingState.isAir(world, facingPos)) {
 					state = state.with(prop, ChannelConnection.NONE);
 				}
 			}
@@ -262,19 +268,13 @@ public class ChannelBlock extends Block {
 			BlockPos facingPos = pos.offset(side);
 			// if facing another channel, toggle to next connection prop
 			BlockState facingState = world.getBlockState(facingPos);
-			if (facingState.getBlock() == this) {
-				ChannelConnection newConnect = connection.getNext(player.isSneaking());
-				player.sendStatusMessage(SIDE_CONNECTION.get(newConnect), true);
-				return state.with(prop, newConnect);
-				// if not connected and we can connect, do so
-			} else if (connection != ChannelConnection.OUT && isFluidHandler(world, side.getOpposite(), facingPos)) {
-				player.sendStatusMessage(SIDE_OUT, true);
-				return state.with(prop, ChannelConnection.OUT);
-				// if connected, disconnect
-			} else if (connection != ChannelConnection.NONE) {
-				player.sendStatusMessage(SIDE_NONE, true);
-				return state.with(prop, ChannelConnection.NONE);
+			ChannelConnection newConnect = connection.getNext(player.isSneaking());
+			// if its not a fluid handler, cannot set out
+			if (newConnect == ChannelConnection.OUT && facingState.getBlock() != this && !isFluidHandler(world, side.getOpposite(), facingPos)) {
+				newConnect = newConnect.getNext(player.isSneaking());
 			}
+			player.sendStatusMessage(SIDE_CONNECTION.get(newConnect), true);
+			return state.with(prop, newConnect);
 		}
 
 		return null;
@@ -291,6 +291,9 @@ public class ChannelBlock extends Block {
 
 		// default to using the clicked side, though null (is that valid?) and up act as down
 		Direction side = hitFace == Direction.UP ? Direction.DOWN : hitFace;
+		if (player.isSneaking() && side != Direction.DOWN) {
+			side = side.getOpposite();
+		}
 
 		// try each of the sides, if clicked use that
 		Vector3d hitVec = hit.getHitVec().subtract(pos.getX(), pos.getY(), pos.getZ());
@@ -307,13 +310,13 @@ public class ChannelBlock extends Block {
 
 		// toggle the side clicked
 		BlockState newState = interactWithSide(state, world, pos, player, side);
-		if (newState == null && side != Direction.DOWN) {
-			// if the side did not change, toggle the bottom connection
-			newState = interactWithSide(state, world, pos, player, Direction.DOWN);
-		}
 
 		// if we have changes, apply them and return success
 		if (newState != null) {
+			Direction finalSide = side;
+			if (!world.isRemote) {
+				TileEntityHelper.getTile(ChannelTileEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
+			}
 			world.setBlockState(pos, newState);
 			return ActionResultType.SUCCESS;
 		}
@@ -341,7 +344,7 @@ public class ChannelBlock extends Block {
 	@Deprecated
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		return side.getAxis().isHorizontal() && adjacentBlockState.isIn(this) && state.get(DIRECTION_MAP.get(side)).canFlow() && adjacentBlockState.get(DIRECTION_MAP.get(side.getOpposite())).canFlow();
+		return side.getAxis().isHorizontal() && adjacentBlockState.matchesBlock(this) && state.get(DIRECTION_MAP.get(side)).canFlow() && adjacentBlockState.get(DIRECTION_MAP.get(side.getOpposite())).canFlow();
 	}
 
   @Override

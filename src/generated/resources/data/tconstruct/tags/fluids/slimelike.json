@@ -3,7 +3,7 @@
   "values": [
     "#forge:magma",
     "#tconstruct:blood",
-    "#tconstruct:molten_ender",
+    "#forge:ender",
     "#tconstruct:slime"
   ]
 }

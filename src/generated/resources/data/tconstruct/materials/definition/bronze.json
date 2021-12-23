@@ -1,22 +1,23 @@
 {
   "condition": {
-    "value": {
-      "tag": "forge:ingots/bronze",
-      "type": "forge:tag_empty"
-    },
-    "type": "forge:not"
+    "values": [
+      {
+        "prop": "force_integration_materials",
+        "type": "tconstruct:config"
+      },
+      {
+        "value": {
+          "tag": "forge:ingots/bronze",
+          "type": "forge:tag_empty"
+        },
+        "type": "forge:not"
+      }
+    ],
+    "type": "forge:or"
   },
   "craftable": false,
   "tier": 3,
-  "sortOrder": 1,
-  "fluid": "tconstruct:molten_bronze",
-  "fluidPerUnit": 144,
+  "sortOrder": 6,
   "textColor": "#D58F36",
-  "temperature": 700,
-  "traits": [
-    {
-      "name": "tconstruct:maintained_2",
-      "level": 1
-    }
-  ]
+  "hidden": false
 }

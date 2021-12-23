@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_zinc",
+    "tag": "forge:molten_zinc",
     "amount": 1296
   },
   "result": {

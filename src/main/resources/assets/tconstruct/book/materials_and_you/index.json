@@ -36,6 +36,20 @@
     }
   },
   {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:travelers_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0
+        }
+      }
+    }
+  },
+  {
     "name": "modifiers",
     "data": "sections/modifiers.json",
     "icon": {
@@ -44,7 +58,6 @@
       }
     }
   },
-  
   {
     "name": "further_reading",
     "data": "sections/furtherreading.json",

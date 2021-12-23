@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "A villager's best friend, don't let the villagers see you applying this! These aren't your lucky charms."
+    }
+  ],
+  "effects": [
+    "Increases tool durability depending on base durability",
+    "Increases damage towards illagers",
+    "Single Level",
+    "Requires 1 Upgrade Slot"
+  ]
+}

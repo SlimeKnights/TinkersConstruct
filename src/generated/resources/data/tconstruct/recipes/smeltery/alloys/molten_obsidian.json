@@ -3,7 +3,7 @@
   "inputs": [
     {
       "name": "minecraft:water",
-      "amount": 100
+      "amount": 50
     },
     {
       "name": "minecraft:lava",

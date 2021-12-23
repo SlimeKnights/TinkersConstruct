@@ -1,0 +1,7 @@
+{
+  "title": "Weapon Abilities",
+  "text": [
+    { "text": "Weapon abilities are most effective on tools built for combat, whether it's a sword or a repurposed harvest tool." },
+    { "text": "Some weapon abilities also work on chestplates, requring the unarmed modifier to be applied first. These will only affect attacks performed from an empty hand.", "paragraph": true }
+  ]
+}

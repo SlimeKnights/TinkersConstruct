@@ -1,0 +1,28 @@
+// Sections - Mighty Smelting
+intro=Вступление
+entity_melting=Переплавка существ
+tier_three_materials=Материалы 3-го уровня
+tools=Широкие инструменты
+tools.subtext=Для создания всех широких инструментов требуется кузня
+
+smeltery=Плавильня
+smeltery.features=Характеристики
+smeltery.alloying=Смешивание
+smeltery.controller=Контроллер
+smeltery.structure=Структура
+smeltery.structurereq=Структура
+smeltery.seared_tanks=Обожжённые резервуары
+smeltery.seared_blocks=Обожжённые блоки
+smeltery.seared_ladder=Обожжённая лестница
+smeltery.seared_glass=Обожжённое стекло
+smeltery.seared_drain=Обожжённый слив
+smeltery.seared_duct=Обожжённый туннель
+smeltery.seared_chute=Обожжённый жёлоб
+smeltery.sgui1=Графический интерфейс Плавильни
+smeltery.sgui2=Smeltery GUI Explanation
+
+abilities=Умения
+abilities.general=§1§lОсновные§r
+abilities.harvest=§1§lДля копания§r
+abilities.weapon=§1§lДля оружия§r
+abilities.interact=§1§lДля взаимодействия§r

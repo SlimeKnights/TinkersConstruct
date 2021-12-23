@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -19,8 +20,9 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.shared.client.FluidParticle;
 
-@EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
@@ -45,6 +47,7 @@ public class CommonsClientEvents extends ClientEventBase {
     TinkerBook.PUNY_SMELTING.fontRenderer = unicode;
     TinkerBook.MIGHTY_SMELTING.fontRenderer = unicode;
     TinkerBook.FANTASTIC_FOUNDRY.fontRenderer = unicode;
+    TinkerBook.ENCYCLOPEDIA.fontRenderer = unicode;
   }
 
   @SubscribeEvent
@@ -61,13 +64,19 @@ public class CommonsClientEvents extends ClientEventBase {
     }
   }
 
+  @SubscribeEvent
+  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+    Minecraft.getInstance().particles.registerFactory(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
+  }
+
   private static FontRenderer unicodeRenderer;
 
+  /** Gets the unicode font renderer */
   public static FontRenderer unicodeFontRender() {
     if (unicodeRenderer == null)
       unicodeRenderer = new FontRenderer(rl -> {
         FontResourceManager resourceManager = Minecraft.getInstance().fontResourceMananger;
-        return resourceManager.field_238546_d_.get(Minecraft.UNIFORM_FONT_RENDERER_NAME);
+        return resourceManager.idToFontMap.get(Minecraft.UNIFORM_FONT_RENDERER_NAME);
       });
 
     return unicodeRenderer;

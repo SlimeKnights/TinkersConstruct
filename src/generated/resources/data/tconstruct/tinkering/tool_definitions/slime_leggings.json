@@ -1,0 +1,23 @@
+{
+  "stats": {
+    "base": {
+      "tconstruct:durability": 630.0,
+      "tconstruct:armor": 0.0
+    }
+  },
+  "slots": {
+    "upgrades": 5,
+    "defense": 0,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:pockets",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:protection",
+      "level": 1
+    }
+  ]
+}

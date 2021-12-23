@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_diamond",
+    "tag": "tconstruct:molten_diamond",
     "amount": 144
   },
   "result": "minecraft:diamond",

@@ -1,13 +1,8 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": [
-    {
-      "item": "minecraft:iron_bars"
-    },
-    {
-      "item": "minecraft:rail"
-    }
-  ],
+  "ingredient": {
+    "item": "minecraft:rail"
+  },
   "result": {
     "fluid": "tconstruct:molten_iron",
     "amount": 54

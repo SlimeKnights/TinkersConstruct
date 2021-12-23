@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/coin"
   },
   "fluid": {
-    "name": "tconstruct:molten_knightslime",
+    "tag": "tconstruct:molten_knightslime",
     "amount": 48
   },
   "result": {

@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:manyullyn",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 1500,
-      "miningSpeed": 8.0,
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
+      "durability": 1.1,
+      "miningSpeed": 0.9,
+      "attackSpeed": 0.95,
+      "attackDamage": 1.25
+    },
+    "tconstruct:head": {
+      "durability": 1250,
+      "miningSpeed": 6.5,
       "harvestLevel": 4,
-      "attack": 4.0
-    },
-    {
-      "id": "tconstruct:handle",
-      "durability": 1.2,
-      "miningSpeed": 1.0,
-      "attackSpeed": 1.0,
-      "attackDamage": 1.4
-    },
-    {
-      "id": "tconstruct:extra"
+      "attack": 3.5
     }
-  ]
+  }
 }

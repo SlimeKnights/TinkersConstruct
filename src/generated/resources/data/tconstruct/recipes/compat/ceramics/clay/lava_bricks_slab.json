@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:lava_bricks_slab"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 500
+  },
+  "temperature": 450,
+  "time": 64,
+  "byproducts": [
+    {
+      "fluid": "minecraft:lava",
+      "amount": 50
+    }
+  ]
+}

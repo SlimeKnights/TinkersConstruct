@@ -1,0 +1,13 @@
+{
+  "title": "Damage Tools",
+  "image": {
+    "file": "tconstruct:book/images/damage_tools.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Apparently tools do not react well to certain potions. Thick and mundane potions appear to do minor damage to the tool, while potions of harming, especially splash potions, do quite a bit more damage to the tool. Now if I could just find some dragon's breath to test with a lingering potion of harming..."
+    }
+  ]
+}

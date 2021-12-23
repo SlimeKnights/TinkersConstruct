@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sledge_hammer",
+  "text": [
+    { "text": "The Sledge Hammer is a broad mining tool, effective on stone in a 3x3 range." },
+    { "text": "Expanders alternate between increasing width and height.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Attack Damage",
+    "135% Attack Modifier",
+    "0.75 Attack Speed",
+    "40% Mining Modifier",
+    "400% Durability Modifier",
+    "Smite II"
+  ]
+}

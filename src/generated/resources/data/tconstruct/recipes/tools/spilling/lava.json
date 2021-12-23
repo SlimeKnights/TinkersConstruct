@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "name": "minecraft:lava",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:damage",
+      "entity": "not_fire_immune",
+      "damage_type": "fire",
+      "damage_amount": 2.0
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 10
+    }
+  ]
+}

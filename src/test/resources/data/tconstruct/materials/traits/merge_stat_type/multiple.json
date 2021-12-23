@@ -1,0 +1,6 @@
+{
+    "perStat": {
+        "test:mat_stat_2": null,
+        "test:mat_stat_3": [{ "name": "test:modifier_2", "level": 6 }]
+    }
+}

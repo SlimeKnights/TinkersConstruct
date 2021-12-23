@@ -1,24 +1,47 @@
 package slimeknights.tconstruct.fixture;
 
-import com.google.common.collect.ImmutableList;
-import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.Lazy;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
+
+import java.util.List;
 
 public final class ToolDefinitionFixture {
-  public static ToolDefinition getTestToolDefinition() {
-    return new ToolDefinition(
-      new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(),
-      () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM, MaterialItemFixture.MATERIAL_ITEM_2)
-    );
-  }
+  private static final ResourceLocation DEFINITION_ID = new ResourceLocation("test", "test_tool");
+  private static final IToolStatProvider TEST_STATS_PROVIDER = new IToolStatProvider() {
+    private final Lazy<ToolDefinitionData> DATA = Lazy.of(
+      () -> ToolDefinitionDataBuilder.builder()
+                                     .part(MaterialItemFixture.MATERIAL_ITEM_HEAD)
+                                     .part(MaterialItemFixture.MATERIAL_ITEM_HANDLE)
+                                     .part(MaterialItemFixture.MATERIAL_ITEM_EXTRA)
+                                     .build());
+    @Override
+    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+      return MeleeHarvestToolStatsBuilder.from(definition, materials).buildStats();
+    }
 
+    @Override
+    public boolean isMultipart() {
+      return true;
+    }
+
+    @Override
+    public ToolDefinitionData getDefaultData() {
+      return DATA.get();
+    }
+  };
+
+  /** Standard tool definition for testing */
+  private static final ToolDefinition STANDARD_TOOL_DEFINITION = ToolDefinition.builder(DEFINITION_ID).setStatsProvider(TEST_STATS_PROVIDER).skipRegister().build();
   public static ToolDefinition getStandardToolDefinition() {
-    return new ToolDefinition(
-      new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(),
-      () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA)
-    );
+    return STANDARD_TOOL_DEFINITION;
   }
 
-  private ToolDefinitionFixture() {
-  }
+  private ToolDefinitionFixture() {}
 }

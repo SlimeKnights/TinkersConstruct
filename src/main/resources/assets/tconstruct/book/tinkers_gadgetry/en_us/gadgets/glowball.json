@@ -1,0 +1,12 @@
+{
+  "title": "Glowball",
+  "item": {
+    "id": "tconstruct:glow_ball"
+  },
+  "text": [
+    {
+      "text": "Combining glowstone and snowballs let me create a throwable light source. Its effective for lighting up hard to reach areas, or finding danger hiding in a dark space without exposing yourself to harm.",
+      "paragraph": true
+    }
+  ]
+}

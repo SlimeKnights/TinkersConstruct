@@ -13,11 +13,11 @@ import net.minecraft.tags.ITag;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -92,16 +92,19 @@ public class MaterialIngredient extends Ingredient {
   @Override
   public ItemStack[] getMatchingStacks() {
     if (materialStacks == null) {
+      if (!MaterialRegistry.isFullyLoaded()) {
+        return getPlainMatchingStacks();
+      }
       // no material? apply all materials for variants
       Stream<ItemStack> items = Arrays.stream(getPlainMatchingStacks());
-      if (materialID == WILDCARD) {
+      if (materialID.equals(WILDCARD)) {
         items = items.flatMap(stack -> MaterialRegistry.getMaterials().stream()
                                                        .map(mat -> IMaterialItem.withMaterial(stack, mat))
                                                        .filter(ItemStack::hasTag));
       } else {
         // specific material? apply to all stacks
         IMaterial material = MaterialRegistry.getMaterial(this.materialID);
-        items = items.map(stack -> IMaterialItem.withMaterial(stack, material));
+        items = items.map(stack -> IMaterialItem.withMaterial(stack, material)).filter(ItemStack::hasTag);
       }
       materialStacks = items.distinct().toArray(ItemStack[]::new);
     }
@@ -151,7 +154,7 @@ public class MaterialIngredient extends Ingredient {
    */
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Serializer implements IIngredientSerializer<MaterialIngredient> {
-    public static final ResourceLocation ID = Util.getResource("material");
+    public static final ResourceLocation ID = TConstruct.getResource("material");
     public static final Serializer INSTANCE = new Serializer();
 
     @Override

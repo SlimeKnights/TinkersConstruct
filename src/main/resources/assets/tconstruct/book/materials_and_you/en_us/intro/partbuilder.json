@@ -1,8 +1,8 @@
 {
-  "title":"Part Builder",
-    "image": {
-     "file": "tconstruct:book/images/partbuilder.png",
-	 "width": 170,
+  "title": "Part Builder",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
     "height": 64
   },
   "text": [

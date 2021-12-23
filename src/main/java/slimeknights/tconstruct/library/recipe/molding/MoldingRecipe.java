@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -90,7 +90,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
   /** Generic serializer to both types */
   @RequiredArgsConstructor
-  public static class Serializer<T extends MoldingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends MoldingRecipe> extends LoggingRecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override
@@ -108,7 +108,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
     @Nullable
     @Override
-    public T read(ResourceLocation id, PacketBuffer buffer) {
+    protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
       Ingredient material = Ingredient.read(buffer);
       Ingredient mold = Ingredient.read(buffer);
       boolean moldConsumed = buffer.readBoolean();
@@ -117,7 +117,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
     }
 
     @Override
-    public void write(PacketBuffer buffer, MoldingRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, MoldingRecipe recipe) {
       recipe.material.write(buffer);
       recipe.pattern.write(buffer);
       buffer.writeBoolean(recipe.patternConsumed);

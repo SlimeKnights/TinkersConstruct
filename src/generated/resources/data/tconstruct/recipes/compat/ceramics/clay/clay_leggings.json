@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:clay_leggings"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 1750
+  },
+  "temperature": 450,
+  "time": 132
+}

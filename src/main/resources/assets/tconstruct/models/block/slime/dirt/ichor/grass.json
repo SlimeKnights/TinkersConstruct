@@ -1,0 +1,10 @@
+{
+    "parent": "block/grass_block",
+    "textures": {
+        "top":      "tconstruct:block/slime/dirt/grass_top",
+        "overlay":  "tconstruct:block/slime/dirt/grass_overlay",
+        "particle": "tconstruct:block/slime/dirt/ichor",
+        "bottom":   "tconstruct:block/slime/dirt/ichor",
+        "side":     "tconstruct:block/slime/dirt/ichor_grass"
+    }
+}

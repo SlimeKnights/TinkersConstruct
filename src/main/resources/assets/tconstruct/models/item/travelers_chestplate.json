@@ -1,0 +1,9 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "tool":   "tconstruct:item/tool/armor/travelers/vest",
+    "broken": "tconstruct:item/tool/armor/travelers/vest_broken"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/vest_modifiers/" ]
+}

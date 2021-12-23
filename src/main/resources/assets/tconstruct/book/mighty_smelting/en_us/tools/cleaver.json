@@ -2,14 +2,19 @@
   "tool": "tconstruct:cleaver",
   "text": [
     {
-      "text": "The Cleaver is a big sword. Cuts off heads better too."
+      "text": "The Cleaver is a high damage, slow swinging weapon."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Off with their heads!",
+	  "paragraph": true
     }
   ],
   "properties": [
-    "Requires a Tool Forge",
-    "Advanced sword",
-    "Big range",
-    "Effective on heads",
-    "Can create pain"
+    "Strong Weapon",
+    "Slow Swinging",
+    "Starts with Severing II"
   ]
 }

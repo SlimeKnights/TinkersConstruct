@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:silky",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "tconstruct:silky_cloth",
+      "min": 3,
+      "max": 5
+    }
+  ]
+}

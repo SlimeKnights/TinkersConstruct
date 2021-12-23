@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/slime_fern"
+            "model": "tconstruct:block/slime/roots"
         }
     }
 }

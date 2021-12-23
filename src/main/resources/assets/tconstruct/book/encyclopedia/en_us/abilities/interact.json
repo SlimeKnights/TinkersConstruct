@@ -1,0 +1,16 @@
+{
+  "title": "Interaction Abilities",
+  "text": [
+    {
+      "text": "Interaction abilites change the way the tool interacts with blocks, entites, and even air."
+    },
+    {
+      "text": "Due to their nature, they will often severly conflict with other interaction abilities.",
+      "paragraph": true
+    },
+    {
+      "text": "Many interaction abilities also work on chestplates, requring an empty hand to be used. They can be used from the main or offhand",
+      "paragraph": true
+    }
+  ]
+}

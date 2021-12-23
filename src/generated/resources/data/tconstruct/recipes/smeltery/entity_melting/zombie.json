@@ -4,7 +4,6 @@
     "types": [
       "minecraft:zombie",
       "minecraft:husk",
-      "minecraft:drowned",
       "minecraft:zombified_piglin",
       "minecraft:zoglin",
       "minecraft:zombie_horse"

@@ -16,9 +16,9 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -98,7 +98,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends RecipeSerializer<EntityMeltingRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<EntityMeltingRecipe> {
     @Override
     public EntityMeltingRecipe read(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
@@ -109,7 +109,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
 
     @Nullable
     @Override
-    public EntityMeltingRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    protected EntityMeltingRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       FluidStack output = buffer.readFluidStack();
       int damage = buffer.readVarInt();
@@ -117,7 +117,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     }
 
     @Override
-    public void write(PacketBuffer buffer, EntityMeltingRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, EntityMeltingRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.damage);

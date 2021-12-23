@@ -9,21 +9,20 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
-import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.TinkerStationInventoryWrapper;
@@ -91,7 +90,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   /* Crafting */
 
   @Override
-  public ItemStack calcResult() {
+  public ItemStack calcResult(@Nullable PlayerEntity player) {
     if (this.world == null) {
       return ItemStack.EMPTY;
     }
@@ -158,16 +157,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.playCraftSound(player);
 
     // run the recipe, will shrink inputs
+    // run both sides for the sake of shift clicking
     this.inventoryWrapper.setPlayer(player);
-    this.lastRecipe.updateInputs(result, inventoryWrapper);
+    this.lastRecipe.updateInputs(result, inventoryWrapper, !world.isRemote);
     this.inventoryWrapper.setPlayer(null);
 
-    // shrink the center slot and return the result
-    // TODO: consider modifying a stack of items
-    ItemStack centerSlotItem = this.getStackInSlot(TINKER_SLOT);
-    if (!centerSlotItem.isEmpty()) {
-      centerSlotItem.shrink(1);
-      this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
+    // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
+    if (this.isStackInSlot(TINKER_SLOT)) {
+      this.setInventorySlotContents(TINKER_SLOT, ItemStack.EMPTY);
     }
 
     return result;
@@ -179,6 +176,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
     this.inventoryWrapper.refreshInput(slot);
+  }
+  
+  @Override
+  protected void playCraftSound(PlayerEntity player) {
+    SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.BLOCK_ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getEntityWorld().rand.nextFloat());
   }
 
   /* Syncing */
@@ -201,25 +203,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   public void updateRecipe(ITinkerStationRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clear();
-  }
-
-  /**
-   * Update the screen to the given player
-   * @param player  Player to send an update to
-   */
-  public void syncScreen(PlayerEntity player) {
-    if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(), (ServerPlayerEntity) player);
-    }
-  }
-
-  /**
-   * Plays the crafting sound for all players around the given player
-   *
-   * @param player the player
-   */
-  protected void playCraftSound(PlayerEntity player) {
-    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }
 
   @Override

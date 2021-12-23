@@ -1,0 +1,10 @@
+{
+  "title": "Foundry",
+  "subText": "There is nothing quite as fantastic as the Foundry.",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "Details" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "Blocks" }
+  ]
+}

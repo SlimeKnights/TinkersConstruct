@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_silver",
+    "tag": "forge:molten_silver",
     "amount": 1296
   },
   "result": {

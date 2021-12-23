@@ -1,0 +1,9 @@
+{
+  "parent": "block/cake",
+  "textures": {
+    "particle": "tconstruct:block/slime/cake/blood_side",
+    "bottom":   "tconstruct:block/slime/cake/blood_bottom",
+    "top":      "tconstruct:block/slime/cake/blood_top",
+    "side":     "tconstruct:block/slime/cake/blood_side"
+  }
+}

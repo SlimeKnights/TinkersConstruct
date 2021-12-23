@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "input": "tconstruct:wood",
+  "fluid": {
+    "tag": "forge:slime",
+    "amount": 250
+  },
+  "temperature": 50,
+  "output": "tconstruct:slimewood"
+}

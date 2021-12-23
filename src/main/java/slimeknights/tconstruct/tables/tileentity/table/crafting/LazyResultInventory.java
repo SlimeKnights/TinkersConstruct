@@ -24,9 +24,17 @@ public class LazyResultInventory implements IInventory {
    * Gets the result of this inventory, lazy loading it if not yet calculated
    * @return  Item stack result
    */
-  public ItemStack getResult() {
+  public final ItemStack getResult() {
+    return getResult(null);
+  }
+
+  /**
+   * Gets the result of this inventory, lazy loading it if not yet calculated
+   * @return  Item stack result
+   */
+  public ItemStack getResult(@Nullable PlayerEntity player) {
     if (result == null) {
-      result = Objects.requireNonNull(crafter.calcResult(), "Result cannot be null");
+      result = Objects.requireNonNull(crafter.calcResult(player), "Result cannot be null");
     }
     return result;
   }
@@ -119,9 +127,11 @@ public class LazyResultInventory implements IInventory {
   public interface ILazyCrafter {
     /**
      * Calculates the recipe result
+     * @param  player  Player entity. May be null if not supported.
+     *                 May not match the player used in {@link #onCraft(PlayerEntity, ItemStack, int)} as this result is cached
      * @return  Item stack result
      */
-    ItemStack calcResult();
+    ItemStack calcResult(@Nullable PlayerEntity player);
 
     /**
      * Called when an item is crafted to consume requirements

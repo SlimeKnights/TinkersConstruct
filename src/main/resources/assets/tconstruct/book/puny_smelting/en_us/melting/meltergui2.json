@@ -1,0 +1,16 @@
+{
+  "title": "Operation",
+  "text": [
+    {
+      "text": "1: These 3 slots are where you put in what you want to melt. It may be ores, ingots, or anything else you feel like attempting to melt!"
+    },
+    {
+      "text": "2: This is where your molten material will show. Remember that you may only have one molten material at a time in the melter.",
+      "paragraph": true
+    },
+    {
+      "text": "3: This is where your fuel shows. If you have a heater it will appear as shown and you will be able to insert any item that can be used as fuel. If you have a seared tank it will show a bar with liquid fuel in it.",
+      "paragraph": true
+    }
+  ]
+}

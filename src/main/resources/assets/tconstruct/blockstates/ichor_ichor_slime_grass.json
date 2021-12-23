@@ -1,10 +1,5 @@
 {
     "variants": {
-        "snowy=false": {
-            "model": "tconstruct:block/grass/ichor/slimy_grass"
-        },
-        "snowy=true": {
-            "model": "tconstruct:block/grass/ichor/snowy_slimy_grass"
-        }
+        "": { "model": "tconstruct:block/slime/dirt/ichor/nylium" }
     }
 }

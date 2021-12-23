@@ -4,30 +4,25 @@ import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
-import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
-import com.google.gson.JsonElement;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.Color;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.FluidIngredient;
-import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.Material;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import java.util.Arrays;
 import java.util.List;
@@ -72,6 +67,9 @@ public class CRTHelper {
     if (resultId == null) {
       throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + modifierId);
     }
+    if (!TinkerRegistries.MODIFIERS.containsKey(resultId)) {
+      throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
+    }
     Modifier resultModifier = TinkerRegistries.MODIFIERS.getValue(resultId);
     if (resultModifier == null) {
       throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
@@ -89,15 +87,10 @@ public class CRTHelper {
         StringBuilder builder = new StringBuilder();
         builder.append("Material: `").append(iMaterial.getIdentifier()).append("` {");
         builder.append("\n\tCraftable: ").append(iMaterial.isCraftable());
-        builder.append("\n\tFluid: ").append(new MCFluidStackMutable(new FluidStack(iMaterial.getFluid(), 1)).getCommandString());
-        builder.append("\n\tFluidPerUnit: ").append(iMaterial.getFluidPerUnit());
         builder.append("\n\tTranslation Key: `").append(iMaterial.getTranslationKey()).append("`");
         builder.append("\n\tColor: ").append(String.format("#%06X", iMaterial.getColor().getColor()));
-        builder.append("\n\tTemperature: ").append(iMaterial.getTemperature());
         builder.append("\n\tTier: ").append(iMaterial.getTier());
         builder.append("\n\tSort Order: ").append(iMaterial.getSortOrder());
-        builder.append("\n\tTraits: [");
-        builder.append(iMaterial.getTraits().stream().map(ModifierEntry::toJson).map(JsonElement::toString).collect(Collectors.joining(", "))).append("]");
         builder.append("\n}");
         CraftTweakerAPI.logDump(builder.toString());
       });
@@ -142,8 +135,8 @@ public class CRTHelper {
     event.registerDump("ticToolCores", "Lists the different items that are valid Tool Core Items", commandContext -> {
 
       // CraftTweaker currently doesn't have a nice way to print just the item registry name in our format without the nbt tag attached.
-      CraftTweakerAPI.logDump("List of all Items that can be used as a Tool Core (remove the withTag, you just want the actual item): ");
-      ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof ToolCore).forEach(item -> {
+      CraftTweakerAPI.logDump("List of all Items that can be used as a modifiable tool (remove the withTag, you just want the actual item): ");
+      ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IModifiable).forEach(item -> {
         CraftTweakerAPI.logDump(ExpandItem.getDefaultInstance(item).getCommandString());
       });
       final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Tool Core Items written to the log" + TextFormatting.RESET);

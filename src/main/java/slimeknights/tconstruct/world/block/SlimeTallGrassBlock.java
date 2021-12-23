@@ -8,7 +8,6 @@ import net.minecraft.block.BushBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -25,7 +24,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Locale;
 
 // todo: evaluate block
 public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
@@ -34,13 +32,10 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
 
   @Getter
   private final SlimeType foliageType;
-  @Getter
-  private final SlimePlantType plantType;
 
-  public SlimeTallGrassBlock(Properties properties, SlimeType foliageType, SlimePlantType plantType) {
+  public SlimeTallGrassBlock(Properties properties, SlimeType foliageType) {
     super(properties);
     this.foliageType = foliageType;
-    this.plantType = plantType;
   }
 
   @Deprecated
@@ -82,16 +77,6 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.foliageType != SlimeType.ICHOR) {
       super.fillItemGroup(group, items);
-    }
-  }
-
-  public enum SlimePlantType implements IStringSerializable {
-    TALL_GRASS,
-    FERN;
-
-    @Override
-    public String getString() {
-      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

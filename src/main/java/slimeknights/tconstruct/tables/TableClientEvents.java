@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.tables;
 
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,18 +15,17 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
-import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
 import slimeknights.tconstruct.tables.client.inventory.TinkerChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
+import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
+@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class TableClientEvents extends ClientEventBase {
 
   /**
@@ -31,12 +33,11 @@ public class TableClientEvents extends ClientEventBase {
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
     manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
-    manager.addReloadListener(SlotInformationLoader.INSTANCE);
   }
 
   @SubscribeEvent
   static void registerModelLoader(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("table"), TableModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("table"), TableModel.LOADER);
   }
 
   @SubscribeEvent
@@ -49,5 +50,23 @@ public class TableClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
+  }
+
+  @SubscribeEvent
+  static void registerBlockColors(final ColorHandlerEvent.Block event) {
+    event.getBlockColors().register((state, world, pos, index) -> {
+      if (world != null && pos != null) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof TinkersChestTileEntity) {
+          return ((TinkersChestTileEntity)te).getColor();
+        }
+      }
+      return -1;
+    }, TinkerTables.tinkersChest.get());
+  }
+
+  @SubscribeEvent
+  static void registerItemColors(final ColorHandlerEvent.Item event) {
+    event.getItemColors().register((stack, index) -> ((IDyeableArmorItem)stack.getItem()).getColor(stack), TinkerTables.tinkersChest.asItem());
   }
 }

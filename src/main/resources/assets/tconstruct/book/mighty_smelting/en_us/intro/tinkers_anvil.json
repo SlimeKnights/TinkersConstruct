@@ -1,0 +1,18 @@
+{
+  "title": "Tinker's Anvil",
+  "item": {
+    "id": "tconstruct:tinkers_anvil"
+  },
+  "text": [
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Alright Tinker, it's time to put that puny Tinker Station away and create the mighty Tinker's Anvil. The ability to create the biggest and best tools is simply one hammer pound away."
+    },
+    {
+      "text": "This anvil can only be made with the finest of alloys, but will bring you the broadest of tools.",	
+	  "paragraph": true
+    }
+  ]
+}

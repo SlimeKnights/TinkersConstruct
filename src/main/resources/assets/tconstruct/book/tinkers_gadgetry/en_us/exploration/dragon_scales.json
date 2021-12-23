@@ -1,0 +1,12 @@
+{
+  "title": "Dragon Scales",
+  "item": {
+    "id": "tconstruct:dragon_scale"
+  },
+  "text": [
+    {
+      "text": "If you can hit the ender dragon with the force of an explosion, it may drop one of its scales. I was told the easiest way to do this is breaking an end crystal while it is healing the dragon, though TNT can also be effective. So far I have been unsuccessful in obtaining a scale, though once I do I have heard that Thruul has found a way to use them to make tools more powerful.",
+      "paragraph": true
+    }
+  ]
+}

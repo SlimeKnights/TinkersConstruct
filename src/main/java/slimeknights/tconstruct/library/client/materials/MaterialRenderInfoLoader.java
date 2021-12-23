@@ -9,9 +9,15 @@ import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
+import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
+import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
+import slimeknights.tconstruct.library.data.ResourceLocationSerializer;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,10 +42,13 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   public static final MaterialRenderInfoLoader INSTANCE = new MaterialRenderInfoLoader();
 
   /** Folder to scan for material render info JSONS */
-  private static final String FOLDER = "models/tool_materials";
+  public static final String FOLDER = "models/tool_materials";
   /** GSON adapter for material info deserializing */
-  private static final Gson GSON = (new GsonBuilder())
+  public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(MaterialStatsId.class, new ResourceLocationSerializer<>(MaterialStatsId::new, TConstruct.MOD_ID))
+    .registerTypeHierarchyAdapter(ISpriteTransformer.class, ISpriteTransformer.SERIALIZER)
+    .registerTypeHierarchyAdapter(IColorMapping.class, IColorMapping.SERIALIZER)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -119,10 +128,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // parse color
     int color = 0xFFFFFFFF;
     if (json.getColor() != null) {
-      color = Integer.parseInt(json.getColor(), 16);
-      if((color & 0xFF000000) == 0) {
-        color |= 0xFF000000;
-      }
+      color = JsonHelper.parseColor(json.getColor());
     }
 
     MaterialId id = new MaterialId(loc);
@@ -139,6 +145,6 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     if (fallback == null) {
       fallback = new String[0];
     }
-    return new MaterialRenderInfo(id, texture, fallback, color);
+    return new MaterialRenderInfo(id, texture, fallback, color, json.getLuminosity());
   }
 }

@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_aluminum",
+    "tag": "forge:molten_aluminum",
     "amount": 1296
   },
   "result": {

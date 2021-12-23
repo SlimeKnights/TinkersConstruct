@@ -1,0 +1,14 @@
+{
+  "title": "Foundry",
+  "image": {
+    "file": "tconstruct:book/images/blaze_smeltery.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "A real Master Tinker would just bring the foundry to the blazes. Just add fuel, and it absorbs those fools before they even realize what is happening. I suppose you could also do it with that inferior smeltery device but who would want to do that.",
+      "paragraph": true
+    }
+  ]
+}

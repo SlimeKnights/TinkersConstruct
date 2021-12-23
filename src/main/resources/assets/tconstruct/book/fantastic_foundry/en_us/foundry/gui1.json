@@ -1,0 +1,14 @@
+{
+  "title": "Foundry GUI",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Your basic foundry GUI. No more, no less.",
+      "paragraph": true
+    }
+	]
+}

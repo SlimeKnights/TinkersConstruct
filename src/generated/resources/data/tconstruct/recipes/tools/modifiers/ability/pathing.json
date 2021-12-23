@@ -2,13 +2,29 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:ancient_shovel_head"
+      "item": "tconstruct:pickaxe_head",
+      "type": "tconstruct:material"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "tconstruct:small_axe_head",
+      "type": "tconstruct:material"
     }
   ],
   "tools": {
     "type": "mantle:without",
     "base": {
-      "tag": "tconstruct:modifiable/harvest"
+      "type": "mantle:intersection",
+      "ingredients": [
+        {
+          "tag": "tconstruct:modifiable/durability"
+        },
+        {
+          "tag": "tconstruct:modifiable/interactable"
+        }
+      ]
     },
     "without": [
       {
@@ -19,10 +35,12 @@
       }
     ]
   },
+  "slots": {
+    "abilities": 1
+  },
   "result": {
     "name": "tconstruct:pathing",
     "level": 1
   },
-  "max_level": 1,
-  "ability_slots": 1
+  "max_level": 1
 }

@@ -1,104 +1,88 @@
 package slimeknights.tconstruct.library.tools;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-import slimeknights.tconstruct.library.TinkerAPIException;
+import slimeknights.tconstruct.library.tools.definition.PartRequirement;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+
+import java.util.List;
+import java.util.Set;
 
 /**
- * This class defines the innate properties of a tool.
- * Everything before materials are factored in.
+ * @deprecated Use {@link slimeknights.tconstruct.library.tools.definition.ToolDefinitionData}
  */
-@Getter
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public final class ToolBaseStatDefinition {
+  private final ToolDefinitionData data;
+
   /* General */
 
-  /** Durability modifier */
-  private final float durabilityModifier;
-
-  /** All heads after the first are divided by this number on repairs, and the first stats are duplicated this many times on stat build */
-  private final int primaryHeadWeight;
-
-  /** Number of upgrades new tools start with */
-  private final int defaultUpgrades;
-  /** Number of abilities new tools start with */
-  private final int defaultAbilities;
-  /** Number of trait slots for the tool forge the tool starts with */
-  private final int defaultTraits;
-
-  /** Extra reach to use to boost a tool's range */
-  private final float reachBonus;
-
-  /* Harvest */
-
-  /**
-   * Multiplier applied to the actual mining speed of the tool
-   * Internally a hammer and pick have the same speed, but a hammer is 2/3 slower
-   */
-  private final float miningSpeedModifier;
-
-
-  /* Weapon */
-
-  /** Value to add to the base damage before multiplying */
-  private final float damageBonus;
-
-  /** Multiplier for damage from materials. Should be defined per tool. */
-  private final float damageModifier;
-
-  /**
-   * Allows you set the base attack speed, can be changed by modifiers. Equivalent to the vanilla attack speed.
-   * 4 is equal to any standard item. Value has to be greater than zero.
-   */
-  private final float attackSpeed;
-
-  /**
-   * Applies the extra tool stats to the tool like a modifier
-   * @param builder  Tool stats builder
-   */
-  public void buildStats(ModifierStatsBuilder builder) {
-    // general
-    builder.multiplyDurability(durabilityModifier);
-    builder.addReach(reachBonus);
-    // harvest
-    builder.multiplyMiningSpeed(miningSpeedModifier);
-    // weapon
-    // builder.addAttackDamage(damageBonus);  damage bonus added in ToolStatsBuilder
-    builder.multiplyAttackDamage(damageModifier);
-    builder.multiplyAttackSpeed(attackSpeed);
+  /** @deprecated use {@link PartRequirement#getWeight()} */
+  @Deprecated
+  public int getPrimaryHeadWeight() {
+    List<PartRequirement> parts = data.getParts();
+    if (parts.isEmpty()) {
+      return 1;
+    }
+    return parts.get(0).getWeight();
   }
 
-  /** Tool stat builder */
-  @Setter @Accessors(chain = true)
-  public static class Builder {
-    // general
-    private float durabilityModifier = 1f;
-    private float reachBonus = 0f;
-    private int primaryHeadWeight = 1;
-    private int defaultUpgrades = 3;
-    private int defaultAbilities = 1;
-    private int defaultTraits = 0;
-    // harvest
-    private float miningSpeedModifier = 1f;
-    // weapon
-    private float damageBonus = 0f;
-    private float damageModifier = 1f;
-    private float attackSpeed = 1f;
+  /** @deprecated use {@link ToolDefinitionData#getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getStartingSlots(SlotType type) {
+    return data.getStartingSlots(type);
+  }
 
-    /** Creates the tool stat definition */
-    public ToolBaseStatDefinition build() {
-      if (damageModifier < 0.001) {
-        throw new TinkerAPIException("Trying to define a tool without damage modifier set. Damage modifier has to be defined per tool and should be greater than 0.001");
-      }
-      return new ToolBaseStatDefinition(
-        durabilityModifier, primaryHeadWeight,
-        defaultUpgrades, defaultAbilities, defaultTraits,
-        reachBonus, miningSpeedModifier,
-        damageBonus, damageModifier, attackSpeed
-      );
-    }
+  /** @deprecated use {@link ToolDefinitionData#getAllBaseStats()} */
+  @Deprecated
+  public Set<FloatToolStat> getAllBonuses() {
+    return data.getAllBaseStats();
+  }
+
+  /** @deprecated use {@link ToolDefinitionData#getBonus(FloatToolStat)} */
+  @Deprecated
+  public float getBonus(FloatToolStat stat) {
+    return data.getBonus(stat);
+  }
+
+  /** @deprecated use {@link ToolDefinitionData#getMultiplier(FloatToolStat)} */
+  @Deprecated
+  public float getModifier(FloatToolStat stat) {
+    return data.getMultiplier(stat);
+  }
+
+  /** @deprecated use {@link ToolDefinitionData#buildStatMultipliers(ModifierStatsBuilder)} */
+  public void buildStats(ModifierStatsBuilder builder) {
+    data.buildStatMultipliers(builder);
+  }
+
+  /** @deprecated use {@link ToolDefinitionData#buildSlots(ModDataNBT)} */
+  public void buildSlots(ModDataNBT persistentModData) {
+    data.buildSlots(persistentModData);
+  }
+
+
+  /* Even more deprecated than the other deprecations in this class, like sooo deprecated */
+
+  /** @deprecated Use {@link ToolDefinitionData#getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getDefaultUpgrades() {
+    return getStartingSlots(SlotType.UPGRADE);
+  }
+
+  /** @deprecated Use {@link ToolDefinitionData#getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getDefaultAbilities() {
+    return getStartingSlots(SlotType.ABILITY);
+  }
+
+  /** @deprecated Use {@link ToolDefinitionData#getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getDefaultTraits() {
+    return getStartingSlots(SlotType.SOUL);
   }
 }

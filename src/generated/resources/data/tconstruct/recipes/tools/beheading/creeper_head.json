@@ -1,7 +1,0 @@
-{
-  "type": "tconstruct:beheading",
-  "entity": {
-    "type": "minecraft:creeper"
-  },
-  "result": "minecraft:creeper_head"
-}

@@ -1,81 +1,68 @@
 package slimeknights.tconstruct.shared.block;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import net.minecraft.item.Food;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.shared.TinkerFood;
 
 import java.util.Locale;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SlimeType implements IStringSerializable {
-  EARTH(0x01cd4e, 0x8CD782, TinkerTags.Items.EARTH_SLIMEBALL),
-  SKY(0x01cbcd, 0x00F4DA, TinkerTags.Items.SKY_SLIMEBALL),
-  ICHOR(0xff970d, 0xd09800, TinkerTags.Items.ICHOR_SLIMEBALL),
-  ENDER(0xaf4cf6, 0xa92dff, TinkerTags.Items.ENDER_SLIMEBALL),
-  BLOOD(0xb50101, 0xb80000, TinkerTags.Items.BLOOD_SLIMEBALL);
+  EARTH(0x01cd4e, 0x8CD782, MaterialColor.GRASS, false),
+  SKY(0x01cbcd, 0x00F4DA, MaterialColor.DIAMOND, false),
+  ICHOR(0xff970d, 0xd09800, MaterialColor.ADOBE, true, 10),
+  ENDER(0xaf4cf6, 0xa92dff, MaterialColor.PURPLE, false),
+  BLOOD(0xb50101, 0xb80000, MaterialColor.RED, true);
 
-  /**
-   * Slime types added by the mod
-   */
+  /** Slime types added by the mod */
   public static final SlimeType[] TINKER = {SKY, ENDER, BLOOD, ICHOR};
-
-  /**
-   * Slime types from slimes
-   */
+  /** Slime types from slimes */
   public static final SlimeType[] TRUE_SLIME = {EARTH, SKY, ENDER, ICHOR};
+  /** Slime types that flow downwards, ichor flows up */
+  public static final SlimeType[] LIQUID = {EARTH, SKY, BLOOD, ENDER};
+  /** Slime types that use overworld foliage */
+  public static final SlimeType[] OVERWORLD = {EARTH, SKY, ENDER};
+  /** Slime types that use overworld foliage */
+  public static final SlimeType[] NETHER = {ICHOR, BLOOD};
 
   /* Block color for this slime type */
-  @Getter
   private final int color;
-  @Getter
+  /** Default color for this foliage, used in inventory */
   private final int defaultFoliageColor;
-  @Getter
-  private final ITag<Item> slimeBallTag;
 
-  /**
-   * Returns the slimeball food item for this slime type
-   * @param type SlimeType
-   * @return Appropriate TinkerFood
-   */
-  public Food getSlimeFood(SlimeType type) {
-    switch (type) {
-      case SKY:
-      default:
-        return TinkerFood.BLUE_SLIME_BALL;
-      case ENDER:
-        return TinkerFood.PURPLE_SLIME_BALL;
-      case BLOOD:
-        return TinkerFood.BLOOD_SLIME_BALL;
-      case ICHOR:
-        return TinkerFood.MAGMA_SLIME_BALL;
-    }
+  private final MaterialColor mapColor;
+  /** If true, this block type has fungus foliage instead of grass */
+  private final boolean nether;
+  /** Light level of slime blocks of this type */
+  private final int lightLevel;
+
+  /* Tags */
+  /** Tag for dirt blocks of this type, including blocks with grass on top */
+  private final IOptionalNamedTag<Block> dirtBlockTag;
+  /** Tag for grass blocks with this foliage type */
+  private final IOptionalNamedTag<Block> grassBlockTag;
+  /** Tag for slime balls of this type */
+  private final IOptionalNamedTag<Item> slimeballTag;
+
+  SlimeType(int color, int defaultFoliageColor, MaterialColor mapColor, boolean nether, int lightLevel) {
+    this.color = color;
+    this.defaultFoliageColor = defaultFoliageColor;
+    this.mapColor = mapColor;
+    this.nether = nether;
+    this.lightLevel = lightLevel;
+    // tags
+    String name = this.getString();
+    grassBlockTag = TinkerTags.Blocks.tag((nether ? "slimy_nylium/" : "slimy_grass/") + name);
+    dirtBlockTag = TinkerTags.Blocks.tag("slimy_soil/" + ("blood".equals(name) ? "vanilla" : name));
+    slimeballTag = TinkerTags.Items.forgeTag("slimeball/" + name);
   }
 
-  /**
-   * Returns the slime_drop food item for this slime type
-   * @param type SlimeType
-   * @return Appropriate TinkerFood
-   */
-  public Food getSlimeDropFood(SlimeType type) {
-    switch (type) {
-      case EARTH:
-      default:
-        return TinkerFood.GREEN_SLIME_DROP;
-      case SKY:
-        return TinkerFood.BLUE_SLIME_DROP;
-      case ENDER:
-        return TinkerFood.PURPLE_SLIME_DROP;
-      case BLOOD:
-        return TinkerFood.BLOOD_SLIME_DROP;
-      case ICHOR:
-        return TinkerFood.MAGMA_SLIME_DROP;
-    }
+  SlimeType(int color, int defaultFoliageColor, MaterialColor mapColor, boolean nether) {
+    this(color, defaultFoliageColor, mapColor, nether, 0);
   }
 
   @Override

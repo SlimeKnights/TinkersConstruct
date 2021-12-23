@@ -18,11 +18,11 @@
   ],
   "inputs": [
     {
-      "name": "tconstruct:molten_copper",
+      "tag": "forge:molten_copper",
       "amount": 432
     },
     {
-      "name": "tconstruct:molten_tin",
+      "tag": "forge:molten_tin",
       "amount": 144
     }
   ],

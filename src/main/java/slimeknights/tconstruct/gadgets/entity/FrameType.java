@@ -1,18 +1,19 @@
 package slimeknights.tconstruct.gadgets.entity;
 
 import lombok.Getter;
-import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
 import java.util.Locale;
 
+/** All frame variants for the entity */
 public enum FrameType implements IStringSerializable {
-  JEWEL,
-  COBALT,
-  MANYULLYN,
-  GOLD,
-  CLEAR;
+  // order is weird for the sake of preserving backwards compat, as its saved in the entity as an int
+  REVERSED_GOLD, // rotation timer
+  DIAMOND, // slowly winds down
+  MANYULLYN, // item inside rendered full bright
+  GOLD, // rotation timer
+  CLEAR, // frame hidden when filled, extra large items
+  NETHERITE; // immune to fire and explosions
 
   private static final FrameType[] VALUES = values();
   @Getter
@@ -29,9 +30,5 @@ public enum FrameType implements IStringSerializable {
   @Override
   public String getString() {
     return this.toString().toLowerCase(Locale.US);
-  }
-
-  public static Item getFrameFromType(FrameType type) {
-        return TinkerGadgets.itemFrame.get(type);
   }
 }

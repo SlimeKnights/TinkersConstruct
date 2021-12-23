@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
@@ -109,7 +109,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   /**
    * Serializer for {@link MeltingFuel}
    */
-  public static class Serializer extends RecipeSerializer<MeltingFuel> {
+  public static class Serializer extends LoggingRecipeSerializer<MeltingFuel> {
     @Override
     public MeltingFuel read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");
@@ -120,7 +120,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
     }
 
     @Override
-    public void write(PacketBuffer buffer, MeltingFuel recipe) {
+    protected void writeSafe(PacketBuffer buffer, MeltingFuel recipe) {
       buffer.writeString(recipe.group);
       recipe.input.write(buffer);
       buffer.writeInt(recipe.duration);
@@ -129,7 +129,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
 
     @Nullable
     @Override
-    public MeltingFuel read(ResourceLocation id, PacketBuffer buffer) {
+    protected MeltingFuel readSafe(ResourceLocation id, PacketBuffer buffer) {
       String group = buffer.readString(Short.MAX_VALUE);
       FluidIngredient input = FluidIngredient.read(buffer);
       int duration = buffer.readInt();

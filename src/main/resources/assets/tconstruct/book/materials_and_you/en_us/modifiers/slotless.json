@@ -1,11 +1,15 @@
 {
-  "title":"Slotless Upgrades",
+  "title": "Slotless Modifiers",
   "text": [
     {
-      "text": "Run out of slots? Good for you these don't require any slots avaliable to apply to your tool."
+      "text": "Slotless modifiers do not require slots unlike all other types of modifiers. This typically means the modifier either has some significant tradeoff or the effect is minor."
     },
     {
-      "text": "It's slotless. You don't need an ability or upgrade slot to put it on? What more do you want? Cookies?",
+      "text": "One notable type of slotless modifiers is bonus modifiers, which grant additional modifier slots. Many exist that grant more upgrade slots, and I am told some even exist to grant more ability slots.",
+      "paragraph": true
+    },
+    {
+      "text": "Thruul M'Gon's Puny Smelting has a full list of slotless modifiers available on tools, along with the Encyclopedia of Tinkering.",
       "paragraph": true
     }
   ]

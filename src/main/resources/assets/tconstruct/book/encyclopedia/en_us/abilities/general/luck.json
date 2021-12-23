@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "Increases drop rates from both blocks and monsters. Luck requires a different recipe for each level, applied in order."
+    },
+    {
+      "text": "Leggings can receive a single level of luck, which boosts drops from mobs and drops from blocks when using tinker tools.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "First level requires 1 ability slot",
+    "Second and third levels are slotless"
+  ]
+}

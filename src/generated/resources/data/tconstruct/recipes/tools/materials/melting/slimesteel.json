@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:slimesteel",
+  "temperature": 900,
+  "result": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 144
+  }
+}

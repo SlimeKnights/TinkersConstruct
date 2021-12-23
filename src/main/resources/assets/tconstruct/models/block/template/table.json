@@ -108,7 +108,7 @@
     "faces": { "up": {} }
   },
   "items": [
-    { "center": [ 8, 15.5, 8 ], "size": 14,   "x": 270 },
-    { "center": [ 8, 15.5, 8 ], "size": 14.1, "x": 270 }
+    { "center": [ 8, 15.5, 8 ], "size": 14,   "x": 270, "y": 180, "transform": "fixed" },
+    { "center": [ 8, 15.5, 8 ], "size": 14.1, "x": 270, "y": 180, "transform": "fixed" }
   ]
 }

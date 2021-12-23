@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    { "text": "The Cleaver is a high damage, slow speed weapon." },
+    { "text": "Expanders increase the area of the sweep attack, and silky grants AOE shearing.", "paragraph": true }
+  ],
+  "properties": [
+    "+3.5 Attack Damage",
+    "150% Attack Modifier",
+    "0.9 Attack Speed",
+    "+1 Reach",
+    "350% Durability Modifier",
+    "Beheading II"
+  ]
+}

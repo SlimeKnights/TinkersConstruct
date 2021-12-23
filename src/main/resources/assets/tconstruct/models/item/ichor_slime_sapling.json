@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "tconstruct:block/slime/ichor_slime_sapling"
+        "layer0": "tconstruct:block/slime/sapling/ichor"
     }
 }

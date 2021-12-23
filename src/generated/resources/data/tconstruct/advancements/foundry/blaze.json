@@ -1,0 +1,121 @@
+{
+  "parent": "tconstruct:foundry/structure",
+  "display": {
+    "icon": {
+      "item": "tconstruct:scorched_fuel_gauge",
+      "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.foundry.blaze.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.foundry.blaze.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "seared_fuel_tank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_fuel_tank",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+          }
+        ]
+      }
+    },
+    "seared_fuel_gauge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_fuel_gauge",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+          }
+        ]
+      }
+    },
+    "seared_ingot_tank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_ingot_tank",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+          }
+        ]
+      }
+    },
+    "seared_ingot_gauge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_ingot_gauge",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+          }
+        ]
+      }
+    },
+    "scorched_fuel_tank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scorched_fuel_tank",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+          }
+        ]
+      }
+    },
+    "scorched_fuel_gauge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scorched_fuel_gauge",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+          }
+        ]
+      }
+    },
+    "scorched_ingot_tank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scorched_ingot_tank",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+          }
+        ]
+      }
+    },
+    "scorched_ingot_gauge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scorched_ingot_gauge",
+            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "seared_fuel_tank",
+      "seared_fuel_gauge",
+      "seared_ingot_tank",
+      "seared_ingot_gauge",
+      "scorched_fuel_tank",
+      "scorched_fuel_gauge",
+      "scorched_ingot_tank",
+      "scorched_ingot_gauge"
+    ]
+  ]
+}

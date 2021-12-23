@@ -15,8 +15,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
@@ -28,7 +29,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
-  public static final ITextComponent UNCRAFTABLE = Util.makeTranslation("gui", "crafting_station.uncraftable");
+  public static final ITextComponent UNCRAFTABLE = TConstruct.makeTranslation("gui", "crafting_station.uncraftable");
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -61,7 +62,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   /* Crafting */
 
   @Override
-  public ItemStack calcResult() {
+  public ItemStack calcResult(@Nullable PlayerEntity player) {
     if (this.world == null || isEmpty()) {
       return ItemStack.EMPTY;
     }
@@ -73,13 +74,17 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       // first, try the cached recipe
       ICraftingRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
+      // note we intentionally have no player access during matches, that could lead to an unstable recipe
       if (recipe == null || !recipe.matches(this.craftingInventory, this.world)) {
         recipe = manager.getRecipe(IRecipeType.CRAFTING, this.craftingInventory, this.world).orElse(null);
       }
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
+        ForgeHooks.setCraftingPlayer(player);
         result = recipe.getCraftingResult(this.craftingInventory);
+        ForgeHooks.setCraftingPlayer(null);
+
         // sync if the recipe is different
         if (recipe != lastRecipe) {
           this.lastRecipe = recipe;
@@ -88,13 +93,15 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       }
     }
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.craftingInventory, this.world)) {
+      ForgeHooks.setCraftingPlayer(player);
       result = this.lastRecipe.getCraftingResult(this.craftingInventory);
+      ForgeHooks.setCraftingPlayer(null);
     }
     return result;
   }
 
   /**
-   * Gets the player sensitive crafting result, also validating the player has access to this recule
+   * Gets the player sensitive crafting result, also validating the player has access to this recipe
    * @param player  Player
    * @return  Player sensitive result
    */
@@ -161,27 +168,21 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       ItemStack original = this.getStackInSlot(i);
       ItemStack newStack = remaining.get(i);
 
-      // if the slot contains a stack, decrease by 1
-      if (!original.isEmpty()) {
-        original.shrink(1);
+      // if empty or size 1, set directly (decreases by 1)
+      if (original.isEmpty() || original.getCount() == 1) {
+        this.setInventorySlotContents(i, newStack);
       }
-
-      // if we have a new item, try merging it in
-      if (!newStack.isEmpty()) {
-        // if empty, set directly
-        if (original.isEmpty()) {
-          this.setInventorySlotContents(i, newStack);
-        }
-        else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
-          // if matching, merge
-          newStack.grow(original.getCount());
-          this.setInventorySlotContents(i, newStack);
-        }
-        else {
-          // otherwise, drop the item as the player
-          if (!player.inventory.addItemStackToInventory(newStack)) {
-            player.dropItem(newStack, false);
-          }
+      else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
+        // if matching, merge (decreasing by 1
+        newStack.grow(original.getCount() - 1);
+        this.setInventorySlotContents(i, newStack);
+      }
+      else {
+        // directly update the slot
+        this.setInventorySlotContents(i, ItemHandlerHelper.copyStackWithSize(original, original.getCount() - 1));
+        // otherwise, drop the item as the player
+        if (!newStack.isEmpty() && !player.inventory.addItemStackToInventory(newStack)) {
+          player.dropItem(newStack, false);
         }
       }
     }

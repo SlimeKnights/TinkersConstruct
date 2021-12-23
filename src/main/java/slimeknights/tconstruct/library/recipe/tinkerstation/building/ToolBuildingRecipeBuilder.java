@@ -6,7 +6,7 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  */
 @RequiredArgsConstructor(staticName = "toolBuildingRecipe")
 public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildingRecipeBuilder> {
-  private final ToolCore output;
+  private final IModifiable output;
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn) {
@@ -41,7 +41,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.addProperty("result", Objects.requireNonNull(output.getRegistryName()).toString());
+      json.addProperty("result", Objects.requireNonNull(output.asItem().getRegistryName()).toString());
     }
 
     @Override

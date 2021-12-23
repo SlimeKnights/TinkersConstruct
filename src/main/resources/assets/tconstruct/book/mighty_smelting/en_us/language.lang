@@ -1,19 +1,37 @@
-// Sections
+// Sections - Mighty Smelting
 intro=Introduction
-materials=Tool materials
-bowmaterials=Bow materials
-tools=Tools
-modifiers=Modifiers
-smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
+entity_melting=Entity Melting
 tier_three_materials=Tier 3 Materials
-tier_four_materials=Tier 4 Materials
+tools=Broad Tools
+tools.subtext=Broad tools all require the use of a tinker's anvil to create
 
-modifier.effect=Effects:
-tool.properties=Properties:
+smeltery=Smeltery
+smeltery.features=Features
+smeltery.alloying=Alloying
+smeltery.controller=Controller
+smeltery.structure=Structure
+smeltery.structurereq=Structure
+smeltery.sgui1=Smeltery GUI
+smeltery.sgui2=Smeltery GUI Explanation
+smeltery.seared_tanks=Seared Tanks
+smeltery.seared_blocks=Seared Blocks
+smeltery.seared_ladder=Seared Ladder
+smeltery.seared_glass=Seared Glass
+smeltery.seared_drain=Seared Drain
+smeltery.seared_duct=Seared Duct
+smeltery.seared_chute=Seared Chute
 
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
+abilities=Abilities
+abilities.subtext=Abilities are more powerful than upgrades, but also have a more limited number of slots.
+abilities.group_general=General
+abilities.group_harvest=Harvest
+abilities.group_weapon=Weapon
+abilities.group_interact=Interact
+abilities.group_armor=Armor
+abilities.unarmed=Unarmed
+upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied to each tool.
 
-material.tconstruct.nahuatl.book=An ancient material made from casting molten obsidian on wooden parts
+defense=Defense
+defense.subtext=Defense modifiers can only be applied to armor, using defense slots.
+defense.group_protection=Protection
+defense.group_special=Special

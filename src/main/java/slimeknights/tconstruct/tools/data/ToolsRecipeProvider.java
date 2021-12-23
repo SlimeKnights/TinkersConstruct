@@ -1,41 +1,37 @@
 package slimeknights.tconstruct.tools.data;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
-import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
+import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import java.util.Objects;
+import java.util.Collections;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
-public class ToolsRecipeProvider extends BaseRecipeProvider {
+public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterialRecipeHelper, IToolRecipeHelper {
   public ToolsRecipeProvider(DataGenerator generator) {
     super(generator);
   }
@@ -47,196 +43,187 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
   @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-    this.addMaterialsRecipes(consumer);
+    this.addToolBuildingRecipes(consumer);
     this.addPartRecipes(consumer);
-    this.addTinkerStationRecipes(consumer);
+  }
+
+  private void addToolBuildingRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "tools/building/";
+    String repairFolder = "tools/repair/";
+    String armorFolder = "armor/building/";
+    String armorRepairFolder = "armor/repair/";
+    // stone
+    toolBuilding(consumer, TinkerTools.pickaxe, folder);
+    toolBuilding(consumer, TinkerTools.sledgeHammer, folder);
+    toolBuilding(consumer, TinkerTools.veinHammer, folder);
+    // dirt
+    toolBuilding(consumer, TinkerTools.mattock, folder);
+    toolBuilding(consumer, TinkerTools.excavator, folder);
+    // wood
+    toolBuilding(consumer, TinkerTools.handAxe, folder);
+    toolBuilding(consumer, TinkerTools.broadAxe, folder);
+    // plants
+    toolBuilding(consumer, TinkerTools.kama, folder);
+    toolBuilding(consumer, TinkerTools.scythe, folder);
+    // sword
+    toolBuilding(consumer, TinkerTools.dagger, folder);
+    toolBuilding(consumer, TinkerTools.sword, folder);
+    toolBuilding(consumer, TinkerTools.cleaver, folder);
+
+    // specialized
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerTools.flintAndBronze)
+                          .addIngredient(Items.FLINT)
+                          .addIngredient(TinkerMaterials.tinkersBronze.getIngotTag())
+                          .addCriterion("has_bronze", hasItem(TinkerMaterials.tinkersBronze.getIngotTag()))
+                          .build(consumer, prefix(TinkerTools.flintAndBronze, folder));
+    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBronze, MaterialIds.tinkersBronze)
+                                  .buildRepairKit(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_repair_kit"))
+                                  .build(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_station"));
+
+    // travelers gear
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.travelersGear.get(ArmorSlotType.HELMET))
+                       .patternLine("l l")
+                       .patternLine("glg")
+                       .patternLine("c c")
+                       .key('c', TinkerMaterials.copper.getIngotTag())
+                       .key('l', Tags.Items.LEATHER)
+                       .key('g', Tags.Items.GLASS_PANES_COLORLESS)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.copper.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "travelers_goggles"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.travelersGear.get(ArmorSlotType.CHESTPLATE))
+                       .patternLine("l l")
+                       .patternLine("lcl")
+                       .patternLine("lcl")
+                       .key('c', TinkerMaterials.copper.getIngotTag())
+                       .key('l', Tags.Items.LEATHER)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.copper.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "travelers_chestplate"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.travelersGear.get(ArmorSlotType.LEGGINGS))
+                       .patternLine("lll")
+                       .patternLine("c c")
+                       .patternLine("l l")
+                       .key('c', TinkerMaterials.copper.getIngotTag())
+                       .key('l', Tags.Items.LEATHER)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.copper.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "travelers_pants"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.travelersGear.get(ArmorSlotType.BOOTS))
+                       .patternLine("c c")
+                       .patternLine("l l")
+                       .key('c', TinkerMaterials.copper.getIngotTag())
+                       .key('l', Tags.Items.LEATHER)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.copper.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "travelers_boots"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.copper)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "travelers_station"));
+
+    // plate armor
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))
+                       .patternLine("mmm")
+                       .patternLine("ccc")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .key('c', Items.CHAIN)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_helmet"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.CHESTPLATE))
+                       .patternLine("m m")
+                       .patternLine("mmm")
+                       .patternLine("cmc")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .key('c', Items.CHAIN)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_chestplate"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.LEGGINGS))
+                       .patternLine("mmm")
+                       .patternLine("m m")
+                       .patternLine("c c")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .key('c', Items.CHAIN)
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_leggings"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerTools.plateArmor.get(ArmorSlotType.BOOTS))
+                       .patternLine("m m")
+                       .patternLine("m m")
+                       .key('m', TinkerMaterials.manyullyn.getIngotTag())
+                       .addCriterion("has_item", hasItem(TinkerMaterials.manyullyn.getIngotTag()))
+                       .build(consumer, modResource(armorFolder + "plate_boots"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.manyullyn)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "plate_station"));
+
+    // slimeskull
+    slimeskullCasting(consumer, MaterialIds.gunpowder,    Items.CREEPER_HEAD,          armorFolder);
+    slimeskullCasting(consumer, MaterialIds.bone,         Items.SKELETON_SKULL,        armorFolder);
+    slimeskullCasting(consumer, MaterialIds.necroticBone, Items.WITHER_SKELETON_SKULL, armorFolder);
+    slimeskullCasting(consumer, MaterialIds.rottenFlesh,  Items.ZOMBIE_HEAD,           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.enderPearl,  TinkerWorld.heads.get(TinkerHeadType.ENDERMAN),         armorFolder);
+    slimeskullCasting(consumer, MaterialIds.bloodbone,   TinkerWorld.heads.get(TinkerHeadType.STRAY),            armorFolder);
+    slimeskullCasting(consumer, MaterialIds.spider,      TinkerWorld.heads.get(TinkerHeadType.SPIDER),           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.venom,       TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER),      armorFolder);
+    slimeskullCasting(consumer, MaterialIds.iron,        TinkerWorld.heads.get(TinkerHeadType.HUSK),             armorFolder);
+    slimeskullCasting(consumer, MaterialIds.copper,      TinkerWorld.heads.get(TinkerHeadType.DROWNED),          armorFolder);
+    slimeskullCasting(consumer, MaterialIds.blazingBone, TinkerWorld.heads.get(TinkerHeadType.BLAZE),            armorFolder);
+    slimeskullCasting(consumer, MaterialIds.gold,        TinkerWorld.heads.get(TinkerHeadType.PIGLIN),           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.roseGold,    TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE),     armorFolder);
+    slimeskullCasting(consumer, MaterialIds.pigIron,     TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), armorFolder);
+
+    // slimelytra
+    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
+                            .setCast(Items.ELYTRA, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 8)
+                            .build(consumer, modResource(armorFolder + "slimelytra"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE)), MaterialIds.phantom)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimelytra_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimelytra_station"));
+
+    // slimeshell
+    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS))
+                            .setCast(Items.SHULKER_SHELL, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 7)
+                            .build(consumer, modResource(armorFolder + "slimeshell"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS)), MaterialIds.chorus)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimeshell_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimeshell_station"));
+
+    // boots
+    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
+                            .setCast(Items.RABBIT_FOOT, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
+                            .build(consumer, modResource(armorFolder + "slime_boots"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.rabbit)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slime_boots_station"));
+
+    // general repair with enderslime
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.slimesuit.values().stream().map(ItemStack::new)), MaterialIds.enderslime)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimesuit_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimesuit_station"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
-    addPartRecipe(consumer, TinkerToolParts.repairKit, 2, TinkerSmeltery.repairKitCast);
+    String partFolder = "tools/parts/";
+    String castFolder = "smeltery/casts/";
+    partRecipes(consumer, TinkerToolParts.repairKit, TinkerSmeltery.repairKitCast, 2, partFolder, castFolder);
     // head
-    addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.smallAxeHead, 2, TinkerSmeltery.smallAxeHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.broadAxeHead, 8, TinkerSmeltery.broadAxeHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.smallBlade, 2, TinkerSmeltery.smallBladeCast);
-    addPartRecipe(consumer, TinkerToolParts.broadBlade, 8, TinkerSmeltery.broadBladeCast);
+    partRecipes(consumer, TinkerToolParts.pickaxeHead,  TinkerSmeltery.pickaxeHeadCast,  2, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.hammerHead,   TinkerSmeltery.hammerHeadCast,   8, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.smallAxeHead, TinkerSmeltery.smallAxeHeadCast, 2, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.broadAxeHead, TinkerSmeltery.broadAxeHeadCast, 8, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.smallBlade,   TinkerSmeltery.smallBladeCast,   2, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.broadBlade,   TinkerSmeltery.broadBladeCast,   8, partFolder, castFolder);
     // other parts
-    addPartRecipe(consumer, TinkerToolParts.toolBinding, 1, TinkerSmeltery.toolBindingCast);
-    addPartRecipe(consumer, TinkerToolParts.largePlate, 4, TinkerSmeltery.largePlateCast);
-    addPartRecipe(consumer, TinkerToolParts.toolHandle, 1, TinkerSmeltery.toolHandleCast);
-    addPartRecipe(consumer, TinkerToolParts.toughHandle, 3, TinkerSmeltery.toughHandleCast);
+    partRecipes(consumer, TinkerToolParts.toolBinding, TinkerSmeltery.toolBindingCast, 1, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.largePlate,  TinkerSmeltery.largePlateCast,  4, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.toolHandle,  TinkerSmeltery.toolHandleCast,  1, partFolder, castFolder);
+    partRecipes(consumer, TinkerToolParts.toughHandle, TinkerSmeltery.toughHandleCast, 3, partFolder, castFolder);
   }
 
-  private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
-    // tier 1
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood/sticks");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
-    registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
-      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)
-    ), 1, 1, "stone");
-    registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, "flint");
-    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
-    registerMaterial(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, "necrotic_bone");
-    // tier 2
-    registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 2, "seared_stone/brick");
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 2, 1, "seared_stone/block");
-    registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromItems(TinkerSmeltery.scorchedBrick), 1, 2, "scorched_stone/brick");
-    registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromTag(TinkerTags.Items.SCORCHED_BLOCKS), 2, 1, "scorched_stone/block");
-    registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.EARTH_SLIMEBALL), 1, 1, "slimewood/ball");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.EARTH)), 5, 1, "slimewood/block");
-    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
-    // tier 3
-    registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
-    registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
-    registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "silicon_bronze", false);
-    registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
-    registerMaterial(consumer, MaterialIds.pigIron, Ingredient.fromItems(TinkerCommons.bacon), 1, 4, "pig_iron/bacon");
-
-    // tier 2 (nether)
-    // tier 3 (nether)
-    registerMetalMaterial(consumer, MaterialIds.cobalt, "cobalt", false);
-    // tier 4
-    registerMetalMaterial(consumer, MaterialIds.queensSlime, "queens_slime", false);
-    registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn",    false);
-    registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon",    false);
-    //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
-
-    // tier 2 (end)
-    //registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
-
-    // tier 2 (mod compat)
-    registerMetalMaterial(consumer, MaterialIds.silver,   "silver",  true);
-    registerMetalMaterial(consumer, MaterialIds.lead,     "lead",     true);
-    registerMetalMaterial(consumer, MaterialIds.electrum, "electrum", true);
-    // tier 3 (mod integration)
-    registerMetalMaterial(consumer, MaterialIds.bronze,     "bronze",     true);
-    registerMetalMaterial(consumer, MaterialIds.steel,      "steel",      true);
-    registerMetalMaterial(consumer, MaterialIds.constantan, "constantan", true);
-
-    //registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
-    //registerMaterial(consumer, MaterialIds.slimevine_sky, Ingredient.fromItems(TinkerWorld.skySlimeVine), 1, 1, "slimevine_sky");
-    //registerMaterial(consumer, MaterialIds.slimevine_ender, Ingredient.fromItems(TinkerWorld.enderSlimeVine), 1, 1, "slimevine_ender");
-  }
-
-  private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
-    registerBuildingRecipe(consumer, TinkerTools.pickaxe);
-    registerBuildingRecipe(consumer, TinkerTools.sledgeHammer);
-    registerBuildingRecipe(consumer, TinkerTools.veinHammer);
-
-    registerBuildingRecipe(consumer, TinkerTools.mattock);
-    registerBuildingRecipe(consumer, TinkerTools.excavator);
-
-    registerBuildingRecipe(consumer, TinkerTools.handAxe);
-    registerBuildingRecipe(consumer, TinkerTools.broadAxe);
-
-    registerBuildingRecipe(consumer, TinkerTools.kama);
-    registerBuildingRecipe(consumer, TinkerTools.scythe);
-
-    registerBuildingRecipe(consumer, TinkerTools.sword);
-    registerBuildingRecipe(consumer, TinkerTools.cleaver);
-  }
-
-  private void registerBuildingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends ToolCore> sup) {
-    // Base data
-    ToolCore toolCore = sup.get();
-    String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
-
-    ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
-      .build(consumer, location("tools/building/" + name));
-  }
-
-
-  /* Helpers */
-
-
-  /**
-   * Adds a recipe to craft a part
-   * @param consumer  Recipe consumer
-   * @param sup       Part to be crafted
-   * @param cost      Part cost
-   * @param cast      Part cast
-   */
-  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
-    String folder = "tools/parts/";
-    // Base data
-    IMaterialItem part = sup.get();
-    String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
-
-    // Part Builder
-    PartRecipeBuilder.partRecipe(part)
-                     .setPattern(location(name))
-                     .setCost(cost)
-                     .build(consumer, location(folder + "builder/" + name));
-
-    // Material Casting
-    String castingFolder = folder + "casting/";
-    MaterialCastingRecipeBuilder.tableRecipe(part)
-                                .setItemCost(cost)
-                                .setCast(cast.getMultiUseTag(), false)
-                                .build(consumer, location(castingFolder + name + "_gold_cast"));
-    MaterialCastingRecipeBuilder.tableRecipe(part)
-                                .setItemCost(cost)
-                                .setCast(cast.getSingleUseTag(), true)
-                                .build(consumer, location(castingFolder + name + "_sand_cast"));
-
-    // Cast Casting
-    MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
-    String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
-    ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
-                            .setCast(ingredient, true)
-                            .setSwitchSlots()
-                            .build(consumer, location("smeltery/casting/casts/" + partName));
-
-    // sand cast molding
-    MoldingRecipeBuilder.moldingTable(cast.getSand())
-                        .setMaterial(TinkerSmeltery.blankCast.getSand())
-                        .setPattern(ingredient, false)
-                        .build(consumer, location("smeltery/casting/sand_casts/" + partName));
-    MoldingRecipeBuilder.moldingTable(cast.getRedSand())
-                        .setMaterial(TinkerSmeltery.blankCast.getRedSand())
-                        .setPattern(ingredient, false)
-                        .build(consumer, location("smeltery/casting/red_sand_casts/" + partName));
-
-    // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost).build(consumer, location(folder + "melting/" + part));
-  }
-
-  /**
-   * Registers a material recipe
-   * @param consumer  Recipe consumer
-   * @param material  Material ID
-   * @param input     Recipe input
-   * @param value     Material value
-   * @param needed    Number of items needed
-   * @param saveName  Material save name
-   */
-  private void registerMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, Ingredient input, int value, int needed, String saveName) {
-    MaterialRecipeBuilder.materialRecipe(material)
-                         .setIngredient(input)
-                         .setValue(value)
-                         .setNeeded(needed)
-                         .build(consumer, location("tools/materials/" + saveName));
-  }
-
-  /**
-   * Register ingots, nuggets, and blocks for a metal material
-   * @param consumer  Consumer instance
-   * @param material  Material
-   * @param name      Material name
-   */
-  private void registerMetalMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, String name, boolean optional) {
-    Consumer<IFinishedRecipe> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
-    String matName = material.getPath();
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, matName + "/ingot");
-    wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, matName + "/nugget");
-    wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, matName + "/block");
+  /** Helper to create a casting recipe for a slimeskull variant */
+  private void slimeskullCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, IItemProvider skull, String folder) {
+    MaterialIdNBT nbt = new MaterialIdNBT(Collections.singletonList(material));
+    ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
+                            .setCast(skull, true)
+                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 5)
+                            .build(consumer, modResource(folder + "slime_skull/" + material.getPath()));
   }
 }

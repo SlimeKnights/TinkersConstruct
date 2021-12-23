@@ -8,11 +8,12 @@
       "text": "\n"
     },
     {
-      "text": "It can create paths and also deals respectable damage in combat."
+      "text": "It can create paths to glory."
     }
   ],
   "properties": [
     "Creates paths",
-    "Effective on dirt and wood"
+    "Effective on dirt and wood",
+	"Extra knockback"
   ]
 }

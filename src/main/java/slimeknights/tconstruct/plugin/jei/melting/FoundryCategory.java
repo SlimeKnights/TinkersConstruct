@@ -14,12 +14,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.plugin.jei.AlloyRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -27,7 +28,7 @@ import java.util.List;
 
 /** Extension of melting for byproducts, but ditchs solid fuels */
 public class FoundryCategory extends AbstractMeltingCategory {
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "foundry.title");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "foundry.title");
 
   /** Tooltip callback for fluids */
   private static final ITooltipCallback<FluidStack> FLUID_TOOLTIP = new MeltingFluidCallback(false);
@@ -62,25 +63,9 @@ public class FoundryCategory extends AbstractMeltingCategory {
     items.init(0, true, 23, 17);
     items.set(ingredients);
 
-    // find maximum used amount in the recipe so relations are correct
-    List<List<FluidStack>> outputs = recipe.getOutputWithByproducts();
-    int maxAmount = MaterialValues.METAL_BLOCK;
-    for(List<FluidStack> list : outputs) {
-      for(FluidStack input : list) {
-        if (input.getAmount() > maxAmount) {
-          maxAmount = input.getAmount();
-        }
-      }
-    }
-
     // outputs
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
-    float width = 32f / outputs.size();
-    for (int i = 0; i < outputs.size(); i++) {
-      int x = 96 + (int) (i * width);
-      int w = (int) ((i + 1) * width - i * width);
-      fluids.init(i, false, x, 4, w, 32, maxAmount, false, null);
-    }
+    AlloyRecipeCategory.drawVariableFluids(fluids, 0, false, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK);
     fluids.set(ingredients);
 
     // liquid fuel

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:antiaquatic",
+  "text": [
+    {
+      "text": "The enemies of the sea tremble in fear from those wielding weapons with this trait. "
+    },
+    {
+      "text": "Disclaimer: You are a horrible person for using this on fish, turtles, dolphins, or any other peaceful sea life."
+    }
+  ],
+  "effects": [
+    "Increases damage to sea creatures",
+	"Multiple levels, each level increases damage further",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_slimesteel",
+    "tag": "tconstruct:molten_slimesteel",
     "amount": 16
   },
   "result": "tconstruct:slimesteel_nugget",

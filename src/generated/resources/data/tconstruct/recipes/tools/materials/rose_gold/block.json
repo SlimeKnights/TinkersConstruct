@@ -5,5 +5,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:rose_gold"
+  "material": "tconstruct:rose_gold",
+  "leftover": {
+    "tag": "forge:ingots/rose_gold"
+  }
 }

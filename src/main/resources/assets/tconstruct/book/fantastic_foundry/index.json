@@ -1,19 +1,51 @@
 [
   {
     "name": "intro",
-    "data": "sections/intro_tmp.json",
+    "data": "sections/intro.json",
     "icon": {
       "item": {
         "id": "tconstruct:ichor_slime_ball"
       }
     }
   },
-  {
-    "name": "molten_blaze",
-    "data": "sections/molten_blaze.json",
+   {
+    "name": "alloyer",
+    "data": "sections/alloyer.json",
     "icon": {
       "item": {
-        "id": "tconstruct:molten_blaze_bucket"
+        "id": "tconstruct:scorched_alloyer"
+      }
+    }
+  },
+  {
+    "name": "foundry",
+    "data": "sections/foundry.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:foundry_controller"
+      }
+    }
+  },
+  {
+    "name": "blazing_blood",
+    "data": "sections/blazing_blood.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:blazing_blood_bucket"
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:plate_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0
+        }
       }
     }
   },

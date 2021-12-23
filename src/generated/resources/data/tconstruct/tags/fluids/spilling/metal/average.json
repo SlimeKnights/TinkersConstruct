@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:molten_quartz",
+    "#tconstruct:molten_emerald",
+    "#forge:molten_cobalt",
+    "#tconstruct:molten_tinkers_bronze",
+    "#forge:molten_rose_gold",
+    "#tconstruct:molten_slimesteel",
+    "#forge:molten_bronze",
+    "#forge:molten_brass",
+    "#forge:molten_electrum",
+    "#forge:molten_invar",
+    "#forge:molten_constantan",
+    "#forge:molten_pewter",
+    "#forge:molten_steel",
+    "#forge:molten_refined_glowstone"
+  ]
+}

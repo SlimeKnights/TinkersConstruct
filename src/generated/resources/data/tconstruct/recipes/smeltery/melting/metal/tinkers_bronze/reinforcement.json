@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:bronze_reinforcement"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tinkers_bronze",
+    "amount": 48
+  },
+  "temperature": 700,
+  "time": 33,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_obsidian",
+      "amount": 250
+    }
+  ]
+}

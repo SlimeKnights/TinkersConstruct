@@ -18,7 +18,7 @@ import slimeknights.tconstruct.TConstruct;
 //import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 //import slimeknights.tconstruct.tools.tools.Pickaxe;
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID)
+@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID)
 public final class AchievementEvents {
 
   private static final String ADVANCEMENT_STORY_ROOT = "minecraft:story/root";

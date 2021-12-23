@@ -1,22 +1,23 @@
 {
   "condition": {
-    "value": {
-      "tag": "forge:ingots/steel",
-      "type": "forge:tag_empty"
-    },
-    "type": "forge:not"
+    "values": [
+      {
+        "prop": "force_integration_materials",
+        "type": "tconstruct:config"
+      },
+      {
+        "value": {
+          "tag": "forge:ingots/steel",
+          "type": "forge:tag_empty"
+        },
+        "type": "forge:not"
+      }
+    ],
+    "type": "forge:or"
   },
   "craftable": false,
   "tier": 3,
-  "sortOrder": 0,
-  "fluid": "tconstruct:molten_steel",
-  "fluidPerUnit": 144,
+  "sortOrder": 5,
   "textColor": "#959595",
-  "temperature": 950,
-  "traits": [
-    {
-      "name": "tconstruct:ductile",
-      "level": 1
-    }
-  ]
+  "hidden": false
 }

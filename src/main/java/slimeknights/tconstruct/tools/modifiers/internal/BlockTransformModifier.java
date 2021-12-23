@@ -1,15 +1,17 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.ToolType;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
-public class BlockTransformModifier extends SingleUseModifier {
+public class BlockTransformModifier extends InteractionModifier.SingleUse {
   private final ToolType toolType;
   private final SoundEvent sound;
   private final boolean requireGround;
@@ -34,12 +36,19 @@ public class BlockTransformModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
-    Item item = tool.getItem();
-    if (item instanceof IModifiableHarvest) {
-      IModifiableHarvest toolCore = (IModifiableHarvest) item;
-      return toolCore.getToolHarvestLogic().transformBlocks(context, toolType, sound, requireGround);
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
+    // tool must not be broken
+    if (tool.isBroken()) {
+      return ActionResultType.PASS;
     }
-    return ActionResultType.PASS;
+
+    Item item = tool.getItem();
+    ToolHarvestLogic harvestLogic;
+    if (item instanceof IModifiableHarvest) {
+      harvestLogic = ((IModifiableHarvest)item).getToolHarvestLogic();
+    } else {
+      harvestLogic = ToolHarvestLogic.DEFAULT;
+    }
+    return harvestLogic.transformBlocks(tool, context, toolType, sound, requireGround);
   }
 }

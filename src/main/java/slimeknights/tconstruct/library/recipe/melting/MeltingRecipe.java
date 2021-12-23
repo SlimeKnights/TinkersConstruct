@@ -17,8 +17,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -116,7 +116,7 @@ public class MeltingRecipe implements IMeltingRecipe {
    * Serializer for {@link MeltingRecipe}
    */
   @RequiredArgsConstructor
-  public static class Serializer<T extends MeltingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends MeltingRecipe> extends LoggingRecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override
@@ -141,7 +141,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Nullable
     @Override
-    public T read(ResourceLocation id, PacketBuffer buffer) {
+    protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
       String group = buffer.readString(Short.MAX_VALUE);
       Ingredient input = Ingredient.read(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
@@ -156,7 +156,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, MeltingRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, MeltingRecipe recipe) {
       buffer.writeString(recipe.group);
       recipe.input.write(buffer);
       recipe.output.writeToPacket(buffer);

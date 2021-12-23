@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "tag": "tconstruct:molten_uranium",
+    "amount": 16
+  },
+  "effects": [
+    {
+      "type": "tconstruct:damage",
+      "entity": "not_fire_immune",
+      "damage_type": "fire",
+      "damage_amount": 1.5
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:poison",
+      "time": 10,
+      "level": 1
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 3
+    }
+  ]
+}

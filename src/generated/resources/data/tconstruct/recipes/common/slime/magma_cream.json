@@ -1,5 +1,11 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "prop": "slime_recipe_fix",
+      "type": "tconstruct:config"
+    }
+  ],
   "ingredients": [
     {
       "item": "minecraft:blaze_powder"

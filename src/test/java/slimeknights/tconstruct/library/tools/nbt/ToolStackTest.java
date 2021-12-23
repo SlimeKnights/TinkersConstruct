@@ -10,20 +10,25 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
-import slimeknights.tconstruct.library.tools.ToolCoreTest;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.ToolItemTest;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class ToolStackTest extends ToolCoreTest {
+class ToolStackTest extends ToolItemTest {
   private final StatsNBT testStatsNBT = StatsNBT.builder()
-                                                .durability(100).harvestLevel(2)
-                                                .attackDamage(2f).miningSpeed(3f)
-                                                .attackSpeed(5f).reach(6f).build();
+                                                .set(ToolStats.DURABILITY, 100)
+                                                .set(ToolStats.HARVEST_LEVEL, 2)
+                                                .set(ToolStats.ATTACK_DAMAGE, 2f)
+                                                .set(ToolStats.MINING_SPEED, 3f)
+                                                .set(ToolStats.ATTACK_SPEED, 5f)
+                                                .build();
 
   @BeforeAll
   static void before() {
@@ -117,7 +122,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void serialize_damageBroken() {
     ToolStack stack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinitionFixture.getStandardToolDefinition(), new CompoundNBT());
-    stack.setStats(StatsNBT.builder().durability(100).build());
+    stack.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 100).build());
     stack.setDamage(1);
     stack.setBrokenRaw(true);
 
@@ -148,7 +153,7 @@ class ToolStackTest extends ToolCoreTest {
     nbt.putInt(ToolStack.TAG_DAMAGE, 9999);
 
     ToolStack tool = ToolStack.from(testItemStack);
-    assertThat(tool.getDamage()).isLessThanOrEqualTo(tool.getStats().getDurability());
+    assertThat(tool.getDamage()).isLessThanOrEqualTo(tool.getStats().getInt(ToolStats.DURABILITY));
   }
 
   @Test
@@ -248,7 +253,7 @@ class ToolStackTest extends ToolCoreTest {
     stack.setDamage(100);
 
     ToolStack tool = ToolStack.from(stack);
-    tool.setStats(StatsNBT.builder().durability(50).build());
+    tool.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 50).build());
     assertThat(tool.getDamageRaw()).isEqualTo(50);
     assertThat(tool.isBroken()).isTrue();
   }
@@ -364,7 +369,7 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_PERSISTENT_MOD_DATA)).isFalse();
 
     ModDataNBT modData = toolStack.getPersistentData();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
 
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_PERSISTENT_MOD_DATA)).isTrue();
     assertThat(toolStack.getNbt().getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA)).isEqualTo(modData.getData());
@@ -373,7 +378,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void persistentModData_deserialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_PERSISTENT_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
@@ -384,7 +389,7 @@ class ToolStackTest extends ToolCoreTest {
   void volatileModData_serialize() {
     ToolStack toolStack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
     ModDataNBT modData = new ModDataNBT();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
     toolStack.setVolatileModData(modData);
 
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_VOLATILE_MOD_DATA)).isTrue();
@@ -394,7 +399,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void volatileModData_deserialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_VOLATILE_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
@@ -421,7 +426,7 @@ class ToolStackTest extends ToolCoreTest {
     toolStack.setMaterialsRaw(new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA)));
     // set some data that will get cleared out
     ModDataNBT volatileData = new ModDataNBT();
-    volatileData.setUpgrades(4);
+    volatileData.setSlots(SlotType.UPGRADE, 4);
     toolStack.setVolatileModData(volatileData);
     assertThat(toolStack.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
 

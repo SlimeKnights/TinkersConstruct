@@ -3,10 +3,5 @@
   "tier": 1,
   "sortOrder": 3,
   "textColor": "#E8E5D2",
-  "traits": [
-    {
-      "name": "tconstruct:fractured",
-      "level": 1
-    }
-  ]
+  "hidden": false
 }

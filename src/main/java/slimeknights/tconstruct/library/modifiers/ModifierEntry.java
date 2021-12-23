@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.TinkerRegistries;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 /**
  * Data class holding a modifier with a level
@@ -42,17 +43,21 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
     return mod1.getId().getPath().compareTo(mod2.getId().getPath());
   }
 
+  public static Modifier deserializeModifier(JsonObject json, String key) {
+    ResourceLocation name = new ResourceLocation(JSONUtils.getString(json, key));
+    if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
+      return Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(name));
+    }
+    throw new JsonSyntaxException("Unable to find modifier " + name);
+  }
+
   /**
    * Parses a modifier entry from JSON
    * @param json  JSON object
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    ResourceLocation name = new ResourceLocation(JSONUtils.getString(json, "name"));
-    if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
-      return new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(name), JSONUtils.getInt(json, "level", 1));
-    }
-    throw new JsonSyntaxException("Unable to find modifier " + name);
+    return new ModifierEntry(deserializeModifier(json, "name"), JSONUtils.getInt(json, "level", 1));
   }
 
   /**

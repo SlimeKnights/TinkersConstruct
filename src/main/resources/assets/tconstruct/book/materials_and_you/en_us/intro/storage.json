@@ -1,15 +1,15 @@
 {
-  "title":"Storage Chests",
+  "title": "Storage Chests",
   "text": [
     {
       "text": "So, you want to store your extra parts in a special chest, eh? If not, too bad you have the option anyway. "
     },
     {
-      "text": "Part chests allow you to store an abundance of extra parts you may have. Each slot can hold a stack of 16 parts max. If you need more than that, you're doing something wrong or have very convoluted recipes.",
+      "text": "Part chests allow you to store an abundance of extra parts you may have. Each slot can hold a stack of 8 parts max. If you need more than that, you're doing something wrong or have very convoluted recipes.",
       "paragraph": true
     },
-	{
-      "text": "Modifier chests can be used to store items used for upgrades, abilities, or slotless modifers.",
+    {
+      "text": "Oh, that chest is too restrictive? Try the tinkers' chest! It can store any item in a total of 64 slots, though each slot holds just 16 items.",
       "paragraph": true
     }
   ]

@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_brass",
+    "tag": "forge:molten_brass",
     "amount": 1296
   },
   "result": {

@@ -10,11 +10,14 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.ISafeManagerReloadListener;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
 
 import java.util.Map;
 
+/**
+ * Harvest level display names
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HarvestLevels implements ISafeManagerReloadListener {
   /** Instance for resource reloading */
@@ -31,7 +34,7 @@ public class HarvestLevels implements ISafeManagerReloadListener {
 
   /** Makes a translation key for the given name */
   private static IFormattableTextComponent makeLevelKey(String levelName) {
-    return new TranslationTextComponent(Util.makeTranslationKey("stat", "mining_level." + levelName));
+    return new TranslationTextComponent(TConstruct.makeTranslationKey("stat", "mining_level." + levelName));
   }
 
   /**
@@ -49,7 +52,7 @@ public class HarvestLevels implements ISafeManagerReloadListener {
     harvestLevelNames.put(NETHERITE, makeLevelKey("netherite").mergeStyle(TextFormatting.DARK_GRAY));
 
     // load custom names, may override vanilla replacing with uncolored
-    String base = Util.makeTranslationKey("stat", "mining_level.");
+    String base = TConstruct.makeTranslationKey("stat", "mining_level.");
     for (int i = 0; Util.canTranslate(base + i); i++) {
       harvestLevelNames.put(i, new TranslationTextComponent(base + i));
     }

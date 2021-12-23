@@ -9,10 +9,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "result": {
     "name": "tconstruct:sharpness",
     "level": 1
   },
-  "max_level": 5,
-  "upgrade_slots": 1
+  "max_level": 5
 }

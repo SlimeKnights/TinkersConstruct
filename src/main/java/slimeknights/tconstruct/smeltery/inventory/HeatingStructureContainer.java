@@ -4,17 +4,17 @@ import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IntReferenceHolder;
-import slimeknights.mantle.inventory.MultiModuleContainer;
-import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
+import slimeknights.mantle.util.sync.ValidZeroIntReference;
+import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class HeatingStructureContainer extends MultiModuleContainer<HeatingStructureTileEntity> {
+public class HeatingStructureContainer extends TriggeringMultiModuleContainer<HeatingStructureTileEntity> {
   @Getter
   private final SideInventoryContainer<HeatingStructureTileEntity> sideInventory;
   public HeatingStructureContainer(int id, @Nullable PlayerInventory inv, @Nullable HeatingStructureTileEntity structure) {

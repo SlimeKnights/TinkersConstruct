@@ -7,7 +7,7 @@
 <recipetype:tconstruct:molding_table>.addRecipe("molding_table_test", <item:minecraft:glass>, <item:minecraft:dirt>, false, <item:minecraft:stick>);
 
 /*
- * Removes the Molding Basin recipe that turns Part Red Sand Casts (Gem Red Sand Cast, Pickaxe Head Red Sand Cast, etc) back into a Blank Red Sand Cast.
+ * Removes the Molding Table recipe that turns Part Red Sand Casts (Gem Red Sand Cast, Pickaxe Head Red Sand Cast, etc) back into a Blank Red Sand Cast.
  */
 
 // <recipetype:tconstruct:molding_table>.removeRecipe(output as IItemStack)

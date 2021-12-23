@@ -4,7 +4,7 @@
     "type": "minecraft:magma_cube"
   },
   "result": {
-    "fluid": "tconstruct:magma_cream",
+    "fluid": "tconstruct:magma",
     "amount": 25
   },
   "damage": 2

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Allows the tool to create paths, similarly to mattocks or excavators. Tools will use their normal mining area for placing paths."
+    },
+    {
+      "text": "Triggers before the tool's native stripping or tilling if present.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

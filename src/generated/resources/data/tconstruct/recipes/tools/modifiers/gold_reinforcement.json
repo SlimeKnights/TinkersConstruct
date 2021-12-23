@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:obsidian_pane"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:molten_gold",
+    "amount": 48
+  },
+  "result": "tconstruct:gold_reinforcement",
+  "cooling_time": 33
+}

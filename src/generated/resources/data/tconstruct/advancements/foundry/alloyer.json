@@ -1,0 +1,90 @@
+{
+  "parent": "tconstruct:foundry/fantastic_foundry",
+  "display": {
+    "icon": {
+      "item": "tconstruct:scorched_alloyer"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.foundry.alloyer.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.foundry.alloyer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "scorched_alloyer": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_alloyer"
+      }
+    },
+    "scorched_faucet": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_faucet"
+      }
+    },
+    "scorched_table": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_table"
+      }
+    },
+    "scorched_basin": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_basin"
+      }
+    },
+    "scorched_fuel_tank": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_fuel_tank"
+      }
+    },
+    "scorched_fuel_gauge": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_fuel_gauge"
+      }
+    },
+    "scorched_ingot_tank": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_ingot_tank"
+      }
+    },
+    "scorched_ingot_gauge": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:scorched_ingot_gauge"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scorched_alloyer"
+    ],
+    [
+      "scorched_faucet"
+    ],
+    [
+      "scorched_table"
+    ],
+    [
+      "scorched_basin"
+    ],
+    [
+      "scorched_fuel_tank",
+      "scorched_fuel_gauge"
+    ],
+    [
+      "scorched_ingot_tank",
+      "scorched_ingot_gauge"
+    ]
+  ]
+}

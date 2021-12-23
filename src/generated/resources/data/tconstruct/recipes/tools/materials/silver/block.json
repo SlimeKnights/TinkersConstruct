@@ -14,5 +14,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:silver"
+  "material": "tconstruct:silver",
+  "leftover": {
+    "tag": "forge:ingots/silver"
+  }
 }

@@ -11,10 +11,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
+import slimeknights.mantle.util.sync.ValidZeroIntReference;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import javax.annotation.Nullable;

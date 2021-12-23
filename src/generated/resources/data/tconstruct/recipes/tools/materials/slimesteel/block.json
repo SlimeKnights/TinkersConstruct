@@ -5,5 +5,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:slimesteel"
+  "material": "tconstruct:slimesteel",
+  "leftover": {
+    "tag": "forge:ingots/slimesteel"
+  }
 }

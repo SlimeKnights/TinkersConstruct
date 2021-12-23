@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "type": "minecraft:blaze"
+  },
+  "result": {
+    "item": "minecraft:blaze_rod",
+    "count": 2
+  }
+}

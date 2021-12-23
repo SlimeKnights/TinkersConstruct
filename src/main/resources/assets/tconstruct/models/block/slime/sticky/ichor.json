@@ -1,0 +1,34 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "tconstruct:block/slime/storage/ichor",
+    "texture": "tconstruct:block/slime/storage/ichor",
+    "inner": "minecraft:block/lava_still"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#texture", "cullface": "down"  },
+        "up":    { "texture": "#texture", "cullface": "up"    },
+        "north": { "texture": "#texture", "cullface": "north" },
+        "south": { "texture": "#texture", "cullface": "south" },
+        "west":  { "texture": "#texture", "cullface": "west"  },
+        "east":  { "texture": "#texture", "cullface": "east"  }
+      }
+    },
+    {
+      "from": [ 3, 3, 3 ],
+      "to": [ 13, 13, 13 ],
+      "faces": {
+        "down":  { "uv": [ 3, 3, 13, 13 ], "texture": "#inner" },
+        "up":    { "uv": [ 3, 3, 13, 13 ], "texture": "#inner" },
+        "north": { "uv": [ 3, 3, 13, 13 ], "texture": "#inner" },
+        "south": { "uv": [ 3, 3, 13, 13 ], "texture": "#inner" },
+        "west":  { "uv": [ 3, 3, 13, 13 ], "texture": "#inner" },
+        "east":  { "uv": [ 3, 3, 13, 13 ], "texture": "#inner" }
+      }
+    }
+  ]
+}

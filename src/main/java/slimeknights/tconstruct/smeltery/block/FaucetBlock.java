@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.RedstoneParticleData;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -72,6 +73,11 @@ public class FaucetBlock extends Block {
     return SHAPES.get(state.get(FACING));
   }
 
+  @Override
+  public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    return false;
+  }
+
 
   /* Tile entity */
 
@@ -94,12 +100,6 @@ public class FaucetBlock extends Block {
     }
     getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
     return ActionResultType.SUCCESS;
-  }
-
-  @Override
-  public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, @Nullable Direction side) {
-    // TODO: keep?
-    return true;
   }
 
   @SuppressWarnings("deprecation")

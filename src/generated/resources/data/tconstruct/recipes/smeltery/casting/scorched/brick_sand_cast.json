@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:scorched_stone",
+    "tag": "tconstruct:scorched_stone",
     "amount": 144
   },
   "result": "tconstruct:scorched_brick",

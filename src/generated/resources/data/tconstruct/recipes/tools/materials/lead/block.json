@@ -14,5 +14,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:lead"
+  "material": "tconstruct:lead",
+  "leftover": {
+    "tag": "forge:ingots/lead"
+  }
 }

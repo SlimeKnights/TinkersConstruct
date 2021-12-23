@@ -7,11 +7,18 @@ import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
+import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
+import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
+import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
+import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.client.util.ResourceValidator;
+import slimeknights.tconstruct.library.data.ResourceValidator;
+import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
 import slimeknights.tconstruct.tables.TableClientEvents;
+import slimeknights.tconstruct.tools.ToolClientEvents;
 import slimeknights.tconstruct.world.WorldClientEvents;
 
 import java.util.function.Consumer;
@@ -41,6 +48,11 @@ public class TinkerClient {
     // add the recipe cache invalidator to the client
     Consumer<RecipesUpdatedEvent> recipesUpdated = event -> RecipeCacheInvalidator.reload(true);
     MinecraftForge.EVENT_BUS.addListener(recipesUpdated);
+
+    // register datagen serializers
+    ISpriteTransformer.SERIALIZER.registerDeserializer(RecolorSpriteTransformer.NAME, RecolorSpriteTransformer.DESERIALIZER);
+    GreyToSpriteTransformer.init();
+    IColorMapping.SERIALIZER.registerDeserializer(GreyToColorMapping.NAME, GreyToColorMapping.DESERIALIZER);
   }
 
   /**
@@ -51,7 +63,9 @@ public class TinkerClient {
     TableClientEvents.addResourceListener(manager);
     SmelteryClientEvents.addResourceListener(manager);
     MaterialRenderInfoLoader.addResourceListener(manager);
+    DomainDisplayName.addResourceListener(manager);
     manager.addReloadListener(textureValidator);
     manager.addReloadListener(HarvestLevels.INSTANCE);
+    ToolClientEvents.addResourceListener(manager);
   }
 }

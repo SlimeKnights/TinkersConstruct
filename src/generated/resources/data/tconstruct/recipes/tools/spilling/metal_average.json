@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:spilling",
+  "fluid": {
+    "tag": "tconstruct:spilling/metal/average",
+    "amount": 16
+  },
+  "effects": [
+    {
+      "type": "tconstruct:damage",
+      "entity": "not_fire_immune",
+      "damage_type": "fire",
+      "damage_amount": 2.0
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 7
+    }
+  ]
+}

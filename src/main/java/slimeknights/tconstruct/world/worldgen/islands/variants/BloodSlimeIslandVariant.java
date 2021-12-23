@@ -11,8 +11,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
@@ -30,7 +30,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public ResourceLocation getStructureName(String variantName) {
-    return Util.getResource("slime_islands/blood/" + variantName);
+    return TConstruct.getResource("slime_islands/blood/" + variantName);
   }
 
   @Override
@@ -40,13 +40,13 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public BlockState getLakeFluid() {
-    return Objects.requireNonNull(TinkerFluids.magmaCream.getBlock()).getDefaultState();
+    return Objects.requireNonNull(TinkerFluids.magma.getBlock()).getDefaultState();
   }
 
   @Nullable
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
-    return TinkerStructures.BLOOD_SLIME_TREE;
+    return TinkerStructures.BLOOD_SLIME_ISLAND_FUNGUS;
   }
 
   @Override
@@ -55,7 +55,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
   }
 
   private static boolean isLava(ISeedReader world, BlockPos pos) {
-    return world.getBlockState(pos).getBlock() == Blocks.LAVA;
+    return world.isAirBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.LAVA;
   }
 
   @Override

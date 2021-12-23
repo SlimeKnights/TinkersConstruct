@@ -10,9 +10,13 @@ import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
+import slimeknights.mantle.loot.builder.GenericLootModifierBuilder;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /** Global loot modifier for modifiers */
@@ -21,6 +25,12 @@ public class ModifierLootModifier extends LootModifier {
     super(conditionsIn);
   }
 
+  /** Creates a builder for datagen */
+  public static GenericLootModifierBuilder<ModifierLootModifier> builder() {
+    return GenericLootModifierBuilder.builder(TinkerModifiers.modifierLootModifier.get(), ModifierLootModifier::new);
+  }
+
+  @Nonnull
   @Override
   protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
     // tool is for harvest
@@ -29,7 +39,8 @@ public class ModifierLootModifier extends LootModifier {
     if (stack == null) {
       Entity entity = context.get(LootParameters.KILLER_ENTITY);
       if (entity instanceof LivingEntity) {
-        stack = ((LivingEntity)entity).getHeldItemMainhand();
+        LivingEntity living = (LivingEntity) entity;
+        stack = living.getItemStackFromSlot(ModifierLootingHandler.getLootingSlot(living));
       }
     }
     // hopefully one of the two worked
@@ -52,7 +63,7 @@ public class ModifierLootModifier extends LootModifier {
 
     @Override
     public JsonObject write(ModifierLootModifier instance) {
-      return new JsonObject();
+      return makeConditions(instance.conditions);
     }
   }
 }

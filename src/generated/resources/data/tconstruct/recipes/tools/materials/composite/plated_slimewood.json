@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "input": "tconstruct:slimewood",
+  "fluid": {
+    "tag": "forge:molten_brass",
+    "amount": 144
+  },
+  "temperature": 605,
+  "output": "tconstruct:plated_slimewood"
+}

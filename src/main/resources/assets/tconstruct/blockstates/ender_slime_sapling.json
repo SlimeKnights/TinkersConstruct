@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/ender_slime_sapling"
+            "model": "tconstruct:block/slime/sapling/ender"
         }
     }
 }

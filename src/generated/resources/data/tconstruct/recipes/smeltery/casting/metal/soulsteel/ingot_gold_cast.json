@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "name": "tconstruct:molten_soulsteel",
+    "tag": "tconstruct:molten_soulsteel",
     "amount": 144
   },
   "result": "tconstruct:soulsteel_ingot",

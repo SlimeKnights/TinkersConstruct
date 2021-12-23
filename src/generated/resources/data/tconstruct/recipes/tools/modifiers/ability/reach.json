@@ -5,7 +5,7 @@
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "forge:ingots/queens_slime"
     },
     {
       "item": "minecraft:piston"
@@ -17,13 +17,19 @@
       "tag": "forge:slimeball/ender"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
+  "slots": {
+    "abilities": 1
   },
   "result": {
     "name": "tconstruct:reach",
     "level": 1
-  },
-  "max_level": 2,
-  "ability_slots": 1
+  }
 }

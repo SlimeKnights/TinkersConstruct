@@ -1,0 +1,16 @@
+{
+  "title": "Defense Modifiers",
+  "text": [
+    {
+      "text": "Defense are a type of modifier exclusive to armor, boosting protection against particular threats such as fire or knockback. They provide another way to customize armor as most armor types lack material traits."
+    },
+    {
+      "text": "Like many other modifier types, defense modifiers require defense slots to be applied. Typically, armor with a large number of defense slots start with fewer upgrade slots, meaning functionality is sacrificed for protection.",
+      "paragraph": true
+    },
+	 {
+      "text": "Mighty Smelting also has a full list of defense modifiers available on tools, along with the Encyclopedia of Tinkering.",
+      "paragraph": true
+    }
+  ]
+}

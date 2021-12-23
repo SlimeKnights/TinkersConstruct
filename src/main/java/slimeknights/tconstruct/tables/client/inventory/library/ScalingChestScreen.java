@@ -2,25 +2,27 @@ package slimeknights.tconstruct.tables.client.inventory.library;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.inventory.EmptyItemHandler;
 
-public class ScalingChestScreen<T extends TileEntity & IInventory> extends DynInventoryScreen {
+import java.util.Optional;
 
-  protected final IInventory inventory;
-
+public class ScalingChestScreen<T extends TileEntity> extends DynInventoryScreen {
+  private final IScalingInventory scaling;
   public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainer<T> container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title);
-
-    this.inventory = container.getTile();
-    if (this.inventory != null)
-      this.slotCount = this.inventory.getSizeInventory();
-    else
-      this.slotCount = 0;
+    TileEntity tile = container.getTile();
+    IItemHandler handler = Optional.ofNullable(tile)
+                                   .flatMap(t -> t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).resolve())
+                                   .orElse(EmptyItemHandler.INSTANCE);
+    this.scaling = handler instanceof IScalingInventory ? (IScalingInventory) handler : handler::getSlots;
+    this.slotCount = scaling.getVisualSize();
     this.sliderActive = true;
   }
 
@@ -47,33 +49,20 @@ public class ScalingChestScreen<T extends TileEntity & IInventory> extends DynIn
 
   @Override
   public void update(int mouseX, int mouseY) {
-    if (this.inventory == null) {
-      this.slotCount = 0;
-    } else {
-      this.slotCount = this.inventory.getSizeInventory();
-    }
+    this.slotCount = this.scaling.getVisualSize();
     super.update(mouseX, mouseY);
-
     this.updateSlider();
-    this.slider.show();
     this.updateSlots();
   }
 
   @Override
   public boolean shouldDrawSlot(Slot slot) {
-    if (this.inventory == null) {
+    if (slot.getSlotIndex() >= this.scaling.getVisualSize()) {
       return false;
     }
-
-    if (slot.getSlotIndex() >= this.inventory.getSizeInventory()) {
-      return false;
-    }
-
     return super.shouldDrawSlot(slot);
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
-  }
-
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {}
 }

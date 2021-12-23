@@ -34,17 +34,18 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.BakedItemModel;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import org.apache.commons.lang3.mutable.MutableObject;
+import slimeknights.mantle.client.model.util.MantleItemLayerModel;
+import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
@@ -56,10 +57,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 @AllArgsConstructor
 @Log4j2
 public class MaterialModel implements IModelGeometry<MaterialModel> {
+  /** Set of all textures that are missing from the resource pack, to avoid logging twice */
+  private static final Set<ResourceLocation> SKIPPED_TEXTURES = new HashSet<>();
+
   /** Shared loader instance */
   public static final Loader LOADER = new Loader();
 
@@ -80,28 +85,31 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
 
   /**
    * Gets a consumer to add textures to the given collection
-   * @param texture      Texture base
-   * @param allTextures  Collection of textures
+   * @param textureLocation  Texture base
+   * @param allTextures      Collection of textures
    * @return  Texture consumer
    */
-  public static Consumer<RenderMaterial> getTextureAdder(RenderMaterial texture, Collection<RenderMaterial> allTextures) {
-    if (texture.getTextureLocation().getPath().startsWith("item/tool")) {
-      // keep track of skipped textures, so we do not debug print the same resource twice
-      Set<ResourceLocation> skipped = new HashSet<>();
+  public static Predicate<RenderMaterial> getTextureAdder(ResourceLocation textureLocation, Collection<RenderMaterial> allTextures, boolean logMissingTextures) {
+    if (textureLocation.getPath().startsWith("item/tool")) {
       return mat -> {
         // either must be non-blocks, or must exist. We have fallbacks if it does not exist
         ResourceLocation loc = mat.getTextureLocation();
         if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
           allTextures.add(mat);
-        } else if (Config.CLIENT.logMissingMaterialTextures.get() && !skipped.contains(loc)) {
-          skipped.add(loc);
+          return true;
+        } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
+          SKIPPED_TEXTURES.add(loc);
           log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
         }
+        return false;
       };
     } else {
       // just directly add with no filter, nothing we can do
-      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", texture.getTextureLocation());
-      return allTextures::add;
+      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", textureLocation);
+      return mat -> {
+        allTextures.add(mat);
+        return true;
+      };
     }
   }
 
@@ -119,7 +127,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     // if the texture is missing, stop here
     if (!MissingTextureSprite.getLocation().equals(texture.getTextureLocation())) {
       // texture should exist in item/tool, or the validator cannot handle them
-      Consumer<RenderMaterial> textureAdder = getTextureAdder(texture, allTextures);
+      Predicate<RenderMaterial> textureAdder = getTextureAdder(texture.getTextureLocation(), allTextures, Config.CLIENT.logMissingMaterialTextures.get());
       // if no specific material is set, load all materials as dependencies. If just one material, use just that one
       if (material == null) {
         MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));
@@ -140,31 +148,46 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @return  Model quads
    */
   public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, String name, int index, @Nullable MaterialId material) {
+    return getPartQuads(quadConsumer, owner, spriteGetter, transform, name, index, material, null);
+  }
+
+  /**
+   * Gets the quads for a material for the given texture
+   * @param owner         Model owner
+   * @param spriteGetter  Sprite getter
+   * @param transform     Model transform
+   * @param name          Sprite name
+   * @param index         Sprite tint index
+   * @param material      Material to use
+   * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
+   * @return  Model quads
+   */
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, String name, int index, @Nullable MaterialId material, @Nullable ItemLayerPixels pixels) {
     RenderMaterial texture = owner.resolveTexture(name);
-    int tintIndex = -1;
+    int color = -1;
+    int light = 0;
     TextureAtlasSprite finalSprite = null;
     // if the base material is non-null, try to find the sprite for that material
     if (material != null) {
       // first, find a render info
-      Optional<MaterialRenderInfo> renderInfo = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
-      if(renderInfo.isPresent()) {
+      Optional<MaterialRenderInfo> optional = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
+      if (optional.isPresent()) {
         // determine the texture to use and whether or not to tint it
-        TintedSprite sprite = renderInfo.get().getSprite(texture, spriteGetter);
+        MaterialRenderInfo info = optional.get();
+        TintedSprite sprite = info.getSprite(texture, spriteGetter);
         finalSprite = sprite.getSprite();
-        if(sprite.isTinted()) {
-          tintIndex = index;
-        }
+        color = sprite.getColor();
+        light = info.getLuminosity();
       }
     }
 
     // if we have no material, or the material failed to fetch, use the default sprite and tint index
     if (finalSprite == null) {
       finalSprite = spriteGetter.apply(texture);
-      tintIndex = index;
     }
 
     // get quads
-    quadConsumer.accept(ItemLayerModel.getQuadsForSprite(tintIndex, finalSprite, transform));
+    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light, pixels));
 
     // return sprite
     return finalSprite;
@@ -254,7 +277,9 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   private static class Loader implements IModelLoader<MaterialModel> {
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {}
+    public void onResourceManagerReload(IResourceManager resourceManager) {
+      SKIPPED_TEXTURES.clear();
+    }
 
     @Override
     public MaterialModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {

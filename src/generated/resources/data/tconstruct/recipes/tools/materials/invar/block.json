@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/invar",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/invar"
+  },
+  "value": 9,
+  "needed": 1,
+  "material": "tconstruct:invar",
+  "leftover": {
+    "tag": "forge:ingots/invar"
+  }
+}

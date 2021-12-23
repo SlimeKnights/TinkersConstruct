@@ -16,7 +16,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
@@ -101,7 +101,7 @@ public class SearedLadderBlock extends OrientableSmelteryBlock {
     BlockState state = context.getWorld().getBlockState(context.getPos().down());
     Direction direction = context.getPlacementHorizontalFacing().getOpposite();
     return this.getDefaultState()
-               .with(BOTTOM, !state.isIn(this) || state.get(FACING) != direction)
+               .with(BOTTOM, !state.matchesBlock(this) || state.get(FACING) != direction)
                .with(FACING, direction);
   }
 
@@ -109,7 +109,7 @@ public class SearedLadderBlock extends OrientableSmelteryBlock {
   @Override
   public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
     if (facing == Direction.DOWN) {
-      return state.with(BOTTOM, !facingState.isIn(this) || state.get(FACING) != facingState.get(FACING));
+      return state.with(BOTTOM, !facingState.matchesBlock(this) || state.get(FACING) != facingState.get(FACING));
     }
     return state;
   }

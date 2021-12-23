@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class JsonFileLoader {
 
   public Map<ResourceLocation,JsonElement> loadFilesAsSplashlist(String... files) {
     ResourceLocation[] resourceLocations = Arrays.stream(files)
-      .map(Util::getResource)
+      .map(TConstruct::getResource)
       .toArray(ResourceLocation[]::new);
 
     return loadFilesAsSplashlist(resourceLocations);

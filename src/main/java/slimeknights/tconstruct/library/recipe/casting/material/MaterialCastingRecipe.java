@@ -2,64 +2,86 @@ package slimeknights.tconstruct.library.recipe.casting.material;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Casting recipe that takes an arbitrary fluid of a given amount and set the material on the output based on that fluid
  */
 public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
-  private final int itemCost;
-  private final IMaterialItem result;
-  private List<IDisplayableCastingRecipe> multiRecipes;
+  protected final int itemCost;
+  protected final IMaterialItem result;
+  @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+  protected Optional<MaterialFluidRecipe> cachedFluidRecipe = Optional.empty();
 
   public MaterialCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
     this.itemCost = itemCost;
     this.result = result;
+    MaterialCastingLookup.registerItemCost(result, itemCost);
   }
 
-  @Override
-  public int getCoolingTime(ICastingInventory inv) {
-    IMaterial material = MaterialRegistry.getMaterial(inv.getFluid());
-    return ICastingRecipe.calcCoolingTime(material.getTemperature(), material.getFluidPerUnit() * this.itemCost);
+  /** Gets the material fluid recipe for the given recipe */
+  protected Optional<MaterialFluidRecipe> getMaterialFluid(ICastingInventory inv) {
+    return MaterialCastingLookup.getCastingFluid(inv.getFluid());
+  }
+
+  /** Gets the cached fluid recipe if it still matches, refetches if not */
+  protected Optional<MaterialFluidRecipe> getCachedMaterialFluid(ICastingInventory inv) {
+    Optional<MaterialFluidRecipe> fluidRecipe = cachedFluidRecipe;
+    if (!fluidRecipe.filter(recipe -> recipe.matches(inv)).isPresent()) {
+      fluidRecipe = getMaterialFluid(inv);
+      if (fluidRecipe.isPresent()) {
+        cachedFluidRecipe = fluidRecipe;
+      }
+    }
+    return fluidRecipe;
   }
 
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
-    return this.cast.test(inv.getStack()) && MaterialRegistry.getInstance().getMaterial(inv.getFluid()) != IMaterial.UNKNOWN;
+    if (!this.cast.test(inv.getStack())) {
+      return false;
+    }
+    return getCachedMaterialFluid(inv).filter(recipe -> result.canUseMaterial(recipe.getOutput())).isPresent();
   }
 
   @Override
-  public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, this.cast);
+  public int getCoolingTime(ICastingInventory inv) {
+    return getCachedMaterialFluid(inv)
+      .map(recipe -> ICastingRecipe.calcCoolingTime(recipe.getTemperature(), recipe.getFluidAmount(inv.getFluid()) * itemCost))
+      .orElse(1);
+  }
+
+  @Override
+  public int getFluidAmount(ICastingInventory inv) {
+    return getCachedMaterialFluid(inv)
+             .map(recipe -> recipe.getFluidAmount(inv.getFluid()))
+             .orElse(1) * this.itemCost;
   }
 
   @Override
@@ -68,27 +90,41 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   }
 
   @Override
-  public int getFluidAmount(ICastingInventory inv) {
-    return MaterialRegistry.getMaterial(inv.getFluid()).getFluidPerUnit() * this.itemCost;
-  }
-
-  @Override
   public ItemStack getCraftingResult(ICastingInventory inv) {
-    IMaterial material = MaterialRegistry.getInstance().getMaterial(inv.getFluid());
+    IMaterial material = getCachedMaterialFluid(inv).map(MaterialFluidRecipe::getOutput).orElse(IMaterial.UNKNOWN);
     return result.withMaterial(material);
   }
 
+  /* JEI display */
+  protected List<IDisplayableCastingRecipe> multiRecipes;
+
+  /** Resizes the list of the fluids with respect to the item cost */
+  protected List<FluidStack> resizeFluids(List<FluidStack> fluids) {
+    if (itemCost != 1) {
+      return fluids.stream()
+                   .map(fluid -> new FluidStack(fluid, fluid.getAmount() * itemCost))
+                   .collect(Collectors.toList());
+    }
+    return fluids;
+  }
+
   @Override
-  @SuppressWarnings("WeakerAccess")
   public List<IDisplayableCastingRecipe> getRecipes() {
     if (multiRecipes == null) {
       IRecipeType<?> type = getType();
       List<ItemStack> castItems = Arrays.asList(cast.getMatchingStacks());
-      multiRecipes = MaterialRegistry
-        .getMaterials().stream()
-        .filter(mat -> mat.getFluid() != Fluids.EMPTY)
-        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidStack(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
-                                             result.withMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
+      multiRecipes = MaterialCastingLookup
+        .getAllCastingFluids().stream()
+        .filter(recipe -> {
+          IMaterial output = recipe.getOutput();
+          return output != IMaterial.UNKNOWN && !output.isHidden() && result.canUseMaterial(output);
+        })
+        .map(recipe -> {
+          List<FluidStack> fluids = resizeFluids(recipe.getFluids());
+          int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);
+          return new DisplayCastingRecipe(type, castItems, fluids, result.withMaterial(recipe.getOutput()),
+                                          ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluidAmount), consumed);
+        })
         .collect(Collectors.toList());
     }
     return multiRecipes;
@@ -96,10 +132,8 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   /** Basin implementation */
   public static class Basin extends MaterialCastingRecipe {
-
-    public Basin(ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {
-      super(RecipeTypes.CASTING_BASIN, id, group, cast, fluidAmount, result, consumed, switchSlots);
-      MaterialItemCostLookup.registerBasin(result, fluidAmount);
+    public Basin(ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
+      super(RecipeTypes.CASTING_BASIN, id, group, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override
@@ -110,10 +144,8 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   /** Table implementation */
   public static class Table extends MaterialCastingRecipe {
-
-    public Table(ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {
-      super(RecipeTypes.CASTING_TABLE, id, group, cast, fluidAmount, result, consumed, switchSlots);
-      MaterialItemCostLookup.registerTable(result, fluidAmount);
+    public Table(ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
+      super(RecipeTypes.CASTING_TABLE, id, group, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override
@@ -127,7 +159,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
    * @param <T>  Recipe class type
    */
   public interface IFactory<T extends MaterialCastingRecipe> {
-    T create(ResourceLocation id, String group, @Nullable Ingredient cast, int fluidAmount, IMaterialItem result,
+    T create(ResourceLocation id, String group, @Nullable Ingredient cast, int itemCost, IMaterialItem result,
              boolean consumed, boolean switchSlots);
   }
 
@@ -137,9 +169,9 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
-      int fluidAmount = JSONUtils.getInt(json, "item_cost");
+      int itemCost = JSONUtils.getInt(json, "item_cost");
       IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IMaterialItem.class);
-      return this.factory.create(idIn, groupIn, cast, fluidAmount, result, consumed, switchSlots);
+      return this.factory.create(idIn, groupIn, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override

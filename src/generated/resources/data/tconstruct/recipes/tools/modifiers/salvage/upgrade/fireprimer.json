@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "item": "tconstruct:flint_and_bronze"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:fireprimer",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:flint",
+      "chance": 0.2
+    },
+    {
+      "item": "minecraft:netherite_scrap",
+      "chance": 0.35
+    }
+  ]
+}

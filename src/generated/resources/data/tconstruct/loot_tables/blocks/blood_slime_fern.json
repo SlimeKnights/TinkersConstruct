@@ -11,10 +11,7 @@
       ],
       "conditions": [
         {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "tag": "forge:shears"
-          }
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

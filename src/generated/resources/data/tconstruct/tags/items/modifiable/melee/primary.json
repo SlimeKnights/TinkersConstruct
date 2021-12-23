@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:sledge_hammer",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
+    "tconstruct:scythe",
+    "tconstruct:dagger",
+    "tconstruct:sword",
+    "tconstruct:cleaver"
+  ]
+}

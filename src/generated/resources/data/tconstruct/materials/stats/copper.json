@@ -1,22 +1,21 @@
 {
-  "materialId": "tconstruct:copper",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 210,
-      "miningSpeed": 6.5,
-      "harvestLevel": 2,
-      "attack": 1.5
+  "stats": {
+    "tconstruct:skull": {
+      "durability": 145,
+      "armor": 2
     },
-    {
-      "id": "tconstruct:handle",
-      "durability": 0.8,
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
+      "durability": 0.85,
       "miningSpeed": 1.2,
       "attackSpeed": 1.0,
       "attackDamage": 1.0
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 210,
+      "miningSpeed": 6.5,
+      "harvestLevel": 2,
+      "attack": 1.5
     }
-  ]
+  }
 }

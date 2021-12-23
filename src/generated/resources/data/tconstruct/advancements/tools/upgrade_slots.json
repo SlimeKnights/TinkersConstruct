@@ -1,0 +1,60 @@
+{
+  "parent": "tconstruct:tools/modified",
+  "display": {
+    "icon": {
+      "item": "minecraft:writable_book"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.upgrade_slots.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.upgrade_slots.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_modified": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "upgrades": {
+              "options": [
+                {
+                  "name": "tconstruct:writable",
+                  "level": 1
+                },
+                {
+                  "name": "tconstruct:recapitated",
+                  "level": 1
+                },
+                {
+                  "name": "tconstruct:harmonious",
+                  "level": 1
+                },
+                {
+                  "name": "tconstruct:resurrected",
+                  "level": 1
+                },
+                {
+                  "name": "tconstruct:gilded",
+                  "level": 1
+                }
+              ],
+              "matches_needed": 5
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_modified"
+    ]
+  ]
+}

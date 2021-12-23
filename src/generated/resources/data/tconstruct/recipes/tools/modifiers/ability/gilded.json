@@ -8,10 +8,11 @@
   "tools": {
     "tag": "tconstruct:modifiable"
   },
+  "slots": {
+    "abilities": 1
+  },
   "result": {
     "name": "tconstruct:gilded",
     "level": 1
-  },
-  "max_level": 2,
-  "ability_slots": 1
+  }
 }

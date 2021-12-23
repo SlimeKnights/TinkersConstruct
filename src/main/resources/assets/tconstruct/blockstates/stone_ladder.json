@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "tconstruct:block/stone_ladder" },
-        "facing=east": { "model": "tconstruct:block/stone_ladder", "y": 90 },
-        "facing=south": { "model": "tconstruct:block/stone_ladder", "y": 180 },
-        "facing=west": { "model": "tconstruct:block/stone_ladder", "y": 270 }
-    }
-}

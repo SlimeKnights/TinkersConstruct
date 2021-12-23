@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "tconstruct:earth_congealed_slime"
-  },
-  "value": 4,
-  "needed": 1,
-  "material": "tconstruct:slimewood"
-}

@@ -1,0 +1,12 @@
+{
+  "title": "Quartz Shuriken",
+  "item": {
+    "id": "tconstruct:quartz_shuriken"
+  },
+  "text": [
+    {
+      "text": "Quartz is far lighter than flint, and far sharper. Shurikens carved from quartz I was finding were causing monsters much more damage, though less knockback.",
+      "paragraph": true
+    }
+  ]
+}

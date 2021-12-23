@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
@@ -63,7 +63,7 @@ public class CastingFluidHandler implements IFluidHandler {
     int capacity = this.capacity;
     if (filter == null || this.capacity == 0) {
       Fluid fluid = resource.getFluid();
-      capacity = tile.initNewCasting(fluid, action);
+      capacity = tile.initNewCasting(resource, action);
       if (capacity <= 0) {
         return 0;
       }

@@ -1,0 +1,143 @@
+[
+  {
+    "name": "small_tools",
+    "data": "sections/small_tools.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render_head",
+            "tconstruct:ui_render_handle",
+            "tconstruct:ui_render_extra"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "large_tools",
+    "data": "sections/large_tools.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:cleaver",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render_head",
+            "tconstruct:ui_render_handle",
+            "tconstruct:ui_render_extra",
+            "tconstruct:ui_render_large"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:travelers_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "tier_one_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:stone"
+      }
+    }
+  },
+  {
+    "name": "tier_two_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:copper_ingot"
+      }
+    }
+  },
+  {
+    "name": "tier_three_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:slimesteel_ingot"
+      }
+    }
+  },
+  {
+    "name": "tier_four_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:manyullyn_ingot"
+      }
+    }
+  },
+  {
+    "name": "skull_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:skeleton_skull"
+      }
+    }
+  },
+  {
+    "name": "upgrades",
+    "data": "sections/upgrades.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "upgrades"
+        }
+      }
+    }
+  },
+  {
+    "name": "defense",
+    "data": "sections/defense.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "defense"
+        }
+      }
+    }
+  },
+  {
+    "name": "slotless",
+    "data": "sections/slotless.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "slotless"
+        }
+      }
+    }
+  },
+  {
+    "name": "abilities",
+    "data": "sections/abilities.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "abilities"
+        }
+      }
+    }
+  }
+]

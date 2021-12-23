@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    { "text": "The Excavator is a broad digging tool, effective on dirt, gravel, and sand in a 3x3 range." },
+    { "text": "Expanders alternate between increasing width and height.", "paragraph": true }
+  ],
+  "properties": [
+    "+1.5 Attack Damage",
+    "120% Attack Modifier",
+    "1.0 Attack Speed",
+    "30% Mining Modifier",
+    "375% Durability Modifier",
+    "Knockback II",
+    "Makes path"
+  ]
+}

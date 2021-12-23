@@ -5,6 +5,7 @@ import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -12,7 +13,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +45,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
 
   @Override
   public int getTankCapacity(int tank) {
-    return MaterialValues.INGOT;
+    return FluidValues.INGOT;
   }
 
   /** Gets the contained fluid */
@@ -52,9 +53,15 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     return CopperCanItem.getFluid(container);
   }
 
+  /** Gets the contained fluid */
+  @Nullable
+  private CompoundNBT getFluidTag() {
+    return CopperCanItem.getFluidTag(container);
+  }
+
   @Override
   public FluidStack getFluidInTank(int tank) {
-    return new FluidStack(getFluid(), MaterialValues.INGOT);
+    return new FluidStack(getFluid(), FluidValues.INGOT, getFluidTag());
   }
 
 
@@ -63,20 +70,20 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public int fill(FluidStack resource, FluidAction action) {
     // must not be filled, must have enough
-    if (getFluid() != Fluids.EMPTY || resource.getAmount() < MaterialValues.INGOT) {
+    if (getFluid() != Fluids.EMPTY || resource.getAmount() < FluidValues.INGOT) {
       return 0;
     }
     // update fluid and return
     if (action.execute()) {
-      CopperCanItem.setFluid(container, resource.getFluid());
+      CopperCanItem.setFluid(container, resource);
     }
-    return MaterialValues.INGOT;
+    return FluidValues.INGOT;
   }
 
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     // must be draining at least an ingot
-    if (resource.isEmpty() || resource.getAmount() < MaterialValues.INGOT) {
+    if (resource.isEmpty() || resource.getAmount() < FluidValues.INGOT) {
       return FluidStack.EMPTY;
     }
     // must have a fluid, must match what they are draining
@@ -85,9 +92,9 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, MaterialValues.INGOT);
+    FluidStack output = new FluidStack(fluid, FluidValues.INGOT, getFluidTag());
     if (action.execute()) {
-      CopperCanItem.setFluid(container, Fluids.EMPTY);
+      CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }
     return output;
   }
@@ -95,7 +102,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     // must be draining at least an ingot
-    if (maxDrain < MaterialValues.INGOT) {
+    if (maxDrain < FluidValues.INGOT) {
       return FluidStack.EMPTY;
     }
     // must have a fluid
@@ -104,9 +111,9 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, MaterialValues.INGOT);
+    FluidStack output = new FluidStack(fluid, FluidValues.INGOT, getFluidTag());
     if (action.execute()) {
-      CopperCanItem.setFluid(container, Fluids.EMPTY);
+      CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }
     return output;
   }

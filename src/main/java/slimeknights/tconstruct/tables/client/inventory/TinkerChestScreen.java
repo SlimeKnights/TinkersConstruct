@@ -7,14 +7,14 @@ import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.tables.client.inventory.library.ScalingChestScreen;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
-import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
+import slimeknights.tconstruct.tables.tileentity.chest.ChestTileEntity;
 
-public class TinkerChestScreen extends BaseStationScreen<TinkerChestTileEntity, BaseStationContainer<TinkerChestTileEntity>> {
+public class TinkerChestScreen extends BaseStationScreen<ChestTileEntity, BaseStationContainer<ChestTileEntity>> {
 
   protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(7 + 18, 7, 18, 18);
-  public ScalingChestScreen<TinkerChestTileEntity> scalingChestScreen;
+  public ScalingChestScreen<ChestTileEntity> scalingChestScreen;
 
-  public TinkerChestScreen(BaseStationContainer<TinkerChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
+  public TinkerChestScreen(BaseStationContainer<ChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
     TinkerChestContainer.DynamicChestInventory chestContainer = container.getSubContainer(TinkerChestContainer.DynamicChestInventory.class);
     if (chestContainer != null) {

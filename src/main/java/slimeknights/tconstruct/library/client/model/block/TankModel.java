@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.client.model.block;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.model.SimpleBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
@@ -27,9 +28,11 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
@@ -38,8 +41,10 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.ExtraTextureConfiguration;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -47,7 +52,6 @@ import slimeknights.tconstruct.smeltery.item.TankItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +66,8 @@ import java.util.function.Function;
 @Log4j2
 @AllArgsConstructor
 public class TankModel implements IModelGeometry<TankModel> {
+  protected static final ResourceLocation BAKE_LOCATION = TConstruct.getResource("dynamic_model_baking");
+
   /** Shared loader instance */
   public static final Loader LOADER = new Loader();
 
@@ -69,6 +75,7 @@ public class TankModel implements IModelGeometry<TankModel> {
   @Nullable
   protected final SimpleBlockModel gui;
   protected final IncrementalFluidCuboid fluid;
+  protected final boolean forceModelFluid;
 
   @Override
   public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
@@ -165,31 +172,51 @@ public class TankModel implements IModelGeometry<TankModel> {
     }
 
     /**
+     * Bakes the model with the given fluid element
+     * @param owner        Owner for baking, should include the fluid texture
+     * @param baseModel    Base model for original elements
+     * @param fluid        Fluid element for baking
+     * @param color        Color for the fluid part
+     * @param luminosity   Luminosity for the fluid part
+     * @return  Baked model
+     */
+    private IBakedModel bakeWithFluid(IModelConfiguration owner, SimpleBlockModel baseModel, BlockPart fluid, int color, int luminosity) {
+      // setup for baking, using dynamic location and sprite getter
+      Function<RenderMaterial,TextureAtlasSprite> spriteGetter = ModelLoader.defaultTextureGetter();
+      TextureAtlasSprite particle = spriteGetter.apply(owner.resolveTexture("particle"));
+      SimpleBakedModel.Builder builder = new SimpleBakedModel.Builder(owner, ItemOverrideList.EMPTY).setTexture(particle);
+      // first, add all regular elements
+      for (BlockPart element : baseModel.getElements()) {
+        SimpleBlockModel.bakePart(builder, owner, element, originalTransforms, spriteGetter, BAKE_LOCATION);
+      }
+      // next, add in the fluid
+      ColoredBlockModel.bakePart(builder, owner, fluid, color, luminosity, originalTransforms, spriteGetter, BAKE_LOCATION);
+      return builder.build();
+    }
+
+    /**
      * Gets the model with the fluid part added
      * @param stack  Fluid stack to add
      * @return  Model with the fluid part
      */
     private IBakedModel getModel(FluidStack stack) {
-      // add fluid texture
-      Map<String,RenderMaterial> textures = new HashMap<>();
+      // fetch fluid data
       FluidAttributes attributes = stack.getFluid().getAttributes();
-      textures.put("fluid", ModelLoaderRegistry.blockMaterial(attributes.getStillTexture(stack)));
-      textures.put("flowing_fluid", ModelLoaderRegistry.blockMaterial(attributes.getFlowingTexture(stack)));
+      int color = attributes.getColor(stack);
+      int luminosity = attributes.getLuminosity(stack);
+      Map<String,RenderMaterial> textures = ImmutableMap.of(
+        "fluid", ModelLoaderRegistry.blockMaterial(attributes.getStillTexture(stack)),
+        "flowing_fluid", ModelLoaderRegistry.blockMaterial(attributes.getFlowingTexture(stack)));
       IModelConfiguration textured = new ExtraTextureConfiguration(owner, textures);
 
       // add fluid part
-      // TODO: fullbright for fluids with light level
-      List<BlockPart> elements = Lists.newArrayList(original.model.getElements());
       BlockPart fluid = original.fluid.getPart(stack.getAmount(), attributes.isGaseous(stack));
-      elements.add(fluid);
       // bake the model
-      IBakedModel baked = SimpleBlockModel.bakeDynamic(textured, elements, originalTransforms);
+      IBakedModel baked = bakeWithFluid(textured, original.model, fluid, color, luminosity);
 
       // if we have GUI, bake a GUI variant
       if (original.gui != null) {
-        elements = Lists.newArrayList(original.gui.getElements());
-        elements.add(fluid);
-        baked = new BakedGuiUniqueModel(baked, SimpleBlockModel.bakeDynamic(textured, elements, originalTransforms));
+        baked = new BakedGuiUniqueModel(baked, bakeWithFluid(textured, original.gui, fluid, color, 0));
       }
 
       // return what we ended up with
@@ -219,13 +246,13 @@ public class TankModel implements IModelGeometry<TankModel> {
      */
     private IBakedModel getCachedModel(FluidStack fluid, int capacity) {
       int increments = original.fluid.getIncrements();
-      return getCachedModel(new FluidStack(fluid.getFluid(), Math.min(fluid.getAmount() * increments / capacity, increments)));
+      return getCachedModel(new FluidStack(fluid.getFluid(), MathHelper.clamp(fluid.getAmount() * increments / capacity, 1, increments)));
     }
 
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
-      if (Config.CLIENT.tankFluidModel.get() && data.hasProperty(ModelProperties.FLUID_TANK)) {
+      if ((original.forceModelFluid || Config.CLIENT.tankFluidModel.get()) && data.hasProperty(ModelProperties.FLUID_TANK)) {
         IFluidTank tank = data.getData(ModelProperties.FLUID_TANK);
         if (tank != null && !tank.getFluid().isEmpty()) {
           return getCachedModel(tank.getFluid(), tank.getCapacity()).getQuads(state, side, rand, EmptyModelData.INSTANCE);
@@ -256,7 +283,8 @@ public class TankModel implements IModelGeometry<TankModel> {
         gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getJsonObject(modelContents, "gui"));
       }
       IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
-      return new TankModel(model, gui, fluid);
+      boolean forceModelFluid = JSONUtils.getBoolean(modelContents, "render_fluid_in_model", false);
+      return new TankModel(model, gui, fluid, forceModelFluid);
     }
   }
 }

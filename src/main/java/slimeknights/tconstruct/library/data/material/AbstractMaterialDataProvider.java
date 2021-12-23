@@ -1,32 +1,26 @@
 package slimeknights.tconstruct.library.data.material;
 
-import com.mojang.datafixers.util.Pair;
+import lombok.Data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.text.Color;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.MaterialManager;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.Material;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -44,12 +38,14 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   /** Order for mod integration materials */
   public static final int ORDER_COMPAT = 5;
   /** Order for nether materials in tiers 1-3 */
-  public static final int ORDER_NETHER = 7;
+  public static final int ORDER_NETHER = 10;
   /** Order for end materials in tiers 1-4 */
-  public static final int ORDER_END = 10;
+  public static final int ORDER_END = 15;
+  /** Order for materials that are just a binding */
+  public static final int ORDER_BINDING = 20;
 
   /** List of all added materials */
-  private final Map<MaterialId, Pair<IMaterial,ICondition>> allMaterials = new HashMap<>();
+  private final Map<MaterialId, DataMaterial> allMaterials = new HashMap<>();
 
   /** Boolean just in case material stats run first */
   private boolean addMaterialsRun = false;
@@ -67,13 +63,14 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     if (addMaterialsRun) {
       return;
     }
+    addMaterialsRun = true;
     addMaterials();
   }
 
   @Override
   public void act(DirectoryCache cache) {
     ensureAddMaterialsRun();
-    allMaterials.forEach((id, pair) -> saveThing(cache, pair.getFirst().getIdentifier(), convert(pair.getFirst(), pair.getSecond())));
+    allMaterials.forEach((id, data) -> saveThing(cache, id, convert(data)));
   }
 
   /**
@@ -82,57 +79,71 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
    */
   public Set<MaterialId> getAllMaterials() {
     ensureAddMaterialsRun();
-    return allMaterials.keySet();
+    // ignore any materials with no IMaterial defintion, means its purely a redirect and will never exist in game
+    return allMaterials.values().stream()
+                       .map(DataMaterial::getMaterial)
+                       .filter(Objects::nonNull)
+                       .map(IMaterial::getIdentifier)
+                       .collect(Collectors.toSet());
   }
 
 
-  /* Methods to use */
+  /* Base methods */
 
-  /** Creates a supplier for the given trait */
-  private static Supplier<List<ModifierEntry>> traitSupplier(@Nullable Supplier<? extends Modifier> trait) {
-    if (trait == null) {
-      return Collections::emptyList;
-    }
-    return () -> Collections.singletonList(new ModifierEntry(trait.get(), 1));
+  /** Adds a material to be generated with a condition and redirect data */
+  protected void addMaterial(IMaterial material, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    allMaterials.put(material.getIdentifier(), new DataMaterial(material, condition, redirect));
   }
 
-  /** Adds a material to be generated with a condition */
-  protected void addMaterial(IMaterial material, @Nullable ICondition condition) {
-    allMaterials.put(material.getIdentifier(), Pair.of(material, condition));
+  /** Adds JSON to redirect an ID to another ID */
+  protected void addRedirect(MaterialId id, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    allMaterials.put(id, new DataMaterial(null, condition, redirect));
   }
 
-  /** Creates a normal material with a condition */
-  protected void addMaterial(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, Modifier[] traits, @Nullable ICondition condition) {
-    int temperature = fluid == Fluids.EMPTY ? 0 : fluid.getAttributes().getTemperature() - 300;
-    addMaterial(new Material(location, tier, order, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, Arrays.stream(traits).map(trait -> new ModifierEntry(trait, 1)).collect(Collectors.toList())), condition);
+  /** Adds JSON to redirect an ID to another ID */
+  protected void addRedirect(MaterialId id, MaterialJson.Redirect... redirect) {
+    addRedirect(id, null, redirect);
+  }
+
+  /* Material helpers */
+
+  /** Conditions on a forge tag existing */
+  protected static ICondition tagExistsCondition(String name) {
+    return new NotCondition(new TagEmptyCondition("forge", name));
+  }
+
+  /** Creates a normal material with a condition and a redirect */
+  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    addMaterial(new Material(location, tier, order, craftable, Color.fromInt(color), hidden), condition, redirect);
   }
 
   /** Creates a normal material */
-  protected void addMaterial(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, Modifier... traits) {
-    addMaterial(location, tier, order, fluid, fluidPerUnit, craftable, color, traits, null);
+  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color) {
+    addMaterial(location, tier, order, craftable, color, false, null);
   }
-
-  /** Creates a material with a fluid */
-  protected void addMaterialWithFluid(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, Modifier... traits) {
-    addMaterial(location, tier, order, fluid, fluidPerUnit, craftable, color, traits);
-  }
-
-  /** Creates a material with a fluid */
-  protected void addMetalMaterial(MaterialId location, int tier, int order, Fluid fluid, int color, Modifier... traits) {
-    addMaterialWithFluid(location, tier, order, fluid, MaterialValues.INGOT, false, color, traits);
-  }
-
-  /** Creates a material with no fluid */
-  protected void addMaterialNoFluid(MaterialId location, int tier, int order, boolean craftable, int color, Modifier... traits) {
-    addMaterial(location, tier, order, Fluids.EMPTY, 0, craftable, color, traits);
-  }
-
 
   /** Creates a new compat material */
-  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, Fluid fluid, int color, Modifier... traits) {
-    // all our addon materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
-    addMaterial(location, tier, order, fluid, MaterialValues.INGOT, false, color & 0xFFFFFF, traits, condition);
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color, String ingotName) {
+    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("ingots/" + ingotName));
+    addMaterial(location, tier, order, false, color & 0xFFFFFF, false, condition);
+  }
+
+  /** Creates a new compat material */
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color) {
+    addCompatMetalMaterial(location, tier, order, color, location.getPath());
+  }
+
+
+  /* Redirect helpers */
+
+  /** Makes a conditional redirect to the given ID */
+  protected MaterialJson.Redirect conditionalRedirect(MaterialId id, @Nullable ICondition condition) {
+    return new MaterialJson.Redirect(id, condition);
+  }
+
+  /** Makes an unconditional redirect to the given ID */
+  protected MaterialJson.Redirect redirect(MaterialId id) {
+    return conditionalRedirect(id, null);
   }
 
 
@@ -140,19 +151,27 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /**
    * Converts a material to JSON
-   * @param material   Material
-   * @param condition  Material condition
+   * @param data   Data to save
    * @return  Material JSON
    */
-  private MaterialJson convert(IMaterial material, @Nullable ICondition condition) {
-    List<ModifierEntry> list = material.getTraits();
-    ModifierEntry[] traits = list.isEmpty() ? null : list.toArray(new ModifierEntry[0]);
-
-    // if empty, no fluid, no temperature
-    String color = material.getColor().getName();
-    if (material.getFluid() == Fluids.EMPTY) {
-      return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), null, null, color, null, traits);
+  private MaterialJson convert(DataMaterial data) {
+    IMaterial material = data.getMaterial();
+    MaterialJson.Redirect[] redirect = data.getRedirect();
+    if (redirect != null && redirect.length == 0) {
+      redirect = null;
     }
-    return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature(), traits);
+    if (material == null) {
+      return new MaterialJson(data.getCondition(), null, null, null, null, null, redirect);
+    }
+    return new MaterialJson(data.getCondition(), material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().getName(), material.isHidden(), redirect);
+  }
+
+  @Data
+  private static class DataMaterial {
+    @Nullable
+    private final IMaterial material;
+    @Nullable
+    private final ICondition condition;
+    private final MaterialJson.Redirect[] redirect;
   }
 }

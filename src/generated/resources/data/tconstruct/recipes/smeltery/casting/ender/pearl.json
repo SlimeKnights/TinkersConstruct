@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "fluid": {
-    "name": "tconstruct:molten_ender",
+    "tag": "forge:ender",
     "amount": 250
   },
   "result": "minecraft:ender_pearl",

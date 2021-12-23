@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    { "text": "The Dagger is a quick precise weapon, usable in both hands." },
+    { "text": "Silky grants shearing.", "paragraph": true }
+  ],
+  "properties": [
+    "+2 Attack Damage",
+    "50% Attack Modifier",
+    "2.0 Attack Speed",
+    "75% Durability",
+	"Padded I",
+    "Offhand attack"
+  ]
+}

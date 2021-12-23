@@ -1,0 +1,6 @@
+{
+	"parts": [
+		{ "item": "test:test_head" },
+		{ "item": "test:test_material" }
+	]
+}

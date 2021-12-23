@@ -7,7 +7,6 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModLoader;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class SlimeColorReloadListener extends ReloadListener<int[]> {
   private final ResourceLocation path;
   public SlimeColorReloadListener(SlimeType color) {
     this.color = color;
-    this.path = Util.getResource("textures/colormap/" + color.getString() + "_grass_color.png");
+    this.path = TConstruct.getResource("textures/colormap/" + color.getString() + "_grass_color.png");
   }
 
   /**
@@ -34,7 +33,7 @@ public class SlimeColorReloadListener extends ReloadListener<int[]> {
     try {
       return ColorMapLoader.loadColors(resourceManager, path);
     } catch (IOException ioexception) {
-      TConstruct.log.error("Failed to load slime colors", ioexception);
+      TConstruct.LOG.error("Failed to load slime colors", ioexception);
       return new int[0];
     }
   }

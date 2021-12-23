@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:dragon_head"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_ender",
+    "amount": 1000
+  },
+  "temperature": 477,
+  "time": 129
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Alloyer GUI",
+  "text": [
+    {
+      "text": "1: This area is where you see the materials in the side tanks, more tanks equals more spots for materials."
+    },
+    {
+      "text": "2: This is the area where your alloyed materials will show once they are finished working their magic.",
+      "paragraph": true
+    },
+    {
+      "text": "3: This area is where your fuel shows. Hotter fuels means you can melt more things.",
+      "paragraph": true
+    }
+  ]
+}

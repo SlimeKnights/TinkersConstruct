@@ -9,16 +9,17 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
-import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 
 /**
  * Class containing all of Tinkers Construct recipe types
  */
 public interface RecipeTypes {
-  IRecipeType<PartRecipe> PART_BUILDER = register("part_builder");
+  IRecipeType<IPartBuilderRecipe> PART_BUILDER = register("part_builder");
   IRecipeType<MaterialRecipe> MATERIAL = register("material");
   IRecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
 
@@ -35,7 +36,11 @@ public interface RecipeTypes {
   IRecipeType<AlloyRecipe> ALLOYING = register("alloying");
 
   // modifiers
-  IRecipeType<BeheadingRecipe> BEHEADING = register("beheading");
+  IRecipeType<SeveringRecipe> SEVERING = register("severing");
+  IRecipeType<SpillingRecipe> SPILLING = register("spilling");
+
+  /** Internal recipe type for recipes that are not pulled by any specific crafting block */
+  IRecipeType<IRecipe<?>> DATA = register("data");
 
   /**
    * Registers a new recipe type, prefixing with the mod ID
@@ -44,6 +49,6 @@ public interface RecipeTypes {
    * @return  Registered recipe type
    */
   static <T extends IRecipe<?>> IRecipeType<T> register(String name) {
-    return IRecipeType.register(TConstruct.modID + ":" + name);
+    return IRecipeType.register(TConstruct.MOD_ID + ":" + name);
   }
 }

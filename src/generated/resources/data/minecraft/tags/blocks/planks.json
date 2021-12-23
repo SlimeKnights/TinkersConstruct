@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:greenheart_planks",
-    "tconstruct:skyroot_planks",
-    "tconstruct:bloodshroom_planks"
+    "#tconstruct:slimy_planks"
   ]
 }

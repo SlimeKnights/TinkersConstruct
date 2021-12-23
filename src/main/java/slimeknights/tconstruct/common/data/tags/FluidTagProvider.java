@@ -11,7 +11,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 public class FluidTagProvider extends FluidTagsProvider {
 
   public FluidTagProvider(DataGenerator generatorIn, ExistingFileHelper helper) {
-    super(generatorIn, TConstruct.modID, helper);
+    super(generatorIn, TConstruct.MOD_ID, helper);
   }
 
   @Override
@@ -22,58 +22,67 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagAll(TinkerFluids.earthSlime);
     tagLocal(TinkerFluids.skySlime);
     tagLocal(TinkerFluids.enderSlime);
-    tagAll(TinkerFluids.magmaCream);
+    tagAll(TinkerFluids.magma);
+    tagLocal(TinkerFluids.venom);
     // basic molten
     tagLocal(TinkerFluids.searedStone);
     tagLocal(TinkerFluids.scorchedStone);
     tagLocal(TinkerFluids.moltenClay);
     tagLocal(TinkerFluids.moltenGlass);
     tagLocal(TinkerFluids.liquidSoul);
+    tagLocal(TinkerFluids.moltenPorcelain);
     // fancy molten
     tagLocal(TinkerFluids.moltenObsidian);
     tagLocal(TinkerFluids.moltenEmerald);
     tagLocal(TinkerFluids.moltenQuartz);
     tagLocal(TinkerFluids.moltenDiamond);
-    tagLocal(TinkerFluids.moltenEnder);
-    tagLocal(TinkerFluids.moltenBlaze);
+    tagAll(TinkerFluids.moltenEnder);
+    tagLocal(TinkerFluids.blazingBlood);
     // ores
-    tagLocal(TinkerFluids.moltenIron);
-    tagLocal(TinkerFluids.moltenGold);
-    tagLocal(TinkerFluids.moltenCopper);
-    tagLocal(TinkerFluids.moltenCobalt);
+    tagAll(TinkerFluids.moltenIron);
+    tagAll(TinkerFluids.moltenGold);
+    tagAll(TinkerFluids.moltenCopper);
+    tagAll(TinkerFluids.moltenCobalt);
     tagLocal(TinkerFluids.moltenDebris);
     // alloys
     tagLocal(TinkerFluids.moltenSlimesteel);
-    tagLocal(TinkerFluids.moltenTinkersBronze);
-    tagLocal(TinkerFluids.moltenRoseGold);
+    tagAll(TinkerFluids.moltenTinkersBronze);
+    tagAll(TinkerFluids.moltenRoseGold);
     tagLocal(TinkerFluids.moltenPigIron);
     // nether alloys
-    tagLocal(TinkerFluids.moltenManyullyn);
-    tagLocal(TinkerFluids.moltenHepatizon);
+    tagAll(TinkerFluids.moltenManyullyn);
+    tagAll(TinkerFluids.moltenHepatizon);
     tagLocal(TinkerFluids.moltenQueensSlime);
     tagLocal(TinkerFluids.moltenSoulsteel);
-    tagLocal(TinkerFluids.moltenNetherite);
+    tagAll(TinkerFluids.moltenNetherite);
     // end alloys
     tagLocal(TinkerFluids.moltenKnightslime);
     // compat ores
-    tagLocal(TinkerFluids.moltenTin);
-    tagLocal(TinkerFluids.moltenAluminum);
-    tagLocal(TinkerFluids.moltenLead);
-    tagLocal(TinkerFluids.moltenSilver);
-    tagLocal(TinkerFluids.moltenNickel);
-    tagLocal(TinkerFluids.moltenZinc);
-    tagLocal(TinkerFluids.moltenPlatinum);
-    tagLocal(TinkerFluids.moltenTungsten);
-    tagLocal(TinkerFluids.moltenOsmium);
-    tagLocal(TinkerFluids.moltenUranium);
+    tagAll(TinkerFluids.moltenTin);
+    tagAll(TinkerFluids.moltenAluminum);
+    tagAll(TinkerFluids.moltenLead);
+    tagAll(TinkerFluids.moltenSilver);
+    tagAll(TinkerFluids.moltenNickel);
+    tagAll(TinkerFluids.moltenZinc);
+    tagAll(TinkerFluids.moltenPlatinum);
+    tagAll(TinkerFluids.moltenTungsten);
+    tagAll(TinkerFluids.moltenOsmium);
+    tagAll(TinkerFluids.moltenUranium);
     // compat alloys
-    tagLocal(TinkerFluids.moltenBronze);
-    tagLocal(TinkerFluids.moltenBrass);
-    tagLocal(TinkerFluids.moltenElectrum);
-    tagLocal(TinkerFluids.moltenInvar);
-    tagLocal(TinkerFluids.moltenConstantan);
-    tagLocal(TinkerFluids.moltenPewter);
-    tagLocal(TinkerFluids.moltenSteel);
+    tagAll(TinkerFluids.moltenBronze);
+    tagAll(TinkerFluids.moltenBrass);
+    tagAll(TinkerFluids.moltenElectrum);
+    tagAll(TinkerFluids.moltenInvar);
+    tagAll(TinkerFluids.moltenConstantan);
+    tagAll(TinkerFluids.moltenPewter);
+    tagAll(TinkerFluids.moltenSteel);
+    // thermal compat alloys
+    tagAll(TinkerFluids.moltenEnderium);
+    tagAll(TinkerFluids.moltenLumium);
+    tagAll(TinkerFluids.moltenSignalum);
+    // mekanism compat alloys
+    tagAll(TinkerFluids.moltenRefinedGlowstone);
+    tagAll(TinkerFluids.moltenRefinedObsidian);
 
     /* Normal tags */
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
@@ -81,10 +90,107 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.skySlime.getLocalTag())
         .addTag(TinkerFluids.enderSlime.getLocalTag());
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
-        .addTag(TinkerFluids.magmaCream.getForgeTag())
+        .addTag(TinkerFluids.magma.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
-        .addTag(TinkerFluids.moltenEnder.getLocalTag())
+        .addTag(TinkerFluids.moltenEnder.getForgeTag())
         .addTag(TinkerTags.Fluids.SLIME);
+
+    // these fluids should get ingot and nugget values assigned even if they lack casting recipes
+    this.getOrCreateBuilder(TinkerTags.Fluids.METAL_LIKE)
+        // non-metal
+        .addTag(TinkerFluids.moltenEmerald.getLocalTag())
+        .addTag(TinkerFluids.moltenQuartz.getLocalTag())
+        .addTag(TinkerFluids.moltenDiamond.getLocalTag())
+        // vanilla ores
+        .addTag(TinkerFluids.moltenIron.getForgeTag())
+        .addTag(TinkerFluids.moltenGold.getForgeTag())
+        .addTag(TinkerFluids.moltenCopper.getForgeTag())
+        .addTag(TinkerFluids.moltenCobalt.getForgeTag())
+        .addTag(TinkerFluids.moltenDebris.getLocalTag())
+        // base alloys
+        .addTag(TinkerFluids.moltenSlimesteel.getLocalTag())
+        .addTag(TinkerFluids.moltenTinkersBronze.getLocalTag())
+        .addTag(TinkerFluids.moltenRoseGold.getForgeTag())
+        .addTag(TinkerFluids.moltenPigIron.getLocalTag())
+        .addTag(TinkerFluids.moltenManyullyn.getForgeTag())
+        .addTag(TinkerFluids.moltenHepatizon.getForgeTag())
+        .addTag(TinkerFluids.moltenQueensSlime.getLocalTag())
+        .addTag(TinkerFluids.moltenSoulsteel.getLocalTag())
+        .addTag(TinkerFluids.moltenNetherite.getForgeTag())
+        .addTag(TinkerFluids.moltenKnightslime.getLocalTag())
+        // compat ores
+        .addTag(TinkerFluids.moltenTin.getForgeTag())
+        .addTag(TinkerFluids.moltenAluminum.getForgeTag())
+        .addTag(TinkerFluids.moltenLead.getForgeTag())
+        .addTag(TinkerFluids.moltenSilver.getForgeTag())
+        .addTag(TinkerFluids.moltenNickel.getForgeTag())
+        .addTag(TinkerFluids.moltenZinc.getForgeTag())
+        .addTag(TinkerFluids.moltenPlatinum.getForgeTag())
+        .addTag(TinkerFluids.moltenTungsten.getForgeTag())
+        .addTag(TinkerFluids.moltenOsmium.getForgeTag())
+        .addTag(TinkerFluids.moltenUranium.getForgeTag())
+        // compat alloys
+        .addTag(TinkerFluids.moltenBronze.getForgeTag())
+        .addTag(TinkerFluids.moltenBrass.getForgeTag())
+        .addTag(TinkerFluids.moltenElectrum.getForgeTag())
+        .addTag(TinkerFluids.moltenInvar.getForgeTag())
+        .addTag(TinkerFluids.moltenConstantan.getForgeTag())
+        .addTag(TinkerFluids.moltenPewter.getForgeTag())
+        .addTag(TinkerFluids.moltenSteel.getForgeTag())
+        // thermal alloys
+        .addTag(TinkerFluids.moltenEnderium.getForgeTag())
+        .addTag(TinkerFluids.moltenLumium.getForgeTag())
+        .addTag(TinkerFluids.moltenSignalum.getForgeTag())
+        // thermal alloys
+        .addTag(TinkerFluids.moltenRefinedGlowstone.getForgeTag())
+        .addTag(TinkerFluids.moltenRefinedObsidian.getForgeTag());
+
+    // spilling tags - reduces the number of recipes generated
+    this.getOrCreateBuilder(TinkerTags.Fluids.CLAY_SPILLING)
+        .addTag(TinkerFluids.moltenClay.getLocalTag())
+        .addTag(TinkerFluids.moltenPorcelain.getLocalTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.GLASS_SPILLING)
+        .addTag(TinkerFluids.moltenGlass.getLocalTag())
+        .addTag(TinkerFluids.moltenObsidian.getLocalTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.CHEAP_METAL_SPILLING)
+        .addTag(TinkerFluids.searedStone.getLocalTag())
+        .addTag(TinkerFluids.scorchedStone.getLocalTag())
+        .addTag(TinkerFluids.moltenIron.getForgeTag())
+        .addTag(TinkerFluids.moltenTin.getForgeTag())
+        .addTag(TinkerFluids.moltenAluminum.getForgeTag())
+        .addTag(TinkerFluids.moltenLead.getForgeTag())
+        .addTag(TinkerFluids.moltenSilver.getForgeTag())
+        .addTag(TinkerFluids.moltenNickel.getForgeTag())
+        .addTag(TinkerFluids.moltenZinc.getForgeTag())
+        .addTag(TinkerFluids.moltenPlatinum.getForgeTag())
+        .addTag(TinkerFluids.moltenTungsten.getForgeTag())
+        .addTag(TinkerFluids.moltenOsmium.getForgeTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.AVERAGE_METAL_SPILLING)
+        .addTag(TinkerFluids.moltenQuartz.getLocalTag())
+        .addTag(TinkerFluids.moltenEmerald.getLocalTag())
+        .addTag(TinkerFluids.moltenCobalt.getForgeTag())
+        .addTag(TinkerFluids.moltenTinkersBronze.getLocalTag())
+        .addTag(TinkerFluids.moltenRoseGold.getForgeTag())
+        .addTag(TinkerFluids.moltenSlimesteel.getLocalTag())
+        .addTag(TinkerFluids.moltenBronze.getForgeTag())
+        .addTag(TinkerFluids.moltenBrass.getForgeTag())
+        .addTag(TinkerFluids.moltenElectrum.getForgeTag())
+        .addTag(TinkerFluids.moltenInvar.getForgeTag())
+        .addTag(TinkerFluids.moltenConstantan.getForgeTag())
+        .addTag(TinkerFluids.moltenPewter.getForgeTag())
+        .addTag(TinkerFluids.moltenSteel.getForgeTag())
+        .addTag(TinkerFluids.moltenRefinedGlowstone.getForgeTag());
+    this.getOrCreateBuilder(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING)
+        .addTag(TinkerFluids.moltenDiamond.getLocalTag())
+        .addTag(TinkerFluids.moltenDebris.getLocalTag())
+        .addTag(TinkerFluids.moltenManyullyn.getForgeTag())
+        .addTag(TinkerFluids.moltenHepatizon.getForgeTag())
+        .addTag(TinkerFluids.moltenQueensSlime.getLocalTag())
+        .addTag(TinkerFluids.moltenNetherite.getForgeTag())
+        .addTag(TinkerFluids.moltenEnderium.getForgeTag())
+        .addTag(TinkerFluids.moltenLumium.getForgeTag())
+        .addTag(TinkerFluids.moltenSignalum.getForgeTag())
+        .addTag(TinkerFluids.moltenRefinedObsidian.getForgeTag());
   }
 
   @Override

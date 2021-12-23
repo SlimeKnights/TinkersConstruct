@@ -1,0 +1,17 @@
+[
+  {
+    "name": "index",
+    "type": "index",
+    "data": "modifiers/index.json"
+  },
+  {
+    "name": "damage_tools",
+    "type": "image with text below",
+    "data": "modifiers/damage_tools.json"
+  },
+  {
+    "name": "remove_modifiers",
+    "type": "image with text below",
+    "data": "modifiers/remove_modifiers.json"
+  }
+]

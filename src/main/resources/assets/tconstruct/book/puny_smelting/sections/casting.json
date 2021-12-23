@@ -1,0 +1,40 @@
+[
+  {
+    "type": "blank"
+  },
+  {
+    "name": "casting",
+    "type": "image with text below",
+    "data": "casting/intro.json"
+  },
+  {
+    "name": "sand_cast",
+    "type": "text",
+    "data": "casting/sandcast.json"
+  },
+  {
+    "name": "sand_cast2",
+    "type": "image with text below",
+    "data": "casting/sandcast2.json"
+  },
+  {
+	"name": "sand_cast_craft",
+    "type": "crafting",
+    "data": "casting/sandcast_craft.json"
+  },
+  {
+	"name": "red_sand_cast_craft",
+    "type": "crafting",
+    "data": "casting/redsandcast_craft.json"
+  },
+  {
+    "name": "gold_cast",
+    "type": "image with text below",
+    "data": "casting/goldcast.json"
+  },
+  {
+    "name": "other_cast",
+    "type": "image with text below",
+    "data": "casting/othercast.json"
+  }
+]

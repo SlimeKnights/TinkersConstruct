@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:slimeball/green"
+    "tag": "forge:slimeball/earth"
   },
   "result": {
     "fluid": "tconstruct:earth_slime",

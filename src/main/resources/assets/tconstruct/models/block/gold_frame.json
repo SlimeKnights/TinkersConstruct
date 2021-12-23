@@ -1,8 +1,0 @@
-{
-    "parent": "tconstruct:block/fancy_item_frame",
-    "textures": {
-        "particle": "minecraft:block/gold_block",
-        "wood": "minecraft:block/gold_block",
-        "back": "tconstruct:block/item_frame_background"
-    }
-}

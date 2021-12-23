@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "Grants more mining speed on blocks with lower blast resistance, up to +10 per level on the lowest blast resistance blocks. For example, grants +1 mining speed per level on blocks like stone, +3 per level on blocks like terracotta, and +9 per level on soft blocks such as ores."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

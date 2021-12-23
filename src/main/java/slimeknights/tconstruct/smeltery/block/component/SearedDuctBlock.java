@@ -18,8 +18,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.DuctTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +44,7 @@ public class SearedDuctBlock extends InventoryBlock {
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.isIn(this)) {
+    if (!newState.matchesBlock(this)) {
       TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
     super.onReplaced(state, worldIn, pos, newState, isMoving);

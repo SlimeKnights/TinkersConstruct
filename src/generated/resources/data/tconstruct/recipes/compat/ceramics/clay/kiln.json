@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:kiln"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 4250
+  },
+  "temperature": 450,
+  "time": 192
+}

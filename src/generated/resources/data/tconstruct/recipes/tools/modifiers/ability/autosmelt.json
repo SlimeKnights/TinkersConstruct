@@ -5,7 +5,7 @@
       "item": "minecraft:fire_charge"
     },
     {
-      "item": "tconstruct:ichor_congealed_slime"
+      "item": "minecraft:magma_block"
     },
     {
       "item": "minecraft:fire_charge"
@@ -18,12 +18,14 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/harvest"
+    "tag": "tconstruct:modifiable/harvest/primary"
+  },
+  "slots": {
+    "abilities": 1
   },
   "result": {
     "name": "tconstruct:autosmelt",
     "level": 1
   },
-  "max_level": 1,
-  "ability_slots": 1
+  "max_level": 1
 }

@@ -1,0 +1,16 @@
+{
+  "title": "Faucets",
+  "text": [
+    {
+      "text": "Faucets are your main way to get fluids out from melters, smelteries, tanks, or any valid fluid container. Simply place it on the block, and right click to pour into a fluid container below."
+    },
+    {
+      "text": "Faucets will pour out from the sides or bottom of the connected block to the block directly below the faucet itself.",
+      "paragraph": true
+    },
+    {
+      "text": "Faucets respond to redstone signals, so simply placing an activated lever next to it will make it constantly pour out its contents. A redstone pulse will pour out its contents until the destination is full or the source is empty.",
+      "paragraph": true
+    }
+  ]
+}

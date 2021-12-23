@@ -13,7 +13,7 @@ import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity
 import javax.annotation.Nullable;
 
 public class CraftingStationContainer extends BaseStationContainer<CraftingStationTileEntity> {
-  private final LazyResultSlot resultSlot;
+  private final PlayerSensitiveLazyResultSlot resultSlot;
 
   /**
    * Standard constructor
@@ -36,7 +36,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
         }
       }
       // add result slot, will fetch result cache
-      this.addSlot(resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 35));
+      this.addSlot(resultSlot = new PlayerSensitiveLazyResultSlot(inv.player, tile.getCraftingResult(), 124, 35));
 
       this.addChestSideInventory();
     } else {

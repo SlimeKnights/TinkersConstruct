@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
@@ -25,9 +25,9 @@ import java.util.List;
 
 /** Recipe category for molding casts */
 public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "molding.title");
-  private static final ITextComponent TOOLTIP_PATTERN_CONSUMED = new TranslationTextComponent(Util.makeTranslationKey("jei", "molding.pattern_consumed"));
+  private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "molding.title");
+  private static final ITextComponent TOOLTIP_PATTERN_CONSUMED = new TranslationTextComponent(TConstruct.makeTranslationKey("jei", "molding.pattern_consumed"));
 
   @Getter
   private final IDrawable background;

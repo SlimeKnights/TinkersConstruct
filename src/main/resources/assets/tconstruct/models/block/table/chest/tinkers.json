@@ -1,0 +1,10 @@
+{
+    "parent": "tconstruct:block/table/chest/tintable_chest",
+    "textures": {
+        "side": "tconstruct:block/chest/tinkers/side",
+        "front": "tconstruct:block/chest/tinkers/front",
+        "top": "tconstruct:block/chest/tinkers/top",
+        "drawer_front": "tconstruct:block/chest/tinkers/drawer_front",
+        "drawer_side": "tconstruct:block/chest/tinkers/drawer_side"
+    }
+}

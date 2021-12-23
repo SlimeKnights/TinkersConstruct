@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:platinum",
+  "temperature": 970,
+  "result": {
+    "fluid": "tconstruct:molten_platinum",
+    "amount": 144
+  }
+}

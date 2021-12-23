@@ -1,15 +1,7 @@
 {
   "craftable": false,
   "tier": 2,
-  "sortOrder": 7,
-  "fluid": "tconstruct:scorched_stone",
-  "fluidPerUnit": 288,
+  "sortOrder": 10,
   "textColor": "#5B4C43",
-  "temperature": 500,
-  "traits": [
-    {
-      "name": "tconstruct:scorching",
-      "level": 1
-    }
-  ]
+  "hidden": false
 }

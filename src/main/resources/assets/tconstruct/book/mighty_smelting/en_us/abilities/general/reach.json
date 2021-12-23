@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Reach for the stars! Or the top shelf... Or the medium height shelf if you are short..."
+    }
+  ],
+  "effects": [
+    "Increases reach distance for blocks and mining",
+    "Multiple levels, each level allows you to reach further",
+    "Requires 1 Ability Slot per level"
+  ]
+}

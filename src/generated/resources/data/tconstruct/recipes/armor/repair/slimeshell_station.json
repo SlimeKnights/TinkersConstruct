@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:specialized_station_repair",
+  "tool": {
+    "item": "tconstruct:slime_leggings"
+  },
+  "repair_material": "tconstruct:chorus"
+}

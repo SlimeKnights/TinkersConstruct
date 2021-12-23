@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/wither_skeleton"
+    },
+    {
+      "condition": "tconstruct:config",
+      "prop": "wither_bone_drop"
+    }
+  ],
+  "original": {
+    "item": "minecraft:bone"
+  },
+  "replacement": "tconstruct:necrotic_bone",
+  "type": "mantle:replace_item"
+}

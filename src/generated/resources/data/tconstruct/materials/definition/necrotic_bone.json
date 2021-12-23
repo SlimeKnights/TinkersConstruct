@@ -3,10 +3,5 @@
   "tier": 1,
   "sortOrder": 3,
   "textColor": "#4D4D4D",
-  "traits": [
-    {
-      "name": "tconstruct:necrotic",
-      "level": 1
-    }
-  ]
+  "hidden": false
 }

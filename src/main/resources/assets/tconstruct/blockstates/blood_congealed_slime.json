@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/congealed/blood_slime"
+            "model": "tconstruct:block/slime/congealed/blood"
         }
     }
 }

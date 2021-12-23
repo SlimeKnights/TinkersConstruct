@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:looting",
+  "min_level": 1,
+  "max_level": 1,
+  "salvage": [
+    {
+      "tag": "forge:ingots/copper",
+      "min": 2,
+      "max": 2
+    },
+    {
+      "item": "minecraft:lapis_lazuli",
+      "min": 3,
+      "max": 18
+    }
+  ]
+}

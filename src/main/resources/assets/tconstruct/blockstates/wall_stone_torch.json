@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=east": { "model": "tconstruct:block/wall_stone_torch" },
-        "facing=south": { "model": "tconstruct:block/wall_stone_torch", "y": 90 },
-        "facing=west": { "model": "tconstruct:block/wall_stone_torch", "y": 180 },
-        "facing=north": { "model": "tconstruct:block/wall_stone_torch", "y": 270 }
-    }
-}

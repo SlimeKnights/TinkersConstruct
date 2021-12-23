@@ -1,0 +1,12 @@
+{
+  "title": "Head Melting",
+  "item": {
+    "id": "tconstruct:blaze_head"
+  },
+  "text": [
+    {
+      "text": "Alternatively, maybe we don't need to melt the entire blaze. If I could find a way to sever its head off I bet that would be enough to melt into fuel.",
+      "paragraph": true
+    }
+  ]
+}

@@ -7,6 +7,7 @@
     "handle":      "tconstruct:item/tool/pickaxe/handle",
     "binding":     "tconstruct:item/tool/pickaxe/binding"
   },
+  "modifier_roots": [ "tconstruct:item/tool/pickaxe/modifiers/" ],
   "parts": [
     { "name": "handle",  "index": 1 },
     { "name": "head",    "index": 0, "broken": "broken_head" },

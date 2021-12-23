@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "Causes dropped items and attacked entities to be melted into the tools tank. Maximum fluid per hit produced at around 4 damage for most mobs. Also increases the tools tank capacity by 9 ingots, or 1296 mb. "
+    },
+    {
+      "text": "Tools with melting have the ability to be filled and drained by interacting with fluid tank blocks."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

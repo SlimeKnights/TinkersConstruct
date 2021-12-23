@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:looting",
+  "text": [
+    {
+      "text": "Punching so hard that more comes out."
+    }
+  ],
+  "effects": [
+    "Increases mob drops for unarmed attacks",
+    "Maximum of 3 levels, different recipe for each level",
+    "First level requires 1 ability slot"
+  ]
+}

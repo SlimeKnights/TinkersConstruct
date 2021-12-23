@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "bites=0": { "model": "tconstruct:block/slime/cake/ichor/full" },
+    "bites=1": { "model": "tconstruct:block/slime/cake/ichor/slice1" },
+    "bites=2": { "model": "tconstruct:block/slime/cake/ichor/slice2" },
+    "bites=3": { "model": "tconstruct:block/slime/cake/ichor/slice3" },
+    "bites=4": { "model": "tconstruct:block/slime/cake/ichor/slice4" },
+    "bites=5": { "model": "tconstruct:block/slime/cake/ichor/slice5" },
+    "bites=6": { "model": "tconstruct:block/slime/cake/ichor/slice6" }
+  }
+}

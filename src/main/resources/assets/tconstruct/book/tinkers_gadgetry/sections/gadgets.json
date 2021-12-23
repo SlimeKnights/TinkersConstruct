@@ -1,0 +1,51 @@
+[
+  {
+    "name": "index",
+    "type": "index",
+    "data": "gadgets/index.json"
+  },
+  {
+    "name": "slimesling",
+    "type": "showcase",
+    "data": "gadgets/slimesling.json"
+  },
+  {
+    "name": "cake",
+    "type": "image with text below",
+    "data": "gadgets/cake.json"
+  },
+  {
+    "name": "piggybackpack",
+    "type": "image with text below",
+    "data": "gadgets/piggybackpack.json"
+  },
+  {
+    "name": "flint_shuriken",
+    "type": "showcase",
+    "data": "gadgets/flint_shuriken.json"
+  },
+  {
+    "name": "quartz_shuriken",
+    "type": "showcase",
+    "data": "gadgets/quartz_shuriken.json"
+  },
+  {
+    "name": "glowball",
+    "type": "showcase",
+    "data": "gadgets/glowball.json"
+  },
+  {
+    "name": "hidden",
+    "type": "right_padding"
+  },
+  {
+    "name": "fancy_frames",
+    "type": "image with text below",
+    "data": "gadgets/fancy_frame.json"
+  },
+  {
+    "name": "fancy_frame_details",
+    "type": "text",
+    "data": "gadgets/fancy_frame_details.json"
+  }
+]

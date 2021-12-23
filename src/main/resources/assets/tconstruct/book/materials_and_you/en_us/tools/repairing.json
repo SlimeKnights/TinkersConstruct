@@ -1,14 +1,14 @@
 {
-  "title":"Repairing",
-    "image": {
-     "file": "tconstruct:book/images/repair.png",
-	 "width": 87,
+  "title": "Repairing",
+  "image": {
+    "file": "tconstruct:book/images/repair.png",
+    "width": 87,
     "height": 56
   },
   "text": [
     {
       "text": "Repairing your tool is an important thing to do, unless you want it to break. In Tinker Station or Tinker Anvil place the tool and material of the head/plate and it will repair. Alternatively, you can use repair kits, which work in crafting tables!",
-	  "paragraph": true
+      "paragraph": true
     }
 	]
 }

@@ -2,17 +2,17 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "name": "tconstruct:molten_copper",
+      "tag": "forge:molten_copper",
       "amount": 432
     },
     {
-      "name": "tconstruct:molten_glass",
+      "tag": "tconstruct:molten_glass",
       "amount": 1000
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_tinkers_bronze",
-    "amount": 576
+    "amount": 432
   },
   "temperature": 700
 }

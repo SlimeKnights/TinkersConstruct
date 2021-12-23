@@ -107,7 +107,9 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
     BlockPos min = data.getMinPos();
     BlockPos to = data.getMaxPos().up();
     // want two positions one layer above the structure
-    return detectLayer(world, new BlockPos(min.getX(), to.getY(), min.getZ()), to, pos -> {});
+    MultiblockResult result = detectLayer(world, new BlockPos(min.getX(), to.getY(), min.getZ()), to, pos -> {});
+    setLastResult(result);
+    return result.isSuccess();
   }
 
 

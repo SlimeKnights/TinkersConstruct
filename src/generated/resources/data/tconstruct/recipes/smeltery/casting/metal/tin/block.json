@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_tin",
+    "tag": "forge:molten_tin",
     "amount": 1296
   },
   "result": {

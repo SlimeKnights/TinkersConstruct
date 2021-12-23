@@ -26,13 +26,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.TooltipItem;
+import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
-import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
+import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
+import slimeknights.tconstruct.gadgets.capability.PiggybackHandler;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.effect.TinkerEffect;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 
 import javax.annotation.Nonnull;
 
@@ -72,7 +72,7 @@ public class PiggyBackPackItem extends TooltipItem {
       return ActionResultType.SUCCESS;
     }
 
-    return ActionResultType.PASS;
+    return ActionResultType.CONSUME;
   }
 
   private boolean pickupEntity(PlayerEntity player, Entity target) {
@@ -171,7 +171,7 @@ public class PiggyBackPackItem extends TooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
-          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
+          livingEntityIn.getCapability(PiggybackCapability.PIGGYBACK, null).ifPresent(PiggybackHandler::updatePassengers);
         }
       }
     }

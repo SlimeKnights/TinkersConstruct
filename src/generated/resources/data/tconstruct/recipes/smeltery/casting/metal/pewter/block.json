@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_pewter",
+    "tag": "forge:molten_pewter",
     "amount": 1296
   },
   "result": {

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Its a belt to hold your tools. Tool belt."
+    }
+  ],
+  "effects": [
+    "Grants +4 slots per level",
+    "Slots can be swapped with hotbar slots",
+    "Max 2 levels",
+    "Requires 1 ability slot"
+  ]
+}

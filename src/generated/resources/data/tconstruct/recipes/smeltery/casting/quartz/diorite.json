@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "tag": "forge:cobblestone"
+    "item": "minecraft:andesite"
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_quartz",
-    "amount": 144
+    "tag": "tconstruct:molten_quartz",
+    "amount": 72
   },
   "result": "minecraft:diorite",
-  "cooling_time": 55
+  "cooling_time": 39
 }

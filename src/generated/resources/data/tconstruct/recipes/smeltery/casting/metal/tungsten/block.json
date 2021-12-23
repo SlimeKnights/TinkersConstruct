@@ -10,7 +10,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_tungsten",
+    "tag": "forge:molten_tungsten",
     "amount": 1296
   },
   "result": {

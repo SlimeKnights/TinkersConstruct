@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
 import net.minecraft.block.Block;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.smeltery.tileentity.FoundryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.FoundryTileEntity;
 
 public class FoundryMultiblock extends HeatingStructureMultiblock<FoundryTileEntity> {
   public FoundryMultiblock(FoundryTileEntity foundry) {

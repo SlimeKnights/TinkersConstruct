@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "Drains a small amount of fluid (typically between 16 mb to 50 mb) to boost attacks with special effects, or in counterattack when applied on a chestplate. "
+    },
+    {
+      "text": "Effects may include lighting the target on fire, bonus damage, potion effects such as poison, or clearing status effects like milk."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

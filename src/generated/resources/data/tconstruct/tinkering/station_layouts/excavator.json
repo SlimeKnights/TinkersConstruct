@@ -1,0 +1,46 @@
+{
+  "translation_key": "item.tconstruct.excavator",
+  "icon": {
+    "item": "tconstruct:excavator",
+    "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"],tic_display:1b}"
+  },
+  "sortIndex": 12,
+  "input_slots": [
+    {
+      "icon": "tconstruct:large_plate",
+      "translation_key": "item.tconstruct.large_plate",
+      "x": 45,
+      "y": 26,
+      "filter": {
+        "item": "tconstruct:large_plate"
+      }
+    },
+    {
+      "icon": "tconstruct:tough_handle",
+      "translation_key": "item.tconstruct.tough_handle",
+      "x": 25,
+      "y": 46,
+      "filter": {
+        "item": "tconstruct:tough_handle"
+      }
+    },
+    {
+      "icon": "tconstruct:large_plate",
+      "translation_key": "item.tconstruct.large_plate",
+      "x": 25,
+      "y": 26,
+      "filter": {
+        "item": "tconstruct:large_plate"
+      }
+    },
+    {
+      "icon": "tconstruct:tough_handle",
+      "translation_key": "item.tconstruct.tough_handle",
+      "x": 7,
+      "y": 62,
+      "filter": {
+        "item": "tconstruct:tough_handle"
+      }
+    }
+  ]
+}

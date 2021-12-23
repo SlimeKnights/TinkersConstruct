@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "name": "tconstruct:molten_pig_iron",
+    "tag": "tconstruct:molten_pig_iron",
     "amount": 16
   },
   "result": "tconstruct:pig_iron_nugget",

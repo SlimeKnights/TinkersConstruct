@@ -13,7 +13,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_blaze",
+    "tag": "tconstruct:blazing_blood",
     "amount": 100
   },
   "result": "tconstruct:blazewood",

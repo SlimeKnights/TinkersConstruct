@@ -2,13 +2,17 @@ package slimeknights.tconstruct.common.data.loot;
 
 import net.minecraft.data.loot.EntityLootTables;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Items;
 import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.RandomValueRange;
+import net.minecraft.loot.conditions.EntityHasProperty;
 import net.minecraft.loot.functions.LootingEnchantBonus;
 import net.minecraft.loot.functions.SetCount;
+import net.minecraft.loot.functions.Smelt;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -23,7 +27,7 @@ public class EntityLootTableProvider extends EntityLootTables {
   @Override
   protected Iterable<EntityType<?>> getKnownEntities() {
     return ForgeRegistries.ENTITIES.getValues().stream()
-                                   .filter((block) -> TConstruct.modID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
+                                   .filter((block) -> TConstruct.MOD_ID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
                                    .collect(Collectors.toList());
   }
 
@@ -32,6 +36,13 @@ public class EntityLootTableProvider extends EntityLootTables {
     this.registerLootTable(TinkerWorld.earthSlimeEntity.get(), dropSlimeballs(SlimeType.EARTH));
     this.registerLootTable(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
     this.registerLootTable(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
+    this.registerLootTable(TinkerWorld.terracubeEntity.get(),
+                           LootTable.builder().addLootPool(LootPool.builder()
+                                                                   .rolls(ConstantRange.of(1))
+                                                                   .addEntry(ItemLootEntry.builder(Items.CLAY_BALL)
+                                                                                          .acceptFunction(SetCount.builder(RandomValueRange.of(-2.0F, 1.0F)))
+                                                                                          .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))
+                                                                                          .acceptFunction(Smelt.func_215953_b().acceptCondition(EntityHasProperty.builder(LootContext.EntityTarget.THIS, ON_FIRE))))));
   }
 
   private static LootTable.Builder dropSlimeballs(SlimeType type) {

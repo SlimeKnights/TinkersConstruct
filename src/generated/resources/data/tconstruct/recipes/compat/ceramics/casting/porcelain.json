@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "fluid": {
+    "tag": "tconstruct:molten_porcelain",
+    "amount": 1000
+  },
+  "result": "ceramics:white_porcelain",
+  "cooling_time": 150
+}

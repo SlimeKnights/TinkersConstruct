@@ -1,0 +1,11 @@
+{
+  "title": "Casting",
+  "image": {
+    "file": "tconstruct:book/images/sandcast.png"
+  },
+  "text": [
+    {
+      "text": "Alright tinker, you've melted down some metal and figured out how to move it around. All that's left now is to turn it into some tool parts!"
+    }
+  ]
+}

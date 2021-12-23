@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:modifiable/held",
+    "#tconstruct:modifiable/armor/chestplate"
+  ]
+}

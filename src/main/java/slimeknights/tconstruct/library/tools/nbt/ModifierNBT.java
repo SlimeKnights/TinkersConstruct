@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModifierNBT {
-  protected static final String TAG_MODIFIER = "name";
-  protected static final String TAG_LEVEL = "level";
+  public static final String TAG_MODIFIER = "name";
+  public static final String TAG_LEVEL = "level";
 
   /** Instance containing no modifiers */
   static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
@@ -37,6 +37,14 @@ public class ModifierNBT {
   /** Sorted list of modifiers */
   @Getter
   private final List<ModifierEntry> modifiers;
+
+  /**
+   * Checks if the NBT has no modifiers
+   * @return  True if there are no modifiers
+   */
+  public boolean isEmpty() {
+    return modifiers.isEmpty();
+  }
 
   /**
    * Gets the level of a modifier
@@ -103,6 +111,7 @@ public class ModifierNBT {
       if (entry.getModifier() == modifier && level > 0) {
         if (entry.getLevel() > level) {
           builder.add(new ModifierEntry(modifier, entry.getLevel() - level));
+          level = 0;
         } else {
           level -= entry.getLevel();
         }

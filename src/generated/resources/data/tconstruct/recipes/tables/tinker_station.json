@@ -10,14 +10,14 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "tag": "minecraft:planks"
+      "tag": "tconstruct:planklike"
     }
   },
   "result": {
     "item": "tconstruct:tinker_station"
   },
   "texture": {
-    "tag": "minecraft:planks"
+    "tag": "tconstruct:planklike"
   },
   "match_all": true
 }

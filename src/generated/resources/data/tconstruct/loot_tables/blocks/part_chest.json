@@ -10,17 +10,6 @@
             {
               "function": "minecraft:copy_name",
               "source": "block_entity"
-            },
-            {
-              "function": "minecraft:copy_nbt",
-              "source": "block_entity",
-              "ops": [
-                {
-                  "source": "Items",
-                  "target": "TinkerData.Items",
-                  "op": "replace"
-                }
-              ]
             }
           ],
           "name": "tconstruct:part_chest"

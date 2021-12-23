@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "defense": 1
+  },
+  "modifier": "tconstruct:revitalizing",
+  "min_level": 1,
+  "salvage": {
+    "item": "minecraft:ghast_tear",
+    "full": false
+  }
+}

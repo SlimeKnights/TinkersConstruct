@@ -1,13 +1,15 @@
 package slimeknights.tconstruct.gadgets.item.slimesling;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.events.teleport.SlimeslingTeleportEvent;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
@@ -19,11 +21,11 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (!(entityLiving instanceof PlayerEntity)) {
+    if (worldIn.isRemote || !(entityLiving instanceof ServerPlayerEntity)) {
       return;
     }
 
-    PlayerEntity player = (PlayerEntity) entityLiving;
+    ServerPlayerEntity player = (ServerPlayerEntity) entityLiving;
     float f = getForce(stack, timeLeft);
 
     Vector3d look = player.getLookVec();
@@ -57,17 +59,21 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
     // get furthest teleportable block
     if (furthestPos != null) {
       player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-      player.setPosition(furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f);
 
-      // particle effect from EnderPearlEntity
-      for (int i = 0; i < 32; ++i) {
-        worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
+      SlimeslingTeleportEvent event = new SlimeslingTeleportEvent(player, furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f, stack);
+      MinecraftForge.EVENT_BUS.post(event);
+      if (!event.isCanceled()) {
+        player.setPositionAndUpdate(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+
+        // particle effect from EnderPearlEntity
+        for (int i = 0; i < 32; ++i) {
+          worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
+        }
+        worldIn.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), Sounds.SLIME_SLING_TELEPORT.getSound(), player.getSoundCategory(), 1f, 1f);
+        onSuccess(player, stack);
+        return;
       }
-      playerServerMovement(player);
-      player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
-      onSuccess(player, stack);
-    } else {
-      playMissSound(player);
     }
+    playMissSound(player);
   }
 }

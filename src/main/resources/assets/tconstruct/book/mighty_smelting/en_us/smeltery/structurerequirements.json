@@ -1,0 +1,16 @@
+{
+  "title": "Structure Requirements",
+  "text": [
+    {
+      "text": "Your smeltery has some requirements. Make it too big and it becomes so inefficient that you'd need a tower of fuel tanks bigger than the smeltery in order to run it."
+    },
+    {
+      "text": "Your smeltery must have a floor made of acceptable smeltery blocks excluding glass. Acceptable blocks will be showcased in a few pages! Your smeltery also must be rectangular, it can not be L shaped, circle shaped, or dodecahedron shaped.",
+      "paragraph": true
+    },
+    {
+      "text": "The max size of your smeltery is 16x16x65 external, or 14x14x64 internal.",
+      "paragraph": true
+    }
+  ]
+}

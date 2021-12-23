@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:flint_and_bronze",
+  "text": [
+    {
+      "text": "Flint and Bronze is an affordable tool effective for starting fires."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Unlike other most other tools, it is crafted in a crafting station or crafting table."
+    }
+  ],
+  "properties": [
+    "Creates fires",
+    "Starts with fiery 1",
+    "Repaired using tinker's bronze"
+  ]
+}

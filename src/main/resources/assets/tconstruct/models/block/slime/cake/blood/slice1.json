@@ -1,0 +1,10 @@
+{
+  "parent": "block/cake_slice1",
+  "textures": {
+    "particle": "tconstruct:block/slime/cake/blood_side",
+    "bottom":   "tconstruct:block/slime/cake/blood_bottom",
+    "top":      "tconstruct:block/slime/cake/blood_top",
+    "side":     "tconstruct:block/slime/cake/blood_side",
+    "inside":   "tconstruct:block/slime/cake/blood_inner"
+  }
+}

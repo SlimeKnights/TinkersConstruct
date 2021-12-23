@@ -11,11 +11,11 @@ import slimeknights.tconstruct.TConstruct;
  * Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
  */
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class FluidEvents {
   @SubscribeEvent
   static void onFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
-    if (event.getItemStack().getItem() == TinkerFluids.moltenBlaze.asItem()) {
+    if (event.getItemStack().getItem() == TinkerFluids.blazingBlood.asItem()) {
       // 150% efficiency compared to lava bucket, compare to casting blaze rods, which cast into 120%
       event.setBurnTime(30000);
     }

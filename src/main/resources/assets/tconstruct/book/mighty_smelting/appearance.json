@@ -1,6 +1,10 @@
 {
-    "title": "Mighty Smelting",
-    "subtitle": "by Thruul M'Gon",
-    "drawSectionListText": true,
-    "coverColor": 0x616161
+  "coverTexture": "tconstruct:book/images/covers/mighty_smelting_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/mighty_smelting_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0x625B57,
+  "drawSectionListText": true,
+  "largePageTitles": true,
+  "centerPageTitles": true
 }

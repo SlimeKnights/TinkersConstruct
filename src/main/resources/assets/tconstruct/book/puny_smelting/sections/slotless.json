@@ -1,0 +1,49 @@
+[
+  {
+    "name": "group_slotless",
+    "type": "text",
+    "data": "slotless/slotless.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/farsighted.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/nearsighted.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/overslime.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/shiny.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/worldbound.json"
+  },
+
+  {
+    "name": "group_bonus_upgrades",
+    "type": "text",
+    "data": "slotless/bonus_upgrades.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/bonus/harmonious.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/bonus/recapitated.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/bonus/resurrected.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/bonus/writable.json"
+  }
+]

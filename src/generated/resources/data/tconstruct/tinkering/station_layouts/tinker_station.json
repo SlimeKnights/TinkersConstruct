@@ -1,0 +1,31 @@
+{
+  "translation_key": "gui.tconstruct.tinker_station.repair_limited",
+  "icon": {
+    "pattern": "tconstruct:button_repair"
+  },
+  "tool_slot": {
+    "icon": "tconstruct:pickaxe",
+    "x": 53,
+    "y": 41,
+    "filter": {
+      "tag": "tconstruct:modifiable"
+    }
+  },
+  "input_slots": [
+    {
+      "icon": "tconstruct:quartz",
+      "x": 11,
+      "y": 41
+    },
+    {
+      "icon": "tconstruct:dust",
+      "x": 31,
+      "y": 30
+    },
+    {
+      "icon": "tconstruct:lapis",
+      "x": 31,
+      "y": 50
+    }
+  ]
+}

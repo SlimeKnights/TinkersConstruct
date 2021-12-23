@@ -1,0 +1,5 @@
+{
+  "type": "tconstruct:table_filling",
+  "fluid_amount": 16,
+  "container": "tconstruct:seared_lantern"
+}

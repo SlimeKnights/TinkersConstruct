@@ -2,10 +2,12 @@ package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+
+import java.util.List;
 
 /** Modifier which can take just part of an input instead of the whole input */
 public class IncrementalModifier extends Modifier {
@@ -24,6 +26,12 @@ public class IncrementalModifier extends Modifier {
       }
     }
     return name;
+  }
+
+  @Override
+  public void onRemoved(IModifierToolStack tool) {
+    // remove current progress in incremental modifiers
+    tool.getPersistentData().remove(getId());
   }
 
   /* Helpers */
@@ -76,6 +84,9 @@ public class IncrementalModifier extends Modifier {
    * @return  Level, possibly reduced by an incomplete level
    */
   public float getScaledLevel(IModDataReadOnly persistentData, int level) {
+    if (level <= 0) {
+      return 0;
+    }
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
     if (neededPerLevel > 0) {
       // if amount == needed per level, returns level
@@ -103,5 +114,16 @@ public class IncrementalModifier extends Modifier {
    */
   public static void setAmount(ModDataNBT persistentData, Modifier modifier, int amount) {
     persistentData.putInt(modifier.getId(), amount);
+  }
+
+  /**
+   * Adds a tooltip showing the bonus damage and the type of damage dded
+   * @param tool         Tool instance
+   * @param level        Current level
+   * @param levelAmount  Bonus per level
+   * @param tooltip      Tooltip
+   */
+  protected void addDamageTooltip(IModifierToolStack tool, int level, float levelAmount, List<ITextComponent> tooltip) {
+    addDamageTooltip(tool, getScaledLevel(tool, level) * levelAmount, tooltip);
   }
 }

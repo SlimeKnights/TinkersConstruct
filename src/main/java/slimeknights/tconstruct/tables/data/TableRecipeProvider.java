@@ -13,6 +13,8 @@ import net.minecraft.potion.Potions;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
+import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.mantle.recipe.data.NBTIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -54,12 +56,12 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                           .addIngredient(TinkerTables.pattern)
                           .addIngredient(TinkerTables.pattern)
                           .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                          .build(consumer, location(folder + "book_substitute"));
+                          .build(consumer, modResource(folder + "book_substitute"));
 
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.craftingStation)
       .key('p', TinkerTables.pattern)
-      .key('w', new IngredientWithout(new CompoundIngredient(Ingredient.fromTag(TinkerTags.Items.WORKBENCHES), Ingredient.fromTag(TinkerTags.Items.TABLES)),
+      .key('w', new IngredientWithout(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.WORKBENCHES), Ingredient.fromTag(TinkerTags.Items.TABLES)),
                                       Ingredient.fromItems(TinkerTables.craftingStation.get())))
       .patternLine("p")
       .patternLine("w")
@@ -80,11 +82,11 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
         .key('p', TinkerTables.pattern)
-        .key('w', ItemTags.PLANKS)
+        .key('w', TinkerTags.Items.PLANKLIKE)
         .patternLine("pp")
         .patternLine("ww")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
-      .setSource(ItemTags.PLANKS)
+      .setSource(TinkerTags.Items.PLANKLIKE)
       .setMatchAll()
       .build(consumer, prefix(TinkerTables.partBuilder, folder));
 
@@ -92,12 +94,12 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkerStation)
         .key('p', TinkerTables.pattern)
-        .key('w', ItemTags.PLANKS)
+        .key('w', TinkerTags.Items.PLANKLIKE)
         .patternLine("ppp")
         .patternLine("w w")
         .patternLine("w w")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
-      .setSource(ItemTags.PLANKS)
+      .setSource(TinkerTags.Items.PLANKLIKE)
       .setMatchAll()
       .build(consumer, prefix(TinkerTables.tinkerStation, folder));
 
@@ -113,7 +115,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerTables.pattern))
                        .build(consumer, prefix(TinkerTables.partChest, folder));
     // modifier chest
-    ShapedRecipeBuilder.shapedRecipe(TinkerTables.modifierChest)
+    ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersChest)
                        .key('p', TinkerTables.pattern)
                        .key('w', ItemTags.PLANKS)
                        .key('l', Tags.Items.GEMS_LAPIS)
@@ -122,7 +124,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .patternLine("lCl")
                        .patternLine("lwl")
                        .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                       .build(consumer, prefix(TinkerTables.modifierChest, folder));
+                       .build(consumer, prefix(TinkerTables.tinkersChest, folder));
     // cast chest
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.castChest)
                        .key('c', TinkerSmeltery.blankCast)
@@ -146,31 +148,63 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SEARED_BLOCKS)
+                         .key('t', TinkerTables.tinkerStation)
+                         .patternLine("mmm")
+                         .patternLine("sts")
+                         .patternLine("s s")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, modResource(folder + "tinkers_forge"));
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.scorchedAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SCORCHED_BLOCKS)
+                         .patternLine("mmm")
+                         .patternLine(" s ")
+                         .patternLine("sss")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.scorchedAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SCORCHED_BLOCKS)
+                         .key('t', TinkerTables.tinkerStation)
+                         .patternLine("mmm")
+                         .patternLine("sts")
+                         .patternLine("s s")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, modResource(folder + "scorched_forge"));
 
     // tool repair recipe
     CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())
-                       .build(consumer, locationString(folder + "tinker_station_repair"));
+                       .build(consumer, modPrefix(folder + "tinker_station_repair"));
     CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationPartSwappingSerializer.get())
-                       .build(consumer, locationString(folder + "tinker_station_part_swapping"));
+                       .build(consumer, modPrefix(folder + "tinker_station_part_swapping"));
     CustomRecipeBuilder.customRecipe(TinkerTables.craftingTableRepairSerializer.get())
-                       .build(consumer, locationString(folder + "crafting_table_repair"));
+                       .build(consumer, modPrefix(folder + "crafting_table_repair"));
     // tool damaging
     String damageFolder = folder + "tinker_station_damaging/";
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.MUNDANE)), 1)
-                                       .build(consumer, location(damageFolder + "base_one"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.THICK)), 5)
-                                       .build(consumer, location(damageFolder + "base_two"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HARMING)), 25)
-                                       .build(consumer, location(damageFolder + "potion_one"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRONG_HARMING)), 75)
-                                       .build(consumer, location(damageFolder + "potion_two"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), Potions.HARMING)), 150)
-                                       .build(consumer, location(damageFolder + "splash_one"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), Potions.STRONG_HARMING)), 400)
-                                       .build(consumer, location(damageFolder + "splash_two"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), Potions.HARMING)), 1000)
-                                       .build(consumer, location(damageFolder + "lingering_one"));
-    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), Potions.STRONG_HARMING)), 2500)
-                                       .build(consumer, location(damageFolder + "lingering_two"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.MUNDANE)), 1)
+                                       .build(consumer, modResource(damageFolder + "base_one"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.THICK)), 5)
+                                       .build(consumer, modResource(damageFolder + "base_two"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HARMING)), 25)
+                                       .build(consumer, modResource(damageFolder + "potion_one"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRONG_HARMING)), 75)
+                                       .build(consumer, modResource(damageFolder + "potion_two"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), Potions.HARMING)), 150)
+                                       .build(consumer, modResource(damageFolder + "splash_one"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), Potions.STRONG_HARMING)), 400)
+                                       .build(consumer, modResource(damageFolder + "splash_two"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), Potions.HARMING)), 1000)
+                                       .build(consumer, modResource(damageFolder + "lingering_one"));
+    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), Potions.STRONG_HARMING)), 2500)
+                                       .build(consumer, modResource(damageFolder + "lingering_two"));
   }
 }

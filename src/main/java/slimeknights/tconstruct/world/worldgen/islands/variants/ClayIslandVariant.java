@@ -8,7 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -20,7 +20,7 @@ public class ClayIslandVariant implements IIslandVariant {
 
   @Override
   public ResourceLocation getStructureName(String variantName) {
-    return Util.getResource("slime_islands/vanilla/" + variantName);
+    return TConstruct.getResource("slime_islands/vanilla/" + variantName);
   }
 
   @Override

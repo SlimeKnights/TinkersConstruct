@@ -1,22 +1,21 @@
 {
-  "materialId": "tconstruct:rose_gold",
-  "stats": [
-    {
-      "id": "tconstruct:head",
+  "stats": {
+    "tconstruct:skull": {
       "durability": 175,
-      "miningSpeed": 12.0,
-      "harvestLevel": 2,
-      "attack": 1.0
+      "armor": 1
     },
-    {
-      "id": "tconstruct:handle",
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
       "durability": 0.6,
-      "miningSpeed": 1.3,
+      "miningSpeed": 1.25,
       "attackSpeed": 1.25,
       "attackDamage": 1.0
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 175,
+      "miningSpeed": 10.0,
+      "harvestLevel": 2,
+      "attack": 1.0
     }
-  ]
+  }
 }

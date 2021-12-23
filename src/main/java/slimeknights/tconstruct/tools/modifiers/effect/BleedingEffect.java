@@ -1,32 +1,22 @@
 package slimeknights.tconstruct.tools.modifiers.effect;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.server.ServerWorld;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.effect.TinkerEffect;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
-
-import java.util.ArrayList;
-import java.util.List;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 
 /**
  * Potion effect from {@link LaceratingModifier}
  */
-public class BleedingEffect extends TinkerEffect {
-  private static final String SOURCE_KEY = Util.prefix("bleed");
+public class BleedingEffect extends NoMilkEffect {
+  private static final String SOURCE_KEY = TConstruct.prefix("bleed");
   public BleedingEffect() {
-    super(EffectType.HARMFUL, 0xa80000, false);
-  }
-
-  @Override
-  public List<ItemStack> getCurativeItems() {
-    return new ArrayList<>();
+    super(EffectType.HARMFUL, 0xa80000, true);
   }
 
   @Override
@@ -49,7 +39,7 @@ public class BleedingEffect extends TinkerEffect {
 
     // perform damage
     int hurtResistantTime = target.hurtResistantTime;
-    Modifier.attackEntitySecondary(source, (level + 1f) / 2f, target, true);
+    ToolAttackUtil.attackEntitySecondary(source, (level + 1f) / 2f, target, target, true);
     target.hurtResistantTime = hurtResistantTime;
 
     // damage particles

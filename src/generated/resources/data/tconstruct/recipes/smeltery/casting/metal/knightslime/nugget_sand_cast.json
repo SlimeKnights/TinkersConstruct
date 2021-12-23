@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_knightslime",
+    "tag": "tconstruct:molten_knightslime",
     "amount": 16
   },
   "result": "tconstruct:knightslime_nugget",

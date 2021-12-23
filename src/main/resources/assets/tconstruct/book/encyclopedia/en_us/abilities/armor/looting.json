@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:looting",
+  "text": [
+    {
+      "text": "Increases drop rates from monsters killed with an empty hand. Note that unlike other modifiers which have multiple recipes, fortune requires a different recipe for each level, and the recipes must be applied in order."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "First level requires 1 ability slot",
+    "Second and third levels are slotless"
+  ]
+}

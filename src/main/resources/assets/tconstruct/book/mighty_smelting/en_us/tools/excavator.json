@@ -8,14 +8,14 @@
       "text": "\n"
     },
     {
-      "text": "For when you need to dig a lot of graves."
+      "text": "Useful for when you need to dig a lot of graves."
     }
   ],
   "properties": [
-    "Requires a Tool Forge",
-    "Advanced mining tool",
-    "3x3 AOE Mining",
+    "Advanced digging tool",
+    "3x3 AoE Digging",
     "Effective on dirt, sand and gravel",
-    "Can create path"
+    "Can create path",
+    "Starts with Knockback II"
   ]
 }

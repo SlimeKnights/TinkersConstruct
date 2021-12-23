@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "Grants +50% durability, +2.5 damage against illagers, and +5% knockback resistance. Increases the tool's harvest level to iron."
+    },
+    {
+      "text": "Tools and armor will only receive applicable stat boosts, for instance held tools will not receive knockback resistance.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 upgrade slot"
+  ]
+}

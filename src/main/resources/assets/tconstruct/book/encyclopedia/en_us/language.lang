@@ -1,0 +1,56 @@
+// Sections
+intro=Introduction
+
+small_tools=Small Tools
+small_tools.info=Tool Information
+large_tools=Broad Tools
+large_tools.info=Tool Information
+
+armor=Armor
+armor.info=Armor Information
+
+tier_one_materials=Tier 1 Materials
+tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
+
+tier_two_materials=Tier 2 Materials
+tier_two_materials.subtext=These materials require melting and casting to create, and may be a bit more rare
+
+tier_three_materials=Tier 3 Materials
+tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
+
+tier_four_materials=Tier 4 Materials
+tier_four_materials.subtext=These materials cannot be found without traveling to the Nether
+skull_materials=Slimeskulls
+skull_materials.subtext=This section describes the effects of all types of skulls in creating a slimeskull
+
+upgrades=Upgrades
+upgrades.subtext=Each tool gets a limited total number of upgrades slots.
+upgrades.group_general=General
+upgrades.group_harvest=Harvest
+upgrades.group_weapon=Weapon
+upgrades.group_damage=Damage Boost
+upgrades.group_armor=Armor
+upgrades.feather_falling=Feather Fall
+
+defense=Defense
+defense.subtext=Instead of material traits, armor will include defense slots to improve protection.
+defense.group_protection=Protection
+defense.group_special=Special
+
+slotless=Slotless
+slotless.subtext=Slotless modifiers do not require any slots.
+slotless.group_general=General
+slotless.group_bonus=Bonus
+
+abilities=Abilities
+abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stronger per slot.
+abilities.group_general=General
+abilities.group_harvest=Harvest
+abilities.group_weapon=Weapon
+abilities.group_interact=Interaction
+abilities.group_armor=Armor
+abilities.unarmed=Unarmed
+
+modifier.effect=Effects:
+tool.properties=Properties:
+

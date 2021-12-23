@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -147,6 +148,27 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     setFluid(tagIn, amount);
     setCoolingTime(temperature, amount);
     return this;
+  }
+
+  /**
+   * Sets the fluid for this recipe, and cooling time
+   * @param fluid      Fluid object instance
+   * @param forgeTag   If true, uses the forge tag
+   * @param amount     amount of fluid
+   */
+  public ItemCastingRecipeBuilder setFluidAndTime(FluidObject<?> fluid, boolean forgeTag, int amount) {
+    setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount);
+    setCoolingTime(fluid.get().getAttributes().getTemperature() - 300, amount);
+    return this;
+  }
+
+  /**
+   * Sets the fluid for this recipe using the forge tag, and cooling time
+   * @param fluid    Fluid object instance
+   * @param amount   amount of fluid
+   */
+  public ItemCastingRecipeBuilder setFluidAndTime(FluidObject<?> fluid, int amount) {
+    return setFluidAndTime(fluid, false, amount);
   }
 
   /* Cast */

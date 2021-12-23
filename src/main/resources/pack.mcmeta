@@ -1,7 +1,6 @@
 {
     "pack": {
         "description": "Tinkers Construct Resources",
-        "pack_format": 5,
-        "_comment": "A pack_format of 5 requires json lang files. Note: we require v5 pack meta for all mods."
+        "pack_format": 6
     }
 }

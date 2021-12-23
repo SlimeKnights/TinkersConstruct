@@ -5,13 +5,20 @@
       "tag": "tconstruct:tanks"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/interactable"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
   },
   "result": {
     "name": "tconstruct:tank",
     "level": 1
   },
-  "max_level": 5,
-  "upgrade_slots": 1
+  "max_level": 5
 }
