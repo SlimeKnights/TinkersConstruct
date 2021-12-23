@@ -1221,7 +1221,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, wrap(TinkerModifiers.draconic, slotlessFolder, "_from_scales"));
     // creative
     // no salvage. I am not adding a recipe for creative modifiers, nope. don't want the gift from the server admin to be abused as a upgrade source
-    CustomRecipeBuilder.customRecipe(TinkerModifiers.creativeSlotSerializer.get()).build(consumer, slotlessFolder + "creative_slot");
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.creativeSlotSerializer.get()).build(consumer, modPrefix(slotlessFolder + "creative_slot"));
 
     // removal
     // temporary removal recipe until a proper table is added
