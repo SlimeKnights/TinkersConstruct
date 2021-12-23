@@ -1,9 +1,9 @@
 {
   "tool": "tconstruct:plate_helmet",
   "text": [
-    { "text": "단단한 머리를 위한 단단한 모자입니다." },
+    { "text": "단단한 머리를 위한 단단한 모자예요." },
 	{
-      "text": "두뇌를 보호할 수 있는 좋은 단단한 투구입니다. 그 어떤 것도 머리를 상처 입힐 수 없습니다!", "paragraph": true
+      "text": "두뇌를 보호할 수 있는 좋은 단단한 투구예요. 그 어떤 것도 머리를 상처 입힐 수 없어요!", "paragraph": true
     }
   ],
   "properties": [
