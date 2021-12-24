@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
@@ -36,6 +37,7 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.data.FluidNameIngredient;
 import slimeknights.tconstruct.common.data.FluidTagEmptyCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -44,6 +46,7 @@ import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
+import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
@@ -80,6 +83,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ModifierRecipeProvider extends BaseRecipeProvider {
   public ModifierRecipeProvider(DataGenerator generator) {
@@ -1432,8 +1436,22 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ResourceLocation potionTag = new ResourceLocation("forge", "potion");
     // standard potion is 250 mb, but we want a smaller number. For the effects, we really want to divide into 4 pieces
     SpillingRecipeBuilder.forFluid(FluidIngredient.of(FluidTags.createOptional(potionTag), FluidAttributes.BUCKET_VOLUME / 8))
-                         .addEffect(new PotionFluidEffect(0.5f))
+                         .addEffect(new PotionFluidEffect(0.5f, TagPredicate.ANY))
                          .build(withCondition(consumer, new NotCondition(new FluidTagEmptyCondition(potionTag))), modResource(folder + "potion_fluid"));
+
+    // create has three types of bottles stored on their fluid, react to it to boost
+    Function<String,TagPredicate> createBottle = value -> {
+      CompoundNBT compound = new CompoundNBT();
+      compound.putString("Bottle", value);
+      return new TagPredicate(compound);
+    };
+    String create = "create";
+    SpillingRecipeBuilder.forFluid(FluidNameIngredient.of(new ResourceLocation(create, "potion"), FluidAttributes.BUCKET_VOLUME / 8))
+                         .addEffect(new PotionFluidEffect(0.25f, createBottle.apply("REGULAR")))
+                         .addEffect(new PotionFluidEffect(0.5f, createBottle.apply("SPLASH")))
+                         .addEffect(new PotionFluidEffect(1f, createBottle.apply("LINGERING")))
+                         .build(withCondition(consumer, modLoaded(create)), modResource(folder + "create_potion_fluid"));
+
   }
 
   private void burningSpilling(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time) {
