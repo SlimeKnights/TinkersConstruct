@@ -1428,7 +1428,7 @@
 
   "material.tconstruct.whitestone": "Whitestone",
   "material.tconstruct.whitestone.flavor": "Take your useless white metals and make a useful tool",
-  "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 25% per level of granting +5 stoneshield",
+  "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% per level of granting +3 stoneshield",
 
 
   "__comment": "Tier 3 Integration Materials",
