@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -116,6 +117,11 @@ public class TConstruct {
     MinecraftForge.EVENT_BUS.register(this);
     if (ModList.get().isLoaded("crafttweaker")) {
       MinecraftForge.EVENT_BUS.register(new CRTHelper());
+    }
+
+    // compat
+    if (ModList.get().isLoaded("immersiveengineering")) {
+      bus.register(new ImmersiveEngineeringPlugin());
     }
   }
 
