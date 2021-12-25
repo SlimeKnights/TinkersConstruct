@@ -142,6 +142,11 @@ public class Util {
     return hand == Hand.OFF_HAND ? EquipmentSlotType.OFFHAND : EquipmentSlotType.MAINHAND;
   }
 
+  /** Gets the opposite hand of the given hand */
+  public static Hand getOpposite(Hand hand) {
+    return hand == Hand.OFF_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND;
+  }
+
   /** Converts a position and a side hit into a hit vector */
   public static Vector3d toHitVec(BlockPos pos, Direction sideHit) {
     return new Vector3d(
