@@ -6,16 +6,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class PiercingModifier extends IncrementalModifier {
@@ -25,17 +26,17 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    float toRemove = 0.5f * getScaledLevel(persistentData, level);
-    float baseDamage = baseStats.getFloat(ToolStats.ATTACK_DAMAGE);
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+    float toRemove = 0.5f * getScaledLevel(context, level);
+    float baseDamage = context.getBaseStats().getFloat(ToolStats.ATTACK_DAMAGE);
     if (baseDamage < toRemove) {
       volatileData.putFloat(PIERCING_DEBUFF, toRemove - baseDamage);
     }
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    float toRemove = 0.5f * getScaledLevel(persistentData, level) - volatileData.getFloat(PIERCING_DEBUFF);
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    float toRemove = 0.5f * getScaledLevel(context, level) - context.getVolatileData().getFloat(PIERCING_DEBUFF);
     ToolStats.ATTACK_DAMAGE.add(builder, -toRemove);
   }
 
@@ -59,7 +60,7 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    addDamageTooltip(tool, getScaledLevel(tool, level) * 1.0f - tool.getVolatileData().getFloat(PIERCING_DEBUFF), tooltip);
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    addDamageTooltip(tool, getScaledLevel(tool, level) - tool.getVolatileData().getFloat(PIERCING_DEBUFF), tooltip);
   }
 }

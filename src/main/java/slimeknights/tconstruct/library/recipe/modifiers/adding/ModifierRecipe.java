@@ -13,7 +13,6 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
-import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -38,24 +37,9 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   private final List<SizedIngredient> inputs;
 
-  /** @deprecated use {@link #ModifierRecipe(ResourceLocation, List, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
-  @Deprecated
-  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-    super(id, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
-    this.inputs = inputs;
-    // add all inputs to the modifier listing
-    for (SizedIngredient ingredient : inputs) {
-      ModifierRecipeLookup.addIngredient(ingredient);
-    }
-  }
-
   public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
     this.inputs = inputs;
-    // add all inputs to the modifier listing
-    for (SizedIngredient ingredient : inputs) {
-      ModifierRecipeLookup.addIngredient(ingredient);
-    }
   }
 
   /**
@@ -164,7 +148,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @param inv     Inventory instance to modify inputs
    */
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
     // bit corresponding to items that are already found
     BitSet used = makeBitset(inv);
     // just shrink each input
@@ -211,18 +195,6 @@ public class ModifierRecipe extends AbstractModifierRecipe {
         builder.add(SizedIngredient.read(buffer));
       }
       return new ModifierRecipe(id, builder.build(), toolRequirement, requirements, requirementsError, result, maxLevel, slots);
-    }
-
-    @Override
-    public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
-                               String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-      throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
-                               String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-      throw new UnsupportedOperationException();
     }
 
     @Override

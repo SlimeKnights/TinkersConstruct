@@ -28,16 +28,6 @@ public interface IBakedModifierModel {
     return modifier.getModifier();
   }
 
-  /** @deprecated Use {@link #getQuads(IModifierToolStack, ModifierEntry, Function, TransformationMatrix, boolean, int, ItemLayerPixels)} */
-  @Deprecated
-  ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge);
-
-  /** @deprecated Use {@link #getQuads(IModifierToolStack, ModifierEntry, Function, TransformationMatrix, boolean, int, ItemLayerPixels)} */
-  @Deprecated
-  default ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex) {
-    return getQuads(tool, modifier, spriteGetter, transforms, isLarge);
-  }
-
   /**
    * Gets quads for the given model. These quads should not be cached as that will make them inconsistent with {@link ItemLayerPixels}.
    * @param tool             Tool instance for modifier sensitive models
@@ -49,9 +39,7 @@ public interface IBakedModifierModel {
    * @param pixels           Item layer pixels to reduce z-fighting. Pass into methods from {@link slimeknights.mantle.client.model.util.MantleItemLayerModel}
    * @return  List of baked quads
    */
-  default ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
-    return getQuads(tool, modifier, spriteGetter, transforms, isLarge, startTintIndex);
-  }
+  ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels);
 
   /**
    * Gets the number of tint indexes used by this model

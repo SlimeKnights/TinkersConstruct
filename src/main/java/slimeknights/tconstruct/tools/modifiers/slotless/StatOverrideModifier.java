@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -10,11 +9,10 @@ import net.minecraftforge.common.util.Constants.NBT;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -70,7 +68,8 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    IModDataReadOnly persistentData = context.getPersistentData();
     processStats(persistentData, KEY_BONUS, (stat, value) -> stat.applyBonus(builder, value));
     processStats(persistentData, KEY_MULTIPLY, (stat, value) -> {
       if (stat instanceof FloatToolStat) {

@@ -161,11 +161,6 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
     return itemCost * this.needed % this.value;
   }
 
-  /** @deprecated use {@link #getRepairPerItem(ToolDefinitionData, MaterialStatsId)} */
-  public float getRepairPerItem(@Nullable MaterialStatsId statsId) {
-    return getRepairPerItem(ToolDefinitionData.EMPTY, statsId);
-  }
-
   /**
    * Gets the amount to repair per item for tool repair
    * @param data     Tool defintion data for fallback
@@ -178,12 +173,6 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
       repairPerItem = this.getValue() * getRepairDurability(data, materialId, statsId) / INGOTS_PER_REPAIR / this.getNeeded();
     }
     return repairPerItem;
-  }
-
-  /** @deprecated use {@link #getRepairDurability(ToolDefinitionData, MaterialId, MaterialStatsId)} */
-  @Deprecated
-  public static int getRepairDurability(MaterialId materialId, @Nullable MaterialStatsId statsId) {
-    return getRepairDurability(ToolDefinitionData.EMPTY, materialId, statsId);
   }
 
   /**

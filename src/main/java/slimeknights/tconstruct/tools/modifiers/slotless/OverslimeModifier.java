@@ -4,11 +4,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -39,14 +38,14 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   /* Tool building */
 
   @Override
-  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     // base cap
-    addCapacity(volatileData, (int)(50 * toolDefinition.getData().getMultiplier(ToolStats.DURABILITY)));
+    addCapacity(volatileData, (int)(50 * context.getDefinition().getData().getMultiplier(ToolStats.DURABILITY)));
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    if (!volatileData.getBoolean(KEY_OVERSLIME_FRIEND)) {
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    if (!context.getVolatileData().getBoolean(KEY_OVERSLIME_FRIEND)) {
       ToolStats.ATTACK_DAMAGE.multiply(builder, 0.9f);
       ToolStats.MINING_SPEED.multiply(builder, 0.9f);
     }
@@ -83,18 +82,9 @@ public class OverslimeModifier extends DurabilityShieldModifier {
 
   /* Data keys */
 
-  /**
-   * Gets the key for overslime
-   * @deprecated use {@link #getShieldKey()}
-   */
-  @Deprecated
-  public ResourceLocation getOverslimeKey() {
-    return getId();
-  }
-
   @Override
   protected ResourceLocation getShieldKey() {
-    return getOverslimeKey();
+    return getId();
   }
 
   /** Gets the key for overslime capacity */
@@ -177,15 +167,9 @@ public class OverslimeModifier extends DurabilityShieldModifier {
     return getShield(tool);
   }
 
-  /**
-   * Sets the overslime, bypassing the capacity
-   * @param persistentData  Persistent data
-   * @param amount          Amount to set
-   * @deprecated For display use only, in general use {@link #setOverslime(IModifierToolStack, int)}
-   */
-  @Deprecated
-  public void setOverslime(ModDataNBT persistentData, int amount) {
-    setShield(persistentData, amount);
+  @Override
+  public void setShield(ModDataNBT persistentData, int amount) {
+    super.setShield(persistentData, amount);
   }
 
   /**

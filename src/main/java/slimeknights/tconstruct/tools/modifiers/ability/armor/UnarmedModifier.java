@@ -1,15 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.item.Item;
 import slimeknights.mantle.util.OffhandCooldownTracker;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
@@ -20,10 +17,10 @@ public class UnarmedModifier extends OffhandAttackModifier {
   }
 
   @Override
-  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.4f);
     // main hand has 4.0 attack speed, so make the offhand have that too
-    ToolStats.ATTACK_SPEED.add(builder, 4.0 - baseStats.getFloat(ToolStats.ATTACK_SPEED));
+    ToolStats.ATTACK_SPEED.add(builder, 4.0 - context.getBaseStats().getFloat(ToolStats.ATTACK_SPEED));
   }
 
   @Override

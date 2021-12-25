@@ -60,7 +60,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
     // how much did we actually consume?
     int damageTaken = ToolStack.from(result).getDamage() - ToolStack.from(inv.getTinkerableStack()).getDamage();
     IncrementalModifierRecipe.updateInputs(inv, ingredient, damageTaken, damageAmount, ItemStack.EMPTY);

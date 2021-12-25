@@ -29,8 +29,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
@@ -116,12 +116,6 @@ public class TooltipUtil {
       }
     }
     return ITinkerStationDisplay.getCombinedItemName(stack, baseName, nameMaterials);
-  }
-
-  /** @deprecated use {@link #addInformation(IModifiableDisplay, ItemStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static void addInformation(IModifiableDisplay item, ItemStack stack, List<ITextComponent> tooltip, TooltipKey tooltipKey, boolean isAdvanced) {
-    addInformation(item, stack, null, tooltip, tooltipKey, isAdvanced ? TooltipFlag.ADVANCED : TooltipFlag.NORMAL);
   }
 
   /** Translates client side only logic to a method that exists on serverside, used primarily since vanilla is annoying and takes away player access in the tooltip */
@@ -232,13 +226,6 @@ public class TooltipUtil {
     }
   }
 
-
-  /** @deprecated use {@link #getDefaultStats(IModifierToolStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static List<ITextComponent> getDefaultStats(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) {
-    return getDefaultStats(tool, null, tooltip, TooltipKey.NORMAL, flag);
-  }
-
   /**
    * Gets the  default information for the given tool stack
    *
@@ -269,12 +256,6 @@ public class TooltipUtil {
       entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
     }
     return builder.getTooltips();
-  }
-
-  /** @deprecated {@link #getArmorStats(IModifierToolStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static List<ITextComponent> getArmorStats(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) { 
-    return getArmorStats(tool, null, tooltip, TooltipKey.NORMAL, flag);
   }
 
   /**

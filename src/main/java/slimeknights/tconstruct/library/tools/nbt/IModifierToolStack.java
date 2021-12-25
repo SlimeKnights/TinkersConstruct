@@ -40,6 +40,9 @@ public interface IModifierToolStack extends IToolContext {
    */
   void setDamage(int damage);
 
+  /** Cached tool stats calculated from materials and modifiers */
+  StatsNBT getStats();
+
   /**
    * Gets persistent modifier data from the tool.
    * This data may be edited by modifiers and will persist when stats rebuild
@@ -56,17 +59,5 @@ public interface IModifierToolStack extends IToolContext {
    */
   default int getFreeSlots(SlotType type) {
     return getPersistentData().getSlots(type) + getVolatileData().getSlots(type);
-  }
-
-  /** @deprecated Use {@link #getFreeSlots(SlotType)} */
-  @Deprecated
-  default int getFreeUpgrades() {
-    return getPersistentData().getSlots(SlotType.UPGRADE) + getVolatileData().getSlots(SlotType.UPGRADE);
-  }
-
-  /** @deprecated Use {@link #getFreeSlots(SlotType)} */
-  @Deprecated
-  default int getFreeAbilities() {
-    return getPersistentData().getSlots(SlotType.ABILITY) + getVolatileData().getSlots(SlotType.ABILITY);
   }
 }

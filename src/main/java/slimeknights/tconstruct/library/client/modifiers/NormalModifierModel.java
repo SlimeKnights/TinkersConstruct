@@ -41,12 +41,6 @@ public class NormalModifierModel implements IBakedModifierModel {
     this(smallTexture, largeTexture, -1, 0);
   }
 
-  @Deprecated
-  @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge) {
-    return getQuads(tool, entry, spriteGetter, transforms, isLarge, -1, null);
-  }
-
   @Override
   public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     int index = isLarge ? 1 : 0;

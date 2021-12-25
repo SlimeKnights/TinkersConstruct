@@ -35,8 +35,6 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
@@ -44,8 +42,6 @@ import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
-
-import java.util.function.Supplier;
 
 import static slimeknights.tconstruct.library.client.model.tools.ToolModel.registerItemColors;
 
@@ -174,15 +170,5 @@ public class ToolClientEvents extends ClientEventBase {
       wasHelmetInteracting = isHelmetInteracting;
       wasLeggingsInteracting = isLeggingsInteract;
     }
-  }
-
-  /** @deprecated No longer required, colors are baked into the model */
-  @Deprecated
-  public static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {}
-
-  /** @deprecated use {@link ToolModel#registerItemColors(ItemColors, Supplier)} */
-  @Deprecated
-  public static void registerToolItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
-    registerItemColors(colors, item);
   }
 }

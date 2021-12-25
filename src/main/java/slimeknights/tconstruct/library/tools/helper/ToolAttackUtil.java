@@ -69,12 +69,6 @@ public class ToolAttackUtil {
     return () -> player.getCooledAttackStrength(0.5f);
   }
 
-  /** @deprecated use {@link #getAttributeAttackDamage(IModifierToolStack, LivingEntity, EquipmentSlotType)} */
-  @Deprecated
-  public static float getAttributeAttackDamage(IModifierToolStack tool, LivingEntity holder, Hand hand) {
-    return getAttributeAttackDamage(tool, holder, Util.getSlotType(hand));
-  }
-
   /**
    * Gets the attack damage for the given hand, acting as though it was used in the main hand
    *
@@ -293,7 +287,7 @@ public class ToolAttackUtil {
     }
 
     // reset hand to make sure we don't mess with vanilla tools
-    ModifierLootingHandler.setLootingHand(attackerLiving, Hand.MAIN_HAND);
+    ModifierLootingHandler.setLootingSlot(attackerLiving, EquipmentSlotType.MAINHAND);
 
     // reset knockback if needed
     if (canceledKnockback) {

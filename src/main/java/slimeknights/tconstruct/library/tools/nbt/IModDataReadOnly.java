@@ -34,19 +34,4 @@ public interface IModDataReadOnly extends INamespacedNBTReadOnly {
    * @return  Number of slots
    */
   int getSlots(SlotType type);
-
-
-  /* Deprecated, to remove */
-
-  /** @deprecated Use {@link #getSlots(SlotType)} */
-  @Deprecated
-  default int getUpgrades() {
-    return getSlots(SlotType.UPGRADE);
-  }
-
-  /** @deprecated Use {@link #getSlots(SlotType)} */
-  @Deprecated
-  default int getAbilities() {
-    return getSlots(SlotType.ABILITY);
-  }
 }

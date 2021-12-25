@@ -19,7 +19,7 @@ public class SolarPoweredModifier extends SingleUseModifier {
   }
 
   @Override
-  public int onDamageTool(IModifierToolStack toolStack, int level, int amount, @Nullable LivingEntity holder) {
+  public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
     if (holder != null) {
       World world = holder.getEntityWorld();
       // note this may go negative, that is not a problem

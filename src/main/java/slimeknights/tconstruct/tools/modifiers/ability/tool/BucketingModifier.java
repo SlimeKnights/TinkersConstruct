@@ -34,15 +34,13 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 public class BucketingModifier extends TankModifier {
   public BucketingModifier() {
@@ -69,8 +67,8 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    super.addVolatileData(toolDefinition, baseStats, persistentData, level, volatileData);
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+    super.addVolatileData(context, level, volatileData);
 
     // boost to the nearest bucket amount
     int capacity = getCapacity(volatileData);

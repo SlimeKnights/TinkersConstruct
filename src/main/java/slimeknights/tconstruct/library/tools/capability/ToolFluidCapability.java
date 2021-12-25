@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
+import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 /**
@@ -23,9 +24,6 @@ import java.util.function.Supplier;
  */
 @RequiredArgsConstructor
 public class ToolFluidCapability implements IFluidHandlerItem {
-  /** @deprecated use {@link #TOTAL_TANKS}, a value greater than 0 is treated as having the capability */
-  @Deprecated
-  public static final ResourceLocation HAS_CAPABILITY = TConstruct.getResource("has_fluid_capability");
   /** Boolean key to set in volatile mod data to enable the fluid capability */
   public static final ResourceLocation TOTAL_TANKS = TConstruct.getResource("total_tanks");
 
@@ -104,6 +102,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
     return totalFilled;
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     FluidStack drainedSoFar = FluidStack.EMPTY;
@@ -138,6 +137,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
     return drainedSoFar;
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     FluidStack drainedSoFar = FluidStack.EMPTY;
@@ -178,7 +178,6 @@ public class ToolFluidCapability implements IFluidHandlerItem {
 
   /** Adds the tanks from the fluid modifier to the tool */
   public static void addTanks(ModDataNBT volatileData, IFluidModifier modifier) {
-    volatileData.putBoolean(HAS_CAPABILITY, true); // deprecated
     volatileData.putInt(TOTAL_TANKS, modifier.getTanks(volatileData) + volatileData.getInt(TOTAL_TANKS));
   }
 

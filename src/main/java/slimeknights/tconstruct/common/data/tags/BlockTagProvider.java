@@ -154,8 +154,6 @@ public class BlockTagProvider extends BlockTagsProvider {
       slimeBlockBuilder.add(TinkerWorld.slime.get(type));
       congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
     }
-    // old world compat, make congealed support leaves
-    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_TREE_TRUNKS).addTag(TinkerTags.Blocks.SLIMY_LOGS).addTag(TinkerTags.Blocks.CONGEALED_SLIME);
 
     // foliage
     TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);

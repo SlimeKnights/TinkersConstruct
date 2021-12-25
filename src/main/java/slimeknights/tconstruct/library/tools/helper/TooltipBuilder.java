@@ -197,19 +197,4 @@ public class TooltipBuilder {
     }
     return this;
   }
-
-
-  /* Deprecated */
-
-  /** @deprecated use {@link #addFreeSlots(SlotType)} or {@link #addAllFreeSlots()} */
-  @Deprecated
-  public TooltipBuilder addFreeUpgrades() {
-    return addFreeSlots(SlotType.UPGRADE);
-  }
-
-  /** @deprecated use {@link #addFreeSlots(SlotType)} or {@link #addAllFreeSlots()} */
-  @Deprecated
-  public TooltipBuilder addFreeAbilities() {
-    return addFreeSlots(SlotType.ABILITY);
-  }
 }

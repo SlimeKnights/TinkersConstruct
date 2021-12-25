@@ -41,15 +41,6 @@ import java.util.function.BiConsumer;
 public final class ModifierUtil {
   /** Vanilla enchantments tag */
   public static final String TAG_ENCHANTMENTS = "Enchantments";
-  /** Vanilla tag to hide certain tooltips */
-  @Deprecated
-  public static final String TAG_HIDE_FLAGS = ToolStack.TAG_HIDE_FLAGS;
-
-  /** Use {@link #applyHarvestEnchantments(ToolStack, ItemStack, ToolHarvestContext)} */
-  @Deprecated
-  public static boolean applyHarvestEnchants(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
-    return applyHarvestEnchantments(tool, stack, context) != null;
-  }
 
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
@@ -97,17 +88,6 @@ public final class ModifierUtil {
       }
     }
     return originalEnchants;
-  }
-
-  /**
-   * Clears enchants from the given stack
-   * @param stack  Stack to clear enchants
-   */
-  public static void clearEnchantments(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt != null) {
-      nbt.remove(TAG_ENCHANTMENTS);
-    }
   }
 
   /**

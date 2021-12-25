@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.gson.JsonSyntaxException;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Data;
 import net.minecraft.item.Item;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
@@ -23,7 +23,7 @@ public class ToolRebuildContext implements IToolContext {
   /** List of all modifiers on the tool being rebuilt, from recipes and traits */
   private final ModifierNBT modifiers;
   /** Tool stats before modifiers add stats */
-  private final StatsNBT stats;
+  private final StatsNBT baseStats;
   /** Persistent modifier data, intentionally read only */
   private final IModDataReadOnly persistentData;
   /** Volatile modifier data */

@@ -76,8 +76,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
                    .isPresent();
   }
 
-  /** @deprecated use {@link ICastingRecipe#getCraftingResult(IInventory)}
-   */
+  /** @deprecated use {@link ICastingRecipe#getCraftingResult(IInventory)} */
   @Override
   @Deprecated
   public ItemStack getRecipeOutput() {

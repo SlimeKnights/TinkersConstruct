@@ -23,8 +23,11 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifi
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -97,7 +100,7 @@ public class TinkerStationManager implements IRecipeManager {
     return RecipeTypes.TINKER_STATION;
   }
 
-  private ModifierMatch makeMatch(IData modifierRequirements, int minMatch) {
+  private ModifierMatch makeMatch(@Nullable IData modifierRequirements, int minMatch) {
     ModifierMatch entry = ModifierMatch.ALWAYS;
     if (modifierRequirements != null && !modifierRequirements.asMap().isEmpty()) {
 
@@ -117,7 +120,13 @@ public class TinkerStationManager implements IRecipeManager {
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
     ModifierMatch entry = makeMatch(modifierRequirements, minMatch);
     ModifierEntry result = new ModifierEntry(resultModifier, modifierResultLevel);
-    IncrementalModifierRecipe recipe = new IncrementalModifierRecipe(id, input.asVanillaIngredient(), amountPerInput, neededPerLevel, toolRequirement.asVanillaIngredient(), entry, requirementsError, result, maxLevel, upgradeSlots, abilitySlots, leftover.getInternal());
+    SlotCount slotCount = null;
+    if (upgradeSlots > 0) {
+      slotCount = new SlotCount(SlotType.UPGRADE, upgradeSlots);
+    } else if (abilitySlots > 0) {
+      slotCount = new SlotCount(SlotType.ABILITY, abilitySlots);
+    }
+    IncrementalModifierRecipe recipe = new IncrementalModifierRecipe(id, input.asVanillaIngredient(), amountPerInput, neededPerLevel, toolRequirement.asVanillaIngredient(), entry, requirementsError, result, maxLevel, slotCount, leftover.getInternal());
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
 
@@ -129,7 +138,13 @@ public class TinkerStationManager implements IRecipeManager {
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
     List<SizedIngredient> collect = Arrays.stream(inputs).map(iIngredientWithAmount -> SizedIngredient.of(iIngredientWithAmount.getIngredient().asVanillaIngredient(), iIngredientWithAmount.getAmount())).collect(Collectors.toList());
     ModifierEntry result = new ModifierEntry(resultModifier, modifierResultLevel);
-    ModifierRecipe recipe = new ModifierRecipe(id, collect, toolRequired.asVanillaIngredient(), entry, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+    SlotCount slotCount = null;
+    if (upgradeSlots > 0) {
+      slotCount = new SlotCount(SlotType.UPGRADE, upgradeSlots);
+    } else if (abilitySlots > 0) {
+      slotCount = new SlotCount(SlotType.ABILITY, abilitySlots);
+    }
+    ModifierRecipe recipe = new ModifierRecipe(id, collect, toolRequired.asVanillaIngredient(), entry, requirementsError, result, maxLevel, slotCount);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
 

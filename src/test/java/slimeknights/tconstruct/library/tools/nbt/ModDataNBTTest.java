@@ -74,30 +74,4 @@ class ModDataNBTTest extends BaseMcTest {
     assertThat(tag.contains("test", NBT.TAG_ANY_NUMERIC)).isTrue();
     assertThat(tag.getInt("test")).isEqualTo(1);
   }
-
-  @Test
-  void deprecatedMethodsStillFunction() {
-    ModDataNBT nbt = new ModDataNBT();
-    nbt.setUpgrades(1);
-    nbt.setAbilities(2);
-    nbt.setTraits(3);
-    assertThat(nbt.getSlots(SlotType.UPGRADE)).isEqualTo(1);
-    assertThat(nbt.getSlots(SlotType.ABILITY)).isEqualTo(2);
-    assertThat(nbt.getSlots(SlotType.SOUL)).isEqualTo(3);
-
-    nbt = new ModDataNBT();
-    nbt.setSlots(SlotType.UPGRADE, 4);
-    nbt.setSlots(SlotType.ABILITY, 5);
-    nbt.setSlots(SlotType.SOUL, 6);
-    assertThat(nbt.getUpgrades()).isEqualTo(4);
-    assertThat(nbt.getAbilities()).isEqualTo(5);
-    assertThat(nbt.getTraits()).isEqualTo(6);
-
-    nbt.addUpgrades(7);
-    nbt.addAbilities(8);
-    nbt.addTraits(9);
-    assertThat(nbt.getSlots(SlotType.UPGRADE)).isEqualTo(11);
-    assertThat(nbt.getSlots(SlotType.ABILITY)).isEqualTo(13);
-    assertThat(nbt.getSlots(SlotType.SOUL)).isEqualTo(15);
-  }
 }

@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+
+import javax.annotation.Nullable;
 
 public abstract class DurabilityShieldModifier extends Modifier {
   public DurabilityShieldModifier(int color) {
@@ -42,17 +45,17 @@ public abstract class DurabilityShieldModifier extends Modifier {
   /* Damaging */
 
   @Override
-  public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
-    int shield = getShield(toolStack);
+  public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
+    int shield = getShield(tool);
     if (shield > 0) {
       // if we have more overslime than amount, remove some overslime
       if (shield >= amount) {
-        setShield(toolStack, level, shield - amount);
+        setShield(tool, level, shield - amount);
         return 0;
       }
       // amount is more than overslime, reduce and clear overslime
       amount -= shield;
-      setShield(toolStack, level, 0);
+      setShield(tool, level, 0);
     }
     return amount;
   }

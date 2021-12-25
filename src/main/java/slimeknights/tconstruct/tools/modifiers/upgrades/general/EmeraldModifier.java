@@ -2,21 +2,23 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
@@ -29,12 +31,13 @@ public class EmeraldModifier extends SingleLevelModifier {
   }
 
   @Override
-  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     IModifiable.setRarity(volatileData, Rarity.UNCOMMON);
   }
 
   @Override
-  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    Item item = context.getItem();
     if (item.isIn(DURABILITY)) {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.5f));
     }
@@ -56,7 +59,7 @@ public class EmeraldModifier extends SingleLevelModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addDamageTooltip(tool, level * 2.5f, tooltip);
   }
 }

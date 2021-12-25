@@ -38,43 +38,6 @@ public class ToolDamageUtil {
     return nbt != null && nbt.getBoolean(ToolStack.TAG_BROKEN);
   }
 
-  /**
-   * Gets the current tool durability
-   *
-   * @param stack the tool stack to use
-   * @return the currently durability of the tool stack
-   */
-  @Deprecated
-  public static int getCurrentDurability(ItemStack stack) {
-    if (isBroken(stack)) {
-      return 0;
-    }
-    return stack.getMaxDamage() - stack.getDamage();
-  }
-
-  /**
-   * Gets the current damage the tool has taken. Essentially the reverse of {@link #getCurrentDurability(ItemStack)}
-   *
-   * @param stack the tool stack to use
-   * @return the currently durability of the tool stack
-   */
-  @Deprecated
-  public static int getCurrentDamage(ItemStack stack) {
-    if (isBroken(stack)) {
-      return stack.getMaxDamage();
-    }
-    return stack.getDamage();
-  }
-
-  /**
-   * Checks if the given stack needs to be repaired
-   * @param stack  Stack to check
-   * @return  True if it needs repair
-   */
-  public static boolean needsRepair(ItemStack stack) {
-    return stack.getDamage() > 0 || isBroken(stack);
-  }
-
 
   /* Damaging and repairing */
 

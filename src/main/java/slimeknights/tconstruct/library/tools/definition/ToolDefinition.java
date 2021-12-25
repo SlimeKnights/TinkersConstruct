@@ -1,5 +1,6 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.definition;
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,19 +15,9 @@ import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
-import slimeknights.tconstruct.library.tools.definition.PartRequirement;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
-import slimeknights.tconstruct.library.tools.definition.ToolStatProviders;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -44,7 +35,7 @@ public class ToolDefinition {
     public boolean isMultipart() {
       return false;
     }
-  });
+  }, 0);
 
   @Getter
   private final ResourceLocation id;
@@ -59,11 +50,6 @@ public class ToolDefinition {
   /** Base data loaded from JSON, contains stats, traits, and starting slots */
   @Getter
   protected ToolDefinitionData data;
-
-  @Deprecated
-  protected ToolDefinition(ResourceLocation id, IToolStatProvider statProvider) {
-    this(id, statProvider, 1);
-  }
 
   protected ToolDefinition(ResourceLocation id, IToolStatProvider statProvider, int defaultMaxTier) {
     this.id = id;
@@ -164,16 +150,16 @@ public class ToolDefinition {
   }
 
   /** Updates the data in this tool definition from the JSON loader, should not be called directly other than by the loader */
+  @VisibleForTesting
   public void setData(ToolDefinitionData data) {
     this.data = data;
     // clear caches
     repairIndices = null;
     maxRepairWeight = null;
-    baseStatDefinition = null;
   }
 
   /** Sets the tool data to the default, for the sake of erroring */
-  public void setDefaultData() {
+  protected void setDefaultData() {
     setData(statProvider.getDefaultData());
   }
 
@@ -181,34 +167,6 @@ public class ToolDefinition {
   public boolean isDataLoaded() {
     return data != statProvider.getDefaultData();
   }
-
-  /* Deprecated methods from before datapack transfer */
-
-  /** Cache of base stats definition, for deprecated hooks */
-  @Nullable @Deprecated
-  private ToolBaseStatDefinition baseStatDefinition;
-
-  /** @deprecated Use {@link #getData()} */
-  @Deprecated
-  public ToolBaseStatDefinition getBaseStatDefinition() {
-    if (baseStatDefinition == null) {
-      baseStatDefinition = new ToolBaseStatDefinition(getData());
-    }
-    return baseStatDefinition;
-  }
-
-  /** @deprecated Use {@link ToolDefinitionData#getParts()} */
-  @Deprecated
-  public List<IToolPart> getRequiredComponents() {
-    return getData().getParts().stream().map(PartRequirement::getPart).filter(Objects::nonNull).collect(Collectors.toList());
-  }
-
-  /** @deprecated use {@link ToolDefinitionData#getTraits()} */
-  @Deprecated
-  public List<ModifierEntry> getModifiers() {
-    return getData().getTraits();
-  }
-
 
 	/** Builder to easily create a tool definition */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)

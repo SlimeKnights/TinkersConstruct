@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.util.JsonHelper;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -41,12 +40,6 @@ public class JsonUtils {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
     return value;
-  }
-
-  /** @deprecated use {@link slimeknights.mantle.util.JsonHelper#getResourceLocation(JsonObject, String)} */
-  @Deprecated
-  public static ResourceLocation getResourceLocation(JsonObject json, String key) {
-    return JsonHelper.getResourceLocation(json, key);
   }
 
   /**

@@ -35,12 +35,6 @@ public interface ITinkerStationDisplay extends IItemProvider {
     return new TranslationTextComponent(asItem().getTranslationKey());
   }
 
-  /** @deprecated use {@link #getStatInformation(IModifierToolStack, PlayerEntity, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  default List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
-    return getStatInformation(tool, null, tooltips, TooltipKey.NORMAL, tooltipFlag);
-  }
-
   /**
    * Returns the tool stat information for this tool
    * @param tool         Tool to display
@@ -61,12 +55,6 @@ public interface ITinkerStationDisplay extends IItemProvider {
    */
   default Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
     return ImmutableMultimap.of();
-  }
-
-  /** @deprecated use {@link #getCombinedItemName(ItemStack, ITextComponent, Collection)} */
-  @Deprecated
-  static ITextComponent getCombinedItemName(ITextComponent itemName, Collection<IMaterial> materials) {
-    return getCombinedItemName(ItemStack.EMPTY, itemName, materials);
   }
 
   /**

@@ -39,9 +39,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final IOptionalNamedTag<Block> SLIMY_PLANKS = tag("slimy_planks");
-    /** @deprecated  Remove in 1.17, temporary fallback until we remove congealed slime from tree supports */
-    @Deprecated
-    public static final IOptionalNamedTag<Block> SLIMY_TREE_TRUNKS = tag("slimy_tree_trunks");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
     /** Blocks that are slime gr on top of dirt */

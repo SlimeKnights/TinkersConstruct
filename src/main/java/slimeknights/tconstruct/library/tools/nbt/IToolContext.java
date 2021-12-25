@@ -5,7 +5,7 @@ import net.minecraft.tags.ITag;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 
 import java.util.List;
 
@@ -74,9 +74,6 @@ public interface IToolContext {
 
 
   /* Tool data */
-
-  /** Cached tool stats calculated from materials and modifiers */
-  StatsNBT getStats();
 
   /**
    * Gets persistent modifier data from the tool.

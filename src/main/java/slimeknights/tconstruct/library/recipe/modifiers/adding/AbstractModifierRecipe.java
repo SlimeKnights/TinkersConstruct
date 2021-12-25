@@ -61,26 +61,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Nullable
   private final SlotCount slots;
 
-  /** @deprecated Use {@link #AbstractModifierRecipe(ResourceLocation, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
-  @Deprecated
-  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, ModifierMatch requirements,
-                                   String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-    this.id = id;
-    this.toolRequirement = toolRequirement;
-    this.requirements = requirements;
-    this.requirementsError = requirementsError;
-    this.result = result;
-    this.maxLevel = maxLevel;
-    if (abilitySlots > 0) {
-      this.slots = new SlotCount(SlotType.ABILITY, upgradeSlots);
-    } else if (upgradeSlots > 0) {
-      this.slots = new SlotCount(SlotType.UPGRADE, upgradeSlots);
-    } else {
-      this.slots = null;
-    }
-    ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
-  }
-
   protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, ModifierMatch requirements,
                                    String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
     this.id = id;
@@ -245,33 +225,15 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
-                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-      int upgradeSlots = SlotCount.get(slots, SlotType.UPGRADE);
-      int abilitySlots = SlotCount.get(slots, SlotType.ABILITY);
-      return read(id, json, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
-    }
+    public abstract T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
-                  String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-      int upgradeSlots = SlotCount.get(slots, SlotType.UPGRADE);
-      int abilitySlots = SlotCount.get(slots, SlotType.ABILITY);
-      return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
-    }
-
-    /** @deprecated use {@link #read(ResourceLocation, JsonObject, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
-    @Deprecated
-    public abstract T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
-                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
-
-    /** @deprecated use {@link #read(ResourceLocation, PacketBuffer, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
-    @Deprecated
     public abstract T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
-                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
+                  String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
     @Override
     public final T read(ResourceLocation id, JsonObject json) {

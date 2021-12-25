@@ -3,11 +3,9 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
@@ -23,12 +21,13 @@ public class DiamondModifier extends SingleLevelModifier {
   }
 
   @Override
-  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     IModifiable.setRarity(volatileData, Rarity.UNCOMMON);
   }
 
   @Override
-  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    Item item = context.getItem();
     if (item.isIn(DURABILITY)) {
       ToolStats.DURABILITY.add(builder, level * 500);
     }

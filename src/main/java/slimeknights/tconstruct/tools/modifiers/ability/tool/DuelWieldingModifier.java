@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
-import net.minecraft.item.Item;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
@@ -15,9 +12,9 @@ public class DuelWieldingModifier extends OffhandAttackModifier {
   }
 
   @Override
-  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     // on two handed tools, take a larger hit to attack damage, smaller to attack speed
-    if (item.isIn(TinkerTags.Items.TWO_HANDED)) {
+    if (context.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
       ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.7);
       ToolStats.ATTACK_SPEED.multiplyAll(builder, 0.9);
     } else {

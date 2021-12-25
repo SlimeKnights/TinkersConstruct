@@ -5,6 +5,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class IncrementalModifier extends Modifier {
    * @param modifier  Modifier instance
    * @return  Amount applied to the tool
    */
-  public static int getAmount(IModifierToolStack tool, Modifier modifier) {
+  public static int getAmount(IToolContext tool, Modifier modifier) {
     return getAmount(tool.getPersistentData(), modifier);
   }
 
@@ -73,7 +74,7 @@ public class IncrementalModifier extends Modifier {
    * @param tool  Tool amount
    * @return  Amount
    */
-  public int getAmount(IModifierToolStack tool) {
+  public int getAmount(IToolContext tool) {
     return getAmount(tool, this);
   }
 
@@ -102,7 +103,7 @@ public class IncrementalModifier extends Modifier {
    * @param level  Modifier level
    * @return  Level, possibly reduced by an incomplete level
    */
-  public float getScaledLevel(IModifierToolStack tool, int level) {
+  public float getScaledLevel(IToolContext tool, int level) {
     return getScaledLevel(tool.getPersistentData(), level);
   }
 

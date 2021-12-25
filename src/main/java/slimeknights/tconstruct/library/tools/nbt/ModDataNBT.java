@@ -53,49 +53,4 @@ public class ModDataNBT extends NamespacedNBT implements IModDataReadOnly {
   public static ModDataNBT readFromNBT(CompoundNBT data) {
     return new ModDataNBT(data);
   }
-
-
-  /* Deprecated, to remove */
-
-  /** @deprecated Use {@link #setSlots(SlotType, int)} */
-  @Deprecated
-  public void setUpgrades(int value) {
-    setSlots(SlotType.UPGRADE, value);
-  }
-
-  /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
-  @Deprecated
-  public void addUpgrades(int add) {
-    addSlots(SlotType.UPGRADE, add);
-  }
-
-  /** @deprecated Use {@link #setSlots(SlotType, int)} */
-  @Deprecated
-  public void setAbilities(int value) {
-    setSlots(SlotType.ABILITY, value);
-  }
-
-  /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
-  @Deprecated
-  public void addAbilities(int add) {
-    addSlots(SlotType.ABILITY, add);
-  }
-
-  /** @deprecated Use {@link #setSlots(SlotType, int)} */
-  @Deprecated
-  public void setTraits(int value) {
-    setSlots(SlotType.SOUL, value);
-  }
-
-  /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
-  @Deprecated
-  public void addTraits(int add) {
-    addSlots(SlotType.SOUL, add);
-  }
-
-  /** @deprecated Use {@link #getSlots(SlotType)} */
-  @Deprecated
-  public int getTraits() {
-    return getSlots(SlotType.SOUL);
-  }
 }

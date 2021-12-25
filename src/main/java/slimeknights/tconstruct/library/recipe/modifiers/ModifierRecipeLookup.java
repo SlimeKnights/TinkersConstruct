@@ -4,10 +4,8 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
@@ -19,9 +17,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /** Logic to check various modifier recipe based properties */
 public class ModifierRecipeLookup {
@@ -29,9 +25,6 @@ public class ModifierRecipeLookup {
   public static final String DEFAULT_ERROR_KEY = TConstruct.makeTranslationKey("recipe", "modifier.requirements_error");
   /** Default requirements error, for if a proper error is missing */
   public static final ValidatedResult DEFAULT_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
-
-  /** Set of all modifier input items for the chest */
-  private static final Set<Item> MODIFIERS = new HashSet<>();
 
   /** Map of requirements for each modifier */
   private static final Multimap<Modifier,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
@@ -42,58 +35,10 @@ public class ModifierRecipeLookup {
 
   /** Listener for clearing the caches on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
-    MODIFIERS.clear();
     REQUIREMENTS.clear();
     INCREMENTAL_PER_LEVEL.clear();
     SALVAGE.clear();
   });
-
-
-  /* Modifier item */
-
-  /**
-   * Adds an item as a modifier
-   * @param item  Item
-   */
-  public static void addItem(Item item) {
-    LISTENER.checkClear();
-    MODIFIERS.add(item);
-  }
-
-  /**
-   * Adds an ingredient as a modifier
-   */
-  public static void addIngredient(Ingredient ingredient) {
-    LISTENER.checkClear();
-    // this should work on both client and server
-    // server just pulls from the tag, client does not use tags directly at this stage
-    for (ItemStack stack : ingredient.getMatchingStacks()) {
-      MODIFIERS.add(stack.getItem());
-    }
-  }
-
-  /**
-   * Adds a sized ingredient as a modifier
-   */
-  public static void addIngredient(SizedIngredient ingredient) {
-    LISTENER.checkClear();
-    // this should work on both client and server
-    // server just pulls from the tag, client does not use tags directly at this stage
-    for (ItemStack stack : ingredient.getMatchingStacks()) {
-      MODIFIERS.add(stack.getItem());
-    }
-  }
-
-  /**
-   * Checks if an item is a modifier
-   * @param item  Item to check
-   * @return  True if its a modifier
-   * @deprecated  No longer needed in base tinkers. If you have a use of this method, justify it and this will be kept
-   */
-  @Deprecated
-  public static boolean isModifier(Item item) {
-    return MODIFIERS.contains(item);
-  }
 
 
   /* Requirements */

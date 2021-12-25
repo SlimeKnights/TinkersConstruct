@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools.modifiers.traits.general;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.loot.LootContext;
@@ -31,15 +33,17 @@ public class TastyModifier extends Modifier {
   }
 
   @Override
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
-    if (!tool.isBroken() && player.canEat(false)) {
-      player.setActiveHand(hand);
-      // mark tool as eating as use action is only stack sensitive
-      tool.getPersistentData().putBoolean(IS_EATING, true);
-      return ActionResultType.CONSUME;
-    } else {
-      // clear is eating boolean if we cannot eat, prevents messing with other modifier's animations
-      tool.getPersistentData().remove(IS_EATING);
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
+    if (slotType.getSlotType() == Group.HAND) {
+      if (!tool.isBroken() && player.canEat(false)) {
+        player.setActiveHand(hand);
+        // mark tool as eating as use action is only stack sensitive
+        tool.getPersistentData().putBoolean(IS_EATING, true);
+        return ActionResultType.CONSUME;
+      } else {
+        // clear is eating boolean if we cannot eat, prevents messing with other modifier's animations
+        tool.getPersistentData().remove(IS_EATING);
+      }
     }
     return ActionResultType.PASS;
   }

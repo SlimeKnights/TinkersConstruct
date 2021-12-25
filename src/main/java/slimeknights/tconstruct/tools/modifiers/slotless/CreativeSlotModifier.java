@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -9,11 +8,10 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,8 @@ public class CreativeSlotModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+    IModDataReadOnly persistentData = context.getPersistentData();
     if (persistentData.contains(KEY_SLOTS, NBT.TAG_COMPOUND)) {
       CompoundNBT slots = persistentData.getCompound(KEY_SLOTS);
       for (String key : slots.keySet()) {

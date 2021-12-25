@@ -4,7 +4,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 /** Base interface for all tools that can receive modifiers */

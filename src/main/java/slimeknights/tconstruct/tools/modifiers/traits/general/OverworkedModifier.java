@@ -1,11 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
-import net.minecraft.item.Item;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class OverworkedModifier extends Modifier {
@@ -14,7 +11,7 @@ public class OverworkedModifier extends Modifier {
   }
 
   @Override
-  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     TinkerModifiers.overslime.get().setFriend(volatileData);
   }
 }

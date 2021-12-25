@@ -1,21 +1,22 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.harvest;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalArmorLevelModifier;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class HasteModifier extends IncrementalArmorLevelModifier {
@@ -37,8 +38,8 @@ public class HasteModifier extends IncrementalArmorLevelModifier {
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    float scaledLevel = getScaledLevel(persistentData, level);
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    float scaledLevel = getScaledLevel(context, level);
     // currently gives +5 speed per level
     // for comparison, vanilla gives +2, 5, 10, 17, 26 for efficiency I to V
     // 5 per level gives us          +5, 10, 15, 20, 25 for 5 levels
@@ -51,7 +52,7 @@ public class HasteModifier extends IncrementalArmorLevelModifier {
   // armor
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag flag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
       double boost = 0.1 * getScaledLevel(tool, level);
       if (boost != 0) {

@@ -46,15 +46,6 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
     return ValidatedResult.success(result);
   }
 
-  /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationInventory, boolean)} */
-  @Deprecated
-  default void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
-    // shrink all stacks by 1
-    for (int index = 0; index < inv.getInputCount(); index++) {
-      inv.shrinkInput(index, 1);
-    }
-  }
-
   /**
    * Updates the input stacks upon crafting this recipe
    * @param result  Result from {@link #getCraftingResult(ITinkerStationInventory)}. Generally should not be modified
@@ -62,13 +53,16 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    * @param isServer  If true, this is on the serverside. Use to handle randomness, {@link IMutableTinkerStationInventory#giveItem(ItemStack)} should handle being called serverside only
    */
   default void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
-    updateInputs(result, inv);
+    // shrink all stacks by 1
+    for (int index = 0; index < inv.getInputCount(); index++) {
+      inv.shrinkInput(index, 1);
+    }
   }
 
 
   /* Deprecated */
 
-  /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationInventory)} */
+  /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationInventory, boolean)} */
   @Override
   @Deprecated
   default NonNullList<ItemStack> getRemainingItems(ITinkerStationInventory inv) {

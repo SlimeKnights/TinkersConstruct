@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.data.sprite;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 /**
@@ -10,10 +9,6 @@ import slimeknights.tconstruct.tools.stats.RepairKitStats;
  * Do not use both this and {@link TinkerMaterialSpriteProvider} in a single generator for an addon, if you need to use both make two instances of {@link slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator}
  */
 public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
-  /** @deprecated use {@link RepairKitStats#ID} */
-  @Deprecated
-  public static final MaterialStatsId REPAIR_KIT = RepairKitStats.ID;
-
   public TinkerPartSpriteProvider() {
     super(TConstruct.MOD_ID);
   }
@@ -33,7 +28,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addHandle("tough_handle");
     // misc
     addBinding("tool_binding");
-    addPart("repair_kit", REPAIR_KIT);
+    addPart("repair_kit", RepairKitStats.ID);
 
     // tools
     // pickaxe

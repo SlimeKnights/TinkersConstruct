@@ -2,8 +2,8 @@ package slimeknights.tconstruct.tools.item.broad;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;

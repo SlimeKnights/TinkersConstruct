@@ -15,7 +15,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -44,7 +43,6 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     this.id = id;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
-    ModifierRecipeLookup.addIngredient(ingredient);
   }
 
   @Override
@@ -92,7 +90,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
    * @param inv     Inventory instance to modify inputs
    */
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     // if the original tool did not have overslime, its treated as having no slime
     int current = 0;
@@ -146,7 +144,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
       toolWithModifier = TinkerTags.Items.DURABILITY.getAllElements().stream()
                                                     .map(MAP_TOOL_FOR_RENDERING)
-                                                    .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setOverslime(data, restoreAmount)))
+                                                    .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setShield(data, restoreAmount)))
                                                     .collect(Collectors.toList());
     }
     return toolWithModifier;

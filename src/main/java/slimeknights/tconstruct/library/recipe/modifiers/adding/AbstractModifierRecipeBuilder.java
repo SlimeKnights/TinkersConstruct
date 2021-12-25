@@ -146,17 +146,6 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     return (T) this;
   }
 
-  /** @deprecated use {@link #setSlots(SlotType, int)} */
-  @Deprecated
-  public T setUpgradeSlots(int slots) {
-    return setSlots(SlotType.UPGRADE, slots);
-  }
-
-  /** @deprecated use {@link #setSlots(SlotType, int)} */
-  public T setAbilitySlots(int slots) {
-    return setSlots(SlotType.ABILITY, slots);
-  }
-
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
     build(consumer, result.getModifier().getId());
@@ -197,6 +186,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
       super(ID, advancementID);
       this.withUnarmed = withUnarmed;
     }
+
     public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       this(ID, advancementID, false);
     }
