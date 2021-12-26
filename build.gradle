@@ -22,18 +22,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.7', changing: true
-        classpath "io.freefair.gradle:lombok-plugin:4.+"
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'io.freefair.gradle:lombok-plugin:6.3.0'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'maven'
+//apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "io.freefair.lombok"
 
-import net.minecraftforge.gradle.common.task.SignJar
+//import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
     mavenCentral()
@@ -353,25 +353,25 @@ task("uploadJars", dependsOn: "build") {
     }
 }
 
-task signUniversal(type: SignJar, dependsOn: 'jar') {
-    onlyIf {
-        project.hasProperty('jarsigner')
-    }
-
-    def jarsigner = [:]
-
-    if (project.hasProperty('jarsigner'))
-        jarsigner = project.jarsigner
-
-    alias = 'tcon'
-    storePass = jarsigner.storepass
-    keyPass = jarsigner.keypass
-    keyStore = jarsigner.keystore
-    inputFile = jar.archivePath
-    outputFile = jar.archivePath
-}
-uploadArchives.dependsOn signUniversal
-build.dependsOn signUniversal
+// task signUniversal(type: SignJar, dependsOn: 'jar') {
+//     onlyIf {
+//         project.hasProperty('jarsigner')
+//     }
+// 
+//     def jarsigner = [:]
+// 
+//     if (project.hasProperty('jarsigner'))
+//         jarsigner = project.jarsigner
+// 
+//     alias = 'tcon'
+//     storePass = jarsigner.storepass
+//     keyPass = jarsigner.keypass
+//     keyStore = jarsigner.keystore
+//     inputFile = jar.archivePath
+//     outputFile = jar.archivePath
+// }
+// uploadArchives.dependsOn signUniversal
+// build.dependsOn signUniversal
 
 publishing {
     publications {
