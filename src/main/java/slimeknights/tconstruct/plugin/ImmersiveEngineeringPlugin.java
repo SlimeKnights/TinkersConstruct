@@ -16,10 +16,10 @@ public class ImmersiveEngineeringPlugin {
   @SubscribeEvent
   public void commonSetup(FMLCommonSetupEvent event) {
     ChemthrowerHandler.registerFlammable(TinkerFluids.blazingBlood.getLocalTag());
-    registerChemEffect(TinkerFluids.earthSlime.getForgeTag(), Effects.SLOWNESS, 140);
-    registerChemEffect(TinkerFluids.skySlime.getLocalTag(), Effects.JUMP_BOOST, 200);
+    registerChemEffect(TinkerFluids.earthSlime.getForgeTag(), Effects.MOVEMENT_SLOWDOWN, 140);
+    registerChemEffect(TinkerFluids.skySlime.getLocalTag(), Effects.JUMP, 200);
     registerChemEffect(TinkerFluids.enderSlime.getLocalTag(), Effects.LEVITATION, 100);
-    registerChemEffect(TinkerFluids.blood.getLocalTag(), Effects.MINING_FATIGUE, 100);
+    registerChemEffect(TinkerFluids.blood.getLocalTag(), Effects.DIG_SLOWDOWN, 100);
     registerChemEffect(TinkerFluids.venom.getLocalTag(), Effects.POISON, 300);
     registerChemEffect(TinkerFluids.magma.getForgeTag(), Effects.FIRE_RESISTANCE, 200);
     registerChemEffect(TinkerFluids.liquidSoul.getForgeTag(), Effects.BLINDNESS, 100);

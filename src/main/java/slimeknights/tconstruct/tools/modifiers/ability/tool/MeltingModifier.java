@@ -53,7 +53,7 @@ public class MeltingModifier extends TankModifier {
     // first, update inventory
     IMeltingRecipe recipe = lastRecipe;
     if (recipe == null || !recipe.matches(inventory, world)) {
-      recipe = world.getRecipeManager().getRecipe(RecipeTypes.MELTING, inventory, world).orElse(null);
+      recipe = world.getRecipeManager().getRecipeFor(RecipeTypes.MELTING, inventory, world).orElse(null);
       if (recipe == null) {
         inventory.setStack(ItemStack.EMPTY);
         return FluidStack.EMPTY;
@@ -79,7 +79,7 @@ public class MeltingModifier extends TankModifier {
     }
 
     // try melting each item dropped
-    World world = context.getWorld();
+    World world = context.getLevel();
     Iterator<ItemStack> iterator = generatedLoot.iterator();
     while (iterator.hasNext()) {
       ItemStack stack = iterator.next();
@@ -114,7 +114,7 @@ public class MeltingModifier extends TankModifier {
       // first, find the proper recipe
       LivingEntity target = context.getLivingTarget();
       if (target != null) {
-        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getAttacker().getEntityWorld().getRecipeManager(), target.getType());
+        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getAttacker().level.getRecipeManager(), target.getType());
         FluidStack output;
         int damagePerOutput;
         if (recipe != null) {

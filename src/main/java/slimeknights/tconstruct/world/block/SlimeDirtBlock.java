@@ -8,6 +8,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlimeDirtBlock extends Block {
 
   public SlimeDirtBlock(Properties properties) {

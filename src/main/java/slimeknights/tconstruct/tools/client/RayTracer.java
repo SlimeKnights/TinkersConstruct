@@ -33,7 +33,7 @@ public class RayTracer {
    * @return a BlockRayTraceResult
    */
   public static BlockRayTraceResult retrace(PlayerEntity player, RayTraceContext.BlockMode blockMode, RayTraceContext.FluidMode fluidMode) {
-    return player.world.rayTraceBlocks(new RayTraceContext(getStartVector(player), getEndVector(player), blockMode, fluidMode, player));
+    return player.level.clip(new RayTraceContext(getStartVector(player), getEndVector(player), blockMode, fluidMode, player));
   }
 
   /**
@@ -54,7 +54,7 @@ public class RayTracer {
    */
   public static Vector3d getEndVector(PlayerEntity player) {
     Vector3d headVec = getCorrectedHeadVector(player);
-    Vector3d lookVec = player.getLook(1.0F);
+    Vector3d lookVec = player.getViewVector(1.0F);
     double reach = getBlockReachDistance(player);
     return headVec.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
   }
@@ -66,7 +66,7 @@ public class RayTracer {
    * @return the corrected head vector
    */
   public static Vector3d getCorrectedHeadVector(PlayerEntity player) {
-    return new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
+    return new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
   }
 
   /**
@@ -76,7 +76,7 @@ public class RayTracer {
    * @return the block reach distance
    */
   public static double getBlockReachDistance(PlayerEntity player) {
-    return player.world.isRemote ? getBlockReachDistanceClient() : player instanceof ServerPlayerEntity ? getBlockReachDistanceServer((ServerPlayerEntity) player) : 5D;
+    return player.level.isClientSide ? getBlockReachDistanceClient() : player instanceof ServerPlayerEntity ? getBlockReachDistanceServer((ServerPlayerEntity) player) : 5D;
   }
 
   /**
@@ -95,9 +95,9 @@ public class RayTracer {
    */
   @OnlyIn(Dist.CLIENT)
   private static double getBlockReachDistanceClient() {
-    assert Minecraft.getInstance().playerController != null;
+    assert Minecraft.getInstance().gameMode != null;
 
-    return Minecraft.getInstance().playerController.getBlockReachDistance();
+    return Minecraft.getInstance().gameMode.getPickRange();
   }
 
 }

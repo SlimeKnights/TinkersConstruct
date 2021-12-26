@@ -8,6 +8,8 @@ import slimeknights.tconstruct.library.book.content.ContentModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
+import slimeknights.mantle.client.book.transformer.ContentGroupingSectionTransformer.GroupingBuilder;
+
 /** Section transformer to generate an index with modifier names */
 public class ModifierSectionTransformer extends ContentGroupingSectionTransformer {
   public static final ModifierSectionTransformer INSTANCE = new ModifierSectionTransformer("modifiers");

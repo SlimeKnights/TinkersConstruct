@@ -17,12 +17,12 @@ public enum TinkerControlPacket implements IThreadsafePacket {
   START_LEGGINGS_INTERACT, STOP_LEGGINGS_INTERACT;
 
   public static TinkerControlPacket read(PacketBuffer buffer) {
-    return buffer.readEnumValue(TinkerControlPacket.class);
+    return buffer.readEnum(TinkerControlPacket.class);
   }
 
   @Override
   public void encode(PacketBuffer packetBuffer) {
-    packetBuffer.writeEnumValue(this);
+    packetBuffer.writeEnum(this);
   }
 
   @Override

@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.client.modifiers;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -57,12 +55,6 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   /** If true, the registration event has been fired */
   private static boolean eventFired = false;
 
-  /** GSON instance for this */
-  private static final Gson GSON = new GsonBuilder()
-    .setPrettyPrinting()
-    .disableHtmlEscaping()
-    .create();
-
   /** Model overrides, if not in this map the default is used */
   private static final Map<ResourceLocation,IUnbakedModifierModel> MODIFIER_MODEL_OPTIONS = new HashMap<>();
 
@@ -74,7 +66,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    * @param manager  Manager
    */
   public static void init(IReloadableResourceManager manager) {
-    manager.addReloadListener(INSTANCE);
+    manager.registerReloadListener(INSTANCE);
   }
 
   /**
@@ -85,7 +77,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   @Nullable
   private static JsonObject getJson(IResource resource) {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
-      return JSONUtils.fromJson(reader);
+      return JSONUtils.parse(reader);
     } catch (JsonParseException | IOException e) {
       log.error("Failed to load texture JSON " + resource.getLocation(), e);
       return null;
@@ -101,7 +93,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   @Nullable
   private static IUnbakedModifierModel getLoader(String key, String name) {
     // find a model name
-    ResourceLocation loader = ResourceLocation.tryCreate(name);
+    ResourceLocation loader = ResourceLocation.tryParse(name);
     if (loader == null) {
       log.error("Skipping modifier " + key + " as " + name + " is an invalid loader name");
     } else {
@@ -128,11 +120,11 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     Map<Modifier,IUnbakedModifierModel> models = new HashMap<>();
 
     // get a list of files from all namespaces
-    List<JsonObject> jsonFiles = manager.getResourceNamespaces().stream()
+    List<JsonObject> jsonFiles = manager.getNamespaces().stream()
                                         .flatMap(namespace -> {
                                           ResourceLocation location = new ResourceLocation(namespace, VISIBLE_MODIFIERS);
                                           try {
-                                            return manager.getAllResources(location).stream();
+                                            return manager.getResources(location).stream();
                                           } catch (FileNotFoundException e) {
                                             // suppress, the above method throws instead of returning empty
                                           } catch (IOException e) {
@@ -150,7 +142,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
       for (Entry<String,JsonElement> entry : json.entrySet()) {
         // get a valid name
         String key = entry.getKey();
-        ResourceLocation name = ResourceLocation.tryCreate(key);
+        ResourceLocation name = ResourceLocation.tryParse(key);
         if (name == null) {
           log.error("Skipping invalid modifier key " + key + " as it is not a valid resource location");
         } else {
@@ -166,7 +158,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
               // object means we configure the unbaked model
             } else if (element.isJsonObject()) {
               JsonObject object = element.getAsJsonObject();
-              IUnbakedModifierModel model = getLoader(key, JSONUtils.getString(object, "type"));
+              IUnbakedModifierModel model = getLoader(key, JSONUtils.getAsString(object, "type"));
               // configure the model with the given JSON data
               if (model != null) {
                 models.put(modifier, model.configure(object));

@@ -7,6 +7,8 @@ import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class CraftingStationBlock extends RetexturedTableBlock {
 
   public CraftingStationBlock(Properties builder) {

@@ -35,7 +35,7 @@ public class HeldModifiableItemIterator {
     for (Entity entity : targets) {
       if (entity instanceof LivingEntity) {
         LivingEntity living = (LivingEntity) entity;
-        ItemStack stack = living.getHeldItemMainhand();
+        ItemStack stack = living.getMainHandItem();
         if (!stack.isEmpty()) {
           if (TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
             if (behavior.accept(living, stack)) {

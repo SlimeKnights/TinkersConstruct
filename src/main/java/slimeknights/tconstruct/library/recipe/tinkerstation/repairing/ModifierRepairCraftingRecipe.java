@@ -45,8 +45,8 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
     ToolStack tool = null;
     int itemsFound = 0;
     int modifierLevel = 0;
-    for (int i = 0; i < inv.getSizeInventory(); i++) {
-      ItemStack stack = inv.getStackInSlot(i);
+    for (int i = 0; i < inv.getContainerSize(); i++) {
+      ItemStack stack = inv.getItem(i);
       if (stack.isEmpty()) {
         continue;
       }
@@ -88,7 +88,7 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
   }
 
   @Override
-  public ItemStack getCraftingResult(CraftingInventory inv) {
+  public ItemStack assemble(CraftingInventory inv) {
     Pair<ToolStack, Integer> inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
@@ -114,7 +114,7 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
 
   @Override
   public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-    NonNullList<ItemStack> list = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+    NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
     // step 1: find out how much we need to repair
     Pair<ToolStack, Integer> inputs = getRelevantInputs(inv);
     int repairPerItem = 0;
@@ -135,8 +135,8 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
     }
 
     // step 2: consume as many items as are needed to do the repair
-    for (int i = 0; i < inv.getSizeInventory(); i++) {
-      ItemStack stack = inv.getStackInSlot(i);
+    for (int i = 0; i < inv.getContainerSize(); i++) {
+      ItemStack stack = inv.getItem(i);
       if (ingredient.test(stack)) {
         // if done repairing, leave the items
         if (repairNeeded <= 0) {
@@ -153,7 +153,7 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
   }
 
   @Override
-  public boolean canFit(int width, int height) {
+  public boolean canCraftInDimensions(int width, int height) {
     return (width * height) >= 2;
   }
 

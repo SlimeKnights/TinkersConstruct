@@ -10,12 +10,12 @@ public class MagneticEffect extends NoMilkEffect {
   }
 
   @Override
-  public boolean isReady(int duration, int amplifier) {
+  public boolean isDurationEffectTick(int duration, int amplifier) {
     return (duration & 1) == 0;
   }
 
   @Override
-  public void performEffect(LivingEntity entity, int amplifier) {
+  public void applyEffectTick(LivingEntity entity, int amplifier) {
     MagneticModifier.applyMagnet(entity, amplifier);
   }
 }

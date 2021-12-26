@@ -18,14 +18,16 @@ import net.minecraft.world.World;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Shared logic for all multiblock structure controllers */
 public abstract class ControllerBlock extends InventoryBlock {
-  public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+  public static final DirectionProperty FACING = HorizontalBlock.FACING;
   public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
   public static final BooleanProperty IN_STRUCTURE = SearedBlock.IN_STRUCTURE;
   protected ControllerBlock(Properties builder) {
     super(builder);
-    this.setDefaultState(this.getDefaultState().with(ACTIVE, false).with(IN_STRUCTURE, false));
+    this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false).setValue(IN_STRUCTURE, false));
   }
 
 
@@ -34,25 +36,25 @@ public abstract class ControllerBlock extends InventoryBlock {
    */
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
     builder.add(FACING, ACTIVE, IN_STRUCTURE);
   }
 
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rotation) {
-    return state.with(FACING, rotation.rotate(state.get(FACING)));
+    return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
   }
 
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
-    return state.with(FACING, mirror.mirror(state.get(FACING)));
+    return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
   }
 
 
@@ -62,7 +64,7 @@ public abstract class ControllerBlock extends InventoryBlock {
 
   /** @return True if the GUI can be opened */
   protected boolean canOpenGui(BlockState state) {
-    return state.get(IN_STRUCTURE);
+    return state.getValue(IN_STRUCTURE);
   }
 
   /** Displays the multiblock's status, typically an error that it cannot form */
@@ -114,7 +116,7 @@ public abstract class ControllerBlock extends InventoryBlock {
    * @param particle  Particle to draw
    */
   protected void spawnFireParticles(IWorld world, BlockState state, double x, double y, double z, double front, double side, IParticleData particle) {
-    switch(state.get(FACING)) {
+    switch(state.getValue(FACING)) {
       case WEST:
         world.addParticle(ParticleTypes.SMOKE, x - front, y, z + side, 0.0D, 0.0D, 0.0D);
         world.addParticle(particle,            x - front, y, z + side, 0.0D, 0.0D, 0.0D);

@@ -10,15 +10,15 @@ import net.minecraft.world.World;
 public class BrownstoneBlock extends Block {
 
   public BrownstoneBlock() {
-    super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 20.0F).sound(SoundType.STONE));
+    super(Block.Properties.of(Material.STONE).strength(3.0F, 20.0F).sound(SoundType.STONE));
   }
 
   @Override
-  public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+  public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
     if (entityIn.isInWater()) {
-      entityIn.setMotion(entityIn.getMotion().mul(1.20D, 1.0D, 1.20D));
+      entityIn.setDeltaMovement(entityIn.getDeltaMovement().multiply(1.20D, 1.0D, 1.20D));
     } else {
-      entityIn.setMotion(entityIn.getMotion().mul(1.25D, 1.0D, 1.25D));
+      entityIn.setDeltaMovement(entityIn.getDeltaMovement().multiply(1.25D, 1.0D, 1.25D));
     }
   }
 }

@@ -17,10 +17,10 @@ public abstract class AttackParticle extends SpriteTexturedParticle {
     super(world, x, y, z, xSpeed, ySpeed, zSpeed);
     this.spriteList = spriteList;
 
-    this.maxAge = 4;
-    this.particleScale = 1.0F;
+    this.lifetime = 4;
+    this.quadSize = 1.0F;
 
-    this.selectSpriteWithAge(spriteList);
+    this.setSpriteFromAge(spriteList);
   }
 
   @Override
@@ -29,20 +29,20 @@ public abstract class AttackParticle extends SpriteTexturedParticle {
   }
 
   @Override
-  public int getBrightnessForRender(float partialTicks) {
+  public int getLightColor(float partialTicks) {
     return 61680;
   }
 
   public void tick() {
-    this.prevPosX = this.posX;
-    this.prevPosY = this.posY;
-    this.prevPosZ = this.posZ;
+    this.xo = this.x;
+    this.yo = this.y;
+    this.zo = this.z;
 
-    if (this.age++ >= this.maxAge) {
-      this.setExpired();
+    if (this.age++ >= this.lifetime) {
+      this.remove();
     }
     else {
-      this.selectSpriteWithAge(this.spriteList);
+      this.setSpriteFromAge(this.spriteList);
     }
   }
 }

@@ -34,13 +34,13 @@ public class ModifierLootModifier extends LootModifier {
   @Override
   protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
     // tool is for harvest
-    ItemStack stack = context.get(LootParameters.TOOL);
+    ItemStack stack = context.getParamOrNull(LootParameters.TOOL);
     // if null, try entity held item
     if (stack == null) {
-      Entity entity = context.get(LootParameters.KILLER_ENTITY);
+      Entity entity = context.getParamOrNull(LootParameters.KILLER_ENTITY);
       if (entity instanceof LivingEntity) {
         LivingEntity living = (LivingEntity) entity;
-        stack = living.getItemStackFromSlot(ModifierLootingHandler.getLootingSlot(living));
+        stack = living.getItemBySlot(ModifierLootingHandler.getLootingSlot(living));
       }
     }
     // hopefully one of the two worked

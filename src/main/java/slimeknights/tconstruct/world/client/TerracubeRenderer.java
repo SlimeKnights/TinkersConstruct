@@ -22,14 +22,14 @@ public class TerracubeRenderer extends MobRenderer<SlimeEntity,MagmaCubeModel<Sl
   }
 
   @Override
-  public ResourceLocation getEntityTexture(SlimeEntity entity) {
+  public ResourceLocation getTextureLocation(SlimeEntity entity) {
     return texture;
   }
 
   @Override
-  protected void preRenderCallback(SlimeEntity slime, MatrixStack matrices, float partialTickTime) {
-    int size = slime.getSlimeSize();
-    float squishFactor = MathHelper.lerp(partialTickTime, slime.prevSquishFactor, slime.squishFactor) / ((float)size * 0.5F + 1.0F);
+  protected void scale(SlimeEntity slime, MatrixStack matrices, float partialTickTime) {
+    int size = slime.getSize();
+    float squishFactor = MathHelper.lerp(partialTickTime, slime.oSquish, slime.squish) / ((float)size * 0.5F + 1.0F);
     float invertedSquish = 1.0F / (squishFactor + 1.0F);
     matrices.scale(invertedSquish * (float)size, 1.0F / invertedSquish * (float)size, invertedSquish * (float)size);
   }

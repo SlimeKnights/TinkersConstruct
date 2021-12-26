@@ -26,6 +26,6 @@ public class TwoHandedAbilityModifier extends SingleUseModifier {
 
   @Override
   public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
-    return slotType.getSlotType() == Group.ARMOR ? ActionResultType.CONSUME : ActionResultType.PASS;
+    return slotType.getType() == Group.ARMOR ? ActionResultType.CONSUME : ActionResultType.PASS;
   }
 }

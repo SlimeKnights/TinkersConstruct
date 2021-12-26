@@ -69,7 +69,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   /** @deprecated Use {@link #getValidatedResult(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
 
@@ -81,23 +81,23 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   /** Serializer logic */
   public static class Serializer extends RecipeSerializer<TinkerStationDamagingRecipe> {
     @Override
-    public TinkerStationDamagingRecipe read(ResourceLocation id, JsonObject json) {
-      Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
-      int restoreAmount = JSONUtils.getInt(json, "damage_amount");
+    public TinkerStationDamagingRecipe fromJson(ResourceLocation id, JsonObject json) {
+      Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
+      int restoreAmount = JSONUtils.getAsInt(json, "damage_amount");
       return new TinkerStationDamagingRecipe(id, ingredient, restoreAmount);
     }
 
     @Nullable
     @Override
-    public TinkerStationDamagingRecipe read(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient ingredient = Ingredient.read(buffer);
+    public TinkerStationDamagingRecipe fromNetwork(ResourceLocation id, PacketBuffer buffer) {
+      Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int damageAmount = buffer.readVarInt();
       return new TinkerStationDamagingRecipe(id, ingredient, damageAmount);
     }
 
     @Override
-    public void write(PacketBuffer buffer, TinkerStationDamagingRecipe recipe) {
-      recipe.ingredient.write(buffer);
+    public void toNetwork(PacketBuffer buffer, TinkerStationDamagingRecipe recipe) {
+      recipe.ingredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.damageAmount);
     }
   }
@@ -110,7 +110,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
 
     @Override
     public void build(Consumer<IFinishedRecipe> consumer) {
-      ItemStack[] stacks = ingredient.getMatchingStacks();
+      ItemStack[] stacks = ingredient.getItems();
       if (stacks.length == 0) {
         throw new IllegalStateException("Empty ingredient not allowed");
       }
@@ -132,13 +132,13 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
       }
 
       @Override
-      public void serialize(JsonObject json) {
-        json.add("ingredient", ingredient.serialize());
+      public void serializeRecipeData(JsonObject json) {
+        json.add("ingredient", ingredient.toJson());
         json.addProperty("damage_amount", damageAmount);
       }
 
       @Override
-      public IRecipeSerializer<?> getSerializer() {
+      public IRecipeSerializer<?> getType() {
         return TinkerTables.tinkerStationDamagingSerializer.get();
       }
     }

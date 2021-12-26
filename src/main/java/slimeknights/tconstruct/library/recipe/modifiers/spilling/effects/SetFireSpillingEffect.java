@@ -18,7 +18,7 @@ public class SetFireSpillingEffect implements ISpillingEffect {
 
   @Override
   public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {
-    context.getTarget().setFire(time);
+    context.getTarget().setSecondsOnFire(time);
   }
 
   @Override
@@ -29,7 +29,7 @@ public class SetFireSpillingEffect implements ISpillingEffect {
   private static class Loader implements ISpillingEffectLoader<SetFireSpillingEffect> {
     @Override
     public SetFireSpillingEffect deserialize(JsonObject json) {
-      return new SetFireSpillingEffect(JSONUtils.getInt(json, "time"));
+      return new SetFireSpillingEffect(JSONUtils.getAsInt(json, "time"));
     }
 
     @Override

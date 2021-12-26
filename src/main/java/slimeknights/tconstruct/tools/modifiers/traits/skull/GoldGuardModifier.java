@@ -66,7 +66,7 @@ public class GoldGuardModifier extends SingleUseModifier {
   public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
     // adding a helmet? activate bonus
     EquipmentSlotType changed = context.getChangedSlot();
-    if (slotType == EquipmentSlotType.HEAD && changed.getSlotType() == Group.ARMOR) {
+    if (slotType == EquipmentSlotType.HEAD && changed.getType() == Group.ARMOR) {
       LivingEntity living = context.getEntity();
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold, living));
@@ -81,7 +81,7 @@ public class GoldGuardModifier extends SingleUseModifier {
         AttributeModifier modifier = instance.getModifier(GOLD_GUARD_UUID);
         if (modifier != null) {
           tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
-                                   .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + "health"))));
+                                   .append(new TranslationTextComponent(getTranslationKey() + "." + "health"))));
         }
       }
     }
@@ -98,7 +98,7 @@ public class GoldGuardModifier extends SingleUseModifier {
           instance.removeModifier(GOLD_GUARD_UUID);
         }
         // +2 hearts per level, and a bonus of 2 for having the modifier
-        instance.applyNonPersistentModifier(new AttributeModifier(GOLD_GUARD_UUID, "tconstruct.gold_guard", getTotalGold() * 4, Operation.ADDITION));
+        instance.addTransientModifier(new AttributeModifier(GOLD_GUARD_UUID, "tconstruct.gold_guard", getTotalGold() * 4, Operation.ADDITION));
       }
     }
 

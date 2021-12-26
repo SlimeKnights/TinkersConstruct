@@ -20,7 +20,7 @@ public class SingleAlloyingModule implements IAlloyingModule {
 
   /** Gets a nonnull world instance from the parent */
   private World getWorld() {
-    return Objects.requireNonNull(parent.getWorld(), "Parent tile entity has null world");
+    return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
   /** Finds the recipe to perform */
@@ -33,7 +33,7 @@ public class SingleAlloyingModule implements IAlloyingModule {
     // fetch the first recipe that matches the inputs and fits in the tank
     // means if for some reason two recipes both are vaiud, the tank contents can be used to choose
     Optional<AlloyRecipe> recipe = world.getRecipeManager()
-                                        .getRecipes(RecipeTypes.ALLOYING)
+                                        .byType(RecipeTypes.ALLOYING)
                                         .values().stream()
                                         .filter(r -> r instanceof AlloyRecipe)
                                         .map(r -> (AlloyRecipe) r)

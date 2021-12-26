@@ -22,7 +22,7 @@ public class TinkerSlimeRenderer extends SlimeRenderer {
   }
 
   @Override
-  public ResourceLocation getEntityTexture(SlimeEntity entity) {
+  public ResourceLocation getTextureLocation(SlimeEntity entity) {
     return texture;
   }
 

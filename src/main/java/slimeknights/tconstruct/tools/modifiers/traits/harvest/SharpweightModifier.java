@@ -38,7 +38,7 @@ public class SharpweightModifier extends Modifier {
 	 */
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
-    if (slot.getSlotType() == Group.HAND) {
+    if (slot.getType() == Group.HAND) {
       consumer.accept(Attributes.MOVEMENT_SPEED, new AttributeModifier(slot == EquipmentSlotType.OFFHAND ? OFFHAND_ATTRIBUTE_UUID : MAINHAND_ATTRIBUTE_UUID,
                                                                        ATTRIBUTE_NAME, level * (-0.1), Operation.MULTIPLY_BASE));
     }

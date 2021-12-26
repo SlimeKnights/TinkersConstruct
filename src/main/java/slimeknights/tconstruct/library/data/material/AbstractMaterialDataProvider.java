@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Extendable material provider, useful for addons
  */
+@SuppressWarnings({"SameParameterValue", "unused"})
 public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   /** General purpose materials */
   public static final int ORDER_GENERAL = 0;
@@ -68,7 +69,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   @Override
-  public void act(DirectoryCache cache) {
+  public void run(DirectoryCache cache) {
     ensureAddMaterialsRun();
     allMaterials.forEach((id, data) -> saveThing(cache, id, convert(data)));
   }
@@ -114,7 +115,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /** Creates a normal material with a condition and a redirect */
   protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
-    addMaterial(new Material(location, tier, order, craftable, Color.fromInt(color), hidden), condition, redirect);
+    addMaterial(new Material(location, tier, order, craftable, Color.fromRgb(color), hidden), condition, redirect);
   }
 
   /** Creates a normal material */
@@ -163,7 +164,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     if (material == null) {
       return new MaterialJson(data.getCondition(), null, null, null, null, null, redirect);
     }
-    return new MaterialJson(data.getCondition(), material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().getName(), material.isHidden(), redirect);
+    return new MaterialJson(data.getCondition(), material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().serialize(), material.isHidden(), redirect);
   }
 
   @Data

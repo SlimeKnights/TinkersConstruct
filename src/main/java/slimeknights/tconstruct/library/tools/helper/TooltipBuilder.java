@@ -32,12 +32,12 @@ import static java.awt.Color.HSBtoRGB;
 @RequiredArgsConstructor
 public class TooltipBuilder {
   private static final Color MAX = valueToColor(1, 1);
-  private static final UnaryOperator<Style> APPLY_MAX = style -> style.setColor(MAX);
+  private static final UnaryOperator<Style> APPLY_MAX = style -> style.withColor(MAX);
 
   /** Formatted broken string */
-  private static final ITextComponent TOOLTIP_BROKEN = TConstruct.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
+  private static final ITextComponent TOOLTIP_BROKEN = TConstruct.makeTranslation("tooltip", "tool.broken").withStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
   /** Prefixed broken string */
-  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().appendSibling(TOOLTIP_BROKEN);
+  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().append(TOOLTIP_BROKEN);
 
   private final IModifierToolStack tool;
   @Getter
@@ -101,7 +101,7 @@ public class TooltipBuilder {
     if (textIfBroken && durability == 0) {
       return TOOLTIP_BROKEN_PREFIXED;
     }
-    return ToolStats.DURABILITY.getPrefix().appendSibling(formatPartialAmount(durability, ref));
+    return ToolStats.DURABILITY.getPrefix().append(formatPartialAmount(durability, ref));
   }
 
   /**
@@ -114,7 +114,7 @@ public class TooltipBuilder {
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
     float hue = MathHelper.clamp(((value / max) / 3), 0.01f, 0.5f);
-    return Color.fromInt(HSBtoRGB(hue, 0.65f, 0.8f));
+    return Color.fromRgb(HSBtoRGB(hue, 0.65f, 0.8f));
   }
 
   /**
@@ -125,9 +125,9 @@ public class TooltipBuilder {
    */
   public static ITextComponent formatPartialAmount(int value, int max) {
     return new StringTextComponent(Util.COMMA_FORMAT.format(value))
-      .modifyStyle(style -> style.setColor(valueToColor(value, max)))
-      .appendSibling(new StringTextComponent(" / ").mergeStyle(TextFormatting.GRAY))
-      .appendSibling(new StringTextComponent(Util.COMMA_FORMAT.format(max)).modifyStyle(APPLY_MAX));
+      .withStyle(style -> style.withColor(valueToColor(value, max)))
+      .append(new StringTextComponent(" / ").withStyle(TextFormatting.GRAY))
+      .append(new StringTextComponent(Util.COMMA_FORMAT.format(max)).withStyle(APPLY_MAX));
   }
 
   /**

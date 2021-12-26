@@ -39,8 +39,8 @@ public class GuiMeltingModule {
   public void drawHeatBars(MatrixStack matrices) {
     int temperature = this.temperature.getAsInt();
     for (int i = 0; i < inventory.getSlots(); i++) {
-      Slot slot = screen.getContainer().inventorySlots.get(i);
-      if (slot.getHasStack() && slotPredicate.test(slot)) {
+      Slot slot = screen.getMenu().slots.get(i);
+      if (slot.hasItem() && slotPredicate.test(slot)) {
         // determine the bar to draw and the progress
         ScalableElementScreen bar = PROGRESS_BAR;
 
@@ -67,7 +67,7 @@ public class GuiMeltingModule {
         }
 
         // draw the bar
-        GuiUtil.drawProgressUp(matrices, bar, slot.xPos - 4, slot.yPos, progress);
+        GuiUtil.drawProgressUp(matrices, bar, slot.x - 4, slot.y, progress);
       }
     }
   }
@@ -78,15 +78,15 @@ public class GuiMeltingModule {
    * @param mouseY  Mouse Y position
    */
   public void drawHeatTooltips(MatrixStack matrices, int mouseX, int mouseY) {
-    int checkX = mouseX - screen.guiLeft;
-    int checkY = mouseY - screen.guiTop;
+    int checkX = mouseX - screen.leftPos;
+    int checkY = mouseY - screen.topPos;
     int temperature = this.temperature.getAsInt();
     for (int i = 0; i < inventory.getSlots(); i++) {
-      Slot slot = screen.getContainer().inventorySlots.get(i);
+      Slot slot = screen.getMenu().slots.get(i);
       // must have a stack
-      if (slot.getHasStack() && slotPredicate.test(slot)) {
+      if (slot.hasItem() && slotPredicate.test(slot)) {
         // mouse must be within the slot
-        if (GuiUtil.isHovered(checkX, checkY, slot.xPos - 5, slot.yPos - 1, PROGRESS_BAR.w + 1, PROGRESS_BAR.h + 2)) {
+        if (GuiUtil.isHovered(checkX, checkY, slot.x - 5, slot.y - 1, PROGRESS_BAR.w + 1, PROGRESS_BAR.h + 2)) {
           int index = slot.getSlotIndex();
           ITextComponent tooltip = null;
 

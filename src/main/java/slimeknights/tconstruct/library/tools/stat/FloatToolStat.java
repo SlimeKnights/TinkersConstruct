@@ -26,7 +26,7 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
 
   public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue) {
     this.name = name;
-    this.color = Color.fromInt(color);
+    this.color = Color.fromRgb(color);
     this.defaultValue = defaultValue;
     this.minValue = minValue;
     this.maxValue = maxValue;

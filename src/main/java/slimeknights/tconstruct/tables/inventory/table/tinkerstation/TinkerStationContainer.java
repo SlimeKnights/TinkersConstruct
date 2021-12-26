@@ -54,7 +54,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       inputSlots.add(this.addSlot(new TinkerStationSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0)));
 
       int index;
-      for (index = 0; index < tile.getSizeInventory() - 1; index++) {
+      for (index = 0; index < tile.getContainerSize() - 1; index++) {
         inputSlots.add(this.addSlot(new TinkerStationSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0)));
       }
 
@@ -74,7 +74,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       int index = slotType.getIndex();
       this.addSlot(new ArmorSlot(inv, slotType.getEquipmentSlot(), 152, 16 + (3 - index) * 18));
     }
-    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(PlayerContainer.LOCATION_BLOCKS_TEXTURE, PlayerContainer.EMPTY_ARMOR_SLOT_SHIELD));
+    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(PlayerContainer.BLOCK_ATLAS, PlayerContainer.EMPTY_ARMOR_SLOT_SHIELD));
 
     this.addInventorySlots();
   }
@@ -95,8 +95,8 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
   }
 
   @Override
-  public boolean canMergeSlot(ItemStack stack, Slot slot) {
-    return slot != this.resultSlot && super.canMergeSlot(stack, slot);
+  public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+    return slot != this.resultSlot && super.canTakeItemForPickAll(stack, slot);
   }
 
   /**
@@ -105,9 +105,9 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
    */
   public void setToolSelection(StationSlotLayout layout) {
     assert this.tile != null;
-    int maxSize = tile.getSizeInventory();
+    int maxSize = tile.getContainerSize();
     for (int i = 0; i < maxSize; i++) {
-      Slot slot = this.inventorySlots.get(i);
+      Slot slot = this.slots.get(i);
       if (slot instanceof TinkerStationSlot) {
         // activate or deactivate the slots, sets the filters
         TinkerStationSlot slotToolPart = (TinkerStationSlot) slot;
@@ -123,7 +123,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
   }
 
   public ItemStack getResult() {
-    return this.resultSlot.getStack();
+    return this.resultSlot.getItem();
   }
 
   private static class ArmorSlot extends Slot {
@@ -133,16 +133,16 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       super(inv, 36 + slotType.getIndex(), xPosition, yPosition);
       this.player = inv.player;
       this.slotType = slotType;
-      setBackground(PlayerContainer.LOCATION_BLOCKS_TEXTURE, ARMOR_SLOT_BACKGROUNDS[slotType.getIndex()]);
+      setBackground(PlayerContainer.BLOCK_ATLAS, ARMOR_SLOT_BACKGROUNDS[slotType.getIndex()]);
     }
 
     @Override
-    public int getSlotStackLimit() {
+    public int getMaxStackSize() {
       return 1;
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack) {
+    public boolean mayPlace(ItemStack stack) {
       return stack.canEquip(slotType, player);
     }
   }

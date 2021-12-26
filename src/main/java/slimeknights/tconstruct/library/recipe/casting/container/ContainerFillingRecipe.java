@@ -79,12 +79,12 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   /** @deprecated use {@link ICastingRecipe#getCraftingResult(IInventory)} */
   @Override
   @Deprecated
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return new ItemStack(this.container);
   }
 
   @Override
-  public ItemStack getCraftingResult(ICastingInventory inv) {
+  public ItemStack assemble(ICastingInventory inv) {
     ItemStack stack = inv.getStack().copy();
     return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);
@@ -101,7 +101,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
     if (displayRecipes == null) {
       List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
       displayRecipes = ForgeRegistries.FLUIDS.getValues().stream()
-                                             .filter(fluid -> fluid.getFilledBucket() != Items.AIR && fluid.isSource(fluid.getDefaultState()))
+                                             .filter(fluid -> fluid.getBucket() != Items.AIR && fluid.isSource(fluid.defaultFluidState()))
                                              .map(fluid -> {
                                                FluidStack fluidStack = new FluidStack(fluid, fluidAmount);
                                                ItemStack stack = new ItemStack(container);

@@ -63,7 +63,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     block.draw(matrixStack, 3, 40);
 
     // if no mold, we "pickup" the item, so draw no table
-    if (!recipe.getPattern().hasNoMatchingItems()) {
+    if (!recipe.getPattern().isEmpty()) {
       block.draw(matrixStack, 51, 40);
       downArrow.draw(matrixStack, 8, 17);
     } else {
@@ -73,7 +73,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
 
   @Override
   public List<ITextComponent> getTooltipStrings(MoldingRecipe recipe, double mouseX, double mouseY) {
-    if (recipe.isPatternConsumed() && !recipe.getPattern().hasNoMatchingItems() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
+    if (recipe.isPatternConsumed() && !recipe.getPattern().isEmpty() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
       return Collections.singletonList(TOOLTIP_PATTERN_CONSUMED);
     }
     return Collections.emptyList();
@@ -82,7 +82,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   @Override
   public void setIngredients(MoldingRecipe recipe, IIngredients ingredients) {
     ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+    ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
   }
 
   @Override
@@ -93,7 +93,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     guiItemStacks.init(1, false, 50, 23);
 
     // if we have a mold, we are pressing into the table, so draw pressed item on input and output
-    if (!recipe.getPattern().hasNoMatchingItems()) {
+    if (!recipe.getPattern().isEmpty()) {
       guiItemStacks.init(2, true, 2, 0);
       guiItemStacks.set(ingredients);
       if (!recipe.isPatternConsumed()) {

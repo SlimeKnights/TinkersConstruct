@@ -87,8 +87,8 @@ public abstract class PartRequirement {
   protected static class Serializer implements JsonDeserializer<PartRequirement>, JsonSerializer<PartRequirement> {
     @Override
     public PartRequirement deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject jsonObject = JSONUtils.getJsonObject(json, "part");
-      int weight = JSONUtils.getInt(jsonObject, "weight", 1);
+      JsonObject jsonObject = JSONUtils.convertToJsonObject(json, "part");
+      int weight = JSONUtils.getAsInt(jsonObject, "weight", 1);
       // part item
       if (jsonObject.has("item")) {
         ResourceLocation name = JsonHelper.getResourceLocation(jsonObject, "item");
@@ -136,7 +136,7 @@ public abstract class PartRequirement {
 
     @Override
     public ITextComponent nameForMaterial(IMaterial material) {
-      return part.withMaterial(material).getDisplayName();
+      return part.withMaterial(material).getHoverName();
     }
 
     @Override

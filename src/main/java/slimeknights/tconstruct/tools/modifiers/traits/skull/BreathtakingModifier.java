@@ -16,12 +16,12 @@ public class BreathtakingModifier extends SingleUseModifier {
   public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     if (isDirectDamage && !source.isProjectile()) {
       LivingEntity attacker = context.getEntity();
-      int attackerAir = attacker.getAir();
-      int maxAir = attacker.getMaxAir();
+      int attackerAir = attacker.getAirSupply();
+      int maxAir = attacker.getMaxAirSupply();
       if (attackerAir < maxAir) {
-        attacker.setAir(Math.min(attackerAir + 60, maxAir));
+        attacker.setAirSupply(Math.min(attackerAir + 60, maxAir));
       }
-      target.setAir(Math.max(-20, target.getAir() - 60));
+      target.setAirSupply(Math.max(-20, target.getAirSupply() - 60));
     }
   }
 }

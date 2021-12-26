@@ -24,7 +24,7 @@ public class FluidParticleData implements IParticleData {
   private static final DynamicCommandExceptionType UNKNOWN_FLUID = new DynamicCommandExceptionType(arg -> new TranslationTextComponent("command.tconstruct.fluid.not_found", arg));
   private static final IParticleData.IDeserializer<FluidParticleData> DESERIALIZER = new IParticleData.IDeserializer<FluidParticleData>() {
     @Override
-    public FluidParticleData deserialize(ParticleType<FluidParticleData> type, StringReader reader) throws CommandSyntaxException {
+    public FluidParticleData fromCommand(ParticleType<FluidParticleData> type, StringReader reader) throws CommandSyntaxException {
       reader.expect(' ');
       int i = reader.getCursor();
       ResourceLocation id = ResourceLocation.read(reader);
@@ -40,7 +40,7 @@ public class FluidParticleData implements IParticleData {
     }
 
     @Override
-    public FluidParticleData read(ParticleType<FluidParticleData> type, PacketBuffer buffer) {
+    public FluidParticleData fromNetwork(ParticleType<FluidParticleData> type, PacketBuffer buffer) {
       return new FluidParticleData(type, FluidStack.readFromPacket(buffer));
     }
   };
@@ -51,12 +51,12 @@ public class FluidParticleData implements IParticleData {
   private final FluidStack fluid;
 
   @Override
-  public void write(PacketBuffer buffer) {
+  public void writeToNetwork(PacketBuffer buffer) {
     fluid.writeToPacket(buffer);
   }
 
   @Override
-  public String getParameters() {
+  public String writeToString() {
     StringBuilder builder = new StringBuilder();
     builder.append(getType().getRegistryName());
     builder.append(" ");
@@ -75,7 +75,7 @@ public class FluidParticleData implements IParticleData {
     }
 
     @Override
-    public Codec<FluidParticleData> func_230522_e_() {
+    public Codec<FluidParticleData> codec() {
       return FluidStack.CODEC.xmap(fluid -> new FluidParticleData(this, fluid), data -> data.fluid);
     }
   }

@@ -41,7 +41,7 @@ public class MaterialRenderInfo {
    */
   @Nullable
   private TextureAtlasSprite trySprite(RenderMaterial base, String suffix, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
-    TextureAtlasSprite sprite = spriteGetter.apply(getMaterial(base.getTextureLocation(), suffix));
+    TextureAtlasSprite sprite = spriteGetter.apply(getMaterial(base.texture(), suffix));
     if (!MissingTextureSprite.getLocation().equals(sprite.getName())) {
       return sprite;
     }
@@ -78,10 +78,10 @@ public class MaterialRenderInfo {
    */
   public void getTextureDependencies(Predicate<RenderMaterial> textures, RenderMaterial base) {
     if (texture != null) {
-      textures.test(getMaterial(base.getTextureLocation(), getSuffix(texture)));
+      textures.test(getMaterial(base.texture(), getSuffix(texture)));
     }
     for (String fallback : fallbacks) {
-      textures.test(getMaterial(base.getTextureLocation(), fallback));
+      textures.test(getMaterial(base.texture(), fallback));
     }
   }
 

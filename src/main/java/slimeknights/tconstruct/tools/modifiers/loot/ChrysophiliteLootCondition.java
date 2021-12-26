@@ -27,16 +27,16 @@ public class ChrysophiliteLootCondition implements ILootCondition {
 
   @Override
   public boolean test(LootContext context) {
-    return ChrysophiliteModifier.getTotalGold(context.get(LootParameters.THIS_ENTITY)) > 0;
+    return ChrysophiliteModifier.getTotalGold(context.getParamOrNull(LootParameters.THIS_ENTITY)) > 0;
   }
 
   @Override
-  public Set<LootParameter<?>> getRequiredParameters() {
+  public Set<LootParameter<?>> getReferencedContextParams() {
     return ImmutableSet.of(LootParameters.THIS_ENTITY);
   }
 
   @Override
-  public LootConditionType getConditionType() {
+  public LootConditionType getType() {
     return TinkerModifiers.chrysophiliteLootCondition;
   }
 

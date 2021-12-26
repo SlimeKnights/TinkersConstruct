@@ -50,8 +50,8 @@ public class GeneratePartTexturesCommand {
   /** Runs the command */
   private static int run(CommandContext<CommandSource> context, Operation filter, String modId, String materialName) throws CommandSyntaxException {
     CommandSource source = context.getSource();
-    source.sendFeedback(SUCCESS, true);
-    TinkerNetwork.getInstance().sendTo(new GeneratePartTexturesPacket(filter, modId, materialName), source.asPlayer());
+    source.sendSuccess(SUCCESS, true);
+    TinkerNetwork.getInstance().sendTo(new GeneratePartTexturesPacket(filter, modId, materialName), source.getPlayerOrException());
     return 0;
   }
 }

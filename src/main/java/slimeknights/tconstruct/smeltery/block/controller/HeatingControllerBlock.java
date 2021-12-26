@@ -22,7 +22,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   protected boolean openGui(PlayerEntity player, World world, BlockPos pos) {
     super.openGui(player, world, pos);
     // only need to update if holding the proper items
-    if (!world.isRemote) {
+    if (!world.isClientSide) {
       TileEntityHelper.getTile(HeatingStructureTileEntity.class, world, pos).ifPresent(te -> {
         MultiblockResult result = te.getStructureResult();
         if (!result.isSuccess() && te.showDebugBlockBorder(player)) {
@@ -35,11 +35,11 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
 
   @Override
   protected boolean displayStatus(PlayerEntity player, World world, BlockPos pos, BlockState state) {
-    if (!world.isRemote) {
+    if (!world.isClientSide) {
       TileEntityHelper.getTile(HeatingStructureTileEntity.class, world, pos).ifPresent(te -> {
         MultiblockResult result = te.getStructureResult();
         if (!result.isSuccess()) {
-          player.sendStatusMessage(result.getMessage(), true);
+          player.displayClientMessage(result.getMessage(), true);
           TinkerNetwork.getInstance().sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
         }
       });

@@ -34,7 +34,7 @@ public class ResourceLocationSerializer<T extends ResourceLocation> implements J
 
   @Override
   public T deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
-    String loc = JSONUtils.getString(element, "location");
+    String loc = JSONUtils.convertToString(element, "location");
     if (!loc.contains(":")) {
       loc = modId + ":" + loc;
     }

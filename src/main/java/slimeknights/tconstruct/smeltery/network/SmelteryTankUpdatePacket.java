@@ -46,7 +46,7 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(SmelteryTankUpdatePacket packet) {
-      TileEntityHelper.getTile(ISmelteryTankHandler.class, Minecraft.getInstance().world, packet.pos).ifPresent(te -> te.updateFluidsFromPacket(packet.fluids));
+      TileEntityHelper.getTile(ISmelteryTankHandler.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.updateFluidsFromPacket(packet.fluids));
     }
   }
 }

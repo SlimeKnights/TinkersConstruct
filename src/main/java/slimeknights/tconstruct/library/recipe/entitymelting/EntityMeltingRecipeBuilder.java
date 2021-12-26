@@ -44,14 +44,14 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       json.add("entity", ingredient.serialize());
       json.add("result", RecipeHelper.serializeFluidStack(output));
       json.addProperty("damage", damage);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerSmeltery.entityMeltingSerializer.get();
     }
   }

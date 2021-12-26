@@ -74,7 +74,7 @@ public final class SlotType {
     if (!isValidName(name)) {
       throw new IllegalArgumentException("Non [a-z0-9_] character in slot name: " + name);
     }
-    SlotType type = new SlotType(name, Color.fromInt(color));
+    SlotType type = new SlotType(name, Color.fromRgb(color));
     SLOT_TYPES.put(name, type);
     ALL_SLOTS.add(type);
     return type;
@@ -97,7 +97,7 @@ public final class SlotType {
 
   /** Reads the slot type from the packet buffer */
   public static SlotType read(PacketBuffer buffer) {
-    return getOrCreate(buffer.readString());
+    return getOrCreate(buffer.readUtf());
   }
 
   /**
@@ -133,7 +133,7 @@ public final class SlotType {
 
   /** Writes this slot type to the packet buffer */
   public void write(PacketBuffer buffer) {
-    buffer.writeString(name);
+    buffer.writeUtf(name);
   }
 
   @Override

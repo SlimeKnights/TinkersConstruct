@@ -19,7 +19,7 @@ public class SlimeColorReloadListener extends ReloadListener<int[]> {
   private final ResourceLocation path;
   public SlimeColorReloadListener(SlimeType color) {
     this.color = color;
-    this.path = TConstruct.getResource("textures/colormap/" + color.getString() + "_grass_color.png");
+    this.path = TConstruct.getResource("textures/colormap/" + color.getSerializedName() + "_grass_color.png");
   }
 
   /**
@@ -31,7 +31,7 @@ public class SlimeColorReloadListener extends ReloadListener<int[]> {
       return new int[0];
     }
     try {
-      return ColorMapLoader.loadColors(resourceManager, path);
+      return ColorMapLoader.getPixels(resourceManager, path);
     } catch (IOException ioexception) {
       TConstruct.LOG.error("Failed to load slime colors", ioexception);
       return new int[0];

@@ -38,7 +38,7 @@ public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeB
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       json.addProperty("material", materialId.toString());
       json.addProperty("pattern", pattern.toString());
       json.addProperty("cost", cost);
@@ -46,7 +46,7 @@ public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeB
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerTables.itemPartBuilderSerializer.get();
     }
   }

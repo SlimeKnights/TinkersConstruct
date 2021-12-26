@@ -30,24 +30,24 @@ public class PotionFluidEffect implements ISpillingEffect {
     LivingEntity attacker = context.getAttacker();
     // must match the tag predicate
     if (target != null && predicate.test(fluid.getTag())) {
-      Potion potion = PotionUtils.getPotionTypeFromNBT(fluid.getTag());
+      Potion potion = PotionUtils.getPotion(fluid.getTag());
       if (potion != Potions.EMPTY) {
         // prevent effects like instant damage from hitting hurt resistance
-        int oldHurtResistance = target.hurtResistantTime;
+        int oldInvulnerableTime = target.invulnerableTime;
         float totalScale = scale * effectScale;
         for (EffectInstance instance : potion.getEffects()) {
-          Effect effect = instance.getPotion();
-          if (effect.isInstant()) {
-            target.hurtResistantTime = 0;
-            effect.affectEntity(attacker, attacker, target, instance.getAmplifier(), totalScale);
+          Effect effect = instance.getEffect();
+          if (effect.isInstantenous()) {
+            target.invulnerableTime = 0;
+            effect.applyInstantenousEffect(attacker, attacker, target, instance.getAmplifier(), totalScale);
           } else {
             int duration = (int)(instance.getDuration() * totalScale);
             if (duration > 10) {
-              target.addPotionEffect(new EffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.doesShowParticles(), instance.isShowIcon()));
+              target.addEffect(new EffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()));
             }
           }
         }
-        target.hurtResistantTime = oldHurtResistance;
+        target.invulnerableTime = oldInvulnerableTime;
       }
     }
   }
@@ -60,7 +60,7 @@ public class PotionFluidEffect implements ISpillingEffect {
   private static class Loader implements ISpillingEffectLoader<PotionFluidEffect> {
     @Override
     public PotionFluidEffect deserialize(JsonObject json) {
-      float scale = JSONUtils.getFloat(json, "scale");
+      float scale = JSONUtils.getAsFloat(json, "scale");
       TagPredicate predicate = TagPredicate.ANY;
       if (json.has("predicate")) {
         predicate = TagPredicate.deserialize(json.get("predicate"));

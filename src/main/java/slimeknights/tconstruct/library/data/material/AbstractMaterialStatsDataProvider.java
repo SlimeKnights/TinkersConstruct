@@ -34,7 +34,7 @@ public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvi
   protected abstract void addMaterialStats();
 
   @Override
-  public void act(DirectoryCache cache) {
+  public void run(DirectoryCache cache) {
     addMaterialStats();
 
     // ensure we have stats for all materials

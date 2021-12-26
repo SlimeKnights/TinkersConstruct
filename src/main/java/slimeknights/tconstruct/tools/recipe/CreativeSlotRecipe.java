@@ -70,7 +70,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   }
 
   @Override
-  public ItemStack getCraftingResult(ITinkerStationInventory inv) {
+  public ItemStack assemble(ITinkerStationInventory inv) {
     ToolStack toolStack = ToolStack.copyFrom(inv.getTinkerableStack());
 
     // first, fetch the slots compound
@@ -104,10 +104,10 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
     return TinkerModifiers.creativeSlot.get();
   }
 
-  /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #assemble(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
 

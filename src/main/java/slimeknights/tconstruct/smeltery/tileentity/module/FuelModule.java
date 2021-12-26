@@ -104,7 +104,7 @@ public class FuelModule implements IIntArray {
 
   /** Gets a nonnull world instance from the parent */
   private World getWorld() {
-    return Objects.requireNonNull(parent.getWorld(), "Parent tile entity has null world");
+    return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
   /**
@@ -117,7 +117,11 @@ public class FuelModule implements IIntArray {
     if (lastRecipe != null && lastRecipe.matches(fluid)) {
       return lastRecipe;
     }
-    return MeltingFuelLookup.findFuel(fluid);
+    MeltingFuel recipe = MeltingFuelLookup.findFuel(fluid);
+    if (recipe != null) {
+      lastRecipe = recipe;
+    }
+    return recipe;
   }
 
 
@@ -161,7 +165,7 @@ public class FuelModule implements IIntArray {
       if (time > 0) {
         if (consume) {
           ItemStack extracted = handler.extractItem(i, 1, false);
-          if (extracted.isItemEqual(stack)) {
+          if (extracted.sameItem(stack)) {
             fuel += time;
             fuelQuality = time;
             temperature = SOLID_TEMPERATURE;
@@ -173,13 +177,13 @@ public class FuelModule implements IIntArray {
               ItemStack notInserted = ItemHandlerHelper.insertItem(handler, container, false);
               if (!notInserted.isEmpty()) {
                 World world = getWorld();
-                double x = (world.rand.nextFloat() * 0.5F) + 0.25D;
-                double y = (world.rand.nextFloat() * 0.5F) + 0.25D;
-                double z = (world.rand.nextFloat() * 0.5F) + 0.25D;
-                BlockPos pos = lastPos == null ? parent.getPos() : lastPos;
+                double x = (world.random.nextFloat() * 0.5F) + 0.25D;
+                double y = (world.random.nextFloat() * 0.5F) + 0.25D;
+                double z = (world.random.nextFloat() * 0.5F) + 0.25D;
+                BlockPos pos = lastPos == null ? parent.getBlockPos() : lastPos;
                 ItemEntity itementity = new ItemEntity(world, pos.getX() + x, pos.getY() + y, pos.getZ() + z, container);
-                itementity.setDefaultPickupDelay();
-                world.addEntity(itementity);
+                itementity.setDefaultPickUpDelay();
+                world.addFreshEntity(itementity);
               }
             }
           } else {
@@ -245,7 +249,7 @@ public class FuelModule implements IIntArray {
    * @return   Temperature of the consumed fuel, 0 if none found
    */
   private int tryFindFuel(BlockPos pos, boolean consume) {
-    TileEntity te = getWorld().getTileEntity(pos);
+    TileEntity te = getWorld().getBlockEntity(pos);
     if (te != null) {
       // if we find a valid cap, try to consume fuel from it
       LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
@@ -361,7 +365,7 @@ public class FuelModule implements IIntArray {
   private static final int LAST_Z = 5;
 
   @Override
-  public int size() {
+  public int getCount() {
     return 6;
   }
 
@@ -451,7 +455,7 @@ public class FuelModule implements IIntArray {
 
     // fetch primary fuel handler
     if (fluidHandler == null && itemHandler == null) {
-      TileEntity te = getWorld().getTileEntity(mainTank);
+      TileEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
         LazyOptional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
         if (fluidCap.isPresent()) {
@@ -498,7 +502,7 @@ public class FuelModule implements IIntArray {
         if (positions == null) positions = tankSupplier.get();
         for (BlockPos pos : positions) {
           if (!pos.equals(mainTank)) {
-            TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getBlockEntity(pos);
             if (te != null) {
               LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
               if (handler.isPresent()) {

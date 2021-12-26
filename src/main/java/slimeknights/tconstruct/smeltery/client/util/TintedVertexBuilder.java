@@ -14,8 +14,8 @@ public class TintedVertexBuilder implements IVertexBuilder {
   private final int tintRed, tintGreen, tintBlue, tintAlpha;
 
   @Override
-  public IVertexBuilder pos(double x, double y, double z) {
-    return inner.pos(x, y, z);
+  public IVertexBuilder vertex(double x, double y, double z) {
+    return inner.vertex(x, y, z);
   }
 
   @Override
@@ -24,18 +24,18 @@ public class TintedVertexBuilder implements IVertexBuilder {
   }
 
   @Override
-  public IVertexBuilder tex(float u, float v) {
-    return inner.tex(u, v);
+  public IVertexBuilder uv(float u, float v) {
+    return inner.uv(u, v);
   }
 
   @Override
-  public IVertexBuilder overlay(int u, int v) {
-    return inner.overlay(u, v);
+  public IVertexBuilder overlayCoords(int u, int v) {
+    return inner.overlayCoords(u, v);
   }
 
   @Override
-  public IVertexBuilder lightmap(int u, int v) {
-    return inner.lightmap(u, v);
+  public IVertexBuilder uv2(int u, int v) {
+    return inner.uv2(u, v);
   }
 
   @Override

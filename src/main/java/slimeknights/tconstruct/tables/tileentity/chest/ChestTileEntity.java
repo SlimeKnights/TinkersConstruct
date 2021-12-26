@@ -65,8 +65,8 @@ public abstract class ChestTileEntity extends NamableTileEntity {
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tags) {
-    tags = super.write(tags);
+  public CompoundNBT save(CompoundNBT tags) {
+    tags = super.save(tags);
     // move the items from the serialized result
     // we don't care about the size and need it here for compat with old worlds
     CompoundNBT handlerNBT = itemHandler.serializeNBT();
@@ -83,8 +83,8 @@ public abstract class ChestTileEntity extends NamableTileEntity {
   }
 
   @Override
-  public void read(BlockState blockState, CompoundNBT tags) {
-    super.read(blockState, tags);
+  public void load(BlockState blockState, CompoundNBT tags) {
+    super.load(blockState, tags);
     readInventory(tags);
   }
 }

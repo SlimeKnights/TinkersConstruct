@@ -49,7 +49,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
   @Override
   public ActionResultType beforeEntityUse(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand, EquipmentSlotType slotType) {
     if (canAttack(tool, player, hand)) {
-      if (!player.world.isRemote()) {
+      if (!player.level.isClientSide()) {
         Item item = tool.getItem();
         IModifiableWeapon weapon = item instanceof IModifiableWeapon ? (IModifiableWeapon) item : IModifiableWeapon.DEFAULT;
         ToolAttackUtil.attackEntity(weapon, tool, player, Hand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, Hand.OFF_HAND), false, slotType);

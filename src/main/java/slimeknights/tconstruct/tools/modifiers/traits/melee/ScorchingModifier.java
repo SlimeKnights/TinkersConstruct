@@ -28,7 +28,7 @@ public class ScorchingModifier extends Modifier {
 
   @Override
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
-    if (context.getTarget().isBurning()) {
+    if (context.getTarget().isOnFire()) {
       damage += 2f * level * tool.getModifier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;

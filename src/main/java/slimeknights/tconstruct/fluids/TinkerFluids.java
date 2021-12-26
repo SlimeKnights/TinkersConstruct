@@ -109,11 +109,11 @@ public final class TinkerFluids extends TinkerModule {
 
   /** Creates a builder for a cool fluid with textures */
   private static FluidAttributes.Builder coolBuilder() {
-    return ModelFluidAttributes.builder().sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
+    return ModelFluidAttributes.builder().sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
   }
 
   /** Creates a builder for a hot fluid */
   private static FluidAttributes.Builder hotBuilder() {
-    return ModelFluidAttributes.builder().density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
+    return ModelFluidAttributes.builder().density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.BUCKET_FILL_LAVA, SoundEvents.BUCKET_EMPTY_LAVA);
   }
 }

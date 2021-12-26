@@ -21,7 +21,7 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
   @Override
   protected void addLayouts() {
     // stations
-    Ingredient modifiable = Ingredient.fromTag(TinkerTags.Items.MODIFIABLE);
+    Ingredient modifiable = Ingredient.of(TinkerTags.Items.MODIFIABLE);
     define(TinkerTables.tinkerStation)
       .translationKey(TConstruct.makeTranslationKey("gui", "tinker_station.repair_limited"))
       .icon(Patterns.REPAIR)

@@ -37,35 +37,35 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
 
   @Override
   protected void start() {
-    ReplaceItemLootModifier.builder(Ingredient.fromItems(Items.BONE), ItemOutput.fromItem(TinkerMaterials.necroticBone))
+    ReplaceItemLootModifier.builder(Ingredient.of(Items.BONE), ItemOutput.fromItem(TinkerMaterials.necroticBone))
                            .addCondition(LootTableIdCondition.builder(new ResourceLocation("entities/wither_skeleton")).build())
                            .addCondition(ConfigEnabledCondition.WITHER_BONE_DROP)
                            .build("wither_bone", this);
 
     // generic modifier hook
-    ItemPredicate.Builder meleeHarvest = ItemPredicate.Builder.create().tag(TinkerTags.Items.MELEE_OR_HARVEST);
+    ItemPredicate.Builder meleeHarvest = ItemPredicate.Builder.item().of(TinkerTags.Items.MELEE_OR_HARVEST);
     ModifierLootModifier.builder()
                         .addCondition(BlockOrEntityCondition.INSTANCE)
-                        .addCondition(MatchTool.builder(meleeHarvest)
-                                               .alternative(EntityHasProperty.builder(EntityTarget.KILLER, EntityPredicate.Builder.create().equipment(mainHand(meleeHarvest.build()))))
+                        .addCondition(MatchTool.toolMatches(meleeHarvest)
+                                               .or(EntityHasProperty.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(meleeHarvest.build()))))
                                                .build())
                         .build("modifier_hook", this);
 
     // chrysophilite modifier hook
-    AddEntryLootModifier.builder(ItemLootEntry.builder(Items.GOLD_NUGGET))
+    AddEntryLootModifier.builder(ItemLootEntry.lootTableItem(Items.GOLD_NUGGET))
                         .addCondition(new BlockTagLootCondition(TinkerTags.Blocks.CHRYSOPHILITE_ORES))
-                        .addCondition(new ContainsItemModifierLootCondition(Ingredient.fromTag(TinkerTags.Items.CHRYSOPHILITE_ORES)).inverted())
+                        .addCondition(new ContainsItemModifierLootCondition(Ingredient.of(TinkerTags.Items.CHRYSOPHILITE_ORES)).inverted())
                         .addCondition(ChrysophiliteLootCondition.INSTANCE)
-                        .addFunction(SetCount.builder(RandomValueRange.of(2, 6)).build())
+                        .addFunction(SetCount.setCount(RandomValueRange.between(2, 6)).build())
                         .addFunction(ChrysophiliteBonusFunction.oreDrops(false).build())
-                        .addFunction(ExplosionDecay.builder().build())
+                        .addFunction(ExplosionDecay.explosionDecay().build())
                         .build("chrysophilite_modifier", this);
   }
 
   /** Creates an equipment predicate for mainhand */
   private static EntityEquipmentPredicate mainHand(ItemPredicate mainHand) {
-    EntityEquipmentPredicate.Builder builder = EntityEquipmentPredicate.Builder.createBuilder();
-    builder.mainHand = mainHand;
+    EntityEquipmentPredicate.Builder builder = EntityEquipmentPredicate.Builder.equipment();
+    builder.mainhand = mainHand;
     return builder.build();
   }
 }

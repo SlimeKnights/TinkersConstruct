@@ -27,19 +27,19 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(TinkerCommons.glow.get(), RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.glow.get(), RenderType.translucent());
 
     // glass
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.cutout());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.getTranslucent());
-      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.getTranslucent());
+      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.translucent());
+      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.translucent());
     }
-    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.translucent());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
+    RenderTypeLookup.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
+    RenderTypeLookup.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
 
     FontRenderer unicode = unicodeFontRender();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
@@ -66,7 +66,7 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-    Minecraft.getInstance().particles.registerFactory(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
+    Minecraft.getInstance().particleEngine.register(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
   }
 
   private static FontRenderer unicodeRenderer;
@@ -75,8 +75,8 @@ public class CommonsClientEvents extends ClientEventBase {
   public static FontRenderer unicodeFontRender() {
     if (unicodeRenderer == null)
       unicodeRenderer = new FontRenderer(rl -> {
-        FontResourceManager resourceManager = Minecraft.getInstance().fontResourceMananger;
-        return resourceManager.idToFontMap.get(Minecraft.UNIFORM_FONT_RENDERER_NAME);
+        FontResourceManager resourceManager = Minecraft.getInstance().fontManager;
+        return resourceManager.fontSets.get(Minecraft.UNIFORM_FONT);
       });
 
     return unicodeRenderer;

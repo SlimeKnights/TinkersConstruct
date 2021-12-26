@@ -10,6 +10,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -22,7 +24,7 @@ import java.util.List;
 public class CreativeSlotItem extends Item {
   private static final String NBT_KEY = "slot";
   private static final String TOOLTIP = TConstruct.makeTranslationKey("item", "creative_slot.tooltip");
-  private static final ITextComponent TOOLTIP_MISSING = TConstruct.makeTranslation("item", "creative_slot.missing").mergeStyle(TextFormatting.RED);
+  private static final ITextComponent TOOLTIP_MISSING = TConstruct.makeTranslation("item", "creative_slot.missing").withStyle(TextFormatting.RED);
 
   public CreativeSlotItem(Properties properties) {
     super(properties);
@@ -45,9 +47,9 @@ public class CreativeSlotItem extends Item {
   }
 
   @Override
-  public String getTranslationKey(ItemStack stack) {
+  public String getDescriptionId(ItemStack stack) {
     SlotType slot = getSlot(stack);
-    String originalKey = getTranslationKey();
+    String originalKey = getDescriptionId();
     if (slot != null) {
       String betterKey = originalKey + "." + slot.getName();
       if (Util.canTranslate(betterKey)) {
@@ -57,19 +59,20 @@ public class CreativeSlotItem extends Item {
     return originalKey;
   }
 
+  @OnlyIn(Dist.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     SlotType slot = getSlot(stack);
     if (slot != null) {
-      tooltip.add(new TranslationTextComponent(TOOLTIP, slot.getDisplayName()).mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent(TOOLTIP, slot.getDisplayName()).withStyle(TextFormatting.GRAY));
     } else {
       tooltip.add(TOOLTIP_MISSING);
     }
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (isInGroup(group)) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    if (allowdedIn(group)) {
       Collection<SlotType> allTypes = SlotType.getAllSlotTypes();
       if (allTypes.isEmpty()) {
         items.add(new ItemStack(this));

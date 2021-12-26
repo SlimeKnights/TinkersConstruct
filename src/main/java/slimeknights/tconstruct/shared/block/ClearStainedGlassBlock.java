@@ -10,6 +10,8 @@ import net.minecraft.world.IWorldReader;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ClearStainedGlassBlock extends AbstractGlassBlock {
 
   private final GlassColor glassColor;
@@ -90,7 +92,7 @@ public class ClearStainedGlassBlock extends AbstractGlassBlock {
     }
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
       return name;
     }
 

@@ -70,7 +70,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return result.get();
   }
 
@@ -81,10 +81,10 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
   public static class Serializer extends LoggingRecipeSerializer<ItemPartRecipe> {
     @Override
-    public ItemPartRecipe read(ResourceLocation id, JsonObject json) {
+    public ItemPartRecipe fromJson(ResourceLocation id, JsonObject json) {
       MaterialId materialId = MaterialRecipeSerializer.getMaterial(json, "material");
-      Pattern pattern = new Pattern(JSONUtils.getString(json, "pattern"));
-      int cost = JSONUtils.getInt(json, "cost");
+      Pattern pattern = new Pattern(JSONUtils.getAsString(json, "pattern"));
+      int cost = JSONUtils.getAsInt(json, "cost");
       ItemOutput result = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
       return new ItemPartRecipe(id, materialId, pattern, cost, result);
     }
@@ -92,8 +92,8 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     @Nullable
     @Override
     protected ItemPartRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
-      MaterialId materialId = new MaterialId(buffer.readString(Short.MAX_VALUE));
-      Pattern pattern = new Pattern(buffer.readString(Short.MAX_VALUE));
+      MaterialId materialId = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
+      Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
       int cost = buffer.readVarInt();
       ItemOutput result = ItemOutput.read(buffer);
       return new ItemPartRecipe(id, materialId, pattern, cost, result);
@@ -101,8 +101,8 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
     @Override
     protected void writeSafe(PacketBuffer buffer, ItemPartRecipe recipe) {
-      buffer.writeString(recipe.materialId.toString());
-      buffer.writeString(recipe.pattern.toString());
+      buffer.writeUtf(recipe.materialId.toString());
+      buffer.writeUtf(recipe.pattern.toString());
       buffer.writeVarInt(recipe.cost);
       recipe.result.write(buffer);
     }

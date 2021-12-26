@@ -17,7 +17,7 @@ public class FortuneModifier extends SingleLevelModifier implements IArmorLootMo
 
   @Override
   public void applyHarvestEnchantments(IModifierToolStack tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
-    consumer.accept(Enchantments.FORTUNE, level);
+    consumer.accept(Enchantments.BLOCK_FORTUNE, level);
   }
 
   @Nullable

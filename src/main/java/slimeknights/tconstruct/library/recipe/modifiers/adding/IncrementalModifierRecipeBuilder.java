@@ -87,7 +87,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @return  Builder instance
    */
   public IncrementalModifierRecipeBuilder setInput(IItemProvider item, int amountPerItem, int neededPerLevel) {
-    return setInput(Ingredient.fromItems(item), amountPerItem, neededPerLevel);
+    return setInput(Ingredient.of(item), amountPerItem, neededPerLevel);
   }
 
   /**
@@ -98,7 +98,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @return  Builder instance
    */
   public IncrementalModifierRecipeBuilder setInput(ITag<Item> tag, int amountPerItem, int neededPerLevel) {
-    return setInput(Ingredient.fromTag(tag), amountPerItem, neededPerLevel);
+    return setInput(Ingredient.of(tag), amountPerItem, neededPerLevel);
   }
 
 
@@ -222,18 +222,18 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     }
 
     @Override
-    public void serialize(JsonObject json) {
-      json.add("input", input.serialize());
+    public void serializeRecipeData(JsonObject json) {
+      json.add("input", input.toJson());
       json.addProperty("amount_per_item", amountPerItem);
       json.addProperty("needed_per_level", neededPerLevel);
       if (leftover != ItemStack.EMPTY) {
         json.add("leftover", serializeResult(leftover));
       }
-      super.serialize(json);
+      super.serializeRecipeData(json);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerModifiers.incrementalModifierSerializer.get();
     }
   }
@@ -244,8 +244,8 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     }
 
     @Override
-    public void serialize(JsonObject json) {
-      super.serialize(json);
+    public void serializeRecipeData(JsonObject json) {
+      super.serializeRecipeData(json);
       if (salvage != null) {
         JsonElement salvageElement = salvage.serialize();
         JsonObject salvageObject;
@@ -261,7 +261,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       // incremental serializer does not support no salvage, but regular one does
       return salvage == null ? TinkerModifiers.modifierSalvageSerializer.get() : TinkerModifiers.incrementalModifierSalvageSerializer.get();
     }

@@ -124,14 +124,14 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
 
   public static class Serializer extends LoggingRecipeSerializer<MaterialFluidRecipe> {
     @Override
-    public MaterialFluidRecipe read(ResourceLocation id, JsonObject json) {
+    public MaterialFluidRecipe fromJson(ResourceLocation id, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-      int temperature = JSONUtils.getInt(json, "temperature");
+      int temperature = JSONUtils.getAsInt(json, "temperature");
       MaterialId input = null;
       if (json.has("input")) {
-        input = new MaterialId(JSONUtils.getString(json, "input"));
+        input = new MaterialId(JSONUtils.getAsString(json, "input"));
       }
-      MaterialId output = new MaterialId(JSONUtils.getString(json, "output"));
+      MaterialId output = new MaterialId(JSONUtils.getAsString(json, "output"));
       return new MaterialFluidRecipe(id, fluid, temperature, input, output);
     }
 
@@ -142,9 +142,9 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
       int temperature = buffer.readInt();
       MaterialId input = null;
       if (buffer.readBoolean()) {
-        input = new MaterialId(buffer.readString(Short.MAX_VALUE));
+        input = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
       }
-      MaterialId output = new MaterialId(buffer.readString(Short.MAX_VALUE));
+      MaterialId output = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
       return new MaterialFluidRecipe(id, fluid, temperature, input, output);
     }
 
@@ -154,11 +154,11 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
       buffer.writeInt(recipe.temperature);
       if (recipe.inputId != null) {
         buffer.writeBoolean(true);
-        buffer.writeString(recipe.inputId.toString());
+        buffer.writeUtf(recipe.inputId.toString());
       } else {
         buffer.writeBoolean(false);
       }
-      buffer.writeString(recipe.outputId.toString());
+      buffer.writeUtf(recipe.outputId.toString());
     }
   }
 }

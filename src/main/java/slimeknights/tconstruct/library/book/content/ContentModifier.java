@@ -88,8 +88,8 @@ public class ContentModifier extends PageContent {
     }
 
     if (this.recipes == null) {
-      assert Minecraft.getInstance().world != null;
-      this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
+      assert Minecraft.getInstance().level != null;
+      this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
     }
   }
 
@@ -108,7 +108,7 @@ public class ContentModifier extends PageContent {
     list.add(new TextElement(5, y, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {
-      TextData head = new TextData(I18n.format(KEY_EFFECTS));
+      TextData head = new TextData(I18n.get(KEY_EFFECTS));
       head.underlined = true;
 
       list.add(new TextElement(5, y + h, BookScreen.PAGE_WIDTH / 2 - 5, BookScreen.PAGE_HEIGHT - h - 20, head));

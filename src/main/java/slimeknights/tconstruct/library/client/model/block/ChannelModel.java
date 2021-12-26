@@ -107,19 +107,19 @@ public class ChannelModel implements IModelGeometry<ChannelModel> {
 			SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
 
 			// parse fluid cuboid for each side
-			JsonObject fluidJson = JSONUtils.getJsonObject(modelContents, "fluids");
+			JsonObject fluidJson = JSONUtils.getAsJsonObject(modelContents, "fluids");
 			Map<ChannelModelPart,FluidCuboid> fluids = new EnumMap<>(ChannelModelPart.class);
-			fluids.put(ChannelModelPart.DOWN, FluidCuboid.fromJson(JSONUtils.getJsonObject(fluidJson, "down")));
+			fluids.put(ChannelModelPart.DOWN, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(fluidJson, "down")));
 			// center
-			JsonObject centerJson = JSONUtils.getJsonObject(fluidJson, "center");
-			fluids.put(ChannelModelPart.CENTER_STILL, FluidCuboid.fromJson(JSONUtils.getJsonObject(centerJson, "still")));
-			fluids.put(ChannelModelPart.CENTER_FLOWING, FluidCuboid.fromJson(JSONUtils.getJsonObject(centerJson, "flowing")));
+			JsonObject centerJson = JSONUtils.getAsJsonObject(fluidJson, "center");
+			fluids.put(ChannelModelPart.CENTER_STILL, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(centerJson, "still")));
+			fluids.put(ChannelModelPart.CENTER_FLOWING, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(centerJson, "flowing")));
 			// side
-			JsonObject sideJson = JSONUtils.getJsonObject(fluidJson, "side");
-			fluids.put(ChannelModelPart.SIDE_STILL, FluidCuboid.fromJson(JSONUtils.getJsonObject(sideJson, "still")));
-			fluids.put(ChannelModelPart.SIDE_IN, FluidCuboid.fromJson(JSONUtils.getJsonObject(sideJson, "in")));
-			fluids.put(ChannelModelPart.SIDE_OUT, FluidCuboid.fromJson(JSONUtils.getJsonObject(sideJson, "out")));
-			fluids.put(ChannelModelPart.SIDE_EDGE, FluidCuboid.fromJson(JSONUtils.getJsonObject(sideJson, "edge")));
+			JsonObject sideJson = JSONUtils.getAsJsonObject(fluidJson, "side");
+			fluids.put(ChannelModelPart.SIDE_STILL, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "still")));
+			fluids.put(ChannelModelPart.SIDE_IN, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "in")));
+			fluids.put(ChannelModelPart.SIDE_OUT, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "out")));
+			fluids.put(ChannelModelPart.SIDE_EDGE, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "edge")));
 
 			return new ChannelModel(model, fluids);
 		}

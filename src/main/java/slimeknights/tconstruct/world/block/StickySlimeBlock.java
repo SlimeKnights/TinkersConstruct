@@ -5,6 +5,8 @@ import net.minecraft.block.SlimeBlock;
 
 import java.util.function.BiPredicate;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class StickySlimeBlock extends SlimeBlock {
 
   private final BiPredicate<BlockState, BlockState> stickyPredicate;

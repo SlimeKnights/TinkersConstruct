@@ -44,7 +44,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   }
 
   public static Modifier deserializeModifier(JsonObject json, String key) {
-    ResourceLocation name = new ResourceLocation(JSONUtils.getString(json, key));
+    ResourceLocation name = new ResourceLocation(JSONUtils.getAsString(json, key));
     if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
       return Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(name));
     }
@@ -57,7 +57,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    return new ModifierEntry(deserializeModifier(json, "name"), JSONUtils.getInt(json, "level", 1));
+    return new ModifierEntry(deserializeModifier(json, "name"), JSONUtils.getAsInt(json, "level", 1));
   }
 
   /**
@@ -92,7 +92,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   private static class Serializer implements JsonDeserializer<ModifierEntry>, JsonSerializer<ModifierEntry> {
     @Override
     public ModifierEntry deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return fromJson(JSONUtils.getJsonObject(json, "modifier"));
+      return fromJson(JSONUtils.convertToJsonObject(json, "modifier"));
     }
 
     @Override

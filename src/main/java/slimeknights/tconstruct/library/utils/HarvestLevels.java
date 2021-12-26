@@ -45,11 +45,11 @@ public class HarvestLevels implements ISafeManagerReloadListener {
     namesLoaded = true;
 
     // default names: vanilla levels
-    harvestLevelNames.put(WOOD, makeLevelKey("wood").modifyStyle(style -> style.setColor(Color.fromInt(0x8e661b))));
-    harvestLevelNames.put(STONE, makeLevelKey("stone").modifyStyle(style -> style.setColor(Color.fromInt(0x999999))));
-    harvestLevelNames.put(IRON, makeLevelKey("iron").modifyStyle(style -> style.setColor(Color.fromInt(0xcacaca))));
-    harvestLevelNames.put(DIAMOND, makeLevelKey("diamond").mergeStyle(TextFormatting.AQUA));
-    harvestLevelNames.put(NETHERITE, makeLevelKey("netherite").mergeStyle(TextFormatting.DARK_GRAY));
+    harvestLevelNames.put(WOOD, makeLevelKey("wood").withStyle(style -> style.withColor(Color.fromRgb(0x8e661b))));
+    harvestLevelNames.put(STONE, makeLevelKey("stone").withStyle(style -> style.withColor(Color.fromRgb(0x999999))));
+    harvestLevelNames.put(IRON, makeLevelKey("iron").withStyle(style -> style.withColor(Color.fromRgb(0xcacaca))));
+    harvestLevelNames.put(DIAMOND, makeLevelKey("diamond").withStyle(TextFormatting.AQUA));
+    harvestLevelNames.put(NETHERITE, makeLevelKey("netherite").withStyle(TextFormatting.DARK_GRAY));
 
     // load custom names, may override vanilla replacing with uncolored
     String base = TConstruct.makeTranslationKey("stat", "mining_level.");

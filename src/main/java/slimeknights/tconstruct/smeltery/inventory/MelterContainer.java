@@ -38,10 +38,10 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
       }
 
       // add fuel slot if present, we only add for the melter though
-      World world = melter.getWorld();
-      BlockPos down = melter.getPos().down();
-      if (world != null && world.getBlockState(down).isIn(TinkerTags.Blocks.FUEL_TANKS)) {
-        TileEntity te = world.getTileEntity(down);
+      World world = melter.getLevel();
+      BlockPos down = melter.getBlockPos().below();
+      if (world != null && world.getBlockState(down).is(TinkerTags.Blocks.FUEL_TANKS)) {
+        TileEntity te = world.getBlockEntity(down);
         if (te != null) {
           hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
             this.addSlot(new ItemHandlerSlot(handler, 0, 151, 32));
@@ -53,7 +53,7 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
       this.addInventorySlots();
 
       // syncing
-      Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
+      Consumer<IntReferenceHolder> referenceConsumer = this::addDataSlot;
       ValidZeroIntReference.trackIntArray(referenceConsumer, melter.getFuelModule());
       inventory.trackInts(array -> ValidZeroIntReference.trackIntArray(referenceConsumer, array));
     } else {

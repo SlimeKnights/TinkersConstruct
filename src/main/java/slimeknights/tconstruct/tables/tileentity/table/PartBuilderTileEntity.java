@@ -63,17 +63,17 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
    * @return  List of recipes for the current inputs
    */
   protected Map<Pattern,IPartBuilderRecipe> getCurrentRecipes() {
-    if (world == null) {
+    if (level == null) {
       return Collections.emptyMap();
     }
     if (recipes == null) {
       // no recipes if we lack a pattern
-      if (getStackInSlot(PATTERN_SLOT).isEmpty()) {
+      if (getItem(PATTERN_SLOT).isEmpty()) {
         recipes = Collections.emptyMap();
         sortedButtons = Collections.emptyList();
       } else {
         // fetch all recipes that can match these inputs, the map ensures the patterns are unique
-        recipes = world.getRecipeManager().getRecipes(RecipeTypes.PART_BUILDER).values().stream()
+        recipes = level.getRecipeManager().byType(RecipeTypes.PART_BUILDER).values().stream()
                        .filter(r -> r instanceof IPartBuilderRecipe)
                        .map(r -> (IPartBuilderRecipe)r)
                        .filter(r -> r.partialMatch(inventoryWrapper))
@@ -94,7 +94,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
 
   /** Gets the list of sorted buttons */
   public List<Pattern> getSortedButtons() {
-    if (world == null) {
+    if (level == null) {
       return Collections.emptyList();
     }
     if (sortedButtons == null) {
@@ -146,9 +146,9 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
       this.sortedButtons = null;
     }
     this.selectedPatternIndex = -2;
-    this.craftingResult.clear();
+    this.craftingResult.clearContent();
     // update screen display
-    if (refreshRecipeList && world != null && !world.isRemote) {
+    if (refreshRecipeList && level != null && !level.isClientSide) {
       syncToRelevantPlayers(this::syncScreen);
     }
   }
@@ -185,17 +185,17 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack stack) {
-    ItemStack original = getStackInSlot(slot);
-    super.setInventorySlotContents(slot, stack);
+  public void setItem(int slot, ItemStack stack) {
+    ItemStack original = getItem(slot);
+    super.setItem(slot, stack);
     if (slot == MATERIAL_SLOT) {
       // if item or NBT changed, update
-      if (original.getItem() != stack.getItem() || !ItemStack.areItemStackTagsEqual(original, stack)) {
+      if (original.getItem() != stack.getItem() || !ItemStack.tagMatches(original, stack)) {
         this.inventoryWrapper.refreshMaterial();
         refresh(true);
         // if size changed, we are still the same material but might no longer have enough
       } else if (original.getCount() != stack.getCount()) {
-        this.craftingResult.clear();
+        this.craftingResult.clearContent();
       }
       // any other slot, only an item change means update
     } else if (original.getItem() != stack.getItem()) {
@@ -211,10 +211,10 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
 
   @Override
   public ItemStack calcResult(@Nullable PlayerEntity player) {
-    if (world != null) {
+    if (level != null) {
       IPartBuilderRecipe recipe = getPartRecipe();
-      if (recipe != null && recipe.matches(inventoryWrapper, world)) {
-        return recipe.getCraftingResult(inventoryWrapper);
+      if (recipe != null && recipe.matches(inventoryWrapper, level)) {
+        return recipe.assemble(inventoryWrapper);
       }
     }
     return ItemStack.EMPTY;
@@ -226,14 +226,14 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
    * @param amount  Amount to shrink
    */
   private void shrinkSlot(int slot, int amount, PlayerEntity player) {
-    ItemStack stack = getStackInSlot(slot);
+    ItemStack stack = getItem(slot);
     if (!stack.isEmpty()) {
       ItemStack container = stack.getContainerItem().copy();
       if (amount > 0) {
         container.setCount(container.getCount() * amount);
       }
       if (stack.getCount() <= amount) {
-        setInventorySlotContents(slot, container);
+        setItem(slot, container);
       } else {
         stack.shrink(amount);
         ItemHandlerHelper.giveItemToPlayer(player, container);
@@ -243,7 +243,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
 
   @Override
   public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
-    if (amount == 0 || this.world == null) {
+    if (amount == 0 || this.level == null) {
       return ItemStack.EMPTY;
     }
     // the recipe should match if we got this far, but being null is a problem
@@ -253,7 +253,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
     }
 
     // we are definitely crafting at this point
-    result.onCrafting(this.world, player, amount);
+    result.onCraftedBy(this.level, player, amount);
     BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     this.playCraftSound(player);
 
@@ -268,7 +268,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
     shrinkSlot(PATTERN_SLOT, 1, player);
 
     // sync display, mainly for the material value
-    if (world != null && !world.isRemote) {
+    if (level != null && !level.isClientSide) {
       syncToRelevantPlayers(this::syncScreen);
     }
 

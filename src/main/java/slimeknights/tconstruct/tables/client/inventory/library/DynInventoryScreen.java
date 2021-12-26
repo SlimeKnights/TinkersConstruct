@@ -47,22 +47,22 @@ public class DynInventoryScreen extends ModuleScreen {
     // These correspond to a regular inventory
     this.xOffset = 7;
     this.yOffset = 17;
-    this.xSize = 162;
-    this.ySize = 54;
+    this.imageWidth = 162;
+    this.imageHeight = 54;
 
-    this.slotCount = container.inventorySlots.size();
+    this.slotCount = container.slots.size();
     this.firstSlotId = 0;
     this.lastSlotId = this.slotCount;
   }
 
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
-    this.guiLeft = parentX + xOffset;
-    this.guiTop = parentY + yOffset;
+    this.leftPos = parentX + xOffset;
+    this.topPos = parentY + yOffset;
 
     // calculate rows and columns from space
-    this.columns = this.xSize / slot.w;
-    this.rows = this.ySize / slot.h;
+    this.columns = this.imageWidth / slot.w;
+    this.rows = this.imageHeight / slot.h;
 
     this.sliderActive = slotCount > this.columns * this.rows;
 
@@ -70,7 +70,7 @@ public class DynInventoryScreen extends ModuleScreen {
 
     // recalculate columns with slider
     if (sliderActive) {
-      this.columns = (xSize - slider.width) / slot.w;
+      this.columns = (imageWidth - slider.width) / slot.w;
       this.updateSlider();
     }
 
@@ -87,8 +87,8 @@ public class DynInventoryScreen extends ModuleScreen {
       slider.hide();
     }
 
-    this.slider.setPosition(this.guiLeft + this.xSize - slider.width, this.guiTop);
-    this.slider.setSize(this.ySize);
+    this.slider.setPosition(this.leftPos + this.imageWidth - slider.width, this.topPos);
+    this.slider.setSize(this.imageHeight);
     this.slider.setSliderParameters(0, max, 1);
   }
 
@@ -157,27 +157,27 @@ public class DynInventoryScreen extends ModuleScreen {
     this.firstSlotId = this.slider.getValue() * this.columns;
     this.lastSlotId = Math.min(this.slotCount, this.firstSlotId + this.rows * this.columns);
     if (oldFirstSlot != this.firstSlotId || oldLastSlot != this.lastSlotId) {
-      for (Slot slot : this.container.inventorySlots) {
+      for (Slot slot : this.container.slots) {
         if (this.shouldDrawSlot(slot)) {
           // calc position of the slot
           int offset = slot.getSlotIndex() - this.firstSlotId;
           int x = (offset % this.columns) * DynInventoryScreen.slot.w;
           int y = (offset / this.columns) * DynInventoryScreen.slot.h;
 
-          slot.xPos = xOffset + x + 1;
-          slot.yPos = yOffset + y + 1;
+          slot.x = xOffset + x + 1;
+          slot.y = yOffset + y + 1;
         } else {
-          slot.xPos = 0;
-          slot.yPos = 0;
+          slot.x = 0;
+          slot.y = 0;
         }
       }
     }
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(GenericScreen.LOCATION);
+    this.minecraft.getTextureManager().bind(GenericScreen.LOCATION);
     if (!this.slider.isHidden()) {
       this.slider.draw(matrices);
 
@@ -189,16 +189,16 @@ public class DynInventoryScreen extends ModuleScreen {
     int w = this.columns * slot.w;
     int y;
 
-    for (y = 0; y < fullRows * slot.h && y < this.ySize; y += slot.h) {
-      slot.drawScaledX(matrices, this.guiLeft, this.guiTop + y, w);
+    for (y = 0; y < fullRows * slot.h && y < this.imageHeight; y += slot.h) {
+      slot.drawScaledX(matrices, this.leftPos, this.topPos + y, w);
     }
 
     // draw partial row and unused slots
     int slotsLeft = (this.lastSlotId - this.firstSlotId) % this.columns;
     if (slotsLeft > 0) {
-      slot.drawScaledX(matrices, this.guiLeft, this.guiTop + y, slotsLeft * slot.w);
+      slot.drawScaledX(matrices, this.leftPos, this.topPos + y, slotsLeft * slot.w);
       // empty slots that don't exist
-      slotEmpty.drawScaledX(matrices, this.guiLeft + slotsLeft * slot.w, this.guiTop + y, w - slotsLeft * slot.w);
+      slotEmpty.drawScaledX(matrices, this.leftPos + slotsLeft * slot.w, this.topPos + y, w - slotsLeft * slot.w);
     }
   }
 }

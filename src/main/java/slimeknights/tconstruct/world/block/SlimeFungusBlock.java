@@ -10,6 +10,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Update of fungus that grows on slime soil instead */
 public class SlimeFungusBlock extends FungusBlock {
   public SlimeFungusBlock(Properties properties, Supplier<ConfiguredFeature<HugeFungusConfig,?>> fungusFeature) {
@@ -17,12 +19,12 @@ public class SlimeFungusBlock extends FungusBlock {
   }
 
   @Override
-  protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return state.isIn(TinkerTags.Blocks.SLIMY_SOIL);
+  protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    return state.is(TinkerTags.Blocks.SLIMY_SOIL);
   }
 
   @Override
-  public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-    return worldIn.getBlockState(pos.down()).isIn(TinkerTags.Blocks.SLIMY_SOIL);
+  public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    return worldIn.getBlockState(pos.below()).is(TinkerTags.Blocks.SLIMY_SOIL);
   }
 }

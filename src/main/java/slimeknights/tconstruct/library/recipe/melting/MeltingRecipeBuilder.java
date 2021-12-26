@@ -131,11 +131,11 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.add("ingredient", input.serialize());
+      json.add("ingredient", input.toJson());
       json.add("result", RecipeHelper.serializeFluidStack(output));
       json.addProperty("temperature", temperature);
       json.addProperty("time", time);
@@ -149,7 +149,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       if (isOre) {
         return TinkerSmeltery.oreMeltingSerializer.get();
       }

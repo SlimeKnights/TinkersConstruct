@@ -40,12 +40,12 @@ public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
   @Override
   protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
     Material material = world.getBlockState(target).getMaterial();
-    if (material.isReplaceable() || material == Material.PLANTS) {
-      mutable.setPos(target.getX(), target.getY() - 1, target.getZ());
+    if (material.isReplaceable() || material == Material.PLANT) {
+      mutable.set(target.getX(), target.getY() - 1, target.getZ());
       BlockState original = world.getBlockState(mutable);
-      BlockState transformed = original.getToolModifiedState(world, mutable, (PlayerEntity)living, living.getItemStackFromSlot(EquipmentSlotType.FEET), toolType);
+      BlockState transformed = original.getToolModifiedState(world, mutable, (PlayerEntity)living, living.getItemBySlot(EquipmentSlotType.FEET), toolType);
       if (transformed != null) {
-        world.setBlockState(mutable, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+        world.setBlock(mutable, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
         world.destroyBlock(target, true);
         world.playSound(null, mutable, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
         ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlotType.FEET);

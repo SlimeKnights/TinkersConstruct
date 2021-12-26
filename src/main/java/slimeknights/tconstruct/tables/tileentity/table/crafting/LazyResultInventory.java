@@ -42,12 +42,12 @@ public class LazyResultInventory implements IInventory {
   /* Inventory logic */
 
   @Override
-  public ItemStack getStackInSlot(int index) {
+  public ItemStack getItem(int index) {
     return getResult();
   }
 
   @Override
-  public int getSizeInventory() {
+  public int getContainerSize() {
     return 1;
   }
 
@@ -66,7 +66,7 @@ public class LazyResultInventory implements IInventory {
     // TODO: are all these copies needed?
     ItemStack output = crafter.onCraft(player, getResult().copy(), amount);
     // clear result cache, items changed
-    clear();
+    clearContent();
     // return result
     return output;
   }
@@ -79,7 +79,7 @@ public class LazyResultInventory implements IInventory {
    */
   @Deprecated
   @Override
-  public ItemStack removeStackFromSlot(int index) {
+  public ItemStack removeItemNoUpdate(int index) {
     return getResult().copy();
   }
 
@@ -92,7 +92,7 @@ public class LazyResultInventory implements IInventory {
    */
   @Deprecated
   @Override
-  public ItemStack decrStackSize(int index, int count) {
+  public ItemStack removeItem(int index, int count) {
     return getResult().copy();
   }
 
@@ -100,7 +100,7 @@ public class LazyResultInventory implements IInventory {
    * Clears the result cache, causing the result to be recalculated
    */
   @Override
-  public void clear() {
+  public void clearContent() {
     this.result = null;
   }
 
@@ -109,15 +109,15 @@ public class LazyResultInventory implements IInventory {
   /** @deprecated Unsupported method */
   @Deprecated
   @Override
-  public void setInventorySlotContents(int index, ItemStack stack) {}
+  public void setItem(int index, ItemStack stack) {}
 
   /** @deprecated Unused method */
   @Deprecated
   @Override
-  public void markDirty() {}
+  public void setChanged() {}
 
   @Override
-  public boolean isUsableByPlayer(PlayerEntity player) {
+  public boolean stillValid(PlayerEntity player) {
     return true;
   }
 

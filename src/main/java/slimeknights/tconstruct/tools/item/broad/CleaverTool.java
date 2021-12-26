@@ -5,6 +5,8 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.small.SweepingSwordTool;
 
+import net.minecraft.item.Item.Properties;
+
 public class CleaverTool extends SweepingSwordTool {
   public CleaverTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);

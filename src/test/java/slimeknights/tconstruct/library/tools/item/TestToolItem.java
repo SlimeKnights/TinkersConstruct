@@ -11,7 +11,7 @@ public class TestToolItem extends ToolItem {
   }
 
   @Override
-  public boolean canHarvestBlock(BlockState state) {
+  public boolean isCorrectToolForDrops(BlockState state) {
     return state.getBlock() == Blocks.DIRT;
   }
 }

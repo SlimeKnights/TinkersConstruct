@@ -83,7 +83,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
   public static class Serializer extends LoggingRecipeSerializer<SpillingRecipe> {
     @Override
-    public SpillingRecipe read(ResourceLocation id, JsonObject json) {
+    public SpillingRecipe fromJson(ResourceLocation id, JsonObject json) {
       FluidIngredient ingredient = FluidIngredient.deserialize(json, "fluid");
       List<ISpillingEffect> effects = JsonHelper.parseList(json, "effects", SpillingRecipeLookup::deserializeEffect);
       return new SpillingRecipe(id, ingredient, effects);

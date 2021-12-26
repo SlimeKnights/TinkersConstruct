@@ -31,7 +31,7 @@ public class DamageableMeltingRecipe extends MeltingRecipe {
       return output.copy();
     }
     // scale output based on damage value, its possible 1mb is a lot for some high durability things, but whatever
-    return scaleOutput(output, input.getDamage(), maxDamage);
+    return scaleOutput(output, input.getDamageValue(), maxDamage);
   }
 
   @Override
@@ -42,7 +42,7 @@ public class DamageableMeltingRecipe extends MeltingRecipe {
       super.handleByproducts(inv, handler);
     } else {
       // fill byproducts until we run out of space or byproducts
-      int itemDamage = input.getDamage();
+      int itemDamage = input.getDamageValue();
       for (FluidStack fluidStack : byproducts) {
         handler.fill(scaleOutput(fluidStack, itemDamage, maxDamage), FluidAction.EXECUTE);
       }

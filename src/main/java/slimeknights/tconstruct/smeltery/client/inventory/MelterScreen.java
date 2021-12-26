@@ -46,11 +46,11 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
   public void render(MatrixStack matrices, int x, int y, float partialTicks) {
     this.renderBackground(matrices);
     super.render(matrices, x, y, partialTicks);
-    this.renderHoveredTooltip(matrices, x, y);
+    this.renderTooltip(matrices, x, y);
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     GuiUtil.drawBackground(matrices, this, BACKGROUND);
 
     // fluids
@@ -58,22 +58,22 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
 
     // fuel
     if (fuel != null) {
-      getMinecraft().getTextureManager().bindTexture(BACKGROUND);
+      getMinecraft().getTextureManager().bind(BACKGROUND);
       // draw the correct background for the fuel type
-      if (container.isHasFuelSlot()) {
-        FUEL_SLOT.draw(matrices, guiLeft + 150, guiTop + 31);
+      if (menu.isHasFuelSlot()) {
+        FUEL_SLOT.draw(matrices, leftPos + 150, topPos + 31);
       } else {
-        FUEL_TANK.draw(matrices, guiLeft + 152, guiTop + 31);
+        FUEL_TANK.draw(matrices, leftPos + 152, topPos + 31);
       }
       fuel.draw(matrices);
     }
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
-    GuiUtil.drawContainerNames(matrices, this, this.font, this.playerInventory);
-    int checkX = mouseX - this.guiLeft;
-    int checkY = mouseY - this.guiTop;
+  protected void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
+    GuiUtil.drawContainerNames(matrices, this, this.font, this.inventory);
+    int checkX = mouseX - this.leftPos;
+    int checkY = mouseY - this.topPos;
 
     // highlight hovered tank
     if (tank != null) tank.highlightHoveredFluid(matrices, checkX, checkY);
@@ -82,7 +82,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
 
     // scala
     assert minecraft != null;
-    minecraft.getTextureManager().bindTexture(BACKGROUND);
+    minecraft.getTextureManager().bind(BACKGROUND);
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     SCALA.draw(matrices, 90, 16);
 
@@ -93,8 +93,8 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
   }
 
   @Override
-  protected void renderHoveredTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-    super.renderHoveredTooltip(matrices, mouseX, mouseY);
+  protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+    super.renderTooltip(matrices, mouseX, mouseY);
 
     // tank tooltip
     if (tank != null) tank.renderTooltip(matrices, mouseX, mouseY);
@@ -110,8 +110,8 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
   @Override
   public Object getIngredientUnderMouse(double mouseX, double mouseY) {
     Object ingredient = null;
-    int checkX = (int) mouseX - guiLeft;
-    int checkY = (int) mouseY - guiTop;
+    int checkX = (int) mouseX - leftPos;
+    int checkY = (int) mouseY - topPos;
 
     // try fuel first, its faster
     if (fuel != null)

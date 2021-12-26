@@ -81,7 +81,7 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   /** Called to perform the magnet for armor */
   private static void onLivingTick(LivingUpdateEvent event) {
     LivingEntity entity = event.getEntityLiving();
-    if ((entity.ticksExisted & 1) == 0) {
+    if ((entity.tickCount & 1) == 0) {
       int level = ModifierUtil.getTotalModifierLevel(entity, MAGNET);
       if (level > 0) {
         applyMagnet(entity, level);
@@ -92,11 +92,11 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   /** Performs the magnetic effect */
   public static void applyMagnet(LivingEntity entity, int amplifier) {
     // super magnetic - inspired by botanias code
-    double x = entity.getPosX();
-    double y = entity.getPosY();
-    double z = entity.getPosZ();
+    double x = entity.getX();
+    double y = entity.getY();
+    double z = entity.getZ();
     float range = 3f + 1f * amplifier;
-    List<ItemEntity> items = entity.getEntityWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+    List<ItemEntity> items = entity.level.getEntitiesOfClass(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 
     // only pull up to 200 items
     int pulled = 0;
@@ -105,16 +105,16 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
         continue;
       }
       // calculate direction: item -> player
-      Vector3d vec = entity.getPositionVec()
-                           .subtract(item.getPosX(), item.getPosY(), item.getPosZ())
+      Vector3d vec = entity.position()
+                           .subtract(item.getX(), item.getY(), item.getZ())
                            .normalize()
                            .scale(0.05f + amplifier * 0.05f);
-      if (!item.hasNoGravity()) {
+      if (!item.isNoGravity()) {
         vec = vec.add(0, 0.04f, 0);
       }
 
       // we calculated the movement vector and set it to the correct strength.. now we apply it \o/
-      item.setMotion(item.getMotion().add(vec));
+      item.setDeltaMovement(item.getDeltaMovement().add(vec));
 
       // use stack size as limiting factor
       pulled += item.getItem().getCount();

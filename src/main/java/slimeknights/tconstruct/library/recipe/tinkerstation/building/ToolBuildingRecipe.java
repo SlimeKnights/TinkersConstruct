@@ -62,7 +62,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ItemStack getCraftingResult(ITinkerStationInventory inv) {
+  public ItemStack assemble(ITinkerStationInventory inv) {
     // first n slots contain parts
     List<IMaterial> materials = IntStream.range(0, output.getToolDefinition().getData().getParts().size())
                                          .mapToObj(inv::getInput)
@@ -71,10 +71,10 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     return ToolBuildHandler.buildItemFromMaterials(this.output, materials);
   }
 
-  /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #assemble(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return new ItemStack(this.output);
   }
 }

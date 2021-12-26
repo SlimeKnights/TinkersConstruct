@@ -85,7 +85,7 @@ public class StationSlotLayoutLoader extends JsonReloadListener {
       JsonElement value = entry.getValue();
       try {
         // skip empty objects, allows disabling a slot at a lower datapack
-        JsonObject object = JSONUtils.getJsonObject(value, "station_layout");
+        JsonObject object = JSONUtils.convertToJsonObject(value, "station_layout");
         if (!object.entrySet().isEmpty()) {
           // just need a valid slot information
           StationSlotLayout layout = GSON.fromJson(object, StationSlotLayout.class);
@@ -149,12 +149,12 @@ public class StationSlotLayoutLoader extends JsonReloadListener {
   private static class IngredientSerializer implements JsonSerializer<Ingredient>, JsonDeserializer<Ingredient> {
     @Override
     public Ingredient deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      return Ingredient.deserialize(json);
+      return Ingredient.fromJson(json);
     }
 
     @Override
     public JsonElement serialize(Ingredient ingredient, Type typeOfSrc, JsonSerializationContext context) {
-      return ingredient.serialize();
+      return ingredient.toJson();
     }
   }
 }

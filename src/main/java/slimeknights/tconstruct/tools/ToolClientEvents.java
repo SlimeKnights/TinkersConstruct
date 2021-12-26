@@ -49,9 +49,9 @@ import static slimeknights.tconstruct.library.client.model.tools.ToolModel.regis
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using a helmet */
-  private static final KeyBinding HELMET_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.z"), "key.categories.gameplay");
+  private static final KeyBinding HELMET_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputMappings.getKey("key.keyboard.z"), "key.categories.gameplay");
   /** Keybinding for interacting using leggings */
-  private static final KeyBinding LEGGINGS_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.i"), "key.categories.gameplay");
+  private static final KeyBinding LEGGINGS_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputMappings.getKey("key.keyboard.i"), "key.categories.gameplay");
 
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
@@ -85,13 +85,13 @@ public class ToolClientEvents extends ClientEventBase {
     ClientRegistry.registerKeyBinding(LEGGINGS_INTERACT);
 
     // screens
-    ScreenManager.registerFactory(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
+    ScreenManager.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
   }
 
   @SubscribeEvent
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-    Minecraft.getInstance().particles.registerFactory(TinkerTools.hammerAttackParticle.get(), HammerAttackParticle.Factory::new);
-    Minecraft.getInstance().particles.registerFactory(TinkerTools.axeAttackParticle.get(), AxeAttackParticle.Factory::new);
+    Minecraft.getInstance().particleEngine.register(TinkerTools.hammerAttackParticle.get(), HammerAttackParticle.Factory::new);
+    Minecraft.getInstance().particleEngine.register(TinkerTools.axeAttackParticle.get(), AxeAttackParticle.Factory::new);
   }
 
   @SubscribeEvent
@@ -133,7 +133,7 @@ public class ToolClientEvents extends ClientEventBase {
 
       // jumping in mid air for double jump
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
-      boolean isJumping = minecraft.gameSettings.keyBindJump.isKeyDown();
+      boolean isJumping = minecraft.options.keyJump.isDown();
       if (!wasJumping && isJumping) {
         if (DoubleJumpModifier.extraJump(event.player)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.DOUBLE_JUMP);
@@ -142,7 +142,7 @@ public class ToolClientEvents extends ClientEventBase {
       wasJumping = isJumping;
 
       // helmet interaction
-      boolean isHelmetInteracting = HELMET_INTERACT.isKeyDown();
+      boolean isHelmetInteracting = HELMET_INTERACT.isDown();
       if (!wasHelmetInteracting && isHelmetInteracting) {
         if (InteractionHandler.startArmorInteract(event.player, EquipmentSlotType.HEAD)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_HELMET_INTERACT);
@@ -155,7 +155,7 @@ public class ToolClientEvents extends ClientEventBase {
       }
 
       // leggings interaction
-      boolean isLeggingsInteract = LEGGINGS_INTERACT.isKeyDown();
+      boolean isLeggingsInteract = LEGGINGS_INTERACT.isDown();
       if (!wasLeggingsInteracting && isLeggingsInteract) {
         if (InteractionHandler.startArmorInteract(event.player, EquipmentSlotType.LEGS)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_LEGGINGS_INTERACT);

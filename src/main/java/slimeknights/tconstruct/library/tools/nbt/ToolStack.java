@@ -67,7 +67,7 @@ public class ToolStack implements IModifierToolStack {
   public static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /** Flags for vanilla tooltip parts to hide */
-  private static final int HIDE_FLAGS = TooltipDisplayFlags.ENCHANTMENTS.func_242397_a() | TooltipDisplayFlags.MODIFIERS.func_242397_a();
+  private static final int HIDE_FLAGS = TooltipDisplayFlags.ENCHANTMENTS.getMask() | TooltipDisplayFlags.MODIFIERS.getMask();
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
   private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, TAG_HIDE_FLAGS);

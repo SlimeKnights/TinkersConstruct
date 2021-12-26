@@ -37,7 +37,7 @@ public interface IMaterial extends Comparable<IMaterial> {
    * @return the translation key
    */
   default String getTranslationKey() {
-    return Util.makeTranslationKey("material", getIdentifier());
+    return Util.makeDescriptionId("material", getIdentifier());
   }
 
   /**
@@ -53,7 +53,7 @@ public interface IMaterial extends Comparable<IMaterial> {
    * @return the translation key
    */
   default ITextComponent getColoredDisplayName() {
-    return new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(getColor()));
+    return new TranslationTextComponent(getTranslationKey()).withStyle(style -> style.withColor(getColor()));
   }
 
   /**

@@ -22,6 +22,8 @@ import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity.ITan
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedLanternBlock extends LanternBlock implements ITankBlock {
   @Getter
   private final int capacity;
@@ -42,7 +44,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock {
 
   @Override
   public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = world.getBlockEntity(pos);
     if (te instanceof TankTileEntity) {
       FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
@@ -51,7 +53,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock {
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
       TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
@@ -61,14 +63,14 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public boolean hasComparatorInputOverride(BlockState state) {
+  public boolean hasAnalogOutputSignal(BlockState state) {
     return true;
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 

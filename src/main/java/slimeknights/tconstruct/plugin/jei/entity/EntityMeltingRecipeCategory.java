@@ -48,7 +48,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   public static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
   private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "entity_melting.title");
   private static final String KEY_PER_HEARTS = TConstruct.makeTranslationKey("jei", "entity_melting.per_hearts");
-  private static final ITextComponent TOOLTIP_PER_HEART = new TranslationTextComponent(TConstruct.makeTranslationKey("jei", "entity_melting.per_heart")).mergeStyle(TextFormatting.GRAY);
+  private static final ITextComponent TOOLTIP_PER_HEART = new TranslationTextComponent(TConstruct.makeTranslationKey("jei", "entity_melting.per_heart")).withStyle(TextFormatting.GRAY);
 
   private static final Int2ObjectMap<ITooltipCallback<FluidStack>> TOOLTIP_MAP = new Int2ObjectOpenHashMap<>();
 
@@ -88,7 +88,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
    * @return  Input item stack list
    */
   public static List<List<ItemStack>> getSpawnEggs(Stream<EntityType<?>> entities) {
-    return ImmutableList.of(entities.map(SpawnEggItem::getEgg).filter(Objects::nonNull).map(ItemStack::new).collect(Collectors.toList()));
+    return ImmutableList.of(entities.map(SpawnEggItem::byId).filter(Objects::nonNull).map(ItemStack::new).collect(Collectors.toList()));
   }
 
   @Override
@@ -104,11 +104,12 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
 
     // draw damage string next to the heart icon
     String damage = Float.toString(recipe.getDamage() / 2f);
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    int x = 84 - fontRenderer.getStringWidth(damage);
-    fontRenderer.drawString(matrices, damage, x, 8, Color.RED.getRGB());
+    FontRenderer fontRenderer = Minecraft.getInstance().font;
+    int x = 84 - fontRenderer.width(damage);
+    fontRenderer.draw(matrices, damage, x, 8, Color.RED.getRGB());
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   public void setRecipe(IRecipeLayout layout, EntityMeltingRecipe recipe, IIngredients ingredients) {
     // inputs
@@ -148,7 +149,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
         if (damage == 2) {
           list.add(TOOLTIP_PER_HEART);
         } else {
-          list.add(new TranslationTextComponent(KEY_PER_HEARTS, damage / 2f).mergeStyle(TextFormatting.GRAY));
+          list.add(new TranslationTextComponent(KEY_PER_HEARTS, damage / 2f).withStyle(TextFormatting.GRAY));
         }
       }
       list.add(modId);

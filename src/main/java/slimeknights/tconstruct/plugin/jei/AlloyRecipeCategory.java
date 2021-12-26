@@ -77,10 +77,10 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   public void draw(AlloyRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
     arrow.draw(matrices, 90, 21);
     // temperature info
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    String tempString = I18n.format(KEY_TEMPERATURE, recipe.getTemperature());
-    int x = 102 - (fontRenderer.getStringWidth(tempString) / 2);
-    fontRenderer.drawString(matrices, tempString, x, 5, Color.GRAY.getRGB());
+    FontRenderer fontRenderer = Minecraft.getInstance().font;
+    String tempString = I18n.get(KEY_TEMPERATURE, recipe.getTemperature());
+    int x = 102 - (fontRenderer.width(tempString) / 2);
+    fontRenderer.draw(matrices, tempString, x, 5, Color.GRAY.getRGB());
   }
 
   /**
@@ -152,7 +152,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
       } else {
         // add temperature to fuels
         MeltingFuelHandler.getTemperature(stack.getFluid())
-                          .ifPresent(temperature -> list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY)));
+                          .ifPresent(temperature -> list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).withStyle(TextFormatting.GRAY)));
       }
       list.add(modId);
     }

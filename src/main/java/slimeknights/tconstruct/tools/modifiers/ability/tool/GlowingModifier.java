@@ -27,19 +27,19 @@ public class GlowingModifier extends InteractionModifier.SingleUse {
   public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
     PlayerEntity player = context.getPlayer();
     if (tool.getCurrentDurability() >= 10) {
-      if (!context.getWorld().isRemote) {
-        World world = context.getWorld();
-        Direction face = context.getFace();
-        BlockPos pos = context.getPos().offset(face);
+      if (!context.getLevel().isClientSide) {
+        World world = context.getLevel();
+        Direction face = context.getClickedFace();
+        BlockPos pos = context.getClickedPos().relative(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
-          if (ToolDamageUtil.damage(tool, 10, player, context.getItem()) && player != null) {
-            player.sendBreakAnimation(slotType);
+          if (ToolDamageUtil.damage(tool, 10, player, context.getItemInHand()) && player != null) {
+            player.broadcastBreakEvent(slotType);
           }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
       }
-      return ActionResultType.func_233537_a_(context.getWorld().isRemote);
+      return ActionResultType.sidedSuccess(context.getLevel().isClientSide);
     }
     return ActionResultType.PASS;
   }

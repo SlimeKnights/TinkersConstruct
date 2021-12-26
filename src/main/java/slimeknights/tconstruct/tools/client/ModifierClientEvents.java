@@ -71,9 +71,9 @@ public class ModifierClientEvents {
     if (hand != Hand.OFF_HAND || player == null) {
       return;
     }
-    ItemStack mainhand = player.getHeldItemMainhand();
+    ItemStack mainhand = player.getMainHandItem();
     ItemStack offhand = event.getItemStack();
-    if (mainhand.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
+    if (mainhand.getItem().is(TinkerTags.Items.TWO_HANDED)) {
       ToolStack tool = ToolStack.from(mainhand);
       // special support for replacing modifier
       IModDataReadOnly volatileData = tool.getVolatileData();
@@ -93,9 +93,9 @@ public class ModifierClientEvents {
     // if the data is set, render the empty offhand
     if (offhand.isEmpty() && !player.isInvisible() && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
       MatrixStack matrices = event.getMatrixStack();
-      matrices.push();
-      Minecraft.getInstance().getFirstPersonRenderer().renderArmFirstPerson(matrices, event.getBuffers(), event.getLight(), event.getEquipProgress(), event.getSwingProgress(), player.getPrimaryHand().opposite());
-      matrices.pop();
+      matrices.pushPose();
+      Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getBuffers(), event.getLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
+      matrices.popPose();
       event.setCanceled(true);
     }
   }
@@ -167,26 +167,26 @@ public class ModifierClientEvents {
     }
     if (event.getType() == ElementType.HOTBAR) {
       Minecraft mc = Minecraft.getInstance();
-      PlayerController playerController = Minecraft.getInstance().playerController;
-      if (playerController != null && playerController.getCurrentGameType() != GameType.SPECTATOR) {
+      PlayerController playerController = Minecraft.getInstance().gameMode;
+      if (playerController != null && playerController.getPlayerMode() != GameType.SPECTATOR) {
         PlayerEntity player = Minecraft.getInstance().player;
-        if (player != null && player == mc.getRenderViewEntity()) {
+        if (player != null && player == mc.getCameraEntity()) {
           RenderSystem.enableRescaleNormal();
           RenderSystem.enableBlend();
           RenderSystem.defaultBlendFunc();
 
-          int scaledWidth = mc.getMainWindow().getScaledWidth();
-          int scaledHeight = mc.getMainWindow().getScaledHeight();
+          int scaledWidth = mc.getWindow().getGuiScaledWidth();
+          int scaledHeight = mc.getWindow().getGuiScaledHeight();
           MatrixStack matrixStack = event.getMatrixStack();
           float partialTicks = event.getPartialTicks();
 
           // want just above the normal hotbar item
           if (renderShield) {
-            mc.getTextureManager().bindTexture(Icons.ICONS);
-            int x = scaledWidth / 2 + (player.getPrimaryHand().opposite() == HandSide.LEFT ? -117 : 101);
+            mc.getTextureManager().bind(Icons.ICONS);
+            int x = scaledWidth / 2 + (player.getMainArm().getOpposite() == HandSide.LEFT ? -117 : 101);
             int y = scaledHeight - 38;
-            Screen.blit(matrixStack, x - 3, y - 3, player.getHeldItemOffhand().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
-            mc.ingameGUI.renderHotbarItem(x, y, partialTicks, player, nextOffhand);
+            Screen.blit(matrixStack, x - 3, y - 3, player.getOffhandItem().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+            mc.gui.renderSlot(x, y, partialTicks, player, nextOffhand);
           }
 
           if (renderItemFrame) {
@@ -211,7 +211,7 @@ public class ModifierClientEvents {
             int yStart = yOrientation.align(scaledHeight - SLOT_BACKGROUND_SIZE * rows) + Config.CLIENT.itemFrameYOffset.get();
 
             // draw backgrounds
-            mc.getTextureManager().bindTexture(Icons.ICONS);
+            mc.getTextureManager().bind(Icons.ICONS);
             int lastRow = rows - 1;
             for (int r = 0; r < lastRow; r++) {
               for (int c = 0; c < columns; c++) {
@@ -229,13 +229,13 @@ public class ModifierClientEvents {
             xStart += 3; yStart += 3; // offset from item start instead of frame start
             for (int r = 0; r < lastRow; r++) {
               for (int c = 0; c < columns; c++) {
-                mc.ingameGUI.renderHotbarItem(xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
+                mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
                 i++;
               }
             }
             // align last row
             for (int c = 0; c < inLastRow; c++) {
-              mc.ingameGUI.renderHotbarItem(xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
+              mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
               i++;
             }
           }

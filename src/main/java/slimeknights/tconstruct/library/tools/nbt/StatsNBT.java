@@ -81,7 +81,7 @@ public class StatsNBT {
 
     // simply try each key as a tool stat
     CompoundNBT nbt = (CompoundNBT)inbt;
-    for (String key : nbt.keySet()) {
+    for (String key : nbt.getAllKeys()) {
       if (nbt.contains(key, NBT.TAG_ANY_NUMERIC)) {
         ToolStatId statName = ToolStatId.tryCreate(key);
         if (statName != null) {

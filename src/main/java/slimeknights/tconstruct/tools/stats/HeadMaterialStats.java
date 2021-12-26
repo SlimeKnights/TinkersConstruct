@@ -29,9 +29,9 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   // tooltip descriptions
   private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.HARVEST_LEVEL.getDescription(), ToolStats.MINING_SPEED.getDescription(), ToolStats.ATTACK_DAMAGE.getDescription());
 
-  public final static Color DURABILITY_COLOR = Color.fromInt(0xFF47cc47);
-  public final static Color MINING_SPEED_COLOR = Color.fromInt(0xFF78A0CD);
-  public final static Color ATTACK_COLOR = Color.fromInt(0xFFD76464);
+  public final static Color DURABILITY_COLOR = Color.fromRgb(0xFF47cc47);
+  public final static Color MINING_SPEED_COLOR = Color.fromRgb(0xFF78A0CD);
+  public final static Color ATTACK_COLOR = Color.fromRgb(0xFFD76464);
 
   private int durability;
   private float miningSpeed;

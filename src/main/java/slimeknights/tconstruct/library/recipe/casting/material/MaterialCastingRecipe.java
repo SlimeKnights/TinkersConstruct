@@ -85,12 +85,12 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   }
 
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return new ItemStack(result);
   }
 
   @Override
-  public ItemStack getCraftingResult(ICastingInventory inv) {
+  public ItemStack assemble(ICastingInventory inv) {
     IMaterial material = getCachedMaterialFluid(inv).map(MaterialFluidRecipe::getOutput).orElse(IMaterial.UNKNOWN);
     return result.withMaterial(material);
   }
@@ -112,7 +112,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   public List<IDisplayableCastingRecipe> getRecipes() {
     if (multiRecipes == null) {
       IRecipeType<?> type = getType();
-      List<ItemStack> castItems = Arrays.asList(cast.getMatchingStacks());
+      List<ItemStack> castItems = Arrays.asList(cast.getItems());
       multiRecipes = MaterialCastingLookup
         .getAllCastingFluids().stream()
         .filter(recipe -> {
@@ -169,8 +169,8 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
-      int itemCost = JSONUtils.getInt(json, "item_cost");
-      IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IMaterialItem.class);
+      int itemCost = JSONUtils.getAsInt(json, "item_cost");
+      IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getAsString(json, "result"), "result", IMaterialItem.class);
       return this.factory.create(idIn, groupIn, cast, itemCost, result, consumed, switchSlots);
     }
 

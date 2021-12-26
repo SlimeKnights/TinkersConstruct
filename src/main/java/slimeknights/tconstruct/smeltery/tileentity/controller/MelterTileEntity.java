@@ -36,6 +36,7 @@ import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 
@@ -72,7 +73,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /** Fuel handling logic */
   @Getter
-  private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.pos.down()));
+  private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.worldPosition.below()));
 
   /** Main constructor */
   public MelterTileEntity() {
@@ -95,6 +96,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    * Tank methods
    */
 
+  @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
@@ -120,7 +122,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Checks if the tile entity is active */
   private boolean isFormed() {
     BlockState state = this.getBlockState();
-    return state.hasProperty(MelterBlock.IN_STRUCTURE) && state.get(MelterBlock.IN_STRUCTURE);
+    return state.hasProperty(MelterBlock.IN_STRUCTURE) && state.getValue(MelterBlock.IN_STRUCTURE);
   }
 
   @Override
@@ -140,17 +142,17 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
           }
         // tick 2: heat items and consume fuel
         case 2: {
-          assert world != null;
+          assert level != null;
           BlockState state = getBlockState();
           boolean hasFuel = fuelModule.hasFuel();
           // update the active state
-          if (state.get(ControllerBlock.ACTIVE) != hasFuel) {
-            world.setBlockState(pos, state.with(ControllerBlock.ACTIVE, hasFuel));
+          if (state.getValue(ControllerBlock.ACTIVE) != hasFuel) {
+            level.setBlockAndUpdate(worldPosition, state.setValue(ControllerBlock.ACTIVE, hasFuel));
             // update the heater below
-            BlockPos down = pos.down();
-            BlockState downState = world.getBlockState(down);
-            if (TinkerTags.Blocks.FUEL_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
-              world.setBlockState(down, downState.with(ControllerBlock.ACTIVE, hasFuel));
+            BlockPos down = worldPosition.below();
+            BlockState downState = level.getBlockState(down);
+            if (TinkerTags.Blocks.FUEL_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.getValue(ControllerBlock.ACTIVE) != hasFuel) {
+              level.setBlockAndUpdate(down, downState.setValue(ControllerBlock.ACTIVE, hasFuel));
             }
           }
           // heat items
@@ -177,8 +179,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
     tank.readFromNBT(tag.getCompound(NBTTags.TANK));
     fuelModule.readFromNBT(tag);
     if (tag.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
@@ -194,8 +196,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    tag = super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    tag = super.save(tag);
     fuelModule.writeToNBT(tag);
     return tag;
   }
@@ -205,6 +207,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
   /** Checks if we are on a server world */
   private boolean isServerWorld() {
-    return this.getWorld() != null && !this.getWorld().isRemote;
+    return this.level != null && !this.level.isClientSide;
   }
 }

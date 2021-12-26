@@ -32,9 +32,9 @@ public class StatOverrideModifier extends SingleUseModifier {
   /** Key of all stats multiplied by the tool */
   private static final ResourceLocation KEY_MULTIPLY = TConstruct.getResource("override_multiplier");
   /** Prefix for adding bonuses to the tooltip */
-  private static final ITextComponent LANG_BONUS = TConstruct.makeTranslation("modifier", "stat_override.bonuses").mergeStyle(TextFormatting.UNDERLINE);
+  private static final ITextComponent LANG_BONUS = TConstruct.makeTranslation("modifier", "stat_override.bonuses").withStyle(TextFormatting.UNDERLINE);
   /** Prefix for adding multipliers to the tooltip */
-  private static final ITextComponent LANG_MULTIPLY = TConstruct.makeTranslation("modifier", "stat_override.multipliers").mergeStyle(TextFormatting.UNDERLINE);
+  private static final ITextComponent LANG_MULTIPLY = TConstruct.makeTranslation("modifier", "stat_override.multipliers").withStyle(TextFormatting.UNDERLINE);
 
   public StatOverrideModifier() {
     super(-1);
@@ -55,7 +55,7 @@ public class StatOverrideModifier extends SingleUseModifier {
   private static void processStats(IModDataReadOnly persistentData, ResourceLocation key, StatConsumer consumer) {
     if (persistentData.contains(key, NBT.TAG_COMPOUND)) {
       CompoundNBT nbt = persistentData.getCompound(key);
-      for (String name : nbt.keySet()) {
+      for (String name : nbt.getAllKeys()) {
         ToolStatId id = ToolStatId.tryCreate(name);
         if (id != null) {
           IToolStat<?> stat = ToolStats.getToolStat(id);
@@ -85,7 +85,7 @@ public class StatOverrideModifier extends SingleUseModifier {
 
       // first one found has special behavior
       boolean first = true;
-      for (String key : stats.keySet()) {
+      for (String key : stats.getAllKeys()) {
         // ignore invalid stat names
         ToolStatId id = ToolStatId.tryCreate(key);
         if (id != null) {
@@ -97,7 +97,7 @@ public class StatOverrideModifier extends SingleUseModifier {
               first = false;
             }
             // add stat
-            consumer.accept(new StringTextComponent("* ").appendSibling(stat.getPrefix()).appendString(format.format(stats.getFloat(key))));
+            consumer.accept(new StringTextComponent("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
           }
         }
       }
@@ -160,7 +160,7 @@ public class StatOverrideModifier extends SingleUseModifier {
     String name = stat.getName().toString();
     if (value == neutralValue) {
       nbt.remove(name);
-      if (nbt.keySet().isEmpty()) {
+      if (nbt.getAllKeys().isEmpty()) {
         data.remove(groupKey);
         return false;
       }

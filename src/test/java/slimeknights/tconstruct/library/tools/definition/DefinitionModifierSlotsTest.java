@@ -75,8 +75,8 @@ class DefinitionModifierSlotsTest extends BaseMcTest {
     JsonElement serialized = DefinitionModifierSlots.SERIALIZER.serialize(slots, DefinitionModifierSlots.class, mock(JsonSerializationContext.class));
     assertThat(serialized.isJsonObject()).isTrue();
     JsonObject object = serialized.getAsJsonObject();
-    assertThat(JSONUtils.getInt(object, SlotType.UPGRADE.getName())).isEqualTo(4);
-    assertThat(JSONUtils.getInt(object, SlotType.DEFENSE.getName())).isEqualTo(1);
+    assertThat(JSONUtils.getAsInt(object, SlotType.UPGRADE.getName())).isEqualTo(4);
+    assertThat(JSONUtils.getAsInt(object, SlotType.DEFENSE.getName())).isEqualTo(1);
   }
 
   @Test

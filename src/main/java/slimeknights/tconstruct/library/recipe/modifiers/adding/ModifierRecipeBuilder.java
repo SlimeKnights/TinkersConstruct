@@ -267,17 +267,17 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       JsonArray array = new JsonArray();
       for (SizedIngredient ingredient : inputs) {
         array.add(ingredient.serialize());
       }
       json.add("inputs", array);
-      super.serialize(json);
+      super.serializeRecipeData(json);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerModifiers.modifierSerializer.get();
     }
   }
@@ -288,8 +288,8 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     }
 
     @Override
-    public void serialize(JsonObject json) {
-      super.serialize(json);
+    public void serializeRecipeData(JsonObject json) {
+      super.serializeRecipeData(json);
       if (!salvage.isEmpty()) {
         JsonArray array = new JsonArray();
         for (RandomItem randomItem : salvage) {
@@ -300,7 +300,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerModifiers.modifierSalvageSerializer.get();
     }
   }

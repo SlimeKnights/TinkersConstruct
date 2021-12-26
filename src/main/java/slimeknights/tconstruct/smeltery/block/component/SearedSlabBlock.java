@@ -14,6 +14,8 @@ import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTi
 import javax.annotation.Nullable;
 
 // TODO: reassess need
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedSlabBlock extends SlabBlock {
 
   public SearedSlabBlock(Properties properties) {
@@ -32,23 +34,23 @@ public class SearedSlabBlock extends SlabBlock {
 
   @Override
   @Deprecated
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.matchesBlock(this)) {
+  public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    if (!newState.is(this)) {
       TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
-    super.onReplaced(state, worldIn, pos, newState, isMoving);
+    super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     SmelteryComponentTileEntity.updateNeighbors(worldIn, pos, state);
   }
 
   @Override
   @Deprecated
-  public boolean eventReceived(BlockState state, World worldIn, BlockPos pos, int id, int param) {
-    super.eventReceived(state, worldIn, pos, id, param);
-    TileEntity tileentity = worldIn.getTileEntity(pos);
-    return tileentity != null && tileentity.receiveClientEvent(id, param);
+  public boolean triggerEvent(BlockState state, World worldIn, BlockPos pos, int id, int param) {
+    super.triggerEvent(state, worldIn, pos, id, param);
+    TileEntity tileentity = worldIn.getBlockEntity(pos);
+    return tileentity != null && tileentity.triggerEvent(id, param);
   }
 }

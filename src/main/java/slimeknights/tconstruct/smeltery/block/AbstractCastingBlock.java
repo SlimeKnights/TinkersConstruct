@@ -12,6 +12,8 @@ import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public abstract class AbstractCastingBlock extends TableBlock {
   protected AbstractCastingBlock(Properties builder) {
     super(builder);
@@ -19,16 +21,16 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-    if (player.isSneaking()) {
+  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+    if (player.isShiftKeyDown()) {
       return ActionResultType.PASS;
     }
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = world.getBlockEntity(pos);
     if (te instanceof CastingTileEntity) {
       ((CastingTileEntity) te).interact(player, hand);
       return ActionResultType.SUCCESS;
     }
-    return super.onBlockActivated(state, world, pos, player, hand, rayTraceResult);
+    return super.use(state, world, pos, player, hand, rayTraceResult);
   }
 
   @Override
@@ -37,12 +39,12 @@ public abstract class AbstractCastingBlock extends TableBlock {
   }
 
   @Override
-  public boolean hasComparatorInputOverride(BlockState state) {
+  public boolean hasAnalogOutputSignal(BlockState state) {
     return true;
   }
 
   @Override
-  public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
     return TileEntityHelper.getTile(CastingTileEntity.class, worldIn, pos).map(te -> {
       if (te.isStackInSlot(CastingTileEntity.OUTPUT)) {
         return 15;

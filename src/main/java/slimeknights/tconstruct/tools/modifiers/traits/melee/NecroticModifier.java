@@ -17,10 +17,10 @@ public class NecroticModifier extends Modifier {
     if (context.isFullyCharged() && damageDealt > 0) {
       // heals between 0 and (level) * 5% of damage dealt
       LivingEntity attacker = context.getAttacker();
-      float chance = attacker.getRNG().nextFloat();
+      float chance = attacker.getRandom().nextFloat();
       attacker.heal(chance * damageDealt * level * 0.05f);
       if (chance > 0.5f) {
-        attacker.world.playSound(null, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), Sounds.NECROTIC_HEAL.getSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+        attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
       }
     }
     return 0;

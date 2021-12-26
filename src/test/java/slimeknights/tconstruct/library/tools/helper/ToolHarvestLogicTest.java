@@ -33,7 +33,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
   void calcSpeed_dirt_notEffective() {
     ItemStack tool = buildTestTool(pickaxeTool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.getDefaultState());
+    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.defaultBlockState());
 
     assertThat(speed).isEqualTo(1f);
   }
@@ -42,7 +42,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
   void calcSpeed_cobble_effective() {
     ItemStack tool = buildTestTool(pickaxeTool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.getDefaultState());
+    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
 
     assertThat(speed).isEqualTo(MaterialStatsFixture.MATERIAL_STATS_HEAD.getMiningSpeed());
   }
@@ -51,7 +51,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
   void calcSpeed_obsidian_notEnoughHarvestLevel() {
     ItemStack tool = buildTestTool(pickaxeTool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.OBSIDIAN.getDefaultState());
+    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.OBSIDIAN.defaultBlockState());
 
     assertThat(speed).isEqualTo(1f);
   }
@@ -61,7 +61,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
     ItemStack tool = buildTestTool(pickaxeTool);
     breakTool(tool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.getDefaultState());
+    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.defaultBlockState());
 
     assertThat(speed).isLessThan(1f);
     assertThat(speed).isGreaterThan(0f);
@@ -88,7 +88,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
     IModifiable toolWithMiningModifier = new HarvestTool(new Item.Properties().addToolType(ToolType.PICKAXE, 1), definition);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.getDefaultState());
+    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
 
     assertThat(speed).isEqualTo(MaterialStatsFixture.MATERIAL_STATS_HEAD.getMiningSpeed() * modifier);
   }

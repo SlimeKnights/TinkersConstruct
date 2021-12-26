@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.smeltery.tileentity.component.DrainTileEntity;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Extenson to include interaction behavior */
 public class SearedDrainBlock extends OrientableSmelteryBlock {
   public SearedDrainBlock(Properties properties) {
@@ -19,10 +21,10 @@ public class SearedDrainBlock extends OrientableSmelteryBlock {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     if (FluidTransferUtil.interactWithFluidItem(world, pos, player, hand, hit)) {
       return ActionResultType.SUCCESS;
-    } else if (FluidTransferUtil.interactWithBucket(world, pos, player, hand, hit.getFace(), state.get(FACING).getOpposite())) {
+    } else if (FluidTransferUtil.interactWithBucket(world, pos, player, hand, hit.getDirection(), state.getValue(FACING).getOpposite())) {
       return ActionResultType.SUCCESS;
     }
     return ActionResultType.PASS;

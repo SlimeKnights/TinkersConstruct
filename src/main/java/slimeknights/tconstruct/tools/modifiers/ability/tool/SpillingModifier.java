@@ -26,14 +26,14 @@ public class SpillingModifier extends TankModifier {
 
   /** Spawns particles at the given entity */
   private static void spawnParticles(Entity target, FluidStack fluid) {
-    if (target.world instanceof ServerWorld) {
-      ((ServerWorld)target.world).spawnParticle(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getPosX(), target.getPosYHeight(0.5), target.getPosZ(), 10, 0.1, 0.2, 0.1, 0.2);
+    if (target.level instanceof ServerWorld) {
+      ((ServerWorld)target.level).sendParticles(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getX(), target.getY(0.5), target.getZ(), 10, 0.1, 0.2, 0.1, 0.2);
     }
   }
 
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
-    Entity attacker = source.getTrueSource();
+    Entity attacker = source.getEntity();
     if (isDirectDamage && attacker != null) {
       // 25% chance of working per level
       if (RANDOM.nextInt(4) < level) {
@@ -41,7 +41,7 @@ public class SpillingModifier extends TankModifier {
         if (!fluid.isEmpty()) {
           LivingEntity self = context.getEntity();
           PlayerEntity player = self instanceof PlayerEntity ? ((PlayerEntity) self) : null;
-          SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(self.getEntityWorld().getRecipeManager(), fluid.getFluid());
+          SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(self.level.getRecipeManager(), fluid.getFluid());
           if (recipe != null) {
             ToolAttackContext attackContext = new ToolAttackContext( self, player, Hand.MAIN_HAND,
               attacker, attacker instanceof LivingEntity ? ((LivingEntity) attacker) : null,
@@ -62,7 +62,7 @@ public class SpillingModifier extends TankModifier {
     if (damageDealt > 0 && context.isFullyCharged()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
-        SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(context.getAttacker().getEntityWorld().getRecipeManager(), fluid.getFluid());
+        SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(context.getAttacker().level.getRecipeManager(), fluid.getFluid());
         if (recipe != null) {
           FluidStack remaining = recipe.applyEffects(fluid, level, context);
           spawnParticles(context.getTarget(), fluid);

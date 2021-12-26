@@ -13,26 +13,26 @@ public class ReadOnlySlot extends Slot {
   }
 
   @Override
-  public boolean isItemValid(ItemStack stack) {
+  public boolean mayPlace(ItemStack stack) {
     return false;
   }
 
   @Override
-  public void putStack(ItemStack stack) {}
+  public void set(ItemStack stack) {}
 
   @Override
-  public ItemStack decrStackSize(int amount) {
+  public ItemStack remove(int amount) {
     return ItemStack.EMPTY;
   }
 
   @Override
-  public boolean canTakeStack(PlayerEntity playerIn) {
+  public boolean mayPickup(PlayerEntity playerIn) {
     return false;
   }
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public boolean isEnabled() {
+  public boolean isActive() {
     return true;
   }
 }

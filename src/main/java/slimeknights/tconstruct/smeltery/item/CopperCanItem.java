@@ -24,6 +24,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Fluid container holding 1 ingot of fluid
  */
@@ -56,20 +58,20 @@ public class CopperCanItem extends Item {
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
       CompoundNBT fluidTag = getFluidTag(stack);
       IFormattableTextComponent text;
       if (fluidTag != null) {
         FluidStack displayFluid = new FluidStack(fluid, FluidValues.INGOT, fluidTag);
-        text = displayFluid.getDisplayName().copyRaw();
+        text = displayFluid.getDisplayName().plainCopy();
       } else {
         text = new TranslationTextComponent(fluid.getAttributes().getTranslationKey());
       }
-      tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".contents", text.mergeStyle(TextFormatting.GRAY)));
+      tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".contents", text.withStyle(TextFormatting.GRAY)));
     } else {
-      tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip").withStyle(TextFormatting.GRAY));
     }
   }
 
@@ -102,7 +104,7 @@ public class CopperCanItem extends Item {
   public static Fluid getFluid(ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
-      ResourceLocation location = ResourceLocation.tryCreate(nbt.getString(TAG_FLUID));
+      ResourceLocation location = ResourceLocation.tryParse(nbt.getString(TAG_FLUID));
       if (location != null && ForgeRegistries.FLUIDS.containsKey(location)) {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(location);
         if (fluid != null) {

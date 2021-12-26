@@ -25,7 +25,7 @@ public class SpeedyModifier extends IncrementalModifier {
 
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
-    if (slot.getSlotType() == Group.ARMOR) {
+    if (slot.getType() == Group.ARMOR) {
       consumer.accept(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuids[slot.getIndex()], "tconstruct.modifier.speedy." + slot.getName(), 0.1 * getScaledLevel(tool, level), Operation.MULTIPLY_TOTAL));
     }
   }

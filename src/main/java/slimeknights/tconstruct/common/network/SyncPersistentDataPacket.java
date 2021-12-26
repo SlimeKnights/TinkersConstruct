@@ -15,12 +15,12 @@ public class SyncPersistentDataPacket implements IThreadsafePacket {
   private final CompoundNBT data;
 
   public SyncPersistentDataPacket(PacketBuffer buffer) {
-    data = buffer.readCompoundTag();
+    data = buffer.readNbt();
   }
 
   @Override
   public void encode(PacketBuffer buffer) {
-    buffer.writeCompoundTag(data);
+    buffer.writeNbt(data);
   }
 
   @Override

@@ -33,6 +33,6 @@ public class DenseModifier extends ReinforcedModifier {
   @Override
   public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(getPercentage(getScaledLevel(tool, level))) + " ")
-                             .appendSibling(makeDisplayName())));
+                             .append(makeDisplayName())));
   }
 }

@@ -34,16 +34,16 @@ import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMu
 import java.util.OptionalDouble;
 
 public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<HeatingStructureTileEntity> {
-  private static final RenderType ERROR_BLOCK = RenderType.makeType(
+  private static final RenderType ERROR_BLOCK = RenderType.create(
     "lines", DefaultVertexFormats.POSITION_COLOR, 1, 256,
-    RenderType.State.getBuilder()
-                    .line(new LineState(OptionalDouble.empty()))
-                    .layer(RenderState.VIEW_OFFSET_Z_LAYERING)
-                    .transparency(RenderState.TRANSLUCENT_TRANSPARENCY)
-                    .target(RenderState.ITEM_ENTITY_TARGET)
-                    .writeMask(RenderState.COLOR_DEPTH_WRITE)
-                    .depthTest(RenderState.DEPTH_ALWAYS)
-                    .build(false));
+    RenderType.State.builder()
+                    .setLineState(new LineState(OptionalDouble.empty()))
+                    .setLayeringState(RenderState.VIEW_OFFSET_Z_LAYERING)
+                    .setTransparencyState(RenderState.TRANSLUCENT_TRANSPARENCY)
+                    .setOutputState(RenderState.ITEM_ENTITY_TARGET)
+                    .setWriteMaskState(RenderState.COLOR_DEPTH_WRITE)
+                    .setDepthTestState(RenderState.NO_DEPTH_TEST)
+                    .createCompositeState(false));
 
   private static final float ITEM_SCALE = 15f/16f;
   public HeatingStructureTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
@@ -52,11 +52,11 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
 
   @Override
   public void render(HeatingStructureTileEntity smeltery, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-    World world = smeltery.getWorld();
+    World world = smeltery.getLevel();
     if (world == null) return;
     BlockState state = smeltery.getBlockState();
     StructureData structure = smeltery.getStructure();
-    boolean structureValid = state.get(ControllerBlock.IN_STRUCTURE) && structure != null;
+    boolean structureValid = state.getValue(ControllerBlock.IN_STRUCTURE) && structure != null;
 
     // render erroring block, done whether in the structure or not
     BlockPos errorPos = smeltery.getErrorPos();
@@ -65,14 +65,14 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
       boolean highlightError = smeltery.isHighlightError();
       if ((!structureValid && highlightError) || smeltery.showDebugBlockBorder(Minecraft.getInstance().player)) {
         // distance check, 512 is the squared length of the diagonal of a max size structure
-        BlockPos pos = smeltery.getPos();
-        BlockPos playerPos = Minecraft.getInstance().player.getPosition();
+        BlockPos pos = smeltery.getBlockPos();
+        BlockPos playerPos = Minecraft.getInstance().player.blockPosition();
         int dx = playerPos.getX() - pos.getX();
         int dz = playerPos.getZ() - pos.getZ();
         if ((dx * dx + dz * dz) < 512) {
           // color will be yellow if the structure is valid (expanding), red if invalid
           IVertexBuilder vertexBuilder = buffer.getBuffer(highlightError ? ERROR_BLOCK : RenderType.LINES);
-          WorldRenderer.drawShape(matrices, vertexBuilder, VoxelShapes.fullCube(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
+          WorldRenderer.renderShape(matrices, vertexBuilder, VoxelShapes.block(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
         }
       }
     }
@@ -83,22 +83,22 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
     }
 
     // relevant positions
-    BlockPos pos = smeltery.getPos();
+    BlockPos pos = smeltery.getBlockPos();
     BlockPos minPos = structure.getMinInside();
     BlockPos maxPos = structure.getMaxInside();
 
     // offset to make rendering min pos relative
-    matrices.push();
+    matrices.pushPose();
     matrices.translate(minPos.getX() - pos.getX(), minPos.getY() - pos.getY(), minPos.getZ() - pos.getZ());
     // render tank fluids, use minPos for brightness
-    SmelteryTankRenderer.renderFluids(matrices, buffer, smeltery.getTank(), minPos, maxPos, WorldRenderer.getCombinedLight(world, minPos));
+    SmelteryTankRenderer.renderFluids(matrices, buffer, smeltery.getTank(), minPos, maxPos, WorldRenderer.getLightColor(world, minPos));
 
     // render items
     int xd = 1 + maxPos.getX() - minPos.getX();
     int zd = 1 + maxPos.getZ() - minPos.getZ();
     int layer = xd * zd;
-    Direction facing = state.get(ControllerBlock.FACING);
-    Quaternion itemRotation = Vector3f.YP.rotationDegrees(-90.0F * (float)facing.getHorizontalIndex());
+    Direction facing = state.getValue(ControllerBlock.FACING);
+    Quaternion itemRotation = Vector3f.YP.rotationDegrees(-90.0F * (float)facing.get2DDataValue());
     MeltingModuleInventory inventory = smeltery.getMeltingInventory();
     Minecraft mc = Minecraft.getInstance();
     ItemRenderer itemRenderer = mc.getItemRenderer();
@@ -113,21 +113,21 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
           int layerIndex = i % layer;
           int offsetX = layerIndex % xd;
           int offsetZ = layerIndex / xd;
-          BlockPos itemPos = minPos.add(offsetX, height, offsetZ);
+          BlockPos itemPos = minPos.offset(offsetX, height, offsetZ);
 
           // offset to the slot position in the structure, scale, and rotate the item
-          matrices.push();
+          matrices.pushPose();
           matrices.translate(offsetX + 0.5f, height + 0.5f, offsetZ + 0.5f);
-          matrices.rotate(itemRotation);
+          matrices.mulPose(itemRotation);
           matrices.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
-          IBakedModel model = itemRenderer.getItemModelWithOverrides(stack, world, null);
-          itemRenderer.renderItem(stack, TransformType.NONE, false, matrices, buffer, WorldRenderer.getCombinedLight(world, itemPos), OverlayTexture.NO_OVERLAY, model);
-          matrices.pop();
+          IBakedModel model = itemRenderer.getModel(stack, world, null);
+          itemRenderer.render(stack, TransformType.NONE, false, matrices, buffer, WorldRenderer.getLightColor(world, itemPos), OverlayTexture.NO_OVERLAY, model);
+          matrices.popPose();
 
           // done as quads rather than items as its not that expensive to draw blocks, items are the problem
           if (max != -1) {
             // builtin has no quads, lets pretend its 100 as they are more expensive
-            if (model.isBuiltInRenderer()) {
+            if (model.isCustomRenderer()) {
               quadsRendered += 100;
             } else {
               // not setting the seed on the random and ignoring the forge layered model stuff means this is just an estimate, but since this is for the sake of performance its not a huge deal for it to be exact
@@ -144,11 +144,11 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
       }
     }
 
-    matrices.pop();
+    matrices.popPose();
   }
 
   @Override
-  public boolean isGlobalRenderer(HeatingStructureTileEntity tile) {
-    return tile.getBlockState().get(ControllerBlock.IN_STRUCTURE) && tile.getStructure() != null;
+  public boolean shouldRenderOffScreen(HeatingStructureTileEntity tile) {
+    return tile.getBlockState().getValue(ControllerBlock.IN_STRUCTURE) && tile.getStructure() != null;
   }
 }

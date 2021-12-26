@@ -15,7 +15,7 @@ import java.util.List;
 public class OffhandedModifier extends Modifier {
   private final Lazy<ITextComponent> noHandedName = Lazy.of(() -> applyStyle(new TranslationTextComponent(getTranslationKey() + ".2")));
   private final Lazy<List<ITextComponent>> noHandedDescription = Lazy.of(() -> Arrays.asList(
-    new TranslationTextComponent(getTranslationKey() + ".flavor").mergeStyle(TextFormatting.ITALIC),
+    new TranslationTextComponent(getTranslationKey() + ".flavor").withStyle(TextFormatting.ITALIC),
     new TranslationTextComponent(getTranslationKey() + ".description.2")));
 
   public OffhandedModifier() {

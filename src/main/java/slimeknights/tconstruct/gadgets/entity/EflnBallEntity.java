@@ -38,33 +38,33 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   @Override
-  protected void onImpact(RayTraceResult result) {
-    if (!this.world.isRemote) {
-      EFLNExplosion explosion = new EFLNExplosion(this.world, this, null, null, this.getPosX(), this.getPosY(), this.getPosZ(), 6f, false, Explosion.Mode.NONE);
-      if (!ForgeEventFactory.onExplosionStart(this.world, explosion)) {
-        Exploder.startExplosion(this.world, explosion, this, new BlockPos(this.getPosX(), this.getPosY(), this.getPosZ()), 6f, 6f);
+  protected void onHit(RayTraceResult result) {
+    if (!this.level.isClientSide) {
+      EFLNExplosion explosion = new EFLNExplosion(this.level, this, null, null, this.getX(), this.getY(), this.getZ(), 6f, false, Explosion.Mode.NONE);
+      if (!ForgeEventFactory.onExplosionStart(this.level, explosion)) {
+        Exploder.startExplosion(this.level, explosion, this, new BlockPos(this.getX(), this.getY(), this.getZ()), 6f, 6f);
       }
     }
 
-    if (!this.world.isRemote) {
-      this.world.setEntityState(this, (byte) 3);
+    if (!this.level.isClientSide) {
+      this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
   }
 
   @Override
   public void writeSpawnData(PacketBuffer buffer) {
-    buffer.writeItemStack(this.func_213882_k());
+    buffer.writeItem(this.getItemRaw());
   }
 
   @Override
   public void readSpawnData(PacketBuffer additionalData) {
-    this.setItem(additionalData.readItemStack());
+    this.setItem(additionalData.readItem());
   }
 
   @Nonnull
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public IPacket<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

@@ -20,8 +20,8 @@ public class TileEntityTypeTagProvider extends TagsProvider<TileEntityType<?>> {
   }
 
   @Override
-  protected void registerTags() {
-    this.getOrCreateBuilder(TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST)
+  protected void addTags() {
+    this.tag(TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST)
         .add(TinkerTables.craftingStationTile.get(), TinkerTables.tinkerStationTile.get(), TinkerTables.partBuilderTile.get(),
 						 TinkerTables.partChestTile.get(), TinkerTables.tinkersChestTile.get(), TinkerTables.castChestTile.get(),
 						 TinkerSmeltery.basin.get(), TinkerSmeltery.table.get(), TinkerSmeltery.smeltery.get());
@@ -29,7 +29,7 @@ public class TileEntityTypeTagProvider extends TagsProvider<TileEntityType<?>> {
   }
 
   @Override
-  protected Path makePath(ResourceLocation id) {
+  protected Path getPath(ResourceLocation id) {
     return this.generator.getOutputFolder().resolve("data/" + id.getNamespace() + "/tags/" + folder + "/" + id.getPath() + ".json");
   }
 

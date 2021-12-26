@@ -15,7 +15,7 @@ public class FluidTagProvider extends FluidTagsProvider {
   }
 
   @Override
-  public void registerTags() {
+  public void addTags() {
     // first, register common tags
     // slime
     tagLocal(TinkerFluids.blood);
@@ -85,18 +85,18 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagAll(TinkerFluids.moltenRefinedObsidian);
 
     /* Normal tags */
-    this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
+    this.tag(TinkerTags.Fluids.SLIME)
         .addTag(TinkerFluids.earthSlime.getForgeTag())
         .addTag(TinkerFluids.skySlime.getLocalTag())
         .addTag(TinkerFluids.enderSlime.getLocalTag());
-    this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
+    this.tag(TinkerTags.Fluids.SLIMELIKE)
         .addTag(TinkerFluids.magma.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
         .addTag(TinkerFluids.moltenEnder.getForgeTag())
         .addTag(TinkerTags.Fluids.SLIME);
 
     // these fluids should get ingot and nugget values assigned even if they lack casting recipes
-    this.getOrCreateBuilder(TinkerTags.Fluids.METAL_LIKE)
+    this.tag(TinkerTags.Fluids.METAL_LIKE)
         // non-metal
         .addTag(TinkerFluids.moltenEmerald.getLocalTag())
         .addTag(TinkerFluids.moltenQuartz.getLocalTag())
@@ -146,13 +146,13 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenRefinedObsidian.getForgeTag());
 
     // spilling tags - reduces the number of recipes generated
-    this.getOrCreateBuilder(TinkerTags.Fluids.CLAY_SPILLING)
+    this.tag(TinkerTags.Fluids.CLAY_SPILLING)
         .addTag(TinkerFluids.moltenClay.getLocalTag())
         .addTag(TinkerFluids.moltenPorcelain.getLocalTag());
-    this.getOrCreateBuilder(TinkerTags.Fluids.GLASS_SPILLING)
+    this.tag(TinkerTags.Fluids.GLASS_SPILLING)
         .addTag(TinkerFluids.moltenGlass.getLocalTag())
         .addTag(TinkerFluids.moltenObsidian.getLocalTag());
-    this.getOrCreateBuilder(TinkerTags.Fluids.CHEAP_METAL_SPILLING)
+    this.tag(TinkerTags.Fluids.CHEAP_METAL_SPILLING)
         .addTag(TinkerFluids.searedStone.getLocalTag())
         .addTag(TinkerFluids.scorchedStone.getLocalTag())
         .addTag(TinkerFluids.moltenIron.getForgeTag())
@@ -165,7 +165,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenPlatinum.getForgeTag())
         .addTag(TinkerFluids.moltenTungsten.getForgeTag())
         .addTag(TinkerFluids.moltenOsmium.getForgeTag());
-    this.getOrCreateBuilder(TinkerTags.Fluids.AVERAGE_METAL_SPILLING)
+    this.tag(TinkerTags.Fluids.AVERAGE_METAL_SPILLING)
         .addTag(TinkerFluids.moltenQuartz.getLocalTag())
         .addTag(TinkerFluids.moltenEmerald.getLocalTag())
         .addTag(TinkerFluids.moltenCobalt.getForgeTag())
@@ -180,7 +180,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenPewter.getForgeTag())
         .addTag(TinkerFluids.moltenSteel.getForgeTag())
         .addTag(TinkerFluids.moltenRefinedGlowstone.getForgeTag());
-    this.getOrCreateBuilder(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING)
+    this.tag(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING)
         .addTag(TinkerFluids.moltenDiamond.getLocalTag())
         .addTag(TinkerFluids.moltenDebris.getLocalTag())
         .addTag(TinkerFluids.moltenManyullyn.getForgeTag())
@@ -200,12 +200,12 @@ public class FluidTagProvider extends FluidTagsProvider {
 
   /** Tags this fluid using local tags */
   private void tagLocal(FluidObject<?> fluid) {
-    getOrCreateBuilder(fluid.getLocalTag()).add(fluid.getStill(), fluid.getFlowing());
+    tag(fluid.getLocalTag()).add(fluid.getStill(), fluid.getFlowing());
   }
 
   /** Tags this fluid with local and forge tags */
   private void tagAll(FluidObject<?> fluid) {
     tagLocal(fluid);
-    getOrCreateBuilder(fluid.getForgeTag()).addTag(fluid.getLocalTag());
+    tag(fluid.getForgeTag()).addTag(fluid.getLocalTag());
   }
 }

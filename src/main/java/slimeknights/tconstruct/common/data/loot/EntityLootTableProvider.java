@@ -33,24 +33,24 @@ public class EntityLootTableProvider extends EntityLootTables {
 
   @Override
   protected void addTables() {
-    this.registerLootTable(TinkerWorld.earthSlimeEntity.get(), dropSlimeballs(SlimeType.EARTH));
-    this.registerLootTable(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
-    this.registerLootTable(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
-    this.registerLootTable(TinkerWorld.terracubeEntity.get(),
-                           LootTable.builder().addLootPool(LootPool.builder()
-                                                                   .rolls(ConstantRange.of(1))
-                                                                   .addEntry(ItemLootEntry.builder(Items.CLAY_BALL)
-                                                                                          .acceptFunction(SetCount.builder(RandomValueRange.of(-2.0F, 1.0F)))
-                                                                                          .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))
-                                                                                          .acceptFunction(Smelt.func_215953_b().acceptCondition(EntityHasProperty.builder(LootContext.EntityTarget.THIS, ON_FIRE))))));
+    this.add(TinkerWorld.earthSlimeEntity.get(), dropSlimeballs(SlimeType.EARTH));
+    this.add(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
+    this.add(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
+    this.add(TinkerWorld.terracubeEntity.get(),
+                           LootTable.lootTable().withPool(LootPool.lootPool()
+                                                                   .setRolls(ConstantRange.exactly(1))
+                                                                   .add(ItemLootEntry.lootTableItem(Items.CLAY_BALL)
+                                                                                          .apply(SetCount.setCount(RandomValueRange.between(-2.0F, 1.0F)))
+                                                                                          .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F)))
+                                                                                          .apply(Smelt.smelted().when(EntityHasProperty.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE))))));
   }
 
   private static LootTable.Builder dropSlimeballs(SlimeType type) {
-    return LootTable.builder()
-                    .addLootPool(LootPool.builder()
-                                         .rolls(ConstantRange.of(1))
-                                         .addEntry(ItemLootEntry.builder(TinkerCommons.slimeball.get(type))
-                                                                .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
-                                                                .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))));
+    return LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                                         .setRolls(ConstantRange.exactly(1))
+                                         .add(ItemLootEntry.lootTableItem(TinkerCommons.slimeball.get(type))
+                                                                .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
+                                                                .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F)))));
   }
 }

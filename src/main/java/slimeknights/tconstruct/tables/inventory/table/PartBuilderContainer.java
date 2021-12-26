@@ -40,7 +40,7 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
       this.addInventorySlots();
 
       // listen for the button to change in the tile
-      this.trackInt(new LambdaIntReference(-1, tile::getSelectedIndex, i -> {
+      this.addDataSlot(new LambdaIntReference(-1, tile::getSelectedIndex, i -> {
         tile.selectRecipe(i);
         this.updateScreen();
       }));
@@ -58,13 +58,13 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
   }
 
   @Override
-  public void onCraftMatrixChanged(IInventory inventoryIn) {}
+  public void slotsChanged(IInventory inventoryIn) {}
 
   /**
    * Called when a pattern button is pressed
    */
   @Override
-  public boolean enchantItem(PlayerEntity playerIn, int id) {
+  public boolean clickMenuButton(PlayerEntity playerIn, int id) {
     if (id >= 0 && tile != null) {
       tile.selectRecipe(id);
     }
@@ -72,8 +72,8 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
   }
 
   @Override
-  public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-    return slotIn != this.outputSlot && super.canMergeSlot(stack, slotIn);
+  public boolean canTakeItemForPickAll(ItemStack stack, Slot slotIn) {
+    return slotIn != this.outputSlot && super.canTakeItemForPickAll(stack, slotIn);
   }
 
   /** Slot to update recipe on change */
@@ -85,9 +85,9 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
     }
 
     @Override
-    public void onSlotChanged() {
-      craftResult.clear();
-      super.onSlotChanged();
+    public void setChanged() {
+      craftResult.clearContent();
+      super.setChanged();
     }
   }
 
@@ -100,7 +100,7 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack) {
+    public boolean mayPlace(ItemStack stack) {
       // TODO: tag
       return stack.getItem() == TinkerTables.pattern.get();
     }

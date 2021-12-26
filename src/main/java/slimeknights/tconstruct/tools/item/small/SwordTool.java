@@ -13,10 +13,12 @@ import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
+import net.minecraft.item.Item.Properties;
+
 /** Tool with sword harvest and creative block breaking prevention */
 public class SwordTool extends ToolItem {
   public static final ToolType TOOL_TYPE = ToolType.get("sword");
-  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS = ImmutableSet.of(Material.WEB, Material.TALL_PLANTS, Material.CORAL, Material.GOURD, Material.LEAVES);
+  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS = ImmutableSet.of(Material.WEB, Material.REPLACEABLE_PLANT, Material.CORAL, Material.VEGETABLE, Material.LEAVES);
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic();
 
   public SwordTool(Properties properties, ToolDefinition toolDefinition) {
@@ -24,7 +26,7 @@ public class SwordTool extends ToolItem {
   }
 
   @Override
-  public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
+  public boolean canAttackBlock(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
     return !player.isCreative();
   }
 

@@ -42,7 +42,7 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
   @Override
   public void render(MatrixStack matrixStack, int x, int y, @Nullable EntityType type) {
     if (type != null) {
-      World world = Minecraft.getInstance().world;
+      World world = Minecraft.getInstance().level;
       if (world != null && !IGNORED_ENTITIES.contains(type)) {
         Entity entity;
         // players cannot be created using the type, but we can use the client player
@@ -58,14 +58,14 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
           // scale down large mobs, but don't scale up small ones
           LivingEntity livingEntity = (LivingEntity) entity;
           int scale = size / 2;
-          float height = entity.getHeight();
-          float width = entity.getWidth();
+          float height = entity.getBbHeight();
+          float width = entity.getBbWidth();
           if (height > 2 || width > 2) {
             scale = (int)(size / Math.max(height, width));
           }
           // catch exceptions drawing the entity to be safe, any caught exceptions blacklist the entity
           try {
-            InventoryScreen.drawEntityOnScreen(x + size / 2, y + size, scale, 0, 10, livingEntity);
+            InventoryScreen.renderEntityInInventory(x + size / 2, y + size, scale, 0, 10, livingEntity);
             return;
           } catch (Exception e) {
             TConstruct.LOG.error("Error drawing entity " + type.getRegistryName(), e);
@@ -81,7 +81,7 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
 
       // fallback, draw a pink and black "spawn egg"
       Minecraft minecraft = Minecraft.getInstance();
-      minecraft.getTextureManager().bindTexture(EntityMeltingRecipeCategory.BACKGROUND_LOC);
+      minecraft.getTextureManager().bind(EntityMeltingRecipeCategory.BACKGROUND_LOC);
       int offset = (size - 16) / 2;
       Screen.blit(matrixStack, x + offset, y + offset, 149f, 58f, 16, 16, 256, 256);
     }
@@ -90,9 +90,9 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
   @Override
   public List<ITextComponent> getTooltip(EntityType type, ITooltipFlag flag) {
     List<ITextComponent> tooltip = new ArrayList<>();
-    tooltip.add(type.getName());
+    tooltip.add(type.getDescription());
     if (flag.isAdvanced()) {
-      tooltip.add((new StringTextComponent(Objects.requireNonNull(type.getRegistryName()).toString())).mergeStyle(TextFormatting.DARK_GRAY));
+      tooltip.add((new StringTextComponent(Objects.requireNonNull(type.getRegistryName()).toString())).withStyle(TextFormatting.DARK_GRAY));
     }
     return tooltip;
   }

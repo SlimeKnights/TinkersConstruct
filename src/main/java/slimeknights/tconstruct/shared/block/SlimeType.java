@@ -14,9 +14,9 @@ import java.util.Locale;
 public enum SlimeType implements IStringSerializable {
   EARTH(0x01cd4e, 0x8CD782, MaterialColor.GRASS, false),
   SKY(0x01cbcd, 0x00F4DA, MaterialColor.DIAMOND, false),
-  ICHOR(0xff970d, 0xd09800, MaterialColor.ADOBE, true, 10),
-  ENDER(0xaf4cf6, 0xa92dff, MaterialColor.PURPLE, false),
-  BLOOD(0xb50101, 0xb80000, MaterialColor.RED, true);
+  ICHOR(0xff970d, 0xd09800, MaterialColor.COLOR_ORANGE, true, 10),
+  ENDER(0xaf4cf6, 0xa92dff, MaterialColor.COLOR_PURPLE, false),
+  BLOOD(0xb50101, 0xb80000, MaterialColor.COLOR_RED, true);
 
   /** Slime types added by the mod */
   public static final SlimeType[] TINKER = {SKY, ENDER, BLOOD, ICHOR};
@@ -55,7 +55,7 @@ public enum SlimeType implements IStringSerializable {
     this.nether = nether;
     this.lightLevel = lightLevel;
     // tags
-    String name = this.getString();
+    String name = this.getSerializedName();
     grassBlockTag = TinkerTags.Blocks.tag((nether ? "slimy_nylium/" : "slimy_grass/") + name);
     dirtBlockTag = TinkerTags.Blocks.tag("slimy_soil/" + ("blood".equals(name) ? "vanilla" : name));
     slimeballTag = TinkerTags.Items.forgeTag("slimeball/" + name);
@@ -66,7 +66,7 @@ public enum SlimeType implements IStringSerializable {
   }
 
   @Override
-  public String getString() {
+  public String getSerializedName() {
     return this.name().toLowerCase(Locale.US);
   }
 }

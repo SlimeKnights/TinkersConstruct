@@ -54,6 +54,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
    * @param originalLevel Level to check
    * @return True if this salvage is applicable
    */
+  @SuppressWarnings("unused")
   public boolean matches(ItemStack stack, IModifierToolStack tool, int originalLevel) {
     return originalLevel >= minLevel && originalLevel <= maxLevel && toolIngredient.test(stack);
   }
@@ -98,17 +99,17 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
     protected abstract T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots);
 
     @Override
-    public T read(ResourceLocation id, JsonObject json) {
-      Ingredient toolIngredient = Ingredient.deserialize(JsonHelper.getElement(json, "tools"));
+    public T fromJson(ResourceLocation id, JsonObject json) {
+      Ingredient toolIngredient = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
       Modifier modifier = ModifierEntry.deserializeModifier(json, "modifier");
       int minLevel = JsonUtils.getIntMin(json, "min_level", 1);
-      int maxLevel = JSONUtils.getInt(json, "max_level", Integer.MAX_VALUE);
+      int maxLevel = JSONUtils.getAsInt(json, "max_level", Integer.MAX_VALUE);
       if (maxLevel < minLevel) {
         throw new JsonSyntaxException("Max level must be greater than or equal to min level");
       }
       SlotCount slots = null;
       if (json.has("slots")) {
-        slots = SlotCount.fromJson(JSONUtils.getJsonObject(json, "slots"));
+        slots = SlotCount.fromJson(JSONUtils.getAsJsonObject(json, "slots"));
       }
       return read(id, json, toolIngredient, modifier, minLevel, maxLevel, slots);
     }
@@ -116,7 +117,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
     @Nullable
     @Override
     protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient toolIngredient = Ingredient.read(buffer);
+      Ingredient toolIngredient = Ingredient.fromNetwork(buffer);
       Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS);
       int minLevel = buffer.readVarInt();
       int maxLevel = buffer.readVarInt();
@@ -126,7 +127,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
 
     @Override
     protected void writeSafe(PacketBuffer buffer, T recipe) {
-      recipe.toolIngredient.write(buffer);
+      recipe.toolIngredient.toNetwork(buffer);
       buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, recipe.modifier);
       buffer.writeVarInt(recipe.minLevel);
       buffer.writeVarInt(recipe.maxLevel);

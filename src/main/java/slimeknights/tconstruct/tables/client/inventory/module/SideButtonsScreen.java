@@ -29,18 +29,18 @@ public class SideButtonsScreen extends ModuleScreen {
   public void addSideButton(Button button) {
     int rows = (this.buttonCount - 1) / this.columns + 1;
 
-    this.xSize = button.getWidth() * this.columns + this.spacing * (this.columns - 1);
-    this.ySize = button.getHeight() * rows + this.spacing * (rows - 1);
+    this.imageWidth = button.getWidth() * this.columns + this.spacing * (this.columns - 1);
+    this.imageHeight = button.getHeight() * rows + this.spacing * (rows - 1);
 
     int offset = this.buttonCount;
     int x = (offset % columns) * (button.getWidth() + this.spacing);
     int y = (offset / columns) * (button.getHeight() + this.spacing);
 
-    button.x = guiLeft + x;
-    button.y = guiTop + y;
+    button.x = leftPos + x;
+    button.y = topPos + y;
 
     if (this.right) {
-      button.x += parent.xSize;
+      button.x += parent.imageWidth;
     }
 
     this.buttons.add(button);
@@ -77,13 +77,13 @@ public class SideButtonsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     for (Widget widget : this.buttons) {
       widget.render(matrices, mouseX, mouseY, partialTicks);
     }
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+  protected void renderLabels(MatrixStack matrixStack, int x, int y) {
   }
 }

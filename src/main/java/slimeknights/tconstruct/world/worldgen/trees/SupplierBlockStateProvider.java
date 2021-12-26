@@ -27,12 +27,12 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   }
 
   @Override
-  protected BlockStateProviderType<?> getProviderType() {
+  protected BlockStateProviderType<?> type() {
     return TinkerStructures.supplierBlockstateProvider.get();
   }
 
   @Override
-  public BlockState getBlockState(Random randomIn, BlockPos blockPosIn) {
+  public BlockState getState(Random randomIn, BlockPos blockPosIn) {
     return this.supplier.get();
   }
 }

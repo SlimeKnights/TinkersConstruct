@@ -25,21 +25,21 @@ public class ResultSlot extends CraftingResultSlot {
   /* Methods that reference CraftingInventory */
 
   @Override
-  protected void onCrafting(ItemStack stack) {
-    if (this.amountCrafted > 0) {
-      stack.onCrafting(this.player.world, this.player, this.amountCrafted);
-      net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerCraftingEvent(this.player, stack, this.inventory);
+  protected void checkTakeAchievements(ItemStack stack) {
+    if (this.removeCount > 0) {
+      stack.onCraftedBy(this.player.level, this.player, this.removeCount);
+      net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerCraftingEvent(this.player, stack, this.container);
     }
 
-    this.amountCrafted = 0;
+    this.removeCount = 0;
   }
 
   @Override
   @Nonnull
   public ItemStack onTake(PlayerEntity playerIn, @Nonnull ItemStack stack) {
-    BasicEventHooks.firePlayerCraftingEvent(playerIn, stack, this.inventory);
-    this.onCrafting(stack);
-    this.callback.onCrafting(playerIn, stack, this.inventory);
+    BasicEventHooks.firePlayerCraftingEvent(playerIn, stack, this.container);
+    this.checkTakeAchievements(stack);
+    this.callback.onCrafting(playerIn, stack, this.container);
     return stack;
   }
 }

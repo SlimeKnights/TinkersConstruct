@@ -9,6 +9,8 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /**
  * Block orientable in 4 directions
  */
@@ -20,25 +22,25 @@ public class OrientableBlock extends Block {
 
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rot) {
-    return state.with(FACING, rot.rotate(state.get(FACING)));
+    return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirrorIn) {
-    return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+    return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
   }
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
     builder.add(FACING);
   }
 }

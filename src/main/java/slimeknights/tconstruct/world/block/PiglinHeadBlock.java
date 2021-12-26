@@ -8,8 +8,11 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
+import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.block.SkullBlock.ISkullType;
+
 public class PiglinHeadBlock extends SkullBlock {
-  protected static final VoxelShape PIGLIN_SHAPE = Block.makeCuboidShape(3, 0, 3, 13, 8, 13);
+  protected static final VoxelShape PIGLIN_SHAPE = Block.box(3, 0, 3, 13, 8, 13);
   public PiglinHeadBlock(ISkullType type, Properties properties) {
     super(type, properties);
   }

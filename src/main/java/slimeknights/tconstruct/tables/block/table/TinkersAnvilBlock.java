@@ -9,18 +9,20 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class TinkersAnvilBlock extends TinkerStationBlock {
-  private static final VoxelShape PART_BASE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
+  private static final VoxelShape PART_BASE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
   private static final VoxelShape X_AXIS_AABB = VoxelShapes.or(
     PART_BASE,
-    Block.makeCuboidShape(4.0D, 4.0D, 3.0D, 12.0D, 5.0D, 13.0D),
-    Block.makeCuboidShape(6.0D, 5.0D, 4.0D, 10.0D, 10.0D, 12.0D),
-    Block.makeCuboidShape(3.0D, 10.0D, 0.0D, 13.0D, 16.0D, 16.0D));
+    Block.box(4.0D, 4.0D, 3.0D, 12.0D, 5.0D, 13.0D),
+    Block.box(6.0D, 5.0D, 4.0D, 10.0D, 10.0D, 12.0D),
+    Block.box(3.0D, 10.0D, 0.0D, 13.0D, 16.0D, 16.0D));
   private static final VoxelShape Z_AXIS_AABB = VoxelShapes.or(
     PART_BASE,
-    Block.makeCuboidShape(3.0D, 4.0D, 4.0D, 13.0D, 5.0D, 12.0D),
-    Block.makeCuboidShape(4.0D, 5.0D, 6.0D, 12.0D, 10.0D, 10.0D),
-    Block.makeCuboidShape(0.0D, 10.0D, 3.0D, 16.0D, 16.0D, 13.0D));
+    Block.box(3.0D, 4.0D, 4.0D, 13.0D, 5.0D, 12.0D),
+    Block.box(4.0D, 5.0D, 6.0D, 12.0D, 10.0D, 10.0D),
+    Block.box(0.0D, 10.0D, 3.0D, 16.0D, 16.0D, 13.0D));
 
   public TinkersAnvilBlock(Properties builder, int slotCount) {
     super(builder, slotCount);
@@ -28,7 +30,7 @@ public class TinkersAnvilBlock extends TinkerStationBlock {
   @Override
   @Deprecated
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    Direction direction = state.get(FACING);
+    Direction direction = state.getValue(FACING);
     return direction.getAxis() == Direction.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
   }
 }

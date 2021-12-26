@@ -32,14 +32,14 @@ public abstract class AbstractWalkerModifier extends SingleUseModifier implement
 
   @Override
   public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
-    if (living.isOnGround() && !tool.isBroken() && !living.world.isRemote) {
+    if (living.isOnGround() && !tool.isBroken() && !living.level.isClientSide) {
       float radius = Math.min(16, getRadius(tool, level));
       Mutable mutable = new Mutable();
-      World world = living.world;
-      Vector3d posVec = living.getPositionVec();
+      World world = living.level;
+      Vector3d posVec = living.position();
       BlockPos center = new BlockPos(posVec.x, posVec.y + 0.5, posVec.z);
-      for (BlockPos pos : BlockPos.getAllInBoxMutable(center.add(-radius, 0, -radius), center.add(radius, 0, radius))) {
-        if (pos.withinDistance(living.getPositionVec(), radius)) {
+      for (BlockPos pos : BlockPos.betweenClosed(center.offset(-radius, 0, -radius), center.offset(radius, 0, radius))) {
+        if (pos.closerThan(living.position(), radius)) {
           walkOn(tool, level, living, world, pos, mutable);
           if (tool.isBroken()) {
             break;

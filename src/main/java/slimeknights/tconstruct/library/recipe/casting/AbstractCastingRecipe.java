@@ -35,11 +35,11 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
   protected final boolean switchSlots;
 
   @Override
-  public abstract ItemStack getRecipeOutput();
+  public abstract ItemStack getResultItem();
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, this.cast);
+    return NonNullList.of(Ingredient.EMPTY, this.cast);
   }
 
   /**
@@ -58,14 +58,14 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     protected abstract void writeExtra(PacketBuffer buffer, T recipe);
 
     @Override
-    public T read(ResourceLocation recipeId, JsonObject json) {
+    public T fromJson(ResourceLocation recipeId, JsonObject json) {
       Ingredient cast = Ingredient.EMPTY;
-      String group = JSONUtils.getString(json, "group", "");
+      String group = JSONUtils.getAsString(json, "group", "");
       boolean consumed = false;
-      boolean switchSlots = JSONUtils.getBoolean(json, "switch_slots", false);
+      boolean switchSlots = JSONUtils.getAsBoolean(json, "switch_slots", false);
       if (json.has("cast")) {
-        cast = Ingredient.deserialize(JsonHelper.getElement(json, "cast"));
-        consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
+        cast = Ingredient.fromJson(JsonHelper.getElement(json, "cast"));
+        consumed = JSONUtils.getAsBoolean(json, "cast_consumed", false);
       }
       return create(recipeId, group, cast, consumed, switchSlots, json);
     }
@@ -73,8 +73,8 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     @Nullable
     @Override
     protected T readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
-      String group = buffer.readString(Short.MAX_VALUE);
-      Ingredient cast = Ingredient.read(buffer);
+      String group = buffer.readUtf(Short.MAX_VALUE);
+      Ingredient cast = Ingredient.fromNetwork(buffer);
       boolean consumed = buffer.readBoolean();
       boolean switchSlots = buffer.readBoolean();
       return create(recipeId, group, cast, consumed, switchSlots, buffer);
@@ -82,8 +82,8 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
 
     @Override
     protected void writeSafe(PacketBuffer buffer, T recipe) {
-      buffer.writeString(recipe.group);
-      recipe.cast.write(buffer);
+      buffer.writeUtf(recipe.group);
+      recipe.cast.toNetwork(buffer);
       buffer.writeBoolean(recipe.consumed);
       buffer.writeBoolean(recipe.switchSlots);
       writeExtra(buffer, recipe);

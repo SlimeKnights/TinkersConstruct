@@ -23,7 +23,7 @@ public class SpecializedRepairRecipeBuilder extends AbstractRecipeBuilder<Specia
 
   /** Creates a builder from the given item and material */
   public static SpecializedRepairRecipeBuilder repair(IItemProvider item, MaterialId repairMaterial) {
-    return repair(Ingredient.fromItems(item), repairMaterial);
+    return repair(Ingredient.of(item), repairMaterial);
   }
 
   @Override
@@ -46,16 +46,16 @@ public class SpecializedRepairRecipeBuilder extends AbstractRecipeBuilder<Specia
 
   private class FinishedRecipe extends AbstractFinishedRecipe {
     @Getter
-    private final IRecipeSerializer<?> serializer;
+    private final IRecipeSerializer<?> type;
 
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, IRecipeSerializer<?> serializer) {
+    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, IRecipeSerializer<?> type) {
       super(ID, advancementID);
-      this.serializer = serializer;
+      this.type = type;
     }
 
     @Override
-    public void serialize(JsonObject json) {
-      json.add("tool", tool.serialize());
+    public void serializeRecipeData(JsonObject json) {
+      json.add("tool", tool.toJson());
       json.addProperty("repair_material", repairMaterial.toString());
     }
   }

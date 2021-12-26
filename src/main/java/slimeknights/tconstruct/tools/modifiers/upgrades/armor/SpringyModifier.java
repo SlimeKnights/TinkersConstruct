@@ -28,8 +28,8 @@ public class SpringyModifier extends Modifier {
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
     LivingEntity user = context.getEntity();
-    Entity attacker = source.getTrueSource();
-    if (isDirectDamage && !user.getEntityWorld().isRemote && attacker instanceof LivingEntity) {
+    Entity attacker = source.getEntity();
+    if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity) {
       user.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         // ensure this slot is in charge before continuing
         if (Optional.ofNullable(data.get(SLOT_IN_CHARGE)).filter(slot -> slot.inCharge == slotType).isPresent()) {
@@ -50,7 +50,7 @@ public class SpringyModifier extends Modifier {
           }
           // did we end up with any bonus?
           if (bestBonus > 0) {
-            ((LivingEntity)attacker).applyKnockback(bestBonus, -MathHelper.sin(attacker.rotationYaw * (float)Math.PI / 180F), MathHelper.cos(attacker.rotationYaw * (float)Math.PI / 180F));
+            ((LivingEntity)attacker).knockback(bestBonus, -MathHelper.sin(attacker.yRot * (float)Math.PI / 180F), MathHelper.cos(attacker.yRot * (float)Math.PI / 180F));
           }
         }
       });
@@ -61,7 +61,7 @@ public class SpringyModifier extends Modifier {
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // remove slot in charge if that is us
     EquipmentSlotType slot = context.getChangedSlot();
-    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !context.getEntity().getEntityWorld().isRemote) {
+    if (!tool.isBroken() && slot.getType() == Group.ARMOR && !context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge != null) {
@@ -74,7 +74,7 @@ public class SpringyModifier extends Modifier {
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     EquipmentSlotType slot = context.getChangedSlot();
-    if (!tool.isBroken() && slot.getSlotType() == Group.ARMOR && !context.getEntity().getEntityWorld().isRemote) {
+    if (!tool.isBroken() && slot.getType() == Group.ARMOR && !context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge == null) {
@@ -111,7 +111,7 @@ public class SpringyModifier extends Modifier {
       for (EquipmentSlotType armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
         if (active[slotType.getIndex()]) {
           inCharge = armorSlot;
-          break;
+          return;
         }
       }
       inCharge = null;

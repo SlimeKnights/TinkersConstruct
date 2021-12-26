@@ -25,7 +25,7 @@ public class RevitalizingModifier extends IncrementalModifier {
 
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
-    if (slot.getSlotType() == Group.ARMOR) {
+    if (slot.getType() == Group.ARMOR) {
       consumer.accept(Attributes.MAX_HEALTH, new AttributeModifier(uuids[slot.getIndex()], "tconstruct.modifier.revitalizing", Math.floor(getScaledLevel(tool, level) * 2), Operation.ADDITION));
     }
   }

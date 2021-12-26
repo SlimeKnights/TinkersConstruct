@@ -31,7 +31,7 @@ public class LeapingModifier extends IncrementalArmorLevelModifier {
     LivingEntity entity = event.getEntityLiving();
     float boost = ModifierUtil.getTotalModifierFloat(entity, LEAPING);
     if (boost > 0) {
-      entity.setMotion(entity.getMotion().add(0, boost * 0.1, 0));
+      entity.setDeltaMovement(entity.getDeltaMovement().add(0, boost * 0.1, 0));
     }
   }
 }

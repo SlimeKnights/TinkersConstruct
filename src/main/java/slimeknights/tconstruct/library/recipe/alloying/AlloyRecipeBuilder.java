@@ -112,7 +112,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       JsonArray inputArray = new JsonArray();
       for (FluidIngredient input : inputs) {
         inputArray.add(input.serialize());
@@ -123,7 +123,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerSmeltery.alloyingSerializer.get();
     }
   }

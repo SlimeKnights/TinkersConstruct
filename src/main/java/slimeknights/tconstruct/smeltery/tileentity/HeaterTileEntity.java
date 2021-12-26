@@ -64,16 +64,16 @@ public class HeaterTileEntity extends NamableTileEntity {
   /* NBT */
 
   @Override
-  public void read(BlockState state, CompoundNBT tags) {
-    super.read(state, tags);
+  public void load(BlockState state, CompoundNBT tags) {
+    super.load(state, tags);
     if (tags.contains(TAG_ITEM, NBT.TAG_COMPOUND)) {
       itemHandler.readFromNBT(tags.getCompound(TAG_ITEM));
     }
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tags) {
-    tags = super.write(tags);
+  public CompoundNBT save(CompoundNBT tags) {
+    tags = super.save(tags);
     tags.put(TAG_ITEM, itemHandler.writeToNBT());
     return tags;
   }

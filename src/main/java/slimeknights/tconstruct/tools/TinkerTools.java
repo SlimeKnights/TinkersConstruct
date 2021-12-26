@@ -90,7 +90,7 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Items
    */
-  private static final Supplier<Item.Properties> TOOL = () -> new Item.Properties().group(TAB_TOOLS);
+  private static final Supplier<Item.Properties> TOOL = () -> new Item.Properties().tab(TAB_TOOLS);
 
   public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
   public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.SLEDGE_HAMMER));
@@ -126,9 +126,9 @@ public final class TinkerTools extends TinkerModule {
 
   /* Entities */
   public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
-    return EntityType.Builder.<IndestructibleItemEntity>create(IndestructibleItemEntity::new, EntityClassification.MISC)
-      .size(0.25F, 0.25F)
-      .immuneToFire();
+    return EntityType.Builder.<IndestructibleItemEntity>of(IndestructibleItemEntity::new, EntityClassification.MISC)
+      .sized(0.25F, 0.25F)
+      .fireImmune();
   });
 
   /* Containers */

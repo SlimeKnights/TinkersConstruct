@@ -76,7 +76,7 @@ public abstract class TinkerModule {
 
   // base item properties
   protected static final Item.Properties HIDDEN_PROPS = new Item.Properties();
-  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TAB_GENERAL);
+  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().tab(TAB_GENERAL);
   protected static final Function<Block,? extends BlockItem> HIDDEN_BLOCK_ITEM = (b) -> new BlockItem(b, HIDDEN_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
@@ -123,30 +123,30 @@ public abstract class TinkerModule {
    */
   protected static AbstractBlock.Properties builder(Material material, @Nullable ToolType toolType, SoundType soundType) {
     //noinspection ConstantConditions
-    return Block.Properties.create(material).harvestTool(toolType).sound(soundType);
+    return Block.Properties.of(material).harvestTool(toolType).sound(soundType);
   }
 
   /** Same as above, but with a color */
   protected static AbstractBlock.Properties builder(Material material, MaterialColor color, @Nullable ToolType toolType, SoundType soundType) {
     //noinspection ConstantConditions
-    return Block.Properties.create(material, color).harvestTool(toolType).sound(soundType);
+    return Block.Properties.of(material, color).harvestTool(toolType).sound(soundType);
   }
 
   /** Builder that pre-supplies metal properties */
   protected static AbstractBlock.Properties metalBuilder(MaterialColor color) {
-    return builder(Material.IRON, color, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(5.0f);
+    return builder(Material.METAL, color, ToolType.PICKAXE, SoundType.METAL).requiresCorrectToolForDrops().strength(5.0f);
   }
 
   /** Builder that pre-supplies glass properties */
   protected static AbstractBlock.Properties glassBuilder(MaterialColor color) {
     return builder(Material.GLASS, color, ToolType.PICKAXE, SoundType.GLASS)
-      .setRequiresTool().hardnessAndResistance(0.3F).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)
-      .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+      .requiresCorrectToolForDrops().strength(0.3F).noOcclusion().isValidSpawn(Blocks::never)
+      .isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
   }
 
   /** Builder that pre-supplies glass properties */
   protected static AbstractBlock.Properties woodBuilder(MaterialColor color) {
-    return builder(Material.WOOD, color, ToolType.AXE, SoundType.WOOD).setRequiresTool().hardnessAndResistance(2.0F, 7.0F);
+    return builder(Material.WOOD, color, ToolType.AXE, SoundType.WOOD).requiresCorrectToolForDrops().strength(2.0F, 7.0F);
   }
 
   /**

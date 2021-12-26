@@ -12,15 +12,15 @@ import javax.annotation.Nullable;
 
 public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   @Override
-  public PartRecipe read(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getString(json, "group", "");
-    Pattern pattern = new Pattern(JSONUtils.getString(json, "pattern"));
-    int cost = JSONUtils.getInt(json, "cost");
+  public PartRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+    String group = JSONUtils.getAsString(json, "group", "");
+    Pattern pattern = new Pattern(JSONUtils.getAsString(json, "pattern"));
+    int cost = JSONUtils.getAsInt(json, "cost");
 
     // output fetch as a material item, its an error if it does not implement that interface
-    JsonObject output = JSONUtils.getJsonObject(json, "result");
-    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(output, "item"), "result", IMaterialItem.class);
-    int count = JSONUtils.getInt(output, "count", 1);
+    JsonObject output = JSONUtils.getAsJsonObject(json, "result");
+    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getAsString(output, "item"), "result", IMaterialItem.class);
+    int count = JSONUtils.getAsInt(output, "count", 1);
 
     return new PartRecipe(recipeId, group, pattern, cost, item, count);
   }
@@ -28,8 +28,8 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   @Nullable
   @Override
   protected PartRecipe readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
-    String group = buffer.readString(Short.MAX_VALUE);
-    Pattern pattern = new Pattern(buffer.readString(Short.MAX_VALUE));
+    String group = buffer.readUtf(Short.MAX_VALUE);
+    Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
     int cost = buffer.readInt();
     // output must be a material item
     IMaterialItem item = RecipeHelper.readItem(buffer, IMaterialItem.class);
@@ -39,8 +39,8 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
 
   @Override
   protected void writeSafe(PacketBuffer buffer, PartRecipe recipe) {
-    buffer.writeString(recipe.group);
-    buffer.writeString(recipe.pattern.toString());
+    buffer.writeUtf(recipe.group);
+    buffer.writeUtf(recipe.pattern.toString());
     buffer.writeInt(recipe.cost);
     RecipeHelper.writeItem(buffer, recipe.output);
     buffer.writeByte(recipe.outputCount);

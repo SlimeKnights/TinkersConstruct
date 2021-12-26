@@ -16,8 +16,10 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.Set;
 
+import net.minecraft.item.Item.Properties;
+
 public class HandAxeTool extends HarvestTool {
-  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD, Material.LEAVES);
+  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.PLANT, Material.REPLACEABLE_PLANT, Material.BAMBOO, Material.VEGETABLE, Material.LEAVES);
   public static final CircleAOEHarvestLogic HARVEST_LOGIC = new CircleAOEHarvestLogic(1, false) {
     @Override
     public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {

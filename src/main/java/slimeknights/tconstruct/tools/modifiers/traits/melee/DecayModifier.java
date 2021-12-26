@@ -26,13 +26,13 @@ public class DecayModifier extends Modifier {
 
       // 25% chance to poison yourself
       if (RANDOM.nextInt(3) == 0) {
-        context.getAttacker().addPotionEffect(makeDecayEffect(level));
+        context.getAttacker().addEffect(makeDecayEffect(level));
       }
 
       // always poison the target, means it works twice as often as lacerating
       LivingEntity target = context.getLivingTarget();
       if (target != null && target.isAlive()) {
-        target.addPotionEffect(makeDecayEffect(level));
+        target.addEffect(makeDecayEffect(level));
       }
     }
     return 0;

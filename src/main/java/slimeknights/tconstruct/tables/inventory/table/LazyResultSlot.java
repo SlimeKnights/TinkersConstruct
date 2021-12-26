@@ -18,17 +18,17 @@ public class LazyResultSlot extends Slot {
   }
 
   @Override
-  public boolean isItemValid(ItemStack stack) {
+  public boolean mayPlace(ItemStack stack) {
     return false;
   }
 
   @Override
-  public ItemStack decrStackSize(int amount) {
-    if (this.getHasStack()) {
-      this.amountCrafted += Math.min(amount, this.getStack().getCount());
+  public ItemStack remove(int amount) {
+    if (this.hasItem()) {
+      this.amountCrafted += Math.min(amount, this.getItem().getCount());
     }
 
-    return super.decrStackSize(amount);
+    return super.remove(amount);
   }
 
   @Override
@@ -39,9 +39,9 @@ public class LazyResultSlot extends Slot {
   }
 
   @Override
-  protected void onCrafting(ItemStack stack, int amount) {
+  protected void onQuickCraft(ItemStack stack, int amount) {
     this.amountCrafted += amount;
-    this.onCrafting(stack);
+    this.checkTakeAchievements(stack);
   }
 
   @Override

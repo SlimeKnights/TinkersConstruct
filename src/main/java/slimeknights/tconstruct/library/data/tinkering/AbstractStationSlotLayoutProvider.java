@@ -50,7 +50,7 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   /** Defines the given ID as a tool layout, sets icon and name */
   protected StationSlotLayout.Builder defineModifiable(IModifiableDisplay item) {
     return define(Objects.requireNonNull(item.asItem().getRegistryName()))
-      .translationKey(item.asItem().getTranslationKey())
+      .translationKey(item.asItem().getDescriptionId())
       .icon(item.getRenderTool());
   }
 
@@ -60,7 +60,7 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   }
 
   @Override
-  public void act(DirectoryCache cache) throws IOException {
+  public void run(DirectoryCache cache) throws IOException {
     addLayouts();
     allLayouts.forEach((id, builder) -> saveThing(cache, id, builder.build()));
   }

@@ -72,7 +72,7 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
     Entity entity = event.getObject();
-    if (entity.getEntityWorld().isRemote && entity instanceof PlayerEntity) {
+    if (entity.getCommandSenderWorld().isClientSide && entity instanceof PlayerEntity) {
       PlayerLastEquipment provider = new PlayerLastEquipment((PlayerEntity) entity);
       event.addCapability(ID, provider);
       event.addListener(provider);
@@ -82,7 +82,7 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
   /** Client side modifier hooks */
   private static void onPlayerTick(PlayerTickEvent event) {
     // only run for client side players every 5 ticks
-    if (event.phase == Phase.END && event.side == LogicalSide.CLIENT && event.player.ticksExisted % 5 == 0) {
+    if (event.phase == Phase.END && event.side == LogicalSide.CLIENT && event.player.tickCount % 5 == 0) {
       event.player.getCapability(CAPABILITY).ifPresent(PlayerLastEquipment::update);
     }
   }
@@ -156,9 +156,9 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
       // run twice a second, should be plenty fast enough
       if (player != null) {
         for (EquipmentSlotType slot : EquipmentSlotType.values()) {
-          ItemStack newStack = player.getItemStackFromSlot(slot);
+          ItemStack newStack = player.getItemBySlot(slot);
           ItemStack oldStack = lastItems.get(slot);
-          if (!ItemStack.areItemStacksEqual(oldStack, newStack)) {
+          if (!ItemStack.matches(oldStack, newStack)) {
             lastItems.put(slot, newStack.copy());
             runModifierHooks(player, slot, oldStack, newStack);
           }
@@ -173,6 +173,7 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
       capability = LazyOptional.of(() -> this);
     }
 
+    @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
       return CAPABILITY.orEmpty(cap, capability);

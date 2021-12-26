@@ -37,7 +37,7 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   protected abstract void addMaterialRenderInfo();
 
   @Override
-  public void act(DirectoryCache cache) {
+  public void run(DirectoryCache cache) {
     addMaterialRenderInfo();
     // generate
     allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId, info.build()));

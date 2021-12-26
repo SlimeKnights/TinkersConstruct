@@ -24,29 +24,29 @@ import slimeknights.tconstruct.shared.block.SlimesteelBlock;
 @SuppressWarnings("unused")
 public final class TinkerMaterials extends TinkerModule {
   // ores
-  public static final MetalItemObject copper = BLOCKS.registerMetal("copper", metalBuilder(MaterialColor.ADOBE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject cobalt = BLOCKS.registerMetal("cobalt", metalBuilder(MaterialColor.BLUE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject copper = BLOCKS.registerMetal("copper", metalBuilder(MaterialColor.COLOR_ORANGE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject cobalt = BLOCKS.registerMetal("cobalt", metalBuilder(MaterialColor.COLOR_BLUE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   // tier 3
-  public static final MetalItemObject slimesteel    = BLOCKS.registerMetal("slimesteel", () -> new SlimesteelBlock(metalBuilder(MaterialColor.WARPED_WART).notSolid()), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject slimesteel    = BLOCKS.registerMetal("slimesteel", () -> new SlimesteelBlock(metalBuilder(MaterialColor.WARPED_WART_BLOCK).noOcclusion()), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject tinkersBronze = BLOCKS.registerMetal("tinkers_bronze", "silicon_bronze", metalBuilder(MaterialColor.WOOD), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject roseGold      = BLOCKS.registerMetal("rose_gold", metalBuilder(MaterialColor.WHITE_TERRACOTTA), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject pigIron       = BLOCKS.registerMetal("pig_iron", () -> new OrientableBlock(metalBuilder(MaterialColor.PINK)), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject roseGold      = BLOCKS.registerMetal("rose_gold", metalBuilder(MaterialColor.TERRACOTTA_WHITE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject pigIron       = BLOCKS.registerMetal("pig_iron", () -> new OrientableBlock(metalBuilder(MaterialColor.COLOR_PINK)), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   // tier 4
-  public static final MetalItemObject queensSlime = BLOCKS.registerMetal("queens_slime", metalBuilder(MaterialColor.GREEN), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject manyullyn   = BLOCKS.registerMetal("manyullyn", metalBuilder(MaterialColor.PURPLE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject hepatizon   = BLOCKS.registerMetal("hepatizon", metalBuilder(MaterialColor.BLUE_TERRACOTTA), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", metalBuilder(MaterialColor.BROWN).notSolid(), HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
+  public static final MetalItemObject queensSlime = BLOCKS.registerMetal("queens_slime", metalBuilder(MaterialColor.COLOR_GREEN), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject manyullyn   = BLOCKS.registerMetal("manyullyn", metalBuilder(MaterialColor.COLOR_PURPLE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject hepatizon   = BLOCKS.registerMetal("hepatizon", metalBuilder(MaterialColor.TERRACOTTA_BLUE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", metalBuilder(MaterialColor.COLOR_BROWN).noOcclusion(), HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
   public static final ItemObject<Item> netheriteNugget = ITEMS.register("netherite_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> debrisNugget = ITEMS.register("debris_nugget", TOOLTIP_ITEM);
   // tier 5
-  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", metalBuilder(MaterialColor.MAGENTA), HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
+  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", metalBuilder(MaterialColor.COLOR_MAGENTA), HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
 
   // non-metal
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
   public static final ItemObject<Item> bloodbone = ITEMS.register("bloodbone", TOOLTIP_ITEM);
   public static final ItemObject<Item> blazingBone = ITEMS.register("blazing_bone", TOOLTIP_ITEM);
   public static final ItemObject<Item> necroniumBone = ITEMS.register("necronium_bone", TOOLTIP_ITEM);
-  public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(Material.WOOD, MaterialColor.OBSIDIAN, ToolType.AXE, SoundType.WOOD).harvestLevel(HarvestLevels.DIAMOND).setRequiresTool().hardnessAndResistance(25f, 300f), GENERAL_BLOCK_ITEM);
+  public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(Material.WOOD, MaterialColor.PODZOL, ToolType.AXE, SoundType.WOOD).harvestLevel(HarvestLevels.DIAMOND).requiresCorrectToolForDrops().strength(25f, 300f), GENERAL_BLOCK_ITEM);
 
   /*
    * Serializers

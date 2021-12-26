@@ -18,12 +18,12 @@ public class SlimeFungusFeature extends HugeFungusFeature {
   }
 
   @Override
-  public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, HugeFungusConfig config) {
+  public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, HugeFungusConfig config) {
     if (!(config instanceof SlimeFungusConfig)) {
-      return super.generate(reader, generator, rand, pos, config);
+      return super.place(reader, generator, rand, pos, config);
     }
     // must be on the right ground
-    if (!reader.getBlockState(pos.down()).isIn(((SlimeFungusConfig) config).getGroundTag())) {
+    if (!reader.getBlockState(pos.below()).is(((SlimeFungusConfig) config).getGroundTag())) {
       return false;
     }
     // ensure not too tall
@@ -31,14 +31,14 @@ public class SlimeFungusFeature extends HugeFungusFeature {
     if (rand.nextInt(12) == 0) {
       height *= 2;
     }
-    if (!config.planted && pos.getY() + height + 1 >= generator.getMaxBuildHeight()) {
+    if (!config.planted && pos.getY() + height + 1 >= generator.getGenDepth()) {
       return false;
     }
     // actual generation
     boolean flag = !config.planted && rand.nextFloat() < 0.06F;
-    reader.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
-    this.generateStems(reader, rand, config, pos, height, flag);
-    this.generateFungusHat(reader, rand, config, pos, height, flag);
+    reader.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
+    this.placeStem(reader, rand, config, pos, height, flag);
+    this.placeHat(reader, rand, config, pos, height, flag);
     return true;
   }
 }

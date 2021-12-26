@@ -15,16 +15,18 @@ import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTi
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedBlock extends Block {
   public static final BooleanProperty IN_STRUCTURE = BooleanProperty.create("in_structure");
 
   public SearedBlock(Properties properties) {
     super(properties);
-    this.setDefaultState(this.getDefaultState().with(IN_STRUCTURE, false));
+    this.registerDefaultState(this.defaultBlockState().setValue(IN_STRUCTURE, false));
   }
 
   @Override
-  protected void fillStateContainer(Builder<Block,BlockState> builder) {
+  protected void createBlockStateDefinition(Builder<Block,BlockState> builder) {
     builder.add(IN_STRUCTURE);
   }
 
@@ -40,23 +42,23 @@ public class SearedBlock extends Block {
 
   @Override
   @Deprecated
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.matchesBlock(this)) {
+  public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    if (!newState.is(this)) {
       TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
-    super.onReplaced(state, worldIn, pos, newState, isMoving);
+    super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
-  public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
   }
 
   @Override
   @Deprecated
-  public boolean eventReceived(BlockState state, World worldIn, BlockPos pos, int id, int param) {
-    super.eventReceived(state, worldIn, pos, id, param);
-    TileEntity tileentity = worldIn.getTileEntity(pos);
-    return tileentity != null && tileentity.receiveClientEvent(id, param);
+  public boolean triggerEvent(BlockState state, World worldIn, BlockPos pos, int id, int param) {
+    super.triggerEvent(state, worldIn, pos, id, param);
+    TileEntity tileentity = worldIn.getBlockEntity(pos);
+    return tileentity != null && tileentity.triggerEvent(id, param);
   }
 }

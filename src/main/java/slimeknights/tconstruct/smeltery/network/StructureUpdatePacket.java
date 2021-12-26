@@ -51,7 +51,7 @@ public class StructureUpdatePacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(StructureUpdatePacket packet) {
-      TileEntityHelper.getTile(HeatingStructureTileEntity.class, Minecraft.getInstance().world, packet.pos)
+      TileEntityHelper.getTile(HeatingStructureTileEntity.class, Minecraft.getInstance().level, packet.pos)
                       .ifPresent(te -> te.setStructureSize(packet.minPos, packet.maxPos, packet.tanks));
     }
   }

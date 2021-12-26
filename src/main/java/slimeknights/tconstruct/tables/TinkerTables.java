@@ -66,7 +66,7 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Blocks
    */
-  private static final Block.Properties WOOD_TABLE = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(1.0F, 5.0F).notSolid();
+  private static final Block.Properties WOOD_TABLE = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).strength(1.0F, 5.0F).noOcclusion();
   /** Call with .apply to set the tag type for a block item provider */
   private static final BiFunction<ITag<Item>,BooleanSupplier,Function<Block,RetexturedBlockItem>> RETEXTURED_BLOCK_ITEM = (tag, cond) -> block -> new TableBlockItem(block, tag, GENERAL_PROPS, cond);
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.LOGS, Config.COMMON.showAllTableVariants::get));
@@ -75,10 +75,10 @@ public final class TinkerTables extends TinkerModule {
   public static final ItemObject<TableBlock> tinkersChest = BLOCKS.register("tinkers_chest", () -> new TinkersChestBlock(WOOD_TABLE, TinkersChestTileEntity::new, true), block -> new TinkersChestBlockItem(block, GENERAL_PROPS));
   public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new ChestBlock(WOOD_TABLE, PartChestTileEntity::new, true), GENERAL_BLOCK_ITEM);
 
-  private static final Block.Properties METAL_TABLE = builder(Material.ANVIL, ToolType.PICKAXE, SoundType.ANVIL).setRequiresTool().hardnessAndResistance(5.0F, 1200.0F).notSolid();
+  private static final Block.Properties METAL_TABLE = builder(Material.HEAVY_METAL, ToolType.PICKAXE, SoundType.ANVIL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).noOcclusion();
   public static final ItemObject<TableBlock> tinkersAnvil = BLOCKS.register("tinkers_anvil", () -> new TinkersAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL, Config.COMMON.showAllAnvilVariants::get));
   public static final ItemObject<TableBlock> scorchedAnvil = BLOCKS.register("scorched_anvil", () -> new TinkersAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL, Config.COMMON.showAllAnvilVariants::get));
-  private static final Block.Properties STONE_TABLE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid();
+  private static final Block.Properties STONE_TABLE = builder(Material.STONE, ToolType.PICKAXE, SoundType.METAL).requiresCorrectToolForDrops().strength(3.0F, 9.0F).noOcclusion();
   public static final ItemObject<TableBlock> castChest = BLOCKS.register("cast_chest", () -> new ChestBlock(STONE_TABLE, CastChestTileEntity::new, false), GENERAL_BLOCK_ITEM);
 
   /*

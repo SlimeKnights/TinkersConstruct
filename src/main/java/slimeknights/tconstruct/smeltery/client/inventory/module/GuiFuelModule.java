@@ -30,7 +30,7 @@ public class GuiFuelModule {
   private static final String TOOLTIP_TEMPERATURE = TConstruct.makeTranslationKey("gui", "melting.fuel.temperature");
   private static final List<ITextComponent> TOOLTIP_NO_TANK = Collections.singletonList(new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.no_tank")));
   private static final List<ITextComponent> TOOLTIP_NO_FUEL = Collections.singletonList(new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.empty")));
-  private static final ITextComponent TOOLTIP_INVALID_FUEL = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.invalid")).mergeStyle(TextFormatting.RED);
+  private static final ITextComponent TOOLTIP_INVALID_FUEL = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.invalid")).withStyle(TextFormatting.RED);
   private static final ITextComponent TOOLTIP_SOLID_FUEL = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.solid"));
 
   private final ContainerScreen<?> screen;
@@ -63,7 +63,7 @@ public class GuiFuelModule {
     int fuel = fuelModule.getFuel();
     int fuelQuality = fuelModule.getFuelQuality();
     if (fuel > 0 && fuelQuality > 0) {
-      FIRE.drawScaledYUp(matrices, fireX + screen.guiLeft, fireY + screen.guiTop, 14 * fuel / fuelQuality);
+      FIRE.drawScaledYUp(matrices, fireX + screen.leftPos, fireY + screen.topPos, 14 * fuel / fuelQuality);
     }
 
     // draw tank second, it changes the image
@@ -103,8 +103,8 @@ public class GuiFuelModule {
    * @param mouseY    Mouse Y position
    */
   public void addTooltip(MatrixStack matrices, int mouseX, int mouseY, boolean hasTank) {
-    int checkX = mouseX - screen.guiLeft;
-    int checkY = mouseY - screen.guiTop;
+    int checkX = mouseX - screen.leftPos;
+    int checkY = mouseY - screen.topPos;
 
     if (isHovered(checkX, checkY)) {
       List<ITextComponent> tooltip;
@@ -116,7 +116,7 @@ public class GuiFuelModule {
             // no invalid fuel, we assume the slot is validated (hasFuelSlot is only true for the heater which validates)
             int temperature = fuelModule.getTemperature();
             if (temperature > 0) {
-              tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+              tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).withStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
             } else {
               tooltip = TOOLTIP_NO_FUEL;
             }
@@ -131,7 +131,7 @@ public class GuiFuelModule {
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
         int temperature = fuelInfo.getTemperature();
         if (temperature > 0) {
-          tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+          tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).withStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
         } else {
           tooltip.add(1, TOOLTIP_INVALID_FUEL);
         }
@@ -139,8 +139,7 @@ public class GuiFuelModule {
         tooltip = hasTank ? TOOLTIP_NO_FUEL : TOOLTIP_NO_TANK;
       }
 
-      // TODO: func_243308_b->renderTooltip
-      screen.func_243308_b(matrices, tooltip, mouseX, mouseY);
+      screen.renderComponentTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
 

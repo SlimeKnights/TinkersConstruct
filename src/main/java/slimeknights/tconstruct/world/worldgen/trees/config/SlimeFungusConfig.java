@@ -16,7 +16,7 @@ import net.minecraft.world.gen.feature.HugeFungusConfig;
  */
 public class SlimeFungusConfig extends HugeFungusConfig {
   public static final Codec<HugeFungusConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-    ITag.getTagCodec(() -> TagCollectionManager.getManager().getBlockTags()).fieldOf("valid_base").forGetter(
+    ITag.codec(() -> TagCollectionManager.getInstance().getBlocks()).fieldOf("valid_base").forGetter(
       config -> config instanceof SlimeFungusConfig ? ((SlimeFungusConfig)config).getGroundTag() : BlockTags.NYLIUM),
     BlockState.CODEC.fieldOf("stem_state").forGetter(config -> config.stemState),
     BlockState.CODEC.fieldOf("hat_state").forGetter(config -> config.hatState),
@@ -26,7 +26,7 @@ public class SlimeFungusConfig extends HugeFungusConfig {
   @Getter
   private final ITag<Block> groundTag;
   public SlimeFungusConfig(ITag<Block> groundTag, BlockState stem, BlockState hat, BlockState decor, boolean planted) {
-    super(Blocks.AIR.getDefaultState(), stem, hat, decor, planted);
+    super(Blocks.AIR.defaultBlockState(), stem, hat, decor, planted);
     this.groundTag = groundTag;
   }
 }

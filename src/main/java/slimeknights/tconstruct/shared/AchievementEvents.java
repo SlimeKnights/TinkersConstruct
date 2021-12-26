@@ -51,18 +51,18 @@ public final class AchievementEvents {
   @SubscribeEvent
   public static void onDamageEntity(LivingHurtEvent event) {
     DamageSource source = event.getSource();
-    if (source.isProjectile() && !(source.getTrueSource() instanceof FakePlayer) && source.getTrueSource() instanceof ServerPlayerEntity) {// && source.getImmediateSource() instanceof EntityArrow) {
-      grantAdvancement((ServerPlayerEntity) source.getTrueSource(), ADVANCEMENT_SHOOT_ARROW);
+    if (source.isProjectile() && !(source.getEntity() instanceof FakePlayer) && source.getEntity() instanceof ServerPlayerEntity) {// && source.getImmediateSource() instanceof EntityArrow) {
+      grantAdvancement((ServerPlayerEntity) source.getEntity(), ADVANCEMENT_SHOOT_ARROW);
     }
   }
 
   private static void grantAdvancement(ServerPlayerEntity playerMP, String advancementResource) {
-    Advancement advancement = playerMP.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(advancementResource));
+    Advancement advancement = playerMP.getServer().getAdvancements().getAdvancement(new ResourceLocation(advancementResource));
     if (advancement != null) {
-      AdvancementProgress advancementProgress = playerMP.getAdvancements().getProgress(advancement);
+      AdvancementProgress advancementProgress = playerMP.getAdvancements().getOrStartProgress(advancement);
       if (!advancementProgress.isDone()) {
         // we use playerAdvancements.grantCriterion instead of progress.grantCriterion for the visibility stuff and toasts
-        advancementProgress.getRemaningCriteria().forEach(criterion -> playerMP.getAdvancements().grantCriterion(advancement, criterion));
+        advancementProgress.getRemainingCriteria().forEach(criterion -> playerMP.getAdvancements().award(advancement, criterion));
       }
     }
   }

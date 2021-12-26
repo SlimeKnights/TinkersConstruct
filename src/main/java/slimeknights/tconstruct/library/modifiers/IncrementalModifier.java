@@ -23,7 +23,7 @@ public class IncrementalModifier extends Modifier {
     if (neededPerLevel > 0) {
       int amount = getAmount(tool);
       if (amount < neededPerLevel) {
-        return name.deepCopy().appendString(": " + amount + " / " + neededPerLevel);
+        return name.copy().append(": " + amount + " / " + neededPerLevel);
       }
     }
     return name;

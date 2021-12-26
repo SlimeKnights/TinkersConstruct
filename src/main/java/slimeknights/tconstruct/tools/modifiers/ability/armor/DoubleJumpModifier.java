@@ -53,17 +53,17 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
    */
   public static boolean extraJump(PlayerEntity entity) {
     // validate preconditions, no using when swimming, elytra, or on the ground
-    if (!entity.isOnGround() && !entity.isOnLadder() && !entity.isInWaterOrBubbleColumn()) {
+    if (!entity.isOnGround() && !entity.onClimbable() && !entity.isInWaterOrBubble()) {
       // determine modifier level
       int maxJumps = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(EXTRA_JUMPS)).orElse(0);
       if (maxJumps > 0) {
         return entity.getCapability(PersistentDataCapability.CAPABILITY).filter(data -> {
           int jumps = data.getInt(JUMPS);
           if (jumps < maxJumps) {
-            entity.jump();
-            Random random = entity.getEntityWorld().getRandom();
+            entity.jumpFromGround();
+            Random random = entity.getCommandSenderWorld().getRandom();
             for (int i = 0; i < 4; i++) {
-              entity.getEntityWorld().addParticle(ParticleTypes.HAPPY_VILLAGER, entity.getPosX() - 0.25f + random.nextFloat() * 0.5f, entity.getPosY(), entity.getPosZ() - 0.25f + random.nextFloat() * 0.5f, 0, 0, 0);
+              entity.getCommandSenderWorld().addParticle(ParticleTypes.HAPPY_VILLAGER, entity.getX() - 0.25f + random.nextFloat() * 0.5f, entity.getY(), entity.getZ() - 0.25f + random.nextFloat() * 0.5f, 0, 0, 0);
             }
             entity.playSound(Sounds.EXTRA_JUMP.getSound(), 0.5f, 0.5f);
             data.putInt(JUMPS, jumps + 1);

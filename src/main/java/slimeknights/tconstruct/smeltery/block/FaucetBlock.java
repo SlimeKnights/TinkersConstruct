@@ -35,46 +35,48 @@ import java.util.EnumMap;
 import java.util.Optional;
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class FaucetBlock extends Block {
-  public static final DirectionProperty FACING = BlockStateProperties.FACING_EXCEPT_UP;
+  public static final DirectionProperty FACING = BlockStateProperties.FACING_HOPPER;
   private static final EnumMap<Direction,VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
-    Direction.DOWN,  VoxelShapes.combineAndSimplify(makeCuboidShape( 4, 10,  4, 12, 16, 12), makeCuboidShape( 6, 10,  6, 10, 16, 10), IBooleanFunction.ONLY_FIRST),
-    Direction.NORTH, VoxelShapes.combineAndSimplify(makeCuboidShape( 4,  4, 10, 12, 10, 16), makeCuboidShape( 6,  6, 10, 10, 10, 16), IBooleanFunction.ONLY_FIRST),
-    Direction.SOUTH, VoxelShapes.combineAndSimplify(makeCuboidShape( 4,  4,  0, 12, 10,  6), makeCuboidShape( 6,  6,  0, 10, 10,  6), IBooleanFunction.ONLY_FIRST),
-    Direction.WEST,  VoxelShapes.combineAndSimplify(makeCuboidShape(10,  4,  4, 16, 10, 12), makeCuboidShape(10,  6,  6, 16, 10, 10), IBooleanFunction.ONLY_FIRST),
-    Direction.EAST,  VoxelShapes.combineAndSimplify(makeCuboidShape( 0,  4,  4,  6, 10, 12), makeCuboidShape( 0,  6,  6,  6, 10, 10), IBooleanFunction.ONLY_FIRST)));
+    Direction.DOWN,  VoxelShapes.join(box( 4, 10,  4, 12, 16, 12), box( 6, 10,  6, 10, 16, 10), IBooleanFunction.ONLY_FIRST),
+    Direction.NORTH, VoxelShapes.join(box( 4,  4, 10, 12, 10, 16), box( 6,  6, 10, 10, 10, 16), IBooleanFunction.ONLY_FIRST),
+    Direction.SOUTH, VoxelShapes.join(box( 4,  4,  0, 12, 10,  6), box( 6,  6,  0, 10, 10,  6), IBooleanFunction.ONLY_FIRST),
+    Direction.WEST,  VoxelShapes.join(box(10,  4,  4, 16, 10, 12), box(10,  6,  6, 16, 10, 10), IBooleanFunction.ONLY_FIRST),
+    Direction.EAST,  VoxelShapes.join(box( 0,  4,  4,  6, 10, 12), box( 0,  6,  6,  6, 10, 10), IBooleanFunction.ONLY_FIRST)));
 
   public FaucetBlock(Properties properties) {
     super(properties);
-    this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
   }
 
   /* Blockstate */
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
     builder.add(FACING);
   }
 
   @Nullable
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    Direction dir = context.getFace();
+    Direction dir = context.getClickedFace();
     if (dir == Direction.UP) {
       dir = Direction.DOWN;
     }
-    return this.getDefaultState().with(FACING, dir);
+    return this.defaultBlockState().setValue(FACING, dir);
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    return SHAPES.get(state.get(FACING));
+    return SHAPES.get(state.getValue(FACING));
   }
 
   @Override
-  public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+  public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
     return false;
   }
 
@@ -94,8 +96,8 @@ public class FaucetBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-    if (player.isSneaking()) {
+  public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    if (player.isShiftKeyDown()) {
       return ActionResultType.PASS;
     }
     getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
@@ -106,12 +108,12 @@ public class FaucetBlock extends Block {
   @Deprecated
   @Override
   public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-    if (worldIn.isRemote()) {
+    if (worldIn.isClientSide()) {
       return;
     }
     getFaucet(worldIn, pos).ifPresent(faucet -> {
       faucet.neighborChanged(fromPos);
-      faucet.handleRedstone(worldIn.isBlockPowered(pos));
+      faucet.handleRedstone(worldIn.hasNeighborSignal(pos));
     });
   }
 
@@ -141,10 +143,10 @@ public class FaucetBlock extends Block {
    * @param pos      Faucet position
    */
   private static void addParticles(BlockState state, IWorld worldIn, BlockPos pos) {
-    Direction direction = state.get(FACING);
-    double x = (double)pos.getX() + 0.5D - 0.3D * (double)direction.getXOffset();
-    double y = (double)pos.getY() + 0.5D - 0.3D * (double)direction.getYOffset();
-    double z = (double)pos.getZ() + 0.5D - 0.3D * (double)direction.getZOffset();
+    Direction direction = state.getValue(FACING);
+    double x = (double)pos.getX() + 0.5D - 0.3D * (double)direction.getStepX();
+    double y = (double)pos.getY() + 0.5D - 0.3D * (double)direction.getStepY();
+    double z = (double)pos.getZ() + 0.5D - 0.3D * (double)direction.getStepZ();
     worldIn.addParticle(new RedstoneParticleData(1.0F, 0.0F, 0.0F, 0.5f), x, y, z, 0.0D, 0.0D, 0.0D);
   }
 

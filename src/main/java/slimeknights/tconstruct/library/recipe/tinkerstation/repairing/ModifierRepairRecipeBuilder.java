@@ -41,17 +41,17 @@ public class ModifierRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierR
 
   private class FinishedRecipe extends AbstractFinishedRecipe {
     @Getter
-    private final IRecipeSerializer<?> serializer;
+    private final IRecipeSerializer<?> type;
 
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, IRecipeSerializer<?> serializer) {
+    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, IRecipeSerializer<?> type) {
       super(ID, advancementID);
-      this.serializer = serializer;
+      this.type = type;
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       json.addProperty("modifier", modifier.getId().toString());
-      json.add("ingredient", ingredient.serialize());
+      json.add("ingredient", ingredient.toJson());
       json.addProperty("repair_amount", repairAmount);
     }
   }

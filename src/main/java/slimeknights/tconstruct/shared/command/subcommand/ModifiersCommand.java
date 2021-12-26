@@ -42,7 +42,7 @@ public class ModifiersCommand {
    * @param subCommand  Command builder
    */
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
-    subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_GAME_COMMANDS))
+    subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
               .then(Commands.argument("targets", EntityArgument.entities())
                             // modifiers <target> add <modifier> [<level>]
                             .then(Commands.literal("add")
@@ -84,7 +84,7 @@ public class ModifiersCommand {
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
       return true;
     });
 
@@ -92,9 +92,9 @@ public class ModifiersCommand {
     CommandSource source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendFeedback(new TranslationTextComponent(ADD_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendFeedback(new TranslationTextComponent(ADD_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
+      source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
     }
     return size;
   }
@@ -152,7 +152,7 @@ public class ModifiersCommand {
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
       return true;
     });
 
@@ -160,9 +160,9 @@ public class ModifiersCommand {
     CommandSource source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendFeedback(new TranslationTextComponent(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslationTextComponent(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendFeedback(new TranslationTextComponent(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
+      source.sendSuccess(new TranslationTextComponent(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
     }
     return size;
   }

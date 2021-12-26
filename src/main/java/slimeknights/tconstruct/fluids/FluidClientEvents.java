@@ -30,7 +30,7 @@ public class FluidClientEvents extends ClientEventBase {
   }
 
   private static void setTranslucent(FluidObject<?> fluid) {
-    RenderTypeLookup.setRenderLayer(fluid.getStill(), RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(fluid.getFlowing(), RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(fluid.getStill(), RenderType.translucent());
+    RenderTypeLookup.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
   }
 }

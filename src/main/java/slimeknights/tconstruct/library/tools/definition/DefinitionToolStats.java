@@ -63,7 +63,7 @@ public class DefinitionToolStats {
   public void write(PacketBuffer buffer) {
     buffer.writeVarInt(values.size());
     for (Entry<FloatToolStat,Float> entry : values.entrySet()) {
-      buffer.writeString(entry.getKey().getName().toString());
+      buffer.writeUtf(entry.getKey().getName().toString());
       buffer.writeFloat(entry.getValue());
     }
   }
@@ -73,7 +73,7 @@ public class DefinitionToolStats {
     Builder builder = builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
-      ToolStatId id = new ToolStatId(buffer.readString(Short.MAX_VALUE));
+      ToolStatId id = new ToolStatId(buffer.readUtf(Short.MAX_VALUE));
       IToolStat<?> stat = ToolStats.getToolStat(id);
       if (stat instanceof FloatToolStat) {
         builder.addStat((FloatToolStat) stat, buffer.readFloat());
@@ -114,14 +114,14 @@ public class DefinitionToolStats {
   protected static class Serializer implements JsonDeserializer<DefinitionToolStats>, JsonSerializer<DefinitionToolStats> {
     @Override
     public DefinitionToolStats deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject object = JSONUtils.getJsonObject(json, "stats");
+      JsonObject object = JSONUtils.convertToJsonObject(json, "stats");
       Builder builder = builder();
       for (Entry<String,JsonElement> entry : object.entrySet()) {
-        ResourceLocation location = ResourceLocation.tryCreate(entry.getKey());
+        ResourceLocation location = ResourceLocation.tryParse(entry.getKey());
         if (location != null) {
           IToolStat<?> stat = ToolStats.getToolStat(new ToolStatId(location));
           if (stat instanceof FloatToolStat) {
-            builder.addStat((FloatToolStat)stat, JSONUtils.getFloat(entry.getValue(), entry.getKey()));
+            builder.addStat((FloatToolStat)stat, JSONUtils.convertToFloat(entry.getValue(), entry.getKey()));
             continue;
           }
         }

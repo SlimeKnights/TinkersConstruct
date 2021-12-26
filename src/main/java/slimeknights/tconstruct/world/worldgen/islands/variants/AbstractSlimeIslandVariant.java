@@ -21,7 +21,7 @@ public abstract class AbstractSlimeIslandVariant implements IIslandVariant {
 
   @Override
   public BlockState getLakeBottom() {
-    return TinkerWorld.slimeGrass.get(dirtType).get(foliageType).getDefaultState();
+    return TinkerWorld.slimeGrass.get(dirtType).get(foliageType).defaultBlockState();
   }
 
   /** Gets the type of congealed slime to place */
@@ -29,13 +29,13 @@ public abstract class AbstractSlimeIslandVariant implements IIslandVariant {
 
   @Override
   public BlockState getCongealedSlime(Random random) {
-    return TinkerWorld.congealedSlime.get(getCongealedSlimeType(random)).getDefaultState();
+    return TinkerWorld.congealedSlime.get(getCongealedSlimeType(random)).defaultBlockState();
   }
 
   @Nullable
   @Override
   public BlockState getPlant(Random random) {
     EnumObject<SlimeType,? extends Block> enumObject = random.nextInt(8) == 0 ? TinkerWorld.slimeFern : TinkerWorld.slimeTallGrass;
-    return enumObject.get(foliageType).getDefaultState();
+    return enumObject.get(foliageType).defaultBlockState();
   }
 }

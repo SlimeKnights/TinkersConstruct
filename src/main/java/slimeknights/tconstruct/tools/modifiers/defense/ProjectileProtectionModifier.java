@@ -35,7 +35,7 @@ public class ProjectileProtectionModifier extends AbstractProtectionModifier<Mod
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isProjectile()) {
+    if (!source.isBypassMagic() && !source.isBypassInvul() && source.isProjectile()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;

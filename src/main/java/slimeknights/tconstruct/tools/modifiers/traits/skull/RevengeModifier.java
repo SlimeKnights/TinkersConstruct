@@ -20,13 +20,13 @@ public class RevengeModifier extends SingleUseModifier {
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // must be attacked by entity
-    Entity trueSource = source.getTrueSource();
+    Entity trueSource = source.getEntity();
     LivingEntity living = context.getEntity();
     if (trueSource != null && trueSource != living) { // no making yourself mad with slurping or self-destruct or alike
-      EffectInstance effect = new EffectInstance(Effects.STRENGTH, 300);
+      EffectInstance effect = new EffectInstance(Effects.DAMAGE_BOOST, 300);
       effect.getCurativeItems().clear();
-      effect.getCurativeItems().add(new ItemStack(living.getItemStackFromSlot(slotType).getItem()));
-      living.addPotionEffect(effect);
+      effect.getCurativeItems().add(new ItemStack(living.getItemBySlot(slotType).getItem()));
+      living.addEffect(effect);
     }
   }
 

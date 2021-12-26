@@ -52,12 +52,12 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
   public ActionResultType afterEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand, EquipmentSlotType slotType) {
     if (target instanceof CreeperEntity) {
       CreeperEntity creeper = (CreeperEntity) target;
-      player.world.playSound(player, creeper.getPosX(), creeper.getPosY(), creeper.getPosZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, creeper.getSoundCategory(), 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-      if (!player.world.isRemote) {
+      player.level.playSound(player, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.FLINTANDSTEEL_USE, creeper.getSoundSource(), 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      if (!player.level.isClientSide) {
         creeper.ignite();
         ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
       }
-      return ActionResultType.func_233537_a_(player.world.isRemote);
+      return ActionResultType.sidedSuccess(player.level.isClientSide);
     }
     return ActionResultType.PASS;
   }
@@ -65,9 +65,9 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
   /** Ignites the given block */
   private static boolean ignite(IModifierToolStack tool, World world, BlockPos pos, BlockState state, Direction sideHit, Direction horizontalFacing, @Nullable PlayerEntity player) {
     // campfires first
-    if (CampfireBlock.canBeLit(state)) {
-      world.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-      world.setBlockState(pos, state.with(BlockStateProperties.LIT, true), 11);
+    if (CampfireBlock.canLight(state)) {
+      world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      world.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
       return true;
     }
 
@@ -75,15 +75,15 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
     if (state.getBlock() instanceof TNTBlock) {
       TNTBlock tnt = (TNTBlock) state.getBlock();
       tnt.catchFire(state, world, pos, sideHit, player);
-      world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
+      world.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
       return true;
     }
 
     // fire starting
-    BlockPos offset = pos.offset(sideHit);
-    if (AbstractFireBlock.canLightBlock(world, offset, horizontalFacing)) {
-      world.playSound(player, offset, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-      world.setBlockState(offset, AbstractFireBlock.getFireForPlacement(world, offset), 11);
+    BlockPos offset = pos.relative(sideHit);
+    if (AbstractFireBlock.canBePlacedAt(world, offset, horizontalFacing)) {
+      world.playSound(player, offset, SoundEvents.FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      world.setBlock(offset, AbstractFireBlock.getState(world, offset), 11);
       return true;
     }
     return false;
@@ -95,15 +95,15 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
       return ActionResultType.PASS;
     }
     PlayerEntity player = context.getPlayer();
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
-    Direction sideHit = context.getFace();
+    World world = context.getLevel();
+    BlockPos pos = context.getClickedPos();
+    Direction sideHit = context.getClickedFace();
     BlockState state = world.getBlockState(pos);
 
     // if targeting fire, offset to behind the fire
     boolean targetingFire = false;
-    if (state.isIn(BlockTags.FIRE)) {
-      pos = pos.offset(sideHit.getOpposite());
+    if (state.is(BlockTags.FIRE)) {
+      pos = pos.relative(sideHit.getOpposite());
       targetingFire = true;
     }
 
@@ -115,17 +115,17 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
     }
 
     // burn it all in AOE
-    Direction horizontalFacing = context.getPlacementHorizontalFacing();
+    Direction horizontalFacing = context.getHorizontalDirection();
     // first burn the center, unless we already know its fire
     boolean didIgnite = false;
-    ItemStack stack = context.getItem();
+    ItemStack stack = context.getItemInHand();
     if (!targetingFire) {
       didIgnite = ignite(tool, world, pos, state, sideHit, horizontalFacing, player);
       if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack)) {
         if (player != null) {
-          player.sendBreakAnimation(slotType);
+          player.broadcastBreakEvent(slotType);
         }
-        return ActionResultType.func_233537_a_(world.isRemote);
+        return ActionResultType.sidedSuccess(world.isClientSide);
       }
     }
     // ignite the edges, if any worked return success
@@ -134,12 +134,12 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
         didIgnite = true;
         if (ToolDamageUtil.damage(tool, 1, player, stack)) {
           if (player != null) {
-            player.sendBreakAnimation(slotType);
+            player.broadcastBreakEvent(slotType);
           }
           break;
         }
       }
     }
-    return didIgnite ? ActionResultType.func_233537_a_(world.isRemote) : ActionResultType.PASS;
+    return didIgnite ? ActionResultType.sidedSuccess(world.isClientSide) : ActionResultType.PASS;
   }
 }

@@ -31,36 +31,36 @@ public class SlimelytraArmorModel<T extends LivingEntity> extends BipedModel<T> 
   }
 
   @Override
-  public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
     if (base != null) {
-      base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      base.renderToBuffer(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
     if (SlimeskullArmorModel.buffer != null) {
-      matrixStackIn.push();
+      matrixStackIn.pushPose();
       matrixStackIn.translate(0.0D, 0.0D, 0.125D);
-      IVertexBuilder elytraBuffer = SlimeskullArmorModel.buffer.getBuffer(RenderType.getEntityCutoutNoCullZOffset(elytraTexture));
-      elytraModel.render(matrixStackIn, elytraBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      matrixStackIn.pop();
+      IVertexBuilder elytraBuffer = SlimeskullArmorModel.buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(elytraTexture));
+      elytraModel.renderToBuffer(matrixStackIn, elytraBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      matrixStackIn.popPose();
     }
   }
 
   /** Called before the model is rendered to set the base model and the elytra entity data */
   public void setEntityAndBase(T entity, BipedModel<?> base) {
-    elytraModel.setRotationAngles(entity, 0, 0, 0, 0, 0);
+    elytraModel.setupAnim(entity, 0, 0, 0, 0, 0);
     this.base = base;
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public void setVisible(boolean visible) {
+  public void setAllVisible(boolean visible) {
     // attributes are copied to elytra through another model's setModelAttributes, this is the best hook to copy them to elytra
-    this.copyModelAttributesTo(elytraModel);
+    this.copyPropertiesTo(elytraModel);
     if (base != null) {
-      base.setVisible(false);
-      base.bipedBody.showModel = true;
-      base.bipedRightArm.showModel = true;
-      base.bipedLeftArm.showModel = true;
-      this.setModelAttributes((BipedModel<T>)base);
+      base.setAllVisible(false);
+      base.body.visible = true;
+      base.rightArm.visible = true;
+      base.leftArm.visible = true;
+      this.copyPropertiesTo((BipedModel<T>)base);
     }
   }
 }

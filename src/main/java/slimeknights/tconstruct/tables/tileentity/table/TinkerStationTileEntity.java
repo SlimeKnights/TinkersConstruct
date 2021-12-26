@@ -61,10 +61,10 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
   @Override
   public ITextComponent getDefaultName() {
-    if (this.world == null) {
+    if (this.level == null) {
       return super.getDefaultName();
     }
-    return new TranslationTextComponent(this.getBlockState().getBlock().getTranslationKey());
+    return new TranslationTextComponent(this.getBlockState().getBlock().getDescriptionId());
   }
 
   /**
@@ -72,7 +72,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    * @return  Input count
    */
   public int getInputCount() {
-    return getSizeInventory() - 1;
+    return getContainerSize() - 1;
   }
 
   @Override
@@ -91,7 +91,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
   @Override
   public ItemStack calcResult(@Nullable PlayerEntity player) {
-    if (this.world == null) {
+    if (this.level == null) {
       return ItemStack.EMPTY;
     }
 
@@ -99,14 +99,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     ItemStack result = ItemStack.EMPTY;
     this.currentError = ValidatedResult.PASS;
 
-    if (!this.world.isRemote && this.world.getServer() != null) {
-      RecipeManager manager = this.world.getServer().getRecipeManager();
+    if (!this.level.isClientSide && this.level.getServer() != null) {
+      RecipeManager manager = this.level.getServer().getRecipeManager();
 
       // first, try the cached recipe
       ITinkerStationRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
-      if (recipe == null || !recipe.matches(this.inventoryWrapper, this.world)) {
-        recipe = manager.getRecipe(RecipeTypes.TINKER_STATION, this.inventoryWrapper, this.world).orElse(null);
+      if (recipe == null || !recipe.matches(this.inventoryWrapper, this.level)) {
+        recipe = manager.getRecipeFor(RecipeTypes.TINKER_STATION, this.inventoryWrapper, this.level).orElse(null);
       }
 
       // if we have a recipe, fetch its result
@@ -133,7 +133,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
       }
     }
     // client side only needs to update result, server syncs message elsewhere
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, level)) {
       ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
       if (validatedResult.isSuccess()) {
         result = validatedResult.getResult();
@@ -147,40 +147,40 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
   @Override
   public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
-    if (amount == 0 || this.lastRecipe == null || this.world == null) {
+    if (amount == 0 || this.lastRecipe == null || this.level == null) {
       return ItemStack.EMPTY;
     }
 
     // fire crafting events
-    result.onCrafting(this.world, player, amount);
+    result.onCraftedBy(this.level, player, amount);
     BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     this.playCraftSound(player);
 
     // run the recipe, will shrink inputs
     // run both sides for the sake of shift clicking
     this.inventoryWrapper.setPlayer(player);
-    this.lastRecipe.updateInputs(result, inventoryWrapper, !world.isRemote);
+    this.lastRecipe.updateInputs(result, inventoryWrapper, !level.isClientSide);
     this.inventoryWrapper.setPlayer(null);
 
     // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
     if (this.isStackInSlot(TINKER_SLOT)) {
-      this.setInventorySlotContents(TINKER_SLOT, ItemStack.EMPTY);
+      this.setItem(TINKER_SLOT, ItemStack.EMPTY);
     }
 
     return result;
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack itemstack) {
-    super.setInventorySlotContents(slot, itemstack);
+  public void setItem(int slot, ItemStack itemstack) {
+    super.setItem(slot, itemstack);
     // clear the crafting result when the matrix changes so we recalculate the result
-    this.craftingResult.clear();
+    this.craftingResult.clearContent();
     this.inventoryWrapper.refreshInput(slot);
   }
   
   @Override
   protected void playCraftSound(PlayerEntity player) {
-    SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.BLOCK_ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getEntityWorld().rand.nextFloat());
+    SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
   }
 
   /* Syncing */
@@ -190,9 +190,9 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    * @param player  Player to send an update to
    */
   public void syncRecipe(PlayerEntity player) {
-    // must have a last recipe and a server world
-    if (this.lastRecipe != null && this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateTinkerStationRecipePacket(this.pos, this.lastRecipe), (ServerPlayerEntity) player);
+    // must have a last recipe and a server level
+    if (this.lastRecipe != null && this.level != null && !this.level.isClientSide && player instanceof ServerPlayerEntity) {
+      TinkerNetwork.getInstance().sendTo(new UpdateTinkerStationRecipePacket(this.worldPosition, this.lastRecipe), (ServerPlayerEntity) player);
     }
   }
 
@@ -202,12 +202,12 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    */
   public void updateRecipe(ITinkerStationRecipe recipe) {
     this.lastRecipe = recipe;
-    this.craftingResult.clear();
+    this.craftingResult.clearContent();
   }
 
   @Override
-  public void read(BlockState blockState, CompoundNBT tags) {
-    super.read(blockState, tags);
+  public void load(BlockState blockState, CompoundNBT tags) {
+    super.load(blockState, tags);
     inventoryWrapper.resize();
   }
 }

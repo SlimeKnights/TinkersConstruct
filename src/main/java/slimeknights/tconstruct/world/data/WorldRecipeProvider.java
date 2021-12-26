@@ -28,74 +28,74 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
   }
 
   @Override
-  protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
     // only earth slime recipe we need here slime
-    ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                       .key('#', SlimeType.EARTH.getSlimeballTag())
-                       .patternLine("##")
-                       .patternLine("##")
-                       .addCriterion("has_item", hasItem(SlimeType.EARTH.getSlimeballTag()))
-                       .setGroup("tconstruct:congealed_slime")
-                       .build(consumer, modResource("common/slime/earth/congealed"));
+    ShapedRecipeBuilder.shaped(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
+                       .define('#', SlimeType.EARTH.getSlimeballTag())
+                       .pattern("##")
+                       .pattern("##")
+                       .unlockedBy("has_item", has(SlimeType.EARTH.getSlimeballTag()))
+                       .group("tconstruct:congealed_slime")
+                       .save(consumer, modResource("common/slime/earth/congealed"));
 
     // does not need green as its the fallback
     for (SlimeType slimeType : SlimeType.TINKER) {
-      ResourceLocation name = modResource("common/slime/" + slimeType.getString() + "/congealed");
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
-                         .key('#', slimeType.getSlimeballTag())
-                         .patternLine("##")
-                         .patternLine("##")
-                         .addCriterion("has_item", hasItem(slimeType.getSlimeballTag()))
-                         .setGroup("tconstruct:congealed_slime")
-                         .build(consumer, name);
-      ResourceLocation blockName = modResource("common/slime/" + slimeType.getString() + "/slimeblock");
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
-                         .key('#', slimeType.getSlimeballTag())
-                         .patternLine("###")
-                         .patternLine("###")
-                         .patternLine("###")
-                         .addCriterion("has_item", hasItem(slimeType.getSlimeballTag()))
-                         .setGroup("slime_blocks")
-                         .build(consumer, blockName);
+      ResourceLocation name = modResource("common/slime/" + slimeType.getSerializedName() + "/congealed");
+      ShapedRecipeBuilder.shaped(TinkerWorld.congealedSlime.get(slimeType))
+                         .define('#', slimeType.getSlimeballTag())
+                         .pattern("##")
+                         .pattern("##")
+                         .unlockedBy("has_item", has(slimeType.getSlimeballTag()))
+                         .group("tconstruct:congealed_slime")
+                         .save(consumer, name);
+      ResourceLocation blockName = modResource("common/slime/" + slimeType.getSerializedName() + "/slimeblock");
+      ShapedRecipeBuilder.shaped(TinkerWorld.slime.get(slimeType))
+                         .define('#', slimeType.getSlimeballTag())
+                         .pattern("###")
+                         .pattern("###")
+                         .pattern("###")
+                         .unlockedBy("has_item", has(slimeType.getSlimeballTag()))
+                         .group("slime_blocks")
+                         .save(consumer, blockName);
       // green already can craft into slime balls
-      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
-                            .addIngredient(TinkerWorld.slime.get(slimeType))
-                            .addCriterion("has_item", hasItem(TinkerWorld.slime.get(slimeType)))
-                            .setGroup("tconstruct:slime_balls")
-                            .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_block");
+      ShapelessRecipeBuilder.shapeless(TinkerCommons.slimeball.get(slimeType), 9)
+                            .requires(TinkerWorld.slime.get(slimeType))
+                            .unlockedBy("has_item", has(TinkerWorld.slime.get(slimeType)))
+                            .group("tconstruct:slime_balls")
+                            .save(consumer, "tconstruct:common/slime/" + slimeType.getSerializedName() + "/slimeball_from_block");
     }
     // all types of congealed need a recipe to a block
     for (SlimeType slimeType : SlimeType.values()) {
-      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 4)
-                            .addIngredient(TinkerWorld.congealedSlime.get(slimeType))
-                            .addCriterion("has_item", hasItem(TinkerWorld.congealedSlime.get(slimeType)))
-                            .setGroup("tconstruct:slime_balls")
-                            .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_congealed");
+      ShapelessRecipeBuilder.shapeless(TinkerCommons.slimeball.get(slimeType), 4)
+                            .requires(TinkerWorld.congealedSlime.get(slimeType))
+                            .unlockedBy("has_item", has(TinkerWorld.congealedSlime.get(slimeType)))
+                            .group("tconstruct:slime_balls")
+                            .save(consumer, "tconstruct:common/slime/" + slimeType.getSerializedName() + "/slimeball_from_congealed");
     }
 
     // craft other slime based items, forge does not automatically add recipes using the tag anymore
     Consumer<IFinishedRecipe> slimeConsumer = withCondition(consumer, ConfigEnabledCondition.SLIME_RECIPE_FIX);
-    ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON)
-                       .patternLine("#")
-                       .patternLine("P")
-                       .key('#', Tags.Items.SLIMEBALLS)
-                       .key('P', Blocks.PISTON)
-                       .addCriterion("has_slime_ball", hasItem(Tags.Items.SLIMEBALLS))
-                       .build(slimeConsumer, modResource("common/slime/sticky_piston"));
-    ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2)
-                       .key('~', Items.STRING)
-                       .key('O', Tags.Items.SLIMEBALLS)
-                       .patternLine("~~ ")
-                       .patternLine("~O ")
-                       .patternLine("  ~")
-                       .addCriterion("has_slime_ball", hasItem(Tags.Items.SLIMEBALLS))
-                       .build(slimeConsumer, modResource("common/slime/lead"));
-    ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addIngredient(Tags.Items.SLIMEBALLS)
-                          .addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER))
-                          .build(slimeConsumer, modResource("common/slime/magma_cream"));
+    ShapedRecipeBuilder.shaped(Blocks.STICKY_PISTON)
+                       .pattern("#")
+                       .pattern("P")
+                       .define('#', Tags.Items.SLIMEBALLS)
+                       .define('P', Blocks.PISTON)
+                       .unlockedBy("has_slime_ball", has(Tags.Items.SLIMEBALLS))
+                       .save(slimeConsumer, modResource("common/slime/sticky_piston"));
+    ShapedRecipeBuilder.shaped(Items.LEAD, 2)
+                       .define('~', Items.STRING)
+                       .define('O', Tags.Items.SLIMEBALLS)
+                       .pattern("~~ ")
+                       .pattern("~O ")
+                       .pattern("  ~")
+                       .unlockedBy("has_slime_ball", has(Tags.Items.SLIMEBALLS))
+                       .save(slimeConsumer, modResource("common/slime/lead"));
+    ShapelessRecipeBuilder.shapeless(Items.MAGMA_CREAM)
+                          .requires(Items.BLAZE_POWDER)
+                          .requires(Tags.Items.SLIMEBALLS)
+                          .unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER))
+                          .save(slimeConsumer, modResource("common/slime/magma_cream"));
 
     // wood
     String woodFolder = "world/wood/";

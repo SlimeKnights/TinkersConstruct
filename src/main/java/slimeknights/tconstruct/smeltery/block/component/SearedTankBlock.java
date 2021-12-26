@@ -30,6 +30,8 @@ import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity.ITan
 import javax.annotation.Nullable;
 import java.util.Locale;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedTankBlock extends SearedBlock implements ITankBlock {
   @Getter
   private final int capacity;
@@ -41,7 +43,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
   @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  public float getShadeBrightness(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return 1.0F;
   }
 
@@ -57,16 +59,16 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
 
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
       return ActionResultType.SUCCESS;
     }
-    return super.onBlockActivated(state, world, pos, player, hand, hit);
+    return super.use(state, world, pos, player, hand, hit);
   }
 
   @Override
   public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = world.getBlockEntity(pos);
     if (te instanceof TankTileEntity) {
       FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
@@ -75,23 +77,23 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
       TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
-    super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    super.setPlacedBy(worldIn, pos, state, placer, stack);
   }
 
   @Deprecated
   @Override
-  public boolean hasComparatorInputOverride(BlockState state) {
+  public boolean hasAnalogOutputSignal(BlockState state) {
     return true;
   }
 
   @Deprecated
   @Override
-  public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
@@ -113,7 +115,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
     private final int capacity;
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
       return this.toString().toLowerCase(Locale.US);
     }
   }

@@ -13,6 +13,8 @@ import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class TinkersChestBlock extends ChestBlock {
   public TinkersChestBlock(Properties builder, Supplier<? extends TileEntity> te, boolean dropsItems) {
     super(builder, te, dropsItems);

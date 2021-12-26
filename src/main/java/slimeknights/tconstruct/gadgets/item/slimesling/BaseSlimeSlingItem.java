@@ -28,15 +28,15 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
   }
 
   @Override
-  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
     return repair.getItem() == TinkerCommons.slimeball.get(type);
   }
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
-    ItemStack itemStackIn = playerIn.getHeldItem(hand);
-    playerIn.setActiveHand(hand);
+  public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
+    ItemStack itemStackIn = playerIn.getItemInHand(hand);
+    playerIn.startUsingItem(hand);
     return new ActionResult<>(ActionResultType.SUCCESS, itemStackIn);
   }
 
@@ -48,7 +48,7 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
 
   /** returns the action that specifies what animation to play when the items is being used */
   @Override
-  public UseAction getUseAction(ItemStack stack) {
+  public UseAction getUseAnimation(ItemStack stack) {
     return UseAction.BOW;
   }
 
@@ -71,11 +71,11 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
 
   /** Plays the success sound and damages the sling */
   protected void onSuccess(PlayerEntity player, ItemStack sling) {
-    player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), Sounds.SLIME_SLING.getSound(), player.getSoundCategory(), 1f, 1f);
-    sling.damageItem(1, player, p -> p.sendBreakAnimation(p.getActiveHand()));
+    player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SLIME_SLING.getSound(), player.getSoundSource(), 1f, 1f);
+    sling.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
   }
 
   protected void playMissSound(PlayerEntity player) {
-    player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), Sounds.SLIME_SLING.getSound(), player.getSoundCategory(), 1f, .5f);
+    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SLIME_SLING.getSound(), player.getSoundSource(), 1f, .5f);
   }
 }

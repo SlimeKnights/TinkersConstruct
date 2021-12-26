@@ -59,7 +59,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    */
   public static ModifierMatch deserialize(JsonObject json) {
     if (json.has("options")) {
-      int required = JSONUtils.getInt(json, "matches_needed");
+      int required = JSONUtils.getAsInt(json, "matches_needed");
       if (required == 0) {
         return ALWAYS;
       }

@@ -18,7 +18,7 @@ public class BloodSlimeIslandStructure extends AbstractIslandStructure {
   );
 
   @Override
-  public GenerationStage.Decoration getDecorationStage() {
+  public GenerationStage.Decoration step() {
     return GenerationStage.Decoration.UNDERGROUND_DECORATION;
   }
 

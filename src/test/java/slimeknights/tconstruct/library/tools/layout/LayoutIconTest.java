@@ -74,7 +74,7 @@ class LayoutIconTest extends BaseMcTest {
     assertThat(decoded).isInstanceOf(ItemStackIcon.class);
     ItemStack stack = decoded.getValue(ItemStack.class);
     assertThat(stack).isNotNull();
-    assertThat(ItemStack.areItemStacksEqual(original, stack)).isTrue();
+    assertThat(ItemStack.matches(original, stack)).isTrue();
   }
 
   @Test
@@ -83,9 +83,9 @@ class LayoutIconTest extends BaseMcTest {
     LayoutIcon itemIcon = LayoutIcon.ofItem(original);
     JsonObject json = itemIcon.toJson();
     assertThat(json.entrySet()).hasSize(2);
-    assertThat(JSONUtils.getString(json, "item")).isEqualTo(Objects.requireNonNull(Items.DIAMOND_PICKAXE.getRegistryName()).toString());
+    assertThat(JSONUtils.getAsString(json, "item")).isEqualTo(Objects.requireNonNull(Items.DIAMOND_PICKAXE.getRegistryName()).toString());
     assert original.getTag() != null;
-    assertThat(JSONUtils.getString(json, "nbt")).isEqualTo(original.getTag().toString());
+    assertThat(JSONUtils.getAsString(json, "nbt")).isEqualTo(original.getTag().toString());
   }
 
   @Test
@@ -136,7 +136,7 @@ class LayoutIconTest extends BaseMcTest {
     LayoutIcon icon = LayoutIcon.ofPattern(pattern);
     JsonObject json = icon.toJson();
     assertThat(json.entrySet()).hasSize(1);
-    assertThat(JSONUtils.getString(json, "pattern")).isEqualTo(pattern.toString());
+    assertThat(JSONUtils.getAsString(json, "pattern")).isEqualTo(pattern.toString());
   }
 
   @Test

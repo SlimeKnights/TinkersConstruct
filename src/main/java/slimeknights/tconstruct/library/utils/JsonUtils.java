@@ -19,7 +19,7 @@ public class JsonUtils {
    * @throws JsonSyntaxException if the key is not an int or below the min
    */
   public static int getIntMin(JsonObject json, String key, int min) {
-    int value = JSONUtils.getInt(json, key, min);
+    int value = JSONUtils.getAsInt(json, key, min);
     if (value < min) {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
@@ -35,7 +35,7 @@ public class JsonUtils {
    * @throws JsonSyntaxException if the key is not an int or below the min
    */
   public static int getIntMin(JsonElement json, String key, int min) {
-    int value = JSONUtils.getInt(json, key);
+    int value = JSONUtils.convertToInt(json, key);
     if (value < min) {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
@@ -50,8 +50,8 @@ public class JsonUtils {
    * @throws JsonSyntaxException  If the resource location is invalid
    */
   public static ResourceLocation getResourceLocation(JsonElement json, String key) {
-    String text = JSONUtils.getString(json, key);
-    ResourceLocation location = ResourceLocation.tryCreate(text);
+    String text = JSONUtils.convertToString(json, key);
+    ResourceLocation location = ResourceLocation.tryParse(text);
     if (location == null) {
       throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
     } else {

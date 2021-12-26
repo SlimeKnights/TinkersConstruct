@@ -29,8 +29,8 @@ public class BlockContainerOpenedTrigger extends AbstractCriterionTrigger<BlockC
   }
 
   @Override
-  protected Instance deserializeTrigger(JsonObject json, AndPredicate entityPredicate, ConditionArrayParser conditionsParser) {
-    ResourceLocation id = new ResourceLocation(JSONUtils.getString(json, "type"));
+  protected Instance createInstance(JsonObject json, AndPredicate entityPredicate, ConditionArrayParser conditionsParser) {
+    ResourceLocation id = new ResourceLocation(JSONUtils.getAsString(json, "type"));
     TileEntityType<?> type = ForgeRegistries.TILE_ENTITIES.getValue(id);
     if (type == null) {
       throw new JsonSyntaxException("Unknown tile entity '" + id + "'");
@@ -41,7 +41,7 @@ public class BlockContainerOpenedTrigger extends AbstractCriterionTrigger<BlockC
   /** Triggers this criteria */
   public void trigger(@Nullable TileEntity tileEntity, @Nullable PlayerInventory inv) {
     if (tileEntity != null && inv != null && inv.player instanceof ServerPlayerEntity) {
-      this.triggerListeners((ServerPlayerEntity)inv.player, instance -> instance.test(tileEntity.getType()));
+      this.trigger((ServerPlayerEntity)inv.player, instance -> instance.test(tileEntity.getType()));
     }
   }
 
@@ -53,7 +53,7 @@ public class BlockContainerOpenedTrigger extends AbstractCriterionTrigger<BlockC
     }
 
     public static Instance container(TileEntityType<?> type) {
-      return new Instance(AndPredicate.ANY_AND, type);
+      return new Instance(AndPredicate.ANY, type);
     }
 
     /** Tests if this instance matches */
@@ -62,8 +62,8 @@ public class BlockContainerOpenedTrigger extends AbstractCriterionTrigger<BlockC
     }
 
     @Override
-    public JsonObject serialize(ConditionArraySerializer conditions) {
-      JsonObject json = super.serialize(conditions);
+    public JsonObject serializeToJson(ConditionArraySerializer conditions) {
+      JsonObject json = super.serializeToJson(conditions);
       json.addProperty("type", Objects.requireNonNull(type.getRegistryName()).toString());
       return json;
     }

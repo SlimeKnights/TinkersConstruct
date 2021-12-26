@@ -59,12 +59,12 @@ public class StatPredicate implements Predicate<StatsNBT> {
    * @return  Predicate
    */
   public static StatPredicate deserialize(JsonObject json) {
-    ToolStatId id = new ToolStatId(JSONUtils.getString(json, "stat"));
+    ToolStatId id = new ToolStatId(JSONUtils.getAsString(json, "stat"));
     IToolStat<?> stat = ToolStats.getToolStat(id);
     if (stat == null) {
       throw new JsonSyntaxException("Unknown tool stat '" + id + "'");
     }
-    return new StatPredicate(stat, JSONUtils.getFloat(json, "min", Float.NEGATIVE_INFINITY), JSONUtils.getFloat(json, "max", Float.NEGATIVE_INFINITY));
+    return new StatPredicate(stat, JSONUtils.getAsFloat(json, "min", Float.NEGATIVE_INFINITY), JSONUtils.getAsFloat(json, "max", Float.NEGATIVE_INFINITY));
   }
 
   /** Serializes this to JSON */

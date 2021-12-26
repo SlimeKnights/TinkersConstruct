@@ -25,24 +25,24 @@ public class ClayIslandVariant implements IIslandVariant {
 
   @Override
   public BlockState getLakeBottom() {
-    return Blocks.CLAY.getDefaultState();
+    return Blocks.CLAY.defaultBlockState();
   }
 
   @Override
   public BlockState getLakeFluid() {
-    return Blocks.WATER.getDefaultState();
+    return Blocks.WATER.defaultBlockState();
   }
 
   @Override
   public BlockState getCongealedSlime(Random random) {
-    return Blocks.SAND.getDefaultState();
+    return Blocks.SAND.defaultBlockState();
   }
 
   @Nullable
   @Override
   public BlockState getPlant(Random random) {
     Block block = random.nextInt(8) == 0 ? Blocks.FERN : Blocks.GRASS;
-    return block.getDefaultState();
+    return block.defaultBlockState();
   }
 
   @Nullable

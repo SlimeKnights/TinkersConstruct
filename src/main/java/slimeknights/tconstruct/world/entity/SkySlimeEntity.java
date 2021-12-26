@@ -17,17 +17,17 @@ public class SkySlimeEntity extends SlimeEntity {
   }
 
   @Override
-  protected float getJumpUpwardsMotion() {
-    return (float)Math.sqrt(this.getSlimeSize()) * this.getJumpFactor() / 2;
+  protected float getJumpPower() {
+    return (float)Math.sqrt(this.getSize()) * this.getBlockJumpFactor() / 2;
   }
 
   @Override
-  protected IParticleData getSquishParticle() {
+  protected IParticleData getParticleType() {
     return TinkerWorld.skySlimeParticle.get();
   }
 
   @Override
-  public boolean onLivingFall(float distance, float damageMultiplier) {
+  public boolean causeFallDamage(float distance, float damageMultiplier) {
     float[] ret = ForgeHooks.onLivingFall(this, distance, damageMultiplier);
     if (ret == null) {
       return false;
@@ -37,14 +37,14 @@ public class SkySlimeEntity extends SlimeEntity {
 
     if (distance > 2) {
       if (isSuppressingBounce()) {
-        return super.onLivingFall(distance, damageMultiplier * 0.2f);
+        return super.causeFallDamage(distance, damageMultiplier * 0.2f);
       } else {
         // invert Y motion, boost X and Z slightly
-        Vector3d motion = getMotion();
-        setMotion(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
-        bounceAmount = getMotion().y;
+        Vector3d motion = getDeltaMovement();
+        setDeltaMovement(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
+        bounceAmount = getDeltaMovement().y;
         fallDistance = 0f;
-        isAirBorne = true;
+        hasImpulse = true;
         setOnGround(false);
         playSound(Sounds.SLIMY_BOUNCE.getSound(), 1f, 1f);
       }
@@ -56,8 +56,8 @@ public class SkySlimeEntity extends SlimeEntity {
   public void move(MoverType typeIn, Vector3d pos) {
     super.move(typeIn, pos);
     if (bounceAmount > 0) {
-      Vector3d motion = getMotion();
-      setMotion(motion.x, bounceAmount, motion.z);
+      Vector3d motion = getDeltaMovement();
+      setDeltaMovement(motion.x, bounceAmount, motion.z);
       bounceAmount = 0;
     }
   }

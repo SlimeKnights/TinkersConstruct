@@ -42,15 +42,15 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
       displayFluid = fluid;
       modelData.setData(IDisplayFluidListener.PROPERTY, displayFluid);
       requestModelDataUpdate();
-      assert world != null;
+      assert level != null;
       BlockState state = getBlockState();
-      world.notifyBlockUpdate(pos, state, state, 48);
+      level.sendBlockUpdated(worldPosition, state, state, 48);
     }
   }
 
   @Override
   public BlockPos getListenerPos() {
-    return getPos();
+    return getBlockPos();
   }
 
 
@@ -59,8 +59,8 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   /** Attaches this TE to the master as a display fluid listener */
   private void attachFluidListener() {
     BlockPos masterPos = getMasterPos();
-    if (masterPos != null && world != null && world.isRemote) {
-      TileEntityHelper.getTile(ISmelteryTankHandler.class, world, masterPos).ifPresent(te -> te.addDisplayListener(this));
+    if (masterPos != null && level != null && level.isClientSide) {
+      TileEntityHelper.getTile(ISmelteryTankHandler.class, level, masterPos).ifPresent(te -> te.addDisplayListener(this));
     }
   }
 
@@ -81,12 +81,12 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   @Override
   @Nullable
   public SUpdateTileEntityPacket getUpdatePacket() {
-    return new SUpdateTileEntityPacket(pos, 0, writeMaster(new CompoundNBT()));
+    return new SUpdateTileEntityPacket(worldPosition, 0, writeMaster(new CompoundNBT()));
   }
 
   @Override
   public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-    readMaster(pkt.getNbtCompound());
+    readMaster(pkt.getTag());
     attachFluidListener();
   }
 }

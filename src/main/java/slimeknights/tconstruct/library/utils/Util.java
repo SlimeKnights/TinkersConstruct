@@ -71,7 +71,7 @@ public class Util {
    * @return  Translation key
    */
   public static String makeTranslationKey(String base, ResourceLocation name) {
-    return net.minecraft.util.Util.makeTranslationKey(base, name);
+    return net.minecraft.util.Util.makeDescriptionId(base, name);
   }
 
   /**
@@ -124,7 +124,7 @@ public class Util {
   public static Direction directionFromOffset(BlockPos pos, BlockPos neighbor) {
     BlockPos offset = neighbor.subtract(pos);
     for (Direction direction : Direction.values()) {
-      if (direction.getDirectionVec().equals(offset)) {
+      if (direction.getNormal().equals(offset)) {
         return direction;
       }
     }
@@ -145,9 +145,9 @@ public class Util {
   /** Converts a position and a side hit into a hit vector */
   public static Vector3d toHitVec(BlockPos pos, Direction sideHit) {
     return new Vector3d(
-      pos.getX() + 0.5D + sideHit.getXOffset() * 0.5D,
-      pos.getY() + 0.5D + sideHit.getYOffset() * 0.5D,
-      pos.getZ() + 0.5D + sideHit.getZOffset() * 0.5D
+      pos.getX() + 0.5D + sideHit.getStepX() * 0.5D,
+      pos.getY() + 0.5D + sideHit.getStepY() * 0.5D,
+      pos.getZ() + 0.5D + sideHit.getStepZ() * 0.5D
     );
   }
 

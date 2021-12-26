@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 @RequiredArgsConstructor(staticName = "molding")
 public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBuilder> {
   private final ItemOutput output;
@@ -53,12 +54,12 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
 
   /** Sets the material item, on the table */
   public MoldingRecipeBuilder setMaterial(IItemProvider item) {
-    return setMaterial(Ingredient.fromItems(item));
+    return setMaterial(Ingredient.of(item));
   }
 
   /** Sets the material item, on the table */
   public MoldingRecipeBuilder setMaterial(ITag<Item> tag) {
-    return setMaterial(Ingredient.fromTag(tag));
+    return setMaterial(Ingredient.of(tag));
   }
 
   /** Sets the mold item, in the players hand */
@@ -70,12 +71,12 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
 
   /** Sets the mold item, in the players hand */
   public MoldingRecipeBuilder setPattern(IItemProvider item, boolean consumed) {
-    return setPattern(Ingredient.fromItems(item), consumed);
+    return setPattern(Ingredient.of(item), consumed);
   }
 
   /** Sets the mold item, in the players hand */
   public MoldingRecipeBuilder setPattern(ITag<Item> tag, boolean consumed) {
-    return setPattern(Ingredient.fromTag(tag), consumed);
+    return setPattern(Ingredient.of(tag), consumed);
   }
 
 
@@ -101,10 +102,10 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
     }
 
     @Override
-    public void serialize(JsonObject json) {
-      json.add("material", material.serialize());
+    public void serializeRecipeData(JsonObject json) {
+      json.add("material", material.toJson());
       if (pattern != Ingredient.EMPTY) {
-        json.add("pattern", pattern.serialize());
+        json.add("pattern", pattern.toJson());
         if (patternConsumed) {
           json.addProperty("pattern_consumed", true);
         }
@@ -113,7 +114,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return serializer;
     }
   }

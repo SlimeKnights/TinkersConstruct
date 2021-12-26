@@ -16,6 +16,8 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlimeSaplingBlock extends SaplingBlock {
 
   private final SlimeType foliageType;
@@ -25,7 +27,7 @@ public class SlimeSaplingBlock extends SaplingBlock {
   }
 
   @Override
-  protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
     Block block = state.getBlock();
     return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block);
   }
@@ -38,14 +40,14 @@ public class SlimeSaplingBlock extends SaplingBlock {
 
   @Override
   @Deprecated
-  public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+  public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
     return false;
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.foliageType != SlimeType.ICHOR) {
-      super.fillItemGroup(group, items);
+      super.fillItemCategory(group, items);
     }
   }
 }

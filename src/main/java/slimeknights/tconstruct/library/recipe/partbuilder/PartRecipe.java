@@ -83,7 +83,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   /** @deprecated use {@link #getRecipeOutput(IMaterial)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return new ItemStack(output);
   }
 
@@ -100,7 +100,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   }
 
   @Override
-  public ItemStack getCraftingResult(IPartBuilderInventory inv) {
+  public ItemStack assemble(IPartBuilderInventory inv) {
     IMaterial material = IMaterial.UNKNOWN;
     MaterialRecipe materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {

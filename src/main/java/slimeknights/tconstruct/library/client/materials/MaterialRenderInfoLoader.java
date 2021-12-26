@@ -57,7 +57,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
    * Called on mod construct to register the resource listener
    */
   public static void addResourceListener(IReloadableResourceManager manager)  {
-    manager.addReloadListener(INSTANCE);
+    manager.registerReloadListener(INSTANCE);
   }
 
   /** Map of all loaded materials */
@@ -87,7 +87,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // first, we need to fetch all relevant JSON files
     int trim = FOLDER.length() + 1;
     Map<MaterialId,MaterialRenderInfo> map = new HashMap<>();
-    for(ResourceLocation location : manager.getAllResourceLocations(FOLDER, (loc) -> loc.endsWith(".json"))) {
+    for(ResourceLocation location : manager.listResources(FOLDER, (loc) -> loc.endsWith(".json"))) {
       // clean up ID by trimming off the extension
       String path = location.getPath();
       MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));

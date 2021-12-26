@@ -79,7 +79,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
       for (int i = 0; i < list.size(); i++) {
         CompoundNBT compound = list.getCompound(i);
         if (compound.getInt(TAG_SLOT) == slot) {
-          return ItemStack.read(compound);
+          return ItemStack.of(compound);
         }
       }
     }
@@ -101,8 +101,8 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
             if (stack.isEmpty()) {
               list.remove(i);
             } else {
-              compound.keySet().clear();
-              stack.write(compound);
+              compound.getAllKeys().clear();
+              stack.save(compound);
               compound.putInt(TAG_SLOT, slot);
             }
             return;
@@ -142,7 +142,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   /** Writes a stack to NBT, including the slot */
   protected static CompoundNBT write(ItemStack stack, int slot) {
     CompoundNBT compound = new CompoundNBT();
-    stack.write(compound);
+    stack.save(compound);
     compound.putInt(TAG_SLOT, slot);
     return compound;
   }

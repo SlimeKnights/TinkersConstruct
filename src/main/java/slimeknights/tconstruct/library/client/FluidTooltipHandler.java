@@ -37,7 +37,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
   private static final Map<Fluid,List<FluidGuiEntry>> CACHE = new HashMap<>();
-  public static final ITextComponent HOLD_SHIFT = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "fluid.hold_shift")).mergeStyle(TextFormatting.GRAY);
+  public static final ITextComponent HOLD_SHIFT = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "fluid.hold_shift")).withStyle(TextFormatting.GRAY);
 
   /*
    * Base units
@@ -88,13 +88,13 @@ public class FluidTooltipHandler {
   public static List<ITextComponent> getFluidTooltip(FluidStack fluid, int amount) {
     List<ITextComponent> tooltip = new ArrayList<>();
     // fluid name, not sure if there is a cleaner way to do this
-    tooltip.add(fluid.getDisplayName().copyRaw().mergeStyle(TextFormatting.WHITE));
+    tooltip.add(fluid.getDisplayName().plainCopy().withStyle(TextFormatting.WHITE));
     // material
     appendMaterial(fluid.getFluid(), amount, tooltip);
     // add mod display name
     ModList.get().getModContainerById(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getNamespace())
            .map(container -> container.getModInfo().getDisplayName())
-           .ifPresent(name -> tooltip.add(new StringTextComponent(name).mergeStyle(TextFormatting.BLUE, TextFormatting.ITALIC)));
+           .ifPresent(name -> tooltip.add(new StringTextComponent(name).withStyle(TextFormatting.BLUE, TextFormatting.ITALIC)));
     return tooltip;
   }
 
@@ -182,8 +182,8 @@ public class FluidTooltipHandler {
    * @return  List of entries for the fluid
    */
   private static List<FluidGuiEntry> calcFluidEntries(Fluid fluid) {
-    assert Minecraft.getInstance().world != null;
-    RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+    assert Minecraft.getInstance().level != null;
+    RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
 
     // first, search casting recipes for cast items
     List<FluidGuiEntry> list = new ArrayList<>();
@@ -196,12 +196,12 @@ public class FluidTooltipHandler {
         if (cast == Ingredient.EMPTY) {
           // skip pane and slimeball for metals, some metals like gold have an empty table casting recipe
           if (!TinkerTags.Fluids.METAL_LIKE.contains(fluid)) {
-            FluidGuiEntry entry = fluid.isIn(TinkerTags.Fluids.SLIMELIKE) ? SLIMEBALL : PANE;
+            FluidGuiEntry entry = fluid.is(TinkerTags.Fluids.SLIMELIKE) ? SLIMEBALL : PANE;
             list.add(entry.withAmount(ingredient.getAmount(fluid)));
           }
         } else {
           // if a cast, check for a matching item in the map
-          Arrays.stream(recipe.getCast().getMatchingStacks())
+          Arrays.stream(recipe.getCast().getItems())
                 .map(stack -> TOOLTIP_OPTIONS.get(stack.getItem()))
                 .filter(Objects::nonNull)
                 .findFirst()
@@ -282,7 +282,7 @@ public class FluidTooltipHandler {
     private int getText(List<ITextComponent> tooltip, int amount) {
       int full = amount / needed;
       if (full > 0) {
-        tooltip.add(new TranslationTextComponent(translationKey, full).mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent(translationKey, full).withStyle(TextFormatting.GRAY));
       }
       return amount % needed;
     }

@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import slimeknights.mantle.item.LecternBookItem;
 import slimeknights.tconstruct.library.book.TinkerBook;
 
+import net.minecraft.item.Item.Properties;
+
 public class TinkerBookItem extends LecternBookItem {
   private final BookType bookType;
   public TinkerBookItem(Properties props, BookType bookType) {
@@ -18,9 +20,9 @@ public class TinkerBookItem extends LecternBookItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-    ItemStack stack = player.getHeldItem(hand);
-    if (world.isRemote) {
+  public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    ItemStack stack = player.getItemInHand(hand);
+    if (world.isClientSide) {
       TinkerBook.getBook(bookType).openGui(hand, stack);
     }
     return new ActionResult<>(ActionResultType.SUCCESS, stack);

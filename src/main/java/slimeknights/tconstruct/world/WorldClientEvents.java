@@ -45,15 +45,15 @@ public class WorldClientEvents extends ClientEventBase {
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
     for (SlimeType type : SlimeType.values()) {
-      manager.addReloadListener(new SlimeColorReloadListener(type));
+      manager.registerReloadListener(new SlimeColorReloadListener(type));
     }
   }
 
   @SubscribeEvent
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-    Minecraft.getInstance().particles.registerFactory(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
-    Minecraft.getInstance().particles.registerFactory(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
-    Minecraft.getInstance().particles.registerFactory(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
+    Minecraft.getInstance().particleEngine.register(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
+    Minecraft.getInstance().particleEngine.register(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
+    Minecraft.getInstance().particleEngine.register(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
   }
 
   @SubscribeEvent
@@ -63,8 +63,8 @@ public class WorldClientEvents extends ClientEventBase {
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.enderSlimeEntity.get(), TinkerSlimeRenderer.ENDER_SLIME_FACTORY);
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.terracubeEntity.get(), TerracubeRenderer.TERRACUBE_RENDERER);
 
-    RenderType cutout = RenderType.getCutout();
-    RenderType cutoutMipped = RenderType.getCutoutMipped();
+    RenderType cutout = RenderType.cutout();
+    RenderType cutoutMipped = RenderType.cutoutMipped();
 
     // render types - slime plants
     for (SlimeType type : SlimeType.values()) {
@@ -84,7 +84,7 @@ public class WorldClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeVine.get(), cutout);
 
     // render types - slime blocks
-    RenderType translucent = RenderType.getTranslucent();
+    RenderType translucent = RenderType.translucent();
     for (SlimeType type : SlimeType.TINKER) {
       RenderTypeLookup.setRenderLayer(TinkerWorld.slime.get(type), translucent);
     }
@@ -180,7 +180,7 @@ public class WorldClientEvents extends ClientEventBase {
       return SlimeColorizer.getColorStatic(type);
     }
     if (add != null) {
-      pos = pos.add(add);
+      pos = pos.offset(add);
     }
 
     return SlimeColorizer.getColorForPos(pos, type);
@@ -188,8 +188,8 @@ public class WorldClientEvents extends ClientEventBase {
 
   /** Registers a skull with the entity renderer and the slimeskull renderer */
   private static void registerHeadModel(ISkullType skull, MaterialId materialId, GenericHeadModel head, ResourceLocation texture) {
-    SkullTileEntityRenderer.MODELS.put(skull, head);
-    SkullTileEntityRenderer.SKINS.put(skull, texture);
+    SkullTileEntityRenderer.MODEL_BY_TYPE.put(skull, head);
+    SkullTileEntityRenderer.SKIN_BY_TYPE.put(skull, texture);
     SlimeskullArmorModel.registerHeadModel(materialId, head, texture);
   }
 }

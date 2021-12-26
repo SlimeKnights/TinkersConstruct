@@ -23,19 +23,19 @@ public class FirebreathModifier extends SingleUseModifier implements IArmorInter
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
     // stopped by water and by cooldown
-    if (!player.isSneaking() && !player.isPotionActive(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubbleColumn()) {
+    if (!player.isShiftKeyDown() && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubble()) {
       // if not creative, this costs a fire charge
       boolean hasFireball = true;
       if (!player.isCreative()) {
         hasFireball = false;
-        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-          ItemStack stack = player.inventory.getStackInSlot(i);
+        for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+          ItemStack stack = player.inventory.getItem(i);
           if (!stack.isEmpty() && TinkerTags.Items.FIREBALLS.contains(stack.getItem())) {
             hasFireball = true;
-            if (!player.world.isRemote) {
+            if (!player.level.isClientSide) {
               stack.shrink(1);
               if (stack.isEmpty()) {
-                player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+                player.inventory.setItem(i, ItemStack.EMPTY);
               }
             }
             break;
@@ -44,12 +44,12 @@ public class FirebreathModifier extends SingleUseModifier implements IArmorInter
       }
       // if we found a fireball, fire it
       if (hasFireball) {
-        player.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 2.0F, (RANDOM.nextFloat() - RANDOM.nextFloat()) * 0.2F + 1.0F);
-        if (!player.world.isRemote) {
-          Vector3d lookVec = player.getLookVec().mul(2.0f, 2.0f, 2.0f);
-          SmallFireballEntity fireball = new SmallFireballEntity(player.world, player, lookVec.x + player.getRNG().nextGaussian() / 16, lookVec.y, lookVec.z + player.getRNG().nextGaussian() / 16);
-          fireball.setPosition(fireball.getPosX(), player.getPosYHeight(0.5D) + 0.5D, fireball.getPosZ());
-          player.world.addEntity(fireball);
+        player.playNotifySound(SoundEvents.BLAZE_SHOOT, SoundCategory.PLAYERS, 2.0F, (RANDOM.nextFloat() - RANDOM.nextFloat()) * 0.2F + 1.0F);
+        if (!player.level.isClientSide) {
+          Vector3d lookVec = player.getLookAngle().multiply(2.0f, 2.0f, 2.0f);
+          SmallFireballEntity fireball = new SmallFireballEntity(player.level, player, lookVec.x + player.getRandom().nextGaussian() / 16, lookVec.y, lookVec.z + player.getRandom().nextGaussian() / 16);
+          fireball.setPos(fireball.getX(), player.getY(0.5D) + 0.5D, fireball.getZ());
+          player.level.addFreshEntity(fireball);
           TinkerModifiers.fireballCooldownEffect.get().apply(player, 100, 0, true);
         }
         return true;

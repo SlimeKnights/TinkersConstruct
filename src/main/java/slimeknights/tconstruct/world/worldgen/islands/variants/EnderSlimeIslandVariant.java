@@ -32,12 +32,12 @@ public class EnderSlimeIslandVariant extends AbstractSlimeIslandVariant {
   @Nullable
   @Override
   public BlockState getVines() {
-    return TinkerWorld.enderSlimeVine.get().getDefaultState();
+    return TinkerWorld.enderSlimeVine.get().defaultBlockState();
   }
 
   @Override
   public BlockState getLakeFluid() {
-    return Objects.requireNonNull(TinkerFluids.enderSlime.getBlock()).getDefaultState();
+    return Objects.requireNonNull(TinkerFluids.enderSlime.getBlock()).defaultBlockState();
   }
 
   @Nullable

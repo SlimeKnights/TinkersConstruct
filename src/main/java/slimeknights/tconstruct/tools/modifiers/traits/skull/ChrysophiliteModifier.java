@@ -61,7 +61,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
     // adding a helmet? activate bonus
     EquipmentSlotType changed = context.getChangedSlot();
-    if (slotType == EquipmentSlotType.HEAD && changed.getSlotType() == Group.ARMOR) {
+    if (slotType == EquipmentSlotType.HEAD && changed.getType() == Group.ARMOR) {
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold));
     }
@@ -74,7 +74,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
       return tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL);
     } else {
       LivingEntity living = context.getEntity();
-      return living.getItemStackFromSlot(slotType).makesPiglinsNeutral(living);
+      return living.getItemBySlot(slotType).makesPiglinsNeutral(living);
     }
   }
 
@@ -91,24 +91,24 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   private static void onLivingDrops(LivingDropsEvent event) {
     DamageSource source = event.getSource();
     if (source != null) {
-      int gold = getTotalGold(source.getTrueSource());
+      int gold = getTotalGold(source.getEntity());
       if (gold > 0) {
         float extraChance = 0.04f * gold;
         LivingEntity target = event.getEntityLiving();
         // check each slot for gold
         for (EquipmentSlotType slot : EquipmentSlotType.values()) {
-          ItemStack stack = target.getItemStackFromSlot(slot);
-          Random random = target.getRNG();
+          ItemStack stack = target.getItemBySlot(slot);
+          Random random = target.getRandom();
           // if the stack is gold, and it drops, we get it
           // don't have to worry about checking if it already dropped, the stacks are removed on drop
           if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && stack.makesPiglinsNeutral(target) && random.nextFloat() < extraChance) {
             // mobs damage items, its kinda weird
-            if (stack.isDamageable()) {
-              stack.setDamage(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
+            if (stack.isDamageableItem()) {
+              stack.setDamageValue(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
             }
             // remove stack to prevent further drops
-            event.getDrops().add(target.entityDropItem(stack));
-            target.setItemStackToSlot(slot, ItemStack.EMPTY);
+            event.getDrops().add(target.spawnAtLocation(stack));
+            target.setItemSlot(slot, ItemStack.EMPTY);
           }
         }
       }
@@ -128,7 +128,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
      * @param value     New value
      */
     protected boolean setGold(EquipmentSlotType slotType, boolean value) {
-      if (slotType.getSlotType() == Group.ARMOR) {
+      if (slotType.getType() == Group.ARMOR) {
         int index = slotType.getIndex();
         if (hasGold[index] != value) {
           hasGold[index] = value;

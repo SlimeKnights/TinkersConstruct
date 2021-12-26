@@ -79,10 +79,10 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
 
     // temperature
     int temperature = recipe.getTemperature();
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    String tempString = I18n.format(KEY_TEMPERATURE, temperature);
-    int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
-    fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
+    FontRenderer fontRenderer = Minecraft.getInstance().font;
+    String tempString = I18n.get(KEY_TEMPERATURE, temperature);
+    int x = 56 - fontRenderer.width(tempString) / 2;
+    fontRenderer.draw(matrices, tempString, x, 3, Color.GRAY.getRGB());
   }
 
   @Override
@@ -133,8 +133,8 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
       // fuels show temperature and quality
       if (index == -1) {
         MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
-          list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY));
-          list.add(new TranslationTextComponent(KEY_MULTIPLIER, temperature / 1000f).mergeStyle(TextFormatting.GRAY));
+          list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).withStyle(TextFormatting.GRAY));
+          list.add(new TranslationTextComponent(KEY_MULTIPLIER, temperature / 1000f).withStyle(TextFormatting.GRAY));
         });
       }
       list.add(modId);

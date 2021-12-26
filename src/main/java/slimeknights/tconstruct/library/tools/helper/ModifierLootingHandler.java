@@ -41,15 +41,15 @@ public class ModifierLootingHandler {
    */
   public static void setLootingSlot(LivingEntity entity, EquipmentSlotType slotType) {
     if (slotType == EquipmentSlotType.MAINHAND) {
-      LOOTING_OFFHAND.remove(entity.getUniqueID());
+      LOOTING_OFFHAND.remove(entity.getUUID());
     } else {
-      LOOTING_OFFHAND.put(entity.getUniqueID(), slotType);
+      LOOTING_OFFHAND.put(entity.getUUID(), slotType);
     }
   }
 
   /** Gets the slot to use for looting */
   public static EquipmentSlotType getLootingSlot(@Nullable LivingEntity entity) {
-    return entity != null ? LOOTING_OFFHAND.getOrDefault(entity.getUniqueID(), EquipmentSlotType.MAINHAND) : EquipmentSlotType.MAINHAND;
+    return entity != null ? LOOTING_OFFHAND.getOrDefault(entity.getUUID(), EquipmentSlotType.MAINHAND) : EquipmentSlotType.MAINHAND;
   }
 
   /** Applies the looting bonus for modifiers */
@@ -59,13 +59,13 @@ public class ModifierLootingHandler {
     if (damageSource == null) {
       return;
     }
-    Entity source = damageSource.getTrueSource();
+    Entity source = damageSource.getEntity();
     if (source instanceof LivingEntity) {
       // TODO: consider bow usage, as the attack time is not the same as the death time
       // TODO: extend to armor eventually
       LivingEntity holder = ((LivingEntity)source);
       EquipmentSlotType slotType = getLootingSlot(holder);
-      ItemStack held = holder.getItemStackFromSlot(slotType);
+      ItemStack held = holder.getItemBySlot(slotType);
       int level = event.getLootingLevel();
       if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
         ToolStack tool = ToolStack.from(held);
@@ -82,6 +82,6 @@ public class ModifierLootingHandler {
 
   /** Called when a player leaves the server to clear the face */
   private static void onLeaveServer(PlayerLoggedOutEvent event) {
-    LOOTING_OFFHAND.remove(event.getPlayer().getUniqueID());
+    LOOTING_OFFHAND.remove(event.getPlayer().getUUID());
   }
 }

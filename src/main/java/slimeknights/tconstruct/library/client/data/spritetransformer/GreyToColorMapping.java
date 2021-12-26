@@ -22,11 +22,11 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
-import static net.minecraft.client.renderer.texture.NativeImage.getAlpha;
-import static net.minecraft.client.renderer.texture.NativeImage.getBlue;
-import static net.minecraft.client.renderer.texture.NativeImage.getCombined;
-import static net.minecraft.client.renderer.texture.NativeImage.getGreen;
-import static net.minecraft.client.renderer.texture.NativeImage.getRed;
+import static net.minecraft.client.renderer.texture.NativeImage.combine;
+import static net.minecraft.client.renderer.texture.NativeImage.getA;
+import static net.minecraft.client.renderer.texture.NativeImage.getB;
+import static net.minecraft.client.renderer.texture.NativeImage.getG;
+import static net.minecraft.client.renderer.texture.NativeImage.getR;
 
 /** Color mapping that maps greyscale values to a palette for each value */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -69,7 +69,7 @@ public class GreyToColorMapping implements IColorMapping {
   public int mapColor(int color) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
-    if (getAlpha(color) == 0) {
+    if (getA(color) == 0) {
       return 0x00000000;
     }
     int grey = getGrey(color);
@@ -96,12 +96,12 @@ public class GreyToColorMapping implements IColorMapping {
     @Override
     public GreyToColorMapping deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject object = json.getAsJsonObject();
-      JsonArray palette = JSONUtils.getJsonArray(object, "palette");
+      JsonArray palette = JSONUtils.getAsJsonArray(object, "palette");
       GreyToColorMapping.Builder paletteBuilder = GreyToColorMapping.builder();
       for (int i = 0; i < palette.size(); i++) {
-        JsonObject palettePair = JSONUtils.getJsonObject(palette.get(i), "palette["+i+']');
-        int grey = JSONUtils.getInt(palettePair, "grey");
-        int color = JsonHelper.parseColor(JSONUtils.getString(palettePair, "color"));
+        JsonObject palettePair = JSONUtils.convertToJsonObject(palette.get(i), "palette["+i+']');
+        int grey = JSONUtils.getAsInt(palettePair, "grey");
+        int color = JsonHelper.parseColor(JSONUtils.getAsString(palettePair, "color"));
         if (i == 0 && grey != 0) {
           paletteBuilder.addABGR(0, 0xFF000000);
         }
@@ -210,31 +210,31 @@ public class GreyToColorMapping implements IColorMapping {
     int diff = grey - greyBefore;
     int divisor = greyAfter - greyBefore;
     // interpolate each pair of colors
-    int alpha = interpolate(getAlpha(colorBefore), getAlpha(colorAfter), diff, divisor);
-    int red   = interpolate(getRed(colorBefore),   getRed(colorAfter),   diff, divisor);
-    int green = interpolate(getGreen(colorBefore), getGreen(colorAfter), diff, divisor);
-    int blue  = interpolate(getBlue(colorBefore),  getBlue(colorAfter),  diff, divisor);
-    return getCombined(alpha, blue, green, red);
+    int alpha = interpolate(getA(colorBefore), getA(colorAfter), diff, divisor);
+    int red   = interpolate(getR(colorBefore), getR(colorAfter),   diff, divisor);
+    int green = interpolate(getG(colorBefore), getG(colorAfter), diff, divisor);
+    int blue  = interpolate(getB(colorBefore), getB(colorAfter),  diff, divisor);
+    return combine(alpha, blue, green, red);
   }
 
   /** Gets the largest grey value for the given color */
   public static int getGrey(int color) {
-    return Math.max(getRed(color), Math.max(getGreen(color), getBlue(color)));
+    return Math.max(getR(color), Math.max(getG(color), getB(color)));
   }
 
   /** Scales the new color based on the original color values and the grey value */
   public static int scaleColor(int original, int newColor, int grey) {
     // if the original color was partially transparent, set the alpha
-    int alpha = getAlpha(original);
-    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * getAlpha(newColor) / 255) << 24);
+    int alpha = getA(original);
+    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * getA(newColor) / 255) << 24);
 
     // grey is based on largest, so scale down as needed
     // if any of RGB are lower than the max, scale it down
-    int red = getRed(original);
+    int red = getR(original);
     if (red   < grey) newColor = (newColor & 0xFFFFFF00) | (((newColor & 0x000000FF) * red   / grey) & 0x000000FF);
-    int green = getGreen(original);
+    int green = getG(original);
     if (green < grey) newColor = (newColor & 0xFFFF00FF) | (((newColor & 0x0000FF00) * green / grey) & 0x0000FF00);
-    int blue = getBlue(original);
+    int blue = getB(original);
     if (blue  < grey) newColor = (newColor & 0xFF00FFFF) | (((newColor & 0x00FF0000) * blue  / grey) & 0x00FF0000);
 
     // final color

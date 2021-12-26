@@ -39,45 +39,45 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   @Override
-  protected void onImpact(RayTraceResult result) {
-    if (!this.world.isRemote) {
+  protected void onHit(RayTraceResult result) {
+    if (!this.level.isClientSide) {
       BlockPos position = null;
       Direction direction = Direction.DOWN;
 
       if (result.getType() == RayTraceResult.Type.ENTITY) {
-        position = ((EntityRayTraceResult) result).getEntity().getPosition();
+        position = ((EntityRayTraceResult) result).getEntity().blockPosition();
       }
 
       if (result.getType() == RayTraceResult.Type.BLOCK) {
         BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) result;
-        position = blockraytraceresult.getPos().offset(blockraytraceresult.getFace());
-        direction = blockraytraceresult.getFace().getOpposite();
+        position = blockraytraceresult.getBlockPos().relative(blockraytraceresult.getDirection());
+        direction = blockraytraceresult.getDirection().getOpposite();
       }
 
       if (position != null) {
-        TinkerCommons.glow.get().addGlow(this.world, position, direction);
+        TinkerCommons.glow.get().addGlow(this.level, position, direction);
       }
     }
 
-    if (!this.world.isRemote) {
-      this.world.setEntityState(this, (byte) 3);
+    if (!this.level.isClientSide) {
+      this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
   }
 
   @Override
   public void writeSpawnData(PacketBuffer buffer) {
-    buffer.writeItemStack(this.func_213882_k());
+    buffer.writeItem(this.getItemRaw());
   }
 
   @Override
   public void readSpawnData(PacketBuffer additionalData) {
-    this.setItem(additionalData.readItemStack());
+    this.setItem(additionalData.readItem());
   }
 
   @Nonnull
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public IPacket<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

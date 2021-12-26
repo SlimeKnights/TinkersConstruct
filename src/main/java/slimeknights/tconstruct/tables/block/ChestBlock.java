@@ -31,12 +31,12 @@ import java.util.function.Supplier;
  */
 public class ChestBlock extends TinkerTableBlock {
   private static final VoxelShape SHAPE = VoxelShapes.or(
-    Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
-    Block.makeCuboidShape(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
-    Block.makeCuboidShape(0.5D, 0.0D, 0.5D, 2.5D, 15.0D, 2.5D), //leg
-    Block.makeCuboidShape(13.5D, 0.0D, 0.5D, 15.5D, 15.0D, 2.5D), //leg
-    Block.makeCuboidShape(13.5D, 0.0D, 13.5D, 15.5D, 15.0D, 15.5D), //leg
-    Block.makeCuboidShape(0.5D, 0.0D, 13.5D, 2.5D, 15.0D, 15.5D) //leg
+    Block.box(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
+    Block.box(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
+    Block.box(0.5D, 0.0D, 0.5D, 2.5D, 15.0D, 2.5D), //leg
+    Block.box(13.5D, 0.0D, 0.5D, 15.5D, 15.0D, 2.5D), //leg
+    Block.box(13.5D, 0.0D, 13.5D, 15.5D, 15.0D, 15.5D), //leg
+    Block.box(0.5D, 0.0D, 13.5D, 2.5D, 15.0D, 15.5D) //leg
                                                         );
 
   private final Supplier<? extends TileEntity> te;
@@ -54,14 +54,14 @@ public class ChestBlock extends TinkerTableBlock {
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+  public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    super.setPlacedBy(worldIn, pos, state, placer, stack);
     // check if we also have an inventory
 
     CompoundNBT tag = stack.getTag();
     if (tag != null && tag.contains("TinkerData", NBT.TAG_COMPOUND)) {
       CompoundNBT tinkerData = tag.getCompound("TinkerData");
-      TileEntity te = worldIn.getTileEntity(pos);
+      TileEntity te = worldIn.getBlockEntity(pos);
       if (te instanceof ChestTileEntity) {
         ((ChestTileEntity)te).readInventory(tinkerData);
       }
@@ -78,9 +78,9 @@ public class ChestBlock extends TinkerTableBlock {
   @SuppressWarnings("deprecation")
   @Override
   @Deprecated
-  public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-    TileEntity te = worldIn.getTileEntity(pos);
-    ItemStack heldItem = player.inventory.getCurrentItem();
+  public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    TileEntity te = worldIn.getBlockEntity(pos);
+    ItemStack heldItem = player.inventory.getSelected();
 
     if (!heldItem.isEmpty() && te instanceof ChestTileEntity) {
       ChestTileEntity chest = (ChestTileEntity) te;
@@ -88,13 +88,13 @@ public class ChestBlock extends TinkerTableBlock {
         IItemHandlerModifiable itemHandler = chest.getItemHandler();
         ItemStack rest = ItemHandlerHelper.insertItem(itemHandler, heldItem, false);
         if (rest.isEmpty() || rest.getCount() < heldItem.getCount()) {
-          player.inventory.mainInventory.set(player.inventory.currentItem, rest);
+          player.inventory.items.set(player.inventory.selected, rest);
           return ActionResultType.SUCCESS;
         }
       }
     }
 
-    return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    return super.use(state, worldIn, pos, player, handIn, hit);
   }
 
   @Override

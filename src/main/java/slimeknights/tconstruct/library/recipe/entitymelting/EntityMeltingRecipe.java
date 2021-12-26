@@ -100,10 +100,10 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   /** Serializer for this recipe */
   public static class Serializer extends LoggingRecipeSerializer<EntityMeltingRecipe> {
     @Override
-    public EntityMeltingRecipe read(ResourceLocation id, JsonObject json) {
+    public EntityMeltingRecipe fromJson(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
-      int damage = JSONUtils.getInt(json, "damage", 2);
+      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getAsJsonObject(json, "result"));
+      int damage = JSONUtils.getAsInt(json, "damage", 2);
       return new EntityMeltingRecipe(id, ingredient, output, damage);
     }
 

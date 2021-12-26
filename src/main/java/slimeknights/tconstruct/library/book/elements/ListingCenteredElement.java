@@ -34,7 +34,7 @@ public class ListingCenteredElement extends TextElement {
         this.text[i].color = "dark red";
       }
 
-      this.x = this.originalX - fontRenderer.getStringWidth(this.text[0].text);
+      this.x = this.originalX - fontRenderer.width(this.text[0].text);
     } else {
       this.text[0].text = "";
       this.text[this.text.length - 1].text = "";

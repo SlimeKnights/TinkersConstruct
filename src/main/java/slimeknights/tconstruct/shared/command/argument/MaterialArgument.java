@@ -43,7 +43,7 @@ public class MaterialArgument implements ArgumentType<IMaterial> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return ISuggestionProvider.suggestIterable(MaterialRegistry.getMaterials().stream().<ResourceLocation>map(IMaterial::getIdentifier)::iterator, builder);
+    return ISuggestionProvider.suggestResource(MaterialRegistry.getMaterials().stream().<ResourceLocation>map(IMaterial::getIdentifier)::iterator, builder);
   }
 
   @Override

@@ -30,7 +30,7 @@ public class SmelteryFluidClickedPacket implements IThreadsafePacket {
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
-      Container container = sender.openContainer;
+      Container container = sender.containerMenu;
       if (container instanceof BaseContainer<?>) {
         TileEntity te = ((BaseContainer<?>)container).getTile();
         if (te instanceof ISmelteryTankHandler) {

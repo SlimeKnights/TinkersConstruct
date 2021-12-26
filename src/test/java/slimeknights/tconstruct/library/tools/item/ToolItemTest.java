@@ -26,7 +26,7 @@ public abstract class ToolItemTest extends BaseMcTest {
     if (tool == null) {
       Item.Properties properties = new Item.Properties()
         .addToolType(ToolType.PICKAXE, 1)
-        .maxStackSize(1);
+        .stacksTo(1);
       tool = new TestToolItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
       tool.setRegistryName("test:toolcore");
       ForgeRegistries.ITEMS.register(tool);
@@ -55,6 +55,6 @@ public abstract class ToolItemTest extends BaseMcTest {
 
   /** Breaks a tool using high damage */
   protected void breakTool(ItemStack stack) {
-    stack.setDamage(99999);
+    stack.setDamageValue(99999);
   }
 }

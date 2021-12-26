@@ -81,13 +81,13 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
     BitSet fluidParts = new BitSet(size);
     for (int i = 0; i < size; i++) {
       BlockPart part = elements.get(i);
-      long fluidFaces = part.mapFaces.values().stream()
+      long fluidFaces = part.faces.values().stream()
                                      .filter(face -> fluidTextures.contains(trimTextureName(face.texture)))
                                      .count();
       // for simplicity, each part is either a fluid or not. If for some reason it contains both we mark it as a fluid, meaning it may get colored
       // if this is undesired, just use separate elements
       if (fluidFaces > 0) {
-        if (fluidFaces < part.mapFaces.size()) {
+        if (fluidFaces < part.faces.size()) {
           TConstruct.LOG.warn("Mixed fluid and non-fluid elements in model {}, may cause unexpected results", modelLocation);
         }
         fluidParts.set(i);
@@ -118,7 +118,7 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
       // setup model baking
       Function<RenderMaterial,TextureAtlasSprite> spriteGetter = ModelLoader.defaultTextureGetter();
       TextureAtlasSprite particle = spriteGetter.apply(owner.resolveTexture("particle"));
-      SimpleBakedModel.Builder builder = new SimpleBakedModel.Builder(owner, ItemOverrideList.EMPTY).setTexture(particle);
+      SimpleBakedModel.Builder builder = new SimpleBakedModel.Builder(owner, ItemOverrideList.EMPTY).particle(particle);
 
       // get fluid details
       FluidAttributes attributes = fluid.getFluid().getAttributes();
@@ -162,7 +162,7 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
     @Override
     public FluidTextureModel read(JsonDeserializationContext context, JsonObject json) {
       SimpleBlockModel model = SimpleBlockModel.deserialize(context, json);
-      Set<String> fluids = ImmutableSet.copyOf(JsonHelper.parseList(json, "fluids", JSONUtils::getString));
+      Set<String> fluids = ImmutableSet.copyOf(JsonHelper.parseList(json, "fluids", JSONUtils::convertToString));
       return new FluidTextureModel(model, fluids);
     }
   }

@@ -61,15 +61,15 @@ public class TooltipUtil {
   private TooltipUtil() {}
 
   /** Tooltip telling the player to hold shift for more info */
-  public static final ITextComponent TOOLTIP_HOLD_SHIFT = TConstruct.makeTranslation("tooltip", "hold_shift", TConstruct.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC));
+  public static final ITextComponent TOOLTIP_HOLD_SHIFT = TConstruct.makeTranslation("tooltip", "hold_shift", TConstruct.makeTranslation("key", "shift").withStyle(TextFormatting.YELLOW, TextFormatting.ITALIC));
   /** Tooltip telling the player to hold control for part info */
-  public static final ITextComponent TOOLTIP_HOLD_CTRL = TConstruct.makeTranslation("tooltip", "hold_ctrl", TConstruct.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC));
+  public static final ITextComponent TOOLTIP_HOLD_CTRL = TConstruct.makeTranslation("tooltip", "hold_ctrl", TConstruct.makeTranslation("key", "ctrl").withStyle(TextFormatting.AQUA, TextFormatting.ITALIC));
   /** Tooltip for when tool data is missing */
-  private static final ITextComponent NO_DATA = TConstruct.makeTranslation("tooltip", "missing_data").mergeStyle(TextFormatting.GRAY);
+  private static final ITextComponent NO_DATA = TConstruct.makeTranslation("tooltip", "missing_data").withStyle(TextFormatting.GRAY);
   /** Tooltip for when a tool is uninitialized */
-  private static final ITextComponent UNINITIALIZED = TConstruct.makeTranslation("tooltip", "uninitialized").mergeStyle(TextFormatting.GRAY);
+  private static final ITextComponent UNINITIALIZED = TConstruct.makeTranslation("tooltip", "uninitialized").withStyle(TextFormatting.GRAY);
   /** Extra tooltip for multipart tools with no materials */
-  private static final ITextComponent RANDOM_MATERIALS = TConstruct.makeTranslation("tooltip", "random_materials").mergeStyle(TextFormatting.GRAY);
+  private static final ITextComponent RANDOM_MATERIALS = TConstruct.makeTranslation("tooltip", "random_materials").withStyle(TextFormatting.GRAY);
 
   /**
    * If true, this stack was created for display, so some of the tooltip is suppressed
@@ -99,7 +99,7 @@ public class TooltipUtil {
    */
   public static ITextComponent getDisplayName(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition toolDefinition) {
     List<PartRequirement> components = toolDefinition.getData().getParts();
-    ITextComponent baseName = new TranslationTextComponent(stack.getTranslationKey());
+    ITextComponent baseName = new TranslationTextComponent(stack.getDescriptionId());
     if (components.isEmpty()) {
       return baseName;
     }
@@ -195,16 +195,11 @@ public class TooltipUtil {
         for (int i = 0; i < enchantments.size(); ++i) {
           CompoundNBT enchantmentTag = enchantments.getCompound(i);
           // TODO: tag to whitelist/blacklist enchantments in the tooltip, depends on which ones we reimplement and which work on their own
-          Registry.ENCHANTMENT.getOptional(ResourceLocation.tryCreate(enchantmentTag.getString("id")))
-                              .ifPresent(enchantment -> tooltips.add(enchantment.getDisplayName(enchantmentTag.getInt("lvl"))));
+          Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
+                              .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
         }
       }
     }
-  }
-
-  /** Adds default info without enchantments */
-  public static void getDefaultInfo(IModifierToolStack tool, List<ITextComponent> tooltips) {
-    getDefaultInfo(ItemStack.EMPTY, tool, tooltips);
   }
 
   /**
@@ -214,7 +209,7 @@ public class TooltipUtil {
    */
   public static void getDefaultInfo(ItemStack stack, IModifierToolStack tool, List<ITextComponent> tooltips) {
     // shows as broken when broken, hold shift for proper durability
-    if (tool.getItem().isDamageable() && !tool.isUnbreakable()) {
+    if (tool.getItem().canBeDepleted() && !tool.isUnbreakable()) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
@@ -316,7 +311,7 @@ public class TooltipUtil {
     for (int i = 0; i <= max; i++) {
       PartRequirement requirement = components.get(i);
       IMaterial material = materials.get(i);
-      tooltips.add(requirement.nameForMaterial(material).deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+      tooltips.add(requirement.nameForMaterial(material).copy().withStyle(TextFormatting.UNDERLINE).withStyle(style -> style.withColor(material.getColor())));
       MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
       if (i != max) {
         tooltips.add(StringTextComponent.EMPTY);
@@ -339,7 +334,7 @@ public class TooltipUtil {
       if (!modifiers.isEmpty()) {
         if (slots.length > 1) {
           tooltip.add(StringTextComponent.EMPTY);
-          tooltip.add((new TranslationTextComponent("item.modifiers." + slot.getName())).mergeStyle(TextFormatting.GRAY));
+          tooltip.add((new TranslationTextComponent("item.modifiers." + slot.getName())).withStyle(TextFormatting.GRAY));
         }
 
         for (Entry<Attribute, AttributeModifier> entry : modifiers.entries()) {
@@ -354,11 +349,11 @@ public class TooltipUtil {
           double amount = modifier.getAmount();
           boolean showEquals = false;
           if (player != null) {
-            if (modifier.getID() == Item.ATTACK_DAMAGE_MODIFIER) {
-              amount += player.getBaseAttributeValue(Attributes.ATTACK_DAMAGE);
+            if (modifier.getId() == Item.BASE_ATTACK_DAMAGE_UUID) {
+              amount += player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
               showEquals = true;
-            } else if (modifier.getID() == Item.ATTACK_SPEED_MODIFIER) {
-              amount += player.getBaseAttributeValue(Attributes.ATTACK_SPEED);
+            } else if (modifier.getId() == Item.BASE_ATTACK_SPEED_UUID) {
+              amount += player.getAttributeBaseValue(Attributes.ATTACK_SPEED);
               showEquals = true;
             }
           }
@@ -374,18 +369,18 @@ public class TooltipUtil {
             displayValue *= 100;
           }
           // final tooltip addition
-          ITextComponent name = new TranslationTextComponent(attribute.getAttributeName());
+          ITextComponent name = new TranslationTextComponent(attribute.getDescriptionId());
           if (showEquals) {
             tooltip.add(new StringTextComponent(" ")
-                          .appendSibling(new TranslationTextComponent("attribute.modifier.equals." + operation.getId(), ItemStack.DECIMALFORMAT.format(displayValue), name))
-                          .mergeStyle(TextFormatting.DARK_GREEN));
+                          .append(new TranslationTextComponent("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                          .withStyle(TextFormatting.DARK_GREEN));
           } else if (amount > 0.0D) {
-            tooltip.add((new TranslationTextComponent("attribute.modifier.plus." + operation.getId(), ItemStack.DECIMALFORMAT.format(displayValue), name))
-                          .mergeStyle(TextFormatting.BLUE));
+            tooltip.add((new TranslationTextComponent("attribute.modifier.plus." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                          .withStyle(TextFormatting.BLUE));
           } else if (amount < 0.0D) {
             displayValue *= -1;
-            tooltip.add((new TranslationTextComponent("attribute.modifier.take." + operation.getId(), ItemStack.DECIMALFORMAT.format(displayValue), name))
-                          .mergeStyle(TextFormatting.RED));
+            tooltip.add((new TranslationTextComponent("attribute.modifier.take." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                          .withStyle(TextFormatting.RED));
           }
         }
       }

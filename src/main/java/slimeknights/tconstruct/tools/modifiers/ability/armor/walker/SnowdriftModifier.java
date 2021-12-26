@@ -26,9 +26,9 @@ public class SnowdriftModifier extends AbstractWalkerModifier {
 
   @Override
   protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
-    BlockState snow = Blocks.SNOW.getDefaultState();
-    if (world.isAirBlock(target) && world.getBiome(target).getTemperature(target) < 0.8F && snow.isValidPosition(world, target)) {
-      world.setBlockState(target, snow);
+    BlockState snow = Blocks.SNOW.defaultBlockState();
+    if (world.isEmptyBlock(target) && world.getBiome(target).getTemperature(target) < 0.8F && snow.canSurvive(world, target)) {
+      world.setBlockAndUpdate(target, snow);
     }
   }
 }

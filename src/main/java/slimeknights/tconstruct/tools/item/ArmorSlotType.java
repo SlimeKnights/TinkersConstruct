@@ -18,7 +18,7 @@ public enum ArmorSlotType implements IStringSerializable {
   HELMET(EquipmentSlotType.HEAD);
 
   private final EquipmentSlotType equipmentSlot;
-  private final String string = toString().toLowerCase(Locale.ROOT);
+  private final String serializedName = toString().toLowerCase(Locale.ROOT);
   private final int index = ordinal();
 
   /** Gets an equipment slot for the given armor slot */

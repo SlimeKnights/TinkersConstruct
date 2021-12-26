@@ -28,7 +28,7 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
    * @return  True if effective
    */
   protected boolean isEffective(LivingEntity target) {
-    return target.getCreatureAttribute() == type;
+    return target.getMobType() == type;
   }
 
   @Override

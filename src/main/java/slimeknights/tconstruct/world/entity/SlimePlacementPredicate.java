@@ -28,11 +28,11 @@ public class SlimePlacementPredicate<T extends SlimeEntity> implements IPlacemen
     if (reason == SpawnReason.SPAWNER) {
       return true;
     }
-    BlockPos down = pos.down();
+    BlockPos down = pos.below();
     ITag<Fluid> fluid = TinkerFluids.slime.get(slimeType).getLocalTag();
-    if (world.getFluidState(pos).isTagged(fluid) && world.getFluidState(down).isTagged(fluid)) {
+    if (world.getFluidState(pos).is(fluid) && world.getFluidState(down).is(fluid)) {
       return true;
     }
-    return world.getBlockState(down).isIn(slimeType.getGrassBlockTag());
+    return world.getBlockState(down).is(slimeType.getGrassBlockTag());
   }
 }

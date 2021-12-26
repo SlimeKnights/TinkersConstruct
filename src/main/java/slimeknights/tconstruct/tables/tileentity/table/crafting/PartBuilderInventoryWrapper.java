@@ -24,17 +24,17 @@ public class PartBuilderInventoryWrapper implements IPartBuilderInventory {
 
   @Override
   public ItemStack getStack() {
-    return builder.getStackInSlot(PartBuilderTileEntity.MATERIAL_SLOT);
+    return builder.getItem(PartBuilderTileEntity.MATERIAL_SLOT);
   }
 
   @Override
   public ItemStack getPatternStack() {
-    return builder.getStackInSlot(PartBuilderTileEntity.PATTERN_SLOT);
+    return builder.getItem(PartBuilderTileEntity.PATTERN_SLOT);
   }
 
   /** Gets the tiles world */
   protected World getWorld() {
-    return Objects.requireNonNull(builder.getWorld(), "Tile entity world must be nonnull");
+    return Objects.requireNonNull(builder.getLevel(), "Tile entity world must be nonnull");
   }
 
   /** Refreshes the stored material */
@@ -52,7 +52,7 @@ public class PartBuilderInventoryWrapper implements IPartBuilderInventory {
         this.material = null;
       } else {
         World world = getWorld();
-        this.material = world.getRecipeManager().getRecipe(RecipeTypes.MATERIAL, this, world).orElse(null);
+        this.material = world.getRecipeManager().getRecipeFor(RecipeTypes.MATERIAL, this, world).orElse(null);
       }
     }
     return this.material;

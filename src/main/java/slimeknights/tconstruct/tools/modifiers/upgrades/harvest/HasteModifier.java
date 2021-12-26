@@ -56,7 +56,7 @@ public class HasteModifier extends IncrementalArmorLevelModifier {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
       double boost = 0.1 * getScaledLevel(tool, level);
       if (boost != 0) {
-        tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).appendString(" ").appendSibling(MINING_SPEED)));
+        tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).append(" ").append(MINING_SPEED)));
       }
     }
   }

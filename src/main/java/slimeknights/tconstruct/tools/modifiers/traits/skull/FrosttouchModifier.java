@@ -19,9 +19,9 @@ public class FrosttouchModifier extends TotalArmorLevelModifier {
   public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     // must drink milk to melee slowness. Always can range slowness
     if (isDirectDamage) {
-      boolean isCalcified = context.getEntity().isPotionActive(TinkerModifiers.calcifiedEffect.get());
+      boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
       if (isCalcified || source.isProjectile()) {
-        target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 300, isCalcified ? 1 : 0));
+        target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 300, isCalcified ? 1 : 0));
       }
     }
   }

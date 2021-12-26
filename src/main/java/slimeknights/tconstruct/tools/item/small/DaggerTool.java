@@ -11,9 +11,11 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Set;
 
+import net.minecraft.item.Item.Properties;
+
 public class DaggerTool extends SwordTool {
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic();
-  private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(Material.WOOL, Material.CACTUS, Material.PLANTS, Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
+  private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(Material.WOOL, Material.CACTUS, Material.PLANT, Material.REPLACEABLE_PLANT, Material.REPLACEABLE_FIREPROOF_PLANT, Material.WATER_PLANT);
 
   public DaggerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);

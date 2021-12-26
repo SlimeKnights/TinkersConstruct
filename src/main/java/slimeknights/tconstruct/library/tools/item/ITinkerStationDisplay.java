@@ -32,7 +32,7 @@ public interface ITinkerStationDisplay extends IItemProvider {
    * The "title" displayed in the GUI
    */
   default ITextComponent getLocalizedName() {
-    return new TranslationTextComponent(asItem().getTranslationKey());
+    return new TranslationTextComponent(asItem().getDescriptionId());
   }
 
   /**
@@ -74,7 +74,7 @@ public interface ITinkerStationDisplay extends IItemProvider {
       // direct name override for this tool
       if (!stack.isEmpty()) {
         MaterialId id = material.getIdentifier();
-        String key = stack.getTranslationKey() + ".material." + id.getNamespace() + "." + id.getPath();
+        String key = stack.getDescriptionId() + ".material." + id.getNamespace() + "." + id.getPath();
         if (Util.canTranslate(key)) {
           return new TranslationTextComponent(key);
         }
@@ -84,7 +84,7 @@ public interface ITinkerStationDisplay extends IItemProvider {
         return new TranslationTextComponent(material.getTranslationKey() + ".format", itemName);
       }
 
-      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).appendSibling(new StringTextComponent(" ")).appendSibling(itemName);
+      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).append(new StringTextComponent(" ")).append(itemName);
     }
 
     // multiple materials. we'll have to combine
@@ -93,14 +93,14 @@ public interface ITinkerStationDisplay extends IItemProvider {
     Iterator<IMaterial> iter = materials.iterator();
 
     IMaterial material = iter.next();
-    name.appendSibling(new TranslationTextComponent(material.getTranslationKey()));
+    name.append(new TranslationTextComponent(material.getTranslationKey()));
 
     while (iter.hasNext()) {
       material = iter.next();
-      name.appendString("-").appendSibling(new TranslationTextComponent(material.getTranslationKey()));
+      name.append("-").append(new TranslationTextComponent(material.getTranslationKey()));
     }
 
-    name.appendString(" ").appendSibling(itemName);
+    name.append(" ").append(itemName);
 
     return name;
   }

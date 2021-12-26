@@ -93,8 +93,8 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     if (textureLocation.getPath().startsWith("item/tool")) {
       return mat -> {
         // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-        ResourceLocation loc = mat.getTextureLocation();
-        if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
+        ResourceLocation loc = mat.texture();
+        if (!PlayerContainer.BLOCK_ATLAS.equals(mat.atlasLocation()) || TinkerClient.textureValidator.test(loc)) {
           allTextures.add(mat);
           return true;
         } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
@@ -125,9 +125,9 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     allTextures.add(texture);
 
     // if the texture is missing, stop here
-    if (!MissingTextureSprite.getLocation().equals(texture.getTextureLocation())) {
+    if (!MissingTextureSprite.getLocation().equals(texture.texture())) {
       // texture should exist in item/tool, or the validator cannot handle them
-      Predicate<RenderMaterial> textureAdder = getTextureAdder(texture.getTextureLocation(), allTextures, Config.CLIENT.logMissingMaterialTextures.get());
+      Predicate<RenderMaterial> textureAdder = getTextureAdder(texture.texture(), allTextures, Config.CLIENT.logMissingMaterialTextures.get());
       // if no specific material is set, load all materials as dependencies. If just one material, use just that one
       if (material == null) {
         MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));
@@ -253,7 +253,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     @Override
-    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public IBakedModel resolve(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
       MaterialId material = IMaterialItem.getMaterialIdFromStack(stack);
       // cache all baked material models, they will not need to be recreated as materials will not change
@@ -284,12 +284,12 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     @Override
     public MaterialModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       // need tint index for tool models, doubles as part index
-      int index = JSONUtils.getInt(modelContents, "index", 0);
+      int index = JSONUtils.getAsInt(modelContents, "index", 0);
 
       // static material can be defined, if unset uses dynamic material
       MaterialId material = null;
       if (modelContents.has("material")) {
-        material = new MaterialId(JSONUtils.getString(modelContents, "material"));
+        material = new MaterialId(JSONUtils.getAsString(modelContents, "material"));
       }
 
       Vector2f offset = Vector2f.ZERO;
@@ -312,13 +312,13 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @throws JsonParseException  If there is no array or the length is wrong
    */
   public static Vector2f arrayToObject(JsonObject json, String name) {
-    JsonArray array = JSONUtils.getJsonArray(json, name);
+    JsonArray array = JSONUtils.getAsJsonArray(json, name);
     if (array.size() != 2) {
       throw new JsonParseException("Expected " + 2 + " " + name + " values, found: " + array.size());
     }
     float[] vec = new float[2];
     for(int i = 0; i < 2; ++i) {
-      vec[i] = JSONUtils.getFloat(array.get(i), name + "[" + i + "]");
+      vec[i] = JSONUtils.convertToFloat(array.get(i), name + "[" + i + "]");
     }
     return new Vector2f(vec[0], vec[1]);
   }

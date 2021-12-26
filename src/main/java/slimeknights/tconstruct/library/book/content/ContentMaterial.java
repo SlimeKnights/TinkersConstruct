@@ -90,7 +90,7 @@ public class ContentMaterial extends PageContent {
   /** Gets a list of all repair items for the given material */
   protected List<ItemStack> getRepairStacks() {
     if (repairStacks == null) {
-      World world = Minecraft.getInstance().world;
+      World world = Minecraft.getInstance().level;
       if (world == null) {
         return Collections.emptyList();
       }
@@ -122,7 +122,7 @@ public class ContentMaterial extends PageContent {
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     IMaterial material = getMaterial();
-    this.addTitle(list, getTitle().getString(), true, material.getColor().getColor());
+    this.addTitle(list, getTitle().getString(), true, material.getColor().getValue());
 
     // the cool tools to the left/right
     this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, material.getIdentifier());
@@ -147,7 +147,7 @@ public class ContentMaterial extends PageContent {
     // inspirational quote, or boring description text
     MaterialId id = material.getIdentifier();
     String textKey = String.format(detailed ? "material.%s.%s.encyclopedia" : "material.%s.%s.flavor", id.getNamespace(), id.getPath());
-    if (I18n.hasKey(textKey)) {
+    if (I18n.exists(textKey)) {
       // using forge instead of I18n.format as that prevents % from being interpreted as a format key
       String translated = ForgeI18n.getPattern(textKey);
       if (!detailed) {
@@ -237,14 +237,14 @@ public class ContentMaterial extends PageContent {
         ITextComponent textComponent = textComponents.get(index);
 
         if (index == 0) {
-          formatted.add(textComponent.deepCopy().modifyStyle(style -> style.setColor(material.getColor())));
+          formatted.add(textComponent.copy().withStyle(style -> style.withColor(material.getColor())));
         } else {
           formatted.add(textComponent);
         }
       }
 
       textComponentData.tooltips = formatted.toArray(new ITextComponent[0]);
-      textComponentData.text = textComponentData.text.deepCopy().mergeStyle(TextFormatting.DARK_GRAY).mergeStyle(TextFormatting.UNDERLINE);
+      textComponentData.text = textComponentData.text.copy().withStyle(TextFormatting.DARK_GRAY, TextFormatting.UNDERLINE);
 
       lineData.add(textComponentData);
       lineData.add(new TextComponentData("\n"));
@@ -289,7 +289,7 @@ public class ContentMaterial extends PageContent {
     List<MaterialFluidRecipe> fluids = MaterialCastingLookup.getCastingFluids(materialId);
     if (!fluids.isEmpty()) {
       ItemElement elementItem = new TinkerItemElement(0, 0, 1, fluids.stream().flatMap(recipe -> recipe.getFluids().stream())
-                                                                     .map(fluid -> new ItemStack(fluid.getFluid().getFilledBucket()))
+                                                                     .map(fluid -> new ItemStack(fluid.getFluid().getBucket()))
                                                                      .collect(Collectors.toList()));
       FluidStack firstFluid = fluids.stream()
                                     .flatMap(recipe -> recipe.getFluids().stream())
@@ -328,7 +328,7 @@ public class ContentMaterial extends PageContent {
     // fill in leftover space
     if (displayTools.size() < 9) {
       toolLoop:
-      for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
+      for (Item item : TinkerTags.Items.MULTIPART_TOOL.getValues()) {
         if (item instanceof IModifiable) {
           IModifiable tool = ((IModifiable)item);
           List<PartRequirement> requirements = tool.getToolDefinition().getData().getParts();
@@ -378,6 +378,9 @@ public class ContentMaterial extends PageContent {
 
   /** Gets a list of all tool parts */
   private List<IToolPart> getToolParts() {
-    return TinkerTags.Items.TOOL_PARTS.getAllElements().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
+    return TinkerTags.Items.TOOL_PARTS.getValues().stream()
+                                      .filter(item -> item instanceof IToolPart)
+                                      .map(item -> (IToolPart) item)
+                                      .collect(Collectors.toList());
   }
 }

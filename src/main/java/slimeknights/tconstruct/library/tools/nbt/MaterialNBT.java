@@ -92,12 +92,12 @@ public class MaterialNBT {
       return EMPTY;
     }
     ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.getTagType() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
       return EMPTY;
     }
 
     List<IMaterial> materials = listNBT.stream()
-      .map(INBT::getString)
+      .map(INBT::getAsString)
       .map(MaterialId::tryCreate)
       .filter(Objects::nonNull)
       .map(MaterialRegistry::getMaterial)

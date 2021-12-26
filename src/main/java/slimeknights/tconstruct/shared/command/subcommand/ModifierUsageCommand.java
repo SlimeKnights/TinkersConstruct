@@ -3,7 +3,6 @@ package slimeknights.tconstruct.shared.command.subcommand;
 import com.google.common.collect.HashMultimap;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.command.CommandSource;
@@ -46,7 +45,7 @@ public class ModifierUsageCommand {
    * @param subCommand  Command builder
    */
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
-    subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_EDIT_SPAWN))
+    subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_EDIT_SPAWN))
               .executes(context -> runForType(context, ModifierUsages.ALL, null))
               // modifier_usage all
               .then(Commands.literal("all").executes(context -> runForType(context, ModifierUsages.ALL, null)))
@@ -63,13 +62,13 @@ public class ModifierUsageCommand {
   }
 
   /** Runs the actual command */
-  private static int runRecipeWithFilter(CommandContext<CommandSource> context) throws CommandSyntaxException {
+  private static int runRecipeWithFilter(CommandContext<CommandSource> context) {
     return runForType(context, ModifierUsages.RECIPE, SlotTypeArgument.getOptional(context, "slot_type"));
   }
 
   private static int runForType(CommandContext<CommandSource> context, ModifierUsages filter, @Nullable OptionalSlotType slotFilter) {
     // recipe modifiers are used in a displayable modifier recipe
-    HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getWorld().getRecipeManager().getRecipes(RecipeTypes.TINKER_STATION).values().stream()
+    HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getLevel().getRecipeManager().byType(RecipeTypes.TINKER_STATION).values().stream()
                                                              .filter(r -> r instanceof IModifierRecipe)
                                                              .map(r -> (IModifierRecipe) r)
                                                              .collect(Collector.of(HashMultimap::create, (map, r) -> map.put(r.getSlotType(), r.getModifier()), (m1, m2) -> {
@@ -89,7 +88,7 @@ public class ModifierUsageCommand {
                                          .map(ModifierEntry::getModifier)
                                          .collect(Collectors.toSet());
     // finally, tool traits we limit to anything in the modifiable tag
-    Set<Modifier> toolTraits = TinkerTags.Items.MODIFIABLE.getAllElements().stream()
+    Set<Modifier> toolTraits = TinkerTags.Items.MODIFIABLE.getValues().stream()
                                                           .filter(item -> item instanceof IModifiable)
                                                           .flatMap(item -> ((IModifiable) item).getToolDefinition().getData().getTraits().stream())
                                                           .map(ModifierEntry::getModifier)
@@ -166,7 +165,7 @@ public class ModifierUsageCommand {
     // finally, output the table
     table.build(logOutput);
     TConstruct.LOG.info(logOutput.toString());
-    context.getSource().sendFeedback(SUCCESS, true);
+    context.getSource().sendSuccess(SUCCESS, true);
     return finalList.size();
   }
 

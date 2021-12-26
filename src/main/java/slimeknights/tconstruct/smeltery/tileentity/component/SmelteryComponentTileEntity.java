@@ -33,11 +33,11 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
     super.setMaster(master, block);
 
     // update the active state
-    if (world != null) {
+    if (level != null) {
       BlockState currentState = getBlockState();
       boolean hasMaster = getMasterPos() != null;
-      if (currentState.hasProperty(SearedBlock.IN_STRUCTURE) && currentState.get(SearedBlock.IN_STRUCTURE) != hasMaster) {
-        world.setBlockState(pos, getBlockState().with(SearedBlock.IN_STRUCTURE, hasMaster), BlockFlags.BLOCK_UPDATE);
+      if (currentState.hasProperty(SearedBlock.IN_STRUCTURE) && currentState.getValue(SearedBlock.IN_STRUCTURE) != hasMaster) {
+        level.setBlock(worldPosition, getBlockState().setValue(SearedBlock.IN_STRUCTURE, hasMaster), BlockFlags.BLOCK_UPDATE);
       }
     }
   }
@@ -50,9 +50,9 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
   public static void updateNeighbors(World world, BlockPos pos, BlockState state) {
     for (Direction direction : Direction.values()) {
       // if the neighbor is a master, notify it we exist
-      TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+      TileEntity tileEntity = world.getBlockEntity(pos.relative(direction));
       if (tileEntity instanceof IMasterLogic) {
-        TileEntity servant = world.getTileEntity(pos);
+        TileEntity servant = world.getBlockEntity(pos);
         if (servant instanceof IServantLogic) {
           ((IMasterLogic) tileEntity).notifyChange((IServantLogic) servant, pos, state);
           break;

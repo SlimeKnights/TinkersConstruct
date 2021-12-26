@@ -38,7 +38,7 @@ public class MultiAlloyingModule implements IAlloyingModule {
 
   /** Gets a nonnull world instance from the parent */
   private World getWorld() {
-    return Objects.requireNonNull(parent.getWorld(), "Parent tile entity has null world");
+    return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
   /**
@@ -47,7 +47,7 @@ public class MultiAlloyingModule implements IAlloyingModule {
    */
   private List<AlloyRecipe> getRecipes() {
     if (lastRecipes == null) {
-      lastRecipes = getWorld().getRecipeManager().getRecipes(RecipeTypes.ALLOYING, alloyTank, getWorld());
+      lastRecipes = getWorld().getRecipeManager().getRecipesFor(RecipeTypes.ALLOYING, alloyTank, getWorld());
     }
     return lastRecipes;
   }

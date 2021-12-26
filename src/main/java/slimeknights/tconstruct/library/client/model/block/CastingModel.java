@@ -62,7 +62,7 @@ public class CastingModel extends InventoryModel {
     public InventoryModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
-      FluidCuboid fluid = FluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
+      FluidCuboid fluid = FluidCuboid.fromJson(JSONUtils.getAsJsonObject(modelContents, "fluid"));
       return new CastingModel(model, items, fluid);
     }
   }

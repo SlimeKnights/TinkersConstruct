@@ -97,10 +97,10 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
     }
 
     int coolingTime = recipe.getCoolingTime() / 20;
-    String coolingString = I18n.format(KEY_COOLING_TIME, coolingTime);
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    int x = 72 - fontRenderer.getStringWidth(coolingString) / 2;
-    fontRenderer.drawString(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
+    String coolingString = I18n.get(KEY_COOLING_TIME, coolingTime);
+    FontRenderer fontRenderer = Minecraft.getInstance().font;
+    int x = 72 - fontRenderer.width(coolingString) / 2;
+    fontRenderer.draw(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
   }
 
   @Override

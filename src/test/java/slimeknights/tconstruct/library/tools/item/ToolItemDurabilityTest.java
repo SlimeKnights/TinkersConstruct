@@ -12,7 +12,7 @@ public class ToolItemDurabilityTest extends ToolItemTest {
   void testNewToolDurability() {
     int statDurability = ToolStack.from(testItemStack).getStats().getInt(ToolStats.DURABILITY);
 
-    assertThat(testItemStack.getDamage()).isEqualTo(0);
+    assertThat(testItemStack.getDamageValue()).isEqualTo(0);
     assertThat(testItemStack.getMaxDamage()).isEqualTo(statDurability);
     assertThat(IsTestItemBroken()).isFalse();
   }
@@ -21,9 +21,9 @@ public class ToolItemDurabilityTest extends ToolItemTest {
   void testSettingDamage() {
     int statDurability = ToolStack.from(testItemStack).getStats().getInt(ToolStats.DURABILITY);
 
-    testItemStack.setDamage(1);
+    testItemStack.setDamageValue(1);
 
-    assertThat(testItemStack.getDamage()).isEqualTo(1);
+    assertThat(testItemStack.getDamageValue()).isEqualTo(1);
     assertThat(testItemStack.getMaxDamage()).isEqualTo(statDurability);
     assertThat(IsTestItemBroken()).isFalse();
   }
@@ -54,7 +54,7 @@ public class ToolItemDurabilityTest extends ToolItemTest {
     ToolStack tool = ToolStack.from(testItemStack);
     int statDurability = tool.getStats().getInt(ToolStats.DURABILITY);
 
-    testItemStack.setDamage(99999999);
+    testItemStack.setDamageValue(99999999);
 
     assertThat(tool.getDamage()).isEqualTo(statDurability);
     assertThat(tool.isBroken()).isTrue();

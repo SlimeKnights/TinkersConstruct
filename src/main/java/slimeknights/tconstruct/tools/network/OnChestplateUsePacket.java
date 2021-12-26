@@ -27,26 +27,26 @@ public enum OnChestplateUsePacket implements IThreadsafePacket {
 
   /** Gets the packet from the packet buffer */
   public static OnChestplateUsePacket read(PacketBuffer buffer) {
-    return from(buffer.readEnumValue(Hand.class));
+    return from(buffer.readEnum(Hand.class));
   }
 
   @Override
   public void encode(PacketBuffer buffer) {
-    buffer.writeEnumValue(hand);
+    buffer.writeEnum(hand);
   }
 
   @Override
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity player = context.getSender();
     if (player != null && !player.isSpectator()) {
-      ItemStack chestplate = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
-      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem()) && player.getHeldItem(hand).isEmpty()) {
+      ItemStack chestplate = player.getItemBySlot(EquipmentSlotType.CHEST);
+      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem()) && player.getItemInHand(hand).isEmpty()) {
         ActionResultType result = InteractionHandler.onChestplateUse(player, chestplate, hand);
         // TODO: needed?
 //        if (!player.isHandActive()) {
 //          player.sendContainerToPlayer(player.container);
 //        }
-        if (result.isSuccess()) {
+        if (result.shouldSwing()) {
           player.swing(hand, true);
         }
       }

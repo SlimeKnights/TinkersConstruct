@@ -34,7 +34,7 @@ public class ResourceValidator implements IEarlySafeManagerReloadListener, Predi
   public void onReloadSafe(IResourceManager manager) {
     int extensionLength = extension.length();
     // FIXME: this does not validate folder names
-    this.resources = manager.getAllResourceLocations(folder, (loc) -> {
+    this.resources = manager.listResources(folder, (loc) -> {
       // must have proper extension and contain valid characters
       return loc.endsWith(extension) && isPathValid(loc);
     }).stream().map((location) -> {

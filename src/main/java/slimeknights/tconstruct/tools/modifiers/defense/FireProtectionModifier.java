@@ -38,7 +38,7 @@ public class FireProtectionModifier extends IncrementalModifier {
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isFireDamage()) {
+    if (!source.isBypassMagic() && !source.isBypassInvul() && source.isFire()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
@@ -57,7 +57,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   /** Gets the level of fire aspect for a particular slot */
   private int getEnchantmentLevel(EquipmentChangeContext context, EquipmentSlotType slotType) {
     if (context.getToolInSlot(slotType) == null) {
-      return EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_PROTECTION, context.getEntity().getItemStackFromSlot(slotType));
+      return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_PROTECTION, context.getEntity().getItemBySlot(slotType));
     }
     return 0;
   }
@@ -66,7 +66,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
-    if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
+    if (slot.getType() == Group.ARMOR && !entity.level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData != null) {
@@ -87,7 +87,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR && !tool.isBroken()) {
+    if (!entity.level.isClientSide && slot.getType() == Group.ARMOR && !tool.isBroken()) {
       float scaledLevel = getScaledLevel(tool, level);
       context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
@@ -98,9 +98,9 @@ public class FireProtectionModifier extends IncrementalModifier {
             fireData.vanilla.set(slotType, getEnchantmentLevel(context, slotType));
           }
           // fetch fire timer as well
-          int fireTimer = entity.getFireTimer();
+          int fireTimer = entity.getRemainingFireTicks();
           if (fireTimer > 0) {
-            fireData.finish = entity.ticksExisted + fireTimer + 1;
+            fireData.finish = entity.tickCount + fireTimer + 1;
           }
           data.put(FIRE_DATA, fireData);
         }
@@ -115,7 +115,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR) {
+    if (!entity.level.isClientSide && slot.getType() == Group.ARMOR) {
       // so another slot changed, update vanilla fire data
       context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
@@ -137,7 +137,7 @@ public class FireProtectionModifier extends IncrementalModifier {
     // plus, saves us doing slot checks every tool with the modifier
     LivingEntity entity = event.getEntityLiving();
     // no need to run clientside
-    if (!entity.getEntityWorld().isRemote) {
+    if (!entity.level.isClientSide) {
       entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData != null) {
@@ -147,14 +147,14 @@ public class FireProtectionModifier extends IncrementalModifier {
           if (maxVanilla < maxLevel) {
             // if the entity is not on fire, make sure fire finish is before the current time
             // if not, could miss getting lit on fire later
-            int currentFire = entity.getFireTimer();
+            int currentFire = entity.getRemainingFireTicks();
             if (currentFire <= 0) {
-              if (fireData.finish > entity.ticksExisted) {
+              if (fireData.finish > entity.tickCount) {
                 fireData.finish = 0;
               }
               // entity is on fire, we determine new fire by the end of the fire being larger than our predicted end
               // if its smaller, we assume this is not new fire
-            } else if (currentFire + entity.ticksExisted > fireData.finish) {
+            } else if (currentFire + entity.tickCount > fireData.finish) {
               // alright, time to reduce fire amount, if vanilla already did it reduce less
               int newFire = currentFire;
               if (maxVanilla > 0) {
@@ -169,9 +169,9 @@ public class FireProtectionModifier extends IncrementalModifier {
                 newFire = 0;
                 fireData.finish = 0;
               } else {
-                fireData.finish = newFire + entity.ticksExisted + 1; // set 1 higher make it slightly faster if increasing fire multiple times in the same tick (fire blocks)
+                fireData.finish = newFire + entity.tickCount + 1; // set 1 higher make it slightly faster if increasing fire multiple times in the same tick (fire blocks)
               }
-              entity.forceFireTicks(newFire);
+              entity.setRemainingFireTicks(newFire);
             }
           }
         }

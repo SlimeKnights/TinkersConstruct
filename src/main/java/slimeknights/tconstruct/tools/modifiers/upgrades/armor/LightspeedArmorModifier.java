@@ -33,7 +33,7 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
   @Override
   public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     // no point trying if not on the ground
-    if (tool.isBroken() || !living.isOnGround() || living.world.isRemote) {
+    if (tool.isBroken() || !living.isOnGround() || living.level.isClientSide) {
       return;
     }
     // must have speed
@@ -47,12 +47,12 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
     }
 
     // not above air
-    Vector3d vecPos = living.getPositionVec();
+    Vector3d vecPos = living.position();
     BlockPos pos = new BlockPos(vecPos.x, vecPos.y + 0.5f, vecPos.z);
-    int light = living.world.getLightFor(LightType.BLOCK, pos);
+    int light = living.level.getBrightness(LightType.BLOCK, pos);
     if (light > 5) {
       int scaledLight = light - 5;
-      attribute.applyNonPersistentModifier(new AttributeModifier(ATTRIBUTE_BONUS, "tconstruct.modifier.lightspeed", scaledLight * 0.0015f * getScaledLevel(tool, level), Operation.ADDITION));
+      attribute.addTransientModifier(new AttributeModifier(ATTRIBUTE_BONUS, "tconstruct.modifier.lightspeed", scaledLight * 0.0015f * getScaledLevel(tool, level), Operation.ADDITION));
 
       // damage boots
       if (RANDOM.nextFloat() < (0.005f * scaledLight)) {
@@ -89,7 +89,7 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
     // percentages make sense
     float boost;
     if (player != null && key == TooltipKey.SHIFT) {
-      int light = player.world.getLightFor(LightType.BLOCK, player.getPosition());
+      int light = player.level.getBrightness(LightType.BLOCK, player.blockPosition());
       boost = 0.015f * (light - 5) * getScaledLevel(tool, level);
     } else {
       boost = 0.15f * getScaledLevel(tool, level);

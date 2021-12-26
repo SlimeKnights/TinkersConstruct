@@ -22,10 +22,10 @@ public class FluidTankBase<T extends MantleTileEntity> extends FluidTank {
       ((IFluidTankUpdater) parent).onTankContentsChanged();
     }
 
-    parent.markDirty();
-    World world = parent.getWorld();
-    if(!world.isRemote) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(parent.getPos(), this.getFluid()), (ServerWorld) world, parent.getPos());
+    parent.setChanged();
+    World world = parent.getLevel();
+    if(!world.isClientSide) {
+      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(parent.getBlockPos(), this.getFluid()), (ServerWorld) world, parent.getBlockPos());
     }
   }
 }

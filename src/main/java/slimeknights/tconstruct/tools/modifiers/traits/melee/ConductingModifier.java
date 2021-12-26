@@ -33,7 +33,7 @@ public class ConductingModifier extends Modifier {
 
   /** Gets the bonus damage for the given entity and level */
   private static float getBonus(LivingEntity living, int level) {
-    int fire = living.getFireTimer();
+    int fire = living.getRemainingFireTicks();
     if (fire > 0) {
       float bonus = PERCENT_PER_LEVEL * level;
       // if less than 15 seconds of fire, smaller boost
@@ -41,7 +41,7 @@ public class ConductingModifier extends Modifier {
         bonus *= (float)(fire) / MAX_BONUS_TICKS;
       }
       // half boost if not on fire
-      if (living.isPotionActive(Effects.FIRE_RESISTANCE)) {
+      if (living.hasEffect(Effects.FIRE_RESISTANCE)) {
         bonus /= 2;
       }
       return bonus;
@@ -63,10 +63,10 @@ public class ConductingModifier extends Modifier {
     if (tool.hasTag(TinkerTags.Items.MELEE_OR_UNARMED)) {
       float bonus = PERCENT_PER_LEVEL * level;
       // client only knows if the player is on fire or not, not the amount of fire, so just show full if on fire
-      if (player != null && key == TooltipKey.SHIFT && player.getFireTimer() == 0) {
+      if (player != null && key == TooltipKey.SHIFT && player.getRemainingFireTicks() == 0) {
         bonus = 0;
       }
-      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus)).appendString(" ").appendSibling(ATTACK_DAMAGE)));
+      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(ATTACK_DAMAGE)));
     }
   }
 }

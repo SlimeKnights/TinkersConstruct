@@ -15,6 +15,8 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import slimeknights.mantle.client.model.fluid.FluidCuboid.FluidFace;
+
 @Getter
 public class IncrementalFluidCuboid extends FluidCuboid {
   private final int increments;
@@ -36,8 +38,8 @@ public class IncrementalFluidCuboid extends FluidCuboid {
     Vector3f from = getFrom();
     Vector3f to = getTo();
     // gas renders upside down
-    float minY = from.getY();
-    float maxY = to.getY();
+    float minY = from.y();
+    float maxY = to.y();
     if (gas) {
       from = from.copy();
       from.setY(maxY + (amount * (minY - maxY) / increments));
@@ -77,29 +79,29 @@ public class IncrementalFluidCuboid extends FluidCuboid {
     float u1, u2, v1, v2;
     switch(side) {
       case DOWN:
-        u1 = from.getX(); v1 = 16f - to.getZ();
-        u2 = to.getX(); v2 = 16f - from.getZ();
+        u1 = from.x(); v1 = 16f - to.z();
+        u2 = to.x(); v2 = 16f - from.z();
         break;
       case UP:
-        u1 = from.getX(); v1 = from.getZ();
-        u2 = to.getX(); v2 = to.getZ();
+        u1 = from.x(); v1 = from.z();
+        u2 = to.x(); v2 = to.z();
         break;
       case NORTH:
       default:
-        u1 = 16f - to.getX(); v1 =  16f - to.getY();
-        u2 = 16f - from.getX(); v2 = 16f - from.getY();
+        u1 = 16f - to.x(); v1 =  16f - to.y();
+        u2 = 16f - from.x(); v2 = 16f - from.y();
         break;
       case SOUTH:
-        u1 = from.getX(); v1 =  16f - to.getY();
-        u2 = to.getX(); v2 = 16f - from.getY();
+        u1 = from.x(); v1 =  16f - to.y();
+        u2 = to.x(); v2 = 16f - from.y();
         break;
       case WEST:
-        u1 = from.getZ(); v1 =  16f - to.getY();
-        u2 = to.getZ(); v2 = 16f - from.getY();
+        u1 = from.z(); v1 =  16f - to.y();
+        u2 = to.z(); v2 = 16f - from.y();
         break;
       case EAST:
-        u1 = 16f - to.getZ(); v1 = 16f - to.getY();
-        u2 = 16f - from.getZ(); v2 = 16f - from.getY();
+        u1 = 16f - to.z(); v1 = 16f - to.y();
+        u2 = 16f - from.z(); v2 = 16f - from.y();
         break;
     }
     // cycle coords so they line up with the relevant block part
@@ -138,7 +140,7 @@ public class IncrementalFluidCuboid extends FluidCuboid {
     Vector3f from = ModelHelper.arrayToVector(json, "from");
     Vector3f to = ModelHelper.arrayToVector(json, "to");
     Map<Direction,FluidFace> faces = getFaces(json);
-    int increments = JSONUtils.getInt(json, "increments");
+    int increments = JSONUtils.getAsInt(json, "increments");
     return new IncrementalFluidCuboid(from, to, faces, increments);
   }
 }

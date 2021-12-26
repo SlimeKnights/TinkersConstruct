@@ -26,9 +26,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 // todo: evaluate block
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
 
-  private static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+  private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
   @Getter
   private final SlimeType foliageType;
@@ -68,15 +70,15 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
   }
 
   @Override
-  protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
     Block block = state.getBlock();
     return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block);
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.foliageType != SlimeType.ICHOR) {
-      super.fillItemGroup(group, items);
+      super.fillItemCategory(group, items);
     }
   }
 }

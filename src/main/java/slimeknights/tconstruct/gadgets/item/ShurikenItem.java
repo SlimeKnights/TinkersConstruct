@@ -30,28 +30,28 @@ public class ShurikenItem extends SnowballItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-    ItemStack stack = player.getHeldItem(hand);
-    world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), Sounds.SHURIKEN_THROW.getSound(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-    player.getCooldownTracker().setCooldown(stack.getItem(), 4);
-    if(!world.isRemote) {
+  public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    ItemStack stack = player.getItemInHand(hand);
+    world.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SHURIKEN_THROW.getSound(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+    player.getCooldowns().addCooldown(stack.getItem(), 4);
+    if(!world.isClientSide()) {
       ShurikenEntityBase entity = this.entity.apply(world, player);
       entity.setItem(stack);
-      entity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-      world.addEntity(entity);
+      entity.shootFromRotation(player, player.xRot, player.yRot, 0.0F, 1.5F, 1.0F);
+      world.addFreshEntity(entity);
     }
-    player.addStat(Stats.ITEM_USED.get(this));
-    if (!player.abilities.isCreativeMode) {
+    player.awardStat(Stats.ITEM_USED.get(this));
+    if (!player.abilities.instabuild) {
       stack.shrink(1);
     }
 
-    return ActionResult.func_233538_a_(stack, world.isRemote());
+    return ActionResult.sidedSuccess(stack, world.isClientSide());
   }
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     TranslationHelper.addOptionalTooltip(stack, tooltip);
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
   }
 }

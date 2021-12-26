@@ -106,10 +106,10 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Block base properties
    */
-  private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TAB_WORLD);
+  private static final Item.Properties WORLD_PROPS = new Item.Properties().tab(TAB_WORLD);
   private static final Function<Block, ? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
   private static final Function<Block, ? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
-  private static final Item.Properties HEAD_PROPS = new Item.Properties().group(TAB_WORLD).rarity(Rarity.UNCOMMON);
+  private static final Item.Properties HEAD_PROPS = new Item.Properties().tab(TAB_WORLD).rarity(Rarity.UNCOMMON);
 
   /** Flamable variant of clay, as in flamable shoveling material */
   public static final Material SLIME_WOOD = new Material.Builder(MaterialColor.CLAY).flammable().build();
@@ -118,18 +118,18 @@ public final class TinkerWorld extends TinkerModule {
    * Blocks
    */
   // ores
-  public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(builder(Material.ROCK, MaterialColor.NETHERRACK, ToolType.PICKAXE, SoundType.NETHER_ORE).setRequiresTool().harvestLevel(HarvestLevels.IRON).hardnessAndResistance(10.0F)), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<Block> copperOre = BLOCKS.register("copper_ore", builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().harvestLevel(HarvestLevels.STONE).hardnessAndResistance(3.0F, 3.0F), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(builder(Material.STONE, MaterialColor.NETHER, ToolType.PICKAXE, SoundType.NETHER_ORE).requiresCorrectToolForDrops().harvestLevel(HarvestLevels.IRON).strength(10.0F)), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> copperOre = BLOCKS.register("copper_ore", builder(Material.STONE, ToolType.PICKAXE, SoundType.STONE).requiresCorrectToolForDrops().harvestLevel(HarvestLevels.STONE).strength(3.0F, 3.0F), DEFAULT_BLOCK_ITEM);
 
   // slime
   public static final EnumObject<SlimeType, SlimeBlock> slime = Util.make(() -> {
-    Function<SlimeType,AbstractBlock.Properties> slimeProps = type -> builder(Material.CLAY, type.getMapColor(), NO_TOOL, SoundType.SLIME).slipperiness(0.8F).sound(SoundType.SLIME).notSolid();
+    Function<SlimeType,AbstractBlock.Properties> slimeProps = type -> builder(Material.CLAY, type.getMapColor(), NO_TOOL, SoundType.SLIME_BLOCK).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion();
     return new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
       .putDelegate(SlimeType.EARTH, Blocks.SLIME_BLOCK.delegate)
       // sky slime: sticks to anything, but will not pull back
       .put(SlimeType.SKY,   BLOCKS.register("sky_slime", () -> new StickySlimeBlock(slimeProps.apply(SlimeType.SKY), (state, other) -> true), TOOLTIP_BLOCK_ITEM))
       // ichor: does not stick to self, but sticks to anything else
-      .put(SlimeType.ICHOR, BLOCKS.register("ichor_slime", () -> new StickySlimeBlock(slimeProps.apply(SlimeType.ICHOR).setLightLevel(s -> SlimeType.ICHOR.getLightLevel()),
+      .put(SlimeType.ICHOR, BLOCKS.register("ichor_slime", () -> new StickySlimeBlock(slimeProps.apply(SlimeType.ICHOR).lightLevel(s -> SlimeType.ICHOR.getLightLevel()),
                                                                                       (state, other) -> other.getBlock() != state.getBlock()), TOOLTIP_BLOCK_ITEM))
       // ender: only sticks to self
       .put(SlimeType.ENDER, BLOCKS.register("ender_slime", () -> new StickySlimeBlock(slimeProps.apply(SlimeType.ENDER), (state, other) -> other.getBlock() == state.getBlock()), TOOLTIP_BLOCK_ITEM))
@@ -138,7 +138,7 @@ public final class TinkerWorld extends TinkerModule {
       .build();
   });
 
-  public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", type -> new CongealedSlimeBlock(builder(Material.CLAY, type.getMapColor(), ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F).setLightLevel(s -> type.getLightLevel())), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", type -> new CongealedSlimeBlock(builder(Material.CLAY, type.getMapColor(), ToolType.SHOVEL, SoundType.SLIME_BLOCK).strength(0.5F).friction(0.5F).lightLevel(s -> type.getLightLevel())), TOOLTIP_BLOCK_ITEM);
 
   // island blocks
   public static final EnumObject<SlimeType, Block> slimeDirt = Util.make(() -> {
@@ -146,11 +146,11 @@ public final class TinkerWorld extends TinkerModule {
       switch(type) {
         case EARTH: default: return MaterialColor.GRASS;
         case SKY: return MaterialColor.WARPED_STEM;
-        case ENDER: return MaterialColor.LIGHT_BLUE_TERRACOTTA;
-        case ICHOR: return MaterialColor.ORANGE_TERRACOTTA;
+        case ENDER: return MaterialColor.TERRACOTTA_LIGHT_BLUE;
+        case ICHOR: return MaterialColor.TERRACOTTA_ORANGE;
       }
     };
-    return BLOCKS.registerEnum(SlimeType.TRUE_SLIME, "slime_dirt", (type) -> new SlimeDirtBlock(builder(Material.EARTH, color.apply(type), ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.55F)), TOOLTIP_BLOCK_ITEM);
+    return BLOCKS.registerEnum(SlimeType.TRUE_SLIME, "slime_dirt", (type) -> new SlimeDirtBlock(builder(Material.DIRT, color.apply(type), ToolType.SHOVEL, SoundType.SLIME_BLOCK).strength(0.55F)), TOOLTIP_BLOCK_ITEM);
   });
   public static final EnumObject<SlimeType, Block> allDirt = new EnumObject.Builder<SlimeType, Block>(SlimeType.class).put(SlimeType.BLOOD, Blocks.DIRT.delegate).putAll(slimeDirt).build();
 
@@ -160,7 +160,7 @@ public final class TinkerWorld extends TinkerModule {
   public static final Map<SlimeType, EnumObject<SlimeType, Block>> slimeGrass = new EnumMap<>(SlimeType.class);
 
 	static {
-    Function<SlimeType,AbstractBlock.Properties> slimeGrassProps = type -> builder(Material.ORGANIC, type.getMapColor(), ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.65F).tickRandomly();
+    Function<SlimeType,AbstractBlock.Properties> slimeGrassProps = type -> builder(Material.GRASS, type.getMapColor(), ToolType.SHOVEL, SoundType.SLIME_BLOCK).strength(0.65F).randomTicks();
     Function<SlimeType, Block> slimeGrassRegister = type -> type.isNether() ? new SlimeNyliumBlock(slimeGrassProps.apply(type), type) : new SlimeGrassBlock(slimeGrassProps.apply(type), type);
     // blood is not an exact match for vanilla, but close enough
     vanillaSlimeGrass = BLOCKS.registerEnum(SlimeType.values(), "vanilla_slime_grass", slimeGrassRegister, TOOLTIP_BLOCK_ITEM);
@@ -177,9 +177,9 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<SlimeType, SlimeGrassSeedItem> slimeGrassSeeds = ITEMS.registerEnum(SlimeType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
 
   // wood
-  public static final WoodBlockObject greenheart  = BLOCKS.registerWood("greenheart",  SLIME_WOOD,    MaterialColor.LIME, SoundType.SLIME, ToolType.SHOVEL, Material.WOOD,        MaterialColor.GREEN,           SoundType.WOOD,   TAB_WORLD);
-  public static final WoodBlockObject skyroot     = BLOCKS.registerWood("skyroot",     SLIME_WOOD,    MaterialColor.CYAN, SoundType.SLIME, ToolType.SHOVEL, Material.WOOD,        MaterialColor.CYAN_TERRACOTTA, SoundType.WOOD,   TAB_WORLD);
-  public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", Material.CLAY, MaterialColor.RED,  SoundType.SLIME, ToolType.SHOVEL, Material.NETHER_WOOD, MaterialColor.ADOBE,           SoundType.HYPHAE, TAB_WORLD);
+  public static final WoodBlockObject greenheart  = BLOCKS.registerWood("greenheart",  SLIME_WOOD,    MaterialColor.COLOR_LIGHT_GREEN, SoundType.SLIME_BLOCK, ToolType.SHOVEL, Material.WOOD,        MaterialColor.COLOR_GREEN,     SoundType.WOOD, TAB_WORLD);
+  public static final WoodBlockObject skyroot     = BLOCKS.registerWood("skyroot",     SLIME_WOOD,    MaterialColor.COLOR_CYAN,        SoundType.SLIME_BLOCK, ToolType.SHOVEL, Material.WOOD,        MaterialColor.TERRACOTTA_CYAN, SoundType.WOOD, TAB_WORLD);
+  public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", Material.CLAY, MaterialColor.COLOR_RED,         SoundType.SLIME_BLOCK, ToolType.SHOVEL, Material.NETHER_WOOD, MaterialColor.COLOR_ORANGE,    SoundType.STEM, TAB_WORLD);
 
   // plants
   public static final EnumObject<SlimeType, SlimeTallGrassBlock> slimeFern, slimeTallGrass;
@@ -187,11 +187,11 @@ public final class TinkerWorld extends TinkerModule {
     Function<SlimeType,AbstractBlock.Properties> props = type -> {
       AbstractBlock.Properties properties;
       if (type.isNether()) {
-        properties = builder(Material.NETHER_PLANTS, type.getMapColor(), NO_TOOL, SoundType.ROOT);
+        properties = builder(Material.REPLACEABLE_FIREPROOF_PLANT, type.getMapColor(), NO_TOOL, SoundType.ROOTS);
       } else {
-        properties = builder(Material.TALL_PLANTS, type.getMapColor(), NO_TOOL, SoundType.PLANT);
+        properties = builder(Material.REPLACEABLE_PLANT, type.getMapColor(), NO_TOOL, SoundType.GRASS);
       }
-      return properties.zeroHardnessAndResistance().doesNotBlockMovement();
+      return properties.instabreak().noCollission();
     };
     slimeFern = BLOCKS.registerEnum(SlimeType.values(), "slime_fern", type -> new SlimeTallGrassBlock(props.apply(type), type), DEFAULT_BLOCK_ITEM);
     slimeTallGrass = BLOCKS.registerEnum(SlimeType.values(), "slime_tall_grass", type -> new SlimeTallGrassBlock(props.apply(type), type), DEFAULT_BLOCK_ITEM);
@@ -199,24 +199,24 @@ public final class TinkerWorld extends TinkerModule {
 
   // trees
   public static final EnumObject<SlimeType, Block> slimeSapling = Util.make(() -> {
-    Function<SlimeType,AbstractBlock.Properties> props = type -> builder(Material.PLANTS, type.getMapColor(), NO_TOOL, type.isNether() ? SoundType.FUNGUS : SoundType.PLANT).zeroHardnessAndResistance().doesNotBlockMovement();
+    Function<SlimeType,AbstractBlock.Properties> props = type -> builder(Material.PLANT, type.getMapColor(), NO_TOOL, type.isNether() ? SoundType.FUNGUS : SoundType.GRASS).instabreak().noCollission();
     return new EnumObject.Builder<SlimeType,Block>(SlimeType.class)
-      .putAll(BLOCKS.registerEnum(SlimeType.OVERWORLD, "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type), type, props.apply(type).tickRandomly()), TOOLTIP_BLOCK_ITEM))
+      .putAll(BLOCKS.registerEnum(SlimeType.OVERWORLD, "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type), type, props.apply(type).randomTicks()), TOOLTIP_BLOCK_ITEM))
       .put(SlimeType.BLOOD, BLOCKS.register("blood_slime_sapling", () -> new SlimeFungusBlock(props.apply(SlimeType.BLOOD), () -> TinkerStructures.BLOOD_SLIME_FUNGUS), TOOLTIP_BLOCK_ITEM))
       .put(SlimeType.ICHOR, BLOCKS.register("ichor_slime_sapling", () -> new SlimeFungusBlock(props.apply(SlimeType.ICHOR), () -> TinkerStructures.ICHOR_SLIME_FUNGUS), HIDDEN_BLOCK_ITEM))
       .build();
   });
   public static final EnumObject<SlimeType, Block> slimeLeaves = BLOCKS.registerEnum(SlimeType.values(), "slime_leaves", type -> {
     if (type.isNether()) {
-      return new SlimeWartBlock(builder(Material.ORGANIC, type.getMapColor(), NO_TOOL, SoundType.WART).hardnessAndResistance(1.0F).setAllowsSpawn((s, w, p, e) -> false), type);
+      return new SlimeWartBlock(builder(Material.GRASS, type.getMapColor(), NO_TOOL, SoundType.WART_BLOCK).strength(1.0F).isValidSpawn((s, w, p, e) -> false), type);
     }
-    return new SlimeLeavesBlock(builder(Material.LEAVES, type.getMapColor(), NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3f).tickRandomly().notSolid().setAllowsSpawn((s, w, p, e) -> false), type);
+    return new SlimeLeavesBlock(builder(Material.LEAVES, type.getMapColor(), NO_TOOL, SoundType.GRASS).strength(0.3f).randomTicks().noOcclusion().isValidSpawn((s, w, p, e) -> false), type);
   }, DEFAULT_BLOCK_ITEM);
 
   // slime vines
   public static final ItemObject<SlimeVineBlock> skySlimeVine, enderSlimeVine;
   static {
-    Function<SlimeType,AbstractBlock.Properties> props = type -> builder(Material.TALL_PLANTS, type.getMapColor(), NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).doesNotBlockMovement().tickRandomly();
+    Function<SlimeType,AbstractBlock.Properties> props = type -> builder(Material.REPLACEABLE_PLANT, type.getMapColor(), NO_TOOL, SoundType.GRASS).strength(0.3F).noCollission().randomTicks();
     skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(props.apply(SlimeType.SKY), SlimeType.SKY), DEFAULT_BLOCK_ITEM);
     enderSlimeVine = BLOCKS.register("ender_slime_vine", () -> new SlimeVineBlock(props.apply(SlimeType.ENDER), SlimeType.ENDER), DEFAULT_BLOCK_ITEM);
   }
@@ -231,28 +231,28 @@ public final class TinkerWorld extends TinkerModule {
    */
   // our own copy of the slime to make spawning a bit easier
   public static final RegistryObject<EntityType<EarthSlimeEntity>> earthSlimeEntity = ENTITIES.register("earth_slime", () ->
-    EntityType.Builder.create(EarthSlimeEntity::new, EntityClassification.MONSTER)
+    EntityType.Builder.of(EarthSlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(10)
-                      .size(2.04F, 2.04F)
+                      .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.earthSlimeEntity.get().create(world)));
   public static final RegistryObject<EntityType<SkySlimeEntity>> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () ->
-    EntityType.Builder.create(SkySlimeEntity::new, EntityClassification.MONSTER)
+    EntityType.Builder.of(SkySlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(20)
-                      .size(2.04F, 2.04F)
+                      .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world)), 0x47eff5, 0xacfff4);
   public static final RegistryObject<EntityType<EnderSlimeEntity>> enderSlimeEntity = ENTITIES.registerWithEgg("ender_slime", () ->
-    EntityType.Builder.create(EnderSlimeEntity::new, EntityClassification.MONSTER)
+    EntityType.Builder.of(EnderSlimeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(32)
-                      .size(2.04F, 2.04F)
+                      .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.enderSlimeEntity.get().create(world)), 0x6300B0, 0xD37CFF);
   public static final RegistryObject<EntityType<TerracubeEntity>> terracubeEntity = ENTITIES.registerWithEgg("terracube", () ->
-    EntityType.Builder.create(TerracubeEntity::new, EntityClassification.MONSTER)
+    EntityType.Builder.of(TerracubeEntity::new, EntityClassification.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(8)
-                      .size(2.04F, 2.04F)
+                      .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.terracubeEntity.get().create(world)), 0xAFB9D6, 0xA1A7B1);
 
   /*
@@ -275,25 +275,25 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void entityAttributes(EntityAttributeCreationEvent event) {
-    event.put(earthSlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
-    event.put(skySlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
-    event.put(enderSlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
-    event.put(terracubeEntity.get(), MonsterEntity.func_234295_eP_().create());
+    event.put(earthSlimeEntity.get(), MonsterEntity.createMonsterAttributes().build());
+    event.put(skySlimeEntity.get(), MonsterEntity.createMonsterAttributes().build());
+    event.put(enderSlimeEntity.get(), MonsterEntity.createMonsterAttributes().build());
+    event.put(terracubeEntity.get(), MonsterEntity.createMonsterAttributes().build());
   }
 
   /** Sets all fire info for the given wood */
   private static void setWoodFireInfo(FireBlock fireBlock, WoodBlockObject wood) {
     // planks
-    fireBlock.setFireInfo(wood.get(), 5, 20);
-    fireBlock.setFireInfo(wood.getSlab(), 5, 20);
-    fireBlock.setFireInfo(wood.getStairs(), 5, 20);
-    fireBlock.setFireInfo(wood.getFence(), 5, 20);
-    fireBlock.setFireInfo(wood.getFenceGate(), 5, 20);
+    fireBlock.setFlammable(wood.get(), 5, 20);
+    fireBlock.setFlammable(wood.getSlab(), 5, 20);
+    fireBlock.setFlammable(wood.getStairs(), 5, 20);
+    fireBlock.setFlammable(wood.getFence(), 5, 20);
+    fireBlock.setFlammable(wood.getFenceGate(), 5, 20);
     // logs
-    fireBlock.setFireInfo(wood.getLog(), 5, 5);
-    fireBlock.setFireInfo(wood.getStrippedLog(), 5, 5);
-    fireBlock.setFireInfo(wood.getWood(), 5, 5);
-    fireBlock.setFireInfo(wood.getStrippedWood(), 5, 5);
+    fireBlock.setFlammable(wood.getLog(), 5, 5);
+    fireBlock.setFlammable(wood.getStrippedLog(), 5, 5);
+    fireBlock.setFlammable(wood.getWood(), 5, 5);
+    fireBlock.setFlammable(wood.getStrippedWood(), 5, 5);
   }
 
   @SubscribeEvent
@@ -305,25 +305,25 @@ public final class TinkerWorld extends TinkerModule {
 
     // compostables
     event.enqueueWork(() -> {
-      slimeLeaves.forEach((type, block) -> ComposterBlock.registerCompostable(type.isNether() ? 0.85f : 0.35f, block));
-      slimeSapling.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
-      slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
-      slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
-      slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostable(0.35F, block));
-      ComposterBlock.registerCompostable(0.5f, skySlimeVine);
-      ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
+      slimeLeaves.forEach((type, block) -> ComposterBlock.add(type.isNether() ? 0.85f : 0.35f, block));
+      slimeSapling.forEach(block -> ComposterBlock.add(0.35f, block));
+      slimeTallGrass.forEach(block -> ComposterBlock.add(0.35f, block));
+      slimeFern.forEach(block -> ComposterBlock.add(0.65f, block));
+      slimeGrassSeeds.forEach(block -> ComposterBlock.add(0.35F, block));
+      ComposterBlock.add(0.5f, skySlimeVine);
+      ComposterBlock.add(0.5f, enderSlimeVine);
 
       // head equipping
       IDispenseItemBehavior dispenseArmor = new OptionalDispenseBehavior() {
         @Override
-        protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-          this.setSuccessful(ArmorItem.func_226626_a_(source, stack));
+        protected ItemStack execute(IBlockSource source, ItemStack stack) {
+          this.setSuccess(ArmorItem.dispenseArmor(source, stack));
           return stack;
         }
       };
-      TinkerWorld.heads.forEach(head -> DispenserBlock.registerDispenseBehavior(head, dispenseArmor));
+      TinkerWorld.heads.forEach(head -> DispenserBlock.registerBehavior(head, dispenseArmor));
       // heads in firework stars
-      TinkerWorld.heads.forEach(head -> FireworkStarRecipe.ITEM_SHAPE_MAP.put(head.asItem(), FireworkRocketItem.Shape.CREEPER));
+      TinkerWorld.heads.forEach(head -> FireworkStarRecipe.SHAPE_BY_ITEM.put(head.asItem(), FireworkRocketItem.Shape.CREEPER));
       // inject heads into the tile entity type
       event.enqueueWork(() -> {
         ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
@@ -343,34 +343,34 @@ public final class TinkerWorld extends TinkerModule {
       // plants
       BiConsumer<SlimeType, Block> plantFireInfo = (type, block) -> {
         if (type != SlimeType.BLOOD && type != SlimeType.ICHOR) {
-          fireblock.setFireInfo(block, 30, 60);
+          fireblock.setFlammable(block, 30, 60);
         }
       };
       slimeLeaves.forEach(plantFireInfo);
       slimeTallGrass.forEach(plantFireInfo);
       slimeFern.forEach(plantFireInfo);
       // vines
-      fireblock.setFireInfo(skySlimeVine.get(), 15, 100);
-      fireblock.setFireInfo(enderSlimeVine.get(), 15, 100);
+      fireblock.setFlammable(skySlimeVine.get(), 15, 100);
+      fireblock.setFlammable(enderSlimeVine.get(), 15, 100);
     });
 
     // ores
     event.enqueueWork(() -> {
       COPPER_ORE_FEATURE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resource("copper_ore"),
-																						 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 9))
-                                                        .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(40, 0, 60)))
-                                                        .square()
+																						 Feature.ORE.configured(new OreFeatureConfig(FillerBlockType.NATURAL_STONE, TinkerWorld.copperOre.get().defaultBlockState(), 9))
+                                                        .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(40, 0, 60)))
+                                                        .squared()
                                                         .count(Config.COMMON.veinCountCopper.get()));
       // small veins, standard distribution
       COBALT_ORE_FEATURE_SMALL = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_small"),
-																									 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 4))
-                                                              .withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT)
-                                                              .square().count(Config.COMMON.veinCountCobalt.get() / 2));
+																									 Feature.ORE.configured(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().defaultBlockState(), 4))
+                                                              .decorated(Features.Placements.RANGE_10_20_ROOFED)
+                                                              .squared().count(Config.COMMON.veinCountCobalt.get() / 2));
       // large veins, around y=16, up to 48
       COBALT_ORE_FEATURE_LARGE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_large"),
-																									 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 8))
-                                                              .withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(32, 16)))
-                                                              .square().count(Config.COMMON.veinCountCobalt.get() / 2));
+																									 Feature.ORE.configured(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().defaultBlockState(), 8))
+                                                              .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(32, 16)))
+                                                              .squared().count(Config.COMMON.veinCountCobalt.get() / 2));
     });
   }
 
@@ -387,7 +387,7 @@ public final class TinkerWorld extends TinkerModule {
 
   /** Creates a skull block for the given head type */
   private static SkullBlock makeHead(TinkerHeadType type) {
-    AbstractBlock.Properties props = AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F);
+    AbstractBlock.Properties props = AbstractBlock.Properties.of(Material.DECORATION).strength(1.0F);
     if (type == TinkerHeadType.PIGLIN || type == TinkerHeadType.PIGLIN_BRUTE || type == TinkerHeadType.ZOMBIFIED_PIGLIN) {
       return new PiglinHeadBlock(type, props);
     }
@@ -396,7 +396,7 @@ public final class TinkerWorld extends TinkerModule {
 
   /** Creates a skull wall block for the given head type */
   private static WallSkullBlock makeWallHead(TinkerHeadType type) {
-    AbstractBlock.Properties props = AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F).lootFrom(() -> heads.get(type));
+    AbstractBlock.Properties props = AbstractBlock.Properties.of(Material.DECORATION).strength(1.0F).lootFrom(() -> heads.get(type));
     if (type == TinkerHeadType.PIGLIN || type == TinkerHeadType.PIGLIN_BRUTE || type == TinkerHeadType.ZOMBIFIED_PIGLIN) {
       return new PiglinWallHeadBlock(type, props);
     }

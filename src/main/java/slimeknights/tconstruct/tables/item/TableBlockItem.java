@@ -10,6 +10,8 @@ import slimeknights.mantle.item.RetexturedBlockItem;
 
 import java.util.function.BooleanSupplier;
 
+import net.minecraft.item.Item.Properties;
+
 /** Retextured block that conditionally enables show all variants */
 public class TableBlockItem extends RetexturedBlockItem {
   private final BooleanSupplier showAllCondition;
@@ -19,8 +21,8 @@ public class TableBlockItem extends RetexturedBlockItem {
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.allowdedIn(group)) {
       addTagVariants(this.getBlock(), this.textureTag, items, showAllCondition.getAsBoolean());
     }
   }

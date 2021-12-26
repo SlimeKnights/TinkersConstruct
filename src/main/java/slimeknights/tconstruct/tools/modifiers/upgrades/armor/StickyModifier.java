@@ -24,17 +24,17 @@ public class StickyModifier extends IncrementalModifier {
     if (maxBonus > 0) {
       duration += RANDOM.nextInt(maxBonus);
     }
-    return new EffectInstance(Effects.SLOWNESS, duration, Math.round(scaledLevel));
+    return new EffectInstance(Effects.MOVEMENT_SLOWDOWN, duration, Math.round(scaledLevel));
   }
 
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
-    Entity attacker = source.getTrueSource();
+    Entity attacker = source.getEntity();
     if (isDirectDamage && attacker instanceof LivingEntity) {
       // 15% chance of working per level
       float scaledLevel = getScaledLevel(tool, level);
       if (RANDOM.nextFloat() < (scaledLevel * 0.25f)) {
-        ((LivingEntity)attacker).addPotionEffect(getEffect(scaledLevel));
+        ((LivingEntity)attacker).addEffect(getEffect(scaledLevel));
         ToolDamageUtil.damageAnimated(tool, 1, context.getEntity(), slotType);
       }
     }
@@ -44,7 +44,7 @@ public class StickyModifier extends IncrementalModifier {
   public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
-      target.addPotionEffect(getEffect(getScaledLevel(tool, level)));
+      target.addEffect(getEffect(getScaledLevel(tool, level)));
     }
     return 0;
   }

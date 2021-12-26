@@ -15,7 +15,7 @@ public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
 
   @Override
   protected boolean isEffective(LivingEntity target) {
-    return super.isEffective(target) || target.getType().isContained(TinkerTags.EntityTypes.CREEPERS);
+    return super.isEffective(target) || target.getType().is(TinkerTags.EntityTypes.CREEPERS);
   }
 
   @Override
@@ -25,9 +25,9 @@ public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
       int duration = 20;
       int maxBonus = (int)(10 * getScaledLevel(tool, level));
       if (maxBonus > 0) {
-        duration += context.getAttacker().getRNG().nextInt(maxBonus);
+        duration += context.getAttacker().getRandom().nextInt(maxBonus);
       }
-      target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, duration, 3));
+      target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, duration, 3));
     }
     return 0;
   }

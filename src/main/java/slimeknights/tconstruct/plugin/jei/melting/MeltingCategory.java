@@ -35,10 +35,10 @@ public class MeltingCategory extends AbstractMeltingCategory {
   private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "melting.title");
   private static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
   private static final String KEY_MULTIPLIER = TConstruct.makeTranslationKey("jei", "melting.multiplier");
-  private static final ITextComponent SOLID_TEMPERATURE = new TranslationTextComponent(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).mergeStyle(TextFormatting.GRAY);
-  private static final ITextComponent SOLID_MULTIPLIER = new TranslationTextComponent(KEY_MULTIPLIER, FuelModule.SOLID_TEMPERATURE / 1000f).mergeStyle(TextFormatting.GRAY);
-  private static final ITextComponent TOOLTIP_SMELTERY = TConstruct.makeTranslation("jei", "melting.smeltery").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
-  private static final ITextComponent TOOLTIP_MELTER = TConstruct.makeTranslation("jei", "melting.melter").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
+  private static final ITextComponent SOLID_TEMPERATURE = new TranslationTextComponent(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).withStyle(TextFormatting.GRAY);
+  private static final ITextComponent SOLID_MULTIPLIER = new TranslationTextComponent(KEY_MULTIPLIER, FuelModule.SOLID_TEMPERATURE / 1000f).withStyle(TextFormatting.GRAY);
+  private static final ITextComponent TOOLTIP_SMELTERY = TConstruct.makeTranslation("jei", "melting.smeltery").withStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
+  private static final ITextComponent TOOLTIP_MELTER = TConstruct.makeTranslation("jei", "melting.melter").withStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
 
   /** Tooltip callback for items */
   private static final ITooltipCallback<ItemStack> ITEM_TOOLTIP = (index, isInput, stack, list) -> {

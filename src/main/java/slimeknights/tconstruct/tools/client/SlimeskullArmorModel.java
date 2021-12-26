@@ -57,31 +57,31 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
   }
 
   @Override
-  public void render(MatrixStack matrixStackIn, IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
     if (base != null) {
-      matrixStackIn.push();
-      matrixStackIn.translate(0.0D, this.isChild ? -0.015D : -0.02D, 0.0D);
+      matrixStackIn.pushPose();
+      matrixStackIn.translate(0.0D, this.young ? -0.015D : -0.02D, 0.0D);
       matrixStackIn.scale(1.01f, 1.0f, 1.01f);
-      base.render(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      matrixStackIn.pop();
+      base.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      matrixStackIn.popPose();
     }
     if (headModel != null && headTexture != null && buffer != null) {
-      IVertexBuilder headBuilder = buffer.getBuffer(RenderType.getEntityCutoutNoCullZOffset(headTexture));
-      boolean needsPush = this.isChild || (this.isSneak && base != null);
+      IVertexBuilder headBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(headTexture));
+      boolean needsPush = this.young || (this.crouching && base != null);
       if (needsPush) {
-        matrixStackIn.push();
-        if (isChild) {
+        matrixStackIn.pushPose();
+        if (young) {
           matrixStackIn.scale(0.75F, 0.75F, 0.75F);
           matrixStackIn.translate(0.0D, 1.0D, 0.0D);
         }
-        if (isSneak && base != null) {
-          matrixStackIn.translate(0, base.bipedHead.rotationPointY / 16.0F, 0);
+        if (crouching && base != null) {
+          matrixStackIn.translate(0, base.head.y / 16.0F, 0);
         }
       }
-      headModel.func_225603_a_(0, this.bipedHead.rotateAngleY * 180f / (float)(Math.PI), this.bipedHead.rotateAngleX * 180f / (float)(Math.PI));
-      headModel.render(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
+      headModel.setupAnim(0, this.head.yRot * 180f / (float)(Math.PI), this.head.xRot * 180f / (float)(Math.PI));
+      headModel.renderToBuffer(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
       if (needsPush) {
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
       }
     }
   }
@@ -104,13 +104,13 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
 
   @SuppressWarnings("unchecked")
   @Override
-  public void setVisible(boolean visible) {
+  public void setAllVisible(boolean visible) {
     if (base != null) {
-      base.setVisible(false);
-      base.bipedHead.showModel = true;
-      base.bipedHeadwear.showModel = true;
+      base.setAllVisible(false);
+      base.head.visible = true;
+      base.hat.visible = true;
       // attributes are copied to skull through another model's setModelAttributes, this is the best hook to copy them to the model
-      this.setModelAttributes((BipedModel<T>)base);
+      this.copyPropertiesTo((BipedModel<T>)base);
     }
   }
 }

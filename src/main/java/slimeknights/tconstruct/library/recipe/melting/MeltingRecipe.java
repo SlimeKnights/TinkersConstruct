@@ -69,7 +69,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, input);
+    return NonNullList.of(Ingredient.EMPTY, input);
   }
 
   @Override
@@ -120,14 +120,14 @@ public class MeltingRecipe implements IMeltingRecipe {
     private final IFactory<T> factory;
 
     @Override
-    public T read(ResourceLocation id, JsonObject json) {
-      String group = JSONUtils.getString(json, "group", "");
-      Ingredient input = Ingredient.deserialize(json.get("ingredient"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
+    public T fromJson(ResourceLocation id, JsonObject json) {
+      String group = JSONUtils.getAsString(json, "group", "");
+      Ingredient input = Ingredient.fromJson(json.get("ingredient"));
+      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getAsJsonObject(json, "result"));
 
       // temperature calculates
-      int temperature = JSONUtils.getInt(json, "temperature");
-      int time = JSONUtils.getInt(json, "time");
+      int temperature = JSONUtils.getAsInt(json, "temperature");
+      int time = JSONUtils.getAsInt(json, "time");
       // validate values
       if (temperature < 0) throw new JsonSyntaxException("Melting temperature must be greater than zero");
       if (time <= 0) throw new JsonSyntaxException("Melting time must be greater than zero");
@@ -142,8 +142,8 @@ public class MeltingRecipe implements IMeltingRecipe {
     @Nullable
     @Override
     protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
-      String group = buffer.readString(Short.MAX_VALUE);
-      Ingredient input = Ingredient.read(buffer);
+      String group = buffer.readUtf(Short.MAX_VALUE);
+      Ingredient input = Ingredient.fromNetwork(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
       int temperature = buffer.readInt();
       int time = buffer.readVarInt();
@@ -157,8 +157,8 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Override
     protected void writeSafe(PacketBuffer buffer, MeltingRecipe recipe) {
-      buffer.writeString(recipe.group);
-      recipe.input.write(buffer);
+      buffer.writeUtf(recipe.group);
+      recipe.input.toNetwork(buffer);
       recipe.output.writeToPacket(buffer);
       buffer.writeInt(recipe.temperature);
       buffer.writeVarInt(recipe.time);

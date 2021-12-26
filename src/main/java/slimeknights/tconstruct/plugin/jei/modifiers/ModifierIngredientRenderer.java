@@ -24,8 +24,8 @@ public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierE
     if (entry != null) {
       ITextComponent name = entry.getModifier().getDisplayName(entry.getLevel());
       FontRenderer fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
-      x += (width - fontRenderer.getStringPropertyWidth(name)) / 2;
-      fontRenderer.drawTextWithShadow(matrices, name, x, y + 1, -1);
+      x += (width - fontRenderer.width(name)) / 2;
+      fontRenderer.drawShadow(matrices, name, x, y + 1, -1);
     }
   }
 
@@ -34,7 +34,7 @@ public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierE
     List<ITextComponent> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
     if (flag.isAdvanced()) {
       tooltip = new ArrayList<>(tooltip);
-      tooltip.add((new StringTextComponent(entry.getModifier().getId().toString())).mergeStyle(TextFormatting.DARK_GRAY));
+      tooltip.add((new StringTextComponent(entry.getModifier().getId().toString())).withStyle(TextFormatting.DARK_GRAY));
     }
     return tooltip;
   }

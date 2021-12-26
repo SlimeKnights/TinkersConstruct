@@ -37,16 +37,16 @@ public class FrostWalkerModifier extends AbstractWalkerModifier implements IArmo
 
   @Override
   protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
-    if (world.isAirBlock(target)) {
-      BlockState frostedIce = Blocks.FROSTED_ICE.getDefaultState();
-      mutable.setPos(target.getX(), target.getY() - 1, target.getZ());
+    if (world.isEmptyBlock(target)) {
+      BlockState frostedIce = Blocks.FROSTED_ICE.defaultBlockState();
+      mutable.set(target.getX(), target.getY() - 1, target.getZ());
       BlockState below = world.getBlockState(mutable);
-      boolean isFull = below.getBlock() == Blocks.WATER && below.get(FlowingFluidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
+      boolean isFull = below.getBlock() == Blocks.WATER && below.getValue(FlowingFluidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
       if (below.getMaterial() == Material.WATER && isFull
-          && frostedIce.isValidPosition(world, mutable) && world.placedBlockCollides(frostedIce, mutable, ISelectionContext.dummy())
-          && !ForgeEventFactory.onBlockPlace(living, BlockSnapshot.create(world.getDimensionKey(), world, mutable), Direction.UP)) {
-        world.setBlockState(mutable, frostedIce);
-        world.getPendingBlockTicks().scheduleTick(mutable, Blocks.FROSTED_ICE, MathHelper.nextInt(living.getRNG(), 60, 120));
+          && frostedIce.canSurvive(world, mutable) && world.isUnobstructed(frostedIce, mutable, ISelectionContext.empty())
+          && !ForgeEventFactory.onBlockPlace(living, BlockSnapshot.create(world.dimension(), world, mutable), Direction.UP)) {
+        world.setBlockAndUpdate(mutable, frostedIce);
+        world.getBlockTicks().scheduleTick(mutable, Blocks.FROSTED_ICE, MathHelper.nextInt(living.getRandom(), 60, 120));
       }
     }
   }

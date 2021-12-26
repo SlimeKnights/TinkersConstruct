@@ -10,6 +10,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.EnumMap;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Pane block with sensible culling */
 public class BetterPaneBlock extends PaneBlock {
   public static final EnumMap<Direction,BooleanProperty> DIRECTIONS;
@@ -27,17 +29,17 @@ public class BetterPaneBlock extends PaneBlock {
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
+  public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
     // cull top and bottom if all props that we have are contained in the above or below
     if (adjacentBlockState.getBlock() == this && side.getAxis().isVertical()) {
       for (Direction dir : Plane.HORIZONTAL) {
         BooleanProperty prop = DIRECTIONS.get(dir);
-        if (state.get(prop) && !adjacentBlockState.get(prop)) {
+        if (state.getValue(prop) && !adjacentBlockState.getValue(prop)) {
           return false;
         }
       }
       return true;
     }
-    return super.isSideInvisible(state, adjacentBlockState, side);
+    return super.skipRendering(state, adjacentBlockState, side);
   }
 }

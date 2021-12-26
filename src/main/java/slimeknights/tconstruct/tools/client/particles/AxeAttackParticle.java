@@ -12,7 +12,7 @@ public class AxeAttackParticle extends AttackParticle {
   public AxeAttackParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, IAnimatedSprite spriteList) {
     super(world, x, y, z, xSpeed, ySpeed, zSpeed, spriteList);
 
-    this.particleScale = 0.4F;
+    this.quadSize = 0.4F;
   }
 
   public static class Factory implements IParticleFactory<BasicParticleType> {
@@ -23,7 +23,7 @@ public class AxeAttackParticle extends AttackParticle {
       this.spriteSet = spriteSet;
     }
 
-    public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public Particle createParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
       return new AxeAttackParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
     }
   }

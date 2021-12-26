@@ -103,7 +103,7 @@ public class NamespacedNBT implements INamespacedNBTReadOnly {
    * @param data  data
    */
   public void copyFrom(CompoundNBT data) {
-    this.data.keySet().clear();
+    this.data.getAllKeys().clear();
     this.data.merge(data);
   }
 

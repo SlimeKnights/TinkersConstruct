@@ -15,6 +15,8 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 // TODO: reassess the need
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedStairsBlock extends StairsBlock {
 
   public SearedStairsBlock(Supplier<BlockState> state, Properties properties) {
@@ -33,25 +35,25 @@ public class SearedStairsBlock extends StairsBlock {
 
   @Override
   @Deprecated
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.matchesBlock(this)) {
+  public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    if (!newState.is(this)) {
       TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
-    super.onReplaced(state, worldIn, pos, newState, isMoving);
+    super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
-  public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
   }
 
   @Override
   @Deprecated
-  public boolean eventReceived(BlockState state, World worldIn, BlockPos pos, int id, int param) {
-    super.eventReceived(state, worldIn, pos, id, param);
+  public boolean triggerEvent(BlockState state, World worldIn, BlockPos pos, int id, int param) {
+    super.triggerEvent(state, worldIn, pos, id, param);
 
-    TileEntity tileentity = worldIn.getTileEntity(pos);
+    TileEntity tileentity = worldIn.getBlockEntity(pos);
 
-    return tileentity != null && tileentity.receiveClientEvent(id, param);
+    return tileentity != null && tileentity.triggerEvent(id, param);
   }
 }

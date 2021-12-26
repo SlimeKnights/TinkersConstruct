@@ -33,7 +33,7 @@ public class EffectSpillingEffect implements ISpillingEffect {
     if (target != null) {
       int time = (int)(this.time * 20 * scale);
       if (time > 0) {
-        target.addPotionEffect(new EffectInstance(effect, time, level - 1));
+        target.addEffect(new EffectInstance(effect, time, level - 1));
       }
     }
   }
@@ -51,8 +51,8 @@ public class EffectSpillingEffect implements ISpillingEffect {
         throw new JsonSyntaxException("Unknown effect " + id);
       }
       Effect effect = Objects.requireNonNull(ForgeRegistries.POTIONS.getValue(id));
-      int time = JSONUtils.getInt(json, "time");
-      int level = JSONUtils.getInt(json, "level", 1);
+      int time = JSONUtils.getAsInt(json, "time");
+      int level = JSONUtils.getAsInt(json, "level", 1);
       return new EffectSpillingEffect(effect, time, level);
     }
 

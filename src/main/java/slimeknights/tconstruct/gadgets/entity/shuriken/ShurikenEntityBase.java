@@ -47,46 +47,46 @@ public abstract class ShurikenEntityBase extends ProjectileItemEntity implements
   public abstract float getKnockback();
 
   @Override
-  protected void onImpact(RayTraceResult result) {
-    super.onImpact(result);
+  protected void onHit(RayTraceResult result) {
+    super.onHit(result);
 
-    if (!this.world.isRemote) {
-      this.world.setEntityState(this, (byte) 3);
+    if (!this.level.isClientSide) {
+      this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
   }
 
   @Override
-  protected void func_230299_a_(BlockRayTraceResult result) {
-    super.func_230299_a_(result);
+  protected void onHitBlock(BlockRayTraceResult result) {
+    super.onHitBlock(result);
 
-    this.entityDropItem(getDefaultItem());
+    this.spawnAtLocation(getDefaultItem());
   }
 
   @Override
-  protected void onEntityHit(EntityRayTraceResult result) {
+  protected void onHitEntity(EntityRayTraceResult result) {
     Entity entity = result.getEntity();
-    entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), this.getDamage());
+    entity.hurt(DamageSource.thrown(this, this.getOwner()), this.getDamage());
 
-    if (!world.isRemote() && entity instanceof LivingEntity) {
-      Vector3d motion = this.getMotion().normalize();
-      ((LivingEntity) entity).applyKnockback(this.getKnockback(), -motion.x, -motion.z);
+    if (!level.isClientSide() && entity instanceof LivingEntity) {
+      Vector3d motion = this.getDeltaMovement().normalize();
+      ((LivingEntity) entity).knockback(this.getKnockback(), -motion.x, -motion.z);
     }
   }
 
   @Override
   public void writeSpawnData(PacketBuffer buffer) {
-    buffer.writeItemStack(this.func_213882_k());
+    buffer.writeItem(this.getItemRaw());
   }
 
   @Override
   public void readSpawnData(PacketBuffer additionalData) {
-    this.setItem(additionalData.readItemStack());
+    this.setItem(additionalData.readItem());
   }
 
   @Nonnull
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public IPacket<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

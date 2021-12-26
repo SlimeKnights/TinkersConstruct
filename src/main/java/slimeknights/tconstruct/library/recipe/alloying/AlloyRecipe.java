@@ -210,8 +210,8 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
   public static class Serializer extends LoggingRecipeSerializer<AlloyRecipe> {
     @Override
-    public AlloyRecipe read(ResourceLocation id, JsonObject json) {
-      FluidStack result = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
+    public AlloyRecipe fromJson(ResourceLocation id, JsonObject json) {
+      FluidStack result = RecipeHelper.deserializeFluidStack(JSONUtils.getAsJsonObject(json, "result"));
       List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
 
       // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
@@ -223,7 +223,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
           throw new JsonSyntaxException("Result fluid contained in input in alloy recipe " + id);
         }
       }
-      int temperature = JSONUtils.getInt(json, "temperature");
+      int temperature = JSONUtils.getAsInt(json, "temperature");
       return new AlloyRecipe(id, inputs, result, temperature);
     }
 

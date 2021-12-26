@@ -18,7 +18,7 @@ public class SharpnessModifier extends IncrementalModifier {
     // displays special names for levels of sharpness
     if (level <= 5) {
       return new TranslationTextComponent(getTranslationKey() + "." + level)
-        .modifyStyle(style -> style.setColor(Color.fromInt(getColor())));
+        .withStyle(style -> style.withColor(Color.fromRgb(getColor())));
     }
     return super.getDisplayName(level);
   }

@@ -66,7 +66,7 @@ public class TinkerItemElement extends ItemElement {
     }
 
     if (this.tooltip == null) {
-      fontRenderer = mc.fontRenderer;
+      fontRenderer = mc.font;
     }
 
     super.drawOverlay(matrixStack, mouseX, mouseY, partialTicks, fontRenderer);
@@ -76,6 +76,6 @@ public class TinkerItemElement extends ItemElement {
   @Override
   public void drawHoveringText(MatrixStack matrixStack, List<ITextComponent> textLines, int x, int y, FontRenderer font) {
     GuiUtils.drawHoveringText(matrixStack, textLines, x, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT, BookScreen.PAGE_WIDTH, font);
-    RenderHelper.disableStandardItemLighting();
+    RenderHelper.turnOff();
   }
 }

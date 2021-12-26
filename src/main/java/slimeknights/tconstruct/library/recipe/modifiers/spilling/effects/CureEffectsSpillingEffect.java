@@ -43,7 +43,7 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
 
     @Override
     public CureEffectsSpillingEffect read(PacketBuffer buffer) {
-      ItemStack curativeItem = buffer.readItemStack();
+      ItemStack curativeItem = buffer.readItem();
       return new CureEffectsSpillingEffect(curativeItem);
     }
 
@@ -58,7 +58,7 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
 
     @Override
     public void write(CureEffectsSpillingEffect effect, PacketBuffer buffer) {
-      buffer.writeItemStack(effect.stack);
+      buffer.writeItem(effect.stack);
     }
   }
 }

@@ -47,7 +47,7 @@ public class DwarvenModifier extends Modifier {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost;
       if (player != null && key == TooltipKey.SHIFT) {
-        boost = getBoost((int)player.getPosY(), level);
+        boost = getBoost((int)player.getY(), level);
       } else {
         boost = BOOST_AT_0 * level;
       }

@@ -19,6 +19,8 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import java.util.Random;
 
 // todo: evaluate this block
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlimeLeavesBlock extends LeavesBlock {
   @Getter
   private final SlimeType foliageType;
@@ -34,10 +36,10 @@ public class SlimeLeavesBlock extends LeavesBlock {
    * Note that this method should ideally consider only the specific face passed in.
    */
   @Override
-  public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
     int i = getDistance(facingState) + 1;
-    if (i != 1 || stateIn.get(DISTANCE) != i) {
-      worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+    if (i != 1 || stateIn.getValue(DISTANCE) != i) {
+      worldIn.getBlockTicks().scheduleTick(currentPos, this, 1);
     }
 
     return stateIn;
@@ -45,7 +47,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
 
   @Override
   public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-    worldIn.setBlockState(pos, updateDistance(state, worldIn, pos), 3);
+    worldIn.setBlock(pos, updateDistance(state, worldIn, pos), 3);
   }
 
   private static BlockState updateDistance(BlockState state, IWorld world, BlockPos pos) {
@@ -53,38 +55,38 @@ public class SlimeLeavesBlock extends LeavesBlock {
 
     BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable();
     for (Direction direction : Direction.values()) {
-      mutableBlockPos.setPos(pos).move(direction);
+      mutableBlockPos.set(pos).move(direction);
       i = Math.min(i, getDistance(world.getBlockState(mutableBlockPos)) + 1);
       if (i == 1) {
         break;
       }
     }
 
-    return state.with(DISTANCE, i);
+    return state.setValue(DISTANCE, i);
   }
 
   private static int getDistance(BlockState neighbor) {
     if (TinkerTags.Blocks.SLIMY_LOGS.contains(neighbor.getBlock())) {
       return 0;
     } else {
-      return neighbor.getBlock() instanceof SlimeLeavesBlock ? neighbor.get(DISTANCE) : 7;
+      return neighbor.getBlock() instanceof SlimeLeavesBlock ? neighbor.getValue(DISTANCE) : 7;
     }
   }
 
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return updateDistance(this.getDefaultState().with(PERSISTENT, Boolean.TRUE), context.getWorld(), context.getPos());
+    return updateDistance(this.defaultBlockState().setValue(PERSISTENT, Boolean.TRUE), context.getLevel(), context.getClickedPos());
   }
 
   @Override
   public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
-    return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerTags.Blocks.SLIMY_LEAVES);
+    return this.isAir(state, world, pos) || state.is(BlockTags.LEAVES) || state.is(TinkerTags.Blocks.SLIMY_LEAVES);
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.foliageType != SlimeType.ICHOR) {
-      super.fillItemGroup(group, items);
+      super.fillItemCategory(group, items);
     }
   }
 }

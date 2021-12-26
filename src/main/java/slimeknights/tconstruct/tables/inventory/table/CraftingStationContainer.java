@@ -58,13 +58,13 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
   }
 
   @Override
-  public ItemStack transferStackInSlot(PlayerEntity player, int index) {
-    Slot slot = this.inventorySlots.get(index);
+  public ItemStack quickMoveStack(PlayerEntity player, int index) {
+    Slot slot = this.slots.get(index);
     // fix issue on shift clicking from the result slot if the recipe result mismatches the displayed item
     if (slot == resultSlot) {
-      if (tile != null && slot.getHasStack()) {
+      if (tile != null && slot.hasItem()) {
         // return the original result so shift click works
-        ItemStack original = slot.getStack().copy(); // TODO: are these copies really needed?
+        ItemStack original = slot.getItem().copy(); // TODO: are these copies really needed?
         // but add the true result into the inventory
         ItemStack result = tile.getResultForPlayer(player);
         if (!result.isEmpty()) {
@@ -79,7 +79,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
           // if successfully added to an inventory, update
           if (!nothingDone) {
             tile.takeResult(player, result, result.getCount());
-            tile.getCraftingResult().clear();
+            tile.getCraftingResult().clearContent();
             return original;
           }
         } else {
@@ -88,17 +88,17 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       }
       return ItemStack.EMPTY;
     } else {
-      return super.transferStackInSlot(player, index);
+      return super.quickMoveStack(player, index);
     }
   }
 
   @Override
-  public void onCraftMatrixChanged(IInventory inventoryIn) {
+  public void slotsChanged(IInventory inventoryIn) {
     // handled in TE item display logic
   }
 
   @Override
-  public boolean canMergeSlot(ItemStack stack, Slot slot) {
-    return slot != this.resultSlot && super.canMergeSlot(stack, slot);
+  public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+    return slot != this.resultSlot && super.canTakeItemForPickAll(stack, slot);
   }
 }

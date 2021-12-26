@@ -14,6 +14,7 @@ import com.mojang.datafixers.util.Pair;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -86,7 +87,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     // TODO: reconsider material item colors, is there a usecase for dynamic colors as opposed to just an animated texture?
     if (index >= 0) {
       // for modifiers, we need the overrides instance to properly process
-      IBakedModel itemModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack.getItem());
+      IBakedModel itemModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(stack.getItem());
       if (itemModel != null && itemModel.getOverrides() instanceof MaterialOverrideHandler) {
         MaterialOverrideHandler overrides = (MaterialOverrideHandler) itemModel.getOverrides();
         ToolStack tool = ToolStack.from(stack);
@@ -237,9 +238,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     Consumer<ImmutableList<BakedQuad>> largeConsumer = largeBuilder::addAll;
     // for large tools, we don't need non-south small quads
     if (largeTransforms != null) {
-      smallConsumer = quads -> {
-        smallBuilder.addAll(quads.stream().filter(quad -> quad.getFace() == Direction.SOUTH).collect(Collectors.toList()));
-      };
+      smallConsumer = quads -> smallBuilder.addAll(quads.stream().filter(quad -> quad.getDirection() == Direction.SOUTH).collect(Collectors.toList()));
     } else {
       smallConsumer = smallBuilder::addAll;
     }
@@ -345,11 +344,11 @@ public class ToolModel implements IModelGeometry<ToolModel> {
 
     /** Reads a part from JSON */
     public static ToolPart read(JsonObject json) {
-      String name = JSONUtils.getString(json, "name");
-      int index = JSONUtils.getInt(json, "index", -1);
+      String name = JSONUtils.getAsString(json, "name");
+      int index = JSONUtils.getAsInt(json, "index", -1);
       String broken = null;
       if (json.has("broken")) {
-        broken = JSONUtils.getString(json, "broken");
+        broken = JSONUtils.getAsString(json, "broken");
       }
       return new ToolPart(name, index, broken);
     }
@@ -363,7 +362,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     private final Cache<ToolCacheKey, IBakedModel> cache = CacheBuilder
       .newBuilder()
       // ensure we can display every single tool that shows in JEI, plus a couple extra
-      .maximumSize(MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().size() * 3 / 2)
+      .maximumSize(MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().size() * 3L / 2)
       .build();
 
     // parameters needed for rebaking
@@ -402,7 +401,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     }
 
     @Override
-    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public IBakedModel resolve(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // use material IDs for the sake of internal rendering materials
       List<MaterialId> materialIds = MaterialIdNBT.from(stack).getMaterials();
       IModifierToolStack tool = ToolStack.from(stack);
@@ -440,20 +439,20 @@ public class ToolModel implements IModelGeometry<ToolModel> {
   private static class BakedLargeToolModel implements IBakedModel {
     private final ImmutableList<BakedQuad> largeQuads;
     @Getter
-    private final TextureAtlasSprite particleTexture;
+    private final TextureAtlasSprite particleIcon;
     private final ImmutableMap<TransformType, TransformationMatrix> transforms;
     @Getter
     private final ItemOverrideList overrides;
-    @Getter
-    private final boolean isSideLit;
+    @Getter @Accessors(fluent = true)
+    private final boolean usesBlockLight;
     private final IBakedModel guiModel;
 
     private BakedLargeToolModel(ImmutableList<BakedQuad> largeQuads, ImmutableList<BakedQuad> smallQuads, TextureAtlasSprite particle, ImmutableMap<TransformType,TransformationMatrix> transforms, ItemOverrideList overrides, boolean isSideLit) {
       this.largeQuads = largeQuads;
-      this.particleTexture = particle;
+      this.particleIcon = particle;
       this.transforms = transforms;
       this.overrides = overrides;
-      this.isSideLit = isSideLit;
+      this.usesBlockLight = isSideLit;
       this.guiModel = new BakedLargeToolGui(this, smallQuads);
     }
 
@@ -476,7 +475,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     /* Misc properties */
 
     @Override
-    public boolean isAmbientOcclusion() {
+    public boolean useAmbientOcclusion() {
       return true;
     }
 
@@ -486,7 +485,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     }
 
     @Override
-    public boolean isBuiltInRenderer() {
+    public boolean isCustomRenderer() {
       return false;
     }
   }
@@ -532,7 +531,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       if (modelContents.has("parts")) {
         parts = JsonHelper.parseList(modelContents, "parts", ToolPart::read);
       }
-      boolean isLarge = JSONUtils.getBoolean(modelContents, "large", false);
+      boolean isLarge = JSONUtils.getAsBoolean(modelContents, "large", false);
       Vector2f offset = Vector2f.ZERO;
       if (modelContents.has("large_offset")) {
         offset = MaterialModel.arrayToObject(modelContents, "large_offset");
@@ -543,13 +542,13 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       if (modelContents.has("modifier_roots")) {
         // large model requires an object
         if (isLarge) {
-          JsonObject modifierRoots = JSONUtils.getJsonObject(modelContents, "modifier_roots");
-          BiFunction<JsonElement,String,ResourceLocation> parser = (element, string) -> new ResourceLocation(JSONUtils.getString(element, string));
+          JsonObject modifierRoots = JSONUtils.getAsJsonObject(modelContents, "modifier_roots");
+          BiFunction<JsonElement,String,ResourceLocation> parser = (element, string) -> new ResourceLocation(JSONUtils.convertToString(element, string));
           smallModifierRoots = JsonHelper.parseList(modifierRoots, "small", parser);
           largeModifierRoots = JsonHelper.parseList(modifierRoots, "large", parser);
         } else {
           // small requires an array
-          smallModifierRoots = JsonHelper.parseList(modelContents, "modifier_roots", (element, string) -> new ResourceLocation(JSONUtils.getString(element, string)));
+          smallModifierRoots = JsonHelper.parseList(modelContents, "modifier_roots", (element, string) -> new ResourceLocation(JSONUtils.convertToString(element, string)));
         }
       }
       return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots);

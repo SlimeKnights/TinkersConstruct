@@ -41,8 +41,8 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
 
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType equipmentSlot) {
-    if (!player.isSneaking()) {
-      if (player.world.isRemote) {
+    if (!player.isShiftKeyDown()) {
+      if (player.level.isClientSide) {
         return false; // TODO: see below
       }
 
@@ -60,11 +60,11 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
             int slot = compoundNBT.getInt(TAG_SLOT);
             if (slot < slots) {
               // ensure we can store the hotbar item
-              ItemStack hotbar = player.inventory.getStackInSlot(slot);
+              ItemStack hotbar = player.inventory.getItem(slot);
               if (hotbar.isEmpty() || !isBlacklisted(hotbar)) {
                 // swap the two items
-                ItemStack parsed = ItemStack.read(compoundNBT);
-                player.inventory.setInventorySlotContents(slot, parsed);
+                ItemStack parsed = ItemStack.of(compoundNBT);
+                player.inventory.setItem(slot, parsed);
                 if (!hotbar.isEmpty()) {
                   list.add(write(hotbar, slot));
                 }
@@ -79,10 +79,10 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
       // list is empty, makes loop simplier
       for (int i = 0; i < slots; i++) {
         if (!swapped[i]) {
-          ItemStack hotbar = player.inventory.getStackInSlot(i);
+          ItemStack hotbar = player.inventory.getItem(i);
           if (!hotbar.isEmpty() && !isBlacklisted(hotbar)) {
             list.add(write(hotbar, i));
-            player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+            player.inventory.setItem(i, ItemStack.EMPTY);
             didChange = true;
           }
         }
@@ -91,7 +91,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
       // sound effect
       if (didChange) {
         persistentData.put(KEY, list);
-        player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
       }
       //return true; TODO: tuning to make this a blocking interaction
     }

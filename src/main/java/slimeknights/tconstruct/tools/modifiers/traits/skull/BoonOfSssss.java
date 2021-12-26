@@ -36,11 +36,11 @@ public class BoonOfSssss extends TotalArmorLevelModifier {
   /** Called when the potion effects start to apply this effect */
   private static void onPotionStart(PotionEvent.PotionAddedEvent event) {
     EffectInstance newEffect = event.getPotionEffect();
-    if (newEffect.getPotion().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
+    if (newEffect.getEffect().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
       LivingEntity living = event.getEntityLiving();
       if (ModifierUtil.getTotalModifierLevel(living, POTENT_POTIONS) > 0) {
         newEffect.duration *= 1.25f;
-        newEffect.getCurativeItems().add(new ItemStack(living.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem()));
+        newEffect.getCurativeItems().add(new ItemStack(living.getItemBySlot(EquipmentSlotType.HEAD).getItem()));
       }
     }
   }

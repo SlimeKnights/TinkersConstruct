@@ -63,12 +63,12 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   private static final ITextComponent TRAITS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.traits");
   // fallback text for crafting with no named slots
   private static final ITextComponent ASCII_ANVIL = new StringTextComponent("\n\n")
-    .appendString("       .\n")
-    .appendString("     /( _________\n")
-    .appendString("     |  >:=========`\n")
-    .appendString("     )(  \n")
-    .appendString("     \"\"")
-    .mergeStyle(TextFormatting.DARK_GRAY);
+    .append("       .\n")
+    .append("     /( _________\n")
+    .append("     |  >:=========`\n")
+    .append("     )(  \n")
+    .append("     \"\"")
+    .withStyle(TextFormatting.DARK_GRAY);
 
   // parameters to display the still filled slots when changing layout
   private static final int STILL_FILLED_X = 112;
@@ -139,9 +139,9 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.addModule(this.modifierInfo);
 
     this.tinkerInfo.yOffset = 5;
-    this.modifierInfo.yOffset = this.tinkerInfo.ySize + 9;
+    this.modifierInfo.yOffset = this.tinkerInfo.imageHeight + 9;
 
-    this.ySize = 174;
+    this.imageHeight = 174;
 
     // determine number of inputs
     int max = 5;
@@ -173,10 +173,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     super.init();
 
     assert this.minecraft != null;
-    this.minecraft.keyboardListener.enableRepeatEvents(true);
+    // TODO: pretty sure we don't need this unless we add back the renaming slot
+    this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
 
     // workaround to line up the tabs on switching even though the GUI is a tad higher
-    this.guiTop += 4;
+    this.topPos += 4;
     this.cornerY += 4;
 
     //this.textField = new TextFieldWidget(this.font, this.cornerX + 81, this.cornerY + 7, 91, 12, StringTextComponent.EMPTY);
@@ -188,10 +189,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.tinkerInfo.xOffset = 2;
     this.tinkerInfo.yOffset = this.centerBeam.h + this.panelDecorationL.h;
     this.modifierInfo.xOffset = this.tinkerInfo.xOffset;
-    this.modifierInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.ySize + 4;
+    this.modifierInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.imageHeight + 4;
 
     for (ModuleScreen<?,?> module : this.modules) {
-      module.guiTop += 4;
+      module.topPos += 4;
     }
 
     this.updateLayout();
@@ -202,7 +203,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     super.onClose();
 
     assert this.minecraft != null;
-    this.minecraft.keyboardListener.enableRepeatEvents(false);
+    this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
   }
 
   /** Updates all slots for the current slot layout */
@@ -213,15 +214,15 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       LayoutSlot layoutSlot = currentLayout.getSlot(i);
       if (layoutSlot.isHidden()) {
         // put the position in the still filled line
-        slot.xPos = STILL_FILLED_X - STILL_FILLED_SPACING * stillFilled;
-        slot.yPos = STILL_FILLED_Y;
+        slot.x = STILL_FILLED_X - STILL_FILLED_SPACING * stillFilled;
+        slot.y = STILL_FILLED_Y;
         stillFilled++;
         if (slot instanceof TinkerStationSlot) {
           ((TinkerStationSlot) slot).deactivate();
         }
       } else {
-        slot.xPos = layoutSlot.getX();
-        slot.yPos = layoutSlot.getY();
+        slot.x = layoutSlot.getX();
+        slot.y = layoutSlot.getY();
         if (slot instanceof TinkerStationSlot) {
           ((TinkerStationSlot) slot).activate(layoutSlot);
         }
@@ -248,7 +249,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // normal refresh
     if (toolStack.isEmpty()) {
-      toolStack = this.container.getSlot(TINKER_SLOT).getStack();
+      toolStack = this.container.getSlot(TINKER_SLOT).getItem();
     }
 
     // if the contained stack is modifiable, display some information
@@ -314,7 +315,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
       // for each named slot, color the slot if the slot is filled
       // typically all input slots should be named, or none of them
-      IFormattableTextComponent text = new StringTextComponent("");
+      IFormattableTextComponent fullText = new StringTextComponent("");
       boolean hasComponents = false;
       for (int i = 0; i <= activeInputs; i++) {
         LayoutSlot layout = currentLayout.getSlot(i);
@@ -322,18 +323,18 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         if (!layout.isHidden() && !key.isEmpty()) {
           hasComponents = true;
           IFormattableTextComponent textComponent = new StringTextComponent(" * ");
-          ItemStack slotStack = this.container.getSlot(i).getStack();
+          ItemStack slotStack = this.container.getSlot(i).getItem();
           if (!layout.isValid(slotStack)) {
-            textComponent.mergeStyle(TextFormatting.RED);
+            textComponent.withStyle(TextFormatting.RED);
           }
-          textComponent.appendSibling(new TranslationTextComponent(key)).appendString("\n");
-          text.appendSibling(textComponent);
+          textComponent.append(new TranslationTextComponent(key)).append("\n");
+          fullText.append(textComponent);
         }
       }
       // if we found any components, set the text, use the anvil if no components
       if (hasComponents) {
         this.modifierInfo.setCaption(COMPONENTS_TEXT);
-        this.modifierInfo.setText(text);
+        this.modifierInfo.setText(fullText);
       } else {
         this.modifierInfo.setCaption(StringTextComponent.EMPTY);
         this.modifierInfo.setText(ASCII_ANVIL);
@@ -343,11 +344,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   protected void drawContainerName(MatrixStack matrixStack) {
-    this.font.drawText(matrixStack, this.getTitle(), 8.0F, 8.0F, 4210752);
+    this.font.draw(matrixStack, this.getTitle(), 8.0F, 8.0F, 4210752);
   }
 
   private static void renderPattern(MatrixStack matrices, Pattern pattern, int x, int y) {
-    TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlasTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE).getSprite(pattern.getTexture());
+    TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(PlayerContainer.BLOCK_ATLAS).getSprite(pattern.getTexture());
     blit(matrices, x, y, 100, 16, 16, sprite);
   }
 
@@ -356,19 +357,19 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     Minecraft minecraft = Minecraft.getInstance();
     if (pattern != null) {
       // draw pattern sprite
-      minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+      minecraft.getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
       renderPattern(matrices, pattern, x, y);
       return;
     }
 
     ItemStack stack = icon.getValue(ItemStack.class);
     if (stack != null) {
-      minecraft.getItemRenderer().renderItemIntoGUI(stack, x, y);
+      minecraft.getItemRenderer().renderGuiItem(stack, x, y);
     }
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(matrices, TINKER_STATION_TEXTURE);
 
     // looks like there's a weird case where this is called before init? Not reproducible but meh.
@@ -404,11 +405,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // rebind gui texture since itemstack drawing sets it to something else
     assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(TINKER_STATION_TEXTURE);
+    this.minecraft.getTextureManager().bind(TINKER_STATION_TEXTURE);
 
     RenderSystem.enableBlend();
     RenderSystem.enableAlphaTest();
-    RenderHelper.disableStandardItemLighting();
+    RenderHelper.turnOff();
     RenderSystem.disableDepthTest();
 
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 0.82f);
@@ -418,46 +419,46 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 0.28f);
     if (!this.currentLayout.getToolSlot().isHidden()) {
       Slot slot = this.container.getSlot(TINKER_SLOT);
-      SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
+      SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
     }
     for (int i = 0; i < this.activeInputs; i++) {
       Slot slot = this.container.getSlot(i + INPUT_SLOT);
-      SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
+      SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
     }
 
     // slot borders, are opaque
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     for (int i = 0; i <= maxInputs; i++) {
       Slot slot = this.container.getSlot(i);
-      if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.getHasStack()))) {
-        SLOT_BORDER.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
+      if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.hasItem()))) {
+        SLOT_BORDER.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
       }
     }
 
     // render slot background icons
-    this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    this.minecraft.getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
     for (int i = 0; i <= maxInputs; i++) {
       Slot slot = this.container.getSlot(i);
-      if (!slot.getHasStack()) {
+      if (!slot.hasItem()) {
         Pattern icon = currentLayout.getSlot(i).getIcon();
         if (icon != null) {
-          renderPattern(matrices, icon, x + this.cornerX + slot.xPos, y + this.cornerY + slot.yPos);
+          renderPattern(matrices, icon, x + this.cornerX + slot.x, y + this.cornerY + slot.y);
         }
       }
     }
 
     // sidebar beams
-    this.minecraft.getTextureManager().bindTexture(TINKER_STATION_TEXTURE);
-    x = this.buttonsScreen.guiLeft - this.leftBeam.w;
+    this.minecraft.getTextureManager().bind(TINKER_STATION_TEXTURE);
+    x = this.buttonsScreen.leftPos - this.leftBeam.w;
     y = this.cornerY;
     // draw the beams at the top
     x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.xSize);
+    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.imageWidth);
     this.rightBeam.draw(matrices, x, y);
 
-    x = tinkerInfo.guiLeft - this.leftBeam.w;
+    x = tinkerInfo.leftPos - this.leftBeam.w;
     x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.tinkerInfo.xSize);
+    x += this.centerBeam.drawScaledX(matrices, x, y, this.tinkerInfo.imageWidth);
     this.rightBeam.draw(matrices, x, y);
 
     // draw the decoration for the buttons
@@ -474,14 +475,14 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     }
 
     // draw the decorations for the panels
-    this.panelDecorationL.draw(matrices, this.tinkerInfo.guiLeft + 5, this.tinkerInfo.guiTop - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.guiTop - this.panelDecorationR.h);
-    this.panelDecorationL.draw(matrices, this.modifierInfo.guiLeft + 5, this.modifierInfo.guiTop - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.guiTop - this.panelDecorationR.h);
+    this.panelDecorationL.draw(matrices, this.tinkerInfo.leftPos + 5, this.tinkerInfo.topPos - this.panelDecorationL.h);
+    this.panelDecorationR.draw(matrices, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.topPos - this.panelDecorationR.h);
+    this.panelDecorationL.draw(matrices, this.modifierInfo.leftPos + 5, this.modifierInfo.topPos - this.panelDecorationL.h);
+    this.panelDecorationR.draw(matrices, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.topPos - this.panelDecorationR.h);
 
     RenderSystem.enableDepthTest();
 
-    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
+    super.renderBg(matrices, partialTicks, mouseX, mouseY);
   }
 
   @Override
@@ -551,7 +552,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
       return true;
     }
-    if (Minecraft.IS_RUNNING_ON_MAC) {
+    if (Minecraft.ON_OSX) {
       return keyCode == GLFW.GLFW_KEY_LEFT_SUPER || keyCode == GLFW.GLFW_KEY_RIGHT_SUPER;
     }
     return keyCode == GLFW.GLFW_KEY_LEFT_CONTROL || keyCode == GLFW.GLFW_KEY_RIGHT_CONTROL;
@@ -617,20 +618,20 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   */
 
   @Override
-  public void moveItems(MatrixStack matrixStack, Slot slotIn) {
+  public void renderSlot(MatrixStack matrixStack, Slot slotIn) {
     // don't draw dormant slots with no item
-    if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
+    if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.hasItem()) {
       return;
     }
-    super.moveItems(matrixStack, slotIn);
+    super.renderSlot(matrixStack, slotIn);
   }
 
   @Override
-  public boolean isSlotSelected(Slot slotIn, double mouseX, double mouseY) {
-    if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
+  public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
+    if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.hasItem()) {
       return false;
     }
-    return super.isSlotSelected(slotIn, mouseX, mouseY);
+    return super.isHovering(slotIn, mouseX, mouseY);
   }
 
   protected void wood() {

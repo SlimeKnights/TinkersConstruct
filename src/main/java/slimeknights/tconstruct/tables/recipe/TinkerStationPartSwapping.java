@@ -78,10 +78,10 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
     return foundItem;
   }
 
-  /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)}  */
+  /** @deprecated Use {@link #assemble(ITinkerStationInventory)}  */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
 

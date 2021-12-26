@@ -27,7 +27,7 @@ public interface ICastCreationHelper extends IRecipeHelper {
    * @param folder    Output folder
    */
   default void castCreation(Consumer<IFinishedRecipe> consumer, INamedTag<Item> input, CastItemObject cast, String folder) {
-    castCreation(consumer, Ingredient.fromTag(input), cast, folder, input.getName().getPath());
+    castCreation(consumer, Ingredient.of(input), cast, folder, input.getName().getPath());
   }
 
   /**

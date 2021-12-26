@@ -19,13 +19,14 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.inventory.ToolContainer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
@@ -175,6 +176,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     return stack;
   }
 
+  @Nonnull
   @Override
   public ItemStack getStackInSlot(int slot) {
     ItemStack cached = getCachedStack(slot);
@@ -188,6 +190,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     return ItemStack.EMPTY;
   }
 
+  @Nonnull
   @Override
   public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
     if (stack.isEmpty()) {
@@ -224,7 +227,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     } else {
       // space leftover? does it match?
       int limit = Math.min(current.getMaxStackSize(), slotLimit);
-      if (current.getCount() >= limit || !current.isItemEqual(stack)) {
+      if (current.getCount() >= limit || !current.sameItem(stack)) {
         return stack;
       }
       int maxSize = current.getCount() + stack.getCount();
@@ -244,6 +247,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     return ItemHandlerHelper.copyStackWithSize(stack, leftover);
   }
 
+  @Nonnull
   @Override
   public ItemStack extractItem(int slot, int amount, boolean simulate) {
     // first, are you wasting our time?
@@ -280,6 +284,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   }
 
   /** Interface for an inventory modifier to use */
+  @SuppressWarnings("unused")
   public interface IInventoryModifier {
     /** Gets the number of item slots used by the given tool. The number returned here must also be added into volatile data under {@link #TOTAL_SLOTS} */
     int getSlots(IModifierToolStack tool, int level);
@@ -310,6 +315,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   /** Provider for an inventory tool capability */
   public static class Provider implements IToolCapabilityProvider {
     private final LazyOptional<ToolInventoryCapability> handler;
+    @SuppressWarnings("unused")
     public Provider(ItemStack stack, Supplier<? extends IModifierToolStack> tool) {
       handler = LazyOptional.of(() -> new ToolInventoryCapability(tool));
     }
@@ -350,9 +356,9 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
         NetworkHooks.openGui((ServerPlayerEntity) player, new SimpleNamedContainerProvider(
           (id, inventory, p) -> new ToolContainer(id, inventory, stack, (IItemHandlerModifiable)handler, slotType),
           TooltipUtil.getDisplayName(stack, tool, definition)
-        ), buf -> buf.writeEnumValue(slotType));
+        ), buf -> buf.writeEnum(slotType));
       }
-      return ActionResultType.func_233537_a_(player.world.isRemote);
+      return ActionResultType.sidedSuccess(player.level.isClientSide);
     }
     return ActionResultType.PASS;
   }

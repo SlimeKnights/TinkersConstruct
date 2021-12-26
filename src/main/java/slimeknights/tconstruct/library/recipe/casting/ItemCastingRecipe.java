@@ -50,7 +50,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   }
 
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return this.result.get();
   }
 
@@ -69,7 +69,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
   @Override
   public List<ItemStack> getCastItems() {
-    return Arrays.asList(cast.getMatchingStacks());
+    return Arrays.asList(cast.getItems());
   }
 
   @Override
@@ -118,7 +118,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
       ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
-      int coolingTime = JSONUtils.getInt(json, "cooling_time");
+      int coolingTime = JSONUtils.getAsInt(json, "cooling_time");
       return factory.create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
     }
 

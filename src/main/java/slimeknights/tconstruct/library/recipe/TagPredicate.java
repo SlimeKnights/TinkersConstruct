@@ -31,7 +31,7 @@ public class TagPredicate implements Predicate<CompoundNBT> {
 
   @Override
   public boolean test(@Nullable CompoundNBT toTest) {
-    return NBTUtil.areNBTEquals(this.tag, toTest, true);
+    return NBTUtil.compareNbt(this.tag, toTest, true);
   }
 
   /** Serializes this into JSON */
@@ -46,7 +46,7 @@ public class TagPredicate implements Predicate<CompoundNBT> {
   public void write(PacketBuffer buffer) {
     if (tag != null) {
       buffer.writeBoolean(true);
-      buffer.writeCompoundTag(tag);
+      buffer.writeNbt(tag);
     } else {
       buffer.writeBoolean(false);
     }
@@ -58,9 +58,9 @@ public class TagPredicate implements Predicate<CompoundNBT> {
       try {
         CompoundNBT nbt;
         if (element.isJsonObject()) {
-          nbt = JsonToNBT.getTagFromJson(GSON.toJson(element));
+          nbt = JsonToNBT.parseTag(GSON.toJson(element));
         } else {
-          nbt = JsonToNBT.getTagFromJson(JSONUtils.getString(element, "predicate"));
+          nbt = JsonToNBT.parseTag(JSONUtils.convertToString(element, "predicate"));
         }
         return new TagPredicate(nbt);
       } catch (CommandSyntaxException ex) {
@@ -75,7 +75,7 @@ public class TagPredicate implements Predicate<CompoundNBT> {
   public static TagPredicate read(PacketBuffer buffer) {
     CompoundNBT tag = null;
     if (buffer.readBoolean()) {
-      tag = buffer.readCompoundTag();
+      tag = buffer.readNbt();
     }
     return new TagPredicate(tag);
   }

@@ -31,7 +31,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       boolean craftable = buffer.readBoolean();
       int color = buffer.readInt();
       boolean hidden = buffer.readBoolean();
-      this.materials.add(new Material(id, tier, sortOrder, craftable, Color.fromInt(color), hidden));
+      this.materials.add(new Material(id, tier, sortOrder, craftable, Color.fromRgb(color), hidden));
     }
     // process redirects
     int redirectCount = buffer.readVarInt();
@@ -40,7 +40,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
     } else {
       this.redirects = new HashMap<>(redirectCount);
       for (int i = 0; i < redirectCount; i++) {
-        this.redirects.put(new MaterialId(buffer.readString()), new MaterialId(buffer.readString()));
+        this.redirects.put(new MaterialId(buffer.readUtf()), new MaterialId(buffer.readUtf()));
       }
     }
   }
@@ -54,13 +54,13 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       buffer.writeVarInt(material.getSortOrder());
       buffer.writeBoolean(material.isCraftable());
       // the color int getter is private
-      buffer.writeInt(material.getColor().color);
+      buffer.writeInt(material.getColor().value);
       buffer.writeBoolean(material.isHidden());
     });
     buffer.writeVarInt(this.redirects.size());
     this.redirects.forEach((key, value) -> {
-      buffer.writeString(key.toString());
-      buffer.writeString(value.toString());
+      buffer.writeUtf(key.toString());
+      buffer.writeUtf(value.toString());
     });
   }
 

@@ -33,20 +33,20 @@ import javax.annotation.Nullable;
 
 public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAdditionalSpawnData {
   private static final int DIAMOND_TIMER = 300;
-  private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(FancyItemFrameEntity.class, DataSerializers.VARINT);
+  private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(FancyItemFrameEntity.class, DataSerializers.INT);
   private static final String TAG_VARIANT = "Variant";
   private static final String TAG_ROTATION_TIMER = "RotationTimer";
 
   private int rotationTimer = 0;
-  public FancyItemFrameEntity(EntityType<? extends FancyItemFrameEntity> type, World world) {
-    super(type, world);
+  public FancyItemFrameEntity(EntityType<? extends FancyItemFrameEntity> type, World level) {
+    super(type, level);
   }
 
-  public FancyItemFrameEntity(World worldIn, BlockPos blockPos, Direction face, FrameType variant) {
-    super(TinkerGadgets.itemFrameEntity.get(), worldIn);
-    this.hangingPosition = blockPos;
-    this.updateFacingWithBoundingBox(face);
-    this.dataManager.set(VARIANT, variant.getId());
+  public FancyItemFrameEntity(World levelIn, BlockPos blockPos, Direction face, FrameType variant) {
+    super(TinkerGadgets.itemFrameEntity.get(), levelIn);
+    this.pos = blockPos;
+    this.setDirection(face);
+    this.entityData.set(VARIANT, variant.getId());
   }
 
   /** Quick helper as two types spin */
@@ -60,18 +60,18 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
-    if (!player.isSneaking() && getFrameId() == FrameType.CLEAR.getId() && !getDisplayedItem().isEmpty()) {
-      BlockPos behind = getPosition().offset(facingDirection.getOpposite());
-      BlockState state = world.getBlockState(behind);
-      if (!state.isAir(world, behind)) {
-        ActionResultType result = state.onBlockActivated(world, player, hand, Util.createTraceResult(behind, facingDirection, false));
-        if (result.isSuccessOrConsume()) {
+  public ActionResultType interact(PlayerEntity player, Hand hand) {
+    if (!player.isShiftKeyDown() && getFrameId() == FrameType.CLEAR.getId() && !getItem().isEmpty()) {
+      BlockPos behind = blockPosition().relative(direction.getOpposite());
+      BlockState state = level.getBlockState(behind);
+      if (!state.isAir(level, behind)) {
+        ActionResultType result = state.use(level, player, hand, Util.createTraceResult(behind, direction, false));
+        if (result.consumesAction()) {
           return result;
         }
       }
     }
-    return super.processInitialInteract(player, hand);
+    return super.interact(player, hand);
   }
 
   @Override
@@ -84,17 +84,17 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
       // diamond winds down every 30 seconds, but does not go past 0, makes a full timer 3:30
       if (rotationTimer >= 300) {
         rotationTimer = 0;
-        if (!world.isRemote) {
+        if (!level.isClientSide) {
           int curRotation = getRotation();
           if (curRotation > 0) {
-            this.setItemRotation(curRotation - 1);
+            this.setRotation(curRotation - 1);
           }
         }
       }
       return;
     }
     // for gold and reversed gold, only increment timer serverside
-    if (!world.isRemote) {
+    if (!level.isClientSide) {
       if (doesRotate(frameId)) {
         rotationTimer++;
         if (rotationTimer >= 20) {
@@ -106,9 +106,9 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
             if (curRotation == -1) {
               curRotation = 7;
             }
-            this.setItemRotation(curRotation);
+            this.setRotation(curRotation);
           } else {
-            this.setItemRotation(curRotation + 1);
+            this.setRotation(curRotation + 1);
           }
         }
       }
@@ -116,19 +116,19 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public void setDisplayedItemWithUpdate(ItemStack stack, boolean updateComparator) {
-    super.setDisplayedItemWithUpdate(stack, updateComparator);
+  public void setItem(ItemStack stack, boolean updateComparator) {
+    super.setItem(stack, updateComparator);
     // spinning frames reset to 0 on changing item
-    if (updateComparator && !world.isRemote && doesRotate(getFrameId())) {
+    if (updateComparator && !level.isClientSide && doesRotate(getFrameId())) {
       setRotation(0, false);
     }
   }
 
   /** Internal logic to set the rotation */
   private void setRotationRaw(int rotationIn, boolean updateComparator) {
-    this.getDataManager().set(ROTATION, rotationIn);
-    if (updateComparator && this.hangingPosition != null) {
-      this.world.updateComparatorOutputLevel(this.hangingPosition, Blocks.AIR);
+    this.getEntityData().set(DATA_ROTATION, rotationIn);
+    if (updateComparator && this.pos != null) {
+      this.level.updateNeighbourForOutputSignal(this.pos, Blocks.AIR);
     }
   }
 
@@ -137,7 +137,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     this.rotationTimer = 0;
     // diamond goes 0-8 rotation, no modulo and needs to sync with client
     if (getFrameId() == FrameType.DIAMOND.getId()) {
-      if (!world.isRemote && updateComparator) {
+      if (!level.isClientSide && updateComparator) {
         // play a sound as diamond is special
         this.playSound(Sounds.ITEM_FRAME_CLICK.getSound(), 1.0f, 1.0f);
       }
@@ -150,10 +150,9 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  protected void registerData() {
-    super.registerData();
-
-    this.dataManager.register(VARIANT, 0);
+  protected void defineSynchedData() {
+    super.defineSynchedData();
+    this.entityData.define(VARIANT, 0);
   }
 
   /** Gets the frame type */
@@ -168,22 +167,22 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
 
   /** Gets the index of the frame type */
   protected int getFrameId() {
-    return this.dataManager.get(VARIANT);
+    return this.entityData.get(VARIANT);
   }
 
   @Nullable
   @Override
-  public ItemEntity entityDropItem(ItemStack stack, float offset) {
+  public ItemEntity spawnAtLocation(ItemStack stack, float offset) {
     // rather than rewrite dropItemOrSelf, just sub in our item for item frames here
     if (stack.getItem() == Items.ITEM_FRAME) {
       stack = new ItemStack(getFrameItem());
     }
-    return super.entityDropItem(stack, offset);
+    return super.spawnAtLocation(stack, offset);
   }
 
   @Override
   public ItemStack getPickedResult(RayTraceResult target) {
-    ItemStack held = this.getDisplayedItem();
+    ItemStack held = this.getItem();
     if (held.isEmpty()) {
       return new ItemStack(getFrameItem());
     } else {
@@ -192,18 +191,18 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public boolean isImmuneToFire() {
-    return super.isImmuneToFire() || getFrameId() == FrameType.NETHERITE.getId();
+  public boolean fireImmune() {
+    return super.fireImmune() || getFrameId() == FrameType.NETHERITE.getId();
   }
 
   @Override
-  public boolean isImmuneToExplosions() {
-    return super.isImmuneToExplosions() || getFrameId() == FrameType.NETHERITE.getId();
+  public boolean ignoreExplosion() {
+    return super.ignoreExplosion() || getFrameId() == FrameType.NETHERITE.getId();
   }
 
   @Override
   public int getAnalogOutput() {
-    if (this.getDisplayedItem().isEmpty()) {
+    if (this.getItem().isEmpty()) {
       return 0;
     }
     int rotation = getRotation();
@@ -215,8 +214,8 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
 
 
   @Override
-  public void writeAdditional(CompoundNBT compound) {
-    super.writeAdditional(compound);
+  public void addAdditionalSaveData(CompoundNBT compound) {
+    super.addAdditionalSaveData(compound);
     int frameId = this.getFrameId();
     compound.putInt(TAG_VARIANT, frameId);
     if (doesRotate(frameId)) {
@@ -225,37 +224,37 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public void readAdditional(CompoundNBT compound) {
-    super.readAdditional(compound);
+  public void readAdditionalSaveData(CompoundNBT compound) {
+    super.readAdditionalSaveData(compound);
     int frameId = compound.getInt(TAG_VARIANT);
-    this.dataManager.set(VARIANT, frameId);
+    this.entityData.set(VARIANT, frameId);
     if (doesRotate(frameId)) {
       rotationTimer = compound.getInt(TAG_ROTATION_TIMER);
     }
   }
 
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public IPacket<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 
   @Override
   public void writeSpawnData(PacketBuffer buffer) {
     buffer.writeVarInt(this.getFrameId());
-    buffer.writeBlockPos(this.hangingPosition);
-    buffer.writeVarInt(this.facingDirection.getIndex());
+    buffer.writeBlockPos(this.pos);
+    buffer.writeVarInt(this.direction.get3DDataValue());
   }
 
   @Override
   public void readSpawnData(PacketBuffer buffer) {
-    this.dataManager.set(VARIANT, buffer.readVarInt());
-    this.hangingPosition = buffer.readBlockPos();
-    this.updateFacingWithBoundingBox(Direction.byIndex(buffer.readVarInt()));
+    this.entityData.set(VARIANT, buffer.readVarInt());
+    this.pos = buffer.readBlockPos();
+    this.setDirection(Direction.from3DDataValue(buffer.readVarInt()));
   }
 
 
   @Override
-  protected ITextComponent getProfessionName() {
-    return new TranslationTextComponent(getFrameItem().getTranslationKey());
+  protected ITextComponent getTypeName() {
+    return new TranslationTextComponent(getFrameItem().getDescriptionId());
   }
 }

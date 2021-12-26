@@ -12,6 +12,8 @@ import net.minecraftforge.common.ToolType;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Log block that can be stripped */
 public class StrippableLogBlock extends RotatedPillarBlock {
   private final Supplier<? extends Block> stripped;
@@ -23,6 +25,6 @@ public class StrippableLogBlock extends RotatedPillarBlock {
   @Nullable
   @Override
   public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType) {
-    return stripped.get().getDefaultState().with(AXIS, state.get(AXIS));
+    return stripped.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
   }
 }

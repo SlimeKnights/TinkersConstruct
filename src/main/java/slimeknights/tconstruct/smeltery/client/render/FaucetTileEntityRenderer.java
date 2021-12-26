@@ -38,7 +38,7 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
     }
 
     // safety
-    World world = tileEntity.getWorld();
+    World world = tileEntity.getLevel();
     if (world == null) {
       return;
     }
@@ -48,13 +48,13 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
     FluidsModel.BakedModel model = ModelHelper.getBakedModel(state, FluidsModel.BakedModel.class);
     if (model != null) {
       // if side, rotate fluid model
-      Direction direction = state.get(FaucetBlock.FACING);
+      Direction direction = state.getValue(FaucetBlock.FACING);
       boolean isRotated = RenderingHelper.applyRotation(matrices, direction);
 
       // fluid props
       FluidAttributes attributes = renderFluid.getFluid().getAttributes();
       int color = attributes.getColor(renderFluid);
-      Function<ResourceLocation, TextureAtlasSprite> spriteGetter = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+      Function<ResourceLocation, TextureAtlasSprite> spriteGetter = Minecraft.getInstance().getTextureAtlas(PlayerContainer.BLOCK_ATLAS);
       TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(renderFluid));
       TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(renderFluid));
       boolean isGas = attributes.isGaseous(renderFluid);
@@ -67,11 +67,11 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       }
 
       // render into the block(s) below
-      FaucetFluidLoader.renderFaucetFluids(world, tileEntity.getPos(), direction, matrices, buffer, still, flowing, color, combinedLightIn);
+      FaucetFluidLoader.renderFaucetFluids(world, tileEntity.getBlockPos(), direction, matrices, buffer, still, flowing, color, combinedLightIn);
 
       // if rotated, pop back rotation
       if(isRotated) {
-        matrices.pop();
+        matrices.popPose();
       }
     }
   }

@@ -57,7 +57,7 @@ public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return ISuggestionProvider.suggestIterable(ToolStats.getAllStats().stream()
+    return ISuggestionProvider.suggestResource(ToolStats.getAllStats().stream()
         .filter(filter::isInstance).<ResourceLocation>map(IToolStat::getName)::iterator, builder);
   }
 

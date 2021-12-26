@@ -21,22 +21,22 @@ public class EnderSlimeEntity extends SlimeEntity {
   }
 
   @Override
-  protected IParticleData getSquishParticle() {
+  protected IParticleData getParticleType() {
     return TinkerWorld.enderSlimeParticle.get();
   }
 
   @Override
-  public void applyEnchantments(LivingEntity slime, Entity target) {
-    super.applyEnchantments(slime, target);
+  public void doEnchantDamageEffects(LivingEntity slime, Entity target) {
+    super.doEnchantDamageEffects(slime, target);
     if (target instanceof LivingEntity) {
       TeleportHelper.randomNearbyTeleport((LivingEntity) target, teleportPredicate);
     }
   }
 
   @Override
-  protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+  protected void actuallyHurt(DamageSource damageSrc, float damageAmount) {
     float oldHealth = getHealth();
-    super.damageEntity(damageSrc, damageAmount);
+    super.actuallyHurt(damageSrc, damageAmount);
     if (isAlive() && getHealth() < oldHealth) {
       TeleportHelper.randomNearbyTeleport(this, teleportPredicate);
     }

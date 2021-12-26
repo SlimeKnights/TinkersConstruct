@@ -27,7 +27,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
-    if (slot.getSlotType() == Group.ARMOR && !entity.getEntityWorld().isRemote) {
+    if (slot.getType() == Group.ARMOR && !entity.level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);
         if (modData != null) {
@@ -44,7 +44,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.getEntityWorld().isRemote && slot.getSlotType() == Group.ARMOR && !tool.isBroken()) {
+    if (!entity.level.isClientSide && slot.getType() == Group.ARMOR && !tool.isBroken()) {
       float scaledLevel = getScaledLevel(tool, level);
       context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);

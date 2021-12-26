@@ -15,10 +15,10 @@ public class WildfireModifier extends SingleUseModifier {
   @Override
   public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     if (isDirectDamage && !source.isProjectile()) {
-      int fire = context.getEntity().getFireTimer();
+      int fire = context.getEntity().getRemainingFireTicks();
       if (fire > 0) {
         // copy fire duration, merge with their current duration, and a little extra to account for divide flooring
-        target.setFire((fire + target.getFireTimer()) / 20 + 1);
+        target.setRemainingFireTicks((fire + target.getRemainingFireTicks()) / 20 + 1);
       }
     }
   }

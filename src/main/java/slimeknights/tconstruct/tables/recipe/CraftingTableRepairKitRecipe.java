@@ -48,8 +48,8 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   protected Pair<ToolStack, IMaterial> getRelevantInputs(CraftingInventory inv) {
     ToolStack tool = null;
     IMaterial material = null;
-    for (int i = 0; i < inv.getSizeInventory(); i++) {
-      ItemStack stack = inv.getStackInSlot(i);
+    for (int i = 0; i < inv.getContainerSize(); i++) {
+      ItemStack stack = inv.getItem(i);
       if (stack.isEmpty()) {
         continue;
       }
@@ -103,7 +103,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   }
 
   @Override
-  public ItemStack getCraftingResult(CraftingInventory inv) {
+  public ItemStack assemble(CraftingInventory inv) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
@@ -133,7 +133,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   }
 
   @Override
-  public boolean canFit(int width, int height) {
+  public boolean canCraftInDimensions(int width, int height) {
     return width * height >= 2;
   }
 

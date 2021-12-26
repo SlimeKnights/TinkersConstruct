@@ -10,35 +10,37 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Rotation;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedPillarBlock extends SearedBlock {
   public static final EnumProperty<Axis> AXIS = BlockStateProperties.AXIS;
   public SearedPillarBlock(Properties properties) {
     super(properties);
-    this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y));
+    this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));
   }
 
   @Override
   public BlockState rotate(BlockState state, Rotation rot) {
     switch(rot) {
       case COUNTERCLOCKWISE_90: case CLOCKWISE_90:
-        switch(state.get(AXIS)) {
+        switch(state.getValue(AXIS)) {
           case X:
-            return state.with(AXIS, Direction.Axis.Z);
+            return state.setValue(AXIS, Direction.Axis.Z);
           case Z:
-            return state.with(AXIS, Direction.Axis.X);
+            return state.setValue(AXIS, Direction.Axis.X);
         }
     }
     return state;
   }
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-    super.fillStateContainer(builder);
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    super.createBlockStateDefinition(builder);
     builder.add(AXIS);
   }
 
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(AXIS, context.getFace().getAxis());
+    return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
   }
 }

@@ -33,8 +33,8 @@ public class SearingModifier extends Modifier {
   /** Applies the temperature boost */
   private static float temperatureBoost(LivingEntity living, int level) {
     // produces 0 at 0.75t. Caps at level * 2.5 at 2.0t, or at level * -2.5 at -0.5t
-    BlockPos attackerPos = living.getPosition();
-    return (living.world.getBiome(attackerPos).getTemperature(attackerPos) - BASELINE_TEMPERATURE) * (level * 2);
+    BlockPos attackerPos = living.blockPosition();
+    return (living.level.getBiome(attackerPos).getTemperature(attackerPos) - BASELINE_TEMPERATURE) * (level * 2);
   }
 
   @Override

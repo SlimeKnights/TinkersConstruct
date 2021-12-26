@@ -44,7 +44,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param cost  Pattern cost
    */
   public void setPatternCost(int cost) {
-    this.patternCost = new TranslationTextComponent(COST_KEY, cost).mergeStyle(TextFormatting.GOLD);
+    this.patternCost = new TranslationTextComponent(COST_KEY, cost).withStyle(TextFormatting.GOLD);
     this.updateSliderParameters();
   }
 
@@ -60,7 +60,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param value  Value text
    */
   public void setMaterialValue(ITextComponent value) {
-    this.materialValue = new TranslationTextComponent(MATERIAL_VALUE_KEY, value).modifyStyle(style -> style.setColor(Color.fromInt(0x7fffff)));
+    this.materialValue = new TranslationTextComponent(MATERIAL_VALUE_KEY, value).withStyle(style -> style.withColor(Color.fromRgb(0x7fffff)));
     this.updateSliderParameters();
   }
 
@@ -117,46 +117,46 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
+    this.minecraft.getTextureManager().bind(BACKGROUND_IMAGE);
 
     this.border.draw(matrices);
-    BACKGROUND.drawScaled(matrices, this.guiLeft + 4, this.guiTop + 4, this.xSize - 8, this.ySize - 8);
+    BACKGROUND.drawScaled(matrices, this.leftPos + 4, this.topPos + 4, this.imageWidth - 8, this.imageHeight - 8);
 
-    float y = 5 + this.guiTop;
-    float x = 5 + this.guiLeft;
+    float y = 5 + this.topPos;
+    float x = 5 + this.leftPos;
     int color = 0xfff0f0f0;
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.drawString(matrices, "?", guiRight() - this.border.w - this.font.getStringWidth("?") / 2f, this.guiTop + 5, 0xff5f5f5f);
+      this.font.draw(matrices, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + 5, 0xff5f5f5f);
     }
 
     int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
-      int x2 = this.xSize / 2;
-      x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
+      int x2 = this.imageWidth / 2;
+      x2 -= this.font.width(this.caption) / 2;
 
-      this.font.drawTextWithShadow(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawShadow(matrices, this.caption.plainCopy().withStyle(TextFormatting.UNDERLINE).getVisualOrderText(), (float) this.leftPos + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
     // Draw pattern cost
     if (this.hasPatternCost()) {
-      int x2 = this.xSize / 2;
-      x2 -= this.font.getStringPropertyWidth(this.patternCost) / 2;
+      int x2 = this.imageWidth / 2;
+      x2 -= this.font.width(this.patternCost) / 2;
 
-      this.font.drawTextWithShadow(matrices, this.patternCost.func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawShadow(matrices, this.patternCost.getVisualOrderText(), (float) this.leftPos + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
     // Draw material value
     if (this.hasMaterialValue()) {
-      int x2 = this.xSize / 2;
-      x2 -= this.font.getStringPropertyWidth(this.materialValue) / 2;
+      int x2 = this.imageWidth / 2;
+      x2 -= this.font.width(this.materialValue) / 2;
 
-      this.font.drawTextWithShadow(matrices, this.materialValue.func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawShadow(matrices, this.materialValue.getVisualOrderText(), (float) this.leftPos + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -165,8 +165,8 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       return;
     }
 
-    float textHeight = font.FONT_HEIGHT + 0.5f;
-    float lowerBound = (this.guiTop + this.ySize - 5) / this.textScale;
+    float textHeight = font.lineHeight + 0.5f;
+    float lowerBound = (this.topPos + this.imageHeight - 5) / this.textScale;
     RenderSystem.scalef(this.textScale, this.textScale, 1.0f);
     x /= this.textScale;
     y /= this.textScale;
@@ -179,13 +179,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       }
 
       IReorderingProcessor line = iter.next();
-      this.font.drawTextWithShadow(matrices, line, x, y, color);
+      this.font.drawShadow(matrices, line, x, y, color);
       y += textHeight;
     }
 
     RenderSystem.scalef(1f / textScale, 1f / textScale, 1.0f);
 
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
+    this.minecraft.getTextureManager().bind(BACKGROUND_IMAGE);
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     this.slider.update(mouseX, mouseY);
     this.slider.draw(matrices);

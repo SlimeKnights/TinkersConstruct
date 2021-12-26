@@ -14,16 +14,16 @@ public class GeneratePartTexturesPacket implements IThreadsafePacket {
   private final String materialPath;
 
   public GeneratePartTexturesPacket(PacketBuffer buffer) {
-    operation = buffer.readEnumValue(Operation.class);
-    modId = buffer.readString(Short.MAX_VALUE);
-    materialPath = buffer.readString(Short.MAX_VALUE);
+    operation = buffer.readEnum(Operation.class);
+    modId = buffer.readUtf(Short.MAX_VALUE);
+    materialPath = buffer.readUtf(Short.MAX_VALUE);
   }
 
   @Override
   public void encode(PacketBuffer buffer) {
-    buffer.writeEnumValue(operation);
-    buffer.writeString(modId);
-    buffer.writeString(materialPath);
+    buffer.writeEnum(operation);
+    buffer.writeUtf(modId);
+    buffer.writeUtf(materialPath);
   }
 
   @Override

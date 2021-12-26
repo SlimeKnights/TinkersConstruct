@@ -26,9 +26,9 @@ public class FlamewakeModifier extends AbstractWalkerModifier {
   @Override
   protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
     // fire starting
-    if (AbstractFireBlock.canLightBlock(world, target, living.getHorizontalFacing())) {
-      world.playSound(null, target, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-      world.setBlockState(target, AbstractFireBlock.getFireForPlacement(world, target), Constants.BlockFlags.DEFAULT_AND_RERENDER);
+    if (AbstractFireBlock.canBePlacedAt(world, target, living.getDirection())) {
+      world.playSound(null, target, SoundEvents.FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      world.setBlock(target, AbstractFireBlock.getState(world, target), Constants.BlockFlags.DEFAULT_AND_RERENDER);
       ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlotType.FEET);
     }
   }

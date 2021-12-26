@@ -16,6 +16,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
   private static final ITextComponent NO_FUEL_TANK = TConstruct.makeTranslation("multiblock", "tiny.no_fuel_tank");
 
@@ -41,33 +43,33 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     BlockState state = super.getStateForPlacement(context);
     if (state != null) {
-      return state.with(IN_STRUCTURE, isValidFuelSource(context.getWorld().getBlockState(context.getPos().down())));
+      return state.setValue(IN_STRUCTURE, isValidFuelSource(context.getLevel().getBlockState(context.getClickedPos().below())));
     }
     return null;
   }
 
   @Deprecated
   @Override
-  public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState neighbor, IWorld world, BlockPos pos, BlockPos neighborPos) {
+  public BlockState updateShape(BlockState state, Direction direction, BlockState neighbor, IWorld world, BlockPos pos, BlockPos neighborPos) {
     if (direction == Direction.DOWN) {
-      return state.with(IN_STRUCTURE, isValidFuelSource(neighbor));
+      return state.setValue(IN_STRUCTURE, isValidFuelSource(neighbor));
     }
     return state;
   }
 
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
       return ActionResultType.SUCCESS;
     }
-    return super.onBlockActivated(state, world, pos, player, hand, hit);
+    return super.use(state, world, pos, player, hand, hit);
   }
 
   @Override
   protected boolean displayStatus(PlayerEntity player, World world, BlockPos pos, BlockState state) {
-    if (!world.isRemote && !state.get(IN_STRUCTURE)) {
-      player.sendStatusMessage(NO_FUEL_TANK, true);
+    if (!world.isClientSide && !state.getValue(IN_STRUCTURE)) {
+      player.displayClientMessage(NO_FUEL_TANK, true);
     }
     return true;
   }
@@ -79,13 +81,13 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
 
   @Deprecated
   @Override
-  public boolean hasComparatorInputOverride(BlockState state) {
+  public boolean hasAnalogOutputSignal(BlockState state) {
     return true;
   }
 
   @Deprecated
   @Override
-  public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 

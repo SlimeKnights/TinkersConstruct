@@ -70,7 +70,7 @@ public class Pattern extends ResourceLocation {
   protected static class Serializer implements JsonDeserializer<Pattern>, JsonSerializer<Pattern> {
     @Override
     public Pattern deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return new Pattern(JSONUtils.getString(json, "location"));
+      return new Pattern(JSONUtils.convertToString(json, "location"));
     }
 
     @Override

@@ -51,7 +51,7 @@ public class SmelteryTileEntity extends HeatingStructureTileEntity {
 
   @Override
   protected void heat() {
-    if (structure == null || world == null) {
+    if (structure == null || level == null) {
       return;
     }
 
@@ -100,8 +100,8 @@ public class SmelteryTileEntity extends HeatingStructureTileEntity {
           // update the active state
           boolean hasFuel = fuelModule.hasFuel();
           BlockState state = getBlockState();
-          if (state.get(ControllerBlock.ACTIVE) != hasFuel) {
-            world.setBlockState(pos, state.with(ControllerBlock.ACTIVE, hasFuel));
+          if (state.getValue(ControllerBlock.ACTIVE) != hasFuel) {
+            level.setBlockAndUpdate(worldPosition, state.setValue(ControllerBlock.ACTIVE, hasFuel));
           }
           fuelModule.decreaseFuel(fuelRate);
           break;

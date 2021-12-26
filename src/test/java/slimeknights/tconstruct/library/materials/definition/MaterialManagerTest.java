@@ -54,7 +54,7 @@ class MaterialManagerTest extends BaseMcTest {
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "full"));
     assertThat(testMaterial.isCraftable()).isTrue();
-    assertThat(testMaterial.getColor().color).isEqualTo(0x1234ab);
+    assertThat(testMaterial.getColor().value).isEqualTo(0x1234ab);
     assertThat(testMaterial.getTier()).isEqualTo(15);
     assertThat(testMaterial.getSortOrder()).isEqualTo(4);
     assertThat(testMaterial.isHidden()).isTrue();
@@ -71,7 +71,7 @@ class MaterialManagerTest extends BaseMcTest {
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "minimal"));
     assertThat(testMaterial.isCraftable()).isFalse();
-    assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
+    assertThat(testMaterial.getColor().value & 0xffffff).isEqualTo(0xffffff);
     assertThat(testMaterial.getTier()).isEqualTo(0);
     assertThat(testMaterial.getSortOrder()).isEqualTo(100);
     assertThat(testMaterial.isHidden()).isFalse();
@@ -87,7 +87,7 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.isCraftable()).isFalse();
-    assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
+    assertThat(testMaterial.getColor().value & 0xffffff).isEqualTo(0xffffff);
     assertThat(testMaterial.isHidden()).isFalse();
   }
 

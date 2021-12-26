@@ -26,14 +26,14 @@ public class ComplexTestStats extends BaseMaterialStats {
   public void encode(PacketBuffer buffer) {
     buffer.writeInt(num);
     buffer.writeFloat(floating);
-    buffer.writeString(text);
+    buffer.writeUtf(text);
   }
 
   @Override
   public void decode(PacketBuffer buffer) {
     num = buffer.readInt();
     floating = buffer.readFloat();
-    text = buffer.readString();
+    text = buffer.readUtf();
   }
 
   @Override

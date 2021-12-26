@@ -167,8 +167,8 @@ public final class CopperCanModel implements IModelGeometry<CopperCanModel> {
 
     @Override
     public CopperCanModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      boolean coverIsMask = JSONUtils.getBoolean(modelContents, "coverIsMask", true);
-      boolean applyFluidLuminosity = JSONUtils.getBoolean(modelContents, "applyFluidLuminosity", true);
+      boolean coverIsMask = JSONUtils.getAsBoolean(modelContents, "coverIsMask", true);
+      boolean applyFluidLuminosity = JSONUtils.getAsBoolean(modelContents, "applyFluidLuminosity", true);
       return new CopperCanModel(FluidStack.EMPTY, coverIsMask, applyFluidLuminosity);
     }
   }
@@ -194,8 +194,8 @@ public final class CopperCanModel implements IModelGeometry<CopperCanModel> {
     }
 
     @Override
-    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
-      IBakedModel overriden = nested.getOverrideModel(originalModel, stack, world, entity);
+    public IBakedModel resolve(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+      IBakedModel overriden = nested.resolve(originalModel, stack, world, entity);
       if (overriden != originalModel) return overriden;
       Fluid fluid = CopperCanItem.getFluid(stack);
       if (fluid != Fluids.EMPTY) {

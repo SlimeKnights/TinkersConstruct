@@ -34,9 +34,9 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 public class EntityMeltingModule {
   /** Standard damage source for melting most mobs */
-  public static final DamageSource SMELTERY_DAMAGE = new DamageSource(TConstruct.prefix("smeltery_heat")).setFireDamage();
+  public static final DamageSource SMELTERY_DAMAGE = new DamageSource(TConstruct.prefix("smeltery_heat")).setIsFire();
   /** Special damage source for "absorbing" hot entities */
-  public static final DamageSource SMELTERY_MAGIC = new DamageSource(TConstruct.prefix("smeltery_magic")).setMagicDamage();
+  public static final DamageSource SMELTERY_MAGIC = new DamageSource(TConstruct.prefix("smeltery_magic")).setMagic();
 
   private final MantleTileEntity parent;
   private final IFluidHandler tank;
@@ -52,7 +52,7 @@ public class EntityMeltingModule {
 
   /** Gets a nonnull world instance from the parent */
   private World getWorld() {
-    return Objects.requireNonNull(parent.getWorld(), "Parent tile entity has null world");
+    return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
   /**
@@ -89,11 +89,11 @@ public class EntityMeltingModule {
    */
   private boolean canMeltEntity(LivingEntity entity) {
     // fire based mobs are absorbed instead of damaged
-    return !entity.isInvulnerableTo(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
+    return !entity.isInvulnerableTo(entity.fireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
            // have to special case players because for some dumb reason creative players do not return true to invulnerable to
-           && !(entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.disableDamage)
+           && !(entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.invulnerable)
            // also have to special case fire resistance, so a blaze with fire resistance is immune to the smeltery
-           && !entity.isPotionActive(Effects.FIRE_RESISTANCE);
+           && !entity.hasEffect(Effects.FIRE_RESISTANCE);
   }
 
   /**
@@ -108,7 +108,7 @@ public class EntityMeltingModule {
 
     Boolean canMelt = null;
     boolean melted = false;
-    for (Entity entity : getWorld().getEntitiesWithinAABB(Entity.class, boundingBox)) {
+    for (Entity entity : getWorld().getEntitiesOfClass(Entity.class, boundingBox)) {
       if (!entity.isAlive()) {
         continue;
       }
@@ -148,7 +148,7 @@ public class EntityMeltingModule {
           }
 
           // if the entity is successfully damaged, fill the tank with fluid
-          if (entity.attackEntityFrom(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
+          if (entity.hurt(entity.fireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
             tank.fill(fluid, FluidAction.EXECUTE);
             melted = true;

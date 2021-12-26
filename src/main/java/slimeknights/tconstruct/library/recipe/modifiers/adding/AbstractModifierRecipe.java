@@ -78,7 +78,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   /** @deprecated */
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
 
@@ -91,7 +91,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Gets or builds the list of tool inputs */
   private List<ItemStack> getToolInputs() {
     if (toolInputs == null) {
-      toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
+      toolInputs = Arrays.stream(this.toolRequirement.getItems()).map(stack -> {
         if (stack.getItem() instanceof IModifiableDisplay) {
           return ((IModifiableDisplay)stack.getItem()).getRenderTool();
         }
@@ -236,23 +236,23 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
                   String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
     @Override
-    public final T read(ResourceLocation id, JsonObject json) {
-      Ingredient toolRequirement = Ingredient.deserialize(json.get("tools"));
+    public final T fromJson(ResourceLocation id, JsonObject json) {
+      Ingredient toolRequirement = Ingredient.fromJson(json.get("tools"));
       ModifierMatch requirements = ModifierMatch.ALWAYS;
       String requirementsError = "";
       if (json.has("requirements")) {
-        JsonObject reqJson = JSONUtils.getJsonObject(json, "requirements");
+        JsonObject reqJson = JSONUtils.getAsJsonObject(json, "requirements");
         requirements = ModifierMatch.deserialize(reqJson);
-        requirementsError = JSONUtils.getString(reqJson, "error", "");
+        requirementsError = JSONUtils.getAsString(reqJson, "error", "");
       }
-      ModifierEntry result = ModifierEntry.fromJson(JSONUtils.getJsonObject(json, "result"));
-      int maxLevel = JSONUtils.getInt(json, "max_level", 0);
+      ModifierEntry result = ModifierEntry.fromJson(JSONUtils.getAsJsonObject(json, "result"));
+      int maxLevel = JSONUtils.getAsInt(json, "max_level", 0);
       if (maxLevel < 0) {
         throw new JsonSyntaxException("max must be non-negative");
       }
       SlotCount slots = null;
       if (json.has("slots")) {
-        slots = SlotCount.fromJson(JSONUtils.getJsonObject(json, "slots"));
+        slots = SlotCount.fromJson(JSONUtils.getAsJsonObject(json, "slots"));
       } else {
         // legacy support
         if (json.has("upgrade_slots") && json.has("ability_slots")) {
@@ -271,21 +271,21 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
     @Override
     protected final T readSafe(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient toolRequirement = Ingredient.read(buffer);
+      Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
-      String requirementsError = buffer.readString(Short.MAX_VALUE);
+      String requirementsError = buffer.readUtf(Short.MAX_VALUE);
       ModifierEntry result = ModifierEntry.read(buffer);
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
       return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
     }
 
-    /** Writes relevant packet data. When overriding, call super first for consistency with {@link #read(ResourceLocation, PacketBuffer)} */
+    /** Writes relevant packet data. When overriding, call super first for consistency with {@link #fromJson(ResourceLocation, JsonObject)} */
     @Override
     protected void writeSafe(PacketBuffer buffer, T recipe) {
-      recipe.toolRequirement.write(buffer);
+      recipe.toolRequirement.toNetwork(buffer);
       recipe.requirements.write(buffer);
-      buffer.writeString(recipe.requirementsError);
+      buffer.writeUtf(recipe.requirementsError);
       recipe.result.write(buffer);
       buffer.writeVarInt(recipe.getMaxLevel());
       SlotCount.write(recipe.getSlots(), buffer);

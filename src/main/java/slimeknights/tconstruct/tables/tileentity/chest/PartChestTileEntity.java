@@ -25,7 +25,7 @@ public class PartChestTileEntity extends ChestTileEntity {
       // check if there is no other slot containing that item
       for (int i = 0; i < this.getSlots(); i++) {
         // don't compare count
-        if (ItemStack.areItemsEqual(stack, this.getStackInSlot(i)) && ItemStack.areItemStackTagsEqual(stack, this.getStackInSlot(i))) {
+        if (ItemStack.isSame(stack, this.getStackInSlot(i)) && ItemStack.tagMatches(stack, this.getStackInSlot(i))) {
           return i == slot; // only allowed in the same slot
         }
       }

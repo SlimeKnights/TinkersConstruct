@@ -27,7 +27,7 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
    * @return  Material id
    */
   public static MaterialId getMaterial(JsonObject json, String key) {
-    String materialId = JSONUtils.getString(json, key);
+    String materialId = JSONUtils.getAsString(json, key);
     if (materialId.isEmpty()) {
       throw new JsonSyntaxException("Material ID at " + key + " must not be empty");
     }
@@ -35,11 +35,11 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
   }
 
   @Override
-  public MaterialRecipe read(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getString(json, "group", "");
-    Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
-    int value = JSONUtils.getInt(json, "value", 1);
-    int needed = JSONUtils.getInt(json, "needed", 1);
+  public MaterialRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+    String group = JSONUtils.getAsString(json, "group", "");
+    Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
+    int value = JSONUtils.getAsInt(json, "value", 1);
+    int needed = JSONUtils.getAsInt(json, "needed", 1);
     MaterialId materialId = getMaterial(json, "material");
     ItemOutput leftover = EMPTY;
     if (value > 1 && json.has("leftover")) {
@@ -51,22 +51,22 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
   @Nullable
   @Override
   protected MaterialRecipe readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
-    String group = buffer.readString(Short.MAX_VALUE);
-    Ingredient ingredient = Ingredient.read(buffer);
+    String group = buffer.readUtf(Short.MAX_VALUE);
+    Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int value = buffer.readInt();
     int needed = buffer.readInt();
-    String materialId = buffer.readString(Short.MAX_VALUE);
+    String materialId = buffer.readUtf(Short.MAX_VALUE);
     ItemOutput leftover = ItemOutput.read(buffer);
     return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId), leftover);
   }
 
   @Override
   protected void writeSafe(PacketBuffer buffer, MaterialRecipe recipe) {
-    buffer.writeString(recipe.group);
-    recipe.ingredient.write(buffer);
+    buffer.writeUtf(recipe.group);
+    recipe.ingredient.toNetwork(buffer);
     buffer.writeInt(recipe.value);
     buffer.writeInt(recipe.needed);
-    buffer.writeString(recipe.materialId.toString());
+    buffer.writeUtf(recipe.materialId.toString());
     recipe.leftover.write(buffer);
   }
 }

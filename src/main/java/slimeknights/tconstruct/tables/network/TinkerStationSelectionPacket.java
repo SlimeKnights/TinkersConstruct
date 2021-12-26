@@ -26,7 +26,7 @@ public class TinkerStationSelectionPacket implements IThreadsafePacket {
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
-      Container container = sender.openContainer;
+      Container container = sender.containerMenu;
       if (container instanceof TinkerStationContainer) {
         ((TinkerStationContainer) container).setToolSelection(StationSlotLayoutLoader.getInstance().get(layoutName));
       }

@@ -36,11 +36,11 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 		}
 
 		// fetch model properties
-		World world = te.getWorld();
+		World world = te.getLevel();
 		if (world == null) {
 			return;
 		}
-		BlockPos pos = te.getPos();
+		BlockPos pos = te.getBlockPos();
 		BlockState state = te.getBlockState();
 		ChannelModel.BakedModel model = ModelHelper.getBakedModel(state, ChannelModel.BakedModel.class);
 		if (model == null) {
@@ -61,7 +61,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 		Direction centerFlow = Direction.UP;
 		for (Direction direction : Plane.HORIZONTAL) {
 			// check if we have that side on the block
-			ChannelConnection connection = state.get(ChannelBlock.DIRECTION_MAP.get(direction));
+			ChannelConnection connection = state.getValue(ChannelBlock.DIRECTION_MAP.get(direction));
 			if (connection.canFlow()) {
 				// apply rotation for the side
 				isRotated = RenderingHelper.applyRotation(matrices, direction);
@@ -80,7 +80,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 						}
 					}
 					// render the extra edge against other blocks
-					if (!world.getBlockState(pos.offset(direction)).matchesBlock(state.getBlock())) {
+					if (!world.getBlockState(pos.relative(direction)).is(state.getBlock())) {
 						FluidRenderer.renderCuboid(matrices, builder, model.getSideEdge(), 0, still, flowing, color, light, false);
 					}
 				} else {
@@ -89,7 +89,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 				FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 				// undo rotation
 				if (isRotated) {
-					matrices.pop();
+					matrices.popPose();
 				}
 			}
 		}
@@ -105,11 +105,11 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 		// render the cube and pop back
 		FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 		if (isRotated) {
-			matrices.pop();
+			matrices.popPose();
 		}
 
 		// render flow downwards
-		if (state.get(ChannelBlock.DOWN) && te.isFlowing(Direction.DOWN)) {
+		if (state.getValue(ChannelBlock.DOWN) && te.isFlowing(Direction.DOWN)) {
 			cube = model.getDownFluid();
 			FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 

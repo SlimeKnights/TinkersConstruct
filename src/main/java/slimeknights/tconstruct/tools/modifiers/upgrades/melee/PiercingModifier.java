@@ -46,11 +46,11 @@ public class PiercingModifier extends IncrementalModifier {
     DamageSource source;
     PlayerEntity player = context.getPlayerAttacker();
     if (player != null) {
-      source = DamageSource.causePlayerDamage(player);
+      source = DamageSource.playerAttack(player);
     } else {
-      source = DamageSource.causeMobDamage(context.getAttacker());
+      source = DamageSource.mobAttack(context.getAttacker());
     }
-    source.setDamageBypassesArmor();
+    source.bypassArmor();
     float secondaryDamage = (getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE) - tool.getVolatileData().getFloat(PIERCING_DEBUFF)) * context.getCooldown();
     if (context.isCritical()) {
       secondaryDamage *= 1.5f;

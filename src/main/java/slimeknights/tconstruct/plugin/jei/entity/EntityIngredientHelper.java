@@ -32,7 +32,7 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
 
   @Override
   public String getDisplayName(EntityType type) {
-    return type.getName().getString();
+    return type.getDescription().getString();
   }
 
   @Override

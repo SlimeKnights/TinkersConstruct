@@ -22,14 +22,14 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 
 	public ChannelFlowPacket(PacketBuffer buffer) {
 		pos = buffer.readBlockPos();
-		side = buffer.readEnumValue(Direction.class);
+		side = buffer.readEnum(Direction.class);
 		flow = buffer.readBoolean();
 	}
 
 	@Override
 	public void encode(PacketBuffer buffer) {
 		buffer.writeBlockPos(pos);
-		buffer.writeEnumValue(side);
+		buffer.writeEnum(side);
 		buffer.writeBoolean(flow);
 	}
 
@@ -40,7 +40,7 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 
 	private static class HandleClient {
 		private static void handle(ChannelFlowPacket packet) {
-			TileEntityHelper.getTile(ChannelTileEntity.class, Minecraft.getInstance().world, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
+			TileEntityHelper.getTile(ChannelTileEntity.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
 		}
 	}
 }

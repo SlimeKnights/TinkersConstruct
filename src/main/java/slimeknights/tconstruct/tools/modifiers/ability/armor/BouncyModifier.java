@@ -41,27 +41,27 @@ public class BouncyModifier extends TotalArmorLevelModifier {
     }
 
     // server players behave differently than non-server players, they have no velocity during the event, so we need to reverse engineer it
-    Vector3d motion = living.getMotion();
+    Vector3d motion = living.getDeltaMovement();
     if (living instanceof ServerPlayerEntity) {
       // velocity is lost on server players, but we dont have to defer the bounce
       double gravity = living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get());
       double time = Math.sqrt(living.fallDistance / gravity);
       double velocity = gravity * time;
-      living.setMotion(motion.x / 0.95f, velocity, motion.z / 0.95f);
-      living.velocityChanged = true;
+      living.setDeltaMovement(motion.x / 0.95f, velocity, motion.z / 0.95f);
+      living.hurtMarked = true;
 
       // preserve momentum
       SlimeBounceHandler.addBounceHandler(living);
     } else {
       // for non-players, need to defer the bounce
       // only slow down half as much when bouncing
-      living.setMotion(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
-      SlimeBounceHandler.addBounceHandler(living, living.getMotion().y);
+      living.setDeltaMovement(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
+      SlimeBounceHandler.addBounceHandler(living, living.getDeltaMovement().y);
     }
     // update airborn status
     event.setDistance(0.0F);
-    if (!living.world.isRemote) {
-      living.isAirBorne = true;
+    if (!living.level.isClientSide) {
+      living.hasImpulse = true;
       event.setCanceled(true);
       living.setOnGround(false); // need to be on ground for server to process this event
     }

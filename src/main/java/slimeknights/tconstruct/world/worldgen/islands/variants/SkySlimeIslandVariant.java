@@ -23,7 +23,7 @@ public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public ResourceLocation getStructureName(String variantName) {
-    return TConstruct.getResource("slime_islands/sky/" + dirtType.getString() + "_" + variantName);
+    return TConstruct.getResource("slime_islands/sky/" + dirtType.getSerializedName() + "_" + variantName);
   }
 
   @Override
@@ -33,13 +33,13 @@ public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public BlockState getLakeFluid() {
-    return Objects.requireNonNull(TinkerFluids.skySlime.getBlock()).getDefaultState();
+    return Objects.requireNonNull(TinkerFluids.skySlime.getBlock()).defaultBlockState();
   }
 
   @Nullable
   @Override
   public BlockState getVines() {
-    return TinkerWorld.skySlimeVine.get().getDefaultState();
+    return TinkerWorld.skySlimeVine.get().defaultBlockState();
   }
 
   @Nullable

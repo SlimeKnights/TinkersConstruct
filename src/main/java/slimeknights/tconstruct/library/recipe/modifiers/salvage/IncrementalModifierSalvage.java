@@ -75,7 +75,7 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
       ItemOutput result = ItemOutput.fromJson(salvageElement);
       boolean fullSalvage = false;
       if (salvageElement.isJsonObject()) {
-        fullSalvage = JSONUtils.getBoolean(salvageElement.getAsJsonObject(), "full", false);
+        fullSalvage = JSONUtils.getAsBoolean(salvageElement.getAsJsonObject(), "full", false);
       }
       return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }

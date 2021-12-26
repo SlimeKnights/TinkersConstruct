@@ -28,14 +28,14 @@ public class ThornsModifier extends IncrementalModifier {
   @Override
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
-    Entity attacker = source.getTrueSource();
+    Entity attacker = source.getEntity();
     if (attacker != null && isDirectDamage) {
       // 15% chance of working per level
       float scaledLevel = getScaledLevel(tool, level);
       if (RANDOM.nextFloat() < (scaledLevel * 0.15f)) {
         float damage = scaledLevel > 10 ? scaledLevel - 10 : 1 + RANDOM.nextInt(4);
         LivingEntity user = context.getEntity();
-        attacker.attackEntityFrom(DamageSource.causeThornsDamage(user), damage);
+        attacker.hurt(DamageSource.thorns(user), damage);
         ToolDamageUtil.damageAnimated(tool, 1, user, slotType);
       }
     }
@@ -47,11 +47,11 @@ public class ThornsModifier extends IncrementalModifier {
     DamageSource source;
     PlayerEntity player = context.getPlayerAttacker();
     if (player != null) {
-      source = DamageSource.causePlayerDamage(player);
+      source = DamageSource.playerAttack(player);
     } else {
-      source = DamageSource.causeMobDamage(context.getAttacker());
+      source = DamageSource.mobAttack(context.getAttacker());
     }
-    source.setDamageBypassesArmor();
+    source.bypassArmor();
     float secondaryDamage = (getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE) * 0.75f) * context.getCooldown();
     if (context.isCritical()) {
       secondaryDamage *= 1.5f;

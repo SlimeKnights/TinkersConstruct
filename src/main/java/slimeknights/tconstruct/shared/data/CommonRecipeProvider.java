@@ -40,7 +40,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
   }
 
   @Override
-  protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
     this.addCommonRecipes(consumer);
     this.addMaterialRecipes(consumer);
   }
@@ -53,130 +53,130 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
 
     // nahuatl
     slabStairsCrafting(consumer, TinkerMaterials.nahuatl, folder, false);
-    ShapedRecipeBuilder.shapedRecipe(TinkerMaterials.nahuatl.getFence(), 6)
-                       .patternLine("WWW").patternLine("WWW")
-                       .key('W', TinkerMaterials.nahuatl)
-                       .addCriterion("has_planks", hasItem(TinkerMaterials.nahuatl))
-                       .build(consumer, modResource(folder + "nahuatl_fence"));
+    ShapedRecipeBuilder.shaped(TinkerMaterials.nahuatl.getFence(), 6)
+                       .pattern("WWW").pattern("WWW")
+                       .define('W', TinkerMaterials.nahuatl)
+                       .unlockedBy("has_planks", has(TinkerMaterials.nahuatl))
+                       .save(consumer, modResource(folder + "nahuatl_fence"));
 
     // mud bricks
     slabStairsCrafting(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.materialsAndYou)
-                          .addIngredient(Items.BOOK)
-                          .addIngredient(TinkerTables.pattern)
-                          .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                          .build(consumer, prefix(TinkerCommons.materialsAndYou, "common/"));
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.tinkersGadgetry)
-                          .addIngredient(Items.BOOK)
-                          .addIngredient(SlimeType.SKY.getSlimeballTag())
-                          .addCriterion("has_item", hasItem(SlimeType.SKY.getSlimeballTag()))
-                          .build(consumer, prefix(TinkerCommons.tinkersGadgetry, "common/"));
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.punySmelting)
-                          .addIngredient(Items.BOOK)
-                          .addIngredient(TinkerSmeltery.grout)
-                          .addCriterion("has_item", hasItem(TinkerSmeltery.grout))
-                          .build(consumer, prefix(TinkerCommons.punySmelting, "common/"));
+    ShapelessRecipeBuilder.shapeless(TinkerCommons.materialsAndYou)
+                          .requires(Items.BOOK)
+                          .requires(TinkerTables.pattern)
+                          .unlockedBy("has_item", has(TinkerTables.pattern))
+                          .save(consumer, prefix(TinkerCommons.materialsAndYou, "common/"));
+    ShapelessRecipeBuilder.shapeless(TinkerCommons.tinkersGadgetry)
+                          .requires(Items.BOOK)
+                          .requires(SlimeType.SKY.getSlimeballTag())
+                          .unlockedBy("has_item", has(SlimeType.SKY.getSlimeballTag()))
+                          .save(consumer, prefix(TinkerCommons.tinkersGadgetry, "common/"));
+    ShapelessRecipeBuilder.shapeless(TinkerCommons.punySmelting)
+                          .requires(Items.BOOK)
+                          .requires(TinkerSmeltery.grout)
+                          .unlockedBy("has_item", has(TinkerSmeltery.grout))
+                          .save(consumer, prefix(TinkerCommons.punySmelting, "common/"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.mightySmelting)
                             .setFluidAndTime(TinkerFluids.searedStone, false, FluidValues.INGOT)
                             .setCast(Items.BOOK, true)
                             .build(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.fantasticFoundry)
-                          .addIngredient(Items.BOOK)
-                          .addIngredient(TinkerSmeltery.netherGrout)
-                          .addCriterion("has_item", hasItem(TinkerSmeltery.netherGrout))
-                          .build(consumer, prefix(TinkerCommons.fantasticFoundry, "common/"));
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.encyclopedia)
-                          .addIngredient(TinkerCommons.materialsAndYou)
-                          .addIngredient(TinkerCommons.punySmelting)
-                          .addIngredient(TinkerCommons.mightySmelting)
-                          .addIngredient(TinkerCommons.fantasticFoundry)
-                          .addCriterion("has_item", hasItem(TinkerCommons.fantasticFoundry))
-                          .build(consumer, prefix(TinkerCommons.encyclopedia, "common/"));
+    ShapelessRecipeBuilder.shapeless(TinkerCommons.fantasticFoundry)
+                          .requires(Items.BOOK)
+                          .requires(TinkerSmeltery.netherGrout)
+                          .unlockedBy("has_item", has(TinkerSmeltery.netherGrout))
+                          .save(consumer, prefix(TinkerCommons.fantasticFoundry, "common/"));
+    ShapelessRecipeBuilder.shapeless(TinkerCommons.encyclopedia)
+                          .requires(TinkerCommons.materialsAndYou)
+                          .requires(TinkerCommons.punySmelting)
+                          .requires(TinkerCommons.mightySmelting)
+                          .requires(TinkerCommons.fantasticFoundry)
+                          .unlockedBy("has_item", has(TinkerCommons.fantasticFoundry))
+                          .save(consumer, prefix(TinkerCommons.encyclopedia, "common/"));
 
     // glass
     folder = "common/glass/";
-    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.clearGlassPane, 16)
-                       .key('#', TinkerCommons.clearGlass)
-                       .patternLine("###")
-                       .patternLine("###")
-                       .addCriterion("has_block", hasItem(TinkerCommons.clearGlass))
-                       .build(consumer, prefix(TinkerCommons.clearGlassPane, folder));
+    ShapedRecipeBuilder.shaped(TinkerCommons.clearGlassPane, 16)
+                       .define('#', TinkerCommons.clearGlass)
+                       .pattern("###")
+                       .pattern("###")
+                       .unlockedBy("has_block", has(TinkerCommons.clearGlass))
+                       .save(consumer, prefix(TinkerCommons.clearGlassPane, folder));
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
-      ShapedRecipeBuilder.shapedRecipe(block, 8)
-                         .key('#', TinkerCommons.clearGlass)
-                         .key('X', color.getDye().getTag())
-                         .patternLine("###")
-                         .patternLine("#X#")
-                         .patternLine("###")
-                         .setGroup(modPrefix("stained_clear_glass"))
-                         .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlass))
-                         .build(consumer, prefix(block, folder));
+      ShapedRecipeBuilder.shaped(block, 8)
+                         .define('#', TinkerCommons.clearGlass)
+                         .define('X', color.getDye().getTag())
+                         .pattern("###")
+                         .pattern("#X#")
+                         .pattern("###")
+                         .group(modPrefix("stained_clear_glass"))
+                         .unlockedBy("has_clear_glass", has(TinkerCommons.clearGlass))
+                         .save(consumer, prefix(block, folder));
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
-      ShapedRecipeBuilder.shapedRecipe(pane, 16)
-                         .key('#', block)
-                         .patternLine("###")
-                         .patternLine("###")
-                         .setGroup(modPrefix("stained_clear_glass_pane"))
-                         .addCriterion("has_block", hasItem(block))
-                         .build(consumer, prefix(pane, folder));
-      ShapedRecipeBuilder.shapedRecipe(pane, 8)
-                         .key('#', TinkerCommons.clearGlassPane)
-                         .key('X', color.getDye().getTag())
-                         .patternLine("###")
-                         .patternLine("#X#")
-                         .patternLine("###")
-                         .setGroup(modPrefix("stained_clear_glass_pane"))
-                         .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlassPane))
-                         .build(consumer, wrap(pane, folder, "_from_panes"));
+      ShapedRecipeBuilder.shaped(pane, 16)
+                         .define('#', block)
+                         .pattern("###")
+                         .pattern("###")
+                         .group(modPrefix("stained_clear_glass_pane"))
+                         .unlockedBy("has_block", has(block))
+                         .save(consumer, prefix(pane, folder));
+      ShapedRecipeBuilder.shaped(pane, 8)
+                         .define('#', TinkerCommons.clearGlassPane)
+                         .define('X', color.getDye().getTag())
+                         .pattern("###")
+                         .pattern("#X#")
+                         .pattern("###")
+                         .group(modPrefix("stained_clear_glass_pane"))
+                         .unlockedBy("has_clear_glass", has(TinkerCommons.clearGlassPane))
+                         .save(consumer, wrap(pane, folder, "_from_panes"));
     }
     // fix vanilla recipes not using tinkers glass
     String glassVanillaFolder = folder + "vanilla/";
     Consumer<IFinishedRecipe> vanillaGlassConsumer = withCondition(consumer, ConfigEnabledCondition.GLASS_RECIPE_FIX);
-    ShapedRecipeBuilder.shapedRecipe(Blocks.BEACON)
-                       .key('S', Items.NETHER_STAR)
-                       .key('G', Tags.Items.GLASS_COLORLESS)
-                       .key('O', Blocks.OBSIDIAN)
-                       .patternLine("GGG")
-                       .patternLine("GSG")
-                       .patternLine("OOO")
-                       .addCriterion("has_nether_star", hasItem(Items.NETHER_STAR))
-                       .build(vanillaGlassConsumer, prefix(Blocks.BEACON, glassVanillaFolder));
-    ShapedRecipeBuilder.shapedRecipe(Blocks.DAYLIGHT_DETECTOR)
-                       .key('Q', Items.QUARTZ)
-                       .key('G', Tags.Items.GLASS_COLORLESS)
-                       .key('W', ItemTags.WOODEN_SLABS)
-                       .patternLine("GGG")
-                       .patternLine("QQQ")
-                       .patternLine("WWW")
-                       .addCriterion("has_quartz", hasItem(Items.QUARTZ))
-                       .build(vanillaGlassConsumer, prefix(Blocks.DAYLIGHT_DETECTOR, glassVanillaFolder));
-    ShapedRecipeBuilder.shapedRecipe(Items.END_CRYSTAL)
-                       .key('T', Items.GHAST_TEAR)
-                       .key('E', Items.ENDER_EYE)
-                       .key('G', Tags.Items.GLASS_COLORLESS)
-                       .patternLine("GGG")
-                       .patternLine("GEG")
-                       .patternLine("GTG")
-                       .addCriterion("has_ender_eye", hasItem(Items.ENDER_EYE))
-                       .build(vanillaGlassConsumer, prefix(Items.END_CRYSTAL, glassVanillaFolder));
-    ShapedRecipeBuilder.shapedRecipe(Items.GLASS_BOTTLE, 3)
-                       .key('#', Tags.Items.GLASS_COLORLESS)
-                       .patternLine("# #")
-                       .patternLine(" # ")
-                       .addCriterion("has_glass", hasItem(Tags.Items.GLASS_COLORLESS))
-                       .build(vanillaGlassConsumer, prefix(Items.GLASS_BOTTLE, glassVanillaFolder));
+    ShapedRecipeBuilder.shaped(Blocks.BEACON)
+                       .define('S', Items.NETHER_STAR)
+                       .define('G', Tags.Items.GLASS_COLORLESS)
+                       .define('O', Blocks.OBSIDIAN)
+                       .pattern("GGG")
+                       .pattern("GSG")
+                       .pattern("OOO")
+                       .unlockedBy("has_nether_star", has(Items.NETHER_STAR))
+                       .save(vanillaGlassConsumer, prefix(Blocks.BEACON, glassVanillaFolder));
+    ShapedRecipeBuilder.shaped(Blocks.DAYLIGHT_DETECTOR)
+                       .define('Q', Items.QUARTZ)
+                       .define('G', Tags.Items.GLASS_COLORLESS)
+                       .define('W', ItemTags.WOODEN_SLABS)
+                       .pattern("GGG")
+                       .pattern("QQQ")
+                       .pattern("WWW")
+                       .unlockedBy("has_quartz", has(Items.QUARTZ))
+                       .save(vanillaGlassConsumer, prefix(Blocks.DAYLIGHT_DETECTOR, glassVanillaFolder));
+    ShapedRecipeBuilder.shaped(Items.END_CRYSTAL)
+                       .define('T', Items.GHAST_TEAR)
+                       .define('E', Items.ENDER_EYE)
+                       .define('G', Tags.Items.GLASS_COLORLESS)
+                       .pattern("GGG")
+                       .pattern("GEG")
+                       .pattern("GTG")
+                       .unlockedBy("has_ender_eye", has(Items.ENDER_EYE))
+                       .save(vanillaGlassConsumer, prefix(Items.END_CRYSTAL, glassVanillaFolder));
+    ShapedRecipeBuilder.shaped(Items.GLASS_BOTTLE, 3)
+                       .define('#', Tags.Items.GLASS_COLORLESS)
+                       .pattern("# #")
+                       .pattern(" # ")
+                       .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
+                       .save(vanillaGlassConsumer, prefix(Items.GLASS_BOTTLE, glassVanillaFolder));
 
 
     // vanilla recipes
-    ShapelessRecipeBuilder.shapelessRecipe(Items.FLINT)
-                          .addIngredient(Blocks.GRAVEL)
-                          .addIngredient(Blocks.GRAVEL)
-                          .addIngredient(Blocks.GRAVEL)
-                          .addCriterion("has_item", hasItem(Blocks.GRAVEL))
-                          .build(
+    ShapelessRecipeBuilder.shapeless(Items.FLINT)
+                          .requires(Blocks.GRAVEL)
+                          .requires(Blocks.GRAVEL)
+                          .requires(Blocks.GRAVEL)
+                          .unlockedBy("has_item", has(Blocks.GRAVEL))
+                          .save(
                             ConsumerWrapperBuilder.wrap()
                                                   .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
@@ -205,15 +205,15 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     Item cobaltIngot = TinkerMaterials.cobalt.getIngot();
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
-                        .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
+    CookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
+                        .unlockedBy("has_item", has(TinkerWorld.cobaltOre))
+                        .save(consumer, wrap(cobaltIngot, folder, "_smelting"));
     Item copperIngot = TinkerMaterials.copper.getIngot();
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(copperIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
-                        .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(copperIngot, folder, "_blasting"));
+    CookingRecipeBuilder.smelting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
+                        .unlockedBy("has_item", has(TinkerWorld.copperOre))
+                        .save(consumer, wrap(copperIngot, folder, "_smelting"));
+    CookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
+                        .unlockedBy("has_item", has(TinkerWorld.copperOre))
+                        .save(consumer, wrap(copperIngot, folder, "_blasting"));
   }
 }

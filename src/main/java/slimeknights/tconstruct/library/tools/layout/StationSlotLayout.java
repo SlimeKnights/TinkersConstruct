@@ -94,7 +94,7 @@ public class StationSlotLayout {
   /** Reads a slot from the packet buffer */
   public static StationSlotLayout read(PacketBuffer buffer) {
     ResourceLocation name = buffer.readResourceLocation();
-    String translationKey = buffer.readString(Short.MAX_VALUE);
+    String translationKey = buffer.readUtf(Short.MAX_VALUE);
     LayoutIcon icon = LayoutIcon.read(buffer);
     Integer sortIndex = null;
     if (buffer.readBoolean()) {
@@ -114,7 +114,7 @@ public class StationSlotLayout {
   /** Writes a slot to the packet buffer */
   public void write(PacketBuffer buffer) {
     buffer.writeResourceLocation(name);
-    buffer.writeString(getTranslationKey());
+    buffer.writeUtf(getTranslationKey());
     icon.write(buffer);
     if (sortIndex != null) {
       buffer.writeBoolean(true);
@@ -183,7 +183,7 @@ public class StationSlotLayout {
     /** Sets the given item as both the name and icon */
     public Builder item(ItemStack stack) {
       icon(stack);
-      translationKey = stack.getTranslationKey();
+      translationKey = stack.getDescriptionId();
       return this;
     }
 
@@ -236,7 +236,7 @@ public class StationSlotLayout {
 
     /** Adds an input as the given item */
     public Builder addInputItem(Pattern icon, IItemProvider item, int x, int y) {
-      return addInputSlot(icon, item.asItem().getTranslationKey(), x, y, Ingredient.fromItems(item));
+      return addInputSlot(icon, item.asItem().getDescriptionId(), x, y, Ingredient.of(item));
     }
 
     /** Adds an input as the given item */

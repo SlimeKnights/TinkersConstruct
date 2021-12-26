@@ -27,6 +27,8 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifie
 
 import java.util.Set;
 
+import net.minecraft.loot.LootFunction.Builder;
+
 /** Loot modifier to boost drops based on teh chrysophilite amount */
 public class ChrysophiliteBonusFunction extends LootFunction {
   public static final ResourceLocation ID = TConstruct.getResource("chrysophilite_bonus");
@@ -44,7 +46,7 @@ public class ChrysophiliteBonusFunction extends LootFunction {
 
   /** Creates a generic builder */
   public static Builder<?> builder(IFormula formula, boolean includeBase) {
-    return builder(conditions -> new ChrysophiliteBonusFunction(conditions, formula, includeBase));
+    return simpleBuilder(conditions -> new ChrysophiliteBonusFunction(conditions, formula, includeBase));
   }
 
   /** Creates a builder for the binomial with bonus formula */
@@ -63,24 +65,24 @@ public class ChrysophiliteBonusFunction extends LootFunction {
   }
 
   @Override
-  protected ItemStack doApply(ItemStack stack, LootContext context) {
-    int level = ChrysophiliteModifier.getTotalGold(context.get(LootParameters.THIS_ENTITY));
+  protected ItemStack run(ItemStack stack, LootContext context) {
+    int level = ChrysophiliteModifier.getTotalGold(context.getParamOrNull(LootParameters.THIS_ENTITY));
     if (!includeBase) {
       level--;
     }
     if (level > 0) {
-      stack.setCount(formula.func_216204_a(context.getRandom(), stack.getCount(), level));
+      stack.setCount(formula.calculateNewCount(context.getRandom(), stack.getCount(), level));
     }
     return stack;
   }
 
   @Override
-  public Set<LootParameter<?>> getRequiredParameters() {
+  public Set<LootParameter<?>> getReferencedContextParams() {
     return ImmutableSet.of(LootParameters.THIS_ENTITY);
   }
 
   @Override
-  public LootFunctionType getFunctionType() {
+  public LootFunctionType getType() {
     return TinkerModifiers.chrysophiliteBonusFunction;
   }
 
@@ -89,9 +91,9 @@ public class ChrysophiliteBonusFunction extends LootFunction {
     @Override
     public void serialize(JsonObject json, ChrysophiliteBonusFunction loot, JsonSerializationContext context) {
       super.serialize(json, loot, context);
-      json.addProperty("formula", loot.formula.func_216203_a().toString());
+      json.addProperty("formula", loot.formula.getType().toString());
       JsonObject parameters = new JsonObject();
-      loot.formula.func_216202_a(parameters, context);
+      loot.formula.serializeParams(parameters, context);
       if (parameters.size() > 0) {
         json.add("parameters", parameters);
       }
@@ -101,18 +103,18 @@ public class ChrysophiliteBonusFunction extends LootFunction {
     @Override
     public ChrysophiliteBonusFunction deserialize(JsonObject json, JsonDeserializationContext context, ILootCondition[] conditions) {
       ResourceLocation id = JsonHelper.getResourceLocation(json, "formula");
-      IFormulaDeserializer deserializer = ApplyBonus.field_215875_a.get(id);
+      IFormulaDeserializer deserializer = ApplyBonus.FORMULAS.get(id);
       if (deserializer == null) {
         throw new JsonParseException("Invalid formula id: " + id);
       }
       JsonObject parameters;
       if (json.has("parameters")) {
-        parameters = JSONUtils.getJsonObject(json, "parameters");
+        parameters = JSONUtils.getAsJsonObject(json, "parameters");
       } else {
         parameters = new JsonObject();
       }
       IFormula formula = deserializer.deserialize(parameters, context);
-      boolean includeBase = JSONUtils.getBoolean(json, "include_base", true);
+      boolean includeBase = JSONUtils.getAsBoolean(json, "include_base", true);
       return new ChrysophiliteBonusFunction(conditions, formula, includeBase);
     }
   }

@@ -36,7 +36,7 @@ public interface ISpriteTransformer extends IJsonSerializable {
   /** Copies the given native image */
   static NativeImage copyImage(NativeImage image) {
     NativeImage copy = new NativeImage(image.getWidth(), image.getHeight(), true);
-    copy.copyImageData(image);
+    copy.copyFrom(image);
     return copy;
   }
 }

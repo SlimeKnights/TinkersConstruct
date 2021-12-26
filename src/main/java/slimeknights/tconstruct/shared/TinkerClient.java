@@ -64,8 +64,8 @@ public class TinkerClient {
     SmelteryClientEvents.addResourceListener(manager);
     MaterialRenderInfoLoader.addResourceListener(manager);
     DomainDisplayName.addResourceListener(manager);
-    manager.addReloadListener(textureValidator);
-    manager.addReloadListener(HarvestLevels.INSTANCE);
+    manager.registerReloadListener(textureValidator);
+    manager.registerReloadListener(HarvestLevels.INSTANCE);
     ToolClientEvents.addResourceListener(manager);
   }
 }

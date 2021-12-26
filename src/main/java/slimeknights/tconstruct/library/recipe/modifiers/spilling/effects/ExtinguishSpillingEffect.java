@@ -11,7 +11,7 @@ public class ExtinguishSpillingEffect implements ISpillingEffect {
 
   @Override
   public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {
-    context.getTarget().extinguish();
+    context.getTarget().clearFire();
   }
 
   @Override

@@ -25,16 +25,16 @@ import java.util.List;
 /** Helper class to render the smeltery tank */
 public class SmelteryTankRenderer {
   /** Like {@link FluidRenderer#RENDER_TYPE}, but disables cull so both sides show */
-  private static final RenderType RENDER_TYPE = RenderType.makeType(
+  private static final RenderType RENDER_TYPE = RenderType.create(
     TConstruct.resourceString("smeltery_fluid"), DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, 7, 256, true, true,
-    State.getBuilder()
-         .texture(new TextureState(PlayerContainer.LOCATION_BLOCKS_TEXTURE, false, false))
-         .shadeModel(RenderType.SHADE_ENABLED)
-         .lightmap(RenderType.LIGHTMAP_ENABLED)
-         .texture(RenderType.BLOCK_SHEET_MIPPED)
-         .transparency(RenderType.TRANSLUCENT_TRANSPARENCY)
-         .cull(RenderType.CULL_DISABLED)
-         .build(false));
+    State.builder()
+         .setTextureState(new TextureState(PlayerContainer.BLOCK_ATLAS, false, false))
+         .setShadeModelState(RenderType.SMOOTH_SHADE)
+         .setLightmapState(RenderType.LIGHTMAP)
+         .setTextureState(RenderType.BLOCK_SHEET_MIPPED)
+         .setTransparencyState(RenderType.TRANSLUCENT_TRANSPARENCY)
+         .setCullState(RenderType.NO_CULL)
+         .createCompositeState(false));
 
   /** Distance between the liquid and the edge of the block */
   private static final float FLUID_OFFSET = 0.005f;
@@ -141,7 +141,7 @@ public class SmelteryTankRenderer {
     float[] yBounds = getBlockBounds(yd, yMin, yMax);
 
     // render each side
-    Matrix4f matrix = matrices.getLast().getMatrix();
+    Matrix4f matrix = matrices.last().pose();
     Vector3f from = new Vector3f();
     Vector3f to = new Vector3f();
     int rotation = upsideDown ? 180 : 0;
@@ -157,7 +157,7 @@ public class SmelteryTankRenderer {
           if (y == yd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.UP,    color, brightness, rotation, false);
           if (y == 0) {
             // increase Y position slightly to prevent z fighting on neighboring fluids
-            from.setY(from.getY() + 0.001f);
+            from.setY(from.y() + 0.001f);
             FluidRenderer.putTexturedQuad(builder, matrix, still,   from, to, Direction.DOWN,  color, brightness, rotation, false);
           }
         }

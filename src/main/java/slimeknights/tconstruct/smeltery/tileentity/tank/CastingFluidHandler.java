@@ -7,6 +7,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
@@ -16,6 +17,7 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -111,6 +113,7 @@ public class CastingFluidHandler implements IFluidHandler {
     }
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     if (resource.isEmpty() || !resource.isFluidEqual(fluid)) {
@@ -119,6 +122,7 @@ public class CastingFluidHandler implements IFluidHandler {
     return this.drain(resource.getAmount(), action);
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     int drained = Math.min(fluid.getAmount(), maxDrain);
@@ -143,6 +147,7 @@ public class CastingFluidHandler implements IFluidHandler {
 
   /* Required */
 
+  @Nonnull
   @Override
   public FluidStack getFluidInTank(int tank) {
     if (tank == 0) {
@@ -198,10 +203,11 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   protected void onContentsChanged() {
-    tile.markDirty();
-    World world = tile.getWorld();
-    if (world != null && !world.isRemote) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(tile.getPos(), this.getFluid()), world, tile.getPos());
+    tile.markDirtyFast();
+    World world = tile.getLevel();
+    if (world != null && !world.isClientSide) {
+      BlockPos pos = tile.getBlockPos();
+      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(pos, this.getFluid()), world, pos);
     }
   }
 }

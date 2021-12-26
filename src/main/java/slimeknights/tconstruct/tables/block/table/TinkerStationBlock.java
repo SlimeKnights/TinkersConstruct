@@ -6,6 +6,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class TinkerStationBlock extends RetexturedTableBlock {
   @Getter
   private final int slotCount;

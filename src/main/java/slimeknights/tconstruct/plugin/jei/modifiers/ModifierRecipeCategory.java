@@ -115,17 +115,17 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     } else {
       ModelManager modelManager = minecraft.getModelManager();
       // gets the model for the item, its a sepcial one that gives us texture info
-      IBakedModel model = minecraft.getItemRenderer().getItemModelMesher().getItemModel(TinkerModifiers.creativeSlotItem.get());
+      IBakedModel model = minecraft.getItemRenderer().getItemModelShaper().getItemModel(TinkerModifiers.creativeSlotItem.get());
       if (model != null && model.getOverrides() instanceof NBTKeyModel.Overrides) {
         RenderMaterial material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "slotless" : slotType.getName());
-        sprite = modelManager.getAtlasTexture(material.getAtlasLocation()).getSprite(material.getTextureLocation());
+        sprite = modelManager.getAtlas(material.atlasLocation()).getSprite(material.texture());
       } else {
         // failed to use the model, use missing texture
-        sprite = modelManager.getAtlasTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE).getSprite(MissingTextureSprite.getLocation());
+        sprite = modelManager.getAtlas(PlayerContainer.BLOCK_ATLAS).getSprite(MissingTextureSprite.getLocation());
       }
       slotTypeSprites.put(slotType, sprite);
     }
-    minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    minecraft.getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
     Screen.blit(matrices, x, y, 0, 16, 16, sprite);
   }
 
@@ -147,10 +147,10 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
 
     // draw max count
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+    FontRenderer fontRenderer = Minecraft.getInstance().font;
     int max = recipe.getMaxLevel();
     if (max > 0) {
-      fontRenderer.drawString(matrices, maxPrefix + max, 66, 16, Color.GRAY.getRGB());
+      fontRenderer.draw(matrices, maxPrefix + max, 66, 16, Color.GRAY.getRGB());
     }
 
     // draw slot cost
@@ -160,8 +160,8 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     } else {
       drawSlotType(matrices, slots.getType(), 110, 58);
       String text = Integer.toString(slots.getCount());
-      int x = 111 - fontRenderer.getStringWidth(text);
-      fontRenderer.drawString(matrices, text, x, 63, Color.GRAY.getRGB());
+      int x = 111 - fontRenderer.width(text);
+      fontRenderer.draw(matrices, text, x, 63, Color.GRAY.getRGB());
     }
   }
 
@@ -214,7 +214,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     items.set(-1, output);
     if (focus != null) {
       Item item = focus.getValue().getItem();
-      if (item.isIn(TinkerTags.Items.MODIFIABLE)) {
+      if (item.is(TinkerTags.Items.MODIFIABLE)) {
         List<List<ItemStack>> allItems = recipe.getDisplayItems();
         if (allItems.size() >= 1) {
           allItems.get(0).stream().filter(stack -> stack.getItem() == item)

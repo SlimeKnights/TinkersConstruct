@@ -9,6 +9,8 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class WoodenDoorBlock extends DoorBlock {
   public WoodenDoorBlock(Properties builder) {
     super(builder);
@@ -17,6 +19,6 @@ public class WoodenDoorBlock extends DoorBlock {
   @Nullable
   @Override
   public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
-    return state.get(OPEN) ? PathNodeType.DOOR_OPEN : PathNodeType.DOOR_WOOD_CLOSED;
+    return state.getValue(OPEN) ? PathNodeType.DOOR_OPEN : PathNodeType.DOOR_WOOD_CLOSED;
   }
 }

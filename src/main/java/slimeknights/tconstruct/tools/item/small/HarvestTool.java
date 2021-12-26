@@ -11,6 +11,8 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Set;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Simple class that swaps the harvest logic for the AOE logic
  */

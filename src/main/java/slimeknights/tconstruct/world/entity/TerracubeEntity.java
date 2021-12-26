@@ -33,25 +33,25 @@ public class TerracubeEntity extends SlimeEntity {
     if (reason == SpawnReason.SPAWNER) {
       return true;
     }
-    BlockPos down = pos.down();
-    if (world.getFluidState(pos).isTagged(FluidTags.WATER) && world.getFluidState(down).isTagged(FluidTags.WATER)) {
+    BlockPos down = pos.below();
+    if (world.getFluidState(pos).is(FluidTags.WATER) && world.getFluidState(down).is(FluidTags.WATER)) {
       return true;
     }
-    return world.getBlockState(down).canEntitySpawn(world, down, entityType) && MonsterEntity.isValidLightLevel(world, pos, random);
+    return world.getBlockState(down).isValidSpawn(world, down, entityType) && MonsterEntity.isDarkEnoughToSpawn(world, pos, random);
   }
 
   @Override
-  protected float getJumpUpwardsMotion() {
-    return 0.2f * this.getJumpFactor();
+  protected float getJumpPower() {
+    return 0.2f * this.getBlockJumpFactor();
   }
 
   @Override
-  protected float func_225512_er_() {
+  protected float getAttackDamage() {
     return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE) + 2;
   }
 
   @Override
-  protected IParticleData getSquishParticle() {
+  protected IParticleData getParticleType() {
     return TinkerWorld.terracubeParticle.get();
   }
 

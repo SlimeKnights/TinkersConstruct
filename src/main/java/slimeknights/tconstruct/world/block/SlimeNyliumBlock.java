@@ -18,6 +18,8 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /**
  * Slimy variant of nylium, mostly changes the way it bonemeals
  */
@@ -29,38 +31,38 @@ public class SlimeNyliumBlock extends Block implements IGrowable {
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.foliageType != SlimeType.ICHOR) {
-      super.fillItemGroup(group, items);
+      super.fillItemCategory(group, items);
     }
   }
 
   private static boolean isDarkEnough(BlockState state, IWorldReader reader, BlockPos pos) {
-    BlockPos blockpos = pos.up();
+    BlockPos blockpos = pos.above();
     BlockState blockstate = reader.getBlockState(blockpos);
-    int i = LightEngine.func_215613_a(reader, state, pos, blockstate, blockpos, Direction.UP, blockstate.getOpacity(reader, blockpos));
+    int i = LightEngine.getLightBlockInto(reader, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(reader, blockpos));
     return i < reader.getMaxLightLevel();
   }
 
   @Override
   public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
     if (!isDarkEnough(state, worldIn, pos)) {
-      worldIn.setBlockState(pos, SlimeGrassBlock.getDirtState(state));
+      worldIn.setBlockAndUpdate(pos, SlimeGrassBlock.getDirtState(state));
     }
   }
 
   @Override
-  public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-    return worldIn.getBlockState(pos.up()).isAir();
+  public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    return worldIn.getBlockState(pos.above()).isAir();
   }
 
   @Override
-  public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+  public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
     return true;
   }
 
   @Override
-  public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+  public void performBonemeal(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
     SlimeGrassBlock.growGrass(world, rand, pos, TinkerTags.Blocks.SLIMY_NYLIUM, foliageType, true, true);
   }
 }

@@ -11,8 +11,10 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Set;
 
+import net.minecraft.item.Item.Properties;
+
 public class PickaxeTool extends HarvestTool {
-  public static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.ROCK, Material.IRON, Material.ANVIL);
+  public static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.STONE, Material.METAL, Material.HEAVY_METAL);
   public static final DepthAOEHarvestLogic HARVEST_LOGIC = new DepthAOEHarvestLogic(0, 0) {
     @Override
     public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {

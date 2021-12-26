@@ -51,12 +51,12 @@ public class AddToolDataFunction extends LootFunction {
   }
 
   @Override
-  public LootFunctionType getFunctionType() {
+  public LootFunctionType getType() {
     return TinkerTools.lootAddToolData;
   }
 
   @Override
-  protected ItemStack doApply(ItemStack stack, LootContext context) {
+  protected ItemStack run(ItemStack stack, LootContext context) {
     if (TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
       ToolStack tool = ToolStack.from(stack);
       ToolDefinition definition = tool.getDefinition();
@@ -99,7 +99,7 @@ public class AddToolDataFunction extends LootFunction {
 
     @Override
     public AddToolDataFunction deserialize(JsonObject object, JsonDeserializationContext context, ILootCondition[] conditions) {
-      float damage = JSONUtils.getFloat(object, "damage_percent", 0f);
+      float damage = JSONUtils.getAsFloat(object, "damage_percent", 0f);
       if (damage < 0 || damage > 1) {
         throw new JsonSyntaxException("damage_percent must be between 0 and 1, given " + damage);
       }
@@ -120,7 +120,7 @@ public class AddToolDataFunction extends LootFunction {
     protected Builder() {}
 
     @Override
-    protected Builder doCast() {
+    protected Builder getThis() {
       return this;
     }
 

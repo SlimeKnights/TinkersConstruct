@@ -46,7 +46,7 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
     this.addModule(this.tabsScreen);
 
     if (this.tile != null) {
-      World world = this.tile.getWorld();
+      World world = this.tile.getLevel();
 
       if (world != null) {
         for (Pair<BlockPos, BlockState> pair : container.stationBlocks) {
@@ -60,7 +60,7 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
 
     // preselect the correct tab
     for (int i = 0; i < this.tabsScreen.tabData.size(); i++) {
-      if (this.tabsScreen.tabData.get(i).equals(this.tile.getPos())) {
+      if (this.tabsScreen.tabData.get(i).equals(this.tile.getBlockPos())) {
         this.tabsScreen.tabs.selected = i;
       }
     }
@@ -71,12 +71,12 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
   }
 
   protected void drawIcon(MatrixStack matrices, Slot slot, ElementScreen element) {
-    this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
-    element.draw(matrices, slot.xPos + this.cornerX - 1, slot.yPos + this.cornerY - 1);
+    this.minecraft.getTextureManager().bind(Icons.ICONS);
+    element.draw(matrices, slot.x + this.cornerX - 1, slot.y + this.cornerY - 1);
   }
 
   protected void drawIconEmpty(MatrixStack matrices, Slot slot, ElementScreen element) {
-    if (slot.getHasStack()) {
+    if (slot.hasItem()) {
       return;
     }
 
@@ -88,7 +88,7 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
       return;
     }
 
-    World world = this.tile.getWorld();
+    World world = this.tile.getLevel();
 
     if (world == null) {
       return;
@@ -98,12 +98,12 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
     BlockState state = world.getBlockState(pos);
 
     if (state.getBlock() instanceof ITinkerStationBlock) {
-      TileEntity te = this.tile.getWorld().getTileEntity(pos);
+      TileEntity te = this.tile.getLevel().getBlockEntity(pos);
       TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
 
       // sound!
       assert this.minecraft != null;
-      this.minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+      this.minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
   }
 
@@ -126,7 +126,7 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
         sideInventoryName = ((INamedContainerProvider) te).getDisplayName();
       }
 
-      this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, playerInventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
+      this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, inventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
     }
   }
 }

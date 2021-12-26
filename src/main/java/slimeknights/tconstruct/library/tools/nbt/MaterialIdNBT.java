@@ -81,12 +81,12 @@ public class MaterialIdNBT {
       return EMPTY;
     }
     ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.getTagType() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
       return EMPTY;
     }
 
     List<MaterialId> materials = listNBT.stream()
-      .map(INBT::getString)
+      .map(INBT::getAsString)
       .map(MaterialId::tryCreate)
       .filter(Objects::nonNull)
       .collect(Collectors.toList());

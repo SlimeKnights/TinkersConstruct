@@ -107,7 +107,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /** @deprecated use {@link #getCraftingResult(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
 
@@ -120,7 +120,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /** Cache of modifier result, same for all overslime */
   private static final Lazy<ModifierEntry> RESULT = Lazy.of(() -> new ModifierEntry(TinkerModifiers.overslime.get(), 1));
   /** Cache of tools for input, same for all overslime */
-  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> TinkerTags.Items.DURABILITY.getAllElements().stream().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
+  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> TinkerTags.Items.DURABILITY.getValues().stream().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
 
   private List<ItemStack> toolWithModifier = null;
   /** Cache of display outputs, value depends on recipe */
@@ -132,7 +132,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       // set cap and amount based on the restore amount for output
       displayItems = Arrays.asList(
         DISPLAY_TOOLS.get(),
-        Arrays.asList(ingredient.getMatchingStacks()));
+        Arrays.asList(ingredient.getItems()));
     }
     return displayItems;
   }
@@ -142,7 +142,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      toolWithModifier = TinkerTags.Items.DURABILITY.getAllElements().stream()
+      toolWithModifier = TinkerTags.Items.DURABILITY.getValues().stream()
                                                     .map(MAP_TOOL_FOR_RENDERING)
                                                     .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setShield(data, restoreAmount)))
                                                     .collect(Collectors.toList());
@@ -157,23 +157,23 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   public static class Serializer extends LoggingRecipeSerializer<OverslimeModifierRecipe> {
     @Override
-    public OverslimeModifierRecipe read(ResourceLocation id, JsonObject json) {
-      Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
-      int restoreAmount = JSONUtils.getInt(json, "restore_amount");
+    public OverslimeModifierRecipe fromJson(ResourceLocation id, JsonObject json) {
+      Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
+      int restoreAmount = JSONUtils.getAsInt(json, "restore_amount");
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Nullable
     @Override
     protected OverslimeModifierRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient ingredient = Ingredient.read(buffer);
+      Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
     protected void writeSafe(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
-      recipe.ingredient.write(buffer);
+      recipe.ingredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }
   }

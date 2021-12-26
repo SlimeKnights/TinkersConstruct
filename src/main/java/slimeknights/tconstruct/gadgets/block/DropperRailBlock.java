@@ -13,6 +13,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class DropperRailBlock extends RailBlock {
 
   public DropperRailBlock(Properties properties) {
@@ -24,7 +26,7 @@ public class DropperRailBlock extends RailBlock {
     if (!cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent() || !(cart instanceof IHopper)) {
       return;
     }
-    TileEntity tileEntity = world.getTileEntity(pos.down());
+    TileEntity tileEntity = world.getBlockEntity(pos.below());
     if (tileEntity == null || !tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
       return;
     }

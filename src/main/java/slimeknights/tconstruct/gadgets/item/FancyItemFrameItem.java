@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.item.Item.Properties;
+
 public class FancyItemFrameItem extends Item {
 
   private final TriFunction<? extends HangingEntity, World, BlockPos, Direction> entityProvider;
@@ -28,36 +30,36 @@ public class FancyItemFrameItem extends Item {
    */
   @Override
   @Nonnull
-  public ActionResultType onItemUse(ItemUseContext context) {
-    BlockPos pos = context.getPos();
-    Direction facing = context.getFace();
-    BlockPos placeLocation = pos.offset(facing);
+  public ActionResultType useOn(ItemUseContext context) {
+    BlockPos pos = context.getClickedPos();
+    Direction facing = context.getClickedFace();
+    BlockPos placeLocation = pos.relative(facing);
     PlayerEntity player = context.getPlayer();
-    ItemStack stack = context.getItem();
+    ItemStack stack = context.getItemInHand();
     if (player != null && !this.canPlace(player, facing, stack, placeLocation)) {
       return ActionResultType.FAIL;
     }
 
-    World world = context.getWorld();
+    World world = context.getLevel();
     HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
     CompoundNBT tag = stack.getTag();
     if (tag != null) {
-      EntityType.applyItemNBT(world, player, frame, tag);
+      EntityType.updateCustomEntityTag(world, player, frame, tag);
     }
 
-    if (frame.onValidSurface()) {
-      if (!world.isRemote) {
-        frame.playPlaceSound();
-        world.addEntity(frame);
+    if (frame.survives()) {
+      if (!world.isClientSide) {
+        frame.playPlacementSound();
+        world.addFreshEntity(frame);
       }
       stack.shrink(1);
-      return ActionResultType.func_233537_a_(world.isRemote);
+      return ActionResultType.sidedSuccess(world.isClientSide);
     }
     return ActionResultType.CONSUME;
   }
 
   private boolean canPlace(PlayerEntity player, Direction facing, ItemStack stack, BlockPos pos) {
-    return !World.isOutsideBuildHeight(pos) && player.canPlayerEdit(pos, facing, stack);
+    return !World.isOutsideBuildHeight(pos) && player.mayUseItemAt(pos, facing, stack);
   }
 
   @FunctionalInterface

@@ -34,18 +34,18 @@ public class TableTileEntityRenderer<T extends TileEntity & IInventory> extends 
         List<ModelItem> modelItems = model.getItems();
 
         for(int i = 0; i < modelItems.size(); ++i) {
-          RenderingHelper.renderItem(matrices, buffer, inventory.getStackInSlot(i), modelItems.get(i), light);
+          RenderingHelper.renderItem(matrices, buffer, inventory.getItem(i), modelItems.get(i), light);
         }
 
         if (isRotated) {
-          matrices.pop();
+          matrices.popPose();
         }
       }
     }
   }
 
   @Override
-  public boolean isGlobalRenderer(T tile) {
+  public boolean shouldRenderOffScreen(T tile) {
     return !tile.isEmpty();
   }
 }

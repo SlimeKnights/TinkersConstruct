@@ -26,7 +26,7 @@ class MaterialNBTTest extends BaseMcTest {
     ListNBT nbtList = testMaterialNBT.serializeToNBT();
 
     assertThat(nbtList).hasSize(2);
-    assertThat(nbtList).extracting(INBT::getString).containsExactly(
+    assertThat(nbtList).extracting(INBT::getAsString).containsExactly(
       TEST_MATERIAL_1.getIdentifier().toString(),
       TEST_MATERIAL_2.getIdentifier().toString()
     );

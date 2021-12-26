@@ -26,7 +26,7 @@ public class HeatingStructureContainer extends TriggeringMultiModuleContainer<He
       sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, structure, 0, 0, calcColumns(inventory.getSlots()));
       addSubContainer(sideInventory, true);
 
-      Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
+      Consumer<IntReferenceHolder> referenceConsumer = this::addDataSlot;
       ValidZeroIntReference.trackIntArray(referenceConsumer, structure.getFuelModule());
       inventory.trackInts(array -> ValidZeroIntReference.trackIntArray(referenceConsumer, array));
     } else {

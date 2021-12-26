@@ -19,7 +19,7 @@ public class MithridatismModifier extends TotalArmorLevelModifier {
 
   /** Prevents poison on the entity */
   private static void isPotionApplicable(PotionApplicableEvent event) {
-    if (event.getPotionEffect().getPotion() == Effects.POISON && ModifierUtil.getTotalModifierLevel(event.getEntityLiving(), MITHRIDATISM) > 0) {
+    if (event.getPotionEffect().getEffect() == Effects.POISON && ModifierUtil.getTotalModifierLevel(event.getEntityLiving(), MITHRIDATISM) > 0) {
       event.setResult(Result.DENY);
     }
   }

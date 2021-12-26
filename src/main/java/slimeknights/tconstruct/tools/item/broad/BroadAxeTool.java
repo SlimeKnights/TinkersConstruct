@@ -12,8 +12,10 @@ import slimeknights.tconstruct.tools.item.small.HandAxeTool;
 
 import java.util.Set;
 
+import net.minecraft.item.Item.Properties;
+
 public class BroadAxeTool extends HandAxeTool {
-  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.GOURD);
+  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.VEGETABLE);
   private static final TreeAOEHarvestLogic HARVEST_LOGIC = new TreeAOEHarvestLogic(0, 0, 5) {
     @Override
     public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {

@@ -102,11 +102,11 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   /**
-   * Called from {@link slimeknights.tconstruct.smeltery.block.AbstractCastingBlock#onBlockActivated(BlockState, World, BlockPos, PlayerEntity, Hand, BlockRayTraceResult)}
+   * Called from {@link slimeknights.tconstruct.smeltery.block.AbstractCastingBlock#use(BlockState, World, BlockPos, PlayerEntity, Hand, BlockRayTraceResult)}
    * @param player Player activating the block.
    */
   public void interact(PlayerEntity player, Hand hand) {
-    if (world == null || world.isRemote) {
+    if (level == null || level.isClientSide) {
       return;
     }
     // can't interact if liquid inside
@@ -114,9 +114,9 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       return;
     }
 
-    ItemStack held = player.getHeldItem(hand);
-    ItemStack input = getStackInSlot(INPUT);
-    ItemStack output = getStackInSlot(OUTPUT);
+    ItemStack held = player.getItemInHand(hand);
+    ItemStack input = getItem(INPUT);
+    ItemStack output = getItem(OUTPUT);
 
     // all molding recipes require a stack in the input slot and nothing in the output slot
     if (!input.isEmpty() && output.isEmpty()) {
@@ -125,21 +125,21 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       MoldingRecipe recipe = findMoldingRecipe();
       if (recipe != null) {
         // if hand is empty, pick up the result (hand empty will only match recipes with no mold item)
-        ItemStack result = recipe.getCraftingResult(moldingInventory);
-        result.onCrafting(world, player, 1);
+        ItemStack result = recipe.assemble(moldingInventory);
+        result.onCraftedBy(level, player, 1);
         if (held.isEmpty()) {
-          setInventorySlotContents(INPUT, ItemStack.EMPTY);
-          player.setHeldItem(hand, result);
+          setItem(INPUT, ItemStack.EMPTY);
+          player.setItemInHand(hand, result);
         } else {
           // if the recipe has a mold, hand item goes on table (if not consumed in crafting)
-          setInventorySlotContents(INPUT, result);
+          setItem(INPUT, result);
           if (!recipe.isPatternConsumed()) {
-            setInventorySlotContents(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
+            setItem(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
             // send a block update for the comparator, needs to be done after the stack is removed
-            world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
+            level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
           }
           held.shrink(1);
-          player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
+          player.setItemInHand(hand, held.isEmpty() ? ItemStack.EMPTY : held);
         }
         moldingInventory.setPattern(ItemStack.EMPTY);
         return;
@@ -149,8 +149,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
         moldingInventory.setPattern(ItemStack.EMPTY);
         recipe = findMoldingRecipe();
         if (recipe != null) {
-          setInventorySlotContents(INPUT, ItemStack.EMPTY);
-          ItemHandlerHelper.giveItemToPlayer(player, recipe.getCraftingResult(moldingInventory), player.inventory.currentItem);
+          setItem(INPUT, ItemStack.EMPTY);
+          ItemHandlerHelper.giveItemToPlayer(player, recipe.assemble(moldingInventory), player.inventory.selected);
           return;
         }
       }
@@ -163,8 +163,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     if (input.isEmpty() && output.isEmpty()) {
       if (!held.isEmpty()) {
         ItemStack stack = held.split(stackSizeLimit);
-        player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
-        setInventorySlotContents(INPUT, stack);
+        player.setItemInHand(hand, held.isEmpty() ? ItemStack.EMPTY : held);
+        setItem(INPUT, stack);
       }
     } else {
       // stack in either slot, take one out
@@ -174,24 +174,24 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       // Additional info: Only 1 item can be put into the casting block usually, however recipes
       // can have ItemStacks with stacksize > 1 as output
       // we therefore spill the whole contents on extraction.
-      ItemStack stack = getStackInSlot(slot);
-      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.currentItem);
-      setInventorySlotContents(slot, ItemStack.EMPTY);
+      ItemStack stack = getItem(slot);
+      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.selected);
+      setItem(slot, ItemStack.EMPTY);
 
       // send a block update for the comparator, needs to be done after the stack is removed
       if (slot == OUTPUT) {
-        world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
+        level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
       }
     }
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack stack) {
-    ItemStack original = getStackInSlot(slot);
-    super.setInventorySlotContents(slot, stack);
+  public void setItem(int slot, ItemStack stack) {
+    ItemStack original = getItem(slot);
+    super.setItem(slot, stack);
     // if the stack changed emptiness, update
-    if (original.isEmpty() != stack.isEmpty() && world != null && !world.isRemote) {
-      world.updateComparatorOutputLevel(pos, this.getBlockState().getBlock());
+    if (original.isEmpty() != stack.isEmpty() && level != null && !level.isClientSide) {
+      level.updateNeighbourForOutputSignal(worldPosition, this.getBlockState().getBlock());
     }
   }
   
@@ -202,12 +202,12 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
-  public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
+  public boolean canPlaceItemThroughFace(int index, ItemStack itemStackIn, @Nullable Direction direction) {
     return tank.isEmpty() && index == INPUT && !isStackInSlot(OUTPUT);
   }
 
   @Override
-  public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+  public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
     return tank.isEmpty() && index == OUTPUT;
   }
 
@@ -216,17 +216,17 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     // no recipe
     // TODO: should consider the case where the tank has fluid, but there is no current recipe
     // would like to avoid doing a recipe lookup every tick, so need some way to handle the case of no recipe found, ideally without fluid voiding
-    if (world == null || currentRecipe == null) {
+    if (level == null || currentRecipe == null) {
       return;
     }
     // fully filled
     FluidStack currentFluid = tank.getFluid();
     if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
       timer++;
-      if (!world.isRemote) {
+      if (!level.isClientSide) {
         castingInventory.setFluid(currentFluid);
         if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
-          if (!currentRecipe.matches(castingInventory, world)) {
+          if (!currentRecipe.matches(castingInventory, level)) {
             // if lost our recipe or the recipe needs more fluid then we have, we are done
             // will come around later for the proper fluid amount
             currentRecipe = findCastingRecipe();
@@ -238,39 +238,39 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
           }
 
           // actual recipe result
-          ItemStack output = currentRecipe.getCraftingResult(castingInventory);
+          ItemStack output = currentRecipe.assemble(castingInventory);
           ToolStack.ensureInitialized(output); // its possible we are casting a modifiable tool
           if (currentRecipe.switchSlots()) {
             if (!currentRecipe.isConsumed()) {
-              setInventorySlotContents(OUTPUT, getStackInSlot(INPUT));
+              setItem(OUTPUT, getItem(INPUT));
             }
-            setInventorySlotContents(INPUT, output);
+            setItem(INPUT, output);
           } else {
             if (currentRecipe.isConsumed()) {
-              setInventorySlotContents(INPUT, ItemStack.EMPTY);
+              setItem(INPUT, ItemStack.EMPTY);
             }
-            setInventorySlotContents(OUTPUT, output);
+            setItem(OUTPUT, output);
           }
-          world.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundCategory.AMBIENT, 0.5f, 4f);
+          level.playSound(null, worldPosition, Sounds.CASTING_COOLS.getSound(), SoundCategory.AMBIENT, 0.5f, 4f);
 
           reset();
 
-          world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
+          level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
         }
       }
-      else if (world.rand.nextFloat() > 0.9f) {
-        world.addParticle(ParticleTypes.SMOKE, pos.getX() + world.rand.nextDouble(), pos.getY() + 1.1d, pos.getZ() + world.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
+      else if (level.random.nextFloat() > 0.9f) {
+        level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + level.random.nextDouble(), worldPosition.getY() + 1.1d, worldPosition.getZ() + level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
       }
     }
   }
 
   @Nullable
   private ICastingRecipe findCastingRecipe() {
-    if (world == null) return null;
-    if (this.lastCastingRecipe != null && this.lastCastingRecipe.matches(castingInventory, world)) {
+    if (level == null) return null;
+    if (this.lastCastingRecipe != null && this.lastCastingRecipe.matches(castingInventory, level)) {
       return this.lastCastingRecipe;
     }
-    ICastingRecipe castingRecipe = world.getRecipeManager().getRecipe(this.castingType, castingInventory, world).orElse(null);
+    ICastingRecipe castingRecipe = level.getRecipeManager().getRecipeFor(this.castingType, castingInventory, level).orElse(null);
     if (castingRecipe != null) {
       this.lastCastingRecipe = castingRecipe;
     }
@@ -284,11 +284,11 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
    */
   @Nullable
   private MoldingRecipe findMoldingRecipe() {
-    if (world == null) return null;
-    if (lastMoldingRecipe != null && lastMoldingRecipe.matches(moldingInventory, world)) {
+    if (level == null) return null;
+    if (lastMoldingRecipe != null && lastMoldingRecipe.matches(moldingInventory, level)) {
       return lastMoldingRecipe;
     }
-    Optional<MoldingRecipe> newRecipe = world.getRecipeManager().getRecipe(moldingType, moldingInventory, world);
+    Optional<MoldingRecipe> newRecipe = level.getRecipeManager().getRecipeFor(moldingType, moldingInventory, level);
     if (newRecipe.isPresent()) {
       lastMoldingRecipe = newRecipe.get();
       return lastMoldingRecipe;
@@ -308,8 +308,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       return 0;
     }
 
-    boolean hasInput = !getStackInSlot(INPUT).isEmpty();
-    boolean hasOutput = !getStackInSlot(OUTPUT).isEmpty();
+    boolean hasInput = !getItem(INPUT).isEmpty();
+    boolean hasOutput = !getItem(OUTPUT).isEmpty();
 
     // no space for output, done
     if (hasInput && hasOutput) {
@@ -339,8 +339,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
           this.recipeName = null;
           this.lastOutput = null;
           // move output to input slot, prevents removing and ensures item is reduced properly
-          setInventorySlotContents(INPUT, getStackInSlot(OUTPUT));
-          setInventorySlotContents(OUTPUT, ItemStack.EMPTY);
+          setItem(INPUT, getItem(OUTPUT));
+          setItem(OUTPUT, ItemStack.EMPTY);
           castingInventory.useInput();
         }
         return castingRecipe.getFluidAmount(castingInventory);
@@ -394,7 +394,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
         return ItemStack.EMPTY;
       }
       castingInventory.setFluid(tank.getFluid());
-      lastOutput = currentRecipe.getCraftingResult(castingInventory);
+      lastOutput = currentRecipe.assemble(castingInventory);
     }
     return lastOutput;
   }
@@ -415,15 +415,15 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
   /**
    * Loads a recipe in from its name and updates the tank capacity
-   * @param world  Nonnull world instance
+   * @param level  Nonnull level instance
    * @param name   Recipe name to load
    */
-  private void loadRecipe(World world, ResourceLocation name) {
+  private void loadRecipe(World level, ResourceLocation name) {
     // if the tank is empty, ignore old recipe
     FluidStack fluid = tank.getFluid();
     if(!fluid.isEmpty()) {
       // fetch recipe by name
-      RecipeHelper.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
+      RecipeHelper.getRecipe(level.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
         this.currentRecipe = recipe;
         castingInventory.setFluid(fluid);
         tank.setCapacity(recipe.getFluidAmount(castingInventory));
@@ -432,11 +432,11 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
-  public void setWorldAndPos(World world, BlockPos pos) {
-    super.setWorldAndPos(world, pos);
+  public void setLevelAndPosition(World level, BlockPos pos) {
+    super.setLevelAndPosition(level, pos);
     // if we have a recipe name, swap recipe name for recipe instance
     if (recipeName != null) {
-      loadRecipe(world, recipeName);
+      loadRecipe(level, recipeName);
       recipeName = null;
     }
   }
@@ -456,17 +456,17 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tags) {
-    super.read(state, tags);
+  public void load(BlockState state, CompoundNBT tags) {
+    super.load(state, tags);
     tank.readFromNBT(tags.getCompound(TAG_TANK));
     timer = tags.getInt(TAG_TIMER);
     if (tags.contains(TAG_RECIPE, NBT.TAG_STRING)) {
       ResourceLocation name = new ResourceLocation(tags.getString(TAG_RECIPE));
-      // if we have a world, fetch the recipe
-      if (world != null) {
-        loadRecipe(world, name);
+      // if we have a level, fetch the recipe
+      if (level != null) {
+        loadRecipe(level, name);
       } else {
-        // otherwise fetch the recipe when the world is set
+        // otherwise fetch the recipe when the level is set
         recipeName = name;
       }
     }

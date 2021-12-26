@@ -22,17 +22,17 @@ public class SeveringModifier extends Modifier {
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob
     // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping player heads
-    if (!context.has(LootParameters.DAMAGE_SOURCE)) {
+    if (!context.hasParam(LootParameters.DAMAGE_SOURCE)) {
       return generatedLoot;
     }
 
     // must have an entity
-    Entity entity = context.get(LootParameters.THIS_ENTITY);
+    Entity entity = context.getParamOrNull(LootParameters.THIS_ENTITY);
     if (entity != null) {
       // ensure no head so far
       if (generatedLoot.stream().noneMatch(stack -> Tags.Items.HEADS.contains(stack.getItem()))) {
         // find proper recipe
-        List<SeveringRecipe> recipes = SeveringRecipeCache.findRecipe(context.getWorld().getRecipeManager(), entity.getType());
+        List<SeveringRecipe> recipes = SeveringRecipeCache.findRecipe(context.getLevel().getRecipeManager(), entity.getType());
         if (!recipes.isEmpty()) {
           // 5% chance per level, bonus 5% per level of looting
           float chance = (level + context.getLootingModifier()) * 0.05f;

@@ -22,7 +22,7 @@ public class TileCastingWrapper implements ICastingInventory {
 
   @Override
   public ItemStack getStack() {
-    return tile.getStackInSlot(switchSlots ? CastingTileEntity.OUTPUT : CastingTileEntity.INPUT);
+    return tile.getItem(switchSlots ? CastingTileEntity.OUTPUT : CastingTileEntity.INPUT);
   }
 
   @Override

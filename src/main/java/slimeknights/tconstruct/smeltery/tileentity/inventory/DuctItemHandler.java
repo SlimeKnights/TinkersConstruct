@@ -27,12 +27,12 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
    */
   @Override
   public void setStack(ItemStack newStack) {
-    World world = parent.getWorld();
-    boolean hasChange = world != null && !ItemStack.areItemStacksEqual(getStack(), newStack);
+    World world = parent.getLevel();
+    boolean hasChange = world != null && !ItemStack.matches(getStack(), newStack);
     super.setStack(newStack);
     if (hasChange) {
-      if (!world.isRemote) {
-        BlockPos pos = parent.getPos();
+      if (!world.isClientSide) {
+        BlockPos pos = parent.getBlockPos();
         TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
       } else {
         parent.updateFluid();
@@ -43,9 +43,9 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
   @Override
   protected boolean isItemValid(ItemStack stack) {
     // the item or its container must be in the tag
-    if (!stack.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS)) {
+    if (!stack.getItem().is(TinkerTags.Items.DUCT_CONTAINERS)) {
       ItemStack container = stack.getContainerItem();
-      if (container.isEmpty() || !container.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS)) {
+      if (container.isEmpty() || !container.getItem().is(TinkerTags.Items.DUCT_CONTAINERS)) {
         return false;
       }
     }

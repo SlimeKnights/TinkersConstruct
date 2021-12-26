@@ -59,12 +59,12 @@ public class LayoutSlot {
     if (buffer.readBoolean()) {
       pattern = new Pattern(buffer.readResourceLocation());
     }
-    String name = buffer.readString(Short.MAX_VALUE);
+    String name = buffer.readUtf(Short.MAX_VALUE);
     int x = buffer.readVarInt();
     int y = buffer.readVarInt();
     Ingredient ingredient = null;
     if (buffer.readBoolean()) {
-      ingredient = Ingredient.read(buffer);
+      ingredient = Ingredient.fromNetwork(buffer);
     }
     return new LayoutSlot(pattern, name, x, y, ingredient);
   }
@@ -77,12 +77,12 @@ public class LayoutSlot {
     } else {
       buffer.writeBoolean(false);
     }
-    buffer.writeString(getTranslationKey());
+    buffer.writeUtf(getTranslationKey());
     buffer.writeVarInt(x);
     buffer.writeVarInt(y);
     if (filter != null) {
       buffer.writeBoolean(true);
-      filter.write(buffer);
+      filter.toNetwork(buffer);
     } else {
       buffer.writeBoolean(false);
     }

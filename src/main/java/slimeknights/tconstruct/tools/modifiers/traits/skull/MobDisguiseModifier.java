@@ -31,7 +31,7 @@ public class MobDisguiseModifier extends SingleUseModifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR) {
+    if (context.getChangedSlot().getType() == Group.ARMOR) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);
         if (disguises == null) {
@@ -45,7 +45,7 @@ public class MobDisguiseModifier extends SingleUseModifier {
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR) {
+    if (context.getChangedSlot().getType() == Group.ARMOR) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);
         if (disguises != null) {

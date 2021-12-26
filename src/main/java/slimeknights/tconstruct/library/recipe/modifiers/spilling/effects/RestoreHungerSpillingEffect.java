@@ -23,7 +23,7 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
     if (target instanceof PlayerEntity) {
       PlayerEntity player = (PlayerEntity) target;
       if (player.canEat(false)) {
-        player.getFoodStats().addStats((int)(hunger * scale), saturation * scale);
+        player.getFoodData().eat((int)(hunger * scale), saturation * scale);
       }
     }
   }
@@ -36,8 +36,8 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
   private static class Loader implements ISpillingEffectLoader<RestoreHungerSpillingEffect> {
     @Override
     public RestoreHungerSpillingEffect deserialize(JsonObject json) {
-      int hunger = JSONUtils.getInt(json, "hunger");
-      float saturation = JSONUtils.getFloat(json, "saturation");
+      int hunger = JSONUtils.getAsInt(json, "hunger");
+      float saturation = JSONUtils.getAsFloat(json, "saturation");
       return new RestoreHungerSpillingEffect(hunger, saturation);
     }
 

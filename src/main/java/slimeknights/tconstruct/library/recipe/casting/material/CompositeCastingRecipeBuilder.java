@@ -45,7 +45,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
@@ -54,7 +54,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return serializer;
     }
   }

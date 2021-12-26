@@ -34,12 +34,12 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   }
 
   private static boolean isAirborne(LivingEntity living) {
-    return !living.isOnGround() && !living.isOnLadder() && !living.isInWater() && !living.isPassenger();
+    return !living.isOnGround() && !living.onClimbable() && !living.isInWater() && !living.isPassenger();
   }
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && isAirborne(context.getEntity())) {
+    if (!source.isBypassMagic() && !source.isBypassInvul() && isAirborne(context.getEntity())) {
       modifierValue += getScaledLevel(tool, level) * 2.5;
     }
     return modifierValue;

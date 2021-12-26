@@ -23,6 +23,9 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import net.minecraft.item.crafting.Ingredient.SingleItemList;
+import net.minecraft.item.crafting.Ingredient.TagList;
+
 /**
  * Extension of the vanilla ingredient to display materials on items and support matching by materials
  */
@@ -90,7 +93,7 @@ public class MaterialIngredient extends Ingredient {
   }
 
   @Override
-  public ItemStack[] getMatchingStacks() {
+  public ItemStack[] getItems() {
     if (materialStacks == null) {
       if (!MaterialRegistry.isFullyLoaded()) {
         return getPlainMatchingStacks();
@@ -116,12 +119,12 @@ public class MaterialIngredient extends Ingredient {
    * @return  Matching stacks with no materials
    */
   private ItemStack[] getPlainMatchingStacks() {
-    return super.getMatchingStacks();
+    return super.getItems();
   }
 
   @Override
-  public JsonElement serialize() {
-    JsonElement parent = super.serialize();
+  public JsonElement toJson() {
+    JsonElement parent = super.toJson();
     if (!parent.isJsonObject()) {
       throw new JsonIOException("Cannot serialize an array of material ingredients, use CompoundIngredient instead");
     }
@@ -161,17 +164,17 @@ public class MaterialIngredient extends Ingredient {
     public MaterialIngredient parse(JsonObject json) {
       MaterialId material;
       if (json.has("material")) {
-        material = new MaterialId(JSONUtils.getString(json, "material"));
+        material = new MaterialId(JSONUtils.getAsString(json, "material"));
       } else {
         material = WILDCARD;
       }
-      return new MaterialIngredient(Stream.of(Ingredient.deserializeItemList(json)), material);
+      return new MaterialIngredient(Stream.of(Ingredient.valueFromJson(json)), material);
     }
 
     @Override
     public MaterialIngredient parse(PacketBuffer buffer) {
       MaterialId material = new MaterialId(buffer.readResourceLocation());
-      return new MaterialIngredient(Stream.generate(() -> new SingleItemList(buffer.readItemStack())).limit(buffer.readVarInt()), material);
+      return new MaterialIngredient(Stream.generate(() -> new SingleItemList(buffer.readItem())).limit(buffer.readVarInt()), material);
     }
 
     @Override
@@ -182,7 +185,7 @@ public class MaterialIngredient extends Ingredient {
       ItemStack[] items = ingredient.getPlainMatchingStacks();
       buffer.writeVarInt(items.length);
       for (ItemStack stack : items) {
-        buffer.writeItemStack(stack);
+        buffer.writeItem(stack);
       }
     }
   }

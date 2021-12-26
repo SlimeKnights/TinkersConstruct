@@ -16,8 +16,8 @@ public class PocketChainModifier extends SingleLevelModifier implements IArmorIn
 
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
-    if (player.isSneaking()) {
-      return ToolInventoryCapability.tryOpenContainer(player.getItemStackFromSlot(slot), tool, player, slot).isSuccessOrConsume();
+    if (player.isShiftKeyDown()) {
+      return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
     }
     return false;
   }

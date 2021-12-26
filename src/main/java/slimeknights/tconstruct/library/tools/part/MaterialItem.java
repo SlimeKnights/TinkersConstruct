@@ -23,6 +23,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Represents an item that has a Material associated with it. The NBT of the itemstack identifies which material the
  * itemstack of this item has.
@@ -63,8 +65,8 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group) && MaterialRegistry.isFullyLoaded()) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.allowdedIn(group) && MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set in the config, try adding that
       String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
       boolean added = false;
@@ -94,13 +96,13 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public ITextComponent getDisplayName(ItemStack stack) {
+  public ITextComponent getName(ItemStack stack) {
     // if no material, return part name directly
     IMaterial material = getMaterial(stack);
     if (material == IMaterial.UNKNOWN) {
-      return super.getDisplayName(stack);
+      return super.getName(stack);
     }
-    String key = this.getTranslationKey(stack);
+    String key = this.getDescriptionId(stack);
     ResourceLocation loc = material.getIdentifier();
     // if there is a specific name, use that
     String fullKey = String.format("%s.%s.%s", key, loc.getNamespace(), loc.getPath());
@@ -114,7 +116,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       return new TranslationTextComponent(materialPrefix, new TranslationTextComponent(key));
     }
     // format as "<material> <item name>"
-    return new TranslationTextComponent(materialKey).appendString(" ").appendSibling(new TranslationTextComponent(key));
+    return new TranslationTextComponent(materialKey).append(" ").append(new TranslationTextComponent(key));
   }
 
   @Nullable
@@ -138,7 +140,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public boolean updateItemStackNBT(CompoundNBT nbt) {
+  public boolean verifyTagAfterLoad(CompoundNBT nbt) {
     // if the material exists and was changed, update it
     if (nbt.contains("tag", NBT.TAG_COMPOUND)) {
       CompoundNBT tag = nbt.getCompound("tag");

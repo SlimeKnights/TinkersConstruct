@@ -41,7 +41,7 @@ public class MelterTileEntityRenderer extends TileEntityRenderer<MelterTileEntit
 
       // pop back rotation
       if (isRotated) {
-        matrices.pop();
+        matrices.popPose();
       }
     }
   }

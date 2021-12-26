@@ -37,7 +37,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isExplosion()) {
+    if (!source.isBypassMagic() && !source.isBypassInvul() && source.isExplosion()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
@@ -62,20 +62,20 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   private static void onExplosionDetonate(ExplosionEvent.Detonate event) {
     Explosion explosion = event.getExplosion();
     Vector3d center = explosion.getPosition();
-    float diameter = explosion.size * 2;
+    float diameter = explosion.radius * 2;
     // search the entities for someone protection by blast protection
     for (Entity entity : event.getAffectedEntities()) {
-      if (!entity.isImmuneToExplosions()) {
+      if (!entity.ignoreExplosion()) {
         entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
           // if the entity has blast protection and the blast protection level is bigger than vanilla, time to process
           BlastData blastData = data.get(BLAST_DATA);
           if (blastData != null && blastData.getMax() > 0) {
             // explosion is valid as long as the entity's eye is not directly on the explosion
-            double x = entity.getPosX() - center.x;
-            double z = entity.getPosZ() - center.z;
-            if (x != 0 || z != 0 || (entity.getPosYEye() - center.y) != 0) {
+            double x = entity.getX() - center.x;
+            double z = entity.getZ() - center.z;
+            if (x != 0 || z != 0 || (entity.getEyeY() - center.y) != 0) {
               // we need two numbers to calculate the knockback: distance to explosion and block density
-              double y = entity.getPosY() - center.y;
+              double y = entity.getY() - center.y;
               double distance = MathHelper.sqrt(x*x + y*y + z*z) / diameter;
               if (distance <= 1) {
                 blastData.wasKnockback = true;
@@ -90,7 +90,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   /** If the entity is marked for knockback update, adjust velocity */
   private static void livingTick(LivingUpdateEvent event) {
     LivingEntity living = event.getEntityLiving();
-    if (!living.getEntityWorld().isRemote) {
+    if (!living.level.isClientSide) {
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         BlastData blastData = data.get(BLAST_DATA);
         if (blastData != null && blastData.wasKnockback) {
@@ -101,11 +101,11 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
             // thus, we only care about our own level for reducing
             double scale = 1 - (blastData.getMax() * 0.15f);
             if (scale <= 0) {
-              living.setMotion(Vector3d.ZERO);
+              living.setDeltaMovement(Vector3d.ZERO);
             } else {
-              living.setMotion(living.getMotion().mul(scale, scale, scale));
+              living.setDeltaMovement(living.getDeltaMovement().multiply(scale, scale, scale));
             }
-            living.velocityChanged = true;
+            living.hurtMarked = true;
           }
         }
       });

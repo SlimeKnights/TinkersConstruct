@@ -112,7 +112,7 @@ sourceSets {
 }
 
 minecraft {
-    mappings channel: 'snapshot', version: mappings_version
+    mappings channel: 'official', version: minecraft_version
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 

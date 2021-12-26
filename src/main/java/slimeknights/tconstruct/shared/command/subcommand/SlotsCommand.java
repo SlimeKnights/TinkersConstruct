@@ -38,7 +38,7 @@ public class SlotsCommand {
    * @param subCommand  Command builder
    */
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
-    subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_GAME_COMMANDS))
+    subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
               .then(Commands.argument("targets", EntityArgument.entities())
                             // slots <target> add <slot_type> [<count>]
                             .then(Commands.literal("add")
@@ -84,7 +84,7 @@ public class SlotsCommand {
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
       return true;
     });
 
@@ -93,15 +93,15 @@ public class SlotsCommand {
     int size = successes.size();
     if (op == Operation.ADD) {
       if (size == 1) {
-        source.sendFeedback(new TranslationTextComponent(ADD_SUCCESS, count, slotType.getDisplayName(), successes.get(0).getDisplayName()), true);
+        source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS, count, slotType.getDisplayName(), successes.get(0).getDisplayName()), true);
       } else {
-        source.sendFeedback(new TranslationTextComponent(ADD_SUCCESS_MULTIPLE, count, slotType.getDisplayName(), size), true);
+        source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS_MULTIPLE, count, slotType.getDisplayName(), size), true);
       }
     } else {
       if (size == 1) {
-        source.sendFeedback(new TranslationTextComponent(SET_SUCCESS, slotType.getDisplayName(), count, successes.get(0).getDisplayName()), true);
+        source.sendSuccess(new TranslationTextComponent(SET_SUCCESS, slotType.getDisplayName(), count, successes.get(0).getDisplayName()), true);
       } else {
-        source.sendFeedback(new TranslationTextComponent(SET_SUCCESS_MULTIPLE, slotType.getDisplayName(), count, size), true);
+        source.sendSuccess(new TranslationTextComponent(SET_SUCCESS_MULTIPLE, slotType.getDisplayName(), count, size), true);
       }
     }
     return size;

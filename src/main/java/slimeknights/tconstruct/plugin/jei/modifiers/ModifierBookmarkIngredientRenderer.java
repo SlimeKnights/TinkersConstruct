@@ -26,7 +26,7 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
   public void render(MatrixStack matrixStack, int x, int y, @Nullable ModifierEntry entry) {
     if (entry != null) {
       Minecraft minecraft = Minecraft.getInstance();
-      minecraft.getTextureManager().bindTexture(ModifierRecipeCategory.BACKGROUND_LOC);
+      minecraft.getTextureManager().bind(ModifierRecipeCategory.BACKGROUND_LOC);
       Screen.blit(matrixStack, x, y, 224f, 0f, 16, 16, 256, 256);
       RenderUtils.setColorRGBA(0xFF000000 | entry.getModifier().getColor());
       Screen.blit(matrixStack, x, y, 240f, 0f, 16, 16, 256, 256);
@@ -39,7 +39,7 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
     List<ITextComponent> list = new ArrayList<>();
     list.add(new TranslationTextComponent(WRAPPER_KEY, new TranslationTextComponent(entry.getModifier().getTranslationKey())));
     if (flag.isAdvanced()) {
-      list.add((new StringTextComponent(entry.getModifier().getId().toString())).mergeStyle(TextFormatting.DARK_GRAY));
+      list.add((new StringTextComponent(entry.getModifier().getId().toString())).withStyle(TextFormatting.DARK_GRAY));
     }
     return list;
   }

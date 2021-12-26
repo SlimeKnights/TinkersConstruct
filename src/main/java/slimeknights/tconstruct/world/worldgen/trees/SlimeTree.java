@@ -25,7 +25,7 @@ public class SlimeTree extends Tree {
   @Deprecated
   @Nullable
   @Override
-  protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+  protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
     return null;
   }
 
@@ -51,17 +51,17 @@ public class SlimeTree extends Tree {
   }
 
   @Override
-  public boolean attemptGrowTree(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random rand) {
+  public boolean growTree(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random rand) {
     ConfiguredFeature<?, ?> configuredFeature = this.getSlimeTreeFeature();
     if (configuredFeature == null) {
       return false;
     }
-    world.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
-    if (configuredFeature.generate(world, chunkGenerator, rand, pos)) {
+    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
+    if (configuredFeature.place(world, chunkGenerator, rand, pos)) {
       return true;
     }
     else {
-      world.setBlockState(pos, state, 4);
+      world.setBlock(pos, state, 4);
       return false;
     }
   }

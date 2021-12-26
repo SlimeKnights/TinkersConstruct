@@ -21,7 +21,7 @@ public class PatternGuiTextureLoader extends ResourceValidator {
    * @param event
    */
   private void onTextureStitch(TextureStitchEvent.Pre event) {
-    if (PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(event.getMap().getTextureLocation())) {
+    if (PlayerContainer.BLOCK_ATLAS.equals(event.getMap().location())) {
       this.resources.forEach(event::addSprite);
     }
   }

@@ -23,7 +23,7 @@ public class EnderdodgingModifier extends SingleUseModifier {
   public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount) {
     // teleport always from projectiles
     LivingEntity self = context.getEntity();
-    if (!self.isPotionActive(TinkerModifiers.teleportCooldownEffect.get()) && source instanceof IndirectEntityDamageSource) {
+    if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source instanceof IndirectEntityDamageSource) {
       if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
         TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 0, true);
         ToolDamageUtil.damageAnimated(tool, (int)amount, self, slotType);
@@ -38,7 +38,7 @@ public class EnderdodgingModifier extends SingleUseModifier {
   public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // teleport randomly from other damage
     LivingEntity self = context.getEntity();
-    if (!self.isPotionActive(TinkerModifiers.teleportCooldownEffect.get()) && source.getTrueSource() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
+    if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
       if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
         TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 1, true);
       }

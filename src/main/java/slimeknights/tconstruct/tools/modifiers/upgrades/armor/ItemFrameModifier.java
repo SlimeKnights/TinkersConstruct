@@ -44,7 +44,7 @@ public class ItemFrameModifier extends InventoryModifier {
         CompoundNBT compound = list.getCompound(i);
         int slot = compound.getInt(TAG_SLOT);
         if (slot < max) {
-          parsed[slot] = ItemStack.read(compound);
+          parsed[slot] = ItemStack.of(compound);
         }
       }
       // add stacks into the list

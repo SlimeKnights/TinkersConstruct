@@ -32,23 +32,23 @@ public class SweepingSwordTool extends SwordTool {
     // sweep code from EntityPlayer#attackTargetEntityWithCurrentItem()
     // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
     LivingEntity attacker = context.getAttacker();
-    if (hit && context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && attacker.isOnGround() && (attacker.distanceWalkedModified - attacker.prevDistanceWalkedModified) < attacker.getAIMoveSpeed()) {
+    if (hit && context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && attacker.isOnGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
       // loop through all nearby entities
       double range = getSweepRange(tool);
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this
       float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
       Entity target = context.getTarget();
-      for (LivingEntity aoeTarget : attacker.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(range, 0.25D, range))) {
-        if (aoeTarget != attacker && aoeTarget != target && !attacker.isOnSameTeam(aoeTarget)
-            && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).hasMarker()) && attacker.getDistanceSq(aoeTarget) < 10.0D + range) {
-          aoeTarget.applyKnockback(0.4F, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F)));
+      for (LivingEntity aoeTarget : attacker.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(range, 0.25D, range))) {
+        if (aoeTarget != attacker && aoeTarget != target && !attacker.isAlliedTo(aoeTarget)
+            && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).isMarker()) && attacker.distanceToSqr(aoeTarget) < 10.0D + range) {
+          aoeTarget.knockback(0.4F, MathHelper.sin(attacker.yRot * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.yRot * ((float) Math.PI / 180F)));
           ToolAttackUtil.dealDefaultDamage(attacker, aoeTarget, sweepDamage);
         }
       }
 
-      attacker.world.playSound(null, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, attacker.getSoundCategory(), 1.0F, 1.0F);
+      attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, attacker.getSoundSource(), 1.0F, 1.0F);
       if (attacker instanceof PlayerEntity) {
-        ((PlayerEntity) attacker).spawnSweepParticles();
+        ((PlayerEntity) attacker).sweepAttack();
       }
     }
 

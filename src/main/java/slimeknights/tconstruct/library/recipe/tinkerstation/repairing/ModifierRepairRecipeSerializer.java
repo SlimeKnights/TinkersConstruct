@@ -24,10 +24,10 @@ public class ModifierRepairRecipeSerializer<T extends IRecipe<?> & IModifierRepa
   private final IFactory<T> factory;
 
   @Override
-  public T read(ResourceLocation id, JsonObject json) {
+  public T fromJson(ResourceLocation id, JsonObject json) {
     Modifier modifier = ModifierEntry.deserializeModifier(json, "modifier");
-    Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
-    int repairAmount = JSONUtils.getInt(json, "repair_amount");
+    Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
+    int repairAmount = JSONUtils.getAsInt(json, "repair_amount");
     return factory.create(id, modifier, ingredient, repairAmount);
   }
 
@@ -35,7 +35,7 @@ public class ModifierRepairRecipeSerializer<T extends IRecipe<?> & IModifierRepa
   @Override
   protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
     Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS);
-    Ingredient ingredient = Ingredient.read(buffer);
+    Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int repairAmount = buffer.readVarInt();
     return factory.create(id, modifier, ingredient, repairAmount);
   }
@@ -43,7 +43,7 @@ public class ModifierRepairRecipeSerializer<T extends IRecipe<?> & IModifierRepa
   @Override
   protected void writeSafe(PacketBuffer buffer, T recipe) {
     buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, recipe.getModifier());
-    recipe.getIngredient().write(buffer);
+    recipe.getIngredient().toNetwork(buffer);
     buffer.writeVarInt(recipe.getRepairAmount());
   }
 

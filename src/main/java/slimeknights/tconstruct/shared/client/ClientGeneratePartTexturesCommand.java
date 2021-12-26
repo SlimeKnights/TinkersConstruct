@@ -62,7 +62,7 @@ public class ClientGeneratePartTexturesCommand {
 
   /** Gets the clickable output link */
   protected static ITextComponent getOutputComponent(File file) {
-    return (new StringTextComponent(file.getAbsolutePath())).modifyStyle((style) -> style.setUnderlined(true).setClickEvent(new ClickEvent(Action.OPEN_FILE, file.getAbsolutePath())));
+    return (new StringTextComponent(file.getAbsolutePath())).withStyle((style) -> style.setUnderlined(true).withClickEvent(new ClickEvent(Action.OPEN_FILE, file.getAbsolutePath())));
   }
 
   /** Generates all textures using the resource pack list */
@@ -78,7 +78,7 @@ public class ClientGeneratePartTexturesCommand {
     List<PartSpriteInfo> partSprites = loadPartSprites(manager);
     if (partSprites.isEmpty()) {
       if (player != null) {
-        player.sendStatusMessage(NO_PARTS, false);
+        player.displayClientMessage(NO_PARTS, false);
       }
       return;
     }
@@ -90,13 +90,13 @@ public class ClientGeneratePartTexturesCommand {
     List<MaterialSpriteInfo> materialSprites = loadMaterialRenderInfoGenerators(manager, validMaterialId);
     if (materialSprites.isEmpty()) {
       if (player != null) {
-        player.sendStatusMessage(NO_MATERIALS, false);
+        player.displayClientMessage(NO_MATERIALS, false);
       }
       return;
     }
 
     // prepare the output directory
-    Path path = Minecraft.getInstance().getFileResourcePacks().toPath().resolve(PACK_NAME);
+    Path path = Minecraft.getInstance().getResourcePackDirectory().toPath().resolve(PACK_NAME);
     BiConsumer<ResourceLocation,NativeImage> saver = (outputPath, image) -> saveImage(path, outputPath, image);
 
     // create a pack.mcmeta so its a valid resource pack
@@ -137,7 +137,7 @@ public class ClientGeneratePartTexturesCommand {
     MaterialPartTextureGenerator.runCallbacks(null, null);
     log.info("Finished generating {} textures in {} ms", count, deltaTime / 1000000f);
     if (Minecraft.getInstance().player != null) {
-      Minecraft.getInstance().player.sendStatusMessage(new TranslationTextComponent(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, getOutputComponent(path.toFile())), false);
+      Minecraft.getInstance().player.displayClientMessage(new TranslationTextComponent(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, getOutputComponent(path.toFile())), false);
     }
   }
 
@@ -163,11 +163,11 @@ public class ClientGeneratePartTexturesCommand {
 
   /** Saves an image to the output folder */
   private static void saveImage(Path folder, ResourceLocation location, NativeImage image) {
-    Path path = folder.resolve(Paths.get(ResourcePackType.CLIENT_RESOURCES.getDirectoryName(),
+    Path path = folder.resolve(Paths.get(ResourcePackType.CLIENT_RESOURCES.getDirectory(),
                 location.getNamespace(), MaterialPartTextureGenerator.FOLDER, location.getPath() + ".png"));
     try {
       Files.createDirectories(path.getParent());
-      image.write(path);
+      image.writeToFile(path);
     } catch (IOException e) {
       log.error("Couldn't create image for {}", location, e);
     }
@@ -178,19 +178,19 @@ public class ClientGeneratePartTexturesCommand {
     ImmutableList.Builder<PartSpriteInfo> builder = ImmutableList.builder();
 
     // each namespace loads separately
-    for (String namespace : manager.getResourceNamespaces()) {
+    for (String namespace : manager.getNamespaces()) {
       ResourceLocation location = new ResourceLocation(namespace, GENERATOR_PART_TEXTURES);
       if (manager.hasResource(location)) {
         // if the namespace has the file, we will start building
         try {
           // start from the top most pack and work down, lets us break the loop as soon as we find a "replace"
-          List<IResource> resources = manager.getAllResources(location);
+          List<IResource> resources = manager.getResources(location);
           for (int r = resources.size() - 1; r >= 0; r--) {
             IResource resource = resources.get(r);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
-              JsonObject object = JSONUtils.fromJson(reader);
+              JsonObject object = JSONUtils.parse(reader);
               List<PartSpriteInfo> parts = JsonHelper.parseList(object, "parts", (element, name) -> {
-                JsonObject part = JSONUtils.getJsonObject(element, name);
+                JsonObject part = JSONUtils.convertToJsonObject(element, name);
                 ResourceLocation path = JsonHelper.getResourceLocation(part, "path");
                 MaterialStatsId statId = new MaterialStatsId(JsonHelper.getResourceLocation(part, "statType"));
                 return new PartSpriteInfo(path, statId);
@@ -198,11 +198,11 @@ public class ClientGeneratePartTexturesCommand {
               builder.addAll(parts);
 
               // if we find replace, don't process lower files from this namespace
-              if (JSONUtils.getBoolean(object, "replace", false)) {
+              if (JSONUtils.getAsBoolean(object, "replace", false)) {
                 break;
               }
             } catch (IOException ex) {
-              log.error("Failed to load modifier models from {} for pack {}", location, resource.getPackName(), ex);
+              log.error("Failed to load modifier models from {} for pack {}", location, resource.getSourceName(), ex);
             }
           }
         } catch (IOException ex) {
@@ -223,7 +223,7 @@ public class ClientGeneratePartTexturesCommand {
     ImmutableList.Builder<MaterialSpriteInfo> builder = ImmutableList.builder();
 
     int trim = MaterialRenderInfoLoader.FOLDER.length() + 1;
-    for(ResourceLocation location : manager.getAllResourceLocations(MaterialRenderInfoLoader.FOLDER, loc -> loc.endsWith(".json"))) {
+    for(ResourceLocation location : manager.listResources(MaterialRenderInfoLoader.FOLDER, loc -> loc.endsWith(".json"))) {
       // clean up ID by trimming off the extension
       String path = location.getPath();
       MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));

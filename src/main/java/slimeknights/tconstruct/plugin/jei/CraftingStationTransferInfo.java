@@ -43,7 +43,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
     List<Slot> slots = new ArrayList<>();
 
     // 36 for player inventory
-    int totalSize = craftingStationContainer.inventorySlots.size();
+    int totalSize = craftingStationContainer.slots.size();
     int sideInventoryEnd = totalSize - 36;
 
     // first, add all inventory slots, ensures they are first for emptying the table

@@ -35,7 +35,7 @@ public class CreativeSlotModifier extends SingleUseModifier {
     IModDataReadOnly persistentData = context.getPersistentData();
     if (persistentData.contains(KEY_SLOTS, NBT.TAG_COMPOUND)) {
       CompoundNBT slots = persistentData.getCompound(KEY_SLOTS);
-      for (String key : slots.keySet()) {
+      for (String key : slots.getAllKeys()) {
         SlotType slotType = SlotType.getIfPresent(key);
         if (slotType != null) {
           volatileData.addSlots(slotType, slots.getInt(key));
@@ -47,8 +47,8 @@ public class CreativeSlotModifier extends SingleUseModifier {
   /** Formats the given slot type as a count */
   private static ITextComponent formatCount(SlotType slotType, int count) {
     return new StringTextComponent((count > 0 ? "+" : "") + count + " ")
-      .appendSibling(slotType.getDisplayName())
-      .modifyStyle(style -> style.setColor(slotType.getColor()));
+      .append(slotType.getDisplayName())
+      .withStyle(style -> style.withColor(slotType.getColor()));
   }
 
   @Override
@@ -60,7 +60,7 @@ public class CreativeSlotModifier extends SingleUseModifier {
 
       // first one found has special behavior
       boolean first = true;
-      for (String key : slots.keySet()) {
+      for (String key : slots.getAllKeys()) {
         SlotType slotType = SlotType.getIfPresent(key);
         if (slotType != null) {
           if (first) {

@@ -50,7 +50,7 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
   }
 
   @Override
-  public LootConditionType getConditionType() {
+  public LootConditionType getType() {
     return TinkerCommons.lootConfig;
   }
 
@@ -67,7 +67,7 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
 
     @Override
     public ConfigEnabledCondition read(JsonObject json) {
-      String prop = JSONUtils.getString(json, "prop");
+      String prop = JSONUtils.getAsString(json, "prop");
       ConfigEnabledCondition config = PROPS.get(prop.toLowerCase(Locale.ROOT));
       if (config == null) {
         throw new JsonSyntaxException("Invalid property name '" + prop + "'");

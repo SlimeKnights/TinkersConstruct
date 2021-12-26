@@ -16,6 +16,8 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Random;
 
+import net.minecraftforge.fluids.ForgeFlowingFluid.Properties;
+
 public abstract class SlimeFluid extends ForgeFlowingFluid {
 
   protected SlimeFluid(Properties properties) {
@@ -24,26 +26,26 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
 
   @Override
   public void randomTick(World world, BlockPos pos, FluidState state, Random random) {
-    int oldLevel = getLevelFromState(state);
+    int oldLevel = getLegacyLevel(state);
     super.randomTick(world, pos, state, random);
 
-    if (oldLevel > 0 && oldLevel == getLevelFromState(state)) {
+    if (oldLevel > 0 && oldLevel == getLegacyLevel(state)) {
       if (random.nextFloat() > 0.6f) {
         // only if they have dirt below them
-        Block blockDown = world.getBlockState(pos.down()).getBlock();
+        Block blockDown = world.getBlockState(pos.below()).getBlock();
         if (blockDown == Blocks.DIRT) {
           // check if the block we flowed from has slimedirt below it and move the slime with us!
           for (Direction dir : Direction.Plane.HORIZONTAL) {
-            FluidState state2 = world.getFluidState(pos.offset(dir));
+            FluidState state2 = world.getFluidState(pos.relative(dir));
             // same block and a higher flow
-            if (state2.getFluid() == this && getLevelFromState(state2) == getLevelFromState(state) - 1) {
-              BlockState dirt = world.getBlockState(pos.offset(dir).down());
+            if (state2.getType() == this && getLegacyLevel(state2) == getLegacyLevel(state) - 1) {
+              BlockState dirt = world.getBlockState(pos.relative(dir).below());
               if (TinkerWorld.slimeDirt.contains(dirt.getBlock())) {
                 // we got a block we flowed from and the block we flowed from has slimedirt below
                 // change the dirt below us to slimedirt too
-                world.setBlockState(pos.down(), dirt);
+                world.setBlockAndUpdate(pos.below(), dirt);
               } else if (dirt.getBlock() == TinkerWorld.earthSlimeGrass.get(SlimeType.SKY)) {
-                world.setBlockState(pos.down(), SlimeGrassBlock.getDirtState(dirt));
+                world.setBlockAndUpdate(pos.below(), SlimeGrassBlock.getDirtState(dirt));
               }
             }
           }
@@ -58,18 +60,18 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
 
     public Flowing(Properties properties) {
       super(properties);
-      this.setDefaultState(this.getStateContainer().getBaseState().with(LEVEL_1_8, 7));
+      this.registerDefaultState(this.getStateDefinition().any().setValue(LEVEL, 7));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
-      super.fillStateContainer(builder);
-      builder.add(LEVEL_1_8);
+    protected void createFluidStateDefinition(StateContainer.Builder<Fluid, FluidState> builder) {
+      super.createFluidStateDefinition(builder);
+      builder.add(LEVEL);
     }
 
     @Override
-    public int getLevel(FluidState state) {
-      return state.get(LEVEL_1_8);
+    public int getAmount(FluidState state) {
+      return state.getValue(LEVEL);
     }
 
     @Override
@@ -85,7 +87,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    public int getLevel(FluidState state) {
+    public int getAmount(FluidState state) {
       return 8;
     }
 

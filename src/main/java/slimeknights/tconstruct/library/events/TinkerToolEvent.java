@@ -18,6 +18,9 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 
+import net.minecraftforge.eventbus.api.Event.HasResult;
+import net.minecraftforge.eventbus.api.Event.Result;
+
 @AllArgsConstructor
 @Getter
 public abstract class TinkerToolEvent extends Event {
@@ -54,9 +57,9 @@ public abstract class TinkerToolEvent extends Event {
     private static ItemStack getItem(ItemUseContext context, EquipmentSlotType slotType) {
       PlayerEntity player = context.getPlayer();
       if (player != null) {
-        return player.getItemStackFromSlot(slotType);
+        return player.getItemBySlot(slotType);
       }
-      return context.getItem();
+      return context.getItemInHand();
     }
 
     @Nullable

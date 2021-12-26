@@ -4,6 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SlimeBlock;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Slime block that only sticks to other slime blocks */
 public class BloodSlimeBlock extends SlimeBlock {
   public BloodSlimeBlock(Properties properties) {

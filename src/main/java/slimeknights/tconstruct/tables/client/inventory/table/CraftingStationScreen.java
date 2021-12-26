@@ -17,8 +17,8 @@ public class CraftingStationScreen extends BaseStationScreen<CraftingStationTile
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(matrices, CRAFTING_TABLE_GUI_TEXTURES);
-    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
+    super.renderBg(matrices, partialTicks, mouseX, mouseY);
   }
 }

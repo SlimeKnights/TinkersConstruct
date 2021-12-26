@@ -35,6 +35,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
   private final DamageType type;
   private final float damage;
 
+  @SuppressWarnings("unused")
   public DamageSpillingEffect(EntityIngredient entity, DamageType type, float damage) {
     this(entity, LivingEntityPredicate.ANY, type, damage);
   }
@@ -55,9 +56,9 @@ public class DamageSpillingEffect implements ISpillingEffect {
       DamageSource source;
       PlayerEntity player = context.getPlayerAttacker();
       if (player != null) {
-        source = DamageSource.causePlayerDamage(player);
+        source = DamageSource.playerAttack(player);
       } else {
-        source = DamageSource.causeMobDamage(context.getAttacker());
+        source = DamageSource.mobAttack(context.getAttacker());
       }
       // special effects
       type.apply(source);
@@ -82,13 +83,13 @@ public class DamageSpillingEffect implements ISpillingEffect {
     FIRE {
       @Override
       public void apply(DamageSource source) {
-        source.setFireDamage();
+        source.setIsFire();
       }
     },
     MAGIC {
       @Override
       public void apply(DamageSource source) {
-        source.setMagicDamage();
+        source.setMagic();
       }
     },
     EXPLOSION {
@@ -100,7 +101,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
     PIERCING {
       @Override
       public void apply(DamageSource source) {
-        source.setDamageBypassesArmor();
+        source.bypassArmor();
       }
     };
 
@@ -133,25 +134,25 @@ public class DamageSpillingEffect implements ISpillingEffect {
     WATER_SENSITIVE {
       @Override
       public boolean test(LivingEntity living) {
-        return living.isWaterSensitive();
+        return living.isSensitiveToWater();
       }
     },
     UNDEAD {
       @Override
       public boolean test(LivingEntity living) {
-        return living.getCreatureAttribute() == CreatureAttribute.UNDEAD;
+        return living.getMobType() == CreatureAttribute.UNDEAD;
       }
     },
     ARTHROPOD {
       @Override
       public boolean test(LivingEntity living) {
-        return living.getCreatureAttribute() == CreatureAttribute.ARTHROPOD;
+        return living.getMobType() == CreatureAttribute.ARTHROPOD;
       }
     },
     NOT_FIRE_IMMUNE {
       @Override
       public boolean test(LivingEntity living) {
-        return !living.isImmuneToFire();
+        return !living.fireImmune();
       }
     };
 
@@ -189,12 +190,12 @@ public class DamageSpillingEffect implements ISpillingEffect {
           entity = EntityIngredient.deserialize(element);
         }
       }
-      String typeName = JSONUtils.getString(json, "damage_type");
+      String typeName = JSONUtils.getAsString(json, "damage_type");
       DamageType type = DamageType.byName(typeName);
       if (type == null) {
         throw new JsonSyntaxException("Unknown damage type '" + typeName + "'");
       }
-      float damage = JSONUtils.getFloat(json, "damage_amount");
+      float damage = JSONUtils.getAsFloat(json, "damage_amount");
       return new DamageSpillingEffect(entity, predicate, type, damage);
     }
 
@@ -204,8 +205,8 @@ public class DamageSpillingEffect implements ISpillingEffect {
       if (buffer.readBoolean()) {
         entity = EntityIngredient.read(buffer);
       }
-      LivingEntityPredicate predicate = buffer.readEnumValue(LivingEntityPredicate.class);
-      DamageType type = buffer.readEnumValue(DamageType.class);
+      LivingEntityPredicate predicate = buffer.readEnum(LivingEntityPredicate.class);
+      DamageType type = buffer.readEnum(DamageType.class);
       float damage = buffer.readFloat();
       return new DamageSpillingEffect(entity, predicate, type, damage);
     }
@@ -229,8 +230,8 @@ public class DamageSpillingEffect implements ISpillingEffect {
       } else {
         buffer.writeBoolean(false);
       }
-      buffer.writeEnumValue(effect.predicate);
-      buffer.writeEnumValue(effect.type);
+      buffer.writeEnum(effect.predicate);
+      buffer.writeEnum(effect.type);
       buffer.writeFloat(effect.damage);
     }
   }

@@ -47,7 +47,7 @@ public class StructureErrorPositionPacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(StructureErrorPositionPacket packet) {
-      TileEntityHelper.getTile(HeatingStructureTileEntity.class, Minecraft.getInstance().world, packet.controllerPos)
+      TileEntityHelper.getTile(HeatingStructureTileEntity.class, Minecraft.getInstance().level, packet.controllerPos)
                       .ifPresent(te -> te.setErrorPos(packet.errorPos));
     }
   }

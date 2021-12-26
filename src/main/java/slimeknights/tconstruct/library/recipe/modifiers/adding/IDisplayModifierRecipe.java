@@ -101,7 +101,7 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
 
   /** Gets a stream of all modifiable items for display */
   static Stream<Item> getAllModifiable() {
-    return TinkerTags.Items.MODIFIABLE.getAllElements().stream();
+    return TinkerTags.Items.MODIFIABLE.getValues().stream();
   }
 
   /** Maps the stream from tool items to applicable tool stacks */

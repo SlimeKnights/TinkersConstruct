@@ -29,8 +29,8 @@ public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity>
     // create slots
     if (alloyer != null) {
       // refresh cache of neighboring tanks
-      World world = alloyer.getWorld();
-      if (world != null && world.isRemote) {
+      World world = alloyer.getLevel();
+      if (world != null && world.isClientSide) {
         MixerAlloyTank alloyTank = alloyer.getAlloyTank();
         for (Direction direction : Direction.values()) {
           if (direction != Direction.DOWN) {
@@ -40,9 +40,9 @@ public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity>
       }
 
       // add fuel slot if present
-      BlockPos down = alloyer.getPos().down();
-      if (world != null && world.getBlockState(down).isIn(TinkerTags.Blocks.FUEL_TANKS)) {
-        TileEntity te = world.getTileEntity(down);
+      BlockPos down = alloyer.getBlockPos().below();
+      if (world != null && world.getBlockState(down).is(TinkerTags.Blocks.FUEL_TANKS)) {
+        TileEntity te = world.getBlockEntity(down);
         if (te != null) {
           hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
             this.addSlot(new ItemHandlerSlot(handler, 0, 151, 32));
@@ -54,7 +54,7 @@ public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity>
       this.addInventorySlots();
 
       // syncing
-      Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
+      Consumer<IntReferenceHolder> referenceConsumer = this::addDataSlot;
       ValidZeroIntReference.trackIntArray(referenceConsumer, alloyer.getFuelModule());
     }
   }

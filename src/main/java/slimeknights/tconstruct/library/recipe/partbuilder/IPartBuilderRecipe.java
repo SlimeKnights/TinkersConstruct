@@ -47,7 +47,7 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderInventory>
   }
 
   @Override
-  default ItemStack getIcon() {
+  default ItemStack getToastSymbol() {
     return new ItemStack(TinkerTables.partBuilder);
   }
 

@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
-import static net.minecraft.client.renderer.texture.NativeImage.getAlpha;
+import static net.minecraft.client.renderer.texture.NativeImage.getA;
 
 /**
  * Extension of {@link GreyToColorMapping} that also supports including sprites as "part of the palette"
@@ -74,7 +74,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
   private int getNewColor(int color, int x, int y) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
-    if (getAlpha(color) == 0) {
+    if (getA(color) == 0) {
       return 0x00000000;
     }
     int grey = GreyToColorMapping.getGrey(color);
@@ -121,18 +121,18 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
     @Override
     public GreyToSpriteTransformer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject object = json.getAsJsonObject();
-      JsonArray palette = JSONUtils.getJsonArray(object, "palette");
+      JsonArray palette = JSONUtils.getAsJsonArray(object, "palette");
       GreyToSpriteTransformer.Builder paletteBuilder = GreyToSpriteTransformer.builder();
       for (int i = 0; i < palette.size(); i++) {
-        JsonObject palettePair = JSONUtils.getJsonObject(palette.get(i), "palette["+i+']');
-        int grey = JSONUtils.getInt(palettePair, "grey");
+        JsonObject palettePair = JSONUtils.convertToJsonObject(palette.get(i), "palette["+i+']');
+        int grey = JSONUtils.getAsInt(palettePair, "grey");
         if (i == 0 && grey != 0) {
           paletteBuilder.addABGR(0, 0xFF000000);
         }
         // get the proper type
         int color = -1;
         if (palettePair.has("color")) {
-          color = JsonHelper.parseColor(JSONUtils.getString(palettePair, "color"));
+          color = JsonHelper.parseColor(JSONUtils.getAsString(palettePair, "color"));
         }
         if (palettePair.has("path")) {
           paletteBuilder.addTexture(grey, JsonHelper.getResourceLocation(palettePair, "path"), color);

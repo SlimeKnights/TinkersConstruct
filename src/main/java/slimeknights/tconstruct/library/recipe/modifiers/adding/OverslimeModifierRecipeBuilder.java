@@ -25,12 +25,12 @@ public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<Oversl
 
   /** Creates a new builder for the given item */
   public static OverslimeModifierRecipeBuilder modifier(IItemProvider item, int restoreAmount) {
-    return modifier(Ingredient.fromItems(item), restoreAmount);
+    return modifier(Ingredient.of(item), restoreAmount);
   }
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
-    ItemStack[] stacks = ingredient.getMatchingStacks();
+    ItemStack[] stacks = ingredient.getItems();
     if (stacks.length == 0) {
       throw new IllegalStateException("Empty ingredient not allowed");
     }
@@ -52,13 +52,13 @@ public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<Oversl
     }
 
     @Override
-    public void serialize(JsonObject json) {
-      json.add("ingredient", ingredient.serialize());
+    public void serializeRecipeData(JsonObject json) {
+      json.add("ingredient", ingredient.toJson());
       json.addProperty("restore_amount", restoreAmount);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerModifiers.overslimeSerializer.get();
     }
   }

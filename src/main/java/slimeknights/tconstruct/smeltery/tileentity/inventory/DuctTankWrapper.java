@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
 @AllArgsConstructor
 public class DuctTankWrapper implements IFluidHandler {
   private final IFluidHandler parent;

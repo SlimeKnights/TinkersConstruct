@@ -14,6 +14,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /**
  * Extension of cake that utalizes a food instance for properties
  */
@@ -25,12 +27,12 @@ public class FoodCakeBlock extends CakeBlock {
   }
 
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
     ActionResultType result = this.eatSlice(world, pos, state, player);
-    if (result.isSuccessOrConsume()) {
+    if (result.consumesAction()) {
       return result;
     }
-    if (world.isRemote() && player.getHeldItem(handIn).isEmpty()) {
+    if (world.isClientSide() && player.getItemInHand(handIn).isEmpty()) {
       return ActionResultType.CONSUME;
     }
     return ActionResultType.PASS;
@@ -39,7 +41,7 @@ public class FoodCakeBlock extends CakeBlock {
   /** Checks if the given player has all potion effects from the food */
   private boolean hasAllEffects(PlayerEntity player) {
     for (Pair<EffectInstance,Float> pair : food.getEffects()) {
-      if (pair.getFirst() != null && !player.isPotionActive(pair.getFirst().getPotion())) {
+      if (pair.getFirst() != null && !player.hasEffect(pair.getFirst().getEffect())) {
         return false;
       }
     }
@@ -48,25 +50,25 @@ public class FoodCakeBlock extends CakeBlock {
 
   /** Eats a single slice of cake if possible */
   private ActionResultType eatSlice(IWorld world, BlockPos pos, BlockState state, PlayerEntity player) {
-    if (!player.canEat(false) && !food.canEatWhenFull()) {
+    if (!player.canEat(false) && !food.canAlwaysEat()) {
       return ActionResultType.PASS;
     }
     // repurpose fast eating, will mean no eating if we have the effect
-    if (!food.isFastEating() && hasAllEffects(player)) {
+    if (!food.isFastFood() && hasAllEffects(player)) {
       return ActionResultType.PASS;
     }
-    player.addStat(Stats.EAT_CAKE_SLICE);
+    player.awardStat(Stats.EAT_CAKE_SLICE);
     // apply food stats
-    player.getFoodStats().addStats(food.getHealing(), food.getSaturation());
+    player.getFoodData().eat(food.getNutrition(), food.getSaturationModifier());
     for (Pair<EffectInstance,Float> pair : food.getEffects()) {
-      if (!world.isRemote() && pair.getFirst() != null && world.getRandom().nextFloat() < pair.getSecond()) {
-        player.addPotionEffect(new EffectInstance(pair.getFirst()));
+      if (!world.isClientSide() && pair.getFirst() != null && world.getRandom().nextFloat() < pair.getSecond()) {
+        player.addEffect(new EffectInstance(pair.getFirst()));
       }
     }
     // remove one bite from the cake
-    int i = state.get(BITES);
+    int i = state.getValue(BITES);
     if (i < 6) {
-      world.setBlockState(pos, state.with(BITES, i + 1), 3);
+      world.setBlock(pos, state.setValue(BITES, i + 1), 3);
     } else {
       world.removeBlock(pos, false);
     }

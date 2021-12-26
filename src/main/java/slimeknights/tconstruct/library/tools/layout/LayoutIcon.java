@@ -37,7 +37,7 @@ public abstract class LayoutIcon {
 
     @Override
     public void write(PacketBuffer buffer) {
-      buffer.writeEnumValue(Type.EMPTY);
+      buffer.writeEnum(Type.EMPTY);
     }
 
     @Override
@@ -62,11 +62,11 @@ public abstract class LayoutIcon {
 
   /** Reads the button icon from the buffer */
   public static LayoutIcon read(PacketBuffer buffer) {
-    Type type = buffer.readEnumValue(Type.class);
+    Type type = buffer.readEnum(Type.class);
     switch (type) {
       case EMPTY: return EMPTY;
       case ITEM: {
-        ItemStack stack = buffer.readItemStack();
+        ItemStack stack = buffer.readItem();
         return new ItemStackIcon(stack);
       }
       case PATTERN: {
@@ -99,8 +99,8 @@ public abstract class LayoutIcon {
 
     @Override
     public void write(PacketBuffer buffer) {
-      buffer.writeEnumValue(Type.ITEM);
-      buffer.writeItemStack(stack);
+      buffer.writeEnum(Type.ITEM);
+      buffer.writeItem(stack);
     }
 
     @Override
@@ -131,7 +131,7 @@ public abstract class LayoutIcon {
 
     @Override
     public void write(PacketBuffer buffer) {
-      buffer.writeEnumValue(Type.PATTERN);
+      buffer.writeEnum(Type.PATTERN);
       buffer.writeResourceLocation(pattern);
     }
 
@@ -154,7 +154,7 @@ public abstract class LayoutIcon {
   protected static class Serializer implements JsonSerializer<LayoutIcon>, JsonDeserializer<LayoutIcon> {
     @Override
     public LayoutIcon deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject object = JSONUtils.getJsonObject(json, "button_icon");
+      JsonObject object = JSONUtils.convertToJsonObject(json, "button_icon");
       if (object.has("pattern")) {
         Pattern pattern = new Pattern(JsonHelper.getResourceLocation(object, "pattern"));
         return new PatternIcon(pattern);

@@ -19,8 +19,8 @@ public class WitheredModifier extends TotalArmorLevelModifier {
   public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     // drink milk for more power, but less duration
     if (isDirectDamage && !source.isProjectile()) {
-      boolean isCalcified = context.getEntity().isPotionActive(TinkerModifiers.calcifiedEffect.get());
-      target.addPotionEffect(new EffectInstance(Effects.WITHER, isCalcified ? 100 : 200, isCalcified ? 1 : 0));
+      boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
+      target.addEffect(new EffectInstance(Effects.WITHER, isCalcified ? 100 : 200, isCalcified ? 1 : 0));
     }
   }
 }

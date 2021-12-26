@@ -46,10 +46,10 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
 
   private static void drinkMilk(LivingEntity living, int duration) {
     if (ModifierUtil.getTotalModifierLevel(living, STRONG_BONES) > 0) {
-      EffectInstance effect = new EffectInstance(Effects.RESISTANCE, duration);
+      EffectInstance effect = new EffectInstance(Effects.DAMAGE_RESISTANCE, duration);
       effect.getCurativeItems().clear();
-      effect.getCurativeItems().add(new ItemStack(living.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem()));
-      living.addPotionEffect(effect);
+      effect.getCurativeItems().add(new ItemStack(living.getItemBySlot(EquipmentSlotType.HEAD).getItem()));
+      living.addEffect(effect);
     }
     if (ModifierUtil.getTotalModifierLevel(living, CALCIFIABLE) > 0) {
       TinkerModifiers.calcifiedEffect.get().apply(living, duration, 0, true);

@@ -43,9 +43,9 @@ public class EquipmentContext {
    */
   @Nullable
   public IModifierToolStack getToolInSlot(EquipmentSlotType slotType) {
-    int index = slotType.getSlotIndex();
+    int index = slotType.getFilterFlag();
     if (!fetchedTool[index]) {
-      toolsInSlots[index] = getToolStackIfModifiable(entity.getItemStackFromSlot(slotType));
+      toolsInSlots[index] = getToolStackIfModifiable(entity.getItemBySlot(slotType));
       fetchedTool[index] = true;
     }
     return toolsInSlots[index];

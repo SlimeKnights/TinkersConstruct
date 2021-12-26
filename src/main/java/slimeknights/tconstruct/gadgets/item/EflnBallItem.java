@@ -21,36 +21,36 @@ import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 
+// TODO: this is the same code as glowball, consider shared class
 public class EflnBallItem extends SnowballItem {
 
   public EflnBallItem() {
-    super((new Properties()).maxStackSize(16).group(TinkerGadgets.TAB_GADGETS));
+    super((new Properties()).stacksTo(16).tab(TinkerGadgets.TAB_GADGETS));
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemstack = playerIn.getHeldItem(handIn);
-    if (!playerIn.abilities.isCreativeMode) {
+  public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack itemstack = playerIn.getItemInHand(handIn);
+    if (!playerIn.abilities.instabuild) {
       itemstack.shrink(1);
     }
 
-    worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), Sounds.THROWBALL_THROW.getSound(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-
-    if (!worldIn.isRemote) {
+    worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), Sounds.THROWBALL_THROW.getSound(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+    if (!worldIn.isClientSide()) {
       EflnBallEntity eflnBallEntity = new EflnBallEntity(worldIn, playerIn);
       eflnBallEntity.setItem(itemstack);
-      eflnBallEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-      worldIn.addEntity(eflnBallEntity);
+      eflnBallEntity.shootFromRotation(playerIn, playerIn.xRot, playerIn.yRot, 0.0F, 1.5F, 1.0F);
+      worldIn.addFreshEntity(eflnBallEntity);
     }
 
-    playerIn.addStat(Stats.ITEM_USED.get(this));
+    playerIn.awardStat(Stats.ITEM_USED.get(this));
     return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
   }
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     TranslationHelper.addOptionalTooltip(stack, tooltip);
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
   }
 }

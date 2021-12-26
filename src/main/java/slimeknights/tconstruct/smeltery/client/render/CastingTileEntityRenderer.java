@@ -44,8 +44,6 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
         // fade fluid and temperature out during last 10%
         if (opacity > 3 * 0xFF) {
           fluidOpacity = (4 * 0xFF) - opacity;
-        } else {
-          fluidOpacity = 0xFF;
         }
       }
 
@@ -62,7 +60,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
       List<ModelItem> modelItems = model.getItems();
       // input is normal
       if (modelItems.size() >= 1) {
-        RenderingHelper.renderItem(matrices, buffer, casting.getStackInSlot(0), modelItems.get(0), light);
+        RenderingHelper.renderItem(matrices, buffer, casting.getItem(0), modelItems.get(0), light);
       }
 
       // output may be the recipe output instead of the current item
@@ -70,7 +68,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
         ModelItem outputModel = modelItems.get(1);
         if(!outputModel.isHidden()) {
           // get output stack
-          ItemStack output = casting.getStackInSlot(1);
+          ItemStack output = casting.getItem(1);
           IRenderTypeBuffer outputBuffer = buffer;
           if(itemOpacity > 0 && output.isEmpty()) {
             output = casting.getRecipeOutput();
@@ -83,7 +81,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
 
       // pop back rotation
       if (isRotated) {
-        matrices.pop();
+        matrices.popPose();
       }
     }
   }

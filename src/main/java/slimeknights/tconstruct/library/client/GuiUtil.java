@@ -32,8 +32,8 @@ public final class GuiUtil {
    */
   public static void drawBackground(MatrixStack matrices, ContainerScreen<?> screen, ResourceLocation background) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    screen.getMinecraft().getTextureManager().bindTexture(background);
-    screen.blit(matrices, screen.guiLeft, screen.guiTop, 0, 0, screen.xSize, screen.ySize);
+    screen.getMinecraft().getTextureManager().bind(background);
+    screen.blit(matrices, screen.leftPos, screen.topPos, 0, 0, screen.imageWidth, screen.imageHeight);
   }
 
   /**
@@ -45,8 +45,8 @@ public final class GuiUtil {
    */
   public static void drawContainerNames(MatrixStack matrices, ContainerScreen<?> screen, FontRenderer font, PlayerInventory inv) {
     String name = screen.getTitle().getString();
-    font.drawString(matrices, name, (screen.xSize / 2f - font.getStringWidth(name) / 2f), 6.0F, 0x404040);
-    font.drawString(matrices, inv.getDisplayName().getString(), 8.0F, (screen.ySize - 96 + 2), 0x404040);
+    font.draw(matrices, name, (screen.imageWidth / 2f - font.width(name) / 2f), 6.0F, 0x404040);
+    font.draw(matrices, inv.getDisplayName().getString(), 8.0F, (screen.imageHeight - 96 + 2), 0x404040);
   }
 
   /**
@@ -132,10 +132,10 @@ public final class GuiUtil {
    */
   public static void renderTiledFluid(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
-      TextureAtlasSprite fluidSprite = screen.getMinecraft().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
+      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(PlayerContainer.BLOCK_ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
       RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
-      GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+      GlStateManager._color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
   }
 
@@ -153,32 +153,32 @@ public final class GuiUtil {
    */
   public static void renderTiledTextureAtlas(MatrixStack matrices, ContainerScreen<?> screen, TextureAtlasSprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
     // start drawing sprites
-    screen.getMinecraft().getTextureManager().bindTexture(sprite.getAtlasTexture().getTextureLocation());
-    BufferBuilder builder = Tessellator.getInstance().getBuffer();
+    screen.getMinecraft().getTextureManager().bind(sprite.atlas().location());
+    BufferBuilder builder = Tessellator.getInstance().getBuilder();
     builder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
     // tile vertically
-    float u1 = sprite.getMinU();
-    float v1 = sprite.getMinV();
+    float u1 = sprite.getU0();
+    float v1 = sprite.getV0();
     int spriteHeight = sprite.getHeight();
     int spriteWidth = sprite.getWidth();
-    int startX = x + screen.guiLeft;
-    int startY = y + screen.guiTop;
+    int startX = x + screen.leftPos;
+    int startY = y + screen.topPos;
     do {
       int renderHeight = Math.min(spriteHeight, height);
       height -= renderHeight;
-      float v2 = sprite.getInterpolatedV((16f * renderHeight) / spriteHeight);
+      float v2 = sprite.getV((16f * renderHeight) / spriteHeight);
 
       // we need to draw the quads per width too
       int x2 = startX;
       int widthLeft = width;
-      Matrix4f matrix = matrices.getLast().getMatrix();
+      Matrix4f matrix = matrices.last().pose();
       // tile horizontally
       do {
         int renderWidth = Math.min(spriteWidth, widthLeft);
         widthLeft -= renderWidth;
 
-        float u2 = sprite.getInterpolatedU((16f * renderWidth) / spriteWidth);
+        float u2 = sprite.getU((16f * renderWidth) / spriteWidth);
         if(upsideDown) {
           // FIXME: I think this causes tiling errors, look into it
           buildSquare(matrix, builder, x2, x2 + renderWidth, startY, startY + renderHeight, depth, u1, u2, v2, v1);
@@ -192,9 +192,9 @@ public final class GuiUtil {
     } while(height > 0);
 
     // finish drawing sprites
-    builder.finishDrawing();
+    builder.end();
     RenderSystem.enableAlphaTest();
-    WorldVertexBufferUploader.draw(builder);
+    WorldVertexBufferUploader.end(builder);
   }
 
   /**
@@ -211,10 +211,10 @@ public final class GuiUtil {
    * @param v2       Texture V end
    */
   private static void buildSquare(Matrix4f matrix, BufferBuilder builder, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
-    builder.pos(matrix, x1, y2, z).tex(u1, v2).endVertex();
-    builder.pos(matrix, x2, y2, z).tex(u2, v2).endVertex();
-    builder.pos(matrix, x2, y1, z).tex(u2, v1).endVertex();
-    builder.pos(matrix, x1, y1, z).tex(u1, v1).endVertex();
+    builder.vertex(matrix, x1, y2, z).uv(u1, v2).endVertex();
+    builder.vertex(matrix, x2, y2, z).uv(u2, v2).endVertex();
+    builder.vertex(matrix, x2, y1, z).uv(u2, v1).endVertex();
+    builder.vertex(matrix, x1, y1, z).uv(u1, v1).endVertex();
   }
 
   /**

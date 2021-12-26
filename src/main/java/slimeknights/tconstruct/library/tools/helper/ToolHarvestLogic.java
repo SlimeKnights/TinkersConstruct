@@ -52,11 +52,11 @@ public class ToolHarvestLogic {
    * @return  Damage to deal
    */
   public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
-    if (state.getBlockHardness(world, pos) == 0) {
+    if (state.getDestroySpeed(world, pos) == 0) {
       return 0;
     }
     // if it lacks the harvest tag, it takes double damage (swords for instance)
-    return tool.getItem().isIn(TinkerTags.Items.HARVEST_PRIMARY) ? 1 : 2;
+    return tool.getItem().is(TinkerTags.Items.HARVEST_PRIMARY) ? 1 : 2;
   }
 
   /**
@@ -83,7 +83,7 @@ public class ToolHarvestLogic {
     }
 
     // harvest level too low -> not effective
-    if (state.getRequiresTool() && tool.getStats().getInt(ToolStats.HARVEST_LEVEL) < state.getHarvestLevel()) {
+    if (state.requiresCorrectToolForDrops() && tool.getStats().getInt(ToolStats.HARVEST_LEVEL) < state.getHarvestLevel()) {
       return false;
     }
 
@@ -154,7 +154,7 @@ public class ToolHarvestLogic {
     }
     // if removed by anything, finally destroy it
     if (removed) {
-      state.getBlock().onPlayerDestroy(world, pos, state);
+      state.getBlock().destroy(world, pos, state);
     }
     return removed;
   }
@@ -171,7 +171,7 @@ public class ToolHarvestLogic {
     ServerPlayerEntity player = Objects.requireNonNull(context.getPlayer());
     ServerWorld world = context.getWorld();
     BlockPos pos = context.getPos();
-    GameType type = player.interactionManager.getGameType();
+    GameType type = player.gameMode.getGameModeForPlayer();
     int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
     if (exp == -1) {
       return false;
@@ -193,18 +193,18 @@ public class ToolHarvestLogic {
 
     // remove the block
     boolean canHarvest = context.canHarvest();
-    TileEntity te = canHarvest ? world.getTileEntity(pos) : null; // ensures tile entity is fetched so its around for afterBlockBreak
+    TileEntity te = canHarvest ? world.getBlockEntity(pos) : null; // ensures tile entity is fetched so its around for afterBlockBreak
     boolean removed = removeBlock(tool, context);
 
     // harvest drops
     Block block = state.getBlock();
     if (removed && canHarvest) {
-      block.harvestBlock(world, player, pos, state, te, stack);
+      block.playerDestroy(world, player, pos, state, te, stack);
     }
 
     // drop XP
     if (removed && exp > 0) {
-      state.getBlock().dropXpOnBlockBreak(world, pos, exp);
+      block.popExperience(world, pos, exp);
     }
 
     // handle modifiers if not broken
@@ -230,7 +230,7 @@ public class ToolHarvestLogic {
     if (breakBlock(tool, stack, context)) {
       World world = context.getWorld();
       BlockPos pos = context.getPos();
-      world.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(context.getState()));
+      world.globalLevelEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getId(context.getState()));
       TinkerNetwork.getInstance().sendVanillaPacket(Objects.requireNonNull(context.getPlayer()), new SChangeBlockPacket(world, pos));
     }
   }
@@ -238,8 +238,8 @@ public class ToolHarvestLogic {
   /**
    * Call on block break to break a block.
    * Used in {@link net.minecraftforge.common.extensions.IForgeItem#onBlockStartBreak(ItemStack, BlockPos, PlayerEntity)}.
-   * See also {@link net.minecraft.client.multiplayer.PlayerController#onPlayerDestroyBlock(BlockPos)} (client)
-   * and {@link net.minecraft.server.management.PlayerInteractionManager#tryHarvestBlock(BlockPos)} (server)
+   * See also {@link net.minecraft.client.multiplayer.PlayerController#destroyBlock(BlockPos)} (client)
+   * and {@link net.minecraft.server.management.PlayerInteractionManager#destroyBlock(BlockPos)} (server)
    * @param stack   Stack instance
    * @param pos     Position to break
    * @param player  Player instance
@@ -247,13 +247,13 @@ public class ToolHarvestLogic {
    */
   public boolean handleBlockBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
     // client can run normal block breaking
-    if (player.getEntityWorld().isRemote || !(player instanceof ServerPlayerEntity)) {
+    if (player.level.isClientSide || !(player instanceof ServerPlayerEntity)) {
       return false;
     }
 
     // create contexts
     ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-    ServerWorld world = serverPlayer.getServerWorld();
+    ServerWorld world = serverPlayer.getLevel();
     ToolStack tool = ToolStack.from(stack);
     BlockState state = world.getBlockState(pos);
     Direction sideHit = BlockSideHitListener.getSideHit(player);
@@ -262,9 +262,9 @@ public class ToolHarvestLogic {
     if (tool.isBroken()) {
       // no harvest context
       ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit, false, false);
-      player.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
+      player.setItemInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
       breakBlock(tool, ItemStack.EMPTY, context);
-      player.setHeldItem(Hand.MAIN_HAND, stack);
+      player.setItemInHand(Hand.MAIN_HAND, stack);
     } else {
       // add in harvest info
       ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
@@ -284,7 +284,7 @@ public class ToolHarvestLogic {
           // this should never actually happen, but just in case some AOE is odd
           if (!extraState.isAir(world, extraPos)) {
             // prevent mutable position leak, breakBlock has a few places wanting immutable
-            breakExtraBlock(tool, stack, context.forPosition(extraPos.toImmutable(), extraState));
+            breakExtraBlock(tool, stack, context.forPosition(extraPos.immutable(), extraState));
           }
         }
         for (ModifierEntry entry : tool.getModifierList()) {
@@ -310,38 +310,38 @@ public class ToolHarvestLogic {
    */
   public ActionResultType transformBlocks(IModifierToolStack tool, ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
     PlayerEntity player = context.getPlayer();
-    if (player != null && player.isSneaking()) {
+    if (player != null && player.isShiftKeyDown()) {
       return ActionResultType.PASS;
     }
 
     // for hoes and shovels, must have nothing but plants above
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
+    World world = context.getLevel();
+    BlockPos pos = context.getClickedPos();
     if (requireGround) {
-      if (context.getFace() == Direction.DOWN) {
+      if (context.getClickedFace() == Direction.DOWN) {
         return ActionResultType.PASS;
       }
-      Material material = world.getBlockState(pos.up()).getMaterial();
-      if (!material.isReplaceable() && material != Material.PLANTS) {
+      Material material = world.getBlockState(pos.above()).getMaterial();
+      if (!material.isReplaceable() && material != Material.PLANT) {
         return ActionResultType.PASS;
       }
     }
 
     // must actually transform
     BlockState original = world.getBlockState(pos);
-    ItemStack stack = context.getItem();
+    ItemStack stack = context.getItemInHand();
     BlockState transformed = original.getToolModifiedState(world, pos, player, stack, toolType);
     boolean isCampfire = false;
     boolean didTransform = transformed != null;
     if (transformed == null) {
       // shovel special case: campfires
-      if (toolType == ToolType.SHOVEL && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
+      if (toolType == ToolType.SHOVEL && original.getBlock() instanceof CampfireBlock && original.getValue(CampfireBlock.LIT)) {
         isCampfire = true;
-        if (!world.isRemote()) {
-          world.playEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
-          CampfireBlock.extinguish(world, pos, original);
+        if (!world.isClientSide) {
+          world.levelEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
+          CampfireBlock.dowse(world, pos, original);
         }
-        transformed = original.with(CampfireBlock.LIT, false);
+        transformed = original.setValue(CampfireBlock.LIT, false);
       } else {
         // try to match the clicked block
         transformed = world.getBlockState(pos);
@@ -351,14 +351,14 @@ public class ToolHarvestLogic {
     // if we made a successful transform, client can stop early
     Hand hand = context.getHand();
     if (didTransform || isCampfire) {
-      if (world.isRemote()) {
+      if (world.isClientSide) {
         return ActionResultType.SUCCESS;
       }
 
       // change the block state
-      world.setBlockState(pos, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+      world.setBlock(pos, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
       if (requireGround) {
-        world.destroyBlock(pos.up(), true);
+        world.destroyBlock(pos.above(), true);
       }
 
       // play sound
@@ -369,7 +369,7 @@ public class ToolHarvestLogic {
       // if the tool breaks or it was a campfire, we are done
       if (ToolDamageUtil.damage(tool, 1, player, stack) || isCampfire) {
         if (player != null) {
-          player.sendBreakAnimation(hand);
+          player.broadcastBreakEvent(hand);
         }
         return ActionResultType.SUCCESS;
       }
@@ -379,17 +379,17 @@ public class ToolHarvestLogic {
     // note we consider anything effective, as hoes are not effective on all tillable blocks
     int totalTransformed = 0;
     if (player != null && !tool.isBroken()) {
-      for (BlockPos newPos : getAOEBlocks(tool, stack, player, original, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
+      for (BlockPos newPos : getAOEBlocks(tool, stack, player, original, world, pos, context.getClickedFace(), AOEMatchType.TRANSFORM)) {
         if (pos.equals(newPos)) {
           //in case it attempts to run the same position twice
           continue;
         }
 
         // hoes and shovels: air or plants above
-        BlockPos above = newPos.up();
+        BlockPos above = newPos.above();
         if (requireGround) {
           Material material = world.getBlockState(above).getMaterial();
-          if (!material.isReplaceable() && material != Material.PLANTS) {
+          if (!material.isReplaceable() && material != Material.PLANT) {
             continue;
           }
         }
@@ -397,11 +397,11 @@ public class ToolHarvestLogic {
         // block type must be the same
         BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
         if (newState != null && transformed.getBlock() == newState.getBlock()) {
-          if (world.isRemote()) {
+          if (world.isClientSide) {
             return ActionResultType.SUCCESS;
           }
           totalTransformed++;
-          world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+          world.setBlock(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
           // limit to playing 40 sounds, thats more than enough for most transforms
           if (totalTransformed < 40) {
             world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -419,7 +419,7 @@ public class ToolHarvestLogic {
         }
       }
       if (totalTransformed > 0) {
-        player.spawnSweepParticles();
+        player.sweepAttack();
       }
     }
 
@@ -441,14 +441,14 @@ public class ToolHarvestLogic {
     // requires effectiveness
     if (matchType == AOEMatchType.BREAKING) {
       // don't let hardness vary too much
-      float refHardness = world.getBlockState(origin).getBlockHardness(world, origin);
+      float refHardness = world.getBlockState(origin).getDestroySpeed(world, origin);
       return pos -> {
         BlockState state = world.getBlockState(pos);
         if (state.isAir(world, pos)) {
           return false;
         }
         // if the hardness varies by too much, don't allow breaking
-        float hardness = state.getBlockHardness(world, pos);
+        float hardness = state.getDestroySpeed(world, pos);
         if (hardness == -1) {
           return false;
         }

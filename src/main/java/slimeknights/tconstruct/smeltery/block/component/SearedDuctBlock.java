@@ -23,13 +23,15 @@ import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTi
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
 public class SearedDuctBlock extends InventoryBlock {
   public static final BooleanProperty ACTIVE = SearedBlock.IN_STRUCTURE;
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
   public SearedDuctBlock(Properties properties) {
     super(properties);
-    this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
+    this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
   }
 
   @Override
@@ -43,15 +45,15 @@ public class SearedDuctBlock extends InventoryBlock {
   @SuppressWarnings("deprecation")
   @Override
   @Deprecated
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.matchesBlock(this)) {
+  public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    if (!newState.is(this)) {
       TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
-    super.onReplaced(state, worldIn, pos, newState, isMoving);
+    super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
-  public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
   }
 
@@ -59,27 +61,27 @@ public class SearedDuctBlock extends InventoryBlock {
   /* Orientation */
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block,BlockState> builder) {
+  protected void createBlockStateDefinition(StateContainer.Builder<Block,BlockState> builder) {
     builder.add(ACTIVE, FACING);
   }
 
   @Nullable
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rotation) {
-    return state.with(FACING, rotation.rotate(state.get(FACING)));
+    return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
-    return state.with(FACING, mirror.mirror(state.get(FACING)));
+    return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
   }
 }

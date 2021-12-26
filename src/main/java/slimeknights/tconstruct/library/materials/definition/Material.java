@@ -9,7 +9,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class Material implements IMaterial {
   /** Default white color */
-  protected static final Color WHITE = Color.fromInt(0xFFFFFF);
+  protected static final Color WHITE = Color.fromRgb(0xFFFFFF);
 
   /** This resource location uniquely identifies a material. */
   @Getter
@@ -47,7 +47,7 @@ public class Material implements IMaterial {
     this.tier = tier;
     this.sortOrder = order;
     this.craftable = craftable;
-    this.translationKey = Util.makeTranslationKey("material", identifier);
+    this.translationKey = Util.makeDescriptionId("material", identifier);
     this.color = color;
     this.hidden = hidden;
   }
@@ -67,7 +67,7 @@ public class Material implements IMaterial {
   @Override
   public ITextComponent getColoredDisplayName() {
     if (coloredDisplayName == null) {
-      coloredDisplayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(getColor()));
+      coloredDisplayName = new TranslationTextComponent(getTranslationKey()).withStyle(style -> style.withColor(getColor()));
     }
     return coloredDisplayName;
   }

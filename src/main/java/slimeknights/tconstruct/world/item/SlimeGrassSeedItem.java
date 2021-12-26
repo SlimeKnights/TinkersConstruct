@@ -22,6 +22,8 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 public class SlimeGrassSeedItem extends TooltipItem {
   private final SlimeType foliage;
   public SlimeGrassSeedItem(Properties properties, SlimeType foliage) {
@@ -51,9 +53,9 @@ public class SlimeGrassSeedItem extends TooltipItem {
   }
 
   @Override
-  public ActionResultType onItemUse(ItemUseContext context) {
-    BlockPos pos = context.getPos();
-    World world = context.getWorld();
+  public ActionResultType useOn(ItemUseContext context) {
+    BlockPos pos = context.getClickedPos();
+    World world = context.getLevel();
     BlockState state = world.getBlockState(pos);
     BlockState newState = null;
 
@@ -62,10 +64,10 @@ public class SlimeGrassSeedItem extends TooltipItem {
       Block slimyVines = getVines();
       if (slimyVines != null) {
         // copy over the directions
-        newState = slimyVines.getDefaultState().with(SlimeVineBlock.STAGE, VineStage.START);
-        for (BooleanProperty prop : VineBlock.FACING_TO_PROPERTY_MAP.values()) {
-          if (state.get(prop)) {
-            newState = newState.with(prop, true);
+        newState = slimyVines.defaultBlockState().setValue(SlimeVineBlock.STAGE, VineStage.START);
+        for (BooleanProperty prop : VineBlock.PROPERTY_BY_DIRECTION.values()) {
+          if (state.getValue(prop)) {
+            newState = newState.setValue(prop, true);
           }
         }
       }
@@ -75,28 +77,28 @@ public class SlimeGrassSeedItem extends TooltipItem {
     if (newState == null) {
       SlimeType type = getSlimeType(state.getBlock());
       if (type != null) {
-        newState = TinkerWorld.slimeGrass.get(type).get(foliage).getDefaultState();
+        newState = TinkerWorld.slimeGrass.get(type).get(foliage).defaultBlockState();
       } else {
         return ActionResultType.PASS;
       }
     }
 
     // will have a state at this point
-    if (!world.isRemote) {
-      world.setBlockState(pos, newState);
+    if (!world.isClientSide) {
+      world.setBlockAndUpdate(pos, newState);
       world.playSound(null, pos, newState.getSoundType(world, pos, context.getPlayer()).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
       PlayerEntity player = context.getPlayer();
       if (player == null || !player.isCreative()) {
-        context.getItem().shrink(1);
+        context.getItemInHand().shrink(1);
       }
     }
     return ActionResultType.SUCCESS;
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.foliage != SlimeType.ICHOR) {
-      super.fillItemGroup(group, items);
+      super.fillItemCategory(group, items);
     }
   }
 }

@@ -49,8 +49,8 @@ public class SlimeBounceHandler {
       // updated bounce if needed
       info.bounce = bounce;
       // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
-      info.bounceTick = entity.ticksExisted + 1;
-      Vector3d motion = entity.getMotion();
+      info.bounceTick = entity.tickCount + 1;
+      Vector3d motion = entity.getDeltaMovement();
       info.lastMagSq = motion.x * motion.x + motion.z * motion.z;
       info.lastAngle = MathHelper.atan2(motion.z, motion.x);
     }
@@ -64,30 +64,30 @@ public class SlimeBounceHandler {
     // if we have info for this entity, time to work
     if (info != null) {
       // if flying, nothing to do
-      if (entity.isElytraFlying()) {
+      if (entity.isFallFlying()) {
         BOUNCING_ENTITIES.remove(entity);
         return;
       }
 
       // if its the bounce tick, time to bounce. This is to circumvent the logic that resets y motion after landing
-      if (entity.ticksExisted == info.bounceTick) {
-        Vector3d motion = entity.getMotion();
-        entity.setMotion(motion.x, info.bounce, motion.z);
+      if (entity.tickCount == info.bounceTick) {
+        Vector3d motion = entity.getDeltaMovement();
+        entity.setDeltaMovement(motion.x, info.bounce, motion.z);
         info.bounceTick = 0;
       }
 
-      boolean isInAir = !entity.isOnGround() && !entity.isInWater() && !entity.isOnLadder();
+      boolean isInAir = !entity.isOnGround() && !entity.isInWater() && !entity.onClimbable();
 
       // preserve motion
       if (isInAir && info.lastMagSq > 0) {
         // figure out how much motion has reduced
-        Vector3d motion = entity.getMotion();
+        Vector3d motion = entity.getDeltaMovement();
         double motionSq = motion.x * motion.x + motion.z * motion.z;
         // if not moving, cancel velocity preserving in 5 ticks
         if (motionSq == 0) {
           if (info.stopMagTick == 0) {
-            info.stopMagTick = entity.ticksExisted + 5;
-          } else if (entity.ticksExisted > info.stopMagTick) {
+            info.stopMagTick = entity.tickCount + 5;
+          } else if (entity.tickCount > info.stopMagTick) {
             info.lastMagSq = 0;
           }
         } else if (motionSq < info.lastMagSq) {
@@ -95,8 +95,8 @@ public class SlimeBounceHandler {
           // preserve 95% of former speed
           double boost = Math.sqrt(info.lastMagSq / motionSq) * 0.95f;
           if (boost > 1) {
-            entity.setMotion(motion.x * boost, motion.y, motion.z * boost);
-            entity.isAirBorne = true;
+            entity.setDeltaMovement(motion.x * boost, motion.y, motion.z * boost);
+            entity.hasImpulse = true;
             info.lastMagSq = info.lastMagSq * 0.95f * 0.95f;
             // play sound if we had a big angle change
             double newAngle = MathHelper.atan2(motion.z, motion.x);
@@ -114,8 +114,8 @@ public class SlimeBounceHandler {
       // timing the effect out
       if (info.wasInAir && !isInAir) {
         if (info.endHandler == 0) {
-          info.endHandler = entity.ticksExisted + 5;
-        } else if (entity.ticksExisted > info.endHandler) {
+          info.endHandler = entity.tickCount + 5;
+        } else if (entity.tickCount > info.endHandler) {
           BOUNCING_ENTITIES.remove(entity);
         }
       } else {
@@ -151,11 +151,11 @@ public class SlimeBounceHandler {
       this.bounce = bounce;
       if (bounce != 0) {
         // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
-        this.bounceTick = entity.ticksExisted + 1;
+        this.bounceTick = entity.tickCount + 1;
       } else {
         this.bounceTick = 0;
       }
-      Vector3d motion = entity.getMotion();
+      Vector3d motion = entity.getDeltaMovement();
       this.lastMagSq = motion.x * motion.x + motion.z * motion.z;
     }
   }

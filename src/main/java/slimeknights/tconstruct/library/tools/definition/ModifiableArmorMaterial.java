@@ -27,11 +27,11 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
   private final ToolDefinition[] armorDefinitions;
   /** Sound to play when equipping the armor */
   @Getter
-  private final SoundEvent soundEvent;
+  private final SoundEvent equipSound;
 
-  public ModifiableArmorMaterial(ResourceLocation name, SoundEvent soundEvent, ToolDefinition... armorDefinitions) {
+  public ModifiableArmorMaterial(ResourceLocation name, SoundEvent equipSound, ToolDefinition... armorDefinitions) {
     this.name = name;
-    this.soundEvent = soundEvent;
+    this.equipSound = equipSound;
     if (armorDefinitions.length != 4) {
       throw new IllegalArgumentException("Must have an armor definition for each slot");
     }
@@ -70,12 +70,12 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
   }
 
   @Override
-  public int getDurability(EquipmentSlotType slotIn) {
+  public int getDurabilityForSlot(EquipmentSlotType slotIn) {
     return (int)getStat(ToolStats.DURABILITY, ArmorSlotType.fromEquipment(slotIn));
   }
 
   @Override
-  public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+  public int getDefenseForSlot(EquipmentSlotType slotIn) {
     return (int)getStat(ToolStats.ARMOR, ArmorSlotType.fromEquipment(slotIn));
   }
 
@@ -90,12 +90,12 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
   }
 
   @Override
-  public int getEnchantability() {
+  public int getEnchantmentValue() {
     return 0;
   }
 
   @Override
-  public Ingredient getRepairMaterial() {
+  public Ingredient getRepairIngredient() {
     return Ingredient.EMPTY;
   }
 
@@ -113,18 +113,19 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
   /**
    * Builds tool definitions that behave similar to vanilla armor
    */
+  @SuppressWarnings("unused")
   public static class Builder {
     private final ResourceLocation name;
     private final ToolDefinition.Builder[] builders;
     private final ArmorSlotType[] slotTypes;
     @Setter @Accessors(chain = true)
-    private SoundEvent soundEvent = SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
+    private SoundEvent soundEvent = SoundEvents.ARMOR_EQUIP_LEATHER;
     protected Builder(ResourceLocation baseName, ArmorSlotType[] slotTypes) {
       this.name = baseName;
       builders = new ToolDefinition.Builder[4];
       this.slotTypes = slotTypes;
       for (ArmorSlotType slot : slotTypes) {
-        builders[slot.getIndex()] = ToolDefinition.builder(new ResourceLocation(baseName.getNamespace(), baseName.getPath() + "_" + slot.getString()));
+        builders[slot.getIndex()] = ToolDefinition.builder(new ResourceLocation(baseName.getNamespace(), baseName.getPath() + "_" + slot.getSerializedName()));
       }
     }
 

@@ -17,6 +17,8 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 
 import javax.annotation.Nullable;
 
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
 /** Capability handler instance for the copper can item */
 @AllArgsConstructor
 public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProvider {

@@ -15,7 +15,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -70,7 +69,7 @@ public final class ModifierUtil {
       }
       // lucky pants
       if (player != null) {
-        ItemStack pants = player.getItemStackFromSlot(EquipmentSlotType.LEGS);
+        ItemStack pants = player.getItemBySlot(EquipmentSlotType.LEGS);
         if (TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
@@ -83,7 +82,7 @@ public final class ModifierUtil {
       }
       if (!enchantments.isEmpty()) {
         // note this returns a new list if there is no tag, this is intentional as we need non-null to tell the tool to remove the tag
-        originalEnchants = stack.getEnchantmentTagList();
+        originalEnchants = stack.getEnchantmentTags();
         EnchantmentHelper.setEnchantments(enchantments, stack);
       }
     }
@@ -134,7 +133,7 @@ public final class ModifierUtil {
    * @return  Looting value for the tool
    */
   public static int getLeggingsLootingLevel(LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int toolLooting) {
-    ItemStack pants = holder.getItemStackFromSlot(EquipmentSlotType.LEGS);
+    ItemStack pants = holder.getItemBySlot(EquipmentSlotType.LEGS);
     if (!pants.isEmpty() && TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
@@ -151,15 +150,14 @@ public final class ModifierUtil {
 
   /** Drops an item at the entity position */
   public static void dropItem(Entity target, ItemStack stack) {
-    World world = target.getEntityWorld();
-    if (!stack.isEmpty() && !target.getEntityWorld().isRemote()) {
-      ItemEntity ent = new ItemEntity(world, target.getPosX(), target.getPosY() + 1, target.getPosZ(), stack);
-      ent.setDefaultPickupDelay();
-      Random rand = target.world.rand;
-      ent.setMotion(ent.getMotion().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
-                                        rand.nextFloat() * 0.05F,
-                                        (rand.nextFloat() - rand.nextFloat()) * 0.1F));
-      world.addEntity(ent);
+    if (!stack.isEmpty() && !target.level.isClientSide) {
+      ItemEntity ent = new ItemEntity(target.level, target.getX(), target.getY() + 1, target.getZ(), stack);
+      ent.setDefaultPickUpDelay();
+      Random rand = target.level.random;
+      ent.setDeltaMovement(ent.getDeltaMovement().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
+                                                      rand.nextFloat() * 0.05F,
+                                                      (rand.nextFloat() - rand.nextFloat()) * 0.1F));
+      target.level.addFreshEntity(ent);
     }
   }
 
@@ -197,7 +195,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR && (allowBroken || !tool.isBroken())) {
+    if (context.getChangedSlot().getType() == Group.ARMOR && (allowBroken || !tool.isBroken())) {
       context.getTinkerData().ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
@@ -228,7 +226,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
-    if (context.getChangedSlot().getSlotType() == Group.ARMOR && !tool.isBroken()) {
+    if (context.getChangedSlot().getType() == Group.ARMOR && !tool.isBroken()) {
       context.getTinkerData().ifPresent(data -> {
         float totalLevels = data.get(key, 0f) + amount;
         if (totalLevels <= 0.005f) {
@@ -261,6 +259,7 @@ public final class ModifierUtil {
   }
 
   /** Checks if the entity has aqua affinity from either enchants or modifiers */
+  @SuppressWarnings("BooleanMethodIsAlwaysInverted")
   public static boolean hasAquaAffinity(LivingEntity living) {
     return ModifierUtil.getTotalModifierLevel(living, TinkerDataKeys.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
   }

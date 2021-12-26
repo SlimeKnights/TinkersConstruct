@@ -47,8 +47,8 @@ public class ToolContainer extends Container {
 
   /** Creates a new instance of this container on the client side */
   public static ToolContainer forClient(int id, PlayerInventory inventory, PacketBuffer buffer) {
-    EquipmentSlotType slotType = buffer.readEnumValue(EquipmentSlotType.class);
-    ItemStack stack = inventory.player.getItemStackFromSlot(slotType);
+    EquipmentSlotType slotType = buffer.readEnum(EquipmentSlotType.class);
+    ItemStack stack = inventory.player.getItemBySlot(slotType);
     IItemHandler handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
     return new ToolContainer(TinkerTools.toolContainer.get(), id, inventory, stack, handler, slotType);
   }
@@ -76,7 +76,7 @@ public class ToolContainer extends Container {
       }
     }
 
-    this.playerInventoryStart = this.inventorySlots.size();
+    this.playerInventoryStart = this.slots.size();
 
     // add player slots
     int playerY = 32 + SLOT_SIZE * ((slots + 8) / 9);
@@ -86,7 +86,7 @@ public class ToolContainer extends Container {
       }
     }
     int hotbarStart = playerY + 58;
-    selectedHotbarSlot = slotType == EquipmentSlotType.MAINHAND ? playerInventory.currentItem : (slotType == EquipmentSlotType.OFFHAND ? 10 : -1);
+    selectedHotbarSlot = slotType == EquipmentSlotType.MAINHAND ? playerInventory.selected : (slotType == EquipmentSlotType.OFFHAND ? 10 : -1);
     for(int c = 0; c < 9; ++c) {
       if (c == selectedHotbarSlot) {
         this.addSlot(new ReadOnlySlot(playerInventory, c, 8 + c * 18, hotbarStart));
@@ -97,32 +97,32 @@ public class ToolContainer extends Container {
   }
 
   @Override
-  public boolean canInteractWith(PlayerEntity playerIn) {
+  public boolean stillValid(PlayerEntity playerIn) {
     return player == playerIn;
   }
 
   @Override
-  public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+  public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
     if (this.playerInventoryStart < 0) {
       return ItemStack.EMPTY;
     }
     ItemStack result = ItemStack.EMPTY;
-    Slot slot = this.inventorySlots.get(index);
-    if (slot != null && slot.getHasStack()) {
-      ItemStack slotStack = slot.getStack();
+    Slot slot = this.slots.get(index);
+    if (slot != null && slot.hasItem()) {
+      ItemStack slotStack = slot.getItem();
       result = slotStack.copy();
-      int end = this.inventorySlots.size();
+      int end = this.slots.size();
       if (index < this.playerInventoryStart) {
-        if (!this.mergeItemStack(slotStack, this.playerInventoryStart, end, true)) {
+        if (!this.moveItemStackTo(slotStack, this.playerInventoryStart, end, true)) {
           return ItemStack.EMPTY;
         }
-      } else if (!this.mergeItemStack(slotStack, 0, this.playerInventoryStart, false)) {
+      } else if (!this.moveItemStackTo(slotStack, 0, this.playerInventoryStart, false)) {
         return ItemStack.EMPTY;
       }
       if (slotStack.isEmpty()) {
-        slot.putStack(ItemStack.EMPTY);
+        slot.set(ItemStack.EMPTY);
       } else {
-        slot.onSlotChanged();
+        slot.setChanged();
       }
     }
     return result;

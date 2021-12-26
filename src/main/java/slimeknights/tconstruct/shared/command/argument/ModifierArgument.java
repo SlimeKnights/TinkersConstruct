@@ -42,7 +42,7 @@ public class ModifierArgument implements ArgumentType<Modifier> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return ISuggestionProvider.suggestIterable(TinkerRegistries.MODIFIERS.getKeys(), builder);
+    return ISuggestionProvider.suggestResource(TinkerRegistries.MODIFIERS.getKeys(), builder);
   }
 
   @Override

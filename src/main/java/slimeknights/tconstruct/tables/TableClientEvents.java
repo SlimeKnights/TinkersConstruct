@@ -32,7 +32,7 @@ public class TableClientEvents extends ClientEventBase {
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
-    manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
+    manager.registerReloadListener(PatternGuiTextureLoader.INSTANCE);
   }
 
   @SubscribeEvent
@@ -42,10 +42,10 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void setupClient(final FMLClientSetupEvent event) {
-    ScreenManager.registerFactory(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
-    ScreenManager.registerFactory(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
-    ScreenManager.registerFactory(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
-    ScreenManager.registerFactory(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
+    ScreenManager.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
+    ScreenManager.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
+    ScreenManager.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
+    ScreenManager.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
 
     ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
@@ -56,7 +56,7 @@ public class TableClientEvents extends ClientEventBase {
   static void registerBlockColors(final ColorHandlerEvent.Block event) {
     event.getBlockColors().register((state, world, pos, index) -> {
       if (world != null && pos != null) {
-        TileEntity te = world.getTileEntity(pos);
+        TileEntity te = world.getBlockEntity(pos);
         if (te instanceof TinkersChestTileEntity) {
           return ((TinkersChestTileEntity)te).getColor();
         }

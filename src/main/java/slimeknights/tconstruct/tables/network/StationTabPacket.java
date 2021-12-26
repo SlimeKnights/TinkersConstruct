@@ -34,28 +34,28 @@ public class StationTabPacket implements IThreadsafePacket {
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
-      ItemStack heldStack = sender.inventory.getItemStack();
+      ItemStack heldStack = sender.inventory.getCarried();
       if (!heldStack.isEmpty()) {
         // set it to empty, so it's doesn't get dropped
-        sender.inventory.setItemStack(ItemStack.EMPTY);
+        sender.inventory.setCarried(ItemStack.EMPTY);
       }
 
-      World world = sender.getEntityWorld();
-      if (!world.isBlockLoaded(pos)) {
+      World world = sender.getCommandSenderWorld();
+      if (!world.hasChunkAt(pos)) {
         return;
       }
       BlockState state = world.getBlockState(pos);
       if (state.getBlock() instanceof ITinkerStationBlock) {
-        ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getEntityWorld(), pos);
+        ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getCommandSenderWorld(), pos);
       } else {
-        INamedContainerProvider provider = state.getContainer(sender.getEntityWorld(), pos);
+        INamedContainerProvider provider = state.getMenuProvider(sender.getCommandSenderWorld(), pos);
         if (provider != null) {
           NetworkHooks.openGui(sender, provider, pos);
         }
       }
 
       if (!heldStack.isEmpty()) {
-        sender.inventory.setItemStack(heldStack);
+        sender.inventory.setCarried(heldStack);
         TinkerNetwork.getInstance().sendVanillaPacket(sender, new SSetSlotPacket(-1, -1, heldStack));
       }
     }

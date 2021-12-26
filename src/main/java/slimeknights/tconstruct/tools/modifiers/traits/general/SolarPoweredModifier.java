@@ -21,9 +21,9 @@ public class SolarPoweredModifier extends SingleUseModifier {
   @Override
   public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
     if (holder != null) {
-      World world = holder.getEntityWorld();
+      World world = holder.getCommandSenderWorld();
       // note this may go negative, that is not a problem
-      int skylight = world.getLightFor(LightType.SKY, holder.getPosition()) - world.getSkylightSubtracted();
+      int skylight = world.getBrightness(LightType.SKY, holder.blockPosition()) - world.getSkyDarken();
       if (skylight > 0) {
         float chance = skylight * 0.05f; // up to a 75% chance at max sunlight
         int maxDamage = amount;

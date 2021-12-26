@@ -36,17 +36,17 @@ public class ClientInteractionHandler {
     }
     // figure out if we have a chestplate making us care
     PlayerEntity player = event.getPlayer();
-    ItemStack chestplate = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+    ItemStack chestplate = player.getItemBySlot(EquipmentSlotType.CHEST);
     if (!player.isSpectator() && TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
       // found an interaction, time to notify the server and run logic for the client
       Hand hand = event.getHand();
       TinkerNetwork.getInstance().sendToServer(OnChestplateUsePacket.from(hand));
       ActionResultType result = InteractionHandler.onChestplateUse(player, chestplate, hand);
-      if (result.isSuccessOrConsume()) {
-        if (result.isSuccess()) {
-          player.swingArm(hand);
+      if (result.consumesAction()) {
+        if (result.shouldSwing()) {
+          player.swing(hand);
         }
-        Minecraft.getInstance().gameRenderer.itemRenderer.resetEquippedProgress(hand);
+        Minecraft.getInstance().gameRenderer.itemInHandRenderer.itemUsed(hand);
         if (hand == Hand.MAIN_HAND) {
           cancelNextOffhand = true;
         }

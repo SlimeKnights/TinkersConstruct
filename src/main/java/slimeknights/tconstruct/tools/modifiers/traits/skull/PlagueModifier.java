@@ -17,9 +17,9 @@ public class PlagueModifier extends SingleUseModifier {
   public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     if (isDirectDamage && !source.isProjectile()) {
       // copy all negative effects to target
-      for (EffectInstance effect : context.getEntity().getActivePotionEffects()) {
-        if (!effect.getPotion().isBeneficial() && !effect.getCurativeItems().isEmpty()) {
-          target.addPotionEffect(new EffectInstance(effect));
+      for (EffectInstance effect : context.getEntity().getActiveEffects()) {
+        if (!effect.getEffect().isBeneficial() && !effect.getCurativeItems().isEmpty()) {
+          target.addEffect(new EffectInstance(effect));
         }
       }
     }

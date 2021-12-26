@@ -20,6 +20,8 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Set;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Extension of a modifiable tool that also is capable of harvesting blocks
  */
@@ -52,13 +54,13 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
   }
 
   @Override
-  public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+  public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return false;
     }
 
-    if (!worldIn.isRemote && worldIn instanceof ServerWorld) {
+    if (!worldIn.isClientSide && worldIn instanceof ServerWorld) {
       boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
       ToolHarvestContext context = new ToolHarvestContext((ServerWorld) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
       for (ModifierEntry entry : tool.getModifierList()) {

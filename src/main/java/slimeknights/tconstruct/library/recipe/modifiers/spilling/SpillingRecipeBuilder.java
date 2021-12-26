@@ -67,7 +67,7 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       json.add("fluid", fluid.serialize());
       JsonArray effectArray = new JsonArray();
       for (ISpillingEffect effect : effects) {
@@ -77,7 +77,7 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerModifiers.spillingSerializer.get();
     }
   }

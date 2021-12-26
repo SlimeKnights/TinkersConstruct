@@ -48,7 +48,7 @@ public class FluidUpdatePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(FluidUpdatePacket packet) {
-      TileEntityHelper.getTile(IFluidPacketReceiver.class, Minecraft.getInstance().world, packet.pos).ifPresent(te -> te.updateFluidTo(packet.fluid));
+      TileEntityHelper.getTile(IFluidPacketReceiver.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.updateFluidTo(packet.fluid));
     }
   }
 }

@@ -48,12 +48,12 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType equipmentSlot) {
-    if (!player.isSneaking()) {
-      if (player.world.isRemote) {
+    if (!player.isShiftKeyDown()) {
+      if (player.level.isClientSide) {
         return false; // TODO: see below
       }
       // offhand must be able to go in the pants
-      ItemStack offhand = player.getHeldItemOffhand();
+      ItemStack offhand = player.getOffhandItem();
       int slots = getSlots(tool, level);
       if (offhand.isEmpty() || !ToolInventoryCapability.isBlacklisted(offhand)) {
         ItemStack newOffhand = ItemStack.EMPTY;
@@ -66,7 +66,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
             CompoundNBT compoundNBT = original.getCompound(i);
             int slot = compoundNBT.getInt(TAG_SLOT);
             if (slot == 0) {
-              newOffhand = ItemStack.read(compoundNBT);
+              newOffhand = ItemStack.of(compoundNBT);
             } else if (slot < slots) {
               CompoundNBT copy = compoundNBT.copy();
               copy.putInt(TAG_SLOT, slot - 1);
@@ -80,11 +80,11 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
         }
         // update offhand
         persistentData.put(KEY, list);
-        player.setHeldItem(Hand.OFF_HAND, newOffhand);
+        player.setItemInHand(Hand.OFF_HAND, newOffhand);
 
         // sound effect
         if (!newOffhand.isEmpty() || !list.isEmpty()) {
-          player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
+          player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
         }
         //return true; TODO: tuning to make this a blocking interaction
       }

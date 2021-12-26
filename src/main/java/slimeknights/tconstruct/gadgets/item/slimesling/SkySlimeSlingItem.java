@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
+import net.minecraft.item.Item.Properties;
+
 public class SkySlimeSlingItem extends BaseSlimeSlingItem {
   private static final float DEGREE_TO_RAD = (float) Math.PI / 180.0F;
 
@@ -30,7 +32,7 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+  public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     if (!(entityLiving instanceof PlayerEntity)) {
       return;
     }
@@ -38,25 +40,25 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
     PlayerEntity player = (PlayerEntity) entityLiving;
 
     // don't allow free flight when using an elytra, should use fireworks
-    if (player.isElytraFlying()) {
+    if (player.isFallFlying()) {
       return;
     }
 
-    player.addExhaustion(0.2F);
+    player.causeFoodExhaustion(0.2F);
     player.setSprinting(true);
 
     float f = getForce(stack, timeLeft);
     float speed = f / 3F;
-    Vector3d look = player.getLookVec();
-    player.addVelocity(
+    Vector3d look = player.getLookAngle();
+    player.push(
       (look.x * speed),
       (1 + look.y) * speed / 2f,
       (look.z * speed));
 
     onSuccess(player, stack);
     SlimeBounceHandler.addBounceHandler(player);
-    if (!worldIn.isRemote) {
-      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+    if (!worldIn.isClientSide) {
+      player.getCooldowns().addCooldown(stack.getItem(), 3);
       onSuccess(player, stack);
     }
   }

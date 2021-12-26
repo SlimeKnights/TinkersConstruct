@@ -25,13 +25,13 @@ public class CycleRecipeElement extends ArrowElement {
   @Override
   public void mouseClicked(double mouseX, double mouseY, int mouseButton) {
     if (this.button != null && this.isHovered(mouseX, mouseY)) {
-      this.playDownSound(Minecraft.getInstance().getSoundHandler());
+      this.playDownSound(Minecraft.getInstance().getSoundManager());
       this.button.onPress();
     }
   }
 
   public void playDownSound(SoundHandler handler) {
-    handler.play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+    handler.play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
   }
 
   @Override

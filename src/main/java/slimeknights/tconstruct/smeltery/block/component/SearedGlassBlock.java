@@ -7,6 +7,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SearedGlassBlock extends SearedBlock {
 
   public SearedGlassBlock(Properties properties) {
@@ -16,7 +18,7 @@ public class SearedGlassBlock extends SearedBlock {
   @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  public float getShadeBrightness(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return 1.0F;
   }
 
@@ -28,7 +30,7 @@ public class SearedGlassBlock extends SearedBlock {
   @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
-  public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-    return adjacentBlockState.getBlock() == this || super.isSideInvisible(state, adjacentBlockState, side);
+  public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+    return adjacentBlockState.getBlock() == this || super.skipRendering(state, adjacentBlockState, side);
   }
 }

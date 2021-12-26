@@ -25,8 +25,8 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
   @Override
   public void render(MatrixStack matrices, int x, int y, @Nullable Pattern pattern) {
     if (pattern != null) {
-      TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlasTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE).getSprite(pattern.getTexture());
-      Minecraft.getInstance().getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+      TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(PlayerContainer.BLOCK_ATLAS).getSprite(pattern.getTexture());
+      Minecraft.getInstance().getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
       Screen.blit(matrices, x, y, 100, 16, 16, sprite);
     }
   }
@@ -34,7 +34,7 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
   @Override
   public List<ITextComponent> getTooltip(Pattern pattern, ITooltipFlag flag) {
     if (flag.isAdvanced()) {
-      return Arrays.asList(pattern.getDisplayName(), new StringTextComponent(pattern.toString()).mergeStyle(TextFormatting.DARK_GRAY));
+      return Arrays.asList(pattern.getDisplayName(), new StringTextComponent(pattern.toString()).withStyle(TextFormatting.DARK_GRAY));
     } else {
       return Collections.singletonList(pattern.getDisplayName());
     }

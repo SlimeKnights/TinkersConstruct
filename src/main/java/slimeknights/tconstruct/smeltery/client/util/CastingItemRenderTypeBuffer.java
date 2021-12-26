@@ -41,8 +41,8 @@ public class CastingItemRenderTypeBuffer implements IRenderTypeBuffer {
   @Override
   public IVertexBuilder getBuffer(RenderType type) {
     if (alpha < 255 && MAKE_TRANSPARENT.contains(type.name) && type instanceof RenderType.Type) {
-      ResourceLocation texture = ((RenderType.Type) type).renderState.texture.texture.orElse(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-      type = RenderType.getEntityTranslucentCull(texture);
+      ResourceLocation texture = ((RenderType.Type) type).state.textureState.texture.orElse(PlayerContainer.BLOCK_ATLAS);
+      type = RenderType.entityTranslucentCull(texture);
     }
 
     return new TintedVertexBuilder(inner.getBuffer(type), red, green, blue, alpha);

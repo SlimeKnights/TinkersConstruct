@@ -31,14 +31,14 @@ public class TinkerStationSlot extends Slot {
   }
 
   @Override
-  public boolean isItemValid(ItemStack stack) {
+  public boolean mayPlace(ItemStack stack) {
     // dormant slots don't take any items, they can only be taken out of
     return layout != null && layout.isValid(stack);
   }
 
   @Override
-  public void onSlotChanged() {
-    craftResult.clear();
-    super.onSlotChanged();
+  public void setChanged() {
+    craftResult.clearContent();
+    super.setChanged();
   }
 }

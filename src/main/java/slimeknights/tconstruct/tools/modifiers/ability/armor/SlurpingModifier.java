@@ -38,13 +38,13 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
 
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
-    if (!player.isSneaking()) {
+    if (!player.isShiftKeyDown()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
         // if we have a recipe, start drinking
-        SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getEntityWorld().getRecipeManager(), fluid.getFluid());
+        SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getCommandSenderWorld().getRecipeManager(), fluid.getFluid());
         if (recipe != null) {
-          player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.ticksExisted + 20)));
+          player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.tickCount + 20)));
           return true;
         }
       }
@@ -56,17 +56,17 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   private static void addFluidParticles(PlayerEntity player, FluidStack fluid, int count) {
     for(int i = 0; i < count; ++i) {
       Vector3d motion = new Vector3d((RANDOM.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-      motion = motion.rotatePitch(-player.rotationPitch * DEGREE_TO_RADIANS);
-      motion = motion.rotateYaw(-player.rotationYaw * DEGREE_TO_RADIANS);
+      motion = motion.xRot(-player.xRot * DEGREE_TO_RADIANS);
+      motion = motion.yRot(-player.yRot * DEGREE_TO_RADIANS);
       Vector3d position = new Vector3d((RANDOM.nextFloat() - 0.5D) * 0.3D, (-RANDOM.nextFloat()) * 0.6D - 0.3D, 0.6D);
-      position = position.rotatePitch(-player.rotationPitch * DEGREE_TO_RADIANS);
-      position = position.rotateYaw(-player.rotationYaw * DEGREE_TO_RADIANS);
-      position = position.add(player.getPosX(), player.getPosYEye(), player.getPosZ());
+      position = position.xRot(-player.xRot * DEGREE_TO_RADIANS);
+      position = position.yRot(-player.yRot * DEGREE_TO_RADIANS);
+      position = position.add(player.getX(), player.getEyeY(), player.getZ());
       FluidParticleData data = new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid);
-      if (player.world instanceof ServerWorld) {
-        ((ServerWorld)player.world).spawnParticle(data, position.x, position.y, position.z, 1, motion.x, motion.y + 0.05D, motion.z, 0.0D);
+      if (player.level instanceof ServerWorld) {
+        ((ServerWorld)player.level).sendParticles(data, position.x, position.y, position.z, 1, motion.x, motion.y + 0.05D, motion.z, 0.0D);
       } else {
-        player.world.addParticle(data, position.x, position.y, position.z, motion.x, motion.y + 0.05D, motion.z);
+        player.level.addParticle(data, position.x, position.y, position.z, motion.x, motion.y + 0.05D, motion.z);
       }
     }
   }
@@ -79,19 +79,19 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
       SlurpingInfo info = data.get(SLURP_FINISH_TIME);
       if (info != null) {
         // how long we have left?
-        int timeLeft = info.finishTime - player.ticksExisted;
+        int timeLeft = info.finishTime - player.tickCount;
         if (timeLeft < 0) {
           // particles a bit stronger
-          player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.5F, RANDOM.nextFloat() * 0.1f + 0.9f);
+          player.playSound(SoundEvents.GENERIC_DRINK, 0.5F, RANDOM.nextFloat() * 0.1f + 0.9f);
           addFluidParticles(player, info.fluid, 16);
 
           // only server needs to drink
-          if (!player.getEntityWorld().isRemote) {
-            ToolStack tool = ToolStack.from(player.getItemStackFromSlot(EquipmentSlotType.HEAD));
+          if (!player.getCommandSenderWorld().isClientSide) {
+            ToolStack tool = ToolStack.from(player.getItemBySlot(EquipmentSlotType.HEAD));
             FluidStack fluid = getFluid(tool);
             if (!fluid.isEmpty()) {
               // find the recipe
-              SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getEntityWorld().getRecipeManager(), fluid.getFluid());
+              SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getCommandSenderWorld().getRecipeManager(), fluid.getFluid());
               if (recipe != null) {
                 ToolAttackContext context = new ToolAttackContext(player, player, Hand.MAIN_HAND, player, player, false, 1.0f, false);
                 FluidStack remaining = recipe.applyEffects(fluid, tool.getModifierLevel(this), context);
@@ -107,7 +107,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
         }
         // sound is only every 4 ticks
         else if (timeLeft % 4 == 0) {
-          player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.5F, RANDOM.nextFloat() * 0.1f + 0.9f);
+          player.playSound(SoundEvents.GENERIC_DRINK, 0.5F, RANDOM.nextFloat() * 0.1f + 0.9f);
           addFluidParticles(player, info.fluid, 5);
         }
       }

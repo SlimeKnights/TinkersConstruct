@@ -64,7 +64,7 @@ public class ToolDamageUtil {
       // TODO: needed?
       if (entity instanceof ServerPlayerEntity) {
         if (stack == null) {
-          stack = entity.getHeldItemMainhand();
+          stack = entity.getMainHandItem();
         }
         CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity)entity, stack, newDamage);
       }
@@ -106,8 +106,8 @@ public class ToolDamageUtil {
    * @param slot    Slot containing the stack
    */
   public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlotType slot) {
-    if (damage(tool, amount, entity, entity.getItemStackFromSlot(slot))) {
-      entity.sendBreakAnimation(slot);
+    if (damage(tool, amount, entity, entity.getItemBySlot(slot))) {
+      entity.broadcastBreakEvent(slot);
       return true;
     }
     return false;
@@ -122,8 +122,8 @@ public class ToolDamageUtil {
    * @return true if the tool broke when damaging
    */
   public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, Hand hand) {
-    if (damage(tool, amount, entity, entity.getHeldItem(hand))) {
-      entity.sendBreakAnimation(hand);
+    if (damage(tool, amount, entity, entity.getItemInHand(hand))) {
+      entity.broadcastBreakEvent(hand);
       return true;
     }
     return false;
@@ -166,7 +166,7 @@ public class ToolDamageUtil {
 
 
   public static boolean showDurabilityBar(ItemStack stack) {
-    if (!stack.getItem().isDamageable()) {
+    if (!stack.getItem().canBeDepleted()) {
       return false;
     }
     ToolStack tool = ToolStack.from(stack);
@@ -228,6 +228,6 @@ public class ToolDamageUtil {
         return rgb;
       }
     }
-    return MathHelper.hsvToRGB(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
+    return MathHelper.hsvToRgb(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
   }
 }

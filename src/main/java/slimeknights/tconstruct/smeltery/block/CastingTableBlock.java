@@ -13,14 +13,16 @@ import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class CastingTableBlock extends AbstractCastingBlock {
 
-  private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(
-    VoxelShapes.fullCube(),
+  private static final VoxelShape SHAPE = VoxelShapes.join(
+    VoxelShapes.block(),
     VoxelShapes.or(
-      Block.makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 10.0D, 16.0D),
-      Block.makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 10.0D, 12.0D),
-      Block.makeCuboidShape(1.0D, 15.0D, 1.0D, 15.0D, 16.0D, 15.0D)
+      Block.box(4.0D, 0.0D, 0.0D, 12.0D, 10.0D, 16.0D),
+      Block.box(0.0D, 0.0D, 4.0D, 16.0D, 10.0D, 12.0D),
+      Block.box(1.0D, 15.0D, 1.0D, 15.0D, 16.0D, 15.0D)
     ), IBooleanFunction.ONLY_FIRST);
 
   public CastingTableBlock(Properties builder) {

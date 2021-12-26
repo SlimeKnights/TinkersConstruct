@@ -78,7 +78,7 @@ public abstract class RandomItem {
     if (element.isJsonObject()) {
       JsonObject object = element.getAsJsonObject();
       if (object.has("max")) {
-        object.addProperty("count", JSONUtils.getInt(object, "max"));
+        object.addProperty("count", JSONUtils.getAsInt(object, "max"));
         object.remove("max");
       }
     }
@@ -95,11 +95,11 @@ public abstract class RandomItem {
     JsonObject object = element.getAsJsonObject();
     // min and max count
     if (object.has("min")) {
-      return range(result, JSONUtils.getInt(object, "min"));
+      return range(result, JSONUtils.getAsInt(object, "min"));
     }
     // percent chance
     if (object.has("chance")) {
-      return chance(result, JSONUtils.getFloat(object, "chance"));
+      return chance(result, JSONUtils.getAsFloat(object, "chance"));
     }
     // constant tag most likely
     return constant(result);
@@ -108,7 +108,7 @@ public abstract class RandomItem {
   /** Reads the object from the packet buffer */
   public static RandomItem read(PacketBuffer buffer) {
     ItemOutput result = ItemOutput.read(buffer);
-    RandomType type = buffer.readEnumValue(RandomType.class);
+    RandomType type = buffer.readEnum(RandomType.class);
     switch (type) {
       case RANGE: {
         int min = buffer.readVarInt();
@@ -156,7 +156,7 @@ public abstract class RandomItem {
         object = resultElement.getAsJsonObject();
       }
       object.addProperty("min", minCount);
-      object.addProperty("max", JSONUtils.getInt(object, "count", 1));
+      object.addProperty("max", JSONUtils.getAsInt(object, "count", 1));
       object.remove("count");
       return object;
     }
@@ -164,7 +164,7 @@ public abstract class RandomItem {
     @Override
     public void write(PacketBuffer buffer) {
       result.write(buffer);
-      buffer.writeEnumValue(RandomType.RANGE);
+      buffer.writeEnum(RandomType.RANGE);
       buffer.writeVarInt(minCount);
     }
   }
@@ -207,7 +207,7 @@ public abstract class RandomItem {
     @Override
     public void write(PacketBuffer buffer) {
       result.write(buffer);
-      buffer.writeEnumValue(RandomType.CHANCE);
+      buffer.writeEnum(RandomType.CHANCE);
       buffer.writeFloat(chance);
     }
   }

@@ -58,6 +58,6 @@ public class DomainDisplayName {
 
   /** Registers the reload listener with the resource manager */
   public static void addResourceListener(IReloadableResourceManager manager) {
-    manager.addReloadListener(RELOAD_LISTENER);
+    manager.registerReloadListener(RELOAD_LISTENER);
   }
 }

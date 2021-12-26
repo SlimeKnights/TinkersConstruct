@@ -71,9 +71,9 @@ public class MelterModel extends TankModel {
       SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       SimpleBlockModel gui = null;
       if (modelContents.has("gui")) {
-        gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getJsonObject(modelContents, "gui"));
+        gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getAsJsonObject(modelContents, "gui"));
       }
-      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
+      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getAsJsonObject(modelContents, "fluid"));
       List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
       return new MelterModel(model, gui, fluid, items);
     }

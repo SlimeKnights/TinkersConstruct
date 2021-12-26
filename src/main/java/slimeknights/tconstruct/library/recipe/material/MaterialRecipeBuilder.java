@@ -40,7 +40,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
    * @return  Builder instance
    */
   public MaterialRecipeBuilder setIngredient(Tag<Item> tag) {
-    return this.setIngredient(Ingredient.fromTag(tag));
+    return this.setIngredient(Ingredient.of(tag));
   }
 
   /**
@@ -49,7 +49,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
    * @return  Builder instance
    */
   public MaterialRecipeBuilder setIngredient(IItemProvider item) {
-    return this.setIngredient(Ingredient.fromItems(item));
+    return this.setIngredient(Ingredient.of(item));
   }
 
   /**
@@ -91,11 +91,11 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.add("ingredient", ingredient.serialize());
+      json.add("ingredient", ingredient.toJson());
       json.addProperty("value", value);
       json.addProperty("needed", needed);
       json.addProperty("material", material.toString());
@@ -105,7 +105,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerTables.materialRecipeSerializer.get();
     }
   }

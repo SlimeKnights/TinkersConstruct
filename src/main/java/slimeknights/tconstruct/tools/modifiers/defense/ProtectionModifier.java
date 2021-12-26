@@ -24,7 +24,7 @@ public class ProtectionModifier extends IncrementalModifier {
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative()) {
+    if (!source.isBypassMagic() && !source.isBypassInvul()) {
       modifierValue += getScaledLevel(tool, level);
     }
     return modifierValue;
@@ -46,8 +46,8 @@ public class ProtectionModifier extends IncrementalModifier {
   public static void addResistanceTooltip(IncrementalModifier modifier, IModifierToolStack tool, int level, float multiplier, List<ITextComponent> tooltip) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
       tooltip.add(modifier.applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(modifier.getScaledLevel(tool, level) * multiplier / 25f))
-                               .appendString(" ")
-                               .appendSibling(new TranslationTextComponent(modifier.getTranslationKey() + ".resistance"))));
+                               .append(" ")
+                               .append(new TranslationTextComponent(modifier.getTranslationKey() + ".resistance"))));
     }
   }
 }

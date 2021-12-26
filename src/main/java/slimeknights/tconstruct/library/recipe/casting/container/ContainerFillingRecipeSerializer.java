@@ -20,17 +20,17 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
   private final ContainerFillingRecipeSerializer.IFactory<T> factory;
 
   @Override
-  public T read(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getString(json, "group", "");
-    int fluidAmount = JSONUtils.getInt(json, "fluid_amount");
-    Item result = JSONUtils.getItem(json, "container");
+  public T fromJson(ResourceLocation recipeId, JsonObject json) {
+    String group = JSONUtils.getAsString(json, "group", "");
+    int fluidAmount = JSONUtils.getAsInt(json, "fluid_amount");
+    Item result = JSONUtils.getAsItem(json, "container");
     return this.factory.create(recipeId, group, fluidAmount, result);
   }
 
   @Nullable
   @Override
   protected T readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
-    String group = buffer.readString(Short.MAX_VALUE);
+    String group = buffer.readUtf(Short.MAX_VALUE);
     int fluidAmount = buffer.readInt();
     Item result = RecipeHelper.readItem(buffer);
     return this.factory.create(recipeId, group, fluidAmount, result);
@@ -38,7 +38,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
 
   @Override
   protected void writeSafe(PacketBuffer buffer, T recipe) {
-    buffer.writeString(recipe.group);
+    buffer.writeUtf(recipe.group);
     buffer.writeInt(recipe.fluidAmount);
     RecipeHelper.writeItem(buffer, recipe.container);
   }

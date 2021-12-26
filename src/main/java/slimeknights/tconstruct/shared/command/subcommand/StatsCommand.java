@@ -44,7 +44,7 @@ public class StatsCommand {
    * @param subCommand  Command builder
    */
   public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
-    subCommand.requires(sender -> sender.hasPermissionLevel(MantleCommand.PERMISSION_GAME_COMMANDS))
+    subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
               .then(Commands.argument("targets", EntityArgument.entities())
                             // stats <target> bonus add|set <stat_type> <value>
                             .then(Commands.literal("bonus")
@@ -126,7 +126,7 @@ public class StatsCommand {
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
       return true;
     });
 
@@ -135,9 +135,9 @@ public class StatsCommand {
     int size = successes.size();
     String successKey = SUCCESS_KEY_PREFIX + type.key + "." + op.key + ".";
     if (size == 1) {
-      source.sendFeedback(new TranslationTextComponent(successKey + "single", stat.getPrefix(), value, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslationTextComponent(successKey + "single", stat.getPrefix(), value, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendFeedback(new TranslationTextComponent(successKey + "multiple", stat.getPrefix(), value, size), true);
+      source.sendSuccess(new TranslationTextComponent(successKey + "multiple", stat.getPrefix(), value, size), true);
     }
     return size;
   }
@@ -172,7 +172,7 @@ public class StatsCommand {
         }
 
         // if successful, update held item
-        living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+        living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
       }
       return true;
     });
@@ -181,9 +181,9 @@ public class StatsCommand {
     CommandSource source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendFeedback(new TranslationTextComponent(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslationTextComponent(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendFeedback(new TranslationTextComponent(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
+      source.sendSuccess(new TranslationTextComponent(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
     }
     return size;
   }
@@ -207,7 +207,7 @@ public class StatsCommand {
         }
 
         // if successful, update held item
-        living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+        living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
       }
       return true;
     });
@@ -216,9 +216,9 @@ public class StatsCommand {
     CommandSource source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendFeedback(new TranslationTextComponent(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslationTextComponent(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendFeedback(new TranslationTextComponent(RESET_ALL_MULTIPLE, size), true);
+      source.sendSuccess(new TranslationTextComponent(RESET_ALL_MULTIPLE, size), true);
     }
     return size;
   }

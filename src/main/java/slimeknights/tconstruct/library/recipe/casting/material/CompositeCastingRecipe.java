@@ -23,6 +23,7 @@ import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
  */
 public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
   public CompositeCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, IMaterialItem result, int itemCost) {
-    super(type, id, group, Ingredient.fromItems(result), itemCost, result, true, false);
+    super(type, id, group, Ingredient.of(result), itemCost, result, true, false);
   }
 
   @Override
@@ -55,7 +56,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
         .map(recipe -> {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());
           int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);
-          return new DisplayCastingRecipe(type, Collections.singletonList(result.withMaterial(recipe.getInput())), fluids, result.withMaterial(recipe.getOutput()),
+          return new DisplayCastingRecipe(type, Collections.singletonList(result.withMaterial(Objects.requireNonNull(recipe.getInput()))), fluids, result.withMaterial(recipe.getOutput()),
                                           ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluidAmount), consumed);
         })
         .collect(Collectors.toList());
@@ -101,17 +102,17 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
     private final IFactory<T> factory;
 
     @Override
-    public T read(ResourceLocation id, JsonObject json) {
-      String group = JSONUtils.getString(json, "group", "");
-      IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IMaterialItem.class);
-      int itemCost = JSONUtils.getInt(json, "item_cost");
+    public T fromJson(ResourceLocation id, JsonObject json) {
+      String group = JSONUtils.getAsString(json, "group", "");
+      IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getAsString(json, "result"), "result", IMaterialItem.class);
+      int itemCost = JSONUtils.getAsInt(json, "item_cost");
       return factory.create(id, group, result, itemCost);
     }
 
     @Nullable
     @Override
     protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
-      String group = buffer.readString(Short.MAX_VALUE);
+      String group = buffer.readUtf(Short.MAX_VALUE);
       IMaterialItem result = RecipeHelper.readItem(buffer, IMaterialItem.class);
       int itemCost = buffer.readVarInt();
       return factory.create(id, group, result, itemCost);
@@ -119,7 +120,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
 
     @Override
     protected void writeSafe(PacketBuffer buffer, T recipe) {
-      buffer.writeString(recipe.group);
+      buffer.writeUtf(recipe.group);
       RecipeHelper.writeItem(buffer, recipe.result);
       buffer.writeVarInt(recipe.itemCost);
     }

@@ -24,14 +24,14 @@ public class InventorySlotSyncPacket implements IThreadsafePacket {
   }
 
   public InventorySlotSyncPacket(PacketBuffer buffer) {
-    this.itemStack = buffer.readItemStack();
+    this.itemStack = buffer.readItem();
     this.slot = buffer.readShort();
     this.pos = buffer.readBlockPos();
   }
 
   @Override
   public void encode(PacketBuffer packetBuffer) {
-    packetBuffer.writeItemStack(this.itemStack);
+    packetBuffer.writeItem(this.itemStack);
     packetBuffer.writeShort(this.slot);
     packetBuffer.writeBlockPos(this.pos);
   }
@@ -44,16 +44,16 @@ public class InventorySlotSyncPacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(InventorySlotSyncPacket packet) {
-      World world = Minecraft.getInstance().world;
+      World world = Minecraft.getInstance().level;
       if (world != null) {
-        TileEntity te = world.getTileEntity(packet.pos);
+        TileEntity te = world.getBlockEntity(packet.pos);
         if (te != null) {
           te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             .filter(cap -> cap instanceof IItemHandlerModifiable)
             .ifPresent(cap -> {
               ((IItemHandlerModifiable)cap).setStackInSlot(packet.slot, packet.itemStack);
               //noinspection ConstantConditions
-              Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, packet.pos, null, null, 0);
+              Minecraft.getInstance().levelRenderer.blockChanged(null, packet.pos, null, null, 0);
             });
         }
       }

@@ -21,30 +21,32 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class GlowBlock extends Block {
 
   public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
   public GlowBlock(Properties properties) {
     super(properties);
-    this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.DOWN));
-    this.lootTable = LootTables.EMPTY;
+    this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.DOWN));
+    this.drops = LootTables.EMPTY;
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
   }
 
   private static final ImmutableMap<Direction, VoxelShape> BOUNDS;
 
   static {
     ImmutableMap.Builder<Direction, VoxelShape> builder = ImmutableMap.builder();
-    builder.put(Direction.UP, Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D));
-    builder.put(Direction.DOWN, Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D));
-    builder.put(Direction.NORTH, Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D));
-    builder.put(Direction.SOUTH, Block.makeCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D));
-    builder.put(Direction.EAST, Block.makeCuboidShape(15.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D));
-    builder.put(Direction.WEST, Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 1.0D, 16.0D, 16.0D));
+    builder.put(Direction.UP, Block.box(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D));
+    builder.put(Direction.DOWN, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D));
+    builder.put(Direction.NORTH, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D));
+    builder.put(Direction.SOUTH, Block.box(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D));
+    builder.put(Direction.EAST, Block.box(15.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D));
+    builder.put(Direction.WEST, Block.box(0.0D, 0.0D, 0.0D, 1.0D, 16.0D, 16.0D));
 
     BOUNDS = builder.build();
   }
@@ -52,7 +54,7 @@ public class GlowBlock extends Block {
   @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    return BOUNDS.get(state.get(FACING));
+    return BOUNDS.get(state.getValue(FACING));
   }
 
   @Override
@@ -64,24 +66,24 @@ public class GlowBlock extends Block {
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rot) {
-    return state.with(FACING, rot.rotate(state.get(FACING)));
+    return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
   }
 
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirrorIn) {
-    return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+    return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
   }
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
     builder.add(FACING);
   }
 
   @Deprecated
   @Override
   public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean p_220069_6_) {
-    if (!this.canBlockStay(worldIn, pos, state.get(FACING))) {
+    if (!this.canBlockStay(worldIn, pos, state.getValue(FACING))) {
       worldIn.removeBlock(pos, false);
     }
 
@@ -96,9 +98,9 @@ public class GlowBlock extends Block {
    * @return true if the block side is solid and the block at the given BlockPos is not a liquid
    */
   protected boolean canBlockStay(World world, BlockPos pos, Direction facing) {
-    BlockPos placedOn = pos.offset(facing);
+    BlockPos placedOn = pos.relative(facing);
 
-    boolean isSolidSide = Block.doesSideFillSquare(world.getBlockState(placedOn).getRenderShape(world, pos), facing.getOpposite());
+    boolean isSolidSide = Block.isFaceFull(world.getBlockState(placedOn).getOcclusionShape(world, pos), facing.getOpposite());
     boolean isLiquid = world.getBlockState(pos).getBlock() instanceof FlowingFluidBlock;
 
     return !isLiquid && isSolidSide;
@@ -117,15 +119,15 @@ public class GlowBlock extends Block {
     if (state.getBlock() != this && state.getMaterial().isReplaceable()) {
       // if the location is valid, place the block directly
       if (this.canBlockStay(world, pos, direction)) {
-        if (!world.isRemote) {
-          world.setBlockState(pos, this.getDefaultState().with(FACING, direction));
+        if (!world.isClientSide) {
+          world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(FACING, direction));
         }
         return true;
       } else {
         for (Direction direction1 : Direction.values()) {
           if (this.canBlockStay(world, pos, direction1)) {
-            if (!world.isRemote) {
-              world.setBlockState(pos, this.getDefaultState().with(FACING, direction1));
+            if (!world.isClientSide) {
+              world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(FACING, direction1));
             }
             return true;
           }

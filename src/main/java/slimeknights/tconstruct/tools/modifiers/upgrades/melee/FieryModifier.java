@@ -14,8 +14,8 @@ public class FieryModifier extends IncrementalModifier {
   public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // vanilla hack: apply fire so the entity drops the proper items on instant kill
     LivingEntity target = context.getLivingTarget();
-    if (target != null && !target.isBurning()) {
-      target.setFire(1);
+    if (target != null && !target.isOnFire()) {
+      target.setRemainingFireTicks(1);
     }
     return knockback;
   }
@@ -24,8 +24,8 @@ public class FieryModifier extends IncrementalModifier {
   public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {
     // conclusion of vanilla hack: we don't want the target on fire if we did not hit them
     LivingEntity target = context.getLivingTarget();
-    if (target != null && target.isBurning()) {
-      target.extinguish();
+    if (target != null && target.isOnFire()) {
+      target.clearFire();
     }
   }
 
@@ -33,7 +33,7 @@ public class FieryModifier extends IncrementalModifier {
   public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
-      target.setFire(Math.round(getScaledLevel(tool, level) * 5));
+      target.setRemainingFireTicks(Math.round(getScaledLevel(tool, level) * 5));
     }
     return 0;
   }

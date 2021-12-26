@@ -27,7 +27,7 @@ public class ReachModifier extends Modifier {
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
     if (slot != EquipmentSlotType.OFFHAND) {
-      consumer.accept(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_UUIDS[slot.getSlotIndex()], "tconstruct.modifier.reach", level, Operation.ADDITION));
+      consumer.accept(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_UUIDS[slot.getFilterFlag()], "tconstruct.modifier.reach", level, Operation.ADDITION));
     }
   }
 }

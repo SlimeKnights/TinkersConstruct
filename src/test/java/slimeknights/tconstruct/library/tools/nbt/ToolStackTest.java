@@ -54,14 +54,14 @@ class ToolStackTest extends ToolItemTest {
   void from_shareNBT() {
     ToolStack tool = ToolStack.from(testItemStack);
     tool.setDamage(10);
-    assertThat(testItemStack.getDamage()).overridingErrorMessage("ToolStack damage was not transferred to the original stack").isEqualTo(10);
+    assertThat(testItemStack.getDamageValue()).overridingErrorMessage("ToolStack damage was not transferred to the original stack").isEqualTo(10);
   }
 
   @Test
   void copyFrom_notSharedNBT() {
     ToolStack tool = ToolStack.copyFrom(testItemStack);
     tool.setDamage(10);
-    assertThat(testItemStack.getDamage()).overridingErrorMessage("Copied ToolStack damage was transferred to the original stack").isEqualTo(0);
+    assertThat(testItemStack.getDamageValue()).overridingErrorMessage("Copied ToolStack damage was transferred to the original stack").isEqualTo(0);
   }
 
   @Test
@@ -128,10 +128,10 @@ class ToolStackTest extends ToolItemTest {
 
     CompoundNBT nbt = stack.getNbt();
     assertThat(nbt.contains(ToolStack.TAG_BROKEN)).isTrue();
-    assertThat(nbt.getTagId(ToolStack.TAG_BROKEN)).isEqualTo((byte) Constants.NBT.TAG_BYTE);
+    assertThat(nbt.getTagType(ToolStack.TAG_BROKEN)).isEqualTo((byte) Constants.NBT.TAG_BYTE);
     assertThat(nbt.getBoolean(ToolStack.TAG_BROKEN)).isTrue();
     assertThat(nbt.contains(ToolStack.TAG_DAMAGE)).isTrue();
-    assertThat(nbt.getTagId(ToolStack.TAG_DAMAGE)).isEqualTo((byte) Constants.NBT.TAG_INT);
+    assertThat(nbt.getTagType(ToolStack.TAG_DAMAGE)).isEqualTo((byte) Constants.NBT.TAG_INT);
     assertThat(nbt.getInt(ToolStack.TAG_DAMAGE)).isEqualTo(1);
   }
 
@@ -250,7 +250,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void stats_lowDurabilityUpdatesDurability() {
     ItemStack stack = new ItemStack(Items.DIAMOND_PICKAXE);
-    stack.setDamage(100);
+    stack.setDamageValue(100);
 
     ToolStack tool = ToolStack.from(stack);
     tool.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 50).build());

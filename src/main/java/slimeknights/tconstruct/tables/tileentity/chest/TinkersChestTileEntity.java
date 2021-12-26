@@ -52,8 +52,8 @@ public class TinkersChestTileEntity extends ChestTileEntity {
   }
 
   @Override
-  public void read(BlockState blockState, CompoundNBT tags) {
-    super.read(blockState, tags);
+  public void load(BlockState blockState, CompoundNBT tags) {
+    super.load(blockState, tags);
     if (tags.contains(TAG_CHEST_COLOR, NBT.TAG_ANY_NUMERIC)) {
       setColor(tags.getInt(TAG_CHEST_COLOR));
     }

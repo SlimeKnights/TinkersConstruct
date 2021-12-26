@@ -17,6 +17,8 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler.Flu
 import java.util.List;
 import java.util.ListIterator;
 
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
 /**
  * Fluid handler implementation for the smeltery
  */
@@ -43,9 +45,9 @@ public class SmelteryTank implements IFluidHandler {
    */
   public void syncFluids() {
     TileEntity te = parent.getTileEntity();
-    World world = te.getWorld();
-    if (world != null && !world.isRemote) {
-      BlockPos pos = te.getPos();
+    World world = te.getLevel();
+    if (world != null && !world.isClientSide) {
+      BlockPos pos = te.getBlockPos();
       TinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
     }
   }

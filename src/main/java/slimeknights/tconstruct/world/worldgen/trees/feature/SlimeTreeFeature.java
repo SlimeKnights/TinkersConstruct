@@ -38,15 +38,15 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
   }
 
   @Override
-  public final boolean generate(ISeedReader seedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, SlimeTreeConfig config) {
+  public final boolean place(ISeedReader seedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, SlimeTreeConfig config) {
     Set<BlockPos> trunkPos = Sets.newHashSet();
     Set<BlockPos> foliagePos = Sets.newHashSet();
     Set<BlockPos> leavesPos = Sets.newHashSet();
-    MutableBoundingBox boundingBox = MutableBoundingBox.getNewBoundingBox();
+    MutableBoundingBox boundingBox = MutableBoundingBox.getUnknownBox();
     boolean placed = this.place(seedReader, random, blockPos, trunkPos, foliagePos, boundingBox, config);
-    if (boundingBox.minX <= boundingBox.maxX && placed && !trunkPos.isEmpty()) {
-      VoxelShapePart voxelshapepart = this.func_236403_a_(seedReader, boundingBox, trunkPos, leavesPos);
-      Template.updatePostProcessing(seedReader, 3, voxelshapepart, boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+    if (boundingBox.x0 <= boundingBox.x1 && placed && !trunkPos.isEmpty()) {
+      VoxelShapePart voxelshapepart = this.updateLeaves(seedReader, boundingBox, trunkPos, leavesPos);
+      Template.updateShapeAtEdge(seedReader, 3, voxelshapepart, boundingBox.x0, boundingBox.y0, boundingBox.z0);
       return true;
     }
     else {
@@ -74,8 +74,8 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
 //      blockpos = positionIn;
 //    }
 
-    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= 256 && isSlimySoilAt(generationReader, positionIn.down())) {
-      this.setDirtAt(generationReader, positionIn.down(), positionIn);
+    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= 256 && isSlimySoilAt(generationReader, positionIn.below())) {
+      this.setDirtAt(generationReader, positionIn.below(), positionIn);
       this.placeTrunk(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
       this.placeCanopy(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
       return true;
@@ -88,8 +88,8 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       return;
     }
     BlockState state = ((IWorld)reader).getBlockState(pos);
-    if (state.isIn(Tags.Blocks.DIRT)) {
-      reader.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
+    if (state.is(Tags.Blocks.DIRT)) {
+      reader.setBlock(pos, Blocks.DIRT.defaultBlockState(), 2);
     }
   }
 
@@ -97,82 +97,82 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     while (treeHeight > 0) {
       this.setLog(worldIn, randomIn, blockPos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
 
-      blockPos = blockPos.up();
+      blockPos = blockPos.above();
       treeHeight--;
     }
   }
 
   protected void placeCanopy(IWorldGenerationReader worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, SlimeTreeConfig treeFeatureConfigIn) {
-    blockPos = blockPos.up(treeHeight);
+    blockPos = blockPos.above(treeHeight);
     for (int i = 0; i < 4; i++) {
-      this.placeDiamondLayer(worldIn, randomIn, i + 1, blockPos.down(i), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.placeDiamondLayer(worldIn, randomIn, i + 1, blockPos.below(i), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
     }
 
-    blockPos = blockPos.down(3);
+    blockPos = blockPos.below(3);
 
-    this.placeAir(worldIn, randomIn, blockPos.add(+4, 0, 0), blockPosSet, mutableBoundingBoxIn);
-    this.placeAir(worldIn, randomIn, blockPos.add(-4, 0, 0), blockPosSet, mutableBoundingBoxIn);
-    this.placeAir(worldIn, randomIn, blockPos.add(0, 0, +4), blockPosSet, mutableBoundingBoxIn);
-    this.placeAir(worldIn, randomIn, blockPos.add(0, 0, -4), blockPosSet, mutableBoundingBoxIn);
+    this.placeAir(worldIn, randomIn, blockPos.offset(+4, 0, 0), blockPosSet, mutableBoundingBoxIn);
+    this.placeAir(worldIn, randomIn, blockPos.offset(-4, 0, 0), blockPosSet, mutableBoundingBoxIn);
+    this.placeAir(worldIn, randomIn, blockPos.offset(0, 0, +4), blockPosSet, mutableBoundingBoxIn);
+    this.placeAir(worldIn, randomIn, blockPos.offset(0, 0, -4), blockPosSet, mutableBoundingBoxIn);
 
     if (treeFeatureConfigIn.hasVines) {
-      this.placeAir(worldIn, randomIn, blockPos.add(+1, 0, +1), blockPosSet, mutableBoundingBoxIn);
-      this.placeAir(worldIn, randomIn, blockPos.add(+1, 0, -1), blockPosSet, mutableBoundingBoxIn);
-      this.placeAir(worldIn, randomIn, blockPos.add(-1, 0, +1), blockPosSet, mutableBoundingBoxIn);
-      this.placeAir(worldIn, randomIn, blockPos.add(-1, 0, -1), blockPosSet, mutableBoundingBoxIn);
+      this.placeAir(worldIn, randomIn, blockPos.offset(+1, 0, +1), blockPosSet, mutableBoundingBoxIn);
+      this.placeAir(worldIn, randomIn, blockPos.offset(+1, 0, -1), blockPosSet, mutableBoundingBoxIn);
+      this.placeAir(worldIn, randomIn, blockPos.offset(-1, 0, +1), blockPosSet, mutableBoundingBoxIn);
+      this.placeAir(worldIn, randomIn, blockPos.offset(-1, 0, -1), blockPosSet, mutableBoundingBoxIn);
     }
 
     //Drippers
     // stuck with only one block down because of leaf decay distance
-    blockPos = blockPos.down();
-    this.setLeaf(worldIn, randomIn, blockPos.add(+3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-    this.setLeaf(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-    this.setLeaf(worldIn, randomIn, blockPos.add(0, 0, -3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-    this.setLeaf(worldIn, randomIn, blockPos.add(0, 0, +3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    blockPos = blockPos.below();
+    this.setLeaf(worldIn, randomIn, blockPos.offset(+3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.offset(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.offset(0, 0, -3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.offset(0, 0, +3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
 
     if (!treeFeatureConfigIn.hasVines) {
-      this.setLeaf(worldIn, randomIn, blockPos.add(+1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-      this.setLeaf(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-      this.setLeaf(worldIn, randomIn, blockPos.add(-1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-      this.setLeaf(worldIn, randomIn, blockPos.add(-1, 0, -1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.offset(+1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.offset(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.offset(-1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.offset(-1, 0, -1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
     }
 
     if (treeFeatureConfigIn.hasVines) {
-      blockPos = blockPos.down();
-      this.placeVine(worldIn, randomIn, blockPos.add(+3, 0, 0), blockPosSet, mutableBoundingBoxIn,
-        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+      blockPos = blockPos.below();
+      this.placeVine(worldIn, randomIn, blockPos.offset(+3, 0, 0), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).setValue(VineBlock.UP, true));
 
-      this.placeVine(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn,
-        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(-3, 0, 0), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).setValue(VineBlock.UP, true));
 
-      this.placeVine(worldIn, randomIn, blockPos.add(0, 0, -3), blockPosSet, mutableBoundingBoxIn,
-        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(0, 0, -3), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).setValue(VineBlock.UP, true));
 
-      this.placeVine(worldIn, randomIn, blockPos.add(0, 0, +3), blockPosSet, mutableBoundingBoxIn,
-        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(0, 0, +3), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).setValue(VineBlock.UP, true));
 
       BlockState randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
-      this.placeVine(worldIn, randomIn, blockPos.add(+2, 1, +2), blockPosSet, mutableBoundingBoxIn,
-        randomVine.with(VineBlock.UP, true));
-      this.placeVine(worldIn, randomIn, blockPos.add(+2, 0, +2), blockPosSet, mutableBoundingBoxIn,
+      this.placeVine(worldIn, randomIn, blockPos.offset(+2, 1, +2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.setValue(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(+2, 0, +2), blockPosSet, mutableBoundingBoxIn,
         randomVine);
 
       randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
-      this.placeVine(worldIn, randomIn, blockPos.add(+2, 1, -2), blockPosSet, mutableBoundingBoxIn,
-        randomVine.with(VineBlock.UP, true));
-      this.placeVine(worldIn, randomIn, blockPos.add(+2, 0, -2), blockPosSet, mutableBoundingBoxIn,
+      this.placeVine(worldIn, randomIn, blockPos.offset(+2, 1, -2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.setValue(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(+2, 0, -2), blockPosSet, mutableBoundingBoxIn,
         randomVine);
 
       randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
-      this.placeVine(worldIn, randomIn, blockPos.add(-2, 1, +2), blockPosSet, mutableBoundingBoxIn,
-        randomVine.with(VineBlock.UP, true));
-      this.placeVine(worldIn, randomIn, blockPos.add(-2, 0, +2), blockPosSet, mutableBoundingBoxIn,
+      this.placeVine(worldIn, randomIn, blockPos.offset(-2, 1, +2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.setValue(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(-2, 0, +2), blockPosSet, mutableBoundingBoxIn,
         randomVine);
 
       randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
-      this.placeVine(worldIn, randomIn, blockPos.add(-2, 1, -2), blockPosSet, mutableBoundingBoxIn,
-        randomVine.with(VineBlock.UP, true));
-      this.placeVine(worldIn, randomIn, blockPos.add(-2, 0, -2), blockPosSet, mutableBoundingBoxIn,
+      this.placeVine(worldIn, randomIn, blockPos.offset(-2, 1, -2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.setValue(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.offset(-2, 0, -2), blockPosSet, mutableBoundingBoxIn,
         randomVine);
     }
   }
@@ -181,7 +181,7 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     for (int x = -range; x <= range; x++) {
       for (int z = -range; z <= range; z++) {
         if (Math.abs(x) + Math.abs(z) <= range) {
-          BlockPos blockpos = blockPos.add(x, 0, z);
+          BlockPos blockpos = blockPos.offset(x, 0, z);
           this.setLeaf(worldIn, randomIn, blockpos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
         }
       }
@@ -193,9 +193,9 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       return false;
     }
     else {
-      this.setBlockState(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.getBlockState(randomIn, blockPos));
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
-      blockPosSet.add(blockPos.toImmutable());
+      this.setBlock(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.getState(randomIn, blockPos));
+      mutableBoundingBoxIn.expand(new MutableBoundingBox(blockPos, blockPos));
+      blockPosSet.add(blockPos.immutable());
       return true;
     }
   }
@@ -205,9 +205,9 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       return false;
     }
     else {
-      this.setBlockState(worldIn, blockPos, Blocks.AIR.getDefaultState());
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
-      blockPosSet.add(blockPos.toImmutable());
+      this.setBlock(worldIn, blockPos, Blocks.AIR.defaultBlockState());
+      mutableBoundingBoxIn.expand(new MutableBoundingBox(blockPos, blockPos));
+      blockPosSet.add(blockPos.immutable());
       return true;
     }
   }
@@ -217,9 +217,9 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       return false;
     }
     else {
-      this.setBlockState(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.getBlockState(random, blockPos));
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
-      blockPosSet.add(blockPos.toImmutable());
+      this.setBlock(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.getState(random, blockPos));
+      mutableBoundingBoxIn.expand(new MutableBoundingBox(blockPos, blockPos));
+      blockPosSet.add(blockPos.immutable());
       return true;
     }
   }
@@ -229,51 +229,51 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       return false;
     }
     else {
-      this.setBlockState(worldIn, blockPos, vineState);
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
-      blockPosSet.add(blockPos.toImmutable());
+      this.setBlock(worldIn, blockPos, vineState);
+      mutableBoundingBoxIn.expand(new MutableBoundingBox(blockPos, blockPos));
+      blockPosSet.add(blockPos.immutable());
       return true;
     }
   }
 
   private BlockState getRandomizedVine(Random random, BlockPos blockPos, SlimeTreeConfig config) {
-    BlockState state = config.vinesProvider.getBlockState(random, blockPos);
+    BlockState state = config.vinesProvider.getState(random, blockPos);
 
     BooleanProperty[] sides = new BooleanProperty[] { VineBlock.NORTH, VineBlock.EAST, VineBlock.SOUTH, VineBlock.WEST };
 
     for (BooleanProperty side : sides) {
-      state = state.with(side, false);
+      state = state.setValue(side, false);
     }
 
     for (int i = random.nextInt(3) + 1; i > 0; i--) {
-      state = state.with(sides[random.nextInt(sides.length)], true);
+      state = state.setValue(sides[random.nextInt(sides.length)], true);
     }
 
     return state;
   }
 
   public static boolean isEmptyOrLogAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return isReplaceableAt(reader, blockPos) || reader.hasBlockState(blockPos, state -> state.isIn(BlockTags.LOGS));
+    return isReplaceableAt(reader, blockPos) || reader.isStateAtPosition(blockPos, state -> state.is(BlockTags.LOGS));
   }
 
   private static boolean isVineAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, (state) -> state.matchesBlock(Blocks.VINE));
+    return reader.isStateAtPosition(blockPos, (state) -> state.is(Blocks.VINE));
   }
 
   private static boolean isWaterAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, state -> state.matchesBlock(Blocks.WATER));
+    return reader.isStateAtPosition(blockPos, state -> state.is(Blocks.WATER));
   }
 
   public static boolean isAirOrLeavesAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, state -> state.isAir() || state.isIn(BlockTags.LEAVES));
+    return reader.isStateAtPosition(blockPos, state -> state.isAir() || state.is(BlockTags.LEAVES));
   }
 
   private static boolean isSlimySoilAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, state -> TinkerTags.Blocks.SLIMY_SOIL.contains(state.getBlock()));
+    return reader.isStateAtPosition(blockPos, state -> TinkerTags.Blocks.SLIMY_SOIL.contains(state.getBlock()));
   }
 
   private static boolean isTallPlantAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, state -> state.getMaterial() == Material.TALL_PLANTS);
+    return reader.isStateAtPosition(blockPos, state -> state.getMaterial() == Material.REPLACEABLE_PLANT);
   }
 
   public static boolean isReplaceableAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
@@ -281,12 +281,12 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
   }
 
   public static void setBlockStateAt(IWorldWriter writer, BlockPos blockPos, BlockState state) {
-    writer.setBlockState(blockPos, state, 19);
+    writer.setBlock(blockPos, state, 19);
   }
 
-  private VoxelShapePart func_236403_a_(IWorld world, MutableBoundingBox boundingBox, Set<BlockPos> logs, Set<BlockPos> leaves) {
+  private VoxelShapePart updateLeaves(IWorld world, MutableBoundingBox boundingBox, Set<BlockPos> logs, Set<BlockPos> leaves) {
     List<Set<BlockPos>> distanceList = Lists.newArrayList();
-    VoxelShapePart shapePart = new BitSetVoxelShapePart(boundingBox.getXSize(), boundingBox.getYSize(), boundingBox.getZSize());
+    VoxelShapePart shapePart = new BitSetVoxelShapePart(boundingBox.getXSpan(), boundingBox.getYSpan(), boundingBox.getZSpan());
     for (int j = 0; j < 6; ++j) {
       distanceList.add(Sets.newHashSet());
     }
@@ -294,24 +294,24 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     BlockPos.Mutable mutable = new BlockPos.Mutable();
 
     for (BlockPos leavePos : Lists.newArrayList(leaves)) {
-      if (boundingBox.isVecInside(leavePos)) {
-        shapePart.setFilled(leavePos.getX() - boundingBox.minX, leavePos.getY() - boundingBox.minY, leavePos.getZ() - boundingBox.minZ, true, true);
+      if (boundingBox.isInside(leavePos)) {
+        shapePart.setFull(leavePos.getX() - boundingBox.x0, leavePos.getY() - boundingBox.y0, leavePos.getZ() - boundingBox.z0, true, true);
       }
     }
 
     for (BlockPos logPos : Lists.newArrayList(logs)) {
-      if (boundingBox.isVecInside(logPos)) {
-        shapePart.setFilled(logPos.getX() - boundingBox.minX, logPos.getY() - boundingBox.minY, logPos.getZ() - boundingBox.minZ, true, true);
+      if (boundingBox.isInside(logPos)) {
+        shapePart.setFull(logPos.getX() - boundingBox.x0, logPos.getY() - boundingBox.y0, logPos.getZ() - boundingBox.z0, true, true);
       }
       for (Direction direction : Direction.values()) {
-        mutable.setAndMove(logPos, direction);
+        mutable.setWithOffset(logPos, direction);
         if (!logs.contains(mutable)) {
           BlockState blockstate = world.getBlockState(mutable);
-          if (blockstate.hasProperty(BlockStateProperties.DISTANCE_1_7)) {
-            distanceList.get(0).add(mutable.toImmutable());
-            setBlockStateAt(world, mutable, blockstate.with(BlockStateProperties.DISTANCE_1_7, 1));
-            if (boundingBox.isVecInside(mutable)) {
-              shapePart.setFilled(mutable.getX() - boundingBox.minX, mutable.getY() - boundingBox.minY, mutable.getZ() - boundingBox.minZ, true, true);
+          if (blockstate.hasProperty(BlockStateProperties.DISTANCE)) {
+            distanceList.get(0).add(mutable.immutable());
+            setBlockStateAt(world, mutable, blockstate.setValue(BlockStateProperties.DISTANCE, 1));
+            if (boundingBox.isInside(mutable)) {
+              shapePart.setFull(mutable.getX() - boundingBox.x0, mutable.getY() - boundingBox.y0, mutable.getZ() - boundingBox.z0, true, true);
             }
           }
         }
@@ -323,23 +323,23 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       Set<BlockPos> next = distanceList.get(distance);
 
       for (BlockPos pos : current) {
-        if (boundingBox.isVecInside(pos)) {
-          shapePart.setFilled(pos.getX() - boundingBox.minX, pos.getY() - boundingBox.minY, pos.getZ() - boundingBox.minZ, true, true);
+        if (boundingBox.isInside(pos)) {
+          shapePart.setFull(pos.getX() - boundingBox.x0, pos.getY() - boundingBox.y0, pos.getZ() - boundingBox.z0, true, true);
         }
 
         for (Direction direction : Direction.values()) {
-          mutable.setAndMove(pos, direction);
+          mutable.setWithOffset(pos, direction);
           if (!current.contains(mutable) && !next.contains(mutable)) {
             BlockState state = world.getBlockState(mutable);
-            if (state.hasProperty(BlockStateProperties.DISTANCE_1_7)) {
-              int stateDistance = state.get(BlockStateProperties.DISTANCE_1_7);
+            if (state.hasProperty(BlockStateProperties.DISTANCE)) {
+              int stateDistance = state.getValue(BlockStateProperties.DISTANCE);
               if (stateDistance > distance + 1) {
-                BlockState furtherState = state.with(BlockStateProperties.DISTANCE_1_7, distance + 1);
+                BlockState furtherState = state.setValue(BlockStateProperties.DISTANCE, distance + 1);
                 setBlockStateAt(world, mutable, furtherState);
-                if (boundingBox.isVecInside(mutable)) {
-                  shapePart.setFilled(mutable.getX() - boundingBox.minX, mutable.getY() - boundingBox.minY, mutable.getZ() - boundingBox.minZ, true, true);
+                if (boundingBox.isInside(mutable)) {
+                  shapePart.setFull(mutable.getX() - boundingBox.x0, mutable.getY() - boundingBox.y0, mutable.getZ() - boundingBox.z0, true, true);
                 }
-                next.add(mutable.toImmutable());
+                next.add(mutable.immutable());
               }
             }
           }

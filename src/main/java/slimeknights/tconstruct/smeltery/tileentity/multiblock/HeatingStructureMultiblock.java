@@ -89,7 +89,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
    * @return   True if its a valid slave
    */
   protected boolean isValidSlave(World world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = world.getBlockEntity(pos);
 
     // slave-blocks are only allowed if they already belong to this smeltery
     if (te instanceof IServantLogic) {
@@ -105,7 +105,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
    */
   public boolean canExpand(StructureData data, World world) {
     BlockPos min = data.getMinPos();
-    BlockPos to = data.getMaxPos().up();
+    BlockPos to = data.getMaxPos().above();
     // want two positions one layer above the structure
     MultiblockResult result = detectLayer(world, new BlockPos(min.getX(), to.getY(), min.getZ()), to, pos -> {});
     setLastResult(result);
@@ -130,7 +130,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
   @Override
   protected boolean isValidBlock(World world, BlockPos pos, CuboidSide side, boolean isFrame) {
     // controller always is valid
-    if (pos.equals(parent.getPos())) {
+    if (pos.equals(parent.getBlockPos())) {
       return true;
     }
     if (!isValidSlave(world, pos)) {
@@ -146,7 +146,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
 
     // add tanks to the internal lists
     if (isValidTank(state.getBlock())) {
-      tanks.add(pos.toImmutable());
+      tanks.add(pos.immutable());
       return true;
     }
     return isValidWall(state.getBlock());
@@ -220,7 +220,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
           return new BlockPos(prev.getX() + 1, prev.getY(), min.getZ());
         }
       } else {
-        return prev.add(0, 0, 1);
+        return prev.offset(0, 0, 1);
       }
     }
 

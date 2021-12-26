@@ -90,7 +90,7 @@ class StationSlotLayoutLoaderTest extends BaseMcTest {
 
   /** Checks the given ingredient is just the given item */
   private static void ingredientIsItem(Ingredient ingredient, Item item) {
-    ItemStack[] stacks = ingredient.getMatchingStacks();
+    ItemStack[] stacks = ingredient.getItems();
     assertThat(stacks).hasSize(1);
     assertThat(stacks[0].getItem()).isEqualTo(item);
     assertThat(stacks[0].getTag()).isNull();
@@ -110,7 +110,7 @@ class StationSlotLayoutLoaderTest extends BaseMcTest {
     assertThat(stack.getItem()).isEqualTo(Items.IRON_INGOT);
     CompoundNBT nbt = stack.getTag();
     assertThat(nbt).isNotNull();
-    assertThat(nbt.keySet()).hasSize(1);
+    assertThat(nbt.getAllKeys()).hasSize(1);
     assertThat(nbt.getInt("test")).isEqualTo(1);
     // sort key
     assertThat(layout.getSortIndex()).isEqualTo(55);

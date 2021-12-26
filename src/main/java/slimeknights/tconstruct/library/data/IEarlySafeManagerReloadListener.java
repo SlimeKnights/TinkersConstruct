@@ -8,6 +8,8 @@ import net.minecraftforge.fml.ModLoader;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
+import net.minecraft.resources.IFutureReloadListener.IStage;
+
 /**
  * Same as {@link ISafeManagerReloadListener}, but reloads earlier. Needed to work with some parts of models
  */
@@ -18,7 +20,7 @@ public interface IEarlySafeManagerReloadListener extends IFutureReloadListener {
       if (ModLoader.isLoadingStateValid()) {
         onReloadSafe(resourceManager);
       }
-    }, backgroundExecutor).thenCompose(stage::markCompleteAwaitingOthers);
+    }, backgroundExecutor).thenCompose(stage::wait);
   }
 
   /**

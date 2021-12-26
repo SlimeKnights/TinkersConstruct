@@ -69,7 +69,7 @@ public class TinkerEffect extends Effect {
    */
   public EffectInstance apply(LivingEntity entity, int duration, int level, boolean showIcon) {
     EffectInstance effect = new EffectInstance(this, duration, level, false, false, showIcon);
-    entity.addPotionEffect(effect);
+    entity.addEffect(effect);
     return effect;
   }
 
@@ -79,7 +79,7 @@ public class TinkerEffect extends Effect {
    * @return  Level, or -1 if inactive
    */
   public int getLevel(LivingEntity entity) {
-    EffectInstance effect = entity.getActivePotionEffect(this);
+    EffectInstance effect = entity.getEffect(this);
     if (effect != null) {
       return effect.getAmplifier();
     }

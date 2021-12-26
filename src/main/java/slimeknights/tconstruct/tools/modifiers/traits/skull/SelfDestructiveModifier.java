@@ -28,7 +28,7 @@ import java.util.UUID;
 public class SelfDestructiveModifier extends SingleUseModifier implements IArmorInteractModifier {
   private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(UUID.fromString("68ee3026-1d50-4eb4-914e-a8b05fbfdb71"), TConstruct.prefix("self_destruct_slowdown"), -0.9f, Operation.MULTIPLY_TOTAL);
   /** Self damage source */
-  private static final DamageSource SELF_DESTRUCT = (new DamageSource(TConstruct.prefix("self_destruct"))).setDamageBypassesArmor().setExplosion();
+  private static final DamageSource SELF_DESTRUCT = (new DamageSource(TConstruct.prefix("self_destruct"))).bypassArmor().setExplosion();
   /** Key for the time the fuse finises */
   private static final TinkerDataKey<Integer> FUSE_FINISH = TConstruct.createKey("self_destruct_finish");
 
@@ -39,13 +39,13 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
 
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
-    if (player.isSneaking()) {
-      player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(FUSE_FINISH, player.ticksExisted + 30));
-      player.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+    if (player.isShiftKeyDown()) {
+      player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(FUSE_FINISH, player.tickCount + 30));
+      player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
       // make the player slow
-      ModifiableAttributeInstance instance = player.getAttributeManager().createInstanceIfAbsent(Attributes.MOVEMENT_SPEED);
+      ModifiableAttributeInstance instance = player.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
       if (instance != null) {
-        instance.applyNonPersistentModifier(SPEED_MODIFIER);
+        instance.addTransientModifier(SPEED_MODIFIER);
       }
       return true;
     }
@@ -54,7 +54,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
 
   /** Restores speed to full */
   private static void restoreSpeed(LivingEntity livingEntity) {
-    ModifiableAttributeInstance instance = livingEntity.getAttributeManager().createInstanceIfAbsent(Attributes.MOVEMENT_SPEED);
+    ModifiableAttributeInstance instance = livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
     if (instance != null) {
       instance.removeModifier(SPEED_MODIFIER);
     }
@@ -80,12 +80,12 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
 
   /** Called on player tick to update the fuse */
   private static void playerTick(PlayerTickEvent event) {
-    if (event.phase == Phase.START && !event.player.getEntityWorld().isRemote) {
+    if (event.phase == Phase.START && !event.player.level.isClientSide) {
       event.player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         Integer fuseFinish = data.get(FUSE_FINISH);
-        if (fuseFinish != null && fuseFinish <= event.player.ticksExisted) {
-          event.player.world.createExplosion(event.player, event.player.getPosX(), event.player.getPosY(), event.player.getPosZ(), 3, Explosion.Mode.DESTROY);
-          event.player.attackEntityFrom(SELF_DESTRUCT, 99999);
+        if (fuseFinish != null && fuseFinish <= event.player.tickCount) {
+          event.player.level.explode(event.player, event.player.getX(), event.player.getY(), event.player.getZ(), 3, Explosion.Mode.DESTROY);
+          event.player.hurt(SELF_DESTRUCT, 99999);
           if (event.player.getHealth() > 0) {
             restoreSpeed(event.player);
           }

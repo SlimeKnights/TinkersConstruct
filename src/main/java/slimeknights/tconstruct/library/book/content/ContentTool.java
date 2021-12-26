@@ -103,9 +103,11 @@ public class ContentTool extends PageContent {
   @SerializedName("tool")
   public String toolName;
 
+  @SuppressWarnings("unused")
   public ContentTool() {
   }
 
+  @SuppressWarnings("unused")
   public ContentTool(IModifiableDisplay tool) {
     this.tool = tool;
     this.toolName = Objects.requireNonNull(tool.asItem().getRegistryName()).toString();
@@ -133,14 +135,14 @@ public class ContentTool extends PageContent {
       // if no required components, do a crafting recipe lookup
       if (required.isEmpty()) {
         // get the stacks for the first crafting table recipe
-        IRecipe<CraftingInventory> recipe = Optional.ofNullable(Minecraft.getInstance().world)
-                                                    .flatMap(world -> world.getRecipeManager().getRecipes(IRecipeType.CRAFTING).values().stream()
-                                                                           .filter(r -> r.getRecipeOutput().getItem() == tool.asItem())
+        IRecipe<CraftingInventory> recipe = Optional.ofNullable(Minecraft.getInstance().level)
+                                                    .flatMap(world -> world.getRecipeManager().byType(IRecipeType.CRAFTING).values().stream()
+                                                                           .filter(r -> r.getResultItem().getItem() == tool.asItem())
                                                                            .findFirst())
                                                     .orElse(null);
         if (recipe != null) {
           // parts is just the items in the recipe
-          this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getMatchingStacks())).collect(Collectors.toList());
+          this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
           // if we have a shaped recipe, display slots in order
           if (recipe instanceof IShapedRecipe) {
@@ -210,7 +212,7 @@ public class ContentTool extends PageContent {
     imgY = imgY + 20 - imgHeight / 2;
 
     if (properties.length > 0) {
-      TextData head = new TextData(I18n.format(KEY_PROPERTIES));
+      TextData head = new TextData(I18n.get(KEY_PROPERTIES));
       head.underlined = true;
       list.add(new TextElement(padding, 30 + h, 86 - padding, BookScreen.PAGE_HEIGHT - h - 20, head));
 

@@ -66,8 +66,8 @@ public class NormalModifierModel implements IBakedModifierModel {
     @Override
     public IUnbakedModifierModel configure(JsonObject data) {
       // parse the two keys, if we ended up with something new create an instance
-      int color = JsonHelper.parseColor(JSONUtils.getString(data, "color", ""));
-      int luminosity = JSONUtils.getInt(data, "luminosity");
+      int color = JsonHelper.parseColor(JSONUtils.getAsString(data, "color", ""));
+      int luminosity = JSONUtils.getAsInt(data, "luminosity");
       if (color != this.color || luminosity != this.luminosity) {
         return new Unbaked(color, luminosity);
       }

@@ -16,8 +16,8 @@ public abstract class DurabilityShieldModifier extends Modifier {
 
   @Override
   public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    return getDisplayName(level).deepCopy()
-                                .appendString(": " + getShield(tool) + " / " + getShieldCapacity(tool, level));
+    return getDisplayName(level).copy()
+                                .append(": " + getShield(tool) + " / " + getShieldCapacity(tool, level));
   }
 
 

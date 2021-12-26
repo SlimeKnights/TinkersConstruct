@@ -23,8 +23,8 @@ class UpdateMaterialPacketTest extends BaseMcTest {
 
   @Test
   void testGenericEncodeDecode() {
-    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, true, Color.fromInt(0x123456), false);
-    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, false, Color.fromInt(0xFFFFFF), true);
+    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, true, Color.fromRgb(0x123456), false);
+    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, false, Color.fromRgb(0xFFFFFF), true);
     Collection<IMaterial> materials = ImmutableList.of(material1, material2);
     Map<MaterialId,MaterialId> redirects = ImmutableMap.of(REDIRECT_ID, MATERIAL_ID_1);
 
@@ -45,7 +45,7 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     assertThat(parsedMat.getTier()).isEqualTo(1);
     assertThat(parsedMat.getSortOrder()).isEqualTo(2);
     assertThat(parsedMat.isCraftable()).isTrue();
-    assertThat(parsedMat.getColor().color).isEqualTo(0x123456);
+    assertThat(parsedMat.getColor().value).isEqualTo(0x123456);
     assertThat(parsedMat.isHidden()).isFalse();
 
     // material 2
@@ -54,7 +54,7 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     assertThat(parsedMat.getTier()).isEqualTo(3);
     assertThat(parsedMat.getSortOrder()).isEqualTo(4);
     assertThat(parsedMat.isCraftable()).isFalse();
-    assertThat(parsedMat.getColor().color).isEqualTo(0xFFFFFF);
+    assertThat(parsedMat.getColor().value).isEqualTo(0xFFFFFF);
     assertThat(parsedMat.isHidden()).isTrue();
 
     // redirects not included

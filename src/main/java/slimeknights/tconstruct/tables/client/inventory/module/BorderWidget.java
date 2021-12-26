@@ -42,11 +42,11 @@ public class BorderWidget extends Widget {
   }
 
   public void updateParent(ModuleScreen gui) {
-    gui.guiLeft -= this.borderLeft.w;
-    gui.guiTop -= this.borderTop.h;
+    gui.leftPos -= this.borderLeft.w;
+    gui.topPos -= this.borderTop.h;
 
-    gui.xSize += this.borderLeft.w + this.borderRight.w;
-    gui.ySize += this.borderTop.h + this.borderBottom.h;
+    gui.imageWidth += this.borderLeft.w + this.borderRight.w;
+    gui.imageHeight += this.borderTop.h + this.borderBottom.h;
   }
 
   @Override

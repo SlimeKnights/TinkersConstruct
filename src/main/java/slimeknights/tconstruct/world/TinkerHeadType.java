@@ -23,7 +23,7 @@ public enum TinkerHeadType implements ISkullType, IStringSerializable {
   CAVE_SPIDER(EntityType.CAVE_SPIDER.delegate),
   // piglin
   PIGLIN(EntityType.PIGLIN.delegate),
-  PIGLIN_BRUTE(EntityType.field_242287_aj.delegate),
+  PIGLIN_BRUTE(EntityType.PIGLIN_BRUTE.delegate),
   ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN.delegate);
 
   private final Supplier<EntityType<?>> type;
@@ -34,7 +34,7 @@ public enum TinkerHeadType implements ISkullType, IStringSerializable {
   }
 
   @Override
-  public String getString() {
+  public String getSerializedName() {
     return this.name().toLowerCase(Locale.ROOT);
   }
 

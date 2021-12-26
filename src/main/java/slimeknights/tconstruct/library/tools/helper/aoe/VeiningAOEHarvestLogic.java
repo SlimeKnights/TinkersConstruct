@@ -73,7 +73,7 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
      */
     private void enqueueNeighbors(BlockPos pos, int distance) {
       for (Direction direction : Direction.values()) {
-        BlockPos offset = pos.offset(direction);
+        BlockPos offset = pos.relative(direction);
         if (!visited.contains(offset)) {
           visited.add(offset); // mark position visited to prevent adding again before we get to it
           queue.add(new DistancePos(offset, distance));
@@ -88,7 +88,7 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
         DistancePos distancePos = queue.remove();
         BlockPos pos = distancePos.getPos();
         // must be a valid block
-        if (world.getBlockState(pos).matchesBlock(target)) {
+        if (world.getBlockState(pos).is(target)) {
           // if not at max distance yet, add blocks on all sides
           int distance = distancePos.getDistance();
           if (distance < maxDistance) {

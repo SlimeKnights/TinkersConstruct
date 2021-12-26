@@ -12,6 +12,8 @@ import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 public class SlimelytraItem extends ModifiableArmorItem {
   public SlimelytraItem(ModifiableArmorMaterial material, Properties properties) {
     super(material, ArmorSlotType.CHESTPLATE, properties);

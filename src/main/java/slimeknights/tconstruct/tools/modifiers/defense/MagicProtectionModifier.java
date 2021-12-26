@@ -31,7 +31,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
 
   @Override
   public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
-    if (!source.isDamageAbsolute() && !source.canHarmInCreative() && source.isMagicDamage()) {
+    if (!source.isBypassMagic() && !source.isBypassInvul() && source.isMagic()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
@@ -49,7 +49,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
 
   private static void onPotionStart(PotionEvent.PotionAddedEvent event) {
     EffectInstance newEffect = event.getPotionEffect();
-    if (!newEffect.getPotion().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
+    if (!newEffect.getEffect().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
       LivingEntity living = event.getEntityLiving();
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         ModifierMaxLevel magicData = data.get(MAGIC_DATA);

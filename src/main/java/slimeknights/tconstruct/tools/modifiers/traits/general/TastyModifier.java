@@ -34,9 +34,9 @@ public class TastyModifier extends Modifier {
 
   @Override
   public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
-    if (slotType.getSlotType() == Group.HAND) {
+    if (slotType.getType() == Group.HAND) {
       if (!tool.isBroken() && player.canEat(false)) {
-        player.setActiveHand(hand);
+        player.startUsingItem(hand);
         // mark tool as eating as use action is only stack sensitive
         tool.getPersistentData().putBoolean(IS_EATING, true);
         return ActionResultType.CONSUME;
@@ -66,14 +66,14 @@ public class TastyModifier extends Modifier {
       PlayerEntity player = (PlayerEntity) entity;
       if (player.canEat(false)) {
         // eat the food
-        player.getFoodStats().addStats(level, level * 0.1f);
-        player.addStat(Stats.ITEM_USED.get(tool.getItem()));
-        world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
-        world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+        player.getFoodData().eat(level, level * 0.1f);
+        player.awardStat(Stats.ITEM_USED.get(tool.getItem()));
+        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
+        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundCategory.NEUTRAL, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
 
         // 15 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
-        if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getActiveItemStack())) {
-          player.sendBreakAnimation(player.getActiveHand());
+        if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getUseItem())) {
+          player.broadcastBreakEvent(player.getUsedItemHand());
         }
         return true;
       }
@@ -95,12 +95,12 @@ public class TastyModifier extends Modifier {
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob
     // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping bacon
-    if (!context.has(LootParameters.DAMAGE_SOURCE)) {
+    if (!context.hasParam(LootParameters.DAMAGE_SOURCE)) {
       return generatedLoot;
     }
 
     // must have an entity
-    Entity entity = context.get(LootParameters.THIS_ENTITY);
+    Entity entity = context.getParamOrNull(LootParameters.THIS_ENTITY);
     if (entity != null && TinkerTags.EntityTypes.BACON_PRODUCER.contains(entity.getType())) {
       // at tasty 1, 2, 3, and 4 its a 2%, 4.15%, 6.25%, 8% per level
       int looting = context.getLootingModifier();

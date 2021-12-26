@@ -12,7 +12,7 @@ public class HammerAttackParticle extends AttackParticle {
   public HammerAttackParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, IAnimatedSprite spriteList) {
     super(world, x, y, z, xSpeed, ySpeed, zSpeed, spriteList);
 
-    this.particleScale = 0.6F;
+    this.quadSize = 0.6F;
   }
 
   public static class Factory implements IParticleFactory<BasicParticleType> {
@@ -23,7 +23,7 @@ public class HammerAttackParticle extends AttackParticle {
       this.spriteSet = spriteSet;
     }
 
-    public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public Particle createParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
       return new HammerAttackParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
     }
   }

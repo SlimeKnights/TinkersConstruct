@@ -46,7 +46,7 @@ public class AutosmeltModifier extends SingleUseModifier {
    */
   private Optional<FurnaceRecipe> findRecipe(ItemStack stack, World world) {
     inventory.setStack(stack);
-    return world.getRecipeManager().getRecipe(IRecipeType.SMELTING, inventory, world);
+    return world.getRecipeManager().getRecipeFor(IRecipeType.SMELTING, inventory, world);
   }
 
   /**
@@ -82,7 +82,7 @@ public class AutosmeltModifier extends SingleUseModifier {
     FurnaceRecipe recipe = findCachedRecipe(stack, world);
     if (recipe != null) {
       inventory.setStack(stack);
-      ItemStack output = recipe.getCraftingResult(inventory);
+      ItemStack output = recipe.assemble(inventory);
       if (stack.getCount() > 1) {
         // recipe output is a copy, safe to modify
         output.setCount(output.getCount() * stack.getCount());
@@ -94,7 +94,7 @@ public class AutosmeltModifier extends SingleUseModifier {
 
   @Override
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
-    World world = context.getWorld();
+    World world = context.getLevel();
     if (!generatedLoot.isEmpty()) {
       return generatedLoot.stream()
                           .map(stack -> smeltItem(stack, world))

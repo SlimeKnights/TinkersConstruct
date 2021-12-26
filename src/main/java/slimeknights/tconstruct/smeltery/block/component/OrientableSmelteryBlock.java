@@ -16,6 +16,8 @@ import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTi
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /** Shared logic for smeltery blocks with four directions to face */
 public class OrientableSmelteryBlock extends SearedBlock {
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -32,25 +34,25 @@ public class OrientableSmelteryBlock extends SearedBlock {
   }
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block,BlockState> builder) {
+  protected void createBlockStateDefinition(StateContainer.Builder<Block,BlockState> builder) {
     builder.add(FACING, IN_STRUCTURE);
   }
 
   @Nullable
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rotation) {
-    return state.with(FACING, rotation.rotate(state.get(FACING)));
+    return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
   }
 
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
-    return state.with(FACING, mirror.mirror(state.get(FACING)));
+    return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
   }
 }

@@ -50,9 +50,9 @@ public abstract class GenericDataProvider implements IDataProvider {
   protected void saveThing(DirectoryCache cache, ResourceLocation location, Object materialJson) {
     try {
       String json = gson.toJson(materialJson);
-      Path path = this.generator.getOutputFolder().resolve(Paths.get(type.getDirectoryName(), location.getNamespace(), folder, location.getPath() + ".json"));
-      String hash = HASH_FUNCTION.hashUnencodedChars(json).toString();
-      if (!Objects.equals(cache.getPreviousHash(path), hash) || !Files.exists(path)) {
+      Path path = this.generator.getOutputFolder().resolve(Paths.get(type.getDirectory(), location.getNamespace(), folder, location.getPath() + ".json"));
+      String hash = SHA1.hashUnencodedChars(json).toString();
+      if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
         Files.createDirectories(path.getParent());
 
         try (BufferedWriter bufferedwriter = Files.newBufferedWriter(path)) {
@@ -60,7 +60,7 @@ public abstract class GenericDataProvider implements IDataProvider {
         }
       }
 
-      cache.recordHash(path, hash);
+      cache.putNew(path, hash);
     } catch (IOException e) {
       log.error("Couldn't create data for {}", location, e);
     }

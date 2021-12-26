@@ -30,8 +30,8 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    * @return  Recipe result, may be empty.
    */
   @Override
-  default ItemStack getCraftingResult(ITinkerStationInventory inv) {
-    return getRecipeOutput().copy();
+  default ItemStack assemble(ITinkerStationInventory inv) {
+    return getResultItem().copy();
   }
 
   /**
@@ -39,7 +39,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    * @return Validated result
    */
   default ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
-    ItemStack result = getCraftingResult(inv);
+    ItemStack result = assemble(inv);
     if (result.isEmpty()) {
       return ValidatedResult.PASS;
     }
@@ -66,6 +66,6 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   @Override
   @Deprecated
   default NonNullList<ItemStack> getRemainingItems(ITinkerStationInventory inv) {
-    return NonNullList.from(ItemStack.EMPTY);
+    return NonNullList.of(ItemStack.EMPTY);
   }
 }

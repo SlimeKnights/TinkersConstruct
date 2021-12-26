@@ -7,6 +7,8 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ClearStainedGlassPaneBlock extends ClearGlassPaneBlock {
 
   private final GlassColor glassColor;

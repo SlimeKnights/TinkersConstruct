@@ -46,17 +46,17 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(UpdateTinkerStationRecipePacket packet) {
-      World world = Minecraft.getInstance().world;
+      World world = Minecraft.getInstance().level;
       if (world != null) {
         Optional<ITinkerStationRecipe> recipe = RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ITinkerStationRecipe.class);
 
         // if the screen is open, use that to get the TE and update the screen
         boolean handled = false;
-        Screen screen = Minecraft.getInstance().currentScreen;
+        Screen screen = Minecraft.getInstance().screen;
         if (screen instanceof TinkerStationScreen) {
           TinkerStationScreen stationScreen = (TinkerStationScreen) screen;
           TinkerStationTileEntity te = stationScreen.getTileEntity();
-          if (te.getPos().equals(packet.pos)) {
+          if (te.getBlockPos().equals(packet.pos)) {
             recipe.ifPresent(te::updateRecipe);
             stationScreen.updateDisplay();
             handled = true;

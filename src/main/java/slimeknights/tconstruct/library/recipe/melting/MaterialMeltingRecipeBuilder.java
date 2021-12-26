@@ -60,14 +60,14 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       json.addProperty("input", inputId.toString());
       json.addProperty("temperature", temperature);
       json.add("result", RecipeHelper.serializeFluidStack(result));
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return TinkerSmeltery.materialMeltingSerializer.get();
     }
   }

@@ -33,10 +33,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -57,9 +57,6 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-// note for self later, we do need to extend armor item. looks like we need it for:
-// * mobs exchanging equiptment
-// * rendering, I see...
 public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay {
   // TODO: AT this
   private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
@@ -119,31 +116,31 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   @Override
-  public boolean updateItemStackNBT(CompoundNBT nbt) {
+  public boolean verifyTagAfterLoad(CompoundNBT nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
     return true;
   }
 
   @Override
-  public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+  public void onCraftedBy(ItemStack stack, World levelIn, PlayerEntity playerIn) {
     ToolStack.ensureInitialized(stack, getToolDefinition());
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack stack = playerIn.getHeldItem(handIn);
+  public ActionResult<ItemStack> use(World levelIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack stack = playerIn.getItemInHand(handIn);
     ActionResultType result = ToolInventoryCapability.tryOpenContainer(stack, null, getToolDefinition(), playerIn, Util.getSlotType(handIn));
-    if (result.isSuccessOrConsume()) {
+    if (result.consumesAction()) {
       return new ActionResult<>(result, stack);
     }
-    return super.onItemRightClick(worldIn, playerIn, handIn);
+    return super.use(levelIn, playerIn, handIn);
   }
 
 
   /* Display */
 
   @Override
-  public boolean hasEffect(ItemStack stack) {
+  public boolean isFoil(ItemStack stack) {
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
@@ -164,9 +161,9 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   @Override
-  public Entity createEntity(World world, Entity original, ItemStack stack) {
+  public Entity createEntity(World level, Entity original, ItemStack stack) {
     if (ModifierUtil.checkVolatileFlag(stack, INDESTRUCTIBLE_ENTITY)) {
-      IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
+      IndestructibleItemEntity entity = new IndestructibleItemEntity(level, original.getX(), original.getY(), original.getZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;
     }
@@ -183,13 +180,13 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   @Override
-  public boolean isDamageable() {
+  public boolean canBeDepleted() {
     return true;
   }
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    if (!isDamageable()) {
+    if (!canBeDepleted()) {
       return 0;
     }
     ToolStack tool = ToolStack.from(stack);
@@ -200,7 +197,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public int getDamage(ItemStack stack) {
-    if (!isDamageable()) {
+    if (!canBeDepleted()) {
       return 0;
     }
     return ToolStack.from(stack).getDamage();
@@ -208,7 +205,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
-    if (isDamageable()) {
+    if (canBeDepleted()) {
       ToolStack.from(stack).setDamage(damage);
     }
   }
@@ -217,7 +214,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
     // If we don't tools ignore our damage logic
-    if (isDamageable() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
+    if (canBeDepleted() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
       onBroken.accept(damager);
     }
 
@@ -246,14 +243,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   /* Armor properties */
 
   @Override
-  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
     return false;
   }
 
 
   @Override
   public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
-    if (slot != getEquipmentSlot()) {
+    if (slot != getSlot()) {
       return ImmutableMultimap.of();
     }
 
@@ -281,7 +278,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
-    if (slot != getEquipmentSlot() || nbt == null) {
+    if (slot != getSlot() || nbt == null) {
       return ImmutableMultimap.of();
     }
     return getAttributeModifiers(ToolStack.from(stack), slot);
@@ -308,7 +305,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
           }
         }
         // damage the tool and keep flying
-        if (!entity.world.isRemote && (flightTicks + 1) % 20 == 0) {
+        if (!entity.level.isClientSide && (flightTicks + 1) % 20 == 0) {
           ToolDamageUtil.damageAnimated(tool, 1, entity, EquipmentSlotType.CHEST);
         }
         return true;
@@ -321,22 +318,22 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   /* Ticking */
 
   @Override
-  public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+  public void inventoryTick(ItemStack stack, World levelIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    super.inventoryTick(stack, levelIn, entityIn, itemSlot, isSelected);
 
     // don't care about non-living, they skip most tool context
     if (entityIn instanceof LivingEntity) {
       ToolStack tool = ToolStack.from(stack);
-      if (!worldIn.isRemote) {
+      if (!levelIn.isClientSide) {
         tool.ensureHasData();
       }
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
-        boolean isCorrectSlot = living.getItemStackFromSlot(slot) == stack;
+        boolean isCorrectSlot = living.getItemBySlot(slot) == stack;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, living, itemSlot, isSelected, isCorrectSlot, stack);
+          entry.getModifier().onInventoryTick(tool, entry.getLevel(), levelIn, living, itemSlot, isSelected, isCorrectSlot, stack);
         }
       }
     }
@@ -346,28 +343,28 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   /* Tooltips */
 
   @Override
-  public ITextComponent getDisplayName(ItemStack stack) {
+  public ITextComponent getName(ItemStack stack) {
     return TooltipUtil.getDisplayName(stack, getToolDefinition());
   }
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    TooltipUtil.addInformation(this, stack, worldIn, tooltip, TooltipKey.fromScreen(), flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable World levelIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    TooltipUtil.addInformation(this, stack, levelIn, tooltip, TooltipKey.fromScreen(), flagIn);
   }
 
   @Override
   public List<ITextComponent> getStatInformation(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
     tooltips = TooltipUtil.getArmorStats(tool, player, tooltips, key, tooltipFlag);
-    TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_ARMOR_ATTRIBUTES, getEquipmentSlot());
+    TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_ARMOR_ATTRIBUTES, getSlot());
     return tooltips;
   }
 
   /* Display items */
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.allowdedIn(group)) {
       ToolBuildHandler.addDefaultSubItems(this, items);
     }
   }

@@ -25,7 +25,7 @@ public class EarthSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public ResourceLocation getStructureName(String variantName) {
-    return TConstruct.getResource("slime_islands/earth/" + dirtType.getString() + "_" + variantName);
+    return TConstruct.getResource("slime_islands/earth/" + dirtType.getSerializedName() + "_" + variantName);
   }
 
   @Override
@@ -35,7 +35,7 @@ public class EarthSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public BlockState getLakeFluid() {
-    return Objects.requireNonNull(TinkerFluids.earthSlime.getBlock()).getDefaultState();
+    return Objects.requireNonNull(TinkerFluids.earthSlime.getBlock()).defaultBlockState();
   }
 
   @Nullable
@@ -45,15 +45,15 @@ public class EarthSlimeIslandVariant extends AbstractSlimeIslandVariant {
   }
 
   private static boolean isWater(ISeedReader world, BlockPos pos) {
-    return world.isAirBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.WATER;
+    return world.isEmptyBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.WATER;
   }
 
   @Override
   public boolean isPositionValid(ISeedReader world, BlockPos pos, ChunkGenerator generator) {
-    BlockPos up = pos.up();
+    BlockPos up = pos.above();
     if (isWater(world, up)) {
       for (Direction direction : Plane.HORIZONTAL) {
-        if (!isWater(world, up.offset(direction))) {
+        if (!isWater(world, up.relative(direction))) {
           return false;
         }
       }

@@ -15,6 +15,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import java.util.Collections;
 import java.util.function.Predicate;
 
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
+
 @RequiredArgsConstructor
 public class DepthAOEHarvestLogic extends ToolHarvestLogic {
   private final int extraHeight;
@@ -33,8 +35,8 @@ public class DepthAOEHarvestLogic extends ToolHarvestLogic {
     }
 
     // depth is always direction into the block
-    Direction playerLook = player.getHorizontalFacing();
-    float pitch = player.getPitch(1.0f);
+    Direction playerLook = player.getDirection();
+    float pitch = player.getViewXRot(1.0f);
     Direction depthDir, heightDir;
     if (pitch < -60) {
       depthDir = Direction.UP;

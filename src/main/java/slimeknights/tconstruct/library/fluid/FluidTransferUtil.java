@@ -74,13 +74,13 @@ public class FluidTransferUtil {
    * @return True if using a bucket
    */
   public static boolean interactWithBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction hit, Direction offset) {
-    ItemStack held = player.getHeldItem(hand);
+    ItemStack held = player.getItemInHand(hand);
     if (held.getItem() instanceof BucketItem) {
       BucketItem bucket = (BucketItem) held.getItem();
       Fluid fluid = bucket.getFluid();
       if (fluid != Fluids.EMPTY) {
-        if (!world.isRemote) {
-          TileEntity te = world.getTileEntity(pos);
+        if (!world.isClientSide) {
+          TileEntity te = world.getBlockEntity(pos);
           if (te != null) {
             te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit)
               .ifPresent(handler -> {
@@ -88,11 +88,11 @@ public class FluidTransferUtil {
                 // must empty the whole bucket
                 if (handler.fill(fluidStack, FluidAction.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
                   handler.fill(fluidStack, FluidAction.EXECUTE);
-                  bucket.onLiquidPlaced(world, held, pos.offset(offset));
+                  bucket.checkExtraContent(world, held, pos.relative(offset));
                   world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                  player.sendStatusMessage(new TranslationTextComponent(KEY_FILLED, FluidAttributes.BUCKET_VOLUME, fluidStack.getDisplayName()), true);
+                  player.displayClientMessage(new TranslationTextComponent(KEY_FILLED, FluidAttributes.BUCKET_VOLUME, fluidStack.getDisplayName()), true);
                   if (!player.isCreative()) {
-                    player.setHeldItem(hand, held.getContainerItem());
+                    player.setItemInHand(hand, held.getContainerItem());
                   }
                 }
               });
@@ -115,13 +115,13 @@ public class FluidTransferUtil {
    */
   public static boolean interactWithFluidItem(World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     // success if the item is a fluid handler, regardless of if fluid moved
-    ItemStack stack = player.getHeldItem(hand);
-    Direction face = hit.getFace();
+    ItemStack stack = player.getItemInHand(hand);
+    Direction face = hit.getDirection();
     // fetch capability before copying, bit more work when its a fluid handler, but saves copying time when its not
     if (!stack.isEmpty() && stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
       // only server needs to transfer stuff
-      if (!world.isRemote) {
-        TileEntity te = world.getTileEntity(pos);
+      if (!world.isClientSide) {
+        TileEntity te = world.getBlockEntity(pos);
         if (te != null) {
           LazyOptional<IFluidHandler> teCapability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
           if (teCapability.isPresent()) {
@@ -132,18 +132,18 @@ public class FluidTransferUtil {
               FluidStack transferred = tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE);
               if (!transferred.isEmpty()) {
                 world.playSound(null, pos, transferred.getFluid().getAttributes().getEmptySound(transferred), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                player.sendStatusMessage(new TranslationTextComponent(KEY_FILLED, transferred.getAmount(), transferred.getDisplayName()), true);
+                player.displayClientMessage(new TranslationTextComponent(KEY_FILLED, transferred.getAmount(), transferred.getDisplayName()), true);
               } else {
                 // if that failed, try filling the item handler from the TE
                 transferred = tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE);
                 if (!transferred.isEmpty()) {
                   world.playSound(null, pos, transferred.getFluid().getAttributes().getFillSound(transferred), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                  player.sendStatusMessage(new TranslationTextComponent(KEY_DRAINED, transferred.getAmount(), transferred.getDisplayName()), true);
+                  player.displayClientMessage(new TranslationTextComponent(KEY_DRAINED, transferred.getAmount(), transferred.getDisplayName()), true);
                 }
               }
               // if either worked, update the player's inventory
               if (!transferred.isEmpty()) {
-                player.setHeldItem(hand, DrinkHelper.fill(stack, player, itemHandler.getContainer()));
+                player.setItemInHand(hand, DrinkHelper.createFilledResult(stack, player, itemHandler.getContainer()));
               }
             });
           }
@@ -165,6 +165,6 @@ public class FluidTransferUtil {
    */
   public static boolean interactWithTank(World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     return interactWithFluidItem(world, pos, player, hand, hit)
-           || interactWithBucket(world, pos, player, hand, hit.getFace(), hit.getFace());
+           || interactWithBucket(world, pos, player, hand, hit.getDirection(), hit.getDirection());
   }
 }

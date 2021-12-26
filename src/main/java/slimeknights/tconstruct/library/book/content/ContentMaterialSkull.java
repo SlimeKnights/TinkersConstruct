@@ -50,9 +50,9 @@ public class ContentMaterialSkull extends ContentMaterial {
   /** Gets the recipe to cast this skull */
   @Nullable
   private IDisplayableCastingRecipe getSkullRecipe() {
-    World world = Minecraft.getInstance().world;
+    World world = Minecraft.getInstance().level;
     if (!searchedSkullRecipe && world != null) {
-      skullRecipe = world.getRecipeManager().getRecipesForType(RecipeTypes.CASTING_BASIN).stream()
+      skullRecipe = world.getRecipeManager().getAllRecipesFor(RecipeTypes.CASTING_BASIN).stream()
                          .filter(recipe -> recipe instanceof IDisplayableCastingRecipe)
                          .map(recipe -> (IDisplayableCastingRecipe)recipe)
                          .filter(recipe -> {
@@ -71,7 +71,7 @@ public class ContentMaterialSkull extends ContentMaterial {
     // display slimeskull instead of material name
     IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
     if (skullRecipe != null) {
-      return skullRecipe.getOutput().getDisplayName();
+      return skullRecipe.getOutput().getHoverName();
     }
     return super.getTitle();
   }
@@ -107,7 +107,7 @@ public class ContentMaterialSkull extends ContentMaterial {
       List<ItemStack> casts = skullRecipe.getCastItems();
       if (!casts.isEmpty()) {
         ItemElement elementItem = new TinkerItemElement(0, 0, 1, casts);
-        elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(SKULL_FROM, casts.get(0).getDisplayName()));
+        elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(SKULL_FROM, casts.get(0).getHoverName()));
         displayTools.add(elementItem);
       }
     }
@@ -116,7 +116,7 @@ public class ContentMaterialSkull extends ContentMaterial {
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     IMaterial material = getMaterial();
-    this.addTitle(list, getTitle().getString(), true, material.getColor().getColor());
+    this.addTitle(list, getTitle().getString(), true, material.getColor().getValue());
 
     // the cool tools to the left/right
     this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, material.getIdentifier());
@@ -135,7 +135,7 @@ public class ContentMaterialSkull extends ContentMaterial {
     // inspirational quote, or boring description text
     MaterialId id = material.getIdentifier();
     String textKey = String.format(detailed ? "material.%s.%s.skull_encyclopedia" : "material.%s.%s.skull_flavor", id.getNamespace(), id.getPath());
-    if (I18n.hasKey(textKey)) {
+    if (I18n.exists(textKey)) {
       // using forge instead of I18n.format as that prevents % from being interpreted as a format key
       String translated = ForgeI18n.getPattern(textKey);
       if (!detailed) {

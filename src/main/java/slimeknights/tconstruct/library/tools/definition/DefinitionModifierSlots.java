@@ -52,7 +52,7 @@ public class DefinitionModifierSlots {
   public void write(PacketBuffer buffer) {
     buffer.writeVarInt(slots.size());
     for (Entry<SlotType, Integer> entry : slots.entrySet()) {
-      buffer.writeString(entry.getKey().getName());
+      buffer.writeUtf(entry.getKey().getName());
       buffer.writeVarInt(entry.getValue());
     }
   }
@@ -62,7 +62,7 @@ public class DefinitionModifierSlots {
     Builder builder = builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
-      SlotType slotType = SlotType.getOrCreate(buffer.readString(Short.MAX_VALUE));
+      SlotType slotType = SlotType.getOrCreate(buffer.readUtf(Short.MAX_VALUE));
       builder.setSlots(slotType, buffer.readVarInt());
     }
     return builder.build();
@@ -103,10 +103,10 @@ public class DefinitionModifierSlots {
   protected static class Serializer implements JsonDeserializer<DefinitionModifierSlots>, JsonSerializer<DefinitionModifierSlots> {
     @Override
     public DefinitionModifierSlots deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject object = JSONUtils.getJsonObject(json, "stats");
+      JsonObject object = JSONUtils.convertToJsonObject(json, "stats");
       Builder builder = builder();
       for (Entry<String,JsonElement> entry : object.entrySet()) {
-        int value = JSONUtils.getInt(entry.getValue(), entry.getKey());
+        int value = JSONUtils.convertToInt(entry.getValue(), entry.getKey());
         SlotType slotType = SlotType.getOrCreate(entry.getKey());
         builder.setSlots(slotType, value);
       }

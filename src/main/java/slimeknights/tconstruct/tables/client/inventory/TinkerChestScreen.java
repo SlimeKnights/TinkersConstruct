@@ -24,14 +24,14 @@ public class TinkerChestScreen extends BaseStationScreen<ChestTileEntity, BaseSt
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(matrices, BLANK_BACK);
 
     if (this.scalingChestScreen != null) {
       this.scalingChestScreen.update(mouseX, mouseY);
     }
 
-    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
+    super.renderBg(matrices, partialTicks, mouseX, mouseY);
   }
 
   @Override

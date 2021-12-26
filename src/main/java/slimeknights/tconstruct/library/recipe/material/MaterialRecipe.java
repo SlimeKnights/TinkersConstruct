@@ -83,7 +83,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   }
 
   @Override
-  public ItemStack getIcon() {
+  public ItemStack getToastSymbol() {
     return new ItemStack(TinkerTables.partBuilder);
   }
 
@@ -101,7 +101,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, ingredient);
+    return NonNullList.of(Ingredient.EMPTY, ingredient);
   }
 
   /** Cache of the display items list */
@@ -111,11 +111,11 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   public List<ItemStack> getDisplayItems() {
     if (displayItems == null) {
       if (needed > 1) {
-        displayItems = Arrays.stream(ingredient.getMatchingStacks())
+        displayItems = Arrays.stream(ingredient.getItems())
                              .map(stack -> ItemHandlerHelper.copyStackWithSize(stack, needed))
                              .collect(Collectors.toList());
       } else {
-        displayItems = Arrays.asList(ingredient.getMatchingStacks());
+        displayItems = Arrays.asList(ingredient.getItems());
       }
     }
     return displayItems;
@@ -126,7 +126,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * @return  Material for the recipe
    */
   public IMaterial getMaterial() {
-    return material.getValue();
+    return material.get();
   }
 
   /**

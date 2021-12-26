@@ -46,7 +46,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     IMaterial material = this.getMaterial(stack);
     // add all traits to the info
     if (!this.checkMissingMaterialTooltip(stack, material, tooltip)) {
@@ -77,7 +77,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       List<ITextComponent> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));
+        tooltip.add(stat.getLocalizedName().withStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));
         tooltip.addAll(stat.getLocalizedInfo());
       }
     });

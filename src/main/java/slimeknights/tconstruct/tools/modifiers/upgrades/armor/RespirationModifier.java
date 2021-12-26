@@ -25,10 +25,10 @@ public class RespirationModifier extends TotalArmorLevelModifier {
   private static boolean isLosingAir(LivingEntity living) {
     return living.isAlive()
            && !living.canBreatheUnderwater()
-           && living.areEyesInFluid(FluidTags.WATER)
-           && !EffectUtils.canBreatheUnderwater(living)
-           && !(living instanceof PlayerEntity && ((PlayerEntity) living).abilities.disableDamage)
-           && !living.world.getBlockState(new BlockPos(living.getPosX(), living.getPosYEye(), living.getPosZ())).matchesBlock(Blocks.BUBBLE_COLUMN);
+           && living.isEyeInFluid(FluidTags.WATER)
+           && !EffectUtils.hasWaterBreathing(living)
+           && !(living instanceof PlayerEntity && ((PlayerEntity) living).abilities.invulnerable)
+           && !living.level.getBlockState(new BlockPos(living.getX(), living.getEyeY(), living.getZ())).is(Blocks.BUBBLE_COLUMN);
   }
 
   /** Called before air is lost to add an air buffer */
@@ -36,10 +36,10 @@ public class RespirationModifier extends TotalArmorLevelModifier {
     LivingEntity living = event.getEntityLiving();
     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       int respiration = data.get(RESPIRATION, 0);
-      int air = living.getAir();
+      int air = living.getAirSupply();
       // vanilla has a chance of not losing air with the effect, easiest to implement is just giving some air back
-      if (respiration > 0 && air < living.getMaxAir() && isLosingAir(living) && RANDOM.nextInt(respiration + 1) > 0) {
-        living.setAir(air + 1);
+      if (respiration > 0 && air < living.getMaxAirSupply() && isLosingAir(living) && RANDOM.nextInt(respiration + 1) > 0) {
+        living.setAirSupply(air + 1);
       }
     });
   }

@@ -26,7 +26,7 @@ public class StrengthModifier extends IncrementalModifier {
 
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
-    if (slot.getSlotType() == Group.ARMOR) {
+    if (slot.getType() == Group.ARMOR) {
       // +5% damage per level
       consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(UUIDS[slot.getIndex()], "tconstruct.modifier.strength." + slot.getName(), 0.1f * getScaledLevel(tool, level), Operation.MULTIPLY_TOTAL));
     }

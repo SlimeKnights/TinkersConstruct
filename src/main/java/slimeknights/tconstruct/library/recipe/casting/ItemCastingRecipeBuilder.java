@@ -180,7 +180,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public ItemCastingRecipeBuilder setCast(ITag<Item> tagIn, boolean consumed) {
-    return this.setCast(Ingredient.fromTag(tagIn), consumed);
+    return this.setCast(Ingredient.of(tagIn), consumed);
   }
 
   /**
@@ -190,7 +190,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public ItemCastingRecipeBuilder setCast(IItemProvider itemIn, boolean consumed) {
-    return this.setCast(Ingredient.fromItems(itemIn), consumed);
+    return this.setCast(Ingredient.of(itemIn), consumed);
   }
 
   /**
@@ -242,17 +242,17 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public IRecipeSerializer<?> getType() {
       return recipeSerializer;
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
       if (cast != Ingredient.EMPTY) {
-        json.add("cast", cast.serialize());
+        json.add("cast", cast.toJson());
         if (consumed) {
           json.addProperty("cast_consumed", true);
         }

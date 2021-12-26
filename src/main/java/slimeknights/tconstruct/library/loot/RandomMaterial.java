@@ -153,9 +153,9 @@ public abstract class RandomMaterial {
     /** Creates an instance from JSON */
     public static RandomInTier fromJson(JsonObject json) {
       MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(json, "stat_type"));
-      int minTier = JSONUtils.getInt(json, "min_tier", 0);
-      int maxTier = JSONUtils.getInt(json, "min_tier", Integer.MAX_VALUE);
-      boolean allowHidden = JSONUtils.getBoolean(json, "allow_hidden", false);
+      int minTier = JSONUtils.getAsInt(json, "min_tier", 0);
+      int maxTier = JSONUtils.getAsInt(json, "min_tier", Integer.MAX_VALUE);
+      boolean allowHidden = JSONUtils.getAsBoolean(json, "allow_hidden", false);
       return new RandomInTier(statType, minTier, maxTier, allowHidden);
     }
 

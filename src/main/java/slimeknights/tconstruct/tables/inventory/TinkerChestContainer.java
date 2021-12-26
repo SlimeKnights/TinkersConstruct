@@ -14,7 +14,7 @@ public class TinkerChestContainer extends BaseStationContainer<ChestTileEntity> 
     super(TinkerTables.tinkerChestContainer.get(), id, inv, tileEntity);
     // columns don't matter since they get set by gui
     if (this.tile != null) {
-      this.inventory = new DynamicChestInventory(TinkerTables.tinkerChestContainer.get(), this.windowId, inv, this.tile, 8, 18, 8);
+      this.inventory = new DynamicChestInventory(TinkerTables.tinkerChestContainer.get(), this.containerId, inv, this.tile, 8, 18, 8);
       this.addSubContainer(inventory, true);
     }
     this.addInventorySlots();

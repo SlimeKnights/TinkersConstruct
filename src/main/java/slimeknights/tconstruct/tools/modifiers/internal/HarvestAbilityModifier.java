@@ -67,9 +67,9 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
     if (player == null) {
       return false;
     }
-    BlockRayTraceResult trace = new BlockRayTraceResult(context.getHitVec(), context.getFace(), pos, false);
-    ActionResultType result = state.onBlockActivated(world, player, context.getHand(), trace);
-    return result.isSuccessOrConsume();
+    BlockRayTraceResult trace = new BlockRayTraceResult(context.getClickLocation(), context.getClickedFace(), pos, false);
+    ActionResultType result = state.use(world, player, context.getHand(), trace);
+    return result.consumesAction();
   }
 
   /**
@@ -82,12 +82,12 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
    */
   private static boolean harvestStackable(ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
     // if the block below is the same, break this block
-    if (world.getBlockState(pos.down()).getBlock() == state.getBlock()) {
+    if (world.getBlockState(pos.below()).getBlock() == state.getBlock()) {
       world.destroyBlock(pos, true, player);
       return true;
     } else {
       // if the block above is the same, break it
-      BlockPos up = pos.up();
+      BlockPos up = pos.above();
       if (world.getBlockState(up).getBlock() == state.getBlock()) {
         world.destroyBlock(up, true, player);
         return true;
@@ -114,7 +114,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
       if (!crops.isMaxAge(state)) {
         return false;
       }
-      replant = crops.withAge(0);
+      replant = crops.getStateForAge(0);
     } else {
       // try to find an age property
       IntegerProperty age = null;
@@ -129,25 +129,25 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
         return false;
       } else {
         // property must have 0 as valid
-        Collection<Integer> allowedValues = age.getAllowedValues();
+        Collection<Integer> allowedValues = age.getPossibleValues();
         if (!allowedValues.contains(0)) {
           return false;
         }
         // crop must be max age
-        int maxAge = age.getAllowedValues().stream().max(Integer::compareTo).orElse(Integer.MAX_VALUE);
-        if (state.get(age) < maxAge) {
+        int maxAge = age.getPossibleValues().stream().max(Integer::compareTo).orElse(Integer.MAX_VALUE);
+        if (state.getValue(age) < maxAge) {
           return false;
         }
-        replant = state.with(age, 0);
+        replant = state.setValue(age, 0);
       }
     }
 
     // crop is fully grown, get loot context
     LootContext.Builder lootContext = new LootContext.Builder(world)
-      .withRandom(world.rand)
-      .withParameter(LootParameters.ORIGIN, Vector3d.copyCentered(pos))
+      .withRandom(world.random)
+      .withParameter(LootParameters.ORIGIN, Vector3d.atCenterOf(pos))
       .withParameter(LootParameters.TOOL, ItemStack.EMPTY)
-      .withNullableParameter(LootParameters.BLOCK_ENTITY, world.getTileEntity(pos));
+      .withOptionalParameter(LootParameters.BLOCK_ENTITY, world.getBlockEntity(pos));
     // find drops
     List<ItemStack> drops = state.getDrops(lootContext);
 
@@ -168,8 +168,8 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
 
     // if we found one, replant, no seed means break
     if (hasSeed) {
-      world.setBlockState(pos, replant);
-      state.spawnAdditionalDrops(world, pos, stack);
+      world.setBlockAndUpdate(pos, replant);
+      state.spawnAfterBreak(world, pos, stack);
       // set block state will not play sounds, destory block will
       world.playSound(null, pos, state.getSoundType(world, pos, player).getBreakSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
     } else {
@@ -178,7 +178,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
 
     // drop items
     for (ItemStack drop : drops) {
-      Block.spawnAsEntity(world, pos, drop);
+      Block.popResource(world, pos, drop);
     }
 
     return true;
@@ -216,7 +216,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
 
       // normal crops like wheat or carrots
     } else if (TinkerTags.Blocks.HARVESTABLE_CROPS.contains(block)) {
-      didHarvest = harvestCrop(context.getItem(), world, state, pos, player);
+      didHarvest = harvestCrop(context.getItemInHand(), world, state, pos, player);
     }
 
     // if we successfully harvested, run the modifier hook
@@ -240,13 +240,13 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
 
     // skip if sneaking
     PlayerEntity player = context.getPlayer();
-    if (player != null && player.isSneaking()) {
+    if (player != null && player.isShiftKeyDown()) {
       return ActionResultType.PASS;
     }
 
     // try harvest first
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
+    World world = context.getLevel();
+    BlockPos pos = context.getClickedPos();
     BlockState state = world.getBlockState(pos);
     if (TinkerTags.Blocks.HARVESTABLE.contains(state.getBlock())) {
       if (world instanceof ServerWorld) {
@@ -256,7 +256,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
         // try harvesting the crop, if successful and survival, damage the tool
         boolean didHarvest = false;
         boolean broken = false;
-        ItemStack stack = context.getItem();
+        ItemStack stack = context.getItemInHand();
         if (harvest(context, tool, server, state, pos, slotType)) {
           didHarvest = true;
           broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
@@ -265,7 +265,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
         // if we have a player and harvest logic, try doing AOE harvest
         Item item = stack.getItem();
         if (!broken && player != null && item instanceof IModifiableHarvest) {
-          for (BlockPos newPos : ((IModifiableHarvest)item).getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
+          for (BlockPos newPos : ((IModifiableHarvest)item).getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, tool, server, world.getBlockState(newPos), newPos, slotType)) {
               didHarvest = true;
@@ -279,10 +279,10 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
         // animations
         if (player != null) {
           if (didHarvest) {
-            player.spawnSweepParticles();
+            player.sweepAttack();
           }
           if (broken) {
-            player.sendBreakAnimation(context.getHand());
+            player.broadcastBreakEvent(context.getHand());
           }
         }
       }

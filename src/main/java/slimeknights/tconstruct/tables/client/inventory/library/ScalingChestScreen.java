@@ -28,12 +28,12 @@ public class ScalingChestScreen<T extends TileEntity> extends DynInventoryScreen
 
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
-    this.guiLeft = parentX + this.xOffset;
-    this.guiTop = parentY + this.yOffset;
+    this.leftPos = parentX + this.xOffset;
+    this.topPos = parentY + this.yOffset;
 
     // calculate rows and columns from space
-    this.columns = (this.xSize - this.slider.width) / slot.w;
-    this.rows = this.ySize / slot.h;
+    this.columns = (this.imageWidth - this.slider.width) / slot.w;
+    this.rows = this.imageHeight / slot.h;
 
     this.updateSlider();
     this.updateSlots();
@@ -64,5 +64,5 @@ public class ScalingChestScreen<T extends TileEntity> extends DynInventoryScreen
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {}
+  protected void renderLabels(MatrixStack matrixStack, int x, int y) {}
 }

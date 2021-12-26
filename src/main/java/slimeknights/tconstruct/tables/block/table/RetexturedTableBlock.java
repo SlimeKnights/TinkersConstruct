@@ -13,14 +13,16 @@ import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public abstract class RetexturedTableBlock extends TinkerTableBlock {
   public RetexturedTableBlock(Properties builder) {
     super(builder);
   }
 
   @Override
-  public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    super.onBlockPlacedBy(world, pos, state, placer, stack);
+  public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    super.setPlacedBy(world, pos, state, placer, stack);
     RetexturedBlock.updateTextureBlock(world, pos, stack);
   }
 

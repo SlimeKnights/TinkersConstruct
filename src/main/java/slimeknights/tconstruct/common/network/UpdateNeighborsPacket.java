@@ -21,13 +21,13 @@ public class UpdateNeighborsPacket implements IThreadsafePacket {
   private final BlockPos pos;
 
   public UpdateNeighborsPacket(PacketBuffer buffer) {
-    this.state = GameData.getBlockStateIDMap().getByValue(buffer.readVarInt());
+    this.state = GameData.getBlockStateIDMap().byId(buffer.readVarInt());
     this.pos = buffer.readBlockPos();
   }
 
   @Override
   public void encode(PacketBuffer buffer) {
-    buffer.writeVarInt(Block.getStateId(state));
+    buffer.writeVarInt(Block.getId(state));
     buffer.writeBlockPos(pos);
   }
 
@@ -38,10 +38,10 @@ public class UpdateNeighborsPacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(UpdateNeighborsPacket packet) {
-      World world = Minecraft.getInstance().world;
+      World world = Minecraft.getInstance().level;
       if (world != null) {
-        packet.state.updateNeighbours(world, packet.pos, BlockFlags.BLOCK_UPDATE, 511);
-        packet.state.updateDiagonalNeighbors(world, packet.pos, BlockFlags.BLOCK_UPDATE, 511);
+        packet.state.updateNeighbourShapes(world, packet.pos, BlockFlags.BLOCK_UPDATE, 511);
+        packet.state.updateIndirectNeighbourShapes(world, packet.pos, BlockFlags.BLOCK_UPDATE, 511);
       }
     }
   }

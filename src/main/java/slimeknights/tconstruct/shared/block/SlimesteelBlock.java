@@ -10,6 +10,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlimesteelBlock extends Block {
 
   public SlimesteelBlock(Properties properties) {
@@ -17,30 +19,30 @@ public class SlimesteelBlock extends Block {
   }
 
   @Override
-  public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+  public void fallOn(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
     if (entityIn.isSuppressingBounce()) {
-      super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
+      super.fallOn(worldIn, pos, entityIn, fallDistance);
     } else {
-      entityIn.onLivingFall(fallDistance, 0.0F);
+      entityIn.causeFallDamage(fallDistance, 0.0F);
     }
 
   }
 
   @Override
-  public void onLanded(IBlockReader worldIn, Entity entity) {
+  public void updateEntityAfterFallOn(IBlockReader worldIn, Entity entity) {
     if (entity.isSuppressingBounce()) {
-      super.onLanded(worldIn, entity);
+      super.updateEntityAfterFallOn(worldIn, entity);
     } else {
-      Vector3d vector3d = entity.getMotion();
+      Vector3d vector3d = entity.getDeltaMovement();
       if (vector3d.y < 0) {
         double d0 = entity instanceof LivingEntity ? 0.75 : 0.6;
-        entity.setMotion(vector3d.x, -vector3d.y * d0, vector3d.z);
+        entity.setDeltaMovement(vector3d.x, -vector3d.y * d0, vector3d.z);
       }
     }
   }
 
   @Override
-  public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+  public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
     return false;
   }
 }

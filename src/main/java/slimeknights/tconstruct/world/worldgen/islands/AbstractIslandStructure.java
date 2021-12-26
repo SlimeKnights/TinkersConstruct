@@ -29,12 +29,12 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
   }
 
   @Override
-  public String getStructureName() {
+  public String getFeatureName() {
     return Objects.requireNonNull(getRegistryName()).toString();
   }
 
   @Override
-  public GenerationStage.Decoration getDecorationStage() {
+  public GenerationStage.Decoration step() {
     return GenerationStage.Decoration.SURFACE_STRUCTURES;
   }
 
@@ -65,12 +65,12 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
     }
 
     // determine height
-    int minXMinZ = generator.getNoiseHeightMinusOne(x, z, Heightmap.Type.WORLD_SURFACE_WG);
-    int minXMaxZ = generator.getNoiseHeightMinusOne(x, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
-    int maxXMinZ = generator.getNoiseHeightMinusOne(x + xOffset, z, Heightmap.Type.WORLD_SURFACE_WG);
-    int maxXMaxZ = generator.getNoiseHeightMinusOne(x + xOffset, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
+    int minXMinZ = generator.getFirstOccupiedHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+    int minXMaxZ = generator.getFirstOccupiedHeight(x, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
+    int maxXMinZ = generator.getFirstOccupiedHeight(x + xOffset, z, Heightmap.Type.WORLD_SURFACE_WG);
+    int maxXMaxZ = generator.getFirstOccupiedHeight(x + xOffset, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
     // from the smallest of the 4 positions, add 60 plus another random 50, limit to 20 blocks below world height (tallest island is 13 blocks, 7 blocks for trees)
-    return Math.min(Math.min(Math.min(minXMinZ, minXMaxZ), Math.min(maxXMinZ, maxXMaxZ)) + 60 + random.nextInt(50), generator.getMaxBuildHeight() - 20);
+    return Math.min(Math.min(Math.min(minXMinZ, minXMaxZ), Math.min(maxXMinZ, maxXMaxZ)) + 60 + random.nextInt(50), generator.getGenDepth() - 20);
   }
 
   public class DefaultStart extends StructureStart<NoFeatureConfig> {
@@ -79,19 +79,19 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
     }
 
     @Override
-    public void func_230364_a_(DynamicRegistries registries, ChunkGenerator generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
+    public void generatePieces(DynamicRegistries registries, ChunkGenerator generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
       // determine orientation
-      Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
+      Rotation rotation = Rotation.values()[this.random.nextInt(Rotation.values().length)];
       // determine coords
-      int x = chunkX * 16 + 4 + this.rand.nextInt(8);
-      int z = chunkZ * 16 + 4 + this.rand.nextInt(8);
-      int y = getHeight(generator, rotation, x, z, this.rand);
+      int x = chunkX * 16 + 4 + this.random.nextInt(8);
+      int z = chunkZ * 16 + 4 + this.random.nextInt(8);
+      int y = getHeight(generator, rotation, x, z, this.random);
 
-      IIslandVariant variant = getVariant(rand);
+      IIslandVariant variant = getVariant(random);
       // fetch the tree now so its consistent on the whole island
-      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.rand.nextInt(SIZES.length)], new BlockPos(x, y, z), variant.getTreeFeature(rand), rotation);
-      this.components.add(slimeIslandPiece);
-      this.recalculateStructureSize();
+      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.random.nextInt(SIZES.length)], new BlockPos(x, y, z), variant.getTreeFeature(random), rotation);
+      this.pieces.add(slimeIslandPiece);
+      this.calculateBoundingBox();
     }
   }
 }

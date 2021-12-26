@@ -11,6 +11,8 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+
 public class SlotButtonItem extends Button {
   protected static final ElementScreen BUTTON_PRESSED_GUI = new ElementScreen(144, 216, 18, 18, 256, 256);
   protected static final ElementScreen BUTTON_NORMAL_GUI = new ElementScreen(144 + 18 * 2, 216, 18, 18, 256, 256);
@@ -42,9 +44,9 @@ public class SlotButtonItem extends Button {
   }
 
   @Override
-  public void renderWidget(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
+  public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    Minecraft.getInstance().getTextureManager().bindTexture(this.backgroundLocation);
+    Minecraft.getInstance().getTextureManager().bind(this.backgroundLocation);
 
     if (this.visible) {
       this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;

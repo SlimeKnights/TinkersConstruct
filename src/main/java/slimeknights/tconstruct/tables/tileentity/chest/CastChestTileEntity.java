@@ -23,7 +23,7 @@ public class CastChestTileEntity extends ChestTileEntity {
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
       for (int i = 0; i < this.getSlots(); i++) {
-        if (ItemStack.areItemsEqual(stack, this.getStackInSlot(i))) {
+        if (ItemStack.isSame(stack, this.getStackInSlot(i))) {
           return i == slot;
         }
       }

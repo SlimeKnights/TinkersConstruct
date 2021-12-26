@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("unchecked")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
-  protected static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.fromTag(TinkerTags.Items.MODIFIABLE));
+  protected static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.of(TinkerTags.Items.MODIFIABLE));
   protected static final Lazy<ModifierMatch> UNARMED_MODIFIER = Lazy.of(() -> ModifierMatch.entry(TinkerModifiers.unarmed.get()));
   protected static final String UNARMED_ERROR = TConstruct.makeTranslationKey("recipe", "modifier.unarmed");
   // shared
@@ -64,7 +64,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @return  Builder instance
    */
   public T setTools(ITag<Item> tag) {
-    return this.setTools(Ingredient.fromTag(tag));
+    return this.setTools(Ingredient.of(tag));
   }
 
   /**
@@ -166,12 +166,12 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     }
     // if true, only chestplates
     if (unarmed == Boolean.TRUE) {
-      ingredient = Ingredient.fromTag(TinkerTags.Items.CHESTPLATES);
+      ingredient = Ingredient.of(TinkerTags.Items.CHESTPLATES);
       // if null, both
     } else if (unarmed == null) {
-      ingredient = CompoundIngredient.from(ingredient, Ingredient.fromTag(TinkerTags.Items.CHESTPLATES));
+      ingredient = CompoundIngredient.from(ingredient, Ingredient.of(TinkerTags.Items.CHESTPLATES));
     }
-    json.add("tools", ingredient.serialize());
+    json.add("tools", ingredient.toJson());
     if (slotType != null && slots > 0) {
       JsonObject slotJson = new JsonObject();
       slotJson.addProperty(slotType.getName(), slots);
@@ -192,7 +192,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       writeCommon(json, withUnarmed);
       if (withUnarmed) {
         JsonObject reqJson = UNARMED_MODIFIER.get().serialize();
@@ -217,7 +217,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     }
 
     @Override
-    public void serialize(JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
       writeCommon(json, includeUnarmed ? null : false);
       json.addProperty("modifier", result.getModifier().getId().toString());
       json.addProperty("min_level", salvageMinLevel);

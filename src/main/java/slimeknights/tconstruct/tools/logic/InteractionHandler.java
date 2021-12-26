@@ -55,7 +55,7 @@ public class InteractionHandler {
     if (!TinkerTags.Items.HELD.contains(stack.getItem())) {
       // if the hand is empty, allow performing chestplate interaction (assuming a modifiable chestplate)
       if (stack.isEmpty()) {
-        stack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        stack = player.getItemBySlot(EquipmentSlotType.CHEST);
         if (TinkerTags.Items.CHESTPLATES.contains(stack.getItem())) {
           slotType = EquipmentSlotType.CHEST;
         } else {
@@ -71,7 +71,7 @@ public class InteractionHandler {
     for (ModifierEntry entry : tool.getModifierList()) {
       // exit on first successful result
       ActionResultType result = entry.getModifier().beforeEntityUse(tool, entry.getLevel(), player, target, hand, slotType);
-      if (result.isSuccessOrConsume()) {
+      if (result.consumesAction()) {
         event.setCanceled(true);
         event.setCancellationResult(result);
         return;
@@ -83,8 +83,8 @@ public class InteractionHandler {
       event.setCanceled(true);
 
       // initial entity interaction
-      ActionResultType result = target.processInitialInteract(player, hand);
-      if (result.isSuccessOrConsume()) {
+      ActionResultType result = target.interact(player, hand);
+      if (result.consumesAction()) {
         event.setCancellationResult(result);
         return;
       }
@@ -95,7 +95,7 @@ public class InteractionHandler {
         for (ModifierEntry entry : tool.getModifierList()) {
           // exit on first successful result
           result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), player, livingTarget, hand, slotType);
-          if (result.isSuccessOrConsume()) {
+          if (result.consumesAction()) {
             event.setCanceled(true);
             event.setCancellationResult(result);
             return;
@@ -113,17 +113,18 @@ public class InteractionHandler {
   /** Runs one of the two blockUse hooks for a chestplate */
   private static ActionResultType onBlockUse(ItemUseContext context, IModifierToolStack tool, ItemStack stack, Function<ModifierEntry, ActionResultType> callback) {
     PlayerEntity player = context.getPlayer();
-    CachedBlockInfo cachedblockinfo = new CachedBlockInfo(context.getWorld(), context.getPos(), false);
-    if (player != null && !player.abilities.allowEdit && !stack.canPlaceOn(context.getWorld().getTags(), cachedblockinfo)) {
+    World world = context.getLevel();
+    CachedBlockInfo cachedblockinfo = new CachedBlockInfo(world, context.getClickedPos(), false);
+    if (player != null && !player.abilities.mayBuild && !stack.hasAdventureModePlaceTagForBlock(world.getTagManager(), cachedblockinfo)) {
       return ActionResultType.PASS;
     }
 
     // run modifier hook
     for (ModifierEntry entry : tool.getModifierList()) {
       ActionResultType result = callback.apply(entry);
-      if (result.isSuccessOrConsume()) {
+      if (result.consumesAction()) {
         if (player != null) {
-          player.addStat(Stats.ITEM_USED.get(stack.getItem()));
+          player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
         return result;
       }
@@ -138,7 +139,7 @@ public class InteractionHandler {
     PlayerEntity player = event.getPlayer();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       // item must be a chestplate
-      ItemStack chestplate = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+      ItemStack chestplate = player.getItemBySlot(EquipmentSlotType.CHEST);
       if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
         // no turning back, from this point we are fully in charge of interaction logic (since we need to ensure order of the hooks)
 
@@ -151,7 +152,7 @@ public class InteractionHandler {
         // first, before block use (in forge, onItemUseFirst)
         if (event.getUseItem() != Result.DENY) {
           ActionResultType result = onBlockUse(context, tool, chestplate, entry -> entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, EquipmentSlotType.CHEST));
-          if (result.isSuccessOrConsume()) {
+          if (result.consumesAction()) {
             event.setCanceled(true);
             event.setCancellationResult(result);
             return;
@@ -162,11 +163,10 @@ public class InteractionHandler {
         BlockPos pos = event.getPos();
         Result useBlock = event.getUseBlock();
         if (useBlock == Result.ALLOW || (useBlock != Result.DENY && !player.isSecondaryUseActive())) {
-          World world = player.getEntityWorld();
-          ActionResultType result = world.getBlockState(pos).onBlockActivated(world, player, hand, trace);
-          if (result.isSuccessOrConsume()) {
+          ActionResultType result = player.level.getBlockState(pos).use(player.level, player, hand, trace);
+          if (result.consumesAction()) {
             if (player instanceof ServerPlayerEntity) {
-              CriteriaTriggers.RIGHT_CLICK_BLOCK_WITH_ITEM.test((ServerPlayerEntity)player, pos, ItemStack.EMPTY);
+              CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayerEntity)player, pos, ItemStack.EMPTY);
             }
             event.setCanceled(true);
             event.setCancellationResult(result);
@@ -177,14 +177,14 @@ public class InteractionHandler {
         // regular item interaction: must not be deny, and either be allow or not have a cooldown
         Result useItem = event.getUseItem();
         event.setCancellationResult(ActionResultType.PASS);
-        if (useItem != Result.DENY && (useItem == Result.ALLOW || !player.getCooldownTracker().hasCooldown(chestplate.getItem()))) {
+        if (useItem != Result.DENY && (useItem == Result.ALLOW || !player.getCooldowns().isOnCooldown(chestplate.getItem()))) {
           // finally, after block use (in forge, onItemUse)
           ActionResultType result = onBlockUse(context, tool, chestplate, entry -> entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, EquipmentSlotType.CHEST));
-          if (result.isSuccessOrConsume()) {
+          if (result.consumesAction()) {
             event.setCanceled(true);
             event.setCancellationResult(result);
             if (player instanceof ServerPlayerEntity) {
-              CriteriaTriggers.RIGHT_CLICK_BLOCK_WITH_ITEM.test((ServerPlayerEntity) player, pos, ItemStack.EMPTY);
+              CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayerEntity) player, pos, ItemStack.EMPTY);
             }
             return;
           }
@@ -201,16 +201,15 @@ public class InteractionHandler {
 
   /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}, called differently on client and server */
   public static ActionResultType onChestplateUse(PlayerEntity player, ItemStack chestplate, Hand hand) {
-    if (player.getCooldownTracker().hasCooldown(chestplate.getItem())) {
+    if (player.getCooldowns().isOnCooldown(chestplate.getItem())) {
       return ActionResultType.PASS;
     }
 
     // first, run the modifier hook
     ToolStack tool = ToolStack.from(chestplate);
-    World world = player.getEntityWorld();
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), world, player, hand, EquipmentSlotType.CHEST);
-      if (result.isSuccessOrConsume()) {
+      ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), player.level, player, hand, EquipmentSlotType.CHEST);
+      if (result.consumesAction()) {
         return result;
       }
     }
@@ -221,8 +220,8 @@ public class InteractionHandler {
   @SubscribeEvent
   static void onChestplateAttack(AttackEntityEvent event) {
     PlayerEntity attacker = event.getPlayer();
-    if (attacker.getHeldItemMainhand().isEmpty()) {
-      ItemStack chestplate = attacker.getItemStackFromSlot(EquipmentSlotType.CHEST);
+    if (attacker.getMainHandItem().isEmpty()) {
+      ItemStack chestplate = attacker.getItemBySlot(EquipmentSlotType.CHEST);
       if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
         ToolStack tool = ToolStack.from(chestplate);
         if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
@@ -240,7 +239,7 @@ public class InteractionHandler {
    */
   public static boolean startArmorInteract(PlayerEntity player, EquipmentSlotType slotType) {
     if (!player.isSpectator()) {
-      ItemStack helmet = player.getItemStackFromSlot(slotType);
+      ItemStack helmet = player.getItemBySlot(slotType);
       if (TinkerTags.Items.ARMOR.contains(helmet.getItem())) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
@@ -262,7 +261,7 @@ public class InteractionHandler {
    */
   public static boolean stopArmorInteract(PlayerEntity player, EquipmentSlotType slotType) {
     if (!player.isSpectator()) {
-      ItemStack helmet = player.getItemStackFromSlot(slotType);
+      ItemStack helmet = player.getItemBySlot(slotType);
       if (TinkerTags.Items.ARMOR.contains(helmet.getItem())) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {

@@ -206,7 +206,7 @@ public class MaterialManager extends JsonReloadListener {
       // parse color from string
       Color color = Optional.ofNullable(materialJson.getTextColor())
                             .filter(str -> !str.isEmpty())
-                            .map(Color::fromHex)
+                            .map(Color::parseColor)
                             .orElse(Material.WHITE);
 
 
@@ -221,7 +221,7 @@ public class MaterialManager extends JsonReloadListener {
   private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
     @Override
     public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return CraftingHelper.getCondition(JSONUtils.getJsonObject(json, "condition"));
+      return CraftingHelper.getCondition(JSONUtils.convertToJsonObject(json, "condition"));
     }
 
     @Override

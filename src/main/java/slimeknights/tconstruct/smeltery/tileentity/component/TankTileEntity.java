@@ -114,8 +114,8 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Override
   public void onTankContentsChanged() {
     ITankTileEntity.super.onTankContentsChanged();
-    if (this.world != null) {
-      world.getLightManager().checkBlock(this.pos);
+    if (this.level != null) {
+      level.getLightEngine().checkBlock(this.worldPosition);
     }
   }
 
@@ -123,8 +123,8 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   public void updateFluidTo(FluidStack fluid) {
     ITankTileEntity.super.updateFluidTo(fluid);
     // update light if the fluid changes
-    if (this.world != null) {
-      world.getLightManager().checkBlock(this.pos);
+    if (this.level != null) {
+      level.getLightEngine().checkBlock(this.worldPosition);
     }
   }
 
@@ -150,8 +150,8 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
       tank.setFluid(FluidStack.EMPTY);
     } else {
       tank.readFromNBT(nbt);
-      if (world != null) {
-        world.getLightManager().checkBlock(pos);
+      if (level != null) {
+        level.getLightEngine().checkBlock(worldPosition);
       }
     }
   }
@@ -162,10 +162,10 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
+  public void load(BlockState state, CompoundNBT tag) {
     tank.setCapacity(getCapacity(state.getBlock()));
     updateTank(tag.getCompound(NBTTags.TANK));
-    super.read(state, tag);
+    super.load(state, tag);
   }
 
   @Override

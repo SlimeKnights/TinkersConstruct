@@ -94,7 +94,7 @@ public interface IRecipeHelper {
    * @return  Tag instance
    */
   default INamedTag<Item> getTag(String modId, String name) {
-    return ItemTags.makeWrapperTag(modId + ":" + name);
+    return ItemTags.bind(modId + ":" + name);
   }
 
   /**

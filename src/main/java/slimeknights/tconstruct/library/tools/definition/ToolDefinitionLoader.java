@@ -90,7 +90,7 @@ public class ToolDefinitionLoader extends JsonReloadListener {
         continue;
       }
       try {
-        ToolDefinitionData data = GSON.fromJson(JSONUtils.getJsonObject(element, "tool_definition"), ToolDefinitionData.class);
+        ToolDefinitionData data = GSON.fromJson(JSONUtils.convertToJsonObject(element, "tool_definition"), ToolDefinitionData.class);
         definition.validate(data);
         builder.put(key, data);
         definition.setData(data);

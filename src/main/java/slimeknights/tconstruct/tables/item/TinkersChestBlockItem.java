@@ -15,6 +15,8 @@ import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 /** Dyeable chest block */
 public class TinkersChestBlockItem extends BlockItem implements IDyeableArmorItem {
   public TinkersChestBlockItem(Block blockIn, Properties builder) {
@@ -23,14 +25,14 @@ public class TinkersChestBlockItem extends BlockItem implements IDyeableArmorIte
 
   @Override
   public int getColor(ItemStack stack) {
-    CompoundNBT tag = stack.getChildTag("display");
+    CompoundNBT tag = stack.getTagElement("display");
     return tag != null && tag.contains("color", NBT.TAG_ANY_NUMERIC) ? tag.getInt("color") : TinkersChestTileEntity.DEFAULT_COLOR;
   }
 
   @Override
-  protected boolean onBlockPlaced(BlockPos pos, World worldIn, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
-    boolean result = super.onBlockPlaced(pos, worldIn, player, stack, state);
-    if (hasColor(stack)) {
+  protected boolean updateCustomBlockEntityTag(BlockPos pos, World worldIn, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
+    boolean result = super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
+    if (hasCustomColor(stack)) {
       int color = getColor(stack);
       TileEntityHelper.getTile(TinkersChestTileEntity.class, worldIn, pos).ifPresent(te -> te.setColor(color));
     }

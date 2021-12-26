@@ -38,8 +38,8 @@ public class TinkerTabsScreen extends ModuleScreen {
 
     this.parent = parent;
 
-    this.xSize = ACTIVE_TAB_C_ELEMENT.w;
-    this.ySize = ACTIVE_TAB_C_ELEMENT.h;
+    this.imageWidth = ACTIVE_TAB_C_ELEMENT.w;
+    this.imageHeight = ACTIVE_TAB_C_ELEMENT.h;
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
     this.tabs.tabsResource = TAB_IMAGE;
@@ -49,7 +49,7 @@ public class TinkerTabsScreen extends ModuleScreen {
   public void addTab(ItemStack icon, BlockPos data) {
     this.tabData.add(data);
     this.tabs.addTab(icon);
-    this.xSize += ACTIVE_TAB_C_ELEMENT.w + this.tabs.spacing;
+    this.imageWidth += ACTIVE_TAB_C_ELEMENT.w + this.tabs.spacing;
   }
 
   @Override
@@ -71,14 +71,14 @@ public class TinkerTabsScreen extends ModuleScreen {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
 
     // we actually want to be on top of the parent
-    this.guiLeft = parentX;
-    this.guiTop = parentY - this.ySize;
+    this.leftPos = parentX;
+    this.topPos = parentY - this.imageHeight;
 
-    this.tabs.setPosition(this.guiLeft + 4, this.guiTop);
+    this.tabs.setPosition(this.leftPos + 4, this.topPos);
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     int sel = this.tabs.selected;
     this.tabs.update(mouseX, mouseY);
@@ -91,22 +91,22 @@ public class TinkerTabsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
     // highlighted tooltip
-    World world = Minecraft.getInstance().world;
+    World world = Minecraft.getInstance().level;
     if (this.tabs.highlighted > -1 && world != null) {
       BlockPos pos = this.tabData.get(this.tabs.highlighted);
       ITextComponent title;
-      TileEntity te = world.getTileEntity(pos);
+      TileEntity te = world.getBlockEntity(pos);
       if (te instanceof INamedContainerProvider) {
         title = ((INamedContainerProvider)te).getDisplayName();
       } else {
-        title = world.getBlockState(pos).getBlock().getTranslatedName();
+        title = world.getBlockState(pos).getBlock().getName();
       }
 
       // the origin has been translated to the top left of this gui rather than the screen, so we have to adjust
-      // TODO: func_243308_b->renderTooltip
-      this.func_243308_b(matrices, Lists.newArrayList(title), mouseX - this.guiLeft, mouseY - this.guiTop);
+      // TODO: renderComponentTooltip->renderTooltip
+      this.renderComponentTooltip(matrices, Lists.newArrayList(title), mouseX - this.leftPos, mouseY - this.topPos);
     }
   }
 }

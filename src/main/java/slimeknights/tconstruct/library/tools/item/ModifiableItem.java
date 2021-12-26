@@ -109,13 +109,13 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public boolean updateItemStackNBT(CompoundNBT nbt) {
+  public boolean verifyTagAfterLoad(CompoundNBT nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
     return true;
   }
 
   @Override
-  public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+  public void onCraftedBy(ItemStack stack, World worldIn, PlayerEntity playerIn) {
     ToolStack.ensureInitialized(stack, getToolDefinition());
   }
 
@@ -123,7 +123,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Display */
 
   @Override
-  public boolean hasEffect(ItemStack stack) {
+  public boolean isFoil(ItemStack stack) {
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
@@ -158,13 +158,13 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public boolean isDamageable() {
+  public boolean canBeDepleted() {
     return true;
   }
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    if (!isDamageable()) {
+    if (!canBeDepleted()) {
       return 0;
     }
     ToolStack tool = ToolStack.from(stack);
@@ -175,7 +175,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Override
   public int getDamage(ItemStack stack) {
-    if (!isDamageable()) {
+    if (!canBeDepleted()) {
       return 0;
     }
     return ToolStack.from(stack).getDamage();
@@ -183,7 +183,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
-    if (isDamageable()) {
+    if (canBeDepleted()) {
       ToolStack.from(stack).setDamage(damage);
     }
   }
@@ -192,7 +192,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
     // If we don't tools ignore our damage logic
-    if (isDamageable() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
+    if (canBeDepleted() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
       onBroken.accept(damager);
     }
 
@@ -232,13 +232,13 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
       // base stats
       if (slot == EquipmentSlotType.MAINHAND) {
         StatsNBT statsNBT = tool.getStats();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
         // base attack speed is 4, but our numbers start from 4
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
       }
 
       // grab attributes from modifiers, only do for hands (other slots would just be weird)
-      if (slot.getSlotType() == Group.HAND) {
+      if (slot.getType() == Group.HAND) {
         BiConsumer<Attribute,AttributeModifier> attributeConsumer = builder::put;
         for (ModifierEntry entry : tool.getModifierList()) {
           entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);
@@ -251,7 +251,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
-    if (nbt == null || slot.getSlotType() != Group.HAND) {
+    if (nbt == null || slot.getType() != Group.HAND) {
       return ImmutableMultimap.of();
     }
     return getAttributeModifiers(ToolStack.from(stack), slot);
@@ -267,14 +267,14 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     // don't care about non-living, they skip most tool context
     if (entityIn instanceof LivingEntity) {
       ToolStack tool = ToolStack.from(stack);
-      if (!worldIn.isRemote) {
+      if (!worldIn.isClientSide) {
         tool.ensureHasData();
       }
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
-        boolean isHeld = isSelected || living.getHeldItemOffhand() == stack;
+        boolean isHeld = isSelected || living.getOffhandItem() == stack;
         for (ModifierEntry entry : modifiers) {
           entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, living, itemSlot, isSelected, isHeld, stack);
         }
@@ -290,7 +290,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     if (volatileData.getBoolean(NO_INTERACTION)) {
       return false;
     }
-    return hand == Hand.OFF_HAND || player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getHeldItemOffhand().isEmpty();
+    return hand == Hand.OFF_HAND || player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getOffhandItem().isEmpty();
   }
   
   @Override
@@ -301,7 +301,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
       EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
         ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, slot);
-        if (result.isSuccessOrConsume()) {
+        if (result.consumesAction()) {
           return result;
         }
       }
@@ -310,14 +310,14 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public ActionResultType onItemUse(ItemUseContext context) {
-    ToolStack tool = ToolStack.from(context.getItem());
+  public ActionResultType useOn(ItemUseContext context) {
+    ToolStack tool = ToolStack.from(context.getItemInHand());
     Hand hand = context.getHand();
     if (shouldInteract(context.getPlayer(), tool, hand)) {
       EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
         ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, slot);
-        if (result.isSuccessOrConsume()) {
+        if (result.consumesAction()) {
           return result;
         }
       }
@@ -326,13 +326,13 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+  public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
       EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
         ActionResultType result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), playerIn, target, hand, slot);
-        if (result.isSuccessOrConsume()) {
+        if (result.consumesAction()) {
           return result;
         }
       }
@@ -341,14 +341,14 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
-    ItemStack stack = playerIn.getHeldItem(hand);
-    ToolStack tool = ToolStack.from(playerIn.getHeldItem(hand));
+  public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
+    ItemStack stack = playerIn.getItemInHand(hand);
+    ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
       EquipmentSlotType slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
         ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand, slot);
-        if (result.isSuccessOrConsume()) {
+        if (result.consumesAction()) {
           return new ActionResult<>(result, stack);
         }
       }
@@ -358,7 +358,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+  public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().onFinishUsing(tool, entry.getLevel(), worldIn, entityLiving)) {
@@ -369,7 +369,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+  public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       boolean result = entry.getModifier().onStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
@@ -392,7 +392,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public UseAction getUseAction(ItemStack stack) {
+  public UseAction getUseAnimation(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       UseAction result = entry.getModifier().getUseAction(tool, entry.getLevel());
@@ -407,13 +407,13 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Tooltips */
 
   @Override
-  public ITextComponent getDisplayName(ItemStack stack) {
+  public ITextComponent getName(ItemStack stack) {
     return TooltipUtil.getDisplayName(stack, getToolDefinition());
   }
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     TooltipUtil.addInformation(this, stack, worldIn, tooltip, TooltipKey.fromScreen(), flagIn);
   }
 
@@ -421,8 +421,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Display items */
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
+  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.allowdedIn(group)) {
       ToolBuildHandler.addDefaultSubItems(this, items);
     }
   }
@@ -500,6 +500,6 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
    * @return  Raytrace
    */
   public static BlockRayTraceResult blockRayTrace(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
-    return Item.rayTrace(worldIn, player, fluidMode);
+    return Item.getPlayerPOVHitResult(worldIn, player, fluidMode);
   }
 }

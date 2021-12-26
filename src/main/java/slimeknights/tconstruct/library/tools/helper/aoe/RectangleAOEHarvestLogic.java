@@ -17,6 +17,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import java.util.Collections;
 import java.util.function.Predicate;
 
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
+
 /** AOE harvest logic that mines blocks in a rectangle */
 @RequiredArgsConstructor
 public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
@@ -61,11 +63,11 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     Direction widthDir, heightDir;
     // for Y, direction is based on facing
     if (sideHit.getAxis() == Axis.Y) {
-      heightDir = player.getHorizontalFacing();
-      widthDir = heightDir.rotateY();
+      heightDir = player.getDirection();
+      widthDir = heightDir.getClockWise();
     } else {
       // for X and Z, just rotate from side hit
-      widthDir = sideHit.rotateYCCW();
+      widthDir = sideHit.getCounterClockWise();
       heightDir = Direction.UP;
     }
 
@@ -188,7 +190,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     @Override
     protected BlockPos computeNext() {
       // ensure the position did not get changed by the consumer last time
-      mutablePos.setPos(lastX, lastY, lastZ);
+      mutablePos.set(lastX, lastY, lastZ);
       // as long as we have another position, try using it
       while (incrementPosition()) {
         // skip over the origin, ensure it matches the predicate

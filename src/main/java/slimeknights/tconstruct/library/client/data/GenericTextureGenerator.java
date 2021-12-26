@@ -27,14 +27,14 @@ public abstract class GenericTextureGenerator implements IDataProvider {
   protected void saveImage(DirectoryCache cache, ResourceLocation location, NativeImage image) {
     try {
       Path path = this.generator.getOutputFolder().resolve(
-        Paths.get(ResourcePackType.CLIENT_RESOURCES.getDirectoryName(),
+        Paths.get(ResourcePackType.CLIENT_RESOURCES.getDirectory(),
                   location.getNamespace(), folder, location.getPath() + ".png"));
-      String hash = HASH_FUNCTION.hashBytes(image.getBytes()).toString();
-      if (!Objects.equals(cache.getPreviousHash(path), hash) || !Files.exists(path)) {
+      String hash = SHA1.hashBytes(image.asByteArray()).toString();
+      if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
         Files.createDirectories(path.getParent());
-        image.write(path);
+        image.writeToFile(path);
       }
-      cache.recordHash(path, hash);
+      cache.putNew(path, hash);
     } catch (IOException e) {
       log.error("Couldn't create data for {}", location, e);
     }

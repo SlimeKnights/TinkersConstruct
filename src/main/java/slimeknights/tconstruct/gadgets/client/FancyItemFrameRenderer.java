@@ -34,7 +34,7 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
   public static final Map<FrameType, ResourceLocation> LOCATIONS_MODEL_MAP = new EnumMap<>(FrameType.class);
   static {
     for (FrameType type : FrameType.values()) {
-      String name = type == FrameType.REVERSED_GOLD ? FrameType.GOLD.getString() : type.getString();
+      String name = type == FrameType.REVERSED_GOLD ? FrameType.GOLD.getSerializedName() : type.getSerializedName();
       LOCATIONS_MODEL.put(type, TConstruct.getResource("block/frame/" + name));
       LOCATIONS_MODEL_MAP.put(type, TConstruct.getResource("block/frame/" + name + "_map"));
     }
@@ -56,32 +56,32 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
     // base entity rendering logic, since calling super gives us the item frame renderer
     RenderNameplateEvent renderNameplate = new RenderNameplateEvent(frame, frame.getDisplayName(), this, matrices, bufferIn, packedLight, partialTicks);
     MinecraftForge.EVENT_BUS.post(renderNameplate);
-    if (renderNameplate.getResult() == Result.ALLOW || (renderNameplate.getResult() != Result.DENY && this.canRenderName(frame))) {
-      this.renderName(frame, renderNameplate.getContent(), matrices, bufferIn, packedLight);
+    if (renderNameplate.getResult() == Result.ALLOW || (renderNameplate.getResult() != Result.DENY && this.shouldShowName(frame))) {
+      this.renderNameTag(frame, renderNameplate.getContent(), matrices, bufferIn, packedLight);
     }
 
     // orient the renderer
-    matrices.push();
-    Direction facing = frame.getHorizontalFacing();
+    matrices.pushPose();
+    Direction facing = frame.getDirection();
     Vector3d offset = this.getRenderOffset(frame, partialTicks);
-    matrices.translate(facing.getXOffset() * 0.46875D - offset.getX(), facing.getYOffset() * 0.46875D - offset.getY(), facing.getZOffset() * 0.46875D - offset.getZ());
-    matrices.rotate(Vector3f.XP.rotationDegrees(frame.rotationPitch));
-    matrices.rotate(Vector3f.YP.rotationDegrees(180.0F - frame.rotationYaw));
+    matrices.translate(facing.getStepX() * 0.46875D - offset.x(), facing.getStepY() * 0.46875D - offset.y(), facing.getStepZ() * 0.46875D - offset.z());
+    matrices.mulPose(Vector3f.XP.rotationDegrees(frame.xRot));
+    matrices.mulPose(Vector3f.YP.rotationDegrees(180.0F - frame.yRot));
 
     // render the frame
-    ItemStack stack = frame.getDisplayedItem();
+    ItemStack stack = frame.getItem();
     boolean isMap = !stack.isEmpty() && stack.getItem() instanceof FilledMapItem;
     // clear does not render the frame if filled
     boolean frameVisible = !frame.isInvisible() && (frameType != FrameType.CLEAR || stack.isEmpty());
     if (frameVisible) {
-      matrices.push();
+      matrices.pushPose();
       matrices.translate(-0.5D, -0.5D, -0.5D);
-      BlockRendererDispatcher blockRenderer = this.mc.getBlockRendererDispatcher();
-      blockRenderer.getBlockModelRenderer().renderModel(
-        matrices.getLast(), bufferIn.getBuffer(Atlases.getCutoutBlockType()), null,
-        blockRenderer.getBlockModelShapes().getModelManager().getModel(isMap ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType)),
+      BlockRendererDispatcher blockRenderer = this.minecraft.getBlockRenderer();
+      blockRenderer.getModelRenderer().renderModel(
+        matrices.last(), bufferIn.getBuffer(Atlases.cutoutBlockSheet()), null,
+        blockRenderer.getBlockModelShaper().getModelManager().getModel(isMap ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType)),
         1.0F, 1.0F, 1.0F, packedLight, OverlayTexture.NO_OVERLAY, EmptyModelData.INSTANCE);
-      matrices.pop();
+      matrices.popPose();
     }
 
     // render the item
@@ -92,30 +92,30 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
       // determine rotation for the item inside
       MapData mapdata = null;
       if (isMap) {
-        mapdata = FilledMapItem.getMapData(stack, frame.world);
+        mapdata = FilledMapItem.getOrCreateSavedData(stack, frame.level);
       }
       int frameRotation = frame.getRotation();
       // for diamond, render the timer as a partial rotation
       if (frameType == FrameType.DIAMOND) {
         int rotation = mapdata != null ? (frameRotation + 2) % 4 * 4 : frameRotation;
-        matrices.rotate(Vector3f.ZP.rotationDegrees(rotation * 360f / 16f));
+        matrices.mulPose(Vector3f.ZP.rotationDegrees(rotation * 360f / 16f));
       } else {
         int rotation = mapdata != null ? (frameRotation + 2) % 4 * 2 : frameRotation;
-        matrices.rotate(Vector3f.ZP.rotationDegrees(rotation * 360f / 8f));
+        matrices.mulPose(Vector3f.ZP.rotationDegrees(rotation * 360f / 8f));
       }
       if (!MinecraftForge.EVENT_BUS.post(new RenderItemInFrameEvent(frame, this, matrices, bufferIn, packedLight))) {
         if (mapdata != null) {
           matrices.scale(0.0078125F, 0.0078125F, 0.0078125F);
           matrices.translate(-64.0D, -64.0D, -1.0D);
-          this.mc.gameRenderer.getMapItemRenderer().renderMap(matrices, bufferIn, mapdata, true, packedLight);
+          this.minecraft.gameRenderer.getMapRenderer().render(matrices, bufferIn, mapdata, true, packedLight);
         } else {
           float scale = frameType == FrameType.CLEAR ? 0.75f : 0.5f;
           matrices.scale(scale, scale, scale);
-          this.itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, packedLight, OverlayTexture.NO_OVERLAY, matrices, bufferIn);
+          this.itemRenderer.renderStatic(stack, ItemCameraTransforms.TransformType.FIXED, packedLight, OverlayTexture.NO_OVERLAY, matrices, bufferIn);
         }
       }
     }
 
-    matrices.pop();
+    matrices.popPose();
   }
 }

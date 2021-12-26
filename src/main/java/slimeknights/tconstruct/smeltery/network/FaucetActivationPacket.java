@@ -36,8 +36,8 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(FaucetActivationPacket packet) {
-      assert Minecraft.getInstance().world != null;
-      TileEntity te = Minecraft.getInstance().world.getTileEntity(packet.pos);
+      assert Minecraft.getInstance().level != null;
+      TileEntity te = Minecraft.getInstance().level.getBlockEntity(packet.pos);
       if (te instanceof FaucetTileEntity) {
         ((FaucetTileEntity) te).onActivationPacket(packet.fluid, packet.isPouring);
       }

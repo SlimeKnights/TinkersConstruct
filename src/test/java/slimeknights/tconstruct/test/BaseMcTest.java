@@ -11,7 +11,7 @@ public class BaseMcTest {
 
   @BeforeAll
   static void setUpRegistries() {
-    Bootstrap.register();
+    Bootstrap.bootStrap();
     setupMockModLoadingContext();
   }
 

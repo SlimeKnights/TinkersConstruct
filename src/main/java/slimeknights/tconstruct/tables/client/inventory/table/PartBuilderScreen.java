@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.client.inventory.table;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,8 +33,8 @@ import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
   private static final ITextComponent INFO_TEXT = TConstruct.makeTranslation("gui", "part_builder.info");
-  private static final ITextComponent TRAIT_TITLE = TConstruct.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
-  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = TConstruct.makeTranslation("gui", "part_builder.uncraftable").mergeStyle(TextFormatting.RED);
+  private static final ITextComponent TRAIT_TITLE = TConstruct.makeTranslation("gui", "part_builder.trait").withStyle(TextFormatting.UNDERLINE);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = TConstruct.makeTranslation("gui", "part_builder.uncraftable").withStyle(TextFormatting.RED);
   private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL_TOOLTIP = TConstruct.makeTranslation("gui", "part_builder.uncraftable.tooltip");
 
   private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/partbuilder.png");
@@ -59,13 +58,13 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
     this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
     this.infoPanelScreen.setTextScale(7/9f);
-    this.infoPanelScreen.ySize = this.ySize;
+    this.infoPanelScreen.imageHeight = this.imageHeight;
     this.addModule(this.infoPanelScreen);
     addChestSideInventory();
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(matrices, BACKGROUND);
 
     // draw slot icons
@@ -74,12 +73,12 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
     // draw scrollbar
     assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND);
+    this.minecraft.getTextureManager().bind(BACKGROUND);
     this.blit(matrices, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
     this.drawRecipesBackground(matrices, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
     this.drawRecipesItems(matrices, this.cornerX + 51, this.cornerY + 15);
 
-    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
+    super.renderBg(matrices, partialTicks, mouseX, mouseY);
   }
 
   /**
@@ -107,8 +106,8 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
   }
 
   @Override
-  protected void renderHoveredTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
-    super.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+  protected void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
+    super.renderTooltip(matrixStack, mouseX, mouseY);
 
     // determime which button we are hovering
     List<Pattern> buttons = tile.getSortedButtons();
@@ -127,7 +126,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18;
       int y = top + (relative / 4) * 18;
-      int u = this.ySize;
+      int u = this.imageHeight;
       if (i == this.tile.getSelectedIndex()) {
         u += 18;
       } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
@@ -141,8 +140,8 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
   private void drawRecipesItems(MatrixStack matrices, int left, int top) {
     // use block texture list
     assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-    Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    this.minecraft.getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
+    Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getTextureAtlas(PlayerContainer.BLOCK_ATLAS);
     // iterate all recipes
     List<Pattern> list = this.tile.getSortedButtons();
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
@@ -202,7 +201,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     // if we have a part recipe, mark material red when not enough
     IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
     if (partRecipe != null && value < partRecipe.getCost()) {
-      formatted = formatted.mergeStyle(TextFormatting.DARK_RED);
+      formatted = formatted.withStyle(TextFormatting.DARK_RED);
     }
     this.infoPanelScreen.setMaterialValue(formatted);
 
@@ -222,7 +221,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       List<ITextComponent> info = stat.getLocalizedInfo();
 
       if (!info.isEmpty()) {
-        stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
+        stats.add(stat.getLocalizedName().withStyle(TextFormatting.UNDERLINE));
         tips.add(StringTextComponent.EMPTY);
 
         stats.addAll(info);
@@ -267,10 +266,10 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       // handle button click
       int index = getButtonAt((int)mouseX, (int)mouseY);
       assert this.minecraft != null && this.minecraft.player != null;
-      if (index >= 0 && this.container.enchantItem(this.minecraft.player, index)) {
-        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-        assert this.minecraft.playerController != null;
-        this.minecraft.playerController.sendEnchantPacket((this.container).windowId, index);
+      if (index >= 0 && this.container.clickMenuButton(this.minecraft.player, index)) {
+        this.minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+        assert this.minecraft.gameMode != null;
+        this.minecraft.gameMode.handleInventoryButtonClick(this.container.containerId, index);
         return true;
       }
 

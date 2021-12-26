@@ -88,14 +88,14 @@ public class CRTHelper {
         builder.append("Material: `").append(iMaterial.getIdentifier()).append("` {");
         builder.append("\n\tCraftable: ").append(iMaterial.isCraftable());
         builder.append("\n\tTranslation Key: `").append(iMaterial.getTranslationKey()).append("`");
-        builder.append("\n\tColor: ").append(String.format("#%06X", iMaterial.getColor().getColor()));
+        builder.append("\n\tColor: ").append(String.format("#%06X", iMaterial.getColor().getValue()));
         builder.append("\n\tTier: ").append(iMaterial.getTier());
         builder.append("\n\tSort Order: ").append(iMaterial.getSortOrder());
         builder.append("\n}");
         CraftTweakerAPI.logDump(builder.toString());
       });
       final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Material list written to the log" + TextFormatting.RESET);
-      commandContext.getSource().sendFeedback(message, true);
+      commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
 
@@ -106,7 +106,7 @@ public class CRTHelper {
         CraftTweakerAPI.logDump(ExpandItem.getDefaultInstance(item).getCommandString());
       });
       final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Material Items written to the log" + TextFormatting.RESET);
-      commandContext.getSource().sendFeedback(message, true);
+      commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
 
@@ -128,7 +128,7 @@ public class CRTHelper {
         CraftTweakerAPI.logDump(builder.toString());
       });
       final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Modifier list written to the log" + TextFormatting.RESET);
-      commandContext.getSource().sendFeedback(message, true);
+      commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
 
@@ -140,7 +140,7 @@ public class CRTHelper {
         CraftTweakerAPI.logDump(ExpandItem.getDefaultInstance(item).getCommandString());
       });
       final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Tool Core Items written to the log" + TextFormatting.RESET);
-      commandContext.getSource().sendFeedback(message, true);
+      commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
 

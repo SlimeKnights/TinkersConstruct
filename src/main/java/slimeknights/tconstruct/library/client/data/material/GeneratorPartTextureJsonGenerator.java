@@ -35,7 +35,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
   }
 
   @Override
-  public void act(DirectoryCache cache) throws IOException {
+  public void run(DirectoryCache cache) throws IOException {
     JsonObject json = new JsonObject();
     json.addProperty("replace", false);
     JsonArray parts = new JsonArray();

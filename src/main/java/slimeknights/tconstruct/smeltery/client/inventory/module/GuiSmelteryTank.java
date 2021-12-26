@@ -111,8 +111,8 @@ public class GuiSmelteryTank {
    * @param mouseY    Mouse Y
    */
   public void renderHighlight(MatrixStack matrices, int mouseX, int mouseY) {
-    int checkX = mouseX - parent.guiLeft;
-    int checkY = mouseY - parent.guiTop;
+    int checkX = mouseX - parent.leftPos;
+    int checkY = mouseY - parent.topPos;
     if (withinTank(checkX, checkY)) {
       if (tank.getContained() == 0) {
         GuiUtil.renderHighlight(matrices, x, y, width, height);
@@ -144,8 +144,8 @@ public class GuiSmelteryTank {
    */
   public void drawTooltip(MatrixStack matrices, int mouseX, int mouseY) {
     // Liquids
-    int checkX = mouseX - parent.guiLeft;
-    int checkY = mouseY - parent.guiTop;
+    int checkX = mouseX - parent.leftPos;
+    int checkY = mouseY - parent.topPos;
     if (withinTank(checkX, checkY)) {
       int hovered = tank.getContained() == 0 ? -1 : getFluidFromMouse(calcLiquidHeights(false), checkY);
       List<ITextComponent> tooltip;
@@ -172,7 +172,7 @@ public class GuiSmelteryTank {
       else {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered));
       }
-      parent.func_243308_b(matrices, tooltip, mouseX, mouseY);
+      parent.renderComponentTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
 

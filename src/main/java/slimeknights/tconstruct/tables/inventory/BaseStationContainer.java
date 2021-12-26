@@ -44,8 +44,8 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
 
     this.stationBlocks = Lists.newLinkedList();
 
-    if (tile != null && tile.getWorld() != null) {
-      this.detectStationParts(tile.getWorld(), tile.getPos());
+    if (tile != null && tile.getLevel() != null) {
+      this.detectStationParts(tile.getLevel(), tile.getBlockPos());
     }
   }
 
@@ -77,7 +77,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
 
       // found a part, add surrounding blocks that haven't been visited yet
       for (Direction direction : Direction.values()) {
-        BlockPos offset = pos.offset(direction);
+        BlockPos offset = pos.relative(direction);
         if (!visited.contains(offset)) {
           queue.add(offset);
         }
@@ -104,17 +104,17 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
     if (tile == null || inv == null) {
       return;
     }
-    World world = tile.getWorld();
+    World world = tile.getLevel();
     if (world != null) {
       // detect side inventory
       TileEntity inventoryTE = null;
       Direction accessDir = null;
 
-      BlockPos pos = tile.getPos();
+      BlockPos pos = tile.getBlockPos();
       horizontals:
       for (Direction dir : Direction.Plane.HORIZONTAL) {
         // skip any tables in this multiblock
-        BlockPos neighbor = pos.offset(dir);
+        BlockPos neighbor = pos.relative(dir);
         for (Pair<BlockPos,BlockState> tinkerPos : this.stationBlocks) {
           if (tinkerPos.getLeft().equals(neighbor)) {
             continue horizontals;
@@ -122,7 +122,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
         }
 
         // fetch tile entity
-        TileEntity te = world.getTileEntity(neighbor);
+        TileEntity te = world.getBlockEntity(neighbor);
         if (te != null && isUsable(te, inv.player)) {
           // try internal access first
           if (hasItemHandler(te, null)) {
@@ -145,7 +145,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
       if (inventoryTE != null) {
         int invSlots = inventoryTE.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
         int columns = MathHelper.clamp((invSlots - 1) / 9 + 1, 3, 6);
-        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), windowId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
+        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), containerId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
       }
     }
   }
@@ -158,7 +158,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
   private static boolean isUsable(TileEntity tileEntity, PlayerEntity player) {
     // must not be blacklisted and be usable
     return !TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST.contains(tileEntity.getType())
-           && (!(tileEntity instanceof IInventory) || ((IInventory)tileEntity).isUsableByPlayer(player));
+           && (!(tileEntity instanceof IInventory) || ((IInventory)tileEntity).stillValid(player));
   }
 
   /**
@@ -178,8 +178,8 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    */
   public void updateScreen() {
     if (this.tile != null) {
-      if (this.tile.getWorld() != null) {
-        if (this.tile.getWorld().isRemote) {
+      if (this.tile.getLevel() != null) {
+        if (this.tile.getLevel().isClientSide) {
           DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> BaseStationContainer::clientScreenUpdate);
         }
       }
@@ -191,8 +191,8 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    */
   public void error(final IFormattableTextComponent message) {
     if (this.tile != null) {
-      if (this.tile.getWorld() != null) {
-        if (this.tile.getWorld().isRemote) {
+      if (this.tile.getLevel() != null) {
+        if (this.tile.getLevel().isClientSide) {
           DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientError(message));
         }
       }
@@ -204,8 +204,8 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    */
   public void warning(final IFormattableTextComponent message) {
     if (this.tile != null) {
-      if (this.tile.getWorld() != null) {
-        if (this.tile.getWorld().isRemote) {
+      if (this.tile.getLevel() != null) {
+        if (this.tile.getLevel().isClientSide) {
           DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientWarning(message));
         }
       }
@@ -217,7 +217,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    */
   @OnlyIn(Dist.CLIENT)
   private static void clientScreenUpdate() {
-    Screen screen = Minecraft.getInstance().currentScreen;
+    Screen screen = Minecraft.getInstance().screen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen<?,?>) screen).updateDisplay();
     }
@@ -230,7 +230,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    */
   @OnlyIn(Dist.CLIENT)
   private static void clientError(IFormattableTextComponent errorMessage) {
-    Screen screen = Minecraft.getInstance().currentScreen;
+    Screen screen = Minecraft.getInstance().screen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen<?,?>) screen).error(errorMessage);
     }
@@ -243,7 +243,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    */
   @OnlyIn(Dist.CLIENT)
   private static void clientWarning(IFormattableTextComponent warningMessage) {
-    Screen screen = Minecraft.getInstance().currentScreen;
+    Screen screen = Minecraft.getInstance().screen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen<?,?>) screen).warning(warningMessage);
     }

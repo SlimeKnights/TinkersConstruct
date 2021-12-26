@@ -23,7 +23,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
 
   @Override
   public ItemStack getOutput(Entity entity) {
-    if (entity instanceof LivingEntity && ((LivingEntity) entity).isChild()) {
+    if (entity instanceof LivingEntity && ((LivingEntity) entity).isBaby()) {
       return childOutput == null ? ItemStack.EMPTY : childOutput.get().copy();
     }
     return getOutput().copy();
@@ -32,7 +32,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
   /** Serializer for this recipe */
   public static class Serializer extends LoggingRecipeSerializer<AgeableSeveringRecipe> {
     @Override
-    public AgeableSeveringRecipe read(ResourceLocation id, JsonObject json) {
+    public AgeableSeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
       ItemOutput adult = ItemOutput.fromJson(JsonHelper.getElement(json, "adult_result"));
       ItemOutput child = null;

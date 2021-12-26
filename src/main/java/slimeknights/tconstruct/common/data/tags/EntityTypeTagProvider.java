@@ -15,17 +15,17 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
   }
 
   @Override
-  public void registerTags() {
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.SLIMES)
+  public void addTags() {
+    this.tag(TinkerTags.EntityTypes.SLIMES)
         .add(EntityType.SLIME, TinkerWorld.earthSlimeEntity.get(), TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.BACON_PRODUCER).add(EntityType.PIG, EntityType.PIGLIN, EntityType.HOGLIN);
+    this.tag(TinkerTags.EntityTypes.BACON_PRODUCER).add(EntityType.PIG, EntityType.PIGLIN, EntityType.HOGLIN);
 
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST);
+    this.tag(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
+    this.tag(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
+    this.tag(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST);
 
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
-    this.getOrCreateBuilder(TinkerTags.EntityTypes.RARE_MOBS).add(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN, EntityType.EVOKER);
+    this.tag(TinkerTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
+    this.tag(TinkerTags.EntityTypes.RARE_MOBS).add(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN, EntityType.EVOKER);
   }
 
   @Override

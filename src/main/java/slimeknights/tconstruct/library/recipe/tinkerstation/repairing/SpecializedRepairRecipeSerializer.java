@@ -22,8 +22,8 @@ public class SpecializedRepairRecipeSerializer<T extends IRecipe<?> & ISpecializ
   private final IFactory<T> factory;
 
   @Override
-  public T read(ResourceLocation id, JsonObject json) {
-    Ingredient tool = Ingredient.deserialize(JsonHelper.getElement(json, "tool"));
+  public T fromJson(ResourceLocation id, JsonObject json) {
+    Ingredient tool = Ingredient.fromJson(JsonHelper.getElement(json, "tool"));
     MaterialId repairMaterial = MaterialRecipeSerializer.getMaterial(json, "repair_material");
     return factory.create(id, tool, repairMaterial);
   }
@@ -31,15 +31,15 @@ public class SpecializedRepairRecipeSerializer<T extends IRecipe<?> & ISpecializ
   @Nullable
   @Override
   protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
-    Ingredient tool = Ingredient.read(buffer);
-    MaterialId repairMaterial = new MaterialId(buffer.readString(Short.MAX_VALUE));
+    Ingredient tool = Ingredient.fromNetwork(buffer);
+    MaterialId repairMaterial = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
     return factory.create(id, tool, repairMaterial);
   }
 
   @Override
   protected void writeSafe(PacketBuffer buffer, T recipe) {
-    recipe.getTool().write(buffer);
-    buffer.writeString(recipe.getRepairMaterialID().toString());
+    recipe.getTool().toNetwork(buffer);
+    buffer.writeUtf(recipe.getRepairMaterialID().toString());
   }
 
   /** Interface for serializing the recipe */

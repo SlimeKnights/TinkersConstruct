@@ -5,6 +5,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
 /** Tank for channel contents */
 public class ChannelTank extends FluidTank {
 	private static final String TAG_LOCKED = "locked";

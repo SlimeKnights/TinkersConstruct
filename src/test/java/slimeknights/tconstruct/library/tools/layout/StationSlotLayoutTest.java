@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StationSlotLayoutTest extends BaseMcTest {
   @Test
   void layoutSlot_bufferReadWrite() {
-    LayoutSlot slot = new LayoutSlot(new Pattern("test:pattern"), "name", 5, 6, Ingredient.fromItems(Items.BOOK));
+    LayoutSlot slot = new LayoutSlot(new Pattern("test:pattern"), "name", 5, 6, Ingredient.of(Items.BOOK));
     PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
     slot.write(buffer);
 
@@ -27,7 +27,7 @@ class StationSlotLayoutTest extends BaseMcTest {
     assertThat(decoded.getY()).isEqualTo(6);
     Ingredient ingredient = decoded.getFilter();
     assertThat(ingredient).isNotNull();
-    ItemStack[] stacks = ingredient.getMatchingStacks();
+    ItemStack[] stacks = ingredient.getItems();
     assertThat(stacks).hasSize(1);
     assertThat(stacks[0].getItem()).isEqualTo(Items.BOOK);
     assertThat(stacks[0].getTag()).isNull();

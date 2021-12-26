@@ -103,7 +103,7 @@ public class TankModel implements IModelGeometry<TankModel> {
     public static final FluidPartOverride INSTANCE = new FluidPartOverride();
 
     @Override
-    public IBakedModel getOverrideModel(IBakedModel model, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public IBakedModel resolve(IBakedModel model, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // ensure we have a fluid
       if (stack.isEmpty() || !stack.hasTag()) {
         return model;
@@ -184,7 +184,7 @@ public class TankModel implements IModelGeometry<TankModel> {
       // setup for baking, using dynamic location and sprite getter
       Function<RenderMaterial,TextureAtlasSprite> spriteGetter = ModelLoader.defaultTextureGetter();
       TextureAtlasSprite particle = spriteGetter.apply(owner.resolveTexture("particle"));
-      SimpleBakedModel.Builder builder = new SimpleBakedModel.Builder(owner, ItemOverrideList.EMPTY).setTexture(particle);
+      SimpleBakedModel.Builder builder = new SimpleBakedModel.Builder(owner, ItemOverrideList.EMPTY).particle(particle);
       // first, add all regular elements
       for (BlockPart element : baseModel.getElements()) {
         SimpleBlockModel.bakePart(builder, owner, element, originalTransforms, spriteGetter, BAKE_LOCATION);
@@ -280,10 +280,10 @@ public class TankModel implements IModelGeometry<TankModel> {
       SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       SimpleBlockModel gui = null;
       if (modelContents.has("gui")) {
-        gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getJsonObject(modelContents, "gui"));
+        gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getAsJsonObject(modelContents, "gui"));
       }
-      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
-      boolean forceModelFluid = JSONUtils.getBoolean(modelContents, "render_fluid_in_model", false);
+      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getAsJsonObject(modelContents, "fluid"));
+      boolean forceModelFluid = JSONUtils.getAsBoolean(modelContents, "render_fluid_in_model", false);
       return new TankModel(model, gui, fluid, forceModelFluid);
     }
   }

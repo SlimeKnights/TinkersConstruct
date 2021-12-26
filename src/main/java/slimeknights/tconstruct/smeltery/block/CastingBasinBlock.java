@@ -13,17 +13,19 @@ import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class CastingBasinBlock extends AbstractCastingBlock {
 
-  private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(
-    VoxelShapes.fullCube(),
+  private static final VoxelShape SHAPE = VoxelShapes.join(
+    VoxelShapes.block(),
     VoxelShapes.or(
-      Block.makeCuboidShape(0.0D, 0.0D, 5.0D, 16.0D, 2.0D, 11.0D),
-      Block.makeCuboidShape(5.0D, 0.0D, 0.0D, 11.0D, 2.0D, 16.0D),
-      Block.makeCuboidShape(2.0D, 0.0D, 3.0D, 14.0D, 3.0D, 14.0D),
-      Block.makeCuboidShape(7.0D, 5.0D, 0.0D, 9.0D, 13.0D, 16.0D),
-      Block.makeCuboidShape(0.0D, 5.0D, 7.0D, 16.0D, 13.0D, 9.0D),
-      Block.makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)),
+      Block.box(0.0D, 0.0D, 5.0D, 16.0D, 2.0D, 11.0D),
+      Block.box(5.0D, 0.0D, 0.0D, 11.0D, 2.0D, 16.0D),
+      Block.box(2.0D, 0.0D, 3.0D, 14.0D, 3.0D, 14.0D),
+      Block.box(7.0D, 5.0D, 0.0D, 9.0D, 13.0D, 16.0D),
+      Block.box(0.0D, 5.0D, 7.0D, 16.0D, 13.0D, 9.0D),
+      Block.box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)),
     IBooleanFunction.ONLY_FIRST);
 
   public CastingBasinBlock(Properties builder) {

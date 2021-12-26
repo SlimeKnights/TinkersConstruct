@@ -74,19 +74,19 @@ public class Exploder {
   public static void startExplosion(World world, EFLNExplosion explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
     Exploder exploder = new Exploder(world, explosion, entity, location, r, explosionStrength, Math.max(50, (int) (r * r * r / 10d)));
     exploder.handleEntities();
-    world.playSound(null, location, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+    world.playSound(null, location, SoundEvents.GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
     MinecraftForge.EVENT_BUS.register(exploder);
   }
 
   private void handleEntities() {
     final Predicate<Entity> predicate = entity -> entity != null
-      && !entity.isImmuneToExplosions()
-      && EntityPredicates.NOT_SPECTATING.test(entity)
-      && EntityPredicates.IS_ALIVE.test(entity)
-      && entity.getPositionVec().squareDistanceTo(this.x, this.y, this.z) <= this.r * this.r;
+      && !entity.ignoreExplosion()
+      && EntityPredicates.NO_SPECTATORS.test(entity)
+      && EntityPredicates.ENTITY_STILL_ALIVE.test(entity)
+      && entity.position().distanceToSqr(this.x, this.y, this.z) <= this.r * this.r;
 
     // damage and blast back entities
-    List<Entity> list = this.world.getEntitiesInAABBexcluding(this.exploder,
+    List<Entity> list = this.world.getEntities(this.exploder,
       new AxisAlignedBB(this.x - this.r - 1,
         this.y - this.r - 1,
         this.z - this.r - 1,
@@ -99,13 +99,13 @@ public class Exploder {
 
     for (Entity entity : list) {
       // move it away from the center depending on distance and explosion strength
-      Vector3d dir = entity.getPositionVec().subtract(this.exploder.getPositionVec().add(0, -this.r / 2, 0));
+      Vector3d dir = entity.position().subtract(this.exploder.position().add(0, -this.r / 2, 0));
       double str = (this.r - dir.length()) / this.r;
       str = Math.max(0.3, str);
       dir = dir.normalize();
       dir = dir.scale(this.explosionStrength * str * 0.3);
-      entity.addVelocity(dir.x, dir.y + 0.5, dir.z);
-      entity.attackEntityFrom(DamageSource.causeExplosionDamage(this.explosion), (float) (str * this.explosionStrength));
+      entity.push(dir.x, dir.y + 0.5, dir.z);
+      entity.hurt(DamageSource.explosion(this.explosion), (float) (str * this.explosionStrength));
 
       if (entity instanceof ServerPlayerEntity) {
         TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(entity), (ServerPlayerEntity) entity);
@@ -135,7 +135,7 @@ public class Exploder {
 
       // check if it's already in our list
       for (ItemStack stack : aggregatedDrops) {
-        if (ItemStack.areItemsEqual(drop, stack) && ItemStack.areItemStackTagsEqual(drop, stack)) {
+        if (ItemStack.isSame(drop, stack) && ItemStack.tagMatches(drop, stack)) {
           stack.grow(drop.getCount());
           notInList = false;
           break;
@@ -151,10 +151,10 @@ public class Exploder {
     for (ItemStack drop : aggregatedDrops) {
       int stacksize = drop.getCount();
       do {
-        BlockPos spawnPos = pos.add(random.nextInt((int) this.r), random.nextInt((int) this.r), random.nextInt((int) this.r));
+        BlockPos spawnPos = pos.offset(random.nextInt((int) this.r), random.nextInt((int) this.r), random.nextInt((int) this.r));
         ItemStack dropItemstack = drop.copy();
         dropItemstack.setCount(Math.min(stacksize, 64));
-        Block.spawnAsEntity(this.world, spawnPos, dropItemstack);
+        Block.popResource(this.world, spawnPos, dropItemstack);
         stacksize -= dropItemstack.getCount();
       }
       while (stacksize > 0);
@@ -169,7 +169,7 @@ public class Exploder {
   private boolean iteration() {
     int count = 0;
 
-    this.explosion.clearAffectedBlockPositions();
+    this.explosion.clearToBlow();
 
     while (count < this.blocksPerIteration && this.currentRadius < (int) this.r + 1) {
       double d = this.curX * this.curX + this.curY * this.curY + this.curZ * this.curZ;
@@ -186,12 +186,12 @@ public class Exploder {
 
           float f2 = Math.max(blockState.getExplosionResistance(this.world, blockpos, this.explosion), ifluidstate.getExplosionResistance(this.world, blockpos, this.explosion));
           if (this.exploder != null) {
-            f2 = this.exploder.getExplosionResistance(this.explosion, this.world, blockpos, blockState, ifluidstate, f2);
+            f2 = this.exploder.getBlockExplosionResistance(this.explosion, this.world, blockpos, blockState, ifluidstate, f2);
           }
 
           f -= (f2 + 0.3F) * 0.3F;
 
-          if (f > 0.0F && (this.exploder == null || this.exploder.canExplosionDestroyBlock(this.explosion, this.world, blockpos, blockState, (float) f))) {
+          if (f > 0.0F && (this.exploder == null || this.exploder.shouldBlockExplode(this.explosion, this.world, blockpos, blockState, (float) f))) {
             // block should be exploded
             count++;
             this.explosion.addAffectedBlock(blockpos);
@@ -204,7 +204,7 @@ public class Exploder {
 
     net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, this.explosion, Collections.emptyList(), this.r * 2);
 
-    this.explosion.getAffectedBlockPositions().forEach(this::explodeBlock);
+    this.explosion.getToBlow().forEach(this::explodeBlock);
 
     return count == this.blocksPerIteration; // can lead to 1 more call where nothing is done, but that's ok
   }
@@ -238,17 +238,17 @@ public class Exploder {
   private void explodeBlock(BlockPos blockpos) {
     BlockState blockstate = this.world.getBlockState(blockpos);
 
-    if (!this.world.isRemote && blockstate.canDropFromExplosion(this.world, blockpos, this.explosion)) {
-      TileEntity tileentity = blockstate.hasTileEntity() ? this.world.getTileEntity(blockpos) : null;
-      LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).withRandom(this.world.rand).withParameter(LootParameters.ORIGIN, Vector3d.copyCentered(blockpos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tileentity);
+    if (!this.world.isClientSide && blockstate.canDropFromExplosion(this.world, blockpos, this.explosion)) {
+      TileEntity tileentity = blockstate.hasTileEntity() ? this.world.getBlockEntity(blockpos) : null;
+      LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).withRandom(this.world.random).withParameter(LootParameters.ORIGIN, Vector3d.atCenterOf(blockpos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withOptionalParameter(LootParameters.BLOCK_ENTITY, tileentity);
 
       this.droppedItems.addAll(blockstate.getDrops(builder));
     }
 
     if (this.world instanceof ServerWorld) {
-      for (ServerPlayerEntity serverplayerentity : ((ServerWorld) this.world).getPlayers()) {
-        ((ServerWorld) this.world).spawnParticle(serverplayerentity, ParticleTypes.POOF, true, blockpos.getX(), blockpos.getY(), blockpos.getZ(), 2, 0, 0, 0, 0d);
-        ((ServerWorld) this.world).spawnParticle(serverplayerentity, ParticleTypes.SMOKE, true, blockpos.getX(), blockpos.getY(), blockpos.getZ(), 1, 0, 0, 0, 0d);
+      for (ServerPlayerEntity serverplayerentity : ((ServerWorld) this.world).players()) {
+        ((ServerWorld) this.world).sendParticles(serverplayerentity, ParticleTypes.POOF, true, blockpos.getX(), blockpos.getY(), blockpos.getZ(), 2, 0, 0, 0, 0d);
+        ((ServerWorld) this.world).sendParticles(serverplayerentity, ParticleTypes.SMOKE, true, blockpos.getX(), blockpos.getY(), blockpos.getZ(), 1, 0, 0, 0, 0d);
       }
     }
 

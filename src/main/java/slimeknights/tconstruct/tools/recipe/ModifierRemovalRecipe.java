@@ -10,11 +10,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -165,7 +165,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
   /** @deprecated Use {@link #getValidatedResult(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
 
@@ -174,11 +174,11 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     return TinkerModifiers.removeModifierSerializer.get();
   }
 
-  public static class Serializer extends RecipeSerializer<ModifierRemovalRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<ModifierRemovalRecipe> {
 
     @Override
-    public ModifierRemovalRecipe read(ResourceLocation id, JsonObject json) {
-      Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
+    public ModifierRemovalRecipe fromJson(ResourceLocation id, JsonObject json) {
+      Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
       ItemStack container = ItemStack.EMPTY;
       if (json.has("container")) {
         container = IncrementalModifierRecipe.deseralizeResultItem(json, "container");
@@ -188,16 +188,16 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
 
     @Nullable
     @Override
-    public ModifierRemovalRecipe read(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient ingredient = Ingredient.read(buffer);
-      ItemStack container = buffer.readItemStack();
+    public ModifierRemovalRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+      Ingredient ingredient = Ingredient.fromNetwork(buffer);
+      ItemStack container = buffer.readItem();
       return new ModifierRemovalRecipe(id, ingredient, container);
     }
 
     @Override
-    public void write(PacketBuffer buffer, ModifierRemovalRecipe recipe) {
-      recipe.ingredient.write(buffer);
-      buffer.writeItemStack(recipe.container);
+    public void writeSafe(PacketBuffer buffer, ModifierRemovalRecipe recipe) {
+      recipe.ingredient.toNetwork(buffer);
+      buffer.writeItem(recipe.container);
     }
   }
 
@@ -226,15 +226,15 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       }
 
       @Override
-      public void serialize(JsonObject json) {
-        json.add("ingredient", ingredient.serialize());
+      public void serializeRecipeData(JsonObject json) {
+        json.add("ingredient", ingredient.toJson());
         if (!container.isEmpty()) {
           json.add("container", IncrementalModifierRecipeBuilder.serializeResult(container));
         }
       }
 
       @Override
-      public IRecipeSerializer<?> getSerializer() {
+      public IRecipeSerializer<?> getType() {
         return TinkerModifiers.removeModifierSerializer.get();
       }
     }

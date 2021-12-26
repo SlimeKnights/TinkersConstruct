@@ -10,6 +10,8 @@ import slimeknights.tconstruct.shared.block.TableBlock;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class RackBlock extends TableBlock {
 
   protected RackBlock(Properties builder) {

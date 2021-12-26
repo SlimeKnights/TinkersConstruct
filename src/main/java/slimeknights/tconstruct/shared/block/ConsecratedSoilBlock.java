@@ -13,6 +13,8 @@ import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ConsecratedSoilBlock extends Block {
 
   public ConsecratedSoilBlock(Properties properties) {
@@ -20,7 +22,7 @@ public class ConsecratedSoilBlock extends Block {
   }
 
   @Override
-  public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+  public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
     this.processConsecratedSoil(entityIn);
   }
 
@@ -28,9 +30,9 @@ public class ConsecratedSoilBlock extends Block {
   private void processConsecratedSoil(Entity entity) {
     if (entity instanceof MobEntity) {
       LivingEntity entityLiving = (LivingEntity) entity;
-      if (entityLiving.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
-        entityLiving.attackEntityFrom(DamageSource.MAGIC, 1);
-        entityLiving.setFire(1);
+      if (entityLiving.getMobType() == CreatureAttribute.UNDEAD) {
+        entityLiving.hurt(DamageSource.MAGIC, 1);
+        entityLiving.setSecondsOnFire(1);
       }
     }
   }

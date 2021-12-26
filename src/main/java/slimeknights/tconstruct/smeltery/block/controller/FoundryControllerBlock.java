@@ -16,6 +16,8 @@ import slimeknights.tconstruct.smeltery.tileentity.controller.FoundryTileEntity;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class FoundryControllerBlock extends HeatingControllerBlock {
   public FoundryControllerBlock(Properties builder) {
     super(builder);
@@ -27,23 +29,23 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     // check structure
     TileEntityHelper.getTile(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::updateStructure);
   }
 
   @Override
   @Deprecated
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.matchesBlock(this)) {
+  public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    if (!newState.is(this)) {
       TileEntityHelper.getTile(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::invalidateStructure);
     }
-    super.onReplaced(state, worldIn, pos, newState, isMoving);
+    super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
   public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-    if (state.get(ACTIVE)) {
+    if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 6F + 2F) / 16F;
       double z = pos.getZ() + 0.5D;
@@ -59,7 +61,7 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rotation) {
-    if (state.get(IN_STRUCTURE)) {
+    if (state.getValue(IN_STRUCTURE)) {
       return state;
     }
     return super.rotate(state, rotation);
@@ -68,7 +70,7 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
-    if (state.get(IN_STRUCTURE)) {
+    if (state.getValue(IN_STRUCTURE)) {
       return state;
     }
     return super.mirror(state, mirror);

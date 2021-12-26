@@ -55,9 +55,9 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
   default void onTankContentsChanged() {
     int newStrength = this.comparatorStrength();
     TileEntity te = getTE();
-    World world = te.getWorld();
+    World world = te.getLevel();
     if (newStrength != getLastStrength() && world != null) {
-      world.notifyNeighborsOfStateChange(te.getPos(), te.getBlockState().getBlock());
+      world.updateNeighborsAt(te.getBlockPos(), te.getBlockState().getBlock());
       setLastStrength(newStrength);
     }
   }
@@ -71,6 +71,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
     return Config.CLIENT.tankFluidModel.get();
   }
 
+  @SuppressWarnings("ConstantConditions")
   @Override
   default void updateFluidTo(FluidStack fluid) {
     // update tank fluid
@@ -90,7 +91,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
         TankModel.BakedModel<?> model = ModelHelper.getBakedModel(te.getBlockState(), TankModel.BakedModel.class);
         if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
           //this.requestModelDataUpdate();
-          Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, te.getPos(), null, null, 3);
+          Minecraft.getInstance().levelRenderer.blockChanged(null, te.getBlockPos(), null, null, 3);
         }
       }
     });
@@ -110,13 +111,13 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
 
   /**
-   * Implements logic for {@link net.minecraft.block.Block#getComparatorInputOverride(BlockState, World, BlockPos)}
+   * Implements logic for {@link net.minecraft.block.Block#getAnalogOutputSignal(BlockState, World, BlockPos)}
    * @param world  World instance
    * @param pos    Block position
    * @return  Comparator power
    */
   static int getComparatorInputOverride(IWorld world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = world.getBlockEntity(pos);
     if (!(te instanceof ITankTileEntity)) {
       return 0;
     }

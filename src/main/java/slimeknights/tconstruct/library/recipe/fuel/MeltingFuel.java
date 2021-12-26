@@ -102,7 +102,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   }
 
   @Override
-  public ItemStack getIcon() {
+  public ItemStack getToastSymbol() {
     return new ItemStack(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
   }
 
@@ -111,17 +111,17 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    */
   public static class Serializer extends LoggingRecipeSerializer<MeltingFuel> {
     @Override
-    public MeltingFuel read(ResourceLocation id, JsonObject json) {
-      String group = JSONUtils.getString(json, "group", "");
+    public MeltingFuel fromJson(ResourceLocation id, JsonObject json) {
+      String group = JSONUtils.getAsString(json, "group", "");
       FluidIngredient input = FluidIngredient.deserialize(json, "fluid");
-      int duration = JSONUtils.getInt(json, "duration");
-      int temperature = JSONUtils.getInt(json, "temperature");
+      int duration = JSONUtils.getAsInt(json, "duration");
+      int temperature = JSONUtils.getAsInt(json, "temperature");
       return new MeltingFuel(id, group, input, duration, temperature);
     }
 
     @Override
     protected void writeSafe(PacketBuffer buffer, MeltingFuel recipe) {
-      buffer.writeString(recipe.group);
+      buffer.writeUtf(recipe.group);
       recipe.input.write(buffer);
       buffer.writeInt(recipe.duration);
       buffer.writeInt(recipe.temperature);
@@ -130,7 +130,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
     @Nullable
     @Override
     protected MeltingFuel readSafe(ResourceLocation id, PacketBuffer buffer) {
-      String group = buffer.readString(Short.MAX_VALUE);
+      String group = buffer.readUtf(Short.MAX_VALUE);
       FluidIngredient input = FluidIngredient.read(buffer);
       int duration = buffer.readInt();
       int temperature = buffer.readInt();

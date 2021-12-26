@@ -163,8 +163,8 @@ public class Config {
       headDrops = new EnumMap<>(TinkerHeadType.class);
       for (TinkerHeadType headType : TinkerHeadType.values()) {
         headDrops.put(headType, builder
-          .translation("tconstruct.configgui.heads." + headType.getString())
-          .define(headType.getString(), true));
+          .translation("tconstruct.configgui.heads." + headType.getSerializedName())
+          .define(headType.getSerializedName(), true));
       }
 
       builder.pop(2);

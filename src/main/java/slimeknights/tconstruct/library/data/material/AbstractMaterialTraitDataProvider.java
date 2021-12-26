@@ -42,7 +42,7 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
   protected abstract void addMaterialTraits();
 
   @Override
-  public void act(DirectoryCache cache) {
+  public void run(DirectoryCache cache) {
     addMaterialTraits();
 
     // ensure we have traits for all materials

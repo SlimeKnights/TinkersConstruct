@@ -65,13 +65,13 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     String matName = material.getPath();
     // ingot
     ITag<Item> ingotTag = getTag("forge", "ingots/" + name);
-    materialRecipe(wrapped, material, Ingredient.fromTag(ingotTag), 1, 1, folder + matName + "/ingot");
+    materialRecipe(wrapped, material, Ingredient.of(ingotTag), 1, 1, folder + matName + "/ingot");
     // nugget
     wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
-    materialRecipe(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, folder + matName + "/nugget");
+    materialRecipe(wrapped, material, Ingredient.of(getTag("forge", "nuggets/" + name)), 1, 9, folder + matName + "/nugget");
     // block
     wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
-    materialRecipe(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, ItemOutput.fromTag(ingotTag, 1), folder + matName + "/block");
+    materialRecipe(wrapped, material, Ingredient.of(getTag("forge", "storage_blocks/" + name)), 9, 1, ItemOutput.fromTag(ingotTag, 1), folder + matName + "/block");
   }
 
   /** Adds recipes to melt a material */

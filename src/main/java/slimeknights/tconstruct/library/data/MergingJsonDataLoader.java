@@ -58,25 +58,25 @@ public abstract class MergingJsonDataLoader<B> implements IResourceManagerReload
   @Override
   public void onResourceManagerReload(IResourceManager manager) {
     Map<ResourceLocation,B> map = new HashMap<>();
-    for (ResourceLocation filePath : manager.getAllResourceLocations(folder, fileName -> fileName.endsWith(".json"))) {
+    for (ResourceLocation filePath : manager.listResources(folder, fileName -> fileName.endsWith(".json"))) {
       String path = filePath.getPath();
       ResourceLocation id = new ResourceLocation(filePath.getNamespace(), path.substring(folder.length() + 1, path.length() - JSON_LENGTH));
 
       try {
-        for (IResource resource : manager.getAllResources(filePath)) {
+        for (IResource resource : manager.getResources(filePath)) {
           try (
             InputStream inputstream = resource.getInputStream();
             Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
           ) {
             JsonElement json = JSONUtils.fromJson(gson, reader, JsonElement.class);
             if (json == null) {
-              log.error("Couldn't load data file {} from {} in data pack {} as its null or empty", id, filePath, resource.getPackName());
+              log.error("Couldn't load data file {} from {} in data pack {} as its null or empty", id, filePath, resource.getSourceName());
             } else {
               B builder = map.computeIfAbsent(id, builderConstructor);
               parse(builder, id, json);
             }
           } catch (RuntimeException | IOException ex) {
-            log.error("Couldn't parse data file {} from {} in data pack {}", id, filePath, resource.getPackName(), ex);
+            log.error("Couldn't parse data file {} from {} in data pack {}", id, filePath, resource.getSourceName(), ex);
           } finally {
             IOUtils.closeQuietly(resource);
           }

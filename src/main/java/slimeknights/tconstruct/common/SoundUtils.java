@@ -17,7 +17,7 @@ public class SoundUtils {
    * @param pitch the pitch of the sound
    */
   public static void playSoundForAll(Entity entity, SoundEvent sound, float volume, float pitch) {
-    entity.getEntityWorld().playSound(null, entity.getPosition(), sound, entity.getSoundCategory(), volume, pitch);
+    entity.getCommandSenderWorld().playSound(null, entity.blockPosition(), sound, entity.getSoundSource(), volume, pitch);
   }
 
   /**
@@ -31,8 +31,8 @@ public class SoundUtils {
   public static void playSoundForPlayer(Entity entity, SoundEvent sound, float volume, float pitch) {
     if (entity instanceof ServerPlayerEntity) {
       TinkerNetwork.getInstance().sendVanillaPacket(entity,
-        new SPlaySoundEffectPacket(sound, entity.getSoundCategory(), entity.getPosX(), entity.getPosY(),
-          entity.getPosZ(), volume, pitch));
+        new SPlaySoundEffectPacket(sound, entity.getSoundSource(), entity.getX(), entity.getY(),
+          entity.getZ(), volume, pitch));
     }
   }
 }

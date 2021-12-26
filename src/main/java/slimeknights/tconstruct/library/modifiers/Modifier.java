@@ -174,7 +174,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Resulting component
    */
   public IFormattableTextComponent applyStyle(IFormattableTextComponent component) {
-      return component.modifyStyle(style -> style.setColor(Color.fromInt(color)));
+      return component.withStyle(style -> style.withColor(Color.fromRgb(color)));
   }
 
   /**
@@ -183,7 +183,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public final ITextComponent getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(Color.fromInt(getColor())));
+      displayName = new TranslationTextComponent(getTranslationKey()).withStyle(style -> style.withColor(Color.fromRgb(getColor())));
     }
     return displayName;
   }
@@ -195,8 +195,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public ITextComponent getDisplayName(int level) {
     return applyStyle(new TranslationTextComponent(getTranslationKey())
-                        .appendString(" ")
-                        .appendSibling(RomanNumeralHelper.getNumeral(level)));
+                        .append(" ")
+                        .append(RomanNumeralHelper.getNumeral(level)));
   }
 
   /**
@@ -227,7 +227,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public List<ITextComponent> getDescriptionList() {
     if (descriptionList == null) {
       descriptionList = Arrays.asList(
-        new TranslationTextComponent(getTranslationKey() + ".flavor").mergeStyle(TextFormatting.ITALIC),
+        new TranslationTextComponent(getTranslationKey() + ".flavor").withStyle(TextFormatting.ITALIC),
         new TranslationTextComponent(getTranslationKey() + ".description"));
     }
     return descriptionList;
@@ -259,10 +259,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     }
     IFormattableTextComponent textComponent = new StringTextComponent("");
     Iterator<ITextComponent> iterator = list.iterator();
-    textComponent.appendSibling(iterator.next());
+    textComponent.append(iterator.next());
     while (iterator.hasNext()) {
-      textComponent.appendString("\n");
-      textComponent.appendSibling(iterator.next());
+      textComponent.append("\n");
+      textComponent.append(iterator.next());
     }
     return textComponent;
   }
@@ -564,7 +564,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when the player stops using the tool.
-   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}.
+   * To setup, use {@link LivingEntity#startUsingItem(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)}.
    * <br>
    * Alternatives:
    * <ul>
@@ -583,7 +583,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when the use duration on this tool reaches the end.
-   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
+   * To setup, use {@link LivingEntity#startUsingItem(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand, EquipmentSlotType)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
    * <br>
    * Alternatives:
    * <ul>
@@ -984,8 +984,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     if (living == null) {
       return null;
     }
-    ItemStack stack = living.getItemStackFromSlot(slot);
-    if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
+    ItemStack stack = living.getItemBySlot(slot);
+    if (stack.isEmpty() || !stack.getItem().is(TinkerTags.Items.MODIFIABLE)) {
       return null;
     }
     ToolStack tool = ToolStack.from(stack);
@@ -1000,11 +1000,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public static float getMiningModifier(LivingEntity entity) {
     float modifier = 1.0f;
     // haste effect
-    if (EffectUtils.hasMiningSpeedup(entity)) {
-      modifier *= 1.0F + (EffectUtils.getMiningSpeedup(entity) + 1) * 0.2f;
+    if (EffectUtils.hasDigSpeed(entity)) {
+      modifier *= 1.0F + (EffectUtils.getDigSpeedAmplification(entity) + 1) * 0.2f;
     }
     // mining fatigue
-    EffectInstance miningFatigue = entity.getActivePotionEffect(Effects.MINING_FATIGUE);
+    EffectInstance miningFatigue = entity.getEffect(Effects.DIG_SLOWDOWN);
     if (miningFatigue != null) {
       switch(miningFatigue.getAmplifier()) {
         case 0:
@@ -1022,7 +1022,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       }
     }
     // water
-    if (entity.areEyesInFluid(FluidTags.WATER) && !ModifierUtil.hasAquaAffinity(entity)) {
+    if (entity.isEyeInFluid(FluidTags.WATER) && !ModifierUtil.hasAquaAffinity(entity)) {
       modifier /= 5.0F;
     }
     if (!entity.isOnGround()) {
@@ -1038,7 +1038,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tooltip  Tooltip list
    */
   protected void addFlatBoost(ITextComponent name, double bonus, List<ITextComponent> tooltip) {
-    tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(bonus) + " ").appendSibling(name)));
+    tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(bonus) + " ").append(name)));
   }
 
   /**
@@ -1048,7 +1048,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tooltip  Tooltip list
    */
   protected void addPercentTooltip(ITextComponent name, double bonus, List<ITextComponent> tooltip) {
-    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").appendSibling(name)));
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(name)));
   }
 
   /**

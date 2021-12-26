@@ -46,7 +46,7 @@ public class SmelteryClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     // render layers
-    RenderType cutout = RenderType.getCutout();
+    RenderType cutout = RenderType.cutout();
     // seared
     // casting
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedFaucet.get(), cutout);
@@ -90,10 +90,10 @@ public class SmelteryClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.foundry.get(), HeatingStructureTileEntityRenderer::new);
 
     // screens
-    ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
-    ScreenManager.registerFactory(TinkerSmeltery.smelteryContainer.get(), HeatingStructureScreen::new);
-    ScreenManager.registerFactory(TinkerSmeltery.singleItemContainer.get(), new SingleItemScreenFactory());
-    ScreenManager.registerFactory(TinkerSmeltery.alloyerContainer.get(), AlloyerScreen::new);
+    ScreenManager.register(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
+    ScreenManager.register(TinkerSmeltery.smelteryContainer.get(), HeatingStructureScreen::new);
+    ScreenManager.register(TinkerSmeltery.singleItemContainer.get(), new SingleItemScreenFactory());
+    ScreenManager.register(TinkerSmeltery.alloyerContainer.get(), AlloyerScreen::new);
 
     FluidTooltipHandler.init();
   }

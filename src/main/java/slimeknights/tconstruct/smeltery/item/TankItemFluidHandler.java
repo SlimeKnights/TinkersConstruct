@@ -16,6 +16,8 @@ import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
 /**
  * Handler that works with a tank item to adjust its tank in NBT
  */

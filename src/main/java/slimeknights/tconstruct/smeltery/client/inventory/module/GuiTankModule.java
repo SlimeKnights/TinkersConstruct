@@ -83,8 +83,8 @@ public class GuiTankModule {
    * @param mouseY    Global mouse Y position
    */
   public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-    int checkX = mouseX - screen.guiLeft;
-    int checkY = mouseY - screen.guiTop;
+    int checkX = mouseX - screen.leftPos;
+    int checkY = mouseY - screen.topPos;
 
     if (isHovered(checkX, checkY)) {
       FluidStack fluid = tank.getFluidInTank(TANK_INDEX);
@@ -115,8 +115,8 @@ public class GuiTankModule {
         FluidTooltipHandler.appendShift(tooltip);
       }
 
-      // TODO: func_243308_b->renderTooltip
-      screen.func_243308_b(matrices, tooltip, mouseX, mouseY);
+      // TODO: renderComponentTooltip->renderTooltip
+      screen.renderComponentTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
 

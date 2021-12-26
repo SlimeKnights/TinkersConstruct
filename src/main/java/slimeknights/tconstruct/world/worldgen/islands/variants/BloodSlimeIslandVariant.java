@@ -40,7 +40,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public BlockState getLakeFluid() {
-    return Objects.requireNonNull(TinkerFluids.magma.getBlock()).getDefaultState();
+    return Objects.requireNonNull(TinkerFluids.magma.getBlock()).defaultBlockState();
   }
 
   @Nullable
@@ -51,19 +51,19 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public StructureProcessor getStructureProcessor() {
-    return BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK;
+    return BlockIgnoreStructureProcessor.STRUCTURE_AND_AIR;
   }
 
   private static boolean isLava(ISeedReader world, BlockPos pos) {
-    return world.isAirBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.LAVA;
+    return world.isEmptyBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.LAVA;
   }
 
   @Override
   public boolean isPositionValid(ISeedReader world, BlockPos pos, ChunkGenerator generator) {
-    BlockPos up = pos.up();
+    BlockPos up = pos.above();
     if (isLava(world, up)) {
       for (Direction direction : Plane.HORIZONTAL) {
-        if (!isLava(world, up.offset(direction))) {
+        if (!isLava(world, up.relative(direction))) {
           return false;
         }
       }

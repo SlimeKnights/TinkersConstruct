@@ -31,9 +31,9 @@ public class HydraulicModifier extends IncrementalModifier {
   private static float getBonus(LivingEntity living) {
     float bonus = 0;
     // highest bonus in water
-    if (living.areEyesInFluid(FluidTags.WATER)) {
+    if (living.isEyeInFluid(FluidTags.WATER)) {
       bonus = 8;
-    } else if (living.getEntityWorld().isRainingAt(living.getPosition())) {
+    } else if (living.getCommandSenderWorld().isRainingAt(living.blockPosition())) {
       // partial bonus in the rain
       bonus = 4;
     }
@@ -49,7 +49,7 @@ public class HydraulicModifier extends IncrementalModifier {
     float bonus = getBonus(player);
     if (bonus > 0) {
       // if not enchanted with aqua affinity, multiply by 5 to cancel out the effects of water
-      if (!ModifierUtil.hasAquaAffinity(player) && player.areEyesInFluid(FluidTags.WATER)) {
+      if (!ModifierUtil.hasAquaAffinity(player) && player.isEyeInFluid(FluidTags.WATER)) {
         bonus *= 5;
       }
       bonus *= getScaledLevel(tool, level) * tool.getModifier(ToolStats.MINING_SPEED) * miningSpeedModifier;

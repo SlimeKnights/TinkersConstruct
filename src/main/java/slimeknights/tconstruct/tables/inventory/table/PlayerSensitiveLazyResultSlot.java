@@ -15,13 +15,13 @@ public class PlayerSensitiveLazyResultSlot extends LazyResultSlot {
   }
 
   @Override
-  public ItemStack getStack() {
+  public ItemStack getItem() {
     return this.inventory.getResult(player);
   }
 
   @Override
-  public ItemStack decrStackSize(int amount) {
-    ItemStack result = getStack().copy();
+  public ItemStack remove(int amount) {
+    ItemStack result = getItem().copy();
     if (!result.isEmpty()) {
       this.amountCrafted += Math.min(amount, result.getCount());
     }

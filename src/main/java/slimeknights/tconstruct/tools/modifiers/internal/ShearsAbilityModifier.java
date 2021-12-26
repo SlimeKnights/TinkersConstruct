@@ -48,8 +48,8 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
    * @param hand the given hand the tool is in
    */
   protected void swingTool(PlayerEntity player, Hand hand) {
-    player.swingArm(hand);
-    player.spawnSweepParticles();
+    player.swing(hand);
+    player.sweepAttack();
   }
 
   /**
@@ -66,13 +66,13 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
     if (tool.isBroken()) {
       return ActionResultType.PASS;
     }
-    ItemStack stack = player.getItemStackFromSlot(slotType);
+    ItemStack stack = player.getItemBySlot(slotType);
 
     // use looting instead of fortune, as that is our hook with entity access
     // modifier can always use tags or the nullable parameter to distinguish if needed
     int looting = ModifierUtil.getLootingLevel(tool, player, target, null);
     looting = ModifierUtil.getLeggingsLootingLevel(player, target, null, looting);
-    World world = player.getEntityWorld();
+    World world = player.getCommandSenderWorld();
     if (isShears(tool) && shearEntity(stack, tool, world, player, target, looting)) {
       boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
       this.swingTool(player, hand);
@@ -83,8 +83,8 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
         // if expanded, shear all in range
         int expanded = range + tool.getModifierLevel(TinkerModifiers.expanded.get());
         if (expanded > 0) {
-          for (LivingEntity aoeTarget : player.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(expanded, 0.25D, expanded))) {
-            if (aoeTarget != player && aoeTarget != target && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity)aoeTarget).hasMarker())) {
+          for (LivingEntity aoeTarget : player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(expanded, 0.25D, expanded))) {
+            if (aoeTarget != player && aoeTarget != target && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity)aoeTarget).isMarker())) {
               if (shearEntity(stack, tool, world, player, aoeTarget, looting)) {
                 broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
                 runShearHook(tool, player, aoeTarget, false);
@@ -132,9 +132,9 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
     // fallback to forge shearable
     if (entity instanceof IForgeShearable) {
       IForgeShearable target = (IForgeShearable) entity;
-      if (target.isShearable(itemStack, world, entity.getPosition())) {
-        if (!world.isRemote) {
-          target.onSheared(player, itemStack, world, entity.getPosition(), fortune)
+      if (target.isShearable(itemStack, world, entity.blockPosition())) {
+        if (!world.isClientSide) {
+          target.onSheared(player, itemStack, world, entity.blockPosition(), fortune)
                 .forEach(stack -> ModifierUtil.dropItem(entity, stack));
         }
         return true;
@@ -147,7 +147,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
     BlockState state = context.getState();
     if (isShears(tool) && state.getBlock() instanceof TripWireBlock) {
-      context.getWorld().setBlockState(context.getPos(), state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
+      context.getWorld().setBlock(context.getPos(), state.setValue(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
     }
     return null;
   }

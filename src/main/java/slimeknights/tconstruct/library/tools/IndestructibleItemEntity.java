@@ -19,19 +19,19 @@ import javax.annotation.Nullable;
 public class IndestructibleItemEntity extends ItemEntity {
   public IndestructibleItemEntity(EntityType<? extends IndestructibleItemEntity> entityType, World world) {
     super(entityType, world);
-    this.setNoDespawn();
+    this.setExtendedLifetime();
   }
 
   public IndestructibleItemEntity(World worldIn, double x, double y, double z, ItemStack stack) {
     this(TinkerTools.indestructibleItem.get(), worldIn);
-    this.setPosition(x, y, z);
-    this.rotationYaw = this.rand.nextFloat() * 360.0F;
-    this.setMotion(this.rand.nextDouble() * 0.2D - 0.1D, 0.2D, this.rand.nextDouble() * 0.2D - 0.1D);
+    this.setPos(x, y, z);
+    this.yRot = this.random.nextFloat() * 360.0F;
+    this.setDeltaMovement(this.random.nextDouble() * 0.2D - 0.1D, 0.2D, this.random.nextDouble() * 0.2D - 0.1D);
     this.setItem(stack);
   }
 
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public IPacket<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 
@@ -39,9 +39,9 @@ public class IndestructibleItemEntity extends ItemEntity {
   public void setPickupDelayFrom(Entity reference) {
     if (reference instanceof ItemEntity) {
       short pickupDelay = this.getPickupDelay((ItemEntity) reference);
-      this.setPickupDelay(pickupDelay);
+      this.setPickUpDelay(pickupDelay);
     }
-    setMotion(reference.getMotion());
+    setDeltaMovement(reference.getDeltaMovement());
   }
 
   /**
@@ -49,19 +49,19 @@ public class IndestructibleItemEntity extends ItemEntity {
    */
   private short getPickupDelay(ItemEntity reference) {
     CompoundNBT tag = new CompoundNBT();
-    reference.writeAdditional(tag);
+    reference.addAdditionalSaveData(tag);
     return tag.getShort("PickupDelay");
   }
 
   @Override
-  public boolean isImmuneToFire() {
+  public boolean fireImmune() {
     return true;
   }
 
   @Override
-  public boolean attackEntityFrom(DamageSource source, float amount) {
+  public boolean hurt(DamageSource source, float amount) {
     // prevent any damage besides out of world
-    return source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType);
+    return source.getMsgId().equals(DamageSource.OUT_OF_WORLD.msgId);
   }
 
   /** Checks if the given stack has a custom entity */
@@ -79,7 +79,7 @@ public class IndestructibleItemEntity extends ItemEntity {
   @Nullable
   public static Entity createFrom(World world, Entity original, ItemStack stack) {
     if (ModifierUtil.checkVolatileFlag(stack, IModifiable.INDESTRUCTIBLE_ENTITY)) {
-      IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
+      IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getX(), original.getY(), original.getZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;
     }

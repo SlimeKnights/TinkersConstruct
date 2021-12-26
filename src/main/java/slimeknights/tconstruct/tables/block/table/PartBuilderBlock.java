@@ -7,6 +7,8 @@ import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class PartBuilderBlock extends RetexturedTableBlock {
 
   public PartBuilderBlock(Properties builder) {

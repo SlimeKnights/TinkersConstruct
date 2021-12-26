@@ -38,13 +38,13 @@ public class EmeraldModifier extends SingleLevelModifier {
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     Item item = context.getItem();
-    if (item.isIn(DURABILITY)) {
+    if (item.is(DURABILITY)) {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.5f));
     }
-    if (item.isIn(HARVEST)) {
+    if (item.is(HARVEST)) {
       ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.IRON);
     }
-    if (item.isIn(ARMOR)) {
+    if (item.is(ARMOR)) {
       ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
     }
   }
@@ -52,7 +52,7 @@ public class EmeraldModifier extends SingleLevelModifier {
   @Override
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     LivingEntity living = context.getLivingTarget();
-    if (living != null && living.getCreatureAttribute() == CreatureAttribute.ILLAGER) {
+    if (living != null && living.getMobType() == CreatureAttribute.ILLAGER) {
       damage += level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;

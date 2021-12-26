@@ -26,7 +26,7 @@ public class SnowGolemBeheadingRecipe extends SeveringRecipe {
 
   @Override
   public ItemStack getOutput(Entity entity) {
-    if (entity instanceof SnowGolemEntity && !((SnowGolemEntity)entity).isPumpkinEquipped()) {
+    if (entity instanceof SnowGolemEntity && !((SnowGolemEntity)entity).hasPumpkin()) {
       return new ItemStack(Blocks.SNOW_BLOCK);
     }
     return getOutput().copy();

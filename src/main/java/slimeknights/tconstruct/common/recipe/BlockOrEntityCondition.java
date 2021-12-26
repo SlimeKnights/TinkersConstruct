@@ -20,13 +20,13 @@ public class BlockOrEntityCondition implements ILootCondition {
   public static final Serializer SERIALIZER = new Serializer();
 
   @Override
-  public LootConditionType getConditionType() {
+  public LootConditionType getType() {
     return TinkerCommons.lootBlockOrEntity;
   }
 
   @Override
   public boolean test(LootContext lootContext) {
-    return lootContext.has(LootParameters.THIS_ENTITY) || lootContext.has(LootParameters.BLOCK_STATE);
+    return lootContext.hasParam(LootParameters.THIS_ENTITY) || lootContext.hasParam(LootParameters.BLOCK_STATE);
   }
 
   private static class Serializer implements ILootSerializer<BlockOrEntityCondition> {

@@ -43,16 +43,16 @@ class PartRequirementTest extends BaseMcTest {
     JsonElement json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, null);
     assertThat(json.isJsonObject()).isTrue();
     JsonObject object = json.getAsJsonObject();
-    assertThat(JSONUtils.getString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM_2.getRegistryName()).toString());
+    assertThat(JSONUtils.getAsString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM_2.getRegistryName()).toString());
     assertThat(object.has("stat")).isFalse();
-    assertThat(JSONUtils.getInt(object, "weight")).isEqualTo(5);
+    assertThat(JSONUtils.getAsInt(object, "weight")).isEqualTo(5);
 
     // weight is optional if 1
     requirement = PartRequirement.ofPart(MaterialItemFixture.MATERIAL_ITEM, 1);
     json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, mock(JsonSerializationContext.class));
     assertThat(json.isJsonObject()).isTrue();
     object = json.getAsJsonObject();
-    assertThat(JSONUtils.getString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM.getRegistryName()).toString());
+    assertThat(JSONUtils.getAsString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM.getRegistryName()).toString());
     assertThat(object.has("stat")).isFalse();
     assertThat(object.has("weight")).isFalse();
   }
@@ -92,16 +92,16 @@ class PartRequirementTest extends BaseMcTest {
     JsonElement json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, null);
     assertThat(json.isJsonObject()).isTrue();
     JsonObject object = json.getAsJsonObject();
-    assertThat(JSONUtils.getString(object, "stat")).isEqualTo(HandleMaterialStats.ID.toString());
+    assertThat(JSONUtils.getAsString(object, "stat")).isEqualTo(HandleMaterialStats.ID.toString());
     assertThat(object.has("item")).isFalse();
-    assertThat(JSONUtils.getInt(object, "weight")).isEqualTo(5);
+    assertThat(JSONUtils.getAsInt(object, "weight")).isEqualTo(5);
 
     // weight is optional if 1
     requirement = PartRequirement.ofStat(HeadMaterialStats.ID, 1);
     json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, mock(JsonSerializationContext.class));
     assertThat(json.isJsonObject()).isTrue();
     object = json.getAsJsonObject();
-    assertThat(JSONUtils.getString(object, "stat")).isEqualTo(HeadMaterialStats.ID.toString());
+    assertThat(JSONUtils.getAsString(object, "stat")).isEqualTo(HeadMaterialStats.ID.toString());
     assertThat(object.has("item")).isFalse();
     assertThat(object.has("weight")).isFalse();
   }

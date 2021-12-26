@@ -42,7 +42,7 @@ public class UpdateCraftingRecipePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(UpdateCraftingRecipePacket packet) {
-      World world = Minecraft.getInstance().world;
+      World world = Minecraft.getInstance().level;
       if (world != null) {
         TileEntityHelper.getTile(CraftingStationTileEntity.class, world, packet.pos).ifPresent(te ->
           RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ICraftingRecipe.class).ifPresent(te::updateRecipe));

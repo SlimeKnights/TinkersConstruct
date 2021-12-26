@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
+import net.minecraft.item.Item.Properties;
+
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
   public IchorSlimeSlingItem(Properties props) {
@@ -24,8 +26,8 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (worldIn.isRemote || !(entityLiving instanceof PlayerEntity)) {
+  public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    if (worldIn.isClientSide || !(entityLiving instanceof PlayerEntity)) {
       return;
     }
 
@@ -34,25 +36,25 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
     float range = 5F;
     Vector3d start = player.getEyePosition(1F);
-    Vector3d look = player.getLookVec();
+    Vector3d look = player.getLookAngle();
     Vector3d direction = start.add(look.x * range, look.y * range, look.z * range);
-    AxisAlignedBB bb = player.getBoundingBox().expand(look.x * range, look.y * range, look.z * range).expand(1, 1, 1);
+    AxisAlignedBB bb = player.getBoundingBox().expandTowards(look.x * range, look.y * range, look.z * range).expandTowards(1, 1, 1);
 
-    EntityRayTraceResult emop = ProjectileHelper.rayTraceEntities(worldIn, player, start, direction, bb, (e) -> e instanceof LivingEntity);
+    EntityRayTraceResult emop = ProjectileHelper.getEntityHitResult(worldIn, player, start, direction, bb, (e) -> e instanceof LivingEntity);
     if (emop != null) {
       LivingEntity target = (LivingEntity) emop.getEntity();
-      double targetDist = start.squareDistanceTo(target.getEyePosition(1F));
+      double targetDist = start.distanceToSqr(target.getEyePosition(1F));
 
       // cancel if there's a block in the way
-      BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
-      double blockDist = mop.getPos().distanceSq(start.x, start.y, start.z, true);
+      BlockRayTraceResult mop = getPlayerPOVHitResult(worldIn, player, RayTraceContext.FluidMode.NONE);
+      double blockDist = mop.getBlockPos().distSqr(start.x, start.y, start.z, true);
       if (mop.getType() == RayTraceResult.Type.BLOCK && targetDist > blockDist) {
         playMissSound(player);
         return;
       }
 
-      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-      target.applyKnockback(f , -look.x, -look.z);
+      player.getCooldowns().addCooldown(stack.getItem(), 3);
+      target.knockback(f , -look.x, -look.z);
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
         TinkerNetwork.getInstance().sendVanillaPacket(new SEntityVelocityPacket(player), playerMP);

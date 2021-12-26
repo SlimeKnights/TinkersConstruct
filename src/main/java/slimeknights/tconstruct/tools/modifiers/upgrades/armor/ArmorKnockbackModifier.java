@@ -26,7 +26,7 @@ public class ArmorKnockbackModifier extends Modifier {
 
   @Override
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
-    if (slot.getSlotType() == Group.ARMOR) {
+    if (slot.getType() == Group.ARMOR) {
       consumer.accept(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(UUIDS[slot.getIndex()], "tconstruct.modifier.armor_knockback." + slot.getName(), level, Operation.ADDITION));
     }
   }

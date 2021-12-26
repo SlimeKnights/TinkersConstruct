@@ -49,7 +49,7 @@ public class SlimeTreeConfig implements IFeatureConfig {
   @NoArgsConstructor
   @Accessors(fluent = true)
   public static class Builder {
-    private static final SupplierBlockStateProvider AIR_PROVIDER = new SupplierBlockStateProvider(Blocks.AIR::getDefaultState);
+    private static final SupplierBlockStateProvider AIR_PROVIDER = new SupplierBlockStateProvider(Blocks.AIR::defaultBlockState);
 
     @Setter
     private BlockStateProvider trunkProvider = AIR_PROVIDER;

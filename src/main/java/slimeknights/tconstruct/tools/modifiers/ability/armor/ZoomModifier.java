@@ -21,18 +21,16 @@ public class ZoomModifier extends SingleUseModifier implements IArmorInteractMod
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getEntity().world.isRemote) {
+    if (context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(ZOOM));
     }
   }
 
   @Override
   public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
-    if (player.isSneaking()) {
-      if (player.world.isRemote) {
-        player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-          data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(ZOOM, 0.1f);
-        });
+    if (player.isShiftKeyDown()) {
+      if (player.level.isClientSide()) {
+        player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(ZOOM, 0.1f));
       }
       return true;
     }
@@ -41,7 +39,7 @@ public class ZoomModifier extends SingleUseModifier implements IArmorInteractMod
 
   @Override
   public void stopArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
-    if (player.world.isRemote) {
+    if (player.level.isClientSide()) {
       player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(ZOOM));
     }
   }

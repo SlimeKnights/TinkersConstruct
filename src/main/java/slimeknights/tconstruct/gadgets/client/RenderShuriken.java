@@ -21,19 +21,19 @@ public class RenderShuriken extends EntityRenderer<ShurikenEntityBase> {
 
   @Override
   public void render(ShurikenEntityBase entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-    if (entity.ticksExisted >= 2 || !(this.renderManager.info.getRenderViewEntity().getDistanceSq(entity) < 12.25D)) {
-      matrixStackIn.push();
-      matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90));
-      matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-(entity.ticksExisted + partialTicks) * 30 % 360));
+    if (entity.tickCount >= 2 || !(this.entityRenderDispatcher.camera.getEntity().distanceToSqr(entity) < 12.25D)) {
+      matrixStackIn.pushPose();
+      matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90));
+      matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(-(entity.tickCount + partialTicks) * 30 % 360));
       matrixStackIn.translate(-0.03125, -0.09375, 0);
-      this.itemRenderer.renderItem(entity.getItem(), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-      matrixStackIn.pop();
+      this.itemRenderer.renderStatic(entity.getItem(), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+      matrixStackIn.popPose();
       super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
   }
 
   @Override
-  public ResourceLocation getEntityTexture(ShurikenEntityBase entity) {
-    return PlayerContainer.LOCATION_BLOCKS_TEXTURE;
+  public ResourceLocation getTextureLocation(ShurikenEntityBase entity) {
+    return PlayerContainer.BLOCK_ATLAS;
   }
 }

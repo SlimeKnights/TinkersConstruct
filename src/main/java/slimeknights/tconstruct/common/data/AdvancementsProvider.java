@@ -65,7 +65,6 @@ import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
-import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -90,17 +89,17 @@ public class AdvancementsProvider extends GenericDataProvider {
   protected void generate() {
     // tinkering path
     Advancement materialsAndYou = builder(TinkerCommons.materialsAndYou, resource("tools/materials_and_you"), resource("textures/gui/advancement_background.png"), FrameType.TASK, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.materialsAndYou)));
+      builder.addCriterion("crafted_book", hasItem(TinkerCommons.materialsAndYou)));
     Advancement partBuilder = builder(TinkerTables.partBuilder, resource("tools/part_builder"), materialsAndYou, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_block", hasItem(TinkerTables.partBuilder)));
+      builder.addCriterion("crafted_block", hasItem(TinkerTables.partBuilder)));
     builder(TinkerToolParts.pickaxeHead.get().withMaterialForDisplay(MaterialIds.wood), resource("tools/make_part"), partBuilder, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_part", hasTag(TinkerTags.Items.TOOL_PARTS)));
+      builder.addCriterion("crafted_part", hasTag(TinkerTags.Items.TOOL_PARTS)));
     Advancement tinkerStation = builder(TinkerTables.tinkerStation, resource("tools/tinker_station"), partBuilder, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_block", hasItem(TinkerTables.tinkerStation)));
+      builder.addCriterion("crafted_block", hasItem(TinkerTables.tinkerStation)));
     Advancement tinkerTool = builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tinker_tool"), tinkerStation, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
+      builder.addCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
     builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), tinkerTool, FrameType.CHALLENGE, builder -> {
-      Consumer<MaterialId> with = id -> builder.withCriterion(id.getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().withMaterial(id).build()));
+      Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.Instance.hasItems(ToolPredicate.builder().withMaterial(id).build()));
       // tier 1
       with.accept(MaterialIds.wood);
       with.accept(MaterialIds.flint);
@@ -133,9 +132,9 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.enderslimeVine);
     });
     builder(TinkerTools.travelersGear.get(ArmorSlotType.HELMET).getRenderTool(), resource("tools/travelers_gear"), tinkerStation, FrameType.TASK, builder ->
-      TinkerTools.travelersGear.forEach((type, armor) -> builder.withCriterion("crafted_" + type.getString(), hasItem(armor))));
+      TinkerTools.travelersGear.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getSerializedName(), hasItem(armor))));
     builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
-      Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
+      Consumer<Item> with = item -> builder.addCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
       with.accept(TinkerTools.pickaxe.get());
       with.accept(TinkerTools.mattock.get());
       with.accept(TinkerTools.handAxe.get());
@@ -144,14 +143,14 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.sword.get());
     });
     Advancement modified = builder(Items.REDSTONE, resource("tools/modified"), tinkerTool, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_tool", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().hasUpgrades(true).build())));
+      builder.addCriterion("crafted_tool", InventoryChangeTrigger.Instance.hasItems(ToolPredicate.builder().hasUpgrades(true).build())));
     //    builder(TinkerTools.cleaver.get().buildToolForRendering(), location("tools/glass_cannon"), modified, FrameType.CHALLENGE, builder ->
-    //      builder.withCriterion("crafted_tool", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder()
+    //      builder.addCriterion()("crafted_tool", InventoryChangeTrigger.Instance.hasItems(ToolPredicate.builder()
     //                                                                                                  .withStat(StatPredicate.max(ToolStats.DURABILITY, 100))
     //                                                                                                  .withStat(StatPredicate.min(ToolStats.ATTACK_DAMAGE, 20))
     //                                                                                                  .build())));
     builder(Items.WRITABLE_BOOK, resource("tools/upgrade_slots"), modified, FrameType.CHALLENGE, builder ->
-      builder.withCriterion("has_modified", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().upgrades(
+      builder.addCriterion("has_modified", InventoryChangeTrigger.Instance.hasItems(ToolPredicate.builder().upgrades(
         ModifierMatch.list(5, ModifierMatch.entry(TinkerModifiers.writable.get()),
                            ModifierMatch.entry(TinkerModifiers.recapitated.get()),
                            ModifierMatch.entry(TinkerModifiers.harmonious.get()),
@@ -161,9 +160,9 @@ public class AdvancementsProvider extends GenericDataProvider {
 
     // smeltery path
     Advancement punySmelting = builder(TinkerCommons.punySmelting, resource("smeltery/puny_smelting"), materialsAndYou, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.punySmelting)));
+      builder.addCriterion("crafted_book", hasItem(TinkerCommons.punySmelting)));
     Advancement melter = builder(TinkerSmeltery.searedMelter, resource("smeltery/melter"), punySmelting, FrameType.TASK, builder -> {
-      Consumer<Block> with = block -> builder.withCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(), PlacedBlockTrigger.Instance.placedBlock(block));
+      Consumer<Block> with = block -> builder.addCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(), PlacedBlockTrigger.Instance.placedBlock(block));
       with.accept(TinkerSmeltery.searedMelter.get());
       with.accept(TinkerSmeltery.searedTable.get());
       with.accept(TinkerSmeltery.searedBasin.get());
@@ -171,14 +170,14 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerSmeltery.searedHeater.get());
       TinkerSmeltery.searedTank.forEach(with);
       // first 4 are required, and then any of the last 5
-      builder.withRequirementsStrategy(new CountRequirementsStrategy(1, 1, 1, 1, 1 + TankType.values().length));
+      builder.requirements(new CountRequirementsStrategy(1, 1, 1, 1, 1 + TankType.values().length));
     });
     builder(TinkerSmeltery.toolHandleCast.getSand(), resource("smeltery/sand_casting"), melter, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_cast", hasTag(TinkerSmeltery.blankCast.getSingleUseTag())));
+      builder.addCriterion("crafted_cast", hasTag(TinkerSmeltery.blankCast.getSingleUseTag())));
     Advancement goldCasting = builder(TinkerSmeltery.pickaxeHeadCast, resource("smeltery/gold_casting"), melter, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_cast", hasTag(TinkerTags.Items.GOLD_CASTS)));
+      builder.addCriterion("crafted_cast", hasTag(TinkerTags.Items.GOLD_CASTS)));
     builder(TinkerSmeltery.hammerHeadCast, resource("smeltery/cast_collector"), goldCasting, FrameType.GOAL, builder -> {
-      Consumer<CastItemObject> with = cast -> builder.withCriterion(cast.getName().getPath(), hasItem(cast.get()));
+      Consumer<CastItemObject> with = cast -> builder.addCriterion(cast.getName().getPath(), hasItem(cast.get()));
       with.accept(TinkerSmeltery.blankCast);
       with.accept(TinkerSmeltery.ingotCast);
       with.accept(TinkerSmeltery.nuggetCast);
@@ -198,16 +197,16 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerSmeltery.toughHandleCast);
     });
     Advancement mightySmelting = builder(TinkerCommons.mightySmelting, resource("smeltery/mighty_smelting"), melter, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.mightySmelting)));
+      builder.addCriterion("crafted_book", hasItem(TinkerCommons.mightySmelting)));
     Advancement smeltery = builder(TinkerSmeltery.smelteryController, resource("smeltery/structure"), mightySmelting, FrameType.TASK, builder ->
-      builder.withCriterion("open_smeltery", BlockContainerOpenedTrigger.Instance.container(TinkerSmeltery.smeltery.get())));
+      builder.addCriterion("open_smeltery", BlockContainerOpenedTrigger.Instance.container(TinkerSmeltery.smeltery.get())));
     Advancement anvil = builder(TinkerTables.tinkersAnvil, resource("smeltery/tinkers_anvil"), smeltery, FrameType.GOAL, builder -> {
-      builder.withCriterion("crafted_overworld", hasItem(TinkerTables.tinkersAnvil));
-      builder.withCriterion("crafted_nether", hasItem(TinkerTables.scorchedAnvil));
-      builder.withRequirementsStrategy(IRequirementsStrategy.OR);
+      builder.addCriterion("crafted_overworld", hasItem(TinkerTables.tinkersAnvil));
+      builder.addCriterion("crafted_nether", hasItem(TinkerTables.scorchedAnvil));
+      builder.requirements(IRequirementsStrategy.OR);
     });
     builder(TinkerTools.veinHammer.get().getRenderTool(), resource("smeltery/tool_forge"), anvil, FrameType.CHALLENGE, builder -> {
-      Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
+      Consumer<Item> with = item -> builder.addCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
       with.accept(TinkerTools.sledgeHammer.get());
       with.accept(TinkerTools.veinHammer.get());
       with.accept(TinkerTools.excavator.get());
@@ -216,7 +215,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.cleaver.get());
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
-      Consumer<Supplier<? extends Modifier>> with = modifier -> builder.withCriterion(modifier.get().getId().getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier.get())).build()));
+      Consumer<Supplier<? extends Modifier>> with = modifier -> builder.addCriterion(modifier.get().getId().getPath(), InventoryChangeTrigger.Instance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier.get())).build()));
       // general
       with.accept(TinkerModifiers.gilded);
       with.accept(TinkerModifiers.luck);
@@ -259,11 +258,11 @@ public class AdvancementsProvider extends GenericDataProvider {
 
     // foundry path
     Advancement fantasticFoundry = builder(TinkerCommons.fantasticFoundry, resource("foundry/fantastic_foundry"), materialsAndYou, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.fantasticFoundry)));
+      builder.addCriterion("crafted_book", hasItem(TinkerCommons.fantasticFoundry)));
     builder(TinkerCommons.encyclopedia, resource("foundry/encyclopedia"), fantasticFoundry, FrameType.GOAL, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.encyclopedia)));
+      builder.addCriterion("crafted_book", hasItem(TinkerCommons.encyclopedia)));
     Advancement alloyer = builder(TinkerSmeltery.scorchedAlloyer, resource("foundry/alloyer"), fantasticFoundry, FrameType.TASK, builder -> {
-      Consumer<Block> with = block -> builder.withCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(), PlacedBlockTrigger.Instance.placedBlock(block));
+      Consumer<Block> with = block -> builder.addCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(), PlacedBlockTrigger.Instance.placedBlock(block));
       with.accept(TinkerSmeltery.scorchedAlloyer.get());
       with.accept(TinkerSmeltery.scorchedFaucet.get());
       with.accept(TinkerSmeltery.scorchedTable.get());
@@ -271,33 +270,33 @@ public class AdvancementsProvider extends GenericDataProvider {
       for (TankType type : TankType.values()) {
         with.accept(TinkerSmeltery.scorchedTank.get(type));
       }
-      builder.withRequirementsStrategy(new CountRequirementsStrategy(1, 1, 1, 1, 2, 2));
+      builder.requirements(new CountRequirementsStrategy(1, 1, 1, 1, 2, 2));
     });
     Advancement foundry = builder(TinkerSmeltery.foundryController, resource("foundry/structure"), alloyer, FrameType.TASK, builder ->
-      builder.withCriterion("open_foundry", BlockContainerOpenedTrigger.Instance.container(TinkerSmeltery.foundry.get())));
+      builder.addCriterion("open_foundry", BlockContainerOpenedTrigger.Instance.container(TinkerSmeltery.foundry.get())));
     Advancement blazingBlood = builder(TankItem.setTank(new ItemStack(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE)), getTankWith(TinkerFluids.blazingBlood.get(), TankType.FUEL_GAUGE.getCapacity())),
             resource("foundry/blaze"), foundry, FrameType.GOAL, builder -> {
       Consumer<SearedTankBlock> with = block -> {
         CompoundNBT nbt = new CompoundNBT();
         nbt.put(NBTTags.TANK, getTankWith(TinkerFluids.blazingBlood.get(), block.getCapacity()).writeToNBT(new CompoundNBT()));
-        builder.withCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(),
-                              InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(block).nbt(nbt).build()));
-        builder.withRequirementsStrategy(IRequirementsStrategy.OR);
+        builder.addCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(),
+                              InventoryChangeTrigger.Instance.hasItems(ItemPredicate.Builder.item().of(block).hasNbt(nbt).build()));
+        builder.requirements(IRequirementsStrategy.OR);
       };
       TinkerSmeltery.searedTank.forEach(with);
       TinkerSmeltery.scorchedTank.forEach(with);
     });
     builder(TinkerTools.plateArmor.get(ArmorSlotType.CHESTPLATE).getRenderTool(), resource("foundry/plate_armor"), blazingBlood, FrameType.GOAL, builder ->
-      TinkerTools.plateArmor.forEach((type, armor) -> builder.withCriterion("crafted_" + type.getString(), hasItem(armor))));
+      TinkerTools.plateArmor.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getSerializedName(), hasItem(armor))));
     builder(TankItem.setTank(new ItemStack(TinkerSmeltery.scorchedLantern), getTankWith(TinkerFluids.moltenManyullyn.get(), TinkerSmeltery.scorchedLantern.get().getCapacity())),
             resource("foundry/manyullyn_lanterns"), foundry, FrameType.CHALLENGE, builder -> {
       Consumer<SearedLanternBlock> with = block -> {
         CompoundNBT nbt = new CompoundNBT();
         nbt.put(NBTTags.TANK, getTankWith(TinkerFluids.moltenManyullyn.get(), block.getCapacity()).writeToNBT(new CompoundNBT()));
-        builder.withCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(),
-                              InventoryChangeTrigger.Instance.forItems(new ItemPredicate(null, block.asItem(), IntBound.atLeast(64), IntBound.UNBOUNDED,
-                                                                                         EnchantmentPredicate.enchantments, EnchantmentPredicate.enchantments, null, new NBTPredicate(nbt))));
-        builder.withRequirementsStrategy(IRequirementsStrategy.OR);
+        builder.addCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(),
+                              InventoryChangeTrigger.Instance.hasItems(new ItemPredicate(null, block.asItem(), IntBound.atLeast(64), IntBound.ANY,
+                                                                                         EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, new NBTPredicate(nbt))));
+        builder.requirements(IRequirementsStrategy.OR);
       };
       with.accept(TinkerSmeltery.searedLantern.get());
       with.accept(TinkerSmeltery.scorchedLantern.get());
@@ -305,37 +304,37 @@ public class AdvancementsProvider extends GenericDataProvider {
 
     // exploration path
     Advancement tinkersGadgetry = builder(TinkerCommons.tinkersGadgetry, resource("world/tinkers_gadgetry"), materialsAndYou, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.tinkersGadgetry)));
+      builder.addCriterion("crafted_book", hasItem(TinkerCommons.tinkersGadgetry)));
     builder(TinkerWorld.slimeSapling.get(SlimeType.EARTH), resource("world/earth_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.withCriterion("found_island", PositionTrigger.Instance.forLocation(LocationPredicate.forFeature(TinkerStructures.earthSlimeIsland.get()))));
+      builder.addCriterion("found_island", PositionTrigger.Instance.located(LocationPredicate.inFeature(TinkerStructures.earthSlimeIsland.get()))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.SKY), resource("world/sky_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.withCriterion("found_island", PositionTrigger.Instance.forLocation(LocationPredicate.forFeature(TinkerStructures.skySlimeIsland.get()))));
+      builder.addCriterion("found_island", PositionTrigger.Instance.located(LocationPredicate.inFeature(TinkerStructures.skySlimeIsland.get()))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.BLOOD), resource("world/blood_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.withCriterion("found_island", PositionTrigger.Instance.forLocation(LocationPredicate.forFeature(TinkerStructures.bloodSlimeIsland.get()))));
+      builder.addCriterion("found_island", PositionTrigger.Instance.located(LocationPredicate.inFeature(TinkerStructures.bloodSlimeIsland.get()))));
     Advancement enderslimeIsland = builder(TinkerWorld.slimeSapling.get(SlimeType.ENDER), resource("world/ender_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.withCriterion("found_island", PositionTrigger.Instance.forLocation(LocationPredicate.forFeature(TinkerStructures.endSlimeIsland.get()))));
+      builder.addCriterion("found_island", PositionTrigger.Instance.located(LocationPredicate.inFeature(TinkerStructures.endSlimeIsland.get()))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.withCriterion("found_island", PositionTrigger.Instance.forLocation(LocationPredicate.forFeature(TinkerStructures.clayIsland.get()))));
+      builder.addCriterion("found_island", PositionTrigger.Instance.located(LocationPredicate.inFeature(TinkerStructures.clayIsland.get()))));
     Advancement slimes = builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, FrameType.TASK, builder -> {
       for (SlimeType type : SlimeType.values()) {
-        builder.withCriterion(type.getString(), hasTag(type.getSlimeballTag()));
+        builder.addCriterion(type.getSerializedName(), hasTag(type.getSlimeballTag()));
       }
-      builder.withCriterion("magma_cream", hasItem(Items.MAGMA_CREAM));
+      builder.addCriterion("magma_cream", hasItem(Items.MAGMA_CREAM));
     });
     builder(TinkerGadgets.slimeSling.get(SlimeType.ENDER), resource("world/slime_sling"), slimes, FrameType.CHALLENGE, builder -> {
       JsonObject boundJSON = new JsonObject();
       boundJSON.addProperty("max", 150);
       IntBound mojangDeletedTheMaxMethods = IntBound.fromJson(boundJSON);
-      TinkerGadgets.slimeSling.forEach((type, sling) -> builder.withCriterion(type.getString(), ItemDurabilityTrigger.Instance.create(AndPredicate.ANY_AND, ItemPredicate.Builder.create().item(sling).build(), mojangDeletedTheMaxMethods)));
+      TinkerGadgets.slimeSling.forEach((type, sling) -> builder.addCriterion(type.getSerializedName(), ItemDurabilityTrigger.Instance.changedDurability(AndPredicate.ANY, ItemPredicate.Builder.item().of(sling).build(), mojangDeletedTheMaxMethods)));
     });
     builder(TinkerGadgets.piggyBackpack, resource("world/piggybackpack"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.withCriterion("used_pack", PlayerEntityInteractionTrigger.Instance.create(AndPredicate.ANY_AND, ItemPredicate.Builder.create().item(TinkerGadgets.piggyBackpack), EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.Builder.create().type(EntityType.PIG).build()))));
+      builder.addCriterion("used_pack", PlayerEntityInteractionTrigger.Instance.itemUsedOnEntity(AndPredicate.ANY, ItemPredicate.Builder.item().of(TinkerGadgets.piggyBackpack), EntityPredicate.AndPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.PIG).build()))));
     Advancement slimesuit = builder(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE).getRenderTool(), resource("world/slimesuit"), enderslimeIsland, FrameType.GOAL, builder ->
-      TinkerTools.slimesuit.forEach((type, armor) -> builder.withCriterion("crafted_" + type.getString(), hasItem(armor))));
+      TinkerTools.slimesuit.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getSerializedName(), hasItem(armor))));
     builder(new MaterialIdNBT(Collections.singletonList(MaterialIds.gunpowder)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET))),
             resource("world/slimeskull"), slimesuit, FrameType.CHALLENGE, builder -> {
       Item helmet = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
-      Consumer<MaterialId> with = mat -> builder.withCriterion(mat.getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder(helmet).withMaterial(mat).build()));
+      Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.Instance.hasItems(ToolPredicate.builder(helmet).withMaterial(mat).build()));
       with.accept(MaterialIds.gunpowder);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);
@@ -364,25 +363,24 @@ public class AdvancementsProvider extends GenericDataProvider {
    * Creates an item predicate for a tag
    */
   private ICriterionInstance hasTag(ITag<Item> tag) {
-    return InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(tag).build());
+    return InventoryChangeTrigger.Instance.hasItems(ItemPredicate.Builder.item().of(tag).build());
   }
 
   /**
    * Creates an item predicate for an item
    */
   private ICriterionInstance hasItem(IItemProvider item) {
-    return InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().item(item).build());
+    return InventoryChangeTrigger.Instance.hasItems(ItemPredicate.Builder.item().of(item).build());
   }
 
   @Override
-  public void act(DirectoryCache cache) {
-    Path path = this.generator.getOutputFolder();
+  public void run(DirectoryCache cache) {
     Set<ResourceLocation> set = Sets.newHashSet();
     this.advancementConsumer = advancement -> {
       if (!set.add(advancement.getId())) {
         throw new IllegalStateException("Duplicate advancement " + advancement.getId());
       } else {
-        saveThing(cache, advancement.getId(), advancement.copy().serialize());
+        saveThing(cache, advancement.getId(), advancement.deconstruct().serializeToJson());
       }
     };
     generate();
@@ -418,7 +416,7 @@ public class AdvancementsProvider extends GenericDataProvider {
    */
   protected Advancement builder(ItemStack display, ResourceLocation name, Advancement parent, FrameType frame, Consumer<Advancement.Builder> consumer) {
     return builder(display, name, (ResourceLocation)null, frame, builder -> {
-      builder.withParent(parent);
+      builder.parent(parent);
       consumer.accept(builder);
     });
   }
@@ -450,11 +448,11 @@ public class AdvancementsProvider extends GenericDataProvider {
    */
   protected Advancement builder(ItemStack display, ResourceLocation name, @Nullable ResourceLocation background, FrameType frame, Consumer<Advancement.Builder> consumer) {
     Advancement.Builder builder = Advancement.Builder
-      .builder().withDisplay(display,
+      .advancement().display(display,
                              new TranslationTextComponent(makeTranslationKey(name) + ".title"),
                              new TranslationTextComponent(makeTranslationKey(name) + ".description"),
                              background, frame, true, frame != FrameType.TASK, false);
     consumer.accept(builder);
-    return builder.register(advancementConsumer, name.toString());
+    return builder.save(advancementConsumer, name.toString());
   }
 }

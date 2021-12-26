@@ -77,8 +77,8 @@ class DefinitionToolStatsTest extends BaseMcTest {
     JsonElement serialized = DefinitionToolStats.SERIALIZER.serialize(stats, DefinitionToolStats.class, mock(JsonSerializationContext.class));
     assertThat(serialized.isJsonObject()).isTrue();
     JsonObject object = serialized.getAsJsonObject();
-    assertThat(JSONUtils.getFloat(object, ToolStats.DURABILITY.getName().toString())).isEqualTo(10);
-    assertThat(JSONUtils.getFloat(object, ToolStats.ATTACK_SPEED.getName().toString())).isEqualTo(2.5f);
+    assertThat(JSONUtils.getAsFloat(object, ToolStats.DURABILITY.getName().toString())).isEqualTo(10);
+    assertThat(JSONUtils.getAsFloat(object, ToolStats.ATTACK_SPEED.getName().toString())).isEqualTo(2.5f);
   }
 
   @Test

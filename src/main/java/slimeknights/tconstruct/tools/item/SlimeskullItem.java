@@ -12,6 +12,8 @@ import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 /** This item is mainly to return the proper model for a slimeskull */
 public class SlimeskullItem extends ModifiableArmorItem {
   public SlimeskullItem(ModifiableArmorMaterial material, Properties properties) {

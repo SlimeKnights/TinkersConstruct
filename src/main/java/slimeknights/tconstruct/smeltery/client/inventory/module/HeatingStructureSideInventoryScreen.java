@@ -37,20 +37,20 @@ public class HeatingStructureSideInventoryScreen extends SideInventoryScreen<Hea
   @Override
   protected int drawSlots(MatrixStack matrices, int xPos, int yPos) {
     assert minecraft != null;
-    minecraft.getTextureManager().bindTexture(SLOT_LOCATION);
+    minecraft.getTextureManager().bind(SLOT_LOCATION);
     int ret = super.drawSlots(matrices, xPos, yPos);
-    minecraft.getTextureManager().bindTexture(GENERIC_INVENTORY);
+    minecraft.getTextureManager().bind(GENERIC_INVENTORY);
     return ret;
   }
 
   @Override
-  public void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
-    super.drawGuiContainerForegroundLayer(matrices, mouseX, mouseY);
+  public void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
+    super.renderLabels(matrices, mouseX, mouseY);
   }
 
   @Override
-  protected void renderHoveredTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-    super.renderHoveredTooltip(matrices, mouseX, mouseY);
+  protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+    super.renderTooltip(matrices, mouseX, mouseY);
     if (parent.melting != null) {
       parent.melting.drawHeatTooltips(matrices, mouseX, mouseY);
     }

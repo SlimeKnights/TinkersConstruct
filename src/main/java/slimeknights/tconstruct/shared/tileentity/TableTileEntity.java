@@ -34,12 +34,12 @@ public abstract class TableTileEntity extends InventoryTileEntity {
   /* Syncing */
 
   @Override
-  public void setInventorySlotContents(int slot, @Nonnull ItemStack itemstack) {
+  public void setItem(int slot, @Nonnull ItemStack itemstack) {
     // send a slot update to the client when items change, so we can update the TESR
-    if (world != null && world instanceof ServerWorld && !world.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
-      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(itemstack, slot, pos), (ServerWorld) world, this.pos);
+    if (level != null && level instanceof ServerWorld && !level.isClientSide && !ItemStack.matches(itemstack, getItem(slot))) {
+      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(itemstack, slot, worldPosition), (ServerWorld) level, this.worldPosition);
     }
-    super.setInventorySlotContents(slot, itemstack);
+    super.setItem(slot, itemstack);
   }
 
   @Override
@@ -59,15 +59,15 @@ public abstract class TableTileEntity extends InventoryTileEntity {
    * Sends a packet to all players with this container open
    */
   public void syncToRelevantPlayers(Consumer<PlayerEntity> action) {
-    if (this.world == null || this.world.isRemote) {
+    if (this.level == null || this.level.isClientSide) {
       return;
     }
 
-    this.world.getPlayers().stream()
+    this.level.players().stream()
       // sync if they are viewing this tile
       .filter(player -> {
-        if (player.openContainer instanceof BaseStationContainer) {
-          return ((BaseStationContainer<?>) player.openContainer).getTile() == this;
+        if (player.containerMenu instanceof BaseStationContainer) {
+          return ((BaseStationContainer<?>) player.containerMenu).getTile() == this;
         }
         return false;
       })
@@ -81,7 +81,7 @@ public abstract class TableTileEntity extends InventoryTileEntity {
    * @param player the player
    */
   protected void playCraftSound(PlayerEntity player) {
-    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getEntityWorld().rand.nextFloat());
+    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
   }
 
   /**
@@ -89,7 +89,7 @@ public abstract class TableTileEntity extends InventoryTileEntity {
    * @param player  Player to send an update to
    */
   protected void syncScreen(PlayerEntity player) {
-    if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+    if (this.level != null && !this.level.isClientSide && player instanceof ServerPlayerEntity) {
       TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(), (ServerPlayerEntity) player);
     }
   }

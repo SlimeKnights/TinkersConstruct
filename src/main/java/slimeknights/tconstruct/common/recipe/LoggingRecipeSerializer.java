@@ -34,7 +34,7 @@ public abstract class LoggingRecipeSerializer<T extends IRecipe<?>> extends Reci
 
   @Nullable
   @Override
-  public T read(ResourceLocation id, PacketBuffer buffer) {
+  public T fromNetwork(ResourceLocation id, PacketBuffer buffer) {
     try {
       return readSafe(id, buffer);
     } catch (RuntimeException e) {
@@ -44,7 +44,7 @@ public abstract class LoggingRecipeSerializer<T extends IRecipe<?>> extends Reci
   }
 
   @Override
-  public void write(PacketBuffer buffer, T recipe) {
+  public void toNetwork(PacketBuffer buffer, T recipe) {
     try {
       writeSafe(buffer, recipe);
     } catch (RuntimeException e) {

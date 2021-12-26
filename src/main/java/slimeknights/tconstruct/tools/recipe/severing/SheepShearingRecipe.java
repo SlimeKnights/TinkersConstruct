@@ -44,8 +44,8 @@ public class SheepShearingRecipe extends SeveringRecipe {
   public ItemStack getOutput(Entity entity) {
     if (entity instanceof SheepEntity) {
       SheepEntity sheep = (SheepEntity)entity;
-      if (!sheep.getSheared() && !sheep.isChild()) {
-        return new ItemStack(WOOL_BY_COLOR.get(sheep.getFleeceColor()), 2);
+      if (!sheep.isSheared() && !sheep.isBaby()) {
+        return new ItemStack(WOOL_BY_COLOR.get(sheep.getColor()), 2);
       }
     }
     return ItemStack.EMPTY;

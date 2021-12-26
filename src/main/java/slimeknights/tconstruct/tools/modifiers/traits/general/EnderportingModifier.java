@@ -37,24 +37,24 @@ public class EnderportingModifier extends SingleUseModifier {
 
   /** Attempts to teleport to the given location */
   private static boolean tryTeleport(LivingEntity living, double x, double y, double z) {
-    World world = living.getEntityWorld();
+    World world = living.getCommandSenderWorld();
     // should never happen with the hooks, but just in case
-    if (world.isRemote) {
+    if (world.isClientSide) {
       return false;
     }
     // this logic is cloned from suffocation damage logic
-    float scaledWidth = living.getWidth() * 0.8F;
+    float scaledWidth = living.getBbWidth() * 0.8F;
     float eyeHeight = living.getEyeHeight();
-    AxisAlignedBB aabb = AxisAlignedBB.withSizeAtOrigin(scaledWidth, eyeHeight, scaledWidth).offset(x, y + (eyeHeight / 2), z);
+    AxisAlignedBB aabb = AxisAlignedBB.ofSize(scaledWidth, eyeHeight, scaledWidth).move(x, y + (eyeHeight / 2), z);
 
     BiPredicate<BlockState, BlockPos> statePosPredicate = (state, pos) -> state.isSuffocating(world, pos);
-    boolean didCollide = world.func_241457_a_(living, aabb, statePosPredicate).findAny().isPresent();
+    boolean didCollide = world.getBlockCollisions(living, aabb, statePosPredicate).findAny().isPresent();
 
     // if we collided, try again 1 block down, means mining the top of 2 blocks is valid
-    if (didCollide && living.getHeight() > 1) {
+    if (didCollide && living.getBbHeight() > 1) {
       // try again 1 block down
-      aabb = aabb.offset(0, -1, 0);
-      didCollide = world.func_241457_a_(living, aabb, statePosPredicate).findAny().isPresent();
+      aabb = aabb.move(0, -1, 0);
+      didCollide = world.getBlockCollisions(living, aabb, statePosPredicate).findAny().isPresent();
       y -= 1;
     }
 
@@ -67,18 +67,18 @@ public class EnderportingModifier extends SingleUseModifier {
         // this logic only runs serverside, so need to use the server controller logic to move the player
         if (living instanceof ServerPlayerEntity) {
           ServerPlayerEntity playerMP = (ServerPlayerEntity) living;
-          playerMP.connection.setPlayerLocation(x, y, z, playerMP.rotationYaw, playerMP.rotationPitch, PACKET_FLAGS);
+          playerMP.connection.teleport(x, y, z, playerMP.yRot, playerMP.xRot, PACKET_FLAGS);
         } else {
-          living.setPosition(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+          living.setPos(event.getTargetX(), event.getTargetY(), event.getTargetZ());
         }
         // particles must be sent on a server
         if (world instanceof ServerWorld) {
           ServerWorld serverWorld = (ServerWorld) world;
           for (int i = 0; i < 32; ++i) {
-            serverWorld.spawnParticle(ParticleTypes.PORTAL, living.getPosX(), living.getPosY() + world.rand.nextDouble() * 2.0D, living.getPosZ(), 1, world.rand.nextGaussian(), 0.0D, world.rand.nextGaussian(), 0);
+            serverWorld.sendParticles(ParticleTypes.PORTAL, living.getX(), living.getY() + world.random.nextDouble() * 2.0D, living.getZ(), 1, world.random.nextGaussian(), 0.0D, world.random.nextGaussian(), 0);
           }
         }
-        world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), Sounds.ENDERPORTING.getSound(),  living.getSoundCategory(), 1f, 1f);
+        world.playSound(null, living.getX(), living.getY(), living.getZ(), Sounds.ENDERPORTING.getSound(),  living.getSoundSource(), 1f, 1f);
         return true;
       }
     }
@@ -91,8 +91,8 @@ public class EnderportingModifier extends SingleUseModifier {
       LivingEntity target = context.getLivingTarget();
       // if the entity is dead now
       if (target != null && target.getHealth() == 0) {
-        Vector3d pos = target.getPositionVec();
-        if (tryTeleport(context.getAttacker(), pos.getX(), pos.getY(), pos.getZ())) {
+        Vector3d pos = target.position();
+        if (tryTeleport(context.getAttacker(), pos.x(), pos.y(), pos.z())) {
           return 2;
         }
       }

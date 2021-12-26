@@ -24,6 +24,8 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /**
  * Logic for slime vines. Have three stages unlike vanilla vines, and only grow down
  */
@@ -34,19 +36,19 @@ public class SlimeVineBlock extends VineBlock {
   private final SlimeType foliage;
   public SlimeVineBlock(Properties properties, SlimeType foliage) {
     super(properties);
-    this.setDefaultState(this.getDefaultState().with(STAGE, VineStage.START));
+    this.registerDefaultState(this.defaultBlockState().setValue(STAGE, VineStage.START));
     this.foliage = foliage;
   }
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-    super.fillStateContainer(builder);
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    super.createBlockStateDefinition(builder);
     builder.add(STAGE);
   }
 
   @Override
   public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-    if (worldIn.isRemote) {
+    if (worldIn.isClientSide) {
       return;
     }
 
@@ -54,16 +56,16 @@ public class SlimeVineBlock extends VineBlock {
     if (hasNoHorizontalSides(state)) {
       // randomly choose sides to add
       BlockState newState = state;
-      boolean onLeaves = worldIn.getBlockState(pos.up()).isIn(TinkerTags.Blocks.SLIMY_LEAVES);
+      boolean onLeaves = worldIn.getBlockState(pos.above()).is(TinkerTags.Blocks.SLIMY_LEAVES);
       for (Direction side : Direction.Plane.HORIZONTAL) {
         // must be hanging from leaves or have a valid side
-        if ((onLeaves || canAttachTo(worldIn, pos.offset(side), side)) && random.nextInt(6) == 0) {
-          newState = newState.with(getPropertyFor(side), true);
+        if ((onLeaves || isAcceptableNeighbour(worldIn, pos.relative(side), side)) && random.nextInt(6) == 0) {
+          newState = newState.setValue(getPropertyForFace(side), true);
         }
       }
       // if there was a change, update
       if (newState != state) {
-        worldIn.setBlockState(pos, newState, 3);
+        worldIn.setBlock(pos, newState, 3);
       }
       // normal side growth
     } else if (random.nextInt(4) == 0) {
@@ -80,35 +82,35 @@ public class SlimeVineBlock extends VineBlock {
    */
   public void grow(IWorld worldIn, Random random, BlockPos pos, BlockState state) {
     // no growing ends
-    if (hasNoHorizontalSides(state) || state.get(STAGE) == VineStage.END) {
+    if (hasNoHorizontalSides(state) || state.getValue(STAGE) == VineStage.END) {
       return;
     }
 
     // start growing down if we have existing sides
-    BlockPos below = pos.down();
-    if (worldIn.isAirBlock(below)) {
+    BlockPos below = pos.below();
+    if (worldIn.isEmptyBlock(below)) {
       // free floating position? possibly move to next stage
       if (freeFloating(worldIn, pos, state)) {
         // force transition after 3 vines
         int i = 1;
-        VineStage stage = state.get(STAGE);
+        VineStage stage = state.getValue(STAGE);
         for (; i < 3; i++) {
-          BlockState above = worldIn.getBlockState(pos.up(i));
-          if (!above.matchesBlock(this) || above.get(STAGE) != stage) {
+          BlockState above = worldIn.getBlockState(pos.above(i));
+          if (!above.is(this) || above.getValue(STAGE) != stage) {
             break;
           }
         }
         if (i > 2 || random.nextInt(2) == 0) {
-          state = state.cycleValue(STAGE);
+          state = state.cycle(STAGE);
         }
       }
       // place new vine at position
-      worldIn.setBlockState(below, state.with(UP, false), 3);
+      worldIn.setBlock(below, state.setValue(UP, false), 3);
     }
   }
 
   @Override
-  public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+  public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
     return hasSides(updateConnections(state, worldIn, pos));
   }
 
@@ -119,30 +121,30 @@ public class SlimeVineBlock extends VineBlock {
    * Note that this method should ideally consider only the specific face passed in.
    */
   @Override
-  public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
     if (facing == Direction.DOWN) {
-      return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+      return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
     BlockState updated = updateConnections(stateIn, worldIn, currentPos);
-    return !hasSides(updated) ? Blocks.AIR.getDefaultState() : updated;
+    return !hasSides(updated) ? Blocks.AIR.defaultBlockState() : updated;
   }
 
   @Override
   @Nullable
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
+    World world = context.getLevel();
+    BlockPos pos = context.getClickedPos();
     BlockState currState = world.getBlockState(pos);
-    boolean isVine = currState.matchesBlock(this);
-    BlockState vineState = isVine ? currState : this.getDefaultState();
+    boolean isVine = currState.is(this);
+    BlockState vineState = isVine ? currState : this.defaultBlockState();
 
     // try each direction, see if we can place on that side
     for (Direction direction : context.getNearestLookingDirections()) {
       if (direction != Direction.DOWN) {
         // if no existing vine on the side and its valid, place there
-        BooleanProperty prop = getPropertyFor(direction);
-        if (!(isVine && currState.get(prop)) && this.hasAttachment(world, pos, direction)) {
-          return vineState.with(prop, true);
+        BooleanProperty prop = getPropertyForFace(direction);
+        if (!(isVine && currState.getValue(prop)) && this.hasAttachment(world, pos, direction)) {
+          return vineState.setValue(prop, true);
         }
       }
     }
@@ -160,8 +162,8 @@ public class SlimeVineBlock extends VineBlock {
    * @return  True if there is at least one face
    */
   private static boolean hasSides(BlockState state) {
-    for (BooleanProperty booleanproperty : FACING_TO_PROPERTY_MAP.values()) {
-      if (state.get(booleanproperty)) {
+    for (BooleanProperty booleanproperty : PROPERTY_BY_DIRECTION.values()) {
+      if (state.getValue(booleanproperty)) {
         return true;
       }
     }
@@ -175,7 +177,7 @@ public class SlimeVineBlock extends VineBlock {
    */
   private static boolean hasNoHorizontalSides(BlockState state) {
     for (Direction side : Direction.Plane.HORIZONTAL) {
-      if (state.get(getPropertyFor(side))) {
+      if (state.getValue(getPropertyForFace(side))) {
         return false;
       }
     }
@@ -191,7 +193,7 @@ public class SlimeVineBlock extends VineBlock {
    */
   private static boolean freeFloating(IWorld world, BlockPos pos, BlockState state) {
     for (Direction side : Direction.Plane.HORIZONTAL) {
-      if (state.get(getPropertyFor(side)) && canAttachTo(world, pos.offset(side), side)) {
+      if (state.getValue(getPropertyForFace(side)) && isAcceptableNeighbour(world, pos.relative(side), side)) {
         return false;
       }
     }
@@ -206,15 +208,15 @@ public class SlimeVineBlock extends VineBlock {
    * @return  Updated connections
    */
   private BlockState updateConnections(BlockState state, IBlockReader world, BlockPos pos) {
-    BlockPos up = pos.up();
-    if (state.get(UP)) {
-      state = state.with(UP, canAttachTo(world, up, Direction.UP));
+    BlockPos up = pos.above();
+    if (state.getValue(UP)) {
+      state = state.setValue(UP, isAcceptableNeighbour(world, up, Direction.UP));
     }
     // update each side with whether it can be supported
     for (Direction direction : Direction.Plane.HORIZONTAL) {
-      BooleanProperty prop = getPropertyFor(direction);
-      if (state.get(prop)) {
-        state = state.with(prop, hasAttachment(world, pos, direction));
+      BooleanProperty prop = getPropertyForFace(direction);
+      if (state.getValue(prop)) {
+        state = state.setValue(prop, hasAttachment(world, pos, direction));
       }
     }
 
@@ -234,17 +236,17 @@ public class SlimeVineBlock extends VineBlock {
       return false;
     }
     // remaining direction must be supported
-    BlockPos offset = pos.offset(side);
-    if (canAttachTo(world, offset, side)) {
+    BlockPos offset = pos.relative(side);
+    if (isAcceptableNeighbour(world, offset, side)) {
       return true;
     }
     // if not supported, try finding a vine or leaves there
-    BlockState upState = world.getBlockState(pos.up());
-    if (upState.isIn(TinkerTags.Blocks.SLIMY_LEAVES)) {
+    BlockState upState = world.getBlockState(pos.above());
+    if (upState.is(TinkerTags.Blocks.SLIMY_LEAVES)) {
       return true;
     }
     // otherwise, if not up try a supporting vine (must not be end to support)
-    return side != Direction.UP && (upState.matchesBlock(this) && upState.get(FACING_TO_PROPERTY_MAP.get(side)) && upState.get(STAGE) != VineStage.END);
+    return side != Direction.UP && (upState.is(this) && upState.getValue(PROPERTY_BY_DIRECTION.get(side)) && upState.getValue(STAGE) != VineStage.END);
   }
 
   /** Stages of the vine, cycles through them as it grows */
@@ -254,7 +256,7 @@ public class SlimeVineBlock extends VineBlock {
     END;
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
       return this.toString().toLowerCase(Locale.US);
     }
   }

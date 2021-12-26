@@ -89,9 +89,9 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   public void updateFluid() {
     modelData.setData(IDisplayFluidListener.PROPERTY, IDisplayFluidListener.normalizeFluid(itemHandler.getFluid()));
     requestModelDataUpdate();
-    assert world != null;
+    assert level != null;
     BlockState state = getBlockState();
-    world.notifyBlockUpdate(pos, state, state, 48);
+    level.sendBlockUpdated(worldPosition, state, state, 48);
   }
 
 
@@ -103,8 +103,8 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tags) {
-    super.read(state, tags);
+  public void load(BlockState state, CompoundNBT tags) {
+    super.load(state, tags);
     if (tags.contains(TAG_ITEM, NBT.TAG_COMPOUND)) {
       itemHandler.readFromNBT(tags.getCompound(TAG_ITEM));
     }
@@ -113,7 +113,7 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   @Override
   public void handleUpdateTag(BlockState state, CompoundNBT tag) {
     super.handleUpdateTag(state, tag);
-    if (world != null && world.isRemote) {
+    if (level != null && level.isClientSide) {
       updateFluid();
     }
   }

@@ -29,8 +29,8 @@ public class FluidTagEmptyCondition implements ICondition {
 
   @Override
   public boolean test() {
-    ITag<Fluid> tag = TagCollectionManager.getManager().getFluidTags().get(name);
-    return tag == null || tag.getAllElements().isEmpty();
+    ITag<Fluid> tag = TagCollectionManager.getInstance().getFluids().getTag(name);
+    return tag == null || tag.getValues().isEmpty();
   }
 
   @Override

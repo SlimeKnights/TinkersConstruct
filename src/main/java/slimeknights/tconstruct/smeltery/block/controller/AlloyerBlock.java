@@ -16,6 +16,8 @@ import slimeknights.tconstruct.smeltery.tileentity.controller.AlloyerTileEntity;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class AlloyerBlock extends TinyMultiblockControllerBlock {
   public AlloyerBlock(Properties builder) {
     super(builder);
@@ -41,7 +43,7 @@ public class AlloyerBlock extends TinyMultiblockControllerBlock {
   @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  public float getShadeBrightness(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return 1.0F;
   }
 
@@ -52,7 +54,7 @@ public class AlloyerBlock extends TinyMultiblockControllerBlock {
 
   @Override
   public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-    if (state.get(ACTIVE)) {
+    if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 4F) / 16F;
       double z = pos.getZ() + 0.5D;
