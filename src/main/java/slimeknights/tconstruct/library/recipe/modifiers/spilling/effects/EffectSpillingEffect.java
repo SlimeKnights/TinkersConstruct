@@ -47,7 +47,7 @@ public class EffectSpillingEffect implements ISpillingEffect {
     @Override
     public EffectSpillingEffect deserialize(JsonObject json) {
       ResourceLocation id = JsonHelper.getResourceLocation(json, "name");
-      if (!ForgeRegistries.POTIONS.containsKey(id)) {
+      if (!ForgeRegistries.MOB_EFFECTS.containsKey(id)) {
         throw new JsonSyntaxException("Unknown effect " + id);
       }
       MobEffect effect = Objects.requireNonNull(ForgeRegistries.MOB_EFFECTS.getValue(id));
