@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:slime_chestplate",
-      "nbt": "{tic_broken:0b,Damage:0,tic_display:1b}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
     },
     "title": {
       "translate": "advancements.tconstruct.world.slimesuit.title"
@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:slime_boots"
+            "items": [
+              "tconstruct:slime_boots"
+            ]
           }
         ]
       }
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:slime_leggings"
+            "items": [
+              "tconstruct:slime_leggings"
+            ]
           }
         ]
       }
@@ -42,7 +46,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:slime_chestplate"
+            "items": [
+              "tconstruct:slime_chestplate"
+            ]
           }
         ]
       }
@@ -52,7 +58,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:slime_helmet"
+            "items": [
+              "tconstruct:slime_helmet"
+            ]
           }
         ]
       }

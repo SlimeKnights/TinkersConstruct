@@ -9,7 +9,7 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "type": "mantle:without",
+      "type": "mantle:difference",
       "base": [
         {
           "tag": "forge:workbenches"
@@ -18,7 +18,7 @@
           "tag": "tconstruct:tables"
         }
       ],
-      "without": {
+      "subtracted": {
         "item": "tconstruct:crafting_station"
       }
     }

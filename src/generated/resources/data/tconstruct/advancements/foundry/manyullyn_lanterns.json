@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:scorched_lantern",
-      "nbt": "{tank:{FluidName:\"tconstruct:molten_manyullyn\",Amount:100}}"
+      "nbt": "{tank:{Amount:100,FluidName:\"tconstruct:molten_manyullyn\"}}"
     },
     "title": {
       "translate": "advancements.tconstruct.foundry.manyullyn_lanterns.title"
@@ -22,11 +22,13 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:seared_lantern",
+            "items": [
+              "tconstruct:seared_lantern"
+            ],
             "count": {
               "min": 64
             },
-            "nbt": "{tank:{FluidName:\"tconstruct:molten_manyullyn\",Amount:100}}"
+            "nbt": "{tank:{Amount:100,FluidName:\"tconstruct:molten_manyullyn\"}}"
           }
         ]
       }
@@ -36,11 +38,13 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_lantern",
+            "items": [
+              "tconstruct:scorched_lantern"
+            ],
             "count": {
               "min": 64
             },
-            "nbt": "{tank:{FluidName:\"tconstruct:molten_manyullyn\",Amount:100}}"
+            "nbt": "{tank:{Amount:100,FluidName:\"tconstruct:molten_manyullyn\"}}"
           }
         ]
       }

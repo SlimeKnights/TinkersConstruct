@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:ender_congealed_slime"
+            "items": [
+              "tconstruct:ender_congealed_slime"
+            ]
           }
         ]
       }

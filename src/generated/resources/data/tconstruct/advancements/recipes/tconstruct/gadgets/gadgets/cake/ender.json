@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:ender_slime_bucket"
+            "items": [
+              "tconstruct:ender_slime_bucket"
+            ]
           }
         ]
       }

@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:part_builder"
+            "items": [
+              "tconstruct:part_builder"
+            ]
           }
         ]
       }

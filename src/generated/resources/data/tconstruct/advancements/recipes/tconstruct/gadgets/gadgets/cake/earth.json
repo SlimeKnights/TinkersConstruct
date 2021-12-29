@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:earth_slime_bucket"
+            "items": [
+              "tconstruct:earth_slime_bucket"
+            ]
           }
         ]
       }

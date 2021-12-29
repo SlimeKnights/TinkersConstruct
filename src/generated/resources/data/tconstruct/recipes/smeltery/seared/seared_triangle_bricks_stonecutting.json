@@ -5,11 +5,11 @@
       "item": "tconstruct:seared_stone"
     },
     {
-      "type": "mantle:without",
+      "type": "mantle:difference",
       "base": {
         "tag": "tconstruct:seared_bricks"
       },
-      "without": {
+      "subtracted": {
         "item": "tconstruct:seared_triangle_bricks"
       }
     }

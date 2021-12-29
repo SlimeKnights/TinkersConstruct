@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:tinker_station"
+            "items": [
+              "tconstruct:tinker_station"
+            ]
           }
         ]
       }

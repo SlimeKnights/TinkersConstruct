@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:fantastic_foundry"
+            "items": [
+              "tconstruct:fantastic_foundry"
+            ]
           }
         ]
       }

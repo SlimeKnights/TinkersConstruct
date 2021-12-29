@@ -1,11 +1,11 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "type": "mantle:without",
+    "type": "mantle:difference",
     "base": {
       "tag": "tconstruct:scorched_blocks"
     },
-    "without": {
+    "subtracted": {
       "item": "tconstruct:polished_scorched_stone"
     }
   },

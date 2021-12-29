@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "type": "mantle:without",
+    "type": "mantle:difference",
     "base": {
       "tag": "minecraft:logs"
     },
-    "without": {
+    "subtracted": {
       "tag": "tconstruct:slimy_logs"
     }
   },

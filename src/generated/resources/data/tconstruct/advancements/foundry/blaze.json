@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:scorched_fuel_gauge",
-      "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+      "nbt": "{tank:{Amount:4000,FluidName:\"tconstruct:blazing_blood\"}}"
     },
     "title": {
       "translate": "advancements.tconstruct.foundry.blaze.title"
@@ -22,8 +22,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:seared_fuel_tank",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+            "items": [
+              "tconstruct:seared_fuel_tank"
+            ],
+            "nbt": "{tank:{Amount:4000,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -33,8 +35,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:seared_fuel_gauge",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+            "items": [
+              "tconstruct:seared_fuel_gauge"
+            ],
+            "nbt": "{tank:{Amount:4000,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -44,8 +48,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:seared_ingot_tank",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+            "items": [
+              "tconstruct:seared_ingot_tank"
+            ],
+            "nbt": "{tank:{Amount:4608,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -55,8 +61,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:seared_ingot_gauge",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+            "items": [
+              "tconstruct:seared_ingot_gauge"
+            ],
+            "nbt": "{tank:{Amount:4608,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -66,8 +74,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_fuel_tank",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+            "items": [
+              "tconstruct:scorched_fuel_tank"
+            ],
+            "nbt": "{tank:{Amount:4000,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -77,8 +87,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_fuel_gauge",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4000}}"
+            "items": [
+              "tconstruct:scorched_fuel_gauge"
+            ],
+            "nbt": "{tank:{Amount:4000,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -88,8 +100,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_ingot_tank",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+            "items": [
+              "tconstruct:scorched_ingot_tank"
+            ],
+            "nbt": "{tank:{Amount:4608,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }
@@ -99,8 +113,10 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_ingot_gauge",
-            "nbt": "{tank:{FluidName:\"tconstruct:blazing_blood\",Amount:4608}}"
+            "items": [
+              "tconstruct:scorched_ingot_gauge"
+            ],
+            "nbt": "{tank:{Amount:4608,FluidName:\"tconstruct:blazing_blood\"}}"
           }
         ]
       }

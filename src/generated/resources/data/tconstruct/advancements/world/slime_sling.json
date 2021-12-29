@@ -21,7 +21,9 @@
       "trigger": "minecraft:item_durability_changed",
       "conditions": {
         "item": {
-          "item": "tconstruct:earth_slime_sling"
+          "items": [
+            "tconstruct:earth_slime_sling"
+          ]
         },
         "durability": {
           "max": 150
@@ -32,7 +34,9 @@
       "trigger": "minecraft:item_durability_changed",
       "conditions": {
         "item": {
-          "item": "tconstruct:sky_slime_sling"
+          "items": [
+            "tconstruct:sky_slime_sling"
+          ]
         },
         "durability": {
           "max": 150
@@ -43,7 +47,9 @@
       "trigger": "minecraft:item_durability_changed",
       "conditions": {
         "item": {
-          "item": "tconstruct:ichor_slime_sling"
+          "items": [
+            "tconstruct:ichor_slime_sling"
+          ]
         },
         "durability": {
           "max": 150
@@ -54,7 +60,9 @@
       "trigger": "minecraft:item_durability_changed",
       "conditions": {
         "item": {
-          "item": "tconstruct:ender_slime_sling"
+          "items": [
+            "tconstruct:ender_slime_sling"
+          ]
         },
         "durability": {
           "max": 150

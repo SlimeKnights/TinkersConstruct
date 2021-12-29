@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:vein_hammer",
-      "nbt": "{tic_broken:0b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"],tic_display:1b}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"]}"
     },
     "title": {
       "translate": "advancements.tconstruct.smeltery.tool_forge.title"
@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:sledge_hammer"
+            "items": [
+              "tconstruct:sledge_hammer"
+            ]
           }
         ]
       }
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:vein_hammer"
+            "items": [
+              "tconstruct:vein_hammer"
+            ]
           }
         ]
       }
@@ -42,7 +46,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:excavator"
+            "items": [
+              "tconstruct:excavator"
+            ]
           }
         ]
       }
@@ -52,7 +58,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:broad_axe"
+            "items": [
+              "tconstruct:broad_axe"
+            ]
           }
         ]
       }
@@ -62,7 +70,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scythe"
+            "items": [
+              "tconstruct:scythe"
+            ]
           }
         ]
       }
@@ -72,7 +82,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:cleaver"
+            "items": [
+              "tconstruct:cleaver"
+            ]
           }
         ]
       }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:pig_iron_nugget"
+            "items": [
+              "tconstruct:pig_iron_nugget"
+            ]
           }
         ]
       }

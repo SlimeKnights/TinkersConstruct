@@ -14,7 +14,7 @@
     }
   ],
   "tools": {
-    "type": "mantle:without",
+    "type": "mantle:difference",
     "base": {
       "type": "mantle:intersection",
       "ingredients": [
@@ -26,7 +26,7 @@
         }
       ]
     },
-    "without": [
+    "subtracted": [
       {
         "item": "tconstruct:mattock"
       },

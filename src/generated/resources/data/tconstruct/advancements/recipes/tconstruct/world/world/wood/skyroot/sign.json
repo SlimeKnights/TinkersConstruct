@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:skyroot_planks"
+            "items": [
+              "tconstruct:skyroot_planks"
+            ]
           }
         ]
       }

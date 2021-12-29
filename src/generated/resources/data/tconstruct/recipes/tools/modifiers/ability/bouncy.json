@@ -23,11 +23,11 @@
     }
   ],
   "tools": {
-    "type": "mantle:without",
+    "type": "mantle:difference",
     "base": {
       "tag": "tconstruct:modifiable/armor/boots"
     },
-    "without": {
+    "subtracted": {
       "item": "tconstruct:slime_boots"
     }
   },

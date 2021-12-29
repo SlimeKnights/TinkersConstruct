@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:tinkers_anvil"
+            "items": [
+              "tconstruct:tinkers_anvil"
+            ]
           }
         ]
       }
@@ -31,7 +33,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_anvil"
+            "items": [
+              "tconstruct:scorched_anvil"
+            ]
           }
         ]
       }

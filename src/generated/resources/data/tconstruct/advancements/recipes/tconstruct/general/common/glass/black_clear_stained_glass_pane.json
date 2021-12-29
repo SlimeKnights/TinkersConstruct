@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:black_clear_stained_glass"
+            "items": [
+              "tconstruct:black_clear_stained_glass"
+            ]
           }
         ]
       }

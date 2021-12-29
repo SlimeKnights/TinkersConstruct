@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:travelers_helmet",
-      "nbt": "{tic_broken:0b,Damage:0,tic_display:1b}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
     },
     "title": {
       "translate": "advancements.tconstruct.tools.travelers_gear.title"
@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:travelers_boots"
+            "items": [
+              "tconstruct:travelers_boots"
+            ]
           }
         ]
       }
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:travelers_leggings"
+            "items": [
+              "tconstruct:travelers_leggings"
+            ]
           }
         ]
       }
@@ -42,7 +46,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:travelers_chestplate"
+            "items": [
+              "tconstruct:travelers_chestplate"
+            ]
           }
         ]
       }
@@ -52,7 +58,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:travelers_helmet"
+            "items": [
+              "tconstruct:travelers_helmet"
+            ]
           }
         ]
       }

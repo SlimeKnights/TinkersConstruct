@@ -20,7 +20,9 @@
             "conditions": {
               "items": [
                 {
-                  "item": "tconstruct:nether_grout"
+                  "items": [
+                    "tconstruct:nether_grout"
+                  ]
                 }
               ]
             }
@@ -59,7 +61,9 @@
             "conditions": {
               "items": [
                 {
-                  "item": "tconstruct:nether_grout"
+                  "items": [
+                    "tconstruct:nether_grout"
+                  ]
                 }
               ]
             }

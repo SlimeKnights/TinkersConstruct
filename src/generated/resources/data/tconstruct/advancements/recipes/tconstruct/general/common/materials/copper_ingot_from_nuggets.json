@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:copper_nugget"
+            "items": [
+              "tconstruct:copper_nugget"
+            ]
           }
         ]
       }

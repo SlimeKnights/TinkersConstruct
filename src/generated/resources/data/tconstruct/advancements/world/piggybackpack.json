@@ -20,7 +20,9 @@
       "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
         "item": {
-          "item": "tconstruct:piggy_backpack"
+          "items": [
+            "tconstruct:piggy_backpack"
+          ]
         },
         "entity": [
           {

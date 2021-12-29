@@ -2,11 +2,11 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "type": "mantle:without",
+      "type": "mantle:difference",
       "base": {
         "tag": "forge:heads"
       },
-      "without": {
+      "subtracted": {
         "item": "minecraft:dragon_head"
       }
     }

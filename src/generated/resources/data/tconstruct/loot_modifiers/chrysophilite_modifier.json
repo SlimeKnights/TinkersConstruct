@@ -27,10 +27,11 @@
     {
       "function": "minecraft:set_count",
       "count": {
+        "type": "minecraft:uniform",
         "min": 2.0,
-        "max": 6.0,
-        "type": "minecraft:uniform"
-      }
+        "max": 6.0
+      },
+      "add": false
     },
     {
       "function": "tconstruct:chrysophilite_bonus",

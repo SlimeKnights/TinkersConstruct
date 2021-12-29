@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:blank_cast"
+            "items": [
+              "tconstruct:blank_cast"
+            ]
           }
         ]
       }
@@ -31,7 +33,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:ingot_cast"
+            "items": [
+              "tconstruct:ingot_cast"
+            ]
           }
         ]
       }
@@ -41,7 +45,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:nugget_cast"
+            "items": [
+              "tconstruct:nugget_cast"
+            ]
           }
         ]
       }
@@ -51,7 +57,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:gem_cast"
+            "items": [
+              "tconstruct:gem_cast"
+            ]
           }
         ]
       }
@@ -61,7 +69,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:rod_cast"
+            "items": [
+              "tconstruct:rod_cast"
+            ]
           }
         ]
       }
@@ -71,7 +81,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:repair_kit_cast"
+            "items": [
+              "tconstruct:repair_kit_cast"
+            ]
           }
         ]
       }
@@ -81,7 +93,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:pickaxe_head_cast"
+            "items": [
+              "tconstruct:pickaxe_head_cast"
+            ]
           }
         ]
       }
@@ -91,7 +105,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:small_axe_head_cast"
+            "items": [
+              "tconstruct:small_axe_head_cast"
+            ]
           }
         ]
       }
@@ -101,7 +117,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:small_blade_cast"
+            "items": [
+              "tconstruct:small_blade_cast"
+            ]
           }
         ]
       }
@@ -111,7 +129,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:hammer_head_cast"
+            "items": [
+              "tconstruct:hammer_head_cast"
+            ]
           }
         ]
       }
@@ -121,7 +141,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:broad_blade_cast"
+            "items": [
+              "tconstruct:broad_blade_cast"
+            ]
           }
         ]
       }
@@ -131,7 +153,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:broad_axe_head_cast"
+            "items": [
+              "tconstruct:broad_axe_head_cast"
+            ]
           }
         ]
       }
@@ -141,7 +165,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:tool_binding_cast"
+            "items": [
+              "tconstruct:tool_binding_cast"
+            ]
           }
         ]
       }
@@ -151,7 +177,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:large_plate_cast"
+            "items": [
+              "tconstruct:large_plate_cast"
+            ]
           }
         ]
       }
@@ -161,7 +189,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:tool_handle_cast"
+            "items": [
+              "tconstruct:tool_handle_cast"
+            ]
           }
         ]
       }
@@ -171,7 +201,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:tough_handle_cast"
+            "items": [
+              "tconstruct:tough_handle_cast"
+            ]
           }
         ]
       }

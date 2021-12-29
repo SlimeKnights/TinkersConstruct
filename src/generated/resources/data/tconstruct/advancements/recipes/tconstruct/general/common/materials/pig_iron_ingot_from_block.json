@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:pig_iron_block"
+            "items": [
+              "tconstruct:pig_iron_block"
+            ]
           }
         ]
       }

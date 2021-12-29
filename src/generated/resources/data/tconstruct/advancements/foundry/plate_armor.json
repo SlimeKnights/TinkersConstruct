@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:plate_chestplate",
-      "nbt": "{tic_broken:0b,Damage:0,tic_display:1b}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
     },
     "title": {
       "translate": "advancements.tconstruct.foundry.plate_armor.title"
@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:plate_boots"
+            "items": [
+              "tconstruct:plate_boots"
+            ]
           }
         ]
       }
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:plate_leggings"
+            "items": [
+              "tconstruct:plate_leggings"
+            ]
           }
         ]
       }
@@ -42,7 +46,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:plate_chestplate"
+            "items": [
+              "tconstruct:plate_chestplate"
+            ]
           }
         ]
       }
@@ -52,7 +58,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:plate_helmet"
+            "items": [
+              "tconstruct:plate_helmet"
+            ]
           }
         ]
       }

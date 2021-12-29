@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:magma_bucket"
+            "items": [
+              "tconstruct:magma_bucket"
+            ]
           }
         ]
       }

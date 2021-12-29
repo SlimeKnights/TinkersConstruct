@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:skyroot_log"
+            "items": [
+              "tconstruct:skyroot_log"
+            ]
           }
         ]
       }

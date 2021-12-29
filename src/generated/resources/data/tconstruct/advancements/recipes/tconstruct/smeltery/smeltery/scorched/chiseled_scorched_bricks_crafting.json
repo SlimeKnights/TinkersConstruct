@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_bricks_slab"
+            "items": [
+              "tconstruct:scorched_bricks_slab"
+            ]
           }
         ]
       }

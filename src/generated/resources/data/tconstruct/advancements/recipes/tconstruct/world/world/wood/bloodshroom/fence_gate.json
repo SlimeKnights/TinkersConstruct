@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:bloodshroom_planks"
+            "items": [
+              "tconstruct:bloodshroom_planks"
+            ]
           }
         ]
       }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:queens_slime_nugget"
+            "items": [
+              "tconstruct:queens_slime_nugget"
+            ]
           }
         ]
       }
