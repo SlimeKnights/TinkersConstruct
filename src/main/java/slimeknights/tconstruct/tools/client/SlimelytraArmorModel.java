@@ -8,13 +8,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
-import slimeknights.tconstruct.tools.ArmorDefinitions;
 
 import javax.annotation.Nullable;
 
 /** Model to render elytra wings as a chestplate */
 public class SlimelytraArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
-  public static final SlimelytraArmorModel<LivingEntity> INSTANCE = new SlimelytraArmorModel<>(ArmorDefinitions.SLIMESUIT);
+  //public static final SlimelytraArmorModel<LivingEntity> INSTANCE = new SlimelytraArmorModel<>(ArmorDefinitions.SLIMESUIT);
 
   /** Base elytra model to render */
   private final ElytraModel<T> elytraModel = new ElytraModel<>(null); // TODO
