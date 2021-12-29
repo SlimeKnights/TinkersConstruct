@@ -5,15 +5,15 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
@@ -53,10 +53,8 @@ public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using leggings */
   private static final KeyMapping LEGGINGS_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.i"), "key.categories.gameplay");
 
-  /**
-   * Called by TinkerClient to add the resource listeners, runs during constructor
-   */
-  public static void addResourceListener(ReloadableResourceManager manager) {
+  @SubscribeEvent
+  static void addResourceListener(RegisterClientReloadListenersEvent manager) {
     ModifierModelManager.init(manager);
   }
 
@@ -76,8 +74,12 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
+  static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    event.registerEntityRenderer(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
+  }
+
+  @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
-    EntityRenderers.register(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
 
     // keybinds

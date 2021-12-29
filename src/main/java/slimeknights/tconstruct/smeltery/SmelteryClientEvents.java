@@ -3,10 +3,10 @@ package slimeknights.tconstruct.smeltery;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -36,11 +36,22 @@ import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid= TConstruct.MOD_ID, value= Dist.CLIENT, bus= Bus.MOD)
 public class SmelteryClientEvents extends ClientEventBase {
-  /**
-   * Called by TinkerClient to add the resource listeners, runs during constructor
-   */
-  public static void addResourceListener(ReloadableResourceManager manager) {
+  @SubscribeEvent
+  static void addResourceListener(RegisterClientReloadListenersEvent event) {
     FaucetFluidLoader.initialize();
+  }
+
+  @SubscribeEvent
+  static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    event.registerBlockEntityRenderer(TinkerSmeltery.tank.get(), TankTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.channel.get(), ChannelTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.alloyer.get(), TankTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.smeltery.get(), HeatingStructureTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.foundry.get(), HeatingStructureTileEntityRenderer::new);
   }
 
   @SubscribeEvent
@@ -77,17 +88,6 @@ public class SmelteryClientEvents extends ClientEventBase {
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedLantern.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedGlass.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedGlassPane.get(), cutout);
-
-    // TESRs
-    BlockEntityRenderers.register(TinkerSmeltery.tank.get(), TankTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.channel.get(), ChannelTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.alloyer.get(), TankTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.smeltery.get(), HeatingStructureTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerSmeltery.foundry.get(), HeatingStructureTileEntityRenderer::new);
 
     // screens
     MenuScreens.register(TinkerSmeltery.melterContainer.get(), MelterScreen::new);

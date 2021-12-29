@@ -1,16 +1,17 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.font.FontManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.font.FontManager;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -18,12 +19,22 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.utils.DomainDisplayName;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.client.FluidParticle;
 
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
+  @SubscribeEvent
+  static void addResourceListeners(RegisterClientReloadListenersEvent event) {
+    MaterialRenderInfoLoader.addResourceListener(event);
+    DomainDisplayName.addResourceListener(event);
+    event.registerReloadListener(TinkerClient.textureValidator);
+    event.registerReloadListener(HarvestLevels.INSTANCE);
+  }
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {

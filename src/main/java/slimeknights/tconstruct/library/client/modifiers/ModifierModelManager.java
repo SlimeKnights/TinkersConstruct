@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
@@ -64,7 +64,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    * Initializes this manager, registering it with the resource manager
    * @param manager  Manager
    */
-  public static void init(ReloadableResourceManager manager) {
+  public static void init(RegisterClientReloadListenersEvent manager) {
     manager.registerReloadListener(INSTANCE);
   }
 

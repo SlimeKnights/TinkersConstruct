@@ -6,9 +6,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
@@ -56,7 +56,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   /**
    * Called on mod construct to register the resource listener
    */
-  public static void addResourceListener(ReloadableResourceManager manager)  {
+  public static void addResourceListener(RegisterClientReloadListenersEvent manager)  {
     manager.registerReloadListener(INSTANCE);
   }
 

@@ -11,12 +11,12 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.SlimeRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.SkullBlock.Type;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -39,29 +39,31 @@ import javax.annotation.Nullable;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class WorldClientEvents extends ClientEventBase {
-  /**
-   * Called by TinkerClient to add the resource listeners, runs during constructor
-   */
-  public static void addResourceListener(ReloadableResourceManager manager) {
+  @SubscribeEvent
+  static void addResourceListener(RegisterClientReloadListenersEvent event) {
     for (SlimeType type : SlimeType.values()) {
-      manager.registerReloadListener(new SlimeColorReloadListener(type));
+      event.registerReloadListener(new SlimeColorReloadListener(type));
     }
   }
 
   @SubscribeEvent
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-    Minecraft.getInstance().particleEngine.register(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
-    Minecraft.getInstance().particleEngine.register(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
-    Minecraft.getInstance().particleEngine.register(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
+    ParticleEngine engine = Minecraft.getInstance().particleEngine;
+    engine.register(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
+    engine.register(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
+    engine.register(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
+  }
+
+  @SubscribeEvent
+  static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    event.registerEntityRenderer(TinkerWorld.earthSlimeEntity.get(), SlimeRenderer::new);
+    event.registerEntityRenderer(TinkerWorld.skySlimeEntity.get(), TinkerSlimeRenderer.SKY_SLIME_FACTORY);
+    event.registerEntityRenderer(TinkerWorld.enderSlimeEntity.get(), TinkerSlimeRenderer.ENDER_SLIME_FACTORY);
+    event.registerEntityRenderer(TinkerWorld.terracubeEntity.get(), TerracubeRenderer::new);
   }
 
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
-    EntityRenderers.register(TinkerWorld.earthSlimeEntity.get(), SlimeRenderer::new);
-    EntityRenderers.register(TinkerWorld.skySlimeEntity.get(), TinkerSlimeRenderer.SKY_SLIME_FACTORY);
-    EntityRenderers.register(TinkerWorld.enderSlimeEntity.get(), TinkerSlimeRenderer.ENDER_SLIME_FACTORY);
-    EntityRenderers.register(TinkerWorld.terracubeEntity.get(), TerracubeRenderer::new);
-
     RenderType cutout = RenderType.cutout();
     RenderType cutoutMipped = RenderType.cutoutMipped();
 

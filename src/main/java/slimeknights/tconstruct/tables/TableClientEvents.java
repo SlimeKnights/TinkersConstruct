@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.tables;
 
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,7 +15,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
-import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
 import slimeknights.tconstruct.tables.client.inventory.TinkerChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
@@ -27,17 +25,16 @@ import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class TableClientEvents extends ClientEventBase {
-
-  /**
-   * Called by TinkerClient to add the resource listeners, runs during constructor
-   */
-  public static void addResourceListener(ReloadableResourceManager manager) {
-    manager.registerReloadListener(PatternGuiTextureLoader.INSTANCE);
-  }
-
   @SubscribeEvent
   static void registerModelLoader(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(TConstruct.getResource("table"), TableModel.LOADER);
+  }
+
+  @SubscribeEvent
+  static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    event.registerBlockEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
   }
 
   @SubscribeEvent
@@ -46,10 +43,6 @@ public class TableClientEvents extends ClientEventBase {
     MenuScreens.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
     MenuScreens.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
     MenuScreens.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
-
-    BlockEntityRenderers.register(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
-    BlockEntityRenderers.register(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
   }
 
   @SubscribeEvent
