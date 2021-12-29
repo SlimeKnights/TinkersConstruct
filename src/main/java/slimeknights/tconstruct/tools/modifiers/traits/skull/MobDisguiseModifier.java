@@ -2,10 +2,10 @@ package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType.Group;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -31,7 +31,7 @@ public class MobDisguiseModifier extends SingleUseModifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getType() == Group.ARMOR) {
+    if (context.getChangedSlot().getType() == Type.ARMOR) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);
         if (disguises == null) {
@@ -45,7 +45,7 @@ public class MobDisguiseModifier extends SingleUseModifier {
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getType() == Group.ARMOR) {
+    if (context.getChangedSlot().getType() == Type.ARMOR) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);
         if (disguises != null) {

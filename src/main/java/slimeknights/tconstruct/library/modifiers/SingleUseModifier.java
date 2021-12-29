@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 
 /**
  * Extension of modifier simply to remove level from the display name, intended for modifiers that do not do anything beyond level 1.
@@ -13,7 +13,7 @@ public class SingleUseModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     // display name without the level
     return super.getDisplayName();
   }

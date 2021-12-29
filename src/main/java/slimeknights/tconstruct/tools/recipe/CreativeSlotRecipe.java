@@ -2,12 +2,12 @@ package slimeknights.tconstruct.tools.recipe;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
@@ -61,7 +61,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World world) {
+  public boolean matches(ITinkerStationInventory inv, Level world) {
     // must be modifiable
     if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
       return false;
@@ -74,12 +74,12 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
     ToolStack toolStack = ToolStack.copyFrom(inv.getTinkerableStack());
 
     // first, fetch the slots compound
-    CompoundNBT slots;
+    CompoundTag slots;
     ModDataNBT persistentData = toolStack.getPersistentData();
-    if (persistentData.contains(CreativeSlotModifier.KEY_SLOTS, NBT.TAG_COMPOUND)) {
+    if (persistentData.contains(CreativeSlotModifier.KEY_SLOTS, Tag.TAG_COMPOUND)) {
       slots = persistentData.getCompound(CreativeSlotModifier.KEY_SLOTS);
     } else {
-      slots = new CompoundNBT();
+      slots = new CompoundTag();
       persistentData.put(CreativeSlotModifier.KEY_SLOTS, slots);
     }
 
@@ -112,7 +112,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.creativeSlotSerializer.get();
   }
 }

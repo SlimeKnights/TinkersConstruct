@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.smeltery.inventory;
 
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IntReferenceHolder;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
-import slimeknights.mantle.inventory.ItemHandlerSlot;
-import slimeknights.mantle.util.sync.ValidZeroIntReference;
+import slimeknights.mantle.inventory.SmartItemHandlerSlot;
+import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.inventory.TriggeringBaseContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -23,13 +23,13 @@ import java.util.function.Consumer;
 public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity> {
   @Getter
   private boolean hasFuelSlot = false;
-  public AlloyerContainer(int id, @Nullable PlayerInventory inv, @Nullable AlloyerTileEntity alloyer) {
+  public AlloyerContainer(int id, @Nullable Inventory inv, @Nullable AlloyerTileEntity alloyer) {
     super(TinkerSmeltery.alloyerContainer.get(), id, inv, alloyer);
 
     // create slots
     if (alloyer != null) {
       // refresh cache of neighboring tanks
-      World world = alloyer.getLevel();
+      Level world = alloyer.getLevel();
       if (world != null && world.isClientSide) {
         MixerAlloyTank alloyTank = alloyer.getAlloyTank();
         for (Direction direction : Direction.values()) {
@@ -42,10 +42,10 @@ public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity>
       // add fuel slot if present
       BlockPos down = alloyer.getBlockPos().below();
       if (world != null && world.getBlockState(down).is(TinkerTags.Blocks.FUEL_TANKS)) {
-        TileEntity te = world.getBlockEntity(down);
+        BlockEntity te = world.getBlockEntity(down);
         if (te != null) {
           hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
-            this.addSlot(new ItemHandlerSlot(handler, 0, 151, 32));
+            this.addSlot(new SmartItemHandlerSlot(handler, 0, 151, 32));
             return true;
           }).isPresent();
         }
@@ -54,12 +54,12 @@ public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity>
       this.addInventorySlots();
 
       // syncing
-      Consumer<IntReferenceHolder> referenceConsumer = this::addDataSlot;
-      ValidZeroIntReference.trackIntArray(referenceConsumer, alloyer.getFuelModule());
+      Consumer<DataSlot> referenceConsumer = this::addDataSlot;
+      ValidZeroDataSlot.trackIntArray(referenceConsumer, alloyer.getFuelModule());
     }
   }
 
-  public AlloyerContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+  public AlloyerContainer(int id, Inventory inv, FriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, AlloyerTileEntity.class));
   }
 }

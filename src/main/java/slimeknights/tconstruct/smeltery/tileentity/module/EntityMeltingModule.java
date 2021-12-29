@@ -1,20 +1,20 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.EntityTypes;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -38,20 +38,20 @@ public class EntityMeltingModule {
   /** Special damage source for "absorbing" hot entities */
   public static final DamageSource SMELTERY_MAGIC = new DamageSource(TConstruct.prefix("smeltery_magic")).setMagic();
 
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   private final IFluidHandler tank;
   /** Supplier that returns true if the tank has space */
   private final BooleanSupplier canMeltEntities;
   /** Function that tries to insert an item into the inventory */
   private final Function<ItemStack, ItemStack> insertFunction;
   /** Function that returns the bounds to check for entities */
-  private final Supplier<AxisAlignedBB> bounds;
+  private final Supplier<AABB> bounds;
 
   @Nullable
   private EntityMeltingRecipe lastRecipe;
 
   /** Gets a nonnull world instance from the parent */
-  private World getWorld() {
+  private Level getLevel() {
     return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
@@ -66,7 +66,7 @@ public class EntityMeltingModule {
       return lastRecipe;
     }
     // find a new recipe if the last recipe does not match
-    EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(getWorld().getRecipeManager(), type);
+    EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(getLevel().getRecipeManager(), type);
     if (recipe != null) {
       lastRecipe = recipe;
     }
@@ -91,9 +91,9 @@ public class EntityMeltingModule {
     // fire based mobs are absorbed instead of damaged
     return !entity.isInvulnerableTo(entity.fireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
            // have to special case players because for some dumb reason creative players do not return true to invulnerable to
-           && !(entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.invulnerable)
+           && !(entity instanceof Player && ((Player)entity).getAbilities().invulnerable)
            // also have to special case fire resistance, so a blaze with fire resistance is immune to the smeltery
-           && !entity.hasEffect(Effects.FIRE_RESISTANCE);
+           && !entity.hasEffect(MobEffects.FIRE_RESISTANCE);
   }
 
   /**
@@ -101,26 +101,25 @@ public class EntityMeltingModule {
    * @return True if something was melted and fuel is needed
    */
   public boolean interactWithEntities() {
-    AxisAlignedBB boundingBox = bounds.get();
+    AABB boundingBox = bounds.get();
     if (boundingBox == null) {
       return false;
     }
 
     Boolean canMelt = null;
     boolean melted = false;
-    for (Entity entity : getWorld().getEntitiesOfClass(Entity.class, boundingBox)) {
+    for (Entity entity : getLevel().getEntitiesOfClass(Entity.class, boundingBox)) {
       if (!entity.isAlive()) {
         continue;
       }
 
       // items are placed inside the smeltery
       EntityType<?> type = entity.getType();
-      if (entity instanceof ItemEntity) {
-        ItemEntity itemEntity = (ItemEntity) entity;
+      if (entity instanceof ItemEntity itemEntity) {
         ItemStack stack = insertFunction.apply(itemEntity.getItem());
         // picked up whole stack
         if (stack.isEmpty()) {
-          entity.remove();
+          entity.discard();
         } else {
           itemEntity.setItem(stack);
         }

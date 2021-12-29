@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.common.data.tags;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.TagsProvider;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -63,7 +63,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     addGlass(TinkerCommons.clearStainedGlass, "glass/", tag(Tags.Blocks.STAINED_GLASS));
     addGlass(TinkerCommons.clearStainedGlassPane, "glass_panes/", tag(Tags.Blocks.STAINED_GLASS_PANES));
     // impermeable for all glass
-    Builder<Block> impermeable = tag(BlockTags.IMPERMEABLE);
+    TagAppender<Block> impermeable = tag(BlockTags.IMPERMEABLE);
     impermeable.add(TinkerCommons.clearGlass.get(), TinkerCommons.soulGlass.get(), TinkerSmeltery.searedGlass.get());
     TinkerCommons.clearStainedGlass.values().forEach(impermeable::add);
 
@@ -71,7 +71,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
     this.tag(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(TinkerCommons.soulGlass.get());
 
-    TagsProvider.Builder<Block> builder = this.tag(TinkerTags.Blocks.ANVIL_METAL)
+    TagsProvider.TagAppender<Block> builder = this.tag(TinkerTags.Blocks.ANVIL_METAL)
         // tier 3
         .addTag(TinkerMaterials.slimesteel.getBlockTag())
         .addTag(TinkerMaterials.tinkersBronze.getBlockTag())
@@ -132,7 +132,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.ORES_COPPER);
 
     // allow the enderman to hold more blocks
-    TagsProvider.Builder<Block> endermanHoldable = this.tag(BlockTags.ENDERMAN_HOLDABLE);
+    TagsProvider.TagAppender<Block> endermanHoldable = this.tag(BlockTags.ENDERMAN_HOLDABLE);
     endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get(), TinkerSmeltery.netherGrout.get());
 
     // wood
@@ -148,32 +148,32 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.addWoodTags(TinkerWorld.bloodshroom, false);
 
     // slime blocks
-    TagsProvider.Builder<Block> slimeBlockBuilder = this.tag(TinkerTags.Blocks.SLIME_BLOCK);
-    TagsProvider.Builder<Block> congealedBuilder = this.tag(TinkerTags.Blocks.CONGEALED_SLIME);
+    TagsProvider.TagAppender<Block> slimeBlockTagAppender = this.tag(TinkerTags.Blocks.SLIME_BLOCK);
+    TagsProvider.TagAppender<Block> congealedTagAppender = this.tag(TinkerTags.Blocks.CONGEALED_SLIME);
     for (SlimeType type : SlimeType.values()) {
-      slimeBlockBuilder.add(TinkerWorld.slime.get(type));
-      congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
+      slimeBlockTagAppender.add(TinkerWorld.slime.get(type));
+      congealedTagAppender.add(TinkerWorld.congealedSlime.get(type));
     }
 
     // foliage
-    TagsProvider.Builder<Block> leavesBuilder = this.tag(TinkerTags.Blocks.SLIMY_LEAVES);
-    TagsProvider.Builder<Block> wartBuilder = this.tag(BlockTags.WART_BLOCKS);
-    TagsProvider.Builder<Block> saplingBuilder = this.tag(TinkerTags.Blocks.SLIMY_SAPLINGS);
+    TagsProvider.TagAppender<Block> leavesTagAppender = this.tag(TinkerTags.Blocks.SLIMY_LEAVES);
+    TagsProvider.TagAppender<Block> wartTagAppender = this.tag(BlockTags.WART_BLOCKS);
+    TagsProvider.TagAppender<Block> saplingTagAppender = this.tag(TinkerTags.Blocks.SLIMY_SAPLINGS);
     for (SlimeType type : SlimeType.values()) {
       if (type.isNether()) {
-        wartBuilder.add(TinkerWorld.slimeLeaves.get(type));
+        wartTagAppender.add(TinkerWorld.slimeLeaves.get(type));
         endermanHoldable.add(TinkerWorld.slimeSapling.get(type));
       } else {
-        leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
-        saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
+        leavesTagAppender.add(TinkerWorld.slimeLeaves.get(type));
+        saplingTagAppender.add(TinkerWorld.slimeSapling.get(type));
       }
     }
     this.tag(BlockTags.LEAVES).addTag(TinkerTags.Blocks.SLIMY_LEAVES);
     this.tag(BlockTags.SAPLINGS).addTag(TinkerTags.Blocks.SLIMY_SAPLINGS);
 
-    Builder<Block> slimyGrass = this.tag(TinkerTags.Blocks.SLIMY_GRASS);
-    Builder<Block> slimyNylium = this.tag(TinkerTags.Blocks.SLIMY_NYLIUM);
-    Builder<Block> slimySoil = this.tag(TinkerTags.Blocks.SLIMY_SOIL);
+    TagAppender<Block> slimyGrass = this.tag(TinkerTags.Blocks.SLIMY_GRASS);
+    TagAppender<Block> slimyNylium = this.tag(TinkerTags.Blocks.SLIMY_NYLIUM);
+    TagAppender<Block> slimySoil = this.tag(TinkerTags.Blocks.SLIMY_SOIL);
     for (SlimeType type : SlimeType.values()) {
       (type.isNether() ? slimyNylium : slimyGrass).addTag(type.getGrassBlockTag());
       slimySoil.addTag(type.getDirtBlockTag());
@@ -220,10 +220,10 @@ public class BlockTagProvider extends BlockTagsProvider {
         .add(TinkerSmeltery.searedFaucet.get(), TinkerSmeltery.scorchedFaucet.get());
 
     // tanks
-    Builder<Block> searedTankBuilder = this.tag(TinkerTags.Blocks.SEARED_TANKS);
-    TinkerSmeltery.searedTank.values().forEach(searedTankBuilder::add);
-    Builder<Block> scorchedTankBuilder = this.tag(TinkerTags.Blocks.SCORCHED_TANKS);
-    TinkerSmeltery.scorchedTank.values().forEach(scorchedTankBuilder::add);
+    TagAppender<Block> searedTankTagAppender = this.tag(TinkerTags.Blocks.SEARED_TANKS);
+    TinkerSmeltery.searedTank.values().forEach(searedTankTagAppender::add);
+    TagAppender<Block> scorchedTankTagAppender = this.tag(TinkerTags.Blocks.SCORCHED_TANKS);
+    TinkerSmeltery.scorchedTank.values().forEach(scorchedTankTagAppender::add);
 
     // structure tags
     // melter supports the heater as a tank
@@ -301,7 +301,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   /** Adds tags for a glass item object */
-  private void addGlass(EnumObject<GlassColor,? extends Block> blockObj, String tagPrefix, Builder<Block> blockTag) {
+  private void addGlass(EnumObject<GlassColor,? extends Block> blockObj, String tagPrefix, TagAppender<Block> blockTag) {
     blockObj.forEach((color, block) -> {
       blockTag.add(block);
       this.tag(BlockTags.createOptional(new ResourceLocation("forge", tagPrefix + color.getSerializedName()))).add(block);

@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.inventory.SingleItemHandler;
-import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 
 /**
  * Item handler holding the heater inventory
  */
-public class HeaterItemHandler extends SingleItemHandler<MantleTileEntity> {
-  public HeaterItemHandler(MantleTileEntity parent) {
+public class HeaterItemHandler extends SingleItemHandler<MantleBlockEntity> {
+  public HeaterItemHandler(MantleBlockEntity parent) {
     super(parent, 64);
   }
 

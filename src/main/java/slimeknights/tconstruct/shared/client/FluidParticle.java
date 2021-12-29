@@ -1,27 +1,27 @@
 package slimeknights.tconstruct.shared.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
 
 /** Particle type that renders a fluid still texture */
-public class FluidParticle extends SpriteTexturedParticle {
+public class FluidParticle extends TextureSheetParticle {
   private final FluidStack fluid;
   private final float uCoord;
   private final float vCoord;
-  protected FluidParticle(ClientWorld world, double x, double y, double z, double motionX, double motionY, double motionZ, FluidStack fluid) {
+  protected FluidParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ, FluidStack fluid) {
     super(world, x, y, z, motionX, motionY, motionZ);
     this.fluid = fluid;
     FluidAttributes attributes = fluid.getFluid().getAttributes();
-    this.setSprite(Minecraft.getInstance().getModelManager().getAtlas(PlayerContainer.BLOCK_ATLAS).getSprite(attributes.getStillTexture(fluid)));
+    this.setSprite(Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(attributes.getStillTexture(fluid)));
     this.gravity = 1.0F;
     int color = attributes.getColor(fluid);
     this.alpha = ((color >> 24) & 0xFF) / 255f;
@@ -34,8 +34,8 @@ public class FluidParticle extends SpriteTexturedParticle {
   }
 
   @Override
-  public IParticleRenderType getRenderType() {
-    return IParticleRenderType.TERRAIN_SHEET;
+  public ParticleRenderType getRenderType() {
+    return ParticleRenderType.TERRAIN_SHEET;
   }
 
   @Override
@@ -64,9 +64,9 @@ public class FluidParticle extends SpriteTexturedParticle {
   }
 
   /** Factory to create a fluid particle */
-  public static class Factory implements IParticleFactory<FluidParticleData> {
+  public static class Factory implements ParticleProvider<FluidParticleData> {
     @Override
-    public Particle createParticle(FluidParticleData data, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public Particle createParticle(FluidParticleData data, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
       FluidStack fluid = data.getFluid();
       return !fluid.isEmpty() ? new FluidParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, fluid) : null;
     }

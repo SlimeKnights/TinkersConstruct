@@ -5,16 +5,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
@@ -101,7 +101,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   }
 
   @Override
-  public boolean matches(IAlloyTank inv, World worldIn) {
+  public boolean matches(IAlloyTank inv, Level worldIn) {
     BitSet used = makeBitset(inv);
     for (FluidIngredient ingredient : inputs) {
       // do not care about size for matches, just want a recipe with the right fluids
@@ -199,19 +199,19 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.ALLOYING;
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.alloyingSerializer.get();
   }
 
   public static class Serializer extends LoggingRecipeSerializer<AlloyRecipe> {
     @Override
     public AlloyRecipe fromJson(ResourceLocation id, JsonObject json) {
-      FluidStack result = RecipeHelper.deserializeFluidStack(JSONUtils.getAsJsonObject(json, "result"));
+      FluidStack result = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "result"));
       List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
 
       // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
@@ -223,12 +223,12 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
           throw new JsonSyntaxException("Result fluid contained in input in alloy recipe " + id);
         }
       }
-      int temperature = JSONUtils.getAsInt(json, "temperature");
+      int temperature = GsonHelper.getAsInt(json, "temperature");
       return new AlloyRecipe(id, inputs, result, temperature);
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, AlloyRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, AlloyRecipe recipe) {
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.inputs.size());
       for (FluidIngredient input : recipe.inputs) {
@@ -239,7 +239,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
     @Nullable
     @Override
-    protected AlloyRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected AlloyRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidStack output = buffer.readFluidStack();
       int inputCount = buffer.readVarInt();
       ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();

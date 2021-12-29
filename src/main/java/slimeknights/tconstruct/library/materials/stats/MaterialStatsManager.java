@@ -8,8 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.tconstruct.library.data.MergingJsonDataLoader;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -163,13 +162,11 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @Override
   protected void parse(Map<ResourceLocation, JsonObject> builder, ResourceLocation id, JsonElement element) throws JsonSyntaxException {
     MaterialStatJson json = GSON.fromJson(element, MaterialStatJson.class);
-    for (Entry<ResourceLocation, JsonObject> entry : json.getStats().entrySet()) {
-      builder.put(entry.getKey(), entry.getValue());
-    }
+    builder.putAll(json.getStats());
   }
 
   @Override
-  protected void finishLoad(Map<ResourceLocation,Map<ResourceLocation, JsonObject>> map, IResourceManager manager) {
+  protected void finishLoad(Map<ResourceLocation,Map<ResourceLocation, JsonObject>> map, ResourceManager manager) {
     // Take the final structure and actually load the different material stats. This drops all invalid stats
     materialToStatsPerType = map.entrySet().stream()
                                 .collect(Collectors.toMap(

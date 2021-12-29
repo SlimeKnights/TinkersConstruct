@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.BlockFlags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -34,20 +34,19 @@ public class ExchangingModifier extends SingleUseModifier {
     // must have blocks in the offhand
     ItemStack offhand = context.getLiving().getOffhandItem();
     BlockState state = context.getState();
-    World world = context.getWorld();
+    Level world = context.getWorld();
     BlockPos pos = context.getPos();
-    if ((!context.isEffective() && state.getDestroySpeed(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
+    if ((!context.isEffective() && state.getDestroySpeed(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem blockItem)) {
       return null;
     }
 
     // from this point on, we are in charge of breaking the block, start by harvesting it so piglins get mad and stuff
-    PlayerEntity player = context.getPlayer();
+    Player player = context.getPlayer();
     if (player != null) {
       state.getBlock().playerWillDestroy(world, pos, state, player);
     }
 
     // block is unchanged, stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
-    BlockItem blockItem = (BlockItem) offhand.getItem();
     BlockState fluidState = world.getFluidState(pos).createLegacyBlock();
     boolean placedBlock = false;
     if (state.getBlock() == blockItem.getBlock()) {
@@ -63,22 +62,22 @@ public class ExchangingModifier extends SingleUseModifier {
     // generate placing context
     Direction sideHit = context.getSideHit();
     // subtract the offsets instead of adding as the position is empty, want to "hit" a realistic location
-    BlockItemUseContext blockUseContext = new BlockItemUseContext(world, player, Hand.OFF_HAND, offhand, Util.createTraceResult(pos, sideHit, true));
+    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, offhand, Util.createTraceResult(pos, sideHit, true));
     blockUseContext.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
 
     // swap the block, it never goes to air so things like torches will remain
-    ActionResultType success = blockItem.place(blockUseContext);
+    InteractionResult success = blockItem.place(blockUseContext);
     if (success.consumesAction()) {
       if (!context.isAOE() && player != null) {
         TinkerNetwork.getInstance().sendTo(new UpdateNeighborsPacket(state, pos), player);
       }
-      context.getLiving().swing(Hand.OFF_HAND, false);
+      context.getLiving().swing(InteractionHand.OFF_HAND, false);
       return true;
     } else if (placedBlock) {
       // notify that the fluid was placed properly, as it was suppressed earlier, and placing again will fail to hit it
-      state.updateIndirectNeighbourShapes(world, pos, BlockFlags.BLOCK_UPDATE, 511);
-      fluidState.updateNeighbourShapes(world, pos, BlockFlags.BLOCK_UPDATE, 511);
-      fluidState.updateIndirectNeighbourShapes(world, pos, BlockFlags.BLOCK_UPDATE, 511);
+      state.updateIndirectNeighbourShapes(world, pos, Block.UPDATE_CLIENTS, 511);
+      fluidState.updateNeighbourShapes(world, pos, Block.UPDATE_CLIENTS, 511);
+      fluidState.updateIndirectNeighbourShapes(world, pos, Block.UPDATE_CLIENTS, 511);
       return true;
     } else {
       // so we failed to place the new block for some reason, remove the old block to prevent dupes

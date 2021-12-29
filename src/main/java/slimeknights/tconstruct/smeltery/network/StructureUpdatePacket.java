@@ -2,11 +2,11 @@ package slimeknights.tconstruct.smeltery.network;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class StructureUpdatePacket implements IThreadsafePacket {
   private final BlockPos maxPos;
   private final List<BlockPos> tanks;
 
-  public StructureUpdatePacket(PacketBuffer buffer) {
+  public StructureUpdatePacket(FriendlyByteBuf buffer) {
     pos = buffer.readBlockPos();
     minPos = buffer.readBlockPos();
     maxPos = buffer.readBlockPos();
@@ -34,7 +34,7 @@ public class StructureUpdatePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeBlockPos(minPos);
     buffer.writeBlockPos(maxPos);
@@ -51,8 +51,8 @@ public class StructureUpdatePacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(StructureUpdatePacket packet) {
-      TileEntityHelper.getTile(HeatingStructureTileEntity.class, Minecraft.getInstance().level, packet.pos)
-                      .ifPresent(te -> te.setStructureSize(packet.minPos, packet.maxPos, packet.tanks));
+      BlockEntityHelper.get(HeatingStructureTileEntity.class, Minecraft.getInstance().level, packet.pos)
+                       .ifPresent(te -> te.setStructureSize(packet.minPos, packet.maxPos, packet.tanks));
     }
   }
 }

@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import net.minecraft.item.Item;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.RecipeHelper;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
 import javax.annotation.Nullable;
@@ -21,15 +21,15 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
 
   @Override
   public T fromJson(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getAsString(json, "group", "");
-    int fluidAmount = JSONUtils.getAsInt(json, "fluid_amount");
-    Item result = JSONUtils.getAsItem(json, "container");
+    String group = GsonHelper.getAsString(json, "group", "");
+    int fluidAmount = GsonHelper.getAsInt(json, "fluid_amount");
+    Item result = GsonHelper.getAsItem(json, "container");
     return this.factory.create(recipeId, group, fluidAmount, result);
   }
 
   @Nullable
   @Override
-  protected T readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
+  protected T readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     int fluidAmount = buffer.readInt();
     Item result = RecipeHelper.readItem(buffer);
@@ -37,7 +37,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
   }
 
   @Override
-  protected void writeSafe(PacketBuffer buffer, T recipe) {
+  protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
     buffer.writeUtf(recipe.group);
     buffer.writeInt(recipe.fluidAmount);
     RecipeHelper.writeItem(buffer, recipe.container);

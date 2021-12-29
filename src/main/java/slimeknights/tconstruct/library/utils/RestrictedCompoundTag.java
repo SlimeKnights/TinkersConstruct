@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.utils;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.ListTag;
 
 import javax.annotation.Nullable;
 import java.util.Set;
@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class RestrictedCompoundTag {
   /** Base NBT compound */
-  private final CompoundNBT tag;
+  private final CompoundTag tag;
   /** List of tags with restricted access */
   private final Set<String> restrictedKeys;
 
@@ -39,7 +39,7 @@ public class RestrictedCompoundTag {
    * @param <T>  NBT type of output
    * @return  Data based on the function
    */
-  protected <T> T get(String name, BiFunction<CompoundNBT,String,T> function, T defaultValue) {
+  protected <T> T get(String name, BiFunction<CompoundTag,String,T> function, T defaultValue) {
     if (restrictedKeys.contains(name)) {
       return defaultValue;
     }
@@ -54,8 +54,8 @@ public class RestrictedCompoundTag {
    */
   @SuppressWarnings("ConstantConditions")
   @Nullable
-  public INBT get(String name) {
-    return get(name, CompoundNBT::get, null);
+  public Tag get(String name) {
+    return get(name, CompoundTag::get, null);
   }
 
   /**
@@ -64,7 +64,7 @@ public class RestrictedCompoundTag {
    * @return  Integer value
    */
   public int getInt(String name) {
-    return get(name, CompoundNBT::getInt, 0);
+    return get(name, CompoundTag::getInt, 0);
   }
 
   /**
@@ -73,7 +73,7 @@ public class RestrictedCompoundTag {
    * @return  Boolean value
    */
   public boolean getBoolean(String name) {
-    return get(name, CompoundNBT::getBoolean, false);
+    return get(name, CompoundTag::getBoolean, false);
   }
 
   /**
@@ -82,7 +82,7 @@ public class RestrictedCompoundTag {
    * @return  Float value
    */
   public float getFloat(String name) {
-    return get(name, CompoundNBT::getFloat, 0f);
+    return get(name, CompoundTag::getFloat, 0f);
   }
 
   /**
@@ -91,7 +91,7 @@ public class RestrictedCompoundTag {
    * @return  String value
    */
   public String getString(String name) {
-    return get(name, CompoundNBT::getString, "");
+    return get(name, CompoundTag::getString, "");
   }
 
   /**
@@ -99,9 +99,9 @@ public class RestrictedCompoundTag {
    * @param name  Name
    * @return  Compound value
    */
-  public CompoundNBT getCompound(String name) {
+  public CompoundTag getCompound(String name) {
     if (restrictedKeys.contains(name)) {
-      return new CompoundNBT();
+      return new CompoundTag();
     }
     return tag.getCompound(name);
   }
@@ -111,9 +111,9 @@ public class RestrictedCompoundTag {
    * @param name  Name
    * @return  Compound value
    */
-  public ListNBT getList(String name, int type) {
+  public ListTag getList(String name, int type) {
     if (restrictedKeys.contains(name)) {
-      return new ListNBT();
+      return new ListTag();
     }
     return tag.getList(name, type);
   }
@@ -126,7 +126,7 @@ public class RestrictedCompoundTag {
    * @param name  Key name
    * @param nbt   NBT value
    */
-  public void put(String name, INBT nbt) {
+  public void put(String name, Tag nbt) {
     if (!restrictedKeys.contains(name)) {
       tag.put(name, nbt);
     }

@@ -1,27 +1,27 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -38,10 +38,10 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
 
   /** Gets the position this entity is standing on, cloned from protected living entity method */
   private static BlockPos getOnPosition(LivingEntity living) {
-    Vector3d position = living.position();
-    int x = MathHelper.floor(position.x);
-    int y = MathHelper.floor(position.y - (double)0.2F);
-    int z = MathHelper.floor(position.z);
+    Vec3 position = living.position();
+    int x = Mth.floor(position.x);
+    int y = Mth.floor(position.y - (double)0.2F);
+    int z = Mth.floor(position.z);
     BlockPos pos = new BlockPos(x, y, z);
     if (living.level.isEmptyBlock(pos)) {
       BlockPos below = pos.below();
@@ -61,7 +61,7 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
       return;
     }
     // must have speed
-    ModifiableAttributeInstance attribute = living.getAttribute(Attributes.MOVEMENT_SPEED);
+    AttributeInstance attribute = living.getAttribute(Attributes.MOVEMENT_SPEED);
     if (attribute == null) {
       return;
     }
@@ -91,13 +91,13 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
 
       // damage boots
       if (rand.nextFloat() < 0.04F) {
-        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlotType.FEET);
+        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
       }
 
       // particles and sounds
-      Vector3d motion = living.getDeltaMovement();
-      if (living.level instanceof ServerWorld) {
-        ((ServerWorld)living.level).sendParticles(ParticleTypes.SOUL,
+      Vec3 motion = living.getDeltaMovement();
+      if (living.level instanceof ServerLevel) {
+        ((ServerLevel)living.level).sendParticles(ParticleTypes.SOUL,
                                  living.getX() + (rand.nextDouble() - 0.5) * living.getBbWidth(),
                                  living.getY() + 0.1,
                                  living.getZ() + (rand.nextDouble() - 0.5) * living.getBbWidth(),
@@ -111,11 +111,11 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // remove boost when boots are removed
     LivingEntity livingEntity = context.getEntity();
-    if (!livingEntity.level.isClientSide && context.getChangedSlot() == EquipmentSlotType.FEET) {
+    if (!livingEntity.level.isClientSide && context.getChangedSlot() == EquipmentSlot.FEET) {
       IModifierToolStack newTool = context.getReplacementTool();
       // damaging the tool will trigger this hook, so ensure the new tool has the same level
       if (newTool == null || newTool.isBroken() || newTool.getModifierLevel(this) != level) {
-        ModifiableAttributeInstance attribute = livingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
+        AttributeInstance attribute = livingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
         if (attribute != null && attribute.getModifier(ATTRIBUTE_BONUS) != null) {
           attribute.removeModifier(ATTRIBUTE_BONUS);
         }
@@ -130,7 +130,7 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     // must either have no player or a player on soulsand
     if (player == null || key != TooltipKey.SHIFT || (!player.isFallFlying() && player.level.getBlockState(getOnPosition(player)).is(BlockTags.SOUL_SPEED_BLOCKS))) {
       // multiplies boost by 10 and displays as a percent as the players base movement speed is 0.1 and is in unknown units

@@ -1,17 +1,16 @@
 package slimeknights.tconstruct.common.data.tags;
 
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.data.TagsProvider;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -81,7 +80,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.GUIDEBOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
     this.tag(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
 
-    Builder<Item> slimeballs = this.tag(Tags.Items.SLIMEBALLS);
+    TagAppender<Item> slimeballs = this.tag(Tags.Items.SLIMEBALLS);
     for (SlimeType type : SlimeType.values()) {
       slimeballs.addTag(type.getSlimeballTag());
     }
@@ -128,7 +127,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
     copy(TinkerTags.Blocks.PLANKLIKE, TinkerTags.Items.PLANKLIKE);
 
-    Builder<Item> slimeslings = this.tag(TinkerTags.Items.SLIMESLINGS);
+    TagAppender<Item> slimeslings = this.tag(TinkerTags.Items.SLIMESLINGS);
     TinkerGadgets.slimeSling.values().forEach(slimeslings::add);
 
     // piglins like gold and dislike zombie piglin heads
@@ -144,7 +143,7 @@ public class ItemTagProvider extends ItemTagsProvider {
   }
 
   private void addWorld() {
-    TagsProvider.Builder<Item> heads = this.tag(Tags.Items.HEADS);
+    TagAppender<Item> heads = this.tag(Tags.Items.HEADS);
     TinkerWorld.heads.forEach(head -> heads.add(head.asItem()));
 
     this.copy(TinkerTags.Blocks.SLIME_BLOCK, TinkerTags.Items.SLIME_BLOCK);
@@ -255,7 +254,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
 						 TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
 
-    Builder<Item> slimySeeds = this.tag(TinkerTags.Items.SLIMY_SEEDS);
+    TagAppender<Item> slimySeeds = this.tag(TinkerTags.Items.SLIMY_SEEDS);
     TinkerWorld.slimeGrassSeeds.values().forEach(slimySeeds::add);
 
     // contains any ground stones
@@ -296,11 +295,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.FOUNDRY_DEBUG).addTag(TinkerTags.Items.GENERAL_STRUCTURE_DEBUG).addTag(TinkerTags.Items.FOUNDRY);
 
     // tag each type of cast
-    TagsProvider.Builder<Item> goldCasts = this.tag(TinkerTags.Items.GOLD_CASTS);
-    TagsProvider.Builder<Item> sandCasts = this.tag(TinkerTags.Items.SAND_CASTS);
-    TagsProvider.Builder<Item> redSandCasts = this.tag(TinkerTags.Items.RED_SAND_CASTS);
-    TagsProvider.Builder<Item> singleUseCasts = this.tag(TinkerTags.Items.SINGLE_USE_CASTS);
-    TagsProvider.Builder<Item> multiUseCasts = this.tag(TinkerTags.Items.MULTI_USE_CASTS);
+    TagAppender<Item> goldCasts = this.tag(TinkerTags.Items.GOLD_CASTS);
+    TagAppender<Item> sandCasts = this.tag(TinkerTags.Items.SAND_CASTS);
+    TagAppender<Item> redSandCasts = this.tag(TinkerTags.Items.RED_SAND_CASTS);
+    TagAppender<Item> singleUseCasts = this.tag(TinkerTags.Items.SINGLE_USE_CASTS);
+    TagAppender<Item> multiUseCasts = this.tag(TinkerTags.Items.MULTI_USE_CASTS);
     Consumer<CastItemObject> addCast = cast -> {
       // tag based on material
       goldCasts.add(cast.get());
@@ -374,27 +373,26 @@ public class ItemTagProvider extends ItemTagsProvider {
   }
 
   @SafeVarargs
-  private final void addToolTags(IItemProvider tool, INamedTag<Item>... tags) {
+  private void addToolTags(ItemLike tool, Tag.Named<Item>... tags) {
     Item item = tool.asItem();
-    for (INamedTag<Item> tag : tags) {
+    for (Tag.Named<Item> tag : tags) {
       this.tag(tag).add(item);
     }
   }
 
-  private INamedTag<Item> getArmorTag(ArmorSlotType slotType) {
-    switch (slotType) {
-      case BOOTS: return BOOTS;
-      case LEGGINGS: return LEGGINGS;
-      case CHESTPLATE: return CHESTPLATES;
-      case HELMET: return HELMETS;
-    }
-    return ARMOR;
+  private Tag.Named<Item> getArmorTag(ArmorSlotType slotType) {
+    return switch (slotType) {
+      case BOOTS -> BOOTS;
+      case LEGGINGS -> LEGGINGS;
+      case CHESTPLATE -> CHESTPLATES;
+      case HELMET -> HELMETS;
+    };
   }
 
   @SafeVarargs
-  private final void addArmorTags(EnumObject<ArmorSlotType,? extends Item> armor, INamedTag<Item>... tags) {
+  private void addArmorTags(EnumObject<ArmorSlotType,? extends Item> armor, Tag.Named<Item>... tags) {
     armor.forEach((type, item) -> {
-      for (INamedTag<Item> tag : tags) {
+      for (Tag.Named<Item> tag : tags) {
         this.tag(tag).add(item);
       }
       this.tag(getArmorTag(type)).add(item);

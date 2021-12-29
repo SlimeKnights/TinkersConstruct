@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -15,7 +15,7 @@ public abstract class DurabilityShieldModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Component getDisplayName(IModifierToolStack tool, int level) {
     return getDisplayName(level).copy()
                                 .append(": " + getShield(tool) + " / " + getShieldCapacity(tool, level));
   }

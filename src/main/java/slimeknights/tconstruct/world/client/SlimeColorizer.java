@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.world.client;
 
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.util.EnumMap;

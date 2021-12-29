@@ -10,9 +10,9 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.TinkerRegistries;
 
 import java.lang.reflect.Type;
@@ -20,11 +20,12 @@ import java.util.Objects;
 
 /**
  * Data class holding a modifier with a level
+ * TODO: convert to record
  */
 @Data
 @EqualsAndHashCode
 public class ModifierEntry implements Comparable<ModifierEntry> {
-  /** JSON serialzier instance for GSON */
+  /** JSON serializer instance for GSON */
   public static final Serializer SERIALIZER = new Serializer();
 
   private final Modifier modifier;
@@ -44,7 +45,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   }
 
   public static Modifier deserializeModifier(JsonObject json, String key) {
-    ResourceLocation name = new ResourceLocation(JSONUtils.getAsString(json, key));
+    ResourceLocation name = new ResourceLocation(GsonHelper.getAsString(json, key));
     if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
       return Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(name));
     }
@@ -57,7 +58,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    return new ModifierEntry(deserializeModifier(json, "name"), JSONUtils.getAsInt(json, "level", 1));
+    return new ModifierEntry(deserializeModifier(json, "name"), GsonHelper.getAsInt(json, "level", 1));
   }
 
   /**
@@ -76,7 +77,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    * @return  Read entry
    */
-  public static ModifierEntry read(PacketBuffer buffer) {
+  public static ModifierEntry read(FriendlyByteBuf buffer) {
     return new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS), buffer.readVarInt());
   }
 
@@ -84,7 +85,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * Writes this modifier entry to the packet buffer
    * @param buffer  Buffer instance
    */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, modifier);
     buffer.writeVarInt(level);
   }
@@ -92,7 +93,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   private static class Serializer implements JsonDeserializer<ModifierEntry>, JsonSerializer<ModifierEntry> {
     @Override
     public ModifierEntry deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return fromJson(JSONUtils.convertToJsonObject(json, "modifier"));
+      return fromJson(GsonHelper.convertToJsonObject(json, "modifier"));
     }
 
     @Override

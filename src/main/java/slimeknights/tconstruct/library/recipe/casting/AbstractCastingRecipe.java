@@ -4,13 +4,13 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 @AllArgsConstructor
 public abstract class AbstractCastingRecipe implements ICastingRecipe {
   @Getter @Nonnull
-  protected final IRecipeType<?> type;
+  protected final RecipeType<?> type;
   @Getter
   protected final ResourceLocation id;
   @Getter
@@ -52,27 +52,27 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json);
 
     /** Creates a new instance from the packet buffer */
-    protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketBuffer buffer);
+    protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer);
 
     /** Writes extra data to the packet buffer */
-    protected abstract void writeExtra(PacketBuffer buffer, T recipe);
+    protected abstract void writeExtra(FriendlyByteBuf buffer, T recipe);
 
     @Override
     public T fromJson(ResourceLocation recipeId, JsonObject json) {
       Ingredient cast = Ingredient.EMPTY;
-      String group = JSONUtils.getAsString(json, "group", "");
+      String group = GsonHelper.getAsString(json, "group", "");
       boolean consumed = false;
-      boolean switchSlots = JSONUtils.getAsBoolean(json, "switch_slots", false);
+      boolean switchSlots = GsonHelper.getAsBoolean(json, "switch_slots", false);
       if (json.has("cast")) {
         cast = Ingredient.fromJson(JsonHelper.getElement(json, "cast"));
-        consumed = JSONUtils.getAsBoolean(json, "cast_consumed", false);
+        consumed = GsonHelper.getAsBoolean(json, "cast_consumed", false);
       }
       return create(recipeId, group, cast, consumed, switchSlots, json);
     }
 
     @Nullable
     @Override
-    protected T readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
+    protected T readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient cast = Ingredient.fromNetwork(buffer);
       boolean consumed = buffer.readBoolean();
@@ -81,7 +81,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, T recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
       buffer.writeUtf(recipe.group);
       recipe.cast.toNetwork(buffer);
       buffer.writeBoolean(recipe.consumed);

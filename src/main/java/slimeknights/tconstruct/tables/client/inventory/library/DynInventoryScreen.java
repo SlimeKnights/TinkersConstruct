@@ -1,17 +1,19 @@
 package slimeknights.tconstruct.tables.client.inventory.library;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.tables.client.inventory.module.GenericScreen;
 
+// TODO: fix generics
 public class DynInventoryScreen extends ModuleScreen {
 
   // Graphic Resources
@@ -37,9 +39,9 @@ public class DynInventoryScreen extends ModuleScreen {
   protected int lastSlotId;
 
   // Container containing the slots to display
-  protected final Container container;
+  protected final AbstractContainerMenu container;
 
-  public DynInventoryScreen(MultiModuleScreen<?> parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
+  public DynInventoryScreen(MultiModuleScreen<?> parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title, false, false);
     this.container = container;
 
@@ -175,9 +177,8 @@ public class DynInventoryScreen extends ModuleScreen {
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
-    assert this.minecraft != null;
-    this.minecraft.getTextureManager().bind(GenericScreen.LOCATION);
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
+    RenderUtils.setup(GenericScreen.LOCATION);
     if (!this.slider.isHidden()) {
       this.slider.draw(matrices);
 

@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.recipe.tinkerstation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 /**
  * This class represents the result of a tinker station recipe, which is one of:
@@ -66,7 +66,7 @@ public class ValidatedResult {
    * @return  result message
    * @throws UnsupportedOperationException  if this result is success or pass
    */
-  public ITextComponent getMessage() {
+  public Component getMessage() {
     throw new UnsupportedOperationException("Cannot show error message on success");
   }
 
@@ -84,11 +84,11 @@ public class ValidatedResult {
   /** Class for failure, which has a message */
   private static class Failure extends ValidatedResult {
     @Getter
-    private final ITextComponent message;
+    private final Component message;
 
     private Failure(String translationKey, Object[] params) {
       super(false);
-      this.message = new TranslationTextComponent(translationKey, params);
+      this.message = new TranslatableComponent(translationKey, params);
     }
 
     @Override

@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.gadgets.data;
 
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.CookingRecipeBuilder;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -38,7 +38,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
-  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     // slime
     String folder = "gadgets/slimesling/";
     for (SlimeType slime : SlimeType.TRUE_SLIME) {
@@ -173,10 +173,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param experience  Experience for the recipe
    * @param folder      Folder to store the recipe
    */
-  private void campfireCooking(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider output, float experience, String folder) {
-    CookingRecipeBuilder.cooking(Ingredient.of(input), output, experience, 600, IRecipeSerializer.CAMPFIRE_COOKING_RECIPE)
-                        .unlockedBy("has_item", has(input))
-                        .save(consumer, wrap(output.asItem(), folder, "_campfire"));
+  private void campfireCooking(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike output, float experience, String folder) {
+    SimpleCookingRecipeBuilder.cooking(Ingredient.of(input), output, experience, 600, RecipeSerializer.CAMPFIRE_COOKING_RECIPE)
+                              .unlockedBy("has_item", has(input))
+                              .save(consumer, wrap(output.asItem(), folder, "_campfire"));
   }
 
   /**
@@ -187,17 +187,17 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param experience  Experience for the recipe
    * @param folder      Folder to store the recipe
    */
-  private void foodCooking(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider output, float experience, String folder) {
+  private void foodCooking(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike output, float experience, String folder) {
     campfireCooking(consumer, input, output, experience, folder);
     // furnace is 200 ticks
-    ICriterionInstance criteria = has(input);
-    CookingRecipeBuilder.smelting(Ingredient.of(input), output, experience, 200)
-                        .unlockedBy("has_item", criteria)
-                        .save(consumer, wrap(output.asItem(), folder, "_furnace"));
+    InventoryChangeTrigger.TriggerInstance criteria = has(input);
+    SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), output, experience, 200)
+                              .unlockedBy("has_item", criteria)
+                              .save(consumer, wrap(output.asItem(), folder, "_furnace"));
     // smoker 100 ticks
-    CookingRecipeBuilder.cooking(Ingredient.of(input), output, experience, 100, IRecipeSerializer.SMOKING_RECIPE)
-                        .unlockedBy("has_item", criteria)
-                        .save(consumer, wrap(output.asItem(), folder, "_smoker"));
+    SimpleCookingRecipeBuilder.cooking(Ingredient.of(input), output, experience, 100, RecipeSerializer.SMOKING_RECIPE)
+                              .unlockedBy("has_item", criteria)
+                              .save(consumer, wrap(output.asItem(), folder, "_smoker"));
   }
 
   /**
@@ -206,7 +206,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param edges     Edge item
    * @param type      Frame type
    */
-  private void frameCrafting(Consumer<IFinishedRecipe> consumer, ITag<Item> edges, FrameType type) {
+  private void frameCrafting(Consumer<FinishedRecipe> consumer, Tag<Item> edges, FrameType type) {
     ShapedRecipeBuilder.shaped(TinkerGadgets.itemFrame.get(type))
                        .define('e', edges)
                        .define('M', TinkerCommons.obsidianPane)

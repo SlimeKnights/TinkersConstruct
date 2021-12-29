@@ -1,26 +1,26 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class BlockTransformModifier extends InteractionModifier.SingleUse {
-  private final ToolType toolType;
+  private final ToolAction toolAction;
   private final SoundEvent sound;
   private final boolean requireGround;
   private final int priority;
 
-  public BlockTransformModifier(int color, int priority, ToolType toolType, SoundEvent sound, boolean requireGround) {
+  public BlockTransformModifier(int color, int priority, ToolAction toolAction, SoundEvent sound, boolean requireGround) {
     super(color);
     this.priority = priority;
-    this.toolType = toolType;
+    this.toolAction = toolAction;
     this.sound = sound;
     this.requireGround = requireGround;
   }
@@ -36,10 +36,10 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
+  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
     // tool must not be broken
     if (tool.isBroken()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
 
     Item item = tool.getItem();
@@ -49,6 +49,6 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
     } else {
       harvestLogic = ToolHarvestLogic.DEFAULT;
     }
-    return harvestLogic.transformBlocks(tool, context, toolType, sound, requireGround);
+    return harvestLogic.transformBlocks(tool, context, toolAction, sound, requireGround);
   }
 }

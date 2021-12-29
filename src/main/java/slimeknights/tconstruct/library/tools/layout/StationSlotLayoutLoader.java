@@ -12,12 +12,12 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * Loader for tinker station slot layouts, loaded serverside as that makes it eaiser to modify with recipes and the filters are needed both sides
  */
 @Log4j2
-public class StationSlotLayoutLoader extends JsonReloadListener {
+public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   public static final String FOLDER = "tinkering/station_layouts";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeHierarchyAdapter(Ingredient.class, new IngredientSerializer())
@@ -78,14 +78,14 @@ public class StationSlotLayoutLoader extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation,JsonElement> splashList, IResourceManager resourceManager, IProfiler profiler) {
+  protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager resourceManager, ProfilerFiller profiler) {
     ImmutableMap.Builder<ResourceLocation, StationSlotLayout> builder = ImmutableMap.builder();
     for (Entry<ResourceLocation,JsonElement> entry : splashList.entrySet()) {
       ResourceLocation key = entry.getKey();
       JsonElement value = entry.getValue();
       try {
         // skip empty objects, allows disabling a slot at a lower datapack
-        JsonObject object = JSONUtils.convertToJsonObject(value, "station_layout");
+        JsonObject object = GsonHelper.convertToJsonObject(value, "station_layout");
         if (!object.entrySet().isEmpty()) {
           // just need a valid slot information
           StationSlotLayout layout = GSON.fromJson(object, StationSlotLayout.class);

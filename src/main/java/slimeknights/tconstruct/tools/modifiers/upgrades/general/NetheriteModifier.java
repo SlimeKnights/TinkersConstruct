@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -29,17 +29,17 @@ public class NetheriteModifier extends SingleLevelModifier {
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     Item item = context.getItem();
-    if (item.is(DURABILITY)) {
+    if (DURABILITY.contains(item)) {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.20f));
     }
-    if (item.is(MELEE_OR_UNARMED)) {
+    if (MELEE_OR_UNARMED.contains(item)) {
       ToolStats.ATTACK_DAMAGE.multiply(builder, 1 + (level * 0.10f));
     }
-    if (item.is(HARVEST)) {
+    if (HARVEST.contains(item)) {
       ToolStats.MINING_SPEED.multiply(builder, 1 + (level * 0.10f));
       ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.NETHERITE);
     }
-    if (item.is(ARMOR)) {
+    if (ARMOR.contains(item)) {
       ToolStats.ARMOR_TOUGHNESS.add(builder, level);
       ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
     }

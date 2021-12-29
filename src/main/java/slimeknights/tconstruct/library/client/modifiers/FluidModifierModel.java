@@ -1,13 +1,12 @@
 package slimeknights.tconstruct.library.client.modifiers;
 
 import com.google.common.collect.ImmutableList;
-import lombok.Data;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import com.mojang.math.Transformation;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.TransformationMatrix;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ItemTextureQuadConverter;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -27,10 +26,10 @@ import java.util.function.Function;
 public class FluidModifierModel extends NormalModifierModel {
   /** Constant unbaked model instance, as they are all the same */
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = (smallGetter, largeGetter) -> {
-    RenderMaterial smallTexture = smallGetter.apply("");
-    RenderMaterial largeTexture = largeGetter.apply("");
-    RenderMaterial smallFull = smallGetter.apply("_full");
-    RenderMaterial largeFull = largeGetter.apply("_full");
+    Material smallTexture = smallGetter.apply("");
+    Material largeTexture = largeGetter.apply("");
+    Material smallFull = smallGetter.apply("_full");
+    Material largeFull = largeGetter.apply("_full");
     if (smallTexture != null || largeTexture != null) {
       return new FluidModifierModel(smallTexture, largeTexture, smallFull, largeFull);
     }
@@ -38,23 +37,22 @@ public class FluidModifierModel extends NormalModifierModel {
   };
 
   /** Textures to show */
-  protected final RenderMaterial[] fluidTextures;
+  protected final Material[] fluidTextures;
 
-  protected FluidModifierModel(@Nullable RenderMaterial smallTexture, @Nullable RenderMaterial largeTexture, RenderMaterial[] fluidTextures) {
+  protected FluidModifierModel(@Nullable Material smallTexture, @Nullable Material largeTexture, Material[] fluidTextures) {
     super(smallTexture, largeTexture);
     this.fluidTextures = fluidTextures;
   }
 
-  public FluidModifierModel(@Nullable RenderMaterial smallTexture, @Nullable RenderMaterial largeTexture,
-														@Nullable RenderMaterial smallFull, @Nullable RenderMaterial largeFull) {
-    this(smallTexture, largeTexture, new RenderMaterial[] { smallFull, largeFull });
+  public FluidModifierModel(@Nullable Material smallTexture, @Nullable Material largeTexture,
+														@Nullable Material smallFull, @Nullable Material largeFull) {
+    this(smallTexture, largeTexture, new Material[] { smallFull, largeFull });
   }
 
   @Nullable
   @Override
   public Object getCacheKey(IModifierToolStack tool, ModifierEntry entry) {
-    if (entry.getModifier() instanceof TankModifier) {
-      TankModifier tank = (TankModifier) entry.getModifier();
+    if (entry.getModifier() instanceof TankModifier tank) {
       FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
         // cache by modifier and fluid
@@ -65,23 +63,22 @@ public class FluidModifierModel extends NormalModifierModel {
   }
 
   @Nullable
-  protected RenderMaterial getTemplate(TankModifier tank, IModifierToolStack tool, FluidStack fluid, boolean isLarge) {
+  protected Material getTemplate(TankModifier tank, IModifierToolStack tool, FluidStack fluid, boolean isLarge) {
     return fluidTextures[(isLarge ? 1 : 0)];
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     // first, determine stored fluid
     ImmutableList<BakedQuad> quads = super.getQuads(tool, entry, spriteGetter, transforms, isLarge, startTintIndex, pixels);
     // modifier must be tank
     // TODO: is there anything that can be done about the fluid? to prevent weird offsets?
-    if (entry.getModifier() instanceof TankModifier) {
-      TankModifier tank = (TankModifier) entry.getModifier();
+    if (entry.getModifier() instanceof TankModifier tank) {
       FluidStack fluid = tank.getFluid(tool);
       // must have fluid
       if (!fluid.isEmpty()) {
         // must have texture for the proper state
-        RenderMaterial template = getTemplate(tank, tool, fluid, isLarge);
+        Material template = getTemplate(tank, tool, fluid, isLarge);
         if (template != null) {
           // finally, build (mostly based on bucket model)
           ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
@@ -101,9 +98,5 @@ public class FluidModifierModel extends NormalModifierModel {
   }
 
   /** Cache key for the model */
-  @Data
-  private static class FluidModifierCacheKey {
-    private final Modifier modifier;
-    private final Fluid fluid;
-  }
+  private record FluidModifierCacheKey(Modifier modifier, Fluid fluid) {}
 }

@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.library.client.data.util;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.texture.NativeImage;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 
 /** Sprite reader pulling from a datapack resource manager */
 @RequiredArgsConstructor
 public class ResourceManagerSpriteReader extends AbstractSpriteReader {
-  private final IResourceManager manager;
+  private final ResourceManager manager;
   private final String folder;
 
   private ResourceLocation getLocation(ResourceLocation base) {
@@ -25,7 +25,7 @@ public class ResourceManagerSpriteReader extends AbstractSpriteReader {
 
   @Override
   public NativeImage read(ResourceLocation path) throws IOException {
-    IResource resource = manager.getResource(getLocation(path));
+    Resource resource = manager.getResource(getLocation(path));
     NativeImage image = NativeImage.read(resource.getInputStream());
     openedImages.add(image);
     return image;

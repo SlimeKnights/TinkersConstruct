@@ -1,31 +1,23 @@
 package slimeknights.tconstruct.tools.item;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
-import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
-
-import javax.annotation.Nullable;
-
-import net.minecraft.item.Item.Properties;
 
 /** This item is mainly to return the proper model for a slimeskull */
 public class SlimeskullItem extends ModifiableArmorItem {
   public SlimeskullItem(ModifiableArmorMaterial material, Properties properties) {
     super(material, ArmorSlotType.HELMET, properties);
   }
-
-  @SuppressWarnings("unchecked")
-  @Nullable
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack stack, EquipmentSlotType armorSlot, A base) {
-    SlimeskullArmorModel.INSTANCE.setToolAndBase(stack, base);
-    return (A)SlimeskullArmorModel.INSTANCE;
-  }
+//
+//  @Override
+//  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+//    consumer.accept(new IItemRenderProperties() {
+//      @SuppressWarnings("unchecked")
+//      @Override
+//      public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+//        SlimeskullArmorModel.INSTANCE.setToolAndBase(itemStack, _default);
+//        return (A)SlimeskullArmorModel.INSTANCE;
+//      }
+//    });
+//  }
 }

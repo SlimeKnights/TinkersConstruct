@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -30,7 +30,7 @@ public class FluidClientEvents extends ClientEventBase {
   }
 
   private static void setTranslucent(FluidObject<?> fluid) {
-    RenderTypeLookup.setRenderLayer(fluid.getStill(), RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(fluid.getStill(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
   }
 }

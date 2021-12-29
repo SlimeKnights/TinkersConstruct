@@ -1,58 +1,42 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.block.BlockState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderState;
-import net.minecraft.client.renderer.RenderState.LineState;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.client.TinkerRenderTypes;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
 
-import java.util.OptionalDouble;
-
-public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<HeatingStructureTileEntity> {
-  private static final RenderType ERROR_BLOCK = RenderType.create(
-    "lines", DefaultVertexFormats.POSITION_COLOR, 1, 256,
-    RenderType.State.builder()
-                    .setLineState(new LineState(OptionalDouble.empty()))
-                    .setLayeringState(RenderState.VIEW_OFFSET_Z_LAYERING)
-                    .setTransparencyState(RenderState.TRANSLUCENT_TRANSPARENCY)
-                    .setOutputState(RenderState.ITEM_ENTITY_TARGET)
-                    .setWriteMaskState(RenderState.COLOR_DEPTH_WRITE)
-                    .setDepthTestState(RenderState.NO_DEPTH_TEST)
-                    .createCompositeState(false));
-
+public class HeatingStructureTileEntityRenderer implements BlockEntityRenderer<HeatingStructureTileEntity> {
   private static final float ITEM_SCALE = 15f/16f;
-  public HeatingStructureTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
-    super(rendererDispatcherIn);
-  }
+
+  public HeatingStructureTileEntityRenderer(Context context) {}
 
   @Override
-  public void render(HeatingStructureTileEntity smeltery, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-    World world = smeltery.getLevel();
+  public void render(HeatingStructureTileEntity smeltery, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+    Level world = smeltery.getLevel();
     if (world == null) return;
     BlockState state = smeltery.getBlockState();
     StructureData structure = smeltery.getStructure();
@@ -71,8 +55,8 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
         int dz = playerPos.getZ() - pos.getZ();
         if ((dx * dx + dz * dz) < 512) {
           // color will be yellow if the structure is valid (expanding), red if invalid
-          IVertexBuilder vertexBuilder = buffer.getBuffer(highlightError ? ERROR_BLOCK : RenderType.LINES);
-          WorldRenderer.renderShape(matrices, vertexBuilder, VoxelShapes.block(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
+          VertexConsumer vertexBuilder = buffer.getBuffer(highlightError ? TinkerRenderTypes.ERROR_BLOCK : RenderType.LINES);
+          LevelRenderer.renderShape(matrices, vertexBuilder, Shapes.block(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
         }
       }
     }
@@ -91,7 +75,7 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
     matrices.pushPose();
     matrices.translate(minPos.getX() - pos.getX(), minPos.getY() - pos.getY(), minPos.getZ() - pos.getZ());
     // render tank fluids, use minPos for brightness
-    SmelteryTankRenderer.renderFluids(matrices, buffer, smeltery.getTank(), minPos, maxPos, WorldRenderer.getLightColor(world, minPos));
+    SmelteryTankRenderer.renderFluids(matrices, buffer, smeltery.getTank(), minPos, maxPos, LevelRenderer.getLightColor(world, minPos));
 
     // render items
     int xd = 1 + maxPos.getX() - minPos.getX();
@@ -120,8 +104,8 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
           matrices.translate(offsetX + 0.5f, height + 0.5f, offsetZ + 0.5f);
           matrices.mulPose(itemRotation);
           matrices.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
-          IBakedModel model = itemRenderer.getModel(stack, world, null);
-          itemRenderer.render(stack, TransformType.NONE, false, matrices, buffer, WorldRenderer.getLightColor(world, itemPos), OverlayTexture.NO_OVERLAY, model);
+          BakedModel model = itemRenderer.getModel(stack, world, null, 0);
+          itemRenderer.render(stack, TransformType.NONE, false, matrices, buffer, LevelRenderer.getLightColor(world, itemPos), OverlayTexture.NO_OVERLAY, model);
           matrices.popPose();
 
           // done as quads rather than items as its not that expensive to draw blocks, items are the problem

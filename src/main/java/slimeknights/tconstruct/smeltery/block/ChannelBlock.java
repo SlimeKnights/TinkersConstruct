@@ -1,37 +1,40 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.Constants.BlockFlags;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
 import javax.annotation.Nullable;
@@ -39,15 +42,13 @@ import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class ChannelBlock extends Block {
-	private static final ITextComponent SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
-	private static final ITextComponent SIDE_OUT = TConstruct.makeTranslation("block", "channel.side.out");
-	private static final ITextComponent SIDE_NONE = TConstruct.makeTranslation("block", "channel.side.none");
-	private static final ITextComponent DOWN_OUT = TConstruct.makeTranslation("block", "channel.down.out");
-	private static final ITextComponent DOWN_NONE = TConstruct.makeTranslation("block", "channel.down.none");
-	private static final Map<ChannelConnection,ITextComponent> SIDE_CONNECTION = Util.make(new EnumMap<>(ChannelConnection.class), map -> {
+public class ChannelBlock extends Block implements EntityBlock {
+	private static final Component SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
+	private static final Component SIDE_OUT = TConstruct.makeTranslation("block", "channel.side.out");
+	private static final Component SIDE_NONE = TConstruct.makeTranslation("block", "channel.side.none");
+	private static final Component DOWN_OUT = TConstruct.makeTranslation("block", "channel.down.out");
+	private static final Component DOWN_NONE = TConstruct.makeTranslation("block", "channel.down.none");
+	private static final Map<ChannelConnection,Component> SIDE_CONNECTION = Util.make(new EnumMap<>(ChannelConnection.class), map -> {
 		map.put(ChannelConnection.IN, SIDE_IN);
 		map.put(ChannelConnection.OUT, SIDE_OUT);
 		map.put(ChannelConnection.NONE, SIDE_NONE);
@@ -69,10 +70,10 @@ public class ChannelBlock extends Block {
 
 	/** Voxel bounds for each of the four cardinal directions */
 	private static final Map<Direction,VoxelShape> SIDE_BOUNDS = Util.make(new EnumMap<>(Direction.class), map -> {
-		map.put(Direction.NORTH, VoxelShapes.join(box( 4, 4,  0, 12, 9,  4), box( 6, 6,  0, 10, 9,  4), IBooleanFunction.ONLY_FIRST));
-		map.put(Direction.SOUTH, VoxelShapes.join(box( 4, 4, 12, 12, 9, 16), box( 6, 6, 12, 10, 9, 16), IBooleanFunction.ONLY_FIRST));
-		map.put(Direction.WEST,  VoxelShapes.join(box( 0, 4,  4,  4, 9, 12), box( 0, 6,  6,  4, 9, 10), IBooleanFunction.ONLY_FIRST));
-		map.put(Direction.EAST,  VoxelShapes.join(box(12, 4,  4, 16, 9, 12), box(12, 6,  6, 16, 9, 10), IBooleanFunction.ONLY_FIRST));
+		map.put(Direction.NORTH, Shapes.join(box( 4, 4,  0, 12, 9,  4), box( 6, 6,  0, 10, 9,  4), BooleanOp.ONLY_FIRST));
+		map.put(Direction.SOUTH, Shapes.join(box( 4, 4, 12, 12, 9, 16), box( 6, 6, 12, 10, 9, 16), BooleanOp.ONLY_FIRST));
+		map.put(Direction.WEST,  Shapes.join(box( 0, 4,  4,  4, 9, 12), box( 0, 6,  6,  4, 9, 10), BooleanOp.ONLY_FIRST));
+		map.put(Direction.EAST,  Shapes.join(box(12, 4,  4, 16, 9, 12), box(12, 6,  6, 16, 9, 10), BooleanOp.ONLY_FIRST));
 	});
 
 	/**
@@ -87,15 +88,15 @@ public class ChannelBlock extends Block {
 	private static final VoxelShape[] BOUNDS;
 	static {
 		// center without down connection
-		VoxelShape centerUnconnected = VoxelShapes.joinUnoptimized(
+		VoxelShape centerUnconnected = Shapes.joinUnoptimized(
 				box(4, 4, 4, 12, 9, 12),
-				VoxelShapes.or(box(6, 6, 4, 10, 9, 12), box(4, 6, 6, 12, 9, 10)),
-				IBooleanFunction.ONLY_FIRST);
+				Shapes.or(box(6, 6, 4, 10, 9, 12), box(4, 6, 6, 12, 9, 10)),
+				BooleanOp.ONLY_FIRST);
 		// center with down connection
-		VoxelShape centerConnected = VoxelShapes.joinUnoptimized(
+		VoxelShape centerConnected = Shapes.joinUnoptimized(
 				box(4, 2, 4, 12, 9, 12),
-				VoxelShapes.or(box(6, 6, 4, 10, 9, 12), box(4, 6, 6, 12, 9, 10), box(6, 2, 6, 10, 9, 10)),
-				IBooleanFunction.ONLY_FIRST);
+				Shapes.or(box(6, 6, 4, 10, 9, 12), box(4, 6, 6, 12, 9, 10), box(6, 2, 6, 10, 9, 10)),
+				BooleanOp.ONLY_FIRST);
 		// bounds for unconnected walls
 		VoxelShape northWall = box( 6, 6,  4, 10, 9,  6);
 		VoxelShape southWall = box( 6, 6, 10, 10, 9, 12);
@@ -115,7 +116,7 @@ public class ChannelBlock extends Block {
 						VoxelShape westBounds = west ? SIDE_BOUNDS.get(Direction.WEST) : westWall;
 						for (boolean east : bools) {
 							VoxelShape eastBounds = east ? SIDE_BOUNDS.get(Direction.EAST) : eastWall;
-							BOUNDS[makeKey(down, north, south, west, east)] = VoxelShapes.or(center, northBounds, southBounds, westBounds, eastBounds);
+							BOUNDS[makeKey(down, north, south, west, east)] = Shapes.or(center, northBounds, southBounds, westBounds, eastBounds);
 						}
 					}
 				}
@@ -137,18 +138,18 @@ public class ChannelBlock extends Block {
 	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return BOUNDS[makeKey(state.getValue(DOWN), state.getValue(NORTH).canFlow(), state.getValue(SOUTH).canFlow(), state.getValue(WEST).canFlow(), state.getValue(EAST).canFlow())];
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block,BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
 		builder.add(DOWN, POWERED);
 		DIRECTION_MAP.values().forEach(builder::add);
 	}
 
   @Override
-  public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+  public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
     return false;
   }
 
@@ -161,8 +162,8 @@ public class ChannelBlock extends Block {
 	 * @param pos    Position to check
 	 * @return  True if its a fluid handler
 	 */
-	private static boolean isFluidHandler(IWorld world, Direction side, BlockPos pos) {
-		TileEntity te = world.getBlockEntity(pos);
+	private static boolean isFluidHandler(LevelAccessor world, Direction side, BlockPos pos) {
+		BlockEntity te = world.getBlockEntity(pos);
 		return te != null && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side).isPresent();
 	}
 
@@ -174,7 +175,7 @@ public class ChannelBlock extends Block {
 	 * @param side         Side facing
 	 * @return  True if the channel can connect
 	 */
-	private boolean canConnect(IWorld world, Direction side, BlockState facingState, BlockPos facingPos) {
+	private boolean canConnect(LevelAccessor world, Direction side, BlockState facingState, BlockPos facingPos) {
 		if (facingState.getBlock() == this) {
 			return true;
 		}
@@ -188,15 +189,15 @@ public class ChannelBlock extends Block {
 	 * @param side   Side to check
 	 * @return  True if the channel can connect
 	 */
-	private boolean canConnect(IWorld world, BlockPos pos, Direction side) {
+	private boolean canConnect(LevelAccessor world, BlockPos pos, Direction side) {
 		BlockPos facingPos = pos.relative(side);
 		return canConnect(world, side, world.getBlockState(facingPos), facingPos);
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		World world = context.getLevel();
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		BlockState state = this.defaultBlockState().setValue(POWERED, world.hasNeighborSignal(pos));
 		Direction side = context.getClickedFace();
@@ -216,7 +217,7 @@ public class ChannelBlock extends Block {
     BlockPos placedOn = pos.relative(side.getOpposite());
     // on another channel means in or out
     if (world.getBlockState(placedOn).is(this)) {
-      PlayerEntity player = context.getPlayer();
+      Player player = context.getPlayer();
       connection = player != null && player.isShiftKeyDown() ? ChannelConnection.IN : ChannelConnection.OUT;
     } else if (isFluidHandler(world, side, placedOn)) {
       connection = ChannelConnection.OUT;
@@ -227,10 +228,10 @@ public class ChannelBlock extends Block {
 	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
 		// down only cares about connected or not
 		if (facing == Direction.DOWN) {
-			if (state.getValue(DOWN) && facingState.isAir(world, facingPos)) {
+			if (state.getValue(DOWN) && facingState.isAir()) {
 				state = state.setValue(DOWN, false);
 			}
 			return state;
@@ -245,7 +246,7 @@ public class ChannelBlock extends Block {
 			} else {
 				// out is only valid if facing a fluid handler
 				ChannelConnection connection = state.getValue(prop);
-				if (connection != ChannelConnection.NONE && facingState.isAir(world, facingPos)) {
+				if (connection != ChannelConnection.NONE && facingState.isAir()) {
 					state = state.setValue(prop, ChannelConnection.NONE);
 				}
 			}
@@ -255,7 +256,7 @@ public class ChannelBlock extends Block {
 	}
 
 	@Nullable
-	private BlockState interactWithSide(BlockState state, World world, BlockPos pos, PlayerEntity player, Direction side) {
+	private BlockState interactWithSide(BlockState state, Level world, BlockPos pos, Player player, Direction side) {
 		if (side == Direction.DOWN) {
 			if (!state.getValue(DOWN) && canConnect(world, pos, side)) {
 				player.displayClientMessage(DOWN_OUT, true);
@@ -284,11 +285,11 @@ public class ChannelBlock extends Block {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {		// if the player is holding a channel, skip unless we clicked the top
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {		// if the player is holding a channel, skip unless we clicked the top
 		// they can shift click to place one on the top
 		Direction hitFace = hit.getDirection();
 		if (player.getItemInHand(hand).getItem() == this.asItem() && world.isEmptyBlock(pos.relative(hitFace))) {
-			return ActionResultType.PASS;
+			return InteractionResult.PASS;
 		}
 
 		// default to using the clicked side, though null (is that valid?) and up act as down
@@ -298,7 +299,7 @@ public class ChannelBlock extends Block {
 		}
 
 		// try each of the sides, if clicked use that
-		Vector3d hitVec = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
+		Vec3 hitVec = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
 		// map X and Z coords to a direction
 		if (hitVec.z() < 0.25f) {
 			side = Direction.NORTH;
@@ -317,27 +318,27 @@ public class ChannelBlock extends Block {
 		if (newState != null) {
 			Direction finalSide = side;
 			if (!world.isClientSide) {
-				TileEntityHelper.getTile(ChannelTileEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
+				BlockEntityHelper.get(ChannelTileEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
 			}
 			world.setBlockAndUpdate(pos, newState);
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
 		if (!worldIn.isClientSide) {
 			boolean isPowered = worldIn.hasNeighborSignal(pos);
 			if (isPowered != state.getValue(POWERED)) {
 				state = state.setValue(POWERED, isPowered).setValue(DOWN, isPowered && canConnect(worldIn, pos, Direction.DOWN));
-				worldIn.setBlock(pos, state, BlockFlags.BLOCK_UPDATE);
+				worldIn.setBlock(pos, state, Block.UPDATE_CLIENTS);
 			}
-      TileEntityHelper.getTile(ChannelTileEntity.class, worldIn, pos)
+      BlockEntityHelper.get(ChannelTileEntity.class, worldIn, pos)
                       .ifPresent(te -> te.removeCachedNeighbor(Util.directionFromOffset(pos, fromPos)));
 		}
 	}
@@ -349,17 +350,19 @@ public class ChannelBlock extends Block {
 		return side.getAxis().isHorizontal() && adjacentBlockState.is(this) && state.getValue(DIRECTION_MAP.get(side)).canFlow() && adjacentBlockState.getValue(DIRECTION_MAP.get(side.getOpposite())).canFlow();
 	}
 
+  @Nullable
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return new ChannelTileEntity(pPos, pState);
   }
 
+  @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    return new ChannelTileEntity();
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> givenType) {
+    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(givenType, TinkerSmeltery.channel.get(), ChannelTileEntity.SERVER_TICKER);
   }
 
-  public enum ChannelConnection implements IStringSerializable {
+  public enum ChannelConnection implements StringRepresentable {
 		/** No connection on this side */
 		NONE,
 		/** Channel is flowing inwards on this side */
@@ -385,12 +388,12 @@ public class ChannelBlock extends Block {
 		 * @return  Opposite direction
 		 */
 		public ChannelConnection getOpposite() {
-			switch(this) {
-				case IN:  return OUT;
-				case OUT: return IN;
-			}
-			return NONE;
-		}
+      return switch (this) {
+        case IN -> OUT;
+        case OUT -> IN;
+        default -> NONE;
+      };
+    }
 
 		/**
 		 * Gets the next side in the cycle for interaction
@@ -399,20 +402,18 @@ public class ChannelBlock extends Block {
 		 */
 		public ChannelConnection getNext(boolean reverse) {
 			if (reverse) {
-				switch(this) {
-					case NONE: return OUT;
-					case OUT:  return IN;
-					case IN:   return NONE;
-				}
+        return switch (this) {
+          case NONE -> OUT;
+          case OUT -> IN;
+          case IN -> NONE;
+        };
 			} else {
-				switch(this) {
-					case NONE: return IN;
-					case IN:   return OUT;
-					case OUT:  return NONE;
-				}
+        return switch (this) {
+          case NONE -> IN;
+          case IN -> OUT;
+          case OUT -> NONE;
+        };
 			}
-			// not possible
-			throw new UnsupportedOperationException();
-		}
+    }
 	}
 }

@@ -1,23 +1,24 @@
 package slimeknights.tconstruct.tools.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.GameType;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.client.event.FOVModifierEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -55,8 +56,8 @@ public class ModifierClientEvents {
     // suppress durability from advanced, we display our own
     if (event.getItemStack().getItem() instanceof IModifiableDisplay) {
       event.getToolTip().removeIf(text -> {
-        if (text instanceof TranslationTextComponent) {
-          return ((TranslationTextComponent)text).getKey().equals("item.durability");
+        if (text instanceof TranslatableComponent) {
+          return ((TranslatableComponent)text).getKey().equals("item.durability");
         }
         return false;
       });
@@ -66,14 +67,14 @@ public class ModifierClientEvents {
   /** Determines whether to render the given hand based on modifiers */
   @SubscribeEvent
   static void renderHand(RenderHandEvent event) {
-    Hand hand = event.getHand();
-    PlayerEntity player = Minecraft.getInstance().player;
-    if (hand != Hand.OFF_HAND || player == null) {
+    InteractionHand hand = event.getHand();
+    Player player = Minecraft.getInstance().player;
+    if (hand != InteractionHand.OFF_HAND || player == null) {
       return;
     }
     ItemStack mainhand = player.getMainHandItem();
     ItemStack offhand = event.getItemStack();
-    if (mainhand.getItem().is(TinkerTags.Items.TWO_HANDED)) {
+    if (mainhand.is(TinkerTags.Items.TWO_HANDED)) {
       ToolStack tool = ToolStack.from(mainhand);
       // special support for replacing modifier
       IModDataReadOnly volatileData = tool.getVolatileData();
@@ -92,9 +93,9 @@ public class ModifierClientEvents {
 
     // if the data is set, render the empty offhand
     if (offhand.isEmpty() && !player.isInvisible() && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
-      MatrixStack matrices = event.getMatrixStack();
+      PoseStack matrices = event.getPoseStack();
       matrices.pushPose();
-      Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getBuffers(), event.getLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
+      Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
       matrices.popPose();
       event.setCanceled(true);
     }
@@ -102,7 +103,7 @@ public class ModifierClientEvents {
 
   /** Handles the zoom modifier zooming */
   @SubscribeEvent
-  static void handleZoom(FOVUpdateEvent event) {
+  static void handleZoom(FOVModifierEvent event) {
     event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       FloatMultiplier zoom = data.get(TinkerDataKeys.FOV_MODIFIER);
       if (zoom != null) {
@@ -128,8 +129,8 @@ public class ModifierClientEvents {
   static void equipmentChange(ToolEquipmentChangeEvent event) {
     EquipmentChangeContext context = event.getContext();
     if (Config.CLIENT.renderShieldSlotItem.get()) {
-      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlotType.LEGS) {
-        IModifierToolStack tool = context.getToolInSlot(EquipmentSlotType.LEGS);
+      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.LEGS) {
+        IModifierToolStack tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
           ShieldStrapModifier modifier = TinkerModifiers.shieldStrap.get();
           int level = tool.getModifierLevel(modifier);
@@ -143,9 +144,9 @@ public class ModifierClientEvents {
     }
 
     if (Config.CLIENT.renderItemFrame.get()) {
-      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlotType.HEAD) {
+      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.HEAD) {
         itemFrames.clear();
-        IModifierToolStack tool = context.getToolInSlot(EquipmentSlotType.HEAD);
+        IModifierToolStack tool = context.getToolInSlot(EquipmentSlot.HEAD);
         if (tool != null) {
           ItemFrameModifier modifier = TinkerModifiers.itemFrame.get();
           int level = tool.getModifierLevel(modifier);
@@ -159,90 +160,93 @@ public class ModifierClientEvents {
 
   /** Render the item in the first shield slot */
   @SubscribeEvent
-  static void renderHotbar(RenderGameOverlayEvent.Post event) {
+  static void renderHotbar(RenderGameOverlayEvent.PostLayer event) {
+    Minecraft mc = Minecraft.getInstance();
+    if (mc.options.hideGui) {
+      return;
+    }
+    IIngameOverlay overlay = event.getOverlay();
+    if (overlay != ForgeIngameGui.HOTBAR_ELEMENT) {
+      return;
+    }
     boolean renderShield = Config.CLIENT.renderShieldSlotItem.get() && !nextOffhand.isEmpty();
     boolean renderItemFrame = Config.CLIENT.renderItemFrame.get() && !itemFrames.isEmpty();
     if (!renderItemFrame && !renderShield) {
       return;
     }
-    if (event.getType() == ElementType.HOTBAR) {
-      Minecraft mc = Minecraft.getInstance();
-      PlayerController playerController = Minecraft.getInstance().gameMode;
-      if (playerController != null && playerController.getPlayerMode() != GameType.SPECTATOR) {
-        PlayerEntity player = Minecraft.getInstance().player;
-        if (player != null && player == mc.getCameraEntity()) {
-          RenderSystem.enableRescaleNormal();
-          RenderSystem.enableBlend();
-          RenderSystem.defaultBlendFunc();
+    MultiPlayerGameMode playerController = Minecraft.getInstance().gameMode;
+    if (playerController != null && playerController.getPlayerMode() != GameType.SPECTATOR) {
+      Player player = Minecraft.getInstance().player;
+      if (player != null && player == mc.getCameraEntity()) {
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
 
-          int scaledWidth = mc.getWindow().getGuiScaledWidth();
-          int scaledHeight = mc.getWindow().getGuiScaledHeight();
-          MatrixStack matrixStack = event.getMatrixStack();
-          float partialTicks = event.getPartialTicks();
+        int scaledWidth = mc.getWindow().getGuiScaledWidth();
+        int scaledHeight = mc.getWindow().getGuiScaledHeight();
+        PoseStack matrixStack = event.getMatrixStack();
+        float partialTicks = event.getPartialTicks();
 
-          // want just above the normal hotbar item
-          if (renderShield) {
-            mc.getTextureManager().bind(Icons.ICONS);
-            int x = scaledWidth / 2 + (player.getMainArm().getOpposite() == HandSide.LEFT ? -117 : 101);
-            int y = scaledHeight - 38;
-            Screen.blit(matrixStack, x - 3, y - 3, player.getOffhandItem().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
-            mc.gui.renderSlot(x, y, partialTicks, player, nextOffhand);
+        // want just above the normal hotbar item
+        if (renderShield) {
+          RenderSystem.setShaderTexture(0, Icons.ICONS);
+          int x = scaledWidth / 2 + (player.getMainArm().getOpposite() == HumanoidArm.LEFT ? -117 : 101);
+          int y = scaledHeight - 38;
+          Screen.blit(matrixStack, x - 3, y - 3, player.getOffhandItem().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+          mc.gui.renderSlot(x, y, partialTicks, player, nextOffhand, 11);
+        }
+
+        if (renderItemFrame) {
+          // determine how many items need to be rendered
+          int columns = Config.CLIENT.itemsPerRow.get();
+          int count = itemFrames.size();
+          // need to split items over multiple lines potentially
+          int rows = count / columns;
+          int inLastRow = count % columns;
+          // if we have an exact number, means we should have full in last row
+          if (inLastRow == 0) {
+            inLastRow = columns;
+          } else {
+            // we have an incomplete row that was not counted
+            rows++;
+          }
+          // determine placement of the items
+          Orientation2D location = Config.CLIENT.itemFrameLocation.get();
+          Orientation1D xOrientation = location.getX();
+          Orientation1D yOrientation = location.getY();
+          int xStart = xOrientation.align(scaledWidth - SLOT_BACKGROUND_SIZE * columns) + Config.CLIENT.itemFrameXOffset.get();
+          int yStart = yOrientation.align(scaledHeight - SLOT_BACKGROUND_SIZE * rows) + Config.CLIENT.itemFrameYOffset.get();
+
+          // draw backgrounds
+          RenderSystem.setShaderTexture(0, Icons.ICONS);
+          int lastRow = rows - 1;
+          for (int r = 0; r < lastRow; r++) {
+            for (int c = 0; c < columns; c++) {
+              Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+            }
+          }
+          // last row will be aligned in the direction of x orientation (center, left, or right)
+          int lastRowOffset = xOrientation.align((columns - inLastRow) * 2) * SLOT_BACKGROUND_SIZE / 2;
+          for (int c = 0; c < inLastRow; c++) {
+            Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
           }
 
-          if (renderItemFrame) {
-            // determine how many items need to be rendered
-            int columns = Config.CLIENT.itemsPerRow.get();
-            int count = itemFrames.size();
-            // need to split items over multiple lines potentially
-            int rows = count / columns;
-            int inLastRow = count % columns;
-            // if we have an exact number, means we should have full in last row
-            if (inLastRow == 0) {
-              inLastRow = columns;
-            } else {
-              // we have an incomplete row that was not counted
-              rows++;
-            }
-            // determine placement of the items
-            Orientation2D location = Config.CLIENT.itemFrameLocation.get();
-            Orientation1D xOrientation = location.getX();
-            Orientation1D yOrientation = location.getY();
-            int xStart = xOrientation.align(scaledWidth - SLOT_BACKGROUND_SIZE * columns) + Config.CLIENT.itemFrameXOffset.get();
-            int yStart = yOrientation.align(scaledHeight - SLOT_BACKGROUND_SIZE * rows) + Config.CLIENT.itemFrameYOffset.get();
-
-            // draw backgrounds
-            mc.getTextureManager().bind(Icons.ICONS);
-            int lastRow = rows - 1;
-            for (int r = 0; r < lastRow; r++) {
-              for (int c = 0; c < columns; c++) {
-                Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
-              }
-            }
-            // last row will be aligned in the direction of x orientation (center, left, or right)
-            int lastRowOffset = xOrientation.align((columns - inLastRow) * 2) * SLOT_BACKGROUND_SIZE / 2;
-            for (int c = 0; c < inLastRow; c++) {
-              Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
-            }
-
-            // draw items
-            int i = 0;
-            xStart += 3; yStart += 3; // offset from item start instead of frame start
-            for (int r = 0; r < lastRow; r++) {
-              for (int c = 0; c < columns; c++) {
-                mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
-                i++;
-              }
-            }
-            // align last row
-            for (int c = 0; c < inLastRow; c++) {
-              mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i));
+          // draw items
+          int i = 0;
+          xStart += 3; yStart += 3; // offset from item start instead of frame start
+          for (int r = 0; r < lastRow; r++) {
+            for (int c = 0; c < columns; c++) {
+              mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i), i);
               i++;
             }
           }
-
-          RenderSystem.disableRescaleNormal();
-          RenderSystem.disableBlend();
+          // align last row
+          for (int c = 0; c < inLastRow; c++) {
+            mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i), i);
+            i++;
+          }
         }
+
+        RenderSystem.disableBlend();
       }
     }
   }

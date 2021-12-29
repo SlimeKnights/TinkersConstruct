@@ -2,28 +2,27 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.DistExecutor;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -37,7 +36,6 @@ import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -61,15 +59,15 @@ public class TooltipUtil {
   private TooltipUtil() {}
 
   /** Tooltip telling the player to hold shift for more info */
-  public static final ITextComponent TOOLTIP_HOLD_SHIFT = TConstruct.makeTranslation("tooltip", "hold_shift", TConstruct.makeTranslation("key", "shift").withStyle(TextFormatting.YELLOW, TextFormatting.ITALIC));
+  public static final Component TOOLTIP_HOLD_SHIFT = TConstruct.makeTranslation("tooltip", "hold_shift", TConstruct.makeTranslation("key", "shift").withStyle(ChatFormatting.YELLOW, ChatFormatting.ITALIC));
   /** Tooltip telling the player to hold control for part info */
-  public static final ITextComponent TOOLTIP_HOLD_CTRL = TConstruct.makeTranslation("tooltip", "hold_ctrl", TConstruct.makeTranslation("key", "ctrl").withStyle(TextFormatting.AQUA, TextFormatting.ITALIC));
+  public static final Component TOOLTIP_HOLD_CTRL = TConstruct.makeTranslation("tooltip", "hold_ctrl", TConstruct.makeTranslation("key", "ctrl").withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC));
   /** Tooltip for when tool data is missing */
-  private static final ITextComponent NO_DATA = TConstruct.makeTranslation("tooltip", "missing_data").withStyle(TextFormatting.GRAY);
+  private static final Component NO_DATA = TConstruct.makeTranslation("tooltip", "missing_data").withStyle(ChatFormatting.GRAY);
   /** Tooltip for when a tool is uninitialized */
-  private static final ITextComponent UNINITIALIZED = TConstruct.makeTranslation("tooltip", "uninitialized").withStyle(TextFormatting.GRAY);
+  private static final Component UNINITIALIZED = TConstruct.makeTranslation("tooltip", "uninitialized").withStyle(ChatFormatting.GRAY);
   /** Extra tooltip for multipart tools with no materials */
-  private static final ITextComponent RANDOM_MATERIALS = TConstruct.makeTranslation("tooltip", "random_materials").withStyle(TextFormatting.GRAY);
+  private static final Component RANDOM_MATERIALS = TConstruct.makeTranslation("tooltip", "random_materials").withStyle(ChatFormatting.GRAY);
 
   /**
    * If true, this stack was created for display, so some of the tooltip is suppressed
@@ -77,7 +75,7 @@ public class TooltipUtil {
    * @return  True if marked display
    */
   public static boolean isDisplay(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     return nbt != null && nbt.getBoolean(KEY_DISPLAY);
   }
 
@@ -87,7 +85,7 @@ public class TooltipUtil {
    * @param toolDefinition  Tool definition
    * @return  Display name including the head material
    */
-  public static ITextComponent getDisplayName(ItemStack stack, ToolDefinition toolDefinition) {
+  public static Component getDisplayName(ItemStack stack, ToolDefinition toolDefinition) {
     return getDisplayName(stack, null, toolDefinition);
   }
 
@@ -97,9 +95,9 @@ public class TooltipUtil {
    * @param tool   Tool instance
    * @return  Display name including the head material
    */
-  public static ITextComponent getDisplayName(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition toolDefinition) {
+  public static Component getDisplayName(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition toolDefinition) {
     List<PartRequirement> components = toolDefinition.getData().getParts();
-    ITextComponent baseName = new TranslationTextComponent(stack.getDescriptionId());
+    Component baseName = new TranslatableComponent(stack.getDescriptionId());
     if (components.isEmpty()) {
       return baseName;
     }
@@ -118,17 +116,17 @@ public class TooltipUtil {
     return ITinkerStationDisplay.getCombinedItemName(stack, baseName, nameMaterials);
   }
 
-  /** Translates client side only logic to a method that exists on serverside, used primarily since vanilla is annoying and takes away player access in the tooltip */
-  @OnlyIn(Dist.CLIENT)
-  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, TooltipKey tooltipKey, ITooltipFlag tooltipFlag) {
-    PlayerEntity player = world == null ? null : Minecraft.getInstance().player;
-    TooltipUtil.addInformation(item, stack, player, tooltip, tooltipKey, TooltipFlag.fromVanilla(tooltipFlag));
+  /** Replaces the world argument with the local player */
+  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    // TODO: consider a helper for the following
+    Player player = world == null ? null : DistExecutor.unsafeRunForDist(() -> () -> Minecraft.getInstance().player, () -> () -> null);
+    TooltipUtil.addInformation(item, stack, player, tooltip, tooltipKey, tooltipFlag);
   }
 
   /**
    * Full logic for adding tooltip information, other than attributes
    */
-  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     // if the display tag is set, just show modifiers
     ToolDefinition definition = item.getToolDefinition();
     if (isDisplay(stack)) {
@@ -142,8 +140,8 @@ public class TooltipUtil {
     } else if (!ToolStack.isInitialized(stack)) {
       tooltip.add(UNINITIALIZED);
       if (definition.isMultipart()) {
-        CompoundNBT nbt = stack.getTag();
-        if (nbt == null || !nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
+        CompoundTag nbt = stack.getTag();
+        if (nbt == null || !nbt.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
           tooltip.add(RANDOM_MATERIALS);
         }
       }
@@ -161,7 +159,7 @@ public class TooltipUtil {
         default:
           ToolStack tool = ToolStack.from(stack);
           getDefaultInfo(stack, tool, tooltip);
-          addAttributes(item, tool, player, tooltip, SHOW_ALL_ATTRIBUTES, EquipmentSlotType.values());
+          addAttributes(item, tool, player, tooltip, SHOW_ALL_ATTRIBUTES, EquipmentSlot.values());
           break;
       }
     }
@@ -172,7 +170,7 @@ public class TooltipUtil {
    * @param stack     Stack instance
    * @param tooltips  Tooltip list
    */
-  public static void getDefaultInfo(ItemStack stack, List<ITextComponent> tooltips) {
+  public static void getDefaultInfo(ItemStack stack, List<Component> tooltips) {
     getDefaultInfo(stack, ToolStack.from(stack), tooltips);
   }
 
@@ -182,18 +180,18 @@ public class TooltipUtil {
    * @param tool       Tool instance
    * @param tooltips   Tooltip list
    */
-  public static void addModifierNames(ItemStack stack, IModifierToolStack tool, List<ITextComponent> tooltips) {
+  public static void addModifierNames(ItemStack stack, IModifierToolStack tool, List<Component> tooltips) {
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().shouldDisplay(false)) {
         tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
       }
     }
     if (!stack.isEmpty()) {
-      CompoundNBT tag = stack.getTag();
-      if (tag != null && tag.contains("Enchantments", NBT.TAG_LIST)) {
-        ListNBT enchantments = tag.getList("Enchantments", NBT.TAG_COMPOUND);
+      CompoundTag tag = stack.getTag();
+      if (tag != null && tag.contains("Enchantments", Tag.TAG_LIST)) {
+        ListTag enchantments = tag.getList("Enchantments", Tag.TAG_COMPOUND);
         for (int i = 0; i < enchantments.size(); ++i) {
-          CompoundNBT enchantmentTag = enchantments.getCompound(i);
+          CompoundTag enchantmentTag = enchantments.getCompound(i);
           // TODO: tag to whitelist/blacklist enchantments in the tooltip, depends on which ones we reimplement and which work on their own
           Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
                               .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
@@ -207,14 +205,14 @@ public class TooltipUtil {
    * @param tool      Tool stack instance
    * @param tooltips  Tooltip list
    */
-  public static void getDefaultInfo(ItemStack stack, IModifierToolStack tool, List<ITextComponent> tooltips) {
+  public static void getDefaultInfo(ItemStack stack, IModifierToolStack tool, List<Component> tooltips) {
     // shows as broken when broken, hold shift for proper durability
     if (tool.getItem().canBeDepleted() && !tool.isUnbreakable()) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
     addModifierNames(stack, tool, tooltips);
-    tooltips.add(StringTextComponent.EMPTY);
+    tooltips.add(TextComponent.EMPTY);
     tooltips.add(TOOLTIP_HOLD_SHIFT);
     if (tool.getDefinition().isMultipart()) {
       tooltips.add(TOOLTIP_HOLD_CTRL);
@@ -229,7 +227,7 @@ public class TooltipUtil {
    * @param flag      Tooltip flag
    * @return List from the parameter after filling
    */
-  public static List<ITextComponent> getDefaultStats(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag flag) {
+  public static List<Component> getDefaultStats(IModifierToolStack tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     Item item = tool.getItem();
     if (TinkerTags.Items.DURABILITY.contains(item)) {
@@ -261,7 +259,7 @@ public class TooltipUtil {
    * @param flag      Tooltip flag
    * @return List from the parameter after filling
    */
-  public static List<ITextComponent> getArmorStats(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag flag) {
+  public static List<Component> getArmorStats(IModifierToolStack tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     Item item = tool.getItem();
     if (TinkerTags.Items.DURABILITY.contains(item)) {
@@ -290,7 +288,7 @@ public class TooltipUtil {
    * @param stack     Item stack being displayed
    * @param tooltips  List of tooltips
    */
-  public static void getComponents(IModifiable item, ItemStack stack, List<ITextComponent> tooltips) {
+  public static void getComponents(IModifiable item, ItemStack stack, List<Component> tooltips) {
     // no components, nothing to do
     List<PartRequirement> components = item.getToolDefinition().getData().getParts();
     if (components.isEmpty()) {
@@ -311,10 +309,10 @@ public class TooltipUtil {
     for (int i = 0; i <= max; i++) {
       PartRequirement requirement = components.get(i);
       IMaterial material = materials.get(i);
-      tooltips.add(requirement.nameForMaterial(material).copy().withStyle(TextFormatting.UNDERLINE).withStyle(style -> style.withColor(material.getColor())));
+      tooltips.add(requirement.nameForMaterial(material).copy().withStyle(ChatFormatting.UNDERLINE).withStyle(style -> style.withColor(material.getColor())));
       MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
       if (i != max) {
-        tooltips.add(StringTextComponent.EMPTY);
+        tooltips.add(TextComponent.EMPTY);
       }
     }
   }
@@ -328,13 +326,13 @@ public class TooltipUtil {
    * @param showAttribute  Predicate to determine whether an attribute should show
    * @param slots          List of slots to display
    */
-  public static void addAttributes(ITinkerStationDisplay item, IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltip, BiPredicate<Attribute, Operation> showAttribute, EquipmentSlotType... slots) {
-    for (EquipmentSlotType slot : slots) {
+  public static void addAttributes(ITinkerStationDisplay item, IModifierToolStack tool, @Nullable Player player, List<Component> tooltip, BiPredicate<Attribute, Operation> showAttribute, EquipmentSlot... slots) {
+    for (EquipmentSlot slot : slots) {
       Multimap<Attribute,AttributeModifier> modifiers = item.getAttributeModifiers(tool, slot);
       if (!modifiers.isEmpty()) {
         if (slots.length > 1) {
-          tooltip.add(StringTextComponent.EMPTY);
-          tooltip.add((new TranslationTextComponent("item.modifiers." + slot.getName())).withStyle(TextFormatting.GRAY));
+          tooltip.add(TextComponent.EMPTY);
+          tooltip.add((new TranslatableComponent("item.modifiers." + slot.getName())).withStyle(ChatFormatting.GRAY));
         }
 
         for (Entry<Attribute, AttributeModifier> entry : modifiers.entries()) {
@@ -369,18 +367,18 @@ public class TooltipUtil {
             displayValue *= 100;
           }
           // final tooltip addition
-          ITextComponent name = new TranslationTextComponent(attribute.getDescriptionId());
+          Component name = new TranslatableComponent(attribute.getDescriptionId());
           if (showEquals) {
-            tooltip.add(new StringTextComponent(" ")
-                          .append(new TranslationTextComponent("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
-                          .withStyle(TextFormatting.DARK_GREEN));
+            tooltip.add(new TextComponent(" ")
+                          .append(new TranslatableComponent("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                          .withStyle(ChatFormatting.DARK_GREEN));
           } else if (amount > 0.0D) {
-            tooltip.add((new TranslationTextComponent("attribute.modifier.plus." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
-                          .withStyle(TextFormatting.BLUE));
+            tooltip.add((new TranslatableComponent("attribute.modifier.plus." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                          .withStyle(ChatFormatting.BLUE));
           } else if (amount < 0.0D) {
             displayValue *= -1;
-            tooltip.add((new TranslationTextComponent("attribute.modifier.take." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
-                          .withStyle(TextFormatting.RED));
+            tooltip.add((new TranslatableComponent("attribute.modifier.take." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                          .withStyle(ChatFormatting.RED));
           }
         }
       }

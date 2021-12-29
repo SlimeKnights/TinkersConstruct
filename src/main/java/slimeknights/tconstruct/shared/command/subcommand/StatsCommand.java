@@ -7,13 +7,13 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -37,13 +37,13 @@ public class StatsCommand {
   private static final String RESET_STAT_MULTIPLE = TConstruct.makeTranslationKey("command", "stats.success.reset.stat.multiple");
   private static final SimpleCommandExceptionType INVALID_ADD = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.invalid_add"));
   private static final SimpleCommandExceptionType INVALID_MULTIPLY = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.invalid_multiply"));
-  private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (ITextComponent)error);
+  private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (Component)error);
 
   /**
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
+  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
     subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
               .then(Commands.argument("targets", EntityArgument.entities())
                             // stats <target> bonus add|set <stat_type> <value>
@@ -74,7 +74,7 @@ public class StatsCommand {
   }
 
   /** Modifies a tool stat with the given operation */
-  private static int update(CommandContext<CommandSource> context, Type type, Operation op) throws CommandSyntaxException {
+  private static int update(CommandContext<CommandSourceStack> context, Type type, Operation op) throws CommandSyntaxException {
     float value = FloatArgumentType.getFloat(context, "value");
     // simplifies later operations if we skip operations that do nothing
     if (op == Operation.MODIFY) {
@@ -126,24 +126,24 @@ public class StatsCommand {
       }
 
       // if successful, update held item
-      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       return true;
     });
 
     // success message
-    CommandSource source = context.getSource();
+    CommandSourceStack source = context.getSource();
     int size = successes.size();
     String successKey = SUCCESS_KEY_PREFIX + type.key + "." + op.key + ".";
     if (size == 1) {
-      source.sendSuccess(new TranslationTextComponent(successKey + "single", stat.getPrefix(), value, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslatableComponent(successKey + "single", stat.getPrefix(), value, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslationTextComponent(successKey + "multiple", stat.getPrefix(), value, size), true);
+      source.sendSuccess(new TranslatableComponent(successKey + "multiple", stat.getPrefix(), value, size), true);
     }
     return size;
   }
 
   /** Resets all stats to default */
-  private static int resetStat(CommandContext<CommandSource> context) throws CommandSyntaxException {
+  private static int resetStat(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
     IToolStat<?> stat = ToolStatArgument.getStat(context, "stat_type");
     List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
       ToolStack tool = ToolStack.from(stack);
@@ -172,24 +172,24 @@ public class StatsCommand {
         }
 
         // if successful, update held item
-        living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
+        living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       }
       return true;
     });
 
     // success message
-    CommandSource source = context.getSource();
+    CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(new TranslationTextComponent(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslatableComponent(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslationTextComponent(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
+      source.sendSuccess(new TranslatableComponent(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
     }
     return size;
   }
 
   /** Resets all stats to default */
-  private static int resetAll(CommandContext<CommandSource> context) throws CommandSyntaxException {
+  private static int resetAll(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
     List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
       // remove modifier
       ToolStack tool = ToolStack.from(stack);
@@ -207,18 +207,18 @@ public class StatsCommand {
         }
 
         // if successful, update held item
-        living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
+        living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       }
       return true;
     });
 
     // success message
-    CommandSource source = context.getSource();
+    CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(new TranslationTextComponent(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslatableComponent(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslationTextComponent(RESET_ALL_MULTIPLE, size), true);
+      source.sendSuccess(new TranslatableComponent(RESET_ALL_MULTIPLE, size), true);
     }
     return size;
   }

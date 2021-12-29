@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.tables.tileentity.table.crafting;
 
 import com.google.common.base.Preconditions;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.StackedContents;
 
 /**
  * Extension of {@link CraftingInventory} to use instead wrap an existing {@link IInventory}
  */
-public class CraftingInventoryWrapper extends CraftingInventory {
-  private final IInventory crafter;
-  public CraftingInventoryWrapper(IInventory crafter, int width, int height) {
+public class CraftingInventoryWrapper extends CraftingContainer {
+  private final Container crafter;
+  public CraftingInventoryWrapper(Container crafter, int width, int height) {
     //noinspection ConstantConditions
     super(null, width, height);
     Preconditions.checkArgument(crafter.getContainerSize() == width * height, "Invalid width and height for inventroy size");
@@ -61,7 +61,7 @@ public class CraftingInventoryWrapper extends CraftingInventory {
   }
 
   @Override
-  public void fillStackedContents(RecipeItemHelper helper) {
+  public void fillStackedContents(StackedContents helper) {
     for (int i = 0; i < crafter.getContainerSize(); i++) {
       helper.accountSimpleStack(crafter.getItem(i));
     }

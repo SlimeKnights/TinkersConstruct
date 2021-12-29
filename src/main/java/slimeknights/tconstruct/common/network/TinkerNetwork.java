@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.common.network;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.IPacket;
-import net.minecraft.server.management.PlayerList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.PacketDistributor;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.UpdateMaterialsPacket;
@@ -82,7 +82,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(UpdateToolDefinitionDataPacket.class, UpdateToolDefinitionDataPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateStationScreenPacket.class, buf -> UpdateStationScreenPacket.INSTANCE, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateTinkerSlotLayoutsPacket.class, UpdateTinkerSlotLayoutsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // modifiers
@@ -104,21 +104,21 @@ public class TinkerNetwork extends NetworkWrapper {
    * @param player  Player
    * @param packet  Packet
    */
-  public void sendVanillaPacket(Entity player, IPacket<?> packet) {
-    if (player instanceof ServerPlayerEntity && ((ServerPlayerEntity) player).connection != null) {
-      ((ServerPlayerEntity) player).connection.send(packet);
+  public void sendVanillaPacket(Entity player, Packet<?> packet) {
+    if (player instanceof ServerPlayer serverPlayer) {
+      serverPlayer.connection.send(packet);
     }
   }
 
   /**
-   * Same as {@link #sendToClientsAround(Object, ServerWorld, BlockPos)}, but checks that the world is a serverworld
+   * Same as {@link #sendToClientsAround(Object, ServerLevel, BlockPos)}, but checks that the world is a serverworld
    * @param msg       Packet to send
    * @param world     World instance
    * @param position  Target position
    */
-  public void sendToClientsAround(Object msg, @Nullable IWorld world, BlockPos position) {
-    if (world instanceof ServerWorld) {
-      sendToClientsAround(msg, (ServerWorld)world, position);
+  public void sendToClientsAround(Object msg, @Nullable LevelAccessor world, BlockPos position) {
+    if (world instanceof ServerLevel server) {
+      sendToClientsAround(msg, server, position);
     }
   }
 
@@ -148,11 +148,11 @@ public class TinkerNetwork extends NetworkWrapper {
    * @param playerList      Player list to use if main player is null
    * @param msg             Message to send
    */
-  public void sendToPlayerList(@Nullable ServerPlayerEntity targetedPlayer, PlayerList playerList, Object msg) {
+  public void sendToPlayerList(@Nullable ServerPlayer targetedPlayer, PlayerList playerList, Object msg) {
     if (targetedPlayer != null) {
       sendTo(msg, targetedPlayer);
     } else {
-      for (ServerPlayerEntity player : playerList.getPlayers()) {
+      for (ServerPlayer player : playerList.getPlayers()) {
         sendTo(msg, player);
       }
     }

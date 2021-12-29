@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -25,11 +25,11 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
-  public UpdateMaterialStatsPacket(PacketBuffer buffer) {
+  public UpdateMaterialStatsPacket(FriendlyByteBuf buffer) {
     this(buffer, MaterialRegistry::getClassForStat);
   }
 
-  public UpdateMaterialStatsPacket(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -49,7 +49,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
    * @param classResolver  Stat to decode
    * @return  Optional of the decoded material stats
    */
-  private Optional<IMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  private Optional<IMaterialStats> decodeStat(FriendlyByteBuf buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
     try {
       Class<?> clazz = classResolver.apply(statsId);
@@ -67,7 +67,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
       buffer.writeResourceLocation(materialId);
@@ -81,7 +81,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
    * @param buffer  Buffer instance
    * @param stat    Stat to encode
    */
-  private void encodeStat(PacketBuffer buffer, IMaterialStats stat) {
+  private void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat) {
     buffer.writeResourceLocation(stat.getIdentifier());
     stat.encode(buffer);
   }

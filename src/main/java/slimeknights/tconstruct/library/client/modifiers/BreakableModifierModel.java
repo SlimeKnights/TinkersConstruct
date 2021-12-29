@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.client.modifiers;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.math.vector.TransformationMatrix;
+import net.minecraft.util.GsonHelper;
+import com.mojang.math.Transformation;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
@@ -25,24 +25,24 @@ public class BreakableModifierModel implements IBakedModifierModel {
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = new Unbaked(-1, 0);
 
   /** Textures for this model */
-  private final RenderMaterial[] sprites;
+  private final Material[] sprites;
   /** Color to apply to the texture */
   private final int color;
   /** Luminosity to apply to the texture */
   private final int luminosity;
 
-  public BreakableModifierModel(@Nullable RenderMaterial normalSmall, @Nullable RenderMaterial brokenSmall, @Nullable RenderMaterial normalLarge, @Nullable RenderMaterial brokenLarge, int color, int luminosity) {
+  public BreakableModifierModel(@Nullable Material normalSmall, @Nullable Material brokenSmall, @Nullable Material normalLarge, @Nullable Material brokenLarge, int color, int luminosity) {
     this.color = color;
     this.luminosity = luminosity;
-    this.sprites = new RenderMaterial[] {normalSmall, brokenSmall, normalLarge, brokenLarge};
+    this.sprites = new Material[] {normalSmall, brokenSmall, normalLarge, brokenLarge};
   }
 
-  public BreakableModifierModel(@Nullable RenderMaterial normalSmall, @Nullable RenderMaterial brokenSmall, @Nullable RenderMaterial normalLarge, @Nullable RenderMaterial brokenLarge) {
+  public BreakableModifierModel(@Nullable Material normalSmall, @Nullable Material brokenSmall, @Nullable Material normalLarge, @Nullable Material brokenLarge) {
     this(normalSmall, brokenSmall, normalLarge, brokenLarge, -1, 0);
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     // first get the cache index
     int index = (isLarge ? 2 : 0) | (tool.isBroken() ? 1 : 0);
     // then return the quads
@@ -56,11 +56,11 @@ public class BreakableModifierModel implements IBakedModifierModel {
 
     @Nullable
     @Override
-    public IBakedModifierModel forTool(Function<String,RenderMaterial> smallGetter, Function<String,RenderMaterial> largeGetter) {
-      RenderMaterial normalSmall = smallGetter.apply("");
-      RenderMaterial brokenSmall = smallGetter.apply("_broken");
-      RenderMaterial normalLarge = smallGetter.apply("");
-      RenderMaterial brokenLarge = smallGetter.apply("_broken");
+    public IBakedModifierModel forTool(Function<String,Material> smallGetter, Function<String,Material> largeGetter) {
+      Material normalSmall = smallGetter.apply("");
+      Material brokenSmall = smallGetter.apply("_broken");
+      Material normalLarge = smallGetter.apply("");
+      Material brokenLarge = smallGetter.apply("_broken");
       // we need both to exist for this to work
       if (normalSmall != null || brokenSmall != null || normalLarge != null || brokenLarge != null) {
         return new BreakableModifierModel(normalSmall, brokenSmall, normalLarge, brokenLarge, color, luminosity);
@@ -71,8 +71,8 @@ public class BreakableModifierModel implements IBakedModifierModel {
     @Override
     public IUnbakedModifierModel configure(JsonObject data) {
       // parse the two keys, if we ended up with something new create an instance
-      int color = JsonHelper.parseColor(JSONUtils.getAsString(data, "color", ""));
-      int luminosity = JSONUtils.getAsInt(data, "luminosity");
+      int color = JsonHelper.parseColor(GsonHelper.getAsString(data, "color", ""));
+      int luminosity = GsonHelper.getAsInt(data, "luminosity");
       if (color != this.color || luminosity != this.luminosity) {
         return new Unbaked(color, luminosity);
       }

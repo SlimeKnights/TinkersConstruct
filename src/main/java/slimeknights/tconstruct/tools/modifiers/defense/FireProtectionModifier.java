@@ -1,14 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.defense;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -20,7 +21,6 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 import slimeknights.tconstruct.tools.logic.VanillaMaxLevel;
@@ -37,7 +37,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && source.isFire()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
@@ -45,7 +45,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
@@ -55,7 +55,7 @@ public class FireProtectionModifier extends IncrementalModifier {
    */
 
   /** Gets the level of fire aspect for a particular slot */
-  private int getEnchantmentLevel(EquipmentChangeContext context, EquipmentSlotType slotType) {
+  private int getEnchantmentLevel(EquipmentChangeContext context, EquipmentSlot slotType) {
     if (context.getToolInSlot(slotType) == null) {
       return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_PROTECTION, context.getEntity().getItemBySlot(slotType));
     }
@@ -65,8 +65,8 @@ public class FireProtectionModifier extends IncrementalModifier {
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (slot.getType() == Group.ARMOR && !entity.level.isClientSide) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (slot.getType() == Type.ARMOR && !entity.level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData != null) {
@@ -86,15 +86,15 @@ public class FireProtectionModifier extends IncrementalModifier {
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.level.isClientSide && slot.getType() == Group.ARMOR && !tool.isBroken()) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (!entity.level.isClientSide && slot.getType() == Type.ARMOR && !tool.isBroken()) {
       float scaledLevel = getScaledLevel(tool, level);
       context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData == null) {
           // not calculated yet? add all vanilla values to the tracker
           fireData = new FireData();
-          for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+          for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
             fireData.vanilla.set(slotType, getEnchantmentLevel(context, slotType));
           }
           // fetch fire timer as well
@@ -112,10 +112,10 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
+  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
     LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.level.isClientSide && slot.getType() == Group.ARMOR) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (!entity.level.isClientSide && slot.getType() == Type.ARMOR) {
       // so another slot changed, update vanilla fire data
       context.getTinkerData().ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
@@ -160,10 +160,10 @@ public class FireProtectionModifier extends IncrementalModifier {
               if (maxVanilla > 0) {
                 // we already removed 15% of fire per vanilla level, we want to remove an additional 15% of the original per our level
                 // means calculating the fire before vanilla made changes and then taking the difference between us and vanilla out
-                newFire -= MathHelper.floor((currentFire / (1 - maxVanilla * 0.15f)) * (maxLevel - maxVanilla) * 0.15f);
+                newFire -= Mth.floor((currentFire / (1 - maxVanilla * 0.15f)) * (maxLevel - maxVanilla) * 0.15f);
               } else {
                 // remove 15% of fire per level
-                newFire -= MathHelper.floor(currentFire * maxLevel * 0.15f);
+                newFire -= Mth.floor(currentFire * maxLevel * 0.15f);
               }
               if (newFire < 0) {
                 newFire = 0;

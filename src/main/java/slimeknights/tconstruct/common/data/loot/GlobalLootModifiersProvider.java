@@ -1,26 +1,26 @@
 package slimeknights.tconstruct.common.data.loot;
 
-import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootContext.EntityTarget;
-import net.minecraft.loot.RandomValueRange;
-import net.minecraft.loot.conditions.EntityHasProperty;
-import net.minecraft.loot.conditions.MatchTool;
-import net.minecraft.loot.functions.ExplosionDecay;
-import net.minecraft.loot.functions.SetCount;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
 import slimeknights.mantle.loot.AddEntryLootModifier;
 import slimeknights.mantle.loot.ReplaceItemLootModifier;
 import slimeknights.mantle.loot.condition.BlockTagLootCondition;
 import slimeknights.mantle.loot.condition.ContainsItemModifierLootCondition;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -47,18 +47,18 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     ModifierLootModifier.builder()
                         .addCondition(BlockOrEntityCondition.INSTANCE)
                         .addCondition(MatchTool.toolMatches(meleeHarvest)
-                                               .or(EntityHasProperty.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(meleeHarvest.build()))))
+                                               .or(LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(meleeHarvest.build()))))
                                                .build())
                         .build("modifier_hook", this);
 
     // chrysophilite modifier hook
-    AddEntryLootModifier.builder(ItemLootEntry.lootTableItem(Items.GOLD_NUGGET))
+    AddEntryLootModifier.builder(LootItem.lootTableItem(Items.GOLD_NUGGET))
                         .addCondition(new BlockTagLootCondition(TinkerTags.Blocks.CHRYSOPHILITE_ORES))
                         .addCondition(new ContainsItemModifierLootCondition(Ingredient.of(TinkerTags.Items.CHRYSOPHILITE_ORES)).inverted())
                         .addCondition(ChrysophiliteLootCondition.INSTANCE)
-                        .addFunction(SetCount.setCount(RandomValueRange.between(2, 6)).build())
+                        .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)).build())
                         .addFunction(ChrysophiliteBonusFunction.oreDrops(false).build())
-                        .addFunction(ExplosionDecay.explosionDecay().build())
+                        .addFunction(ApplyExplosionDecay.explosionDecay().build())
                         .build("chrysophilite_modifier", this);
   }
 

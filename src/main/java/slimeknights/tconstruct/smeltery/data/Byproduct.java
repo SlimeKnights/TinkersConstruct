@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.data;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.world.level.material.Fluid;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IByproduct;
 import slimeknights.tconstruct.library.recipe.FluidValues;

@@ -1,27 +1,27 @@
 package slimeknights.tconstruct.world.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.util.DamageSource;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.events.teleport.EnderSlimeTeleportEvent;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-public class EnderSlimeEntity extends SlimeEntity {
+public class EnderSlimeEntity extends Slime {
   /** Predicate for this ender slime to allow teleporting */
   private final ITeleportEventFactory teleportPredicate = (entity, x, y, z) -> new EnderSlimeTeleportEvent(entity, x, y, z, this);
 
-  public EnderSlimeEntity(EntityType<? extends EnderSlimeEntity> type, World worldIn) {
+  public EnderSlimeEntity(EntityType<? extends EnderSlimeEntity> type, Level worldIn) {
     super(type, worldIn);
   }
 
   @Override
-  protected IParticleData getParticleType() {
+  protected ParticleOptions getParticleType() {
     return TinkerWorld.enderSlimeParticle.get();
   }
 

@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.With;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -32,11 +32,11 @@ public class HandleMaterialStats extends BaseMaterialStats {
   private static final String ATTACK_SPEED_PREFIX = makeTooltipKey(TConstruct.getResource("attack_speed"));
   private static final String MINING_SPEED_PREFIX = makeTooltipKey(TConstruct.getResource("mining_speed"));
   // tooltip descriptions
-  private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.durability.description"));
-  private static final ITextComponent ATTACK_DAMAGE_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.attack_damage.description"));
-  private static final ITextComponent ATTACK_SPEED_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.attack_speed.description"));
-  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.mining_speed.description"));
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, ATTACK_DAMAGE_DESCRIPTION, ATTACK_SPEED_DESCRIPTION, MINING_SPEED_DESCRIPTION);
+  private static final Component DURABILITY_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.durability.description"));
+  private static final Component ATTACK_DAMAGE_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.attack_damage.description"));
+  private static final Component ATTACK_SPEED_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.attack_speed.description"));
+  private static final Component MINING_SPEED_DESCRIPTION = makeTooltip(TConstruct.getResource("handle.mining_speed.description"));
+  private static final List<Component> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, ATTACK_DAMAGE_DESCRIPTION, ATTACK_SPEED_DESCRIPTION, MINING_SPEED_DESCRIPTION);
 
   // multipliers
   private float durability;
@@ -45,7 +45,7 @@ public class HandleMaterialStats extends BaseMaterialStats {
   private float attackDamage;
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeFloat(this.durability);
     buffer.writeFloat(this.attackDamage);
     buffer.writeFloat(this.attackSpeed);
@@ -53,7 +53,7 @@ public class HandleMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(FriendlyByteBuf buffer) {
     this.durability = buffer.readFloat();
     this.attackDamage = buffer.readFloat();
     this.attackSpeed = buffer.readFloat();
@@ -66,8 +66,8 @@ public class HandleMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
-    List<ITextComponent> list = new ArrayList<>();
+  public List<Component> getLocalizedInfo() {
+    List<Component> list = new ArrayList<>();
     list.add(formatDurability(this.durability));
     list.add(formatAttackDamage(this.attackDamage));
     list.add(formatAttackSpeed(this.attackSpeed));
@@ -76,27 +76,27 @@ public class HandleMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Component> getLocalizedDescriptions() {
     return DESCRIPTION;
   }
 
   /** Applies formatting for durability */
-  public static ITextComponent formatDurability(float quality) {
+  public static Component formatDurability(float quality) {
     return IToolStat.formatColoredMultiplier(DURABILITY_PREFIX, quality);
   }
 
   /** Applies formatting for attack speed */
-  public static ITextComponent formatAttackDamage(float quality) {
+  public static Component formatAttackDamage(float quality) {
     return IToolStat.formatColoredMultiplier(ATTACK_DAMAGE_PREFIX, quality);
   }
 
   /** Applies formatting for attack speed */
-  public static ITextComponent formatAttackSpeed(float quality) {
+  public static Component formatAttackSpeed(float quality) {
     return IToolStat.formatColoredMultiplier(ATTACK_SPEED_PREFIX, quality);
   }
 
   /** Applies formatting for mining speed */
-  public static ITextComponent formatMiningSpeed(float quality) {
+  public static Component formatMiningSpeed(float quality) {
     return IToolStat.formatColoredMultiplier(MINING_SPEED_PREFIX, quality);
   }
 }

@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
  * Provides mostly read only access to {@link ToolStack}.
  * Used since modifiers should not be modifying the tool materials or modifiers in their behaviors.
  * If you receive a modifier tool stack as a parameter, do NOT use an instanceof check and cast it to a ToolStack. Don't make me use a private wrapper class.
+ * TODO: rename to simpler name
  */
 public interface IModifierToolStack extends IToolContext {
   /** Commonly used operation, getting a stat multiplier */

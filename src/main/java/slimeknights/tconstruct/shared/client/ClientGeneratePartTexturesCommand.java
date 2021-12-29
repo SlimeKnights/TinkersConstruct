@@ -3,20 +3,20 @@ package slimeknights.tconstruct.shared.client;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.blaze3d.platform.NativeImage;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.NativeImage;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.ClickEvent.Action;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.ClickEvent.Action;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -44,35 +44,34 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
-
-import static slimeknights.mantle.util.LogicHelper.defaultIfNull;
 
 /** Actual logic to generate tool textures */
 @Log4j2
 public class ClientGeneratePartTexturesCommand {
   private static final String SUCCESS_KEY = TConstruct.makeTranslationKey("command", "generate_part_textures.finish");
-  private static final ITextComponent NO_PARTS = TConstruct.makeTranslation("command", "generate_part_textures.no_parts");
-  private static final ITextComponent NO_MATERIALS = TConstruct.makeTranslation("command", "generate_part_textures.no_materials");
+  private static final Component NO_PARTS = TConstruct.makeTranslation("command", "generate_part_textures.no_parts");
+  private static final Component NO_MATERIALS = TConstruct.makeTranslation("command", "generate_part_textures.no_materials");
   /** Path to add the data */
   private static final String PACK_NAME = "TinkersConstructGeneratedPartTextures";
   /** Part file to load, pulls from all namespaces, but no merging */
   private static final String GENERATOR_PART_TEXTURES = "models/tconstruct_generator_part_textures.json";
 
   /** Gets the clickable output link */
-  protected static ITextComponent getOutputComponent(File file) {
-    return (new StringTextComponent(file.getAbsolutePath())).withStyle((style) -> style.setUnderlined(true).withClickEvent(new ClickEvent(Action.OPEN_FILE, file.getAbsolutePath())));
+  protected static Component getOutputComponent(File file) {
+    return (new TextComponent(file.getAbsolutePath())).withStyle((style) -> style.setUnderlined(true).withClickEvent(new ClickEvent(Action.OPEN_FILE, file.getAbsolutePath())));
   }
 
   /** Generates all textures using the resource pack list */
   public static void generateTextures(Operation operation, String modId, String materialPath) {
     long time = System.nanoTime();
-    IResourceManager manager = Minecraft.getInstance().getResourceManager();
+    ResourceManager manager = Minecraft.getInstance().getResourceManager();
     // the forge mod bus is annoying, but stuck using it due to the normal bus not existing at datagen time
     MaterialPartTextureGenerator.runCallbacks(null, manager);
 
-    PlayerEntity player = Minecraft.getInstance().player;
+    Player player = Minecraft.getInstance().player;
 
     // get the list of sprites
     List<PartSpriteInfo> partSprites = loadPartSprites(manager);
@@ -137,7 +136,7 @@ public class ClientGeneratePartTexturesCommand {
     MaterialPartTextureGenerator.runCallbacks(null, null);
     log.info("Finished generating {} textures in {} ms", count, deltaTime / 1000000f);
     if (Minecraft.getInstance().player != null) {
-      Minecraft.getInstance().player.displayClientMessage(new TranslationTextComponent(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, getOutputComponent(path.toFile())), false);
+      Minecraft.getInstance().player.displayClientMessage(new TranslatableComponent(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, getOutputComponent(path.toFile())), false);
     }
   }
 
@@ -163,7 +162,7 @@ public class ClientGeneratePartTexturesCommand {
 
   /** Saves an image to the output folder */
   private static void saveImage(Path folder, ResourceLocation location, NativeImage image) {
-    Path path = folder.resolve(Paths.get(ResourcePackType.CLIENT_RESOURCES.getDirectory(),
+    Path path = folder.resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(),
                 location.getNamespace(), MaterialPartTextureGenerator.FOLDER, location.getPath() + ".png"));
     try {
       Files.createDirectories(path.getParent());
@@ -174,7 +173,7 @@ public class ClientGeneratePartTexturesCommand {
   }
 
   /** Loads all part sprites file */
-  private static List<PartSpriteInfo> loadPartSprites(IResourceManager manager) {
+  private static List<PartSpriteInfo> loadPartSprites(ResourceManager manager) {
     ImmutableList.Builder<PartSpriteInfo> builder = ImmutableList.builder();
 
     // each namespace loads separately
@@ -184,13 +183,13 @@ public class ClientGeneratePartTexturesCommand {
         // if the namespace has the file, we will start building
         try {
           // start from the top most pack and work down, lets us break the loop as soon as we find a "replace"
-          List<IResource> resources = manager.getResources(location);
+          List<Resource> resources = manager.getResources(location);
           for (int r = resources.size() - 1; r >= 0; r--) {
-            IResource resource = resources.get(r);
+            Resource resource = resources.get(r);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
-              JsonObject object = JSONUtils.parse(reader);
+              JsonObject object = GsonHelper.parse(reader);
               List<PartSpriteInfo> parts = JsonHelper.parseList(object, "parts", (element, name) -> {
-                JsonObject part = JSONUtils.convertToJsonObject(element, name);
+                JsonObject part = GsonHelper.convertToJsonObject(element, name);
                 ResourceLocation path = JsonHelper.getResourceLocation(part, "path");
                 MaterialStatsId statId = new MaterialStatsId(JsonHelper.getResourceLocation(part, "statType"));
                 return new PartSpriteInfo(path, statId);
@@ -198,7 +197,7 @@ public class ClientGeneratePartTexturesCommand {
               builder.addAll(parts);
 
               // if we find replace, don't process lower files from this namespace
-              if (JSONUtils.getAsBoolean(object, "replace", false)) {
+              if (GsonHelper.getAsBoolean(object, "replace", false)) {
                 break;
               }
             } catch (IOException ex) {
@@ -219,7 +218,7 @@ public class ClientGeneratePartTexturesCommand {
    * @param validMaterialId  Predicate to check if a material ID should be considered
    * @return List of material sprites loaded
    */
-  private static List<MaterialSpriteInfo> loadMaterialRenderInfoGenerators(IResourceManager manager, Predicate<ResourceLocation> validMaterialId) {
+  private static List<MaterialSpriteInfo> loadMaterialRenderInfoGenerators(ResourceManager manager, Predicate<ResourceLocation> validMaterialId) {
     ImmutableList.Builder<MaterialSpriteInfo> builder = ImmutableList.builder();
 
     int trim = MaterialRenderInfoLoader.FOLDER.length() + 1;
@@ -231,7 +230,7 @@ public class ClientGeneratePartTexturesCommand {
       // ensure its a material we care about
       if (validMaterialId.test(id)) {
         try (
-          IResource iresource = manager.getResource(location);
+          Resource iresource = manager.getResource(location);
           InputStream inputstream = iresource.getInputStream();
           Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
         ) {
@@ -239,7 +238,7 @@ public class ClientGeneratePartTexturesCommand {
           MaterialRenderInfoJson json = MaterialRenderInfoLoader.GSON.fromJson(reader, MaterialRenderInfoJson.class);
           MaterialGeneratorJson generator = json.getGenerator();
           if (generator != null) {
-            builder.add(new MaterialSpriteInfo(defaultIfNull(json.getTexture(), id), defaultIfNull(json.getFallbacks(), new String[0]), generator));
+            builder.add(new MaterialSpriteInfo(Objects.requireNonNullElse(json.getTexture(), id), Objects.requireNonNullElse(json.getFallbacks(), new String[0]), generator));
           }
         } catch (JsonSyntaxException e) {
           log.error("Failed to read tool part texture generator info for {}", id, e);

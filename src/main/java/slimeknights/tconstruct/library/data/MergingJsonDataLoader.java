@@ -6,11 +6,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
@@ -29,7 +29,7 @@ import java.util.function.Function;
  */
 @RequiredArgsConstructor
 @Log4j2
-public abstract class MergingJsonDataLoader<B> implements IResourceManagerReloadListener {
+public abstract class MergingJsonDataLoader<B> implements ResourceManagerReloadListener {
   private static final int JSON_LENGTH = ".json".length();
 
   @VisibleForTesting
@@ -53,22 +53,22 @@ public abstract class MergingJsonDataLoader<B> implements IResourceManagerReload
    * @param map      Map of data
    * @param manager  Resource manager
    */
-  protected abstract void finishLoad(Map<ResourceLocation,B> map, IResourceManager manager);
+  protected abstract void finishLoad(Map<ResourceLocation,B> map, ResourceManager manager);
 
   @Override
-  public void onResourceManagerReload(IResourceManager manager) {
+  public void onResourceManagerReload(ResourceManager manager) {
     Map<ResourceLocation,B> map = new HashMap<>();
     for (ResourceLocation filePath : manager.listResources(folder, fileName -> fileName.endsWith(".json"))) {
       String path = filePath.getPath();
       ResourceLocation id = new ResourceLocation(filePath.getNamespace(), path.substring(folder.length() + 1, path.length() - JSON_LENGTH));
 
       try {
-        for (IResource resource : manager.getResources(filePath)) {
+        for (Resource resource : manager.getResources(filePath)) {
           try (
             InputStream inputstream = resource.getInputStream();
             Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
           ) {
-            JsonElement json = JSONUtils.fromJson(gson, reader, JsonElement.class);
+            JsonElement json = GsonHelper.fromJson(gson, reader, JsonElement.class);
             if (json == null) {
               log.error("Couldn't load data file {} from {} in data pack {} as its null or empty", id, filePath, resource.getSourceName());
             } else {

@@ -4,9 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -21,17 +21,17 @@ import java.util.List;
 public class ExtraMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("extra"));
   public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats();
-  private static final ITextComponent NO_STATS = makeTooltip(TConstruct.getResource("extra.no_stats"));
-  private static final List<ITextComponent> LOCALIZED = Collections.singletonList(NO_STATS);
-  private static final List<ITextComponent> DESCRIPTION = Collections.singletonList(StringTextComponent.EMPTY);
+  private static final Component NO_STATS = makeTooltip(TConstruct.getResource("extra.no_stats"));
+  private static final List<Component> LOCALIZED = Collections.singletonList(NO_STATS);
+  private static final List<Component> DESCRIPTION = Collections.singletonList(TextComponent.EMPTY);
 
   // no stats
 
   @Override
-  public void encode(PacketBuffer buffer) {}
+  public void encode(FriendlyByteBuf buffer) {}
 
   @Override
-  public void decode(PacketBuffer buffer) {}
+  public void decode(FriendlyByteBuf buffer) {}
 
   @Override
   public MaterialStatsId getIdentifier() {
@@ -39,12 +39,12 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo() {
     return LOCALIZED;
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Component> getLocalizedDescriptions() {
     return DESCRIPTION;
   }
 }

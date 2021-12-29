@@ -1,19 +1,52 @@
 package slimeknights.tconstruct.library.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
+import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RenderUtils {
+  /**
+   * Binds a texture for rendering
+   * @param texture  Texture
+   */
+  public static void bindTexture(ResourceLocation texture) {
+    RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    RenderSystem.setShaderTexture(0, texture);
+  }
+
+  /**
+   * Sets up the shader for rendering
+   * @param texture  Texture
+   * @param red      Red tint
+   * @param green    Green tint
+   * @param blue     Blue tint
+   * @param alpha    Alpha tint
+   */
+  public static void setup(ResourceLocation texture, float red, float green, float blue, float alpha) {
+    bindTexture(texture);
+    RenderSystem.setShaderColor(red, green, blue, alpha);
+  }
+
+  /**
+   * Sets up the shader for rendering
+   * @param texture  Texture
+   */
+  public static void setup(ResourceLocation texture) {
+    setup(texture, 1.0f, 1.0f, 1.0f, 1.0f);
+  }
+
   /**
    * Adds a fluid cuboid with transparency
    * @param matrices  Matrix stack instance
@@ -23,7 +56,7 @@ public final class RenderUtils {
    * @param light     Quad lighting
    * @param cube      Fluid cuboid instance
    */
-  public static void renderTransparentCuboid(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidStack fluid, int opacity, int light) {
+  public static void renderTransparentCuboid(PoseStack matrices, MultiBufferSource buffer, FluidCuboid cube, FluidStack fluid, int opacity, int light) {
     // nothing to render? skip
     if (opacity < 0 || fluid.isEmpty()) {
       return;
@@ -43,7 +76,7 @@ public final class RenderUtils {
       // clear bits in color and or in the new alpha
       color = (color & 0xFFFFFF) | (alpha << 24);
     }
-    FluidRenderer.renderCuboid(matrices, buffer.getBuffer(FluidRenderer.RENDER_TYPE), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
+    FluidRenderer.renderCuboid(matrices, buffer.getBuffer(MantleRenderTypes.FLUID), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
   }
 
   /**
@@ -56,7 +89,7 @@ public final class RenderUtils {
    * @param partialTicks  Partial ticks
    * @param flipGas       If true, flips gas cubes
    */
-  public static void renderFluidTank(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
+  public static void renderFluidTank(PoseStack matrices, MultiBufferSource buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
     // render liquid if present
     FluidStack liquid = tank.getFluid();
     int capacity = tank.getCapacity();
@@ -83,8 +116,7 @@ public final class RenderUtils {
     float r = red(color) / 255.0F;
     float g = green(color) / 255.0F;
     float b = blue(color) / 255.0F;
-
-    RenderSystem.color4f(r, g, b, a);
+    RenderSystem.setShaderColor(r, g, b, a);
   }
 
   public static int alpha(int c) {

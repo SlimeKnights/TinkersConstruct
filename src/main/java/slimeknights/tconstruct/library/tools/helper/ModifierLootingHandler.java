@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
@@ -21,7 +21,7 @@ import java.util.UUID;
  */
 public class ModifierLootingHandler {
   /** If contained in the set, they should use the offhand for looting */
-  private static final Map<UUID,EquipmentSlotType> LOOTING_OFFHAND = new HashMap<>();
+  private static final Map<UUID,EquipmentSlot> LOOTING_OFFHAND = new HashMap<>();
   private static boolean init = false;
 
   /** Initializies this listener */
@@ -39,8 +39,8 @@ public class ModifierLootingHandler {
    * @param entity    Player to set
    * @param slotType  Slot type
    */
-  public static void setLootingSlot(LivingEntity entity, EquipmentSlotType slotType) {
-    if (slotType == EquipmentSlotType.MAINHAND) {
+  public static void setLootingSlot(LivingEntity entity, EquipmentSlot slotType) {
+    if (slotType == EquipmentSlot.MAINHAND) {
       LOOTING_OFFHAND.remove(entity.getUUID());
     } else {
       LOOTING_OFFHAND.put(entity.getUUID(), slotType);
@@ -48,8 +48,8 @@ public class ModifierLootingHandler {
   }
 
   /** Gets the slot to use for looting */
-  public static EquipmentSlotType getLootingSlot(@Nullable LivingEntity entity) {
-    return entity != null ? LOOTING_OFFHAND.getOrDefault(entity.getUUID(), EquipmentSlotType.MAINHAND) : EquipmentSlotType.MAINHAND;
+  public static EquipmentSlot getLootingSlot(@Nullable LivingEntity entity) {
+    return entity != null ? LOOTING_OFFHAND.getOrDefault(entity.getUUID(), EquipmentSlot.MAINHAND) : EquipmentSlot.MAINHAND;
   }
 
   /** Applies the looting bonus for modifiers */
@@ -64,14 +64,14 @@ public class ModifierLootingHandler {
       // TODO: consider bow usage, as the attack time is not the same as the death time
       // TODO: extend to armor eventually
       LivingEntity holder = ((LivingEntity)source);
-      EquipmentSlotType slotType = getLootingSlot(holder);
+      EquipmentSlot slotType = getLootingSlot(holder);
       ItemStack held = holder.getItemBySlot(slotType);
       int level = event.getLootingLevel();
       if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
         ToolStack tool = ToolStack.from(held);
         level = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
         // ignore default looting if we are looting from another slot
-      } else if (slotType != EquipmentSlotType.MAINHAND) {
+      } else if (slotType != EquipmentSlot.MAINHAND) {
         level = 0;
       }
       // boot looting with pants

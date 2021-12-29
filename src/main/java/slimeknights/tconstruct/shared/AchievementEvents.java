@@ -2,12 +2,13 @@ package slimeknights.tconstruct.shared;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -18,6 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 //import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 //import slimeknights.tconstruct.tools.tools.Pickaxe;
 
+// TODO: reevaluate
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID)
 public final class AchievementEvents {
 
@@ -28,10 +30,9 @@ public final class AchievementEvents {
 
   @SubscribeEvent
   public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
-    if (event.getPlayer() == null || event.getPlayer() instanceof FakePlayer || !(event.getPlayer() instanceof ServerPlayerEntity) || event.getCrafting().isEmpty()) {
+    if (event.getPlayer() == null || event.getPlayer() instanceof FakePlayer || !(event.getPlayer() instanceof ServerPlayer playerMP) || event.getCrafting().isEmpty()) {
       return;
     }
-    ServerPlayerEntity playerMP = (ServerPlayerEntity) event.getPlayer();
     Item item = event.getCrafting().getItem();
     if (item instanceof BlockItem && ((BlockItem) item).getBlock() == Blocks.CRAFTING_TABLE) {
       grantAdvancement(playerMP, ADVANCEMENT_STORY_ROOT);
@@ -51,18 +52,21 @@ public final class AchievementEvents {
   @SubscribeEvent
   public static void onDamageEntity(LivingHurtEvent event) {
     DamageSource source = event.getSource();
-    if (source.isProjectile() && !(source.getEntity() instanceof FakePlayer) && source.getEntity() instanceof ServerPlayerEntity) {// && source.getImmediateSource() instanceof EntityArrow) {
-      grantAdvancement((ServerPlayerEntity) source.getEntity(), ADVANCEMENT_SHOOT_ARROW);
+    if (source.isProjectile() && !(source.getEntity() instanceof FakePlayer) && source.getEntity() instanceof ServerPlayer) {// && source.getImmediateSource() instanceof EntityArrow) {
+      grantAdvancement((ServerPlayer) source.getEntity(), ADVANCEMENT_SHOOT_ARROW);
     }
   }
 
-  private static void grantAdvancement(ServerPlayerEntity playerMP, String advancementResource) {
-    Advancement advancement = playerMP.getServer().getAdvancements().getAdvancement(new ResourceLocation(advancementResource));
-    if (advancement != null) {
-      AdvancementProgress advancementProgress = playerMP.getAdvancements().getOrStartProgress(advancement);
-      if (!advancementProgress.isDone()) {
-        // we use playerAdvancements.grantCriterion instead of progress.grantCriterion for the visibility stuff and toasts
-        advancementProgress.getRemainingCriteria().forEach(criterion -> playerMP.getAdvancements().award(advancement, criterion));
+  private static void grantAdvancement(ServerPlayer playerMP, String advancementResource) {
+    MinecraftServer server = playerMP.getServer();
+    if (server != null) {
+      Advancement advancement = server.getAdvancements().getAdvancement(new ResourceLocation(advancementResource));
+      if (advancement != null) {
+        AdvancementProgress advancementProgress = playerMP.getAdvancements().getOrStartProgress(advancement);
+        if (!advancementProgress.isDone()) {
+          // we use playerAdvancements.grantCriterion instead of progress.grantCriterion for the visibility stuff and toasts
+          advancementProgress.getRemainingCriteria().forEach(criterion -> playerMP.getAdvancements().award(advancement, criterion));
+        }
       }
     }
   }

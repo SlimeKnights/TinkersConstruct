@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.tools.stat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.util.Mth;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat.FloatBuilder;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -16,7 +16,7 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
   /** Name of this tool stat */
   private final ToolStatId name;
   /** Color for this stat type */
-  private final Color color;
+  private final TextColor color;
   /** Gets the default value for this stat */
   private final float defaultValue;
   /** Min value for this stat */
@@ -26,7 +26,7 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
 
   public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue) {
     this.name = name;
-    this.color = Color.fromRgb(color);
+    this.color = TextColor.fromRgb(color);
     this.defaultValue = defaultValue;
     this.minValue = minValue;
     this.maxValue = maxValue;
@@ -34,7 +34,7 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
 
   @Override
   public float clamp(float value) {
-    return MathHelper.clamp(value, getMinValue(), getMaxValue());
+    return Mth.clamp(value, getMinValue(), getMaxValue());
   }
 
   @Override
@@ -84,7 +84,7 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
   }
 
   @Override
-  public ITextComponent formatValue(float number) {
+  public Component formatValue(float number) {
     return IToolStat.formatNumber(Util.makeTranslationKey("tool_stat", getName()), getColor(), number);
   }
 

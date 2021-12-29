@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.client.data.util;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.texture.NativeImage;
-import net.minecraft.util.ResourceLocation;
+import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.io.IOException;

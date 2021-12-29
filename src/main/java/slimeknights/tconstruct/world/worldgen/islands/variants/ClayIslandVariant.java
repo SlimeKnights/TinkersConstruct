@@ -2,12 +2,11 @@ package slimeknights.tconstruct.world.worldgen.islands.variants;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Features;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
@@ -49,18 +48,21 @@ public class ClayIslandVariant implements IIslandVariant {
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
     // all variants except dark oak, no 2x2 trees
-    switch (random.nextInt(10)) {
+    return null; // TODO
+    /*
+    return switch (random.nextInt(10)) {
       // 40% oak
-      case 0: case 1: case 2: case 3: return Features.OAK;
+      case 0, 1, 2, 3 -> Features.OAK;
       // 30% birch
-      case 4: case 5: case 6: return Features.BIRCH;
+      case 4, 5, 6 -> Features.BIRCH;
       // 10% spruce
-      case 7: return Features.SPRUCE;
+      case 7 -> Features.SPRUCE;
       // 10% acacia
-      case 8: return Features.ACACIA;
+      case 8 -> Features.ACACIA;
       // 10% jungle
-      case 9: return Features.JUNGLE_TREE_NO_VINE;
-    }
-    return null;
+      case 9 -> Features.JUNGLE_TREE_NO_VINE;
+      default -> null;
+    };
+     */
   }
 }

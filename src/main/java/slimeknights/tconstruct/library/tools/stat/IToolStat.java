@@ -1,15 +1,16 @@
 package slimeknights.tconstruct.library.tools.stat;
 
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.Mth;
 import slimeknights.tconstruct.library.utils.Util;
 
 /**
  * Interface for all tool stats, can implement to determine the behavior of stats in the modifier stat builder
+ * TODO: tool stats need to support strings instead of just numbers
  * @param <B>
  */
 public interface IToolStat<B> {
@@ -50,17 +51,17 @@ public interface IToolStat<B> {
   /* Display */
 
   /** Gets the prefix for this tool stat */
-  default IFormattableTextComponent getPrefix() {
-    return new TranslationTextComponent(Util.makeTranslationKey("tool_stat", getName()));
+  default MutableComponent getPrefix() {
+    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName()));
   }
 
   /** Gets the description for this tool stat */
-  default IFormattableTextComponent getDescription() {
-    return new TranslationTextComponent(Util.makeTranslationKey("tool_stat", getName()) + ".description");
+  default MutableComponent getDescription() {
+    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName()) + ".description");
   }
 
   /** Formats the value using this tool stat */
-  ITextComponent formatValue(float number);
+  Component formatValue(float number);
 
 
   /* Formatting helpers */
@@ -72,7 +73,7 @@ public interface IToolStat<B> {
    * @param number  Number
    * @return  Text component
    */
-  static ITextComponent formatNumber(String loc, Color color, int number) {
+  static Component formatNumber(String loc, TextColor color, int number) {
     return formatNumber(loc, color, (float) number);
   }
 
@@ -83,9 +84,9 @@ public interface IToolStat<B> {
    * @param number  Number
    * @return  Text component
    */
-  static ITextComponent formatNumber(String loc, Color color, float number) {
-    return new TranslationTextComponent(loc)
-      .append(new StringTextComponent(Util.COMMA_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
+  static Component formatNumber(String loc, TextColor color, float number) {
+    return new TranslatableComponent(loc)
+      .append(new TextComponent(Util.COMMA_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
   }
 
   /**
@@ -95,9 +96,9 @@ public interface IToolStat<B> {
    * @param number  Number
    * @return  Text component
    */
-  static ITextComponent formatNumberPercent(String loc, Color color, float number) {
-    return new TranslationTextComponent(loc)
-      .append(new StringTextComponent(Util.PERCENT_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
+  static Component formatNumberPercent(String loc, TextColor color, float number) {
+    return new TranslatableComponent(loc)
+      .append(new TextComponent(Util.PERCENT_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
   }
 
   /**
@@ -106,9 +107,9 @@ public interface IToolStat<B> {
    * @param number  Percentage
    * @return  Colored percent with prefix
    */
-  static ITextComponent formatColoredMultiplier(String loc, float number) {
+  static Component formatColoredMultiplier(String loc, float number) {
     // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
-    float hue = MathHelper.positiveModulo(number - 0.5f, 2f);
-    return new TranslationTextComponent(loc).append(new StringTextComponent(Util.MULTIPLIER_FORMAT.format(number)).withStyle(style -> style.withColor(Color.fromRgb(MathHelper.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
+    float hue = Mth.positiveModulo(number - 0.5f, 2f);
+    return new TranslatableComponent(loc).append(new TextComponent(Util.MULTIPLIER_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
   }
 }

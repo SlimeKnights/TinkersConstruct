@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools.client;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import com.mojang.math.Transformation;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.math.vector.TransformationMatrix;
+import net.minecraft.client.resources.model.Material;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.client.modifiers.IUnbakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
@@ -22,15 +22,15 @@ import java.util.function.Function;
 public class OverslimeModifierModel extends NormalModifierModel {
   /** Constant unbaked model instance, as they are all the same */
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = (smallGetter, largeGetter) -> {
-    RenderMaterial smallTexture = smallGetter.apply("");
-    RenderMaterial largeTexture = largeGetter.apply("");
+    Material smallTexture = smallGetter.apply("");
+    Material largeTexture = largeGetter.apply("");
     if (smallTexture != null || largeTexture != null) {
       return new OverslimeModifierModel(smallTexture, largeTexture);
     }
     return null;
   };
 
-  public OverslimeModifierModel(@Nullable RenderMaterial smallTexture, @Nullable RenderMaterial largeTexture) {
+  public OverslimeModifierModel(@Nullable Material smallTexture, @Nullable Material largeTexture) {
     super(smallTexture, largeTexture);
   }
 
@@ -45,7 +45,7 @@ public class OverslimeModifierModel extends NormalModifierModel {
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
+  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     Modifier modifier = entry.getModifier();
     if (modifier instanceof OverslimeModifier && ((OverslimeModifier) modifier).getOverslime(tool) == 0) {
       return ImmutableList.of();

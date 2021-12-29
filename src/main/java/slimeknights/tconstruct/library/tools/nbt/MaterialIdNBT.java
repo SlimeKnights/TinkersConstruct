@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -76,17 +74,17 @@ public class MaterialIdNBT {
    * @param nbt  NBT instance
    * @return  MaterialNBT instance
    */
-  public static MaterialIdNBT readFromNBT(@Nullable INBT nbt) {
-    if (nbt == null || nbt.getId() != Constants.NBT.TAG_LIST) {
+  public static MaterialIdNBT readFromNBT(@Nullable Tag nbt) {
+    if (nbt == null || nbt.getId() != Tag.TAG_LIST) {
       return EMPTY;
     }
-    ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
+    ListTag listNBT = (ListTag) nbt;
+    if (listNBT.getElementType() != Tag.TAG_STRING) {
       return EMPTY;
     }
 
     List<MaterialId> materials = listNBT.stream()
-      .map(INBT::getAsString)
+      .map(Tag::getAsString)
       .map(MaterialId::tryCreate)
       .filter(Objects::nonNull)
       .collect(Collectors.toList());
@@ -97,11 +95,11 @@ public class MaterialIdNBT {
    * Writes this material list to NBT
    * @return  List of materials
    */
-  public ListNBT serializeToNBT() {
+  public ListTag serializeToNBT() {
     return materials.stream()
                     .map(MaterialId::toString)
-                    .map(StringNBT::valueOf)
-                    .collect(Collectors.toCollection(ListNBT::new));
+                    .map(StringTag::valueOf)
+                    .collect(Collectors.toCollection(ListTag::new));
   }
 
   /**
@@ -110,9 +108,9 @@ public class MaterialIdNBT {
    * @return  MaterialNBT instance
    */
   public static MaterialIdNBT from(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
-      return readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, NBT.TAG_STRING));
+      return readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
     }
     return EMPTY;
   }
@@ -124,7 +122,8 @@ public class MaterialIdNBT {
   }
 
   /** Writes this material list to the given stack */
-  public CompoundNBT updateNBT(CompoundNBT nbt) {
+  @SuppressWarnings("UnusedReturnValue")
+  public CompoundTag updateNBT(CompoundTag nbt) {
     nbt.put(ToolStack.TAG_MATERIALS, serializeToNBT());
     return nbt;
   }

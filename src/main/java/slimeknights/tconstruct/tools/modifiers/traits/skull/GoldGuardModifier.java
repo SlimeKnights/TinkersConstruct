@@ -1,23 +1,23 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -35,13 +35,13 @@ public class GoldGuardModifier extends SingleUseModifier {
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
-    if (context.getChangedSlot() == EquipmentSlotType.HEAD) {
+    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       context.getTinkerData().ifPresent(data -> {
         GoldGuardGold gold = data.get(TOTAL_GOLD);
         if (gold == null) {
           data.computeIfAbsent(TOTAL_GOLD).initialize(context);
         } else {
-          gold.setGold(EquipmentSlotType.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL), context.getEntity());
+          gold.setGold(EquipmentSlot.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL), context.getEntity());
         }
       });
     }
@@ -49,12 +49,12 @@ public class GoldGuardModifier extends SingleUseModifier {
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlotType.HEAD) {
+    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       IModifierToolStack newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
         context.getTinkerData().ifPresent(data -> data.remove(TOTAL_GOLD));
-        ModifiableAttributeInstance instance = context.getEntity().getAttribute(Attributes.MAX_HEALTH);
+        AttributeInstance instance = context.getEntity().getAttribute(Attributes.MAX_HEALTH);
         if (instance != null) {
           instance.removeModifier(GOLD_GUARD_UUID);
         }
@@ -63,10 +63,10 @@ public class GoldGuardModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
+  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
-    EquipmentSlotType changed = context.getChangedSlot();
-    if (slotType == EquipmentSlotType.HEAD && changed.getType() == Group.ARMOR) {
+    EquipmentSlot changed = context.getChangedSlot();
+    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
       LivingEntity living = context.getEntity();
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold, living));
@@ -74,14 +74,14 @@ public class GoldGuardModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (player != null && tooltipKey == TooltipKey.SHIFT) {
-      ModifiableAttributeInstance instance = player.getAttribute(Attributes.MAX_HEALTH);
+      AttributeInstance instance = player.getAttribute(Attributes.MAX_HEALTH);
       if (instance != null) {
         AttributeModifier modifier = instance.getModifier(GOLD_GUARD_UUID);
         if (modifier != null) {
-          tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
-                                   .append(new TranslationTextComponent(getTranslationKey() + "." + "health"))));
+          tooltip.add(applyStyle(new TextComponent(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
+                                   .append(new TranslatableComponent(getTranslationKey() + "." + "health"))));
         }
       }
     }
@@ -92,7 +92,7 @@ public class GoldGuardModifier extends SingleUseModifier {
     /** Adds the health boost to the player */
     private void updateAttribute(LivingEntity living) {
       // update attribute
-      ModifiableAttributeInstance instance = living.getAttribute(Attributes.MAX_HEALTH);
+      AttributeInstance instance = living.getAttribute(Attributes.MAX_HEALTH);
       if (instance != null) {
         if (instance.getModifier(GOLD_GUARD_UUID) != null) {
           instance.removeModifier(GOLD_GUARD_UUID);
@@ -103,7 +103,7 @@ public class GoldGuardModifier extends SingleUseModifier {
     }
 
     /** Sets the slot to having gold or not and updates the attribute */
-    public void setGold(EquipmentSlotType slotType, boolean value, LivingEntity living) {
+    public void setGold(EquipmentSlot slotType, boolean value, LivingEntity living) {
       if (setGold(slotType, value)) {
         updateAttribute(living);
       }

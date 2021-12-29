@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.world.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.NonNullList;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -22,7 +22,7 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class SlimeGrassSeedItem extends TooltipItem {
   private final SlimeType foliage;
@@ -53,9 +53,9 @@ public class SlimeGrassSeedItem extends TooltipItem {
   }
 
   @Override
-  public ActionResultType useOn(ItemUseContext context) {
+  public InteractionResult useOn(UseOnContext context) {
     BlockPos pos = context.getClickedPos();
-    World world = context.getLevel();
+    Level world = context.getLevel();
     BlockState state = world.getBlockState(pos);
     BlockState newState = null;
 
@@ -79,24 +79,24 @@ public class SlimeGrassSeedItem extends TooltipItem {
       if (type != null) {
         newState = TinkerWorld.slimeGrass.get(type).get(foliage).defaultBlockState();
       } else {
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
       }
     }
 
     // will have a state at this point
     if (!world.isClientSide) {
       world.setBlockAndUpdate(pos, newState);
-      world.playSound(null, pos, newState.getSoundType(world, pos, context.getPlayer()).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
-      PlayerEntity player = context.getPlayer();
+      world.playSound(null, pos, newState.getSoundType(world, pos, context.getPlayer()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+      Player player = context.getPlayer();
       if (player == null || !player.isCreative()) {
         context.getItemInHand().shrink(1);
       }
     }
-    return ActionResultType.SUCCESS;
+    return InteractionResult.SUCCESS;
   }
 
   @Override
-  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
     if (this.foliage != SlimeType.ICHOR) {
       super.fillItemCategory(group, items);
     }

@@ -1,22 +1,22 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
-import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.RenderUtils;
 
-public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Container> extends ModuleScreen<P,C> {
+public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends AbstractContainerMenu> extends ModuleScreen<P,C> {
 
   protected ScalableElementScreen overlap = GenericScreen.overlap;
   protected ElementScreen overlapTopLeft = GenericScreen.overlapTopLeft;
@@ -54,11 +54,11 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
 
   protected SliderWidget slider = new SliderWidget(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
-  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns) {
+  public SideInventoryScreen(P parent, C container, Inventory playerInventory, Component title, int slotCount, int columns) {
     this(parent, container, playerInventory, title, slotCount, columns, false, false);
   }
 
-  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns, boolean rightSide, boolean connected) {
+  public SideInventoryScreen(P parent, C container, Inventory playerInventory, Component title, int slotCount, int columns, boolean rightSide, boolean connected) {
     super(parent, container, playerInventory, title, rightSide, false);
 
     this.connected = connected;
@@ -88,7 +88,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   }
 
   protected boolean shouldDrawName() {
-    return this.menu instanceof BaseContainer;
+    return this.menu instanceof BaseContainerMenu<?>;
   }
 
   @Override
@@ -246,24 +246,22 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   }
 
   @Override
-  public void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
+  public void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
     if (this.shouldDrawName()) {
       this.font.draw(matrices, this.getTitle().getString(), this.border.w, this.border.h - 1, 0x404040);
     }
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.leftPos += this.border.w;
     this.topPos += this.border.h;
-
-    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    this.minecraft.getTextureManager().bind(GENERIC_INVENTORY);
 
     int x = this.leftPos;
     int y = this.topPos;
     int midW = this.imageWidth - this.border.w * 2;
 
+    RenderUtils.setup(GENERIC_INVENTORY);
     this.border.draw(matrices);
 
     if (this.shouldDrawName()) {
@@ -271,7 +269,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
       y += this.textBackground.h;
     }
 
-    this.minecraft.getTextureManager().bind(GENERIC_INVENTORY);
+    //this.minecraft.getTextureManager().bind(GENERIC_INVENTORY); TODO: needed?
     this.drawSlots(matrices, x, y);
 
     // slider
@@ -286,7 +284,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
     this.topPos -= this.border.h;
   }
 
-  protected int drawSlots(MatrixStack matrices, int xPos, int yPos) {
+  protected int drawSlots(PoseStack matrices, int xPos, int yPos) {
     int width = this.columns * this.slot.w;
     int height = this.imageHeight - this.border.h * 2;
     int fullRows = (this.lastSlotId - this.firstSlotId) / this.columns;

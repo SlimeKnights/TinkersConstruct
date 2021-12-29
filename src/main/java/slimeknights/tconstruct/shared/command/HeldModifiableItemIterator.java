@@ -4,11 +4,11 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 
@@ -24,7 +24,7 @@ public class HeldModifiableItemIterator {
   private static final DynamicCommandExceptionType INVALID_ITEM = new DynamicCommandExceptionType(error -> TConstruct.makeTranslation("command", "held_modifiable.failed.invalid_item", error));
 
   /** Applies for the given context */
-  public static List<LivingEntity> apply(CommandContext<CommandSource> context, HeldModifiableBehavior behavior) throws CommandSyntaxException {
+  public static List<LivingEntity> apply(CommandContext<CommandSourceStack> context, HeldModifiableBehavior behavior) throws CommandSyntaxException {
     return apply(EntityArgument.getEntities(context, "targets"), behavior);
   }
 
@@ -33,8 +33,7 @@ public class HeldModifiableItemIterator {
     // apply to all entities
     List<LivingEntity> successes = new ArrayList<>();
     for (Entity entity : targets) {
-      if (entity instanceof LivingEntity) {
-        LivingEntity living = (LivingEntity) entity;
+      if (entity instanceof LivingEntity living) {
         ItemStack stack = living.getMainHandItem();
         if (!stack.isEmpty()) {
           if (TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {

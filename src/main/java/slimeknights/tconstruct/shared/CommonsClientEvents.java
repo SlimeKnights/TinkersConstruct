@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.fonts.FontResourceManager;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.font.FontManager;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -27,21 +27,21 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(TinkerCommons.glow.get(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.glow.get(), RenderType.translucent());
 
     // glass
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.cutout());
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.cutout());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.cutout());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.cutout());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.translucent());
-      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.translucent());
+      ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.translucent());
+      ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.translucent());
     }
-    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
 
-    FontRenderer unicode = unicodeFontRender();
+    Font unicode = unicodeFontRender();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
     TinkerBook.TINKERS_GADGETRY.fontRenderer = unicode;
     TinkerBook.PUNY_SMELTING.fontRenderer = unicode;
@@ -69,13 +69,13 @@ public class CommonsClientEvents extends ClientEventBase {
     Minecraft.getInstance().particleEngine.register(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
   }
 
-  private static FontRenderer unicodeRenderer;
+  private static Font unicodeRenderer;
 
   /** Gets the unicode font renderer */
-  public static FontRenderer unicodeFontRender() {
+  public static Font unicodeFontRender() {
     if (unicodeRenderer == null)
-      unicodeRenderer = new FontRenderer(rl -> {
-        FontResourceManager resourceManager = Minecraft.getInstance().fontManager;
+      unicodeRenderer = new Font(rl -> {
+        FontManager resourceManager = Minecraft.getInstance().fontManager;
         return resourceManager.fontSets.get(Minecraft.UNIFORM_FONT);
       });
 

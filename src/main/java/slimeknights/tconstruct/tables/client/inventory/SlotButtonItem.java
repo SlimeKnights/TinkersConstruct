@@ -1,17 +1,14 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
-
-import net.minecraft.client.gui.widget.button.Button.IPressable;
 
 public class SlotButtonItem extends Button {
   protected static final ElementScreen BUTTON_PRESSED_GUI = new ElementScreen(144, 216, 18, 18, 256, 256);
@@ -28,7 +25,7 @@ public class SlotButtonItem extends Button {
   private ElementScreen hoverGui = BUTTON_HOVER_GUI;
   private ResourceLocation backgroundLocation = Icons.ICONS;
 
-  public SlotButtonItem(int buttonId, int x, int y, StationSlotLayout layout, IPressable onPress) {
+  public SlotButtonItem(int buttonId, int x, int y, StationSlotLayout layout, OnPress onPress) {
     super(x, y, 18, 18, layout.getDisplayName(), onPress);
     this.layout = layout;
     this.buttonId = buttonId;
@@ -44,9 +41,8 @@ public class SlotButtonItem extends Button {
   }
 
   @Override
-  public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
-    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    Minecraft.getInstance().getTextureManager().bind(this.backgroundLocation);
+  public void renderButton(PoseStack matrices, int mouseX, int mouseY, float partialTicks) {
+    RenderUtils.setup(this.backgroundLocation);
 
     if (this.visible) {
       this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;

@@ -1,37 +1,35 @@
 package slimeknights.tconstruct.gadgets.block;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class PunjiBlock extends Block {
 
@@ -56,16 +54,16 @@ public class PunjiBlock extends Block {
 
   @Nullable
   @Override
-  public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
-    return PathNodeType.DAMAGE_OTHER;
+  public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+    return BlockPathTypes.DAMAGE_OTHER;
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos pos, BlockPos facingPos) {
+  public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos pos, BlockPos facingPos) {
     if (state.getValue(WATERLOGGED)) {
-      world.getLiquidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+      world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
     }
 
     // break if now invalid
@@ -90,14 +88,14 @@ public class PunjiBlock extends Block {
   }
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
     builder.add(FACING, NORTH, EAST, NORTHEAST, NORTHWEST, WATERLOGGED);
   }
 
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
     Direction direction = context.getClickedFace().getOpposite();
-    IWorldReader world = context.getLevel();
+    LevelReader world = context.getLevel();
     BlockPos pos = context.getClickedPos();
 
     BlockState state = this.defaultBlockState().setValue(FACING, direction);
@@ -123,7 +121,7 @@ public class PunjiBlock extends Block {
    * @param target  Position to check
    * @return  True if connected
    */
-  private boolean isConnected(IWorldReader world, Direction facing, BlockPos target) {
+  private boolean isConnected(LevelReader world, Direction facing, BlockPos target) {
     BlockState state = world.getBlockState(target);
     return state.getBlock() == this && state.getValue(FACING) == facing;
   }
@@ -158,7 +156,7 @@ public class PunjiBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) {
+  public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
     Direction direction = state.getValue(FACING);
     BlockPos target = pos.relative(direction);
     return world.getBlockState(target).isFaceSturdy(world, target, direction.getOpposite());
@@ -167,14 +165,14 @@ public class PunjiBlock extends Block {
   @SuppressWarnings("deprecation")
   @Override
   @Deprecated
-  public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+  public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
     if (entityIn instanceof LivingEntity) {
       float damage = 3f;
       if (entityIn.fallDistance > 0) {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
       entityIn.hurt(DamageSource.CACTUS, damage);
-      ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 1));
+      ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 1));
     }
   }
 
@@ -183,12 +181,12 @@ public class PunjiBlock extends Block {
 
   static {
     ImmutableMap.Builder<Direction, VoxelShape> builder = ImmutableMap.builder();
-    builder.put(Direction.DOWN, VoxelShapes.box(0.1875, 0, 0.1875, 0.8125, 0.375, 0.8125));
-    builder.put(Direction.UP, VoxelShapes.box(0.1875, 0.625, 0.1875, 0.8125, 1, 0.8125));
-    builder.put(Direction.NORTH, VoxelShapes.box(0.1875, 0.1875, 0, 0.8125, 0.8125, 0.375));
-    builder.put(Direction.SOUTH, VoxelShapes.box(0.1875, 0.1875, 0.625, 0.8125, 0.8125, 1));
-    builder.put(Direction.EAST, VoxelShapes.box(0.625, 0.1875, 0.1875, 1, 0.8125, 0.8125));
-    builder.put(Direction.WEST, VoxelShapes.box(0, 0.1875, 0.1875, 0.375, 0.8125, 0.8125));
+    builder.put(Direction.DOWN, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.375, 0.8125));
+    builder.put(Direction.UP, Shapes.box(0.1875, 0.625, 0.1875, 0.8125, 1, 0.8125));
+    builder.put(Direction.NORTH, Shapes.box(0.1875, 0.1875, 0, 0.8125, 0.8125, 0.375));
+    builder.put(Direction.SOUTH, Shapes.box(0.1875, 0.1875, 0.625, 0.8125, 0.8125, 1));
+    builder.put(Direction.EAST, Shapes.box(0.625, 0.1875, 0.1875, 1, 0.8125, 0.8125));
+    builder.put(Direction.WEST, Shapes.box(0, 0.1875, 0.1875, 0.375, 0.8125, 0.8125));
 
     BOUNDS = builder.build();
   }
@@ -196,7 +194,7 @@ public class PunjiBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return BOUNDS.get(state.getValue(FACING));
   }
 

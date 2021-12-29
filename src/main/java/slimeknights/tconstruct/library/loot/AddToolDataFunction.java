@@ -7,14 +7,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
 import lombok.experimental.Accessors;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootFunction;
-import net.minecraft.loot.LootFunctionType;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.functions.ILootFunction;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 /** Loot function to add data to a tool */
-public class AddToolDataFunction extends LootFunction {
+public class AddToolDataFunction extends LootItemConditionalFunction {
   public static final ResourceLocation ID = TConstruct.getResource("add_tool_data");
   public static final Serializer SERIALIZER = new Serializer();
 
@@ -39,7 +39,7 @@ public class AddToolDataFunction extends LootFunction {
   /** Fixed materials on the tool, any nulls in the list will randomize */
   private final List<RandomMaterial> materials;
 
-  protected AddToolDataFunction(ILootCondition[] conditionsIn, float damage, List<RandomMaterial> materials) {
+  protected AddToolDataFunction(LootItemCondition[] conditionsIn, float damage, List<RandomMaterial> materials) {
     super(conditionsIn);
     this.damage = damage;
     this.materials = materials;
@@ -51,7 +51,7 @@ public class AddToolDataFunction extends LootFunction {
   }
 
   @Override
-  public LootFunctionType getType() {
+  public LootItemFunctionType getType() {
     return TinkerTools.lootAddToolData;
   }
 
@@ -80,7 +80,7 @@ public class AddToolDataFunction extends LootFunction {
   }
 
   /** Serializer logic for the function */
-  private static class Serializer extends LootFunction.Serializer<AddToolDataFunction> {
+  private static class Serializer extends LootItemConditionalFunction.Serializer<AddToolDataFunction> {
     @Override
     public void serialize(JsonObject json, AddToolDataFunction loot, JsonSerializationContext context) {
       super.serialize(json, loot, context);
@@ -98,8 +98,8 @@ public class AddToolDataFunction extends LootFunction {
     }
 
     @Override
-    public AddToolDataFunction deserialize(JsonObject object, JsonDeserializationContext context, ILootCondition[] conditions) {
-      float damage = JSONUtils.getAsFloat(object, "damage_percent", 0f);
+    public AddToolDataFunction deserialize(JsonObject object, JsonDeserializationContext context, LootItemCondition[] conditions) {
+      float damage = GsonHelper.getAsFloat(object, "damage_percent", 0f);
       if (damage < 0 || damage > 1) {
         throw new JsonSyntaxException("damage_percent must be between 0 and 1, given " + damage);
       }
@@ -113,7 +113,7 @@ public class AddToolDataFunction extends LootFunction {
 
   /** Builder to create a new add tool data function */
   @Accessors(chain = true)
-  public static class Builder extends LootFunction.Builder<AddToolDataFunction.Builder> {
+  public static class Builder extends LootItemConditionalFunction.Builder<AddToolDataFunction.Builder> {
     private final ImmutableList.Builder<RandomMaterial> materials = ImmutableList.builder();
     private float damage = 0;
 
@@ -144,7 +144,7 @@ public class AddToolDataFunction extends LootFunction {
     }
 
     @Override
-    public ILootFunction build() {
+    public LootItemFunction build() {
       return new AddToolDataFunction(getConditions(), damage, materials.build());
     }
   }

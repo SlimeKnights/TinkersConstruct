@@ -9,14 +9,15 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.TagCollectionManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.RecipeHelper;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.SerializationTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.Items;
@@ -42,7 +43,7 @@ public class ToolPredicate extends ItemPredicate {
   @Nullable
   protected final Item item;
   @Nullable
-  protected final ITag<Item> tag;
+  protected final Tag<Item> tag;
   protected final List<MaterialId> materials;
   protected final boolean hasUpgrades;
   protected final ModifierMatch upgrades;
@@ -59,7 +60,7 @@ public class ToolPredicate extends ItemPredicate {
       return false;
     }
     // prevent changing NBT for non-tools
-    if (!stack.getItem().is(Items.MODIFIABLE)) {
+    if (!stack.is(Items.MODIFIABLE)) {
       return false;
     }
     ToolStack tool = ToolStack.from(stack);
@@ -115,7 +116,7 @@ public class ToolPredicate extends ItemPredicate {
       json.addProperty("item", Objects.requireNonNull(item.getRegistryName()).toString());
     }
     if (this.tag != null) {
-      json.addProperty("tag", TagCollectionManager.getInstance().getItems().getIdOrThrow(this.tag).toString());
+      json.addProperty("tag", SerializationTags.getInstance().getIdOrThrow(Registry.ITEM_REGISTRY, this.tag, () -> new IllegalStateException("Unknown item tag")).toString());
     }
     if (!materials.isEmpty()) {
       json.add("materials", toArray(materials, mat -> new JsonPrimitive(mat.toString())));
@@ -140,32 +141,29 @@ public class ToolPredicate extends ItemPredicate {
     // item
     Item item = null;
     if (json.has("item")) {
-      item = RecipeHelper.deserializeItem(JSONUtils.getAsString(json, "item"), "item", Item.class);
+      item = RecipeHelper.deserializeItem(GsonHelper.getAsString(json, "item"), "item", Item.class);
     }
     // tag
-    ITag<Item> tag = null;
+    Tag<Item> tag = null;
     if (json.has("tag")) {
-      ResourceLocation tagName = new ResourceLocation(JSONUtils.getAsString(json, "tag"));
-      tag = TagCollectionManager.getInstance().getItems().getTag(tagName);
-      if (tag == null) {
-        throw new JsonSyntaxException("Unknown item tag '" + tagName + "'");
-      }
+      ResourceLocation tagName = new ResourceLocation(GsonHelper.getAsString(json, "tag"));
+      tag = SerializationTags.getInstance().getTagOrThrow(Registry.ITEM_REGISTRY, tagName, name -> new JsonSyntaxException("Unknown item tag '" + name + '\''));
     }
     // materials
     List<MaterialId> materials = Collections.emptyList();
     if (json.has("materials")) {
-      materials = JsonHelper.parseList(json, "materials", (element, key) -> new MaterialId(JSONUtils.convertToString(element, key)));
+      materials = JsonHelper.parseList(json, "materials", (element, key) -> new MaterialId(GsonHelper.convertToString(element, key)));
     }
     // upgrades
-    boolean hasUpgrades = JSONUtils.getAsBoolean(json, "has_upgrades", false);
+    boolean hasUpgrades = GsonHelper.getAsBoolean(json, "has_upgrades", false);
     ModifierMatch upgrades = ModifierMatch.ALWAYS;
     if (json.has("upgrades")) {
-      upgrades = ModifierMatch.deserialize(JSONUtils.getAsJsonObject(json, "upgrades"));
+      upgrades = ModifierMatch.deserialize(GsonHelper.getAsJsonObject(json, "upgrades"));
     }
     // modifiers
     ModifierMatch modifiers = ModifierMatch.ALWAYS;
     if (json.has("modifiers")) {
-      modifiers = ModifierMatch.deserialize(JSONUtils.getAsJsonObject(json, "modifiers"));
+      modifiers = ModifierMatch.deserialize(GsonHelper.getAsJsonObject(json, "modifiers"));
     }
     // stats
     List<StatPredicate> stats = Collections.emptyList();
@@ -181,7 +179,7 @@ public class ToolPredicate extends ItemPredicate {
   }
 
   /** Creates a new builder instance for a tag */
-  public static Builder builder(ITag<Item> tag) {
+  public static Builder builder(Tag<Item> tag) {
     return new Builder(null, tag);
   }
 
@@ -199,7 +197,7 @@ public class ToolPredicate extends ItemPredicate {
     protected final Item item;
     /** Tag that must match */
     @Nullable
-    protected final ITag<Item> tag;
+    protected final Tag<Item> tag;
     /** Materials that must be contained in the tool */
     protected final List<MaterialId> materials = new ArrayList<>();
     /** If true, the tool must have at least 1 upgrade */
@@ -210,7 +208,7 @@ public class ToolPredicate extends ItemPredicate {
     protected ModifierMatch modifiers = ModifierMatch.ALWAYS;
     protected final List<StatPredicate> stats = new ArrayList<>();
 
-    protected Builder(@Nullable Item item, @Nullable ITag<Item> tag) {
+    protected Builder(@Nullable Item item, @Nullable Tag<Item> tag) {
       this.item = item;
       this.tag = tag;
     }

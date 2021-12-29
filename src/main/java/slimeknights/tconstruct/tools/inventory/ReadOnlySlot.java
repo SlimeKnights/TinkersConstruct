@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.tools.inventory;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ReadOnlySlot extends Slot {
-  public ReadOnlySlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+  public ReadOnlySlot(Container inventoryIn, int index, int xPosition, int yPosition) {
     super(inventoryIn, index, xPosition, yPosition);
   }
 
@@ -26,7 +26,7 @@ public class ReadOnlySlot extends Slot {
   }
 
   @Override
-  public boolean mayPickup(PlayerEntity playerIn) {
+  public boolean mayPickup(Player playerIn) {
     return false;
   }
 

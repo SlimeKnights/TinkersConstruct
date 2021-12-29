@@ -1,27 +1,27 @@
 package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTables;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import java.util.Objects;
 
 public class GlowBlock extends Block {
 
@@ -30,11 +30,11 @@ public class GlowBlock extends Block {
   public GlowBlock(Properties properties) {
     super(properties);
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.DOWN));
-    this.drops = LootTables.EMPTY;
+    this.drops = BuiltInLootTables.EMPTY;
   }
 
   @Override
-  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
   }
 
   private static final ImmutableMap<Direction, VoxelShape> BOUNDS;
@@ -53,14 +53,14 @@ public class GlowBlock extends Block {
 
   @Deprecated
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    return BOUNDS.get(state.getValue(FACING));
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    return Objects.requireNonNull(BOUNDS.get(state.getValue(FACING)));
   }
 
   @Override
   @Deprecated
-  public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    return VoxelShapes.empty();
+  public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    return Shapes.empty();
   }
 
   @Deprecated
@@ -76,13 +76,13 @@ public class GlowBlock extends Block {
   }
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
     builder.add(FACING);
   }
 
   @Deprecated
   @Override
-  public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean p_220069_6_) {
+  public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean p_220069_6_) {
     if (!this.canBlockStay(worldIn, pos, state.getValue(FACING))) {
       worldIn.removeBlock(pos, false);
     }
@@ -97,11 +97,11 @@ public class GlowBlock extends Block {
    * @param facing  Side of the update
    * @return true if the block side is solid and the block at the given BlockPos is not a liquid
    */
-  protected boolean canBlockStay(World world, BlockPos pos, Direction facing) {
+  protected boolean canBlockStay(Level world, BlockPos pos, Direction facing) {
     BlockPos placedOn = pos.relative(facing);
 
     boolean isSolidSide = Block.isFaceFull(world.getBlockState(placedOn).getOcclusionShape(world, pos), facing.getOpposite());
-    boolean isLiquid = world.getBlockState(pos).getBlock() instanceof FlowingFluidBlock;
+    boolean isLiquid = world.getBlockState(pos).getBlock() instanceof LiquidBlock;
 
     return !isLiquid && isSolidSide;
   }
@@ -113,7 +113,7 @@ public class GlowBlock extends Block {
    * @param direction  Preferred direction, may reorient
    * @return  True if a block was placed
    */
-  public boolean addGlow(World world, BlockPos pos, Direction direction) {
+  public boolean addGlow(Level world, BlockPos pos, Direction direction) {
     // only place the block if the current block at the location is replaceable (eg, air, tall grass, etc.)
     BlockState state = world.getBlockState(pos);
     if (state.getBlock() != this && state.getMaterial().isReplaceable()) {

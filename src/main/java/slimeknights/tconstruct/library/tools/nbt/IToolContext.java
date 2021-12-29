@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -16,11 +16,16 @@ public interface IToolContext {
   /** Gets the item contained in this tool */
   Item getItem();
 
+  /** Determines if the tool has the given tag */
+  default boolean is(Tag<Item> tag) {
+    return tag.contains(getItem());
+  }
+
   /** Gets the tool definition */
   ToolDefinition getDefinition();
 
   /** Checks if the tool has the given tag */
-  default boolean hasTag(ITag<Item> tag) {
+  default boolean hasTag(Tag<Item> tag) {
     return tag.contains(getItem());
   }
 
@@ -29,6 +34,7 @@ public interface IToolContext {
 
   /** Gets the list of current materials making this tool */
   MaterialNBT getMaterials();
+
   /**
    * Gets the list of all materials
    * @return List of all materials

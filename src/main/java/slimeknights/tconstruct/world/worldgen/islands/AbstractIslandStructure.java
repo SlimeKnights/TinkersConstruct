@@ -1,32 +1,27 @@
 package slimeknights.tconstruct.world.worldgen.islands;
 
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IIslandVariant;
 
 import java.util.Objects;
 import java.util.Random;
 
-public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig> {
+public abstract class AbstractIslandStructure extends StructureFeature<NoneFeatureConfiguration> {
   protected static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
   public AbstractIslandStructure() {
-    super(NoFeatureConfig.CODEC);
+    super(NoneFeatureConfiguration.CODEC, null); // TODO
   }
 
-  @Override
-  public Structure.IStartFactory<NoFeatureConfig> getStartFactory() {
-    return DefaultStart::new;
-  }
+// TODO
+//  @Override
+//  public StructureFeature.StructureStartFactory<NoneFeatureConfiguration> getStartFactory() {
+//    return DefaultStart::new;
+//  }
 
   @Override
   public String getFeatureName() {
@@ -34,8 +29,8 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
   }
 
   @Override
-  public GenerationStage.Decoration step() {
-    return GenerationStage.Decoration.SURFACE_STRUCTURES;
+  public GenerationStep.Decoration step() {
+    return GenerationStep.Decoration.SURFACE_STRUCTURES;
   }
 
   /** Gets the variant for this island */
@@ -46,40 +41,40 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
     int xOffset;
     int yOffset;
     switch (rotation) {
-      case CLOCKWISE_90:
+      case CLOCKWISE_90 -> {
         xOffset = -5;
         yOffset = 5;
-        break;
-      case CLOCKWISE_180:
+      }
+      case CLOCKWISE_180 -> {
         xOffset = -5;
         yOffset = -5;
-        break;
-      case COUNTERCLOCKWISE_90:
+      }
+      case COUNTERCLOCKWISE_90 -> {
         xOffset = 5;
         yOffset = -5;
-        break;
-      default:
+      }
+      default -> {
         xOffset = 5;
         yOffset = 5;
-        break;
+      }
     }
 
     // determine height
-    int minXMinZ = generator.getFirstOccupiedHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
-    int minXMaxZ = generator.getFirstOccupiedHeight(x, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
-    int maxXMinZ = generator.getFirstOccupiedHeight(x + xOffset, z, Heightmap.Type.WORLD_SURFACE_WG);
-    int maxXMaxZ = generator.getFirstOccupiedHeight(x + xOffset, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
+    int minXMinZ = generator.getFirstOccupiedHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, null); // TODO
+    int minXMaxZ = generator.getFirstOccupiedHeight(x, z + yOffset, Heightmap.Types.WORLD_SURFACE_WG, null);
+    int maxXMinZ = generator.getFirstOccupiedHeight(x + xOffset, z, Heightmap.Types.WORLD_SURFACE_WG, null);
+    int maxXMaxZ = generator.getFirstOccupiedHeight(x + xOffset, z + yOffset, Heightmap.Types.WORLD_SURFACE_WG, null);
     // from the smallest of the 4 positions, add 60 plus another random 50, limit to 20 blocks below world height (tallest island is 13 blocks, 7 blocks for trees)
     return Math.min(Math.min(Math.min(minXMinZ, minXMaxZ), Math.min(maxXMinZ, maxXMaxZ)) + 60 + random.nextInt(50), generator.getGenDepth() - 20);
   }
-
-  public class DefaultStart extends StructureStart<NoFeatureConfig> {
-    public DefaultStart(Structure<NoFeatureConfig> structureIn, int chunkPosX, int chunkPosZ, MutableBoundingBox bounds, int references, long seed) {
-      super(structureIn, chunkPosX, chunkPosZ, bounds, references, seed);
+/*
+  public class DefaultStart extends StructureStart<NoneFeatureConfiguration> {
+    public DefaultStart(StructureFeature<NoneFeatureConfiguration> structureIn, int chunkPosX, int chunkPosZ, BoundingBox bounds, int references, long seed) {
+      //super(structureIn, chunkPosX, chunkPosZ, bounds, references, seed);
     }
 
     @Override
-    public void generatePieces(DynamicRegistries registries, ChunkGenerator generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
+    public void generatePieces(RegistryAccess registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoneFeatureConfiguration config) {
       // determine orientation
       Rotation rotation = Rotation.values()[this.random.nextInt(Rotation.values().length)];
       // determine coords
@@ -93,5 +88,5 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
       this.pieces.add(slimeIslandPiece);
       this.calculateBoundingBox();
     }
-  }
+  }*/
 }

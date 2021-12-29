@@ -2,12 +2,12 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.loot.LootContext;
-import net.minecraft.world.World;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class AutosmeltModifier extends SingleUseModifier {
   /** Cache of relevant smelting recipes */
-  private final Cache<Item,Optional<FurnaceRecipe>> recipeCache = CacheBuilder
+  private final Cache<Item,Optional<SmeltingRecipe>> recipeCache = CacheBuilder
     .newBuilder()
     .maximumSize(64)
     .build();
@@ -44,9 +44,9 @@ public class AutosmeltModifier extends SingleUseModifier {
    * @param world  World instance
    * @return  Furnace recipe
    */
-  private Optional<FurnaceRecipe> findRecipe(ItemStack stack, World world) {
+  private Optional<SmeltingRecipe> findRecipe(ItemStack stack, Level world) {
     inventory.setStack(stack);
-    return world.getRecipeManager().getRecipeFor(IRecipeType.SMELTING, inventory, world);
+    return world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, world);
   }
 
   /**
@@ -56,7 +56,7 @@ public class AutosmeltModifier extends SingleUseModifier {
    * @return Cached recipe
    */
   @Nullable
-  private FurnaceRecipe findCachedRecipe(ItemStack stack, World world) {
+  private SmeltingRecipe findCachedRecipe(ItemStack stack, Level world) {
     // don't use the cache if there is a tag, prevent breaking NBT sensitive recipes
     if (stack.hasTag()) {
       return findRecipe(stack, world).orElse(null);
@@ -74,12 +74,12 @@ public class AutosmeltModifier extends SingleUseModifier {
    * @param world  World instance
    * @return  Smelted item, or original if no recipe
    */
-  private ItemStack smeltItem(ItemStack stack, World world) {
+  private ItemStack smeltItem(ItemStack stack, Level world) {
     // skip blacklisted entries
     if (TinkerTags.Items.AUTOSMELT_BLACKLIST.contains(stack.getItem())) {
       return stack;
     }
-    FurnaceRecipe recipe = findCachedRecipe(stack, world);
+    SmeltingRecipe recipe = findCachedRecipe(stack, world);
     if (recipe != null) {
       inventory.setStack(stack);
       ItemStack output = recipe.assemble(inventory);
@@ -94,7 +94,7 @@ public class AutosmeltModifier extends SingleUseModifier {
 
   @Override
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
-    World world = context.getLevel();
+    Level world = context.getLevel();
     if (!generatedLoot.isEmpty()) {
       return generatedLoot.stream()
                           .map(stack -> smeltItem(stack, world))

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.hooks;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /** Module for chestplate modifiers to control flight behavior */

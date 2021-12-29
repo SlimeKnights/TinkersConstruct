@@ -1,17 +1,16 @@
 package slimeknights.tconstruct.library.recipe.material;
 
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -55,7 +54,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   protected final ItemOutput leftover;
 
   /** Material returned by this recipe, lazy loaded */
-  private final LazyValue<IMaterial> material;
+  private IMaterial material;
   /** Durability restored per item input, lazy loaded */
   @Nullable
   private Float repairPerItem;
@@ -71,14 +70,13 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
     this.value = value;
     this.needed = needed;
     this.materialId = materialId;
-    this.material = new LazyValue<>(() -> MaterialRegistry.getMaterial(materialId));
     this.leftover = leftover;
   }
 
   /* Basic */
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.MATERIAL;
   }
 
@@ -88,14 +86,14 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.materialRecipeSerializer.get();
   }
 
   /* Material methods */
 
   @Override
-  public boolean matches(ISingleItemInventory inv, World worldIn) {
+  public boolean matches(ISingleItemInventory inv, Level worldIn) {
     return getMaterial() != IMaterial.UNKNOWN && this.ingredient.test(inv.getStack());
   }
 
@@ -126,7 +124,13 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * @return  Material for the recipe
    */
   public IMaterial getMaterial() {
-    return material.get();
+    if (material == null) {
+      if (!MaterialRegistry.isFullyLoaded()) {
+        return IMaterial.UNKNOWN;
+      }
+      material = MaterialRegistry.getMaterial(materialId);
+    }
+    return material;
   }
 
   /**

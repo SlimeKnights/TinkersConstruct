@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.inventory;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.tconstruct.library.recipe.molding.IMoldingInventory;
 

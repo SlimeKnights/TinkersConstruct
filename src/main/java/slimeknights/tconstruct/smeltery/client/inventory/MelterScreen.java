@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiTankModule;
@@ -18,7 +18,7 @@ import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
 import javax.annotation.Nullable;
 
-public class MelterScreen extends ContainerScreen<MelterContainer> implements IScreenWithFluidTank {
+public class MelterScreen extends AbstractContainerScreen<MelterContainer> implements IScreenWithFluidTank {
   private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/melter.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 0, 52, 52, 256, 256);
   private static final ElementScreen FUEL_SLOT = new ElementScreen(176, 52, 18, 36, 256, 256);
@@ -27,7 +27,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
   private final GuiMeltingModule melting;
   private final GuiFuelModule fuel;
   private final GuiTankModule tank;
-  public MelterScreen(MelterContainer container, PlayerInventory inv, ITextComponent name) {
+  public MelterScreen(MelterContainer container, Inventory inv, Component name) {
     super(container, inv, name);
     MelterTileEntity te = container.getTile();
     if (te != null) {
@@ -43,22 +43,18 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
   }
 
   @Override
-  public void render(MatrixStack matrices, int x, int y, float partialTicks) {
+  public void render(PoseStack matrices, int x, int y, float partialTicks) {
     this.renderBackground(matrices);
     super.render(matrices, x, y, partialTicks);
     this.renderTooltip(matrices, x, y);
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
     GuiUtil.drawBackground(matrices, this, BACKGROUND);
-
-    // fluids
-    if (tank != null) tank.draw(matrices);
 
     // fuel
     if (fuel != null) {
-      getMinecraft().getTextureManager().bind(BACKGROUND);
       // draw the correct background for the fuel type
       if (menu.isHasFuelSlot()) {
         FUEL_SLOT.draw(matrices, leftPos + 150, topPos + 31);
@@ -67,11 +63,14 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
       }
       fuel.draw(matrices);
     }
+
+    // fluids
+    if (tank != null) tank.draw(matrices);
   }
 
   @Override
-  protected void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
-    GuiUtil.drawContainerNames(matrices, this, this.font, this.inventory);
+  protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
+    super.renderLabels(matrices, mouseX, mouseY);
     int checkX = mouseX - this.leftPos;
     int checkY = mouseY - this.topPos;
 
@@ -81,9 +80,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
     if (fuel != null) fuel.renderHighlight(matrices, checkX, checkY);
 
     // scala
-    assert minecraft != null;
-    minecraft.getTextureManager().bind(BACKGROUND);
-    RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+    RenderUtils.setup(BACKGROUND);
     SCALA.draw(matrices, 90, 16);
 
     // heat bars
@@ -93,7 +90,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
   }
 
   @Override
-  protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
     super.renderTooltip(matrices, mouseX, mouseY);
 
     // tank tooltip

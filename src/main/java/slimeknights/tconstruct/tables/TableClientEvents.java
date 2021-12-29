@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.tables;
 
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -31,7 +31,7 @@ public class TableClientEvents extends ClientEventBase {
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
-  public static void addResourceListener(IReloadableResourceManager manager) {
+  public static void addResourceListener(ReloadableResourceManager manager) {
     manager.registerReloadListener(PatternGuiTextureLoader.INSTANCE);
   }
 
@@ -42,21 +42,21 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void setupClient(final FMLClientSetupEvent event) {
-    ScreenManager.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
-    ScreenManager.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
-    ScreenManager.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
-    ScreenManager.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
+    MenuScreens.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
+    MenuScreens.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
+    MenuScreens.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
+    MenuScreens.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
 
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
+    BlockEntityRenderers.register(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
+    BlockEntityRenderers.register(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
+    BlockEntityRenderers.register(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
   }
 
   @SubscribeEvent
   static void registerBlockColors(final ColorHandlerEvent.Block event) {
     event.getBlockColors().register((state, world, pos, index) -> {
       if (world != null && pos != null) {
-        TileEntity te = world.getBlockEntity(pos);
+        BlockEntity te = world.getBlockEntity(pos);
         if (te instanceof TinkersChestTileEntity) {
           return ((TinkersChestTileEntity)te).getColor();
         }
@@ -67,6 +67,6 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerItemColors(final ColorHandlerEvent.Item event) {
-    event.getItemColors().register((stack, index) -> ((IDyeableArmorItem)stack.getItem()).getColor(stack), TinkerTables.tinkersChest.asItem());
+    event.getItemColors().register((stack, index) -> ((DyeableLeatherItem)stack.getItem()).getColor(stack), TinkerTables.tinkersChest.asItem());
   }
 }

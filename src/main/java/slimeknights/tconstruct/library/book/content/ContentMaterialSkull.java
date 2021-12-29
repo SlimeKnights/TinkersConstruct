@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
@@ -50,7 +50,7 @@ public class ContentMaterialSkull extends ContentMaterial {
   /** Gets the recipe to cast this skull */
   @Nullable
   private IDisplayableCastingRecipe getSkullRecipe() {
-    World world = Minecraft.getInstance().level;
+    Level world = Minecraft.getInstance().level;
     if (!searchedSkullRecipe && world != null) {
       skullRecipe = world.getRecipeManager().getAllRecipesFor(RecipeTypes.CASTING_BASIN).stream()
                          .filter(recipe -> recipe instanceof IDisplayableCastingRecipe)
@@ -67,7 +67,7 @@ public class ContentMaterialSkull extends ContentMaterial {
   }
 
   @Override
-  public ITextComponent getTitle() {
+  public Component getTitle() {
     // display slimeskull instead of material name
     IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
     if (skullRecipe != null) {
@@ -107,7 +107,7 @@ public class ContentMaterialSkull extends ContentMaterial {
       List<ItemStack> casts = skullRecipe.getCastItems();
       if (!casts.isEmpty()) {
         ItemElement elementItem = new TinkerItemElement(0, 0, 1, casts);
-        elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(SKULL_FROM, casts.get(0).getHoverName()));
+        elementItem.tooltip = ImmutableList.of(new TranslatableComponent(SKULL_FROM, casts.get(0).getHoverName()));
         displayTools.add(elementItem);
       }
     }

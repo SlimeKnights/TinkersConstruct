@@ -2,24 +2,24 @@ package slimeknights.tconstruct.common.network;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 
 /** Packet to sync player persistent data to the client */
 @RequiredArgsConstructor
 public class SyncPersistentDataPacket implements IThreadsafePacket {
-  private final CompoundNBT data;
+  private final CompoundTag data;
 
-  public SyncPersistentDataPacket(PacketBuffer buffer) {
+  public SyncPersistentDataPacket(FriendlyByteBuf buffer) {
     data = buffer.readNbt();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeNbt(data);
   }
 
@@ -31,7 +31,7 @@ public class SyncPersistentDataPacket implements IThreadsafePacket {
   /** Handles client side only code safely */
   private static class HandleClient {
     private static void handle(SyncPersistentDataPacket packet) {
-      PlayerEntity player = Minecraft.getInstance().player;
+      Player player = Minecraft.getInstance().player;
       if (player != null) {
         player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.copyFrom(packet.data));
       }

@@ -4,10 +4,9 @@ import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -87,17 +86,17 @@ public class MaterialNBT {
    * @param nbt  NBT instance
    * @return  MaterialNBT instance
    */
-  public static MaterialNBT readFromNBT(@Nullable INBT nbt) {
-    if (nbt == null || nbt.getId() != Constants.NBT.TAG_LIST) {
+  public static MaterialNBT readFromNBT(@Nullable Tag nbt) {
+    if (nbt == null || nbt.getId() != Tag.TAG_LIST) {
       return EMPTY;
     }
-    ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
+    ListTag listNBT = (ListTag) nbt;
+    if (listNBT.getElementType() != Tag.TAG_STRING) {
       return EMPTY;
     }
 
     List<IMaterial> materials = listNBT.stream()
-      .map(INBT::getAsString)
+      .map(Tag::getAsString)
       .map(MaterialId::tryCreate)
       .filter(Objects::nonNull)
       .map(MaterialRegistry::getMaterial)
@@ -110,11 +109,11 @@ public class MaterialNBT {
    * Writes this material list to NBT
    * @return  List of materials
    */
-  public ListNBT serializeToNBT() {
+  public ListTag serializeToNBT() {
     return materials.stream()
       .map(IMaterial::getIdentifier)
       .map(MaterialId::toString)
-      .map(StringNBT::valueOf)
-      .collect(Collectors.toCollection(ListNBT::new));
+      .map(StringTag::valueOf)
+      .collect(Collectors.toCollection(ListTag::new));
   }
 }

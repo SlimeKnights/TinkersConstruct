@@ -4,15 +4,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
@@ -65,19 +65,19 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.spillingSerializer.get();
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.SPILLING;
   }
 
   /** @deprecated use {@link #matches(Fluid)} */
   @Deprecated
   @Override
-  public boolean matches(IEmptyInventory inv, World worldIn) {
+  public boolean matches(IEmptyInventory inv, Level worldIn) {
     return false;
   }
 
@@ -91,7 +91,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
     @Nullable
     @Override
-    protected SpillingRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected SpillingRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidIngredient ingredient = FluidIngredient.read(buffer);
       ImmutableList.Builder<ISpillingEffect> effects = ImmutableList.builder();
       int max = buffer.readVarInt();
@@ -102,7 +102,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, SpillingRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, SpillingRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeVarInt(recipe.effects.size());
       for (ISpillingEffect effect : recipe.effects) {

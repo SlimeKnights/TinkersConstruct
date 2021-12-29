@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.tools.part;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -23,8 +23,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-import net.minecraft.item.Item.Properties;
-
 /**
  * Represents an item that has a Material associated with it. The NBT of the itemstack identifies which material the
  * itemstack of this item has.
@@ -37,7 +35,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   /** Gets the material ID for the given NBT compound */
-  private static Optional<MaterialId> getMaterialId(@Nullable CompoundNBT nbt) {
+  private static Optional<MaterialId> getMaterialId(@Nullable CompoundTag nbt) {
     return Optional.ofNullable(nbt)
                    .map(compoundNBT -> compoundNBT.getString(NBTTags.PART_MATERIAL))
                    .filter(string -> !string.isEmpty())
@@ -65,7 +63,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
     if (this.allowdedIn(group) && MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set in the config, try adding that
       String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
@@ -96,7 +94,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public ITextComponent getName(ItemStack stack) {
+  public Component getName(ItemStack stack) {
     // if no material, return part name directly
     IMaterial material = getMaterial(stack);
     if (material == IMaterial.UNKNOWN) {
@@ -107,16 +105,16 @@ public class MaterialItem extends Item implements IMaterialItem {
     // if there is a specific name, use that
     String fullKey = String.format("%s.%s.%s", key, loc.getNamespace(), loc.getPath());
     if (Util.canTranslate(fullKey)) {
-      return new TranslationTextComponent(fullKey);
+      return new TranslatableComponent(fullKey);
     }
     // try material name prefix next
     String materialKey = material.getTranslationKey();
     String materialPrefix = materialKey + ".format";
     if (Util.canTranslate(materialPrefix)) {
-      return new TranslationTextComponent(materialPrefix, new TranslationTextComponent(key));
+      return new TranslatableComponent(materialPrefix, new TranslatableComponent(key));
     }
     // format as "<material> <item name>"
-    return new TranslationTextComponent(materialKey).append(" ").append(new TranslationTextComponent(key));
+    return new TranslatableComponent(materialKey).append(" ").append(new TranslatableComponent(key));
   }
 
   @Nullable
@@ -132,23 +130,22 @@ public class MaterialItem extends Item implements IMaterialItem {
    * @param tooltip   Tooltip list
    * @param material  Material to add
    */
-  protected static void addModTooltip(IMaterial material, List<ITextComponent> tooltip) {
+  protected static void addModTooltip(IMaterial material, List<Component> tooltip) {
     if (material != IMaterial.UNKNOWN) {
-      tooltip.add(StringTextComponent.EMPTY);
-      tooltip.add(new TranslationTextComponent(ADDED_BY, DomainDisplayName.nameFor(material.getIdentifier().getNamespace())));
+      tooltip.add(TextComponent.EMPTY);
+      tooltip.add(new TranslatableComponent(ADDED_BY, DomainDisplayName.nameFor(material.getIdentifier().getNamespace())));
     }
   }
 
   @Override
-  public boolean verifyTagAfterLoad(CompoundNBT nbt) {
+  public void verifyTagAfterLoad(CompoundTag nbt) {
     // if the material exists and was changed, update it
-    if (nbt.contains("tag", NBT.TAG_COMPOUND)) {
-      CompoundNBT tag = nbt.getCompound("tag");
+    if (nbt.contains("tag", Tag.TAG_COMPOUND)) {
+      CompoundTag tag = nbt.getCompound("tag");
       getMaterialId(tag).map(id -> {
         MaterialId resolved = MaterialRegistry.getInstance().resolve(id);
         return resolved == id ? null : resolved;
       }).ifPresent(id -> tag.putString(NBTTags.PART_MATERIAL, id.toString()));
     }
-    return true;
   }
 }

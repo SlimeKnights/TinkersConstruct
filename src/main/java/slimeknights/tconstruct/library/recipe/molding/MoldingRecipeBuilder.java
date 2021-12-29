@@ -2,15 +2,15 @@ package slimeknights.tconstruct.library.recipe.molding;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.ItemOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -31,7 +31,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
    * @param item  Item output
    * @return  Recipe
    */
-  public static MoldingRecipeBuilder moldingTable(IItemProvider item) {
+  public static MoldingRecipeBuilder moldingTable(ItemLike item) {
     return molding(ItemOutput.fromItem(item), TinkerSmeltery.moldingTableSerializer.get());
   }
 
@@ -40,7 +40,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
    * @param item  Item output
    * @return  Recipe
    */
-  public static MoldingRecipeBuilder moldingBasin(IItemProvider item) {
+  public static MoldingRecipeBuilder moldingBasin(ItemLike item) {
     return molding(ItemOutput.fromItem(item), TinkerSmeltery.moldingBasinSerializer.get());
   }
 
@@ -53,12 +53,12 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
   }
 
   /** Sets the material item, on the table */
-  public MoldingRecipeBuilder setMaterial(IItemProvider item) {
+  public MoldingRecipeBuilder setMaterial(ItemLike item) {
     return setMaterial(Ingredient.of(item));
   }
 
   /** Sets the material item, on the table */
-  public MoldingRecipeBuilder setMaterial(ITag<Item> tag) {
+  public MoldingRecipeBuilder setMaterial(Tag<Item> tag) {
     return setMaterial(Ingredient.of(tag));
   }
 
@@ -70,12 +70,12 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
   }
 
   /** Sets the mold item, in the players hand */
-  public MoldingRecipeBuilder setPattern(IItemProvider item, boolean consumed) {
+  public MoldingRecipeBuilder setPattern(ItemLike item, boolean consumed) {
     return setPattern(Ingredient.of(item), consumed);
   }
 
   /** Sets the mold item, in the players hand */
-  public MoldingRecipeBuilder setPattern(ITag<Item> tag, boolean consumed) {
+  public MoldingRecipeBuilder setPattern(Tag<Item> tag, boolean consumed) {
     return setPattern(Ingredient.of(tag), consumed);
   }
 
@@ -83,21 +83,21 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
   /* Building */
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<FinishedRecipe> consumer) {
     build(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (material == Ingredient.EMPTY) {
       throw new IllegalStateException("Missing material for molding recipe");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "molding");
-    consumer.accept(new FinishedRecipe(id, advancementId));
+    consumer.accept(new Finished(id, advancementId));
   }
 
-  private class FinishedRecipe extends AbstractFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+  private class Finished extends AbstractFinishedRecipe {
+    public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       super(ID, advancementID);
     }
 
@@ -114,7 +114,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
     }
 
     @Override
-    public IRecipeSerializer<?> getType() {
+    public RecipeSerializer<?> getType() {
       return serializer;
     }
   }

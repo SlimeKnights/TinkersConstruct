@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -31,12 +31,12 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final IModifiable output;
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.toolBuildingRecipeSerializer.get();
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World worldIn) {
+  public boolean matches(ITinkerStationInventory inv, Level worldIn) {
     if (!inv.getTinkerableStack().isEmpty()) {
       return false;
     }

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
@@ -45,7 +45,7 @@ public class ContentPageIconList extends PageContent {
   /**
    * Returns false if the page is full
    */
-  public boolean addLink(SizedBookElement element, ITextComponent name, PageData pageData) {
+  public boolean addLink(SizedBookElement element, Component name, PageData pageData) {
     if (this.elements.size() >= this.getMaxIconCount()) {
       return false;
     }

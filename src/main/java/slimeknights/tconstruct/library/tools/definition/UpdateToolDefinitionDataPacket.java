@@ -4,9 +4,9 @@ import com.google.common.collect.ImmutableMap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
 import java.util.Map;
@@ -18,7 +18,7 @@ public class UpdateToolDefinitionDataPacket implements IThreadsafePacket {
   @Getter(AccessLevel.PROTECTED)
   private final Map<ResourceLocation, ToolDefinitionData> dataMap;
 
-  public UpdateToolDefinitionDataPacket(PacketBuffer buffer) {
+  public UpdateToolDefinitionDataPacket(FriendlyByteBuf buffer) {
     int size = buffer.readVarInt();
     ImmutableMap.Builder<ResourceLocation, ToolDefinitionData> builder = ImmutableMap.builder();
     for (int i = 0; i < size; i++) {
@@ -30,7 +30,7 @@ public class UpdateToolDefinitionDataPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeVarInt(dataMap.size());
     for (Entry<ResourceLocation, ToolDefinitionData> entry : dataMap.entrySet()) {
       buffer.writeResourceLocation(entry.getKey());

@@ -1,15 +1,16 @@
 package slimeknights.tconstruct.tools.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.inventory.Slot;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
@@ -24,7 +25,7 @@ import static slimeknights.tconstruct.tools.inventory.ToolContainer.REPEAT_BACKG
 import static slimeknights.tconstruct.tools.inventory.ToolContainer.SLOT_SIZE;
 
 /** Screen for a tool inventory */
-public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
+public class ToolContainerScreen extends AbstractContainerScreen<ToolContainer> {
   /** The ResourceLocation containing the chest GUI texture. */
   private static final ResourceLocation TEXTURE = TConstruct.getResource("textures/gui/tool.png");
 
@@ -47,7 +48,7 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
   private final int slotsInLastRow;
   /** Tool instance being rendered */
   private final IModifierToolStack tool;
-  public ToolContainerScreen(ToolContainer menu, PlayerInventory inv, ITextComponent title) {
+  public ToolContainerScreen(ToolContainer menu, Inventory inv, Component title) {
     super(menu, inv, title);
     int slots = menu.getItemHandler().getSlots();
     if (menu.isShowOffhand()) {
@@ -69,17 +70,15 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
   }
 
   @Override
-  public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+  public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
     this.renderBackground(matrixStack);
     super.render(matrixStack, mouseX, mouseY, partialTicks);
     this.renderTooltip(matrixStack, mouseX, mouseY);
   }
 
   @Override
-  protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
-    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    assert this.minecraft != null;
-    this.minecraft.getTextureManager().bind(TEXTURE);
+  protected void renderBg(PoseStack matrixStack, float partialTicks, int x, int y) {
+    RenderUtils.setup(TEXTURE);
     int xStart = (this.width - this.imageWidth) / 2;
     int yStart = (this.height - this.imageHeight) / 2;
 
@@ -132,8 +131,9 @@ public class ToolContainerScreen extends ContainerScreen<ToolContainer> {
 
 
     // prepare pattern drawing
-    this.minecraft.getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
-    Function<ResourceLocation,TextureAtlasSprite> spriteGetter = this.minecraft.getTextureAtlas(PlayerContainer.BLOCK_ATLAS);
+    RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+    assert this.minecraft != null;
+    Function<ResourceLocation,TextureAtlasSprite> spriteGetter = this.minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
 
     // draw slot patterns for all empty slots
     int start = 0;

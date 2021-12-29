@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.shared.block;
 
-import net.minecraft.block.AbstractGlassBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.DyeColor;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.AbstractGlassBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class ClearStainedGlassBlock extends AbstractGlassBlock {
 
@@ -22,12 +22,12 @@ public class ClearStainedGlassBlock extends AbstractGlassBlock {
 
   @Nullable
   @Override
-  public float[] getBeaconColorMultiplier(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
+  public float[] getBeaconColorMultiplier(BlockState state, LevelReader world, BlockPos pos, BlockPos beaconPos) {
     return this.glassColor.getRgb();
   }
 
   /** Enum used for registration of this and the pane block */
-  public enum GlassColor implements IStringSerializable {
+  public enum GlassColor implements StringRepresentable {
     WHITE(0xffffff, DyeColor.WHITE),
     ORANGE(0xd87f33, DyeColor.ORANGE),
     MAGENTA(0xb24cd8, DyeColor.MAGENTA),

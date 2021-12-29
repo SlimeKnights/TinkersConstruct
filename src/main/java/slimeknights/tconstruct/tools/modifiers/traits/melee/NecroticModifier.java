@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits.melee;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -20,7 +20,7 @@ public class NecroticModifier extends Modifier {
       float chance = attacker.getRandom().nextFloat();
       attacker.heal(chance * damageDealt * level * 0.05f);
       if (chance > 0.5f) {
-        attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+        attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
       }
     }
     return 0;

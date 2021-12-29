@@ -1,31 +1,32 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IBucketPickupHandler;
-import net.minecraft.block.ILiquidContainer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult.Type;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult.Type;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -54,14 +55,14 @@ public class BucketingModifier extends TankModifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+    if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1, true);
     }
   }
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+    if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1, true);
     }
   }
@@ -80,39 +81,39 @@ public class BucketingModifier extends TankModifier {
 
   /**
    * Checks if the block is unable to contain fluid
-   * @param world  World
+   * @param world  Level
    * @param pos    Position to try
    * @param state  State
    * @param fluid  Fluid to place
    * @return  True if the block is unable to contain fluid, false if it can contain fluid
    */
-  private static boolean cannotContainFluid(World world, BlockPos pos, BlockState state, Fluid fluid) {
+  private static boolean cannotContainFluid(Level world, BlockPos pos, BlockState state, Fluid fluid) {
     Block block = state.getBlock();
-    return !state.canBeReplaced(fluid) && (!(block instanceof ILiquidContainer) || !((ILiquidContainer)block).canPlaceLiquid(world, pos, state, fluid));
+    return !state.canBeReplaced(fluid) && !(block instanceof LiquidBlockContainer container && container.canPlaceLiquid(world, pos, state, fluid));
   }
 
   @Override
-  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slot) {
-    if (slot.getType() != Group.ARMOR) {
-      return ActionResultType.PASS;
+  public InteractionResult beforeBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slot) {
+    if (slot.getType() != EquipmentSlot.Type.ARMOR) {
+      return InteractionResult.PASS;
     }
 
-    World world = context.getLevel();
+    Level world = context.getLevel();
     BlockPos target = context.getClickedPos();
     // must have a TE that has a fluid handler capability
-    TileEntity te = world.getBlockEntity(target);
+    BlockEntity te = world.getBlockEntity(target);
     if (te == null) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     Direction face = context.getClickedFace();
     LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
     if (!capability.isPresent()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
 
     // only the server needs to deal with actually handling stuff
     if (!world.isClientSide) {
-      PlayerEntity player = context.getPlayer();
+      Player player = context.getPlayer();
       boolean sneaking = player != null && player.isShiftKeyDown();
       capability.ifPresent(cap -> {
         FluidStack fluidStack = getFluid(tool);
@@ -145,36 +146,36 @@ public class BucketingModifier extends TankModifier {
           }
         }
         if (sound != null) {
-          world.playSound(null, target, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+          world.playSound(null, target, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
       });
     }
-    return ActionResultType.sidedSuccess(world.isClientSide);
+    return InteractionResult.sidedSuccess(world.isClientSide);
   }
 
   @Override
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
+  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
     // only place fluid if sneaking, we contain at least a bucket, and its a block
-    PlayerEntity player = context.getPlayer();
+    Player player = context.getPlayer();
     if (player == null || !player.isShiftKeyDown()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     FluidStack fluidStack = getFluid(tool);
     if (fluidStack.getAmount() < FluidAttributes.BUCKET_VOLUME) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     Fluid fluid = fluidStack.getFluid();
     if (!(fluid instanceof FlowingFluid)) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
 
     // can we interact with the position
     Direction face = context.getClickedFace();
-    World world = context.getLevel();
+    Level world = context.getLevel();
     BlockPos target = context.getClickedPos();
     BlockPos offset = target.relative(face);
     if (!world.mayInteract(player, target) || !player.mayUseItemAt(offset, face, context.getItemInHand())) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
 
     // if the block cannot be placed at the current location, try placing at the neighbor
@@ -183,14 +184,14 @@ public class BucketingModifier extends TankModifier {
       target = offset;
       existing = world.getBlockState(target);
       if (cannotContainFluid(world, target, existing, fluidStack.getFluid())) {
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
       }
     }
 
     // if water, evaporate
     boolean placed = false;
     if (world.dimensionType().ultraWarm() && fluid.is(FluidTags.WATER)) {
-      world.playSound(player, target, SoundEvents.FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
+      world.playSound(player, target, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
       for(int l = 0; l < 8; ++l) {
         world.addParticle(ParticleTypes.LARGE_SMOKE, target.getX() + Math.random(), target.getY() + Math.random(), target.getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
       }
@@ -201,72 +202,77 @@ public class BucketingModifier extends TankModifier {
         world.destroyBlock(target, true);
       }
       if (world.setBlockAndUpdate(target, fluid.defaultFluidState().createLegacyBlock()) || existing.getFluidState().isSource()) {
-        world.playSound(null, target, fluid.getAttributes().getEmptySound(fluidStack), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        world.playSound(null, target, fluid.getAttributes().getEmptySound(fluidStack), SoundSource.BLOCKS, 1.0F, 1.0F);
         placed = true;
       }
-    } else if (existing.getBlock() instanceof ILiquidContainer) {
+    } else if (existing.getBlock() instanceof LiquidBlockContainer container) {
       // if not replaceable, it must be a liquid container
-      ((ILiquidContainer) existing.getBlock()).placeLiquid(world, target, existing, ((FlowingFluid)fluid).getSource(false));
-      world.playSound(null, target, fluid.getAttributes().getEmptySound(fluidStack), SoundCategory.BLOCKS, 1.0F, 1.0F);
+      container.placeLiquid(world, target, existing, ((FlowingFluid)fluid).getSource(false));
+      world.playSound(null, target, fluid.getAttributes().getEmptySound(fluidStack), SoundSource.BLOCKS, 1.0F, 1.0F);
       placed = true;
     }
 
     // if we placed something, consume fluid
     if (placed) {
       drain(tool, fluidStack, FluidAttributes.BUCKET_VOLUME);
-      return ActionResultType.SUCCESS;
+      return InteractionResult.SUCCESS;
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @Override
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
+  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     if (player.isCrouching()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
 
     // need at least a bucket worth of empty space
     FluidStack fluidStack = getFluid(tool);
     if (getCapacity(tool) - fluidStack.getAmount() < FluidAttributes.BUCKET_VOLUME) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     // have to trace again to find the fluid, ensure we can edit the position
-    BlockRayTraceResult trace = ModifiableItem.blockRayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+    BlockHitResult trace = ModifiableItem.blockRayTrace(world, player, ClipContext.Fluid.SOURCE_ONLY);
     if (trace.getType() != Type.BLOCK) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     Direction face = trace.getDirection();
     BlockPos target = trace.getBlockPos();
     BlockPos offset = target.relative(face);
     if (!world.mayInteract(player, target) || !player.mayUseItemAt(offset, face, player.getItemBySlot(slotType))) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     // try to find a fluid here
     FluidState fluidState = world.getFluidState(target);
     Fluid currentFluid = fluidStack.getFluid();
     if (fluidState.isEmpty() || (!fluidStack.isEmpty() && !currentFluid.isSame(fluidState.getType()))) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     // finally, pickup the fluid
     BlockState state = world.getBlockState(target);
-    if (state.getBlock() instanceof IBucketPickupHandler) {
-      Fluid pickedUpFluid = ((IBucketPickupHandler)state.getBlock()).takeLiquid(world, target, state);
-      if (pickedUpFluid != Fluids.EMPTY) {
-        player.playSound(pickedUpFluid.getAttributes().getFillSound(fluidStack), 1.0F, 1.0F);
-        // set the fluid if empty, increase the fluid if filled
-        if (!world.isClientSide) {
-          if (fluidStack.isEmpty()) {
-            setFluid(tool, new FluidStack(pickedUpFluid, FluidAttributes.BUCKET_VOLUME));
-          } else if (pickedUpFluid == currentFluid) {
-            fluidStack.grow(FluidAttributes.BUCKET_VOLUME);
-            setFluid(tool, fluidStack);
-          } else {
-            TConstruct.LOG.error("Picked up a fluid {} that does not match the current fluid state {}, this should not happen", pickedUpFluid, fluidState.getType());
+    if (state.getBlock() instanceof BucketPickup bucketPickup) {
+      // TODO: not sure how to deal with this API change, this current method means we delete snow
+      //Fluid pickedUpFluid = bucketPickup.takeLiquid(world, target, state);
+      ItemStack bucket = bucketPickup.pickupBlock(world, target, state);
+      if (!bucket.isEmpty() && bucket.getItem() instanceof BucketItem bucketItem) {
+        Fluid pickedUpFluid = bucketItem.getFluid();
+        if (pickedUpFluid != Fluids.EMPTY) {
+          player.playSound(pickedUpFluid.getAttributes().getFillSound(fluidStack), 1.0F, 1.0F);
+          // set the fluid if empty, increase the fluid if filled
+          if (!world.isClientSide) {
+            if (fluidStack.isEmpty()) {
+              setFluid(tool, new FluidStack(pickedUpFluid, FluidAttributes.BUCKET_VOLUME));
+            } else if (pickedUpFluid == currentFluid) {
+              fluidStack.grow(FluidAttributes.BUCKET_VOLUME);
+              setFluid(tool, fluidStack);
+            } else {
+              TConstruct.LOG.error("Picked up a fluid {} that does not match the current fluid state {}, this should not happen", pickedUpFluid, fluidState.getType());
+            }
           }
+          return InteractionResult.SUCCESS;
         }
-        return ActionResultType.SUCCESS;
       }
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 }

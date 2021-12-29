@@ -3,11 +3,11 @@ package slimeknights.tconstruct.smeltery.tileentity.module.alloying;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.fluids.FluidStack;
@@ -15,8 +15,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
-import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
+import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.alloying.IMutableAlloyTank;
@@ -32,7 +32,7 @@ import java.util.Map;
 public class MixerAlloyTank implements IMutableAlloyTank {
   // parameters
   /** Handler parent */
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   /** Tank for outputs */
   private final IFluidHandler outputTank;
 
@@ -131,7 +131,7 @@ public class MixerAlloyTank implements IMutableAlloyTank {
    */
   private void checkTanks() {
     // need world to do anything
-    World world = parent.getLevel();
+    Level world = parent.getLevel();
     if (world == null) {
       return;
     }
@@ -142,7 +142,7 @@ public class MixerAlloyTank implements IMutableAlloyTank {
           BlockPos target = parent.getBlockPos().relative(direction);
           // limit by blocks as that gives the modpack more control, say they want to allow only scorched tanks
           if (world.getBlockState(target).is(TinkerTags.Blocks.ALLOYER_TANKS)) {
-            TileEntity te = world.getBlockEntity(target);
+            BlockEntity te = world.getBlockEntity(target);
             if (te != null) {
               // if we found a tank, increment the number of tanks
               LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite());
@@ -168,8 +168,8 @@ public class MixerAlloyTank implements IMutableAlloyTank {
 
       // close the UI for any players in this UI
       if (!world.isClientSide) {
-        for (PlayerEntity player : world.players()) {
-          if (player.containerMenu instanceof BaseContainer && ((BaseContainer<?>)player.containerMenu).getTile() == parent) {
+        for (Player player : world.players()) {
+          if (player.containerMenu instanceof BaseContainerMenu<?> base && base.getTile() == parent) {
             player.closeContainer();
           }
         }

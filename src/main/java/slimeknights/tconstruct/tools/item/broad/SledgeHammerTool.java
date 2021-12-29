@@ -9,7 +9,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.item.small.HarvestTool;
 import slimeknights.tconstruct.tools.item.small.PickaxeTool;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 import slimeknights.tconstruct.tools.item.small.HarvestTool.MaterialHarvestLogic;
 
 public class SledgeHammerTool extends HarvestTool {

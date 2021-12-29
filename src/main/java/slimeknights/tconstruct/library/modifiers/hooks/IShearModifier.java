@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.hooks;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /**
@@ -17,5 +17,5 @@ public interface IShearModifier {
    * @param entity   Entity sheared
    * @param isTarget If true, the sheared entity was targeted. If false, this is AOE shearing
    */
-  void afterShearEntity(IModifierToolStack tool, int level, PlayerEntity player, Entity entity, boolean isTarget);
+  void afterShearEntity(IModifierToolStack tool, int level, Player player, Entity entity, boolean isTarget);
 }

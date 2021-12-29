@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.Hand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.InteractionHand;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;
@@ -21,12 +21,12 @@ public class ToolAttackContext {
   private final LivingEntity attacker;
   /** Player doing the attacking, null if not a player */
   @Nullable
-  private final PlayerEntity playerAttacker;
+  private final Player playerAttacker;
   /** Hand containing the tool */
   @Nonnull
-  private final Hand hand;
+  private final InteractionHand hand;
   @Nonnull
-  private final EquipmentSlotType slotType;
+  private final EquipmentSlot slotType;
   /** Originally targeted entity, may be different from {@link #getTarget()} for multipart entities */
   @Nonnull
   private final Entity target;
@@ -40,7 +40,7 @@ public class ToolAttackContext {
   /** If true, this is a secondary attack, such as for scythes */
   private final boolean isExtraAttack;
 
-  public ToolAttackContext(LivingEntity attacker, @Nullable PlayerEntity playerAttacker, Hand hand, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public ToolAttackContext(LivingEntity attacker, @Nullable Player playerAttacker, InteractionHand hand, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
     this(attacker, playerAttacker, hand, Util.getSlotType(hand), target, livingTarget, isCritical, cooldown, isExtraAttack);
   }
 

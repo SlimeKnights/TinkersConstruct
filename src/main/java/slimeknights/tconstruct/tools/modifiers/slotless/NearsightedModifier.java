@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class NearsightedModifier extends IncrementalModifier {
-  private final ResourceLocation[] SLOT_KEYS = Arrays.stream(EquipmentSlotType.values())
-                                                     .sorted(Comparator.comparing(EquipmentSlotType::getFilterFlag))
+  private final ResourceLocation[] SLOT_KEYS = Arrays.stream(EquipmentSlot.values())
+                                                     .sorted(Comparator.comparing(EquipmentSlot::getFilterFlag))
                                                      .map(slot -> TConstruct.getResource("nearsighted_" + slot.getName()))
                                                      .toArray(ResourceLocation[]::new);
   public NearsightedModifier() {

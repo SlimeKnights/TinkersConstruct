@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.item.broad;
 
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.TreeAOEHarvestLogic;
@@ -12,7 +12,7 @@ import slimeknights.tconstruct.tools.item.small.HandAxeTool;
 
 import java.util.Set;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class BroadAxeTool extends HandAxeTool {
   private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.VEGETABLE);

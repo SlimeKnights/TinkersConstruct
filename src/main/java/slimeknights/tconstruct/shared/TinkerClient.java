@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.shared;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManager;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
@@ -39,9 +39,9 @@ public class TinkerClient {
     Minecraft minecraft = Minecraft.getInstance();
     //noinspection ConstantConditions
     if (minecraft != null) {
-      IResourceManager manager = Minecraft.getInstance().getResourceManager();
-      if (manager instanceof IReloadableResourceManager) {
-        addResourceListeners((IReloadableResourceManager)manager);
+      ResourceManager manager = Minecraft.getInstance().getResourceManager();
+      if (manager instanceof ReloadableResourceManager) {
+        addResourceListeners((ReloadableResourceManager)manager);
       }
     }
 
@@ -58,7 +58,7 @@ public class TinkerClient {
   /**
    * Adds resource listeners to the client class
    */
-  private static void addResourceListeners(IReloadableResourceManager manager) {
+  private static void addResourceListeners(ReloadableResourceManager manager) {
     WorldClientEvents.addResourceListener(manager);
     TableClientEvents.addResourceListener(manager);
     SmelteryClientEvents.addResourceListener(manager);

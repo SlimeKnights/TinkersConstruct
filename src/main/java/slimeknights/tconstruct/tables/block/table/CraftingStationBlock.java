@@ -1,13 +1,11 @@
 package slimeknights.tconstruct.tables.block.table;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.block.AbstractBlock.Properties;
+import javax.annotation.Nullable;
 
 public class CraftingStationBlock extends RetexturedTableBlock {
 
@@ -15,9 +13,9 @@ public class CraftingStationBlock extends RetexturedTableBlock {
     super(builder);
   }
 
-  @Nonnull
+  @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new CraftingStationTileEntity();
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return new CraftingStationTileEntity(pPos, pState);
   }
 }

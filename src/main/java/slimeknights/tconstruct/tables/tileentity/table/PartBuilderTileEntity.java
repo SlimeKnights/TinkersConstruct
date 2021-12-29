@@ -1,14 +1,18 @@
 package slimeknights.tconstruct.tables.tileentity.table;
 
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
@@ -32,6 +36,8 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
   public static final int MATERIAL_SLOT = 0;
   /** Second slot containing the patterns */
   public static final int PATTERN_SLOT = 1;
+  /** Title for the GUI */
+  private static final Component NAME = TConstruct.makeTranslation("gui", "part_builder");
 
   /** Result inventory, lazy loads results */
   @Getter
@@ -50,8 +56,8 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
   /** Index of the currently selected pattern */
   private int selectedPatternIndex = -2;
 
-  public PartBuilderTileEntity() {
-    super(TinkerTables.partBuilderTile.get(), "gui.tconstruct.part_builder", 3);
+  public PartBuilderTileEntity(BlockPos pos, BlockState state) {
+    super(TinkerTables.partBuilderTile.get(), pos, state, NAME, 3);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new PartBuilderInventoryWrapper(this);
@@ -77,7 +83,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
                        .filter(r -> r instanceof IPartBuilderRecipe)
                        .map(r -> (IPartBuilderRecipe)r)
                        .filter(r -> r.partialMatch(inventoryWrapper))
-                       .sorted(Comparator.comparing(IRecipe::getId))
+                       .sorted(Comparator.comparing(Recipe::getId))
                        .collect(Collectors.toMap(IPartBuilderRecipe::getPattern, Function.identity(), (a, b) -> a));
         sortedButtons = recipes.values().stream()
                                .sorted((a, b) -> {
@@ -205,12 +211,12 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public AbstractContainerMenu createMenu(int menuId, Inventory playerInventory, Player playerEntity) {
     return new PartBuilderContainer(menuId, playerInventory, this);
   }
 
   @Override
-  public ItemStack calcResult(@Nullable PlayerEntity player) {
+  public ItemStack calcResult(@Nullable Player player) {
     if (level != null) {
       IPartBuilderRecipe recipe = getPartRecipe();
       if (recipe != null && recipe.matches(inventoryWrapper, level)) {
@@ -225,7 +231,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
    * @param slot    Slot
    * @param amount  Amount to shrink
    */
-  private void shrinkSlot(int slot, int amount, PlayerEntity player) {
+  private void shrinkSlot(int slot, int amount, Player player) {
     ItemStack stack = getItem(slot);
     if (!stack.isEmpty()) {
       ItemStack container = stack.getContainerItem().copy();
@@ -242,7 +248,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
   }
 
   @Override
-  public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
+  public ItemStack onCraft(Player player, ItemStack result, int amount) {
     if (amount == 0 || this.level == null) {
       return ItemStack.EMPTY;
     }
@@ -254,7 +260,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
 
     // we are definitely crafting at this point
     result.onCraftedBy(this.level, player, amount);
-    BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
+    ForgeEventFactory.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     this.playCraftSound(player);
 
     // give the player any leftovers

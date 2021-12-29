@@ -2,14 +2,14 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -35,15 +35,15 @@ public class PotionFluidEffect implements ISpillingEffect {
         // prevent effects like instant damage from hitting hurt resistance
         int oldInvulnerableTime = target.invulnerableTime;
         float totalScale = scale * effectScale;
-        for (EffectInstance instance : potion.getEffects()) {
-          Effect effect = instance.getEffect();
+        for (MobEffectInstance instance : potion.getEffects()) {
+          MobEffect effect = instance.getEffect();
           if (effect.isInstantenous()) {
             target.invulnerableTime = 0;
             effect.applyInstantenousEffect(attacker, attacker, target, instance.getAmplifier(), totalScale);
           } else {
             int duration = (int)(instance.getDuration() * totalScale);
             if (duration > 10) {
-              target.addEffect(new EffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()));
+              target.addEffect(new MobEffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()));
             }
           }
         }
@@ -60,7 +60,7 @@ public class PotionFluidEffect implements ISpillingEffect {
   private static class Loader implements ISpillingEffectLoader<PotionFluidEffect> {
     @Override
     public PotionFluidEffect deserialize(JsonObject json) {
-      float scale = JSONUtils.getAsFloat(json, "scale");
+      float scale = GsonHelper.getAsFloat(json, "scale");
       TagPredicate predicate = TagPredicate.ANY;
       if (json.has("predicate")) {
         predicate = TagPredicate.deserialize(json.get("predicate"));
@@ -69,7 +69,7 @@ public class PotionFluidEffect implements ISpillingEffect {
     }
 
     @Override
-    public PotionFluidEffect read(PacketBuffer buffer) {
+    public PotionFluidEffect read(FriendlyByteBuf buffer) {
       float scale = buffer.readFloat();
       TagPredicate predicate = TagPredicate.read(buffer);
       return new PotionFluidEffect(scale, predicate);
@@ -84,7 +84,7 @@ public class PotionFluidEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(PotionFluidEffect effect, PacketBuffer buffer) {
+    public void write(PotionFluidEffect effect, FriendlyByteBuf buffer) {
       buffer.writeFloat(effect.effectScale);
       effect.predicate.write(buffer);
     }

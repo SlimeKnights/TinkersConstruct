@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -34,7 +34,7 @@ public class ToolDamageUtil {
    * @return  True if broken
    */
   public static boolean isBroken(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     return nbt != null && nbt.getBoolean(ToolStack.TAG_BROKEN);
   }
 
@@ -50,7 +50,7 @@ public class ToolDamageUtil {
    * @return  True if the tool is broken now
    */
   public static boolean directDamage(IModifierToolStack tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
-    if (entity instanceof PlayerEntity && ((PlayerEntity)entity).isCreative()) {
+    if (entity instanceof Player && ((Player)entity).isCreative()) {
       return false;
     }
 
@@ -62,11 +62,11 @@ public class ToolDamageUtil {
       // criteria updates
       int newDamage = damage + amount;
       // TODO: needed?
-      if (entity instanceof ServerPlayerEntity) {
+      if (entity instanceof ServerPlayer) {
         if (stack == null) {
           stack = entity.getMainHandItem();
         }
-        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity)entity, stack, newDamage);
+        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayer)entity, stack, newDamage);
       }
 
       tool.setDamage(newDamage);
@@ -105,7 +105,7 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    * @param slot    Slot containing the stack
    */
-  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlotType slot) {
+  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlot slot) {
     if (damage(tool, amount, entity, entity.getItemBySlot(slot))) {
       entity.broadcastBreakEvent(slot);
       return true;
@@ -121,7 +121,7 @@ public class ToolDamageUtil {
    * @param hand    Hand containing the stack
    * @return true if the tool broke when damaging
    */
-  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, Hand hand) {
+  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, InteractionHand hand) {
     if (damage(tool, amount, entity, entity.getItemInHand(hand))) {
       entity.broadcastBreakEvent(hand);
       return true;
@@ -136,7 +136,7 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    */
   public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity) {
-    return damageAnimated(tool, amount, entity, Hand.MAIN_HAND);
+    return damageAnimated(tool, amount, entity, InteractionHand.MAIN_HAND);
   }
 
   /**
@@ -188,6 +188,7 @@ public class ToolDamageUtil {
   private static double getDamagePercentage(ToolStack tool) {
     // first modifier who wishs to handle it wins
     for (ModifierEntry entry : tool.getModifierList()) {
+      // TODO: update to the vanilla 0 to 13 range
       double display = entry.getModifier().getDamagePercentage(tool, entry.getLevel());
       if (!Double.isNaN(display)) {
         return display;
@@ -203,13 +204,13 @@ public class ToolDamageUtil {
    * @param stack  Stack instance
    * @return  Damage taken between 0 and 1
    */
-  public static double getDamageForDisplay(ItemStack stack) {
+  public static int getDamageForDisplay(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
-      return 1;
+      return 0;
     }
     // always show at least 5% when not broken
-    return 0.95 * getDamagePercentage(tool);
+    return (int)(1 + 12 * (1 - getDamagePercentage(tool)));
   }
 
   /**
@@ -228,6 +229,6 @@ public class ToolDamageUtil {
         return rgb;
       }
     }
-    return MathHelper.hsvToRgb(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
+    return Mth.hsvToRgb(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
   }
 }

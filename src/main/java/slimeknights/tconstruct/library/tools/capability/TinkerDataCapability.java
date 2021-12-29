@@ -1,21 +1,23 @@
 package slimeknights.tconstruct.library.tools.capability;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Holder;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -26,21 +28,23 @@ import java.util.function.Supplier;
  * Capability to make it easy for Tinkers to store common data on the player, primarily used for armor
  * Data stored in this capability is not saved to NBT, most often its filled by the relevant equipment events
  */
-public class TinkerDataCapability implements Capability.IStorage<Holder> {
+public class TinkerDataCapability {
   private TinkerDataCapability() {}
 
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("modifier_data");
-  /** Instance of the capability storage because forge requires it */
-  private static final TinkerDataCapability INSTANCE = new TinkerDataCapability();
   /** Capability type */
-  @CapabilityInject(Holder.class)
-  public static Capability<Holder> CAPABILITY = null;
+  public static final Capability<Holder> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
   /** Registers this capability */
   public static void register() {
-    CapabilityManager.INSTANCE.register(Holder.class, INSTANCE, Holder::new);
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
     MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, TinkerDataCapability::attachCapability);
+  }
+
+  /** Registers the capability with the event bus */
+  private static void register(RegisterCapabilitiesEvent event) {
+    event.register(Holder.class);
   }
 
   /** Event listener to attach the capability */
@@ -55,15 +59,6 @@ public class TinkerDataCapability implements Capability.IStorage<Holder> {
 
   /* Required methods */
 
-  @Nullable
-  @Override
-  public INBT writeNBT(Capability<Holder> capability, Holder instance, Direction side) {
-    return null;
-  }
-
-  @Override
-  public void readNBT(Capability<Holder> capability, Holder instance, Direction side, INBT nbt) {}
-
   /** Capability provider instance */
   private static class Provider implements ICapabilityProvider, Runnable {
     private LazyOptional<Holder> data;
@@ -71,6 +66,7 @@ public class TinkerDataCapability implements Capability.IStorage<Holder> {
       this.data = LazyOptional.of(Holder::new);
     }
 
+    @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
       return CAPABILITY.orEmpty(cap, data);

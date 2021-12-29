@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.Explosion;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
@@ -38,12 +38,12 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
     if (player.isShiftKeyDown()) {
       player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(FUSE_FINISH, player.tickCount + 30));
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
       // make the player slow
-      ModifiableAttributeInstance instance = player.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
+      AttributeInstance instance = player.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
       if (instance != null) {
         instance.addTransientModifier(SPEED_MODIFIER);
       }
@@ -54,14 +54,14 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
 
   /** Restores speed to full */
   private static void restoreSpeed(LivingEntity livingEntity) {
-    ModifiableAttributeInstance instance = livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
+    AttributeInstance instance = livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
     if (instance != null) {
       instance.removeModifier(SPEED_MODIFIER);
     }
   }
 
   @Override
-  public void stopArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
+  public void stopArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(FUSE_FINISH));
     restoreSpeed(player);
   }
@@ -84,7 +84,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
       event.player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         Integer fuseFinish = data.get(FUSE_FINISH);
         if (fuseFinish != null && fuseFinish <= event.player.tickCount) {
-          event.player.level.explode(event.player, event.player.getX(), event.player.getY(), event.player.getZ(), 3, Explosion.Mode.DESTROY);
+          event.player.level.explode(event.player, event.player.getX(), event.player.getY(), event.player.getZ(), 3, Explosion.BlockInteraction.DESTROY);
           event.player.hurt(SELF_DESTRUCT, 99999);
           if (event.player.getHealth() > 0) {
             restoreSpeed(event.player);

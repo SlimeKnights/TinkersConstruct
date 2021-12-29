@@ -8,9 +8,9 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.NoArgsConstructor;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -36,13 +36,13 @@ public class ModifierArgument implements ArgumentType<Modifier> {
   }
 
   /** Gets a modifier from the command context */
-  public static Modifier getModifier(CommandContext<CommandSource> context, String name) {
+  public static Modifier getModifier(CommandContext<CommandSourceStack> context, String name) {
     return context.getArgument(name, Modifier.class);
   }
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return ISuggestionProvider.suggestResource(TinkerRegistries.MODIFIERS.getKeys(), builder);
+    return SharedSuggestionProvider.suggestResource(TinkerRegistries.MODIFIERS.getKeys(), builder);
   }
 
   @Override

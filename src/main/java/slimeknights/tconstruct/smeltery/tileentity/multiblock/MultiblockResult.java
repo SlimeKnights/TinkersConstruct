@@ -3,10 +3,10 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MultiblockResult {
   /** Successful result, used when no error */
-  public static final MultiblockResult SUCCESS = new MultiblockResult(true, null, StringTextComponent.EMPTY);
+  public static final MultiblockResult SUCCESS = new MultiblockResult(true, null, TextComponent.EMPTY);
 
   /** If true, this result was successful */
   private final boolean success;
@@ -25,14 +25,14 @@ public final class MultiblockResult {
   @Nullable
   private final BlockPos pos;
   /** Message to display for errors */
-  private final ITextComponent message;
+  private final Component message;
 
   /**
    * Creates an error for the given arguments
    * @param pos  Position that caused the issue, may be null if no position
    * @return  Multiblock result
    */
-  public static MultiblockResult error(@Nullable BlockPos pos, ITextComponent error) {
+  public static MultiblockResult error(@Nullable BlockPos pos, Component error) {
     return new MultiblockResult(false, pos, error);
   }
 
@@ -44,6 +44,6 @@ public final class MultiblockResult {
    * @return  Multiblock result
    */
   public static MultiblockResult error(@Nullable BlockPos pos, String key, Object... params) {
-    return error(pos, new TranslationTextComponent(key, params));
+    return error(pos, new TranslatableComponent(key, params));
   }
 }

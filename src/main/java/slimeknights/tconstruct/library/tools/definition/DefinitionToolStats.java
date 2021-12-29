@@ -12,9 +12,9 @@ import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
@@ -60,7 +60,7 @@ public class DefinitionToolStats {
   /* Packet buffers */
 
   /** Writes a tool definition stat object to a packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     buffer.writeVarInt(values.size());
     for (Entry<FloatToolStat,Float> entry : values.entrySet()) {
       buffer.writeUtf(entry.getKey().getName().toString());
@@ -69,7 +69,7 @@ public class DefinitionToolStats {
   }
 
   /** Reads a tool definition stat object from a packet buffer */
-  public static DefinitionToolStats read(PacketBuffer buffer) {
+  public static DefinitionToolStats read(FriendlyByteBuf buffer) {
     Builder builder = builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
@@ -114,14 +114,14 @@ public class DefinitionToolStats {
   protected static class Serializer implements JsonDeserializer<DefinitionToolStats>, JsonSerializer<DefinitionToolStats> {
     @Override
     public DefinitionToolStats deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject object = JSONUtils.convertToJsonObject(json, "stats");
+      JsonObject object = GsonHelper.convertToJsonObject(json, "stats");
       Builder builder = builder();
       for (Entry<String,JsonElement> entry : object.entrySet()) {
         ResourceLocation location = ResourceLocation.tryParse(entry.getKey());
         if (location != null) {
           IToolStat<?> stat = ToolStats.getToolStat(new ToolStatId(location));
           if (stat instanceof FloatToolStat) {
-            builder.addStat((FloatToolStat)stat, JSONUtils.convertToFloat(entry.getValue(), entry.getKey()));
+            builder.addStat((FloatToolStat)stat, GsonHelper.convertToFloat(entry.getValue(), entry.getKey()));
             continue;
           }
         }

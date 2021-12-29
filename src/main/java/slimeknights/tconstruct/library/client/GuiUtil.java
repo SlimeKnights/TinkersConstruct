@@ -1,25 +1,24 @@
 package slimeknights.tconstruct.library.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat.Mode;
+import com.mojang.math.Matrix4f;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldVertexBufferUploader;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
-import org.lwjgl.opengl.GL11;
 import slimeknights.mantle.client.screen.ElementScreen;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -30,23 +29,24 @@ public final class GuiUtil {
    * @param screen      Parent screen
    * @param background  Background location
    */
-  public static void drawBackground(MatrixStack matrices, ContainerScreen<?> screen, ResourceLocation background) {
-    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    screen.getMinecraft().getTextureManager().bind(background);
+  public static void drawBackground(PoseStack matrices, AbstractContainerScreen<?> screen, ResourceLocation background) {
+    RenderUtils.setup(background);
     screen.blit(matrices, screen.leftPos, screen.topPos, 0, 0, screen.imageWidth, screen.imageHeight);
   }
 
   /**
    * Draws the container names
    * @param matrices    Matrix context
-   * @param screen  Screen name
-   * @param font    Screen font TODO: can remove?
-   * @param inv     Player inventory TODO: can remove?
+   * @param screen    Screen name
+   * @param font      Screen font
+   * @param invName   Name of the player inventory
+   * @deprecated  Switch to the vanilla method
    */
-  public static void drawContainerNames(MatrixStack matrices, ContainerScreen<?> screen, FontRenderer font, PlayerInventory inv) {
+  @Deprecated
+  public static void drawContainerNames(PoseStack matrices, AbstractContainerScreen<?> screen, Font font, Component invName) {
     String name = screen.getTitle().getString();
     font.draw(matrices, name, (screen.imageWidth / 2f - font.width(name) / 2f), 6.0F, 0x404040);
-    font.draw(matrices, inv.getDisplayName().getString(), 8.0F, (screen.imageHeight - 96 + 2), 0x404040);
+    font.draw(matrices, invName, 8.0F, (screen.imageHeight - 96 + 2), 0x404040);
   }
 
   /**
@@ -96,7 +96,7 @@ public final class GuiUtil {
    * @param height    Tank height
    * @param depth     Tank depth
    */
-  public static void renderFluidTank(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
+  public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
     renderFluidTank(matrices, screen, stack, stack.getAmount(), capacity, x, y, width, height, depth);
   }
 
@@ -111,7 +111,7 @@ public final class GuiUtil {
    * @param height    Tank height
    * @param depth     Tank depth
    */
-  public static void renderFluidTank(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
+  public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
     if(!stack.isEmpty()) {
       int maxY = y + height;
       int fluidHeight = Math.min(height * amount / capacity, height);
@@ -130,12 +130,12 @@ public final class GuiUtil {
    * @param height  Fluid height
    * @param depth   Fluid depth
    */
-  public static void renderTiledFluid(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
+  public static void renderTiledFluid(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
-      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(PlayerContainer.BLOCK_ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
+      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
       RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
-      GlStateManager._color4f(1.0f, 1.0f, 1.0f, 1.0f);
+      RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
   }
 
@@ -151,11 +151,11 @@ public final class GuiUtil {
    * @param depth       Render depth
    * @param upsideDown  If true, flips the sprite
    */
-  public static void renderTiledTextureAtlas(MatrixStack matrices, ContainerScreen<?> screen, TextureAtlasSprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
+  public static void renderTiledTextureAtlas(PoseStack matrices, AbstractContainerScreen<?> screen, TextureAtlasSprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
     // start drawing sprites
-    screen.getMinecraft().getTextureManager().bind(sprite.atlas().location());
-    BufferBuilder builder = Tessellator.getInstance().getBuilder();
-    builder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+    RenderUtils.bindTexture(sprite.atlas().location());
+    BufferBuilder builder = Tesselator.getInstance().getBuilder();
+    builder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
     // tile vertically
     float u1 = sprite.getU0();
@@ -193,8 +193,9 @@ public final class GuiUtil {
 
     // finish drawing sprites
     builder.end();
-    RenderSystem.enableAlphaTest();
-    WorldVertexBufferUploader.end(builder);
+    // RenderSystem.enableAlphaTest();
+    RenderSystem.enableDepthTest(); // TODO: correct
+    BufferUploader.end(builder);
   }
 
   /**
@@ -224,7 +225,7 @@ public final class GuiUtil {
    * @param y         Y position to start
    * @param progress  Progress between 0 and 1
    */
-  public static void drawProgressUp(MatrixStack matrices, ElementScreen element, int x, int y, float progress) {
+  public static void drawProgressUp(PoseStack matrices, ElementScreen element, int x, int y, float progress) {
     int height;
     if (progress > 1) {
       height = element.h;
@@ -247,10 +248,10 @@ public final class GuiUtil {
    * @param width     Element width
    * @param height    Element height
    */
-  public static void renderHighlight(MatrixStack matrices, int x, int y, int width, int height) {
+  public static void renderHighlight(PoseStack matrices, int x, int y, int width, int height) {
       RenderSystem.disableDepthTest();
       RenderSystem.colorMask(true, true, true, false);
-      AbstractGui.fill(matrices, x, y, x + width, y + height, 0x80FFFFFF);
+      GuiComponent.fill(matrices, x, y, x + width, y + height, 0x80FFFFFF);
       RenderSystem.colorMask(true, true, true, true);
       RenderSystem.enableDepthTest();
   }

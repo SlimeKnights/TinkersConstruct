@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tables.inventory.table;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 
 /**
@@ -32,10 +32,10 @@ public class LazyResultSlot extends Slot {
   }
 
   @Override
-  public ItemStack onTake(PlayerEntity player, ItemStack stack) {
-    ItemStack result = inventory.craftResult(player, amountCrafted);
+  public void onTake(Player player, ItemStack stack) {
+    //inventory.craftResult(player, amountCrafted); TODO: needed?
+    inventory.clearContent();
     amountCrafted = 0;
-    return result;
   }
 
   @Override

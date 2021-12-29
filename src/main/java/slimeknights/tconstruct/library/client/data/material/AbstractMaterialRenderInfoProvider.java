@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.client.data.material;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
@@ -25,7 +25,7 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   private final AbstractMaterialSpriteProvider materialSprites;
 
   public AbstractMaterialRenderInfoProvider(DataGenerator gen, @Nullable AbstractMaterialSpriteProvider materialSprites) {
-    super(gen, ResourcePackType.CLIENT_RESOURCES, MaterialRenderInfoLoader.FOLDER, MaterialRenderInfoLoader.GSON);
+    super(gen, PackType.CLIENT_RESOURCES, MaterialRenderInfoLoader.FOLDER, MaterialRenderInfoLoader.GSON);
     this.materialSprites = materialSprites;
   }
 
@@ -37,7 +37,7 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   protected abstract void addMaterialRenderInfo();
 
   @Override
-  public void run(DirectoryCache cache) {
+  public void run(HashCache cache) {
     addMaterialRenderInfo();
     // generate
     allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId, info.build()));

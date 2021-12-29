@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.text.WordUtils;
 import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
@@ -57,7 +57,7 @@ public class DomainDisplayName {
   }
 
   /** Registers the reload listener with the resource manager */
-  public static void addResourceListener(IReloadableResourceManager manager) {
+  public static void addResourceListener(ReloadableResourceManager manager) {
     manager.registerReloadListener(RELOAD_LISTENER);
   }
 }

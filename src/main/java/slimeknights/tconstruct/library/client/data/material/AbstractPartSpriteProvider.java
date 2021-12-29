@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.client.data.material;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.texture.NativeImage;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /** Base class for listing sprites to generate */
+@SuppressWarnings("SameParameterValue")
 @RequiredArgsConstructor
 public abstract class AbstractPartSpriteProvider {
 

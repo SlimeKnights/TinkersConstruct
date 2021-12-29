@@ -1,23 +1,23 @@
 package slimeknights.tconstruct.tables.client.inventory.library;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 
 import java.util.Optional;
 
-public class ScalingChestScreen<T extends TileEntity> extends DynInventoryScreen {
+public class ScalingChestScreen<T extends BlockEntity> extends DynInventoryScreen {
   private final IScalingInventory scaling;
-  public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainer<T> container, PlayerInventory playerInventory, ITextComponent title) {
+  public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainerMenu<T> container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title);
-    TileEntity tile = container.getTile();
+    BlockEntity tile = container.getTile();
     IItemHandler handler = Optional.ofNullable(tile)
                                    .flatMap(t -> t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).resolve())
                                    .orElse(EmptyItemHandler.INSTANCE);
@@ -64,5 +64,5 @@ public class ScalingChestScreen<T extends TileEntity> extends DynInventoryScreen
   }
 
   @Override
-  protected void renderLabels(MatrixStack matrixStack, int x, int y) {}
+  protected void renderLabels(PoseStack matrixStack, int x, int y) {}
 }

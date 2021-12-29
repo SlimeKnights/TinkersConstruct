@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
@@ -20,14 +20,13 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   private int style = 0;
 
   /** Logic to run when a button is pressed */
-  private final Button.IPressable ON_BUTTON_PRESSED = self -> {
-    for (Widget widget : TinkerStationButtonsScreen.this.buttons) {
+  private final Button.OnPress ON_BUTTON_PRESSED = self -> {
+    for (Widget widget : TinkerStationButtonsScreen.this.renderables) {
       if (widget instanceof SlotButtonItem) {
         ((SlotButtonItem) widget).pressed = false;
       }
     }
-    if (self instanceof SlotButtonItem) {
-      SlotButtonItem slotInformationButton = (SlotButtonItem) self;
+    if (self instanceof SlotButtonItem slotInformationButton) {
       slotInformationButton.pressed = true;
       TinkerStationButtonsScreen.this.selected = slotInformationButton.buttonId;
       TinkerStationButtonsScreen.this.parent.onToolSelection(slotInformationButton.getLayout());
@@ -37,7 +36,7 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;
 
-  public TinkerStationButtonsScreen(TinkerStationScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
+  public TinkerStationButtonsScreen(TinkerStationScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title, TinkerStationScreen.COLUMN_COUNT, false);
 
     this.parent = parent;
@@ -77,7 +76,7 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   }
 
   public void shiftStyle(int style) {
-    for (Widget widget : this.buttons) {
+    for (Widget widget : this.renderables) {
       if (widget instanceof SlotButtonItem) {
         this.shiftButton((SlotButtonItem) widget, 0, -18);
       }
@@ -94,6 +93,6 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   }
 
   public List<Widget> getButtons() {
-    return this.buttons;
+    return this.renderables;
   }
 }

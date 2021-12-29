@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 
 // TODO: constant case

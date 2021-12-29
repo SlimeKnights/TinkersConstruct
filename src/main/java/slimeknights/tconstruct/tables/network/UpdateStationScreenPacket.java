@@ -1,28 +1,28 @@
 package slimeknights.tconstruct.tables.network;
 
-import lombok.NoArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
-@NoArgsConstructor
 public class UpdateStationScreenPacket implements IThreadsafePacket {
-  public UpdateStationScreenPacket(PacketBuffer buffer) {}
+  public static final UpdateStationScreenPacket INSTANCE = new UpdateStationScreenPacket();
+
+  private UpdateStationScreenPacket() {}
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {}
+  public void encode(FriendlyByteBuf packetBuffer) {}
 
   @Override
-  public void handleThreadsafe(NetworkEvent.Context context) {
-    HandleClient.handle(this);
+  public void handleThreadsafe(Context context) {
+    HandleClient.handle();
   }
 
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
-    private static void handle(UpdateStationScreenPacket packet) {
+    private static void handle() {
       Screen screen = Minecraft.getInstance().screen;
       if (screen != null) {
         if (screen instanceof BaseStationScreen) {

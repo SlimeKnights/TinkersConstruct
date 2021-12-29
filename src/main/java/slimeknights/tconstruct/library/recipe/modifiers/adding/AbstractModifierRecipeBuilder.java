@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
@@ -63,7 +63,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @param tag  Tag
    * @return  Builder instance
    */
-  public T setTools(ITag<Item> tag) {
+  public T setTools(Tag<Item> tag) {
     return this.setTools(Ingredient.of(tag));
   }
 
@@ -147,7 +147,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<FinishedRecipe> consumer) {
     build(consumer, result.getModifier().getId());
   }
 
@@ -156,7 +156,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @param consumer  Consumer instance
    * @param id        Recipe ID
    */
-  public abstract T buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id);
+  public abstract T buildSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id);
 
   /** Writes common JSON components between the two types */
   private void writeCommon(JsonObject json, @Nullable Boolean unarmed) {

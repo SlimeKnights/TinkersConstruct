@@ -1,21 +1,21 @@
 package slimeknights.tconstruct.tables.data;
 
-import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.mantle.recipe.data.NBTIngredient;
-import slimeknights.mantle.recipe.ingredient.IngredientWithout;
+import slimeknights.mantle.recipe.ingredient.IngredientDifference;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -36,7 +36,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
-  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "tables/";
     // pattern
     ShapedRecipeBuilder.shaped(TinkerTables.pattern, 3)
@@ -61,8 +61,8 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shaped(TinkerTables.craftingStation)
       .define('p', TinkerTables.pattern)
-      .define('w', new IngredientWithout(CompoundIngredient.from(Ingredient.of(TinkerTags.Items.WORKBENCHES), Ingredient.of(TinkerTags.Items.TABLES)),
-                                      Ingredient.of(TinkerTables.craftingStation.get())))
+      .define('w', IngredientDifference.difference(CompoundIngredient.from(Ingredient.of(TinkerTags.Items.WORKBENCHES), Ingredient.of(TinkerTags.Items.TABLES)),
+                                        Ingredient.of(TinkerTables.craftingStation.get())))
       .pattern("p")
       .pattern("w")
       .unlockedBy("has_item", has(TinkerTables.pattern))
@@ -182,11 +182,11 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                                  .build(consumer, modResource(folder + "scorched_forge"));
 
     // tool repair recipe
-    CustomRecipeBuilder.special(TinkerTables.tinkerStationRepairSerializer.get())
+    SpecialRecipeBuilder.special(TinkerTables.tinkerStationRepairSerializer.get())
                        .save(consumer, modPrefix(folder + "tinker_station_repair"));
-    CustomRecipeBuilder.special(TinkerTables.tinkerStationPartSwappingSerializer.get())
+    SpecialRecipeBuilder.special(TinkerTables.tinkerStationPartSwappingSerializer.get())
                        .save(consumer, modPrefix(folder + "tinker_station_part_swapping"));
-    CustomRecipeBuilder.special(TinkerTables.craftingTableRepairSerializer.get())
+    SpecialRecipeBuilder.special(TinkerTables.craftingTableRepairSerializer.get())
                        .save(consumer, modPrefix(folder + "crafting_table_repair"));
     // tool damaging
     String damageFolder = folder + "tinker_station_damaging/";

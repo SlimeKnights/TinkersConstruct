@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;

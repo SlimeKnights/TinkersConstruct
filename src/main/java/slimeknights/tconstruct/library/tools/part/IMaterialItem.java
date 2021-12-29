@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.part;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Items implementing this interface contain a material
  */
-public interface IMaterialItem extends IItemProvider {
+public interface IMaterialItem extends ItemLike {
   /**
    * Returns the material ID of the part this itemstack holds.
    *

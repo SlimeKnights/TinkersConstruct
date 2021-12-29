@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.module.alloying;
 
-import net.minecraft.world.World;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import net.minecraft.world.level.Level;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.alloying.IAlloyTank;
@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 /** Module to handle running alloys via a fluid handler, can alloy multiple recipes at once */
 public class MultiAlloyingModule implements IAlloyingModule {
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   private final IAlloyTank alloyTank;
 
   /** List of recipes that succeeded last time in {@link #doAlloy()}, only these will be used for the next iteration */
@@ -26,7 +26,7 @@ public class MultiAlloyingModule implements IAlloyingModule {
   /** Predicates for common behaviors */
   private final Predicate<AlloyRecipe> canPerform, performRecipe;
 
-  public MultiAlloyingModule(MantleTileEntity parent, IMutableAlloyTank alloyTank) {
+  public MultiAlloyingModule(MantleBlockEntity parent, IMutableAlloyTank alloyTank) {
     this.parent = parent;
     this.alloyTank = alloyTank;
     this.canPerform = recipe -> recipe.canPerform(alloyTank);
@@ -37,7 +37,7 @@ public class MultiAlloyingModule implements IAlloyingModule {
   }
 
   /** Gets a nonnull world instance from the parent */
-  private World getWorld() {
+  private Level getLevel() {
     return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
@@ -47,7 +47,7 @@ public class MultiAlloyingModule implements IAlloyingModule {
    */
   private List<AlloyRecipe> getRecipes() {
     if (lastRecipes == null) {
-      lastRecipes = getWorld().getRecipeManager().getRecipesFor(RecipeTypes.ALLOYING, alloyTank, getWorld());
+      lastRecipes = getLevel().getRecipeManager().getRecipesFor(RecipeTypes.ALLOYING, alloyTank, getLevel());
     }
     return lastRecipes;
   }
@@ -63,7 +63,7 @@ public class MultiAlloyingModule implements IAlloyingModule {
       return false;
     }
 
-    World world = getWorld();
+    Level world = getLevel();
     Iterator<AlloyRecipe> iterator = recipes.iterator();
     while (iterator.hasNext()) {
       // if the recipe no longer matches, remove

@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.library.client.particle;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class AttackParticle extends SpriteTexturedParticle {
+public abstract class AttackParticle extends TextureSheetParticle {
 
-  private final IAnimatedSprite spriteList;
+  private final SpriteSet spriteList;
 
-  public AttackParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
-    IAnimatedSprite spriteList) {
+  public AttackParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
+    SpriteSet spriteList) {
     super(world, x, y, z, xSpeed, ySpeed, zSpeed);
     this.spriteList = spriteList;
 
@@ -24,8 +24,8 @@ public abstract class AttackParticle extends SpriteTexturedParticle {
   }
 
   @Override
-  public IParticleRenderType getRenderType() {
-    return IParticleRenderType.PARTICLE_SHEET_LIT;
+  public ParticleRenderType getRenderType() {
+    return ParticleRenderType.PARTICLE_SHEET_LIT;
   }
 
   @Override

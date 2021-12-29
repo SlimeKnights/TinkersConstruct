@@ -8,9 +8,9 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -27,7 +27,7 @@ public class MaterialArgument implements ArgumentType<IMaterial> {
   private static final DynamicCommandExceptionType NOT_FOUND = new DynamicCommandExceptionType(name -> TConstruct.makeTranslation("command", "material.not_found", name));
 
   /** Gets the tool stat from the context */
-  public static IMaterial getMaterial(CommandContext<CommandSource> context, String name) {
+  public static IMaterial getMaterial(CommandContext<CommandSourceStack> context, String name) {
     return context.getArgument(name, IMaterial.class);
   }
 
@@ -43,7 +43,7 @@ public class MaterialArgument implements ArgumentType<IMaterial> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return ISuggestionProvider.suggestResource(MaterialRegistry.getMaterials().stream().<ResourceLocation>map(IMaterial::getIdentifier)::iterator, builder);
+    return SharedSuggestionProvider.suggestResource(MaterialRegistry.getMaterials().stream().<ResourceLocation>map(IMaterial::getIdentifier)::iterator, builder);
   }
 
   @Override

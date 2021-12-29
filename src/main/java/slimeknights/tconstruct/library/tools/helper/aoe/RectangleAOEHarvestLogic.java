@@ -2,14 +2,14 @@ package slimeknights.tconstruct.library.tools.helper.aoe;
 
 import com.google.common.collect.AbstractIterator;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -30,7 +30,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
   protected final int extraDepth;
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     // expanded gives an extra width every odd level, and an extra height every even level
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(this, tool, stack, world, player, origin, sideHit, extraWidth + ((expanded + 1) / 2), extraHeight + (expanded / 2), extraDepth, matchType);
@@ -51,7 +51,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
    * @param matchType     Type of harvest being performed
    * @return  List of block positions
    */
-  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit,
+  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, Level world, Player player, BlockPos origin, Direction sideHit,
                                         int extraWidth, int extraHeight, int extraDepth, AOEMatchType matchType) {
     // skip if no work
     if (extraDepth == 0 && extraWidth == 0 && extraHeight == 0) {
@@ -102,7 +102,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     /** Original position, skipped in iteration */
     protected final BlockPos origin;
     /** Position modified as we iterate */
-    protected final BlockPos.Mutable mutablePos;
+    protected final BlockPos.MutableBlockPos mutablePos;
     /** Predicate to check before returning a position */
     protected final Predicate<BlockPos> posPredicate;
     /** Last returned values for the three coords */
@@ -134,7 +134,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
       this.maxDepth = extraDepth;
       // start 1 block before start on the correct axis
       // computed values
-      this.mutablePos = new Mutable(origin.getX(), origin.getY(), origin.getZ());
+      this.mutablePos = new MutableBlockPos(origin.getX(), origin.getY(), origin.getZ());
       this.posPredicate = posPredicate;
       // offset position back by 1 so we start at 0, 0, 0
       if (extraWidth > 0) {

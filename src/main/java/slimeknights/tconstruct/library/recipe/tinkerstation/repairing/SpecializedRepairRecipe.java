@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -47,7 +47,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World world) {
+  public boolean matches(ITinkerStationInventory inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
     IMaterial repairMaterial = getRepairMaterial();
     if (!tool.test(tinkerable) || repairMaterial == IMaterial.UNKNOWN) {
@@ -74,7 +74,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.specializedRepairSerializer.get();
   }
 

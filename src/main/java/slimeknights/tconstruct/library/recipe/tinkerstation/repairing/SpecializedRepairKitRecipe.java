@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -46,13 +46,13 @@ public class SpecializedRepairKitRecipe extends CraftingTableRepairKitRecipe imp
   }
 
   @Override
-  public boolean matches(CraftingInventory inv, World worldIn) {
+  public boolean matches(CraftingContainer inv, Level worldIn) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
     return inputs != null && inputs.getSecond() == getRepairMaterial();
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.specializedRepairKitSerializer.get();
   }
 }

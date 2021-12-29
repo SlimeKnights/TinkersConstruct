@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.plugin.crt.managers;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 
@@ -30,8 +30,8 @@ public class MoldingTableManager implements IRecipeManager {
   }
   
   @Override
-  public IRecipeType<MoldingRecipe> getRecipeType() {
+  public RecipeType<MoldingRecipe> getRecipeType() {
     return RecipeTypes.MOLDING_TABLE;
   }
   
-}
+}*/

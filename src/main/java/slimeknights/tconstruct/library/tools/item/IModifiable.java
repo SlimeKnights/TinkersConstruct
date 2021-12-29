@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import net.minecraft.item.Rarity;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 /** Base interface for all tools that can receive modifiers */
-public interface IModifiable extends IItemProvider {
+public interface IModifiable extends ItemLike {
   /** Modifier key to make a tool spawn an indestructable entity */
   ResourceLocation INDESTRUCTIBLE_ENTITY = TConstruct.getResource("indestructible");
   /** Modifier key to make a tool spawn an indestructable entity */

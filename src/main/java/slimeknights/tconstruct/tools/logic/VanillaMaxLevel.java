@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.logic;
 
 import lombok.Getter;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.world.entity.EquipmentSlot;
 
 /** Helper class to keep track the max vanilla level in a modifier, ints */
 public class VanillaMaxLevel {
@@ -12,7 +12,7 @@ public class VanillaMaxLevel {
   private int max = 0;
 
   /** Sets the given vanilla level in the structure */
-  public void set(EquipmentSlotType slot, int level) {
+  public void set(EquipmentSlot slot, int level) {
     int oldLevel = levels[slot.getIndex()];
     if (level != oldLevel) {
       levels[slot.getIndex()] = level;

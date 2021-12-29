@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.world;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.block.SkullBlock.ISkullType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.level.block.SkullBlock.Type;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.util.StringRepresentable;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 /** Enum representing all heads provided by Tinkers */
 @RequiredArgsConstructor
-public enum TinkerHeadType implements ISkullType, IStringSerializable {
+public enum TinkerHeadType implements Type, StringRepresentable {
   BLAZE(EntityType.BLAZE.delegate),
   ENDERMAN(EntityType.ENDERMAN.delegate),
   STRAY(EntityType.STRAY.delegate),

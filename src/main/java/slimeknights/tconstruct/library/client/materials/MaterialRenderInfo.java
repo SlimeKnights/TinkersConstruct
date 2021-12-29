@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.library.client.materials;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.MissingTextureSprite;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
@@ -40,9 +39,9 @@ public class MaterialRenderInfo {
    * @return  Sprite if valid, null if missing
    */
   @Nullable
-  private TextureAtlasSprite trySprite(RenderMaterial base, String suffix, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
+  private TextureAtlasSprite trySprite(Material base, String suffix, Function<Material,TextureAtlasSprite> spriteGetter) {
     TextureAtlasSprite sprite = spriteGetter.apply(getMaterial(base.texture(), suffix));
-    if (!MissingTextureSprite.getLocation().equals(sprite.getName())) {
+    if (!MissingTextureAtlasSprite.getLocation().equals(sprite.getName())) {
       return sprite;
     }
     return null;
@@ -54,21 +53,21 @@ public class MaterialRenderInfo {
    * @param spriteGetter  Logic to get a sprite
    * @return  Pair of the sprite, and a boolean indicating whether the sprite should be tinted
    */
-  public TintedSprite getSprite(RenderMaterial base, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
+  public TintedSprite getSprite(Material base, Function<Material,TextureAtlasSprite> spriteGetter) {
     TextureAtlasSprite sprite;
     if (texture != null) {
       sprite = trySprite(base, getSuffix(texture), spriteGetter);
       if (sprite != null) {
-        return TintedSprite.of(sprite, -1);
+        return new TintedSprite(sprite, -1);
       }
     }
     for (String fallback : fallbacks) {
       sprite = trySprite(base, fallback, spriteGetter);
       if (sprite != null) {
-        return TintedSprite.of(sprite, vertexColor);
+        return new TintedSprite(sprite, vertexColor);
       }
     }
-    return TintedSprite.of(spriteGetter.apply(base), vertexColor);
+    return new TintedSprite(spriteGetter.apply(base), vertexColor);
   }
 
   /**
@@ -76,7 +75,7 @@ public class MaterialRenderInfo {
    * @param textures  Texture consumer
    * @param base      Base texture, will be used to generate texture names
    */
-  public void getTextureDependencies(Predicate<RenderMaterial> textures, RenderMaterial base) {
+  public void getTextureDependencies(Predicate<Material> textures, Material base) {
     if (texture != null) {
       textures.test(getMaterial(base.texture(), getSuffix(texture)));
     }
@@ -104,14 +103,12 @@ public class MaterialRenderInfo {
    * @param suffix    Material or fallback suffix name
    * @return  Material instance
    */
-  private static RenderMaterial getMaterial(ResourceLocation texture, String suffix) {
+  private static Material getMaterial(ResourceLocation texture, String suffix) {
     return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + suffix));
   }
 
-  /** Data class for a sprite that may be tinted */
-  @Data(staticConstructor = "of")
-  public static class TintedSprite {
-    private final TextureAtlasSprite sprite;
-    private final int color;
-  }
+  /**
+   * Data class for a sprite that may be tinted
+   */
+  public record TintedSprite(TextureAtlasSprite sprite, int color) {}
 }

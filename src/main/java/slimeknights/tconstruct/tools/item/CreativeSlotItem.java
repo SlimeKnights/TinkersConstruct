@@ -1,18 +1,16 @@
 package slimeknights.tconstruct.tools.item;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.utils.Util;
@@ -24,7 +22,7 @@ import java.util.List;
 public class CreativeSlotItem extends Item {
   private static final String NBT_KEY = "slot";
   private static final String TOOLTIP = TConstruct.makeTranslationKey("item", "creative_slot.tooltip");
-  private static final ITextComponent TOOLTIP_MISSING = TConstruct.makeTranslation("item", "creative_slot.missing").withStyle(TextFormatting.RED);
+  private static final Component TOOLTIP_MISSING = TConstruct.makeTranslation("item", "creative_slot.missing").withStyle(ChatFormatting.RED);
 
   public CreativeSlotItem(Properties properties) {
     super(properties);
@@ -33,8 +31,8 @@ public class CreativeSlotItem extends Item {
   /** Gets the value of the slot tag from the given stack */
   @Nullable
   public static SlotType getSlot(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt != null && nbt.contains(NBT_KEY, NBT.TAG_STRING)) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(NBT_KEY, Tag.TAG_STRING)) {
       return SlotType.getIfPresent(nbt.getString(NBT_KEY));
     }
     return null;
@@ -59,19 +57,18 @@ public class CreativeSlotItem extends Item {
     return originalKey;
   }
 
-  @OnlyIn(Dist.CLIENT)
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
     SlotType slot = getSlot(stack);
     if (slot != null) {
-      tooltip.add(new TranslationTextComponent(TOOLTIP, slot.getDisplayName()).withStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslatableComponent(TOOLTIP, slot.getDisplayName()).withStyle(ChatFormatting.GRAY));
     } else {
       tooltip.add(TOOLTIP_MISSING);
     }
   }
 
   @Override
-  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
     if (allowdedIn(group)) {
       Collection<SlotType> allTypes = SlotType.getAllSlotTypes();
       if (allTypes.isEmpty()) {

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.data.recipe;
 
-import net.minecraft.fluid.Fluid;
+import net.minecraft.world.level.material.Fluid;
 
 /** Interface for a byproduct for datagen, not required but makes parameters easier */
 public interface IByproduct {

@@ -4,14 +4,17 @@
 
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +28,7 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -71,19 +75,15 @@ public class Util {
    * @return  Translation key
    */
   public static String makeTranslationKey(String base, ResourceLocation name) {
-    return net.minecraft.util.Util.makeDescriptionId(base, name);
+    return net.minecraft.Util.makeDescriptionId(base, name);
   }
 
-  /**
-   * Same as {@link net.minecraft.util.Util#make(Supplier)}
-   */
+  /** Same as {@link net.minecraft.Util#make(Supplier)} */
   public static <T> T make(Supplier<T> supplier) {
     return supplier.get();
   }
 
-  /**
-   * Same as {@link net.minecraft.util.Util#make(Object, Consumer)}
-   */
+  /** Same as {@link net.minecraft.Util#make(Object, Consumer)} */
   public static <T> T make(T object, Consumer<T> consumer) {
     consumer.accept(object);
     return object;
@@ -138,13 +138,13 @@ public class Util {
   }
 
   /** Gets the slot type from a hand */
-  public static EquipmentSlotType getSlotType(Hand hand) {
-    return hand == Hand.OFF_HAND ? EquipmentSlotType.OFFHAND : EquipmentSlotType.MAINHAND;
+  public static EquipmentSlot getSlotType(InteractionHand hand) {
+    return hand == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
   }
 
   /** Converts a position and a side hit into a hit vector */
-  public static Vector3d toHitVec(BlockPos pos, Direction sideHit) {
-    return new Vector3d(
+  public static Vec3 toHitVec(BlockPos pos, Direction sideHit) {
+    return new Vec3(
       pos.getX() + 0.5D + sideHit.getStepX() * 0.5D,
       pos.getY() + 0.5D + sideHit.getStepY() * 0.5D,
       pos.getZ() + 0.5D + sideHit.getStepZ() * 0.5D
@@ -152,7 +152,12 @@ public class Util {
   }
 
   /** Creates a block raytrace from the given position and side, targets the block center */
-  public static BlockRayTraceResult createTraceResult(BlockPos pos, Direction sideHit, boolean empty) {
-    return new BlockRayTraceResult(toHitVec(pos, empty ? sideHit.getOpposite() : sideHit), sideHit, pos, false);
+  public static BlockHitResult createTraceResult(BlockPos pos, Direction sideHit, boolean empty) {
+    return new BlockHitResult(toHitVec(pos, empty ? sideHit.getOpposite() : sideHit), sideHit, pos, false);
+  }
+
+  /** Creates a new client block entity data packet with better generics than the vanilla method */
+  public static <B extends BlockEntity> ClientboundBlockEntityDataPacket createBEPacket(B be, Function<? super B,CompoundTag> tagFunction) {
+    return new ClientboundBlockEntityDataPacket(be.getBlockPos(), be.getType(), tagFunction.apply(be));
   }
 }

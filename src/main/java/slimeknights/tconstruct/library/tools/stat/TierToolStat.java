@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.tools.stat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.tools.stat.TierToolStat.TierBuilder;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -18,7 +18,7 @@ public class TierToolStat implements IToolStat<TierBuilder> {
   @Getter
   private final ToolStatId name;
   private final int defaultValue;
-  private final IntFunction<ITextComponent> displayName;
+  private final IntFunction<Component> displayName;
 
   @Override
   public float getDefaultValue() {
@@ -27,7 +27,7 @@ public class TierToolStat implements IToolStat<TierBuilder> {
 
   @Override
   public float clamp(float value) {
-    return MathHelper.clamp(value, 0, Integer.MAX_VALUE);
+    return Mth.clamp(value, 0, Integer.MAX_VALUE);
   }
 
   @Override
@@ -55,8 +55,8 @@ public class TierToolStat implements IToolStat<TierBuilder> {
   }
 
   @Override
-  public ITextComponent formatValue(float number) {
-    return new TranslationTextComponent(Util.makeTranslationKey("tool_stat", getName())).append(displayName.apply((int) number));
+  public Component formatValue(float number) {
+    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName())).append(displayName.apply((int) number));
   }
 
   @Override

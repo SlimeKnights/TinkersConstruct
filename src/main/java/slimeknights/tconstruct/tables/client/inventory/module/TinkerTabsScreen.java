@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.TabsWidget;
@@ -33,7 +33,7 @@ public class TinkerTabsScreen extends ModuleScreen {
 
   public final BaseStationScreen parent;
 
-  public TinkerTabsScreen(BaseStationScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
+  public TinkerTabsScreen(BaseStationScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title, false, false);
 
     this.parent = parent;
@@ -78,8 +78,8 @@ public class TinkerTabsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
-    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
+    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     int sel = this.tabs.selected;
     this.tabs.update(mouseX, mouseY);
     this.tabs.draw(matrices);
@@ -91,15 +91,15 @@ public class TinkerTabsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
     // highlighted tooltip
-    World world = Minecraft.getInstance().level;
+    Level world = Minecraft.getInstance().level;
     if (this.tabs.highlighted > -1 && world != null) {
       BlockPos pos = this.tabData.get(this.tabs.highlighted);
-      ITextComponent title;
-      TileEntity te = world.getBlockEntity(pos);
-      if (te instanceof INamedContainerProvider) {
-        title = ((INamedContainerProvider)te).getDisplayName();
+      Component title;
+      BlockEntity te = world.getBlockEntity(pos);
+      if (te instanceof MenuProvider) {
+        title = ((MenuProvider)te).getDisplayName();
       } else {
         title = world.getBlockState(pos).getBlock().getName();
       }

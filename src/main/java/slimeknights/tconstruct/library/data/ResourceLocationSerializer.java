@@ -8,8 +8,8 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 
 import java.lang.reflect.Type;
 import java.util.function.Function;
@@ -34,7 +34,7 @@ public class ResourceLocationSerializer<T extends ResourceLocation> implements J
 
   @Override
   public T deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
-    String loc = JSONUtils.convertToString(element, "location");
+    String loc = GsonHelper.convertToString(element, "location");
     if (!loc.contains(":")) {
       loc = modId + ":" + loc;
     }

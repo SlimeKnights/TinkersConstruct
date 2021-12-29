@@ -2,13 +2,13 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -46,7 +46,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World world) {
+  public boolean matches(ITinkerStationInventory inv, Level world) {
     if (!TinkerTags.Items.DURABILITY.contains(inv.getTinkerableStack().getItem())) {
       return false;
     }
@@ -86,7 +86,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #getCraftingResult(ITinkerStationInventory)}. Generally should not be modified
+   * @param result  Result from {@link #assemble(ITinkerStationInventory)}. Generally should not be modified
    * @param inv     Inventory instance to modify inputs
    */
   @Override
@@ -104,7 +104,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount, ItemStack.EMPTY);
   }
 
-  /** @deprecated use {@link #getCraftingResult(ITinkerStationInventory)} */
+  /** @deprecated use {@link #assemble(ITinkerStationInventory)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {
@@ -112,7 +112,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.overslimeSerializer.get();
   }
 
@@ -137,7 +137,6 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return displayItems;
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
@@ -145,7 +144,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       toolWithModifier = TinkerTags.Items.DURABILITY.getValues().stream()
                                                     .map(MAP_TOOL_FOR_RENDERING)
                                                     .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setShield(data, restoreAmount)))
-                                                    .collect(Collectors.toList());
+                                                    .toList();
     }
     return toolWithModifier;
   }
@@ -159,20 +158,20 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     @Override
     public OverslimeModifierRecipe fromJson(ResourceLocation id, JsonObject json) {
       Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
-      int restoreAmount = JSONUtils.getAsInt(json, "restore_amount");
+      int restoreAmount = GsonHelper.getAsInt(json, "restore_amount");
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Nullable
     @Override
-    protected OverslimeModifierRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected OverslimeModifierRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, OverslimeModifierRecipe recipe) {
       recipe.ingredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }

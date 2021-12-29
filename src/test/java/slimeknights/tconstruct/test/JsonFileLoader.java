@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
 import java.io.BufferedReader;
@@ -63,7 +63,7 @@ public class JsonFileLoader {
       InputStream inputstream = resource.openStream();
       Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
     ) {
-      return Objects.requireNonNull(JSONUtils.fromJson(gson, reader, JsonObject.class));
+      return Objects.requireNonNull(GsonHelper.fromJson(gson, reader, JsonObject.class));
     } catch (IOException e) {
       // wrap in runtime exception since it's test only, so we don't have to declare throws on all tests
       throw new RuntimeException("Error loading " + namespace + ":" + filename, e);

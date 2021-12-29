@@ -5,10 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
@@ -56,7 +56,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   /**
    * Called on mod construct to register the resource listener
    */
-  public static void addResourceListener(IReloadableResourceManager manager)  {
+  public static void addResourceListener(ReloadableResourceManager manager)  {
     manager.registerReloadListener(INSTANCE);
   }
 
@@ -83,7 +83,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   }
 
   @Override
-  public void onReloadSafe(IResourceManager manager) {
+  public void onReloadSafe(ResourceManager manager) {
     // first, we need to fetch all relevant JSON files
     int trim = FOLDER.length() + 1;
     Map<MaterialId,MaterialRenderInfo> map = new HashMap<>();
@@ -94,8 +94,8 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
       // read in the JSON data
       try (
-        IResource iresource = manager.getResource(location);
-        InputStream inputstream = iresource.getInputStream();
+        Resource resource = manager.getResource(location);
+        InputStream inputstream = resource.getInputStream();
         Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
       ) {
         MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);

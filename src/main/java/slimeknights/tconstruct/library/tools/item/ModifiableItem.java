@@ -3,34 +3,32 @@ package slimeknights.tconstruct.library.tools.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Rarity;
-import net.minecraft.item.UseAction;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -53,7 +51,6 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -62,8 +59,6 @@ import java.util.function.Consumer;
  * This class handles how all the modifier hooks and display data for items made out of different materials
  */
 public class ModifiableItem extends Item implements IModifiableDisplay, IModifiableWeapon {
-  protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
-
   /** Tool definition for the given tool */
   @Getter
   private final ToolDefinition toolDefinition;
@@ -104,18 +99,17 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Nullable
   @Override
-  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new ToolCapabilityProvider(stack);
   }
 
   @Override
-  public boolean verifyTagAfterLoad(CompoundNBT nbt) {
+  public void verifyTagAfterLoad(CompoundTag nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
-    return true;
   }
 
   @Override
-  public void onCraftedBy(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+  public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
     ToolStack.ensureInitialized(stack, getToolDefinition());
   }
 
@@ -132,7 +126,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   public Rarity getRarity(ItemStack stack) {
     int rarity = ModifierUtil.getVolatileInt(stack, RARITY);
-    return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
+    return Rarity.values()[Mth.clamp(rarity, 0, 3)];
   }
 
 
@@ -144,7 +138,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public Entity createEntity(World world, Entity original, ItemStack stack) {
+  public Entity createEntity(Level world, Entity original, ItemStack stack) {
     return IndestructibleItemEntity.createFrom(world, original, stack);
   }
 
@@ -203,34 +197,34 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Durability display */
 
   @Override
-  public boolean showDurabilityBar(ItemStack stack) {
-    return ToolDamageUtil.showDurabilityBar(stack);
+  public boolean isBarVisible(ItemStack pStack) {
+    return ToolDamageUtil.showDurabilityBar(pStack);
   }
 
   @Override
-  public double getDurabilityForDisplay(ItemStack stack) {
-    return ToolDamageUtil.getDamageForDisplay(stack);
+  public int getBarColor(ItemStack pStack) {
+    return ToolDamageUtil.getRGBDurabilityForDisplay(pStack);
   }
 
   @Override
-  public int getRGBDurabilityForDisplay(ItemStack stack) {
-    return ToolDamageUtil.getRGBDurabilityForDisplay(stack);
+  public int getBarWidth(ItemStack pStack) {
+    return ToolDamageUtil.getDamageForDisplay(pStack);
   }
 
 
   /* Attacking */
 
   @Override
-  public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
+  public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
     return ToolAttackUtil.attackEntity(stack, this, player, entity);
   }
 
   @Override
-  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
+  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlot slot) {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
     if (!tool.isBroken()) {
       // base stats
-      if (slot == EquipmentSlotType.MAINHAND) {
+      if (slot == EquipmentSlot.MAINHAND) {
         StatsNBT statsNBT = tool.getStats();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
         // base attack speed is 4, but our numbers start from 4
@@ -238,7 +232,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
       }
 
       // grab attributes from modifiers, only do for hands (other slots would just be weird)
-      if (slot.getType() == Group.HAND) {
+      if (slot.getType() == Type.HAND) {
         BiConsumer<Attribute,AttributeModifier> attributeConsumer = builder::put;
         for (ModifierEntry entry : tool.getModifierList()) {
           entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);
@@ -249,9 +243,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt == null || slot.getType() != Group.HAND) {
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt == null || slot.getType() != Type.HAND) {
       return ImmutableMultimap.of();
     }
     return getAttributeModifiers(ToolStack.from(stack), slot);
@@ -261,7 +255,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Modifier interactions */
 
   @Override
-  public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+  public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
 
     // don't care about non-living, they skip most tool context
@@ -285,80 +279,80 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Right click hooks */
 
   /** If true, this interaction hook should defer to the offhand */
-  protected static boolean shouldInteract(@Nullable LivingEntity player, ToolStack toolStack, Hand hand) {
+  protected static boolean shouldInteract(@Nullable LivingEntity player, ToolStack toolStack, InteractionHand hand) {
     IModDataReadOnly volatileData = toolStack.getVolatileData();
     if (volatileData.getBoolean(NO_INTERACTION)) {
       return false;
     }
-    return hand == Hand.OFF_HAND || player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getOffhandItem().isEmpty();
+    return hand == InteractionHand.OFF_HAND || player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getOffhandItem().isEmpty();
   }
   
   @Override
-  public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+  public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
     ToolStack tool = ToolStack.from(stack);
-    Hand hand = context.getHand();
+    InteractionHand hand = context.getHand();
     if (shouldInteract(context.getPlayer(), tool, hand)) {
-      EquipmentSlotType slot = Util.getSlotType(hand);
+      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, slot);
+        InteractionResult result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, slot);
         if (result.consumesAction()) {
           return result;
         }
       }
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @Override
-  public ActionResultType useOn(ItemUseContext context) {
+  public InteractionResult useOn(UseOnContext context) {
     ToolStack tool = ToolStack.from(context.getItemInHand());
-    Hand hand = context.getHand();
+    InteractionHand hand = context.getHand();
     if (shouldInteract(context.getPlayer(), tool, hand)) {
-      EquipmentSlotType slot = Util.getSlotType(hand);
+      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, slot);
+        InteractionResult result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, slot);
         if (result.consumesAction()) {
           return result;
         }
       }
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @Override
-  public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+  public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
-      EquipmentSlotType slot = Util.getSlotType(hand);
+      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), playerIn, target, hand, slot);
+        InteractionResult result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), playerIn, target, hand, slot);
         if (result.consumesAction()) {
           return result;
         }
       }
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @Override
-  public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
+  public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand hand) {
     ItemStack stack = playerIn.getItemInHand(hand);
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
-      EquipmentSlotType slot = Util.getSlotType(hand);
+      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand, slot);
+        InteractionResult result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand, slot);
         if (result.consumesAction()) {
-          return new ActionResult<>(result, stack);
+          return new InteractionResultHolder<>(result, stack);
         }
       }
     }
-    ActionResultType result = ToolInventoryCapability.tryOpenContainer(stack, tool, playerIn, Util.getSlotType(hand));
-    return new ActionResult<>(result, stack);
+    InteractionResult result = ToolInventoryCapability.tryOpenContainer(stack, tool, playerIn, Util.getSlotType(hand));
+    return new InteractionResultHolder<>(result, stack);
   }
 
   @Override
-  public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+  public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().onFinishUsing(tool, entry.getLevel(), worldIn, entityLiving)) {
@@ -369,7 +363,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+  public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       boolean result = entry.getModifier().onStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
@@ -392,36 +386,35 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public UseAction getUseAnimation(ItemStack stack) {
+  public UseAnim getUseAnimation(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      UseAction result = entry.getModifier().getUseAction(tool, entry.getLevel());
-      if (result != UseAction.NONE) {
+      UseAnim result = entry.getModifier().getUseAction(tool, entry.getLevel());
+      if (result != UseAnim.NONE) {
         return result;
       }
     }
-    return UseAction.NONE;
+    return UseAnim.NONE;
   }
 
 
   /* Tooltips */
 
   @Override
-  public ITextComponent getName(ItemStack stack) {
+  public Component getName(ItemStack stack) {
     return TooltipUtil.getDisplayName(stack, getToolDefinition());
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    TooltipUtil.addInformation(this, stack, worldIn, tooltip, TooltipKey.fromScreen(), flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+    TooltipUtil.addInformation(this, stack, level, tooltip, TooltipKey.fromScreen(), flag);
   }
 
 
   /* Display items */
 
   @Override
-  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
     if (this.allowdedIn(group)) {
       ToolBuildHandler.addDefaultSubItems(this, items);
     }
@@ -466,8 +459,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     }
 
     // if the attributes changed, reequip
-    Multimap<Attribute, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
-    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
+    Multimap<Attribute, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
     if (attributesNew.size() != attributesOld.size()) {
       return true;
     }
@@ -499,7 +492,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
    *
    * @return  Raytrace
    */
-  public static BlockRayTraceResult blockRayTrace(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
+  public static BlockHitResult blockRayTrace(Level worldIn, Player player, ClipContext.Fluid fluidMode) {
     return Item.getPlayerPOVHitResult(worldIn, player, fluidMode);
   }
 }

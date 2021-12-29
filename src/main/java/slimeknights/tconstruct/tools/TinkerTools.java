@@ -1,26 +1,25 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.loot.LootFunctionType;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.mantle.util.SupplierItemGroup;
+import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
@@ -82,32 +81,32 @@ public final class TinkerTools extends TinkerModule {
   }
 
   /** Creative tab for all tool items */
-  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.MOD_ID, "tools", () -> TinkerTools.pickaxe.get().getRenderTool());
+  public static final CreativeModeTab TAB_TOOLS = new SupplierCreativeTab(TConstruct.MOD_ID, "tools", () -> TinkerTools.pickaxe.get().getRenderTool());
 
   /** Loot function type for tool add data */
-  public static LootFunctionType lootAddToolData;
+  public static LootItemFunctionType lootAddToolData;
 
   /*
    * Items
    */
   private static final Supplier<Item.Properties> TOOL = () -> new Item.Properties().tab(TAB_TOOLS);
 
-  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
-  public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.SLEDGE_HAMMER));
-  public static final ItemObject<VeinHammerTool> veinHammer = ITEMS.register("vein_hammer", () -> new VeinHammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.VEIN_HAMMER));
+  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get(), ToolDefinitions.PICKAXE));
+  public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get(), ToolDefinitions.SLEDGE_HAMMER));
+  public static final ItemObject<VeinHammerTool> veinHammer = ITEMS.register("vein_hammer", () -> new VeinHammerTool(TOOL.get(), ToolDefinitions.VEIN_HAMMER));
 
-  public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.MATTOCK));
-  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.EXCAVATOR));
+  public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get(), ToolDefinitions.MATTOCK));
+  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL.get(), ToolDefinitions.EXCAVATOR));
 
-  public static final ItemObject<HandAxeTool> handAxe = ITEMS.register("hand_axe", () -> new HandAxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.HAND_AXE));
-  public static final ItemObject<BroadAxeTool> broadAxe = ITEMS.register("broad_axe", () -> new BroadAxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.BROAD_AXE));
+  public static final ItemObject<HandAxeTool> handAxe = ITEMS.register("hand_axe", () -> new HandAxeTool(TOOL.get(), ToolDefinitions.HAND_AXE));
+  public static final ItemObject<BroadAxeTool> broadAxe = ITEMS.register("broad_axe", () -> new BroadAxeTool(TOOL.get(), ToolDefinitions.BROAD_AXE));
 
-  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
-  public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));
+  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get(), ToolDefinitions.KAMA));
+  public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get(), ToolDefinitions.SCYTHE));
 
-  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new DaggerTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.DAGGER));
-  public static final ItemObject<SweepingSwordTool> sword = ITEMS.register("sword", () -> new SweepingSwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.SWORD));
-  public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.CLEAVER));
+  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new DaggerTool(TOOL.get(), ToolDefinitions.DAGGER));
+  public static final ItemObject<SweepingSwordTool> sword = ITEMS.register("sword", () -> new SweepingSwordTool(TOOL.get(), ToolDefinitions.SWORD));
+  public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get(), ToolDefinitions.CLEAVER));
 
   public static final ItemObject<ModifiableItem> flintAndBronze = ITEMS.register("flint_and_bronze", () -> new ModifiableItem(TOOL.get(), ToolDefinitions.FLINT_AND_BRONZE));
 
@@ -121,18 +120,17 @@ public final class TinkerTools extends TinkerModule {
     .build();
 
   /* Particles */
-  public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new BasicParticleType(false));
-  public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new BasicParticleType(false));
+  public static final RegistryObject<SimpleParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new SimpleParticleType(false));
+  public static final RegistryObject<SimpleParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new SimpleParticleType(false));
 
   /* Entities */
-  public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
-    return EntityType.Builder.<IndestructibleItemEntity>of(IndestructibleItemEntity::new, EntityClassification.MISC)
-      .sized(0.25F, 0.25F)
-      .fireImmune();
-  });
+  public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () ->
+    EntityType.Builder.<IndestructibleItemEntity>of(IndestructibleItemEntity::new, MobCategory.MISC)
+                      .sized(0.25F, 0.25F)
+                      .fireImmune());
 
   /* Containers */
-  public static final RegistryObject<ContainerType<ToolContainer>> toolContainer = CONTAINERS.register("tool_container", ToolContainer::forClient);
+  public static final RegistryObject<MenuType<ToolContainer>> toolContainer = CONTAINERS.register("tool_container", ToolContainer::forClient);
 
 
   /*
@@ -147,9 +145,9 @@ public final class TinkerTools extends TinkerModule {
   }
 
   @SubscribeEvent
-  void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+  void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
     ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
-    lootAddToolData = Registry.register(Registry.LOOT_FUNCTION_TYPE, AddToolDataFunction.ID, new LootFunctionType(AddToolDataFunction.SERIALIZER));
+    lootAddToolData = Registry.register(Registry.LOOT_FUNCTION_TYPE, AddToolDataFunction.ID, new LootItemFunctionType(AddToolDataFunction.SERIALIZER));
   }
 
   @SubscribeEvent

@@ -10,8 +10,8 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.tools.SlotType;
 
 import java.lang.reflect.Type;
@@ -49,7 +49,7 @@ public class DefinitionModifierSlots {
   /* Packet buffers */
 
   /** Writes a tool definition stat object to a packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     buffer.writeVarInt(slots.size());
     for (Entry<SlotType, Integer> entry : slots.entrySet()) {
       buffer.writeUtf(entry.getKey().getName());
@@ -58,7 +58,7 @@ public class DefinitionModifierSlots {
   }
 
   /** Reads a tool definition stat object from a packet buffer */
-  public static DefinitionModifierSlots read(PacketBuffer buffer) {
+  public static DefinitionModifierSlots read(FriendlyByteBuf buffer) {
     Builder builder = builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
@@ -103,10 +103,10 @@ public class DefinitionModifierSlots {
   protected static class Serializer implements JsonDeserializer<DefinitionModifierSlots>, JsonSerializer<DefinitionModifierSlots> {
     @Override
     public DefinitionModifierSlots deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject object = JSONUtils.convertToJsonObject(json, "stats");
+      JsonObject object = GsonHelper.convertToJsonObject(json, "stats");
       Builder builder = builder();
       for (Entry<String,JsonElement> entry : object.entrySet()) {
-        int value = JSONUtils.convertToInt(entry.getValue(), entry.getKey());
+        int value = GsonHelper.convertToInt(entry.getValue(), entry.getKey());
         SlotType slotType = SlotType.getOrCreate(entry.getKey());
         builder.setSlots(slotType, value);
       }

@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.tools.inventory;
 
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import slimeknights.mantle.inventory.EmptyItemHandler;
-import slimeknights.mantle.inventory.ItemHandlerSlot;
+import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -21,7 +21,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import javax.annotation.Nullable;
 
 /** Container for a tool inventory */
-public class ToolContainer extends Container {
+public class ToolContainer extends AbstractContainerMenu {
   /** Size of a single slot */
   public static final int SLOT_SIZE = 18;
   /** Y start of the repeat slots background */
@@ -33,7 +33,7 @@ public class ToolContainer extends Container {
   /** Item handler being rendered */
   @Getter
   private final IItemHandler itemHandler;
-  private final PlayerEntity player;
+  private final Player player;
   @Getter
   private final int selectedHotbarSlot;
   @Getter
@@ -41,19 +41,19 @@ public class ToolContainer extends Container {
   /** Index of the first player inventory slot */
   private final int playerInventoryStart;
 
-  public ToolContainer(int id, PlayerInventory playerInventory, ItemStack stack, IItemHandlerModifiable itemHandler, EquipmentSlotType slotType) {
+  public ToolContainer(int id, Inventory playerInventory, ItemStack stack, IItemHandlerModifiable itemHandler, EquipmentSlot slotType) {
     this(TinkerTools.toolContainer.get(), id, playerInventory, stack, itemHandler, slotType);
   }
 
   /** Creates a new instance of this container on the client side */
-  public static ToolContainer forClient(int id, PlayerInventory inventory, PacketBuffer buffer) {
-    EquipmentSlotType slotType = buffer.readEnum(EquipmentSlotType.class);
+  public static ToolContainer forClient(int id, Inventory inventory, FriendlyByteBuf buffer) {
+    EquipmentSlot slotType = buffer.readEnum(EquipmentSlot.class);
     ItemStack stack = inventory.player.getItemBySlot(slotType);
     IItemHandler handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
     return new ToolContainer(TinkerTools.toolContainer.get(), id, inventory, stack, handler, slotType);
   }
 
-  protected ToolContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory, ItemStack stack, IItemHandler handler, EquipmentSlotType slotType) {
+  protected ToolContainer(@Nullable MenuType<?> type, int id, Inventory playerInventory, ItemStack stack, IItemHandler handler, EquipmentSlot slotType) {
     super(type, id);
     this.stack = stack;
     this.itemHandler = handler;
@@ -62,14 +62,14 @@ public class ToolContainer extends Container {
     // add tool slots
     int slots = itemHandler.getSlots();
     for (int i = 0; i < slots; i++) {
-      this.addSlot(new ItemHandlerSlot(itemHandler, i, 8 + (i % 9) * SLOT_SIZE, (REPEAT_BACKGROUND_START + 1) + (i / 9) * SLOT_SIZE));
+      this.addSlot(new SmartItemHandlerSlot(itemHandler, i, 8 + (i % 9) * SLOT_SIZE, (REPEAT_BACKGROUND_START + 1) + (i / 9) * SLOT_SIZE));
     }
     // add offhand if requested
     this.showOffhand = ModifierUtil.checkVolatileFlag(stack, ToolInventoryCapability.INCLUDE_OFFHAND);
     if (this.showOffhand) {
       int x = 8 + (slots % 9) * SLOT_SIZE;
       int y = (REPEAT_BACKGROUND_START + 1) + (slots / 9) * SLOT_SIZE;
-      if (slotType == EquipmentSlotType.OFFHAND) {
+      if (slotType == EquipmentSlot.OFFHAND) {
         this.addSlot(new ReadOnlySlot(playerInventory, 40, x, y));
       } else {
         this.addSlot(new Slot(playerInventory, 40, x, y));
@@ -86,7 +86,7 @@ public class ToolContainer extends Container {
       }
     }
     int hotbarStart = playerY + 58;
-    selectedHotbarSlot = slotType == EquipmentSlotType.MAINHAND ? playerInventory.selected : (slotType == EquipmentSlotType.OFFHAND ? 10 : -1);
+    selectedHotbarSlot = slotType == EquipmentSlot.MAINHAND ? playerInventory.selected : (slotType == EquipmentSlot.OFFHAND ? 10 : -1);
     for(int c = 0; c < 9; ++c) {
       if (c == selectedHotbarSlot) {
         this.addSlot(new ReadOnlySlot(playerInventory, c, 8 + c * 18, hotbarStart));
@@ -97,18 +97,18 @@ public class ToolContainer extends Container {
   }
 
   @Override
-  public boolean stillValid(PlayerEntity playerIn) {
+  public boolean stillValid(Player playerIn) {
     return player == playerIn;
   }
 
   @Override
-  public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+  public ItemStack quickMoveStack(Player playerIn, int index) {
     if (this.playerInventoryStart < 0) {
       return ItemStack.EMPTY;
     }
     ItemStack result = ItemStack.EMPTY;
     Slot slot = this.slots.get(index);
-    if (slot != null && slot.hasItem()) {
+    if (slot.hasItem()) {
       ItemStack slotStack = slot.getItem();
       result = slotStack.copy();
       int end = this.slots.size();

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import slimeknights.tconstruct.library.tools.SlotType;
 
 /**
@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 public class ModDataNBT extends NamespacedNBT implements IModDataReadOnly {
   public ModDataNBT() {}
 
-  protected ModDataNBT(CompoundNBT nbt) {
+  protected ModDataNBT(CompoundTag nbt) {
     super(nbt);
   }
 
@@ -50,7 +50,7 @@ public class ModDataNBT extends NamespacedNBT implements IModDataReadOnly {
    * @param data  data
    * @return  Parsed mod data
    */
-  public static ModDataNBT readFromNBT(CompoundNBT data) {
+  public static ModDataNBT readFromNBT(CompoundTag data) {
     return new ModDataNBT(data);
   }
 }

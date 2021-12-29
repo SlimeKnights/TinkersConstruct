@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tables.recipe;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -24,7 +24,7 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import javax.annotation.Nullable;
 
 /** Recipe using repair kits in the crafting table */
-public class CraftingTableRepairKitRecipe extends SpecialRecipe {
+public class CraftingTableRepairKitRecipe extends CustomRecipe {
   public CraftingTableRepairKitRecipe(ResourceLocation id) {
     super(id);
   }
@@ -45,7 +45,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
    * @return  Relevant inputs, or null if invalid
    */
   @Nullable
-  protected Pair<ToolStack, IMaterial> getRelevantInputs(CraftingInventory inv) {
+  protected Pair<ToolStack, IMaterial> getRelevantInputs(CraftingContainer inv) {
     ToolStack tool = null;
     IMaterial material = null;
     for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -87,7 +87,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   }
 
   @Override
-  public boolean matches(CraftingInventory inv, World worldIn) {
+  public boolean matches(CraftingContainer inv, Level worldIn) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
     return inputs != null && TinkerStationRepairRecipe.getRepairIndex(inputs.getFirst(), inputs.getSecond()) >= 0;
   }
@@ -103,7 +103,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingInventory inv) {
+  public ItemStack assemble(CraftingContainer inv) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
@@ -138,7 +138,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.craftingTableRepairSerializer.get();
   }
 }

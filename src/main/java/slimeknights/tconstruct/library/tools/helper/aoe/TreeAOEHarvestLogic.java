@@ -2,14 +2,14 @@ package slimeknights.tconstruct.library.tools.helper.aoe;
 
 import com.google.common.collect.AbstractIterator;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Plane;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic.RectangleIterator;
@@ -22,8 +22,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
-
 /** Tree harvest logic that destroys a tree */
 @RequiredArgsConstructor
 public class TreeAOEHarvestLogic extends ToolHarvestLogic {
@@ -35,7 +33,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
   private final int fallbackHeight;
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(this, tool, stack, player, state, world, origin, sideHit,
                      extraWidth + (expanded + 1) / 2, extraDepth + expanded / 2, fallbackHeight, matchType);
@@ -57,7 +55,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
    * @param matchType       Match type to use when not a tree
    * @return  Correct iterator for the targeted block
    */
-  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, int fallbackHeight, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, int fallbackHeight, AOEMatchType matchType) {
     Direction depthDir;
     Direction widthDir;
     // if we have expanders, add them in
@@ -75,7 +73,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
     }
 
     // if logs, calculate a tree
-    if (state.getBlock().is(TinkerTags.Blocks.TREE_LOGS)) {
+    if (state.is(TinkerTags.Blocks.TREE_LOGS)) {
       // TODO: would be nice to allow the stipped logs here as well as the logs
       return () -> new TreeIterator(world, state.getBlock(), origin, widthDir, extraWidth, depthDir, extraDepth);
     }
@@ -97,15 +95,15 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
     /** Queue of upcoming positions to try */
     private final Queue<TreePos> upcomingPositions = new ArrayDeque<>();
     /** Position for returns, saves some object allocation */
-    private final BlockPos.Mutable mutable = new BlockPos.Mutable();
+    private final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
     /** Branches that have been visited already */
     private final Set<BlockPos> branchVisited = new HashSet<>();
 
-    private final World world;
+    private final Level world;
     private final Block filter;
     /** Bounds for branch detection */
     private final int minX, maxX, minZ, maxZ;
-    public TreeIterator(World world, Block filter, BlockPos origin, Direction widthDir, int extraWidth, Direction depthDir, int extraDepth) {
+    public TreeIterator(Level world, Block filter, BlockPos origin, Direction widthDir, int extraWidth, Direction depthDir, int extraDepth) {
       this.world = world;
       this.filter = filter;
 
@@ -286,7 +284,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
 
   /** Helper class for queue contents */
   private static class TreePos {
-    private final BlockPos.Mutable pos;
+    private final BlockPos.MutableBlockPos pos;
     private final Direction direction;
     /** If true, this position has been validated already for a log */
     private boolean isChecked;

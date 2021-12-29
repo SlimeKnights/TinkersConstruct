@@ -2,11 +2,11 @@ package slimeknights.tconstruct.smeltery.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -15,9 +15,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
 /** Capability handler instance for the copper can item */
 @AllArgsConstructor
@@ -27,6 +26,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Getter
   private final ItemStack container;
 
+  @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.orEmpty(cap, holder);
@@ -57,10 +57,11 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
 
   /** Gets the contained fluid */
   @Nullable
-  private CompoundNBT getFluidTag() {
+  private CompoundTag getFluidTag() {
     return CopperCanItem.getFluidTag(container);
   }
 
+  @Nonnull
   @Override
   public FluidStack getFluidInTank(int tank) {
     return new FluidStack(getFluid(), FluidValues.INGOT, getFluidTag());
@@ -82,6 +83,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     return FluidValues.INGOT;
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     // must be draining at least an ingot
@@ -101,6 +103,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     return output;
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     // must be draining at least an ingot

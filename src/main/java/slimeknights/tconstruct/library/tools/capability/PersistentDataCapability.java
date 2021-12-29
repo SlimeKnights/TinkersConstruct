@@ -1,21 +1,22 @@
 package slimeknights.tconstruct.library.tools.capability;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.SyncPersistentDataPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -28,20 +29,17 @@ import javax.annotation.Nullable;
  * Capability to store persistent NBT data on an entity. For players, this is automatically synced to the client on load, but not during gameplay.
  * Persists after death, will reassess if we need some data to not persist death
  */
-public class PersistentDataCapability implements Capability.IStorage<NamespacedNBT> {
+public class PersistentDataCapability {
   private PersistentDataCapability() {}
 
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("persistent_data");
-  /** Instance of the capability storage because forge requires it */
-  private static final PersistentDataCapability INSTANCE = new PersistentDataCapability();
   /** Capability type */
-  @CapabilityInject(NamespacedNBT.class)
-  public static Capability<NamespacedNBT> CAPABILITY = null;
+  public static final Capability<NamespacedNBT> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
   /** Registers this capability */
   public static void register() {
-    CapabilityManager.INSTANCE.register(NamespacedNBT.class, INSTANCE, NamespacedNBT::new);
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PersistentDataCapability::register);
     MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, PersistentDataCapability::attachCapability);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.Clone.class, PersistentDataCapability::playerClone);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerRespawnEvent.class, PersistentDataCapability::playerRespawn);
@@ -49,9 +47,14 @@ public class PersistentDataCapability implements Capability.IStorage<NamespacedN
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerLoggedInEvent.class, PersistentDataCapability::playerLoggedIn);
   }
 
+  /** Registers the capability with the event bus */
+  private static void register(RegisterCapabilitiesEvent event) {
+    event.register(NamespacedNBT.class);
+  }
+
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-    if (event.getObject() instanceof PlayerEntity) {
+    if (event.getObject() instanceof Player) {
       Provider provider = new Provider();
       event.addCapability(ID, provider);
       event.addListener(provider);
@@ -59,14 +62,14 @@ public class PersistentDataCapability implements Capability.IStorage<NamespacedN
   }
 
   /** Syncs the data to the given player */
-  private static void sync(PlayerEntity player) {
+  private static void sync(Player player) {
     player.getCapability(CAPABILITY).ifPresent(data -> TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player));
   }
 
   /** copy caps when the player respawns/returns from the end */
   private static void playerClone(PlayerEvent.Clone event) {
     event.getOriginal().getCapability(CAPABILITY).ifPresent(oldData -> {
-      CompoundNBT nbt = oldData.getCopy();
+      CompoundTag nbt = oldData.getCopy();
       if (!nbt.isEmpty()) {
         event.getPlayer().getCapability(CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
       }
@@ -88,24 +91,12 @@ public class PersistentDataCapability implements Capability.IStorage<NamespacedN
     sync(event.getPlayer());
   }
 
-
-  /* Required methods */
-
-  @Nullable
-  @Override
-  public INBT writeNBT(Capability<NamespacedNBT> capability, NamespacedNBT instance, Direction side) {
-    return null;
-  }
-
-  @Override
-  public void readNBT(Capability<NamespacedNBT> capability, NamespacedNBT instance, Direction side, INBT nbt) {}
-
   /** Capability provider instance */
-  private static class Provider implements ICapabilitySerializable<CompoundNBT>, Runnable {
-    private Lazy<CompoundNBT> nbt;
+  private static class Provider implements ICapabilitySerializable<CompoundTag>, Runnable {
+    private Lazy<CompoundTag> nbt;
     private LazyOptional<NamespacedNBT> capability;
     private Provider() {
-      this.nbt = Lazy.of(CompoundNBT::new);
+      this.nbt = Lazy.of(CompoundTag::new);
       this.capability = LazyOptional.of(() -> NamespacedNBT.readFromNBT(nbt.get()));
     }
 
@@ -123,12 +114,12 @@ public class PersistentDataCapability implements Capability.IStorage<NamespacedN
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
+    public CompoundTag serializeNBT() {
       return nbt.get().copy();
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
       this.nbt = Lazy.of(() -> nbt);
       run();
     }

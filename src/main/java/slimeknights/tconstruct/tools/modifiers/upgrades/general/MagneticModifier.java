@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import slimeknights.tconstruct.TConstruct;
@@ -51,15 +51,15 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   }
 
   @Override
-  public void afterHarvest(IModifierToolStack tool, int level, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos) {
-    PlayerEntity player = context.getPlayer();
+  public void afterHarvest(IModifierToolStack tool, int level, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos) {
+    Player player = context.getPlayer();
     if (player != null) {
       TinkerModifiers.magneticEffect.get().apply(player, 30, level - 1);
     }
   }
 
   @Override
-  public void afterShearEntity(IModifierToolStack tool, int level, PlayerEntity player, Entity entity, boolean isTarget) {
+  public void afterShearEntity(IModifierToolStack tool, int level, Player player, Entity entity, boolean isTarget) {
     if (isTarget) {
       TinkerModifiers.magneticEffect.get().apply(player, 30, level - 1);
     }
@@ -96,7 +96,7 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
     double y = entity.getY();
     double z = entity.getZ();
     float range = 3f + 1f * amplifier;
-    List<ItemEntity> items = entity.level.getEntitiesOfClass(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+    List<ItemEntity> items = entity.level.getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 
     // only pull up to 200 items
     int pulled = 0;
@@ -105,10 +105,10 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
         continue;
       }
       // calculate direction: item -> player
-      Vector3d vec = entity.position()
-                           .subtract(item.getX(), item.getY(), item.getZ())
-                           .normalize()
-                           .scale(0.05f + amplifier * 0.05f);
+      Vec3 vec = entity.position()
+                       .subtract(item.getX(), item.getY(), item.getZ())
+                       .normalize()
+                       .scale(0.05f + amplifier * 0.05f);
       if (!item.isNoGravity()) {
         vec = vec.add(0, 0.04f, 0);
       }

@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -25,7 +25,7 @@ public class TwoHandedAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
-    return slotType.getType() == Group.ARMOR ? ActionResultType.CONSUME : ActionResultType.PASS;
+  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
+    return slotType.getType() == Type.ARMOR ? InteractionResult.CONSUME : InteractionResult.PASS;
   }
 }

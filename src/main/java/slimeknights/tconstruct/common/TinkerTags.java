@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeTagHandler;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -304,10 +304,10 @@ public class TinkerTags {
 
   public static class TileEntityTypes {
     private static void init() {}
-    public static final IOptionalNamedTag<TileEntityType<?>> CRAFTING_STATION_BLACKLIST = tag("crafting_station_blacklist");
+    public static final IOptionalNamedTag<BlockEntityType<?>> CRAFTING_STATION_BLACKLIST = tag("crafting_station_blacklist");
 
-    private static IOptionalNamedTag<TileEntityType<?>> tag(String name) {
-      return ForgeTagHandler.createOptionalTag(ForgeRegistries.TILE_ENTITIES, TConstruct.getResource(name));
+    private static IOptionalNamedTag<BlockEntityType<?>> tag(String name) {
+      return ForgeTagHandler.createOptionalTag(ForgeRegistries.BLOCK_ENTITIES, TConstruct.getResource(name));
     }
   }
 }

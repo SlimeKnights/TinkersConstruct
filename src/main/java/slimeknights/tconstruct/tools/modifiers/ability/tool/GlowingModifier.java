@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -24,11 +24,11 @@ public class GlowingModifier extends InteractionModifier.SingleUse {
   }
   
   @Override
-  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context, EquipmentSlotType slotType) {
-    PlayerEntity player = context.getPlayer();
+  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
+    Player player = context.getPlayer();
     if (tool.getCurrentDurability() >= 10) {
       if (!context.getLevel().isClientSide) {
-        World world = context.getLevel();
+        Level world = context.getLevel();
         Direction face = context.getClickedFace();
         BlockPos pos = context.getClickedPos().relative(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
@@ -36,11 +36,11 @@ public class GlowingModifier extends InteractionModifier.SingleUse {
           if (ToolDamageUtil.damage(tool, 10, player, context.getItemInHand()) && player != null) {
             player.broadcastBreakEvent(slotType);
           }
-          world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+          world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         }
       }
-      return ActionResultType.sidedSuccess(context.getLevel().isClientSide);
+      return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 }

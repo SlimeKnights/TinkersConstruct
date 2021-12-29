@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
@@ -21,21 +22,22 @@ public class FirebreathModifier extends SingleUseModifier implements IArmorInter
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
     // stopped by water and by cooldown
     if (!player.isShiftKeyDown() && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubble()) {
       // if not creative, this costs a fire charge
       boolean hasFireball = true;
       if (!player.isCreative()) {
         hasFireball = false;
-        for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-          ItemStack stack = player.inventory.getItem(i);
+        Inventory inventory = player.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+          ItemStack stack = inventory.getItem(i);
           if (!stack.isEmpty() && TinkerTags.Items.FIREBALLS.contains(stack.getItem())) {
             hasFireball = true;
             if (!player.level.isClientSide) {
               stack.shrink(1);
               if (stack.isEmpty()) {
-                player.inventory.setItem(i, ItemStack.EMPTY);
+                inventory.setItem(i, ItemStack.EMPTY);
               }
             }
             break;
@@ -44,10 +46,10 @@ public class FirebreathModifier extends SingleUseModifier implements IArmorInter
       }
       // if we found a fireball, fire it
       if (hasFireball) {
-        player.playNotifySound(SoundEvents.BLAZE_SHOOT, SoundCategory.PLAYERS, 2.0F, (RANDOM.nextFloat() - RANDOM.nextFloat()) * 0.2F + 1.0F);
+        player.playNotifySound(SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 2.0F, (RANDOM.nextFloat() - RANDOM.nextFloat()) * 0.2F + 1.0F);
         if (!player.level.isClientSide) {
-          Vector3d lookVec = player.getLookAngle().multiply(2.0f, 2.0f, 2.0f);
-          SmallFireballEntity fireball = new SmallFireballEntity(player.level, player, lookVec.x + player.getRandom().nextGaussian() / 16, lookVec.y, lookVec.z + player.getRandom().nextGaussian() / 16);
+          Vec3 lookVec = player.getLookAngle().multiply(2.0f, 2.0f, 2.0f);
+          SmallFireball fireball = new SmallFireball(player.level, player, lookVec.x + player.getRandom().nextGaussian() / 16, lookVec.y, lookVec.z + player.getRandom().nextGaussian() / 16);
           fireball.setPos(fireball.getX(), player.getY(0.5D) + 0.5D, fireball.getZ());
           player.level.addFreshEntity(fireball);
           TinkerModifiers.fireballCooldownEffect.get().apply(player, 100, 0, true);

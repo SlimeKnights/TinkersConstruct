@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Data;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 /** A more limited view of {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack} for use in tool rebuild hooks */
+@SuppressWarnings("ClassCanBeRecord")
 @Data
 public class ToolRebuildContext implements IToolContext {
   /** Item being rebuilt */

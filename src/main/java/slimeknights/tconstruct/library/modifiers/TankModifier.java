@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
@@ -16,7 +17,6 @@ import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -36,7 +36,7 @@ public class TankModifier extends Modifier {
   private static final ResourceLocation FLUID = TConstruct.getResource("tank_fluid");
 
   /** Helper function to parse a fluid from NBT */
-  public static final BiFunction<CompoundNBT, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
+  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
 
   private final ModifierTank tank = new ModifierTank();
   private final int capacity;
@@ -59,7 +59,7 @@ public class TankModifier extends Modifier {
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     // set owner first
     ResourceLocation ownerKey = getOwnerKey();
-    if (ownerKey != null && !volatileData.contains(ownerKey, NBT.TAG_STRING)) {
+    if (ownerKey != null && !volatileData.contains(ownerKey, Tag.TAG_STRING)) {
       volatileData.putString(ownerKey, getId().toString());
     }
     ToolFluidCapability.addTanks(volatileData, tank);
@@ -69,13 +69,13 @@ public class TankModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (isOwner(tool)) {
       FluidStack current = getFluid(tool);
       if (!current.isEmpty()) {
-        tooltip.add(new TranslationTextComponent(FILLED_KEY, current.getAmount(), current.getDisplayName()));
+        tooltip.add(new TranslatableComponent(FILLED_KEY, current.getAmount(), current.getDisplayName()));
       }
-      tooltip.add(new TranslationTextComponent(CAPACITY_KEY, getCapacity(tool)));
+      tooltip.add(new TranslatableComponent(CAPACITY_KEY, getCapacity(tool)));
     }
   }
 
@@ -100,8 +100,8 @@ public class TankModifier extends Modifier {
   public void onRemoved(IModifierToolStack tool) {
     ModDataNBT persistentData = tool.getPersistentData();
     // if no one claims the tank, it either belonged to us or another removed modifier, so clean up data
-    if (!persistentData.contains(OWNER, NBT.TAG_STRING)) {
-      persistentData.remove(FLUID);
+    if (!persistentData.contains(OWNER, Tag.TAG_STRING)) {
+      persistentData.remove(getFluidKey());
     }
   }
 
@@ -142,25 +142,26 @@ public class TankModifier extends Modifier {
 
   /** Gets the capacity of the tank */
   public int getCapacity(IModDataReadOnly volatileData) {
-    return volatileData.getInt(CAPACITY);
+    return volatileData.getInt(getCapacityKey());
   }
 
   /** Gets the capacity of the tank */
   public int getCapacity(IModifierToolStack tool) {
-    return tool.getVolatileData().getInt(CAPACITY);
+    return tool.getVolatileData().getInt(getCapacityKey());
   }
 
   /** Adds the given capacity into volatile NBT */
   public void addCapacity(ModDataNBT volatileNBT, int amount) {
-    if (volatileNBT.contains(CAPACITY, NBT.TAG_ANY_NUMERIC)) {
-      amount += volatileNBT.getInt(CAPACITY);
+    ResourceLocation key = getCapacityKey();
+    if (volatileNBT.contains(key, Tag.TAG_ANY_NUMERIC)) {
+      amount += volatileNBT.getInt(key);
     }
-    volatileNBT.putInt(CAPACITY, amount);
+    volatileNBT.putInt(key, amount);
   }
 
   /** Gets the fluid in the tank */
   public FluidStack getFluid(IModifierToolStack tool) {
-    return tool.getPersistentData().get(FLUID, PARSE_FLUID);
+    return tool.getPersistentData().get(getFluidKey(), PARSE_FLUID);
   }
 
   /** Sets the fluid in the tank */
@@ -169,7 +170,7 @@ public class TankModifier extends Modifier {
     if (fluid.getAmount() > capacity) {
       fluid.setAmount(capacity);
     }
-    tool.getPersistentData().put(FLUID, fluid.writeToNBT(new CompoundNBT()));
+    tool.getPersistentData().put(getFluidKey(), fluid.writeToNBT(new CompoundTag()));
     return fluid;
   }
 

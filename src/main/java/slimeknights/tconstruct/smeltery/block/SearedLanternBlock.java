@@ -1,19 +1,20 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.LanternTileEntity;
@@ -22,9 +23,7 @@ import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity.ITan
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class SearedLanternBlock extends LanternBlock implements ITankBlock {
+public class SearedLanternBlock extends LanternBlock implements ITankBlock, EntityBlock {
   @Getter
   private final int capacity;
   public SearedLanternBlock(Properties properties, int capacity) {
@@ -32,19 +31,15 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock {
     this.capacity = capacity;
   }
 
+  @Nullable
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return new LanternTileEntity(pos, state, this);
   }
 
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) {
-    return new LanternTileEntity(this);
-  }
-
-  @Override
-  public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-    TileEntity te = world.getBlockEntity(pos);
+  public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
+    BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof TankTileEntity) {
       FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
@@ -53,10 +48,10 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock {
   }
 
   @Override
-  public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+  public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
-      TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
+      BlockEntityHelper.get(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
   }
 
@@ -70,14 +65,14 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
   @Override
-  public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
-    TileEntityHelper.getTile(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
+    BlockEntityHelper.get(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
     return stack;
   }
 }

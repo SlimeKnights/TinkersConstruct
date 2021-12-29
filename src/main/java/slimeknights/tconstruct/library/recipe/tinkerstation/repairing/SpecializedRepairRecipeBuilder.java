@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -22,33 +22,33 @@ public class SpecializedRepairRecipeBuilder extends AbstractRecipeBuilder<Specia
   private final MaterialId repairMaterial;
 
   /** Creates a builder from the given item and material */
-  public static SpecializedRepairRecipeBuilder repair(IItemProvider item, MaterialId repairMaterial) {
+  public static SpecializedRepairRecipeBuilder repair(ItemLike item, MaterialId repairMaterial) {
     return repair(Ingredient.of(item), repairMaterial);
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<FinishedRecipe> consumer) {
     build(consumer, repairMaterial);
   }
 
   /** Builds the recipe for the crafting table using a repair kit */
-  public SpecializedRepairRecipeBuilder buildRepairKit(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public SpecializedRepairRecipeBuilder buildRepairKit(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
-    consumer.accept(new FinishedRecipe(id, advancementId, TinkerTables.specializedRepairKitSerializer.get()));
+    consumer.accept(new Finished(id, advancementId, TinkerTables.specializedRepairKitSerializer.get()));
     return this;
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
-    consumer.accept(new FinishedRecipe(id, advancementId, TinkerTables.specializedRepairSerializer.get()));
+    consumer.accept(new Finished(id, advancementId, TinkerTables.specializedRepairSerializer.get()));
   }
 
-  private class FinishedRecipe extends AbstractFinishedRecipe {
+  private class Finished extends AbstractFinishedRecipe {
     @Getter
-    private final IRecipeSerializer<?> type;
+    private final RecipeSerializer<?> type;
 
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID, IRecipeSerializer<?> type) {
+    public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID, RecipeSerializer<?> type) {
       super(ID, advancementID);
       this.type = type;
     }

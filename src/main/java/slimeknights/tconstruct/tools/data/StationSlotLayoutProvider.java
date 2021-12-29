@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractStationSlotLayoutProvider;
@@ -30,7 +30,7 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .addInputSlot(Patterns.DUST,   31, 30)
       .addInputSlot(Patterns.LAPIS,  31, 50)
       .build();
-    Consumer<IItemProvider> addAnvil = item ->
+    Consumer<ItemLike> addAnvil = item ->
       define(item)
         .translationKey(TConstruct.makeTranslationKey("gui", "tinker_station.repair"))
         .icon(Patterns.REPAIR)

@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.hooks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /**
@@ -20,5 +20,5 @@ public interface IHarvestModifier {
    * @param state   State before it was harvested
    * @param pos     Position that was harvested, may be different from the context
    */
-  void afterHarvest(IModifierToolStack tool, int level, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos);
+  void afterHarvest(IModifierToolStack tool, int level, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos);
 }

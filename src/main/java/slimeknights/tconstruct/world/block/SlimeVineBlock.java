@@ -1,22 +1,22 @@
 package slimeknights.tconstruct.world.block;
 
 import lombok.Getter;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 /**
  * Logic for slime vines. Have three stages unlike vanilla vines, and only grow down
@@ -41,13 +41,13 @@ public class SlimeVineBlock extends VineBlock {
   }
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
     super.createBlockStateDefinition(builder);
     builder.add(STAGE);
   }
 
   @Override
-  public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+  public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
     if (worldIn.isClientSide) {
       return;
     }
@@ -80,7 +80,7 @@ public class SlimeVineBlock extends VineBlock {
    * @param pos     Pos
    * @param state   State
    */
-  public void grow(IWorld worldIn, Random random, BlockPos pos, BlockState state) {
+  public void grow(LevelAccessor worldIn, Random random, BlockPos pos, BlockState state) {
     // no growing ends
     if (hasNoHorizontalSides(state) || state.getValue(STAGE) == VineStage.END) {
       return;
@@ -110,7 +110,7 @@ public class SlimeVineBlock extends VineBlock {
   }
 
   @Override
-  public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+  public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
     return hasSides(updateConnections(state, worldIn, pos));
   }
 
@@ -121,7 +121,7 @@ public class SlimeVineBlock extends VineBlock {
    * Note that this method should ideally consider only the specific face passed in.
    */
   @Override
-  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
     if (facing == Direction.DOWN) {
       return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
@@ -131,8 +131,8 @@ public class SlimeVineBlock extends VineBlock {
 
   @Override
   @Nullable
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
-    World world = context.getLevel();
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    Level world = context.getLevel();
     BlockPos pos = context.getClickedPos();
     BlockState currState = world.getBlockState(pos);
     boolean isVine = currState.is(this);
@@ -191,7 +191,7 @@ public class SlimeVineBlock extends VineBlock {
    * @param state  Vine state
    * @return  True if free floating, false if any side is "connected" to a block
    */
-  private static boolean freeFloating(IWorld world, BlockPos pos, BlockState state) {
+  private static boolean freeFloating(LevelAccessor world, BlockPos pos, BlockState state) {
     for (Direction side : Direction.Plane.HORIZONTAL) {
       if (state.getValue(getPropertyForFace(side)) && isAcceptableNeighbour(world, pos.relative(side), side)) {
         return false;
@@ -207,7 +207,7 @@ public class SlimeVineBlock extends VineBlock {
    * @param pos    Position of vines
    * @return  Updated connections
    */
-  private BlockState updateConnections(BlockState state, IBlockReader world, BlockPos pos) {
+  private BlockState updateConnections(BlockState state, BlockGetter world, BlockPos pos) {
     BlockPos up = pos.above();
     if (state.getValue(UP)) {
       state = state.setValue(UP, isAcceptableNeighbour(world, up, Direction.UP));
@@ -230,7 +230,7 @@ public class SlimeVineBlock extends VineBlock {
    * @param side   Vine side to check
    * @return  True if it can hold
    */
-  private boolean hasAttachment(IBlockReader world, BlockPos pos, Direction side) {
+  private boolean hasAttachment(BlockGetter world, BlockPos pos, Direction side) {
     // down has no attachments
     if (side == Direction.DOWN) {
       return false;
@@ -250,7 +250,7 @@ public class SlimeVineBlock extends VineBlock {
   }
 
   /** Stages of the vine, cycles through them as it grows */
-  public enum VineStage implements IStringSerializable {
+  public enum VineStage implements StringRepresentable {
     START,
     MIDDLE,
     END;

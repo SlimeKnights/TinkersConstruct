@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.data.tinkering;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
@@ -29,7 +29,7 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   private final Map<ResourceLocation,StationSlotLayout.Builder> allLayouts = new HashMap<>();
 
   public AbstractStationSlotLayoutProvider(DataGenerator generator) {
-    super(generator, ResourcePackType.SERVER_DATA, StationSlotLayoutLoader.FOLDER, StationSlotLayoutLoader.GSON);
+    super(generator, PackType.SERVER_DATA, StationSlotLayoutLoader.FOLDER, StationSlotLayoutLoader.GSON);
   }
 
   /**
@@ -43,7 +43,7 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   }
 
   /** Defines the given ID as a item layout */
-  protected StationSlotLayout.Builder define(IItemProvider item) {
+  protected StationSlotLayout.Builder define(ItemLike item) {
     return define(Objects.requireNonNull(item.asItem().getRegistryName()));
   }
 
@@ -60,7 +60,7 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   }
 
   @Override
-  public void run(DirectoryCache cache) throws IOException {
+  public void run(HashCache cache) throws IOException {
     addLayouts();
     allLayouts.forEach((id, builder) -> saveThing(cache, id, builder.build()));
   }

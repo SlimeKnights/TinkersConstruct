@@ -3,12 +3,11 @@ package slimeknights.tconstruct.shared.command.subcommand;
 import com.google.common.collect.HashMultimap;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.util.TablePrinter;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
@@ -38,13 +37,13 @@ import java.util.stream.Stream;
 
 /** Command that prints a list of all modifiers and how they are used in current datapacks */
 public class ModifierUsageCommand {
-  private static final ITextComponent SUCCESS = new TranslationTextComponent("command.tconstruct.modifier_usage");
+  private static final Component SUCCESS = new TranslatableComponent("command.tconstruct.modifier_usage");
 
   /**
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
+  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
     subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_EDIT_SPAWN))
               .executes(context -> runForType(context, ModifierUsages.ALL, null))
               // modifier_usage all
@@ -62,11 +61,11 @@ public class ModifierUsageCommand {
   }
 
   /** Runs the actual command */
-  private static int runRecipeWithFilter(CommandContext<CommandSource> context) {
+  private static int runRecipeWithFilter(CommandContext<CommandSourceStack> context) {
     return runForType(context, ModifierUsages.RECIPE, SlotTypeArgument.getOptional(context, "slot_type"));
   }
 
-  private static int runForType(CommandContext<CommandSource> context, ModifierUsages filter, @Nullable OptionalSlotType slotFilter) {
+  private static int runForType(CommandContext<CommandSourceStack> context, ModifierUsages filter, @Nullable OptionalSlotType slotFilter) {
     // recipe modifiers are used in a displayable modifier recipe
     HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getLevel().getRecipeManager().byType(RecipeTypes.TINKER_STATION).values().stream()
                                                              .filter(r -> r instanceof IModifierRecipe)
@@ -100,7 +99,7 @@ public class ModifierUsageCommand {
       case RECIPE:
         // filter to just one type of modifier if requested
         if (slotFilter != null) {
-          modifierStream = recipeModifiers.get(slotFilter.getSlotType()).stream();
+          modifierStream = recipeModifiers.get(slotFilter.slotType()).stream();
         } else {
           modifierStream = recipeModifiers.values().stream();
         }
@@ -122,31 +121,31 @@ public class ModifierUsageCommand {
 
     // start building the table for output
     TablePrinter<ModifierUsageRow> table = new TablePrinter<>();
-    table.header("ID", r -> r.getModifierId().toString());
+    table.header("ID", r -> r.modifierId().toString());
     if (filter != ModifierUsages.UNUSED) {
       if (filter != ModifierUsages.RECIPE || slotFilter == null) {
-        table.header("Recipe", ModifierUsageRow::getRecipe);
+        table.header("Recipe", ModifierUsageRow::recipe);
       }
       if (filter != ModifierUsages.MATERIAL_TRAIT) {
-        table.header("material Trait", r -> r.isMaterialTrait() ? "Material trait" : "");
+        table.header("material Trait", r -> r.materialTrait() ? "Material trait" : "");
       }
       if (filter != ModifierUsages.TOOL_TRAIT) {
-        table.header("tool Trait", r -> r.isToolTrait() ? "Tool trait" : "");
+        table.header("tool Trait", r -> r.toolTrait() ? "Tool trait" : "");
       }
     }
     StringBuilder logOutput = new StringBuilder();
     logOutput.append(filter.logPrefix);
     if (slotFilter != null) {
-      if (slotFilter.getSlotType() == null) {
+      if (slotFilter.slotType() == null) {
         logOutput.append(" (slotless)");
       } else {
-        logOutput.append(" (").append(slotFilter.getSlotType().getName()).append(")");
+        logOutput.append(" (").append(slotFilter.slotType().getName()).append(")");
       }
     }
     logOutput.append(System.lineSeparator());
 
     // for all the modifiers (sorted), add table rows
-    Collection<Modifier> finalList = modifierStream.sorted(Comparator.comparing(Modifier::getId)).collect(Collectors.toList());
+    Collection<Modifier> finalList = modifierStream.sorted(Comparator.comparing(Modifier::getId)).toList();
     finalList.forEach(modifier -> {
       // determine which recipes use this by slot type
       List<String> recipeUsages = SlotType.getAllSlotTypes().stream()
@@ -181,12 +180,8 @@ public class ModifierUsageCommand {
     private final String logPrefix;
   }
 
-  /** Data class holding a single row of the output table */
-  @Data
-  private static class ModifierUsageRow {
-    private final ModifierId modifierId;
-    private final String recipe;
-    private final boolean toolTrait;
-    private final boolean materialTrait;
-  }
+  /**
+   * Data class holding a single row of the output table
+   */
+  private record ModifierUsageRow(ModifierId modifierId, String recipe, boolean toolTrait, boolean materialTrait) {}
 }

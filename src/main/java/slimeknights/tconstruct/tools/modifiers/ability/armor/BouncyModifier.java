@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -41,8 +41,8 @@ public class BouncyModifier extends TotalArmorLevelModifier {
     }
 
     // server players behave differently than non-server players, they have no velocity during the event, so we need to reverse engineer it
-    Vector3d motion = living.getDeltaMovement();
-    if (living instanceof ServerPlayerEntity) {
+    Vec3 motion = living.getDeltaMovement();
+    if (living instanceof ServerPlayer) {
       // velocity is lost on server players, but we dont have to defer the bounce
       double gravity = living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get());
       double time = Math.sqrt(living.fallDistance / gravity);

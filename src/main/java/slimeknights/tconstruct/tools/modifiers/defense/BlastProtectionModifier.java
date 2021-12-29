@@ -1,14 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.defense;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.Explosion;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -18,7 +19,6 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier.BlastData;
@@ -36,7 +36,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && source.isExplosion()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
@@ -44,7 +44,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
@@ -61,7 +61,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   /** On explosion, checks if any blast protected entity is involved, if so marks them for knockback update next tick */
   private static void onExplosionDetonate(ExplosionEvent.Detonate event) {
     Explosion explosion = event.getExplosion();
-    Vector3d center = explosion.getPosition();
+    Vec3 center = explosion.getPosition();
     float diameter = explosion.radius * 2;
     // search the entities for someone protection by blast protection
     for (Entity entity : event.getAffectedEntities()) {
@@ -76,7 +76,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
             if (x != 0 || z != 0 || (entity.getEyeY() - center.y) != 0) {
               // we need two numbers to calculate the knockback: distance to explosion and block density
               double y = entity.getY() - center.y;
-              double distance = MathHelper.sqrt(x*x + y*y + z*z) / diameter;
+              double distance = Mth.sqrt((float)(x * x + y * y + z * z)) / diameter;
               if (distance <= 1) {
                 blastData.wasKnockback = true;
               }
@@ -101,7 +101,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
             // thus, we only care about our own level for reducing
             double scale = 1 - (blastData.getMax() * 0.15f);
             if (scale <= 0) {
-              living.setDeltaMovement(Vector3d.ZERO);
+              living.setDeltaMovement(Vec3.ZERO);
             } else {
               living.setDeltaMovement(living.getDeltaMovement().multiply(scale, scale, scale));
             }

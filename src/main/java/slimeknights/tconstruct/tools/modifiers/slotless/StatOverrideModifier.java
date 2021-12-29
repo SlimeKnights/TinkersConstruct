@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -32,9 +32,9 @@ public class StatOverrideModifier extends SingleUseModifier {
   /** Key of all stats multiplied by the tool */
   private static final ResourceLocation KEY_MULTIPLY = TConstruct.getResource("override_multiplier");
   /** Prefix for adding bonuses to the tooltip */
-  private static final ITextComponent LANG_BONUS = TConstruct.makeTranslation("modifier", "stat_override.bonuses").withStyle(TextFormatting.UNDERLINE);
+  private static final Component LANG_BONUS = TConstruct.makeTranslation("modifier", "stat_override.bonuses").withStyle(ChatFormatting.UNDERLINE);
   /** Prefix for adding multipliers to the tooltip */
-  private static final ITextComponent LANG_MULTIPLY = TConstruct.makeTranslation("modifier", "stat_override.multipliers").withStyle(TextFormatting.UNDERLINE);
+  private static final Component LANG_MULTIPLY = TConstruct.makeTranslation("modifier", "stat_override.multipliers").withStyle(ChatFormatting.UNDERLINE);
 
   public StatOverrideModifier() {
     super(-1);
@@ -51,10 +51,10 @@ public class StatOverrideModifier extends SingleUseModifier {
     tool.getPersistentData().remove(KEY_MULTIPLY);
   }
 
-  /** Processes the stats from NBT into the consumer */
+  /** Processes the stats from Tag into the consumer */
   private static void processStats(IModDataReadOnly persistentData, ResourceLocation key, StatConsumer consumer) {
-    if (persistentData.contains(key, NBT.TAG_COMPOUND)) {
-      CompoundNBT nbt = persistentData.getCompound(key);
+    if (persistentData.contains(key, Tag.TAG_COMPOUND)) {
+      CompoundTag nbt = persistentData.getCompound(key);
       for (String name : nbt.getAllKeys()) {
         ToolStatId id = ToolStatId.tryCreate(name);
         if (id != null) {
@@ -79,9 +79,9 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   /** Helper to get descriptions for one of the groups */
-  private static void addToTooltip(IModDataReadOnly persistentData, ResourceLocation groupKey, ITextComponent listStart, DecimalFormat format, Consumer<ITextComponent> consumer) {
-    if (persistentData.contains(groupKey, NBT.TAG_COMPOUND)) {
-      CompoundNBT stats = persistentData.getCompound(groupKey);
+  private static void addToTooltip(IModDataReadOnly persistentData, ResourceLocation groupKey, Component listStart, DecimalFormat format, Consumer<Component> consumer) {
+    if (persistentData.contains(groupKey, Tag.TAG_COMPOUND)) {
+      CompoundTag stats = persistentData.getCompound(groupKey);
 
       // first one found has special behavior
       boolean first = true;
@@ -97,7 +97,7 @@ public class StatOverrideModifier extends SingleUseModifier {
               first = false;
             }
             // add stat
-            consumer.accept(new StringTextComponent("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
+            consumer.accept(new TextComponent("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
           }
         }
       }
@@ -105,13 +105,13 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   @Override
-  public List<ITextComponent> getDescriptionList(IModifierToolStack tool, int level) {
-    List<ITextComponent> defaultList = getDescriptionList(level);
+  public List<Component> getDescriptionList(IModifierToolStack tool, int level) {
+    List<Component> defaultList = getDescriptionList(level);
 
     // create the list when we first try to add text
-    MutableObject<List<ITextComponent>> resultList = new MutableObject<>();
-    Consumer<ITextComponent> consumer = text -> {
-      List<ITextComponent> list = resultList.getValue();
+    MutableObject<List<Component>> resultList = new MutableObject<>();
+    Consumer<Component> consumer = text -> {
+      List<Component> list = resultList.getValue();
       if (list == null) {
         list = new ArrayList<>(defaultList);
         resultList.setValue(list);
@@ -125,7 +125,7 @@ public class StatOverrideModifier extends SingleUseModifier {
     addToTooltip(persistentData, KEY_MULTIPLY, LANG_MULTIPLY, Util.MULTIPLIER_FORMAT, consumer);
 
     // if anything changed, return the new list
-    List<ITextComponent> computedList = resultList.getValue();
+    List<Component> computedList = resultList.getValue();
     if (computedList != null) {
       return computedList;
     }
@@ -135,7 +135,7 @@ public class StatOverrideModifier extends SingleUseModifier {
   /* Helpers */
 
   /**
-   * Shared logic to set the given stat in NBT
+   * Shared logic to set the given stat in Tag
    * @param tool      Tool to set
    * @param groupKey  Stat group key
    * @param stat      Stat to set
@@ -145,11 +145,11 @@ public class StatOverrideModifier extends SingleUseModifier {
   private static boolean setStat(IModifierToolStack tool, ResourceLocation groupKey, IToolStat<?> stat, float value, float neutralValue) {
     // first, find the proper tag, create if missing
     ModDataNBT data = tool.getPersistentData();
-    CompoundNBT nbt;
-    if (data.contains(groupKey, NBT.TAG_COMPOUND)) {
+    CompoundTag nbt;
+    if (data.contains(groupKey, Tag.TAG_COMPOUND)) {
       nbt = data.getCompound(groupKey);
     } else if (value != neutralValue) {
-      nbt = new CompoundNBT();
+      nbt = new CompoundTag();
       data.put(groupKey, nbt);
     } else {
       // if setting a value to 0 and no tag, nothing to do
@@ -170,13 +170,13 @@ public class StatOverrideModifier extends SingleUseModifier {
     return true;
   }
 
-  /** Gets the given stat from NBT */
+  /** Gets the given stat from Tag */
   private static float getStat(IModifierToolStack tool, ResourceLocation groupKey, IToolStat<?> stat, float defaultValue) {
     ModDataNBT data = tool.getPersistentData();
-    if (data.contains(groupKey, NBT.TAG_COMPOUND)) {
-      CompoundNBT nbt = data.getCompound(groupKey);
+    if (data.contains(groupKey, Tag.TAG_COMPOUND)) {
+      CompoundTag nbt = data.getCompound(groupKey);
       String name = stat.getName().toString();
-      if (nbt.contains(name, NBT.TAG_FLOAT)) {
+      if (nbt.contains(name, Tag.TAG_FLOAT)) {
         return nbt.getFloat(name);
       }
     }

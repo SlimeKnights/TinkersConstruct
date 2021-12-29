@@ -1,28 +1,36 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.controller.MelterTileEntity;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class MelterBlock extends TinyMultiblockControllerBlock {
   public MelterBlock(Properties props) {
     super(props);
   }
 
-  @Nonnull
+  @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new MelterTileEntity();
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return new MelterTileEntity(pPos, pState);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> check) {
+    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(check, TinkerSmeltery.melter.get(), MelterTileEntity.SERVER_TICKER);
   }
 
 
@@ -33,18 +41,18 @@ public class MelterBlock extends TinyMultiblockControllerBlock {
   @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
-  public float getShadeBrightness(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
     return 1.0F;
   }
 
   @Override
-  public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+  public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
     return true;
   }
 
 
   @Override
-  public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+  public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
     if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 6F) / 16F;

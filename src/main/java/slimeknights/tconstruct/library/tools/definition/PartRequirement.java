@@ -10,13 +10,13 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 import lombok.Getter;
-import net.minecraft.item.Item;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -56,7 +56,7 @@ public abstract class PartRequirement {
   public abstract boolean canUseMaterial(IMaterial material);
 
   /** Gets the name of this part for the given mateiral */
-  public abstract ITextComponent nameForMaterial(IMaterial material);
+  public abstract Component nameForMaterial(IMaterial material);
 
   /** Gets the stat type for this part */
   public abstract MaterialStatsId getStatType();
@@ -65,13 +65,13 @@ public abstract class PartRequirement {
   /* Serializing */
 
   /** Writes a tool definition stat object to a packet buffer */
-  public abstract void write(PacketBuffer buffer);
+  public abstract void write(FriendlyByteBuf buffer);
 
   /** Writes a tool definition stat object to a packet buffer */
   public abstract JsonObject serialize();
 
   /** Reads a tool definition stat object from a packet buffer */
-  public static PartRequirement read(PacketBuffer buffer) {
+  public static PartRequirement read(FriendlyByteBuf buffer) {
     if (buffer.readBoolean()) {
       IToolPart part = RecipeHelper.readItem(buffer, IToolPart.class);
       int weight = buffer.readVarInt();
@@ -87,8 +87,8 @@ public abstract class PartRequirement {
   protected static class Serializer implements JsonDeserializer<PartRequirement>, JsonSerializer<PartRequirement> {
     @Override
     public PartRequirement deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject jsonObject = JSONUtils.convertToJsonObject(json, "part");
-      int weight = JSONUtils.getAsInt(jsonObject, "weight", 1);
+      JsonObject jsonObject = GsonHelper.convertToJsonObject(json, "part");
+      int weight = GsonHelper.getAsInt(jsonObject, "weight", 1);
       // part item
       if (jsonObject.has("item")) {
         ResourceLocation name = JsonHelper.getResourceLocation(jsonObject, "item");
@@ -135,7 +135,7 @@ public abstract class PartRequirement {
     }
 
     @Override
-    public ITextComponent nameForMaterial(IMaterial material) {
+    public Component nameForMaterial(IMaterial material) {
       return part.withMaterial(material).getHoverName();
     }
 
@@ -145,7 +145,7 @@ public abstract class PartRequirement {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       buffer.writeBoolean(true);
       RecipeHelper.writeItem(buffer, part);
       buffer.writeVarInt(getWeight());
@@ -188,12 +188,12 @@ public abstract class PartRequirement {
     }
 
     @Override
-    public ITextComponent nameForMaterial(IMaterial material) {
+    public Component nameForMaterial(IMaterial material) {
       return material.getDisplayName();
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       buffer.writeBoolean(false);
       buffer.writeResourceLocation(statType);
       buffer.writeVarInt(getWeight());

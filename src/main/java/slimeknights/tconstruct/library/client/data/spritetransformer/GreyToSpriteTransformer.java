@@ -8,14 +8,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
+import com.mojang.blaze3d.platform.NativeImage;
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.texture.NativeImage;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -33,10 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
-import static net.minecraft.client.renderer.texture.NativeImage.getA;
+import static com.mojang.blaze3d.platform.NativeImage.getA;
 
 /**
- * Extension of {@link GreyToColorMapping} that also supports including sprites as "part of the palette"
+ * Extcom.mojang.blaze3d.platform.NativeImagepports including sprites as "part of the palette"
  */
 @RequiredArgsConstructor
 public class GreyToSpriteTransformer implements ISpriteTransformer {
@@ -121,18 +120,18 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
     @Override
     public GreyToSpriteTransformer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject object = json.getAsJsonObject();
-      JsonArray palette = JSONUtils.getAsJsonArray(object, "palette");
+      JsonArray palette = GsonHelper.getAsJsonArray(object, "palette");
       GreyToSpriteTransformer.Builder paletteBuilder = GreyToSpriteTransformer.builder();
       for (int i = 0; i < palette.size(); i++) {
-        JsonObject palettePair = JSONUtils.convertToJsonObject(palette.get(i), "palette["+i+']');
-        int grey = JSONUtils.getAsInt(palettePair, "grey");
+        JsonObject palettePair = GsonHelper.convertToJsonObject(palette.get(i), "palette["+i+']');
+        int grey = GsonHelper.getAsInt(palettePair, "grey");
         if (i == 0 && grey != 0) {
           paletteBuilder.addABGR(0, 0xFF000000);
         }
         // get the proper type
         int color = -1;
         if (palettePair.has("color")) {
-          color = JsonHelper.parseColor(JSONUtils.getAsString(palettePair, "color"));
+          color = JsonHelper.parseColor(GsonHelper.getAsString(palettePair, "color"));
         }
         if (palettePair.has("path")) {
           paletteBuilder.addTexture(grey, JsonHelper.getResourceLocation(palettePair, "path"), color);
@@ -181,6 +180,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
     }
 
     /** Adds a color to the palette in ARGB format */
+    @SuppressWarnings("UnusedReturnValue")
     public Builder addARGB(int grey, int color) {
       return addABGR(grey, Util.translateColorBGR(color));
     }
@@ -258,16 +258,10 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
   }
 
   /** Result from a sprite search for a given color */
-  @Data
-  private static class SpriteRange {
-    /** Sprite with a grey value less than desired */
-    @Nullable
-    private final SpriteMapping before;
-    /** Sprite with a grey value more than desired */
-    @Nullable
-    private final SpriteMapping after;
-
-    /** Gets the color of this range */
+  private record SpriteRange(@Nullable SpriteMapping before, @Nullable SpriteMapping after) {
+    /**
+     * Gets the color of this range
+     */
     public int getColor(int x, int y, int grey) {
       // after only
       if (before == null) {
@@ -297,7 +291,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
   }
 
   /** Called before generating to set up the reader */
-  private static void textureCallback(@Nullable ExistingFileHelper existingFileHelper, @Nullable IResourceManager manager) {
+  private static void textureCallback(@Nullable ExistingFileHelper existingFileHelper, @Nullable ResourceManager manager) {
     if (READER != null) {
       MAPPINGS_TO_CLEAR.forEach(mapping -> mapping.image = null);
       MAPPINGS_TO_CLEAR.clear();

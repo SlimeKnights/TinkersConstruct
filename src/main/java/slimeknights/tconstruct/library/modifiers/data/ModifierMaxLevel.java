@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.data;
 
 import lombok.Getter;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 
 import javax.annotation.Nullable;
@@ -15,10 +15,10 @@ public class ModifierMaxLevel {
   private float max = 0;
   /** Slot containing the max level */
   @Getter @Nullable
-  private EquipmentSlotType maxSlot;
+  private EquipmentSlot maxSlot;
 
   /** Sets the given value in the structure */
-  public void set(EquipmentSlotType slot, float level) {
+  public void set(EquipmentSlot slot, float level) {
     float oldLevel = levels[slot.getIndex()];
     if (level != oldLevel) {
       // first, update level
@@ -30,7 +30,7 @@ public class ModifierMaxLevel {
       } else if (slot == maxSlot) {
         // if the old level was max, find new max
         max = 0;
-        for (EquipmentSlotType armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        for (EquipmentSlot armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
           float value = levels[armorSlot.getIndex()];
           if (value > max) {
             max = value;

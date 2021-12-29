@@ -7,8 +7,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.tconstruct.library.data.MergingJsonDataLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialTraitsJson;
@@ -124,7 +124,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   }
 
   @Override
-  protected void finishLoad(Map<ResourceLocation,MaterialTraits.Builder> map, IResourceManager manager) {
+  protected void finishLoad(Map<ResourceLocation,MaterialTraits.Builder> map, ResourceManager manager) {
     ImmutableMap.Builder<MaterialId,MaterialTraits> builder = ImmutableMap.builder();
     for (Entry<ResourceLocation,MaterialTraits.Builder> entry : map.entrySet()) {
       MaterialTraits traits = entry.getValue().build();

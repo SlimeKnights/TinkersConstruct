@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
-import net.minecraft.client.renderer.texture.NativeImage;
+import com.mojang.blaze3d.platform.NativeImage;
 import slimeknights.mantle.util.GenericRegisteredSerializer;
 import slimeknights.mantle.util.GenericRegisteredSerializer.IJsonSerializable;
 

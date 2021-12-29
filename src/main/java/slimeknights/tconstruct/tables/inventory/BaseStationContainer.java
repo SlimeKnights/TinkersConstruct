@@ -2,19 +2,19 @@ package slimeknights.tconstruct.tables.inventory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
@@ -35,11 +35,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMultiModuleContainer<TILE> {
+public class BaseStationContainer<TILE extends BlockEntity> extends TriggeringMultiModuleContainer<TILE> {
   private static final TinkerBlockComp COMPARATOR = new TinkerBlockComp();
   public final List<Pair<BlockPos, BlockState>> stationBlocks;
 
-  public BaseStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, @Nullable TILE tile) {
+  public BaseStationContainer(MenuType<?> containerType, int id, @Nullable Inventory inv, @Nullable TILE tile) {
     super(containerType, id, inv, tile);
 
     this.stationBlocks = Lists.newLinkedList();
@@ -55,7 +55,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    * @param world the current world
    * @param start the current position of the tile entity
    */
-  public void detectStationParts(World world, BlockPos start) {
+  public void detectStationParts(Level world, BlockPos start) {
     Set<BlockPos> visited = Sets.newHashSet();
 
     // BFS for related blocks
@@ -104,10 +104,10 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
     if (tile == null || inv == null) {
       return;
     }
-    World world = tile.getLevel();
+    Level world = tile.getLevel();
     if (world != null) {
       // detect side inventory
-      TileEntity inventoryTE = null;
+      BlockEntity inventoryTE = null;
       Direction accessDir = null;
 
       BlockPos pos = tile.getBlockPos();
@@ -122,7 +122,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
         }
 
         // fetch tile entity
-        TileEntity te = world.getBlockEntity(neighbor);
+        BlockEntity te = world.getBlockEntity(neighbor);
         if (te != null && isUsable(te, inv.player)) {
           // try internal access first
           if (hasItemHandler(te, null)) {
@@ -144,7 +144,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
       // if we found something, add the side inventory
       if (inventoryTE != null) {
         int invSlots = inventoryTE.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
-        int columns = MathHelper.clamp((invSlots - 1) / 9 + 1, 3, 6);
+        int columns = Mth.clamp((invSlots - 1) / 9 + 1, 3, 6);
         this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), containerId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
       }
     }
@@ -155,10 +155,10 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    * @param tileEntity  Tile to check
    * @return  True if blacklisted
    */
-  private static boolean isUsable(TileEntity tileEntity, PlayerEntity player) {
+  private static boolean isUsable(BlockEntity tileEntity, Player player) {
     // must not be blacklisted and be usable
     return !TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST.contains(tileEntity.getType())
-           && (!(tileEntity instanceof IInventory) || ((IInventory)tileEntity).stillValid(player));
+           && (!(tileEntity instanceof Container) || ((Container)tileEntity).stillValid(player));
   }
 
   /**
@@ -168,7 +168,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    * @param direction the given direction
    * @return True if compatible.
    */
-  private static boolean hasItemHandler(TileEntity tileEntity, @Nullable Direction direction) {
+  private static boolean hasItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
     return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
   }
 
@@ -189,7 +189,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
   /**
    * Tells the client to display the LOCALIZED error message
    */
-  public void error(final IFormattableTextComponent message) {
+  public void error(final MutableComponent message) {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
         if (this.tile.getLevel().isClientSide) {
@@ -202,7 +202,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
   /**
    * Tells the client to display the LOCALIZED warning message
    */
-  public void warning(final IFormattableTextComponent message) {
+  public void warning(final MutableComponent message) {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
         if (this.tile.getLevel().isClientSide) {
@@ -229,7 +229,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    * @param errorMessage the error message to send to the client
    */
   @OnlyIn(Dist.CLIENT)
-  private static void clientError(IFormattableTextComponent errorMessage) {
+  private static void clientError(MutableComponent errorMessage) {
     Screen screen = Minecraft.getInstance().screen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen<?,?>) screen).error(errorMessage);
@@ -242,7 +242,7 @@ public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMul
    * @param warningMessage the warning message to send to the client
    */
   @OnlyIn(Dist.CLIENT)
-  private static void clientWarning(IFormattableTextComponent warningMessage) {
+  private static void clientWarning(MutableComponent warningMessage) {
     Screen screen = Minecraft.getInstance().screen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen<?,?>) screen).warning(warningMessage);

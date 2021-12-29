@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.item.small;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -40,15 +40,16 @@ public class SweepingSwordTool extends SwordTool {
       Entity target = context.getTarget();
       for (LivingEntity aoeTarget : attacker.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(range, 0.25D, range))) {
         if (aoeTarget != attacker && aoeTarget != target && !attacker.isAlliedTo(aoeTarget)
-            && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).isMarker()) && attacker.distanceToSqr(aoeTarget) < 10.0D + range) {
-          aoeTarget.knockback(0.4F, MathHelper.sin(attacker.yRot * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.yRot * ((float) Math.PI / 180F)));
+            && !(aoeTarget instanceof ArmorStand armorStand && armorStand.isMarker()) && attacker.distanceToSqr(aoeTarget) < 10.0D + range) {
+          float angle = attacker.getYRot() * ((float) Math.PI / 180F);
+          aoeTarget.knockback(0.4F, Mth.sin(angle), -Mth.cos(angle));
           ToolAttackUtil.dealDefaultDamage(attacker, aoeTarget, sweepDamage);
         }
       }
 
       attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, attacker.getSoundSource(), 1.0F, 1.0F);
-      if (attacker instanceof PlayerEntity) {
-        ((PlayerEntity) attacker).sweepAttack();
+      if (attacker instanceof Player player) {
+        player.sweepAttack();
       }
     }
 

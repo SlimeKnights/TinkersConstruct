@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.BiFunction;
 
@@ -17,12 +17,12 @@ public interface INamespacedNBTReadOnly {
    * @param <T>  NBT type of output
    * @return  Data based on the function
    */
-  <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function);
+  <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function);
 
   /**
    * Checks if the data contains the given tag
    * @param name  Namespaced key
-   * @param type  Tag type, see {@link net.minecraftforge.common.util.Constants.NBT} for values
+   * @param type  Tag type, see {@link Tag} for values
    * @return  True if the tag is contained
    */
   boolean contains(ResourceLocation name, int type);
@@ -35,8 +35,8 @@ public interface INamespacedNBTReadOnly {
    * @param name  Name
    * @return  Integer value
    */
-  default INBT get(ResourceLocation name) {
-    return get(name, CompoundNBT::get);
+  default Tag get(ResourceLocation name) {
+    return get(name, CompoundTag::get);
   }
 
   /**
@@ -45,7 +45,7 @@ public interface INamespacedNBTReadOnly {
    * @return  Integer value
    */
   default int getInt(ResourceLocation name) {
-    return get(name, CompoundNBT::getInt);
+    return get(name, CompoundTag::getInt);
   }
 
   /**
@@ -54,7 +54,7 @@ public interface INamespacedNBTReadOnly {
    * @return  Boolean value
    */
   default boolean getBoolean(ResourceLocation name) {
-    return get(name, CompoundNBT::getBoolean);
+    return get(name, CompoundTag::getBoolean);
   }
 
   /**
@@ -63,7 +63,7 @@ public interface INamespacedNBTReadOnly {
    * @return  Float value
    */
   default float getFloat(ResourceLocation name) {
-    return get(name, CompoundNBT::getFloat);
+    return get(name, CompoundTag::getFloat);
   }
 
   /**
@@ -72,7 +72,7 @@ public interface INamespacedNBTReadOnly {
    * @return  String value
    */
   default String getString(ResourceLocation name) {
-    return get(name, CompoundNBT::getString);
+    return get(name, CompoundTag::getString);
   }
 
   /**
@@ -80,7 +80,7 @@ public interface INamespacedNBTReadOnly {
    * @param name  Name
    * @return  Compound value
    */
-  default CompoundNBT getCompound(ResourceLocation name) {
-    return get(name, CompoundNBT::getCompound);
+  default CompoundTag getCompound(ResourceLocation name) {
+    return get(name, CompoundTag::getCompound);
   }
 }

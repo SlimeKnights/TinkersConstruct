@@ -6,10 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
@@ -17,6 +15,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -33,7 +32,7 @@ public class StatsNBT {
   public static final StatsNBT EMPTY = new StatsNBT(ImmutableMap.of());
 
   /** All currently contained stats */
-  private final ImmutableMap<IToolStat<?>, Float> stats;
+  private final Map<IToolStat<?>, Float> stats;
 
   /**
    * Gets a set of all stats contained
@@ -72,17 +71,17 @@ public class StatsNBT {
 
   /**
    * Reads the stat from NBT */
-  public static StatsNBT readFromNBT(@Nullable INBT inbt) {
-    if (inbt == null || inbt.getId() != Constants.NBT.TAG_COMPOUND) {
+  public static StatsNBT readFromNBT(@Nullable Tag inbt) {
+    if (inbt == null || inbt.getId() != Tag.TAG_COMPOUND) {
       return EMPTY;
     }
 
     ImmutableMap.Builder<IToolStat<?>, Float> builder = ImmutableMap.builder();
 
     // simply try each key as a tool stat
-    CompoundNBT nbt = (CompoundNBT)inbt;
+    CompoundTag nbt = (CompoundTag)inbt;
     for (String key : nbt.getAllKeys()) {
-      if (nbt.contains(key, NBT.TAG_ANY_NUMERIC)) {
+      if (nbt.contains(key, Tag.TAG_ANY_NUMERIC)) {
         ToolStatId statName = ToolStatId.tryCreate(key);
         if (statName != null) {
           IToolStat<?> stat = ToolStats.getToolStat(statName);
@@ -99,8 +98,8 @@ public class StatsNBT {
   }
 
   /** Writes these stats to NBT */
-  public CompoundNBT serializeToNBT() {
-    CompoundNBT nbt = new CompoundNBT();
+  public CompoundTag serializeToNBT() {
+    CompoundTag nbt = new CompoundTag();
     for (Entry<IToolStat<?>,Float> entry : stats.entrySet()) {
       nbt.putFloat(entry.getKey().getName().toString(), entry.getValue());
     }

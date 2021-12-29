@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe;
 
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -19,28 +19,28 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
  * Class containing all of Tinkers Construct recipe types
  */
 public interface RecipeTypes {
-  IRecipeType<IPartBuilderRecipe> PART_BUILDER = register("part_builder");
-  IRecipeType<MaterialRecipe> MATERIAL = register("material");
-  IRecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
+  RecipeType<IPartBuilderRecipe> PART_BUILDER = register("part_builder");
+  RecipeType<MaterialRecipe> MATERIAL = register("material");
+  RecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
 
   // casting
-  IRecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");
-  IRecipeType<ICastingRecipe> CASTING_TABLE = register("casting_table");
-  IRecipeType<MoldingRecipe> MOLDING_TABLE = register("molding_table");
-  IRecipeType<MoldingRecipe> MOLDING_BASIN = register("molding_basin");
+  RecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");
+  RecipeType<ICastingRecipe> CASTING_TABLE = register("casting_table");
+  RecipeType<MoldingRecipe> MOLDING_TABLE = register("molding_table");
+  RecipeType<MoldingRecipe> MOLDING_BASIN = register("molding_basin");
 
   // smeltery
-  IRecipeType<IMeltingRecipe> MELTING = register("melting");
-  IRecipeType<EntityMeltingRecipe> ENTITY_MELTING = register("entity_melting");
-  IRecipeType<MeltingFuel> FUEL = register("fuel");
-  IRecipeType<AlloyRecipe> ALLOYING = register("alloying");
+  RecipeType<IMeltingRecipe> MELTING = register("melting");
+  RecipeType<EntityMeltingRecipe> ENTITY_MELTING = register("entity_melting");
+  RecipeType<MeltingFuel> FUEL = register("fuel");
+  RecipeType<AlloyRecipe> ALLOYING = register("alloying");
 
   // modifiers
-  IRecipeType<SeveringRecipe> SEVERING = register("severing");
-  IRecipeType<SpillingRecipe> SPILLING = register("spilling");
+  RecipeType<SeveringRecipe> SEVERING = register("severing");
+  RecipeType<SpillingRecipe> SPILLING = register("spilling");
 
   /** Internal recipe type for recipes that are not pulled by any specific crafting block */
-  IRecipeType<IRecipe<?>> DATA = register("data");
+  RecipeType<Recipe<?>> DATA = register("data");
 
   /**
    * Registers a new recipe type, prefixing with the mod ID
@@ -48,7 +48,7 @@ public interface RecipeTypes {
    * @param <T>   Recipe type
    * @return  Registered recipe type
    */
-  static <T extends IRecipe<?>> IRecipeType<T> register(String name) {
-    return IRecipeType.register(TConstruct.MOD_ID + ":" + name);
+  static <T extends Recipe<?>> RecipeType<T> register(String name) {
+    return RecipeType.register(TConstruct.MOD_ID + ":" + name);
   }
 }

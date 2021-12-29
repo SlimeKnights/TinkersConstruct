@@ -4,11 +4,14 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.ingredients.IIngredientHelper;
+import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.IFocus;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
+import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -18,10 +21,14 @@ import java.util.stream.Collectors;
 /** Handler for working with entity types as ingredients */
 @SuppressWarnings("rawtypes")
 public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
+  @Override
+  public IIngredientType<EntityType> getIngredientType() {
+    return JEIPlugin.ENTITY_TYPE;
+  }
 
   @Nullable
   @Override
-  public EntityType getMatch(Iterable<EntityType> iterable, EntityType type) {
+  public EntityType getMatch(Iterable<EntityType> iterable, EntityType type, UidContext context) {
     for (EntityType<?> match : iterable) {
       if (match == type) {
         return match;
@@ -36,13 +43,8 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
   }
 
   @Override
-  public String getUniqueId(EntityType type) {
+  public String getUniqueId(EntityType type, UidContext context) {
     return Objects.requireNonNull(type.getRegistryName()).toString();
-  }
-
-  @Override
-  public String getWildcardId(EntityType type) {
-    return getUniqueId(type);
   }
 
   @Override

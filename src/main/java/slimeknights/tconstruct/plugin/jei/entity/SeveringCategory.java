@@ -9,9 +9,9 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
@@ -20,7 +20,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   public static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
-  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "severing.title");
+  private static final Component TITLE = TConstruct.makeTranslation("jei", "severing.title");
 
   /** Renderer instance to use in this category */
   private final EntityIngredientRenderer entityRenderer = new EntityIngredientRenderer(32);
@@ -29,12 +29,9 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
-  @Getter
-  private final String title;
   public SeveringCategory(IGuiHelper helper) {
-    this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 78, 100, 38);
-    this.icon = helper.createDrawableIngredient(TinkerTools.cleaver.get().getRenderTool());
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, TinkerTools.cleaver.get().getRenderTool());
   }
 
   @Override
@@ -45,6 +42,11 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   @Override
   public Class<? extends SeveringRecipe> getRecipeClass() {
     return SeveringRecipe.class;
+  }
+
+  @Override
+  public Component getTitle() {
+    return TITLE;
   }
 
   @Override

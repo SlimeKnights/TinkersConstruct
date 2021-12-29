@@ -2,13 +2,13 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import slimeknights.mantle.recipe.SizedIngredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
+import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -82,7 +82,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World world) {
+  public boolean matches(ITinkerStationInventory inv, Level world) {
     // ensure this modifier can be applied
     if (!this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
@@ -144,7 +144,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #getCraftingResult(ITinkerStationInventory)}. Generally should not be modified
+   * @param result  Result from {@link #assemble(ITinkerStationInventory)}. Generally should not be modified
    * @param inv     Inventory instance to modify inputs
    */
   @Override
@@ -164,7 +164,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.modifierSerializer.get();
   }
 
@@ -187,7 +187,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       int size = buffer.readVarInt();
       ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
@@ -198,7 +198,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, ModifierRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, ModifierRecipe recipe) {
       super.writeSafe(buffer, recipe);
       buffer.writeVarInt(recipe.inputs.size());
       for (SizedIngredient ingredient : recipe.inputs) {

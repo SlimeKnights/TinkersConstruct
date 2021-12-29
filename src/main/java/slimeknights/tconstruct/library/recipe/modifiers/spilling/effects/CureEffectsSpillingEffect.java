@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -42,7 +42,7 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public CureEffectsSpillingEffect read(PacketBuffer buffer) {
+    public CureEffectsSpillingEffect read(FriendlyByteBuf buffer) {
       ItemStack curativeItem = buffer.readItem();
       return new CureEffectsSpillingEffect(curativeItem);
     }
@@ -50,14 +50,14 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
     @Override
     public void serialize(CureEffectsSpillingEffect effect, JsonObject json) {
       json.addProperty("item", Objects.requireNonNull(effect.stack.getItem().getRegistryName()).toString());
-      CompoundNBT nbt = effect.stack.getTag();
+      CompoundTag nbt = effect.stack.getTag();
       if (nbt != null) {
         json.addProperty("nbt", nbt.toString());
       }
     }
 
     @Override
-    public void write(CureEffectsSpillingEffect effect, PacketBuffer buffer) {
+    public void write(CureEffectsSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeItem(effect.stack);
     }
   }

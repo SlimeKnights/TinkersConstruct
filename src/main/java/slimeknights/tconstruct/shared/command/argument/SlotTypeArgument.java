@@ -7,11 +7,10 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument.OptionalSlotType;
 
@@ -25,7 +24,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor(staticName = "slotType")
 public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
   private static final Collection<String> EXAMPLES = Arrays.asList("upgrades", "abilities");
-  private static final DynamicCommandExceptionType SLOT_TYPE_NOT_FOUND = new DynamicCommandExceptionType(name -> new TranslationTextComponent("command.tconstruct.slot_type.not_found", name));
+  private static final DynamicCommandExceptionType SLOT_TYPE_NOT_FOUND = new DynamicCommandExceptionType(name -> new TranslatableComponent("command.tconstruct.slot_type.not_found", name));
 
   /** If true, slotless is allowed, producing null for a filter */
   private final boolean allowSlotless;
@@ -36,13 +35,13 @@ public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
   }
 
   /** Gets a modifier from the command context */
-  public static OptionalSlotType getOptional(CommandContext<CommandSource> context, String name) {
+  public static OptionalSlotType getOptional(CommandContext<CommandSourceStack> context, String name) {
     return context.getArgument(name, OptionalSlotType.class);
   }
 
   /** Gets a modifier from the command context */
-  public static SlotType getSlotType(CommandContext<CommandSource> context, String name) throws CommandSyntaxException {
-    SlotType slot = getOptional(context, name).getSlotType();
+  public static SlotType getSlotType(CommandContext<CommandSourceStack> context, String name) throws CommandSyntaxException {
+    SlotType slot = getOptional(context, name).slotType();
     if (slot == null) {
       throw SLOT_TYPE_NOT_FOUND.create("slotless");
     }
@@ -68,7 +67,7 @@ public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
     if (allowSlotless) {
       stream = Stream.concat(stream, Stream.of("slotless"));
     }
-    return ISuggestionProvider.suggest(stream, builder);
+    return SharedSuggestionProvider.suggest(stream, builder);
   }
 
   @Override
@@ -76,9 +75,6 @@ public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
     return EXAMPLES;
   }
 
-  @Data
-  public static class OptionalSlotType {
-    @Nullable
-    private final SlotType slotType;
-  }
+  /** Object holding a nullable slot type */
+  public record OptionalSlotType(@Nullable SlotType slotType) {}
 }

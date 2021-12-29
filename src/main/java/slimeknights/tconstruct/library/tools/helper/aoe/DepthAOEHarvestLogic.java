@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.library.tools.helper.aoe;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic.RectangleIterator;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -23,12 +23,12 @@ public class DepthAOEHarvestLogic extends ToolHarvestLogic {
   private final int extraDepth;
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(this, tool, stack, player, world, origin, extraHeight + expanded / 2, extraDepth + (expanded + 1) / 2 * 2, matchType);
   }
 
-  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, PlayerEntity player, World world, BlockPos origin, int extraHeight, int extraDepth, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, Player player, Level world, BlockPos origin, int extraHeight, int extraDepth, AOEMatchType matchType) {
     // skip if no work
     if (extraDepth == 0 && extraHeight == 0) {
       return Collections.emptyList();

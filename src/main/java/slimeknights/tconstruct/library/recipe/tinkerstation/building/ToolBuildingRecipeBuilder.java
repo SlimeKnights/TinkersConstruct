@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -21,12 +21,12 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   private final IModifiable output;
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumerIn) {
+  public void build(Consumer<FinishedRecipe> consumerIn) {
     this.build(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+  public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
     consumerIn.accept(new ToolBuildingRecipeBuilder.Result(id, advancementId));
   }
@@ -45,7 +45,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
     }
 
     @Override
-    public IRecipeSerializer<?> getType() {
+    public RecipeSerializer<?> getType() {
       return TinkerTables.toolBuildingRecipeSerializer.get();
     }
   }

@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.client.render.FluidRenderer;
@@ -18,15 +18,13 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
 import java.util.List;
 
-public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEntity> {
-  public CastingTileEntityRenderer(TileEntityRendererDispatcher dispatcher) {
-    super(dispatcher);
-  }
+public class CastingTileEntityRenderer implements BlockEntityRenderer<CastingTileEntity> {
+  public CastingTileEntityRenderer(Context context) {}
 
   @Override
-  public void render(CastingTileEntity casting, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn) {
+  public void render(CastingTileEntity casting, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = casting.getBlockState();
-    CastingModel.BakedModel model = ModelHelper.getBakedModel(state, CastingModel.BakedModel.class);
+    CastingModel.Baked model = ModelHelper.getBakedModel(state, CastingModel.Baked.class);
     if (model != null) {
       // rotate the matrix
       boolean isRotated = RenderingHelper.applyRotation(matrices, state);
@@ -69,7 +67,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
         if(!outputModel.isHidden()) {
           // get output stack
           ItemStack output = casting.getItem(1);
-          IRenderTypeBuffer outputBuffer = buffer;
+          MultiBufferSource outputBuffer = buffer;
           if(itemOpacity > 0 && output.isEmpty()) {
             output = casting.getRecipeOutput();
             // apply a buffer wrapper to tint and add opacity

@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -84,19 +84,6 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
   }
 
 
-  /* Deprecated */
-
-  /** @deprecated Use {@link #getSlots()} */
-  default int getUpgradeSlots() {
-    return SlotCount.get(getSlots(), SlotType.UPGRADE);
-  }
-
-  /** @deprecated Use {@link #getSlots()} */
-  default int getAbilitySlots() {
-    return SlotCount.get(getSlots(), SlotType.ABILITY);
-  }
-
-
   /* Helpers */
 
   /** Gets a stream of all modifiable items for display */
@@ -115,7 +102,7 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
   /* Gets a copy of the stack with the given modifiers */
   static ItemStack withModifiers(ItemStack stack, @Nullable ModifierMatch match, @Nullable ModifierEntry newModifier, Consumer<ModDataNBT> persistentDataConsumer) {
     ItemStack output = stack.copy();
-    CompoundNBT nbt = output.getOrCreateTag();
+    CompoundTag nbt = output.getOrCreateTag();
 
     // build modifiers list
     ModifierNBT.Builder builder = ModifierNBT.builder();
@@ -126,14 +113,14 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
       builder.add(newModifier);
     }
     ModifierNBT modifiers = builder.build();
-    ListNBT list = modifiers.serializeToNBT();
+    ListTag list = modifiers.serializeToNBT();
     nbt.put(ToolStack.TAG_UPGRADES, list);
     nbt.put(ToolStack.TAG_MODIFIERS, list);
 
     // build persistent and volatile NBT
-    CompoundNBT persistentNBT = new CompoundNBT();
+    CompoundTag persistentNBT = new CompoundTag();
     ModDataNBT persistentData = ModDataNBT.readFromNBT(persistentNBT);
-    CompoundNBT volatileNBT = new CompoundNBT();
+    CompoundTag volatileNBT = new CompoundTag();
     ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
     persistentDataConsumer.accept(persistentData);
     ToolRebuildContext context = new ToolRebuildContext(stack.getItem(), ToolDefinition.EMPTY, MaterialNBT.EMPTY, modifiers, modifiers, StatsNBT.EMPTY, persistentData, volatileData);

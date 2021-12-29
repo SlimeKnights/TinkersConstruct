@@ -1,19 +1,25 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.client.EffectRenderer;
+
+import java.util.function.Consumer;
 
 /** Effect extension with a few helpers */
-public class TinkerEffect extends Effect {
+public class TinkerEffect extends MobEffect {
   /** If true, effect is visible, false for hidden */
   private final boolean show;
-  public TinkerEffect(EffectType typeIn, boolean show) {
+  public TinkerEffect(MobEffectCategory typeIn, boolean show) {
     this(typeIn, 0xffffff, show);
   }
 
-  public TinkerEffect(EffectType typeIn, int color, boolean show) {
+  public TinkerEffect(MobEffectCategory typeIn, int color, boolean show) {
     super(typeIn, color);
     this.show = show;
   }
@@ -21,20 +27,31 @@ public class TinkerEffect extends Effect {
   /* Visibility */
 
   @Override
-  public boolean shouldRender(EffectInstance effect) {
-    return this.show;
-  }
+  public void initializeClient(Consumer<EffectRenderer> consumer) {
+    boolean show = this.show;
+    consumer.accept(new EffectRenderer() {
+      @Override
+      public void renderInventoryEffect(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack mStack, int x, int y, float z) {}
 
-  @Override
-  public boolean shouldRenderInvText(EffectInstance effect) {
-    return this.show;
-  }
+      @Override
+      public void renderHUDEffect(MobEffectInstance effect, GuiComponent gui, PoseStack mStack, int x, int y, float z, float alpha) {}
 
-  @Override
-  public boolean shouldRenderHUD(EffectInstance effect) {
-    return this.show;
-  }
+      @Override
+      public boolean shouldRenderInvText(MobEffectInstance effect) {
+        return show;
+      }
 
+      @Override
+      public boolean shouldRender(MobEffectInstance effect) {
+        return show;
+      }
+
+      @Override
+      public boolean shouldRenderHUD(MobEffectInstance effect) {
+        return show;
+      }
+    });
+  }
 
   /* Helpers */
 
@@ -44,7 +61,7 @@ public class TinkerEffect extends Effect {
    * @param duration  Duration
    * @return  Applied instance
    */
-  public EffectInstance apply(LivingEntity entity, int duration) {
+  public MobEffectInstance apply(LivingEntity entity, int duration) {
     return this.apply(entity, duration, 0);
   }
 
@@ -55,7 +72,7 @@ public class TinkerEffect extends Effect {
    * @param level     Effect level
    * @return  Applied instance
    */
-  public EffectInstance apply(LivingEntity entity, int duration, int level) {
+  public MobEffectInstance apply(LivingEntity entity, int duration, int level) {
     return this.apply(entity, duration, level, false);
   }
 
@@ -67,8 +84,8 @@ public class TinkerEffect extends Effect {
    * @param showIcon  If true, shows an icon in the HUD
    * @return  Applied instance
    */
-  public EffectInstance apply(LivingEntity entity, int duration, int level, boolean showIcon) {
-    EffectInstance effect = new EffectInstance(this, duration, level, false, false, showIcon);
+  public MobEffectInstance apply(LivingEntity entity, int duration, int level, boolean showIcon) {
+    MobEffectInstance effect = new MobEffectInstance(this, duration, level, false, false, showIcon);
     entity.addEffect(effect);
     return effect;
   }
@@ -79,7 +96,7 @@ public class TinkerEffect extends Effect {
    * @return  Level, or -1 if inactive
    */
   public int getLevel(LivingEntity entity) {
-    EffectInstance effect = entity.getEffect(this);
+    MobEffectInstance effect = entity.getEffect(this);
     if (effect != null) {
       return effect.getAmplifier();
     }

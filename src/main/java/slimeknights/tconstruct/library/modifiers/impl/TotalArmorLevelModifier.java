@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.impl;
 
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -27,7 +27,7 @@ public class TotalArmorLevelModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     if (singleUse) {
       return super.getDisplayName();
     }

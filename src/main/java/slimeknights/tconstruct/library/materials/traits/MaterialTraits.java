@@ -5,8 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.materials.json.MaterialTraitsJson;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -50,7 +50,7 @@ public class MaterialTraits {
    * Writes this object to the packet buffer
    * @param buffer  Buffer instance
    */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     writeTraitList(buffer, defaultTraits);
     // write map of traits
     buffer.writeVarInt(traitsPerStats.size());
@@ -65,7 +65,7 @@ public class MaterialTraits {
    * @param buffer  Buffer
    * @return Read MaterialTraits
    */
-  public static MaterialTraits read(PacketBuffer buffer) {
+  public static MaterialTraits read(FriendlyByteBuf buffer) {
     List<ModifierEntry> defaultTraits = readTraitList(buffer);
     int statTypeCount = buffer.readVarInt();
     Map<MaterialStatsId,List<ModifierEntry>> statsTraits = new HashMap<>(statTypeCount);
@@ -82,7 +82,7 @@ public class MaterialTraits {
    * @param buffer  Buffer
    * @return  List of traits
    */
-  private static List<ModifierEntry> readTraitList(PacketBuffer buffer) {
+  private static List<ModifierEntry> readTraitList(FriendlyByteBuf buffer) {
     ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
     int count = buffer.readVarInt();
     for (int i = 0; i < count; i++) {
@@ -96,7 +96,7 @@ public class MaterialTraits {
    * @param buffer  Buffer
    * @param traits  List of traits
    */
-  private static void writeTraitList(PacketBuffer buffer, List<ModifierEntry> traits) {
+  private static void writeTraitList(FriendlyByteBuf buffer, List<ModifierEntry> traits) {
     buffer.writeVarInt(traits.size());
     for (ModifierEntry entry : traits) {
       entry.write(buffer);
@@ -144,7 +144,7 @@ public class MaterialTraits {
       Map<ResourceLocation,List<ModifierEntry>> newMap = null;
       if (!traitsPerStats.isEmpty()) {
         newMap = new HashMap<>(traitsPerStats.size());
-        traitsPerStats.forEach(newMap::put);
+        newMap.putAll(traitsPerStats);
       }
       return new MaterialTraitsJson(defaultTraits, newMap);
     }

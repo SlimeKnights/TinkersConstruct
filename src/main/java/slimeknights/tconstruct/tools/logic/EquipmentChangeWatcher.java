@@ -1,32 +1,33 @@
 package slimeknights.tconstruct.tools.logic;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher.PlayerLastEquipment;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,20 +37,17 @@ import java.util.Map;
 /**
  * Capability to make it easy for modifiers to store common data on the player, primarily used for armor
  */
-public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEquipment> {
+public class EquipmentChangeWatcher {
   private EquipmentChangeWatcher() {}
 
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("equipment_watcher");
-  /** Instance of the capability storage because forge requires it */
-  private static final EquipmentChangeWatcher INSTANCE = new EquipmentChangeWatcher();
   /** Capability type */
-  @CapabilityInject(PlayerLastEquipment.class)
-  public static Capability<PlayerLastEquipment> CAPABILITY = null;
+  public static final Capability<PlayerLastEquipment> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
   /** Registers this capability */
   public static void register() {
-    CapabilityManager.INSTANCE.register(PlayerLastEquipment.class, INSTANCE, () -> new PlayerLastEquipment(null));
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, event -> event.register(PlayerLastEquipment.class));
 
     // equipment change is used on both sides
     MinecraftForge.EVENT_BUS.addListener(EquipmentChangeWatcher::onEquipmentChange);
@@ -72,8 +70,8 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
     Entity entity = event.getObject();
-    if (entity.getCommandSenderWorld().isClientSide && entity instanceof PlayerEntity) {
-      PlayerLastEquipment provider = new PlayerLastEquipment((PlayerEntity) entity);
+    if (entity.getCommandSenderWorld().isClientSide && entity instanceof Player) {
+      PlayerLastEquipment provider = new PlayerLastEquipment((Player) entity);
       event.addCapability(ID, provider);
       event.addListener(provider);
     }
@@ -91,7 +89,7 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
   /* Helpers */
 
   /** Shared modifier hook logic */
-  private static void runModifierHooks(LivingEntity entity, EquipmentSlotType changedSlot, ItemStack original, ItemStack replacement) {
+  private static void runModifierHooks(LivingEntity entity, EquipmentSlot changedSlot, ItemStack original, ItemStack replacement) {
     EquipmentChangeContext context = new EquipmentChangeContext(entity, changedSlot, original, replacement);
 
     // first, fire event to notify an item was removed
@@ -111,7 +109,7 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
     }
 
     // finally, fire events on all other slots to say something changed
-    for (EquipmentSlotType otherSlot : EquipmentSlotType.values()) {
+    for (EquipmentSlot otherSlot : EquipmentSlot.values()) {
       if (otherSlot != changedSlot) {
         tool = context.getToolInSlot(otherSlot);
         if (tool != null) {
@@ -127,25 +125,16 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
 
   /* Required methods */
 
-  @Nullable
-  @Override
-  public INBT writeNBT(Capability<PlayerLastEquipment> capability, PlayerLastEquipment instance, Direction side) {
-    return null;
-  }
-
-  @Override
-  public void readNBT(Capability<PlayerLastEquipment> capability, PlayerLastEquipment instance, Direction side, INBT nbt) {}
-
   /** Data class that runs actual update logic */
   protected static class PlayerLastEquipment implements ICapabilityProvider, Runnable {
     @Nullable
-    private final PlayerEntity player;
-    private final Map<EquipmentSlotType,ItemStack> lastItems = new EnumMap<>(EquipmentSlotType.class);
+    private final Player player;
+    private final Map<EquipmentSlot,ItemStack> lastItems = new EnumMap<>(EquipmentSlot.class);
     private LazyOptional<PlayerLastEquipment> capability;
 
-    private PlayerLastEquipment(@Nullable PlayerEntity player) {
+    private PlayerLastEquipment(@Nullable Player player) {
       this.player = player;
-      for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+      for (EquipmentSlot slot : EquipmentSlot.values()) {
         lastItems.put(slot, ItemStack.EMPTY);
       }
       this.capability = LazyOptional.of(() -> this);
@@ -155,7 +144,7 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
     public void update() {
       // run twice a second, should be plenty fast enough
       if (player != null) {
-        for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
           ItemStack newStack = player.getItemBySlot(slot);
           ItemStack oldStack = lastItems.get(slot);
           if (!ItemStack.matches(oldStack, newStack)) {

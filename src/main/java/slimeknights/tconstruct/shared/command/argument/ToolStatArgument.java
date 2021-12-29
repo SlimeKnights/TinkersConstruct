@@ -9,9 +9,9 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
@@ -38,7 +38,7 @@ public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
   }
 
   /** Gets the tool stat from the context */
-  public static IToolStat<?> getStat(CommandContext<CommandSource> context, String name) {
+  public static IToolStat<?> getStat(CommandContext<CommandSourceStack> context, String name) {
     return context.getArgument(name, IToolStat.class);
   }
 
@@ -57,7 +57,7 @@ public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return ISuggestionProvider.suggestResource(ToolStats.getAllStats().stream()
+    return SharedSuggestionProvider.suggestResource(ToolStats.getAllStats().stream()
         .filter(filter::isInstance).<ResourceLocation>map(IToolStat::getName)::iterator, builder);
   }
 

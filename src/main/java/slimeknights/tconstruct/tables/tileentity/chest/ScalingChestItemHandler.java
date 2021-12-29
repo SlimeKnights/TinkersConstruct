@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import slimeknights.tconstruct.tables.client.inventory.library.IScalingInventory;
 

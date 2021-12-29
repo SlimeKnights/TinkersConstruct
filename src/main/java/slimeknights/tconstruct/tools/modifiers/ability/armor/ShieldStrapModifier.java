@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
@@ -47,7 +47,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType equipmentSlot) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot equipmentSlot) {
     if (!player.isShiftKeyDown()) {
       if (player.level.isClientSide) {
         return false; // TODO: see below
@@ -58,17 +58,17 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
       if (offhand.isEmpty() || !ToolInventoryCapability.isBlacklisted(offhand)) {
         ItemStack newOffhand = ItemStack.EMPTY;
         ModDataNBT persistentData = tool.getPersistentData();
-        ListNBT list = new ListNBT();
+        ListTag list = new ListTag();
         // if we have existing items, shift all back by 1
-        if (persistentData.contains(KEY, NBT.TAG_LIST)) {
-          ListNBT original = persistentData.get(KEY, GET_COMPOUND_LIST);
+        if (persistentData.contains(KEY, Tag.TAG_LIST)) {
+          ListTag original = persistentData.get(KEY, GET_COMPOUND_LIST);
           for (int i = 0; i < original.size(); i++) {
-            CompoundNBT compoundNBT = original.getCompound(i);
+            CompoundTag compoundNBT = original.getCompound(i);
             int slot = compoundNBT.getInt(TAG_SLOT);
             if (slot == 0) {
               newOffhand = ItemStack.of(compoundNBT);
             } else if (slot < slots) {
-              CompoundNBT copy = compoundNBT.copy();
+              CompoundTag copy = compoundNBT.copy();
               copy.putInt(TAG_SLOT, slot - 1);
               list.add(copy);
             }
@@ -80,11 +80,11 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
         }
         // update offhand
         persistentData.put(KEY, list);
-        player.setItemInHand(Hand.OFF_HAND, newOffhand);
+        player.setItemInHand(InteractionHand.OFF_HAND, newOffhand);
 
         // sound effect
         if (!newOffhand.isEmpty() || !list.isEmpty()) {
-          player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
+          player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
         }
         //return true; TODO: tuning to make this a blocking interaction
       }

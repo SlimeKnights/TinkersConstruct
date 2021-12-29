@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.Hand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.InteractionHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
@@ -34,12 +34,12 @@ public class ExperiencedModifier extends Modifier {
   private void beforeBlockBreak(BreakEvent event) {
     // only support main hand block breaking currently
     int level = 0;
-    ToolStack tool = getHeldTool(event.getPlayer(), Hand.MAIN_HAND);
+    ToolStack tool = getHeldTool(event.getPlayer(), InteractionHand.MAIN_HAND);
     if (tool != null) {
       level = tool.getModifierLevel(this);
     }
     // bonus from experienced pants
-    tool = getHeldTool(event.getPlayer(), EquipmentSlotType.LEGS);
+    tool = getHeldTool(event.getPlayer(), EquipmentSlot.LEGS);
     if (tool != null) {
       level += tool.getModifierLevel(this);
     }
@@ -53,14 +53,14 @@ public class ExperiencedModifier extends Modifier {
    * @param event  Event
    */
   private void onEntityKill(LivingExperienceDropEvent event) {
-    PlayerEntity player = event.getAttackingPlayer();
+    Player player = event.getAttackingPlayer();
     if (player != null) {
       int level = 0;
       // held tool
       ToolStack tool = getHeldTool(player, ModifierLootingHandler.getLootingSlot(player));
       if (tool != null) level = tool.getModifierLevel(this);
       // bonus from experienced pants
-      tool = getHeldTool(player, EquipmentSlotType.LEGS);
+      tool = getHeldTool(player, EquipmentSlot.LEGS);
       if (tool != null) level += tool.getModifierLevel(this);
       if (level > 0) {
         event.setDroppedExperience(boost(event.getDroppedExperience(), level));

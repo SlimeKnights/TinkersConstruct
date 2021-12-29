@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -42,49 +42,49 @@ public class OffhandAttackModifier extends SingleUseModifier {
   }
 
   /** If true, we can use the attack */
-  protected boolean canAttack(IModifierToolStack tool, PlayerEntity player, Hand hand) {
-    return hand == Hand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player);
+  protected boolean canAttack(IModifierToolStack tool, Player player, InteractionHand hand) {
+    return hand == InteractionHand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player);
   }
 
   @Override
-  public ActionResultType beforeEntityUse(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand, EquipmentSlotType slotType) {
+  public InteractionResult beforeEntityUse(IModifierToolStack tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
     if (canAttack(tool, player, hand)) {
       if (!player.level.isClientSide()) {
         Item item = tool.getItem();
         IModifiableWeapon weapon = item instanceof IModifiableWeapon ? (IModifiableWeapon) item : IModifiableWeapon.DEFAULT;
-        ToolAttackUtil.attackEntity(weapon, tool, player, Hand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, Hand.OFF_HAND), false, slotType);
+        ToolAttackUtil.attackEntity(weapon, tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, slotType);
       }
       OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown
-      OffhandCooldownTracker.swingHand(player, Hand.OFF_HAND, false);
-      return ActionResultType.CONSUME;
+      OffhandCooldownTracker.swingHand(player, InteractionHand.OFF_HAND, false);
+      return InteractionResult.CONSUME;
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @Override
-  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand, EquipmentSlotType slotType) {
+  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     if (canAttack(tool, player, hand)) {
       // target done in onEntityInteract, this is just for cooldown cause you missed
       OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown
-      OffhandCooldownTracker.swingHand(player, Hand.OFF_HAND, false);
-      return ActionResultType.CONSUME;
+      OffhandCooldownTracker.swingHand(player, InteractionHand.OFF_HAND, false);
+      return InteractionResult.CONSUME;
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlotType.OFFHAND) {
-      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setForceEnable(true));
+    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.OFFHAND) {
+      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(true));
     }
   }
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlotType.OFFHAND) {
-      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setForceEnable(false));
+    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.OFFHAND) {
+      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(false));
     }
   }
 }

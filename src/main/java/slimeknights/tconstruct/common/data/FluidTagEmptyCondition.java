@@ -2,10 +2,11 @@ package slimeknights.tconstruct.common.data;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.TagCollectionManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.SerializationTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import slimeknights.mantle.util.JsonHelper;
@@ -29,7 +30,7 @@ public class FluidTagEmptyCondition implements ICondition {
 
   @Override
   public boolean test() {
-    ITag<Fluid> tag = TagCollectionManager.getInstance().getFluids().getTag(name);
+    Tag<Fluid> tag = SerializationTags.getInstance().getOrEmpty(Registry.FLUID_REGISTRY).getTag(name);
     return tag == null || tag.getValues().isEmpty();
   }
 

@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.plugin.crt.managers;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
@@ -9,12 +9,11 @@ import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipe;
 import com.blamejared.crafttweaker.impl.entity.MCEntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import org.openzen.zencode.java.ZenCodeType;
-import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
@@ -22,7 +21,7 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.EntityMelting")
 public class EntityMeltingManager implements IRecipeManager {
-  
+
   @ZenCodeType.Method
   public void addRecipe(String name, CTEntityIngredient input, IFluidStack output, int damage) {
     name = fixRecipeName(name);
@@ -31,12 +30,12 @@ public class EntityMeltingManager implements IRecipeManager {
     EntityMeltingRecipe recipe = new EntityMeltingRecipe(id, CRTHelper.mapEntityIngredient(input), outputFluid, damage);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-  
+
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Entity Melting Recipes by an IItemStack output as it outputs Fluids! Use `removeRecipe(Fluid output)` or `removeRecipe(MCEntityType entity)`instead!");
   }
-  
+
   @ZenCodeType.Method
   public void removeRecipe(Fluid output) {
     CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
@@ -60,8 +59,9 @@ public class EntityMeltingManager implements IRecipeManager {
   }
 
   @Override
-  public IRecipeType<EntityMeltingRecipe> getRecipeType() {
+  public RecipeType<EntityMeltingRecipe> getRecipeType() {
     return RecipeTypes.ENTITY_MELTING;
   }
-  
+
 }
+*/

@@ -1,25 +1,25 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
-  private static final ITextComponent NO_FUEL_TANK = TConstruct.makeTranslation("multiblock", "tiny.no_fuel_tank");
+  private static final Component NO_FUEL_TANK = TConstruct.makeTranslation("multiblock", "tiny.no_fuel_tank");
 
   protected TinyMultiblockControllerBlock(Properties builder) {
     super(builder);
@@ -40,7 +40,7 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
   }
 
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
     BlockState state = super.getStateForPlacement(context);
     if (state != null) {
       return state.setValue(IN_STRUCTURE, isValidFuelSource(context.getLevel().getBlockState(context.getClickedPos().below())));
@@ -50,7 +50,7 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
 
   @Deprecated
   @Override
-  public BlockState updateShape(BlockState state, Direction direction, BlockState neighbor, IWorld world, BlockPos pos, BlockPos neighborPos) {
+  public BlockState updateShape(BlockState state, Direction direction, BlockState neighbor, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
     if (direction == Direction.DOWN) {
       return state.setValue(IN_STRUCTURE, isValidFuelSource(neighbor));
     }
@@ -59,15 +59,15 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
 
   @Deprecated
   @Override
-  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
     if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
-      return ActionResultType.SUCCESS;
+      return InteractionResult.SUCCESS;
     }
     return super.use(state, world, pos, player, hand, hit);
   }
 
   @Override
-  protected boolean displayStatus(PlayerEntity player, World world, BlockPos pos, BlockState state) {
+  protected boolean displayStatus(Player player, Level world, BlockPos pos, BlockState state) {
     if (!world.isClientSide && !state.getValue(IN_STRUCTURE)) {
       player.displayClientMessage(NO_FUEL_TANK, true);
     }
@@ -87,7 +87,7 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
 
   @Deprecated
   @Override
-  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 

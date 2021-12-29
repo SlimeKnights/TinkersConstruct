@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import mezz.jei.api.ingredients.IIngredientHelper;
+import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.ingredients.subtypes.UidContext;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 
 import javax.annotation.Nullable;
 
@@ -9,9 +12,14 @@ import javax.annotation.Nullable;
  * Ingredient helper for Tinkers patterns
  */
 public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
+  @Override
+  public IIngredientType<Pattern> getIngredientType() {
+    return JEIPlugin.PATTERN_TYPE;
+  }
+
   @Nullable
   @Override
-  public Pattern getMatch(Iterable<Pattern> iterable, Pattern match) {
+  public Pattern getMatch(Iterable<Pattern> iterable, Pattern match, UidContext context) {
     for (Pattern check : iterable) {
       if (match.equals(check)) {
         return check;
@@ -26,7 +34,7 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
   }
 
   @Override
-  public String getUniqueId(Pattern pattern) {
+  public String getUniqueId(Pattern pattern, UidContext context) {
     return pattern.toString();
   }
 

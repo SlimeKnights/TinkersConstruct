@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import net.minecraft.util.Util;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.Util;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.TConstruct;
 
 public interface IMaterial extends Comparable<IMaterial> {
@@ -44,23 +44,23 @@ public interface IMaterial extends Comparable<IMaterial> {
    * Gets the display name for this material
    * @return the translation key
    */
-  default ITextComponent getDisplayName() {
-    return new TranslationTextComponent(getTranslationKey());
+  default Component getDisplayName() {
+    return new TranslatableComponent(getTranslationKey());
   }
 
   /**
    * Gets the display name for this material
    * @return the translation key
    */
-  default ITextComponent getColoredDisplayName() {
-    return new TranslationTextComponent(getTranslationKey()).withStyle(style -> style.withColor(getColor()));
+  default Component getColoredDisplayName() {
+    return new TranslatableComponent(getTranslationKey()).withStyle(style -> style.withColor(getColor()));
   }
 
   /**
    * Gets the text color for this material
    * @return the text color
    */
-  Color getColor();
+  TextColor getColor();
 
   /** If true, this material is hidden from display, such as in JEI and the books */
   boolean isHidden();

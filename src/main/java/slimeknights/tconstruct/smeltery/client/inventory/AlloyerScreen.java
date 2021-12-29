@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiTankModule;
 import slimeknights.tconstruct.smeltery.inventory.AlloyerContainer;
@@ -18,7 +18,7 @@ import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTan
 
 import javax.annotation.Nullable;
 
-public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements IScreenWithFluidTank {
+public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainer> implements IScreenWithFluidTank {
   private static final int[] INPUT_TANK_START_X = {54, 22, 38, 70, 6};
   private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/alloyer.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 0, 34, 52, 256, 256);
@@ -29,7 +29,7 @@ public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements 
   private final GuiFuelModule fuel;
   private final GuiTankModule outputTank;
   private GuiTankModule[] inputTanks = new GuiTankModule[0];
-  public AlloyerScreen(AlloyerContainer container, PlayerInventory inv, ITextComponent name) {
+  public AlloyerScreen(AlloyerContainer container, Inventory inv, Component name) {
     super(container, inv, name);
     AlloyerTileEntity te = container.getTile();
     if (te != null) {
@@ -59,8 +59,8 @@ public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements 
   }
 
   @Override
-  public void tick() {
-    super.tick();
+  protected void containerTick() {
+    super.containerTick();
     // if the input count changes, update
     AlloyerTileEntity te = menu.getTile();
     if (te != null && te.getAlloyTank().getTanks() != inputTanks.length) {
@@ -69,31 +69,27 @@ public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements 
   }
 
   @Override
-  public void render(MatrixStack matrices, int x, int y, float partialTicks) {
+  public void render(PoseStack matrices, int x, int y, float partialTicks) {
     this.renderBackground(matrices);
     super.render(matrices, x, y, partialTicks);
     this.renderTooltip(matrices, x, y);
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
     GuiUtil.drawBackground(matrices, this, BACKGROUND);
 
     // fluids
     if (outputTank != null) outputTank.draw(matrices);
 
     // draw tank backgrounds first, then draw tank contents, less binding
-    getMinecraft().getTextureManager().bind(BACKGROUND);
+    RenderUtils.setup(BACKGROUND);
     for (GuiTankModule tankModule : inputTanks) {
       INPUT_TANK.draw(matrices, tankModule.getX() - 1 + this.leftPos, tankModule.getY() - 1 + this.topPos);
-    }
-    for (GuiTankModule tankModule : inputTanks) {
-      tankModule.draw(matrices);
     }
 
     // fuel
     if (fuel != null) {
-      getMinecraft().getTextureManager().bind(BACKGROUND);
       // draw the correct background for the fuel type
       if (menu.isHasFuelSlot()) {
         FUEL_SLOT.draw(matrices, leftPos + 150, topPos + 31);
@@ -102,11 +98,16 @@ public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements 
       }
       fuel.draw(matrices);
     }
+
+    // draw tank contents last, reduces bind calls
+    for (GuiTankModule tankModule : inputTanks) {
+      tankModule.draw(matrices);
+    }
   }
 
   @Override
-  protected void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
-    GuiUtil.drawContainerNames(matrices, this, this.font, this.inventory);
+  protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
+    GuiUtil.drawContainerNames(matrices, this, this.font, this.playerInventoryTitle);
     int checkX = mouseX - this.leftPos;
     int checkY = mouseY - this.topPos;
 
@@ -121,13 +122,12 @@ public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements 
 
     // scala
     assert minecraft != null;
-    minecraft.getTextureManager().bind(BACKGROUND);
-    RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+    RenderUtils.setup(BACKGROUND);
     SCALA.draw(matrices, 114, 16);
   }
 
   @Override
-  protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
     super.renderTooltip(matrices, mouseX, mouseY);
 
     // tank tooltip

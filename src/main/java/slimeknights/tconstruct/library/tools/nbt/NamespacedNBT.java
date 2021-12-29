@@ -4,9 +4,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.BiFunction;
 
@@ -18,17 +18,17 @@ import java.util.function.BiFunction;
 public class NamespacedNBT implements INamespacedNBTReadOnly {
   /** Compound representing modifier data */
   @Getter(AccessLevel.PROTECTED)
-  private final CompoundNBT data;
+  private final CompoundTag data;
 
   /**
    * Creates a new mod data containing empty data
    */
   public NamespacedNBT() {
-    this(new CompoundNBT());
+    this(new CompoundTag());
   }
 
   @Override
-  public <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
+  public <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function) {
     return function.apply(data, name.toString());
   }
 
@@ -42,7 +42,7 @@ public class NamespacedNBT implements INamespacedNBTReadOnly {
    * @param name  Key name
    * @param nbt   NBT value
    */
-  public void put(ResourceLocation name, INBT nbt) {
+  public void put(ResourceLocation name, Tag nbt) {
     data.put(name.toString(), nbt);
   }
 
@@ -94,7 +94,7 @@ public class NamespacedNBT implements INamespacedNBTReadOnly {
   /* Networking */
 
   /** Gets a copy of the internal data, generally should only be used for syncing, no reason to call directly */
-  public CompoundNBT getCopy() {
+  public CompoundTag getCopy() {
     return data.copy();
   }
 
@@ -102,7 +102,7 @@ public class NamespacedNBT implements INamespacedNBTReadOnly {
    * Called to merge this NBT data from another
    * @param data  data
    */
-  public void copyFrom(CompoundNBT data) {
+  public void copyFrom(CompoundTag data) {
     this.data.getAllKeys().clear();
     this.data.merge(data);
   }
@@ -112,7 +112,7 @@ public class NamespacedNBT implements INamespacedNBTReadOnly {
    * @param data  data
    * @return  Parsed mod data
    */
-  public static NamespacedNBT readFromNBT(CompoundNBT data) {
+  public static NamespacedNBT readFromNBT(CompoundTag data) {
     return new NamespacedNBT(data);
   }
 }

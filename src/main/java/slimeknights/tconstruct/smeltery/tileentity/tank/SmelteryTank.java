@@ -2,28 +2,27 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler.FluidChange;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.ListIterator;
-
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
 /**
  * Fluid handler implementation for the smeltery
  */
-public class SmelteryTank implements IFluidHandler {
-  private final ISmelteryTankHandler parent;
+public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> implements IFluidHandler {
+  private final T parent;
   /** Fluids actually contained in the tank */
   @Getter
   private final List<FluidStack> fluids;
@@ -33,7 +32,7 @@ public class SmelteryTank implements IFluidHandler {
   @Getter
   private int contained;
 
-  public SmelteryTank(ISmelteryTankHandler parent) {
+  public SmelteryTank(T parent) {
     fluids = Lists.newArrayList();
     capacity = 0;
     contained = 0;
@@ -44,10 +43,9 @@ public class SmelteryTank implements IFluidHandler {
    * Called when the fluids change to sync to client
    */
   public void syncFluids() {
-    TileEntity te = parent.getTileEntity();
-    World world = te.getLevel();
+    Level world = parent.getLevel();
     if (world != null && !world.isClientSide) {
-      BlockPos pos = te.getBlockPos();
+      BlockPos pos = parent.getBlockPos();
       TinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
     }
   }
@@ -98,6 +96,7 @@ public class SmelteryTank implements IFluidHandler {
     return fluids.size();
   }
 
+  @Nonnull
   @Override
   public FluidStack getFluidInTank(int tank) {
     if (tank < 0 || tank >= fluids.size()) {
@@ -176,6 +175,7 @@ public class SmelteryTank implements IFluidHandler {
     return usable;
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     if (fluids.isEmpty()) {
@@ -207,6 +207,7 @@ public class SmelteryTank implements IFluidHandler {
     return ret;
   }
 
+  @Nonnull
   @Override
   public FluidStack drain(FluidStack toDrain, FluidAction action) {
     // search for the resource
@@ -263,10 +264,10 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   /** Writes the tank to NBT */
-  public CompoundNBT write(CompoundNBT nbt) {
-    ListNBT list = new ListNBT();
+  public CompoundTag write(CompoundTag nbt) {
+    ListTag list = new ListTag();
     for (FluidStack liquid : fluids) {
-      CompoundNBT fluidTag = new CompoundNBT();
+      CompoundTag fluidTag = new CompoundTag();
       liquid.writeToNBT(fluidTag);
       list.add(fluidTag);
     }
@@ -276,12 +277,12 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   /** Reads the tank from NBT */
-  public void read(CompoundNBT tag) {
-    ListNBT list = tag.getList(TAG_FLUIDS, NBT.TAG_COMPOUND);
+  public void read(CompoundTag tag) {
+    ListTag list = tag.getList(TAG_FLUIDS, Tag.TAG_COMPOUND);
     fluids.clear();
     contained = 0;
     for (int i = 0; i < list.size(); i++) {
-      CompoundNBT fluidTag = list.getCompound(i);
+      CompoundTag fluidTag = list.getCompound(i);
       FluidStack fluid = FluidStack.loadFluidStackFromNBT(fluidTag);
       if (!fluid.isEmpty()) {
         fluids.add(fluid);

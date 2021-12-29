@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import com.google.common.collect.ImmutableList;
-import lombok.RequiredArgsConstructor;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -9,7 +8,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IModIngredientRegistration;
@@ -21,25 +20,26 @@ import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.TagCollectionManager;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.SerializationTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.item.RetexturedBlockItem;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -216,7 +216,7 @@ public class JEIPlugin implements IModPlugin {
    * @param ownCategory  Category to always add
    * @param type         Molding recipe type
    */
-  private static <T extends IRecipe<C>, C extends IInventory> void addCastingCatalyst(IRecipeCatalystRegistration registry, IItemProvider item, ResourceLocation ownCategory, IRecipeType<T> type) {
+  private static <T extends Recipe<C>, C extends Container> void addCastingCatalyst(IRecipeCatalystRegistration registry, ItemLike item, ResourceLocation ownCategory, RecipeType<T> type) {
     ItemStack stack = new ItemStack(item);
     registry.addRecipeCatalyst(stack, ownCategory);
     assert Minecraft.getInstance().level != null;
@@ -255,17 +255,22 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerItemSubtypes(ISubtypeRegistration registry) {
     // retexturable blocks
-    ISubtypeInterpreter tables = new RetexturedSubtypeInterpreter();
+    IIngredientSubtypeInterpreter<ItemStack> tables = (stack, context) -> {
+      if (context == UidContext.Ingredient) {
+        return RetexturedBlockItem.getTextureName(stack);
+      }
+      return IIngredientSubtypeInterpreter.NONE;
+    };
     registry.registerSubtypeInterpreter(TinkerTables.craftingStation.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.partBuilder.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.tinkerStation.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.tinkersAnvil.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.scorchedAnvil.asItem(), tables);
 
-    ISubtypeInterpreter toolPartInterpreter = itemStack -> {
-      MaterialId materialId = IMaterialItem.getMaterialIdFromStack(itemStack);
+    IIngredientSubtypeInterpreter<ItemStack> toolPartInterpreter = (stack, context) -> {
+      MaterialId materialId = IMaterialItem.getMaterialIdFromStack(stack);
       if (materialId.equals(IMaterial.UNKNOWN_ID)) {
-        return ISubtypeInterpreter.NONE;
+        return IIngredientSubtypeInterpreter.NONE;
       }
       return materialId.toString();
     };
@@ -277,16 +282,15 @@ public class JEIPlugin implements IModPlugin {
 
     // tools
     Item slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
-    registry.registerSubtypeInterpreter(slimeskull, new ToolSubtypeInterpreter(true));
-    ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter(false);
+    registry.registerSubtypeInterpreter(slimeskull, ToolSubtypeInterpreter.ALWAYS);
     for (Item item : TinkerTags.Items.MULTIPART_TOOL.getValues()) {
       if (item != slimeskull) {
-        registry.registerSubtypeInterpreter(item, toolInterpreter);
+        registry.registerSubtypeInterpreter(item, ToolSubtypeInterpreter.INGREDIENT);
       }
     }
 
-    registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
-    registry.registerSubtypeInterpreter(TinkerModifiers.creativeSlotItem.get(), stack -> {
+    registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), (stack, context) -> CopperCanItem.getSubtype(stack));
+    registry.registerSubtypeInterpreter(TinkerModifiers.creativeSlotItem.get(), (stack, context) -> {
       SlotType slotType = CreativeSlotItem.getSlot(stack);
       return slotType != null ? slotType.getName() : "";
     });
@@ -321,8 +325,9 @@ public class JEIPlugin implements IModPlugin {
    * @param item     Cast instance
    * @param tagName  Tag to check
    */
-  private static void optionalItem(IIngredientManager manager, IItemProvider item, String tagName) {
-    ITag<Item> tag = TagCollectionManager.getInstance().getItems().getTag(new ResourceLocation("forge", tagName));
+  @SuppressWarnings("SameParameterValue")
+  private static void optionalItem(IIngredientManager manager, ItemLike item, String tagName) {
+    Tag<Item> tag = SerializationTags.getInstance().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("forge", tagName));
     if (tag == null || tag.getValues().isEmpty()) {
       manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singletonList(new ItemStack(item)));
     }
@@ -334,7 +339,7 @@ public class JEIPlugin implements IModPlugin {
    * @param cast     Cast instance
    */
   private static void optionalCast(IIngredientManager manager, CastItemObject cast) {
-    ITag<Item> tag = TagCollectionManager.getInstance().getItems().getTag(new ResourceLocation("forge", cast.getName().getPath() + "s"));
+    Tag<Item> tag = SerializationTags.getInstance().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("forge", cast.getName().getPath() + "s"));
     if (tag == null || tag.getValues().isEmpty()) {
       manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, cast.values().stream().map(ItemStack::new).collect(Collectors.toList()));
     }
@@ -349,7 +354,7 @@ public class JEIPlugin implements IModPlugin {
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
     // hide compat that is not present
     for (SmelteryCompat compat : SmelteryCompat.values()) {
-      ITag<Item> ingot = TagCollectionManager.getInstance().getItems().getTag(new ResourceLocation("forge", "ingots/" + compat.getName()));
+      Tag<Item> ingot = SerializationTags.getInstance().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("forge", "ingots/" + compat.getName()));
       if (ingot == null || ingot.getValues().isEmpty()) {
         removeFluid(manager, compat.getFluid().get(), compat.getBucket());
       }
@@ -365,7 +370,7 @@ public class JEIPlugin implements IModPlugin {
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */
-  public static class GuiContainerTankHandler<C extends Container, T extends ContainerScreen<C> & IScreenWithFluidTank> implements IGuiContainerHandler<T> {
+  public static class GuiContainerTankHandler<C extends AbstractContainerMenu, T extends AbstractContainerScreen<C> & IScreenWithFluidTank> implements IGuiContainerHandler<T> {
     @Override
     @Nullable
     public Object getIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
@@ -374,19 +379,12 @@ public class JEIPlugin implements IModPlugin {
   }
 
   /** Subtype interpreter for tools, treats the tool as unique in ingredient list, generic in recipes */
-  @RequiredArgsConstructor
-  public static class ToolSubtypeInterpreter implements ISubtypeInterpreter {
-    /** If true, considers materials in both ingredients and recipes */
-    private final boolean always;
-
-    @Override
-    public String apply(ItemStack itemStack) {
-      return NONE;
-    }
+  public enum ToolSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
+    ALWAYS, INGREDIENT;
 
     @Override
     public String apply(ItemStack itemStack, UidContext context) {
-      if (always || context == UidContext.Ingredient) {
+      if (this == ALWAYS || context == UidContext.Ingredient) {
         StringBuilder builder = new StringBuilder();
         List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
         if (!materialList.isEmpty()) {
@@ -403,12 +401,7 @@ public class JEIPlugin implements IModPlugin {
     }
   }
 
-  public static class RetexturedSubtypeInterpreter implements ISubtypeInterpreter {
-    @Override
-    public String apply(ItemStack itemStack) {
-      return NONE;
-    }
-
+  public static class RetexturedSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
     @Override
     public String apply(ItemStack itemStack, UidContext context) {
       if (context == UidContext.Ingredient) {

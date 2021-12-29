@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.effect.MobEffectUtil;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -26,8 +26,8 @@ public class RespirationModifier extends TotalArmorLevelModifier {
     return living.isAlive()
            && !living.canBreatheUnderwater()
            && living.isEyeInFluid(FluidTags.WATER)
-           && !EffectUtils.hasWaterBreathing(living)
-           && !(living instanceof PlayerEntity && ((PlayerEntity) living).abilities.invulnerable)
+           && !MobEffectUtil.hasWaterBreathing(living)
+           && !(living instanceof Player player && player.getAbilities().invulnerable)
            && !living.level.getBlockState(new BlockPos(living.getX(), living.getEyeY(), living.getZ())).is(Blocks.BUBBLE_COLUMN);
   }
 

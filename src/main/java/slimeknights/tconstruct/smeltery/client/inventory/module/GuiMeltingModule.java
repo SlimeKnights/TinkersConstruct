@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.AllArgsConstructor;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -23,11 +23,11 @@ public class GuiMeltingModule {
   private static final ScalableElementScreen UNMELTABLE_BAR = new ScalableElementScreen(185, 150, 3, 16, 256, 256);
 
   // progress bar tooltips
-  private static final ITextComponent TOOLTIP_NO_HEAT = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.no_heat"));
-  private static final ITextComponent TOOLTIP_NO_SPACE = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.no_space"));
-  private static final ITextComponent TOOLTIP_UNMELTABLE = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.no_recipe"));
+  private static final Component TOOLTIP_NO_HEAT = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.no_heat"));
+  private static final Component TOOLTIP_NO_SPACE = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.no_space"));
+  private static final Component TOOLTIP_UNMELTABLE = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.no_recipe"));
 
-  private final ContainerScreen<?> screen;
+  private final AbstractContainerScreen<?> screen;
   private final MeltingModuleInventory inventory;
   private final IntSupplier temperature;
   private final Predicate<Slot> slotPredicate;
@@ -36,7 +36,7 @@ public class GuiMeltingModule {
   /**
    * Draws the heat bars on each slot
    */
-  public void drawHeatBars(MatrixStack matrices) {
+  public void drawHeatBars(PoseStack matrices) {
     int temperature = this.temperature.getAsInt();
     for (int i = 0; i < inventory.getSlots(); i++) {
       Slot slot = screen.getMenu().slots.get(i);
@@ -77,7 +77,7 @@ public class GuiMeltingModule {
    * @param mouseX  Mouse X position
    * @param mouseY  Mouse Y position
    */
-  public void drawHeatTooltips(MatrixStack matrices, int mouseX, int mouseY) {
+  public void drawHeatTooltips(PoseStack matrices, int mouseX, int mouseY) {
     int checkX = mouseX - screen.leftPos;
     int checkY = mouseY - screen.topPos;
     int temperature = this.temperature.getAsInt();
@@ -88,7 +88,7 @@ public class GuiMeltingModule {
         // mouse must be within the slot
         if (GuiUtil.isHovered(checkX, checkY, slot.x - 5, slot.y - 1, PROGRESS_BAR.w + 1, PROGRESS_BAR.h + 2)) {
           int index = slot.getSlotIndex();
-          ITextComponent tooltip = null;
+          Component tooltip = null;
 
           // NaN means 0 progress for 0 need, unmeltable
           if (inventory.getRequiredTime(index) == 0) {

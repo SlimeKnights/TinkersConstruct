@@ -3,12 +3,12 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
@@ -21,7 +21,7 @@ import java.util.Objects;
 public class EffectSpillingEffect implements ISpillingEffect {
   public static final Loader LOADER = new Loader();
 
-  private final Effect effect;
+  private final MobEffect effect;
   /** Potion time in seconds */
   private final int time;
   /** Potion level starting at 1 */
@@ -33,7 +33,7 @@ public class EffectSpillingEffect implements ISpillingEffect {
     if (target != null) {
       int time = (int)(this.time * 20 * scale);
       if (time > 0) {
-        target.addEffect(new EffectInstance(effect, time, level - 1));
+        target.addEffect(new MobEffectInstance(effect, time, level - 1));
       }
     }
   }
@@ -50,15 +50,15 @@ public class EffectSpillingEffect implements ISpillingEffect {
       if (!ForgeRegistries.POTIONS.containsKey(id)) {
         throw new JsonSyntaxException("Unknown effect " + id);
       }
-      Effect effect = Objects.requireNonNull(ForgeRegistries.POTIONS.getValue(id));
-      int time = JSONUtils.getAsInt(json, "time");
-      int level = JSONUtils.getAsInt(json, "level", 1);
+      MobEffect effect = Objects.requireNonNull(ForgeRegistries.MOB_EFFECTS.getValue(id));
+      int time = GsonHelper.getAsInt(json, "time");
+      int level = GsonHelper.getAsInt(json, "level", 1);
       return new EffectSpillingEffect(effect, time, level);
     }
 
     @Override
-    public EffectSpillingEffect read(PacketBuffer buffer) {
-      Effect effect = buffer.readRegistryIdUnsafe(ForgeRegistries.POTIONS);
+    public EffectSpillingEffect read(FriendlyByteBuf buffer) {
+      MobEffect effect = buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS);
       int level = buffer.readVarInt();
       int time = buffer.readVarInt();
       return new EffectSpillingEffect(effect, time, level);
@@ -72,8 +72,8 @@ public class EffectSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(EffectSpillingEffect effect, PacketBuffer buffer) {
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.POTIONS, effect.effect);
+    public void write(EffectSpillingEffect effect, FriendlyByteBuf buffer) {
+      buffer.writeRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS, effect.effect);
       buffer.writeVarInt(effect.time);
       buffer.writeVarInt(effect.level);
     }

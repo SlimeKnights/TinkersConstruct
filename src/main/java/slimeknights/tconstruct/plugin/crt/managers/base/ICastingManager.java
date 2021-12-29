@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.plugin.crt.managers.base;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
@@ -8,13 +8,15 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidUtil;
 import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipe;
@@ -25,15 +27,15 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.ICastingManager")
 public interface ICastingManager extends IRecipeManager {
-  
+
   ItemCastingRecipe makeItemCastingRecipe(ResourceLocation id, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumeCast, boolean switchSlots);
 
   ContainerFillingRecipe makeContainerFillingRecipe(ResourceLocation idIn, int fluidAmount, Item containerIn);
-  
+
   MaterialCastingRecipe makeMaterialCastingRecipe(ResourceLocation id, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumeCast, boolean switchSlots);
 
   CompositeCastingRecipe makeCompositeCastingRecipe(ResourceLocation id, IMaterialItem result, int itemCost);
-  
+
   @ZenCodeType.Method
   default void addItemCastingRecipe(String name, IIngredient cast, CTFluidIngredient fluidIngredient, IItemStack result, int coolingTime, boolean consumeCast, boolean switchSlots) {
     name = fixRecipeName(name);
@@ -44,7 +46,7 @@ public interface ICastingManager extends IRecipeManager {
     ItemCastingRecipe recipe = makeItemCastingRecipe(id, castIngredient, fluid, itemOutput, coolingTime, consumeCast, switchSlots);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, "Item Casting"));
   }
-  
+
   @ZenCodeType.Method
   default void addContainerFillingRecipe(String name, int fluidAmount, Item containerIn) {
     if(!FluidUtil.getFluidHandler(containerIn.getDefaultInstance()).isPresent()) {
@@ -78,3 +80,4 @@ public interface ICastingManager extends IRecipeManager {
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, "Composite Part Casting"));
   }
 }
+*/

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;

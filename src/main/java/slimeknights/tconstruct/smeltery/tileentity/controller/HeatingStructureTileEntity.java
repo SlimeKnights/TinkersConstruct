@@ -1,34 +1,36 @@
 package slimeknights.tconstruct.smeltery.tileentity.controller;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
-import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -57,11 +59,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public abstract class HeatingStructureTileEntity extends NamableTileEntity implements ITickableTileEntity, IMasterLogic, ISmelteryTankHandler {
+public abstract class HeatingStructureTileEntity extends NameableBlockEntity implements IMasterLogic, ISmelteryTankHandler {
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
   private static final String TAG_ERROR_POS = "errorPos";
+
+  /** Ticker instance for the serverside */
+  public static final BlockEntityTicker<HeatingStructureTileEntity> SERVER_TICKER = (level, pos, state, self) -> self.serverTick(level, pos, state);
+  /** Ticker instance for the clientside */
+  public static final BlockEntityTicker<HeatingStructureTileEntity> CLIENT_TICKER = (level, pos, state, self) -> self.clientTick(level, pos, state);
 
   /** Sub module to detect the multiblock for this structure */
   private final HeatingStructureMultiblock<?> multiblock = createMultiblock();
@@ -72,13 +79,13 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   /** Number of ticks the error will remain visible for */
   private int errorVisibleFor = 0;
 
-  /* Saved data, written to NBT */
+  /* Saved data, written to Tag */
   /** Current structure contents */
   @Nullable @Getter
   protected StructureData structure;
   /** Tank instance for this smeltery */
   @Getter
-  protected final SmelteryTank tank = new SmelteryTank(this);
+  protected final SmelteryTank<HeatingStructureTileEntity> tank = new SmelteryTank<>(this);
   /** Capability to pass to drains for fluid handling */
   @Getter
   private LazyOptional<IFluidHandler> fluidCapability = LazyOptional.empty();
@@ -100,7 +107,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   protected final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 
 
-  /* Instance data, this data is not written to NBT */
+  /* Instance data, this data is not written to Tag */
   /** Timer to allow delaying actions based on number of ticks alive */
   protected int tick = 0;
   /** Updates every second. Once it reaches 10, checks above the smeltery for a layer to see if we can expand up */
@@ -110,7 +117,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   /** If true, fluids have changed since the last update and should be synced to the client, synced at most once every 4 ticks */
   private boolean fluidUpdateQueued = false;
   /** Cache of the bounds for the case of no structure */
-  private AxisAlignedBB defaultBounds;
+  private AABB defaultBounds;
 
   /* Client display */
   @Getter
@@ -121,8 +128,8 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   /** Function to drop an item */
   protected final Consumer<ItemStack> dropItem = this::dropItem;
 
-  protected HeatingStructureTileEntity(TileEntityType<? extends HeatingStructureTileEntity> type, ITextComponent name) {
-    super(type, name);
+  protected HeatingStructureTileEntity(BlockEntityType<? extends HeatingStructureTileEntity> type, BlockPos pos, BlockState state, Component name) {
+    super(type, pos, state, name);
   }
 
   /* Abstract methods */
@@ -148,16 +155,22 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     }
   }
 
-  @Override
-  public void tick() {
-    if (level == null || level.isClientSide) {
+  /** Handles the client tick */
+  protected void clientTick(Level level, BlockPos pos, BlockState state) {
+    if (errorVisibleFor > 0) {
+      errorVisibleFor--;
+    }
+  }
+
+  /** Handles the server tick */
+  protected void serverTick(Level level, BlockPos pos, BlockState state) {
+    if (level.isClientSide) {
       if (errorVisibleFor > 0) {
         errorVisibleFor--;
       }
       return;
     }
     // invalid state, just a safety check in case its air somehow
-    BlockState state = getBlockState();
     if (!state.hasProperty(ControllerBlock.IN_STRUCTURE)) {
       return;
     }
@@ -228,7 +241,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   /* Capability */
 
   @Override
-  protected void invalidateCaps() {
+  public void invalidateCaps() {
     super.invalidateCaps();
     this.itemCapability.invalidate();
   }
@@ -387,30 +400,18 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     } else {
       // mark that fluids need an update on the client
       fluidUpdateQueued = true;
-      this.markDirtyFast();
+      this.setChangedFast();
     }
   }
 
   @Override
-  public AxisAlignedBB getRenderBoundingBox() {
+  public AABB getRenderBoundingBox() {
     if (structure != null) {
       return structure.getBounds();
     } else if (defaultBounds == null) {
-      defaultBounds = new AxisAlignedBB(worldPosition, worldPosition.offset(1, 1, 1));
+      defaultBounds = new AABB(worldPosition, worldPosition.offset(1, 1, 1));
     }
     return defaultBounds;
-  }
-
-  @Override
-  public void setPosition(BlockPos posIn) {
-    super.setPosition(posIn);
-    defaultBounds = null;
-  }
-
-  @Override
-  public void setLevelAndPosition(World level, BlockPos pos) {
-    super.setLevelAndPosition(level, pos);
-    defaultBounds = null;
   }
 
   /* Heating helpers */
@@ -439,7 +440,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
 
   @Nullable
   @Override
-  public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) {
+  public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
     return new HeatingStructureContainer(id, inv, this);
   }
 
@@ -479,14 +480,14 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   protected abstract boolean isDebugItem(ItemStack stack);
 
   /** If true, debug blocks should show in the TESR to the given player */
-  public boolean showDebugBlockBorder(PlayerEntity player) {
+  public boolean showDebugBlockBorder(Player player) {
     return isDebugItem(player.getMainHandItem())
            || isDebugItem(player.getOffhandItem())
-           || isDebugItem(player.getItemBySlot(EquipmentSlotType.HEAD));
+           || isDebugItem(player.getItemBySlot(EquipmentSlot.HEAD));
   }
 
 
-  /* NBT */
+  /* Tag */
 
   @Override
   protected boolean shouldSyncOnUpdate() {
@@ -494,61 +495,70 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   }
 
   @Override
-  public void load(BlockState state, CompoundNBT nbt) {
-    super.load(state, nbt);
-    if (nbt.contains(TAG_TANK, NBT.TAG_COMPOUND)) {
+  public void load(CompoundTag nbt) {
+    super.load(nbt);
+    if (nbt.contains(TAG_TANK, Tag.TAG_COMPOUND)) {
       tank.read(nbt.getCompound(TAG_TANK));
       FluidStack first = tank.getFluidInTank(0);
       if (!first.isEmpty()) {
         updateDisplayFluid(first);
       }
     }
-    if (nbt.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
-      meltingInventory.readFromNBT(nbt.getCompound(TAG_INVENTORY));
+    if (nbt.contains(TAG_INVENTORY, Tag.TAG_COMPOUND)) {
+      meltingInventory.readFromTag(nbt.getCompound(TAG_INVENTORY));
     }
-    if (nbt.contains(TAG_STRUCTURE, NBT.TAG_COMPOUND)) {
-      setStructure(multiblock.readFromNBT(nbt.getCompound(TAG_STRUCTURE)));
+    if (nbt.contains(TAG_STRUCTURE, Tag.TAG_COMPOUND)) {
+      setStructure(multiblock.readFromTag(nbt.getCompound(TAG_STRUCTURE)));
       if (structure != null) {
         fluidCapability = LazyOptional.of(() -> tank);
       }
     }
     // only exists to be sent server to client in update packets
-    if (nbt.contains(TAG_ERROR_POS, NBT.TAG_COMPOUND)) {
-      this.errorPos = NBTUtil.readBlockPos(nbt.getCompound(TAG_ERROR_POS));
+    if (nbt.contains(TAG_ERROR_POS, Tag.TAG_COMPOUND)) {
+      this.errorPos = NbtUtils.readBlockPos(nbt.getCompound(TAG_ERROR_POS));
     }
-    fuelModule.readFromNBT(nbt);
+    fuelModule.readFromTag(nbt);
   }
 
   @Override
-  public CompoundNBT save(CompoundNBT compound) {
-    // NBT that just writes to disk
-    compound = super.save(compound);
+  public void saveAdditional(CompoundTag compound) {
+    // Tag that just writes to disk
+    super.saveAdditional(compound);
     if (structure != null) {
-      compound.put(TAG_STRUCTURE, structure.writeToNBT());
+      compound.put(TAG_STRUCTURE, structure.writeToTag());
     }
-    fuelModule.writeToNBT(compound);
-    return compound;
+    fuelModule.writeToTag(compound);
   }
 
   @Override
-  public void writeSynced(CompoundNBT compound) {
-    // NBT that writes to disk and syncs to client
-    super.writeSynced(compound);
-    compound.put(TAG_TANK, tank.write(new CompoundNBT()));
-    compound.put(TAG_INVENTORY, meltingInventory.writeToNBT());
+  public void saveSynced(CompoundTag compound) {
+    // Tag that writes to disk and syncs to client
+    super.saveSynced(compound);
+    compound.put(TAG_TANK, tank.write(new CompoundTag()));
+    compound.put(TAG_INVENTORY, meltingInventory.writeToTag());
   }
 
   @Override
-  public CompoundNBT getUpdateTag() {
-    // NBT that just syncs to client
-    CompoundNBT nbt = super.getUpdateTag();
+  public CompoundTag getUpdateTag() {
+    // Tag that just syncs to client
+    CompoundTag nbt = super.getUpdateTag();
     if (structure != null) {
-      nbt.put(TAG_STRUCTURE, structure.writeClientNBT());
+      nbt.put(TAG_STRUCTURE, structure.writeClientTag());
     }
-    // sync error position, not actually saved in NBT
+    // sync error position, not actually saved in Tag
     if (errorPos != null) {
-      nbt.put(TAG_ERROR_POS, NBTUtil.writeBlockPos(errorPos));
+      nbt.put(TAG_ERROR_POS, NbtUtils.writeBlockPos(errorPos));
     }
     return nbt;
+  }
+
+
+  /* Helpers */
+
+
+  /** Handles the unchecked cast for a block entity ticker */
+  @Nullable
+  public static <HAVE extends HeatingStructureTileEntity, RET extends BlockEntity> BlockEntityTicker<RET> getTicker(Level level, BlockEntityType<RET> expected, BlockEntityType<HAVE> have) {
+    return BlockEntityHelper.castTicker(expected, have, level.isClientSide ? CLIENT_TICKER : SERVER_TICKER);
   }
 }

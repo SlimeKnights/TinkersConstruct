@@ -1,14 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
@@ -40,7 +41,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType equipmentSlot) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot equipmentSlot) {
     if (!player.isShiftKeyDown()) {
       if (player.level.isClientSide) {
         return false; // TODO: see below
@@ -49,22 +50,23 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
       boolean didChange = false;
       int slots = getSlots(tool, level);
       ModDataNBT persistentData = tool.getPersistentData();
-      ListNBT list = new ListNBT();
+      ListTag list = new ListTag();
       boolean[] swapped = new boolean[slots];
       // if we have existing items, swap stacks at each index
-      if (persistentData.contains(KEY, NBT.TAG_LIST)) {
-        ListNBT original = persistentData.get(KEY, GET_COMPOUND_LIST);
+      Inventory inventory = player.getInventory();
+      if (persistentData.contains(KEY, Tag.TAG_LIST)) {
+        ListTag original = persistentData.get(KEY, GET_COMPOUND_LIST);
         if (!original.isEmpty()) {
           for (int i = 0; i < original.size(); i++) {
-            CompoundNBT compoundNBT = original.getCompound(i);
+            CompoundTag compoundNBT = original.getCompound(i);
             int slot = compoundNBT.getInt(TAG_SLOT);
             if (slot < slots) {
               // ensure we can store the hotbar item
-              ItemStack hotbar = player.inventory.getItem(slot);
+              ItemStack hotbar = inventory.getItem(slot);
               if (hotbar.isEmpty() || !isBlacklisted(hotbar)) {
                 // swap the two items
                 ItemStack parsed = ItemStack.of(compoundNBT);
-                player.inventory.setItem(slot, parsed);
+                inventory.setItem(slot, parsed);
                 if (!hotbar.isEmpty()) {
                   list.add(write(hotbar, slot));
                 }
@@ -79,10 +81,10 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
       // list is empty, makes loop simplier
       for (int i = 0; i < slots; i++) {
         if (!swapped[i]) {
-          ItemStack hotbar = player.inventory.getItem(i);
+          ItemStack hotbar = player.getInventory().getItem(i);
           if (!hotbar.isEmpty() && !isBlacklisted(hotbar)) {
             list.add(write(hotbar, i));
-            player.inventory.setItem(i, ItemStack.EMPTY);
+            inventory.setItem(i, ItemStack.EMPTY);
             didChange = true;
           }
         }
@@ -91,7 +93,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
       // sound effect
       if (didChange) {
         persistentData.put(KEY, list);
-        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
       }
       //return true; TODO: tuning to make this a blocking interaction
     }

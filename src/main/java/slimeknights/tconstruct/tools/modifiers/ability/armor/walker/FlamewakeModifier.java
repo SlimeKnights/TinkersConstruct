@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor.walker;
 
-import net.minecraft.block.AbstractFireBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Block;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -24,12 +24,12 @@ public class FlamewakeModifier extends AbstractWalkerModifier {
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
+  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     // fire starting
-    if (AbstractFireBlock.canBePlacedAt(world, target, living.getDirection())) {
-      world.playSound(null, target, SoundEvents.FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-      world.setBlock(target, AbstractFireBlock.getState(world, target), Constants.BlockFlags.DEFAULT_AND_RERENDER);
-      ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlotType.FEET);
+    if (BaseFireBlock.canBePlacedAt(world, target, living.getDirection())) {
+      world.playSound(null, target, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      world.setBlock(target, BaseFireBlock.getState(world, target), Block.UPDATE_ALL_IMMEDIATE);
+      ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
     }
   }
 }

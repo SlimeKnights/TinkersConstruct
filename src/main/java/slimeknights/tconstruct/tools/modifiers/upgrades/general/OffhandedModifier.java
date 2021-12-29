@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -13,10 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OffhandedModifier extends Modifier {
-  private final Lazy<ITextComponent> noHandedName = Lazy.of(() -> applyStyle(new TranslationTextComponent(getTranslationKey() + ".2")));
-  private final Lazy<List<ITextComponent>> noHandedDescription = Lazy.of(() -> Arrays.asList(
-    new TranslationTextComponent(getTranslationKey() + ".flavor").withStyle(TextFormatting.ITALIC),
-    new TranslationTextComponent(getTranslationKey() + ".description.2")));
+  private final Lazy<Component> noHandedName = Lazy.of(() -> applyStyle(new TranslatableComponent(getTranslationKey() + ".2")));
+  private final Lazy<List<Component>> noHandedDescription = Lazy.of(() -> Arrays.asList(
+    new TranslatableComponent(getTranslationKey() + ".flavor").withStyle(ChatFormatting.ITALIC),
+    new TranslatableComponent(getTranslationKey() + ".description.2")));
 
   public OffhandedModifier() {
     super(0x7E627B);
@@ -31,7 +31,7 @@ public class OffhandedModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     if (level > 1) {
       return noHandedName.get();
     }
@@ -39,7 +39,7 @@ public class OffhandedModifier extends Modifier {
   }
 
   @Override
-  public List<ITextComponent> getDescriptionList(int level) {
+  public List<Component> getDescriptionList(int level) {
     if (level > 1) {
       return noHandedDescription.get();
     }

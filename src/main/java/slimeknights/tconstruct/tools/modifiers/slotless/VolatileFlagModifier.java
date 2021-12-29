@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.item.Rarity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;

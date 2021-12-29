@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
@@ -27,19 +27,19 @@ public class SkullStats extends BaseMaterialStats implements IRepairableMaterial
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("skull"));
   public static final SkullStats DEFAULT = new SkullStats(1, 0);
   // tooltip descriptions
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.ARMOR.getDescription());
+  private static final List<Component> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.ARMOR.getDescription());
 
   private int durability;
   private int armor;
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.durability);
     buffer.writeInt(this.armor);
   }
 
   @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(FriendlyByteBuf buffer) {
     this.durability = buffer.readInt();
     this.armor = buffer.readInt();
   }
@@ -50,13 +50,13 @@ public class SkullStats extends BaseMaterialStats implements IRepairableMaterial
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo() {
     return Arrays.asList(ToolStats.DURABILITY.formatValue(this.durability),
                          ToolStats.ARMOR.formatValue(this.armor));
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Component> getLocalizedDescriptions() {
     return DESCRIPTION;
   }
 }

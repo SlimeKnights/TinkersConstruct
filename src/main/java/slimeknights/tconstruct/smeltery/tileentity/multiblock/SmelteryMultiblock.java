@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.smeltery.tileentity.controller.SmelteryTileEntity;
 

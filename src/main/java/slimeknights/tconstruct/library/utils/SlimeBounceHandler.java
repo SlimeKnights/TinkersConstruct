@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import slimeknights.tconstruct.common.Sounds;
 
 import java.util.IdentityHashMap;
@@ -50,9 +50,9 @@ public class SlimeBounceHandler {
       info.bounce = bounce;
       // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
       info.bounceTick = entity.tickCount + 1;
-      Vector3d motion = entity.getDeltaMovement();
+      Vec3 motion = entity.getDeltaMovement();
       info.lastMagSq = motion.x * motion.x + motion.z * motion.z;
-      info.lastAngle = MathHelper.atan2(motion.z, motion.x);
+      info.lastAngle = Mth.atan2(motion.z, motion.x);
     }
   }
 
@@ -71,7 +71,7 @@ public class SlimeBounceHandler {
 
       // if its the bounce tick, time to bounce. This is to circumvent the logic that resets y motion after landing
       if (entity.tickCount == info.bounceTick) {
-        Vector3d motion = entity.getDeltaMovement();
+        Vec3 motion = entity.getDeltaMovement();
         entity.setDeltaMovement(motion.x, info.bounce, motion.z);
         info.bounceTick = 0;
       }
@@ -81,7 +81,7 @@ public class SlimeBounceHandler {
       // preserve motion
       if (isInAir && info.lastMagSq > 0) {
         // figure out how much motion has reduced
-        Vector3d motion = entity.getDeltaMovement();
+        Vec3 motion = entity.getDeltaMovement();
         double motionSq = motion.x * motion.x + motion.z * motion.z;
         // if not moving, cancel velocity preserving in 5 ticks
         if (motionSq == 0) {
@@ -99,14 +99,14 @@ public class SlimeBounceHandler {
             entity.hasImpulse = true;
             info.lastMagSq = info.lastMagSq * 0.95f * 0.95f;
             // play sound if we had a big angle change
-            double newAngle = MathHelper.atan2(motion.z, motion.x);
+            double newAngle = Mth.atan2(motion.z, motion.x);
             if (Math.abs(newAngle - info.lastAngle) > 1) {
               entity.playSound(Sounds.SLIMY_BOUNCE.getSound(), 1.0f, 1.0f);
             }
             info.lastAngle = newAngle;
           } else {
             info.lastMagSq = motionSq;
-            info.lastAngle = MathHelper.atan2(motion.z, motion.x);
+            info.lastAngle = Mth.atan2(motion.z, motion.x);
           }
         }
       }
@@ -126,7 +126,7 @@ public class SlimeBounceHandler {
   }
 
   /** Called on server shutdown to prevent memory leaks */
-  private static void serverStopping(FMLServerStoppingEvent event) {
+  private static void serverStopping(ServerStoppingEvent event) {
     BOUNCING_ENTITIES.clear();
   }
 
@@ -155,7 +155,7 @@ public class SlimeBounceHandler {
       } else {
         this.bounceTick = 0;
       }
-      Vector3d motion = entity.getDeltaMovement();
+      Vec3 motion = entity.getDeltaMovement();
       this.lastMagSq = motion.x * motion.x + motion.z * motion.z;
     }
   }

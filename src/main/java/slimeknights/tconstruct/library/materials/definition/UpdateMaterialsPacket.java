@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.materials.definition;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.Color;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.TextColor;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 
@@ -20,7 +20,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
   private final Collection<IMaterial> materials;
   private final Map<MaterialId,MaterialId> redirects;
 
-  public UpdateMaterialsPacket(PacketBuffer buffer) {
+  public UpdateMaterialsPacket(FriendlyByteBuf buffer) {
     int materialCount = buffer.readInt();
     this.materials = new ArrayList<>(materialCount);
 
@@ -31,7 +31,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       boolean craftable = buffer.readBoolean();
       int color = buffer.readInt();
       boolean hidden = buffer.readBoolean();
-      this.materials.add(new Material(id, tier, sortOrder, craftable, Color.fromRgb(color), hidden));
+      this.materials.add(new Material(id, tier, sortOrder, craftable, TextColor.fromRgb(color), hidden));
     }
     // process redirects
     int redirectCount = buffer.readVarInt();
@@ -46,7 +46,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.materials.size());
     this.materials.forEach(material -> {
       buffer.writeResourceLocation(material.getIdentifier());

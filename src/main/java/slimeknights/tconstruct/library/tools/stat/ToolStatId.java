@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.stat;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.ResourceLocationException;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.ResourceLocationException;
 
 import javax.annotation.Nullable;
 

@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.materials.definition;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.Color;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.TextColor;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.test.BaseMcTest;
@@ -23,13 +23,13 @@ class UpdateMaterialPacketTest extends BaseMcTest {
 
   @Test
   void testGenericEncodeDecode() {
-    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, true, Color.fromRgb(0x123456), false);
-    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, false, Color.fromRgb(0xFFFFFF), true);
+    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, true, TextColor.fromRgb(0x123456), false);
+    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, false, TextColor.fromRgb(0xFFFFFF), true);
     Collection<IMaterial> materials = ImmutableList.of(material1, material2);
     Map<MaterialId,MaterialId> redirects = ImmutableMap.of(REDIRECT_ID, MATERIAL_ID_1);
 
     // send a packet over the buffer
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     UpdateMaterialsPacket packetToEncode = new UpdateMaterialsPacket(materials, redirects);
     packetToEncode.encode(buffer);
     UpdateMaterialsPacket decoded = new UpdateMaterialsPacket(buffer);

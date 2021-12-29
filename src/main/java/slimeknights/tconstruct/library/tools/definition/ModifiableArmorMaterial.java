@@ -3,12 +3,12 @@ package slimeknights.tconstruct.library.tools.definition;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
@@ -17,9 +17,9 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** Armor material that doubles as a container for tool definitions for each armor slot */
-public class ModifiableArmorMaterial implements IArmorMaterial {
+public class ModifiableArmorMaterial implements ArmorMaterial {
   /** Array of all four armor slot types */
-  public static final EquipmentSlotType[] ARMOR_SLOTS = {EquipmentSlotType.FEET, EquipmentSlotType.LEGS, EquipmentSlotType.CHEST, EquipmentSlotType.HEAD};
+  public static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
   /** Namespaced name of the armor */
   private final ResourceLocation name;
@@ -70,12 +70,12 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
   }
 
   @Override
-  public int getDurabilityForSlot(EquipmentSlotType slotIn) {
+  public int getDurabilityForSlot(EquipmentSlot slotIn) {
     return (int)getStat(ToolStats.DURABILITY, ArmorSlotType.fromEquipment(slotIn));
   }
 
   @Override
-  public int getDefenseForSlot(EquipmentSlotType slotIn) {
+  public int getDefenseForSlot(EquipmentSlot slotIn) {
     return (int)getStat(ToolStats.ARMOR, ArmorSlotType.fromEquipment(slotIn));
   }
 

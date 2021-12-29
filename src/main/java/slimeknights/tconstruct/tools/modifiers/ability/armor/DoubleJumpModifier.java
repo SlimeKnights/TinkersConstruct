@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -21,8 +21,8 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
   private static final ResourceLocation JUMPS = TConstruct.getResource("jumps");
   private static final TinkerDataKey<Integer> EXTRA_JUMPS = TConstruct.createKey("extra_jumps");
 
-  private ITextComponent levelOneName = null;
-  private ITextComponent levelTwoName = null;
+  private Component levelOneName = null;
+  private Component levelTwoName = null;
 
   public DoubleJumpModifier() {
     super(0x01cbcd, EXTRA_JUMPS);
@@ -30,16 +30,16 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     if (level == 1) {
       if (levelOneName == null) {
-        levelOneName = applyStyle(new TranslationTextComponent(getTranslationKey() + ".double"));
+        levelOneName = applyStyle(new TranslatableComponent(getTranslationKey() + ".double"));
       }
       return levelOneName;
     }
     if (level == 2) {
       if (levelTwoName == null) {
-        levelTwoName = applyStyle(new TranslationTextComponent(getTranslationKey() + ".triple"));
+        levelTwoName = applyStyle(new TranslatableComponent(getTranslationKey() + ".triple"));
       }
       return levelTwoName;
     }
@@ -51,7 +51,7 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
    * @param entity  Entity instance who wishes to jump again
    * @return  True if the entity jumpped, false if not
    */
-  public static boolean extraJump(PlayerEntity entity) {
+  public static boolean extraJump(Player entity) {
     // validate preconditions, no using when swimming, elytra, or on the ground
     if (!entity.isOnGround() && !entity.onClimbable() && !entity.isInWaterOrBubble()) {
       // determine modifier level

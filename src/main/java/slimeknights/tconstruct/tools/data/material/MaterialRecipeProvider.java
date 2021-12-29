@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tools.data.material;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidAttributes;
-import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidContainerIngredient;
-import slimeknights.mantle.recipe.ingredient.IngredientWithout;
+import slimeknights.mantle.recipe.ingredient.IngredientDifference;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -37,18 +37,18 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   }
 
   @Override
-  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     addMaterialItems(consumer);
     addMaterialSmeltery(consumer);
   }
 
-  private void addMaterialItems(Consumer<IFinishedRecipe> consumer) {
+  private void addMaterialItems(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/materials/";
     // tier 1
     materialRecipe(consumer, MaterialIds.wood, Ingredient.of(Tags.Items.RODS_WOODEN), 1, 2, folder + "wood/sticks");
-    materialRecipe(consumer, MaterialIds.wood, new IngredientWithout(Ingredient.of(ItemTags.PLANKS), Ingredient.of(TinkerTags.Items.SLIMY_PLANKS)),
+    materialRecipe(consumer, MaterialIds.wood, IngredientDifference.difference(Ingredient.of(ItemTags.PLANKS), Ingredient.of(TinkerTags.Items.SLIMY_PLANKS)),
                    1, 1, folder + "wood/planks");
-    materialRecipe(consumer, MaterialIds.wood, new IngredientWithout(Ingredient.of(ItemTags.LOGS), Ingredient.of(TinkerTags.Items.SLIMY_LOGS)),
+    materialRecipe(consumer, MaterialIds.wood, IngredientDifference.difference(Ingredient.of(ItemTags.LOGS), Ingredient.of(TinkerTags.Items.SLIMY_LOGS)),
                    4, 1, ItemOutput.fromStack(new ItemStack(Items.STICK, 2)), folder + "wood/logs");
     materialRecipe(consumer, MaterialIds.stone, CompoundIngredient.from(
       Ingredient.of(Tags.Items.STONE), Ingredient.of(Tags.Items.COBBLESTONE), Ingredient.of(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)), 1, 1, folder + "stone");
@@ -63,7 +63,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.iron, folder, "iron", false);
     materialRecipe(consumer, MaterialIds.searedStone, Ingredient.of(TinkerSmeltery.searedBrick), 1, 2, folder + "seared_stone/brick");
     materialRecipe(consumer, MaterialIds.searedStone, Ingredient.of(TinkerTags.Items.SEARED_BLOCKS),     2, 1, ItemOutput.fromItem(TinkerSmeltery.searedBrick), folder + "seared_stone/block");
-    materialRecipe(consumer, MaterialIds.scorchedStone, Ingredient.of(TinkerSmeltery.scorchedBrick),   1, 2, folder + "scorched_stone/brick");
+    materialRecipe(consumer, MaterialIds.scorchedStone, Ingredient.of(TinkerSmeltery.scorchedBrick),     1, 2, folder + "scorched_stone/brick");
     materialRecipe(consumer, MaterialIds.scorchedStone, Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS), 2, 1, ItemOutput.fromItem(TinkerSmeltery.scorchedBrick), folder + "scorched_stone/block");
     metalMaterialRecipe(consumer, MaterialIds.copper, folder, "copper", false);
     materialRecipe(consumer, MaterialIds.slimewood, Ingredient.of(TinkerTags.Items.SLIMY_PLANKS), 1, 1, folder + "slimewood/planks");
@@ -125,7 +125,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.rabbit,     Ingredient.of(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
   }
 
-  private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {
+  private void addMaterialSmeltery(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/materials/";
 
     // melting and casting

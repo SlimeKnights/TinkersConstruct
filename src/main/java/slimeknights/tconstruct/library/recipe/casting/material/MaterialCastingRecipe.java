@@ -2,17 +2,17 @@ package slimeknights.tconstruct.library.recipe.casting.material;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
@@ -38,7 +38,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
   protected Optional<MaterialFluidRecipe> cachedFluidRecipe = Optional.empty();
 
-  public MaterialCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
+  public MaterialCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
     this.itemCost = itemCost;
     this.result = result;
@@ -53,7 +53,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   /** Gets the cached fluid recipe if it still matches, refetches if not */
   protected Optional<MaterialFluidRecipe> getCachedMaterialFluid(ICastingInventory inv) {
     Optional<MaterialFluidRecipe> fluidRecipe = cachedFluidRecipe;
-    if (!fluidRecipe.filter(recipe -> recipe.matches(inv)).isPresent()) {
+    if (fluidRecipe.filter(recipe -> recipe.matches(inv)).isEmpty()) {
       fluidRecipe = getMaterialFluid(inv);
       if (fluidRecipe.isPresent()) {
         cachedFluidRecipe = fluidRecipe;
@@ -63,7 +63,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   }
 
   @Override
-  public boolean matches(ICastingInventory inv, World worldIn) {
+  public boolean matches(ICastingInventory inv, Level worldIn) {
     if (!this.cast.test(inv.getStack())) {
       return false;
     }
@@ -111,7 +111,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   @Override
   public List<IDisplayableCastingRecipe> getRecipes() {
     if (multiRecipes == null) {
-      IRecipeType<?> type = getType();
+      RecipeType<?> type = getType();
       List<ItemStack> castItems = Arrays.asList(cast.getItems());
       multiRecipes = MaterialCastingLookup
         .getAllCastingFluids().stream()
@@ -137,7 +137,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.basinMaterialSerializer.get();
     }
   }
@@ -149,7 +149,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.tableMaterialSerializer.get();
     }
   }
@@ -169,20 +169,20 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
-      int itemCost = JSONUtils.getAsInt(json, "item_cost");
-      IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getAsString(json, "result"), "result", IMaterialItem.class);
+      int itemCost = GsonHelper.getAsInt(json, "item_cost");
+      IMaterialItem result = RecipeHelper.deserializeItem(GsonHelper.getAsString(json, "result"), "result", IMaterialItem.class);
       return this.factory.create(idIn, groupIn, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketBuffer buffer) {
+    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer) {
       int fluidAmount = buffer.readInt();
       IMaterialItem result = RecipeHelper.readItem(buffer, IMaterialItem.class);
       return this.factory.create(idIn, groupIn, cast, fluidAmount, result, consumed, switchSlots);
     }
 
     @Override
-    protected void writeExtra(PacketBuffer buffer, MaterialCastingRecipe recipe) {
+    protected void writeExtra(FriendlyByteBuf buffer, MaterialCastingRecipe recipe) {
       buffer.writeInt(recipe.itemCost);
       RecipeHelper.writeItem(buffer, recipe.result);
     }

@@ -8,11 +8,11 @@ import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.RecipeHelper;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.material.Fluid;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -78,7 +78,7 @@ public class SpillingRecipeLookup {
   }
 
   /** Reads an effect from the packet buffer */
-  public static ISpillingEffect readEffect(PacketBuffer buffer) {
+  public static ISpillingEffect readEffect(FriendlyByteBuf buffer) {
     ResourceLocation type = buffer.readResourceLocation();
     ISpillingEffectLoader<?> loader = EFFECT_LOADERS.get(type);
     if (loader == null) {
@@ -103,7 +103,7 @@ public class SpillingRecipeLookup {
 
   /** Writes the given effect to the packet buffer */
   @SuppressWarnings({"rawtypes", "unchecked"})
-  public static void writeEffect(ISpillingEffect effect, PacketBuffer buffer) {
+  public static void writeEffect(ISpillingEffect effect, FriendlyByteBuf buffer) {
     ISpillingEffectLoader loader = effect.getLoader();
     ResourceLocation id = EFFECT_LOADERS.inverse().get(loader);
     if (id == null) {

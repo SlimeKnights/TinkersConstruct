@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
 import slimeknights.tconstruct.TConstruct;

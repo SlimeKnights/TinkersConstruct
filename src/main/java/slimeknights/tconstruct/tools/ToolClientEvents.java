@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.tools;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.util.InputMappings;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -19,8 +21,6 @@ import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -49,14 +49,14 @@ import static slimeknights.tconstruct.library.client.model.tools.ToolModel.regis
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using a helmet */
-  private static final KeyBinding HELMET_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputMappings.getKey("key.keyboard.z"), "key.categories.gameplay");
+  private static final KeyMapping HELMET_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.z"), "key.categories.gameplay");
   /** Keybinding for interacting using leggings */
-  private static final KeyBinding LEGGINGS_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputMappings.getKey("key.keyboard.i"), "key.categories.gameplay");
+  private static final KeyMapping LEGGINGS_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.i"), "key.categories.gameplay");
 
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
-  public static void addResourceListener(IReloadableResourceManager manager) {
+  public static void addResourceListener(ReloadableResourceManager manager) {
     ModifierModelManager.init(manager);
   }
 
@@ -77,7 +77,7 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
-    RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+    EntityRenderers.register(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
 
     // keybinds
@@ -85,7 +85,7 @@ public class ToolClientEvents extends ClientEventBase {
     ClientRegistry.registerKeyBinding(LEGGINGS_INTERACT);
 
     // screens
-    ScreenManager.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
+    MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
   }
 
   @SubscribeEvent
@@ -144,12 +144,12 @@ public class ToolClientEvents extends ClientEventBase {
       // helmet interaction
       boolean isHelmetInteracting = HELMET_INTERACT.isDown();
       if (!wasHelmetInteracting && isHelmetInteracting) {
-        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlotType.HEAD)) {
+        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.HEAD)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_HELMET_INTERACT);
         }
       }
       if (wasHelmetInteracting && !isHelmetInteracting) {
-        if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlotType.HEAD)) {
+        if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlot.HEAD)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_HELMET_INTERACT);
         }
       }
@@ -157,12 +157,12 @@ public class ToolClientEvents extends ClientEventBase {
       // leggings interaction
       boolean isLeggingsInteract = LEGGINGS_INTERACT.isDown();
       if (!wasLeggingsInteracting && isLeggingsInteract) {
-        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlotType.LEGS)) {
+        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.LEGS)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_LEGGINGS_INTERACT);
         }
       }
       if (wasLeggingsInteracting && !isLeggingsInteract) {
-        if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlotType.LEGS)) {
+        if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlot.LEGS)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_LEGGINGS_INTERACT);
         }
       }

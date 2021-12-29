@@ -4,16 +4,16 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.common.util.NonNullFunction;
@@ -24,7 +24,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -43,7 +43,7 @@ import java.util.function.Supplier;
  * Module handling fuel consumption for the melter and smeltery
  */
 @RequiredArgsConstructor
-public class FuelModule implements IIntArray {
+public class FuelModule implements ContainerData {
   /** Block position that will never be valid in world, used for sync */
   private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
   /** Temperature used for solid fuels, hot enough to melt iron */
@@ -54,7 +54,7 @@ public class FuelModule implements IIntArray {
   private final NonNullConsumer<LazyOptional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
 
   /** Parent TE */
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   /** Supplier for the list of valid tank positions */
   private final Supplier<List<BlockPos>> tankSupplier;
 
@@ -103,7 +103,7 @@ public class FuelModule implements IIntArray {
   }
 
   /** Gets a nonnull world instance from the parent */
-  private World getWorld() {
+  private Level getLevel() {
     return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
@@ -141,7 +141,7 @@ public class FuelModule implements IIntArray {
    */
   public void decreaseFuel(int amount) {
     fuel = Math.max(0, fuel - amount);
-    parent.markDirtyFast();
+    parent.setChangedFast();
   }
 
 
@@ -169,14 +169,14 @@ public class FuelModule implements IIntArray {
             fuel += time;
             fuelQuality = time;
             temperature = SOLID_TEMPERATURE;
-            parent.markDirtyFast();
+            parent.setChangedFast();
             // return the container
             ItemStack container = extracted.getContainerItem();
             if (!container.isEmpty()) {
               // if we cannot insert the container back, spit it on the ground
               ItemStack notInserted = ItemHandlerHelper.insertItem(handler, container, false);
               if (!notInserted.isEmpty()) {
-                World world = getWorld();
+                Level world = getLevel();
                 double x = (world.random.nextFloat() * 0.5F) + 0.25D;
                 double y = (world.random.nextFloat() * 0.5F) + 0.25D;
                 double z = (world.random.nextFloat() * 0.5F) + 0.25D;
@@ -224,7 +224,7 @@ public class FuelModule implements IIntArray {
           fuel += recipe.getDuration();
           fuelQuality = recipe.getDuration();
           temperature = recipe.getTemperature();
-          parent.markDirtyFast();
+          parent.setChangedFast();
           return temperature;
         } else {
           return recipe.getTemperature();
@@ -249,7 +249,7 @@ public class FuelModule implements IIntArray {
    * @return   Temperature of the consumed fuel, 0 if none found
    */
   private int tryFindFuel(BlockPos pos, boolean consume) {
-    TileEntity te = getWorld().getBlockEntity(pos);
+    BlockEntity te = getLevel().getBlockEntity(pos);
     if (te != null) {
       // if we find a valid cap, try to consume fuel from it
       LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
@@ -319,33 +319,33 @@ public class FuelModule implements IIntArray {
     return 0;
   }
 
-  /* NBT */
+  /* Tag */
   private static final String TAG_FUEL = "fuel";
   private static final String TAG_TEMPERATURE = "temperature";
   private static final String TAG_LAST_FUEL = "last_fuel_tank";
 
   /**
    * Reads the fuel from NBT
-   * @param nbt  NBT to read from
+   * @param nbt  Tag to read from
    */
-  public void readFromNBT(CompoundNBT nbt) {
-    if (nbt.contains(TAG_FUEL, NBT.TAG_ANY_NUMERIC)) {
+  public void readFromTag(CompoundTag nbt) {
+    if (nbt.contains(TAG_FUEL, Tag.TAG_ANY_NUMERIC)) {
       fuel = nbt.getInt(TAG_FUEL);
     }
-    if (nbt.contains(TAG_TEMPERATURE, NBT.TAG_ANY_NUMERIC)) {
+    if (nbt.contains(TAG_TEMPERATURE, Tag.TAG_ANY_NUMERIC)) {
       temperature = nbt.getInt(TAG_TEMPERATURE);
     }
-    if (nbt.contains(TAG_LAST_FUEL, NBT.TAG_ANY_NUMERIC)) {
+    if (nbt.contains(TAG_LAST_FUEL, Tag.TAG_ANY_NUMERIC)) {
       lastPos = TagUtil.readPos(nbt, TAG_LAST_FUEL);
     }
   }
 
   /**
    * Writes the fuel to NBT
-   * @param nbt  NBT to write to
-   * @return  NBT written to
+   * @param nbt  Tag to write to
+   * @return  Tag written to
    */
-  public CompoundNBT writeToNBT(CompoundNBT nbt) {
+  public CompoundTag writeToTag(CompoundTag nbt) {
     nbt.putInt(TAG_FUEL, fuel);
     nbt.putInt(TAG_TEMPERATURE, temperature);
     // technically unneeded for melters, but does not hurt to add
@@ -371,54 +371,36 @@ public class FuelModule implements IIntArray {
 
   @Override
   public int get(int index) {
-    switch (index) {
-      case FUEL:
-        return fuel;
-      case FUEL_QUALITY:
-        return fuelQuality;
-      case TEMPERATURE:
-        return temperature;
-      case LAST_X:
-        return lastPos == null ? 0 : lastPos.getX();
-      case LAST_Y:
-        return lastPos == null ? -1 : lastPos.getY();
-      case LAST_Z:
-        return lastPos == null ? 0 : lastPos.getZ();
-    }
-    return 0;
+    return switch (index) {
+      case FUEL         -> fuel;
+      case FUEL_QUALITY -> fuelQuality;
+      case TEMPERATURE  -> temperature;
+      case LAST_X -> lastPos == null ? 0 : lastPos.getX();
+      case LAST_Y -> lastPos == null ? -1 : lastPos.getY();
+      case LAST_Z -> lastPos == null ? 0 : lastPos.getZ();
+      default -> 0;
+    };
   }
 
   @Override
   public void set(int index, int value) {
     switch (index) {
-      case FUEL:
-        fuel = value;
-        break;
-      case FUEL_QUALITY:
-        fuelQuality = value;
-        break;
-      case TEMPERATURE:
-        temperature = value;
-        break;
-        // position sync takes three parts
-      case LAST_X:
-      case LAST_Y:
-      case LAST_Z:
+      case FUEL         -> fuel = value;
+      case FUEL_QUALITY -> fuelQuality = value;
+      case TEMPERATURE  -> temperature = value;
+
+      // position sync takes three parts
+      case LAST_X, LAST_Y, LAST_Z -> {
         // position sync
         if (lastPos == null) lastPos = NULL_POS;
         switch (index) {
-          case LAST_X:
-            lastPos = new BlockPos(value, lastPos.getY(), lastPos.getZ());
-            break;
-          case LAST_Y:
-            lastPos = new BlockPos(lastPos.getX(), value, lastPos.getZ());
-            break;
-          case LAST_Z:
-            lastPos = new BlockPos(lastPos.getX(), lastPos.getY(), value);
-            break;
+          case LAST_X -> lastPos = new BlockPos(value, lastPos.getY(), lastPos.getZ());
+          case LAST_Y -> lastPos = new BlockPos(lastPos.getX(), value, lastPos.getZ());
+          case LAST_Z -> lastPos = new BlockPos(lastPos.getX(), lastPos.getY(), value);
         }
         fluidHandler = null;
         itemHandler = null;
+      }
     }
   }
 
@@ -455,7 +437,7 @@ public class FuelModule implements IIntArray {
 
     // fetch primary fuel handler
     if (fluidHandler == null && itemHandler == null) {
-      TileEntity te = getWorld().getBlockEntity(mainTank);
+      BlockEntity te = getLevel().getBlockEntity(mainTank);
       if (te != null) {
         LazyOptional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
         if (fluidCap.isPresent()) {
@@ -495,14 +477,14 @@ public class FuelModule implements IIntArray {
     // add extra fluid display
     if (!info.isEmpty()) {
       // fetch fluid handler list if missing
-      World world = getWorld();
+      Level world = getLevel();
       if (tankDisplayHandlers == null) {
         tankDisplayHandlers = new ArrayList<>();
         // only need to fetch this if either case requests
         if (positions == null) positions = tankSupplier.get();
         for (BlockPos pos : positions) {
           if (!pos.equals(mainTank)) {
-            TileEntity te = world.getBlockEntity(pos);
+            BlockEntity te = world.getBlockEntity(pos);
             if (te != null) {
               LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
               if (handler.isPresent()) {

@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.shared.data;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -40,12 +40,12 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
   }
 
   @Override
-  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     this.addCommonRecipes(consumer);
     this.addMaterialRecipes(consumer);
   }
 
-  private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addCommonRecipes(Consumer<FinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
     slabStairsCrafting(consumer, TinkerCommons.blazewood, folder, false);
@@ -134,7 +134,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     }
     // fix vanilla recipes not using tinkers glass
     String glassVanillaFolder = folder + "vanilla/";
-    Consumer<IFinishedRecipe> vanillaGlassConsumer = withCondition(consumer, ConfigEnabledCondition.GLASS_RECIPE_FIX);
+    Consumer<FinishedRecipe> vanillaGlassConsumer = withCondition(consumer, ConfigEnabledCondition.GLASS_RECIPE_FIX);
     ShapedRecipeBuilder.shaped(Blocks.BEACON)
                        .define('S', Items.NETHER_STAR)
                        .define('G', Tags.Items.GLASS_COLORLESS)
@@ -183,7 +183,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                             modResource("common/flint"));
   }
 
-  private void addMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addMaterialRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "common/materials/";
 
     // ores
@@ -205,15 +205,15 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     Item cobaltIngot = TinkerMaterials.cobalt.getIngot();
-    CookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
-                        .unlockedBy("has_item", has(TinkerWorld.cobaltOre))
-                        .save(consumer, wrap(cobaltIngot, folder, "_smelting"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
+                              .unlockedBy("has_item", has(TinkerWorld.cobaltOre))
+                              .save(consumer, wrap(cobaltIngot, folder, "_smelting"));
     Item copperIngot = TinkerMaterials.copper.getIngot();
-    CookingRecipeBuilder.smelting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
-                        .unlockedBy("has_item", has(TinkerWorld.copperOre))
-                        .save(consumer, wrap(copperIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
-                        .unlockedBy("has_item", has(TinkerWorld.copperOre))
-                        .save(consumer, wrap(copperIngot, folder, "_blasting"));
+    SimpleCookingRecipeBuilder.smelting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
+                              .unlockedBy("has_item", has(TinkerWorld.copperOre))
+                              .save(consumer, wrap(copperIngot, folder, "_smelting"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
+                              .unlockedBy("has_item", has(TinkerWorld.copperOre))
+                              .save(consumer, wrap(copperIngot, folder, "_blasting"));
   }
 }

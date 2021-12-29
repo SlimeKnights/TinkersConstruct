@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.smeltery.tileentity.controller;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.Items;
@@ -24,14 +26,16 @@ public class SmelteryTileEntity extends HeatingStructureTileEntity {
   private static final int CAPACITY_PER_BLOCK = FluidValues.INGOT * 8;
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 15;
+  /** Name of the UI */
+  private static final Component NAME = TConstruct.makeTranslation("gui", "smeltery");
 
   /** Module handling alloys */
   private final SmelteryAlloyTank alloyTank = new SmelteryAlloyTank(tank);
   @Getter
   private final MultiAlloyingModule alloyingModule = new MultiAlloyingModule(this, alloyTank);
 
-  public SmelteryTileEntity() {
-    super(TinkerSmeltery.smeltery.get(), TConstruct.makeTranslation("gui", "smeltery"));
+  public SmelteryTileEntity(BlockPos pos, BlockState state) {
+    super(TinkerSmeltery.smeltery.get(), pos, state, NAME);
   }
 
   @Override

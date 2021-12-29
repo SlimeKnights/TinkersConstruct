@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -40,7 +40,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
   private final String modId;
 
   public AbstractToolDefinitionDataProvider(DataGenerator generator, String modId) {
-    super(generator, ResourcePackType.SERVER_DATA, ToolDefinitionLoader.FOLDER, ToolDefinitionLoader.GSON);
+    super(generator, PackType.SERVER_DATA, ToolDefinitionLoader.FOLDER, ToolDefinitionLoader.GSON);
     this.modId = modId;
   }
 
@@ -55,7 +55,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
   }
 
   /** Defines the given ID as a tool definition */
-  protected ToolDefinitionDataBuilder define(IItemProvider item) {
+  protected ToolDefinitionDataBuilder define(ItemLike item) {
     return define(Objects.requireNonNull(item.asItem().getRegistryName()));
   }
 
@@ -70,7 +70,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
   }
 
   @Override
-  public void run(DirectoryCache cache) throws IOException {
+  public void run(HashCache cache) throws IOException {
     addToolDefinitions();
     Map<ResourceLocation,ToolDefinition> relevantDefinitions = ToolDefinitionLoader.getInstance().getRegisteredToolDefinitions().stream()
                                                                                    .filter(def -> def.getId().getNamespace().equals(modId))
@@ -96,6 +96,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
   }
 
   /** Builder for an armor material to batch certain hooks */
+  @SuppressWarnings("UnusedReturnValue")
   protected class ArmorDataBuilder {
     private final ResourceLocation name;
     private final ToolDefinitionDataBuilder[] builders;

@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,8 +19,8 @@ public class RayTracer {
    * @param fluidMode the raytracing fluid mode
    * @return a BlockRayTraceResult
    */
-  public static BlockRayTraceResult retrace(PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
-    return retrace(player, RayTraceContext.BlockMode.COLLIDER, fluidMode);
+  public static BlockHitResult retrace(Player player, ClipContext.Fluid fluidMode) {
+    return retrace(player, ClipContext.Block.COLLIDER, fluidMode);
   }
 
   /**
@@ -32,8 +32,8 @@ public class RayTracer {
    * @param fluidMode the raytracing fluid mode to use
    * @return a BlockRayTraceResult
    */
-  public static BlockRayTraceResult retrace(PlayerEntity player, RayTraceContext.BlockMode blockMode, RayTraceContext.FluidMode fluidMode) {
-    return player.level.clip(new RayTraceContext(getStartVector(player), getEndVector(player), blockMode, fluidMode, player));
+  public static BlockHitResult retrace(Player player, ClipContext.Block blockMode, ClipContext.Fluid fluidMode) {
+    return player.level.clip(new ClipContext(getStartVector(player), getEndVector(player), blockMode, fluidMode, player));
   }
 
   /**
@@ -42,7 +42,7 @@ public class RayTracer {
    * @param player the player
    * @return the start vector
    */
-  public static Vector3d getStartVector(PlayerEntity player) {
+  public static Vec3 getStartVector(Player player) {
     return getCorrectedHeadVector(player);
   }
 
@@ -52,9 +52,9 @@ public class RayTracer {
    * @param player the player
    * @return the end vector
    */
-  public static Vector3d getEndVector(PlayerEntity player) {
-    Vector3d headVec = getCorrectedHeadVector(player);
-    Vector3d lookVec = player.getViewVector(1.0F);
+  public static Vec3 getEndVector(Player player) {
+    Vec3 headVec = getCorrectedHeadVector(player);
+    Vec3 lookVec = player.getViewVector(1.0F);
     double reach = getBlockReachDistance(player);
     return headVec.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
   }
@@ -65,8 +65,8 @@ public class RayTracer {
    * @param player the player
    * @return the corrected head vector
    */
-  public static Vector3d getCorrectedHeadVector(PlayerEntity player) {
-    return new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+  public static Vec3 getCorrectedHeadVector(Player player) {
+    return new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
   }
 
   /**
@@ -75,8 +75,8 @@ public class RayTracer {
    * @param player the player
    * @return the block reach distance
    */
-  public static double getBlockReachDistance(PlayerEntity player) {
-    return player.level.isClientSide ? getBlockReachDistanceClient() : player instanceof ServerPlayerEntity ? getBlockReachDistanceServer((ServerPlayerEntity) player) : 5D;
+  public static double getBlockReachDistance(Player player) {
+    return player.level.isClientSide ? getBlockReachDistanceClient() : player instanceof ServerPlayer ? getBlockReachDistanceServer((ServerPlayer) player) : 5D;
   }
 
   /**
@@ -84,7 +84,7 @@ public class RayTracer {
    *
    * @return the block reach distance from the server
    */
-  private static double getBlockReachDistanceServer(ServerPlayerEntity player) {
+  private static double getBlockReachDistanceServer(ServerPlayer player) {
     return player.getAttribute(net.minecraftforge.common.ForgeMod.REACH_DISTANCE.get()).getValue();
   }
 

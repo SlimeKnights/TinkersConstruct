@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.events.teleport;
 
 import lombok.Getter;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.living.EntityTeleportEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
 
 /** Event fired when an entity teleports using a slimesling */

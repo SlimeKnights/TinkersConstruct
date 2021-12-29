@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.common.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.recipe.IRecipeHelper;
@@ -18,7 +18,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
   }
 
   @Override
-  protected abstract void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer);
+  protected abstract void buildCraftingRecipes(Consumer<FinishedRecipe> consumer);
 
   @Override
   public abstract String getName();

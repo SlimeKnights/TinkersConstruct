@@ -5,7 +5,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class ExcavatorTool extends HarvestTool {
   public ExcavatorTool(Properties properties, ToolDefinition toolDefinition) {

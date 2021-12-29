@@ -2,32 +2,37 @@ package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.RedstoneParticleData;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import com.mojang.math.Vector3f;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 
 import javax.annotation.Nullable;
@@ -35,16 +40,14 @@ import java.util.EnumMap;
 import java.util.Optional;
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class FaucetBlock extends Block {
+public class FaucetBlock extends Block implements EntityBlock {
   public static final DirectionProperty FACING = BlockStateProperties.FACING_HOPPER;
   private static final EnumMap<Direction,VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
-    Direction.DOWN,  VoxelShapes.join(box( 4, 10,  4, 12, 16, 12), box( 6, 10,  6, 10, 16, 10), IBooleanFunction.ONLY_FIRST),
-    Direction.NORTH, VoxelShapes.join(box( 4,  4, 10, 12, 10, 16), box( 6,  6, 10, 10, 10, 16), IBooleanFunction.ONLY_FIRST),
-    Direction.SOUTH, VoxelShapes.join(box( 4,  4,  0, 12, 10,  6), box( 6,  6,  0, 10, 10,  6), IBooleanFunction.ONLY_FIRST),
-    Direction.WEST,  VoxelShapes.join(box(10,  4,  4, 16, 10, 12), box(10,  6,  6, 16, 10, 10), IBooleanFunction.ONLY_FIRST),
-    Direction.EAST,  VoxelShapes.join(box( 0,  4,  4,  6, 10, 12), box( 0,  6,  6,  6, 10, 10), IBooleanFunction.ONLY_FIRST)));
+    Direction.DOWN,  Shapes.join(box( 4, 10,  4, 12, 16, 12), box( 6, 10,  6, 10, 16, 10), BooleanOp.ONLY_FIRST),
+    Direction.NORTH, Shapes.join(box( 4,  4, 10, 12, 10, 16), box( 6,  6, 10, 10, 10, 16), BooleanOp.ONLY_FIRST),
+    Direction.SOUTH, Shapes.join(box( 4,  4,  0, 12, 10,  6), box( 6,  6,  0, 10, 10,  6), BooleanOp.ONLY_FIRST),
+    Direction.WEST,  Shapes.join(box(10,  4,  4, 16, 10, 12), box(10,  6,  6, 16, 10, 10), BooleanOp.ONLY_FIRST),
+    Direction.EAST,  Shapes.join(box( 0,  4,  4,  6, 10, 12), box( 0,  6,  6,  6, 10, 10), BooleanOp.ONLY_FIRST)));
 
   public FaucetBlock(Properties properties) {
     super(properties);
@@ -54,13 +57,13 @@ public class FaucetBlock extends Block {
   /* Blockstate */
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
     builder.add(FACING);
   }
 
   @Nullable
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
     Direction dir = context.getClickedFace();
     if (dir == Direction.UP) {
       dir = Direction.DOWN;
@@ -71,43 +74,45 @@ public class FaucetBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return SHAPES.get(state.getValue(FACING));
   }
 
   @Override
-  public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+  public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
     return false;
   }
 
 
   /* Tile entity */
 
+  @Nullable
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return new FaucetTileEntity(pPos, pState);
   }
 
+  @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    return new FaucetTileEntity();
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> type) {
+    return BlockEntityHelper.castTicker(type, TinkerSmeltery.faucet.get(), FaucetTileEntity.SERVER_TICKER);
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+  public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
     if (player.isShiftKeyDown()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
-    return ActionResultType.SUCCESS;
+    return InteractionResult.SUCCESS;
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+  public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     if (worldIn.isClientSide()) {
       return;
     }
@@ -120,7 +125,7 @@ public class FaucetBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+  public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
     getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
   }
 
@@ -130,11 +135,13 @@ public class FaucetBlock extends Block {
    * @param pos    Faucet position
    * @return  Optional of faucet, empty if missing or wrong type
    */
-  private Optional<FaucetTileEntity> getFaucet(World world, BlockPos pos) {
-    return TileEntityHelper.getTile(FaucetTileEntity.class, world, pos);
+  private Optional<FaucetTileEntity> getFaucet(Level world, BlockPos pos) {
+    return BlockEntityHelper.get(FaucetTileEntity.class, world, pos);
   }
 
   /* Display */
+
+  private static final Vector3f RED = new Vector3f(1.0F, 0.0F, 0.0F);
 
   /**
    * Adds particles to the faucet
@@ -142,17 +149,17 @@ public class FaucetBlock extends Block {
    * @param worldIn  World instance
    * @param pos      Faucet position
    */
-  private static void addParticles(BlockState state, IWorld worldIn, BlockPos pos) {
+  private static void addParticles(BlockState state, LevelAccessor worldIn, BlockPos pos) {
     Direction direction = state.getValue(FACING);
     double x = (double)pos.getX() + 0.5D - 0.3D * (double)direction.getStepX();
     double y = (double)pos.getY() + 0.5D - 0.3D * (double)direction.getStepY();
     double z = (double)pos.getZ() + 0.5D - 0.3D * (double)direction.getStepZ();
-    worldIn.addParticle(new RedstoneParticleData(1.0F, 0.0F, 0.0F, 0.5f), x, y, z, 0.0D, 0.0D, 0.0D);
+    worldIn.addParticle(new DustParticleOptions(RED, 0.5f), x, y, z, 0.0D, 0.0D, 0.0D);
   }
 
   @Override
   @OnlyIn(Dist.CLIENT)
-  public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+  public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
     getFaucet(worldIn, pos).ifPresent(faucet -> {
       if (faucet.isPouring() && faucet.getRenderFluid().isEmpty() && rand.nextFloat() < 0.25F) {
         addParticles(stateIn, worldIn, pos);

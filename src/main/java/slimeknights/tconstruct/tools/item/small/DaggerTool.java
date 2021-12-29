@@ -1,17 +1,14 @@
 package slimeknights.tconstruct.tools.item.small;
 
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Set;
-
-import net.minecraft.item.Item.Properties;
 
 public class DaggerTool extends SwordTool {
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic();
@@ -30,7 +27,7 @@ public class DaggerTool extends SwordTool {
   public static class HarvestLogic extends SwordTool.HarvestLogic {
     @Override
     public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {
-      return state.isToolEffective(ToolType.HOE) || EFFECTIVE_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
+      return /*TODO state.isToolEffective(ToolType.HOE) || */ EFFECTIVE_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
     }
   }
 }

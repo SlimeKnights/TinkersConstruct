@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -39,7 +39,7 @@ public class ExtraModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     if (source.isSingleLevel() && level == 1) {
       return getDisplayName();
     }

@@ -1,46 +1,46 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType.BlockEntitySupplier;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.function.Supplier;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 /** Shared logic for smeltery blocks with four directions to face */
-public class OrientableSmelteryBlock extends SearedBlock {
+public class OrientableSmelteryBlock extends SearedBlock implements EntityBlock {
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-  private final Supplier<? extends SmelteryComponentTileEntity> tileEntity;
-  public OrientableSmelteryBlock(Properties properties, Supplier<? extends SmelteryComponentTileEntity> tileEntity) {
+  private final BlockEntitySupplier<? extends SmelteryComponentTileEntity> blockEntity;
+  public OrientableSmelteryBlock(Properties properties, BlockEntitySupplier<? extends SmelteryComponentTileEntity> blockEntity) {
     super(properties);
-    this.tileEntity = tileEntity;
+    this.blockEntity = blockEntity;
   }
 
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    return tileEntity.get();
+  @Nullable
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return blockEntity.create(pPos, pState);
   }
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block,BlockState> builder) {
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
     builder.add(FACING, IN_STRUCTURE);
   }
 
   @Nullable
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
     return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 

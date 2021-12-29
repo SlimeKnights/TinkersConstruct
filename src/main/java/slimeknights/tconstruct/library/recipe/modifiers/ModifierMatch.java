@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -59,7 +59,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    */
   public static ModifierMatch deserialize(JsonObject json) {
     if (json.has("options")) {
-      int required = JSONUtils.getAsInt(json, "matches_needed");
+      int required = GsonHelper.getAsInt(json, "matches_needed");
       if (required == 0) {
         return ALWAYS;
       }
@@ -76,7 +76,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    * @param buffer  Packet buffer instance
    * @return  Modifier match instance
    */
-  public static ModifierMatch read(PacketBuffer buffer) {
+  public static ModifierMatch read(FriendlyByteBuf buffer) {
     int size = buffer.readVarInt();
     if (size == 1) {
       // single entry
@@ -111,7 +111,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    * Writes this match to the packet buffer
    * @param buffer  Buffer
    */
-  public abstract void write(PacketBuffer buffer);
+  public abstract void write(FriendlyByteBuf buffer);
 
   /** Matches a single modifier entry */
   @RequiredArgsConstructor
@@ -146,7 +146,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       buffer.writeVarInt(1);
       entry.write(buffer);
     }
@@ -212,7 +212,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       if (options.size() == 1) {
         options.get(0).write(buffer);
       } else {

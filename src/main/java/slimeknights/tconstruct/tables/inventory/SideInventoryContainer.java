@@ -1,21 +1,21 @@
 package slimeknights.tconstruct.tables.inventory;
 
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.mantle.inventory.ItemHandlerSlot;
+import slimeknights.mantle.inventory.BaseContainerMenu;
+import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 
 import javax.annotation.Nullable;
 
-public class SideInventoryContainer<TILE extends TileEntity> extends BaseContainer<TILE> {
+public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainerMenu<TILE> {
 
   @Getter
   private final int columns;
@@ -23,11 +23,11 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
   private final int slotCount;
   protected final LazyOptional<IItemHandler> itemHandler;
 
-  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
+  public SideInventoryContainer(MenuType<?> containerType, int windowId, Inventory inv, @Nullable TILE tile, int x, int y, int columns) {
     this(containerType, windowId, inv, tile, null, x, y, columns);
   }
 
-  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
+  public SideInventoryContainer(MenuType<?> containerType, int windowId, Inventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
 
     // must have a TE
@@ -69,6 +69,6 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
    * @return  Inventory slot
    */
   protected Slot createSlot(IItemHandler itemHandler, int index, int x, int y) {
-    return new ItemHandlerSlot(itemHandler, index, x, y);
+    return new SmartItemHandlerSlot(itemHandler, index, x, y);
   }
 }

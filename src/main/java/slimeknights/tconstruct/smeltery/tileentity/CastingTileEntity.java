@@ -1,26 +1,28 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -28,7 +30,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -45,14 +49,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public abstract class CastingTileEntity extends TableTileEntity implements ITickableTileEntity, ISidedInventory, FluidUpdatePacket.IFluidPacketReceiver {
+public abstract class CastingTileEntity extends TableTileEntity implements WorldlyContainer, FluidUpdatePacket.IFluidPacketReceiver {
   // slots
   public static final int INPUT = 0;
   public static final int OUTPUT = 1;
-  // NBT
+  // Tag
   private static final String TAG_TANK = "tank";
   private static final String TAG_TIMER = "timer";
   private static final String TAG_RECIPE = "recipe";
+  private static final Component NAME = TConstruct.makeTranslation("gui", "casting");
+
+  /** Handles ticking on the serverside */
+  public static final BlockEntityTicker<CastingTileEntity> SERVER_TICKER = (level, pos, state, self) -> self.serverTick(level, pos);
+  /** Handles ticking on the clientside */
+  public static final BlockEntityTicker<CastingTileEntity> CLIENT_TICKER = (level, pos, state, self) -> self.clientTick(level, pos);
 
   /** Special casting fluid tank */
   @Getter
@@ -61,7 +71,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
   /* Casting recipes */
   /** Recipe type for casting recipes, may be basin or table */
-  private final IRecipeType<ICastingRecipe> castingType;
+  private final RecipeType<ICastingRecipe> castingType;
   /** Inventory for use in casting recipes */
   private final TileCastingWrapper castingInventory;
   /** Current recipe progress */
@@ -69,23 +79,23 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   private int timer;
   /** Current in progress recipe */
   private ICastingRecipe currentRecipe;
-  /** Name of the current recipe, fetched from NBT. Used since NBT is read before recipe manager access */
+  /** Name of the current recipe, fetched from Tag. Used since Tag is read before recipe manager access */
   private ResourceLocation recipeName;
-  /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
+  /** Cache recipe to reduce time during recipe lookups. Not saved to Tag */
   private ICastingRecipe lastCastingRecipe;
   /** Last recipe output for client side display */
   private ItemStack lastOutput = null;
 
   /* Molding recipes */
   /** Recipe type for molding recipes, may be basin or table */
-  private final IRecipeType<MoldingRecipe> moldingType;
+  private final RecipeType<MoldingRecipe> moldingType;
   /** Inventory to use for molding recipes */
   private final MoldingInventoryWrapper moldingInventory;
-  /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
+  /** Cache recipe to reduce time during recipe lookups. Not saved to Tag */
   private MoldingRecipe lastMoldingRecipe;
 
-  protected CastingTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<ICastingRecipe> castingType, IRecipeType<MoldingRecipe> moldingType) {
-    super(tileEntityTypeIn, "gui.tconstruct.casting", 2, 1);
+  protected CastingTileEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType) {
+    super(beType, pos, state, NAME, 2, 1);
     this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
     this.castingType = castingType;
     this.moldingType = moldingType;
@@ -102,10 +112,10 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   /**
-   * Called from {@link slimeknights.tconstruct.smeltery.block.AbstractCastingBlock#use(BlockState, World, BlockPos, PlayerEntity, Hand, BlockRayTraceResult)}
+   * Called from {@link slimeknights.tconstruct.smeltery.block.AbstractCastingBlock#use(BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult)}
    * @param player Player activating the block.
    */
-  public void interact(PlayerEntity player, Hand hand) {
+  public void interact(Player player, InteractionHand hand) {
     if (level == null || level.isClientSide) {
       return;
     }
@@ -150,7 +160,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
         recipe = findMoldingRecipe();
         if (recipe != null) {
           setItem(INPUT, ItemStack.EMPTY);
-          ItemHandlerHelper.giveItemToPlayer(player, recipe.assemble(moldingInventory), player.inventory.selected);
+          ItemHandlerHelper.giveItemToPlayer(player, recipe.assemble(moldingInventory), player.getInventory().selected);
           return;
         }
       }
@@ -175,7 +185,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       // can have ItemStacks with stacksize > 1 as output
       // we therefore spill the whole contents on extraction.
       ItemStack stack = getItem(slot);
-      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.selected);
+      ItemHandlerHelper.giveItemToPlayer(player, stack, player.getInventory().selected);
       setItem(slot, ItemStack.EMPTY);
 
       // send a block update for the comparator, needs to be done after the stack is removed
@@ -211,55 +221,63 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     return tank.isEmpty() && index == OUTPUT;
   }
 
-  @Override
-  public void tick() {
+  /** Handles cooling the casting recipe */
+  private void serverTick(Level level, BlockPos pos) {
     // no recipe
     // TODO: should consider the case where the tank has fluid, but there is no current recipe
     // would like to avoid doing a recipe lookup every tick, so need some way to handle the case of no recipe found, ideally without fluid voiding
-    if (level == null || currentRecipe == null) {
+    if (currentRecipe == null) {
       return;
     }
     // fully filled
     FluidStack currentFluid = tank.getFluid();
     if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
       timer++;
-      if (!level.isClientSide) {
-        castingInventory.setFluid(currentFluid);
-        if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
-          if (!currentRecipe.matches(castingInventory, level)) {
-            // if lost our recipe or the recipe needs more fluid then we have, we are done
-            // will come around later for the proper fluid amount
-            currentRecipe = findCastingRecipe();
-            recipeName = null;
-            if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > currentFluid.getAmount()) {
-              timer = 0;
-              return;
-            }
+      castingInventory.setFluid(currentFluid);
+      if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
+        if (!currentRecipe.matches(castingInventory, level)) {
+          // if lost our recipe or the recipe needs more fluid then we have, we are done
+          // will come around later for the proper fluid amount
+          currentRecipe = findCastingRecipe();
+          recipeName = null;
+          if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > currentFluid.getAmount()) {
+            timer = 0;
+            return;
           }
-
-          // actual recipe result
-          ItemStack output = currentRecipe.assemble(castingInventory);
-          ToolStack.ensureInitialized(output); // its possible we are casting a modifiable tool
-          if (currentRecipe.switchSlots()) {
-            if (!currentRecipe.isConsumed()) {
-              setItem(OUTPUT, getItem(INPUT));
-            }
-            setItem(INPUT, output);
-          } else {
-            if (currentRecipe.isConsumed()) {
-              setItem(INPUT, ItemStack.EMPTY);
-            }
-            setItem(OUTPUT, output);
-          }
-          level.playSound(null, worldPosition, Sounds.CASTING_COOLS.getSound(), SoundCategory.AMBIENT, 0.5f, 4f);
-
-          reset();
-
-          level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
         }
+
+        // actual recipe result
+        ItemStack output = currentRecipe.assemble(castingInventory);
+        ToolStack.ensureInitialized(output); // its possible we are casting a modifiable tool
+        if (currentRecipe.switchSlots()) {
+          if (!currentRecipe.isConsumed()) {
+            setItem(OUTPUT, getItem(INPUT));
+          }
+          setItem(INPUT, output);
+        } else {
+          if (currentRecipe.isConsumed()) {
+            setItem(INPUT, ItemStack.EMPTY);
+          }
+          setItem(OUTPUT, output);
+        }
+        level.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundSource.AMBIENT, 0.5f, 4f);
+        reset();
+        level.updateNeighborsAt(pos, this.getBlockState().getBlock());
       }
-      else if (level.random.nextFloat() > 0.9f) {
-        level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + level.random.nextDouble(), worldPosition.getY() + 1.1d, worldPosition.getZ() + level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
+    }
+  }
+
+  /** Handles animating the recipe */
+  private void clientTick(Level level, BlockPos pos) {
+    if (currentRecipe == null) {
+      return;
+    }
+    // fully filled
+    FluidStack currentFluid = tank.getFluid();
+    if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
+      timer++;
+      if (level.random.nextFloat() > 0.9f) {
+        level.addParticle(ParticleTypes.SMOKE, pos.getX() + level.random.nextDouble(), pos.getY() + 1.1d, pos.getZ() + level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
       }
     }
   }
@@ -376,7 +394,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
   @Nullable
   @Override
-  public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) {
+  public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
     // no GUI
     return null;
   }
@@ -411,14 +429,14 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
 
-  /* NBT */
+  /* Tag */
 
   /**
    * Loads a recipe in from its name and updates the tank capacity
    * @param level  Nonnull level instance
    * @param name   Recipe name to load
    */
-  private void loadRecipe(World level, ResourceLocation name) {
+  private void loadRecipe(Level level, ResourceLocation name) {
     // if the tank is empty, ignore old recipe
     FluidStack fluid = tank.getFluid();
     if(!fluid.isEmpty()) {
@@ -432,19 +450,19 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
-  public void setLevelAndPosition(World level, BlockPos pos) {
-    super.setLevelAndPosition(level, pos);
+  public void setLevel(Level pLevel) {
+    super.setLevel(pLevel);
     // if we have a recipe name, swap recipe name for recipe instance
     if (recipeName != null) {
-      loadRecipe(level, recipeName);
+      loadRecipe(pLevel, recipeName);
       recipeName = null;
     }
   }
 
   @Override
-  public void writeSynced(CompoundNBT tags) {
-    super.writeSynced(tags);
-    tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+  public void saveSynced(CompoundTag tags) {
+    super.saveSynced(tags);
+    tags.put(TAG_TANK, tank.writeToTag(new CompoundTag()));
     if (currentRecipe != null || recipeName != null) {
       tags.putInt(TAG_TIMER, timer);
     }
@@ -456,11 +474,11 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
-  public void load(BlockState state, CompoundNBT tags) {
-    super.load(state, tags);
-    tank.readFromNBT(tags.getCompound(TAG_TANK));
+  public void load(CompoundTag tags) {
+    super.load(tags);
+    tank.readFromTag(tags.getCompound(TAG_TANK));
     timer = tags.getInt(TAG_TIMER);
-    if (tags.contains(TAG_RECIPE, NBT.TAG_STRING)) {
+    if (tags.contains(TAG_RECIPE, Tag.TAG_STRING)) {
       ResourceLocation name = new ResourceLocation(tags.getString(TAG_RECIPE));
       // if we have a level, fetch the recipe
       if (level != null) {
@@ -473,14 +491,23 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   public static class Basin extends CastingTileEntity {
-    public Basin() {
-      super(TinkerSmeltery.basin.get(), RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
+    public Basin(BlockPos pos, BlockState state) {
+      super(TinkerSmeltery.basin.get(), pos, state, RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
     }
   }
 
   public static class Table extends CastingTileEntity {
-    public Table() {
-      super(TinkerSmeltery.table.get(), RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
+    public Table(BlockPos pos, BlockState state) {
+      super(TinkerSmeltery.table.get(), pos, state, RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
     }
+  }
+
+
+  /* Helpers */
+
+  /** Gets the ticker for a casting entity */
+  @Nullable
+  public static <CAST extends CastingTileEntity, RET extends BlockEntity> BlockEntityTicker<RET> getTicker(Level level, BlockEntityType<RET> check, BlockEntityType<CAST> casting) {
+    return BlockEntityHelper.castTicker(check, casting, level.isClientSide ? CLIENT_TICKER : SERVER_TICKER);
   }
 }

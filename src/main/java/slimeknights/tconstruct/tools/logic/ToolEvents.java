@@ -1,31 +1,31 @@
 package slimeknights.tconstruct.tools.logic;
 
-import net.minecraft.block.BeehiveBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CampfireBlock;
-import net.minecraft.block.CarvedPumpkinBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tileentity.BeehiveTileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BeehiveBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -65,7 +65,7 @@ import java.util.Objects;
 public class ToolEvents {
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-    PlayerEntity player = event.getPlayer();
+    Player player = event.getPlayer();
 
     // if we are underwater, have the aqua affinity modifier, and are not under the effects of vanilla aqua affinity, cancel the underwater modifier
     if (player.isEyeInFluid(FluidTags.WATER) && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.AQUA_AFFINITY) > 0 && !EnchantmentHelper.hasAquaAffinity(player)) {
@@ -110,7 +110,7 @@ public class ToolEvents {
     }
     BlockState state = event.getState();
     Block block = state.getBlock();
-    World world = event.getWorld();
+    Level world = event.getWorld();
     BlockPos pos = event.getPos();
 
     // carve pumpkins
@@ -120,7 +120,7 @@ public class ToolEvents {
         facing = event.getContext().getHorizontalDirection().getOpposite();
       }
       // carve block
-      world.playSound(null, pos, SoundEvents.PUMPKIN_CARVE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+      world.playSound(null, pos, SoundEvents.PUMPKIN_CARVE, SoundSource.BLOCKS, 1.0F, 1.0F);
       world.setBlock(pos, Blocks.CARVED_PUMPKIN.defaultBlockState().setValue(CarvedPumpkinBlock.FACING, facing), 11);
       // spawn seeds
       ItemEntity itemEntity = new ItemEntity(
@@ -138,12 +138,11 @@ public class ToolEvents {
     }
 
     // hives: get the honey
-    if (block instanceof BeehiveBlock) {
-      BeehiveBlock beehive = (BeehiveBlock) block;
+    if (block instanceof BeehiveBlock beehive) {
       int level = state.getValue(BeehiveBlock.HONEY_LEVEL);
       if (level >= 5) {
         // first, spawn the honey
-        world.playSound(null, pos, SoundEvents.BEEHIVE_SHEAR, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        world.playSound(null, pos, SoundEvents.BEEHIVE_SHEAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
         Block.popResource(world, pos, new ItemStack(Items.HONEYCOMB, 3));
 
         // if not smoking, make the bees angry
@@ -151,7 +150,7 @@ public class ToolEvents {
           if (beehive.hiveContainsBees(world, pos)) {
             beehive.angerNearbyBees(world, pos);
           }
-          beehive.releaseBeesAndResetHoneyLevel(world, state, pos, event.getPlayer(), BeehiveTileEntity.State.EMERGENCY);
+          beehive.releaseBeesAndResetHoneyLevel(world, state, pos, event.getPlayer(), BeehiveBlockEntity.BeeReleaseStatus.EMERGENCY);
         } else {
           beehive.resetHoneyLevel(world, state, pos);
         }
@@ -190,14 +189,14 @@ public class ToolEvents {
     }
 
     // a lot of counterattack hooks want to detect direct attacks, so save time by calculating once
-    boolean isDirectDamage = source.getEntity() != null && source instanceof EntityDamageSource && !((EntityDamageSource)source).isThorns();
+    boolean isDirectDamage = source.getEntity() != null && source instanceof EntityDamageSource entityDamage && !entityDamage.isThorns();
 
     // determine if there is any modifiable armor, handles the target wearing modifiable armor
     EquipmentContext context = new EquipmentContext(entity);
     float amount = event.getAmount();
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-      for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
         IModifierToolStack toolStack = context.getToolInSlot(slotType);
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
@@ -211,7 +210,7 @@ public class ToolEvents {
 
       // next, give modifiers a chance to respond to the entity being attacked, for counterattack hooks mainly
       // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-      for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
         IModifierToolStack toolStack = context.getToolInSlot(slotType);
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
@@ -223,10 +222,10 @@ public class ToolEvents {
 
     // next, consider the attacker is wearing modifiable armor
     Entity attacker = source.getEntity();
-    if (attacker instanceof LivingEntity) {
-      context = new EquipmentContext((LivingEntity) attacker);
+    if (attacker instanceof LivingEntity livingAttacker) {
+      context = new EquipmentContext(livingAttacker);
       if (context.hasModifiableArmor()) {
-        for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
           IModifierToolStack toolStack = context.getToolInSlot(slotType);
           if (toolStack != null && !toolStack.isBroken()) {
             for (ModifierEntry entry : toolStack.getModifierList()) {
@@ -274,7 +273,7 @@ public class ToolEvents {
     // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
     float modifierValue = vanillaModifier;
     float originalDamage = event.getAmount();
-    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+    for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
       IModifierToolStack tool = context.getToolInSlot(slotType);
       if (tool != null && !tool.isBroken()) {
         for (ModifierEntry entry : tool.getModifierList()) {
@@ -301,8 +300,8 @@ public class ToolEvents {
       if (!source.isBypassArmor()) {
         int damageMissed = getArmorDamage(originalDamage) - getArmorDamage(finalDamage);
         // TODO: is this check sufficient for whether the armor should be damaged? I partly wonder if I need to use reflection to call damageArmor
-        if (damageMissed > 0 && entity instanceof PlayerEntity) {
-          for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        if (damageMissed > 0 && entity instanceof Player) {
+          for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
             // for our own armor, saves effort to damage directly with our utility
             IModifierToolStack tool = context.getToolInSlot(slotType);
             if (tool != null && (!source.isFire() || !tool.getItem().isFireResistant())) {
@@ -327,7 +326,7 @@ public class ToolEvents {
     // this event runs before vanilla updates prevBlockPos
     BlockPos pos = living.blockPosition();
     if (!living.level.isClientSide() && living.isAlive() && !Objects.equals(living.lastPos, pos)) {
-      ItemStack boots = living.getItemBySlot(EquipmentSlotType.FEET);
+      ItemStack boots = living.getItemBySlot(EquipmentSlot.FEET);
       if (!boots.isEmpty() && TinkerTags.Items.BOOTS.contains(boots.getItem())) {
         ToolStack tool = ToolStack.from(boots);
         for (ModifierEntry entry : tool.getModifierList()) {

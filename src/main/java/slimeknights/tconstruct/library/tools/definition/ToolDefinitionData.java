@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.tools.definition;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -15,12 +15,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static slimeknights.mantle.util.LogicHelper.defaultIfNull;
+import static java.util.Objects.requireNonNullElse;
 
 /**
  * This class contains all data pack configurable data for a tool, before materials are factored in.
  * Contains info about how to craft a tool and how it behaves.
  */
+@SuppressWarnings("ClassCanBeRecord")
 @RequiredArgsConstructor
 public class ToolDefinitionData {
   @VisibleForTesting
@@ -42,22 +43,22 @@ public class ToolDefinitionData {
 
   /** Gets a list of all parts in the tool */
   public List<PartRequirement> getParts() {
-    return defaultIfNull(parts, Collections.emptyList());
+    return requireNonNullElse(parts, Collections.emptyList());
   }
 
   /** Gets the stat sub object on the tool */
   protected Stats getStats() {
-    return defaultIfNull(stats, EMPTY_STATS);
+    return requireNonNullElse(stats, EMPTY_STATS);
   }
 
   /** Gets the starting slots on the tool */
   protected DefinitionModifierSlots getSlots() {
-    return defaultIfNull(slots, DefinitionModifierSlots.EMPTY);
+    return requireNonNullElse(slots, DefinitionModifierSlots.EMPTY);
   }
 
   /** Gets a list of all traits of the tool */
   public List<ModifierEntry> getTraits() {
-    return defaultIfNull(traits, Collections.emptyList());
+    return requireNonNullElse(traits, Collections.emptyList());
   }
 
   /**
@@ -128,7 +129,7 @@ public class ToolDefinitionData {
   /* Packet buffers */
 
   /** Writes a tool definition stat object to a packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     List<PartRequirement> parts = getParts();
     buffer.writeVarInt(parts.size());
     for (PartRequirement part : parts) {
@@ -146,7 +147,7 @@ public class ToolDefinitionData {
   }
 
   /** Reads a tool definition stat object from a packet buffer */
-  public static ToolDefinitionData read(PacketBuffer buffer) {
+  public static ToolDefinitionData read(FriendlyByteBuf buffer) {
     int size = buffer.readVarInt();
     ImmutableList.Builder<PartRequirement> parts = ImmutableList.builder();
     for (int i = 0; i < size; i++) {
@@ -173,12 +174,12 @@ public class ToolDefinitionData {
 
     /** Bonus to add to each stat on top of the base value */
     public DefinitionToolStats getBase() {
-      return defaultIfNull(base, DefinitionToolStats.EMPTY);
+      return requireNonNullElse(base, DefinitionToolStats.EMPTY);
     }
 
     /** Multipliers to apply after modifiers */
     public DefinitionToolStats getMultipliers() {
-      return defaultIfNull(multipliers, DefinitionToolStats.EMPTY);
+      return requireNonNullElse(multipliers, DefinitionToolStats.EMPTY);
     }
   }
 }

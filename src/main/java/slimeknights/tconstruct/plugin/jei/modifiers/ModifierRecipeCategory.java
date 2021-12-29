@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -12,20 +13,21 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelManager;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.MissingTextureSprite;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.client.model.NBTKeyModel;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -48,11 +50,11 @@ import java.util.Map;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
-  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "modifiers.title");
+  private static final Component TITLE = TConstruct.makeTranslation("jei", "modifiers.title");
 
   // translation
-  private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.free"));
-  private static final List<ITextComponent> TEXT_INCREMENTAL = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.incremental"));
+  private static final List<Component> TEXT_FREE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.free"));
+  private static final List<Component> TEXT_INCREMENTAL = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.incremental"));
   private static final String KEY_SLOT = TConstruct.makeTranslationKey("jei", "modifiers.slot");
   private static final String KEY_SLOTS = TConstruct.makeTranslationKey("jei", "modifiers.slots");
   private static final String KEY_MAX = TConstruct.makeTranslationKey("jei", "modifiers.max");
@@ -63,17 +65,14 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
-  @Getter
-  private final String title;
   private final String maxPrefix;
   private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
   private final Map<SlotType,TextureAtlasSprite> slotTypeSprites = new HashMap<>();
   public ModifierRecipeCategory(IGuiHelper helper) {
-    this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.maxPrefix = ForgeI18n.getPattern(KEY_MAX);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
-    this.icon = helper.createDrawableIngredient(CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
@@ -88,6 +87,11 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   @Override
+  public Component getTitle() {
+    return TITLE;
+  }
+
+  @Override
   public Class<? extends IDisplayModifierRecipe> getRecipeClass() {
     return IDisplayModifierRecipe.class;
   }
@@ -99,7 +103,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   /** Draws a single slot icon */
-  private void drawSlot(MatrixStack matrices, List<List<ItemStack>> inputs, int slot, int x, int y) {
+  private void drawSlot(PoseStack matrices, List<List<ItemStack>> inputs, int slot, int x, int y) {
     if (slot >= inputs.size() || inputs.get(slot).isEmpty()) {
       // -1 as the item list includes the output slot, we skip that
       slotIcons[slot - 1].draw(matrices, x + 1, y + 1);
@@ -107,7 +111,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   /** Draws the icon for the given slot type */
-  private void drawSlotType(MatrixStack matrices, @Nullable SlotType slotType, int x, int y) {
+  private void drawSlotType(PoseStack matrices, @Nullable SlotType slotType, int x, int y) {
     Minecraft minecraft = Minecraft.getInstance();
     TextureAtlasSprite sprite;
     if (slotTypeSprites.containsKey(slotType)) {
@@ -115,22 +119,24 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     } else {
       ModelManager modelManager = minecraft.getModelManager();
       // gets the model for the item, its a sepcial one that gives us texture info
-      IBakedModel model = minecraft.getItemRenderer().getItemModelShaper().getItemModel(TinkerModifiers.creativeSlotItem.get());
+      BakedModel model = minecraft.getItemRenderer().getItemModelShaper().getItemModel(TinkerModifiers.creativeSlotItem.get());
       if (model != null && model.getOverrides() instanceof NBTKeyModel.Overrides) {
-        RenderMaterial material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "slotless" : slotType.getName());
+        Material material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "slotless" : slotType.getName());
         sprite = modelManager.getAtlas(material.atlasLocation()).getSprite(material.texture());
       } else {
         // failed to use the model, use missing texture
-        sprite = modelManager.getAtlas(PlayerContainer.BLOCK_ATLAS).getSprite(MissingTextureSprite.getLocation());
+        sprite = modelManager.getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(MissingTextureAtlasSprite.getLocation());
       }
       slotTypeSprites.put(slotType, sprite);
     }
-    minecraft.getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
+    RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+
     Screen.blit(matrices, x, y, 0, 16, 16, sprite);
   }
 
   @Override
-  public void draw(IDisplayModifierRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
+  public void draw(IDisplayModifierRecipe recipe, PoseStack matrices, double mouseX, double mouseY) {
     List<List<ItemStack>> inputs = recipe.getDisplayItems();
     drawSlot(matrices, inputs, 1,  2, 32);
     drawSlot(matrices, inputs, 2, 24, 14);
@@ -147,7 +153,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
 
     // draw max count
-    FontRenderer fontRenderer = Minecraft.getInstance().font;
+    Font fontRenderer = Minecraft.getInstance().font;
     int max = recipe.getMaxLevel();
     if (max > 0) {
       fontRenderer.draw(matrices, maxPrefix + max, 66, 16, Color.GRAY.getRGB());
@@ -166,11 +172,11 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(IDisplayModifierRecipe recipe, double mouseX, double mouseY) {
+  public List<Component> getTooltipStrings(IDisplayModifierRecipe recipe, double mouseX, double mouseY) {
     int checkX = (int) mouseX;
     int checkY = (int) mouseY;
     if (recipe.hasRequirements() && GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
-      return Collections.singletonList(new TranslationTextComponent(recipe.getRequirementsError()));
+      return Collections.singletonList(new TranslatableComponent(recipe.getRequirementsError()));
     } else if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
       return TEXT_INCREMENTAL;
     } else if (GuiUtil.isHovered(checkX, checkY, 98, 58, 24, 16)) {
@@ -179,9 +185,9 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       if (slots != null) {
         int count = slots.getCount();
         if (count == 1) {
-          return Collections.singletonList(new TranslationTextComponent(KEY_SLOT, slots.getType().getDisplayName()));
+          return Collections.singletonList(new TranslatableComponent(KEY_SLOT, slots.getType().getDisplayName()));
         } else if (count > 1) {
-          return Collections.singletonList(new TranslationTextComponent(KEY_SLOTS, slots, slots.getType().getDisplayName()));
+          return Collections.singletonList(new TranslatableComponent(KEY_SLOTS, slots, slots.getType().getDisplayName()));
         }
       } else {
         return TEXT_FREE;
@@ -214,7 +220,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     items.set(-1, output);
     if (focus != null) {
       Item item = focus.getValue().getItem();
-      if (item.is(TinkerTags.Items.MODIFIABLE)) {
+      if (TinkerTags.Items.MODIFIABLE.contains(item)) {
         List<List<ItemStack>> allItems = recipe.getDisplayItems();
         if (allItems.size() >= 1) {
           allItems.get(0).stream().filter(stack -> stack.getItem() == item)

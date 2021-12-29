@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.Lists;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.client.book.action.protocol.ProtocolGoToPage;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -25,7 +24,7 @@ public class ContentListingCentered extends PageContent {
   public void addEntry(String text, @Nullable PageData link) {
     TextData data = new TextData(text);
     if (link != null) {
-      data.action = ProtocolGoToPage.GO_TO_RTN + ":" + link.parent.name + "." + link.name;
+      data.action = "mantle:go-to-page-rtn " + link.parent.name + "." + link.name;
     }
     this.entries.add(data);
   }

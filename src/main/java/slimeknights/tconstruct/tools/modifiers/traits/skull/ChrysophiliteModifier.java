@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
 import lombok.Getter;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -34,13 +34,13 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
-    if (context.getChangedSlot() == EquipmentSlotType.HEAD) {
+    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       context.getTinkerData().ifPresent(data -> {
         TotalGold gold = data.get(TOTAL_GOLD);
         if (gold == null) {
           data.computeIfAbsent(TOTAL_GOLD).initialize(context);
         } else {
-          gold.setGold(EquipmentSlotType.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL));
+          gold.setGold(EquipmentSlot.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL));
         }
       });
     }
@@ -48,7 +48,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlotType.HEAD) {
+    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       IModifierToolStack newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
@@ -58,17 +58,17 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlotType slotType) {
+  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
-    EquipmentSlotType changed = context.getChangedSlot();
-    if (slotType == EquipmentSlotType.HEAD && changed.getType() == Group.ARMOR) {
+    EquipmentSlot changed = context.getChangedSlot();
+    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold));
     }
   }
 
   /** Checks if the entity has gold in the given slot */
-  public static boolean hasGold(EquipmentChangeContext context, EquipmentSlotType slotType) {
+  public static boolean hasGold(EquipmentChangeContext context, EquipmentSlot slotType) {
     IModifierToolStack tool = context.getToolInSlot(slotType);
     if (tool != null) {
       return tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL);
@@ -96,7 +96,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
         float extraChance = 0.04f * gold;
         LivingEntity target = event.getEntityLiving();
         // check each slot for gold
-        for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
           ItemStack stack = target.getItemBySlot(slot);
           Random random = target.getRandom();
           // if the stack is gold, and it drops, we get it
@@ -127,8 +127,8 @@ public class ChrysophiliteModifier extends SingleUseModifier {
      * @param slotType  Slot to update
      * @param value     New value
      */
-    protected boolean setGold(EquipmentSlotType slotType, boolean value) {
-      if (slotType.getType() == Group.ARMOR) {
+    protected boolean setGold(EquipmentSlot slotType, boolean value) {
+      if (slotType.getType() == Type.ARMOR) {
         int index = slotType.getIndex();
         if (hasGold[index] != value) {
           hasGold[index] = value;
@@ -146,7 +146,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
     /** Initializes the gold data */
     public void initialize(EquipmentChangeContext context) {
       totalGold = 1;
-      for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
         boolean gold = hasGold(context, slotType);
         hasGold[slotType.getIndex()] = gold;
         if (gold) {

@@ -4,32 +4,32 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import lombok.NoArgsConstructor;
-import net.minecraft.loot.ILootSerializer;
-import net.minecraft.loot.LootConditionType;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.Serializer;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 @NoArgsConstructor
-public class BlockOrEntityCondition implements ILootCondition {
+public class BlockOrEntityCondition implements LootItemCondition {
   public static final ResourceLocation ID = TConstruct.getResource("block_or_entity");
   public static final BlockOrEntityCondition INSTANCE = new BlockOrEntityCondition();
-  public static final Serializer SERIALIZER = new Serializer();
+  public static final ConditionSerializer SERIALIZER = new ConditionSerializer();
 
   @Override
-  public LootConditionType getType() {
+  public LootItemConditionType getType() {
     return TinkerCommons.lootBlockOrEntity;
   }
 
   @Override
   public boolean test(LootContext lootContext) {
-    return lootContext.hasParam(LootParameters.THIS_ENTITY) || lootContext.hasParam(LootParameters.BLOCK_STATE);
+    return lootContext.hasParam(LootContextParams.THIS_ENTITY) || lootContext.hasParam(LootContextParams.BLOCK_STATE);
   }
 
-  private static class Serializer implements ILootSerializer<BlockOrEntityCondition> {
+  private static class ConditionSerializer implements Serializer<BlockOrEntityCondition> {
     @Override
     public void serialize(JsonObject json, BlockOrEntityCondition loot, JsonSerializationContext context) { }
 

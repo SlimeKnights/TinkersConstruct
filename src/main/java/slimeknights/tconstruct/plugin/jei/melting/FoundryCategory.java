@@ -9,11 +9,10 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
@@ -28,26 +27,27 @@ import java.util.List;
 
 /** Extension of melting for byproducts, but ditchs solid fuels */
 public class FoundryCategory extends AbstractMeltingCategory {
-  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "foundry.title");
+  private static final Component TITLE = TConstruct.makeTranslation("jei", "foundry.title");
 
   /** Tooltip callback for fluids */
   private static final ITooltipCallback<FluidStack> FLUID_TOOLTIP = new MeltingFluidCallback(false);
   private static final ITooltipCallback<FluidStack> ORE_FLUID_TOOLTIP = new MeltingFluidCallback(true);
-
-  @Getter
-  private final String title;
   @Getter
   private final IDrawable icon;
 
   public FoundryCategory(IGuiHelper helper) {
     super(helper);
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.foundryController));
-    this.title = ForgeI18n.getPattern(KEY_TITLE);
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerSmeltery.foundryController));
   }
 
   @Override
   public ResourceLocation getUid() {
     return TConstructRecipeCategoryUid.foundry;
+  }
+
+  @Override
+  public Component getTitle() {
+    return TITLE;
   }
 
   @Override
@@ -81,7 +81,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
     }
 
     @Override
-    protected boolean addOreTooltip(FluidStack stack, List<ITextComponent> list) {
+    protected boolean addOreTooltip(FluidStack stack, List<Component> list) {
       return FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.foundryNuggetsPerOre.get()), list);
     }
   }

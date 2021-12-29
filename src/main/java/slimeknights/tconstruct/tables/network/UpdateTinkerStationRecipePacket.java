@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
@@ -27,13 +26,13 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
     this.recipe = recipe.getId();
   }
 
-  public UpdateTinkerStationRecipePacket(PacketBuffer buffer) {
+  public UpdateTinkerStationRecipePacket(FriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
     this.recipe = buffer.readResourceLocation();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeResourceLocation(recipe);
   }
@@ -46,15 +45,13 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(UpdateTinkerStationRecipePacket packet) {
-      World world = Minecraft.getInstance().level;
+      Level world = Minecraft.getInstance().level;
       if (world != null) {
         Optional<ITinkerStationRecipe> recipe = RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ITinkerStationRecipe.class);
 
         // if the screen is open, use that to get the TE and update the screen
         boolean handled = false;
-        Screen screen = Minecraft.getInstance().screen;
-        if (screen instanceof TinkerStationScreen) {
-          TinkerStationScreen stationScreen = (TinkerStationScreen) screen;
+        if (Minecraft.getInstance().screen instanceof TinkerStationScreen stationScreen) {
           TinkerStationTileEntity te = stationScreen.getTileEntity();
           if (te.getBlockPos().equals(packet.pos)) {
             recipe.ifPresent(te::updateRecipe);
@@ -64,7 +61,7 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
         }
         // if the wrong screen is open or no screen, use the tile directly
         if (!handled) {
-          TileEntityHelper.getTile(TinkerStationTileEntity.class, world, packet.pos).ifPresent(te -> recipe.ifPresent(te::updateRecipe));
+          recipe.ifPresent(r -> BlockEntityHelper.get(TinkerStationTileEntity.class, world, packet.pos).ifPresent(te -> te.updateRecipe(r)));
         }
       }
     }

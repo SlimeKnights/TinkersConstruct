@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.gadgets.entity;
 
 import lombok.Getter;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
 
 /** All frame variants for the entity */
-public enum FrameType implements IStringSerializable {
+public enum FrameType implements StringRepresentable {
   // order is weird for the sake of preserving backwards compat, as its saved in the entity as an int
   REVERSED_GOLD, // rotation timer
   DIAMOND, // slowly winds down

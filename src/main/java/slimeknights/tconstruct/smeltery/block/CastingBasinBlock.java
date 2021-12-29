@@ -1,32 +1,34 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.block.AbstractBlock.Properties;
+import javax.annotation.Nullable;
 
 public class CastingBasinBlock extends AbstractCastingBlock {
 
-  private static final VoxelShape SHAPE = VoxelShapes.join(
-    VoxelShapes.block(),
-    VoxelShapes.or(
+  private static final VoxelShape SHAPE = Shapes.join(
+    Shapes.block(),
+    Shapes.or(
       Block.box(0.0D, 0.0D, 5.0D, 16.0D, 2.0D, 11.0D),
       Block.box(5.0D, 0.0D, 0.0D, 11.0D, 2.0D, 16.0D),
       Block.box(2.0D, 0.0D, 3.0D, 14.0D, 3.0D, 14.0D),
       Block.box(7.0D, 5.0D, 0.0D, 9.0D, 13.0D, 16.0D),
       Block.box(0.0D, 5.0D, 7.0D, 16.0D, 13.0D, 9.0D),
       Block.box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)),
-    IBooleanFunction.ONLY_FIRST);
+    BooleanOp.ONLY_FIRST);
 
   public CastingBasinBlock(Properties builder) {
     super(builder);
@@ -34,13 +36,19 @@ public class CastingBasinBlock extends AbstractCastingBlock {
 
   @Deprecated
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return SHAPE;
   }
 
-  @Nonnull
+  @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new CastingTileEntity.Basin();
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return new CastingTileEntity.Basin(pPos, pState);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> check) {
+    return CastingTileEntity.getTicker(pLevel, check, TinkerSmeltery.basin.get());
   }
 }

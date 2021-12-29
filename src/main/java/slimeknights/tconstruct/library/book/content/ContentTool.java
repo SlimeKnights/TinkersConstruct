@@ -4,18 +4,17 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.IShapedRecipe;
@@ -52,7 +51,7 @@ import static slimeknights.tconstruct.library.book.content.ContentModifier.TEX_S
 
 @OnlyIn(Dist.CLIENT)
 public class ContentTool extends PageContent {
-  public static final transient String ID = "tool";
+  public static final transient ResourceLocation ID = TConstruct.getResource("tool");
   private static final transient String KEY_PROPERTIES = TConstruct.makeTranslationKey("book", "tool.properties");
 
   /* Slot backgrounds */
@@ -135,20 +134,19 @@ public class ContentTool extends PageContent {
       // if no required components, do a crafting recipe lookup
       if (required.isEmpty()) {
         // get the stacks for the first crafting table recipe
-        IRecipe<CraftingInventory> recipe = Optional.ofNullable(Minecraft.getInstance().level)
-                                                    .flatMap(world -> world.getRecipeManager().byType(IRecipeType.CRAFTING).values().stream()
-                                                                           .filter(r -> r.getResultItem().getItem() == tool.asItem())
-                                                                           .findFirst())
-                                                    .orElse(null);
+        Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
+                                                   .flatMap(world -> world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
+                                                                          .filter(r -> r.getResultItem().getItem() == tool.asItem())
+                                                                          .findFirst())
+                                                   .orElse(null);
         if (recipe != null) {
           // parts is just the items in the recipe
           this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
           // if we have a shaped recipe, display slots in order
-          if (recipe instanceof IShapedRecipe) {
-            IShapedRecipe<?> shaped = (IShapedRecipe<?>) recipe;
-            int width = MathHelper.clamp(shaped.getRecipeWidth() - 1, 0, 2);
-            this.imgSlots = IMG_SLOTS_SHAPED[MathHelper.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
+          if (recipe instanceof IShapedRecipe<?> shaped) {
+            int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
+            this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
             this.slotPos = SLOTS_WIDTH[width];
           }
         } else {
@@ -173,9 +171,9 @@ public class ContentTool extends PageContent {
         // determine the slot positions by number of slots
         int size = this.parts.size();
         switch (size) {
-          case 4:  this.slotPos = SLOTS_WIDTH_2; break;
-          case 5:  this.slotPos = SLOTS_5;       break;
-          default: this.slotPos = SLOTS_WIDTH_3; break;
+          case 4  -> this.slotPos = SLOTS_WIDTH_2;
+          case 5  -> this.slotPos = SLOTS_5;
+          default -> this.slotPos = SLOTS_WIDTH_3;
         }
         // slots is just the set matching the size
         if (size > 0) {
@@ -241,19 +239,14 @@ public class ContentTool extends PageContent {
 
     for (int i = 0; i < partsSize; i++) {
       SlotPos pos = slotPos[i];
-      TinkerItemElement partItem = new TinkerItemElement(imgX + pos.getX(), imgY + pos.getY(), 1f,  this.parts.get(i));
+      TinkerItemElement partItem = new TinkerItemElement(imgX + pos.x(), imgY + pos.y(), 1f,  this.parts.get(i));
       //partItem.noTooltip = true;
       list.add(partItem);
     }
   }
 
   /** Simple record to hold a XY pair */
-  @RequiredArgsConstructor
-  @Getter
-  private static class SlotPos {
-    private final int x;
-    private final int y;
-  }
+  private record SlotPos(int x, int y) {}
 
   /** Fallback for when a tool is missing the proper interface */
   private static class Fallback implements IModifiableDisplay {
@@ -261,7 +254,7 @@ public class ContentTool extends PageContent {
     @Getter
     private final ItemStack renderTool;
 
-    private Fallback(IItemProvider item) {
+    private Fallback(ItemLike item) {
       this.item = item.asItem();
       this.renderTool = new ItemStack(item);
     }

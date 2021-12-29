@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.partbuilder;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -11,11 +11,11 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
@@ -29,19 +29,16 @@ import java.util.Arrays;
 
 public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
-  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "part_builder.title");
+  private static final Component TITLE = TConstruct.makeTranslation("jei", "part_builder.title");
   private static final String KEY_COST = TConstruct.makeTranslationKey("jei", "part_builder.cost");
 
   @Getter
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
-  @Getter
-  private final String title;
   public PartBuilderCategory(IGuiHelper helper) {
-    this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 117, 121, 46);
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerTables.partBuilder));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerTables.partBuilder));
   }
 
   @Override
@@ -55,6 +52,11 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   }
 
   @Override
+  public Component getTitle() {
+    return TITLE;
+  }
+
+  @Override
   public void setIngredients(IDisplayPartBuilderRecipe recipe, IIngredients ingredients) {
     ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(MaterialItemList.getItems(recipe.getMaterialId()), recipe.getPatternItems()));
     ingredients.setInput(JEIPlugin.PATTERN_TYPE, recipe.getPattern());
@@ -62,8 +64,8 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   }
 
   @Override
-  public void draw(IDisplayPartBuilderRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-    FontRenderer fontRenderer = Minecraft.getInstance().font;
+  public void draw(IDisplayPartBuilderRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+    Font fontRenderer = Minecraft.getInstance().font;
     IMaterial material = recipe.getMaterial();
     fontRenderer.drawShadow(matrixStack, I18n.get(material.getTranslationKey()), 3, 2, material.getColor().value);
     String coolingString = I18n.get(KEY_COST, recipe.getCost());

@@ -1,22 +1,21 @@
 package slimeknights.tconstruct.gadgets.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.storage.MapData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderItemInFrameEvent;
 import net.minecraftforge.client.event.RenderNameplateEvent;
 import net.minecraftforge.client.model.data.EmptyModelData;
@@ -29,7 +28,7 @@ import slimeknights.tconstruct.gadgets.entity.FrameType;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class FancyItemFrameRenderer extends ItemFrameRenderer {
+public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends ItemFrameRenderer<T> {
   public static final Map<FrameType, ResourceLocation> LOCATIONS_MODEL = new EnumMap<>(FrameType.class);
   public static final Map<FrameType, ResourceLocation> LOCATIONS_MODEL_MAP = new EnumMap<>(FrameType.class);
   static {
@@ -40,18 +39,19 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
     }
   }
 
-  public FancyItemFrameRenderer(EntityRendererManager rendererManager, ItemRenderer itemRenderer) {
-    super(rendererManager, itemRenderer);
+  public FancyItemFrameRenderer(EntityRendererProvider.Context context) {
+    super(context);
   }
 
   @Override
-  public void render(ItemFrameEntity entity, float entityYaw, float partialTicks, MatrixStack matrices, IRenderTypeBuffer bufferIn, int packedLight) {
-    // we know its our entity, so cast is safe
-    FancyItemFrameEntity frame = (FancyItemFrameEntity) entity;
+  protected int getBlockLightLevel(T frame, BlockPos pPos) {
+    int baseLight = super.getBlockLightLevel(frame, pPos);
+    return frame.getFrameType() == FrameType.MANYULLYN ? Math.max(7, baseLight) : baseLight;
+  }
+
+  @Override
+  public void render(T frame, float entityYaw, float partialTicks, PoseStack matrices, MultiBufferSource bufferIn, int packedLight) {
     FrameType frameType = frame.getFrameType();
-    if (frameType == FrameType.MANYULLYN) {
-      packedLight = 0x00F000F0;
-    }
 
     // base entity rendering logic, since calling super gives us the item frame renderer
     RenderNameplateEvent renderNameplate = new RenderNameplateEvent(frame, frame.getDisplayName(), this, matrices, bufferIn, packedLight, partialTicks);
@@ -63,22 +63,22 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
     // orient the renderer
     matrices.pushPose();
     Direction facing = frame.getDirection();
-    Vector3d offset = this.getRenderOffset(frame, partialTicks);
+    Vec3 offset = this.getRenderOffset(frame, partialTicks);
     matrices.translate(facing.getStepX() * 0.46875D - offset.x(), facing.getStepY() * 0.46875D - offset.y(), facing.getStepZ() * 0.46875D - offset.z());
-    matrices.mulPose(Vector3f.XP.rotationDegrees(frame.xRot));
-    matrices.mulPose(Vector3f.YP.rotationDegrees(180.0F - frame.yRot));
+    matrices.mulPose(Vector3f.XP.rotationDegrees(frame.getXRot()));
+    matrices.mulPose(Vector3f.YP.rotationDegrees(180.0F - frame.getYRot()));
 
     // render the frame
     ItemStack stack = frame.getItem();
-    boolean isMap = !stack.isEmpty() && stack.getItem() instanceof FilledMapItem;
+    boolean isMap = !stack.isEmpty() && stack.getItem() instanceof MapItem;
     // clear does not render the frame if filled
     boolean frameVisible = !frame.isInvisible() && (frameType != FrameType.CLEAR || stack.isEmpty());
     if (frameVisible) {
       matrices.pushPose();
       matrices.translate(-0.5D, -0.5D, -0.5D);
-      BlockRendererDispatcher blockRenderer = this.minecraft.getBlockRenderer();
+      BlockRenderDispatcher blockRenderer = this.minecraft.getBlockRenderer();
       blockRenderer.getModelRenderer().renderModel(
-        matrices.last(), bufferIn.getBuffer(Atlases.cutoutBlockSheet()), null,
+        matrices.last(), bufferIn.getBuffer(Sheets.cutoutBlockSheet()), null,
         blockRenderer.getBlockModelShaper().getModelManager().getModel(isMap ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType)),
         1.0F, 1.0F, 1.0F, packedLight, OverlayTexture.NO_OVERLAY, EmptyModelData.INSTANCE);
       matrices.popPose();
@@ -90,9 +90,9 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
       matrices.translate(0.0D, 0.0D, 0.4375D);
 
       // determine rotation for the item inside
-      MapData mapdata = null;
+      MapItemSavedData mapdata = null;
       if (isMap) {
-        mapdata = FilledMapItem.getOrCreateSavedData(stack, frame.level);
+        mapdata = MapItem.getSavedData(stack, frame.level);
       }
       int frameRotation = frame.getRotation();
       // for diamond, render the timer as a partial rotation
@@ -107,11 +107,15 @@ public class FancyItemFrameRenderer extends ItemFrameRenderer {
         if (mapdata != null) {
           matrices.scale(0.0078125F, 0.0078125F, 0.0078125F);
           matrices.translate(-64.0D, -64.0D, -1.0D);
-          this.minecraft.gameRenderer.getMapRenderer().render(matrices, bufferIn, mapdata, true, packedLight);
+          int light = frameType == FrameType.MANYULLYN ? 0x00F000F0 : packedLight;
+          Integer mapId = MapItem.getMapId(stack);
+          assert mapId != null;
+          this.minecraft.gameRenderer.getMapRenderer().render(matrices, bufferIn, mapId, mapdata, true, light);
         } else {
           float scale = frameType == FrameType.CLEAR ? 0.75f : 0.5f;
           matrices.scale(scale, scale, scale);
-          this.itemRenderer.renderStatic(stack, ItemCameraTransforms.TransformType.FIXED, packedLight, OverlayTexture.NO_OVERLAY, matrices, bufferIn);
+          int light = frameType == FrameType.MANYULLYN ? 0x00F000F0 : packedLight;
+          this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, light, OverlayTexture.NO_OVERLAY, matrices, bufferIn, frame.getId());
         }
       }
     }

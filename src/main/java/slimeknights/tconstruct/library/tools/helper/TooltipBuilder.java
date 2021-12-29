@@ -3,15 +3,15 @@ package slimeknights.tconstruct.library.tools.helper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.ChatFormatting;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -31,17 +31,17 @@ import static java.awt.Color.HSBtoRGB;
 @SuppressWarnings("UnusedReturnValue")
 @RequiredArgsConstructor
 public class TooltipBuilder {
-  private static final Color MAX = valueToColor(1, 1);
+  private static final TextColor MAX = valueToColor(1, 1);
   private static final UnaryOperator<Style> APPLY_MAX = style -> style.withColor(MAX);
 
   /** Formatted broken string */
-  private static final ITextComponent TOOLTIP_BROKEN = TConstruct.makeTranslation("tooltip", "tool.broken").withStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
+  private static final Component TOOLTIP_BROKEN = TConstruct.makeTranslation("tooltip", "tool.broken").withStyle(ChatFormatting.BOLD, ChatFormatting.DARK_RED);
   /** Prefixed broken string */
-  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().append(TOOLTIP_BROKEN);
+  private static final Component TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().append(TOOLTIP_BROKEN);
 
   private final IModifierToolStack tool;
   @Getter
-  private final List<ITextComponent> tooltips;
+  private final List<Component> tooltips;
 
   public TooltipBuilder(ToolStack tool) {
     this.tool = tool;
@@ -54,7 +54,7 @@ public class TooltipBuilder {
    * @param textComponent the text component to add
    * @return the tooltip builder
    */
-  public TooltipBuilder add(ITextComponent textComponent) {
+  public TooltipBuilder add(Component textComponent) {
     this.tooltips.add(textComponent);
 
     return this;
@@ -97,7 +97,7 @@ public class TooltipBuilder {
   }
 
   /** Applies formatting for durability with a reference durability */
-  public static ITextComponent formatDurability(int durability, int ref, boolean textIfBroken) {
+  public static Component formatDurability(int durability, int ref, boolean textIfBroken) {
     if (textIfBroken && durability == 0) {
       return TOOLTIP_BROKEN_PREFIXED;
     }
@@ -109,12 +109,12 @@ public class TooltipBuilder {
    * Returns a color between red and green, depending on the value. 1.0 is green.
    * If the value goes above 1.0 it continues along the color spectrum.
    */
-  public static Color valueToColor(float value, float max) {
+  public static TextColor valueToColor(float value, float max) {
     // 0.0 -> 0 = red
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
-    float hue = MathHelper.clamp(((value / max) / 3), 0.01f, 0.5f);
-    return Color.fromRgb(HSBtoRGB(hue, 0.65f, 0.8f));
+    float hue = Mth.clamp(((value / max) / 3), 0.01f, 0.5f);
+    return TextColor.fromRgb(HSBtoRGB(hue, 0.65f, 0.8f));
   }
 
   /**
@@ -123,11 +123,11 @@ public class TooltipBuilder {
    * @param max    Max value
    * @return  Formatted amount
    */
-  public static ITextComponent formatPartialAmount(int value, int max) {
-    return new StringTextComponent(Util.COMMA_FORMAT.format(value))
+  public static Component formatPartialAmount(int value, int max) {
+    return new TextComponent(Util.COMMA_FORMAT.format(value))
       .withStyle(style -> style.withColor(valueToColor(value, max)))
-      .append(new StringTextComponent(" / ").withStyle(TextFormatting.GRAY))
-      .append(new StringTextComponent(Util.COMMA_FORMAT.format(max)).withStyle(APPLY_MAX));
+      .append(new TextComponent(" / ").withStyle(ChatFormatting.GRAY))
+      .append(new TextComponent(Util.COMMA_FORMAT.format(max)).withStyle(APPLY_MAX));
   }
 
   /**
@@ -148,9 +148,9 @@ public class TooltipBuilder {
    */
   public TooltipBuilder addWithAttribute(IToolStat<?> stat, Attribute attribute) {
     float damage = (float) attribute.getDefaultValue();
-    PlayerEntity player = Minecraft.getInstance().player;
+    Player player = Minecraft.getInstance().player;
     if (player != null) {
-      ModifiableAttributeInstance instance = player.getAttribute(attribute);
+      AttributeInstance instance = player.getAttribute(attribute);
       if (instance != null) {
         damage = (float) instance.getBaseValue();
       }

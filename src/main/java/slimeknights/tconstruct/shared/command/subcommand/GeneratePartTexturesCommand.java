@@ -3,10 +3,10 @@ package slimeknights.tconstruct.shared.command.subcommand;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.server.command.ModIdArgument;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -17,14 +17,14 @@ import slimeknights.tconstruct.shared.network.GeneratePartTexturesPacket.Operati
 
 /** Command to generate tool textures using the palette logic */
 public class GeneratePartTexturesCommand {
-  private static final ITextComponent SUCCESS = TConstruct.makeTranslation("command", "generate_part_textures.start");
+  private static final Component SUCCESS = TConstruct.makeTranslation("command", "generate_part_textures.start");
 
   /**
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
-    subCommand.requires(source -> source.getEntity() instanceof ServerPlayerEntity)
+  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
+    subCommand.requires(source -> source.getEntity() instanceof ServerPlayer)
               // generate_part_textures all|missing [<mod_id>|<material>]
               .then(Commands.literal("all")
                             .executes(context -> run(context, Operation.ALL, "", ""))
@@ -37,19 +37,19 @@ public class GeneratePartTexturesCommand {
   }
 
   /** Runs the command, filtered by a material */
-  private static int runMaterial(CommandContext<CommandSource> context, Operation filter) throws CommandSyntaxException {
+  private static int runMaterial(CommandContext<CommandSourceStack> context, Operation filter) throws CommandSyntaxException {
     MaterialId material = MaterialArgument.getMaterial(context, "material").getIdentifier();
     return run(context, filter, material.getNamespace(), material.getPath());
   }
 
   /** Runs the command, filtered by a mod ID */
-  private static int runModId(CommandContext<CommandSource> context, Operation filter) throws CommandSyntaxException {
+  private static int runModId(CommandContext<CommandSourceStack> context, Operation filter) throws CommandSyntaxException {
     return run(context, filter, context.getArgument("mod_id", String.class), "");
   }
 
   /** Runs the command */
-  private static int run(CommandContext<CommandSource> context, Operation filter, String modId, String materialName) throws CommandSyntaxException {
-    CommandSource source = context.getSource();
+  private static int run(CommandContext<CommandSourceStack> context, Operation filter, String modId, String materialName) throws CommandSyntaxException {
+    CommandSourceStack source = context.getSource();
     source.sendSuccess(SUCCESS, true);
     TinkerNetwork.getInstance().sendTo(new GeneratePartTexturesPacket(filter, modId, materialName), source.getPlayerOrException());
     return 0;

@@ -2,11 +2,11 @@ package slimeknights.tconstruct.tables.recipe;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -46,7 +46,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   protected final ResourceLocation id;
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World world) {
+  public boolean matches(ITinkerStationInventory inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
     if (tinkerable.isEmpty() || !TinkerTags.Items.MULTIPART_TOOL.contains(tinkerable.getItem()) || !(tinkerable.getItem() instanceof IModifiable)) {
       return false;
@@ -102,13 +102,12 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
       if (!stack.isEmpty()) {
         // not tool part, should never happen
         Item item = stack.getItem();
-        if (!(item instanceof IToolPart)) {
+        if (!(item instanceof IToolPart part)) {
           return ValidatedResult.PASS;
         }
 
         // ensure the part is valid
-        IToolPart part = (IToolPart) item;
-        IMaterial partMaterial = ((IToolPart)item).getMaterial(stack);
+        IMaterial partMaterial = part.getMaterial(stack);
         if (partMaterial == IMaterial.UNKNOWN) {
           return ValidatedResult.PASS;
         }
@@ -219,7 +218,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.tinkerStationPartSwappingSerializer.get();
   }
 }

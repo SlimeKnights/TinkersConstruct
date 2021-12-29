@@ -2,15 +2,15 @@ package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -47,7 +47,7 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
     ResourceLocation key = getModifier().getId();
     int maxValue;
     // if the tag is missing, return the needed per level (assume its being treated as non-incremental)
-    if (tool.getPersistentData().contains(key, NBT.TAG_ANY_NUMERIC)) {
+    if (tool.getPersistentData().contains(key, Tag.TAG_ANY_NUMERIC)) {
       maxValue = tool.getPersistentData().getInt(getModifier().getId());
     } else {
       maxValue = ModifierRecipeLookup.getNeededPerLevel(getModifier());
@@ -63,7 +63,7 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.incrementalModifierSalvageSerializer.get();
   }
 
@@ -75,20 +75,20 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
       ItemOutput result = ItemOutput.fromJson(salvageElement);
       boolean fullSalvage = false;
       if (salvageElement.isJsonObject()) {
-        fullSalvage = JSONUtils.getAsBoolean(salvageElement.getAsJsonObject(), "full", false);
+        fullSalvage = GsonHelper.getAsBoolean(salvageElement.getAsJsonObject(), "full", false);
       }
       return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }
 
     @Override
-    protected IncrementalModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected IncrementalModifierSalvage read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ItemOutput result = ItemOutput.read(buffer);
       boolean fullSalvage = buffer.readBoolean();
       return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, IncrementalModifierSalvage recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, IncrementalModifierSalvage recipe) {
       super.writeSafe(buffer, recipe);
       recipe.result.write(buffer);
       buffer.writeBoolean(recipe.fullSalvage);

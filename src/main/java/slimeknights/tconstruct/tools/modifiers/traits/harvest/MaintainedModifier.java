@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.traits.harvest;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -12,7 +13,6 @@ import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -20,7 +20,7 @@ import java.util.List;
 
 /** Well maintained for Tinkers Bronze */
 public class MaintainedModifier extends Modifier {
-  private static final ITextComponent MINING_SPEED = TConstruct.makeTranslation("modifier", "maintained.mining_speed");
+  private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "maintained.mining_speed");
   private static final ResourceLocation KEY_ORIGINAL_DURABILITY = TConstruct.getResource("durability");
   public MaintainedModifier() {
     super(0xE8B465);
@@ -77,7 +77,7 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost = getTotalBoost(tool, level);
       if (boost != 0) {

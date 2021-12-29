@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -153,9 +153,9 @@ public abstract class RandomMaterial {
     /** Creates an instance from JSON */
     public static RandomInTier fromJson(JsonObject json) {
       MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(json, "stat_type"));
-      int minTier = JSONUtils.getAsInt(json, "min_tier", 0);
-      int maxTier = JSONUtils.getAsInt(json, "min_tier", Integer.MAX_VALUE);
-      boolean allowHidden = JSONUtils.getAsBoolean(json, "allow_hidden", false);
+      int minTier = GsonHelper.getAsInt(json, "min_tier", 0);
+      int maxTier = GsonHelper.getAsInt(json, "min_tier", Integer.MAX_VALUE);
+      boolean allowHidden = GsonHelper.getAsBoolean(json, "allow_hidden", false);
       return new RandomInTier(statType, minTier, maxTier, allowHidden);
     }
 

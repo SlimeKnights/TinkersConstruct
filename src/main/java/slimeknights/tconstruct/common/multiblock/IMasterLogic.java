@@ -1,11 +1,24 @@
 package slimeknights.tconstruct.common.multiblock;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.extensions.IForgeTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
-// TODO: move back to Mantle after smeltery is updated
-public interface IMasterLogic extends IForgeTileEntity {
+/** Base interface for master block entities */
+public interface IMasterLogic {
+  private BlockEntity self() {
+    return (BlockEntity) this;
+  }
+
+  /** Gets the block of the master tile entity */
+  default BlockState getMasterBlock() {
+    return self().getBlockState();
+  }
+
+  /** Gets the position of the master tile entity */
+  default BlockPos getMasterPos() {
+    return self().getBlockPos();
+  }
 
   /**
    * Called when servants change their state

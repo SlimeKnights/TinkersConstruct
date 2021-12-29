@@ -1,18 +1,19 @@
 package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -26,14 +27,15 @@ import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctTankWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
  * Filtered drain tile entity
  */
-public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerProvider {
+public class DuctTileEntity extends SmelteryFluidIO implements MenuProvider {
   private static final String TAG_ITEM = "item";
-  private static final ITextComponent TITLE = TConstruct.makeTranslation("gui", "duct");
+  private static final Component TITLE = TConstruct.makeTranslation("gui", "duct");
 
   @Getter
   private final DuctItemHandler itemHandler = new DuctItemHandler(this);
@@ -41,31 +43,32 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   @Getter
   private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
 
-  public DuctTileEntity() {
-    this(TinkerSmeltery.duct.get());
+  public DuctTileEntity(BlockPos pos, BlockState state) {
+    this(TinkerSmeltery.duct.get(), pos, state);
   }
 
-  protected DuctTileEntity(TileEntityType<?> type) {
-    super(type);
+  protected DuctTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    super(type, pos, state);
   }
 
 
   /* Container */
 
   @Override
-  public ITextComponent getDisplayName() {
+  public Component getDisplayName() {
     return TITLE;
   }
 
   @Nullable
   @Override
-  public Container createMenu(int id, PlayerInventory inventory, PlayerEntity playerEntity) {
+  public AbstractContainerMenu createMenu(int id, Inventory inventory, Player playerEntity) {
     return new SingleItemContainer(id, inventory, this);
   }
 
 
   /* Capability */
 
+  @Nonnull
   @Override
   public <C> LazyOptional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
     if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -75,7 +78,7 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   }
 
   @Override
-  protected void invalidateCaps() {
+  public void invalidateCaps() {
     super.invalidateCaps();
     itemCapability.invalidate();
   }
@@ -103,24 +106,24 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   }
 
   @Override
-  public void load(BlockState state, CompoundNBT tags) {
-    super.load(state, tags);
-    if (tags.contains(TAG_ITEM, NBT.TAG_COMPOUND)) {
+  public void load(CompoundTag tags) {
+    super.load(tags);
+    if (tags.contains(TAG_ITEM, Tag.TAG_COMPOUND)) {
       itemHandler.readFromNBT(tags.getCompound(TAG_ITEM));
     }
   }
 
   @Override
-  public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-    super.handleUpdateTag(state, tag);
+  public void handleUpdateTag(CompoundTag tag) {
+    super.handleUpdateTag(tag);
     if (level != null && level.isClientSide) {
       updateFluid();
     }
   }
 
   @Override
-  public void writeSynced(CompoundNBT tags) {
-    super.writeSynced(tags);
+  public void saveSynced(CompoundTag tags) {
+    super.saveSynced(tags);
     tags.put(TAG_ITEM, itemHandler.writeToNBT());
   }
 }

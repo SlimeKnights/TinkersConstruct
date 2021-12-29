@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
@@ -23,7 +23,7 @@ import java.util.List;
 @ToString
 public class RepairKitStats extends BaseMaterialStats implements IRepairableMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("repair_kit"));
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription());
+  private static final List<Component> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription());
   public static final RepairKitStats DEFAULT = new RepairKitStats(1);
 
   @Getter
@@ -40,22 +40,22 @@ public class RepairKitStats extends BaseMaterialStats implements IRepairableMate
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo() {
     return Collections.singletonList(ToolStats.DURABILITY.formatValue(this.durability));
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Component> getLocalizedDescriptions() {
     return DESCRIPTION;
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.durability);
   }
 
   @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(FriendlyByteBuf buffer) {
     this.durability = buffer.readInt();
   }
 }

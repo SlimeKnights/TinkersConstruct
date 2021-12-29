@@ -1,39 +1,42 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Shared base logic for all Tinkers' chest tile entities */
-public abstract class ChestTileEntity extends NamableTileEntity {
+public abstract class ChestTileEntity extends NameableBlockEntity {
   private static final String KEY_ITEMS = "Items";
 
   @Getter
   private final ItemStackHandler itemHandler;
   private final LazyOptional<IItemHandler> capability;
-  protected ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, ItemStackHandler itemHandler) {
-    super(tileEntityTypeIn, new TranslationTextComponent(name));
+  protected ChestTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name, ItemStackHandler itemHandler) {
+    super(type, pos, state, name);
     this.itemHandler = itemHandler;
     this.capability = LazyOptional.of(() -> itemHandler);
   }
 
+  @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -43,14 +46,14 @@ public abstract class ChestTileEntity extends NamableTileEntity {
   }
 
   @Override
-  protected void invalidateCaps() {
+  public void invalidateCaps() {
     super.invalidateCaps();
     capability.invalidate();
   }
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public AbstractContainerMenu createMenu(int menuId, Inventory playerInventory, Player playerEntity) {
     return new TinkerChestContainer(menuId, playerInventory, this);
   }
 
@@ -60,31 +63,30 @@ public abstract class ChestTileEntity extends NamableTileEntity {
    * @param heldItem  Stack to insert
    * @return  Return true
    */
-  public boolean canInsert(PlayerEntity player, ItemStack heldItem) {
+  public boolean canInsert(Player player, ItemStack heldItem) {
     return true;
   }
 
   @Override
-  public CompoundNBT save(CompoundNBT tags) {
-    tags = super.save(tags);
+  public void saveAdditional(CompoundTag tags) {
+    super.saveAdditional(tags);
     // move the items from the serialized result
     // we don't care about the size and need it here for compat with old worlds
-    CompoundNBT handlerNBT = itemHandler.serializeNBT();
-    tags.put(KEY_ITEMS, handlerNBT.getList(KEY_ITEMS, NBT.TAG_COMPOUND));
-    return tags;
+    CompoundTag handlerNBT = itemHandler.serializeNBT();
+    tags.put(KEY_ITEMS, handlerNBT.getList(KEY_ITEMS, Tag.TAG_COMPOUND));
   }
 
   /** Reads the inventory from NBT */
-  public void readInventory(CompoundNBT tags) {
+  public void readInventory(CompoundTag tags) {
     // copy in just the items key for deserializing, don't want to change the size
-    CompoundNBT handlerNBT = new CompoundNBT();
-    handlerNBT.put(KEY_ITEMS, tags.getList(KEY_ITEMS, NBT.TAG_COMPOUND));
+    CompoundTag handlerNBT = new CompoundTag();
+    handlerNBT.put(KEY_ITEMS, tags.getList(KEY_ITEMS, Tag.TAG_COMPOUND));
     itemHandler.deserializeNBT(handlerNBT);
   }
 
   @Override
-  public void load(BlockState blockState, CompoundNBT tags) {
-    super.load(blockState, tags);
+  public void load(CompoundTag tags) {
+    super.load(tags);
     readInventory(tags);
   }
 }

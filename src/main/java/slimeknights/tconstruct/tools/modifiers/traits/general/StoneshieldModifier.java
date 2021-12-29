@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;

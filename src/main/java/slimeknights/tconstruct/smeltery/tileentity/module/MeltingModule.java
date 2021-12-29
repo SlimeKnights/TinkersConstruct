@@ -2,12 +2,12 @@ package slimeknights.tconstruct.smeltery.tileentity.module;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.IIntArray;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -23,7 +23,7 @@ import java.util.function.Predicate;
  * This class represents a single item slot that can melt into a liquid
  */
 @RequiredArgsConstructor
-public class MeltingModule implements IMeltingInventory, IIntArray {
+public class MeltingModule implements IMeltingInventory, ContainerData {
   public static final int NO_SPACE = -1;
 
   private static final String TAG_CURRENT_TIME = "time";
@@ -34,7 +34,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   private static final int REQUIRED_TEMP = 2;
 
   /** Tile entity containing this melting module */
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   /** Function that accepts fluid output from this module */
   private final Predicate<IMeltingRecipe> outputFunction;
   /** Function that gives the nuggets per ore for this module */
@@ -79,7 +79,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   public void setStack(ItemStack newStack) {
     // send a slot update to the client when items change, so we can update the TESR
-    World world = parent.getLevel();
+    Level world = parent.getLevel();
     if (slotIndex != -1 && world != null && !world.isClientSide && !ItemStack.matches(stack, newStack)) {
       TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getBlockPos()), world, parent.getBlockPos());
     }
@@ -104,7 +104,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
     }
     requiredTime = newTime;
     requiredTemp = newTemp;
-    parent.markDirtyFast();
+    parent.setChangedFast();
   }
 
 
@@ -166,7 +166,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   @Nullable
   private IMeltingRecipe findRecipe() {
-    World world = parent.getLevel();
+    Level world = parent.getLevel();
     if (world == null) {
       return null;
     }
@@ -209,8 +209,8 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    * Writes this module to NBT
    * @return  Module in NBT
    */
-  public CompoundNBT writeToNBT() {
-    CompoundNBT nbt = new CompoundNBT();
+  public CompoundTag writeToTag() {
+    CompoundTag nbt = new CompoundTag();
     if (!stack.isEmpty()) {
       stack.save(nbt);
       nbt.putInt(TAG_CURRENT_TIME, currentTime);
@@ -224,7 +224,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    * Reads this module from NBT
    * @param nbt  NBT
    */
-  public void readFromNBT(CompoundNBT nbt) {
+  public void readFromTag(CompoundTag nbt) {
     stack = ItemStack.of(nbt);
     if (!stack.isEmpty()) {
       currentTime = nbt.getInt(TAG_CURRENT_TIME);
@@ -242,29 +242,20 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
 
   @Override
   public int get(int index) {
-    switch (index) {
-      case CURRENT_TIME:
-        return currentTime;
-      case REQUIRED_TIME:
-        return requiredTime;
-      case REQUIRED_TEMP:
-        return requiredTemp;
-    }
-    return 0;
+    return switch (index) {
+      case CURRENT_TIME -> currentTime;
+      case REQUIRED_TIME -> requiredTime;
+      case REQUIRED_TEMP -> requiredTemp;
+      default -> 0;
+    };
   }
 
   @Override
   public void set(int index, int value) {
     switch (index) {
-      case CURRENT_TIME:
-        currentTime = value;
-        break;
-      case REQUIRED_TIME:
-        requiredTime = value;
-        break;
-      case REQUIRED_TEMP:
-        requiredTemp = value;
-        break;
+      case CURRENT_TIME -> currentTime = value;
+      case REQUIRED_TIME -> requiredTime = value;
+      case REQUIRED_TEMP -> requiredTemp = value;
     }
   }
 }

@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 
@@ -29,11 +29,11 @@ public class SetFireSpillingEffect implements ISpillingEffect {
   private static class Loader implements ISpillingEffectLoader<SetFireSpillingEffect> {
     @Override
     public SetFireSpillingEffect deserialize(JsonObject json) {
-      return new SetFireSpillingEffect(JSONUtils.getAsInt(json, "time"));
+      return new SetFireSpillingEffect(GsonHelper.getAsInt(json, "time"));
     }
 
     @Override
-    public SetFireSpillingEffect read(PacketBuffer buffer) {
+    public SetFireSpillingEffect read(FriendlyByteBuf buffer) {
       return new SetFireSpillingEffect(buffer.readVarInt());
     }
 
@@ -43,7 +43,7 @@ public class SetFireSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(SetFireSpillingEffect effect, PacketBuffer buffer) {
+    public void write(SetFireSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeVarInt(effect.time);
     }
   }

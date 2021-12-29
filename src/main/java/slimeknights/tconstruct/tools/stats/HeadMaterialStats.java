@@ -7,9 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
@@ -27,11 +27,11 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("head"));
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, 0, 1f);
   // tooltip descriptions
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.HARVEST_LEVEL.getDescription(), ToolStats.MINING_SPEED.getDescription(), ToolStats.ATTACK_DAMAGE.getDescription());
+  private static final List<Component> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.HARVEST_LEVEL.getDescription(), ToolStats.MINING_SPEED.getDescription(), ToolStats.ATTACK_DAMAGE.getDescription());
 
-  public final static Color DURABILITY_COLOR = Color.fromRgb(0xFF47cc47);
-  public final static Color MINING_SPEED_COLOR = Color.fromRgb(0xFF78A0CD);
-  public final static Color ATTACK_COLOR = Color.fromRgb(0xFFD76464);
+  public final static TextColor DURABILITY_COLOR = TextColor.fromRgb(0xFF47cc47);
+  public final static TextColor MINING_SPEED_COLOR = TextColor.fromRgb(0xFF78A0CD);
+  public final static TextColor ATTACK_COLOR = TextColor.fromRgb(0xFFD76464);
 
   private int durability;
   private float miningSpeed;
@@ -39,7 +39,7 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   private float attack;
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.durability);
     buffer.writeFloat(this.miningSpeed);
     buffer.writeInt(this.harvestLevel);
@@ -47,7 +47,7 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   }
 
   @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(FriendlyByteBuf buffer) {
     this.durability = buffer.readInt();
     this.miningSpeed = buffer.readFloat();
     this.harvestLevel = buffer.readInt();
@@ -60,8 +60,8 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
-    List<ITextComponent> info = Lists.newArrayList();
+  public List<Component> getLocalizedInfo() {
+    List<Component> info = Lists.newArrayList();
     info.add(ToolStats.DURABILITY.formatValue(this.durability));
     info.add(ToolStats.HARVEST_LEVEL.formatValue(this.harvestLevel));
     info.add(ToolStats.MINING_SPEED.formatValue(this.miningSpeed));
@@ -70,7 +70,7 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Component> getLocalizedDescriptions() {
     return DESCRIPTION;
   }
 

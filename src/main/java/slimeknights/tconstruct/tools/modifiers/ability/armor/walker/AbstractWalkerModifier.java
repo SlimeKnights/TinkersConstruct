@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor.walker;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -28,15 +28,15 @@ public abstract class AbstractWalkerModifier extends SingleUseModifier implement
    * @param target   Position target for effect
    * @param mutable  Mutable position you can freely modify
    */
-  protected abstract void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable);
+  protected abstract void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable);
 
   @Override
   public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     if (living.isOnGround() && !tool.isBroken() && !living.level.isClientSide) {
       float radius = Math.min(16, getRadius(tool, level));
-      Mutable mutable = new Mutable();
-      World world = living.level;
-      Vector3d posVec = living.position();
+      MutableBlockPos mutable = new MutableBlockPos();
+      Level world = living.level;
+      Vec3 posVec = living.position();
       BlockPos center = new BlockPos(posVec.x, posVec.y + 0.5, posVec.z);
       for (BlockPos pos : BlockPos.betweenClosed(center.offset(-radius, 0, -radius), center.offset(radius, 0, radius))) {
         if (pos.closerThan(living.position(), radius)) {

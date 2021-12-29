@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -31,23 +31,23 @@ public class ClientInteractionHandler {
   @SubscribeEvent(priority = EventPriority.LOW)
   static void chestplateToolUse(PlayerInteractEvent.RightClickEmpty event) {
     // not sure if anyone sets the result, but just in case listen to it so they can stop us running
-    if (event.getCancellationResult() != ActionResultType.PASS) {
+    if (event.getCancellationResult() != InteractionResult.PASS) {
       return;
     }
     // figure out if we have a chestplate making us care
-    PlayerEntity player = event.getPlayer();
-    ItemStack chestplate = player.getItemBySlot(EquipmentSlotType.CHEST);
+    Player player = event.getPlayer();
+    ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
     if (!player.isSpectator() && TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
       // found an interaction, time to notify the server and run logic for the client
-      Hand hand = event.getHand();
+      InteractionHand hand = event.getHand();
       TinkerNetwork.getInstance().sendToServer(OnChestplateUsePacket.from(hand));
-      ActionResultType result = InteractionHandler.onChestplateUse(player, chestplate, hand);
+      InteractionResult result = InteractionHandler.onChestplateUse(player, chestplate, hand);
       if (result.consumesAction()) {
         if (result.shouldSwing()) {
           player.swing(hand);
         }
         Minecraft.getInstance().gameRenderer.itemInHandRenderer.itemUsed(hand);
-        if (hand == Hand.MAIN_HAND) {
+        if (hand == InteractionHand.MAIN_HAND) {
           cancelNextOffhand = true;
         }
         // set the result so later listeners see we did something
@@ -61,7 +61,7 @@ public class ClientInteractionHandler {
   static void preventDoubleInteract(InputEvent.ClickInputEvent event) {
     if (cancelNextOffhand) {
       cancelNextOffhand = false;
-      if (event.getHand() == Hand.OFF_HAND) {
+      if (event.getHand() == InteractionHand.OFF_HAND) {
         event.setCanceled(true);
         event.setSwingHand(false);
       }

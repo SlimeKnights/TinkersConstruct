@@ -4,13 +4,13 @@ import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipDisplayFlags;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStack.TooltipPart;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -67,7 +67,7 @@ public class ToolStack implements IModifierToolStack {
   public static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /** Flags for vanilla tooltip parts to hide */
-  private static final int HIDE_FLAGS = TooltipDisplayFlags.ENCHANTMENTS.getMask() | TooltipDisplayFlags.MODIFIERS.getMask();
+  private static final int HIDE_FLAGS = TooltipPart.ENCHANTMENTS.getMask() | TooltipPart.MODIFIERS.getMask();
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
   private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, TAG_HIDE_FLAGS);
@@ -80,7 +80,7 @@ public class ToolStack implements IModifierToolStack {
   private final ToolDefinition definition;
   /** Original tool NBT */
   @Getter(AccessLevel.PROTECTED)
-  private final CompoundNBT nbt;
+  private final CompoundTag nbt;
   /** Public view of the internal NBT, to give to modifier hooks */
   private RestrictedCompoundTag restrictedNBT;
 
@@ -129,9 +129,9 @@ public class ToolStack implements IModifierToolStack {
     ToolDefinition definition = item instanceof IModifiable
                                 ? ((IModifiable)item).getToolDefinition()
                                 : ToolDefinition.EMPTY;
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     if (nbt == null) {
-      nbt = new CompoundNBT();
+      nbt = new CompoundTag();
       if (!copyNbt) {
         stack.setTag(nbt);
       }
@@ -166,7 +166,7 @@ public class ToolStack implements IModifierToolStack {
    * @return  Tool stack
    */
   public static ToolStack createTool(Item item, ToolDefinition definition, List<IMaterial> materials) {
-    ToolStack tool = from(item, definition, new CompoundNBT());
+    ToolStack tool = from(item, definition, new CompoundTag());
     // set cached to empty, saves a NBT lookup or two
     tool.damage = 0;
     tool.broken = false;
@@ -511,11 +511,11 @@ public class ToolStack implements IModifierToolStack {
   public ModDataNBT getPersistentData() {
     if (persistentModData == null) {
       // parse if the tag already exists
-      if (nbt.contains(TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
+      if (nbt.contains(TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND)) {
         persistentModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
       } else {
         // if no tag exists, create it
-        CompoundNBT tag = new CompoundNBT();
+        CompoundTag tag = new CompoundTag();
         nbt.put(TAG_PERSISTENT_MOD_DATA, tag);
         persistentModData = ModDataNBT.readFromNBT(tag);
       }
@@ -527,7 +527,7 @@ public class ToolStack implements IModifierToolStack {
   public IModDataReadOnly getVolatileData() {
     if (volatileModData == null) {
       // parse if the tag already exists
-      if (nbt.contains(TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+      if (nbt.contains(TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
         volatileModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_VOLATILE_MOD_DATA));
       } else {
         // if no tag exists, return empty
@@ -542,7 +542,7 @@ public class ToolStack implements IModifierToolStack {
    * @param modData  New data
    */
   protected void setVolatileModData(ModDataNBT modData) {
-    CompoundNBT data = modData.getData();
+    CompoundTag data = modData.getData();
     if (data.isEmpty()) {
       volatileModData = IModDataReadOnly.EMPTY;
       nbt.remove(TAG_VOLATILE_MOD_DATA);
@@ -580,11 +580,11 @@ public class ToolStack implements IModifierToolStack {
   /** Called on inventory tick to ensure the tool has all required data, prevents tools with no stats from existing */
   public void ensureHasData() {
     // no stats but definition ready? rebuild time
-    if (definition.isDataLoaded() && !nbt.contains(TAG_STATS, NBT.TAG_COMPOUND)) {
+    if (definition.isDataLoaded() && !nbt.contains(TAG_STATS, Tag.TAG_COMPOUND)) {
       // add starting modifier slots
       definition.getData().buildSlots(getPersistentData());
       // do we need materials?
-      if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, NBT.TAG_LIST)) {
+      if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
         setMaterialsRaw(new MaterialNBT(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false)));
       }
       rebuildStats();
@@ -660,8 +660,8 @@ public class ToolStack implements IModifierToolStack {
    * @return  True if initialized
    */
   public static boolean isInitialized(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    return nbt != null && nbt.contains(TAG_STATS, NBT.TAG_COMPOUND);
+    CompoundTag nbt = stack.getTag();
+    return nbt != null && nbt.contains(TAG_STATS, Tag.TAG_COMPOUND);
   }
 
   /**
@@ -670,8 +670,8 @@ public class ToolStack implements IModifierToolStack {
    * @return  True if initialized
    */
   public static boolean hasMaterials(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    return nbt != null && nbt.contains(TAG_MATERIALS, NBT.TAG_LIST);
+    CompoundTag nbt = stack.getTag();
+    return nbt != null && nbt.contains(TAG_MATERIALS, Tag.TAG_LIST);
   }
 
   /**
@@ -680,7 +680,7 @@ public class ToolStack implements IModifierToolStack {
    * @param definition  Tool definition
    * @return  If true, initialization is needed
    */
-  private static boolean needsInitialization(@Nullable CompoundNBT nbt, ToolDefinition definition) {
+  private static boolean needsInitialization(@Nullable CompoundTag nbt, ToolDefinition definition) {
     // cannot initialize if datapacks are not loaded
     if (!definition.isDataLoaded()) {
       return false;
@@ -690,11 +690,11 @@ public class ToolStack implements IModifierToolStack {
       return !definition.isMultipart();
     }
     // have data but no materials? cannot initialize yet
-    if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, NBT.TAG_LIST)) {
+    if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
       return false;
     }
     // no stats? not initialized
-    return !nbt.contains(TAG_STATS, NBT.TAG_COMPOUND);
+    return !nbt.contains(TAG_STATS, Tag.TAG_COMPOUND);
   }
 
   /**
@@ -708,7 +708,7 @@ public class ToolStack implements IModifierToolStack {
   }
 
   /**
-   * Ensures the given item stack is initialized. Intended to be called in {@link Item#onCreated(ItemStack, World, PlayerEntity)}
+   * Ensures the given item stack is initialized. Intended to be called in {@link Item#onCraftedBy(ItemStack, Level, Player)}
    * @param stack           ItemStack to initialize
    * @param toolDefinition  Tool definition
    */
@@ -730,13 +730,13 @@ public class ToolStack implements IModifierToolStack {
    * @param compound    Full stack NBT including item
    * @param definition  Tool definition
    */
-  public static void verifyTag(Item item, CompoundNBT compound, ToolDefinition definition) {
+  public static void verifyTag(Item item, CompoundTag compound, ToolDefinition definition) {
     // skip if no definition data loaded
-    if (definition.isDataLoaded() && compound.contains("tag", NBT.TAG_COMPOUND)) {
-      CompoundNBT nbt = compound.getCompound("tag");
+    if (definition.isDataLoaded() && compound.contains("tag", Tag.TAG_COMPOUND)) {
+      CompoundTag nbt = compound.getCompound("tag");
       // if the stack has materials, resolve all material redirects
-      if (nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {
-        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, NBT.TAG_STRING));
+      if (nbt.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
+        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
         MaterialIdNBT resolved = stored.resolveRedirects();
         if (resolved != stored) {
           resolved.updateNBT(nbt);

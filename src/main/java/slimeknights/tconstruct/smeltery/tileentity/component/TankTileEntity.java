@@ -2,14 +2,15 @@ package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -68,19 +69,19 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Getter @Setter
   private int lastStrength = -1;
 
-  public TankTileEntity() {
-    this(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
+  public TankTileEntity(BlockPos pos, BlockState state) {
+    this(pos, state, TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
   }
 
   /** Main constructor */
-  public TankTileEntity(ITankBlock block) {
-    this(TinkerSmeltery.tank.get(), block);
+  public TankTileEntity(BlockPos pos, BlockState state, ITankBlock block) {
+    this(TinkerSmeltery.tank.get(), pos, state, block);
   }
 
   /** Extendable constructor */
   @SuppressWarnings("WeakerAccess")
-  protected TankTileEntity(TileEntityType<?> type, ITankBlock block) {
-    super(type);
+  protected TankTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ITankBlock block) {
+    super(type, pos, state);
     tank = new FluidTankAnimated(block.getCapacity(), this);
     holder = LazyOptional.of(() -> tank);
     modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
@@ -101,11 +102,12 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   @Override
-  protected void invalidateCaps() {
+  public void invalidateCaps() {
     super.invalidateCaps();
     holder.invalidate();
   }
 
+  @Nonnull
   @Override
   public IModelData getModelData() {
     return modelData;
@@ -145,7 +147,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    * Updates the tank from an NBT tag, used in the block
    * @param nbt  tank NBT
    */
-  public void updateTank(CompoundNBT nbt) {
+  public void updateTank(CompoundTag nbt) {
     if (nbt.isEmpty()) {
       tank.setFluid(FluidStack.EMPTY);
     } else {
@@ -162,18 +164,18 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   @Override
-  public void load(BlockState state, CompoundNBT tag) {
-    tank.setCapacity(getCapacity(state.getBlock()));
+  public void load(CompoundTag tag) {
+    tank.setCapacity(getCapacity(getBlockState().getBlock()));
     updateTank(tag.getCompound(NBTTags.TANK));
-    super.load(state, tag);
+    super.load(tag);
   }
 
   @Override
-  public void writeSynced(CompoundNBT tag) {
-    super.writeSynced(tag);
+  public void saveSynced(CompoundTag tag) {
+    super.saveSynced(tag);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
-      tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
+      tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
     }
   }
 

@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
@@ -26,10 +26,10 @@ import java.util.Objects;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
   private static final ResourceLocation[] ARMOR_SLOT_BACKGROUNDS = new ResourceLocation[] {
-    PlayerContainer.EMPTY_ARMOR_SLOT_BOOTS,
-    PlayerContainer.EMPTY_ARMOR_SLOT_LEGGINGS,
-    PlayerContainer.EMPTY_ARMOR_SLOT_CHESTPLATE,
-    PlayerContainer.EMPTY_ARMOR_SLOT_HELMET
+    InventoryMenu.EMPTY_ARMOR_SLOT_BOOTS,
+    InventoryMenu.EMPTY_ARMOR_SLOT_LEGGINGS,
+    InventoryMenu.EMPTY_ARMOR_SLOT_CHESTPLATE,
+    InventoryMenu.EMPTY_ARMOR_SLOT_HELMET
   };
 
   @Getter
@@ -42,7 +42,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
    * @param inv   Player inventory
    * @param tile  Relevant tile entity
    */
-  public TinkerStationContainer(int id, PlayerInventory inv, @Nullable TinkerStationTileEntity tile) {
+  public TinkerStationContainer(int id, Inventory inv, @Nullable TinkerStationTileEntity tile) {
     super(TinkerTables.tinkerStationContainer.get(), id, inv, tile);
 
     // unfortunately, nothing works with no tile
@@ -74,7 +74,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       int index = slotType.getIndex();
       this.addSlot(new ArmorSlot(inv, slotType.getEquipmentSlot(), 152, 16 + (3 - index) * 18));
     }
-    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(PlayerContainer.BLOCK_ATLAS, PlayerContainer.EMPTY_ARMOR_SLOT_SHIELD));
+    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
 
     this.addInventorySlots();
   }
@@ -85,7 +85,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
    * @param inv  Player inventory
    * @param buf  Buffer for fetching tile
    */
-  public TinkerStationContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+  public TinkerStationContainer(int id, Inventory inv, FriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, TinkerStationTileEntity.class));
   }
 
@@ -108,9 +108,8 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
     int maxSize = tile.getContainerSize();
     for (int i = 0; i < maxSize; i++) {
       Slot slot = this.slots.get(i);
-      if (slot instanceof TinkerStationSlot) {
+      if (slot instanceof TinkerStationSlot slotToolPart) {
         // activate or deactivate the slots, sets the filters
-        TinkerStationSlot slotToolPart = (TinkerStationSlot) slot;
         LayoutSlot layoutSlot = layout.getSlot(i);
         if (layoutSlot.isHidden()) {
           slotToolPart.deactivate();
@@ -127,13 +126,13 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
   }
 
   private static class ArmorSlot extends Slot {
-    private final PlayerEntity player;
-    private final EquipmentSlotType slotType;
-    public ArmorSlot(PlayerInventory inv, EquipmentSlotType slotType, int xPosition, int yPosition) {
+    private final Player player;
+    private final EquipmentSlot slotType;
+    public ArmorSlot(Inventory inv, EquipmentSlot slotType, int xPosition, int yPosition) {
       super(inv, 36 + slotType.getIndex(), xPosition, yPosition);
       this.player = inv.player;
       this.slotType = slotType;
-      setBackground(PlayerContainer.BLOCK_ATLAS, ARMOR_SLOT_BACKGROUNDS[slotType.getIndex()]);
+      setBackground(InventoryMenu.BLOCK_ATLAS, ARMOR_SLOT_BACKGROUNDS[slotType.getIndex()]);
     }
 
     @Override

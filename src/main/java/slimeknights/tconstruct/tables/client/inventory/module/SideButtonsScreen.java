@@ -1,14 +1,15 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 
+// TODO: this is raw types
 public class SideButtonsScreen extends ModuleScreen {
 
   private final int columns;
@@ -17,11 +18,11 @@ public class SideButtonsScreen extends ModuleScreen {
 
   public int spacing = 4;
 
-  public SideButtonsScreen(MultiModuleScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title, int columns) {
+  public SideButtonsScreen(MultiModuleScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title, int columns) {
     this(parent, container, playerInventory, title, columns, false);
   }
 
-  public SideButtonsScreen(MultiModuleScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title, int columns, boolean right) {
+  public SideButtonsScreen(MultiModuleScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title, int columns, boolean right) {
     super(parent, container, playerInventory, title, right, false);
     this.columns = columns;
   }
@@ -43,16 +44,15 @@ public class SideButtonsScreen extends ModuleScreen {
       button.x += parent.imageWidth;
     }
 
-    this.buttons.add(button);
+    this.addRenderableWidget(button);
     this.buttonCount++;
   }
 
   @Override
   public boolean handleMouseClicked(double mouseX, double mouseY, int mouseButton) {
     if (mouseButton == 0) {
-      for (Widget widget : this.buttons) {
-        if (widget instanceof Button) {
-          Button button = (Button) widget;
+      for (Widget widget : this.renderables) {
+        if (widget instanceof Button button) {
 
           if (button.mouseClicked(mouseX, mouseY, mouseButton)) {
             this.clickedButton = button;
@@ -77,13 +77,13 @@ public class SideButtonsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
-    for (Widget widget : this.buttons) {
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
+    for (Widget widget : this.renderables) {
       widget.render(matrices, mouseX, mouseY, partialTicks);
     }
   }
 
   @Override
-  protected void renderLabels(MatrixStack matrixStack, int x, int y) {
+  protected void renderLabels(PoseStack matrixStack, int x, int y) {
   }
 }

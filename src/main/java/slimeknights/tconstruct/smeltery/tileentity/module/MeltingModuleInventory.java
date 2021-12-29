@@ -1,18 +1,19 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.IIntArray;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
@@ -26,7 +27,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   private static final String TAG_SIZE = "size";
 
   /** Parent tile entity */
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   /** Fluid handler for outputs */
   protected final IFluidHandler fluidHandler;
   /** Array of modules containing each slot */
@@ -43,7 +44,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * @param nuggetsPerOre  Number of nuggets to produce from an ore block
    * @param size           Size
    */
-  public MeltingModuleInventory(MantleTileEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre, int size) {
+  public MeltingModuleInventory(MantleBlockEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre, int size) {
     this.parent = parent;
     this.fluidHandler = fluidHandler;
     this.modules = new MeltingModule[size];
@@ -57,7 +58,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * @param fluidHandler   Tank for output
    * @param nuggetsPerOre  Number of nuggets to produce from an ore block
    */
-  public MeltingModuleInventory(MantleTileEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre) {
+  public MeltingModuleInventory(MantleBlockEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre) {
     this(parent, fluidHandler, nuggetsPerOre, 0);
   }
 
@@ -163,12 +164,13 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
 
     // resize the module array
     modules = Arrays.copyOf(modules, newSize);
-    parent.markDirtyFast();
+    parent.setChangedFast();
   }
 
 
   /* Item handling */
 
+  @Nonnull
   @Override
   public ItemStack getStackInSlot(int slot) {
     if (validSlot(slot)) {
@@ -198,6 +200,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
     }
   }
 
+  @Nonnull
   @Override
   public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
     if (stack.isEmpty()) {
@@ -216,6 +219,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
     return canInsert ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - 1) : stack;
   }
 
+  @Nonnull
   @Override
   public ItemStack extractItem(int slot, int amount, boolean simulate) {
     if (amount == 0) {
@@ -294,17 +298,17 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   }
 
   /**
-   * Writes this module to NBT
-   * @return  Module in NBT
+   * Writes this module to Tag
+   * @return  Module in Tag
    */
-  public CompoundNBT writeToNBT() {
-    CompoundNBT nbt = new CompoundNBT();
-    ListNBT list = new ListNBT();
+  public CompoundTag writeToTag() {
+    CompoundTag nbt = new CompoundTag();
+    ListTag list = new ListTag();
     for (int i = 0; i < modules.length; i++) {
       if (modules[i] != null && !modules[i].getStack().isEmpty()) {
-        CompoundNBT moduleNBT = modules[i].writeToNBT();
-        moduleNBT.putByte(TAG_SLOT, (byte)i);
-        list.add(moduleNBT);
+        CompoundTag moduleTag = modules[i].writeToTag();
+        moduleTag.putByte(TAG_SLOT, (byte)i);
+        list.add(moduleTag);
       }
     }
     if (!list.isEmpty()) {
@@ -315,10 +319,10 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   }
 
   /**
-   * Reads this inventory from NBT
-   * @param nbt  NBT compound
+   * Reads this inventory from Tag
+   * @param nbt  Tag compound
    */
-  public void readFromNBT(CompoundNBT nbt) {
+  public void readFromTag(CompoundTag nbt) {
     if (!strictSize) {
       int newSize = nbt.getByte(TAG_SIZE) & 255;
       if (newSize != modules.length) {
@@ -332,13 +336,13 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       }
     }
 
-    ListNBT list = nbt.getList(TAG_ITEMS, NBT.TAG_COMPOUND);
+    ListTag list = nbt.getList(TAG_ITEMS, Tag.TAG_COMPOUND);
     for (int i = 0; i < list.size(); i++) {
-      CompoundNBT item = list.getCompound(i);
-      if (item.contains(TAG_SLOT, NBT.TAG_BYTE)) {
+      CompoundTag item = list.getCompound(i);
+      if (item.contains(TAG_SLOT, Tag.TAG_BYTE)) {
         int slot = item.getByte(TAG_SLOT) & 255;
         if (validSlot(slot)) {
-          getModule(slot).readFromNBT(item);
+          getModule(slot).readFromTag(item);
         }
       }
     }
@@ -351,7 +355,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * Sets up all sub slots for tracking
    * @param consumer  IIntArray consumer
    */
-  public void trackInts(Consumer<IIntArray> consumer) {
+  public void trackInts(Consumer<ContainerData> consumer) {
     for (int i = 0; i < getSlots(); i++) {
       consumer.accept(getModule(i));
     }

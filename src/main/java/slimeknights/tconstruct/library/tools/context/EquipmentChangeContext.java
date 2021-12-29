@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Getter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 public class EquipmentChangeContext extends EquipmentContext {
   /** Slot that changed */
   @Getter
-  private final EquipmentSlotType changedSlot;
+  private final EquipmentSlot changedSlot;
   /** Original stack in the slot */
   @Getter
   private final ItemStack original;
@@ -23,7 +23,7 @@ public class EquipmentChangeContext extends EquipmentContext {
   @Nullable @Getter
   private final IModifierToolStack originalTool;
 
-  public EquipmentChangeContext(LivingEntity entity, EquipmentSlotType changedSlot, ItemStack original, ItemStack replacement) {
+  public EquipmentChangeContext(LivingEntity entity, EquipmentSlot changedSlot, ItemStack original, ItemStack replacement) {
     super(entity);
     this.changedSlot = changedSlot;
     this.original = original;

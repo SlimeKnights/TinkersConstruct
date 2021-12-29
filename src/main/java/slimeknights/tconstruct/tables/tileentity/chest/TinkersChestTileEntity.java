@@ -2,11 +2,13 @@ package slimeknights.tconstruct.tables.tileentity.chest;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -20,6 +22,7 @@ public class TinkersChestTileEntity extends ChestTileEntity {
   public static final String TAG_CHEST_COLOR = "color";
   /** Default color for a chest */
   public static final int DEFAULT_COLOR = 0x407686;
+  public static final Component NAME = TConstruct.makeTranslation("gui", "tinkers_chest");
 
   /** Current display color for the chest */
   @Getter
@@ -28,8 +31,8 @@ public class TinkersChestTileEntity extends ChestTileEntity {
   @Getter @Accessors(fluent = true)
   private boolean hasColor = false;
 
-  public TinkersChestTileEntity() {
-    super(TinkerTables.tinkersChestTile.get(), TConstruct.makeTranslationKey("gui", "tinkers_chest"), new TinkersChestItemHandler());
+  public TinkersChestTileEntity(BlockPos pos, BlockState state) {
+    super(TinkerTables.tinkersChestTile.get(), pos, state, NAME, new TinkersChestItemHandler());
   }
 
   /** Sets the color of the chest */
@@ -39,22 +42,22 @@ public class TinkersChestTileEntity extends ChestTileEntity {
   }
 
   @Override
-  public boolean canInsert(PlayerEntity player, ItemStack heldItem) {
+  public boolean canInsert(Player player, ItemStack heldItem) {
     return false;
   }
 
   @Override
-  public void writeSynced(CompoundNBT tags) {
-    super.writeSynced(tags);
+  public void saveSynced(CompoundTag tags) {
+    super.saveSynced(tags);
     if (hasColor) {
       tags.putInt(TAG_CHEST_COLOR, color);
     }
   }
 
   @Override
-  public void load(BlockState blockState, CompoundNBT tags) {
-    super.load(blockState, tags);
-    if (tags.contains(TAG_CHEST_COLOR, NBT.TAG_ANY_NUMERIC)) {
+  public void load(CompoundTag tags) {
+    super.load(tags);
+    if (tags.contains(TAG_CHEST_COLOR, Tag.TAG_ANY_NUMERIC)) {
       setColor(tags.getInt(TAG_CHEST_COLOR));
     }
   }

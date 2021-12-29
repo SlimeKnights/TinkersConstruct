@@ -4,12 +4,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nullable;
 
@@ -18,12 +18,12 @@ import javax.annotation.Nullable;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ToolHarvestContext {
   /** World containing the harvested block */
-  private final ServerWorld world;
+  private final ServerLevel world;
   /** Living entity harvesting the block */
   private final LivingEntity living;
   /** Player harvesting the block, null if not a player */
   @Nullable
-  private final ServerPlayerEntity player;
+  private final ServerPlayer player;
   /** State being harvested */
   private final BlockState state;
   /** Position being harvested */
@@ -44,7 +44,7 @@ public class ToolHarvestContext {
   /** Originally targeted block state. Will be the same as {@link #state} for the original block */
   private final BlockState targetedState;
 
-  public ToolHarvestContext(ServerWorld world, ServerPlayerEntity player, BlockState state, BlockPos pos, Direction sideHit, boolean canHarvest, boolean isEffective) {
+  public ToolHarvestContext(ServerLevel world, ServerPlayer player, BlockState state, BlockPos pos, Direction sideHit, boolean canHarvest, boolean isEffective) {
     this.world = world;
     this.living = player;
     this.player = player;
@@ -58,10 +58,10 @@ public class ToolHarvestContext {
     this.targetedState = state;
   }
 
-  public ToolHarvestContext(ServerWorld world, LivingEntity living, BlockState state, BlockPos pos, Direction sideHit, boolean canHarvest, boolean isEffective) {
+  public ToolHarvestContext(ServerLevel world, LivingEntity living, BlockState state, BlockPos pos, Direction sideHit, boolean canHarvest, boolean isEffective) {
     this.world = world;
     this.living = living;
-    this.player = living instanceof ServerPlayerEntity ? (ServerPlayerEntity) living : null;
+    this.player = living instanceof ServerPlayer ? (ServerPlayer) living : null;
     this.state = state;
     this.pos = pos;
     this.canHarvest = canHarvest;

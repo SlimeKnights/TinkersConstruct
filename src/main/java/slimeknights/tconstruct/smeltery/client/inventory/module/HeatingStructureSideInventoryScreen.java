@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
@@ -14,8 +15,8 @@ public class HeatingStructureSideInventoryScreen extends SideInventoryScreen<Hea
   public static final ResourceLocation SLOT_LOCATION = HeatingStructureScreen.BACKGROUND;
 
   // TODO: read from a proper place
-  public HeatingStructureSideInventoryScreen(HeatingStructureScreen parent, SideInventoryContainer<? extends HeatingStructureTileEntity> container, PlayerInventory playerInventory, int slotCount, int columns) {
-    super(parent, container, playerInventory, StringTextComponent.EMPTY, slotCount, columns, false, true);
+  public HeatingStructureSideInventoryScreen(HeatingStructureScreen parent, SideInventoryContainer<? extends HeatingStructureTileEntity> container, Inventory playerInventory, int slotCount, int columns) {
+    super(parent, container, playerInventory, TextComponent.EMPTY, slotCount, columns, false, true);
     slot = new ScalableElementScreen(0, 166, 22, 18, 256, 256);
     slotEmpty = new ScalableElementScreen(22, 166, 22, 18, 256, 256);
     yOffset = 0;
@@ -35,21 +36,20 @@ public class HeatingStructureSideInventoryScreen extends SideInventoryScreen<Hea
   }
 
   @Override
-  protected int drawSlots(MatrixStack matrices, int xPos, int yPos) {
-    assert minecraft != null;
-    minecraft.getTextureManager().bind(SLOT_LOCATION);
+  protected int drawSlots(PoseStack matrices, int xPos, int yPos) {
+    RenderSystem.setShaderTexture(0, SLOT_LOCATION);
     int ret = super.drawSlots(matrices, xPos, yPos);
-    minecraft.getTextureManager().bind(GENERIC_INVENTORY);
+    RenderSystem.setShaderTexture(0, GENERIC_INVENTORY);
     return ret;
   }
 
   @Override
-  public void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
+  public void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
     super.renderLabels(matrices, mouseX, mouseY);
   }
 
   @Override
-  protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
     super.renderTooltip(matrices, mouseX, mouseY);
     if (parent.melting != null) {
       parent.melting.drawHeatTooltips(matrices, mouseX, mouseY);

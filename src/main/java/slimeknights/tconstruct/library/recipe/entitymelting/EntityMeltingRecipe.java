@@ -4,18 +4,18 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
@@ -81,19 +81,19 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.entityMeltingSerializer.get();
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.ENTITY_MELTING;
   }
 
   /** @deprecated use {@link #matches(EntityType)}*/
   @Deprecated
   @Override
-  public boolean matches(IEmptyInventory inv, World worldIn) {
+  public boolean matches(IEmptyInventory inv, Level worldIn) {
     return false;
   }
 
@@ -102,14 +102,14 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     @Override
     public EntityMeltingRecipe fromJson(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getAsJsonObject(json, "result"));
-      int damage = JSONUtils.getAsInt(json, "damage", 2);
+      FluidStack output = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "result"));
+      int damage = GsonHelper.getAsInt(json, "damage", 2);
       return new EntityMeltingRecipe(id, ingredient, output, damage);
     }
 
     @Nullable
     @Override
-    protected EntityMeltingRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected EntityMeltingRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       FluidStack output = buffer.readFluidStack();
       int damage = buffer.readVarInt();
@@ -117,7 +117,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, EntityMeltingRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, EntityMeltingRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.damage);

@@ -7,11 +7,11 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
@@ -54,13 +54,14 @@ public final class SlotType {
   public static void init() {}
 
   /** Checks if the given slot name is valid */
+  @SuppressWarnings("BooleanMethodIsAlwaysInverted")
   public static boolean isValidName(String name) {
     return VALIDATOR.matcher(name).matches();
   }
 
   /**
    * Registers the given slot type.
-   * Note that you will also want to define a texture for the creative modifier and JEI using {@link slimeknights.tconstruct.library.client.model.NBTKeyModel#registerExtraTexture(ResourceLocation, String, ResourceLocation)}
+   * Note that you will also want to define a texture for the creative modifier and JEI using {@link slimeknights.mantle.client.model.NBTKeyModel#registerExtraTexture(ResourceLocation, String, ResourceLocation)}
    * @param name     Name of the slot type
    * @param color    Color of the slot
    * @return  Slot type instance for the name, only once instance for each name
@@ -74,7 +75,7 @@ public final class SlotType {
     if (!isValidName(name)) {
       throw new IllegalArgumentException("Non [a-z0-9_] character in slot name: " + name);
     }
-    SlotType type = new SlotType(name, Color.fromRgb(color));
+    SlotType type = new SlotType(name, TextColor.fromRgb(color));
     SLOT_TYPES.put(name, type);
     ALL_SLOTS.add(type);
     return type;
@@ -96,7 +97,7 @@ public final class SlotType {
   }
 
   /** Reads the slot type from the packet buffer */
-  public static SlotType read(PacketBuffer buffer) {
+  public static SlotType read(FriendlyByteBuf buffer) {
     return getOrCreate(buffer.readUtf());
   }
 
@@ -113,10 +114,10 @@ public final class SlotType {
   private final String name;
   /** Gets the color of this slot type */
   @Getter
-  private final Color color;
+  private final TextColor color;
 
   /** Cached text component display names */
-  private ITextComponent displayName = null;
+  private Component displayName = null;
 
   /** Gets the display name for display in a title */
   public String getPrefix() {
@@ -124,15 +125,15 @@ public final class SlotType {
   }
 
   /** Gets the display name for display in a sentence */
-  public ITextComponent getDisplayName() {
+  public Component getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslationTextComponent(KEY_DISPLAY + name);
+      displayName = new TranslatableComponent(KEY_DISPLAY + name);
     }
     return displayName;
   }
 
   /** Writes this slot type to the packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     buffer.writeUtf(name);
   }
 
@@ -141,7 +142,8 @@ public final class SlotType {
     return "SlotType{" + name + '}';
   }
 
-  /** Data object representing a slot type and count */
+  /** Data object representing a slot type and count
+   * TODO: make a record */
   @Data
   public static class SlotCount {
     private final SlotType type;
@@ -168,7 +170,7 @@ public final class SlotType {
 
     /** Reads a slot count from the packet buffer */
     @Nullable
-    public static SlotCount read(PacketBuffer buffer) {
+    public static SlotCount read(FriendlyByteBuf buffer) {
       int count = buffer.readVarInt();
       if (count > 0) {
         SlotType type = SlotType.read(buffer);
@@ -186,7 +188,7 @@ public final class SlotType {
     }
 
     /** Writes this to the packet buffer */
-    public static void write(@Nullable SlotCount slots, PacketBuffer buffer) {
+    public static void write(@Nullable SlotCount slots, FriendlyByteBuf buffer) {
       if (slots == null) {
         buffer.writeVarInt(0);
       } else {

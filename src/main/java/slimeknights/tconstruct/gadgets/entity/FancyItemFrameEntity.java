@@ -1,48 +1,48 @@
 package slimeknights.tconstruct.gadgets.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.minecraftforge.network.NetworkHooks;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 
-public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAdditionalSpawnData {
+public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditionalSpawnData {
   private static final int DIAMOND_TIMER = 300;
-  private static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(FancyItemFrameEntity.class, DataSerializers.INT);
+  private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(FancyItemFrameEntity.class, EntityDataSerializers.INT);
   private static final String TAG_VARIANT = "Variant";
   private static final String TAG_ROTATION_TIMER = "RotationTimer";
 
   private int rotationTimer = 0;
-  public FancyItemFrameEntity(EntityType<? extends FancyItemFrameEntity> type, World level) {
+  public FancyItemFrameEntity(EntityType<? extends FancyItemFrameEntity> type, Level level) {
     super(type, level);
   }
 
-  public FancyItemFrameEntity(World levelIn, BlockPos blockPos, Direction face, FrameType variant) {
+  public FancyItemFrameEntity(Level levelIn, BlockPos blockPos, Direction face, FrameType variant) {
     super(TinkerGadgets.itemFrameEntity.get(), levelIn);
     this.pos = blockPos;
     this.setDirection(face);
@@ -60,12 +60,12 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public ActionResultType interact(PlayerEntity player, Hand hand) {
+  public InteractionResult interact(Player player, InteractionHand hand) {
     if (!player.isShiftKeyDown() && getFrameId() == FrameType.CLEAR.getId() && !getItem().isEmpty()) {
       BlockPos behind = blockPosition().relative(direction.getOpposite());
       BlockState state = level.getBlockState(behind);
-      if (!state.isAir(level, behind)) {
-        ActionResultType result = state.use(level, player, hand, Util.createTraceResult(behind, direction, false));
+      if (!state.isAir()) {
+        InteractionResult result = state.use(level, player, hand, Util.createTraceResult(behind, direction, false));
         if (result.consumesAction()) {
           return result;
         }
@@ -127,7 +127,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   /** Internal logic to set the rotation */
   private void setRotationRaw(int rotationIn, boolean updateComparator) {
     this.getEntityData().set(DATA_ROTATION, rotationIn);
-    if (updateComparator && this.pos != null) {
+    if (updateComparator) {
       this.level.updateNeighbourForOutputSignal(this.pos, Blocks.AIR);
     }
   }
@@ -181,7 +181,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public ItemStack getPickedResult(RayTraceResult target) {
+  public ItemStack getPickedResult(HitResult target) {
     ItemStack held = this.getItem();
     if (held.isEmpty()) {
       return new ItemStack(getFrameItem());
@@ -214,7 +214,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
 
 
   @Override
-  public void addAdditionalSaveData(CompoundNBT compound) {
+  public void addAdditionalSaveData(CompoundTag compound) {
     super.addAdditionalSaveData(compound);
     int frameId = this.getFrameId();
     compound.putInt(TAG_VARIANT, frameId);
@@ -224,7 +224,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public void readAdditionalSaveData(CompoundNBT compound) {
+  public void readAdditionalSaveData(CompoundTag compound) {
     super.readAdditionalSaveData(compound);
     int frameId = compound.getInt(TAG_VARIANT);
     this.entityData.set(VARIANT, frameId);
@@ -234,19 +234,19 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public IPacket<?> getAddEntityPacket() {
+  public Packet<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 
   @Override
-  public void writeSpawnData(PacketBuffer buffer) {
+  public void writeSpawnData(FriendlyByteBuf buffer) {
     buffer.writeVarInt(this.getFrameId());
     buffer.writeBlockPos(this.pos);
     buffer.writeVarInt(this.direction.get3DDataValue());
   }
 
   @Override
-  public void readSpawnData(PacketBuffer buffer) {
+  public void readSpawnData(FriendlyByteBuf buffer) {
     this.entityData.set(VARIANT, buffer.readVarInt());
     this.pos = buffer.readBlockPos();
     this.setDirection(Direction.from3DDataValue(buffer.readVarInt()));
@@ -254,7 +254,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
 
 
   @Override
-  protected ITextComponent getTypeName() {
-    return new TranslationTextComponent(getFrameItem().getDescriptionId());
+  protected Component getTypeName() {
+    return new TranslatableComponent(getFrameItem().getDescriptionId());
   }
 }

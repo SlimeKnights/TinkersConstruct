@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.utils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -19,7 +19,7 @@ public class JsonUtils {
    * @throws JsonSyntaxException if the key is not an int or below the min
    */
   public static int getIntMin(JsonObject json, String key, int min) {
-    int value = JSONUtils.getAsInt(json, key, min);
+    int value = GsonHelper.getAsInt(json, key, min);
     if (value < min) {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
@@ -35,7 +35,7 @@ public class JsonUtils {
    * @throws JsonSyntaxException if the key is not an int or below the min
    */
   public static int getIntMin(JsonElement json, String key, int min) {
-    int value = JSONUtils.convertToInt(json, key);
+    int value = GsonHelper.convertToInt(json, key);
     if (value < min) {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
@@ -50,7 +50,7 @@ public class JsonUtils {
    * @throws JsonSyntaxException  If the resource location is invalid
    */
   public static ResourceLocation getResourceLocation(JsonElement json, String key) {
-    String text = JSONUtils.convertToString(json, key);
+    String text = GsonHelper.convertToString(json, key);
     ResourceLocation location = ResourceLocation.tryParse(text);
     if (location == null) {
       throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");

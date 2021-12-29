@@ -1,19 +1,20 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
@@ -27,9 +28,9 @@ import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
-public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
-  protected static final ITextComponent COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
-  protected static final ITextComponent COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
+public class BaseStationScreen<TILE extends BlockEntity, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
+  protected static final Component COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
+  protected static final Component COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
 
   public static final ResourceLocation BLANK_BACK = TConstruct.getResource("textures/gui/blank.png");
 
@@ -37,7 +38,7 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
   protected final CONTAINER container;
   protected TinkerTabsScreen tabsScreen;
 
-  public BaseStationScreen(CONTAINER container, PlayerInventory playerInventory, ITextComponent title) {
+  public BaseStationScreen(CONTAINER container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
     this.tile = container.getTile();
     this.container = container;
@@ -46,22 +47,22 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
     this.addModule(this.tabsScreen);
 
     if (this.tile != null) {
-      World world = this.tile.getLevel();
+      Level world = this.tile.getLevel();
 
       if (world != null) {
         for (Pair<BlockPos, BlockState> pair : container.stationBlocks) {
           BlockState state = pair.getRight();
           BlockPos blockPos = pair.getLeft();
-          ItemStack stack = state.getBlock().getPickBlock(state, null, world, blockPos, playerInventory.player);
+          ItemStack stack = state.getBlock().getCloneItemStack(state, null, world, blockPos, playerInventory.player);
           this.tabsScreen.addTab(stack, blockPos);
         }
       }
-    }
 
-    // preselect the correct tab
-    for (int i = 0; i < this.tabsScreen.tabData.size(); i++) {
-      if (this.tabsScreen.tabData.get(i).equals(this.tile.getBlockPos())) {
-        this.tabsScreen.tabs.selected = i;
+      // preselect the correct tab
+      for (int i = 0; i < this.tabsScreen.tabData.size(); i++) {
+        if (this.tabsScreen.tabData.get(i).equals(this.tile.getBlockPos())) {
+          this.tabsScreen.tabs.selected = i;
+        }
       }
     }
   }
@@ -70,12 +71,12 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
     return this.tile;
   }
 
-  protected void drawIcon(MatrixStack matrices, Slot slot, ElementScreen element) {
-    this.minecraft.getTextureManager().bind(Icons.ICONS);
+  protected void drawIcon(PoseStack matrices, Slot slot, ElementScreen element) {
+    RenderSystem.setShaderTexture(0, Icons.ICONS);
     element.draw(matrices, slot.x + this.cornerX - 1, slot.y + this.cornerY - 1);
   }
 
-  protected void drawIconEmpty(MatrixStack matrices, Slot slot, ElementScreen element) {
+  protected void drawIconEmpty(PoseStack matrices, Slot slot, ElementScreen element) {
     if (slot.hasItem()) {
       return;
     }
@@ -88,7 +89,7 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
       return;
     }
 
-    World world = this.tile.getLevel();
+    Level world = this.tile.getLevel();
 
     if (world == null) {
       return;
@@ -98,32 +99,32 @@ public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseSt
     BlockState state = world.getBlockState(pos);
 
     if (state.getBlock() instanceof ITinkerStationBlock) {
-      TileEntity te = this.tile.getLevel().getBlockEntity(pos);
+//      BlockEntity te = this.tile.getLevel().getBlockEntity(pos);
       TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
 
       // sound!
       assert this.minecraft != null;
-      this.minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+      this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
   }
 
-  public void error(ITextComponent message) {
+  public void error(Component message) {
   }
 
-  public void warning(ITextComponent message) {
+  public void warning(Component message) {
   }
 
   public void updateDisplay() {
   }
 
-  protected void addChestSideInventory() {
+  protected void addChestSideInventory(Inventory inventory) {
     SideInventoryContainer<?> sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
     if (sideInventoryContainer != null) {
       // no title if missing one
-      ITextComponent sideInventoryName = StringTextComponent.EMPTY;
-      TileEntity te = sideInventoryContainer.getTile();
-      if (te instanceof INamedContainerProvider) {
-        sideInventoryName = ((INamedContainerProvider) te).getDisplayName();
+      Component sideInventoryName = TextComponent.EMPTY;
+      BlockEntity te = sideInventoryContainer.getTile();
+      if (te instanceof MenuProvider) {
+        sideInventoryName = ((MenuProvider) te).getDisplayName();
       }
 
       this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, inventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));

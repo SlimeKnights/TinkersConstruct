@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.traits.melee;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -13,10 +13,10 @@ public class DecayModifier extends Modifier {
   }
   
   /* gets the effect for the given level, including a random time */
-  private static EffectInstance makeDecayEffect(int level) {
+  private static MobEffectInstance makeDecayEffect(int level) {
     // potions are 0 indexed instead of 1 indexed
     // wither skeletons apply 10 seconds of wither for comparison
-    return new EffectInstance(Effects.WITHER, 20 * (5 + (RANDOM.nextInt(level * 3))), level - 1);
+    return new MobEffectInstance(MobEffects.WITHER, 20 * (5 + (RANDOM.nextInt(level * 3))), level - 1);
   }
 
   @Override

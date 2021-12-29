@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.base;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -16,14 +16,14 @@ public class InteractionModifier extends Modifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+    if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1);
     }
   }
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlotType.CHEST) {
+    if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1);
     }
   }
@@ -34,7 +34,7 @@ public class InteractionModifier extends Modifier {
     }
 
     @Override
-    public ITextComponent getDisplayName(int level) {
+    public Component getDisplayName(int level) {
       // display name without the level
       return super.getDisplayName();
     }

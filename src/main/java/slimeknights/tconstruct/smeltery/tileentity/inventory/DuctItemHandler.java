@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -27,7 +27,7 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
    */
   @Override
   public void setStack(ItemStack newStack) {
-    World world = parent.getLevel();
+    Level world = parent.getLevel();
     boolean hasChange = world != null && !ItemStack.matches(getStack(), newStack);
     super.setStack(newStack);
     if (hasChange) {
@@ -43,9 +43,9 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
   @Override
   protected boolean isItemValid(ItemStack stack) {
     // the item or its container must be in the tag
-    if (!stack.getItem().is(TinkerTags.Items.DUCT_CONTAINERS)) {
+    if (!stack.is(TinkerTags.Items.DUCT_CONTAINERS)) {
       ItemStack container = stack.getContainerItem();
-      if (container.isEmpty() || !container.getItem().is(TinkerTags.Items.DUCT_CONTAINERS)) {
+      if (container.isEmpty() || !container.is(TinkerTags.Items.DUCT_CONTAINERS)) {
         return false;
       }
     }

@@ -3,10 +3,10 @@ package slimeknights.tconstruct.common.data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 
 import java.util.List;
 

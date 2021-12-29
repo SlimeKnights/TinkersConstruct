@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.inventory.IReadOnlyInventory;
 
 /**

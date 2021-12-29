@@ -6,14 +6,14 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
@@ -34,14 +34,14 @@ public class ModifiersCommand {
   private static final String ADD_SUCCESS_MULTIPLE = TConstruct.makeTranslationKey("command", "modifiers.success.add.multiple");
   private static final String REMOVE_SUCCESS = TConstruct.makeTranslationKey("command", "modifiers.success.remove.single");
   private static final String REMOVE_SUCCESS_MULTIPLE = TConstruct.makeTranslationKey("command", "modifiers.success.remove.multiple");
-  private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (ITextComponent)error);
+  private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (Component)error);
   private static final Dynamic2CommandExceptionType CANNOT_REMOVE = new Dynamic2CommandExceptionType((name, entity) -> TConstruct.makeTranslation("command", "modifiers.failure.too_few_levels", name, entity));
 
   /**
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
+  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
     subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
               .then(Commands.argument("targets", EntityArgument.entities())
                             // modifiers <target> add <modifier> [<level>]
@@ -59,7 +59,7 @@ public class ModifiersCommand {
   }
 
   /** Runs the command */
-  private static int add(CommandContext<CommandSource> context, int level) throws CommandSyntaxException {
+  private static int add(CommandContext<CommandSourceStack> context, int level) throws CommandSyntaxException {
     Modifier modifier = ModifierArgument.getModifier(context, "modifier");
     List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
       // add modifier
@@ -84,23 +84,23 @@ public class ModifiersCommand {
       }
 
       // if successful, update held item
-      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       return true;
     });
 
     // success message
-    CommandSource source = context.getSource();
+    CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslatableComponent(ADD_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
+      source.sendSuccess(new TranslatableComponent(ADD_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
     }
     return size;
   }
 
   /** Runs the command */
-  private static int remove(CommandContext<CommandSource> context, int level) throws CommandSyntaxException {
+  private static int remove(CommandContext<CommandSourceStack> context, int level) throws CommandSyntaxException {
     Modifier modifier = ModifierArgument.getModifier(context, "modifier");
     MutableInt maxRemove = new MutableInt(1);
     List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
@@ -152,17 +152,17 @@ public class ModifiersCommand {
       }
 
       // if successful, update held item
-      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       return true;
     });
 
     // success message
-    CommandSource source = context.getSource();
+    CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(new TranslationTextComponent(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslatableComponent(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslationTextComponent(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
+      source.sendSuccess(new TranslatableComponent(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
     }
     return size;
   }

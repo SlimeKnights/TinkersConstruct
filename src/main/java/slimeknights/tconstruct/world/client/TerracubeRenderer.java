@@ -1,46 +1,31 @@
 package slimeknights.tconstruct.world.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.LavaSlimeModel;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.model.MagmaCubeModel;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.monster.Slime;
 import slimeknights.tconstruct.TConstruct;
 
-public class TerracubeRenderer extends MobRenderer<SlimeEntity,MagmaCubeModel<SlimeEntity>> {
-  public static final Factory TERRACUBE_RENDERER = new Factory(TConstruct.getResource("textures/entity/terracube.png"));
-
-  private final ResourceLocation texture;
-  public TerracubeRenderer(EntityRendererManager manager, ResourceLocation texture) {
-    super(manager, new MagmaCubeModel<>(), 0.25F);
-    this.texture = texture;
+public class TerracubeRenderer extends MobRenderer<Slime,LavaSlimeModel<Slime>> {
+  private static final ResourceLocation TEXTURE = TConstruct.getResource("textures/entity/terracube.png");
+  public TerracubeRenderer(EntityRendererProvider.Context context) {
+    super(context, new LavaSlimeModel<>(context.bakeLayer(ModelLayers.MAGMA_CUBE)), 0.25F);
   }
 
   @Override
-  public ResourceLocation getTextureLocation(SlimeEntity entity) {
-    return texture;
+  public ResourceLocation getTextureLocation(Slime entity) {
+    return TEXTURE;
   }
 
   @Override
-  protected void scale(SlimeEntity slime, MatrixStack matrices, float partialTickTime) {
+  protected void scale(Slime slime, PoseStack matrices, float partialTickTime) {
     int size = slime.getSize();
-    float squishFactor = MathHelper.lerp(partialTickTime, slime.oSquish, slime.squish) / ((float)size * 0.5F + 1.0F);
+    float squishFactor = Mth.lerp(partialTickTime, slime.oSquish, slime.squish) / ((float)size * 0.5F + 1.0F);
     float invertedSquish = 1.0F / (squishFactor + 1.0F);
     matrices.scale(invertedSquish * (float)size, 1.0F / invertedSquish * (float)size, invertedSquish * (float)size);
-  }
-
-  @RequiredArgsConstructor
-  public static class Factory implements IRenderFactory<SlimeEntity> {
-    private final ResourceLocation texture;
-
-    @Override
-    public EntityRenderer<? super SlimeEntity> createRenderFor(EntityRendererManager manager) {
-      return new TerracubeRenderer(manager, texture);
-    }
   }
 }

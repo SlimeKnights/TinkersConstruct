@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.client.modifiers;
 
 import com.google.gson.JsonObject;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.resources.model.Material;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -18,7 +18,7 @@ public interface IUnbakedModifierModel {
    * @return  Baked model using the given textures, or null if the modifier cannot be displayed on this tool (e.g. missing textures)
    */
   @Nullable
-  IBakedModifierModel forTool(Function<String,RenderMaterial> smallTextureGetter, Function<String,RenderMaterial> largeTextureGetter);
+  IBakedModifierModel forTool(Function<String,Material> smallTextureGetter, Function<String,Material> largeTextureGetter);
 
   /**
    * Configures the modifier model using the given JSON data. Triggered when a model uses a json object instead of a string to select model type

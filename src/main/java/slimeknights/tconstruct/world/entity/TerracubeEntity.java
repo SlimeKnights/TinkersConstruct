@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.world.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.particles.IParticleData;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
@@ -18,26 +18,26 @@ import java.util.Random;
 /**
  * Clay based slime cube
  */
-public class TerracubeEntity extends SlimeEntity {
-  public TerracubeEntity(EntityType<? extends TerracubeEntity> type, World worldIn) {
+public class TerracubeEntity extends Slime {
+  public TerracubeEntity(EntityType<? extends TerracubeEntity> type, Level worldIn) {
     super(type, worldIn);
   }
 
   /**
    * Checks if a slime can spawn at the given location
    */
-  public static boolean canSpawnHere(EntityType<? extends SlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
+  public static boolean canSpawnHere(EntityType<? extends Slime> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
     if (world.getDifficulty() == Difficulty.PEACEFUL) {
       return false;
     }
-    if (reason == SpawnReason.SPAWNER) {
+    if (reason == MobSpawnType.SPAWNER) {
       return true;
     }
     BlockPos down = pos.below();
     if (world.getFluidState(pos).is(FluidTags.WATER) && world.getFluidState(down).is(FluidTags.WATER)) {
       return true;
     }
-    return world.getBlockState(down).isValidSpawn(world, down, entityType) && MonsterEntity.isDarkEnoughToSpawn(world, pos, random);
+    return world.getBlockState(down).isValidSpawn(world, down, entityType) && Monster.isDarkEnoughToSpawn(world, pos, random);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class TerracubeEntity extends SlimeEntity {
   }
 
   @Override
-  protected IParticleData getParticleType() {
+  protected ParticleOptions getParticleType() {
     return TinkerWorld.terracubeParticle.get();
   }
 

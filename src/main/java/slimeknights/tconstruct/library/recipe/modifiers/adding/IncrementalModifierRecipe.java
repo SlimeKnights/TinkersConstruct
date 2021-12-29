@@ -3,13 +3,13 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -53,7 +53,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, World world) {
+  public boolean matches(ITinkerStationInventory inv, Level level) {
     // ensure this modifier can be applied
     if (!this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
@@ -110,7 +110,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #getCraftingResult(ITinkerStationInventory)}. Generally should not be modified
+   * @param result  Result from {@link #assemble(ITinkerStationInventory)}. Generally should not be modified
    * @param inv     Inventory instance to modify inputs
    */
   @Override
@@ -140,7 +140,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.incrementalModifierSerializer.get();
   }
 
@@ -263,9 +263,9 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
     JsonElement element = JsonHelper.getElement(parent, name);
     if (element.isJsonPrimitive()) {
-      return new ItemStack(JSONUtils.convertToItem(element, name));
+      return new ItemStack(GsonHelper.convertToItem(element, name));
     } else {
-      return CraftingHelper.getItemStack(JSONUtils.convertToJsonObject(element, name), true);
+      return CraftingHelper.getItemStack(GsonHelper.convertToJsonObject(element, name), true);
     }
   }
 
@@ -274,11 +274,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
-      int amountPerInput = JSONUtils.getAsInt(json, "amount_per_item", 1);
+      int amountPerInput = GsonHelper.getAsInt(json, "amount_per_item", 1);
       if (amountPerInput < 1) {
         throw new JsonSyntaxException("amount_per_item must be positive");
       }
-      int neededPerLevel = JSONUtils.getAsInt(json, "needed_per_level");
+      int neededPerLevel = GsonHelper.getAsInt(json, "needed_per_level");
       if (neededPerLevel <= amountPerInput) {
         throw new JsonSyntaxException("needed_per_level must be greater than amount_per_item");
       }
@@ -290,7 +290,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public IncrementalModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public IncrementalModifierRecipe read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       Ingredient input = Ingredient.fromNetwork(buffer);
       int amountPerInput = buffer.readVarInt();
@@ -300,7 +300,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, IncrementalModifierRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, IncrementalModifierRecipe recipe) {
       super.writeSafe(buffer, recipe);
       recipe.input.toNetwork(buffer);
       buffer.writeVarInt(recipe.amountPerInput);

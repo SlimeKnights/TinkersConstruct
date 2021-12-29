@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.ModifierFixture;
@@ -70,9 +70,9 @@ class ModifierNBTest extends BaseMcTest {
     builder.add(ModifierFixture.TEST_MODIFIER_1, 2);
     builder.add(ModifierFixture.TEST_MODIFIER_2, 3);
 
-    ListNBT list = builder.build().serializeToNBT();
+    ListTag list = builder.build().serializeToNBT();
     assertThat(list.size()).isEqualTo(2);
-    CompoundNBT tag = list.getCompound(0);
+    CompoundTag tag = list.getCompound(0);
     assertThat(tag.getString(ModifierNBT.TAG_MODIFIER)).isEqualTo(ModifierFixture.TEST_1.toString());
     assertThat(tag.getInt(ModifierNBT.TAG_LEVEL)).isEqualTo(2);
 
@@ -83,12 +83,12 @@ class ModifierNBTest extends BaseMcTest {
 
   @Test
   void deserialize() {
-    ListNBT list = new ListNBT();
-    CompoundNBT tag = new CompoundNBT();
+    ListTag list = new ListTag();
+    CompoundTag tag = new CompoundTag();
     tag.putString(ModifierNBT.TAG_MODIFIER, ModifierFixture.TEST_1.toString());
     tag.putInt(ModifierNBT.TAG_LEVEL, 2);
     list.add(tag);
-    tag = new CompoundNBT();
+    tag = new CompoundTag();
     tag.putString(ModifierNBT.TAG_MODIFIER, ModifierFixture.TEST_2.toString());
     tag.putInt(ModifierNBT.TAG_LEVEL, 3);
     list.add(tag);
@@ -100,7 +100,7 @@ class ModifierNBTest extends BaseMcTest {
 
   @Test
   void deserializeNoData_empty() {
-    ListNBT nbt = new ListNBT();
+    ListTag nbt = new ListTag();
 
     ModifierNBT modifierNBT = ModifierNBT.readFromNBT(nbt);
 
@@ -109,7 +109,7 @@ class ModifierNBTest extends BaseMcTest {
 
   @Test
   void wrongNbtType_empty() {
-    INBT wrongNbt = new CompoundNBT();
+    Tag wrongNbt = new CompoundTag();
 
     ModifierNBT modifierNBT = ModifierNBT.readFromNBT(wrongNbt);
 

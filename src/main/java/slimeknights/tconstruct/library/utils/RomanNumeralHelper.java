@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.utils;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class RomanNumeralHelper {
   private static String TRANSLATION_KEY_PREFIX = "roman_numeral.value.";
@@ -12,7 +12,7 @@ public class RomanNumeralHelper {
   private RomanNumeralHelper() {}
 
   /** Cache of components for each numeral */
-  private static Int2ObjectMap<ITextComponent> NUMERAL_CACHE = new Int2ObjectOpenHashMap<>();
+  private static Int2ObjectMap<Component> NUMERAL_CACHE = new Int2ObjectOpenHashMap<>();
 
   /** Converts a value to a roman numeral string, based on https://stackoverflow.com/questions/12967896/converting-integers-to-roman-numerals-java */
   private static String intToRomanNumeral(int value) {
@@ -94,16 +94,16 @@ public class RomanNumeralHelper {
    * @param value  Value of number
    * @return  Numeral
    */
-  public static ITextComponent getNumeral(int value) {
+  public static Component getNumeral(int value) {
     if (NUMERAL_CACHE.containsKey(value)) {
       return NUMERAL_CACHE.get(value);
     }
     String key = TRANSLATION_KEY_PREFIX + value;
-    ITextComponent component;
+    Component component;
     if (Util.canTranslate(key)) {
-      component = new TranslationTextComponent(key);
+      component = new TranslatableComponent(key);
     } else {
-      component = new StringTextComponent(intToRomanNumeral(value));
+      component = new TextComponent(intToRomanNumeral(value));
     }
     NUMERAL_CACHE.put(value, component);
     return component;

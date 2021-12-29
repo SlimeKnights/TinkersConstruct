@@ -2,20 +2,20 @@ package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -27,12 +27,12 @@ import java.util.List;
 /**
  * Interface to implement for tools that also display in the tinker station
  */
-public interface ITinkerStationDisplay extends IItemProvider {
+public interface ITinkerStationDisplay extends ItemLike {
   /**
    * The "title" displayed in the GUI
    */
-  default ITextComponent getLocalizedName() {
-    return new TranslationTextComponent(asItem().getDescriptionId());
+  default Component getLocalizedName() {
+    return new TranslatableComponent(asItem().getDescriptionId());
   }
 
   /**
@@ -41,9 +41,9 @@ public interface ITinkerStationDisplay extends IItemProvider {
    * @param tooltips     List of tooltips for display
    * @param tooltipFlag  Determines the type of tooltip to display
    */
-  default List<ITextComponent> getStatInformation(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
+  default List<Component> getStatInformation(IModifierToolStack tool, @Nullable Player player, List<Component> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
     tooltips = TooltipUtil.getDefaultStats(tool, player, tooltips, key, tooltipFlag);
-    TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_MELEE_ATTRIBUTES, EquipmentSlotType.MAINHAND);
+    TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_MELEE_ATTRIBUTES, EquipmentSlot.MAINHAND);
     return tooltips;
   }
 
@@ -53,7 +53,7 @@ public interface ITinkerStationDisplay extends IItemProvider {
    * @param slot   Slot with attributes
    * @return  Attribute map
    */
-  default Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
+  default Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlot slot) {
     return ImmutableMultimap.of();
   }
 
@@ -64,7 +64,7 @@ public interface ITinkerStationDisplay extends IItemProvider {
    * @param materials the list of materials
    * @return the combined item name
    */
-  static ITextComponent getCombinedItemName(ItemStack stack, ITextComponent itemName, Collection<IMaterial> materials) {
+  static Component getCombinedItemName(ItemStack stack, Component itemName, Collection<IMaterial> materials) {
     if (materials.isEmpty() || materials.stream().allMatch(IMaterial.UNKNOWN::equals)) {
       return itemName;
     }
@@ -76,28 +76,28 @@ public interface ITinkerStationDisplay extends IItemProvider {
         MaterialId id = material.getIdentifier();
         String key = stack.getDescriptionId() + ".material." + id.getNamespace() + "." + id.getPath();
         if (Util.canTranslate(key)) {
-          return new TranslationTextComponent(key);
+          return new TranslatableComponent(key);
         }
       }
       // name format override
       if (Util.canTranslate(material.getTranslationKey() + ".format")) {
-        return new TranslationTextComponent(material.getTranslationKey() + ".format", itemName);
+        return new TranslatableComponent(material.getTranslationKey() + ".format", itemName);
       }
 
-      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).append(new StringTextComponent(" ")).append(itemName);
+      return new TranslatableComponent(materials.iterator().next().getTranslationKey()).append(new TextComponent(" ")).append(itemName);
     }
 
     // multiple materials. we'll have to combine
-    StringTextComponent name = new StringTextComponent("");
+    TextComponent name = new TextComponent("");
 
     Iterator<IMaterial> iter = materials.iterator();
 
     IMaterial material = iter.next();
-    name.append(new TranslationTextComponent(material.getTranslationKey()));
+    name.append(new TranslatableComponent(material.getTranslationKey()));
 
     while (iter.hasNext()) {
       material = iter.next();
-      name.append("-").append(new TranslationTextComponent(material.getTranslationKey()));
+      name.append("-").append(new TranslatableComponent(material.getTranslationKey()));
     }
 
     name.append(" ").append(itemName);

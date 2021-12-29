@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor.walker;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -25,9 +25,9 @@ public class SnowdriftModifier extends AbstractWalkerModifier {
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
+  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     BlockState snow = Blocks.SNOW.defaultBlockState();
-    if (world.isEmptyBlock(target) && world.getBiome(target).getTemperature(target) < 0.8F && snow.canSurvive(world, target)) {
+    if (world.isEmptyBlock(target) && snow.canSurvive(world, target)) {
       world.setBlockAndUpdate(target, snow);
     }
   }

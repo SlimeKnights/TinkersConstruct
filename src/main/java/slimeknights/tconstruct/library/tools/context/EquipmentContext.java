@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
@@ -42,7 +42,7 @@ public class EquipmentContext {
    * @return  Tool stack in the given slot, or null if the slot is not modifiable
    */
   @Nullable
-  public IModifierToolStack getToolInSlot(EquipmentSlotType slotType) {
+  public IModifierToolStack getToolInSlot(EquipmentSlot slotType) {
     int index = slotType.getFilterFlag();
     if (!fetchedTool[index]) {
       toolsInSlots[index] = getToolStackIfModifiable(entity.getItemBySlot(slotType));
@@ -53,7 +53,7 @@ public class EquipmentContext {
 
   /** Checks if any of the armor items are modifiable */
   public boolean hasModifiableArmor() {
-    for (EquipmentSlotType slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+    for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
       if (getToolInSlot(slotType) != null) {
         return true;
       }

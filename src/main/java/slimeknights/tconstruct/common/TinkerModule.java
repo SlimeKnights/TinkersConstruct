@@ -1,23 +1,22 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -25,11 +24,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.TooltipItem;
+import slimeknights.mantle.registration.deferred.BlockEntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
-import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
-import slimeknights.mantle.util.SupplierItemGroup;
+import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
@@ -38,7 +37,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -58,21 +56,21 @@ public abstract class TinkerModule {
   protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.MOD_ID);
   protected static final ItemDeferredRegisterExtension ITEMS = new ItemDeferredRegisterExtension(TConstruct.MOD_ID);
   protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.MOD_ID);
-  protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.MOD_ID);
+  protected static final BlockEntityTypeDeferredRegister BLOCK_ENTITIES = new BlockEntityTypeDeferredRegister(TConstruct.MOD_ID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.MOD_ID);
   protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.MOD_ID);
-  protected static final DeferredRegister<Effect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.MOD_ID);
+  protected static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TConstruct.MOD_ID);
   protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.MOD_ID);
-  protected static final DeferredRegister<Structure<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.MOD_ID);
+  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.MOD_ID);
   protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.MOD_ID);
-  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.MOD_ID);
+  protected static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.MOD_ID);
   protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.MOD_ID);
   protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.MOD_ID);
   protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.MOD_ID);
 
   /** Creative tab for items that do not fit in another tab */
   @SuppressWarnings("WeakerAccess")
-  public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.MOD_ID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
+  public static final CreativeModeTab TAB_GENERAL = new SupplierCreativeTab(TConstruct.MOD_ID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
 
   // base item properties
   protected static final Item.Properties HIDDEN_PROPS = new Item.Properties();
@@ -88,10 +86,10 @@ public abstract class TinkerModule {
     BLOCKS.register(bus);
     ITEMS.register(bus);
     FLUIDS.register(bus);
-    TILE_ENTITIES.register(bus);
+    BLOCK_ENTITIES.register(bus);
     ENTITIES.register(bus);
     CONTAINERS.register(bus);
-    POTIONS.register(bus);
+    MOB_EFFECTS.register(bus);
     FEATURES.register(bus);
     STRUCTURE_FEATURES.register(bus);
     BLOCK_STATE_PROVIDER_TYPES.register(bus);
@@ -103,6 +101,7 @@ public abstract class TinkerModule {
 
   /**
    * This is a function that returns null, despite being nonnull. It is used on object holder fields to remove IDE warnings about constant null as it will be nonnull
+   * TODO: migrate to mantle version then remove
    * @param <T>  Field type
    * @return  Null
    */
@@ -112,41 +111,36 @@ public abstract class TinkerModule {
     return null;
   }
 
-  /** Constant to use for blocks with no tool for more readable code */
-  protected static final ToolType NO_TOOL = null;
-
   /**
    * We use this builder to ensure that our blocks all have the most important properties set.
    * This way it'll stick out if a block doesn't have a tooltype or sound set.
    * It may be a bit less clear at first, since the actual builder methods tell you what each value means,
    * but as long as we don't statically import the enums it should be just as readable.
    */
-  protected static AbstractBlock.Properties builder(Material material, @Nullable ToolType toolType, SoundType soundType) {
-    //noinspection ConstantConditions
-    return Block.Properties.of(material).harvestTool(toolType).sound(soundType);
+  protected static BlockBehaviour.Properties builder(Material material, SoundType soundType) {
+    return Block.Properties.of(material).sound(soundType);
   }
 
   /** Same as above, but with a color */
-  protected static AbstractBlock.Properties builder(Material material, MaterialColor color, @Nullable ToolType toolType, SoundType soundType) {
-    //noinspection ConstantConditions
-    return Block.Properties.of(material, color).harvestTool(toolType).sound(soundType);
+  protected static BlockBehaviour.Properties builder(Material material, MaterialColor color, SoundType soundType) {
+    return Block.Properties.of(material, color).sound(soundType);
   }
 
   /** Builder that pre-supplies metal properties */
-  protected static AbstractBlock.Properties metalBuilder(MaterialColor color) {
-    return builder(Material.METAL, color, ToolType.PICKAXE, SoundType.METAL).requiresCorrectToolForDrops().strength(5.0f);
+  protected static BlockBehaviour.Properties metalBuilder(MaterialColor color) {
+    return builder(Material.METAL, color, SoundType.METAL).requiresCorrectToolForDrops().strength(5.0f);
   }
 
   /** Builder that pre-supplies glass properties */
-  protected static AbstractBlock.Properties glassBuilder(MaterialColor color) {
-    return builder(Material.GLASS, color, ToolType.PICKAXE, SoundType.GLASS)
+  protected static BlockBehaviour.Properties glassBuilder(MaterialColor color) {
+    return builder(Material.GLASS, color, SoundType.GLASS)
       .requiresCorrectToolForDrops().strength(0.3F).noOcclusion().isValidSpawn(Blocks::never)
       .isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
   }
 
   /** Builder that pre-supplies glass properties */
-  protected static AbstractBlock.Properties woodBuilder(MaterialColor color) {
-    return builder(Material.WOOD, color, ToolType.AXE, SoundType.WOOD).requiresCorrectToolForDrops().strength(2.0F, 7.0F);
+  protected static BlockBehaviour.Properties woodBuilder(MaterialColor color) {
+    return builder(Material.WOOD, color, SoundType.WOOD).requiresCorrectToolForDrops().strength(2.0F, 7.0F);
   }
 
   /**

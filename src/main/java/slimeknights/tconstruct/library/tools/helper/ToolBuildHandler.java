@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
@@ -66,7 +66,6 @@ public final class ToolBuildHandler {
    * @return  Tool for rendering
    */
   public static ItemStack buildToolForRendering(Item item, ToolDefinition definition) {
-    int size = definition.getData().getParts().size();
     // if no parts, just return the item directly with the display tag
     ItemStack stack = new ItemStack(item);
     if (definition.isMultipart()) {

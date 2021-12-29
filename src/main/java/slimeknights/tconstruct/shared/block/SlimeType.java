@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.shared.block;
 
 import lombok.Getter;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.Item;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.util.StringRepresentable;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.Locale;
 
 @Getter
-public enum SlimeType implements IStringSerializable {
+public enum SlimeType implements StringRepresentable {
   EARTH(0x01cd4e, 0x8CD782, MaterialColor.GRASS, false),
   SKY(0x01cbcd, 0x00F4DA, MaterialColor.DIAMOND, false),
   ICHOR(0xff970d, 0xd09800, MaterialColor.COLOR_ORANGE, true, 10),

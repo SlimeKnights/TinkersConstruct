@@ -1,31 +1,31 @@
 package slimeknights.tconstruct.tools.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.SheetedDecalTextureGenerator;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.block.BlockState;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.DestroyBlockProgress;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.BlockDestructionProgress;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.HitResult.Type;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.DrawHighlightEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.DrawSelectionEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
@@ -49,9 +49,9 @@ public class ToolRenderEvents {
    * @param event the highlight event
    */
   @SubscribeEvent
-  static void renderBlockHighlights(DrawHighlightEvent.HighlightBlock event) {
-    World world = Minecraft.getInstance().level;
-    PlayerEntity player = Minecraft.getInstance().player;
+  static void renderBlockHighlights(DrawSelectionEvent.HighlightBlock event) {
+    Level world = Minecraft.getInstance().level;
+    Player player = Minecraft.getInstance().player;
     if (world == null || player == null) {
       return;
     }
@@ -61,7 +61,7 @@ public class ToolRenderEvents {
       return;
     }
     // must be targeting a block
-    RayTraceResult result = Minecraft.getInstance().hitResult;
+    HitResult result = Minecraft.getInstance().hitResult;
     if (result == null || result.getType() != Type.BLOCK) {
       return;
     }
@@ -70,7 +70,7 @@ public class ToolRenderEvents {
     if (tool.isBroken() || !(stack.getItem() instanceof IModifiableHarvest)) {
       return;
     }
-    BlockRayTraceResult blockTrace = event.getTarget();
+    BlockHitResult blockTrace = event.getTarget();
     BlockPos origin = blockTrace.getBlockPos();
     ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
     BlockState state = world.getBlockState(origin);
@@ -83,16 +83,16 @@ public class ToolRenderEvents {
     }
 
     // set up renderer
-    WorldRenderer worldRender = event.getContext();
-    MatrixStack matrices = event.getMatrix();
-    IRenderTypeBuffer.Impl buffers = worldRender.renderBuffers.bufferSource();
-    IVertexBuilder vertexBuilder = buffers.getBuffer(RenderType.lines());
+    LevelRenderer worldRender = event.getLevelRenderer();
+    PoseStack matrices = event.getPoseStack();
+    MultiBufferSource.BufferSource buffers = worldRender.renderBuffers.bufferSource();
+    VertexConsumer vertexBuilder = buffers.getBuffer(RenderType.lines());
     matrices.pushPose();
 
     // start drawing
-    ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getMainCamera();
+    Camera renderInfo = Minecraft.getInstance().gameRenderer.getMainCamera();
     Entity viewEntity = renderInfo.getEntity();
-    Vector3d vector3d = renderInfo.getPosition();
+    Vec3 vector3d = renderInfo.getPosition();
     double x = vector3d.x();
     double y = vector3d.y();
     double z = vector3d.z();
@@ -108,20 +108,16 @@ public class ToolRenderEvents {
     buffers.endBatch();
   }
 
-  /**
-   * Renders the block damage process on the extra blocks
-   *
-   * @param event the RenderWorldLastEvent
-   */
+  /** Renders the block damage process on the extra blocks */
   @SubscribeEvent
-  static void renderBlockDamageProgress(RenderWorldLastEvent event) {
+  static void renderBlockDamageProgress(RenderLevelLastEvent event) {
     // validate required variables are set
-    PlayerController controller = Minecraft.getInstance().gameMode;
+    MultiPlayerGameMode controller = Minecraft.getInstance().gameMode;
     if (controller == null || !controller.isDestroying()) {
       return;
     }
-    World world = Minecraft.getInstance().level;
-    PlayerEntity player = Minecraft.getInstance().player;
+    Level world = Minecraft.getInstance().level;
+    Player player = Minecraft.getInstance().player;
     if (world == null || player == null || Minecraft.getInstance().getCameraEntity() == null) {
       return;
     }
@@ -131,7 +127,7 @@ public class ToolRenderEvents {
       return;
     }
     // must be targeting a block
-    RayTraceResult result = Minecraft.getInstance().hitResult;
+    HitResult result = Minecraft.getInstance().hitResult;
     if (result == null || result.getType() != Type.BLOCK) {
       return;
     }
@@ -141,10 +137,10 @@ public class ToolRenderEvents {
       return;
     }
     // find breaking progress
-    BlockRayTraceResult blockTrace = (BlockRayTraceResult)result;
+    BlockHitResult blockTrace = (BlockHitResult)result;
     BlockPos target = blockTrace.getBlockPos();
-    DestroyBlockProgress progress = null;
-    for (Int2ObjectMap.Entry<DestroyBlockProgress> entry : Minecraft.getInstance().levelRenderer.destroyingBlocks.int2ObjectEntrySet()) {
+    BlockDestructionProgress progress = null;
+    for (Int2ObjectMap.Entry<BlockDestructionProgress> entry : Minecraft.getInstance().levelRenderer.destroyingBlocks.int2ObjectEntrySet()) {
       if (entry.getValue().getPos().equals(target)) {
         progress = entry.getValue();
         break;
@@ -165,24 +161,24 @@ public class ToolRenderEvents {
     }
 
     // set up buffers
-    MatrixStack matrices = event.getMatrixStack();
+    PoseStack matrices = event.getPoseStack();
     matrices.pushPose();
-    IRenderTypeBuffer.Impl vertices = event.getContext().renderBuffers.crumblingBufferSource();
-    IVertexBuilder vertexBuilder = vertices.getBuffer(ModelBakery.DESTROY_TYPES.get(progress.getProgress()));
+    MultiBufferSource.BufferSource vertices = event.getLevelRenderer().renderBuffers.crumblingBufferSource();
+    VertexConsumer vertexBuilder = vertices.getBuffer(ModelBakery.DESTROY_TYPES.get(progress.getProgress()));
 
     // finally, render the blocks
-    ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getMainCamera();
+    Camera renderInfo = Minecraft.getInstance().gameRenderer.getMainCamera();
     double x = renderInfo.getPosition().x;
     double y = renderInfo.getPosition().y;
     double z = renderInfo.getPosition().z;
-    BlockRendererDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
+    BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
     int rendered = 0;
     do {
       BlockPos pos = extraBlocks.next();
       matrices.pushPose();
       matrices.translate(pos.getX() - x, pos.getY() - y, pos.getZ() - z);
-      MatrixStack.Entry entry = matrices.last();
-      IVertexBuilder blockBuilder = new MatrixApplyingVertexBuilder(vertexBuilder, entry.pose(), entry.normal());
+      PoseStack.Pose entry = matrices.last();
+      VertexConsumer blockBuilder = new SheetedDecalTextureGenerator(vertexBuilder, entry.pose(), entry.normal());
       dispatcher.renderBreakingTexture(world.getBlockState(pos), pos, world, matrices, blockBuilder);
       matrices.popPose();
       rendered++;

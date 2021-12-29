@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.tools.capability;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -60,6 +60,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
     return defaultValue;
   }
 
+  @Nonnull
   @Override
   public FluidStack getFluidInTank(int tank) {
     return runForTank(tank, FluidStack.EMPTY, IFluidModifier::getFluidInTank);
@@ -182,6 +183,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   }
 
   /** Interface for modifiers with fluid capabilities to return */
+  @SuppressWarnings("unused")
   public interface IFluidModifier {
     /**
      * Determines how many fluid tanks are used by this modifier

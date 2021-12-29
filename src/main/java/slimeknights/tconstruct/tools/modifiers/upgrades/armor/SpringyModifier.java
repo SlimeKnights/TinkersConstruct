@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -26,16 +26,16 @@ public class SpringyModifier extends Modifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getEntity();
-    if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity) {
+    if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker) {
       user.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         // ensure this slot is in charge before continuing
         if (Optional.ofNullable(data.get(SLOT_IN_CHARGE)).filter(slot -> slot.inCharge == slotType).isPresent()) {
           // each slot attempts to apply, we keep the largest one, consistent with other counter attack modifiers
           float bestBonus = 0;
-          for (EquipmentSlotType bouncingSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
+          for (EquipmentSlot bouncingSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
             IModifierToolStack bouncingTool = context.getToolInSlot(bouncingSlot);
             if (bouncingTool != null && !bouncingTool.isBroken()) {
               // 15% chance per level of it applying
@@ -50,7 +50,8 @@ public class SpringyModifier extends Modifier {
           }
           // did we end up with any bonus?
           if (bestBonus > 0) {
-            ((LivingEntity)attacker).knockback(bestBonus, -MathHelper.sin(attacker.yRot * (float)Math.PI / 180F), MathHelper.cos(attacker.yRot * (float)Math.PI / 180F));
+            float angle = attacker.getYRot() * (float)Math.PI / 180F;
+            livingAttacker.knockback(bestBonus, -Mth.sin(angle), Mth.cos(angle));
           }
         }
       });
@@ -60,8 +61,8 @@ public class SpringyModifier extends Modifier {
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     // remove slot in charge if that is us
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (!tool.isBroken() && slot.getType() == Group.ARMOR && !context.getEntity().level.isClientSide) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (!tool.isBroken() && slot.getType() == Type.ARMOR && !context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge != null) {
@@ -73,8 +74,8 @@ public class SpringyModifier extends Modifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (!tool.isBroken() && slot.getType() == Group.ARMOR && !context.getEntity().level.isClientSide) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (!tool.isBroken() && slot.getType() == Type.ARMOR && !context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge == null) {
@@ -95,10 +96,10 @@ public class SpringyModifier extends Modifier {
   private static class SlotInCharge {
     private final boolean[] active = new boolean[4];
     @Nullable
-    EquipmentSlotType inCharge = null;
+    EquipmentSlot inCharge = null;
 
     /** Adds the given slot to the tracker */
-    void addSlot(EquipmentSlotType slotType) {
+    void addSlot(EquipmentSlot slotType) {
       active[slotType.getIndex()] = true;
       if (inCharge == null) {
         inCharge = slotType;
@@ -106,9 +107,9 @@ public class SpringyModifier extends Modifier {
     }
 
     /** Removes the given slot from the tracker */
-    void removeSlot(EquipmentSlotType slotType) {
+    void removeSlot(EquipmentSlot slotType) {
       active[slotType.getIndex()] = false;
-      for (EquipmentSlotType armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
+      for (EquipmentSlot armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
         if (active[slotType.getIndex()]) {
           inCharge = armorSlot;
           return;

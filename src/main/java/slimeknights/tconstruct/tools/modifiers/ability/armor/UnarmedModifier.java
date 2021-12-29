@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.inventory.EquipmentSlotType.Group;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -30,16 +30,16 @@ public class UnarmedModifier extends OffhandAttackModifier {
 
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken() && context.getChangedSlot().getType() == Group.ARMOR) {
-      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setForceEnable(true));
+    if (!tool.isBroken() && context.getChangedSlot().getType() == Type.ARMOR) {
+      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(true));
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1);
     }
   }
 
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken() && context.getChangedSlot().getType() == Group.ARMOR) {
-      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setForceEnable(false));
+    if (!tool.isBroken() && context.getChangedSlot().getType() == Type.ARMOR) {
+      context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(false));
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1);
     }
   }

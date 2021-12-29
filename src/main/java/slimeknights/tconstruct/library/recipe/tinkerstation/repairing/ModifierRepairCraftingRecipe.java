@@ -2,14 +2,14 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -21,7 +21,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 
-public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModifierRepairRecipe {
+public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModifierRepairRecipe {
   @Getter
   private final Modifier modifier;
   @Getter
@@ -41,7 +41,7 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
    * @return  Relevant inputs, or null if invalid
    */
   @Nullable
-  protected Pair<ToolStack, Integer> getRelevantInputs(CraftingInventory inv) {
+  protected Pair<ToolStack, Integer> getRelevantInputs(CraftingContainer inv) {
     ToolStack tool = null;
     int itemsFound = 0;
     int modifierLevel = 0;
@@ -83,12 +83,12 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
   }
 
   @Override
-  public boolean matches(CraftingInventory inv, World world) {
+  public boolean matches(CraftingContainer inv, Level world) {
     return getRelevantInputs(inv) != null;
   }
 
   @Override
-  public ItemStack assemble(CraftingInventory inv) {
+  public ItemStack assemble(CraftingContainer inv) {
     Pair<ToolStack, Integer> inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
@@ -113,7 +113,7 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
   }
 
   @Override
-  public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
+  public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
     NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
     // step 1: find out how much we need to repair
     Pair<ToolStack, Integer> inputs = getRelevantInputs(inv);
@@ -158,7 +158,7 @@ public class ModifierRepairCraftingRecipe extends SpecialRecipe implements IModi
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.craftingModifierRepair.get();
   }
 }

@@ -1,16 +1,23 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
 import mezz.jei.api.ingredients.IIngredientHelper;
-import net.minecraft.util.ResourceLocation;
+import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 
 import javax.annotation.Nullable;
 
 public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry> {
+  @Override
+  public IIngredientType<ModifierEntry> getIngredientType() {
+    return JEIPlugin.MODIFIER_TYPE;
+  }
 
   @Nullable
   @Override
-  public ModifierEntry getMatch(Iterable<ModifierEntry> iterable, ModifierEntry check) {
+  public ModifierEntry getMatch(Iterable<ModifierEntry> iterable, ModifierEntry check, UidContext context) {
     for (ModifierEntry entry : iterable) {
       if (entry.getModifier() == check.getModifier()) {
         return entry;
@@ -25,7 +32,7 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
   }
 
   @Override
-  public String getUniqueId(ModifierEntry entry) {
+  public String getUniqueId(ModifierEntry entry, UidContext context) {
     return entry.getModifier().getId().toString();
   }
 

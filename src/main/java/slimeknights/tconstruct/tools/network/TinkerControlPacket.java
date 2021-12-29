@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.network;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
@@ -16,35 +16,25 @@ public enum TinkerControlPacket implements IThreadsafePacket {
   START_HELMET_INTERACT, STOP_HELMET_INTERACT,
   START_LEGGINGS_INTERACT, STOP_LEGGINGS_INTERACT;
 
-  public static TinkerControlPacket read(PacketBuffer buffer) {
+  public static TinkerControlPacket read(FriendlyByteBuf buffer) {
     return buffer.readEnum(TinkerControlPacket.class);
   }
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {
+  public void encode(FriendlyByteBuf packetBuffer) {
     packetBuffer.writeEnum(this);
   }
 
   @Override
   public void handleThreadsafe(Context context) {
-    ServerPlayerEntity player = context.getSender();
+    ServerPlayer player = context.getSender();
     if (player != null) {
       switch (this) {
-        case DOUBLE_JUMP:
-          DoubleJumpModifier.extraJump(player);
-          break;
-        case START_HELMET_INTERACT:
-          InteractionHandler.startArmorInteract(player, EquipmentSlotType.HEAD);
-          break;
-        case STOP_HELMET_INTERACT:
-          InteractionHandler.stopArmorInteract(player, EquipmentSlotType.HEAD);
-          break;
-        case START_LEGGINGS_INTERACT:
-          InteractionHandler.startArmorInteract(player, EquipmentSlotType.LEGS);
-          break;
-        case STOP_LEGGINGS_INTERACT:
-          InteractionHandler.stopArmorInteract(player, EquipmentSlotType.LEGS);
-          break;
+        case DOUBLE_JUMP -> DoubleJumpModifier.extraJump(player);
+        case START_HELMET_INTERACT -> InteractionHandler.startArmorInteract(player, EquipmentSlot.HEAD);
+        case STOP_HELMET_INTERACT -> InteractionHandler.stopArmorInteract(player, EquipmentSlot.HEAD);
+        case START_LEGGINGS_INTERACT -> InteractionHandler.startArmorInteract(player, EquipmentSlot.LEGS);
+        case STOP_LEGGINGS_INTERACT -> InteractionHandler.stopArmorInteract(player, EquipmentSlot.LEGS);
       }
     }
   }

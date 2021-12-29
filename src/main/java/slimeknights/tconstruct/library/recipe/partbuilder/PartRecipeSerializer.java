@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.RecipeHelper;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
@@ -13,21 +13,21 @@ import javax.annotation.Nullable;
 public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   @Override
   public PartRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getAsString(json, "group", "");
-    Pattern pattern = new Pattern(JSONUtils.getAsString(json, "pattern"));
-    int cost = JSONUtils.getAsInt(json, "cost");
+    String group = GsonHelper.getAsString(json, "group", "");
+    Pattern pattern = new Pattern(GsonHelper.getAsString(json, "pattern"));
+    int cost = GsonHelper.getAsInt(json, "cost");
 
     // output fetch as a material item, its an error if it does not implement that interface
-    JsonObject output = JSONUtils.getAsJsonObject(json, "result");
-    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getAsString(output, "item"), "result", IMaterialItem.class);
-    int count = JSONUtils.getAsInt(output, "count", 1);
+    JsonObject output = GsonHelper.getAsJsonObject(json, "result");
+    IMaterialItem item = RecipeHelper.deserializeItem(GsonHelper.getAsString(output, "item"), "result", IMaterialItem.class);
+    int count = GsonHelper.getAsInt(output, "count", 1);
 
     return new PartRecipe(recipeId, group, pattern, cost, item, count);
   }
 
   @Nullable
   @Override
-  protected PartRecipe readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
+  protected PartRecipe readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
     int cost = buffer.readInt();
@@ -38,7 +38,7 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   }
 
   @Override
-  protected void writeSafe(PacketBuffer buffer, PartRecipe recipe) {
+  protected void writeSafe(FriendlyByteBuf buffer, PartRecipe recipe) {
     buffer.writeUtf(recipe.group);
     buffer.writeUtf(recipe.pattern.toString());
     buffer.writeInt(recipe.cost);

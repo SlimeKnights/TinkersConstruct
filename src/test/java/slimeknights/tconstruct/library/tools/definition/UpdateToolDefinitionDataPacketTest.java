@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
@@ -49,7 +49,7 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
       .build();
 
     // send a packet over the buffer
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     UpdateToolDefinitionDataPacket packetToEncode = new UpdateToolDefinitionDataPacket(ImmutableMap.of(EMPTY_ID, empty, FILLED_ID, filled));
     packetToEncode.encode(buffer);
     UpdateToolDefinitionDataPacket decoded = new UpdateToolDefinitionDataPacket(buffer);

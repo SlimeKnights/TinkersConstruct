@@ -3,16 +3,16 @@ package slimeknights.tconstruct.library.client.model.block;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelState;
+import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
@@ -45,22 +45,22 @@ public class ChannelModel implements IModelGeometry<ChannelModel> {
 	}
 
 	@Override
-	public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
+	public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
 		return model.getTextures(owner, modelGetter, missingTextureErrors);
 	}
 
 	@Override
-	public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
-		IBakedModel baked = this.model.bakeModel(owner, transform, overrides, spriteGetter, location);
-		return new BakedModel(baked, this.fluids);
+	public BakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
+		BakedModel baked = this.model.bakeModel(owner, transform, overrides, spriteGetter, location);
+		return new Baked(baked, this.fluids);
 	}
 
 	/**
 	 * Baked model wrapper for cistern models
 	 */
-	public static class BakedModel extends BakedModelWrapper<IBakedModel> {
+	public static class Baked extends BakedModelWrapper<BakedModel> {
 		private final Map<ChannelModelPart,FluidCuboid> fluids;
-		private BakedModel(IBakedModel originalModel, Map<ChannelModelPart,FluidCuboid> fluids) {
+		private Baked(BakedModel originalModel, Map<ChannelModelPart,FluidCuboid> fluids) {
 			super(originalModel);
 			this.fluids = fluids;
 		}
@@ -100,26 +100,26 @@ public class ChannelModel implements IModelGeometry<ChannelModel> {
 	/** Model loader */
 	private static class Loader implements IModelLoader<ChannelModel> {
 		@Override
-		public void onResourceManagerReload(IResourceManager resourceManager) {}
+		public void onResourceManagerReload(ResourceManager resourceManager) {}
 
 		@Override
 		public ChannelModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
 			SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
 
 			// parse fluid cuboid for each side
-			JsonObject fluidJson = JSONUtils.getAsJsonObject(modelContents, "fluids");
+			JsonObject fluidJson = GsonHelper.getAsJsonObject(modelContents, "fluids");
 			Map<ChannelModelPart,FluidCuboid> fluids = new EnumMap<>(ChannelModelPart.class);
-			fluids.put(ChannelModelPart.DOWN, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(fluidJson, "down")));
+			fluids.put(ChannelModelPart.DOWN, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(fluidJson, "down")));
 			// center
-			JsonObject centerJson = JSONUtils.getAsJsonObject(fluidJson, "center");
-			fluids.put(ChannelModelPart.CENTER_STILL, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(centerJson, "still")));
-			fluids.put(ChannelModelPart.CENTER_FLOWING, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(centerJson, "flowing")));
+			JsonObject centerJson = GsonHelper.getAsJsonObject(fluidJson, "center");
+			fluids.put(ChannelModelPart.CENTER_STILL, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(centerJson, "still")));
+			fluids.put(ChannelModelPart.CENTER_FLOWING, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(centerJson, "flowing")));
 			// side
-			JsonObject sideJson = JSONUtils.getAsJsonObject(fluidJson, "side");
-			fluids.put(ChannelModelPart.SIDE_STILL, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "still")));
-			fluids.put(ChannelModelPart.SIDE_IN, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "in")));
-			fluids.put(ChannelModelPart.SIDE_OUT, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "out")));
-			fluids.put(ChannelModelPart.SIDE_EDGE, FluidCuboid.fromJson(JSONUtils.getAsJsonObject(sideJson, "edge")));
+			JsonObject sideJson = GsonHelper.getAsJsonObject(fluidJson, "side");
+			fluids.put(ChannelModelPart.SIDE_STILL, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(sideJson, "still")));
+			fluids.put(ChannelModelPart.SIDE_IN, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(sideJson, "in")));
+			fluids.put(ChannelModelPart.SIDE_OUT, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(sideJson, "out")));
+			fluids.put(ChannelModelPart.SIDE_EDGE, FluidCuboid.fromJson(GsonHelper.getAsJsonObject(sideJson, "edge")));
 
 			return new ChannelModel(model, fluids);
 		}

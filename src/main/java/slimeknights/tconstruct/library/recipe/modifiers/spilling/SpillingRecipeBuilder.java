@@ -3,14 +3,14 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 /**
  * Builder to implement spilling for a fluid
  */
+@SuppressWarnings("unused")
 @RequiredArgsConstructor(staticName = "forFluid")
 public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeBuilder> {
   private final FluidIngredient fluid;
@@ -38,7 +39,7 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
   }
 
   /** Creates a builder for a tag and amount */
-  public static SpillingRecipeBuilder forFluid(ITag<Fluid> fluid, int amount) {
+  public static SpillingRecipeBuilder forFluid(Tag<Fluid> fluid, int amount) {
     return new SpillingRecipeBuilder(FluidIngredient.of(fluid, amount));
   }
 
@@ -49,20 +50,20 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<FinishedRecipe> consumer) {
     build(consumer, Objects.requireNonNull(fluid.getFluids().get(0).getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (effects.isEmpty()) {
       throw new IllegalStateException("Must have at least one effect to build");
     }
-    consumer.accept(new FinishedRecipe(id, null));
+    consumer.accept(new Finished(id, null));
   }
 
-  private class FinishedRecipe extends AbstractFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+  private class Finished extends AbstractFinishedRecipe {
+    public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       super(ID, advancementID);
     }
 
@@ -77,7 +78,7 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
     }
 
     @Override
-    public IRecipeSerializer<?> getType() {
+    public RecipeSerializer<?> getType() {
       return TinkerModifiers.spillingSerializer.get();
     }
   }

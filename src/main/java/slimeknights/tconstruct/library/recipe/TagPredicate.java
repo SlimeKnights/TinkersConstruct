@@ -8,18 +8,18 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 /** Extended implementation of {@link net.minecraft.advancements.criterion.NBTPredicate} that is usable in recipes */
 @RequiredArgsConstructor
-public class TagPredicate implements Predicate<CompoundNBT> {
+public class TagPredicate implements Predicate<CompoundTag> {
   /** Internal GSON instance */
   private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
   /** Instance that matches any NBT */
@@ -27,11 +27,11 @@ public class TagPredicate implements Predicate<CompoundNBT> {
 
   /** Tag to match against */
   @Nullable
-  private final CompoundNBT tag;
+  private final CompoundTag tag;
 
   @Override
-  public boolean test(@Nullable CompoundNBT toTest) {
-    return NBTUtil.compareNbt(this.tag, toTest, true);
+  public boolean test(@Nullable CompoundTag toTest) {
+    return NbtUtils.compareNbt(this.tag, toTest, true);
   }
 
   /** Serializes this into JSON */
@@ -43,7 +43,7 @@ public class TagPredicate implements Predicate<CompoundNBT> {
   }
 
   /** Writes this to the packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     if (tag != null) {
       buffer.writeBoolean(true);
       buffer.writeNbt(tag);
@@ -56,11 +56,11 @@ public class TagPredicate implements Predicate<CompoundNBT> {
   public static TagPredicate deserialize(JsonElement element) {
     if (!element.isJsonNull()) {
       try {
-        CompoundNBT nbt;
+        CompoundTag nbt;
         if (element.isJsonObject()) {
-          nbt = JsonToNBT.parseTag(GSON.toJson(element));
+          nbt = TagParser.parseTag(GSON.toJson(element));
         } else {
-          nbt = JsonToNBT.parseTag(JSONUtils.convertToString(element, "predicate"));
+          nbt = TagParser.parseTag(GsonHelper.convertToString(element, "predicate"));
         }
         return new TagPredicate(nbt);
       } catch (CommandSyntaxException ex) {
@@ -72,8 +72,8 @@ public class TagPredicate implements Predicate<CompoundNBT> {
   }
 
   /** Reads a predicate from a packet buffer */
-  public static TagPredicate read(PacketBuffer buffer) {
-    CompoundNBT tag = null;
+  public static TagPredicate read(FriendlyByteBuf buffer) {
+    CompoundTag tag = null;
     if (buffer.readBoolean()) {
       tag = buffer.readNbt();
     }

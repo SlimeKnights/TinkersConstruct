@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.LightType;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -21,9 +21,9 @@ public class SolarPoweredModifier extends SingleUseModifier {
   @Override
   public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
     if (holder != null) {
-      World world = holder.getCommandSenderWorld();
+      Level world = holder.getCommandSenderWorld();
       // note this may go negative, that is not a problem
-      int skylight = world.getBrightness(LightType.SKY, holder.blockPosition()) - world.getSkyDarken();
+      int skylight = world.getBrightness(LightLayer.SKY, holder.blockPosition()) - world.getSkyDarken();
       if (skylight > 0) {
         float chance = skylight * 0.05f; // up to a 75% chance at max sunlight
         int maxDamage = amount;

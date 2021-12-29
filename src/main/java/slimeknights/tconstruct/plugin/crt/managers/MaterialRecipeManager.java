@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.plugin.crt.managers;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
@@ -7,12 +7,14 @@ import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
 import org.openzen.zencode.java.ZenCodeType.Optional;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
@@ -22,7 +24,7 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.MaterialRecipe")
 public class MaterialRecipeManager implements IRecipeManager {
-  
+
   @ZenCodeType.Method
   public void addItem(String name, IIngredient ingredient, int value, int needed, String materialId, @Optional ItemOutput leftover) {
     MaterialId material = CRTHelper.getMaterialId(materialId);
@@ -52,15 +54,15 @@ public class MaterialRecipeManager implements IRecipeManager {
     MaterialFluidRecipe recipe = new MaterialFluidRecipe(id, fluid, coolingTemperature, inputMaterialId, outputMatId);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, "Composite Casting"));
   }
-  
+
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Material Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
   }
-  
+
   @Override
-  public IRecipeType<MaterialRecipe> getRecipeType() {
+  public RecipeType<MaterialRecipe> getRecipeType() {
     return RecipeTypes.MATERIAL;
   }
-  
-}
+
+}*/

@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.item.small;
 
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Set;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class KamaTool extends HarvestTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
@@ -56,7 +56,7 @@ public class KamaTool extends HarvestTool {
     }
 
     @Override
-    public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
+    public int getDamage(ToolStack tool, ItemStack stack, Level world, BlockPos pos, BlockState state) {
       return state.is(BlockTags.FIRE) ? 0 : 1;
     }
   }

@@ -3,13 +3,13 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import slimeknights.mantle.recipe.ItemOutput;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -63,7 +63,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
-  public boolean matches(IPartBuilderInventory inv, World worldIn) {
+  public boolean matches(IPartBuilderInventory inv, Level worldIn) {
     MaterialRecipe materialRecipe = inv.getMaterial();
     return materialRecipe != null && materialRecipe.getMaterial() == getMaterial()
            && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);
@@ -75,7 +75,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.itemPartBuilderSerializer.get();
   }
 
@@ -83,15 +83,15 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     @Override
     public ItemPartRecipe fromJson(ResourceLocation id, JsonObject json) {
       MaterialId materialId = MaterialRecipeSerializer.getMaterial(json, "material");
-      Pattern pattern = new Pattern(JSONUtils.getAsString(json, "pattern"));
-      int cost = JSONUtils.getAsInt(json, "cost");
+      Pattern pattern = new Pattern(GsonHelper.getAsString(json, "pattern"));
+      int cost = GsonHelper.getAsInt(json, "cost");
       ItemOutput result = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
       return new ItemPartRecipe(id, materialId, pattern, cost, result);
     }
 
     @Nullable
     @Override
-    protected ItemPartRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected ItemPartRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       MaterialId materialId = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
       Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
       int cost = buffer.readVarInt();
@@ -100,7 +100,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, ItemPartRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, ItemPartRecipe recipe) {
       buffer.writeUtf(recipe.materialId.toString());
       buffer.writeUtf(recipe.pattern.toString());
       buffer.writeVarInt(recipe.cost);

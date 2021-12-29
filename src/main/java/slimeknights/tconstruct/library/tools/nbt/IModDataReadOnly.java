@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.tools.SlotType;
 
 import java.util.function.BiFunction;
@@ -18,8 +18,8 @@ public interface IModDataReadOnly extends INamespacedNBTReadOnly {
     }
 
     @Override
-    public <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
-      return function.apply(new CompoundNBT(), name.toString());
+    public <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function) {
+      return function.apply(new CompoundTag(), name.toString());
     }
 
     @Override

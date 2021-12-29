@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.client.data.material;
 
-import net.minecraft.client.renderer.texture.NativeImage;
+import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.GenericTextureGenerator;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
@@ -63,7 +63,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
 
 
   @Override
-  public void run(DirectoryCache cache) throws IOException {
+  public void run(HashCache cache) throws IOException {
     runCallbacks(existingFileHelper, null);
     
     // ensure we have parts
@@ -145,7 +145,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   }
 
   /** Runs all callbacks */
-  public static void runCallbacks(@Nullable ExistingFileHelper existingFileHelper, @Nullable IResourceManager manager) {
+  public static void runCallbacks(@Nullable ExistingFileHelper existingFileHelper, @Nullable ResourceManager manager) {
     for (IPartTextureCallback callback : TEXTURE_CALLBACKS) {
       callback.accept(existingFileHelper, manager);
     }
@@ -157,6 +157,6 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
      * @param existingFileHelper  If nonnull, datagenerators are starting
      * @param manager             If nonnull, command is starting
      */
-    void accept(@Nullable ExistingFileHelper existingFileHelper, @Nullable IResourceManager manager);
+    void accept(@Nullable ExistingFileHelper existingFileHelper, @Nullable ResourceManager manager);
   }
 }

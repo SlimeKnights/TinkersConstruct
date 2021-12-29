@@ -1,28 +1,26 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 /** Shared logic for all multiblock structure controllers */
 public abstract class ControllerBlock extends InventoryBlock {
-  public static final DirectionProperty FACING = HorizontalBlock.FACING;
+  public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
   public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
   public static final BooleanProperty IN_STRUCTURE = SearedBlock.IN_STRUCTURE;
   protected ControllerBlock(Properties builder) {
@@ -36,12 +34,12 @@ public abstract class ControllerBlock extends InventoryBlock {
    */
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
     builder.add(FACING, ACTIVE, IN_STRUCTURE);
   }
 
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
     return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 
@@ -68,12 +66,12 @@ public abstract class ControllerBlock extends InventoryBlock {
   }
 
   /** Displays the multiblock's status, typically an error that it cannot form */
-  protected boolean displayStatus(PlayerEntity player, World world, BlockPos pos, BlockState state) {
+  protected boolean displayStatus(Player player, Level world, BlockPos pos, BlockState state) {
     return false;
   }
 
   @Override
-  protected boolean openGui(PlayerEntity player, World world, BlockPos pos) {
+  protected boolean openGui(Player player, Level world, BlockPos pos) {
     BlockState state = world.getBlockState(pos);
     if (state.getBlock() == this) {
       if (canOpenGui(state)) {
@@ -100,7 +98,7 @@ public abstract class ControllerBlock extends InventoryBlock {
    * @param front  Block front
    * @param side   Block side offset
    */
-  protected void spawnFireParticles(IWorld world, BlockState state, double x, double y, double z, double front, double side) {
+  protected void spawnFireParticles(LevelAccessor world, BlockState state, double x, double y, double z, double front, double side) {
     spawnFireParticles(world, state, x, y, z, front, side, ParticleTypes.FLAME);
   }
 
@@ -115,24 +113,24 @@ public abstract class ControllerBlock extends InventoryBlock {
    * @param side      Block side offset
    * @param particle  Particle to draw
    */
-  protected void spawnFireParticles(IWorld world, BlockState state, double x, double y, double z, double front, double side, IParticleData particle) {
-    switch(state.getValue(FACING)) {
-      case WEST:
+  protected void spawnFireParticles(LevelAccessor world, BlockState state, double x, double y, double z, double front, double side, ParticleOptions particle) {
+    switch (state.getValue(FACING)) {
+      case WEST -> {
         world.addParticle(ParticleTypes.SMOKE, x - front, y, z + side, 0.0D, 0.0D, 0.0D);
-        world.addParticle(particle,            x - front, y, z + side, 0.0D, 0.0D, 0.0D);
-        break;
-      case EAST:
+        world.addParticle(particle, x - front, y, z + side, 0.0D, 0.0D, 0.0D);
+      }
+      case EAST -> {
         world.addParticle(ParticleTypes.SMOKE, x + front, y, z + side, 0.0D, 0.0D, 0.0D);
-        world.addParticle(particle,            x + front, y, z + side, 0.0D, 0.0D, 0.0D);
-        break;
-      case NORTH:
+        world.addParticle(particle, x + front, y, z + side, 0.0D, 0.0D, 0.0D);
+      }
+      case NORTH -> {
         world.addParticle(ParticleTypes.SMOKE, x + side, y, z - front, 0.0D, 0.0D, 0.0D);
-        world.addParticle(particle,            x + side, y, z - front, 0.0D, 0.0D, 0.0D);
-        break;
-      case SOUTH:
+        world.addParticle(particle, x + side, y, z - front, 0.0D, 0.0D, 0.0D);
+      }
+      case SOUTH -> {
         world.addParticle(ParticleTypes.SMOKE, x + side, y, z + front, 0.0D, 0.0D, 0.0D);
-        world.addParticle(particle,            x + side, y, z + front, 0.0D, 0.0D, 0.0D);
-        break;
+        world.addParticle(particle, x + side, y, z + front, 0.0D, 0.0D, 0.0D);
+      }
     }
   }
 }

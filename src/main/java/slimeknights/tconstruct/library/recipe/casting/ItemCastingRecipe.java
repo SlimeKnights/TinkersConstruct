@@ -3,17 +3,17 @@ package slimeknights.tconstruct.library.recipe.casting;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.FluidIngredient;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -32,7 +32,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   protected final ItemOutput result;
   @Getter
   protected final int coolingTime;
-  public ItemCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+  public ItemCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
     this.fluid = fluid;
     this.result = result;
@@ -45,7 +45,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   }
 
   @Override
-  public boolean matches(ICastingInventory inv, World worldIn) {
+  public boolean matches(ICastingInventory inv, Level worldIn) {
     return getCast().test(inv.getStack()) && fluid.test(inv.getFluid());
   }
 
@@ -93,7 +93,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.basinRecipeSerializer.get();
     }
   }
@@ -105,7 +105,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.tableRecipeSerializer.get();
     }
   }
@@ -118,12 +118,12 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
       ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
-      int coolingTime = JSONUtils.getAsInt(json, "cooling_time");
+      int coolingTime = GsonHelper.getAsInt(json, "cooling_time");
       return factory.create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketBuffer buffer) {
+    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer) {
       FluidIngredient fluid = FluidIngredient.read(buffer);
       ItemOutput result = ItemOutput.read(buffer);
       int coolingTime = buffer.readInt();
@@ -131,7 +131,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     }
 
     @Override
-    public void writeExtra(PacketBuffer buffer, T recipe) {
+    public void writeExtra(FriendlyByteBuf buffer, T recipe) {
       recipe.fluid.write(buffer);
       recipe.result.write(buffer);
       buffer.writeInt(recipe.coolingTime);

@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.plugin.crt.managers;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
@@ -8,11 +8,11 @@ import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipe;
 import com.blamejared.crafttweaker.impl.item.MCItemStackMutable;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
-import slimeknights.mantle.recipe.EntityIngredient;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
@@ -51,7 +51,8 @@ public class SeveringManager implements IRecipeManager {
   }
 
   @Override
-  public IRecipeType<SeveringRecipe> getRecipeType() {
+  public RecipeType<SeveringRecipe> getRecipeType() {
     return RecipeTypes.SEVERING;
   }
 }
+*/

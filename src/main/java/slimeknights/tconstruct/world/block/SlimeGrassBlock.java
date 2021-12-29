@@ -1,24 +1,24 @@
 package slimeknights.tconstruct.world.block;
 
 import lombok.Getter;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.SnowBlock;
-import net.minecraft.block.SnowyDirtBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.lighting.LightEngine;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.SnowyDirtBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.lighting.LayerLightEngine;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -26,9 +26,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
+public class SlimeGrassBlock extends SnowyDirtBlock implements BonemealableBlock {
   @Getter
   private final SlimeType foliageType;
   public SlimeGrassBlock(Properties properties, SlimeType foliageType) {
@@ -37,7 +35,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   }
 
   @Override
-  public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
     if (this.foliageType != SlimeType.ICHOR) {
       super.fillItemCategory(group, items);
     }
@@ -46,12 +44,12 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   /* Bonemeal interactions */
 
   @Override
-  public boolean isValidBonemealTarget(IBlockReader world, BlockPos pos, BlockState state, boolean isClient) {
-    return world.getBlockState(pos.above()).isAir(world, pos);
+  public boolean isValidBonemealTarget(BlockGetter world, BlockPos pos, BlockState state, boolean isClient) {
+    return world.getBlockState(pos.above()).isAir();
   }
 
   @Override
-  public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
+  public boolean isBonemealSuccess(Level worldIn, Random rand, BlockPos pos, BlockState state) {
     return true;
   }
 
@@ -65,7 +63,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
    * @param includeSapling   If true, sapling may be grown
    * @param spread           If true, spreads foliage to relevant dirt blocks
    */
-  public static void growGrass(ServerWorld world, Random rand, BlockPos pos, ITag<Block> validBase, SlimeType foliageType, boolean includeSapling, boolean spread) {
+  public static void growGrass(ServerLevel world, Random rand, BlockPos pos, Tag<Block> validBase, SlimeType foliageType, boolean includeSapling, boolean spread) {
     // based on vanilla logic, reimplemented to switch plant types
     BlockPos up = pos.above();
     mainLoop:
@@ -112,7 +110,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   }
 
   @Override
-  public void performBonemeal(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+  public void performBonemeal(ServerLevel world, Random rand, BlockPos pos, BlockState state) {
     growGrass(world, rand, pos, TinkerTags.Blocks.SLIMY_GRASS, foliageType, false, false);
   }
 
@@ -121,7 +119,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+  public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
     // based on vanilla logic, reimplemented to remove dirt hardcode
     // prevent loading unloaded chunks
     if (!world.isAreaLoaded(pos, 3)) return;
@@ -142,11 +140,11 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   }
 
   /** Checks if the position can be slime grass */
-  private static boolean isValidPos(BlockState targetState, IWorldReader world, BlockPos pos) {
+  private static boolean isValidPos(BlockState targetState, LevelReader world, BlockPos pos) {
     BlockPos above = pos.above();
     BlockState aboveState = world.getBlockState(above);
     // under snow is fine
-    if (aboveState.is(Blocks.SNOW) && aboveState.getValue(SnowBlock.LAYERS) == 1) {
+    if (aboveState.is(Blocks.SNOW) && aboveState.getValue(SnowLayerBlock.LAYERS) == 1) {
       return true;
     }
     // under liquid is not fine
@@ -154,11 +152,11 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
       return false;
     }
     // fallback to light level check
-    return LightEngine.getLightBlockInto(world, targetState, pos, aboveState, above, Direction.UP, aboveState.getLightBlock(world, above)) < world.getMaxLightLevel();
+    return LayerLightEngine.getLightBlockInto(world, targetState, pos, aboveState, above, Direction.UP, aboveState.getLightBlock(world, above)) < world.getMaxLightLevel();
   }
 
   /** Checks if the grass at the given position can spread */
-  private static boolean canSpread(BlockState state, IWorldReader world, BlockPos pos) {
+  private static boolean canSpread(BlockState state, LevelReader world, BlockPos pos) {
     BlockPos above = pos.above();
     return isValidPos(state, world, pos) && !world.getFluidState(above).is(FluidTags.WATER);
   }

@@ -1,13 +1,12 @@
 package slimeknights.tconstruct.smeltery.tileentity.component;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.BlockFlags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.multiblock.ServantTileEntity;
@@ -19,12 +18,12 @@ import javax.annotation.Nullable;
 /** Mostly extended to make type validaton easier, and the servant base class is not registered */
 public class SmelteryComponentTileEntity extends ServantTileEntity {
 
-  public SmelteryComponentTileEntity() {
-    this(TinkerSmeltery.smelteryComponent.get());
+  public SmelteryComponentTileEntity(BlockPos pos, BlockState state) {
+    this(TinkerSmeltery.smelteryComponent.get(), pos, state);
   }
 
-  protected SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {
-    super(tileEntityTypeIn);
+  protected SmelteryComponentTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    super(type, pos, state);
   }
 
   @Override
@@ -37,7 +36,7 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
       BlockState currentState = getBlockState();
       boolean hasMaster = getMasterPos() != null;
       if (currentState.hasProperty(SearedBlock.IN_STRUCTURE) && currentState.getValue(SearedBlock.IN_STRUCTURE) != hasMaster) {
-        level.setBlock(worldPosition, getBlockState().setValue(SearedBlock.IN_STRUCTURE, hasMaster), BlockFlags.BLOCK_UPDATE);
+        level.setBlock(worldPosition, getBlockState().setValue(SearedBlock.IN_STRUCTURE, hasMaster), Block.UPDATE_CLIENTS);
       }
     }
   }
@@ -47,21 +46,20 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
    * @param world  World instance
    * @param pos    Location of new smeltery component
    */
-  public static void updateNeighbors(World world, BlockPos pos, BlockState state) {
+  public static void updateNeighbors(Level world, BlockPos pos, BlockState state) {
     for (Direction direction : Direction.values()) {
       // if the neighbor is a master, notify it we exist
-      TileEntity tileEntity = world.getBlockEntity(pos.relative(direction));
+      BlockEntity tileEntity = world.getBlockEntity(pos.relative(direction));
       if (tileEntity instanceof IMasterLogic) {
-        TileEntity servant = world.getBlockEntity(pos);
+        BlockEntity servant = world.getBlockEntity(pos);
         if (servant instanceof IServantLogic) {
           ((IMasterLogic) tileEntity).notifyChange((IServantLogic) servant, pos, state);
           break;
         }
         // if the neighbor is a servant, notify its master we exist
-      } else if (tileEntity instanceof SmelteryComponentTileEntity) {
-        SmelteryComponentTileEntity componentTileEntity = (SmelteryComponentTileEntity) tileEntity;
-        if (componentTileEntity.hasMaster()) {
-          componentTileEntity.notifyMasterOfChange(pos, state);
+      } else if (tileEntity instanceof SmelteryComponentTileEntity component) {
+        if (component.hasMaster()) {
+          component.notifyMasterOfChange(pos, state);
           break;
         }
       }

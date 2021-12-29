@@ -6,17 +6,17 @@ import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -48,7 +48,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   private List<List<FluidStack>> outputWithByproducts;
 
   @Override
-  public boolean matches(IMeltingInventory inv, World world) {
+  public boolean matches(IMeltingInventory inv, Level world) {
     return input.test(inv.getStack());
   }
 
@@ -73,7 +73,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.meltingSerializer.get();
   }
 
@@ -121,13 +121,13 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Override
     public T fromJson(ResourceLocation id, JsonObject json) {
-      String group = JSONUtils.getAsString(json, "group", "");
+      String group = GsonHelper.getAsString(json, "group", "");
       Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getAsJsonObject(json, "result"));
+      FluidStack output = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "result"));
 
       // temperature calculates
-      int temperature = JSONUtils.getAsInt(json, "temperature");
-      int time = JSONUtils.getAsInt(json, "time");
+      int temperature = GsonHelper.getAsInt(json, "temperature");
+      int time = GsonHelper.getAsInt(json, "time");
       // validate values
       if (temperature < 0) throw new JsonSyntaxException("Melting temperature must be greater than zero");
       if (time <= 0) throw new JsonSyntaxException("Melting time must be greater than zero");
@@ -141,7 +141,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Nullable
     @Override
-    protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient input = Ingredient.fromNetwork(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
@@ -156,7 +156,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, MeltingRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, MeltingRecipe recipe) {
       buffer.writeUtf(recipe.group);
       recipe.input.toNetwork(buffer);
       recipe.output.writeToPacket(buffer);

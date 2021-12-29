@@ -1,38 +1,47 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.controller.AlloyerTileEntity;
 
+import javax.annotation.Nullable;
 import java.util.Random;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class AlloyerBlock extends TinyMultiblockControllerBlock {
   public AlloyerBlock(Properties builder) {
     super(builder);
   }
 
+  @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new AlloyerTileEntity();
+  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    return new AlloyerTileEntity(pPos, pState);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> wanted) {
+    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(wanted, TinkerSmeltery.alloyer.get(), AlloyerTileEntity.SERVER_TICKER);
   }
 
   @Override
-  public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+  public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     Direction direction = Util.directionFromOffset(pos, fromPos);
     if (direction != Direction.DOWN) {
-      TileEntityHelper.getTile(AlloyerTileEntity.class, world, pos).ifPresent(te -> te.neighborChanged(direction));
+      BlockEntityHelper.get(AlloyerTileEntity.class, world, pos).ifPresent(te -> te.neighborChanged(direction));
     }
   }
 
@@ -43,17 +52,17 @@ public class AlloyerBlock extends TinyMultiblockControllerBlock {
   @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
-  public float getShadeBrightness(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
     return 1.0F;
   }
 
   @Override
-  public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+  public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
     return true;
   }
 
   @Override
-  public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+  public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
     if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 4F) / 16F;

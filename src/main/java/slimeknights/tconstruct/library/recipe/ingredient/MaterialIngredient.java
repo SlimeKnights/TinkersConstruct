@@ -5,13 +5,13 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import net.minecraft.item.crafting.Ingredient.SingleItemList;
-import net.minecraft.item.crafting.Ingredient.TagList;
+import net.minecraft.world.item.crafting.Ingredient.ItemValue;
+import net.minecraft.world.item.crafting.Ingredient.TagValue;
 
 /**
  * Extension of the vanilla ingredient to display materials on items and support matching by materials
@@ -36,7 +36,7 @@ public class MaterialIngredient extends Ingredient {
   private final MaterialId materialID;
   @Nullable
   private ItemStack[] materialStacks;
-  protected MaterialIngredient(Stream<? extends Ingredient.IItemList> itemLists, MaterialId material) {
+  protected MaterialIngredient(Stream<? extends Ingredient.Value> itemLists, MaterialId material) {
     super(itemLists);
     this.materialID = material;
   }
@@ -48,7 +48,7 @@ public class MaterialIngredient extends Ingredient {
    * @return  Material ingredient instance
    */
   public static MaterialIngredient fromItem(IMaterialItem item, MaterialId material) {
-    return new MaterialIngredient(Stream.of(new SingleItemList(new ItemStack(item))), material);
+    return new MaterialIngredient(Stream.of(new ItemValue(new ItemStack(item))), material);
   }
 
   /**
@@ -66,8 +66,8 @@ public class MaterialIngredient extends Ingredient {
    * @param material  Material value
    * @return  Material with tag
    */
-  public static MaterialIngredient fromTag(ITag<Item> tag, MaterialId material) {
-    return new MaterialIngredient(Stream.of(new TagList(tag)), material);
+  public static MaterialIngredient fromTag(Tag<Item> tag, MaterialId material) {
+    return new MaterialIngredient(Stream.of(new TagValue(tag)), material);
   }
 
   /**
@@ -75,7 +75,7 @@ public class MaterialIngredient extends Ingredient {
    * @param tag       Tag instance
    * @return  Material with tag
    */
-  public static MaterialIngredient fromTag(ITag<Item> tag) {
+  public static MaterialIngredient fromTag(Tag<Item> tag) {
     return fromTag(tag, WILDCARD);
   }
 
@@ -164,7 +164,7 @@ public class MaterialIngredient extends Ingredient {
     public MaterialIngredient parse(JsonObject json) {
       MaterialId material;
       if (json.has("material")) {
-        material = new MaterialId(JSONUtils.getAsString(json, "material"));
+        material = new MaterialId(GsonHelper.getAsString(json, "material"));
       } else {
         material = WILDCARD;
       }
@@ -172,13 +172,13 @@ public class MaterialIngredient extends Ingredient {
     }
 
     @Override
-    public MaterialIngredient parse(PacketBuffer buffer) {
+    public MaterialIngredient parse(FriendlyByteBuf buffer) {
       MaterialId material = new MaterialId(buffer.readResourceLocation());
-      return new MaterialIngredient(Stream.generate(() -> new SingleItemList(buffer.readItem())).limit(buffer.readVarInt()), material);
+      return new MaterialIngredient(Stream.generate(() -> new ItemValue(buffer.readItem())).limit(buffer.readVarInt()), material);
     }
 
     @Override
-    public void write(PacketBuffer buffer, MaterialIngredient ingredient) {
+    public void write(FriendlyByteBuf buffer, MaterialIngredient ingredient) {
       // write first as the order of the stream is uncertain
       buffer.writeResourceLocation(ingredient.materialID);
       // write stacks

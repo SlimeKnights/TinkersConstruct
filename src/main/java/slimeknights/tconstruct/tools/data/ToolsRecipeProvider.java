@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
@@ -42,12 +42,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
   }
 
   @Override
-  protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     this.addToolBuildingRecipes(consumer);
     this.addPartRecipes(consumer);
   }
 
-  private void addToolBuildingRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addToolBuildingRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/building/";
     String repairFolder = "tools/repair/";
     String armorFolder = "armor/building/";
@@ -200,7 +200,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .build(consumer, modResource(armorRepairFolder + "slimesuit_station"));
   }
 
-  private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addPartRecipes(Consumer<FinishedRecipe> consumer) {
     String partFolder = "tools/parts/";
     String castFolder = "smeltery/casts/";
     partRecipes(consumer, TinkerToolParts.repairKit, TinkerSmeltery.repairKitCast, 2, partFolder, castFolder);
@@ -219,7 +219,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
   }
 
   /** Helper to create a casting recipe for a slimeskull variant */
-  private void slimeskullCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, IItemProvider skull, String folder) {
+  private void slimeskullCasting(Consumer<FinishedRecipe> consumer, MaterialId material, ItemLike skull, String folder) {
     MaterialIdNBT nbt = new MaterialIdNBT(Collections.singletonList(material));
     ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
                             .setCast(skull, true)

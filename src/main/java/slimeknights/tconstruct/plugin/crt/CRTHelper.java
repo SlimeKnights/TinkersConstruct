@@ -1,17 +1,18 @@
 package slimeknights.tconstruct.plugin.crt;
 
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.recipe.EntityIngredient;
-import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.EntityIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -39,7 +40,7 @@ public class CRTHelper {
    * @param materialId The MaterialId as a string
    * @return The found MaterialId.
    * @throws IllegalArgumentException If either the {@link MaterialId} isn't a valid {@link ResourceLocation} or if no {@link IMaterial} is found with the given materialId.
-   */
+   * /
   public static MaterialId getMaterialId(String materialId) {
     MaterialId material = MaterialId.tryCreate(materialId);
     if (material == null) {
@@ -61,7 +62,7 @@ public class CRTHelper {
    * @param modifierId The Modifier as a string
    * @return The found ModifierId.
    * @throws IllegalArgumentException If either the {@link ModifierId} isn't a valid {@link ResourceLocation} or if no {@link Modifier} is found with the given modifierId.
-   */
+   * /
   public static Modifier getModifier(String modifierId) {
     ModifierId resultId = ModifierId.tryCreate(modifierId);
     if (resultId == null) {
@@ -94,7 +95,7 @@ public class CRTHelper {
         builder.append("\n}");
         CraftTweakerAPI.logDump(builder.toString());
       });
-      final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Material list written to the log" + TextFormatting.RESET);
+      final TextComponent message = new TextComponent(ChatFormatting.GREEN + "Material list written to the log" + ChatFormatting.RESET);
       commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
@@ -105,7 +106,7 @@ public class CRTHelper {
       ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IMaterialItem).forEach(item -> {
         CraftTweakerAPI.logDump(ExpandItem.getDefaultInstance(item).getCommandString());
       });
-      final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Material Items written to the log" + TextFormatting.RESET);
+      final TextComponent message = new TextComponent(ChatFormatting.GREEN + "Material Items written to the log" + ChatFormatting.RESET);
       commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
@@ -127,7 +128,7 @@ public class CRTHelper {
         builder.append("\n}");
         CraftTweakerAPI.logDump(builder.toString());
       });
-      final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Modifier list written to the log" + TextFormatting.RESET);
+      final TextComponent message = new TextComponent(ChatFormatting.GREEN + "Modifier list written to the log" + ChatFormatting.RESET);
       commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
@@ -139,7 +140,7 @@ public class CRTHelper {
       ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IModifiable).forEach(item -> {
         CraftTweakerAPI.logDump(ExpandItem.getDefaultInstance(item).getCommandString());
       });
-      final StringTextComponent message = new StringTextComponent(TextFormatting.GREEN + "Tool Core Items written to the log" + TextFormatting.RESET);
+      final TextComponent message = new TextComponent(ChatFormatting.GREEN + "Tool Core Items written to the log" + ChatFormatting.RESET);
       commandContext.getSource().sendSuccess(message, true);
       return 0;
     });
@@ -151,7 +152,7 @@ public class CRTHelper {
    *
    * @param ingredient CTFluidIngredient to map
    * @return a FluidIngredient from the given CTFluidIngredient.
-   */
+   * /
   public static FluidIngredient mapFluidIngredient(CTFluidIngredient ingredient) {
 
     Supplier<IllegalArgumentException> errorException = () -> new IllegalArgumentException("Error while mapping Compound Fluid Ingredients!");
@@ -163,7 +164,7 @@ public class CRTHelper {
    *
    * @param ingredient CTFluidIngredients to map
    * @return a list of FluidIngredients from the given CTFluidIngredients.
-   */
+   * /
   public static List<FluidIngredient> mapFluidIngredients(CTFluidIngredient... ingredient) {
     return Arrays.stream(ingredient).map(CRTHelper::mapFluidIngredient).collect(Collectors.toList());
   }
@@ -173,7 +174,7 @@ public class CRTHelper {
    *
    * @param ingredient CTEntityIngredient to map
    * @return a EntityIngredient from the given CTEntityIngredient.
-   */
+   * /
   public static EntityIngredient mapEntityIngredient(CTEntityIngredient ingredient) {
 
     Supplier<IllegalArgumentException> errorException = () -> new IllegalArgumentException("Error while mapping Compound Entity Ingredients!");
@@ -182,3 +183,4 @@ public class CRTHelper {
 
 
 }
+*/

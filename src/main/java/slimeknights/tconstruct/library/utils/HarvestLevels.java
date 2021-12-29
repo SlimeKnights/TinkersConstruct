@@ -3,13 +3,13 @@ package slimeknights.tconstruct.library.utils;
 import com.google.common.collect.Maps;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
 
@@ -30,11 +30,11 @@ public class HarvestLevels implements ISafeManagerReloadListener {
   public static final int NETHERITE = 4;
 
   private static boolean namesLoaded = false;
-  private static final Map<Integer, ITextComponent> harvestLevelNames = Maps.newHashMap();
+  private static final Map<Integer, Component> harvestLevelNames = Maps.newHashMap();
 
   /** Makes a translation key for the given name */
-  private static IFormattableTextComponent makeLevelKey(String levelName) {
-    return new TranslationTextComponent(TConstruct.makeTranslationKey("stat", "mining_level." + levelName));
+  private static MutableComponent makeLevelKey(String levelName) {
+    return new TranslatableComponent(TConstruct.makeTranslationKey("stat", "mining_level." + levelName));
   }
 
   /**
@@ -45,16 +45,16 @@ public class HarvestLevels implements ISafeManagerReloadListener {
     namesLoaded = true;
 
     // default names: vanilla levels
-    harvestLevelNames.put(WOOD, makeLevelKey("wood").withStyle(style -> style.withColor(Color.fromRgb(0x8e661b))));
-    harvestLevelNames.put(STONE, makeLevelKey("stone").withStyle(style -> style.withColor(Color.fromRgb(0x999999))));
-    harvestLevelNames.put(IRON, makeLevelKey("iron").withStyle(style -> style.withColor(Color.fromRgb(0xcacaca))));
-    harvestLevelNames.put(DIAMOND, makeLevelKey("diamond").withStyle(TextFormatting.AQUA));
-    harvestLevelNames.put(NETHERITE, makeLevelKey("netherite").withStyle(TextFormatting.DARK_GRAY));
+    harvestLevelNames.put(WOOD, makeLevelKey("wood").withStyle(style -> style.withColor(TextColor.fromRgb(0x8e661b))));
+    harvestLevelNames.put(STONE, makeLevelKey("stone").withStyle(style -> style.withColor(TextColor.fromRgb(0x999999))));
+    harvestLevelNames.put(IRON, makeLevelKey("iron").withStyle(style -> style.withColor(TextColor.fromRgb(0xcacaca))));
+    harvestLevelNames.put(DIAMOND, makeLevelKey("diamond").withStyle(ChatFormatting.AQUA));
+    harvestLevelNames.put(NETHERITE, makeLevelKey("netherite").withStyle(ChatFormatting.DARK_GRAY));
 
     // load custom names, may override vanilla replacing with uncolored
     String base = TConstruct.makeTranslationKey("stat", "mining_level.");
     for (int i = 0; Util.canTranslate(base + i); i++) {
-      harvestLevelNames.put(i, new TranslationTextComponent(base + i));
+      harvestLevelNames.put(i, new TranslatableComponent(base + i));
     }
   }
 
@@ -63,13 +63,13 @@ public class HarvestLevels implements ISafeManagerReloadListener {
    * @param num  Level number
    * @return     Level name
    */
-  public static ITextComponent getHarvestLevelName(int num) {
+  public static Component getHarvestLevelName(int num) {
     loadNames();
-    return harvestLevelNames.computeIfAbsent(num, n -> new StringTextComponent(Integer.toString(num)));
+    return harvestLevelNames.computeIfAbsent(num, n -> new TextComponent(Integer.toString(num)));
   }
 
   @Override
-  public void onReloadSafe(IResourceManager resourceManager) {
+  public void onReloadSafe(ResourceManager resourceManager) {
     harvestLevelNames.clear();
     namesLoaded = false;
   }

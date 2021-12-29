@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.network.chat.Component;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.tables.client.inventory.library.ScalingChestScreen;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
@@ -14,7 +14,7 @@ public class TinkerChestScreen extends BaseStationScreen<ChestTileEntity, BaseSt
   protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(7 + 18, 7, 18, 18);
   public ScalingChestScreen<ChestTileEntity> scalingChestScreen;
 
-  public TinkerChestScreen(BaseStationContainer<ChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
+  public TinkerChestScreen(BaseStationContainer<ChestTileEntity> container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
     TinkerChestContainer.DynamicChestInventory chestContainer = container.getSubContainer(TinkerChestContainer.DynamicChestInventory.class);
     if (chestContainer != null) {
@@ -24,7 +24,7 @@ public class TinkerChestScreen extends BaseStationScreen<ChestTileEntity, BaseSt
   }
 
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(matrices, BLANK_BACK);
 
     if (this.scalingChestScreen != null) {

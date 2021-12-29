@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 

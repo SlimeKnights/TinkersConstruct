@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -21,16 +21,16 @@ public class LuckModifier extends Modifier implements IArmorLootModifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     // displays special names for the 3 levels
     if (level <= 3) {
-      return applyStyle(new TranslationTextComponent(getTranslationKey() + "." + level));
+      return applyStyle(new TranslatableComponent(getTranslationKey() + "." + level));
     }
     return super.getDisplayName(level);
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Component getDisplayName(IModifierToolStack tool, int level) {
     return super.getDisplayName(tool, level);
   }
 

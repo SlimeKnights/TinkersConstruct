@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;

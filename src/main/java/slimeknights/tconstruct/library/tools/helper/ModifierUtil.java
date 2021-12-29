@@ -2,20 +2,20 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -50,9 +50,9 @@ public final class ModifierUtil {
    * @return  Old tag if enchants were applied
    */
   @Nullable
-  public static ListNBT applyHarvestEnchantments(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
-    ListNBT originalEnchants = null;
-    PlayerEntity player = context.getPlayer();
+  public static ListTag applyHarvestEnchantments(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+    ListTag originalEnchants = null;
+    Player player = context.getPlayer();
     if (player == null || !player.isCreative()) {
       Map<Enchantment, Integer> enchantments = new HashMap<>();
       BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
@@ -69,7 +69,7 @@ public final class ModifierUtil {
       }
       // lucky pants
       if (player != null) {
-        ItemStack pants = player.getItemBySlot(EquipmentSlotType.LEGS);
+        ItemStack pants = player.getItemBySlot(EquipmentSlot.LEGS);
         if (TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
@@ -94,8 +94,8 @@ public final class ModifierUtil {
    * @param stack        Stack to clear enchants
    * @param originalTag  Original list of enchantments. If empty, will remove the tag
    */
-  public static void restoreEnchantments(ItemStack stack, ListNBT originalTag) {
-    CompoundNBT nbt = stack.getTag();
+  public static void restoreEnchantments(ItemStack stack, ListTag originalTag) {
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
       if (originalTag.isEmpty()) {
         nbt.remove(TAG_ENCHANTMENTS);
@@ -133,7 +133,7 @@ public final class ModifierUtil {
    * @return  Looting value for the tool
    */
   public static int getLeggingsLootingLevel(LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int toolLooting) {
-    ItemStack pants = holder.getItemBySlot(EquipmentSlotType.LEGS);
+    ItemStack pants = holder.getItemBySlot(EquipmentSlot.LEGS);
     if (!pants.isEmpty() && TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
@@ -169,14 +169,14 @@ public final class ModifierUtil {
    */
   public static int getModifierLevel(ItemStack stack, Modifier modifier) {
     if (!stack.isEmpty() && TinkerTags.Items.MODIFIABLE.contains(stack.getItem()) && !ToolDamageUtil.isBroken(stack)) {
-      CompoundNBT nbt = stack.getTag();
-      if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, NBT.TAG_LIST)) {
-        ListNBT list = nbt.getList(ToolStack.TAG_MODIFIERS, NBT.TAG_COMPOUND);
+      CompoundTag nbt = stack.getTag();
+      if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, Tag.TAG_LIST)) {
+        ListTag list = nbt.getList(ToolStack.TAG_MODIFIERS, Tag.TAG_COMPOUND);
         int size = list.size();
         if (size > 0) {
           String key = modifier.getId().toString();
           for (int i = 0; i < size; i++) {
-            CompoundNBT entry = list.getCompound(i);
+            CompoundTag entry = list.getCompound(i);
             if (key.equals(entry.getString(ModifierNBT.TAG_MODIFIER))) {
               return entry.getInt(ModifierNBT.TAG_LEVEL);
             }
@@ -195,7 +195,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
-    if (context.getChangedSlot().getType() == Group.ARMOR && (allowBroken || !tool.isBroken())) {
+    if (context.getChangedSlot().getType() == Type.ARMOR && (allowBroken || !tool.isBroken())) {
       context.getTinkerData().ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
@@ -226,7 +226,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
-    if (context.getChangedSlot().getType() == Group.ARMOR && !tool.isBroken()) {
+    if (context.getChangedSlot().getType() == Type.ARMOR && !tool.isBroken()) {
       context.getTinkerData().ifPresent(data -> {
         float totalLevels = data.get(key, 0f) + amount;
         if (totalLevels <= 0.005f) {
@@ -266,8 +266,8 @@ public final class ModifierUtil {
 
   /** Shortcut to get a volatile flag when the tool stack is not needed otherwise */
   public static boolean checkVolatileFlag(ItemStack stack, ResourceLocation flag) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getBoolean(flag.toString());
     }
     return false;
@@ -275,8 +275,8 @@ public final class ModifierUtil {
 
   /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
   public static int getVolatileInt(ItemStack stack, ResourceLocation flag) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getInt(flag.toString());
     }
     return 0;

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.recipe;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.nbt.CompoundTag;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 
 import javax.annotation.Nullable;
@@ -21,7 +21,7 @@ public interface ICastingInventory extends ISingleItemInventory {
    * @return  Fluid's NBT
    */
   @Nullable
-  default CompoundNBT getFluidTag() {
+  default CompoundTag getFluidTag() {
     return null;
   }
 }

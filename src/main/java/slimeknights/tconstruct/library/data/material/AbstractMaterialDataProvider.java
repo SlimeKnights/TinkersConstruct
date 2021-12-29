@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.library.data.material;
 
-import lombok.Data;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.util.text.Color;
+import net.minecraft.data.HashCache;
+import net.minecraft.network.chat.TextColor;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
@@ -69,7 +68,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   @Override
-  public void run(DirectoryCache cache) {
+  public void run(HashCache cache) {
     ensureAddMaterialsRun();
     allMaterials.forEach((id, data) -> saveThing(cache, id, convert(data)));
   }
@@ -82,7 +81,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     ensureAddMaterialsRun();
     // ignore any materials with no IMaterial defintion, means its purely a redirect and will never exist in game
     return allMaterials.values().stream()
-                       .map(DataMaterial::getMaterial)
+                       .map(DataMaterial::material)
                        .filter(Objects::nonNull)
                        .map(IMaterial::getIdentifier)
                        .collect(Collectors.toSet());
@@ -115,7 +114,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /** Creates a normal material with a condition and a redirect */
   protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
-    addMaterial(new Material(location, tier, order, craftable, Color.fromRgb(color), hidden), condition, redirect);
+    addMaterial(new Material(location, tier, order, craftable, TextColor.fromRgb(color), hidden), condition, redirect);
   }
 
   /** Creates a normal material */
@@ -156,23 +155,16 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
    * @return  Material JSON
    */
   private MaterialJson convert(DataMaterial data) {
-    IMaterial material = data.getMaterial();
-    MaterialJson.Redirect[] redirect = data.getRedirect();
+    IMaterial material = data.material;
+    MaterialJson.Redirect[] redirect = data.redirect;
     if (redirect != null && redirect.length == 0) {
       redirect = null;
     }
     if (material == null) {
-      return new MaterialJson(data.getCondition(), null, null, null, null, null, redirect);
+      return new MaterialJson(data.condition, null, null, null, null, null, redirect);
     }
-    return new MaterialJson(data.getCondition(), material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().serialize(), material.isHidden(), redirect);
+    return new MaterialJson(data.condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().serialize(), material.isHidden(), redirect);
   }
 
-  @Data
-  private static class DataMaterial {
-    @Nullable
-    private final IMaterial material;
-    @Nullable
-    private final ICondition condition;
-    private final MaterialJson.Redirect[] redirect;
-  }
+  private record DataMaterial(@Nullable IMaterial material, @Nullable ICondition condition, MaterialJson.Redirect[] redirect) {}
 }

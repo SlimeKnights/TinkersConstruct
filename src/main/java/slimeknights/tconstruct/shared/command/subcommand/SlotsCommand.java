@@ -6,13 +6,13 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -31,13 +31,13 @@ public class SlotsCommand {
   private static final String SET_SUCCESS = TConstruct.makeTranslationKey("command", "slots.success.set.single");
   private static final String SET_SUCCESS_MULTIPLE = TConstruct.makeTranslationKey("command", "slots.success.set.multiple");
   private static final SimpleCommandExceptionType INVALID_SLOT_COUNT = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "slots.failure.invalid_count"));
-  private static final DynamicCommandExceptionType VALIDATION_ERROR = new DynamicCommandExceptionType(error -> (ITextComponent)error);
+  private static final DynamicCommandExceptionType VALIDATION_ERROR = new DynamicCommandExceptionType(error -> (Component)error);
 
   /**
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSource> subCommand) {
+  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
     subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
               .then(Commands.argument("targets", EntityArgument.entities())
                             // slots <target> add <slot_type> [<count>]
@@ -54,12 +54,12 @@ public class SlotsCommand {
   }
 
   /** Runs the command with a count argument */
-  private static int run(CommandContext<CommandSource> context, Operation op) throws CommandSyntaxException {
+  private static int run(CommandContext<CommandSourceStack> context, Operation op) throws CommandSyntaxException {
     return run(context, op, IntegerArgumentType.getInteger(context, "count"));
   }
 
   /** Runs the command */
-  private static int run(CommandContext<CommandSource> context, Operation op, int count) throws CommandSyntaxException {
+  private static int run(CommandContext<CommandSourceStack> context, Operation op, int count) throws CommandSyntaxException {
     if (count == 0 && op != Operation.SET) {
       throw INVALID_SLOT_COUNT.create();
     }
@@ -84,24 +84,24 @@ public class SlotsCommand {
       }
 
       // if successful, update held item
-      living.setItemInHand(Hand.MAIN_HAND, tool.createStack());
+      living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       return true;
     });
 
     // success message
-    CommandSource source = context.getSource();
+    CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (op == Operation.ADD) {
       if (size == 1) {
-        source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS, count, slotType.getDisplayName(), successes.get(0).getDisplayName()), true);
+        source.sendSuccess(new TranslatableComponent(ADD_SUCCESS, count, slotType.getDisplayName(), successes.get(0).getDisplayName()), true);
       } else {
-        source.sendSuccess(new TranslationTextComponent(ADD_SUCCESS_MULTIPLE, count, slotType.getDisplayName(), size), true);
+        source.sendSuccess(new TranslatableComponent(ADD_SUCCESS_MULTIPLE, count, slotType.getDisplayName(), size), true);
       }
     } else {
       if (size == 1) {
-        source.sendSuccess(new TranslationTextComponent(SET_SUCCESS, slotType.getDisplayName(), count, successes.get(0).getDisplayName()), true);
+        source.sendSuccess(new TranslatableComponent(SET_SUCCESS, slotType.getDisplayName(), count, successes.get(0).getDisplayName()), true);
       } else {
-        source.sendSuccess(new TranslationTextComponent(SET_SUCCESS_MULTIPLE, slotType.getDisplayName(), count, size), true);
+        source.sendSuccess(new TranslatableComponent(SET_SUCCESS_MULTIPLE, slotType.getDisplayName(), count, size), true);
       }
     }
     return size;

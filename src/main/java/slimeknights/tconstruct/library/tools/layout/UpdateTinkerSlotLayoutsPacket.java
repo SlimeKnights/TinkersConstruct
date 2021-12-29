@@ -5,8 +5,8 @@ import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
 import java.util.Collection;
@@ -19,7 +19,7 @@ public class UpdateTinkerSlotLayoutsPacket implements IThreadsafePacket {
   @Getter(AccessLevel.PACKAGE) @VisibleForTesting
   private final Collection<StationSlotLayout> layouts;
 
-  public UpdateTinkerSlotLayoutsPacket(PacketBuffer buffer) {
+  public UpdateTinkerSlotLayoutsPacket(FriendlyByteBuf buffer) {
     ImmutableList.Builder<StationSlotLayout> builder = ImmutableList.builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
@@ -29,7 +29,7 @@ public class UpdateTinkerSlotLayoutsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeVarInt(layouts.size());
     for (StationSlotLayout layout : layouts) {
       layout.write(buffer);

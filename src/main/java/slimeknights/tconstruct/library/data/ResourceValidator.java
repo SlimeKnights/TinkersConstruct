@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.data;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -31,7 +31,7 @@ public class ResourceValidator implements IEarlySafeManagerReloadListener, Predi
   }
 
   @Override
-  public void onReloadSafe(IResourceManager manager) {
+  public void onReloadSafe(ResourceManager manager) {
     int extensionLength = extension.length();
     // FIXME: this does not validate folder names
     this.resources = manager.listResources(folder, (loc) -> {

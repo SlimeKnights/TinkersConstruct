@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor.walker;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
@@ -31,22 +31,22 @@ public class FrostWalkerModifier extends AbstractWalkerModifier implements IArmo
   }
 
   @Override
-  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount) {
+  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
     return source == DamageSource.HOT_FLOOR;
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
+  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     if (world.isEmptyBlock(target)) {
       BlockState frostedIce = Blocks.FROSTED_ICE.defaultBlockState();
       mutable.set(target.getX(), target.getY() - 1, target.getZ());
       BlockState below = world.getBlockState(mutable);
-      boolean isFull = below.getBlock() == Blocks.WATER && below.getValue(FlowingFluidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
+      boolean isFull = below.getBlock() == Blocks.WATER && below.getValue(LiquidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
       if (below.getMaterial() == Material.WATER && isFull
-          && frostedIce.canSurvive(world, mutable) && world.isUnobstructed(frostedIce, mutable, ISelectionContext.empty())
+          && frostedIce.canSurvive(world, mutable) && world.isUnobstructed(frostedIce, mutable, CollisionContext.empty())
           && !ForgeEventFactory.onBlockPlace(living, BlockSnapshot.create(world.dimension(), world, mutable), Direction.UP)) {
         world.setBlockAndUpdate(mutable, frostedIce);
-        world.getBlockTicks().scheduleTick(mutable, Blocks.FROSTED_ICE, MathHelper.nextInt(living.getRandom(), 60, 120));
+        world.scheduleTick(mutable, Blocks.FROSTED_ICE, Mth.nextInt(living.getRandom(), 60, 120));
       }
     }
   }

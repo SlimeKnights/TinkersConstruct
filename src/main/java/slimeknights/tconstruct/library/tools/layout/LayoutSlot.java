@@ -4,13 +4,13 @@ import com.google.common.annotations.VisibleForTesting;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import slimeknights.mantle.util.LogicHelper;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 /** A single slot in a slot layout */
 @RequiredArgsConstructor
@@ -42,7 +42,7 @@ public class LayoutSlot {
 
   /** Gets the translation key of this slot */
   public String getTranslationKey() {
-    return LogicHelper.defaultIfNull(translation_key, "");
+    return Objects.requireNonNullElse(translation_key, "");
   }
 
   /** Checks if the given stack is valid for this slot */
@@ -54,7 +54,7 @@ public class LayoutSlot {
   /* Buffers */
 
   /** Reads a slot from the packet buffer */
-  public static LayoutSlot read(PacketBuffer buffer) {
+  public static LayoutSlot read(FriendlyByteBuf buffer) {
     Pattern pattern = null;
     if (buffer.readBoolean()) {
       pattern = new Pattern(buffer.readResourceLocation());
@@ -70,7 +70,7 @@ public class LayoutSlot {
   }
 
   /** Writes a slot to the packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     if (icon != null) {
       buffer.writeBoolean(true);
       buffer.writeResourceLocation(icon);

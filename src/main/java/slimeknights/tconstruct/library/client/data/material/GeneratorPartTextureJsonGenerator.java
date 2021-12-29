@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider.PartSpriteInfo;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
@@ -29,13 +29,13 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
   private final String modId;
   private final AbstractPartSpriteProvider spriteProvider;
   public GeneratorPartTextureJsonGenerator(DataGenerator generator, String modId, AbstractPartSpriteProvider spriteProvider) {
-    super(generator, ResourcePackType.CLIENT_RESOURCES, "models", GSON);
+    super(generator, PackType.CLIENT_RESOURCES, "models", GSON);
     this.modId = modId;
     this.spriteProvider = spriteProvider;
   }
 
   @Override
-  public void run(DirectoryCache cache) throws IOException {
+  public void run(HashCache cache) throws IOException {
     JsonObject json = new JsonObject();
     json.addProperty("replace", false);
     JsonArray parts = new JsonArray();

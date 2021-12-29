@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.data;
 
 import com.google.gson.JsonElement;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
 import javax.annotation.Nullable;
@@ -42,6 +42,6 @@ public class MergingJsonFileLoader<B> extends JsonFileLoader {
         dataLoader.parse(parsedMap.computeIfAbsent(id, dataLoader.builderConstructor), id, entry.getValue());
       }
     }
-    dataLoader.finishLoad(parsedMap, mock(IResourceManager.class));
+    dataLoader.finishLoad(parsedMap, mock(ResourceManager.class));
   }
 }

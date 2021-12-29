@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -42,7 +42,7 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderInventory>
   /* Recipe data */
 
   @Override
-  default IRecipeType<?> getType() {
+  default RecipeType<?> getType() {
     return RecipeTypes.PART_BUILDER;
   }
 

@@ -1,40 +1,37 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import lombok.RequiredArgsConstructor;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.ingredients.IIngredientRenderer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
-public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierEntry> {
-  private final int width;
+public record ModifierIngredientRenderer(int width) implements IIngredientRenderer<ModifierEntry> {
 
   @Override
-  public void render(MatrixStack matrices, int x, int y, @Nullable ModifierEntry entry) {
+  public void render(PoseStack matrices, int x, int y, @Nullable ModifierEntry entry) {
     if (entry != null) {
-      ITextComponent name = entry.getModifier().getDisplayName(entry.getLevel());
-      FontRenderer fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
+      Component name = entry.getModifier().getDisplayName(entry.getLevel());
+      Font fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
       x += (width - fontRenderer.width(name)) / 2;
       fontRenderer.drawShadow(matrices, name, x, y + 1, -1);
     }
   }
 
   @Override
-  public List<ITextComponent> getTooltip(ModifierEntry entry, ITooltipFlag flag) {
-    List<ITextComponent> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
+  public List<Component> getTooltip(ModifierEntry entry, TooltipFlag flag) {
+    List<Component> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
     if (flag.isAdvanced()) {
       tooltip = new ArrayList<>(tooltip);
-      tooltip.add((new StringTextComponent(entry.getModifier().getId().toString())).withStyle(TextFormatting.DARK_GRAY));
+      tooltip.add((new TextComponent(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
     }
     return tooltip;
   }

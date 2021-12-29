@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
-import net.minecraftforge.common.extensions.IForgeTileEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -8,7 +7,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import java.util.List;
 
 // TODO: reassess
-public interface ISmelteryTankHandler extends IForgeTileEntity {
+public interface ISmelteryTankHandler {
   /**
    * Updates the fluids in the tank with data from the packet, should only be called client side
    */

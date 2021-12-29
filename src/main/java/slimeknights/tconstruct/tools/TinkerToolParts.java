@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.mantle.util.SupplierItemGroup;
+import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public final class TinkerToolParts extends TinkerModule {
   /** Tab for all tool parts */
-  public static final ItemGroup TAB_TOOL_PARTS = new SupplierItemGroup(TConstruct.MOD_ID, "tool_parts", () -> {
+  public static final CreativeModeTab TAB_TOOL_PARTS = new SupplierCreativeTab(TConstruct.MOD_ID, "tool_parts", () -> {
     List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getVisibleMaterials());
     if (materials.isEmpty()) {
       return new ItemStack(TinkerToolParts.pickaxeHead);

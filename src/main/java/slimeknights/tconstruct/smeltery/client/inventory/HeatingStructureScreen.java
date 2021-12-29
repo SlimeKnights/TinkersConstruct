@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule;
@@ -30,7 +30,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
   public final GuiMeltingModule melting;
   private final GuiFuelModule fuel;
 
-  public HeatingStructureScreen(HeatingStructureContainer container, PlayerInventory playerInventory, ITextComponent title) {
+  public HeatingStructureScreen(HeatingStructureContainer container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
 
     HeatingStructureTileEntity te = container.getTile();
@@ -52,9 +52,10 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
     }
   }
 
+
   @Override
-  public void tick() {
-    super.tick();
+  protected void containerTick() {
+    super.containerTick();
     // if the smeltery becomes invalid or the slot size changes, kill the UI
     if (te == null || !te.getBlockState().getValue(ControllerBlock.IN_STRUCTURE)
         || te.getMeltingInventory().getSlots() != sideInventory.getSlotCount()) {
@@ -62,28 +63,27 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
     }
   }
   @Override
-  protected void renderBg(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
+    // draw stuff with background
     GuiUtil.drawBackground(matrices, this, BACKGROUND);
-    super.renderBg(matrices, partialTicks, mouseX, mouseY);
+    // fuel
+    if (fuel != null) {
+      fuel.draw(matrices);
+    }
 
+    // draw other components
+    super.renderBg(matrices, partialTicks, mouseX, mouseY);
 
     // render fluids
     if (tank != null) tank.renderFluids(matrices);
-
-    // fuel
-    if (fuel != null) {
-      getMinecraft().getTextureManager().bind(BACKGROUND);
-      fuel.draw(matrices);
-    }
   }
 
   @Override
-  protected void renderLabels(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
     super.renderLabels(matrices, mouseX, mouseY);
 
     assert minecraft != null;
-    minecraft.getTextureManager().bind(BACKGROUND);
-    RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+    RenderUtils.setup(BACKGROUND);
     SCALA.draw(matrices, 8, 16);
 
     // highlight hovered fluids
@@ -97,7 +97,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
   }
 
   @Override
-  protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
     super.renderTooltip(matrices, mouseX, mouseY);
 
     // fluid tooltips

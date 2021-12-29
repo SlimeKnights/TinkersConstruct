@@ -1,16 +1,17 @@
 package slimeknights.tconstruct.plugin.jei.partbuilder;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.NoArgsConstructor;
 import mezz.jei.api.ingredients.IIngredientRenderer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.TooltipFlag;
+import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 import javax.annotation.Nullable;
@@ -23,18 +24,18 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
   public static final PatternIngredientRenderer INSTANCE = new PatternIngredientRenderer();
 
   @Override
-  public void render(MatrixStack matrices, int x, int y, @Nullable Pattern pattern) {
+  public void render(PoseStack matrices, int x, int y, @Nullable Pattern pattern) {
     if (pattern != null) {
-      TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(PlayerContainer.BLOCK_ATLAS).getSprite(pattern.getTexture());
-      Minecraft.getInstance().getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
+      TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(pattern.getTexture());
+      RenderUtils.setup(InventoryMenu.BLOCK_ATLAS);
       Screen.blit(matrices, x, y, 100, 16, 16, sprite);
     }
   }
 
   @Override
-  public List<ITextComponent> getTooltip(Pattern pattern, ITooltipFlag flag) {
+  public List<Component> getTooltip(Pattern pattern, TooltipFlag flag) {
     if (flag.isAdvanced()) {
-      return Arrays.asList(pattern.getDisplayName(), new StringTextComponent(pattern.toString()).withStyle(TextFormatting.DARK_GRAY));
+      return Arrays.asList(pattern.getDisplayName(), new TextComponent(pattern.toString()).withStyle(ChatFormatting.DARK_GRAY));
     } else {
       return Collections.singletonList(pattern.getDisplayName());
     }

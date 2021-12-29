@@ -9,10 +9,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.Util;
@@ -22,13 +21,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
-import static net.minecraft.client.renderer.texture.NativeImage.combine;
-import static net.minecraft.client.renderer.texture.NativeImage.getA;
-import static net.minecraft.client.renderer.texture.NativeImage.getB;
-import static net.minecraft.client.renderer.texture.NativeImage.getG;
-import static net.minecraft.client.renderer.texture.NativeImage.getR;
+import static com.mojang.blaze3d.platform.NativeImage.combine;
+import static com.mojang.blaze3d.platform.NativeImage.getA;
+import static com.mojang.blaze3d.platform.NativeImage.getB;
+import static com.mojang.blaze3d.platform.NativeImage.getG;
+import static com.mojang.blaze3d.platform.NativeImage.getR;
 
-/** Color mapping that maps greyscale values to a palette for each value */
+/** Color mcom.mojang.blaze3d.platform.NativeImager each value */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class GreyToColorMapping implements IColorMapping {
   public static final ResourceLocation NAME = TConstruct.getResource("grey_to_color");
@@ -41,16 +40,16 @@ public class GreyToColorMapping implements IColorMapping {
   private static final Interpolate<ColorMapping,Integer> INTERPOLATE_COLORS = (first, second, grey) -> {
     if (first == null) {
       assert second != null;
-      return second.getColor();
+      return second.color;
     }
     if (second == null) {
-      return first.getColor();
+      return first.color;
     }
-    return interpolateColors(first.getColor(), first.getGrey(), second.getColor(), second.getGrey(), grey);
+    return interpolateColors(first.color, first.grey, second.color, second.grey, grey);
   };
 
   /** Gets the grey value of a color */
-  private static final ToIntFunction<ColorMapping> GET_GREY = ColorMapping::getGrey;
+  private static final ToIntFunction<ColorMapping> GET_GREY = ColorMapping::grey;
 
   /**
    * Gets the color for the given greyscale from the palette, using the cache
@@ -96,12 +95,12 @@ public class GreyToColorMapping implements IColorMapping {
     @Override
     public GreyToColorMapping deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject object = json.getAsJsonObject();
-      JsonArray palette = JSONUtils.getAsJsonArray(object, "palette");
+      JsonArray palette = GsonHelper.getAsJsonArray(object, "palette");
       GreyToColorMapping.Builder paletteBuilder = GreyToColorMapping.builder();
       for (int i = 0; i < palette.size(); i++) {
-        JsonObject palettePair = JSONUtils.convertToJsonObject(palette.get(i), "palette["+i+']');
-        int grey = JSONUtils.getAsInt(palettePair, "grey");
-        int color = JsonHelper.parseColor(JSONUtils.getAsString(palettePair, "color"));
+        JsonObject palettePair = GsonHelper.convertToJsonObject(palette.get(i), "palette["+i+']');
+        int grey = GsonHelper.getAsInt(palettePair, "grey");
+        int color = JsonHelper.parseColor(GsonHelper.getAsString(palettePair, "color"));
         if (i == 0 && grey != 0) {
           paletteBuilder.addABGR(0, 0xFF000000);
         }
@@ -121,12 +120,10 @@ public class GreyToColorMapping implements IColorMapping {
     return builder().addABGR(0, 0xFF000000);
   }
 
-  /** Mapping from greyscale to color */
-  @Data
-  private static class ColorMapping {
-    private final int grey;
-    private final int color;
-  }
+  /**
+   * Mapping from greyscale to color
+   */
+  private record ColorMapping(int grey, int color) {}
 
   /** Helper to interpolate two color mappings */
   @FunctionalInterface

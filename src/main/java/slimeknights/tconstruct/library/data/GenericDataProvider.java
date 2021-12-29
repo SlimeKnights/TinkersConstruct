@@ -5,10 +5,10 @@ import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor
 @Log4j2
-public abstract class GenericDataProvider implements IDataProvider {
+public abstract class GenericDataProvider implements DataProvider {
   private static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
@@ -30,24 +30,23 @@ public abstract class GenericDataProvider implements IDataProvider {
     .create();
 
   protected final DataGenerator generator;
-  private final ResourcePackType type;
+  private final PackType type;
   private final String folder;
   private final Gson gson;
 
-  public GenericDataProvider(DataGenerator generator, ResourcePackType type, String folder) {
+  public GenericDataProvider(DataGenerator generator, PackType type, String folder) {
     this(generator, type, folder, GSON);
   }
 
   public GenericDataProvider(DataGenerator generator, String folder, Gson gson) {
-    this(generator, ResourcePackType.SERVER_DATA, folder, gson);
+    this(generator, PackType.SERVER_DATA, folder, gson);
   }
 
   public GenericDataProvider(DataGenerator generator, String folder) {
     this(generator, folder, GSON);
   }
 
-  @SuppressWarnings("UnstableApiUsage")
-  protected void saveThing(DirectoryCache cache, ResourceLocation location, Object materialJson) {
+  protected void saveThing(HashCache cache, ResourceLocation location, Object materialJson) {
     try {
       String json = gson.toJson(materialJson);
       Path path = this.generator.getOutputFolder().resolve(Paths.get(type.getDirectory(), location.getNamespace(), folder, location.getPath() + ".json"));

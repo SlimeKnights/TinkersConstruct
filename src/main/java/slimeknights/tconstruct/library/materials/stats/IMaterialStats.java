@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.network.INetworkSendable;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -22,8 +22,8 @@ public interface IMaterialStats extends INetworkSendable {
   /**
    * Returns the name of the stat type, to be displayed to the player.
    */
-  default IFormattableTextComponent getLocalizedName() {
-    return new TranslationTextComponent(Util.makeTranslationKey("stat", getIdentifier()));
+  default MutableComponent getLocalizedName() {
+    return new TranslatableComponent(Util.makeTranslationKey("stat", getIdentifier()));
   }
 
   /**
@@ -33,7 +33,7 @@ public interface IMaterialStats extends INetworkSendable {
    * </br>
    * This is used to display properties of materials to the user.
    */
-  List<ITextComponent> getLocalizedInfo();
+  List<Component> getLocalizedInfo();
 
   /**
    * Returns a list containing a Text Component describing each player-relevant value.</br>
@@ -42,5 +42,5 @@ public interface IMaterialStats extends INetworkSendable {
    * This is used to display properties of materials to the user.
    * @return a list of Text Components
    */
-  List<ITextComponent> getLocalizedDescriptions();
+  List<Component> getLocalizedDescriptions();
 }

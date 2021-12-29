@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import lombok.Data;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -37,7 +36,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
+  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
     if (!player.isShiftKeyDown()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
@@ -53,18 +52,18 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   /** Adds the given number of fluid particles */
-  private static void addFluidParticles(PlayerEntity player, FluidStack fluid, int count) {
+  private static void addFluidParticles(Player player, FluidStack fluid, int count) {
     for(int i = 0; i < count; ++i) {
-      Vector3d motion = new Vector3d((RANDOM.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-      motion = motion.xRot(-player.xRot * DEGREE_TO_RADIANS);
-      motion = motion.yRot(-player.yRot * DEGREE_TO_RADIANS);
-      Vector3d position = new Vector3d((RANDOM.nextFloat() - 0.5D) * 0.3D, (-RANDOM.nextFloat()) * 0.6D - 0.3D, 0.6D);
-      position = position.xRot(-player.xRot * DEGREE_TO_RADIANS);
-      position = position.yRot(-player.yRot * DEGREE_TO_RADIANS);
+      Vec3 motion = new Vec3((RANDOM.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+      motion = motion.xRot(-player.getXRot() * DEGREE_TO_RADIANS);
+      motion = motion.yRot(-player.getYRot() * DEGREE_TO_RADIANS);
+      Vec3 position = new Vec3((RANDOM.nextFloat() - 0.5D) * 0.3D, (-RANDOM.nextFloat()) * 0.6D - 0.3D, 0.6D);
+      position = position.xRot(-player.getXRot() * DEGREE_TO_RADIANS);
+      position = position.yRot(-player.getYRot() * DEGREE_TO_RADIANS);
       position = position.add(player.getX(), player.getEyeY(), player.getZ());
       FluidParticleData data = new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid);
-      if (player.level instanceof ServerWorld) {
-        ((ServerWorld)player.level).sendParticles(data, position.x, position.y, position.z, 1, motion.x, motion.y + 0.05D, motion.z, 0.0D);
+      if (player.level instanceof ServerLevel) {
+        ((ServerLevel)player.level).sendParticles(data, position.x, position.y, position.z, 1, motion.x, motion.y + 0.05D, motion.z, 0.0D);
       } else {
         player.level.addParticle(data, position.x, position.y, position.z, motion.x, motion.y + 0.05D, motion.z);
       }
@@ -73,7 +72,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
 
   /** Called on player tick to update drinking */
   private void playerTick(PlayerTickEvent event) {
-    PlayerEntity player = event.player;
+    Player player = event.player;
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       // if drinking
       SlurpingInfo info = data.get(SLURP_FINISH_TIME);
@@ -87,13 +86,13 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
 
           // only server needs to drink
           if (!player.getCommandSenderWorld().isClientSide) {
-            ToolStack tool = ToolStack.from(player.getItemBySlot(EquipmentSlotType.HEAD));
+            ToolStack tool = ToolStack.from(player.getItemBySlot(EquipmentSlot.HEAD));
             FluidStack fluid = getFluid(tool);
             if (!fluid.isEmpty()) {
               // find the recipe
               SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getCommandSenderWorld().getRecipeManager(), fluid.getFluid());
               if (recipe != null) {
-                ToolAttackContext context = new ToolAttackContext(player, player, Hand.MAIN_HAND, player, player, false, 1.0f, false);
+                ToolAttackContext context = new ToolAttackContext(player, player, InteractionHand.MAIN_HAND, player, player, false, 1.0f, false);
                 FluidStack remaining = recipe.applyEffects(fluid, tool.getModifierLevel(this), context);
                 if (!player.isCreative()) {
                   setFluid(tool, remaining);
@@ -115,7 +114,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   @Override
-  public void stopArmorInteract(IModifierToolStack tool, int level, PlayerEntity player, EquipmentSlotType slot) {
+  public void stopArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(SLURP_FINISH_TIME));
   }
 
@@ -129,9 +128,5 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
     return super.getModule(type);
   }
 
-  @Data
-  private static class SlurpingInfo {
-    private final FluidStack fluid;
-    private final int finishTime;
-  }
+  private record SlurpingInfo(FluidStack fluid, int finishTime) {}
 }

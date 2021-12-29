@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.mantle.util.LogicHelper;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
@@ -21,6 +20,8 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNullElse;
 
 /**
  * A full layout for the tinker station
@@ -51,24 +52,24 @@ public class StationSlotLayout {
 
   /** Gets the sort index for the given layout */
   public int getSortIndex() {
-    return LogicHelper.defaultIfNull(sortIndex, 255);
+    return requireNonNullElse(sortIndex, 255);
   }
 
   /** Gets the icon for this layout */
   public LayoutIcon getIcon() {
-    return LogicHelper.defaultIfNull(icon, LayoutIcon.EMPTY);
+    return requireNonNullElse(icon, LayoutIcon.EMPTY);
   }
 
   /* Slots */
 
   /** Gets the contents of the tool slot */
   public LayoutSlot getToolSlot() {
-    return LogicHelper.defaultIfNull(tool_slot, LayoutSlot.EMPTY);
+    return requireNonNullElse(tool_slot, LayoutSlot.EMPTY);
   }
 
   /** Gets positions for all input slots */
   public List<LayoutSlot> getInputSlots() {
-    return LogicHelper.defaultIfNull(input_slots, Collections.emptyList());
+    return requireNonNullElse(input_slots, Collections.emptyList());
   }
 
   /** Gets the number of input slots */
@@ -92,7 +93,7 @@ public class StationSlotLayout {
   /* Buffers */
 
   /** Reads a slot from the packet buffer */
-  public static StationSlotLayout read(PacketBuffer buffer) {
+  public static StationSlotLayout read(FriendlyByteBuf buffer) {
     ResourceLocation name = buffer.readResourceLocation();
     String translationKey = buffer.readUtf(Short.MAX_VALUE);
     LayoutIcon icon = LayoutIcon.read(buffer);
@@ -112,7 +113,7 @@ public class StationSlotLayout {
   }
 
   /** Writes a slot to the packet buffer */
-  public void write(PacketBuffer buffer) {
+  public void write(FriendlyByteBuf buffer) {
     buffer.writeResourceLocation(name);
     buffer.writeUtf(getTranslationKey());
     icon.write(buffer);
@@ -135,26 +136,26 @@ public class StationSlotLayout {
 
   /** Gets the translation key for this slot, suffixing description at the end forms the full description */
   public String getTranslationKey() {
-    return LogicHelper.defaultIfNull(translation_key, "");
+    return requireNonNullElse(translation_key, "");
   }
 
   /** Cache of display name */
-  private transient ITextComponent displayName = null;
+  private transient Component displayName = null;
   /** Cache of display name */
-  private transient ITextComponent description = null;
+  private transient Component description = null;
 
   /** Gets the display name from the unlocalized name of {@link #getTranslationKey()} */
-  public ITextComponent getDisplayName() {
+  public Component getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslationTextComponent(getTranslationKey());
+      displayName = new TranslatableComponent(getTranslationKey());
     }
     return displayName;
   }
 
   /** Gets the description from the unlocalized name of {@link #getTranslationKey()} */
-  public ITextComponent getDescription() {
+  public Component getDescription() {
     if (description == null) {
-      description = new TranslationTextComponent(getTranslationKey() + ".description");
+      description = new TranslatableComponent(getTranslationKey() + ".description");
     }
     return description;
   }
@@ -235,12 +236,12 @@ public class StationSlotLayout {
     }
 
     /** Adds an input as the given item */
-    public Builder addInputItem(Pattern icon, IItemProvider item, int x, int y) {
+    public Builder addInputItem(Pattern icon, ItemLike item, int x, int y) {
       return addInputSlot(icon, item.asItem().getDescriptionId(), x, y, Ingredient.of(item));
     }
 
     /** Adds an input as the given item */
-    public Builder addInputItem(IItemProvider item, int x, int y) {
+    public Builder addInputItem(ItemLike item, int x, int y) {
       return addInputItem(new Pattern(Objects.requireNonNull(item.asItem().getRegistryName())), item, x, y);
     }
 

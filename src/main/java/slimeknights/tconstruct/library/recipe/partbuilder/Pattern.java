@@ -7,11 +7,11 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.ResourceLocationException;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.ResourceLocationException;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -54,8 +54,8 @@ public class Pattern extends ResourceLocation {
    * Gets the display name for this pattern
    * @return  Display name
    */
-  public ITextComponent getDisplayName() {
-    return new TranslationTextComponent(Util.makeTranslationKey("pattern", this));
+  public Component getDisplayName() {
+    return new TranslatableComponent(Util.makeTranslationKey("pattern", this));
   }
 
   /**
@@ -70,7 +70,7 @@ public class Pattern extends ResourceLocation {
   protected static class Serializer implements JsonDeserializer<Pattern>, JsonSerializer<Pattern> {
     @Override
     public Pattern deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return new Pattern(JSONUtils.convertToString(json, "location"));
+      return new Pattern(GsonHelper.convertToString(json, "location"));
     }
 
     @Override

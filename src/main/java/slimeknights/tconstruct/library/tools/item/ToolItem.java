@@ -1,26 +1,18 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
-
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Set;
-
-import net.minecraft.item.Item.Properties;
 
 /**
  * Extension of a modifiable tool that also is capable of harvesting blocks
@@ -33,6 +25,7 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
 
   /* Mining */
 
+  /* TODO: update
   @Override
   public Set<ToolType> getToolTypes(ItemStack stack) {
     // no classes if broken
@@ -42,9 +35,11 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
 
     return super.getToolTypes(stack);
   }
+   */
 
+  /* TODO: update
   @Override
-  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
+  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable Player player, @Nullable BlockState blockState) {
     // brokenness is calculated in by the toolTypes check
     if (this.getToolTypes(stack).contains(toolClass)) {
       return ToolStack.from(stack).getStats().getInt(ToolStats.HARVEST_LEVEL);
@@ -52,17 +47,18 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
 
     return -1;
   }
+   */
 
   @Override
-  public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+  public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return false;
     }
 
-    if (!worldIn.isClientSide && worldIn instanceof ServerWorld) {
+    if (!worldIn.isClientSide && worldIn instanceof ServerLevel) {
       boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
-      ToolHarvestContext context = new ToolHarvestContext((ServerWorld) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
+      ToolHarvestContext context = new ToolHarvestContext((ServerLevel) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
       }
@@ -72,10 +68,12 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
     return true;
   }
 
+  /* TODO: update
   @Override
   public final boolean canHarvestBlock(ItemStack stack, BlockState state) {
     return this.getToolHarvestLogic().isEffective(ToolStack.from(stack), stack, state);
   }
+   */
 
   @Override
   public final float getDestroySpeed(ItemStack stack, BlockState state) {
@@ -83,7 +81,7 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
   }
 
   @Override
-  public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
+  public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
     return getToolHarvestLogic().handleBlockBreak(stack, pos, player);
 
     // TODO: consider taking over PlayerInteractionManager#tryHarvestBlock and PlayerController#onPlayerDestroyBlock

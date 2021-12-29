@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 
@@ -14,13 +14,13 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   /* Recipe data */
 
   @Override
-  default IRecipeType<?> getType() {
+  default RecipeType<?> getType() {
     return RecipeTypes.TINKER_STATION;
   }
 
   /** If true, this recipe matches the given inputs, ignoring current tool state */
   @Override
-  boolean matches(ITinkerStationInventory inv, World world);
+  boolean matches(ITinkerStationInventory inv, Level world);
 
   /**
    * Gets the recipe result. Return {@link ItemStack#EMPTY) to represent {@link ValidatedResult#PASS}, or a non-empty stack to represent success.

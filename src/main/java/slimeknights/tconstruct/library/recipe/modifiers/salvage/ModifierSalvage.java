@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -44,7 +44,7 @@ public class ModifierSalvage extends AbstractModifierSalvage {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.modifierSalvageSerializer.get();
   }
 
@@ -60,7 +60,7 @@ public class ModifierSalvage extends AbstractModifierSalvage {
     }
 
     @Override
-    protected ModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected ModifierSalvage read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ImmutableList.Builder<RandomItem> result = ImmutableList.builder();
       int count = buffer.readVarInt();
       for (int i = 0; i < count; i++) {
@@ -70,7 +70,7 @@ public class ModifierSalvage extends AbstractModifierSalvage {
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, ModifierSalvage recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
       super.writeSafe(buffer, recipe);
       buffer.writeVarInt(recipe.result.size());
       for (RandomItem randomItem : recipe.result) {

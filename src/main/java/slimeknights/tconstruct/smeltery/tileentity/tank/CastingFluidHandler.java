@@ -3,13 +3,13 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -171,18 +171,18 @@ public class CastingFluidHandler implements IFluidHandler {
     return tank == 0 && isFluidValid(stack);
   }
 
-  /* NBT */
+  /* Tag */
   private static final String TAG_FLUID = "fluid";
   private static final String TAG_FILTER = "filter";
   private static final String TAG_CAPACITY = "capacity";
 
-  /** Reads the tank from NBT */
-  public void readFromNBT(CompoundNBT nbt) {
+  /** Reads the tank from Tag */
+  public void readFromTag(CompoundTag nbt) {
     capacity = nbt.getInt(TAG_CAPACITY);
-    if (nbt.contains(TAG_FLUID, NBT.TAG_COMPOUND)) {
+    if (nbt.contains(TAG_FLUID, Tag.TAG_COMPOUND)) {
       setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(TAG_FLUID)));
     }
-    if (nbt.contains(TAG_FILTER, NBT.TAG_STRING)) {
+    if (nbt.contains(TAG_FILTER, Tag.TAG_STRING)) {
       Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(nbt.getString(TAG_FILTER)));
       if (fluid != null) {
         filter = fluid;
@@ -191,10 +191,10 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   /** Write the tank from NBT */
-  public CompoundNBT writeToNBT(CompoundNBT nbt) {
+  public CompoundTag writeToTag(CompoundTag nbt) {
     nbt.putInt(TAG_CAPACITY, capacity);
     if (!fluid.isEmpty()) {
-      nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundNBT()));
+      nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundTag()));
     }
     if (filter != Fluids.EMPTY) {
       nbt.putString(TAG_FILTER, Objects.requireNonNull(filter.getRegistryName()).toString());
@@ -203,8 +203,8 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   protected void onContentsChanged() {
-    tile.markDirtyFast();
-    World world = tile.getLevel();
+    tile.setChangedFast();
+    Level world = tile.getLevel();
     if (world != null && !world.isClientSide) {
       BlockPos pos = tile.getBlockPos();
       TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(pos, this.getFluid()), world, pos);

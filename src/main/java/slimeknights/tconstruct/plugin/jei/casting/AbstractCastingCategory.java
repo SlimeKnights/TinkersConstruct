@@ -3,7 +3,7 @@ package slimeknights.tconstruct.plugin.jei.casting;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -15,16 +15,15 @@ import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -47,23 +46,20 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
-  @Getter
-  private final String title;
   private final IDrawable tankOverlay;
   private final IDrawable castConsumed;
   private final IDrawable castKept;
   private final IDrawable block;
   private final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
 
-  protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, String translationKey, IDrawable block) {
+  protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, IDrawable block) {
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
-    this.icon = guiHelper.createDrawableIngredient(new ItemStack(icon));
-    this.title = ForgeI18n.getPattern(translationKey);
+    this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(icon));
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
-    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<Integer,IDrawableAnimated>() {
+    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<>() {
       @Override
       public IDrawableAnimated load(Integer coolingTime) {
         return guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(coolingTime, IDrawableAnimated.StartDirection.LEFT, false);
@@ -89,7 +85,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public void draw(IDisplayableCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+  public void draw(IDisplayableCastingRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
     cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(matrixStack, 58, 18);
     block.draw(matrixStack, 38, 35);
     if (recipe.hasCast()) {
@@ -98,15 +94,15 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
     int coolingTime = recipe.getCoolingTime() / 20;
     String coolingString = I18n.get(KEY_COOLING_TIME, coolingTime);
-    FontRenderer fontRenderer = Minecraft.getInstance().font;
+    Font fontRenderer = Minecraft.getInstance().font;
     int x = 72 - fontRenderer.width(coolingString) / 2;
     fontRenderer.draw(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(IDisplayableCastingRecipe recipe, double mouseX, double mouseY) {
+  public List<Component> getTooltipStrings(IDisplayableCastingRecipe recipe, double mouseX, double mouseY) {
     if (recipe.hasCast() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
-      return Collections.singletonList(new TranslationTextComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
+      return Collections.singletonList(new TranslatableComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
     return Collections.emptyList();
   }
@@ -132,9 +128,9 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
-    ITextComponent name = list.get(0);
-    ITextComponent modId = list.get(list.size() - 1);
+  public void onTooltip(int index, boolean input, FluidStack stack, List<Component> list) {
+    Component name = list.get(0);
+    Component modId = list.get(list.size() - 1);
     list.clear();
     list.add(name);
     FluidTooltipHandler.appendMaterial(stack, list);

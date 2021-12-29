@@ -1,27 +1,27 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor.walker;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
-  private final ToolType toolType;
+  private final ToolAction action;
   private final SoundEvent sound;
-  public BlockTransformWalkerModifier(int color, ToolType toolType, SoundEvent sound) {
+  public BlockTransformWalkerModifier(int color, ToolAction action, SoundEvent sound) {
     super(color);
-    this.toolType = toolType;
+    this.action = action;
     this.sound = sound;
   }
 
@@ -32,23 +32,23 @@ public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
 
   @Override
   public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
-    if (living instanceof PlayerEntity) {
+    if (living instanceof Player) {
       super.onWalk(tool, level, living, prevPos, newPos);
     }
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, World world, BlockPos target, Mutable mutable) {
+  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     Material material = world.getBlockState(target).getMaterial();
     if (material.isReplaceable() || material == Material.PLANT) {
       mutable.set(target.getX(), target.getY() - 1, target.getZ());
       BlockState original = world.getBlockState(mutable);
-      BlockState transformed = original.getToolModifiedState(world, mutable, (PlayerEntity)living, living.getItemBySlot(EquipmentSlotType.FEET), toolType);
+      BlockState transformed = original.getToolModifiedState(world, mutable, (Player)living, living.getItemBySlot(EquipmentSlot.FEET), action);
       if (transformed != null) {
-        world.setBlock(mutable, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+        world.setBlock(mutable, transformed, Block.UPDATE_ALL_IMMEDIATE);
         world.destroyBlock(target, true);
-        world.playSound(null, mutable, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlotType.FEET);
+        world.playSound(null, mutable, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
       }
     }
   }

@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.gadgets.item.slimesling;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -21,18 +21,18 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
-  public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (!entityLiving.isOnGround() || !(entityLiving instanceof PlayerEntity)) {
+  public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
+    if (!entityLiving.isOnGround() || !(entityLiving instanceof Player)) {
       return;
     }
 
     // check if player was targeting a block
-    PlayerEntity player = (PlayerEntity) entityLiving;
-    BlockRayTraceResult mop = getPlayerPOVHitResult(worldIn, player, RayTraceContext.FluidMode.NONE);
-    if (mop.getType() == RayTraceResult.Type.BLOCK) {
+    Player player = (Player) entityLiving;
+    BlockHitResult mop = getPlayerPOVHitResult(worldIn, player, ClipContext.Fluid.NONE);
+    if (mop.getType() == HitResult.Type.BLOCK) {
       // we fling the inverted player look vector
       float f = getForce(stack, timeLeft);
-      Vector3d vec = player.getLookAngle().normalize();
+      Vec3 vec = player.getLookAngle().normalize();
       player.push(vec.x * -f,
                          vec.y * -f / 3f,
                          vec.z * -f);

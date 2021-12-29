@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
@@ -26,13 +26,13 @@ public class SpillingModifier extends TankModifier {
 
   /** Spawns particles at the given entity */
   private static void spawnParticles(Entity target, FluidStack fluid) {
-    if (target.level instanceof ServerWorld) {
-      ((ServerWorld)target.level).sendParticles(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getX(), target.getY(0.5), target.getZ(), 10, 0.1, 0.2, 0.1, 0.2);
+    if (target.level instanceof ServerLevel) {
+      ((ServerLevel)target.level).sendParticles(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getX(), target.getY(0.5), target.getZ(), 10, 0.1, 0.2, 0.1, 0.2);
     }
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlotType slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
     if (isDirectDamage && attacker != null) {
       // 25% chance of working per level
@@ -40,12 +40,12 @@ public class SpillingModifier extends TankModifier {
         FluidStack fluid = getFluid(tool);
         if (!fluid.isEmpty()) {
           LivingEntity self = context.getEntity();
-          PlayerEntity player = self instanceof PlayerEntity ? ((PlayerEntity) self) : null;
+          Player player = self instanceof Player p ? p : null;
           SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(self.level.getRecipeManager(), fluid.getFluid());
           if (recipe != null) {
-            ToolAttackContext attackContext = new ToolAttackContext( self, player, Hand.MAIN_HAND,
-              attacker, attacker instanceof LivingEntity ? ((LivingEntity) attacker) : null,
-              false, 1.0f, false);
+            ToolAttackContext attackContext = new ToolAttackContext(self, player, InteractionHand.MAIN_HAND,
+                                                                    attacker, attacker instanceof LivingEntity ? ((LivingEntity) attacker) : null,
+                                                                    false, 1.0f, false);
             FluidStack remaining = recipe.applyEffects(fluid, level, attackContext);
             spawnParticles(attacker, fluid);
             if (player == null || !player.isCreative()) {
@@ -66,7 +66,7 @@ public class SpillingModifier extends TankModifier {
         if (recipe != null) {
           FluidStack remaining = recipe.applyEffects(fluid, level, context);
           spawnParticles(context.getTarget(), fluid);
-          PlayerEntity player = context.getPlayerAttacker();
+          Player player = context.getPlayerAttacker();
           if (player == null || !player.isCreative()) {
             setFluid(tool, remaining);
           }

@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
@@ -23,7 +23,7 @@ import java.util.function.BiConsumer;
 @RequiredArgsConstructor
 public class GuiTankModule {
   private static final int TANK_INDEX = 0;
-  private final ContainerScreen<?> screen;
+  private final AbstractContainerScreen<?> screen;
   private final IFluidHandler tank;
   @Getter
   private final int x, y, width, height;
@@ -50,7 +50,7 @@ public class GuiTankModule {
    * Draws the tank
    * @param matrices  Matrix stack instance
    */
-  public void draw(MatrixStack matrices) {
+  public void draw(PoseStack matrices) {
     GuiUtil.renderFluidTank(matrices, screen, tank.getFluidInTank(TANK_INDEX), tank.getTankCapacity(TANK_INDEX), x, y, width, height, 100);
   }
 
@@ -60,7 +60,7 @@ public class GuiTankModule {
    * @param checkX    Mouse X position, screen relative
    * @param checkY    Mouse Y position, screen relative
    */
-  public void highlightHoveredFluid(MatrixStack matrices, int checkX, int checkY) {
+  public void highlightHoveredFluid(PoseStack matrices, int checkX, int checkY) {
     // highlight hovered fluid
     if (isHovered(checkX, checkY)) {
       int fluidHeight = getFluidHeight();
@@ -82,7 +82,7 @@ public class GuiTankModule {
    * @param mouseX    Global mouse X position
    * @param mouseY    Global mouse Y position
    */
-  public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+  public void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
     int checkX = mouseX - screen.leftPos;
     int checkY = mouseY - screen.topPos;
 
@@ -92,21 +92,21 @@ public class GuiTankModule {
       int capacity = tank.getTankCapacity(TANK_INDEX);
 
       // if hovering over the fluid, display with name
-      final List<ITextComponent> tooltip;
+      final List<Component> tooltip;
       if (checkY > (y + height) - getFluidHeight()) {
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
       } else {
         // function to call for amounts
-        BiConsumer<Integer, List<ITextComponent>> formatter = Screen.hasShiftDown()
+        BiConsumer<Integer, List<Component>> formatter = Screen.hasShiftDown()
                                                               ? FluidTooltipHandler::appendBuckets
                                                               : FluidTooltipHandler::appendIngots;
 
         // add tooltips
         tooltip = new ArrayList<>();
-        tooltip.add(new TranslationTextComponent(GuiSmelteryTank.TOOLTIP_CAPACITY));
+        tooltip.add(new TranslatableComponent(GuiSmelteryTank.TOOLTIP_CAPACITY));
         formatter.accept(capacity, tooltip);
         if (capacity != amount) {
-          tooltip.add(new TranslationTextComponent(GuiSmelteryTank.TOOLTIP_AVAILABLE));
+          tooltip.add(new TranslatableComponent(GuiSmelteryTank.TOOLTIP_AVAILABLE));
           formatter.accept(capacity - amount, tooltip);
         }
 

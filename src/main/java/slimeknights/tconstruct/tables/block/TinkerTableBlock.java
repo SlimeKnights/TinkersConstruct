@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tables.block;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.shared.block.TableBlock;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public abstract class TinkerTableBlock extends TableBlock implements ITinkerStationBlock {
 
@@ -14,7 +14,7 @@ public abstract class TinkerTableBlock extends TableBlock implements ITinkerStat
   }
 
   @Override
-  public boolean openGui(PlayerEntity player, World world, BlockPos pos) {
+  public boolean openGui(Player player, Level world, BlockPos pos) {
     return super.openGui(player, world, pos);
   }
 }

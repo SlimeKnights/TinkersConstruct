@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TripWireBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.TripWireBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
@@ -47,7 +47,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
    * @param player the current player
    * @param hand the given hand the tool is in
    */
-  protected void swingTool(PlayerEntity player, Hand hand) {
+  protected void swingTool(Player player, InteractionHand hand) {
     player.swing(hand);
     player.sweepAttack();
   }
@@ -62,9 +62,9 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public ActionResultType beforeEntityUse(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand, EquipmentSlotType slotType) {
+  public InteractionResult beforeEntityUse(IModifierToolStack tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
     if (tool.isBroken()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
     ItemStack stack = player.getItemBySlot(slotType);
 
@@ -72,7 +72,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
     // modifier can always use tags or the nullable parameter to distinguish if needed
     int looting = ModifierUtil.getLootingLevel(tool, player, target, null);
     looting = ModifierUtil.getLeggingsLootingLevel(player, target, null, looting);
-    World world = player.getCommandSenderWorld();
+    Level world = player.getCommandSenderWorld();
     if (isShears(tool) && shearEntity(stack, tool, world, player, target, looting)) {
       boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
       this.swingTool(player, hand);
@@ -84,7 +84,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
         int expanded = range + tool.getModifierLevel(TinkerModifiers.expanded.get());
         if (expanded > 0) {
           for (LivingEntity aoeTarget : player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(expanded, 0.25D, expanded))) {
-            if (aoeTarget != player && aoeTarget != target && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity)aoeTarget).isMarker())) {
+            if (aoeTarget != player && aoeTarget != target && (!(aoeTarget instanceof ArmorStand) || !((ArmorStand)aoeTarget).isMarker())) {
               if (shearEntity(stack, tool, world, player, aoeTarget, looting)) {
                 broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
                 runShearHook(tool, player, aoeTarget, false);
@@ -97,14 +97,14 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
         }
       }
 
-      return ActionResultType.SUCCESS;
+      return InteractionResult.SUCCESS;
     }
 
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   /** Runs the hook after shearing an entity */
-  private static void runShearHook(IModifierToolStack tool, PlayerEntity player, Entity entity, boolean isTarget) {
+  private static void runShearHook(IModifierToolStack tool, Player player, Entity entity, boolean isTarget) {
     for (ModifierEntry entry : tool.getModifierList()) {
       IShearModifier shearModifier = entry.getModifier().getModule(IShearModifier.class);
       if (shearModifier != null) {
@@ -123,22 +123,19 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
    * @param fortune the fortune to apply to the sheared entity
    * @return if the sheering of the entity was performed or not
    */
-  private static boolean shearEntity(ItemStack itemStack, IModifierToolStack tool, World world, PlayerEntity player, Entity entity, int fortune) {
+  private static boolean shearEntity(ItemStack itemStack, IModifierToolStack tool, Level world, Player player, Entity entity, int fortune) {
     // event to override entity shearing
     Result result = new ToolShearEvent(itemStack, tool, world, player, entity, fortune).fire();
     if (result != Result.DEFAULT) {
       return result == Result.ALLOW;
     }
     // fallback to forge shearable
-    if (entity instanceof IForgeShearable) {
-      IForgeShearable target = (IForgeShearable) entity;
-      if (target.isShearable(itemStack, world, entity.blockPosition())) {
-        if (!world.isClientSide) {
-          target.onSheared(player, itemStack, world, entity.blockPosition(), fortune)
-                .forEach(stack -> ModifierUtil.dropItem(entity, stack));
-        }
-        return true;
+    if (entity instanceof IForgeShearable target && target.isShearable(itemStack, world, entity.blockPosition())) {
+      if (!world.isClientSide) {
+        target.onSheared(player, itemStack, world, entity.blockPosition(), fortune)
+              .forEach(stack -> ModifierUtil.dropItem(entity, stack));
       }
+      return true;
     }
     return false;
   }

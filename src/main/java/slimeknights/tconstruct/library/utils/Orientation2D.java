@@ -27,11 +27,11 @@ public enum Orientation2D {
 
     /** Scales the value along the orientation */
     public int align(int max) {
-      switch (this) {
-        case START: default: return 0;
-        case MIDDLE: return max / 2;
-        case END: return max;
-      }
+      return switch (this) {
+        default -> 0;
+        case MIDDLE -> max / 2;
+        case END -> max;
+      };
     }
   }
 }

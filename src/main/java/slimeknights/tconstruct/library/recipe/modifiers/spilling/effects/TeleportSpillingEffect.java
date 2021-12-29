@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.events.teleport.SpillingTeleportEvent;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;

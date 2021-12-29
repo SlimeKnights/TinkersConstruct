@@ -1,17 +1,15 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SnowballItem;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SnowballItem;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
@@ -20,38 +18,38 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
 
+// TODO: lot of code here looks like glow ball and efln, shared base class?
 public class ShurikenItem extends SnowballItem {
 
-  private final BiFunction<World, PlayerEntity, ShurikenEntityBase> entity;
+  private final BiFunction<Level, Player, ShurikenEntityBase> entity;
 
-  public ShurikenItem(Properties properties, BiFunction<World, PlayerEntity, ShurikenEntityBase> entity) {
+  public ShurikenItem(Properties properties, BiFunction<Level, Player, ShurikenEntityBase> entity) {
     super(properties);
     this.entity = entity;
   }
 
   @Override
-  public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
-    world.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SHURIKEN_THROW.getSound(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+    level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SHURIKEN_THROW.getSound(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
     player.getCooldowns().addCooldown(stack.getItem(), 4);
-    if(!world.isClientSide()) {
-      ShurikenEntityBase entity = this.entity.apply(world, player);
+    if(!level.isClientSide()) {
+      ShurikenEntityBase entity = this.entity.apply(level, player);
       entity.setItem(stack);
-      entity.shootFromRotation(player, player.xRot, player.yRot, 0.0F, 1.5F, 1.0F);
-      world.addFreshEntity(entity);
+      entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+      level.addFreshEntity(entity);
     }
     player.awardStat(Stats.ITEM_USED.get(this));
-    if (!player.abilities.instabuild) {
+    if (!player.getAbilities().instabuild) {
       stack.shrink(1);
     }
 
-    return ActionResult.sidedSuccess(stack, world.isClientSide());
+    return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
     TranslationHelper.addOptionalTooltip(stack, tooltip);
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    super.appendHoverText(stack, level, tooltip, flag);
   }
 }

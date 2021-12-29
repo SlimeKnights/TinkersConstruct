@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.book;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.client.book.BookLoader;
-import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
+import slimeknights.mantle.client.book.transformer.BookTransformer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
@@ -23,12 +23,12 @@ public class TinkerBook extends BookData {
   private static final ResourceLocation FANTASTIC_FOUNDRY_ID = TConstruct.getResource("fantastic_foundry");
   private static final ResourceLocation ENCYCLOPEDIA_ID = TConstruct.getResource("encyclopedia");
 
-  public static final BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(),    false, false);
-  public static final BookData PUNY_SMELTING     = BookLoader.registerBook(PUNY_SMELTING_ID.toString(),     false, false);
-  public static final BookData MIGHTY_SMELTING   = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(),   false, false);
-  public static final BookData TINKERS_GADGETRY  = BookLoader.registerBook(TINKERS_GADGETRY_ID.toString(),  false, false);
-  public static final BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID.toString(), false, false);
-  public static final BookData ENCYCLOPEDIA      = BookLoader.registerBook(ENCYCLOPEDIA_ID.toString(),      false, false);
+  public static final BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID,    false, false);
+  public static final BookData PUNY_SMELTING     = BookLoader.registerBook(PUNY_SMELTING_ID,     false, false);
+  public static final BookData MIGHTY_SMELTING   = BookLoader.registerBook(MIGHTY_SMELTING_ID,   false, false);
+  public static final BookData TINKERS_GADGETRY  = BookLoader.registerBook(TINKERS_GADGETRY_ID,  false, false);
+  public static final BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID, false, false);
+  public static final BookData ENCYCLOPEDIA      = BookLoader.registerBook(ENCYCLOPEDIA_ID,      false, false);
 
   /**
    * Initializes the books
@@ -36,7 +36,7 @@ public class TinkerBook extends BookData {
   public static void initBook() {
     // register page types
     BookLoader.registerPageType(ContentMaterial.ID, ContentMaterial.class);
-    BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
+    BookLoader.registerPageType(ContentTool.ID,     ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
 
     // tool transformers
@@ -93,7 +93,7 @@ public class TinkerBook extends BookData {
    * @param id   Book ID
    */
   private static void addStandardData(BookData book, ResourceLocation id) {
-    book.addRepository(new FileRepository(id.getNamespace() + ":book/" + id.getPath()));
+    book.addRepository(new FileRepository(new ResourceLocation(id.getNamespace(), "book/" + id.getPath())));
     book.addTransformer(BookTransformer.indexTranformer());
     // padding needs to be last to ensure page counts are right
     book.addTransformer(BookTransformer.paddingTransformer());
@@ -106,19 +106,13 @@ public class TinkerBook extends BookData {
    * @return Book
    */
   public static BookData getBook(BookType bookType) {
-    switch (bookType) {
-      default: case MATERIALS_AND_YOU:
-        return MATERIALS_AND_YOU;
-      case PUNY_SMELTING:
-        return PUNY_SMELTING;
-      case MIGHTY_SMELTING:
-        return MIGHTY_SMELTING;
-      case TINKERS_GADGETRY:
-        return TINKERS_GADGETRY;
-      case FANTASTIC_FOUNDRY:
-        return FANTASTIC_FOUNDRY;
-      case ENCYCLOPEDIA:
-        return ENCYCLOPEDIA;
-    }
+    return switch (bookType) {
+      case MATERIALS_AND_YOU -> MATERIALS_AND_YOU;
+      case PUNY_SMELTING     -> PUNY_SMELTING;
+      case MIGHTY_SMELTING   -> MIGHTY_SMELTING;
+      case TINKERS_GADGETRY  -> TINKERS_GADGETRY;
+      case FANTASTIC_FOUNDRY -> FANTASTIC_FOUNDRY;
+      case ENCYCLOPEDIA      -> ENCYCLOPEDIA;
+    };
   }
 }

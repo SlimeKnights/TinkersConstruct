@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.data.recipe;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag.INamedTag;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.Tag.Named;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -26,7 +26,7 @@ public interface ICastCreationHelper extends IRecipeHelper {
    * @param cast      Produced cast
    * @param folder    Output folder
    */
-  default void castCreation(Consumer<IFinishedRecipe> consumer, INamedTag<Item> input, CastItemObject cast, String folder) {
+  default void castCreation(Consumer<FinishedRecipe> consumer, Named<Item> input, CastItemObject cast, String folder) {
     castCreation(consumer, Ingredient.of(input), cast, folder, input.getName().getPath());
   }
 
@@ -38,7 +38,7 @@ public interface ICastCreationHelper extends IRecipeHelper {
    * @param folder    Output folder
    * @param name      Cast name
    */
-  default void castCreation(Consumer<IFinishedRecipe> consumer, Ingredient input, CastItemObject cast, String folder, String name) {
+  default void castCreation(Consumer<FinishedRecipe> consumer, Ingredient input, CastItemObject cast, String folder, String name) {
     ItemCastingRecipeBuilder.tableRecipe(cast)
                             .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.INGOT)
                             .setCast(input, true)

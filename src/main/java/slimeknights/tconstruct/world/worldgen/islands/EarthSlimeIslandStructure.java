@@ -1,23 +1,25 @@
 package slimeknights.tconstruct.world.worldgen.islands;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.util.Rotation;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.MobSpawnInfo.Spawners;
-import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IIslandVariant;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IslandVariants;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class EarthSlimeIslandStructure extends AbstractIslandStructure {
-  private final List<Spawners> monsters = ImmutableList.of(new MobSpawnInfo.Spawners(TinkerWorld.earthSlimeEntity.get(), 30, 4, 4));
+  private static final List<SpawnerData> MONSTERS = ImmutableList.of(new MobSpawnSettings.SpawnerData(TinkerWorld.earthSlimeEntity.get(), 30, 4, 4));
 
   @Override
-  public List<Spawners> getDefaultSpawnList() {
-    return monsters;
+  public List<SpawnerData> getDefaultSpawnList(MobCategory category) {
+    return category == MobCategory.MONSTER ? MONSTERS : Collections.emptyList();
   }
 
   @Override

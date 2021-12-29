@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.PotionEvent.PotionApplicableEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -19,7 +19,7 @@ public class MithridatismModifier extends TotalArmorLevelModifier {
 
   /** Prevents poison on the entity */
   private static void isPotionApplicable(PotionApplicableEvent event) {
-    if (event.getPotionEffect().getEffect() == Effects.POISON && ModifierUtil.getTotalModifierLevel(event.getEntityLiving(), MITHRIDATISM) > 0) {
+    if (event.getPotionEffect().getEffect() == MobEffects.POISON && ModifierUtil.getTotalModifierLevel(event.getEntityLiving(), MITHRIDATISM) > 0) {
       event.setResult(Result.DENY);
     }
   }

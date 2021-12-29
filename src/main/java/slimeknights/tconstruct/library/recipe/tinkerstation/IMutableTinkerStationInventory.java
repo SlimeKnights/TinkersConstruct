@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 /**
  * Extension of {@link ITinkerStationInventory} to allow modifying inventory contents

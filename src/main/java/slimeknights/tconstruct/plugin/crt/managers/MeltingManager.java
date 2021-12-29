@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.plugin.crt.managers;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
@@ -7,9 +7,9 @@ import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import org.openzen.zencode.java.ZenCodeType;
 import org.openzen.zencode.java.ZenCodeType.Nullable;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @ZenCodeType.Name("mods.tconstruct.Melting")
 public class MeltingManager implements IRecipeManager {
 
-  /** Shared logic by all melting recipe variants */
+  /** Shared logic by all melting recipe variants * /
   @SuppressWarnings("ConstantConditions")
   private void addMeltingRecipe(String name, IIngredient input, IFluidStack output, int temperature, int time, @Nullable List<IFluidStack> byProducts, MeltingRecipe.IFactory<?> factory) {
     name = fixRecipeName(name);
@@ -75,8 +75,9 @@ public class MeltingManager implements IRecipeManager {
   }
 
   @Override
-  public IRecipeType<IMeltingRecipe> getRecipeType() {
+  public RecipeType<IMeltingRecipe> getRecipeType() {
     return RecipeTypes.MELTING;
   }
 
 }
+*/

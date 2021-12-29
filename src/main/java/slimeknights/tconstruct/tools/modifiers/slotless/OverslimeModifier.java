@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -29,7 +29,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Component getDisplayName(int level) {
     // display name without the level
     return super.getDisplayName();
   }

@@ -2,15 +2,15 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -25,7 +25,6 @@ import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Casting recipe that takes an arbitrary fluid for a given amount and fills a container
@@ -33,7 +32,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
   @Getter
-  protected final IRecipeType<?> type;
+  protected final RecipeType<?> type;
   @Getter
   protected final ResourceLocation id;
   @Getter
@@ -67,7 +66,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   }
 
   @Override
-  public boolean matches(ICastingInventory inv, World worldIn) {
+  public boolean matches(ICastingInventory inv, Level worldIn) {
     ItemStack stack = inv.getStack();
     Fluid fluid = inv.getFluid();
     return stack.getItem() == this.container.asItem()
@@ -76,7 +75,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
                    .isPresent();
   }
 
-  /** @deprecated use {@link ICastingRecipe#getCraftingResult(IInventory)} */
+  /** @deprecated use {@link ICastingRecipe#assemble(Container)} */
   @Override
   @Deprecated
   public ItemStack getResultItem() {
@@ -111,7 +110,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
                                                }).orElse(stack);
                                                return new DisplayCastingRecipe(getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
                                              })
-                                             .collect(Collectors.toList());
+                                             .toList();
     }
     return displayRecipes;
   }
@@ -123,7 +122,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.basinFillingRecipeSerializer.get();
     }
   }
@@ -136,7 +135,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.tableFillingRecipeSerializer.get();
     }
   }

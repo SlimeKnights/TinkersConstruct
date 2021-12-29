@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.exception;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class TinkerJSONException extends TinkerAPIException {
 

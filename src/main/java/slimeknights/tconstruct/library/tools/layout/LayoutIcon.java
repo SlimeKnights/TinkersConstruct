@@ -11,10 +11,10 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -36,7 +36,7 @@ public abstract class LayoutIcon {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       buffer.writeEnum(Type.EMPTY);
     }
 
@@ -61,7 +61,7 @@ public abstract class LayoutIcon {
   public abstract <T> T getValue(Class<T> clazz);
 
   /** Reads the button icon from the buffer */
-  public static LayoutIcon read(PacketBuffer buffer) {
+  public static LayoutIcon read(FriendlyByteBuf buffer) {
     Type type = buffer.readEnum(Type.class);
     switch (type) {
       case EMPTY: return EMPTY;
@@ -78,7 +78,7 @@ public abstract class LayoutIcon {
   }
 
   /** Writes this to the packet buffer */
-  public abstract void write(PacketBuffer buffer);
+  public abstract void write(FriendlyByteBuf buffer);
 
   /** Writes this object to json */
   public abstract JsonObject toJson();
@@ -98,7 +98,7 @@ public abstract class LayoutIcon {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       buffer.writeEnum(Type.ITEM);
       buffer.writeItem(stack);
     }
@@ -107,7 +107,7 @@ public abstract class LayoutIcon {
     public JsonObject toJson() {
       JsonObject json = new JsonObject();
       json.addProperty("item", Objects.requireNonNull(stack.getItem().getRegistryName()).toString());
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       if (tag != null) {
         json.addProperty("nbt", tag.toString());
       }
@@ -130,7 +130,7 @@ public abstract class LayoutIcon {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void write(FriendlyByteBuf buffer) {
       buffer.writeEnum(Type.PATTERN);
       buffer.writeResourceLocation(pattern);
     }
@@ -154,7 +154,7 @@ public abstract class LayoutIcon {
   protected static class Serializer implements JsonSerializer<LayoutIcon>, JsonDeserializer<LayoutIcon> {
     @Override
     public LayoutIcon deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      JsonObject object = JSONUtils.convertToJsonObject(json, "button_icon");
+      JsonObject object = GsonHelper.convertToJsonObject(json, "button_icon");
       if (object.has("pattern")) {
         Pattern pattern = new Pattern(JsonHelper.getResourceLocation(object, "pattern"));
         return new PatternIcon(pattern);

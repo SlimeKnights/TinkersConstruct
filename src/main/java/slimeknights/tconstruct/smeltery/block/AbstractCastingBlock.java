@@ -1,18 +1,16 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
-import slimeknights.mantle.util.TileEntityHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public abstract class AbstractCastingBlock extends TableBlock {
   protected AbstractCastingBlock(Properties builder) {
@@ -21,20 +19,20 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Deprecated
   @Override
-  public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+  public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
     if (player.isShiftKeyDown()) {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
-    TileEntity te = world.getBlockEntity(pos);
+    BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof CastingTileEntity) {
       ((CastingTileEntity) te).interact(player, hand);
-      return ActionResultType.SUCCESS;
+      return InteractionResult.SUCCESS;
     }
     return super.use(state, world, pos, player, hand, rayTraceResult);
   }
 
   @Override
-  protected boolean openGui(PlayerEntity playerEntity, World world, BlockPos blockPos) {
+  protected boolean openGui(Player playerEntity, Level world, BlockPos blockPos) {
     return false;
   }
 
@@ -44,8 +42,8 @@ public abstract class AbstractCastingBlock extends TableBlock {
   }
 
   @Override
-  public int getAnalogOutputSignal(BlockState blockState, World worldIn, BlockPos pos) {
-    return TileEntityHelper.getTile(CastingTileEntity.class, worldIn, pos).map(te -> {
+  public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+    return BlockEntityHelper.get(CastingTileEntity.class, worldIn, pos).map(te -> {
       if (te.isStackInSlot(CastingTileEntity.OUTPUT)) {
         return 15;
       }

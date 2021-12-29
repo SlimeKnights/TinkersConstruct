@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -62,13 +62,13 @@ public class ReinforcedModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     float reinforced;
     if (tool.getModifierLevel(TinkerModifiers.unbreakable.get()) > 0) {
       reinforced = 1;
     } else {
       reinforced = getPercentage(getScaledLevel(tool, level));
     }
-    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(reinforced) + " ").append(makeDisplayName())));
+    tooltip.add(applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(reinforced) + " ").append(makeDisplayName())));
   }
 }

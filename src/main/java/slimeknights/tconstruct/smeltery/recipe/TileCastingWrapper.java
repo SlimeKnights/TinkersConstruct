@@ -2,9 +2,9 @@ package slimeknights.tconstruct.smeltery.recipe;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
@@ -32,7 +32,7 @@ public class TileCastingWrapper implements ICastingInventory {
 
   @Nullable
   @Override
-  public CompoundNBT getFluidTag() {
+  public CompoundTag getFluidTag() {
     return fluid.getTag();
   }
 

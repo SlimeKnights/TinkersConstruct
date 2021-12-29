@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
-import static net.minecraft.util.CombatRules.getDamageAfterAbsorb;
+import static net.minecraft.world.damagesource.CombatRules.getDamageAfterAbsorb;
 
 /**
- * Utilities to help in armor calculation logic
+ * Utinet.minecraft.world.damagesource.CombatRulesation logic
  */
 public class ArmorUtil {
   private ArmorUtil() {}
 
   /**
-   * Inverse of {@link net.minecraft.util.CombatRules#getDamageAfterAbsorb(float, float, float)} with respect to damage
+   * Inverse of {@link net.minecraft.world.damagesource.CombatRules#getDamageAfterAbsorb(float, float, float)}  with respect to damage
    * @param damage     Damage returned by the vanilla function, must be 0 or more
    * @param armor      Total armor value, tested between 0 and 30
    * @param toughness  Total toughness value, tested between 0 and 20
@@ -23,7 +23,7 @@ public class ArmorUtil {
     }
     float boostedToughness = toughness + 8f; // all usages of toughness in the inverse had 8 added, so do it once
     float atProduct = armor*boostedToughness; // this product also showed up a lot in the inverse
-    return 5 * MathHelper.clamp(
+    return 5 * Mth.clamp(
       ((float)Math.sqrt(boostedToughness * (0.04f*armor*atProduct - 2f*atProduct + 25f*boostedToughness + 16f*damage))
        + 0.2f*atProduct - 5f*boostedToughness) / 8f,
       damage * 25f / (125f - armor),
@@ -31,7 +31,7 @@ public class ArmorUtil {
   }
 
   /**
-   * Extension of of {@link net.minecraft.util.CombatRules#getDamageAfterMagicAbsorb(float, float)} to allow increasing damage via negative numbers
+   * Extension of of {@link net.minecraft.world.damagesource.CombatRules#getDamageAfterMagicAbsorb(float, float)} to allow increasing damage via negative numbers
    * @param damage            Damage to absorb (or increase)
    * @param enchantModifiers  Enchantment modifier amount, between -20 and 20
    * @return  Original damage to be dealt
@@ -41,17 +41,17 @@ public class ArmorUtil {
     if (enchantModifiers == 0 || damage <= 0) {
       return damage;
     }
-    return damage * (1f - MathHelper.clamp(enchantModifiers, -20f, 20f) / 25f);
+    return damage * (1f - Mth.clamp(enchantModifiers, -20f, 20f) / 25f);
   }
 
   /**
-   * Inverse of {@link net.minecraft.util.CombatRules#getDamageAfterMagicAbsorb(float, float)} with respect to damage
+   * Inverse of {@link net.minecraft.world.damagesource.CombatRules#getDamageAfterMagicAbsorb(float, float)} with respect to damage
    * @param damage            Damage returned by the vanilla function, must be 0 or more
    * @param enchantModifiers  Enchantment modifier amount
    * @return  Original damage to be dealt
    */
   public static float getDamageBeforeMagicAbsorb(float damage, float enchantModifiers) {
-    return damage / (1f - (MathHelper.clamp(enchantModifiers, 0f, 20f) / 25f));
+    return damage / (1f - (Mth.clamp(enchantModifiers, 0f, 20f) / 25f));
   }
 
   /**

@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.fluids.fluids;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -25,7 +25,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
   }
 
   @Override
-  public void randomTick(World world, BlockPos pos, FluidState state, Random random) {
+  public void randomTick(Level world, BlockPos pos, FluidState state, Random random) {
     int oldLevel = getLegacyLevel(state);
     super.randomTick(world, pos, state, random);
 
@@ -64,7 +64,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    protected void createFluidStateDefinition(StateContainer.Builder<Fluid, FluidState> builder) {
+    protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> builder) {
       super.createFluidStateDefinition(builder);
       builder.add(LEVEL);
     }

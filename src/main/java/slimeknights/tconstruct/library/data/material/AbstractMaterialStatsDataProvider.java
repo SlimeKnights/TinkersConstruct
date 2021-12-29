@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.data.material;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
@@ -34,7 +34,7 @@ public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvi
   protected abstract void addMaterialStats();
 
   @Override
-  public void run(DirectoryCache cache) {
+  public void run(HashCache cache) {
     addMaterialStats();
 
     // ensure we have stats for all materials

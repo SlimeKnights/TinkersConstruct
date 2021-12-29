@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.fuel;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.world.level.material.Fluid;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 

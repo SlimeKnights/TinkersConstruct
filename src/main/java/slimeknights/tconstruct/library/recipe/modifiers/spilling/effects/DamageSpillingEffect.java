@@ -6,15 +6,15 @@ import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.EntityIngredient;
+import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -54,7 +54,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
     LivingEntity livingTarget = context.getLivingTarget();
     if ((entity == null || entity.test(target.getType())) && (livingTarget == null ? predicate == LivingEntityPredicate.ANY : predicate.test(livingTarget) )) {
       DamageSource source;
-      PlayerEntity player = context.getPlayerAttacker();
+      Player player = context.getPlayerAttacker();
       if (player != null) {
         source = DamageSource.playerAttack(player);
       } else {
@@ -140,13 +140,13 @@ public class DamageSpillingEffect implements ISpillingEffect {
     UNDEAD {
       @Override
       public boolean test(LivingEntity living) {
-        return living.getMobType() == CreatureAttribute.UNDEAD;
+        return living.getMobType() == MobType.UNDEAD;
       }
     },
     ARTHROPOD {
       @Override
       public boolean test(LivingEntity living) {
-        return living.getMobType() == CreatureAttribute.ARTHROPOD;
+        return living.getMobType() == MobType.ARTHROPOD;
       }
     },
     NOT_FIRE_IMMUNE {
@@ -190,17 +190,17 @@ public class DamageSpillingEffect implements ISpillingEffect {
           entity = EntityIngredient.deserialize(element);
         }
       }
-      String typeName = JSONUtils.getAsString(json, "damage_type");
+      String typeName = GsonHelper.getAsString(json, "damage_type");
       DamageType type = DamageType.byName(typeName);
       if (type == null) {
         throw new JsonSyntaxException("Unknown damage type '" + typeName + "'");
       }
-      float damage = JSONUtils.getAsFloat(json, "damage_amount");
+      float damage = GsonHelper.getAsFloat(json, "damage_amount");
       return new DamageSpillingEffect(entity, predicate, type, damage);
     }
 
     @Override
-    public DamageSpillingEffect read(PacketBuffer buffer) {
+    public DamageSpillingEffect read(FriendlyByteBuf buffer) {
       EntityIngredient entity = null;
       if (buffer.readBoolean()) {
         entity = EntityIngredient.read(buffer);
@@ -223,7 +223,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(DamageSpillingEffect effect, PacketBuffer buffer) {
+    public void write(DamageSpillingEffect effect, FriendlyByteBuf buffer) {
       if (effect.entity != null) {
         buffer.writeBoolean(true);
         effect.entity.write(buffer);

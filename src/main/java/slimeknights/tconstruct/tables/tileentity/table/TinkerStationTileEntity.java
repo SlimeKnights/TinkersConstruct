@@ -1,19 +1,21 @@
 package slimeknights.tconstruct.tables.tileentity.table;
 
 import lombok.Getter;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -34,6 +36,8 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   public static final int TINKER_SLOT = 0;
   /** Slot index of the first input slot */
   public static final int INPUT_SLOT = 1;
+  /** Name of the TE */
+  private static final Component NAME = TConstruct.makeTranslation("gui", "tinker_station");
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -47,12 +51,12 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   @Getter
   private ValidatedResult currentError = ValidatedResult.PASS;
 
-  public TinkerStationTileEntity() {
-    this(6); // default to more slots
+  public TinkerStationTileEntity(BlockPos pos, BlockState state) {
+    this(pos, state, 6); // default to more slots
   }
 
-  public TinkerStationTileEntity(int slots) {
-    super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", slots);
+  public TinkerStationTileEntity(BlockPos pos, BlockState state, int slots) {
+    super(TinkerTables.tinkerStationTile.get(), pos, state, NAME, slots);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new TinkerStationInventoryWrapper(this);
@@ -60,11 +64,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   @Override
-  public ITextComponent getDefaultName() {
+  public Component getDefaultName() {
     if (this.level == null) {
       return super.getDefaultName();
     }
-    return new TranslationTextComponent(this.getBlockState().getBlock().getDescriptionId());
+    return new TranslatableComponent(this.getBlockState().getBlock().getDescriptionId());
   }
 
   /**
@@ -83,14 +87,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public AbstractContainerMenu createMenu(int menuId, Inventory playerInventory, Player playerEntity) {
     return new TinkerStationContainer(menuId, playerInventory, this);
   }
 
   /* Crafting */
 
   @Override
-  public ItemStack calcResult(@Nullable PlayerEntity player) {
+  public ItemStack calcResult(@Nullable Player player) {
     if (this.level == null) {
       return ItemStack.EMPTY;
     }
@@ -146,14 +150,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   @Override
-  public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
+  public ItemStack onCraft(Player player, ItemStack result, int amount) {
     if (amount == 0 || this.lastRecipe == null || this.level == null) {
       return ItemStack.EMPTY;
     }
 
     // fire crafting events
     result.onCraftedBy(this.level, player, amount);
-    BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
+    ForgeEventFactory.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     this.playCraftSound(player);
 
     // run the recipe, will shrink inputs
@@ -179,7 +183,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
   
   @Override
-  protected void playCraftSound(PlayerEntity player) {
+  protected void playCraftSound(Player player) {
     SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
   }
 
@@ -189,10 +193,10 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    * Sends the current recipe to the given player
    * @param player  Player to send an update to
    */
-  public void syncRecipe(PlayerEntity player) {
+  public void syncRecipe(Player player) {
     // must have a last recipe and a server level
-    if (this.lastRecipe != null && this.level != null && !this.level.isClientSide && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateTinkerStationRecipePacket(this.worldPosition, this.lastRecipe), (ServerPlayerEntity) player);
+    if (this.lastRecipe != null && this.level != null && !this.level.isClientSide && player instanceof ServerPlayer server) {
+      TinkerNetwork.getInstance().sendTo(new UpdateTinkerStationRecipePacket(this.worldPosition, this.lastRecipe), server);
     }
   }
 
@@ -206,8 +210,8 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   @Override
-  public void load(BlockState blockState, CompoundNBT tags) {
-    super.load(blockState, tags);
+  public void load(CompoundTag tags) {
+    super.load(tags);
     inventoryWrapper.resize();
   }
 }

@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity.module.alloying;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.World;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import net.minecraft.world.level.Level;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.alloying.IMutableAlloyTank;
@@ -14,19 +14,19 @@ import java.util.Optional;
 /** Alloying module that supports only a single output */
 @RequiredArgsConstructor
 public class SingleAlloyingModule implements IAlloyingModule {
-  private final MantleTileEntity parent;
+  private final MantleBlockEntity parent;
   private final IMutableAlloyTank alloyTank;
   private AlloyRecipe lastRecipe;
 
   /** Gets a nonnull world instance from the parent */
-  private World getWorld() {
+  private Level getLevel() {
     return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
   }
 
   /** Finds the recipe to perform */
   @Nullable
   private AlloyRecipe findRecipe() {
-    World world = getWorld();
+    Level world = getLevel();
     if (lastRecipe != null && lastRecipe.canPerform(alloyTank)) {
       return lastRecipe;
     }

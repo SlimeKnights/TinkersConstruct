@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.world.worldgen.islands.variants;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
-import net.minecraft.world.gen.feature.template.StructureProcessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -55,11 +55,11 @@ public interface IIslandVariant {
 
   /** Gets the structure processor to use for this island */
   default StructureProcessor getStructureProcessor() {
-    return BlockIgnoreStructureProcessor.STRUCTURE_AND_AIR;
+    return BlockIgnoreProcessor.STRUCTURE_AND_AIR;
   }
 
   /** Checks if the given position is valid for this island */
-  default boolean isPositionValid(ISeedReader world, BlockPos pos, ChunkGenerator generator) {
+  default boolean isPositionValid(WorldGenLevel world, BlockPos pos, ChunkGenerator generator) {
     return true;
   }
 }

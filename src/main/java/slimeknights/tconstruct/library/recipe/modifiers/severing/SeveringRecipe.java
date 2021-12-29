@@ -4,17 +4,17 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import slimeknights.mantle.recipe.EntityIngredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
@@ -82,19 +82,19 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.severingSerializer.get();
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.SEVERING;
   }
 
   /** @deprecated use {@link #matches(EntityType)}*/
   @Deprecated
   @Override
-  public boolean matches(IEmptyInventory inv, World worldIn) {
+  public boolean matches(IEmptyInventory inv, Level worldIn) {
     return false;
   }
 
@@ -109,14 +109,14 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
     @Nullable
     @Override
-    protected SeveringRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected SeveringRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput output = ItemOutput.read(buffer);
       return new SeveringRecipe(id, ingredient, output);
     }
 
     @Override
-    protected void writeSafe(PacketBuffer buffer, SeveringRecipe recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, SeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
     }

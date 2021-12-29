@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
@@ -18,7 +18,7 @@ import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistries;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentModifier extends PageContent {
-  public static final transient String ID = "modifier";
+  public static final transient ResourceLocation ID = TConstruct.getResource("modifier");
   public static final transient int TEX_SIZE = 256;
   public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
   private static final transient String KEY_EFFECTS = TConstruct.makeTranslationKey("book", "modifiers.effect");

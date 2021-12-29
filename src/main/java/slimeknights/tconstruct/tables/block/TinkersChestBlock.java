@@ -1,31 +1,28 @@
 package slimeknights.tconstruct.tables.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockReader;
-import slimeknights.mantle.util.TileEntityHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType.BlockEntitySupplier;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
+import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 
-import java.util.function.Supplier;
-
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class TinkersChestBlock extends ChestBlock {
-  public TinkersChestBlock(Properties builder, Supplier<? extends TileEntity> te, boolean dropsItems) {
-    super(builder, te, dropsItems);
+  public TinkersChestBlock(Properties builder, BlockEntitySupplier<? extends BlockEntity> be, boolean dropsItems) {
+    super(builder, be, dropsItems);
   }
 
   @Override
-  public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
-    TileEntityHelper.getTile(TinkersChestTileEntity.class, world, pos).ifPresent(te -> {
+    BlockEntityHelper.get(TinkersChestTileEntity.class, world, pos).ifPresent(te -> {
       if (te.hasColor()) {
-        ((IDyeableArmorItem) stack.getItem()).setColor(stack, te.getColor());
+        ((DyeableLeatherItem) stack.getItem()).setColor(stack, te.getColor());
       }
     });
     return stack;

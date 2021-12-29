@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -76,8 +76,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Override
   public abstract ValidatedResult getValidatedResult(ITinkerStationInventory inv);
 
-  /** @deprecated */
-  @Override
+  /** @deprecated use {@link #getValidatedResult(ITinkerStationInventory)} */
+  @Override @Deprecated
   public ItemStack getResultItem() {
     return ItemStack.EMPTY;
   }
@@ -175,7 +175,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       Modifier modifier = entry.getModifier();
       // if the modifier is not incremental, or does not has the key set, nothing to do
       int needed = ModifierRecipeLookup.getNeededPerLevel(modifier);
-      if (needed == 0 || !persistentData.contains(modifier.getId(), NBT.TAG_ANY_NUMERIC)) {
+      if (needed == 0 || !persistentData.contains(modifier.getId(), Tag.TAG_ANY_NUMERIC)) {
         finalList.add(entry);
       } else {
         // if the modifier has enough, nothing to do
@@ -232,7 +232,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public abstract T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public abstract T read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                   String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
     @Override
@@ -241,18 +241,18 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       ModifierMatch requirements = ModifierMatch.ALWAYS;
       String requirementsError = "";
       if (json.has("requirements")) {
-        JsonObject reqJson = JSONUtils.getAsJsonObject(json, "requirements");
+        JsonObject reqJson = GsonHelper.getAsJsonObject(json, "requirements");
         requirements = ModifierMatch.deserialize(reqJson);
-        requirementsError = JSONUtils.getAsString(reqJson, "error", "");
+        requirementsError = GsonHelper.getAsString(reqJson, "error", "");
       }
-      ModifierEntry result = ModifierEntry.fromJson(JSONUtils.getAsJsonObject(json, "result"));
-      int maxLevel = JSONUtils.getAsInt(json, "max_level", 0);
+      ModifierEntry result = ModifierEntry.fromJson(GsonHelper.getAsJsonObject(json, "result"));
+      int maxLevel = GsonHelper.getAsInt(json, "max_level", 0);
       if (maxLevel < 0) {
         throw new JsonSyntaxException("max must be non-negative");
       }
       SlotCount slots = null;
       if (json.has("slots")) {
-        slots = SlotCount.fromJson(JSONUtils.getAsJsonObject(json, "slots"));
+        slots = SlotCount.fromJson(GsonHelper.getAsJsonObject(json, "slots"));
       } else {
         // legacy support
         if (json.has("upgrade_slots") && json.has("ability_slots")) {
@@ -270,7 +270,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
 
     @Override
-    protected final T readSafe(ResourceLocation id, PacketBuffer buffer) {
+    protected final T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readUtf(Short.MAX_VALUE);
@@ -282,7 +282,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #fromJson(ResourceLocation, JsonObject)} */
     @Override
-    protected void writeSafe(PacketBuffer buffer, T recipe) {
+    protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
       recipe.toolRequirement.toNetwork(buffer);
       recipe.requirements.write(buffer);
       buffer.writeUtf(recipe.requirementsError);

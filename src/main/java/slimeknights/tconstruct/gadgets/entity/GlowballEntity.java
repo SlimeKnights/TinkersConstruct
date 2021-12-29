@@ -1,35 +1,35 @@
 package slimeknights.tconstruct.gadgets.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.minecraftforge.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nonnull;
 
-public class GlowballEntity extends ProjectileItemEntity implements IEntityAdditionalSpawnData {
+public class GlowballEntity extends ThrowableItemProjectile implements IEntityAdditionalSpawnData {
 
-  public GlowballEntity(EntityType<? extends GlowballEntity> p_i50159_1_, World p_i50159_2_) {
+  public GlowballEntity(EntityType<? extends GlowballEntity> p_i50159_1_, Level p_i50159_2_) {
     super(p_i50159_1_, p_i50159_2_);
   }
 
-  public GlowballEntity(World worldIn, LivingEntity throwerIn) {
+  public GlowballEntity(Level worldIn, LivingEntity throwerIn) {
     super(TinkerGadgets.glowBallEntity.get(), throwerIn, worldIn);
   }
 
-  public GlowballEntity(World worldIn, double x, double y, double z) {
+  public GlowballEntity(Level worldIn, double x, double y, double z) {
     super(TinkerGadgets.glowBallEntity.get(), x, y, z, worldIn);
   }
 
@@ -39,17 +39,17 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   @Override
-  protected void onHit(RayTraceResult result) {
+  protected void onHit(HitResult result) {
     if (!this.level.isClientSide) {
       BlockPos position = null;
       Direction direction = Direction.DOWN;
 
-      if (result.getType() == RayTraceResult.Type.ENTITY) {
-        position = ((EntityRayTraceResult) result).getEntity().blockPosition();
+      if (result.getType() == HitResult.Type.ENTITY) {
+        position = ((EntityHitResult) result).getEntity().blockPosition();
       }
 
-      if (result.getType() == RayTraceResult.Type.BLOCK) {
-        BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) result;
+      if (result.getType() == HitResult.Type.BLOCK) {
+        BlockHitResult blockraytraceresult = (BlockHitResult) result;
         position = blockraytraceresult.getBlockPos().relative(blockraytraceresult.getDirection());
         direction = blockraytraceresult.getDirection().getOpposite();
       }
@@ -61,23 +61,23 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
 
     if (!this.level.isClientSide) {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.discard();
     }
   }
 
   @Override
-  public void writeSpawnData(PacketBuffer buffer) {
+  public void writeSpawnData(FriendlyByteBuf buffer) {
     buffer.writeItem(this.getItemRaw());
   }
 
   @Override
-  public void readSpawnData(PacketBuffer additionalData) {
+  public void readSpawnData(FriendlyByteBuf additionalData) {
     this.setItem(additionalData.readItem());
   }
 
   @Nonnull
   @Override
-  public IPacket<?> getAddEntityPacket() {
+  public Packet<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.defense;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.EquipmentSlotType.Group;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -26,8 +26,8 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (slot.getType() == Group.ARMOR && !entity.level.isClientSide) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (slot.getType() == Type.ARMOR && !entity.level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);
         if (modData != null) {
@@ -43,8 +43,8 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   @Override
   public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
-    EquipmentSlotType slot = context.getChangedSlot();
-    if (!entity.level.isClientSide && slot.getType() == Group.ARMOR && !tool.isBroken()) {
+    EquipmentSlot slot = context.getChangedSlot();
+    if (!entity.level.isClientSide && slot.getType() == Type.ARMOR && !tool.isBroken()) {
       float scaledLevel = getScaledLevel(tool, level);
       context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);

@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.plugin.crt.managers;
-
+/*
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
@@ -7,11 +7,12 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipe;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.material.Fluid;
 import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
@@ -19,7 +20,7 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Fuel")
 public class FuelManager implements IRecipeManager {
-  
+
   @ZenCodeType.Method
   public void addFuel(String name, CTFluidIngredient input, int duration, int temperature) {
     name = fixRecipeName(name);
@@ -28,12 +29,12 @@ public class FuelManager implements IRecipeManager {
     MeltingFuel recipe = new MeltingFuel(id, "", fluidIngredient, duration, temperature);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-  
+
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Fuel Recipes by an IItemStack output as it doesn't output anything! Use `removeRecipe(Fluid input)` instead!");
   }
-  
+
   @ZenCodeType.Method
   public void removeRecipe(Fluid input) {
     CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
@@ -44,10 +45,11 @@ public class FuelManager implements IRecipeManager {
       return false;
     }));
   }
-  
+
   @Override
-  public IRecipeType<MeltingFuel> getRecipeType() {
+  public RecipeType<MeltingFuel> getRecipeType() {
     return RecipeTypes.FUEL;
   }
-  
+
 }
+*/

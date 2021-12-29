@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor.PacketTarget;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.events.MaterialsLoadedEvent;
@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 
 public final class MaterialRegistry {
-  protected static MaterialRegistry INSTANCE;
+  static MaterialRegistry INSTANCE;
 
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
@@ -184,7 +184,7 @@ public final class MaterialRegistry {
   }
 
   /** Sends all relevant packets to the given player */
-  private void sendPackets(ServerPlayerEntity player, ISimplePacket[] packets) {
+  private void sendPackets(ServerPlayer player, ISimplePacket[] packets) {
     // on an integrated server, the material registries have a single instance on both the client and the server thread
     // this means syncing is unneeded, and has the side-effect of recreating all the material instances (which can lead to unexpected behavior)
     // as a result, integrated servers just mark fullyLoaded as true without syncing anything, side-effect is listeners may run twice on single player
@@ -214,12 +214,12 @@ public final class MaterialRegistry {
     };
 
     // send to single player
-    ServerPlayerEntity targetedPlayer = event.getPlayer();
+    ServerPlayer targetedPlayer = event.getPlayer();
     if (targetedPlayer != null) {
       sendPackets(targetedPlayer, packets);
     } else {
       // send to all players
-      for (ServerPlayerEntity player : event.getPlayerList().getPlayers()) {
+      for (ServerPlayer player : event.getPlayerList().getPlayers()) {
         sendPackets(player, packets);
       }
     }

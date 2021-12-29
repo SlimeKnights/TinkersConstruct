@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.gadgets.entity.shuriken;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
 public class FlintShurikenEntity extends ShurikenEntityBase {
 
-  public FlintShurikenEntity(EntityType<? extends FlintShurikenEntity> p_i50159_1_, World p_i50159_2_) {
+  public FlintShurikenEntity(EntityType<? extends FlintShurikenEntity> p_i50159_1_, Level p_i50159_2_) {
     super(p_i50159_1_, p_i50159_2_);
   }
 
-  public FlintShurikenEntity(World worldIn, LivingEntity throwerIn) {
+  public FlintShurikenEntity(Level worldIn, LivingEntity throwerIn) {
     super(TinkerGadgets.flintShurikenEntity.get(), throwerIn, worldIn);
   }
 

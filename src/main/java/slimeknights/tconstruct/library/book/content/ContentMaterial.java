@@ -3,18 +3,19 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
@@ -24,7 +25,7 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
-import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
@@ -58,11 +59,11 @@ import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentMaterial extends PageContent {
-  private static final ITextComponent PART_BUILDER = TConstruct.makeTranslation("book", "material.part_builder");
+  private static final Component PART_BUILDER = TConstruct.makeTranslation("book", "material.part_builder");
   private static final String CAST_FROM = TConstruct.makeTranslationKey("book", "material.cast_from");
   private static final String COMPOSITE_FROM = TConstruct.makeTranslationKey("book", "material.composite_from");
   /** Page ID for using this index directly */
-  public static final String ID = "toolmaterial";
+  public static final ResourceLocation ID = TConstruct.getResource("toolmaterial");
 
   // cached data
   private transient IMaterial material;
@@ -90,15 +91,15 @@ public class ContentMaterial extends PageContent {
   /** Gets a list of all repair items for the given material */
   protected List<ItemStack> getRepairStacks() {
     if (repairStacks == null) {
-      World world = Minecraft.getInstance().level;
+      Level world = Minecraft.getInstance().level;
       if (world == null) {
         return Collections.emptyList();
       }
       // simply combine all items from all recipes
       repairStacks = RecipeHelper.getUIRecipes(world.getRecipeManager(), RecipeTypes.MATERIAL, MaterialRecipe.class, recipe -> recipe.getMaterial() == material)
-                                                  .stream()
-                                                  .flatMap(recipe -> recipe.getDisplayItems().stream())
-                                                  .collect(Collectors.toList());
+                                 .stream()
+                                 .flatMap(recipe -> recipe.getDisplayItems().stream())
+                                 .collect(Collectors.toList());
       // no repair items? use the repair kit
       if (repairStacks.isEmpty()) {
         TConstruct.LOG.debug("Material with id " + material.getIdentifier() + " has no representation items associated with it, using repair kit");
@@ -115,7 +116,7 @@ public class ContentMaterial extends PageContent {
   }
 
   /** Gets the title of this page to display in the index */
-  public ITextComponent getTitle() {
+  public Component getTitle() {
     return getMaterial().getDisplayName();
   }
 
@@ -162,7 +163,7 @@ public class ContentMaterial extends PageContent {
   /** Adds the stats for a stat type */
   protected int addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, IMaterial material, MaterialStatsId statsId) {
     Optional<IMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId);
-    if (!stats.isPresent()) {
+    if (stats.isEmpty()) {
       return 0;
     }
 
@@ -211,7 +212,7 @@ public class ContentMaterial extends PageContent {
       if (stats.getLocalizedDescriptions().get(i).getString().isEmpty()) {
         text.tooltips = null;
       } else {
-        text.tooltips = new ITextComponent[]{stats.getLocalizedDescriptions().get(i)};
+        text.tooltips = new Component[]{stats.getLocalizedDescriptions().get(i)};
       }
 
       lineData.add(text);
@@ -229,12 +230,12 @@ public class ContentMaterial extends PageContent {
       Modifier mod = trait.getModifier();
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
 
-      List<ITextComponent> textComponents = mod.getDescriptionList(trait.getLevel());
-      List<ITextComponent> formatted = new ArrayList<>();
+      List<Component> textComponents = mod.getDescriptionList(trait.getLevel());
+      List<Component> formatted = new ArrayList<>();
 
 
       for (int index = 0; index < textComponents.size(); index++) {
-        ITextComponent textComponent = textComponents.get(index);
+        Component textComponent = textComponents.get(index);
 
         if (index == 0) {
           formatted.add(textComponent.copy().withStyle(style -> style.withColor(material.getColor())));
@@ -243,8 +244,8 @@ public class ContentMaterial extends PageContent {
         }
       }
 
-      textComponentData.tooltips = formatted.toArray(new ITextComponent[0]);
-      textComponentData.text = textComponentData.text.copy().withStyle(TextFormatting.DARK_GRAY, TextFormatting.UNDERLINE);
+      textComponentData.tooltips = formatted.toArray(new Component[0]);
+      textComponentData.text = textComponentData.text.copy().withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.UNDERLINE);
 
       lineData.add(textComponentData);
       lineData.add(new TextComponentData("\n"));
@@ -294,7 +295,7 @@ public class ContentMaterial extends PageContent {
       FluidStack firstFluid = fluids.stream()
                                     .flatMap(recipe -> recipe.getFluids().stream())
                                     .findFirst().orElse(FluidStack.EMPTY);
-      elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(CAST_FROM, firstFluid.getFluid().getAttributes().getDisplayName(firstFluid)));
+      elementItem.tooltip = ImmutableList.of(new TranslatableComponent(CAST_FROM, firstFluid.getFluid().getAttributes().getDisplayName(firstFluid)));
       displayTools.add(elementItem);
     }
 
@@ -309,7 +310,7 @@ public class ContentMaterial extends PageContent {
                                                                                       .map(part -> part.withMaterial(input))
                                                                                       .collect(Collectors.toList()));
         FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
-        elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(COMPOSITE_FROM,
+        elementItem.tooltip = ImmutableList.of(new TranslatableComponent(COMPOSITE_FROM,
                                                                             firstFluid.getFluid().getAttributes().getDisplayName(firstFluid),
                                                                             input.getDisplayName()));
         displayTools.add(elementItem);
@@ -329,8 +330,7 @@ public class ContentMaterial extends PageContent {
     if (displayTools.size() < 9) {
       toolLoop:
       for (Item item : TinkerTags.Items.MULTIPART_TOOL.getValues()) {
-        if (item instanceof IModifiable) {
-          IModifiable tool = ((IModifiable)item);
+        if (item instanceof IModifiable tool) {
           List<PartRequirement> requirements = tool.getToolDefinition().getData().getParts();
           // start building the tool with the given material
           List<IMaterial> materials = new ArrayList<>(requirements.size());

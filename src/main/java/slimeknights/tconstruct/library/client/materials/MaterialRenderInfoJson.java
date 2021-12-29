@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.client.materials;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 

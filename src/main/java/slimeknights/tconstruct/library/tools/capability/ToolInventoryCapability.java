@@ -1,20 +1,20 @@
 package slimeknights.tconstruct.library.tools.capability;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.network.NetworkHooks;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -344,22 +344,22 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
 
 
   /** Opens the tool inventory container if an inventory is present on the given tool */
-  public static ActionResultType tryOpenContainer(ItemStack stack, IModifierToolStack tool, PlayerEntity player, EquipmentSlotType slotType) {
+  public static InteractionResult tryOpenContainer(ItemStack stack, IModifierToolStack tool, Player player, EquipmentSlot slotType) {
     return tryOpenContainer(stack, tool, tool.getDefinition(), player, slotType);
   }
 
   /** Opens the tool inventory container if an inventory is present on the given tool */
-  public static ActionResultType tryOpenContainer(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition definition, PlayerEntity player, EquipmentSlotType slotType) {
+  public static InteractionResult tryOpenContainer(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition definition, Player player, EquipmentSlot slotType) {
     IItemHandler handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(null);
     if (handler != null) {
-      if (player instanceof ServerPlayerEntity) {
-        NetworkHooks.openGui((ServerPlayerEntity) player, new SimpleNamedContainerProvider(
+      if (player instanceof ServerPlayer serverPlayer) {
+        NetworkHooks.openGui(serverPlayer, new SimpleMenuProvider(
           (id, inventory, p) -> new ToolContainer(id, inventory, stack, (IItemHandlerModifiable)handler, slotType),
           TooltipUtil.getDisplayName(stack, tool, definition)
         ), buf -> buf.writeEnum(slotType));
       }
-      return ActionResultType.sidedSuccess(player.level.isClientSide);
+      return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 }

@@ -1,21 +1,22 @@
 package slimeknights.tconstruct.tools.modifiers.traits.harvest;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class DwarvenModifier extends Modifier {
-  private static final ITextComponent MINING_SPEED = TConstruct.makeTranslation("modifier", "dwarven.mining_speed");
+  private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "dwarven.mining_speed");
+  // todo: adjust boost
   /** Baseline height where boost is 1 */
   private static final int SEA_LEVEL = 64;
   /** Max percentage bonus per level when y = 0 */
@@ -43,7 +44,7 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost;
       if (player != null && key == TooltipKey.SHIFT) {

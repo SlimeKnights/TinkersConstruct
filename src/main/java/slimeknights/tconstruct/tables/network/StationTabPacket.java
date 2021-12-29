@@ -1,46 +1,44 @@
 package slimeknights.tconstruct.tables.network;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.SSetSlotPacket;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
-import net.minecraftforge.fml.network.NetworkHooks;
+import lombok.RequiredArgsConstructor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraftforge.network.NetworkHooks;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 
+@RequiredArgsConstructor
 public class StationTabPacket implements IThreadsafePacket {
+  private final BlockPos pos;
 
-  private BlockPos pos;
-  public StationTabPacket(BlockPos blockPos) {
-    this.pos = blockPos;
-  }
-
-  public StationTabPacket(PacketBuffer buffer) {
+  public StationTabPacket(FriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
   }
 
   @Override
   public void handleThreadsafe(Context context) {
-    ServerPlayerEntity sender = context.getSender();
+    ServerPlayer sender = context.getSender();
     if (sender != null) {
-      ItemStack heldStack = sender.inventory.getCarried();
+      ItemStack heldStack = sender.containerMenu.getCarried();
       if (!heldStack.isEmpty()) {
         // set it to empty, so it's doesn't get dropped
-        sender.inventory.setCarried(ItemStack.EMPTY);
+        sender.containerMenu.setCarried(ItemStack.EMPTY);
       }
 
-      World world = sender.getCommandSenderWorld();
+      Level world = sender.getCommandSenderWorld();
       if (!world.hasChunkAt(pos)) {
         return;
       }
@@ -48,15 +46,15 @@ public class StationTabPacket implements IThreadsafePacket {
       if (state.getBlock() instanceof ITinkerStationBlock) {
         ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getCommandSenderWorld(), pos);
       } else {
-        INamedContainerProvider provider = state.getMenuProvider(sender.getCommandSenderWorld(), pos);
+        MenuProvider provider = state.getMenuProvider(sender.getCommandSenderWorld(), pos);
         if (provider != null) {
           NetworkHooks.openGui(sender, provider, pos);
         }
       }
 
       if (!heldStack.isEmpty()) {
-        sender.inventory.setCarried(heldStack);
-        TinkerNetwork.getInstance().sendVanillaPacket(sender, new SSetSlotPacket(-1, -1, heldStack));
+        sender.containerMenu.setCarried(heldStack);
+        TinkerNetwork.getInstance().sendVanillaPacket(sender, new ClientboundContainerSetSlotPacket(-1, -1, -1, heldStack));
       }
     }
   }

@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 
@@ -20,8 +20,7 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
   @Override
   public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {
     LivingEntity target = context.getLivingTarget();
-    if (target instanceof PlayerEntity) {
-      PlayerEntity player = (PlayerEntity) target;
+    if (target instanceof Player player) {
       if (player.canEat(false)) {
         player.getFoodData().eat((int)(hunger * scale), saturation * scale);
       }
@@ -36,8 +35,8 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
   private static class Loader implements ISpillingEffectLoader<RestoreHungerSpillingEffect> {
     @Override
     public RestoreHungerSpillingEffect deserialize(JsonObject json) {
-      int hunger = JSONUtils.getAsInt(json, "hunger");
-      float saturation = JSONUtils.getAsFloat(json, "saturation");
+      int hunger = GsonHelper.getAsInt(json, "hunger");
+      float saturation = GsonHelper.getAsFloat(json, "saturation");
       return new RestoreHungerSpillingEffect(hunger, saturation);
     }
 
@@ -48,14 +47,14 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public RestoreHungerSpillingEffect read(PacketBuffer buffer) {
+    public RestoreHungerSpillingEffect read(FriendlyByteBuf buffer) {
       int hunger = buffer.readVarInt();
       float saturation = buffer.readFloat();
       return new RestoreHungerSpillingEffect(hunger, saturation);
     }
 
     @Override
-    public void write(RestoreHungerSpillingEffect effect, PacketBuffer buffer) {
+    public void write(RestoreHungerSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeVarInt(effect.hunger);
       buffer.writeFloat(effect.saturation);
     }

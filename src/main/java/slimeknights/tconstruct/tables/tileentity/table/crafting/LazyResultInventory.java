@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tables.tileentity.table.crafting;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import java.util.Objects;
  * It will calculate the result when requested based on the methods in {@link ILazyCrafter}, and update other slots on recipe take
  */
 @RequiredArgsConstructor
-public class LazyResultInventory implements IInventory {
+public class LazyResultInventory implements Container {
   private final ILazyCrafter crafter;
 
   /** Cache of the last result */
@@ -32,7 +32,7 @@ public class LazyResultInventory implements IInventory {
    * Gets the result of this inventory, lazy loading it if not yet calculated
    * @return  Item stack result
    */
-  public ItemStack getResult(@Nullable PlayerEntity player) {
+  public ItemStack getResult(@Nullable Player player) {
     if (result == null) {
       result = Objects.requireNonNull(crafter.calcResult(player), "Result cannot be null");
     }
@@ -61,7 +61,7 @@ public class LazyResultInventory implements IInventory {
    * @param amount  Number to craft
    * @return  Crafting result
    */
-  public ItemStack craftResult(PlayerEntity player, int amount) {
+  public ItemStack craftResult(Player player, int amount) {
     // get result and consume items
     // TODO: are all these copies needed?
     ItemStack output = crafter.onCraft(player, getResult().copy(), amount);
@@ -75,7 +75,7 @@ public class LazyResultInventory implements IInventory {
    * Returns the result stack from the inventory. This will not consume inputs
    * @param index  Unused
    * @return  Result stack
-   * @deprecated use {@link #craftResult(PlayerEntity, int)} or {@link #getResult()}
+   * @deprecated use {@link #craftResult(Player, int)} or {@link #getResult()}
    */
   @Deprecated
   @Override
@@ -88,7 +88,7 @@ public class LazyResultInventory implements IInventory {
    * @param index  Unused
    * @param count  Unused as output sizes should never change
    * @return  Result stack
-   * @deprecated use {@link #craftResult(PlayerEntity, int)} or {@link #getResult()}
+   * @deprecated use {@link #craftResult(Player, int)} or {@link #getResult()}
    */
   @Deprecated
   @Override
@@ -117,7 +117,7 @@ public class LazyResultInventory implements IInventory {
   public void setChanged() {}
 
   @Override
-  public boolean stillValid(PlayerEntity player) {
+  public boolean stillValid(Player player) {
     return true;
   }
 
@@ -128,10 +128,10 @@ public class LazyResultInventory implements IInventory {
     /**
      * Calculates the recipe result
      * @param  player  Player entity. May be null if not supported.
-     *                 May not match the player used in {@link #onCraft(PlayerEntity, ItemStack, int)} as this result is cached
+     *                 May not match the player used in {@link #onCraft(Player, ItemStack, int)} as this result is cached
      * @return  Item stack result
      */
-    ItemStack calcResult(@Nullable PlayerEntity player);
+    ItemStack calcResult(@Nullable Player player);
 
     /**
      * Called when an item is crafted to consume requirements
@@ -139,6 +139,6 @@ public class LazyResultInventory implements IInventory {
      * @param result  Crafting result
      * @param amount  Amount to craft
      */
-    ItemStack onCraft(PlayerEntity player, ItemStack result, int amount);
+    ItemStack onCraft(Player player, ItemStack result, int amount);
   }
 }

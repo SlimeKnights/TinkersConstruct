@@ -11,15 +11,14 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.Color;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.utils.Util;
@@ -38,6 +37,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNullElse;
+
 /**
  * Loads the material data from datapacks and provides them to whatever needs them.
  * Contains only the very basic material information, craftability, traits, but no stats.
@@ -47,7 +48,7 @@ import java.util.stream.Collectors;
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 @Log4j2
-public class MaterialManager extends JsonReloadListener {
+public class MaterialManager extends SimpleJsonResourceReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
@@ -136,7 +137,7 @@ public class MaterialManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<ResourceLocation, JsonElement> splashList, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
     Map<MaterialId, MaterialId> redirects = new HashMap<>();
     this.materials = splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
@@ -204,14 +205,14 @@ public class MaterialManager extends JsonReloadListener {
       boolean hidden = Boolean.TRUE.equals(materialJson.getHidden());
 
       // parse color from string
-      Color color = Optional.ofNullable(materialJson.getTextColor())
-                            .filter(str -> !str.isEmpty())
-                            .map(Color::parseColor)
-                            .orElse(Material.WHITE);
+      TextColor color = Optional.ofNullable(materialJson.getTextColor())
+                                .filter(str -> !str.isEmpty())
+                                .map(TextColor::parseColor)
+                                .orElse(Material.WHITE);
 
 
       // parse trait
-      return new Material(materialId, LogicHelper.defaultIfNull(materialJson.getTier(), 0), LogicHelper.defaultIfNull(materialJson.getSortOrder(), 100), isCraftable, color, hidden);
+      return new Material(materialId, requireNonNullElse(materialJson.getTier(), 0), requireNonNullElse(materialJson.getSortOrder(), 100), isCraftable, color, hidden);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
@@ -221,7 +222,7 @@ public class MaterialManager extends JsonReloadListener {
   private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
     @Override
     public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return CraftingHelper.getCondition(JSONUtils.convertToJsonObject(json, "condition"));
+      return CraftingHelper.getCondition(GsonHelper.convertToJsonObject(json, "condition"));
     }
 
     @Override

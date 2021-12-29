@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tables.tileentity.table.crafting;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -24,7 +24,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
 
   private MaterialRecipe lastMaterialRecipe;
   @Nullable
-  private PlayerEntity player;
+  private Player player;
 
   /**
    * Creates a new wrapper instance for the station
@@ -45,7 +45,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
   @Nullable
   private MaterialRecipe findMaterialRecipe(ItemStack stack) {
     // must have world
-    World world = station.getLevel();
+    Level world = station.getLevel();
     if (world == null) {
       return null;
     }
@@ -122,7 +122,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
   @Override
   public void giveItem(ItemStack stack) {
     if (player != null) {
-      player.inventory.placeItemBackInInventory(player.getCommandSenderWorld(), stack);
+      player.getInventory().placeItemBackInInventory(stack);
     }
   }
 
@@ -130,7 +130,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
    * Updates the current player of this inventory
    * @param player  Player
    */
-  public void setPlayer(@Nullable PlayerEntity player) {
+  public void setPlayer(@Nullable Player player) {
     this.player = player;
   }
 }

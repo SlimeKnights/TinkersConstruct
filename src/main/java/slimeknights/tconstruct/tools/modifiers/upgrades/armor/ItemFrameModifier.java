@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -34,14 +34,14 @@ public class ItemFrameModifier extends InventoryModifier {
   /** Parses all stacks in NBT into the passed list */
   public void getAllStacks(IModifierToolStack tool, int level, List<ItemStack> stackList) {
     IModDataReadOnly modData = tool.getPersistentData();
-    if (modData.contains(ITEM_FRAME, NBT.TAG_LIST)) {
-      ListNBT list = tool.getPersistentData().get(ITEM_FRAME, GET_COMPOUND_LIST);
+    if (modData.contains(ITEM_FRAME, Tag.TAG_LIST)) {
+      ListTag list = tool.getPersistentData().get(ITEM_FRAME, GET_COMPOUND_LIST);
       int max = getSlots(tool, level);
 
       // make sure the stacks are in order, NBT could store them in any order
       ItemStack[] parsed = new ItemStack[max];
       for (int i = 0; i < list.size(); i++) {
-        CompoundNBT compound = list.getCompound(i);
+        CompoundTag compound = list.getCompound(i);
         int slot = compound.getInt(TAG_SLOT);
         if (slot < max) {
           parsed[slot] = ItemStack.of(compound);

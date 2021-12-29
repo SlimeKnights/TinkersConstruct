@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -35,7 +35,7 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
   @Override
   public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
     super.onUnequip(tool, level, context);
-    if (context.getChangedSlot() == EquipmentSlotType.HEAD) {
+    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       IModifierToolStack replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
         // cure effects using the helmet
@@ -46,9 +46,9 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
 
   private static void drinkMilk(LivingEntity living, int duration) {
     if (ModifierUtil.getTotalModifierLevel(living, STRONG_BONES) > 0) {
-      EffectInstance effect = new EffectInstance(Effects.DAMAGE_RESISTANCE, duration);
+      MobEffectInstance effect = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, duration);
       effect.getCurativeItems().clear();
-      effect.getCurativeItems().add(new ItemStack(living.getItemBySlot(EquipmentSlotType.HEAD).getItem()));
+      effect.getCurativeItems().add(new ItemStack(living.getItemBySlot(EquipmentSlot.HEAD).getItem()));
       living.addEffect(effect);
     }
     if (ModifierUtil.getTotalModifierLevel(living, CALCIFIABLE) > 0) {

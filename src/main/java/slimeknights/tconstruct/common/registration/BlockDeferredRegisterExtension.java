@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.common.registration;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.IStringSerializable;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -56,7 +56,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param itemProps   Properties for the item
    * @return  Metal item object
    */
-  public MetalItemObject registerMetal(String name, String tagName, AbstractBlock.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+  public MetalItemObject registerMetal(String name, String tagName, BlockBehaviour.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
     return registerMetal(name, tagName, () -> new Block(blockProps), blockItem, itemProps);
   }
 
@@ -68,7 +68,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param itemProps   Properties for the item
    * @return  Metal item object
    */
-  public MetalItemObject registerMetal(String name, AbstractBlock.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+  public MetalItemObject registerMetal(String name, BlockBehaviour.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
     return registerMetal(name, name, blockProps, blockItem, itemProps);
   }
 
@@ -81,7 +81,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param <B>  Type of block
    * @return  Enum object
    */
-  public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T, B> registerEnumNoItem(T[] values, String name, Function<T, ? extends B> mapper) {
+  public <T extends Enum<T> & StringRepresentable, B extends Block> EnumObject<T, B> registerEnumNoItem(T[] values, String name, Function<T, ? extends B> mapper) {
     return registerEnum(values, name, (fullName, value) -> this.registerNoItem(fullName, () -> mapper.apply(value)));
   }
 }

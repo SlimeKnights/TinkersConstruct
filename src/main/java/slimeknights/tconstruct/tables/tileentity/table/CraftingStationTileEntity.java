@@ -1,20 +1,22 @@
 package slimeknights.tconstruct.tables.tileentity.table;
 
 import lombok.Getter;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -29,19 +31,20 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
-  public static final ITextComponent UNCRAFTABLE = TConstruct.makeTranslation("gui", "crafting_station.uncraftable");
+  public static final Component UNCRAFTABLE = TConstruct.makeTranslation("gui", "crafting_station.uncraftable");
+  private static final Component NAME = TConstruct.makeTranslation("gui", "crafting_station");
 
   /** Last crafted crafting recipe */
   @Nullable
-  private ICraftingRecipe lastRecipe;
+  private CraftingRecipe lastRecipe;
   /** Result inventory, lazy loads results */
   @Getter
   private final LazyResultInventory craftingResult;
   /** Crafting inventory for the recipe calls */
   private final CraftingInventoryWrapper craftingInventory;
 
-  public CraftingStationTileEntity() {
-    super(TinkerTables.craftingStationTile.get(), "gui.tconstruct.crafting_station", 9);
+  public CraftingStationTileEntity(BlockPos pos, BlockState state) {
+    super(TinkerTables.craftingStationTile.get(), pos, state, NAME, 9);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.craftingInventory = new CraftingInventoryWrapper(this, 3, 3);
@@ -50,19 +53,19 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public AbstractContainerMenu createMenu(int menuId, Inventory playerInventory, Player playerEntity) {
     return new CraftingStationContainer(menuId, playerInventory, this);
   }
 
   @Override
-  public AxisAlignedBB getRenderBoundingBox() {
-    return new AxisAlignedBB(worldPosition, worldPosition.offset(1, 2, 1));
+  public AABB getRenderBoundingBox() {
+    return new AABB(worldPosition, worldPosition.offset(1, 2, 1));
   }
 
   /* Crafting */
 
   @Override
-  public ItemStack calcResult(@Nullable PlayerEntity player) {
+  public ItemStack calcResult(@Nullable Player player) {
     if (this.level == null || isEmpty()) {
       return ItemStack.EMPTY;
     }
@@ -72,11 +75,11 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       RecipeManager manager = this.level.getServer().getRecipeManager();
 
       // first, try the cached recipe
-      ICraftingRecipe recipe = lastRecipe;
+      CraftingRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
       // note we intentionally have no player access during matches, that could lead to an unstable recipe
       if (recipe == null || !recipe.matches(this.craftingInventory, this.level)) {
-        recipe = manager.getRecipeFor(IRecipeType.CRAFTING, this.craftingInventory, this.level).orElse(null);
+        recipe = manager.getRecipeFor(RecipeType.CRAFTING, this.craftingInventory, this.level).orElse(null);
       }
 
       // if we have a recipe, fetch its result
@@ -105,9 +108,9 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
    * @param player  Player
    * @return  Player sensitive result
    */
-  public ItemStack getResultForPlayer(PlayerEntity player) {
+  public ItemStack getResultForPlayer(Player player) {
     ForgeHooks.setCraftingPlayer(player);
-    ICraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
+    CraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
 
     // try matches again now that we have player access
     if (recipe == null || this.level == null || !recipe.matches(craftingInventory, level)) {
@@ -145,8 +148,8 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
    * @param result  Result removed
    * @param amount  Number of times crafted
    */
-  public void takeResult(PlayerEntity player, ItemStack result, int amount) {
-    ICraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
+  public void takeResult(Player player, ItemStack result, int amount) {
+    CraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
     if (recipe == null || this.level == null) {
       return;
     }
@@ -157,7 +160,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       player.awardRecipes(Collections.singleton(recipe));
     }
     result.onCraftedBy(this.level, player, amount);
-    BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
+    ForgeEventFactory.firePlayerCraftingEvent(player, result, this.craftingInventory);
 
     // update all slots in the inventory
     // remove remaining items
@@ -181,7 +184,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
         // directly update the slot
         this.setItem(i, ItemHandlerHelper.copyStackWithSize(original, original.getCount() - 1));
         // otherwise, drop the item as the player
-        if (!newStack.isEmpty() && !player.inventory.add(newStack)) {
+        if (!newStack.isEmpty() && !player.getInventory().add(newStack)) {
           player.drop(newStack, false);
         }
       }
@@ -189,7 +192,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   }
 
   /** Sends a message alerting the player this item is currently uncraftable, typically due to gamerules */
-  public void notifyUncraftable(PlayerEntity player) {
+  public void notifyUncraftable(Player player) {
     // if empty, send a message so the player is more aware of why they cannot craft it, sent to chat as status bar is not visible
     // TODO: consider moving into the UI somewhere
     if (level != null && !level.isClientSide) {
@@ -198,7 +201,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   }
 
   @Override
-  public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
+  public ItemStack onCraft(Player player, ItemStack result, int amount) {
     int originalSize = result.getCount(); // may be larger than the output count if the player is holding a stack
     // going to refetch result, so just start at empty
     result = ItemStack.EMPTY;
@@ -212,11 +215,11 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       }
       // if the player was holding this item, increase the count to match
       if (originalSize > 0) {
-        result.setCount(result.getCount() + player.inventory.getCarried().getCount() - originalSize);
+        result.setCount(result.getCount() + player.containerMenu.getCarried().getCount() - originalSize);
       }
     }
     // the return value ultimately does nothing, so manually set the result into the player
-    player.inventory.setCarried(result);
+    player.containerMenu.setCarried(result);
     if (result.isEmpty()) {
       notifyUncraftable(player);
     }
@@ -237,10 +240,10 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
    * Sends the current recipe to the given player
    * @param player  Player to send an update to
    */
-  public void syncRecipe(PlayerEntity player) {
+  public void syncRecipe(Player player) {
     // must have a last recipe and a server world
-    if (this.lastRecipe != null && this.level != null && !this.level.isClientSide && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateCraftingRecipePacket(this.worldPosition, this.lastRecipe), (ServerPlayerEntity) player);
+    if (this.lastRecipe != null && this.level != null && !this.level.isClientSide && player instanceof ServerPlayer) {
+      TinkerNetwork.getInstance().sendTo(new UpdateCraftingRecipePacket(this.worldPosition, this.lastRecipe), (ServerPlayer) player);
     }
   }
 
@@ -248,7 +251,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
    * Updates the recipe from the server
    * @param recipe  New recipe
    */
-  public void updateRecipe(ICraftingRecipe recipe) {
+  public void updateRecipe(CraftingRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clearContent();
   }

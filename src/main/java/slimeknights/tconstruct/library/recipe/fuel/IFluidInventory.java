@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.fuel;
 
-import net.minecraft.fluid.Fluid;
+import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 
 /**
