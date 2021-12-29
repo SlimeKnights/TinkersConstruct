@@ -5,8 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
@@ -54,7 +54,7 @@ class DefinitionToolStatsTest extends BaseMcTest {
       .addStat(ToolStats.ATTACK_SPEED, 2.5f)
       .build();
 
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     stats.write(buffer);
     DefinitionToolStats decoded = DefinitionToolStats.read(buffer);
 
@@ -77,8 +77,8 @@ class DefinitionToolStatsTest extends BaseMcTest {
     JsonElement serialized = DefinitionToolStats.SERIALIZER.serialize(stats, DefinitionToolStats.class, mock(JsonSerializationContext.class));
     assertThat(serialized.isJsonObject()).isTrue();
     JsonObject object = serialized.getAsJsonObject();
-    assertThat(JSONUtils.getAsFloat(object, ToolStats.DURABILITY.getName().toString())).isEqualTo(10);
-    assertThat(JSONUtils.getAsFloat(object, ToolStats.ATTACK_SPEED.getName().toString())).isEqualTo(2.5f);
+    assertThat(GsonHelper.getAsFloat(object, ToolStats.DURABILITY.getName().toString())).isEqualTo(10);
+    assertThat(GsonHelper.getAsFloat(object, ToolStats.ATTACK_SPEED.getName().toString())).isEqualTo(2.5f);
   }
 
   @Test

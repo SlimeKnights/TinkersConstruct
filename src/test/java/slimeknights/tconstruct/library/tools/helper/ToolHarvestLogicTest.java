@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
@@ -18,14 +16,13 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToolHarvestLogicTest extends ToolItemTest {
 
   private final HarvestTool pickaxeTool = new HarvestTool(
-    new Item.Properties().addToolType(ToolType.PICKAXE, 1),
+    new Item.Properties(),//TODO .addToolType(ToolType.PICKAXE, 1),
     ToolDefinitionFixture.getStandardToolDefinition());
   private final ToolHarvestLogic toolHarvestLogic = new ToolHarvestLogic();
 
@@ -69,11 +66,6 @@ class ToolHarvestLogicTest extends ToolItemTest {
 
   @Test
   void calcSpeed_effective_withMiningModifier() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    // need to initalize the tool types for blocks, so we show as effective
-    Method method = ForgeHooks.class.getDeclaredMethod("initTools");
-    method.setAccessible(true);
-    method.invoke(null);
-
     float modifier = 2f;
 
     ToolDefinition definition = ToolDefinition.builder(new ResourceLocation("test", "mining_tool")).meleeHarvest().skipRegister().build();
@@ -85,7 +77,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
                          .multiplier(ToolStats.MINING_SPEED, modifier)
                          .build());
 
-    IModifiable toolWithMiningModifier = new HarvestTool(new Item.Properties().addToolType(ToolType.PICKAXE, 1), definition);
+    IModifiable toolWithMiningModifier = new HarvestTool(new Item.Properties(),/*.addToolType(ToolType.PICKAXE, 1),*/ definition);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
     float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());

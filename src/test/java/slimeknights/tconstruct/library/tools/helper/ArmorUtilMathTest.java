@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.util.CombatRules;
+import net.minecraft.world.damagesource.CombatRules;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 

@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.tools.layout;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import io.netty.buffer.Unpooled;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.layout.LayoutIcon.ItemStackIcon;
@@ -30,7 +30,7 @@ class LayoutIconTest extends BaseMcTest {
 
   @Test
   void empty_bufferReadWrite() {
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     LayoutIcon.EMPTY.write(buffer);
 
     LayoutIcon decoded = LayoutIcon.read(buffer);
@@ -67,7 +67,7 @@ class LayoutIconTest extends BaseMcTest {
   void item_bufferReadWrite() {
     ItemStack original = new ItemStack(Items.DIAMOND_PICKAXE);
     LayoutIcon itemIcon = LayoutIcon.ofItem(original);
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     itemIcon.write(buffer);
 
     LayoutIcon decoded = LayoutIcon.read(buffer);
@@ -83,9 +83,9 @@ class LayoutIconTest extends BaseMcTest {
     LayoutIcon itemIcon = LayoutIcon.ofItem(original);
     JsonObject json = itemIcon.toJson();
     assertThat(json.entrySet()).hasSize(2);
-    assertThat(JSONUtils.getAsString(json, "item")).isEqualTo(Objects.requireNonNull(Items.DIAMOND_PICKAXE.getRegistryName()).toString());
+    assertThat(GsonHelper.getAsString(json, "item")).isEqualTo(Objects.requireNonNull(Items.DIAMOND_PICKAXE.getRegistryName()).toString());
     assert original.getTag() != null;
-    assertThat(JSONUtils.getAsString(json, "nbt")).isEqualTo(original.getTag().toString());
+    assertThat(GsonHelper.getAsString(json, "nbt")).isEqualTo(original.getTag().toString());
   }
 
   @Test
@@ -98,7 +98,7 @@ class LayoutIconTest extends BaseMcTest {
     ItemStack stack = icon.getValue(ItemStack.class);
     assertThat(stack).isNotNull();
     assertThat(stack.getItem()).isEqualTo(Items.DIAMOND);
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     assertThat(nbt).isNotNull();
     assertThat(nbt.getInt("test")).isEqualTo(1);
   }
@@ -120,7 +120,7 @@ class LayoutIconTest extends BaseMcTest {
   void pattern_bufferReadWrite() {
     Pattern pattern = new Pattern("test:the_pattern");
     LayoutIcon icon = LayoutIcon.ofPattern(pattern);
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     icon.write(buffer);
 
     LayoutIcon decoded = LayoutIcon.read(buffer);
@@ -136,7 +136,7 @@ class LayoutIconTest extends BaseMcTest {
     LayoutIcon icon = LayoutIcon.ofPattern(pattern);
     JsonObject json = icon.toJson();
     assertThat(json.entrySet()).hasSize(1);
-    assertThat(JSONUtils.getAsString(json, "pattern")).isEqualTo(pattern.toString());
+    assertThat(GsonHelper.getAsString(json, "pattern")).isEqualTo(pattern.toString());
   }
 
   @Test

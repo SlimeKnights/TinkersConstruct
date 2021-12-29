@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.materials.definition;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.FalseCondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
@@ -47,7 +47,7 @@ class MaterialManagerTest extends BaseMcTest {
   void loadFullMaterial_allStatsPresent() {
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist("full");
 
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -64,7 +64,7 @@ class MaterialManagerTest extends BaseMcTest {
   void loadMinimalMaterial_succeedWithDefaults() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("minimal");
 
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -81,7 +81,7 @@ class MaterialManagerTest extends BaseMcTest {
   void invalid_skipped() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("invalid");
 
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -96,7 +96,7 @@ class MaterialManagerTest extends BaseMcTest {
     ResourceLocation materialId = TConstruct.getResource("nonexistant");
     Map<ResourceLocation, JsonElement> splashList = ImmutableMap.of(materialId, new JsonObject());
 
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).isEmpty();
@@ -105,7 +105,7 @@ class MaterialManagerTest extends BaseMcTest {
   @Test
   void conditional_conditionPass() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("conditional_pass");
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -114,7 +114,7 @@ class MaterialManagerTest extends BaseMcTest {
   @Test
   void conditional_conditionFail() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("conditional_fail");
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).isEmpty();
@@ -123,7 +123,7 @@ class MaterialManagerTest extends BaseMcTest {
   @Test
   void redirect_toExisting() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("redirect_always", "full");
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -133,7 +133,7 @@ class MaterialManagerTest extends BaseMcTest {
   @Test
   void redirect_toNonexisting() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("redirect_always");
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).isEmpty();
@@ -143,7 +143,7 @@ class MaterialManagerTest extends BaseMcTest {
   @Test
   void redirect_withMultipleConditions() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("full", "minimal", "redirect_conditional");
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    materialManager.apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(2);

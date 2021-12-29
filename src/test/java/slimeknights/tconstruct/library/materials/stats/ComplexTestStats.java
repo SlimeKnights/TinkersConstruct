@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.materials.stats;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,26 +23,26 @@ public class ComplexTestStats extends BaseMaterialStats {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(num);
     buffer.writeFloat(floating);
     buffer.writeUtf(text);
   }
 
   @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(FriendlyByteBuf buffer) {
     num = buffer.readInt();
     floating = buffer.readFloat();
     text = buffer.readUtf();
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo() {
     return new ArrayList<>();
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Component> getLocalizedDescriptions() {
     return new ArrayList<>();
   }
 }

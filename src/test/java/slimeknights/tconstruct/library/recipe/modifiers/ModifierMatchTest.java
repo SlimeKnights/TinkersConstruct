@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.modifiers;
 
 import com.google.gson.JsonObject;
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.ModifierFixture;
@@ -37,7 +37,7 @@ class ModifierMatchTest extends BaseMcTest {
   @Test
   void bufferEncodeDecode_single() {
     testSingle(match -> {
-      PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+      FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
       match.write(buffer);
       return ModifierMatch.read(buffer);
     });
@@ -75,7 +75,7 @@ class ModifierMatchTest extends BaseMcTest {
   @Test
   void bufferEncodeDecode_list() {
     testList(match -> {
-      PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+      FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
       match.write(buffer);
       return ModifierMatch.read(buffer);
     });

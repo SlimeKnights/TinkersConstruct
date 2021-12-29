@@ -5,8 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.test.BaseMcTest;
@@ -52,7 +52,7 @@ class DefinitionModifierSlotsTest extends BaseMcTest {
       .setSlots(SlotType.DEFENSE, 1)
       .build();
 
-    PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     slots.write(buffer);
     DefinitionModifierSlots decoded = DefinitionModifierSlots.read(buffer);
 
@@ -75,8 +75,8 @@ class DefinitionModifierSlotsTest extends BaseMcTest {
     JsonElement serialized = DefinitionModifierSlots.SERIALIZER.serialize(slots, DefinitionModifierSlots.class, mock(JsonSerializationContext.class));
     assertThat(serialized.isJsonObject()).isTrue();
     JsonObject object = serialized.getAsJsonObject();
-    assertThat(JSONUtils.getAsInt(object, SlotType.UPGRADE.getName())).isEqualTo(4);
-    assertThat(JSONUtils.getAsInt(object, SlotType.DEFENSE.getName())).isEqualTo(1);
+    assertThat(GsonHelper.getAsInt(object, SlotType.UPGRADE.getName())).isEqualTo(4);
+    assertThat(GsonHelper.getAsInt(object, SlotType.DEFENSE.getName())).isEqualTo(1);
   }
 
   @Test

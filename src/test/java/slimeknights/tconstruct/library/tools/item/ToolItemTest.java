@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +24,7 @@ public abstract class ToolItemTest extends BaseMcTest {
   synchronized static void beforeAllToolCore() {
     if (tool == null) {
       Item.Properties properties = new Item.Properties()
-        .addToolType(ToolType.PICKAXE, 1)
+        //.addToolType(ToolType.PICKAXE, 1)
         .stacksTo(1);
       tool = new TestToolItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
       tool.setRegistryName("test:toolcore");

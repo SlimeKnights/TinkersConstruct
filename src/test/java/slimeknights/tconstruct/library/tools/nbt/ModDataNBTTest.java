@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.test.BaseMcTest;
@@ -19,7 +19,7 @@ class ModDataNBTTest extends BaseMcTest {
       assertThat(IModDataReadOnly.EMPTY.getSlots(type)).isEqualTo(0);
     }
 
-    CompoundNBT nbt = IModDataReadOnly.EMPTY.getCompound(testKey);
+    CompoundTag nbt = IModDataReadOnly.EMPTY.getCompound(testKey);
     nbt.putInt("test", 1);
     nbt = IModDataReadOnly.EMPTY.getCompound(testKey);
     assertThat(nbt.contains("test")).overridingErrorMessage("NBT not saved in empty").isFalse();
@@ -42,24 +42,24 @@ class ModDataNBTTest extends BaseMcTest {
     modData.setSlots(SlotType.ABILITY, 3);
     modData.setSlots(SlotType.SOUL, 4);
     modData.putInt(testKey, 1);
-    modData.put(testKey2, new CompoundNBT());
+    modData.put(testKey2, new CompoundTag());
 
-    CompoundNBT nbt = modData.getData();
+    CompoundTag nbt = modData.getData();
     assertThat(nbt.getInt(SlotType.UPGRADE.getName())).isEqualTo(2);
     assertThat(nbt.getInt(SlotType.ABILITY.getName())).isEqualTo(3);
     assertThat(nbt.getInt(SlotType.SOUL.getName())).isEqualTo(4);
     assertThat(nbt.getInt(testKey.toString())).isEqualTo(1);
-    assertThat(nbt.contains(testKey2.toString(), NBT.TAG_COMPOUND)).isTrue();
+    assertThat(nbt.contains(testKey2.toString(), Tag.TAG_COMPOUND)).isTrue();
   }
 
   @Test
   void deserialize() {
-    CompoundNBT nbt = new CompoundNBT();
+    CompoundTag nbt = new CompoundTag();
     nbt.putInt(SlotType.UPGRADE.getName(), 4);
     nbt.putInt(SlotType.ABILITY.getName(), 5);
     nbt.putInt(SlotType.SOUL.getName(), 6);
     nbt.putString(testKey.toString(), "Not sure why you need strings");
-    CompoundNBT tag = new CompoundNBT();
+    CompoundTag tag = new CompoundTag();
     tag.putInt("test", 1);
     nbt.put(testKey2.toString(), tag);
 
@@ -71,7 +71,7 @@ class ModDataNBTTest extends BaseMcTest {
 
     tag = modData.getCompound(testKey2);
     assertThat(tag.isEmpty()).isFalse();
-    assertThat(tag.contains("test", NBT.TAG_ANY_NUMERIC)).isTrue();
+    assertThat(tag.contains("test", Tag.TAG_ANY_NUMERIC)).isTrue();
     assertThat(tag.getInt("test")).isEqualTo(1);
   }
 }

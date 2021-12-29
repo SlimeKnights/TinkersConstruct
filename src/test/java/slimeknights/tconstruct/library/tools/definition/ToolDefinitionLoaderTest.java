@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.gson.JsonElement;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.TConstruct;
@@ -76,7 +76,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   @Test
   void noParts_minimal() {
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NO_PARTS_MINIMAL.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     ToolDefinitionData data = NO_PARTS_MINIMAL.getData();
     assertThat(data).isNotNull();
@@ -88,7 +88,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   @Test
   void noParts_full() {
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NO_PARTS_FULL.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     ToolDefinitionData data = NO_PARTS_FULL.getData();
     assertThat(data).isNotNull();
@@ -101,7 +101,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   void noParts_hasUnneededParts_defaults() {
     HAS_PARTS_NO_NEED.setData(WRONG_DATA); // set to wrong data to ensure something changes
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(HAS_PARTS_NO_NEED.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
     assertThat(HAS_PARTS_NO_NEED.getData()).isSameAs(HAS_PARTS_NO_NEED.getStatProvider().getDefaultData());
   }
 
@@ -109,14 +109,14 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   void missingStats_defaults() {
     NO_PARTS_FULL.setData(WRONG_DATA); // set to wrong data to ensure something changes
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(HAS_PARTS_NO_NEED.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
     assertThat(NO_PARTS_FULL.getData()).isSameAs(NO_PARTS_FULL.getStatProvider().getDefaultData());
   }
 
   @Test
   void meleeHarvest_minimal() {
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_MINIMAL.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     ToolDefinitionData data = MELEE_HARVEST_MINIMAL.getData();
     assertThat(data).isNotNull();
@@ -132,7 +132,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   @Test
   void meleeHarvest_full() {
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_FULL.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
     ToolDefinitionData data = MELEE_HARVEST_FULL.getData();
     assertThat(data).isNotNull();
@@ -151,7 +151,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   void meleeHarvest_missingParts_defaults() {
     NEED_PARTS_HAS_NONE.setData(WRONG_DATA); // set to wrong data to ensure something changes
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NEED_PARTS_HAS_NONE.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
     assertThat(NEED_PARTS_HAS_NONE.getData()).isSameAs(NEED_PARTS_HAS_NONE.getStatProvider().getDefaultData());
   }
 
@@ -159,7 +159,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   void meleeHarvest_wrongPartType_defaults() {
     WRONG_PART_TYPE.setData(WRONG_DATA); // set to wrong data to ensure something changes
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(WRONG_PART_TYPE.getId().getPath());
-    ToolDefinitionLoader.getInstance().apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+    ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
     assertThat(WRONG_PART_TYPE.getData()).isSameAs(WRONG_PART_TYPE.getStatProvider().getDefaultData());
   }
 }

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.materials.definition.Material;
+import net.minecraft.resources.ResourceLocation;
 
 public class TestMaterial extends Material {
   public TestMaterial(ResourceLocation identifier, boolean craftable, boolean hidden) {

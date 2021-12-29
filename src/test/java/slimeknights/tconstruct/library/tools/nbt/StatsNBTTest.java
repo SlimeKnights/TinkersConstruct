@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
@@ -23,7 +23,7 @@ class StatsNBTTest extends BaseMcTest {
 
   @Test
   void serialize() {
-    CompoundNBT nbt = testStatsNBT.serializeToNBT();
+    CompoundTag nbt = testStatsNBT.serializeToNBT();
     
     assertThat(nbt.getInt(ToolStats.DURABILITY.getName().toString())).isEqualTo(1);
     assertThat(nbt.getInt(ToolStats.HARVEST_LEVEL.getName().toString())).isEqualTo(2);
@@ -34,14 +34,14 @@ class StatsNBTTest extends BaseMcTest {
 
   @Test
   void serializeEmpty_emptyList() {
-    CompoundNBT nbt = StatsNBT.EMPTY.serializeToNBT();
+    CompoundTag nbt = StatsNBT.EMPTY.serializeToNBT();
 
     assertThat(nbt.size()).isEqualTo(0);
   }
 
   @Test
   void deserialize() {
-    CompoundNBT nbt = new CompoundNBT();
+    CompoundTag nbt = new CompoundTag();
     nbt.putInt(ToolStats.DURABILITY.getName().toString(), 6);
     nbt.putInt(ToolStats.HARVEST_LEVEL.getName().toString(), 5);
     nbt.putFloat(ToolStats.ATTACK_DAMAGE.getName().toString(), 4);
@@ -59,7 +59,7 @@ class StatsNBTTest extends BaseMcTest {
 
   @Test
   void deserializeNoData_empty() {
-    CompoundNBT nbt = new CompoundNBT();
+    CompoundTag nbt = new CompoundTag();
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt);
 
@@ -68,7 +68,7 @@ class StatsNBTTest extends BaseMcTest {
 
   @Test
   void wrongNbtType_empty() {
-    INBT wrongNbt = new CompoundNBT();
+    Tag wrongNbt = new CompoundTag();
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(wrongNbt);
 

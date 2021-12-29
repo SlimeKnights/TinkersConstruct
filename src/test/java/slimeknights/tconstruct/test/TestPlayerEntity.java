@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.test;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
-public class TestPlayerEntity extends PlayerEntity {
+public class TestPlayerEntity extends Player {
 
-  public TestPlayerEntity(World worldIn) {
-    super(worldIn, BlockPos.ZERO, 0.0F, new GameProfile(UUID.randomUUID(), "test"));
+  public TestPlayerEntity(Level level) {
+    super(level, BlockPos.ZERO, 0.0F, new GameProfile(UUID.randomUUID(), "test"));
   }
 
   @Override

@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
@@ -23,10 +23,10 @@ class MaterialNBTTest extends BaseMcTest {
 
   @Test
   void serialize() {
-    ListNBT nbtList = testMaterialNBT.serializeToNBT();
+    ListTag nbtList = testMaterialNBT.serializeToNBT();
 
     assertThat(nbtList).hasSize(2);
-    assertThat(nbtList).extracting(INBT::getAsString).containsExactly(
+    assertThat(nbtList).extracting(Tag::getAsString).containsExactly(
       TEST_MATERIAL_1.getIdentifier().toString(),
       TEST_MATERIAL_2.getIdentifier().toString()
     );
@@ -34,17 +34,17 @@ class MaterialNBTTest extends BaseMcTest {
 
   @Test
   void serializeEmpty_emptyList() {
-    ListNBT nbtList = MaterialNBT.EMPTY.serializeToNBT();
+    ListTag nbtList = MaterialNBT.EMPTY.serializeToNBT();
 
     assertThat(nbtList).isEmpty();
   }
 
   @Test
   void deserialize() {
-    ListNBT nbtList = new ListNBT();
+    ListTag nbtList = new ListTag();
     // note we switched the order here to ensure that the order is as defined, and not ordered in some way
-    nbtList.add(StringNBT.valueOf(TEST_MATERIAL_2.getIdentifier().toString()));
-    nbtList.add(StringNBT.valueOf(TEST_MATERIAL_1.getIdentifier().toString()));
+    nbtList.add(StringTag.valueOf(TEST_MATERIAL_2.getIdentifier().toString()));
+    nbtList.add(StringTag.valueOf(TEST_MATERIAL_1.getIdentifier().toString()));
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbtList);
 
@@ -53,7 +53,7 @@ class MaterialNBTTest extends BaseMcTest {
 
   @Test
   void deserialize_emptyList() {
-    ListNBT nbtList = new ListNBT();
+    ListTag nbtList = new ListTag();
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbtList);
 
@@ -62,7 +62,7 @@ class MaterialNBTTest extends BaseMcTest {
 
   @Test
   void wrongNbtType_emptyList() {
-    INBT wrongNbt = new CompoundNBT();
+    Tag wrongNbt = new CompoundTag();
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(wrongNbt);
 
@@ -71,8 +71,8 @@ class MaterialNBTTest extends BaseMcTest {
 
   @Test
   void wrongListNbtType_emptyList() {
-    ListNBT wrongNbt = new ListNBT();
-    wrongNbt.add(new CompoundNBT());
+    ListTag wrongNbt = new ListTag();
+    wrongNbt.add(new CompoundTag());
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(wrongNbt);
 
