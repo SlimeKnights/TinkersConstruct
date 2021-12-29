@@ -3,11 +3,14 @@
   "group": "minecraft:netherite_ingot",
   "pattern": [
     "###",
-    "###",
+    "#*#",
     "###"
   ],
   "key": {
     "#": {
+      "tag": "forge:nuggets/netherite"
+    },
+    "*": {
       "item": "tconstruct:netherite_nugget"
     }
   },

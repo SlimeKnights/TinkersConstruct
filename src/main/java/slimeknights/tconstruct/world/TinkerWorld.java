@@ -112,7 +112,6 @@ public final class TinkerWorld extends TinkerModule {
    */
   // ores
   public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(builder(Material.STONE, MaterialColor.NETHER, SoundType.NETHER_ORE).requiresCorrectToolForDrops().strength(10.0F)), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<Block> copperOre = BLOCKS.register("copper_ore", builder(Material.STONE, SoundType.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F), DEFAULT_BLOCK_ITEM);
 
   // slime
   public static final EnumObject<SlimeType, SlimeBlock> slime = Util.make(() -> {
@@ -256,7 +255,6 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Features
    */
-  public static ConfiguredFeature<?, ?> COPPER_ORE_FEATURE;
   public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_SMALL;
   public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_LARGE;
 
@@ -347,13 +345,7 @@ public final class TinkerWorld extends TinkerModule {
 
     // ores
     event.enqueueWork(() -> {
-      // TODO: remove copper
       // TODO: why do we have features, configured features, and placed features?
-      COPPER_ORE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, resource("copper_ore"),
-                                             Feature.ORE.configured(new OreConfiguration(OreFeatures.ORE_COPPER_TARGET_LIST, 9)));
-                                                        //.placed(Placement.RANGE.configured(new TopSolidRangeConfig(40, 0, 60)))
-                                                        //.squared()
-                                                        //.count(Config.COMMON.veinCountCopper.get()));
       // small veins, standard distribution
       COBALT_ORE_FEATURE_SMALL = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_small"),
                                                    Feature.ORE.configured(new OreConfiguration(OreFeatures.NETHERRACK, cobaltOre.get().defaultBlockState(), 4)));

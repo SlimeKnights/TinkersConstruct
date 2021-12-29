@@ -20,7 +20,7 @@
       "max": 2
     },
     {
-      "tag": "forge:ingots/copper",
+      "item": "minecraft:copper_ingot",
       "min": 1,
       "max": 2
     }

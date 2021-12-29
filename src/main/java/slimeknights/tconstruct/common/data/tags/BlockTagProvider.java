@@ -25,6 +25,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+@SuppressWarnings("unchecked")
 public class BlockTagProvider extends BlockTagsProvider {
 
   public BlockTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
@@ -41,8 +42,9 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   private void addCommon() {
+    tag(TinkerTags.Blocks.BLOCKS_COPPER).add(Blocks.COPPER_BLOCK, Blocks.CUT_COPPER);
+    tag(Tags.Blocks.STORAGE_BLOCKS).addTag(TinkerTags.Blocks.BLOCKS_COPPER);
     // ores
-    addMetalTags(TinkerMaterials.copper, false);
     addMetalTags(TinkerMaterials.cobalt, true);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel, false);
@@ -126,10 +128,8 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void addWorld() {
     // ores
     this.tag(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
-    this.tag(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
-    this.tag(Tags.Blocks.ORES)
-        .addTag(TinkerTags.Blocks.ORES_COBALT)
-        .addTag(TinkerTags.Blocks.ORES_COPPER);
+    this.tag(TinkerTags.Blocks.ORES_COPPER).addTag(BlockTags.COPPER_ORES);
+    this.tag(Tags.Blocks.ORES).addTags(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_COPPER);
 
     // allow the enderman to hold more blocks
     TagsProvider.TagAppender<Block> endermanHoldable = this.tag(BlockTags.ENDERMAN_HOLDABLE);

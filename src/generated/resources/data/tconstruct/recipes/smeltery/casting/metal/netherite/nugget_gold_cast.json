@@ -7,6 +7,8 @@
     "tag": "forge:molten_netherite",
     "amount": 16
   },
-  "result": "tconstruct:netherite_nugget",
+  "result": {
+    "tag": "forge:nuggets/netherite"
+  },
   "cooling_time": 25
 }

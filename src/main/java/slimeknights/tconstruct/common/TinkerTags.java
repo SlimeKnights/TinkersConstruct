@@ -49,7 +49,11 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_SOIL = tag("slimy_soil");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
+    // temporary tags while forge waits to merge #7891
+    @Deprecated
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
+    @Deprecated
+    public static final IOptionalNamedTag<Block> BLOCKS_COPPER = forgeTag("storage_blocks/copper");
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
@@ -127,18 +131,24 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
 
-    public static final IOptionalNamedTag<Item> ORES_COBALT = forgeTag("ores/cobalt");
-    public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
-
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
     public static final IOptionalNamedTag<Item> SCORCHED_BLOCKS = tag("scorched_blocks");
     public static final IOptionalNamedTag<Item> SMELTERY = tag("smeltery");
     public static final IOptionalNamedTag<Item> FOUNDRY = tag("foundry");
 
+    public static final IOptionalNamedTag<Item> ORES_COBALT = forgeTag("ores/cobalt");
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE_SCRAP = forgeTag("nuggets/netherite_scrap");
+    public static final IOptionalNamedTag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
+    // temporary tags while forge waits to merge #7891
+    @Deprecated
+    public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
+    @Deprecated
+    public static final IOptionalNamedTag<Item> BLOCKS_COPPER = forgeTag("storage_blocks/copper");
+    @Deprecated
+    public static final IOptionalNamedTag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
 
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");
     public static final IOptionalNamedTag<Item> GOLD_CASTS = tag("casts/gold");

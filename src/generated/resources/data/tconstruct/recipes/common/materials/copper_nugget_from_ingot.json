@@ -3,7 +3,7 @@
   "group": "tconstruct:copper_nugget",
   "ingredients": [
     {
-      "item": "tconstruct:copper_ingot"
+      "item": "minecraft:copper_ingot"
     }
   ],
   "result": {

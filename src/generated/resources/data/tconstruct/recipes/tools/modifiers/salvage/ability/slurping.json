@@ -18,7 +18,7 @@
       "chance": 0.5
     },
     {
-      "item": "tconstruct:copper_ingot",
+      "item": "minecraft:copper_ingot",
       "min": 1,
       "max": 2
     }

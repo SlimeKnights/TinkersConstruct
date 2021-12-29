@@ -96,10 +96,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
   private void addCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     ShapedRecipeBuilder.shaped(TinkerSmeltery.copperCan, 3)
-                       .define('c', TinkerMaterials.copper.getIngotTag())
+                       .define('c', TinkerTags.Items.INGOTS_COPPER)
                        .pattern("c c")
                        .pattern(" c ")
-                       .unlockedBy("has_item", has(TinkerMaterials.copper.getIngotTag()))
+                       .unlockedBy("has_item", has(TinkerTags.Items.INGOTS_COPPER))
                        .save(consumer, prefix(TinkerSmeltery.copperCan, "smeltery/"));
 
     // sand casts
@@ -299,7 +299,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // peripherals
     ShapedRecipeBuilder.shaped(TinkerSmeltery.searedDrain)
                        .define('#', TinkerSmeltery.searedBrick)
-                       .define('C', TinkerMaterials.copper.getIngotTag())
+                       .define('C', TinkerTags.Items.INGOTS_COPPER)
                        .pattern("# #")
                        .pattern("C C")
                        .pattern("# #")
@@ -307,7 +307,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, modResource(folder + "drain"));
     ShapedRecipeBuilder.shaped(TinkerSmeltery.searedChute)
                        .define('#', TinkerSmeltery.searedBrick)
-                       .define('C', TinkerMaterials.copper.getIngotTag())
+                       .define('C', TinkerTags.Items.INGOTS_COPPER)
                        .pattern("#C#")
                        .pattern("   ")
                        .pattern("#C#")
@@ -869,16 +869,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .build(consumer, modResource(folder + "obsidian/pane"));
     // Molten objects with Bucket, Block, Ingot, and Nugget forms with standard values
     String metalFolder = folder + "metal/";
-    this.metalCasting(consumer, TinkerFluids.moltenIron,      true, Items.IRON_BLOCK,       Items.IRON_INGOT,      Items.IRON_NUGGET,               metalFolder, "iron");
-    this.metalCasting(consumer, TinkerFluids.moltenGold,      true, Items.GOLD_BLOCK,       Items.GOLD_INGOT,      Items.GOLD_NUGGET,               metalFolder, "gold");
-    this.metalCasting(consumer, TinkerFluids.moltenNetherite, true, Blocks.NETHERITE_BLOCK, Items.NETHERITE_INGOT, TinkerMaterials.netheriteNugget, metalFolder, "netherite");
+    this.metalCasting(consumer, TinkerFluids.moltenIron,      true, Items.IRON_BLOCK,       Items.IRON_INGOT,      Items.IRON_NUGGET, metalFolder, "iron");
+    this.metalCasting(consumer, TinkerFluids.moltenGold,      true, Items.GOLD_BLOCK,       Items.GOLD_INGOT,      Items.GOLD_NUGGET, metalFolder, "gold");
+    this.metalCasting(consumer, TinkerFluids.moltenCopper,    true, Items.COPPER_BLOCK,     Items.COPPER_INGOT,    null,              metalFolder, "copper");
+    this.metalCasting(consumer, TinkerFluids.moltenNetherite, true, Blocks.NETHERITE_BLOCK, Items.NETHERITE_INGOT, null,              metalFolder, "netherite");
     this.ingotCasting(consumer, TinkerFluids.moltenDebris, false, Items.NETHERITE_SCRAP, metalFolder + "netherite/scrap");
-    this.tagCasting(consumer, TinkerFluids.moltenDebris, false, FluidValues.NUGGET, TinkerSmeltery.nuggetCast,
-                    TinkerTags.Items.NUGGETS_NETHERITE_SCRAP.getName().getPath(), metalFolder + "netherite/debris_nugget", false);
+    this.tagCasting(consumer, TinkerFluids.moltenCopper,    true,  FluidValues.NUGGET, TinkerSmeltery.nuggetCast, TinkerTags.Items.NUGGETS_COPPER.getName().getPath(),          metalFolder + "copper/nugget",           false);
+    this.tagCasting(consumer, TinkerFluids.moltenNetherite, true, FluidValues.NUGGET, TinkerSmeltery.nuggetCast, TinkerTags.Items.NUGGETS_NETHERITE.getName().getPath(),       metalFolder + "netherite/nugget",        false);
+    this.tagCasting(consumer, TinkerFluids.moltenDebris,    false, FluidValues.NUGGET, TinkerSmeltery.nuggetCast, TinkerTags.Items.NUGGETS_NETHERITE_SCRAP.getName().getPath(), metalFolder + "netherite/debris_nugget", false);
 
     // anything common uses tag output, if its unique to us (slime metals mostly), use direct output
     // ores
-    this.metalTagCasting(consumer, TinkerFluids.moltenCopper, "copper", metalFolder, true);
     this.metalTagCasting(consumer, TinkerFluids.moltenCobalt, "cobalt", metalFolder, true);
     // tier 3 alloys
     this.metalTagCasting(consumer, TinkerFluids.moltenTinkersBronze, "silicon_bronze", metalFolder, true);

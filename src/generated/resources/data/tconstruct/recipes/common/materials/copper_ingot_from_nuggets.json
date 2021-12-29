@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "tconstruct:copper_ingot",
+  "group": "minecraft:copper_ingot",
   "pattern": [
     "###",
     "#*#",
@@ -15,6 +15,6 @@
     }
   },
   "result": {
-    "item": "tconstruct:copper_ingot"
+    "item": "minecraft:copper_ingot"
   }
 }

@@ -11,7 +11,7 @@
   "max_level": 1,
   "salvage": [
     {
-      "tag": "forge:ingots/copper",
+      "item": "minecraft:copper_ingot",
       "min": 2,
       "max": 2
     },

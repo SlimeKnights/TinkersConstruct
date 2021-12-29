@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:copper_block"
+    "minecraft:copper_block",
+    "minecraft:cut_copper"
   ]
 }

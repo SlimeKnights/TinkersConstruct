@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -187,7 +188,6 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     String folder = "common/materials/";
 
     // ores
-    metalCrafting(consumer, TinkerMaterials.copper, folder);
     metalCrafting(consumer, TinkerMaterials.cobalt, folder);
     // tier 3
     metalCrafting(consumer, TinkerMaterials.slimesteel, folder);
@@ -199,7 +199,8 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     metalCrafting(consumer, TinkerMaterials.manyullyn, folder);
     metalCrafting(consumer, TinkerMaterials.hepatizon, folder);
     //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
-    packingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
+    packingRecipe(consumer, "ingot", Items.COPPER_INGOT,    "nugget", TinkerMaterials.copperNugget,    TinkerTags.Items.NUGGETS_COPPER,    folder);
+    packingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, TinkerTags.Items.NUGGETS_NETHERITE, folder);
     // tier 5
     //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
@@ -208,12 +209,5 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                               .unlockedBy("has_item", has(TinkerWorld.cobaltOre))
                               .save(consumer, wrap(cobaltIngot, folder, "_smelting"));
-    Item copperIngot = TinkerMaterials.copper.getIngot();
-    SimpleCookingRecipeBuilder.smelting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
-                              .unlockedBy("has_item", has(TinkerWorld.copperOre))
-                              .save(consumer, wrap(copperIngot, folder, "_smelting"));
-    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
-                              .unlockedBy("has_item", has(TinkerWorld.copperOre))
-                              .save(consumer, wrap(copperIngot, folder, "_blasting"));
   }
 }

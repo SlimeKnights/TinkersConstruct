@@ -22,7 +22,6 @@ import slimeknights.tconstruct.shared.block.SlimesteelBlock;
 @SuppressWarnings("unused")
 public final class TinkerMaterials extends TinkerModule {
   // ores
-  public static final MetalItemObject copper = BLOCKS.registerMetal("copper", metalBuilder(MaterialColor.COLOR_ORANGE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject cobalt = BLOCKS.registerMetal("cobalt", metalBuilder(MaterialColor.COLOR_BLUE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   // tier 3
   public static final MetalItemObject slimesteel    = BLOCKS.registerMetal("slimesteel", () -> new SlimesteelBlock(metalBuilder(MaterialColor.WARPED_WART_BLOCK).noOcclusion()), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
@@ -34,6 +33,7 @@ public final class TinkerMaterials extends TinkerModule {
   public static final MetalItemObject manyullyn   = BLOCKS.registerMetal("manyullyn", metalBuilder(MaterialColor.COLOR_PURPLE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject hepatizon   = BLOCKS.registerMetal("hepatizon", metalBuilder(MaterialColor.TERRACOTTA_BLUE), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", metalBuilder(MaterialColor.COLOR_BROWN).noOcclusion(), HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
+  public static final ItemObject<Item> copperNugget = ITEMS.register("copper_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> netheriteNugget = ITEMS.register("netherite_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> debrisNugget = ITEMS.register("debris_nugget", TOOLTIP_ITEM);
   // tier 5

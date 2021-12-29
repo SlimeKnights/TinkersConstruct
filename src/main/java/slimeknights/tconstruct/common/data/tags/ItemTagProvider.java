@@ -86,11 +86,17 @@ public class ItemTagProvider extends ItemTagsProvider {
     }
     TinkerCommons.slimeball.forEach((type, ball) -> this.tag(type.getSlimeballTag()).add(ball));
 
-    this.tag(Tags.Items.INGOTS).add(TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get());
+    this.tag(Tags.Items.INGOTS).add(TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get()).addTags(TinkerTags.Items.INGOTS_COPPER, TinkerTags.Items.INGOTS_NETHERITE_SCRAP);
+    this.tag(Tags.Items.NUGGETS).addTags(TinkerTags.Items.NUGGETS_COPPER, TinkerTags.Items.NUGGETS_NETHERITE, TinkerTags.Items.NUGGETS_NETHERITE_SCRAP);
     this.tag(TinkerTags.Items.WITHER_BONES).add(TinkerMaterials.necroticBone.get());
 
+    this.tag(TinkerTags.Items.NUGGETS_COPPER).add(TinkerMaterials.copperNugget.get());
+    this.tag(TinkerTags.Items.INGOTS_COPPER).add(Items.COPPER_INGOT);
+    this.tag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
+    this.tag(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
+    this.tag(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
+
     // ores
-    addMetalTags(TinkerMaterials.copper);
     addMetalTags(TinkerMaterials.cobalt);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel);
@@ -104,11 +110,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.soulsteel);
     // tier 5
     addMetalTags(TinkerMaterials.knightslime);
+    this.copy(TinkerTags.Blocks.BLOCKS_COPPER, TinkerTags.Items.BLOCKS_COPPER);
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
-
-    this.tag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
-    this.tag(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
-    this.tag(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
 
     // glass
     copy(Tags.Blocks.GLASS_COLORLESS, Tags.Items.GLASS_COLORLESS);

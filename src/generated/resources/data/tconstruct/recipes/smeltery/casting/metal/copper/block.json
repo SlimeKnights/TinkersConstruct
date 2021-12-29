@@ -4,8 +4,6 @@
     "tag": "forge:molten_copper",
     "amount": 1296
   },
-  "result": {
-    "tag": "forge:storage_blocks/copper"
-  },
+  "result": "minecraft:copper_block",
   "cooling_time": 150
 }

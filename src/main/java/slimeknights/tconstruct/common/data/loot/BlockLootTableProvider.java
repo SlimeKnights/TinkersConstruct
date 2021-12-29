@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.common.data.loot;
 
-import com.google.common.collect.Maps;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.loot.BlockLoot;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -42,15 +40,11 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BlockLootTableProvider extends BlockLoot {
-
-  private final Map<ResourceLocation, LootTable.Builder> loot_tables = Maps.newHashMap();
-
   @Nonnull
   @Override
   protected Iterable<Block> getKnownBlocks() {
@@ -78,7 +72,6 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(TinkerModifiers.silkyJewelBlock.get());
 
     // ores
-    this.dropSelf(TinkerMaterials.copper.get());
     this.dropSelf(TinkerMaterials.cobalt.get());
     // tier 3
     this.dropSelf(TinkerMaterials.slimesteel.get());
@@ -135,7 +128,6 @@ public class BlockLootTableProvider extends BlockLoot {
 
   private void addWorld() {
     this.dropSelf(TinkerWorld.cobaltOre.get());
-    this.dropSelf(TinkerWorld.copperOre.get());
     TinkerWorld.heads.forEach(this::dropSelf);
 
     // slime blocks
