@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:obsidian_pane",
+    "tconstruct:nahuatl",
+    "tconstruct:nahuatl_slab",
+    "tconstruct:nahuatl_stairs",
+    "tconstruct:nahuatl_fence",
+    "tconstruct:queens_slime_block",
+    "tconstruct:manyullyn_block",
+    "tconstruct:hepatizon_block",
+    "tconstruct:soulsteel_block",
+    "tconstruct:silky_jewel_block",
+    "tconstruct:scorched_drain",
+    "tconstruct:scorched_duct",
+    "tconstruct:foundry_controller"
+  ]
+}

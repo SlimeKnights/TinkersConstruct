@@ -5,10 +5,12 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -22,8 +24,20 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import java.util.function.Supplier;
+
+import static net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE;
+import static net.minecraft.tags.BlockTags.MINEABLE_WITH_HOE;
+import static net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE;
+import static net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL;
+import static net.minecraft.tags.BlockTags.NEEDS_DIAMOND_TOOL;
+import static net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL;
+import static net.minecraft.tags.BlockTags.NEEDS_STONE_TOOL;
+import static net.minecraftforge.common.Tags.Blocks.NEEDS_NETHERITE_TOOL;
 
 @SuppressWarnings("unchecked")
 public class BlockTagProvider extends BlockTagsProvider {
@@ -39,6 +53,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.addWorld();
     this.addSmeltery();
     this.addFluids();
+    this.addHarvest();
   }
 
   private void addCommon() {
@@ -283,9 +298,89 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(BlockTags.STRIDER_WARM_BLOCKS).add(TinkerFluids.magma.getBlock(), TinkerFluids.blazingBlood.getBlock());
   }
 
+  private void addHarvest() {
+    // commons
+    tagBlocks(MINEABLE_WITH_SHOVEL, TinkerCommons.mudBricks);
+    tagBlocks(MINEABLE_WITH_AXE, TinkerCommons.lavawood, TinkerCommons.blazewood);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerCommons.obsidianPane);
+
+    // materials
+    tagBlocks(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.nahuatl);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.tinkersBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel, TinkerModifiers.silkyJewelBlock);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_NETHERITE_TOOL, TinkerMaterials.knightslime);
+
+    // slime
+    tagBlocks(MINEABLE_WITH_SHOVEL, TinkerWorld.congealedSlime, TinkerWorld.slimeDirt, TinkerWorld.vanillaSlimeGrass, TinkerWorld.earthSlimeGrass, TinkerWorld.skySlimeGrass, TinkerWorld.enderSlimeGrass, TinkerWorld.ichorSlimeGrass);
+    tagBlocks(MINEABLE_WITH_HOE, TinkerWorld.slimeLeaves);
+    tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom);
+    tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.skySlimeVine, TinkerWorld.enderSlimeVine);
+
+    // smeltery
+    tagBlocks(MINEABLE_WITH_SHOVEL, TinkerSmeltery.grout, TinkerSmeltery.netherGrout);
+    // seared
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedStone, TinkerSmeltery.searedPaver, TinkerSmeltery.searedCobble, TinkerSmeltery.searedBricks);
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedCrackedBricks, TinkerSmeltery.searedFancyBricks, TinkerSmeltery.searedLadder, TinkerSmeltery.searedGlass, TinkerSmeltery.searedGlassPane);
+    // scorched
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.scorchedBricks, TinkerSmeltery.scorchedRoad);
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.scorchedStone, TinkerSmeltery.polishedScorchedStone, TinkerSmeltery.chiseledScorchedBricks, TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedGlass, TinkerSmeltery.scorchedGlassPane);
+    // fluids
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedLantern,   TinkerSmeltery.searedFaucet,   TinkerSmeltery.searedChannel,   TinkerSmeltery.searedBasin,   TinkerSmeltery.searedTable);
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
+    // tough seared + scorched
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerSmeltery.scorchedDrain, TinkerSmeltery.scorchedDuct, TinkerSmeltery.foundryController);
+
+    // tables
+    tagBlocks(MINEABLE_WITH_AXE, TinkerTables.craftingStation, TinkerTables.tinkerStation, TinkerTables.partBuilder, TinkerTables.tinkersChest, TinkerTables.partChest);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerTables.castChest);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerTables.tinkersAnvil, TinkerTables.scorchedAnvil);
+  }
+
   @Override
   public String getName() {
     return "Tinkers Construct Block Tags";
+  }
+
+  /** Applies a tag to a set of suppliers */
+  @SafeVarargs
+  private void tagBlocks(Tag.Named<Block> tag, Supplier<? extends Block>... blocks) {
+    TagAppender<Block> appender = this.tag(tag);
+    for (Supplier<? extends Block> block : blocks) {
+      appender.add(block.get());
+    }
+  }
+
+  /** Applies a set of tags to a block */
+  private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, Supplier<? extends Block>... blocks) {
+    tagBlocks(tag1, blocks);
+    tagBlocks(tag2, blocks);
+  }
+
+  /** Applies a tag to a set of blocks */
+  @SafeVarargs
+  private void tagBlocks(Tag.Named<Block> tag, EnumObject<?,? extends Block>... blocks) {
+    TagAppender<Block> appender = this.tag(tag);
+    for (EnumObject<?,? extends Block> block : blocks) {
+      block.forEach(b -> appender.add(b));
+    }
+  }
+
+  /** Applies a set of tags to a block */
+  private void tagBlocks(Tag.Named<Block> tag, BuildingBlockObject... blocks) {
+    TagAppender<Block> appender = this.tag(tag);
+    for (BuildingBlockObject block : blocks) {
+      block.values().forEach(appender::add);
+    }
+  }
+
+  /** Applies a set of tags to a block */
+  private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, BuildingBlockObject... blocks) {
+    tagBlocks(tag1, blocks);
+    tagBlocks(tag2, blocks);
   }
 
   /**
