@@ -12,7 +12,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:molten_iron",
-      "amount": 96
+      "amount": 288
     }
   ]
 }

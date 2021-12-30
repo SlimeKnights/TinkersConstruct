@@ -21,7 +21,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:molten_gold",
-      "amount": 48
+      "amount": 144
     }
   ]
 }

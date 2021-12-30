@@ -43,7 +43,7 @@ public class Config {
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
-    public final ConfigValue<Integer> foundryNuggetsPerOre;
+    public final ConfigValue<Integer> foundryNuggetsPerOre, foundryByproductNuggetsPerOre;
 
     public final BooleanValue generateCobalt;
     public final ConfigValue<Integer> veinCountCobalt;
@@ -157,6 +157,11 @@ public class Config {
         .comment("Number of nuggets produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.foundryNuggetsPerOre")
         .defineInRange("foundryNuggetsPerOre", 9, 1, 45);
+      this.foundryByproductNuggetsPerOre = builder
+        .comment("Number of nuggets of byproduct produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot",
+                 "Note some byproducts (such as gold from copper) have a reduced value")
+        .worldRestart()
+        .defineInRange("foundryByproductNuggetsPerOre", 3, 1, 45);
 
       builder.comment("Entity head drops when killed by a charged creeper").push("heads");
       headDrops = new EnumMap<>(TinkerHeadType.class);

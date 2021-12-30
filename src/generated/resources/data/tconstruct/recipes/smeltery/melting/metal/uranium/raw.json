@@ -34,7 +34,7 @@
         "byproducts": [
           {
             "fluid": "tconstruct:molten_lead",
-            "amount": 48
+            "amount": 144
           }
         ]
       }
@@ -63,7 +63,7 @@
         "byproducts": [
           {
             "fluid": "tconstruct:molten_copper",
-            "amount": 48
+            "amount": 144
           }
         ]
       }

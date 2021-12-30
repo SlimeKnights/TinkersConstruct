@@ -13,6 +13,6 @@ public interface IByproduct {
   /** Gets the fluid of this byproduct */
   Fluid getFluid();
 
-  /** Gets the number of nuggets produced in this byproduct */
-  int getNuggets();
+  /** Gets the amount of byproduct produced before scaling */
+  int getAmount();
 }

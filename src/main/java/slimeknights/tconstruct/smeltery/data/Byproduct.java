@@ -17,14 +17,14 @@ public enum Byproduct implements IByproduct {
   COPPER    (true, TinkerFluids.moltenCopper),
   IRON      (true, TinkerFluids.moltenIron),
   GOLD      (true, TinkerFluids.moltenGold),
-  SMALL_GOLD("gold", true, TinkerFluids.moltenGold, FluidValues.NUGGET),
+  SMALL_GOLD("gold", true, TinkerFluids.moltenGold, FluidValues.NUGGET * 3),
   COBALT    (true, TinkerFluids.moltenCobalt),
   // compat
   TIN     (false, TinkerFluids.moltenTin),
   SILVER  (false, TinkerFluids.moltenSilver),
   NICKEL  (false, TinkerFluids.moltenNickel),
   LEAD    (false, TinkerFluids.moltenLead),
-  PLATINUM("platinum", false, TinkerFluids.moltenPlatinum, FluidValues.NUGGET);
+  PLATINUM("platinum", false, TinkerFluids.moltenPlatinum, FluidValues.NUGGET * 3);
 
   @Getter
   private final String name;
@@ -32,13 +32,13 @@ public enum Byproduct implements IByproduct {
   private final boolean alwaysPresent;
   private final Supplier<? extends Fluid> fluidSupplier;
   @Getter
-  private final int nuggets;
+  private final int amount;
 
   Byproduct(boolean alwaysPresent, Supplier<? extends Fluid> fluidSupplier) {
     this.name = name().toLowerCase(Locale.ROOT);
     this.alwaysPresent = alwaysPresent;
     this.fluidSupplier = fluidSupplier;
-    this.nuggets = FluidValues.NUGGET * 3;
+    this.amount = FluidValues.INGOT;
   }
 
   @Override

@@ -34,7 +34,7 @@
         "byproducts": [
           {
             "fluid": "tconstruct:molten_platinum",
-            "amount": 144
+            "amount": 432
           }
         ]
       }
@@ -63,7 +63,7 @@
         "byproducts": [
           {
             "fluid": "tconstruct:molten_gold",
-            "amount": 432
+            "amount": 1296
           }
         ]
       }

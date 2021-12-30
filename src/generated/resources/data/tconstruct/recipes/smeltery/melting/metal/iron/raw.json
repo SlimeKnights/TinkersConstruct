@@ -25,7 +25,7 @@
         "byproducts": [
           {
             "fluid": "tconstruct:molten_nickel",
-            "amount": 48
+            "amount": 144
           }
         ]
       }
@@ -54,7 +54,7 @@
         "byproducts": [
           {
             "fluid": "tconstruct:molten_copper",
-            "amount": 48
+            "amount": 144
           }
         ]
       }

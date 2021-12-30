@@ -21,7 +21,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:molten_copper",
-      "amount": 96
+      "amount": 288
     }
   ]
 }

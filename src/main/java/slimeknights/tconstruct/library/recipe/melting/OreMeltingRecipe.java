@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.List;
@@ -13,7 +14,10 @@ import java.util.List;
  */
 public class OreMeltingRecipe extends MeltingRecipe {
   public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts) {
-    super(id, group, input, output, temperature, time, byproducts);
+    // multiply byproducts by the config amount, this runs on recipe parse so config is loaded by then
+    super(id, group, input, output, temperature, time, byproducts.stream()
+                                                                 .map(fluid -> new FluidStack(fluid, fluid.getAmount() * Config.COMMON.foundryNuggetsPerOre.get() / IMeltingContainer.BASE_NUGGET_RATE))
+                                                                 .toList());
   }
 
   /**

@@ -67,7 +67,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       // if first option is always present, only need that one
     } else if (byproducts[0].isAlwaysPresent()) {
       supplier.get()
-              .addByproduct(new FluidStack(byproducts[0].getFluid(), (int)(byproducts[0].getNuggets() * byproductScale)))
+              .addByproduct(new FluidStack(byproducts[0].getFluid(), (int)(byproducts[0].getAmount() * byproductScale)))
               .save(wrapped, location);
     } else {
       // multiple options, will need a conditonal recipe
@@ -75,7 +75,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       boolean alwaysPresent = false;
       for (IByproduct byproduct : byproducts) {
         builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
-        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), (int)(byproduct.getNuggets() * byproductScale)))::save);
+        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), (int)(byproduct.getAmount() * byproductScale)))::save);
         // found an always present byproduct? we are done
         alwaysPresent = byproduct.isAlwaysPresent();
         if (alwaysPresent) {
