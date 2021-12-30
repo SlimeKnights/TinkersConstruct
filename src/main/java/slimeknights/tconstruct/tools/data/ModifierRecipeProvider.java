@@ -24,8 +24,10 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.mantle.recipe.data.FluidNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameOutput;
+import slimeknights.mantle.recipe.helper.FluidTagEmptyCondition;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
@@ -36,8 +38,6 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
-import slimeknights.mantle.recipe.data.FluidNameIngredient;
-import slimeknights.mantle.recipe.helper.FluidTagEmptyCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -1247,7 +1247,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(RandomItem.chance(ItemNameOutput.fromName(probe), 0.9f))
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
-                         .buildSalvage(consumer, prefix(TinkerModifiers.theOneProbe, compatSalvage))
+                         .buildSalvage(topConsumer, prefix(TinkerModifiers.theOneProbe, compatSalvage))
                          .save(topConsumer, prefix(TinkerModifiers.theOneProbe, compatFolder));
 
   }
