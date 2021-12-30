@@ -170,7 +170,6 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   public void init() {
-    super.init();
 
     assert this.minecraft != null;
     // TODO: pretty sure we don't need this unless we add back the renaming slot
@@ -195,6 +194,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       module.topPos += 4;
     }
 
+    super.init();
     this.updateLayout();
   }
 
@@ -357,6 +357,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     if (pattern != null) {
       // draw pattern sprite
       RenderUtils.setup(InventoryMenu.BLOCK_ATLAS);
+      RenderSystem.applyModelViewMatrix();
       renderPattern(matrices, pattern, x, y);
       return;
     }
@@ -388,26 +389,19 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // draw the item background
     final float scale = 3.7f;
-    final float xOff = 10f;
+    final float xOff = 12.5f;
     final float yOff = 22f;
 
     // render the background icon
-    matrices.pushPose();
-    matrices.translate(xOff, yOff, 0.0F);
-    //RenderSystem.translatef(xOff, yOff, 0.0F);
-    matrices.scale(scale, scale, 1.0f);
-    //RenderSystem.scalef(scale, scale, 1.0f);
-    int logoX = (int) (this.cornerX / scale);
-    int logoY = (int) (this.cornerY / scale);
-    renderIcon(matrices, currentLayout.getIcon(), logoX, logoY);
-    matrices.popPose();
-
-
-//    RenderSystem.scalef(1f / scale, 1f / scale, 1.0f);
-//    RenderSystem.translatef(-xOff, -yOff, 0.0f);
+    PoseStack renderPose = RenderSystem.getModelViewStack();
+    renderPose.pushPose();
+    renderPose.translate(xOff, yOff, 0.0F);
+    renderPose.scale(scale, scale, 1.0f);
+    renderIcon(matrices, currentLayout.getIcon(), (int) (this.cornerX / scale), (int) (this.cornerY / scale));
+    renderPose.popPose();
+    RenderSystem.applyModelViewMatrix();
 
     // rebind gui texture since itemstack drawing sets it to something else
-
     RenderUtils.setup(TINKER_STATION_TEXTURE, 1.0f, 1.0f, 1.0f, 0.82f);
     RenderSystem.enableBlend();
     //RenderSystem.enableAlphaTest();
@@ -472,7 +466,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       if (!slot.hasItem()) {
         Pattern icon = currentLayout.getSlot(i).getIcon();
         if (icon != null) {
-          renderPattern(matrices, icon, x + this.cornerX + slot.x, y + this.cornerY + slot.y);
+          renderPattern(matrices, icon, this.cornerX + slot.x, this.cornerY + slot.y);
         }
       }
     }
