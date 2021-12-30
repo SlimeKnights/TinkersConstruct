@@ -4,7 +4,7 @@
     {
       "value": {
         "tag": "forge:potion",
-        "type": "tconstruct:fluid_tag_empty"
+        "type": "mantle:fluid_tag_empty"
       },
       "type": "forge:not"
     }
