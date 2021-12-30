@@ -6,12 +6,11 @@ import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 /**
  * Base interface for all casting recipes
  */
-public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
+public interface ICastingRecipe extends ICommonRecipe<ICastingContainer> {
   @Override
   default ItemStack getToastSymbol() {
     return new ItemStack(getType() == RecipeTypes.CASTING_TABLE ? TinkerSmeltery.searedTable : TinkerSmeltery.searedBasin);
@@ -22,7 +21,7 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
    * @param inv  Inventory instance
    * @return  Fluid amount when using the fluid in the inventory
    */
-  int getFluidAmount(ICastingInventory inv);
+  int getFluidAmount(ICastingContainer inv);
 
   /**
    * @return true if the cast item is consumed on crafting
@@ -38,7 +37,7 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
    * @param inv ICastingInventory for casting recipe
    * @return  cooling time for the output.
    */
-  int getCoolingTime(ICastingInventory inv);
+  int getCoolingTime(ICastingContainer inv);
 
   /**
    * Calculates the cooling time for a recipe based on the amount and temperature

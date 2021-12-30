@@ -22,14 +22,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.tconstruct.tables.tileentity.chest.ChestTileEntity;
+import slimeknights.tconstruct.tables.block.entity.chest.AbstractChestBlockEntity;
 
 import javax.annotation.Nullable;
 
 /**
  * Shared block logic for all chest types
  */
-public class ChestBlock extends TinkerTableBlock {
+public class ChestBlock extends TabbedTableBlock {
   private static final VoxelShape SHAPE = Shapes.or(
     Block.box(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
     Block.box(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
@@ -62,7 +62,7 @@ public class ChestBlock extends TinkerTableBlock {
     if (tag != null && tag.contains("TinkerData", Tag.TAG_COMPOUND)) {
       CompoundTag tinkerData = tag.getCompound("TinkerData");
       BlockEntity te = worldIn.getBlockEntity(pos);
-      if (te instanceof ChestTileEntity chest) {
+      if (te instanceof AbstractChestBlockEntity chest) {
         chest.readInventory(tinkerData);
       }
     }
@@ -83,7 +83,7 @@ public class ChestBlock extends TinkerTableBlock {
     Inventory playerInventory = player.getInventory();
     ItemStack heldItem = playerInventory.getSelected();
 
-    if (!heldItem.isEmpty() && te instanceof ChestTileEntity chest && chest.canInsert(player, heldItem)) {
+    if (!heldItem.isEmpty() && te instanceof AbstractChestBlockEntity chest && chest.canInsert(player, heldItem)) {
       IItemHandlerModifiable itemHandler = chest.getItemHandler();
       ItemStack rest = ItemHandlerHelper.insertItem(itemHandler, heldItem, false);
       if (rest.isEmpty() || rest.getCount() < heldItem.getCount()) {

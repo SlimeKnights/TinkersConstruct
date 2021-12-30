@@ -13,8 +13,8 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -47,7 +47,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @param inv  Alloy tank
    * @return  Bitset
    */
-  private static BitSet makeBitset(ITinkerStationInventory inv) {
+  private static BitSet makeBitset(ITinkerStationContainer inv) {
     int inputs = inv.getInputCount();
     BitSet used = new BitSet(inputs);
     // mark empty as used to save a bit of effort
@@ -66,7 +66,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @param used        Bitset for already used matches, will be modified
    * @return  Index of found match, or -1 if match not found
    */
-  private static int findMatch(SizedIngredient ingredient, ITinkerStationInventory inv, BitSet used) {
+  private static int findMatch(SizedIngredient ingredient, ITinkerStationContainer inv, BitSet used) {
     ItemStack stack;
     for (int i = 0; i < inv.getInputCount(); i++) {
       // must not have used that fluid yet
@@ -82,7 +82,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     // ensure this modifier can be applied
     if (!this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
@@ -113,7 +113,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @return Validated result
    */
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
 
     // common errors
@@ -144,11 +144,11 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #assemble(ITinkerStationInventory)}. Generally should not be modified
+   * @param result  Result from {@link #assemble(ITinkerStationContainer)}. Generally should not be modified
    * @param inv     Inventory instance to modify inputs
    */
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     // bit corresponding to items that are already found
     BitSet used = makeBitset(inv);
     // just shrink each input

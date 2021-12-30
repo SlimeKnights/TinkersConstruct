@@ -17,15 +17,15 @@ import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.
 import slimeknights.tconstruct.library.tools.layout.Patterns;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.inventory.ToolContainer;
+import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
 import java.util.function.Function;
 
-import static slimeknights.tconstruct.tools.inventory.ToolContainer.REPEAT_BACKGROUND_START;
-import static slimeknights.tconstruct.tools.inventory.ToolContainer.SLOT_SIZE;
+import static slimeknights.tconstruct.tools.menu.ToolContainerMenu.REPEAT_BACKGROUND_START;
+import static slimeknights.tconstruct.tools.menu.ToolContainerMenu.SLOT_SIZE;
 
 /** Screen for a tool inventory */
-public class ToolContainerScreen extends AbstractContainerScreen<ToolContainer> {
+public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMenu> {
   /** The ResourceLocation containing the chest GUI texture. */
   private static final ResourceLocation TEXTURE = TConstruct.getResource("textures/gui/tool.png");
 
@@ -48,7 +48,7 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainer> 
   private final int slotsInLastRow;
   /** Tool instance being rendered */
   private final IModifierToolStack tool;
-  public ToolContainerScreen(ToolContainer menu, Inventory inv, Component title) {
+  public ToolContainerScreen(ToolContainerMenu menu, Inventory inv, Component title) {
     super(menu, inv, title);
     int slots = menu.getItemHandler().getSlots();
     if (menu.isShowOffhand()) {

@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 
 public class UpdateStationScreenPacket implements IThreadsafePacket {
   public static final UpdateStationScreenPacket INSTANCE = new UpdateStationScreenPacket();
@@ -25,8 +25,8 @@ public class UpdateStationScreenPacket implements IThreadsafePacket {
     private static void handle() {
       Screen screen = Minecraft.getInstance().screen;
       if (screen != null) {
-        if (screen instanceof BaseStationScreen) {
-          ((BaseStationScreen<?,?>) screen).updateDisplay();
+        if (screen instanceof BaseTabbedScreen) {
+          ((BaseTabbedScreen<?,?>) screen).updateDisplay();
         }
       }
     }

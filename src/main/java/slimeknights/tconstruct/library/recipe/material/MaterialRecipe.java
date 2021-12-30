@@ -10,8 +10,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 /**
  * Recipe to get the material from an ingredient
  */
-public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory> {
+public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer> {
   /** Vanilla requires 4 ingots for full repair, we drop it down to 3 to mesh better with nuggets and blocks and to fit small head costs better */
   public static final float INGOTS_PER_REPAIR = 3f;
 
@@ -93,7 +93,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   /* Material methods */
 
   @Override
-  public boolean matches(ISingleItemInventory inv, Level worldIn) {
+  public boolean matches(ISingleStackContainer inv, Level worldIn) {
     return getMaterial() != IMaterial.UNKNOWN && this.ingredient.test(inv.getStack());
   }
 
@@ -138,7 +138,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * @param inv  Inventory reference
    * @return  Number of material present as a float
    */
-  public float getMaterialValue(ISingleItemInventory inv) {
+  public float getMaterialValue(ISingleStackContainer inv) {
     return inv.getStack().getCount() * this.value / (float)this.needed;
   }
 

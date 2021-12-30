@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.recipe.SingleItemInventory;
+import slimeknights.tconstruct.library.recipe.SingleItemContainer;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
@@ -27,7 +27,7 @@ public class AutosmeltModifier extends SingleUseModifier {
     .maximumSize(64)
     .build();
   /** Inventory instance to use for recipe search */
-  private final SingleItemInventory inventory = new SingleItemInventory();
+  private final SingleItemContainer inventory = new SingleItemContainer();
 
   public AutosmeltModifier() {
     super(0xBA541C);

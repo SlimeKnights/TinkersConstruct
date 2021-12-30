@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 /** Recipe to combine two items on the top of a casting table, changing the first */
 @RequiredArgsConstructor
-public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
+public abstract class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
   @Getter
   private final ResourceLocation id;
   private final Ingredient material;
@@ -34,7 +34,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
   private final ItemOutput recipeOutput;
 
 	@Override
-  public boolean matches(IMoldingInventory inv, Level worldIn) {
+  public boolean matches(IMoldingContainer inv, Level worldIn) {
     return material.test(inv.getMaterial()) && pattern.test(inv.getPattern());
   }
 

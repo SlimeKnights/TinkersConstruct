@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 

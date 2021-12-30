@@ -8,8 +8,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
-import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
-import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 
 import java.util.List;
 

@@ -17,7 +17,7 @@ import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.TabsWidget;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 
 import java.util.List;
 
@@ -31,9 +31,9 @@ public class TinkerTabsScreen extends ModuleScreen {
   public TabsWidget tabs;
   public List<BlockPos> tabData;
 
-  public final BaseStationScreen parent;
+  public final BaseTabbedScreen parent;
 
-  public TinkerTabsScreen(BaseStationScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
+  public TinkerTabsScreen(BaseTabbedScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title, false, false);
 
     this.parent = parent;

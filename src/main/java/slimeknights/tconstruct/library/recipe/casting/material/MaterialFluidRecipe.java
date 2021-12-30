@@ -20,13 +20,13 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 /** Recipe defining casting and composite fluids for a given input */
-public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventory> {
+public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContainer> {
   @Getter
   private final ResourceLocation id;
   private final FluidIngredient fluid;
@@ -54,7 +54,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
   }
 
   /** Checks if the recipe matches the given inventory */
-  public boolean matches(ICastingInventory inv) {
+  public boolean matches(ICastingContainer inv) {
     if (getOutput() == IMaterial.UNKNOWN || !fluid.test(inv.getFluid())) {
       return false;
     }
@@ -108,7 +108,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
   }
 
   @Override
-  public final boolean matches(ICastingInventory inv, Level worldIn) {
+  public final boolean matches(ICastingContainer inv, Level worldIn) {
     return matches(inv);
   }
 

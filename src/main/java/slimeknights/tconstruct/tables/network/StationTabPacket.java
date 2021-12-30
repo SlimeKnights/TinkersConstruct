@@ -13,7 +13,7 @@ import net.minecraftforge.network.NetworkEvent.Context;
 import net.minecraftforge.network.NetworkHooks;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
-import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
+import slimeknights.tconstruct.tables.block.ITabbedBlock;
 
 @RequiredArgsConstructor
 public class StationTabPacket implements IThreadsafePacket {
@@ -43,8 +43,8 @@ public class StationTabPacket implements IThreadsafePacket {
         return;
       }
       BlockState state = world.getBlockState(pos);
-      if (state.getBlock() instanceof ITinkerStationBlock) {
-        ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getCommandSenderWorld(), pos);
+      if (state.getBlock() instanceof ITabbedBlock) {
+        ((ITabbedBlock) state.getBlock()).openGui(sender, sender.getCommandSenderWorld(), pos);
       } else {
         MenuProvider provider = state.getMenuProvider(sender.getCommandSenderWorld(), pos);
         if (provider != null) {

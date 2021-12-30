@@ -13,9 +13,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
-import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -29,7 +29,7 @@ import java.util.List;
  * Recipe to convert an entity into a head or other item for the severing modifier
  */
 @RequiredArgsConstructor
-public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
+public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   @Getter
   private final ResourceLocation id;
   protected final EntityIngredient ingredient;
@@ -94,7 +94,7 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   /** @deprecated use {@link #matches(EntityType)}*/
   @Deprecated
   @Override
-  public boolean matches(IEmptyInventory inv, Level worldIn) {
+  public boolean matches(IEmptyContainer inv, Level worldIn) {
     return false;
   }
 

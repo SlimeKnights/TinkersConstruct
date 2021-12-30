@@ -11,8 +11,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer.IModifierRepairRecipe;
@@ -32,7 +32,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   private final int repairAmount;
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
     if (!TinkerTags.Items.DURABILITY.contains(tinkerable.getItem())) {
       return false;
@@ -45,7 +45,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     int amountPerItem = tool.getModifierLevel(modifier) * repairAmount;
     if (amountPerItem <= 0) {
@@ -74,7 +74,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
 
     // rescale the amount based on modifiers

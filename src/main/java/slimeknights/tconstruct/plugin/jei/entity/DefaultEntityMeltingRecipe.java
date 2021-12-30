@@ -9,7 +9,7 @@ import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
-import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
+import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -48,7 +48,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
-  public boolean partialMatch(IPartBuilderInventory inv) {
+  public boolean partialMatch(IPartBuilderContainer inv) {
     // first, must have a pattern
     if (inv.getPatternStack().getItem() != TinkerTables.pattern.get()) {
       return false;
@@ -63,7 +63,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
-  public boolean matches(IPartBuilderInventory inv, Level worldIn) {
+  public boolean matches(IPartBuilderContainer inv, Level worldIn) {
     MaterialRecipe materialRecipe = inv.getMaterial();
     return materialRecipe != null && materialRecipe.getMaterial() == getMaterial()
            && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);

@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.inventory.ToolContainer;
+import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -354,7 +354,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     if (handler != null) {
       if (player instanceof ServerPlayer serverPlayer) {
         NetworkHooks.openGui(serverPlayer, new SimpleMenuProvider(
-          (id, inventory, p) -> new ToolContainer(id, inventory, stack, (IItemHandlerModifiable)handler, slotType),
+          (id, inventory, p) -> new ToolContainerMenu(id, inventory, stack, (IItemHandlerModifiable)handler, slotType),
           TooltipUtil.getDisplayName(stack, tool, definition)
         ), buf -> buf.writeEnum(slotType));
       }

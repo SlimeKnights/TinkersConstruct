@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -43,12 +43,12 @@ public class CastingBasinBlock extends AbstractCastingBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new CastingTileEntity.Basin(pPos, pState);
+    return new CastingBlockEntity.Basin(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> check) {
-    return CastingTileEntity.getTicker(pLevel, check, TinkerSmeltery.basin.get());
+    return CastingBlockEntity.getTicker(pLevel, check, TinkerSmeltery.basin.get());
   }
 }

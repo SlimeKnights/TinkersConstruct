@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
+import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -24,7 +24,7 @@ public class TinkersChestBlockItem extends BlockItem implements DyeableLeatherIt
   @Override
   public int getColor(ItemStack stack) {
     CompoundTag tag = stack.getTagElement("display");
-    return tag != null && tag.contains("color", Tag.TAG_ANY_NUMERIC) ? tag.getInt("color") : TinkersChestTileEntity.DEFAULT_COLOR;
+    return tag != null && tag.contains("color", Tag.TAG_ANY_NUMERIC) ? tag.getInt("color") : TinkersChestBlockEntity.DEFAULT_COLOR;
   }
 
   @Override
@@ -32,7 +32,7 @@ public class TinkersChestBlockItem extends BlockItem implements DyeableLeatherIt
     boolean result = super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
     if (hasCustomColor(stack)) {
       int color = getColor(stack);
-      BlockEntityHelper.get(TinkersChestTileEntity.class, worldIn, pos).ifPresent(te -> te.setColor(color));
+      BlockEntityHelper.get(TinkersChestBlockEntity.class, worldIn, pos).ifPresent(te -> te.setColor(color));
     }
     return result;
   }

@@ -15,12 +15,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
+import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
+import slimeknights.tconstruct.tables.client.inventory.CraftingStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.PartBuilderScreen;
 import slimeknights.tconstruct.tables.client.inventory.TinkerChestScreen;
-import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
-import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
-import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
-import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
+import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
@@ -50,8 +50,8 @@ public class TableClientEvents extends ClientEventBase {
     event.getBlockColors().register((state, world, pos, index) -> {
       if (world != null && pos != null) {
         BlockEntity te = world.getBlockEntity(pos);
-        if (te instanceof TinkersChestTileEntity) {
-          return ((TinkersChestTileEntity)te).getColor();
+        if (te instanceof TinkersChestBlockEntity) {
+          return ((TinkersChestBlockEntity)te).getColor();
         }
       }
       return -1;

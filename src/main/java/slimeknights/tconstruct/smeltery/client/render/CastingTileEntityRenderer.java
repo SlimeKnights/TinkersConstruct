@@ -13,16 +13,16 @@ import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.CastingModel;
 import slimeknights.tconstruct.smeltery.client.util.CastingItemRenderTypeBuffer;
-import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
+import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.tank.CastingFluidHandler;
 
 import java.util.List;
 
-public class CastingTileEntityRenderer implements BlockEntityRenderer<CastingTileEntity> {
+public class CastingTileEntityRenderer implements BlockEntityRenderer<CastingBlockEntity> {
   public CastingTileEntityRenderer(Context context) {}
 
   @Override
-  public void render(CastingTileEntity casting, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
+  public void render(CastingBlockEntity casting, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = casting.getBlockState();
     CastingModel.Baked model = ModelHelper.getBakedModel(state, CastingModel.Baked.class);
     if (model != null) {

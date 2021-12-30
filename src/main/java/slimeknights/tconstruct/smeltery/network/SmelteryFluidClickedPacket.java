@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
+import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
 /**
  * Packet sent when a fluid is clicked in the smeltery UI

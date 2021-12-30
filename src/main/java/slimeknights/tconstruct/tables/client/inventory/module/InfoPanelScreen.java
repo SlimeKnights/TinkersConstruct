@@ -20,6 +20,7 @@ import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.RenderUtils;
+import slimeknights.tconstruct.tables.client.inventory.widget.BorderWidget;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

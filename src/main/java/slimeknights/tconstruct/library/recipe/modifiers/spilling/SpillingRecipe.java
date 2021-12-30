@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -28,7 +28,7 @@ import java.util.List;
  * Recipe to determine effects for a fluid in the spilling modifier
  */
 @RequiredArgsConstructor
-public class SpillingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
+public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   @Getter
   private final ResourceLocation id;
   private final FluidIngredient ingredient;
@@ -77,7 +77,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   /** @deprecated use {@link #matches(Fluid)} */
   @Deprecated
   @Override
-  public boolean matches(IEmptyInventory inv, Level worldIn) {
+  public boolean matches(IEmptyContainer inv, Level worldIn) {
     return false;
   }
 

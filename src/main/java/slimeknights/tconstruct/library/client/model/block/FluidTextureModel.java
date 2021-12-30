@@ -33,7 +33,7 @@ import slimeknights.mantle.client.model.util.DynamicBakedWrapper;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
+import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

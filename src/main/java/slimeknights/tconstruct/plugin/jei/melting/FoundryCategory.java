@@ -17,7 +17,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.AlloyRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
@@ -82,7 +82,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
 
     @Override
     protected boolean addOreTooltip(FluidStack stack, List<Component> list) {
-      return FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.foundryNuggetsPerOre.get()), list);
+      return FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingContainer.applyOreBoost(stack.getAmount(), Config.COMMON.foundryNuggetsPerOre.get()), list);
     }
   }
 }

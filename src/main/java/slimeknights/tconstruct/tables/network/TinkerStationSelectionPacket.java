@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
-import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
+import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 
 @RequiredArgsConstructor
 public class TinkerStationSelectionPacket implements IThreadsafePacket {
@@ -27,8 +27,8 @@ public class TinkerStationSelectionPacket implements IThreadsafePacket {
     ServerPlayer sender = context.getSender();
     if (sender != null) {
       AbstractContainerMenu container = sender.containerMenu;
-      if (container instanceof TinkerStationContainer) {
-        ((TinkerStationContainer) container).setToolSelection(StationSlotLayoutLoader.getInstance().get(layoutName));
+      if (container instanceof TinkerStationContainerMenu tinker) {
+        tinker.setToolSelection(StationSlotLayoutLoader.getInstance().get(layoutName));
       }
     }
   }

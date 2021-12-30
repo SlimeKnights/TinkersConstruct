@@ -17,7 +17,6 @@ import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -40,12 +39,12 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   }
 
   @Override
-  public int getFluidAmount(ICastingInventory inv) {
+  public int getFluidAmount(ICastingContainer inv) {
     return this.fluid.getAmount(inv.getFluid());
   }
 
   @Override
-  public boolean matches(ICastingInventory inv, Level worldIn) {
+  public boolean matches(ICastingContainer inv, Level worldIn) {
     return getCast().test(inv.getStack()) && fluid.test(inv.getFluid());
   }
 
@@ -55,7 +54,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   }
 
   @Override
-  public int getCoolingTime(ICastingInventory inv) {
+  public int getCoolingTime(ICastingContainer inv) {
     return this.coolingTime;
   }
 

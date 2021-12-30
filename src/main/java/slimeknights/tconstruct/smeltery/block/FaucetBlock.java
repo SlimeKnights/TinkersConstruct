@@ -33,7 +33,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;

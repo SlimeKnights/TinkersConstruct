@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -36,7 +36,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
   }
 
   @Override
-  protected Optional<MaterialFluidRecipe> getMaterialFluid(ICastingInventory inv) {
+  protected Optional<MaterialFluidRecipe> getMaterialFluid(ICastingContainer inv) {
     return MaterialCastingLookup.getCompositeFluid(inv);
   }
 

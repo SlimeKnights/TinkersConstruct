@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.shared.block.TableBlock;
-import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 public abstract class AbstractCastingBlock extends TableBlock {
   protected AbstractCastingBlock(Properties builder) {
@@ -24,8 +24,8 @@ public abstract class AbstractCastingBlock extends TableBlock {
       return InteractionResult.PASS;
     }
     BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof CastingTileEntity) {
-      ((CastingTileEntity) te).interact(player, hand);
+    if (te instanceof CastingBlockEntity) {
+      ((CastingBlockEntity) te).interact(player, hand);
       return InteractionResult.SUCCESS;
     }
     return super.use(state, world, pos, player, hand, rayTraceResult);
@@ -43,11 +43,11 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Override
   public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-    return BlockEntityHelper.get(CastingTileEntity.class, worldIn, pos).map(te -> {
-      if (te.isStackInSlot(CastingTileEntity.OUTPUT)) {
+    return BlockEntityHelper.get(CastingBlockEntity.class, worldIn, pos).map(te -> {
+      if (te.isStackInSlot(CastingBlockEntity.OUTPUT)) {
         return 15;
       }
-      if (te.isStackInSlot(CastingTileEntity.INPUT)) {
+      if (te.isStackInSlot(CastingBlockEntity.INPUT)) {
         return 1;
       }
       return 0;

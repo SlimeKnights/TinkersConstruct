@@ -48,7 +48,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   }
 
   @Override
-  public boolean matches(IMeltingInventory inv, Level worldIn) {
+  public boolean matches(IMeltingContainer inv, Level worldIn) {
     IMaterial input = getInput();
     if (input == IMaterial.UNKNOWN) {
       return false;
@@ -61,18 +61,18 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   }
 
   @Override
-  public int getTemperature(IMeltingInventory inv) {
+  public int getTemperature(IMeltingContainer inv) {
     return temperature;
   }
 
   @Override
-  public int getTime(IMeltingInventory inv) {
+  public int getTime(IMeltingContainer inv) {
     int cost = MaterialCastingLookup.getItemCost(inv.getStack().getItem());
     return IMeltingRecipe.calcTimeForAmount(temperature, result.getAmount() * cost);
   }
 
   @Override
-  public FluidStack getOutput(IMeltingInventory inv) {
+  public FluidStack getOutput(IMeltingContainer inv) {
     int cost = MaterialCastingLookup.getItemCost(inv.getStack().getItem());
     return new FluidStack(result, result.getAmount() * cost);
   }

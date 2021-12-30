@@ -22,7 +22,7 @@ import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
-import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
 
 import java.util.function.Function;
 

@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.controller.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;

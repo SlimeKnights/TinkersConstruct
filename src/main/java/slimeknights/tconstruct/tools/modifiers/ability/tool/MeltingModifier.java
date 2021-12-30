@@ -14,11 +14,11 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
-import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
+import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MeltingModifier extends TankModifier {
   /** Last melting recipe used */
   private static IMeltingRecipe lastRecipe = null;
   /** Inventory used for finding recipes */
-  private static final MeltingInventory inventory = new MeltingInventory();
+  private static final MeltingContainer inventory = new MeltingContainer();
 
   public MeltingModifier() {
     super(0xFFD800, FluidValues.METAL_BLOCK);
@@ -140,7 +140,7 @@ public class MeltingModifier extends TankModifier {
   }
 
   /** Helper for finding recipes in melting */
-  private static class MeltingInventory implements IMeltingInventory {
+  private static class MeltingContainer implements IMeltingContainer {
     @Getter @Setter
     private ItemStack stack;
 

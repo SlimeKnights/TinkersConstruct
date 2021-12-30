@@ -19,8 +19,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -53,7 +53,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level level) {
+  public boolean matches(ITinkerStationContainer inv, Level level) {
     // ensure this modifier can be applied
     if (!this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
@@ -62,7 +62,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
 
     // if the tool lacks the modifier, treat current as maxLevel, means we will add a new level
@@ -110,11 +110,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #assemble(ITinkerStationInventory)}. Generally should not be modified
+   * @param result  Result from {@link #assemble(ITinkerStationContainer)}. Generally should not be modified
    * @param inv     Inventory instance to modify inputs
    */
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack inputTool = ToolStack.from(inv.getTinkerableStack());
     ToolStack resultTool = ToolStack.from(result);
 
@@ -184,7 +184,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param ingredient  Ingredient to try
    * @return  True if the inventory contains just this item
    */
-  public static boolean containsOnlyIngredient(ITinkerStationInventory inv, Ingredient ingredient) {
+  public static boolean containsOnlyIngredient(ITinkerStationContainer inv, Ingredient ingredient) {
     boolean found = false;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
@@ -209,7 +209,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param amountPerItem  Amount each item in the inventory is worth
    * @return  Total value in the inventory
    */
-  public static int getAvailableAmount(ITinkerStationInventory inv, Ingredient ingredient, int amountPerItem) {
+  public static int getAvailableAmount(ITinkerStationContainer inv, Ingredient ingredient, int amountPerItem) {
     int available = 0;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
@@ -228,7 +228,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param amountPerInput  Number each item gives
    * @param leftover        Itemstack to use if amountNeeded is too much to match amountPerInput
    */
-  public static void updateInputs(IMutableTinkerStationInventory inv, Ingredient ingredient, int amountNeeded, int amountPerInput, ItemStack leftover) {
+  public static void updateInputs(IMutableTinkerStationContainer inv, Ingredient ingredient, int amountNeeded, int amountPerInput, ItemStack leftover) {
     int itemsNeeded = amountNeeded / amountPerInput;
     int leftoverAmount = amountNeeded % amountPerInput;
     if (leftoverAmount > 0) {

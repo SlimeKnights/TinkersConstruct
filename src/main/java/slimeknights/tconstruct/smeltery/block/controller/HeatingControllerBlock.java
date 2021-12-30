@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
-import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockResult;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.multiblock.MultiblockResult;
 
 /**
  * Multiblock that displays the error from the tile entity on right click

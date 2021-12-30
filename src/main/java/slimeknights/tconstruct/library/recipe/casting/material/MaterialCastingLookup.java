@@ -13,7 +13,7 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -113,7 +113,7 @@ public class MaterialCastingLookup {
    * @param inventory  Inventory
    * @return  Composite fluid recipe
    */
-  public static Optional<MaterialFluidRecipe> getCompositeFluid(ICastingInventory inventory) {
+  public static Optional<MaterialFluidRecipe> getCompositeFluid(ICastingContainer inventory) {
     for (MaterialFluidRecipe recipe : COMPOSITE_FLUIDS) {
       if (recipe.matches(inventory)) {
         return Optional.of(recipe);

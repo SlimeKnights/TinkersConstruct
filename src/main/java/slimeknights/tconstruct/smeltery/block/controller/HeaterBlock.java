@@ -8,7 +8,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.smeltery.tileentity.HeaterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.HeaterTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;

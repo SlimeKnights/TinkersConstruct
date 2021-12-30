@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
@@ -46,7 +46,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   protected final ResourceLocation id;
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
     if (tinkerable.isEmpty() || !TinkerTags.Items.MULTIPART_TOOL.contains(tinkerable.getItem()) || !(tinkerable.getItem() instanceof IModifiable)) {
       return false;
@@ -78,7 +78,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
     return foundItem;
   }
 
-  /** @deprecated Use {@link #assemble(ITinkerStationInventory)}  */
+  /** @deprecated Use {@link #assemble(ITinkerStationContainer)}  */
   @Deprecated
   @Override
   public ItemStack getResultItem() {
@@ -86,7 +86,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     // copy the tool NBT to ensure the original tool is intact
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     List<PartRequirement> parts = tool.getDefinition().getData().getParts();

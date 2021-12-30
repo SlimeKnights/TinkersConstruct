@@ -14,9 +14,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
-import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -30,7 +30,7 @@ import java.util.List;
  * Recipe to melt an entity into a fluid
  */
 @RequiredArgsConstructor
-public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
+public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   @Getter
   private final ResourceLocation id;
   private final EntityIngredient ingredient;
@@ -93,7 +93,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   /** @deprecated use {@link #matches(EntityType)}*/
   @Deprecated
   @Override
-  public boolean matches(IEmptyInventory inv, Level worldIn) {
+  public boolean matches(IEmptyContainer inv, Level worldIn) {
     return false;
   }
 

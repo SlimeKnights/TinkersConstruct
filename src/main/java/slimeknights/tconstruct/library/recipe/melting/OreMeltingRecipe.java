@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -23,11 +23,11 @@ public class OreMeltingRecipe extends MeltingRecipe {
    * @return  Boosted fluid
    */
   private static FluidStack boost(FluidStack fluid, int nuggetsPerOre) {
-    return new FluidStack(fluid, IMeltingInventory.applyOreBoost(fluid.getAmount(), nuggetsPerOre));
+    return new FluidStack(fluid, IMeltingContainer.applyOreBoost(fluid.getAmount(), nuggetsPerOre));
   }
 
   @Override
-  public FluidStack getOutput(IMeltingInventory inv) {
+  public FluidStack getOutput(IMeltingContainer inv) {
     FluidStack output = getOutput();
     return boost(output, inv.getNuggetsPerOre());
   }

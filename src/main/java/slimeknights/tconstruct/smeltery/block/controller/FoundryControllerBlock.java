@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.controller.FoundryTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;

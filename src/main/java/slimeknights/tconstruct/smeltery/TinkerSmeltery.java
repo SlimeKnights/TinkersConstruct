@@ -65,28 +65,28 @@ import slimeknights.tconstruct.smeltery.block.controller.FoundryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.HeaterBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
+import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.HeaterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.LanternTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DrainTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DuctTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.ChuteTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
-import slimeknights.tconstruct.smeltery.inventory.AlloyerContainer;
-import slimeknights.tconstruct.smeltery.inventory.HeatingStructureContainer;
-import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
-import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
-import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.HeaterTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.LanternTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.DrainTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryInputOutputTileEntity.ChuteTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
-import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.controller.AlloyerTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.controller.FoundryTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.controller.MelterTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.controller.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
+import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
+import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
+import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
 
 import java.util.function.Function;
 import java.util.function.IntFunction;
@@ -258,8 +258,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<BlockEntityType<FaucetTileEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetTileEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
   public static final RegistryObject<BlockEntityType<ChannelTileEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelTileEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
   // casting
-  public static final RegistryObject<BlockEntityType<CastingTileEntity>> basin = BLOCK_ENTITIES.register("basin", CastingTileEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
-  public static final RegistryObject<BlockEntityType<CastingTileEntity>> table = BLOCK_ENTITIES.register("table", CastingTileEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
+  public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
+  public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
 
   /*
    * Items
@@ -328,10 +328,10 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Inventory
    */
-  public static final RegistryObject<MenuType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
-  public static final RegistryObject<MenuType<HeatingStructureContainer>> smelteryContainer = CONTAINERS.register("smeltery", HeatingStructureContainer::new);
-  public static final RegistryObject<MenuType<SingleItemContainer>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
-  public static final RegistryObject<MenuType<AlloyerContainer>> alloyerContainer = CONTAINERS.register("alloyer", AlloyerContainer::new);
+  public static final RegistryObject<MenuType<MelterContainerMenu>> melterContainer = CONTAINERS.register("melter", MelterContainerMenu::new);
+  public static final RegistryObject<MenuType<HeatingStructureContainerMenu>> smelteryContainer = CONTAINERS.register("smeltery", HeatingStructureContainerMenu::new);
+  public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainerMenu::new);
+  public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = CONTAINERS.register("alloyer", AlloyerContainerMenu::new);
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

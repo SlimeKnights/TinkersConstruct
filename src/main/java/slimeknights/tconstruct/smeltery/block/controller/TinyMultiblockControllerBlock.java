@@ -14,9 +14,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
 
 public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
   private static final Component NO_FUEL_TANK = TConstruct.makeTranslation("multiblock", "tiny.no_fuel_tank");

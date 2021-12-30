@@ -1,22 +1,22 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.tconstruct.tables.client.inventory.library.ScalingChestScreen;
-import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
-import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
-import slimeknights.tconstruct.tables.tileentity.chest.ChestTileEntity;
+import slimeknights.tconstruct.tables.block.entity.chest.AbstractChestBlockEntity;
+import slimeknights.tconstruct.tables.client.inventory.module.ScalingChestScreen;
+import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
+import slimeknights.tconstruct.tables.menu.TinkerChestContainerMenu;
 
-public class TinkerChestScreen extends BaseStationScreen<ChestTileEntity, BaseStationContainer<ChestTileEntity>> {
+public class TinkerChestScreen extends BaseTabbedScreen<AbstractChestBlockEntity,TabbedContainerMenu<AbstractChestBlockEntity>> {
 
   protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(7 + 18, 7, 18, 18);
-  public ScalingChestScreen<ChestTileEntity> scalingChestScreen;
+  public ScalingChestScreen<AbstractChestBlockEntity> scalingChestScreen;
 
-  public TinkerChestScreen(BaseStationContainer<ChestTileEntity> container, Inventory playerInventory, Component title) {
+  public TinkerChestScreen(TabbedContainerMenu<AbstractChestBlockEntity> container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
-    TinkerChestContainer.DynamicChestInventory chestContainer = container.getSubContainer(TinkerChestContainer.DynamicChestInventory.class);
+    TinkerChestContainerMenu.DynamicChestInventory chestContainer = container.getSubContainer(TinkerChestContainerMenu.DynamicChestInventory.class);
     if (chestContainer != null) {
       this.scalingChestScreen = new ScalingChestScreen<>(this, chestContainer, playerInventory, title);
       this.addModule(scalingChestScreen);

@@ -47,7 +47,6 @@ import slimeknights.tconstruct.tools.data.material.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
-import slimeknights.tconstruct.tools.inventory.ToolContainer;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.SlimelytraItem;
 import slimeknights.tconstruct.tools.item.SlimeskullItem;
@@ -66,6 +65,7 @@ import slimeknights.tconstruct.tools.item.small.PickaxeTool;
 import slimeknights.tconstruct.tools.item.small.SweepingSwordTool;
 import slimeknights.tconstruct.tools.item.small.SwordTool;
 import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher;
+import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
 import java.util.function.Supplier;
 
@@ -130,7 +130,7 @@ public final class TinkerTools extends TinkerModule {
                       .fireImmune());
 
   /* Containers */
-  public static final RegistryObject<MenuType<ToolContainer>> toolContainer = CONTAINERS.register("tool_container", ToolContainer::forClient);
+  public static final RegistryObject<MenuType<ToolContainerMenu>> toolContainer = CONTAINERS.register("tool_container", ToolContainerMenu::forClient);
 
 
   /*

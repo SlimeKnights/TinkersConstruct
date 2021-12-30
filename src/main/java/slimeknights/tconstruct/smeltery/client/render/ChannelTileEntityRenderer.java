@@ -22,7 +22,7 @@ import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
-import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
 
 public class ChannelTileEntityRenderer implements BlockEntityRenderer<ChannelTileEntity> {
   public ChannelTileEntityRenderer(Context context) {}

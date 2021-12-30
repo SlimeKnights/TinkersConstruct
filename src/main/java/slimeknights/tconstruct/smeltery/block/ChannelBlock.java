@@ -35,7 +35,7 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;

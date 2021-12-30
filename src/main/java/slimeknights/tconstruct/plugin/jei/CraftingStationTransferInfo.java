@@ -5,7 +5,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
+import slimeknights.tconstruct.tables.menu.CraftingStationContainerMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * Class to dynamically provide the right slot count to JEI
  */
-public class CraftingStationTransferInfo implements IRecipeTransferInfo<CraftingStationContainer, CraftingRecipe> {
+public class CraftingStationTransferInfo implements IRecipeTransferInfo<CraftingStationContainerMenu, CraftingRecipe> {
 
   @Override
-  public Class<CraftingStationContainer> getContainerClass() {
-    return CraftingStationContainer.class;
+  public Class<CraftingStationContainerMenu> getContainerClass() {
+    return CraftingStationContainerMenu.class;
   }
 
   @Override
@@ -31,7 +31,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public List<Slot> getInventorySlots(CraftingStationContainer container, CraftingRecipe recipe) {
+  public List<Slot> getInventorySlots(CraftingStationContainerMenu container, CraftingRecipe recipe) {
     List<Slot> slots = new ArrayList<>();
 
     // 36 for player inventory
@@ -52,7 +52,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public List<Slot> getRecipeSlots(CraftingStationContainer container, CraftingRecipe recipe) {
+  public List<Slot> getRecipeSlots(CraftingStationContainerMenu container, CraftingRecipe recipe) {
     List<Slot> slots = new ArrayList<>();
     for (int i = 0; i < 9; i++) {
       slots.add(container.getSlot(i));
@@ -61,7 +61,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public boolean canHandle(CraftingStationContainer container, CraftingRecipe recipe) {
+  public boolean canHandle(CraftingStationContainerMenu container, CraftingRecipe recipe) {
     return true;
   }
 }

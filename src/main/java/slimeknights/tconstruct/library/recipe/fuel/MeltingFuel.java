@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Recipe for a fuel for the melter or smeltery
  */
-public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
+public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
   @Getter
   private final ResourceLocation id;
   @Getter
@@ -50,7 +50,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   /* Recipe methods */
 
   @Override
-  public boolean matches(IFluidInventory inv, Level worldIn) {
+  public boolean matches(IFluidContainer inv, Level worldIn) {
     return matches(inv.getFluid());
   }
 
@@ -68,7 +68,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    * @param inv  Inventory instance
    * @return  Amount of fluid consumed
    */
-  public int getAmount(IFluidInventory inv) {
+  public int getAmount(IFluidContainer inv) {
     return getAmount(inv.getFluid());
   }
 

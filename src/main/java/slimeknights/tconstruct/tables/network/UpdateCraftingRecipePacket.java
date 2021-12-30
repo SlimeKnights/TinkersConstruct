@@ -10,7 +10,7 @@ import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
+import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEntity;
 
 /**
  * Packet to send the current crafting recipe to a player who opens the crafting station
@@ -44,7 +44,7 @@ public class UpdateCraftingRecipePacket implements IThreadsafePacket {
     private static void handle(UpdateCraftingRecipePacket packet) {
       Level world = Minecraft.getInstance().level;
       if (world != null) {
-        BlockEntityHelper.get(CraftingStationTileEntity.class, world, packet.pos).ifPresent(te ->
+        BlockEntityHelper.get(CraftingStationBlockEntity.class, world, packet.pos).ifPresent(te ->
           RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, CraftingRecipe.class).ifPresent(te::updateRecipe));
       }
     }

@@ -14,6 +14,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import slimeknights.mantle.inventory.EmptyItemHandler;
 
 public class DropperRailBlock extends RailBlock {
 
@@ -32,10 +33,9 @@ public class DropperRailBlock extends RailBlock {
     }
 
     // todo: fix this optional usage
-    IItemHandler itemHandlerCart = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
-    IItemHandler itemHandlerTE = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
+    IItemHandler itemHandlerCart = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(EmptyItemHandler.INSTANCE);
+    IItemHandler itemHandlerTE = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(EmptyItemHandler.INSTANCE);
 
-    assert itemHandlerCart != null;
     for (int i = 0; i < itemHandlerCart.getSlots(); i++) {
       ItemStack itemStack = itemHandlerCart.extractItem(i, 1, true);
       if (itemStack.isEmpty()) {

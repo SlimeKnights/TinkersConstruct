@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 /**
- * Extension of cake that utalizes a food instance for properties
+ * Extension of cake that utilizes a food instance for properties
  */
 public class FoodCakeBlock extends CakeBlock {
   private final FoodProperties food;

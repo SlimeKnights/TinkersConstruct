@@ -5,15 +5,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
-import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
+import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TinkerStationTransferInfo implements IRecipeTransferInfo<TinkerStationContainer,ITinkerStationRecipe> {
+public class TinkerStationTransferInfo implements IRecipeTransferInfo<TinkerStationContainerMenu,ITinkerStationRecipe> {
   @Override
-  public Class<TinkerStationContainer> getContainerClass() {
-    return TinkerStationContainer.class;
+  public Class<TinkerStationContainerMenu> getContainerClass() {
+    return TinkerStationContainerMenu.class;
   }
 
   @Override
@@ -27,17 +27,17 @@ public class TinkerStationTransferInfo implements IRecipeTransferInfo<TinkerStat
   }
 
   @Override
-  public boolean canHandle(TinkerStationContainer container, ITinkerStationRecipe recipe) {
+  public boolean canHandle(TinkerStationContainerMenu container, ITinkerStationRecipe recipe) {
     return true;
   }
 
   @Override
-  public List<Slot> getRecipeSlots(TinkerStationContainer container, ITinkerStationRecipe recipe) {
+  public List<Slot> getRecipeSlots(TinkerStationContainerMenu container, ITinkerStationRecipe recipe) {
     return container.getInputSlots();
   }
 
   @Override
-  public List<Slot> getInventorySlots(TinkerStationContainer container, ITinkerStationRecipe recipe) {
+  public List<Slot> getInventorySlots(TinkerStationContainerMenu container, ITinkerStationRecipe recipe) {
     List<Slot> slots = new ArrayList<>();
     // skip over inputs and the output slot
     int start = container.getInputSlots().size() + 1;

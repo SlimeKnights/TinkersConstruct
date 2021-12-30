@@ -43,7 +43,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   }
 
   @Override
-  public boolean partialMatch(IPartBuilderInventory inv) {
+  public boolean partialMatch(IPartBuilderContainer inv) {
     // first, must have a pattern
     if (inv.getPatternStack().getItem() != TinkerTables.pattern.get()) {
       return false;
@@ -62,13 +62,13 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   }
 
   /**
-   * Checks if the recipe is valid for the given input. Assumes {@link #partialMatch(IPartBuilderInventory)} is true
+   * Checks if the recipe is valid for the given input. Assumes {@link #partialMatch(IPartBuilderContainer)} is true
    * @param inv    Inventory instance
    * @param world  World instance
    * @return  True if this recipe matches
    */
   @Override
-  public boolean matches(IPartBuilderInventory inv, Level world) {
+  public boolean matches(IPartBuilderContainer inv, Level world) {
     // must have a material
     MaterialRecipe materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
@@ -100,7 +100,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   }
 
   @Override
-  public ItemStack assemble(IPartBuilderInventory inv) {
+  public ItemStack assemble(IPartBuilderContainer inv) {
     IMaterial material = IMaterial.UNKNOWN;
     MaterialRecipe materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {

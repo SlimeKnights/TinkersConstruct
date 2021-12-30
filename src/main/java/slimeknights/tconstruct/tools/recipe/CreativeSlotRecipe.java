@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -37,7 +37,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
    * @return  Slot type found, or null if invalid
    */
   @Nullable
-  private SlotType findSlotType(ITinkerStationInventory inv, boolean stopAfterFirst) {
+  private SlotType findSlotType(ITinkerStationContainer inv, boolean stopAfterFirst) {
     // goal is to find exactly 1 stack of creative modifiers
     SlotType type = null;
     for (int i = 0; i < inv.getInputCount(); i++) {
@@ -61,7 +61,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     // must be modifiable
     if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
       return false;
@@ -70,7 +70,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   }
 
   @Override
-  public ItemStack assemble(ITinkerStationInventory inv) {
+  public ItemStack assemble(ITinkerStationContainer inv) {
     ToolStack toolStack = ToolStack.copyFrom(inv.getTinkerableStack());
 
     // first, fetch the slots compound
@@ -104,7 +104,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
     return TinkerModifiers.creativeSlot.get();
   }
 
-  /** @deprecated Use {@link #assemble(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #assemble(ITinkerStationContainer)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {

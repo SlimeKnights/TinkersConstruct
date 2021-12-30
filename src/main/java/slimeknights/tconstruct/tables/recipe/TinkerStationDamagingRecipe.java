@@ -17,8 +17,8 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -39,7 +39,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   private final int damageAmount;
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
       return false;
     }
@@ -48,7 +48,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     if (ToolDamageUtil.isBroken(inv.getTinkerableStack())) {
       return BROKEN;
     }
@@ -60,13 +60,13 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     // how much did we actually consume?
     int damageTaken = ToolStack.from(result).getDamage() - ToolStack.from(inv.getTinkerableStack()).getDamage();
     IncrementalModifierRecipe.updateInputs(inv, ingredient, damageTaken, damageAmount, ItemStack.EMPTY);
   }
 
-  /** @deprecated Use {@link #getValidatedResult(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #getValidatedResult(ITinkerStationContainer)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {

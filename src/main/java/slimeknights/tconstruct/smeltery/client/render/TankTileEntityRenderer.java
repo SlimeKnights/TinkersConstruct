@@ -10,7 +10,7 @@ import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.TankModel.Baked;
-import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
 
 @Log4j2
 public class TankTileEntityRenderer<T extends BlockEntity & ITankTileEntity> implements BlockEntityRenderer<T> {

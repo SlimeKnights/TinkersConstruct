@@ -48,22 +48,22 @@ public class MeltingRecipe implements IMeltingRecipe {
   private List<List<FluidStack>> outputWithByproducts;
 
   @Override
-  public boolean matches(IMeltingInventory inv, Level world) {
+  public boolean matches(IMeltingContainer inv, Level world) {
     return input.test(inv.getStack());
   }
 
   @Override
-  public int getTemperature(IMeltingInventory inv) {
+  public int getTemperature(IMeltingContainer inv) {
     return temperature;
   }
 
   @Override
-  public int getTime(IMeltingInventory inv) {
+  public int getTime(IMeltingContainer inv) {
     return time;
   }
 
   @Override
-  public FluidStack getOutput(IMeltingInventory inv) {
+  public FluidStack getOutput(IMeltingContainer inv) {
     return output.copy();
   }
 
@@ -83,7 +83,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   }
 
   @Override
-  public void handleByproducts(IMeltingInventory inv, IFluidHandler handler) {
+  public void handleByproducts(IMeltingContainer inv, IFluidHandler handler) {
     // fill byproducts until we run out of space or byproducts
     for (FluidStack fluidStack : byproducts) {
       handler.fill(fluidStack.copy(), FluidAction.EXECUTE);

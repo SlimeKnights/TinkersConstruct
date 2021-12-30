@@ -22,16 +22,16 @@ import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.smeltery.client.CopperCanModel;
-import slimeknights.tconstruct.smeltery.client.SingleItemScreenFactory;
-import slimeknights.tconstruct.smeltery.client.inventory.AlloyerScreen;
-import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
-import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.ChannelTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.HeatingStructureTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.screen.AlloyerScreen;
+import slimeknights.tconstruct.smeltery.client.screen.HeatingStructureScreen;
+import slimeknights.tconstruct.smeltery.client.screen.MelterScreen;
+import slimeknights.tconstruct.smeltery.client.screen.SingleItemScreenFactory;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid= TConstruct.MOD_ID, value= Dist.CLIENT, bus= Bus.MOD)

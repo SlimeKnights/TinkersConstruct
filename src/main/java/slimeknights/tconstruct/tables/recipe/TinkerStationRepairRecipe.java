@@ -12,8 +12,8 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -61,7 +61,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
    * @param slot  Slot
    * @return  Material amount
    */
-  protected static IMaterial getMaterialFrom(ITinkerStationInventory inv, int slot) {
+  protected static IMaterial getMaterialFrom(ITinkerStationContainer inv, int slot) {
     // try repair kit first
     ItemStack item = inv.getInput(slot);
     if (item.getItem() == TinkerToolParts.repairKit.get()) {
@@ -86,7 +86,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   /** Gets the amount to repair per item */
-  protected float getRepairPerItem(ToolStack tool, ITinkerStationInventory inv, int slot, IMaterial repairMaterial) {
+  protected float getRepairPerItem(ToolStack tool, ITinkerStationContainer inv, int slot, IMaterial repairMaterial) {
     ItemStack stack = inv.getInput(slot);
     // repair kit first
     ToolDefinitionData toolData = tool.getDefinition().getData();
@@ -107,7 +107,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     // must be repairable
     ItemStack tinkerable = inv.getTinkerableStack();
     // must be repairable and multipart to use this recipe
@@ -154,7 +154,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     if (tool.getDefinition() == ToolDefinition.EMPTY) {
       return ValidatedResult.PASS;
@@ -193,7 +193,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack inputTool = ToolStack.from(inv.getTinkerableStack());
     ToolStack resultTool = ToolStack.from(result);
 
@@ -231,7 +231,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
    * @param amountConsumer  Action to perform on repair, input is the amount consumed
    * @return  Repair from this slot
    */
-  protected int repairFromSlot(ToolStack tool, IMaterial primaryMaterial, ITinkerStationInventory inv, int repairNeeded, int slot, IntConsumer amountConsumer) {
+  protected int repairFromSlot(ToolStack tool, IMaterial primaryMaterial, ITinkerStationContainer inv, int repairNeeded, int slot, IntConsumer amountConsumer) {
     ItemStack stack = inv.getInput(slot);
     if (!stack.isEmpty()) {
       // we have a recipe with matching stack, find out how much we can repair
@@ -267,7 +267,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     return TinkerTables.tinkerStationRepairSerializer.get();
   }
 
-  /** @deprecated Use {@link #assemble(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #assemble(ITinkerStationContainer)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {

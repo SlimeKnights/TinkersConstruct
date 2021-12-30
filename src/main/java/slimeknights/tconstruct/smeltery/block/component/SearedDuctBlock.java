@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.component.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DuctTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 

@@ -6,11 +6,11 @@ import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.tileentity.table.crafting.PartBuilderInventoryWrapper;
+import slimeknights.tconstruct.tables.block.entity.inventory.PartBuilderContainerWrapper;
 
 import java.util.Optional;
 
-public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderInventory> {
+public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer> {
   /** Gets the pattern needed for this recipe,
    * if there are multiple recipes with the same pattern, they are effectively merged */
   Pattern getPattern();
@@ -26,14 +26,14 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderInventory>
    * @param inv  Inventory instance
    * @return  True if the recipe matches the given pattern
    */
-  boolean partialMatch(IPartBuilderInventory inv);
+  boolean partialMatch(IPartBuilderContainer inv);
 
   /**
    * Gets the number of material items consumed by this recipe
    * @param inv  Crafting inventory
    * @return  Number of items consumed
    */
-  default int getItemsUsed(IPartBuilderInventory inv) {
+  default int getItemsUsed(IPartBuilderContainer inv) {
     return Optional.ofNullable(inv.getMaterial())
                    .map(mat -> mat.getItemsUsed(getCost()))
                    .orElse(1);
@@ -52,7 +52,7 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderInventory>
   }
 
   /** Gets the leftover from performing this recipe */
-  default ItemStack getLeftover(PartBuilderInventoryWrapper inventoryWrapper) {
+  default ItemStack getLeftover(PartBuilderContainerWrapper inventoryWrapper) {
     MaterialRecipe recipe = inventoryWrapper.getMaterial();
     if (recipe != null) {
       int value = recipe.getValue();

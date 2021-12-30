@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType.BlockEntitySupplie
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
+import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
 
 public class TinkersChestBlock extends ChestBlock {
   public TinkersChestBlock(Properties builder, BlockEntitySupplier<? extends BlockEntity> be, boolean dropsItems) {
@@ -20,7 +20,7 @@ public class TinkersChestBlock extends ChestBlock {
   @Override
   public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
-    BlockEntityHelper.get(TinkersChestTileEntity.class, world, pos).ifPresent(te -> {
+    BlockEntityHelper.get(TinkersChestBlockEntity.class, world, pos).ifPresent(te -> {
       if (te.hasColor()) {
         ((DyeableLeatherItem) stack.getItem()).setColor(stack, te.getColor());
       }

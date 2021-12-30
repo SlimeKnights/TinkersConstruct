@@ -22,11 +22,11 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
+import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 
 import java.util.List;
 
@@ -121,10 +121,10 @@ public class MeltingCategory extends AbstractMeltingCategory {
     @Override
     protected boolean addOreTooltip(FluidStack stack, List<Component> list) {
       list.add(TOOLTIP_SMELTERY);
-      boolean shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.smelteryNuggetsPerOre.get()), list);
+      boolean shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingContainer.applyOreBoost(stack.getAmount(), Config.COMMON.smelteryNuggetsPerOre.get()), list);
       list.add(TextComponent.EMPTY);
       list.add(TOOLTIP_MELTER);
-      shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.melterNuggetsPerOre.get()), list) || shift;
+      shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingContainer.applyOreBoost(stack.getAmount(), Config.COMMON.melterNuggetsPerOre.get()), list) || shift;
       return shift;
     }
   }

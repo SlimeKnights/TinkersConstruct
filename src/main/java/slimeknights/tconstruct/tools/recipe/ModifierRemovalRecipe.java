@@ -21,8 +21,8 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.AbstractModifierSalvage;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -43,7 +43,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
   private final ItemStack container;
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level world) {
+  public boolean matches(ITinkerStationContainer inv, Level world) {
     if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
       return false;
     }
@@ -52,7 +52,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
 
   /** Gets the modifier entry being removed */
   @Nullable
-  private ModifierEntry getModifierToRemove(ITinkerStationInventory inv, List<ModifierEntry> modifiers) {
+  private ModifierEntry getModifierToRemove(ITinkerStationContainer inv, List<ModifierEntry> modifiers) {
     // sums all filled slots for the removal index, should be able to reach any index, but requires 1 wet sponge for every 5
     int removeIndex = -1;
     for (int i = 0; i < inv.getInputCount(); i++) {
@@ -75,7 +75,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     ItemStack toolStack = inv.getTinkerableStack();
     ToolStack tool = ToolStack.from(toolStack);
     List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
@@ -138,7 +138,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     // return salvage items for modifier, using the original tool as that still has the modifier
     if (isServer) {
       ItemStack toolStack = inv.getTinkerableStack();
@@ -162,7 +162,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     }
   }
 
-  /** @deprecated Use {@link #getValidatedResult(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #getValidatedResult(ITinkerStationContainer)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {

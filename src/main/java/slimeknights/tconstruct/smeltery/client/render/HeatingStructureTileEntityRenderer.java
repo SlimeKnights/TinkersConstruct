@@ -25,9 +25,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.TinkerRenderTypes;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
-import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
-import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 
 public class HeatingStructureTileEntityRenderer implements BlockEntityRenderer<HeatingStructureTileEntity> {
   private static final float ITEM_SCALE = 15f/16f;

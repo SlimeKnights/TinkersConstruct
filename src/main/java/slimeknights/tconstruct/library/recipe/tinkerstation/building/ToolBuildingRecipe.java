@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -36,7 +36,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public boolean matches(ITinkerStationInventory inv, Level worldIn) {
+  public boolean matches(ITinkerStationContainer inv, Level worldIn) {
     if (!inv.getTinkerableStack().isEmpty()) {
       return false;
     }
@@ -62,7 +62,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ItemStack assemble(ITinkerStationInventory inv) {
+  public ItemStack assemble(ITinkerStationContainer inv) {
     // first n slots contain parts
     List<IMaterial> materials = IntStream.range(0, output.getToolDefinition().getData().getParts().size())
                                          .mapToObj(inv::getInput)
@@ -71,7 +71,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     return ToolBuildHandler.buildItemFromMaterials(this.output, materials);
   }
 
-  /** @deprecated Use {@link #assemble(ITinkerStationInventory)} */
+  /** @deprecated Use {@link #assemble(ITinkerStationContainer)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {

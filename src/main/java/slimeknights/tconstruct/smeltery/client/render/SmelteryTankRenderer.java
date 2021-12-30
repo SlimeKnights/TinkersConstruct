@@ -12,8 +12,8 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.client.TinkerRenderTypes;
-import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
-import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
+import slimeknights.tconstruct.smeltery.client.screen.module.GuiSmelteryTank;
+import slimeknights.tconstruct.smeltery.block.entity.tank.SmelteryTank;
 
 import java.util.List;
 

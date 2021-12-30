@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +43,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   protected final Item container;
 
   @Override
-  public int getFluidAmount(ICastingInventory inv) {
+  public int getFluidAmount(ICastingContainer inv) {
     Fluid fluid = inv.getFluid();
     return inv.getStack().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
               .map(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE))
@@ -61,12 +61,12 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   }
 
   @Override
-  public int getCoolingTime(ICastingInventory inv) {
+  public int getCoolingTime(ICastingContainer inv) {
     return 5;
   }
 
   @Override
-  public boolean matches(ICastingInventory inv, Level worldIn) {
+  public boolean matches(ICastingContainer inv, Level worldIn) {
     ItemStack stack = inv.getStack();
     Fluid fluid = inv.getFluid();
     return stack.getItem() == this.container.asItem()
@@ -83,7 +83,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   }
 
   @Override
-  public ItemStack assemble(ICastingInventory inv) {
+  public ItemStack assemble(ICastingContainer inv) {
     ItemStack stack = inv.getStack().copy();
     return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);

@@ -24,9 +24,9 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
-import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity.ITankBlock;
+import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
