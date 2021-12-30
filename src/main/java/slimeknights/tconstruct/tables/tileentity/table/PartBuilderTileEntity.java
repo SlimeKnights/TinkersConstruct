@@ -248,14 +248,14 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
   }
 
   @Override
-  public ItemStack onCraft(Player player, ItemStack result, int amount) {
+  public void onCraft(Player player, ItemStack result, int amount) {
     if (amount == 0 || this.level == null) {
-      return ItemStack.EMPTY;
+      return;
     }
     // the recipe should match if we got this far, but being null is a problem
     IPartBuilderRecipe recipe = getPartRecipe();
     if (recipe == null) {
-      return ItemStack.EMPTY;
+      return;
     }
 
     // we are definitely crafting at this point
@@ -277,8 +277,5 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
     if (level != null && !level.isClientSide) {
       syncToRelevantPlayers(this::syncScreen);
     }
-
-    // finally, return the result
-    return result;
   }
 }

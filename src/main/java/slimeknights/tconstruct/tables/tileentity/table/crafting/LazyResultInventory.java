@@ -59,16 +59,12 @@ public class LazyResultInventory implements Container {
   /**
    * Gets the result of crafting, and consumes required items
    * @param amount  Number to craft
-   * @return  Crafting result
    */
-  public ItemStack craftResult(Player player, int amount) {
+  public void craftResult(Player player, int amount) {
     // get result and consume items
-    // TODO: are all these copies needed?
-    ItemStack output = crafter.onCraft(player, getResult().copy(), amount);
+    crafter.onCraft(player, getResult().copy(), amount);
     // clear result cache, items changed
     clearContent();
-    // return result
-    return output;
   }
 
   /**
@@ -139,6 +135,6 @@ public class LazyResultInventory implements Container {
      * @param result  Crafting result
      * @param amount  Amount to craft
      */
-    ItemStack onCraft(Player player, ItemStack result, int amount);
+    void onCraft(Player player, ItemStack result, int amount);
   }
 }

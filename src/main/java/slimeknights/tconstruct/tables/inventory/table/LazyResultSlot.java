@@ -33,8 +33,7 @@ public class LazyResultSlot extends Slot {
 
   @Override
   public void onTake(Player player, ItemStack stack) {
-    //inventory.craftResult(player, amountCrafted); TODO: needed?
-    inventory.clearContent();
+    inventory.craftResult(player, amountCrafted);
     amountCrafted = 0;
   }
 

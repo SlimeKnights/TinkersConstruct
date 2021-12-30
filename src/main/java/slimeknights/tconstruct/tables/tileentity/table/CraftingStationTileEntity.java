@@ -201,7 +201,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   }
 
   @Override
-  public ItemStack onCraft(Player player, ItemStack result, int amount) {
+  public void onCraft(Player player, ItemStack result, int amount) {
     int originalSize = result.getCount(); // may be larger than the output count if the player is holding a stack
     // going to refetch result, so just start at empty
     result = ItemStack.EMPTY;
@@ -223,7 +223,6 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     if (result.isEmpty()) {
       notifyUncraftable(player);
     }
-    return result;
   }
 
   @Override

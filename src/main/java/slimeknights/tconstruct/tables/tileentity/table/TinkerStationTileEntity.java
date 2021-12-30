@@ -150,9 +150,9 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   @Override
-  public ItemStack onCraft(Player player, ItemStack result, int amount) {
+  public void onCraft(Player player, ItemStack result, int amount) {
     if (amount == 0 || this.lastRecipe == null || this.level == null) {
-      return ItemStack.EMPTY;
+      return;
     }
 
     // fire crafting events
@@ -170,8 +170,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     if (this.isStackInSlot(TINKER_SLOT)) {
       this.setItem(TINKER_SLOT, ItemStack.EMPTY);
     }
-
-    return result;
   }
 
   @Override
