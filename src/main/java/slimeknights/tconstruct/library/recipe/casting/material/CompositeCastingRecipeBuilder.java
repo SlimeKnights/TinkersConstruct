@@ -29,12 +29,12 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(result.asItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, Objects.requireNonNull(result.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
     consumer.accept(new Finished(id, advancementId));
   }

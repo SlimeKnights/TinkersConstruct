@@ -27,7 +27,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    */
   default void toolBuilding(Consumer<FinishedRecipe> consumer, IModifiable tool, String folder) {
     ToolBuildingRecipeBuilder.toolBuildingRecipe(tool)
-                             .build(consumer, modResource(folder + Objects.requireNonNull(tool.asItem().getRegistryName()).getPath()));
+                             .save(consumer, modResource(folder + Objects.requireNonNull(tool.asItem().getRegistryName()).getPath()));
   }
 
   /**
@@ -55,20 +55,20 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
     PartRecipeBuilder.partRecipe(part)
                      .setPattern(modResource(name))
                      .setCost(cost)
-                     .build(consumer, modResource(partFolder + "builder/" + name));
+                     .save(consumer, modResource(partFolder + "builder/" + name));
 
     // Material Casting
     String castingFolder = partFolder + "casting/";
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
                                 .setCast(cast.getMultiUseTag(), false)
-                                .build(consumer, modResource(castingFolder + name + "_gold_cast"));
+                                .save(consumer, modResource(castingFolder + name + "_gold_cast"));
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
                                 .setCast(cast.getSingleUseTag(), true)
-                                .build(consumer, modResource(castingFolder + name + "_sand_cast"));
+                                .save(consumer, modResource(castingFolder + name + "_sand_cast"));
     CompositeCastingRecipeBuilder.table(part, cost)
-                                 .build(consumer, modResource(castingFolder + name + "_composite"));
+                                 .save(consumer, modResource(castingFolder + name + "_composite"));
 
     // Cast Casting
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);

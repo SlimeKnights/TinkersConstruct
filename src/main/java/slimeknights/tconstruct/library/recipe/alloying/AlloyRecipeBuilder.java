@@ -93,12 +93,12 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
   /* Building */
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (inputs.size() < 2) {
       throw new IllegalStateException("Invalid alloying recipe " + id + ", must have at least two inputs");
     }

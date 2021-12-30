@@ -238,7 +238,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
   /* Building */
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (inputs.isEmpty()) {
       throw new IllegalStateException("Must have at least 1 input");
     }

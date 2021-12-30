@@ -44,12 +44,12 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, inputId);
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, inputId);
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementID = this.buildOptionalAdvancement(id, "melting");
     consumer.accept(new Result(id, advancementID));
   }

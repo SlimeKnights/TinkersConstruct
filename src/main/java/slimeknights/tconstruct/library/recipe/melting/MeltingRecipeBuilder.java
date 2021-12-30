@@ -111,12 +111,12 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (isOre && isDamagable) {
       throw new IllegalStateException("Builder cannot be both ore and damagable");
     }

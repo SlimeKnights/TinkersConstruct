@@ -109,16 +109,16 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
     private final int damageAmount;
 
     @Override
-    public void build(Consumer<FinishedRecipe> consumer) {
+    public void save(Consumer<FinishedRecipe> consumer) {
       ItemStack[] stacks = ingredient.getItems();
       if (stacks.length == 0) {
         throw new IllegalStateException("Empty ingredient not allowed");
       }
-      build(consumer, Objects.requireNonNull(stacks[0].getItem().getRegistryName()));
+      save(consumer, Objects.requireNonNull(stacks[0].getItem().getRegistryName()));
     }
 
     @Override
-    public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+    public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
       if (ingredient == Ingredient.EMPTY) {
         throw new IllegalStateException("Empty ingredient not allowed");
       }

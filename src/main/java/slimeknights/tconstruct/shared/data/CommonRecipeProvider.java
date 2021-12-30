@@ -82,7 +82,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.mightySmelting)
                             .setFluidAndTime(TinkerFluids.searedStone, false, FluidValues.INGOT)
                             .setCast(Items.BOOK, true)
-                            .build(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
+                            .save(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
     ShapelessRecipeBuilder.shapeless(TinkerCommons.fantasticFoundry)
                           .requires(Items.BOOK)
                           .requires(TinkerSmeltery.netherGrout)

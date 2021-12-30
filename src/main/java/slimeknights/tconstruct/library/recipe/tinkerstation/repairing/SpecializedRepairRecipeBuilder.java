@@ -27,8 +27,8 @@ public class SpecializedRepairRecipeBuilder extends AbstractRecipeBuilder<Specia
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, repairMaterial);
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, repairMaterial);
   }
 
   /** Builds the recipe for the crafting table using a repair kit */
@@ -39,7 +39,7 @@ public class SpecializedRepairRecipeBuilder extends AbstractRecipeBuilder<Specia
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
     consumer.accept(new Finished(id, advancementId, TinkerTables.specializedRepairSerializer.get()));
   }

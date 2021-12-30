@@ -191,20 +191,20 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // tool damaging
     String damageFolder = folder + "tinker_station_damaging/";
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)), 1)
-                                       .build(consumer, modResource(damageFolder + "base_one"));
+                                       .save(consumer, modResource(damageFolder + "base_one"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.THICK)), 5)
-                                       .build(consumer, modResource(damageFolder + "base_two"));
+                                       .save(consumer, modResource(damageFolder + "base_two"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.HARMING)), 25)
-                                       .build(consumer, modResource(damageFolder + "potion_one"));
+                                       .save(consumer, modResource(damageFolder + "potion_one"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.STRONG_HARMING)), 75)
-                                       .build(consumer, modResource(damageFolder + "potion_two"));
+                                       .save(consumer, modResource(damageFolder + "potion_two"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), Potions.HARMING)), 150)
-                                       .build(consumer, modResource(damageFolder + "splash_one"));
+                                       .save(consumer, modResource(damageFolder + "splash_one"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), Potions.STRONG_HARMING)), 400)
-                                       .build(consumer, modResource(damageFolder + "splash_two"));
+                                       .save(consumer, modResource(damageFolder + "splash_two"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), Potions.HARMING)), 1000)
-                                       .build(consumer, modResource(damageFolder + "lingering_one"));
+                                       .save(consumer, modResource(damageFolder + "lingering_one"));
     TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.from(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), Potions.STRONG_HARMING)), 2500)
-                                       .build(consumer, modResource(damageFolder + "lingering_two"));
+                                       .save(consumer, modResource(damageFolder + "lingering_two"));
   }
 }

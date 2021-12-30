@@ -170,7 +170,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
   /* Building */
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (input == Ingredient.EMPTY) {
       throw new IllegalStateException("Must set input");
     }

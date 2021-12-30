@@ -22,8 +22,8 @@ public class ModifierRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierR
   private final int repairAmount;
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, modifier.getId());
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, modifier.getId());
   }
 
   /** Builds the recipe for the crafting table using a repair kit */
@@ -34,7 +34,7 @@ public class ModifierRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierR
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
     consumer.accept(new Finished(id, advancementId, TinkerModifiers.modifierRepair.get()));
   }

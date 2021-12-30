@@ -42,7 +42,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
   default void metalMeltingBase(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional) {
     Consumer<FinishedRecipe> wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
     MeltingRecipeBuilder.melting(Ingredient.of(getTag("forge", tagName)), fluid, amount, factor)
-                        .build(wrapped, modResource(recipePath));
+                        .save(wrapped, modResource(recipePath));
   }
 
   /**
@@ -63,19 +63,19 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
 
     // if no byproducts, just build directly
     if (byproducts.length == 0) {
-      supplier.get().build(wrapped, location);
+      supplier.get().save(wrapped, location);
       // if first option is always present, only need that one
     } else if (byproducts[0].isAlwaysPresent()) {
       supplier.get()
               .addByproduct(new FluidStack(byproducts[0].getFluid(), byproducts[0].getNuggets()))
-              .build(wrapped, location);
+              .save(wrapped, location);
     } else {
       // multiple options, will need a conditonal recipe
       ConditionalRecipe.Builder builder = ConditionalRecipe.builder();
       boolean alwaysPresent = false;
       for (IByproduct byproduct : byproducts) {
         builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
-        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), byproduct.getNuggets()))::build);
+        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), byproduct.getNuggets()))::save);
         // found an always present byproduct? we are done
         alwaysPresent = byproduct.isAlwaysPresent();
         if (alwaysPresent) {
@@ -85,7 +85,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       // not always present? add a recipe with no byproducts as a final fallback
       if (!alwaysPresent) {
         builder.addCondition(TrueCondition.INSTANCE);
-        builder.addRecipe(supplier.get()::build);
+        builder.addRecipe(supplier.get()::save);
       }
       builder.build(wrapped, location);
     }
@@ -154,11 +154,11 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluid, forgeTag, amount)
                             .setCast(cast.getMultiUseTag(), false)
-                            .build(consumer, modResource(location + "_gold_cast"));
+                            .save(consumer, modResource(location + "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluid, forgeTag, amount)
                             .setCast(cast.getSingleUseTag(), true)
-                            .build(consumer, modResource(location + "_sand_cast"));
+                            .save(consumer, modResource(location + "_sand_cast"));
   }
 
   /**
@@ -331,7 +331,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     if (block != null) {
       ItemCastingRecipeBuilder.basinRecipe(block)
                               .setFluidAndTime(fluid, forgeTag, FluidValues.METAL_BLOCK)
-                              .build(consumer, modResource(metalFolder + "block"));
+                              .save(consumer, modResource(metalFolder + "block"));
     }
     if (ingot != null) {
       ingotCasting(consumer, fluid, forgeTag, ingot, metalFolder + "ingot");
@@ -393,6 +393,6 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     Consumer<FinishedRecipe> wrapped = forceStandard ? consumer : withCondition(consumer, tagCondition("storage_blocks/" + name));
     ItemCastingRecipeBuilder.basinRecipe(block)
                             .setFluidAndTime(fluid, true, FluidValues.METAL_BLOCK)
-                            .build(wrapped, modResource(folder + name + "/block"));
+                            .save(wrapped, modResource(folder + name + "/block"));
   }
 }

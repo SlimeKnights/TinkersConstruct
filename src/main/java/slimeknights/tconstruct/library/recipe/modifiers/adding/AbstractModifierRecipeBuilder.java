@@ -147,8 +147,8 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, result.getModifier().getId());
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, result.getModifier().getId());
   }
 
   /**

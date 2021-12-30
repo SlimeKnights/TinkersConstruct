@@ -43,14 +43,14 @@ public interface ICastCreationHelper extends IRecipeHelper {
                             .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.INGOT)
                             .setCast(input, true)
                             .setSwitchSlots()
-                            .build(consumer, modResource(folder + "gold_casts/" + name));
+                            .save(consumer, modResource(folder + "gold_casts/" + name));
     MoldingRecipeBuilder.moldingTable(cast.getSand())
                         .setMaterial(TinkerSmeltery.blankCast.getSand())
                         .setPattern(input, false)
-                        .build(consumer, modResource(folder + "sand_casts/" + name));
+                        .save(consumer, modResource(folder + "sand_casts/" + name));
     MoldingRecipeBuilder.moldingTable(cast.getRedSand())
                         .setMaterial(TinkerSmeltery.blankCast.getRedSand())
                         .setPattern(input, false)
-                        .build(consumer, modResource(folder + "red_sand_casts/" + name));
+                        .save(consumer, modResource(folder + "red_sand_casts/" + name));
   }
 }

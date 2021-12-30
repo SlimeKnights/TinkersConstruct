@@ -219,12 +219,12 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param consumerIn  Recipe consumer
    */
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn) {
-    this.build(consumerIn, Objects.requireNonNull(this.result.get().getItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumerIn) {
+    this.save(consumerIn, Objects.requireNonNull(this.result.get().getItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (this.fluid == FluidIngredient.EMPTY) {
       throw new IllegalStateException("Casting recipes require a fluid input");
     }

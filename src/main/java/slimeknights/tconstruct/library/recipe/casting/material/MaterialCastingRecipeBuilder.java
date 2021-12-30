@@ -91,12 +91,12 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    this.build(consumer, Objects.requireNonNull(this.result.asItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    this.save(consumer, Objects.requireNonNull(this.result.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (this.itemCost <= 0) {
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }

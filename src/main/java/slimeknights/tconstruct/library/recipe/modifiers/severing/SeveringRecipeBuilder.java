@@ -40,12 +40,12 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "severing");
     consumer.accept(new Finished(id, advancementId));
   }

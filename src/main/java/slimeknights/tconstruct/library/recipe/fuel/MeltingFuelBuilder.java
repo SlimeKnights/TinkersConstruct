@@ -34,15 +34,15 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
+  public void save(Consumer<FinishedRecipe> consumer) {
     if (input.getFluids().isEmpty()) {
       throw new IllegalStateException("Must have at least one fluid for dynamic input");
     }
-    build(consumer, Objects.requireNonNull(input.getFluids().get(0).getFluid().getRegistryName()));
+    save(consumer, Objects.requireNonNull(input.getFluids().get(0).getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting_fuel");
     consumer.accept(new Result(id, advancementId));
   }

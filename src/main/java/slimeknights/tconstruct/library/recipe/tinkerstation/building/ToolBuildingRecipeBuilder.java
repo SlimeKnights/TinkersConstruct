@@ -21,12 +21,12 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   private final IModifiable output;
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn) {
-    this.build(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumerIn) {
+    this.save(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
     consumerIn.accept(new ToolBuildingRecipeBuilder.Result(id, advancementId));
   }

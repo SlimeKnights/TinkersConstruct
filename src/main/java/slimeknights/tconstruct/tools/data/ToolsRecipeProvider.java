@@ -79,7 +79,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                           .save(consumer, prefix(TinkerTools.flintAndBronze, folder));
     SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBronze, MaterialIds.tinkersBronze)
                                   .buildRepairKit(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_repair_kit"))
-                                  .build(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_station"));
+                                  .save(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_station"));
 
     // travelers gear
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.HELMET))
@@ -116,7 +116,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .save(consumer, modResource(armorFolder + "travelers_boots"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.copper)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_repair_kit"))
-                                  .build(consumer, modResource(armorRepairFolder + "travelers_station"));
+                                  .save(consumer, modResource(armorRepairFolder + "travelers_station"));
 
     // plate armor
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))
@@ -150,7 +150,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .save(consumer, modResource(armorFolder + "plate_boots"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.manyullyn)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
-                                  .build(consumer, modResource(armorRepairFolder + "plate_station"));
+                                  .save(consumer, modResource(armorRepairFolder + "plate_station"));
 
     // slimeskull
     slimeskullCasting(consumer, MaterialIds.gunpowder,    Items.CREEPER_HEAD,          armorFolder);
@@ -172,33 +172,33 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
                             .setCast(Items.ELYTRA, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 8)
-                            .build(consumer, modResource(armorFolder + "slimelytra"));
+                            .save(consumer, modResource(armorFolder + "slimelytra"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE)), MaterialIds.phantom)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slimelytra_repair_kit"))
-                                  .build(consumer, modResource(armorRepairFolder + "slimelytra_station"));
+                                  .save(consumer, modResource(armorRepairFolder + "slimelytra_station"));
 
     // slimeshell
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS))
                             .setCast(Items.SHULKER_SHELL, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 7)
-                            .build(consumer, modResource(armorFolder + "slimeshell"));
+                            .save(consumer, modResource(armorFolder + "slimeshell"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS)), MaterialIds.chorus)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slimeshell_repair_kit"))
-                                  .build(consumer, modResource(armorRepairFolder + "slimeshell_station"));
+                                  .save(consumer, modResource(armorRepairFolder + "slimeshell_station"));
 
     // boots
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
-                            .build(consumer, modResource(armorFolder + "slime_boots"));
+                            .save(consumer, modResource(armorFolder + "slime_boots"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.rabbit)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
-                                  .build(consumer, modResource(armorRepairFolder + "slime_boots_station"));
+                                  .save(consumer, modResource(armorRepairFolder + "slime_boots_station"));
 
     // general repair with enderslime
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.values().stream().map(ItemStack::new)), MaterialIds.enderslime)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slimesuit_repair_kit"))
-                                  .build(consumer, modResource(armorRepairFolder + "slimesuit_station"));
+                                  .save(consumer, modResource(armorRepairFolder + "slimesuit_station"));
   }
 
   private void addPartRecipes(Consumer<FinishedRecipe> consumer) {
@@ -225,6 +225,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
                             .setCast(skull, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 5)
-                            .build(consumer, modResource(folder + "slime_skull/" + material.getPath()));
+                            .save(consumer, modResource(folder + "slime_skull/" + material.getPath()));
   }
 }

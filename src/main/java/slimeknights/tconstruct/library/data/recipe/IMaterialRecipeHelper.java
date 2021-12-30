@@ -51,7 +51,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     if (leftover != null) {
       builder.setLeftover(leftover);
     }
-    builder.build(consumer, modResource(saveName));
+    builder.save(consumer, modResource(saveName));
   }
 
   /**
@@ -77,7 +77,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   /** Adds recipes to melt a material */
   default void materialMelting(Consumer<FinishedRecipe> consumer, MaterialId material, Fluid fluid, int fluidAmount, String folder) {
     MaterialMeltingRecipeBuilder.material(material, new FluidStack(fluid, fluidAmount))
-                                .build(consumer, modResource(folder + "melting/" + material.getPath()));
+                                .save(consumer, modResource(folder + "melting/" + material.getPath()));
   }
 
   /** Adds recipes to melt and cast a material */
@@ -85,7 +85,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     MaterialFluidRecipeBuilder.material(material)
                               .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), fluidAmount)
                               .setTemperature(fluid.get().getAttributes().getTemperature() - 300)
-                              .build(consumer, modResource(folder + "casting/" + material.getPath()));
+                              .save(consumer, modResource(folder + "casting/" + material.getPath()));
     materialMelting(consumer, material, fluid.get(), fluidAmount, folder);
   }
 
@@ -116,7 +116,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
                               .setInputId(input)
                               .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount)
                               .setTemperature(fluid.get().getAttributes().getTemperature() - 300)
-                              .build(consumer, modResource(folder + "composite/" + name));
+                              .save(consumer, modResource(folder + "composite/" + name));
   }
 
   /** Adds recipes to melt and cast a material of ingot size */

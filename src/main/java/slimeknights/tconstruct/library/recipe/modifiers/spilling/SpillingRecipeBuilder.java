@@ -50,12 +50,12 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(fluid.getFluids().get(0).getFluid().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, Objects.requireNonNull(fluid.getFluids().get(0).getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (effects.isEmpty()) {
       throw new IllegalStateException("Must have at least one effect to build");
     }

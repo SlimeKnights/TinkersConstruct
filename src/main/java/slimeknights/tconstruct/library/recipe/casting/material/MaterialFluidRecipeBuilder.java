@@ -60,12 +60,12 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, outputId);
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, outputId);
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (this.fluid == FluidIngredient.EMPTY) {
       throw new IllegalStateException("Material fluid recipes require a fluid input");
     }

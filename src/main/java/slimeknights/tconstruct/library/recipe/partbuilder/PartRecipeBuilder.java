@@ -37,12 +37,12 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn) {
-    this.build(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumerIn) {
+    this.save(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
     if (this.outputAmount <= 0) {
       throw new IllegalStateException("recipe " + id + " must output at least 1");
     }

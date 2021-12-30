@@ -63,12 +63,12 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn) {
-    this.build(consumerIn, material);
+  public void save(Consumer<FinishedRecipe> consumerIn) {
+    this.save(consumerIn, material);
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
     if (this.material == null) {
       throw new IllegalStateException("recipe " + id + " has no material associated with it");
     }

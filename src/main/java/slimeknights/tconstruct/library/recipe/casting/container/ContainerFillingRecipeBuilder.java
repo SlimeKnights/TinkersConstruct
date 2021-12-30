@@ -75,12 +75,12 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    this.build(consumer, this.result);
+  public void save(Consumer<FinishedRecipe> consumer) {
+    this.save(consumer, this.result);
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
     consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, advancementId));
   }

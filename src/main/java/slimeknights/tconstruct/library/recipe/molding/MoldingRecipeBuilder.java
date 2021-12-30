@@ -83,12 +83,12 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
   /* Building */
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
+  public void save(Consumer<FinishedRecipe> consumer) {
+    save(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (material == Ingredient.EMPTY) {
       throw new IllegalStateException("Missing material for molding recipe");
     }
