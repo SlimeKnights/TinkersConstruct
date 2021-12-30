@@ -19,7 +19,8 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.common.loot.CanToolPerformAction;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.loot.function.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
@@ -151,11 +152,11 @@ public class BlockLootTableProvider extends BlockLoot {
     TinkerWorld.slimeSapling.forEach(this::dropSelf);
 
     // foliage
-    TinkerWorld.slimeTallGrass.forEach(block -> this.add(block, BlockLootTableProvider::onlyShearsTag));
+    TinkerWorld.slimeTallGrass.forEach(block -> this.add(block, BlockLootTableProvider::onlyShears));
     for (SlimeType type : SlimeType.OVERWORLD) {
       // overworld leaves, drops with leaves and slimeballs
       this.add(TinkerWorld.slimeLeaves.get(type), block -> randomDropSlimeBallOrSapling(type, block, TinkerWorld.slimeSapling.get(type), NORMAL_LEAVES_SAPLING_CHANCES));
-      this.add(TinkerWorld.slimeFern.get(type), BlockLootTableProvider::onlyShearsTag);
+      this.add(TinkerWorld.slimeFern.get(type), BlockLootTableProvider::onlyShears);
     }
     for (SlimeType type : SlimeType.NETHER) {
       // nether leaves drop self
@@ -164,8 +165,8 @@ public class BlockLootTableProvider extends BlockLoot {
     }
 
     // vines
-    this.add(TinkerWorld.skySlimeVine.get(), BlockLootTableProvider::onlyShearsTag);
-    this.add(TinkerWorld.enderSlimeVine.get(), BlockLootTableProvider::onlyShearsTag);
+    this.add(TinkerWorld.skySlimeVine.get(), BlockLootTableProvider::onlyShears);
+    this.add(TinkerWorld.enderSlimeVine.get(), BlockLootTableProvider::onlyShears);
 
     // wood
     this.registerWoodLootTables(TinkerWorld.greenheart);
@@ -256,19 +257,19 @@ public class BlockLootTableProvider extends BlockLoot {
    */
 
   private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-  private static final LootItemCondition.Builder SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS));
+  private static final LootItemCondition.Builder SHEARS = CanToolPerformAction.canToolPerformAction(ToolActions.SHEARS_DIG);
   private static final LootItemCondition.Builder SILK_TOUCH_OR_SHEARS = SHEARS.or(SILK_TOUCH);
 
-  protected static LootTable.Builder onlyShearsTag(ItemLike item) {
+  protected static LootTable.Builder onlyShears(ItemLike item) {
     return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(SHEARS).add(LootItem.lootTableItem(item)));
   }
 
-  private static LootTable.Builder droppingSilkOrShearsTag(Block block, LootPoolEntryContainer.Builder<?> alternativeLootEntry) {
+  private static LootTable.Builder droppingSilkOrShears(Block block, LootPoolEntryContainer.Builder<?> alternativeLootEntry) {
     return createSelfDropDispatchTable(block, SILK_TOUCH_OR_SHEARS, alternativeLootEntry);
   }
 
   private static LootTable.Builder dropSapling(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return droppingSilkOrShearsTag(blockIn, applyExplosionCondition(blockIn, LootItem.lootTableItem(saplingIn)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, fortuneIn)));
+    return droppingSilkOrShears(blockIn, applyExplosionCondition(blockIn, LootItem.lootTableItem(saplingIn)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, fortuneIn)));
   }
 
   private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
