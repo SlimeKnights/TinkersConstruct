@@ -1,0 +1,63 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/nickel",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_iron"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_iron",
+          "amount": 1296
+        },
+        "temperature": 800,
+        "time": 361,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_nickel",
+            "amount": 432
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/copper",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_iron"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_iron",
+          "amount": 1296
+        },
+        "temperature": 800,
+        "time": 361,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_copper",
+            "amount": 432
+          }
+        ]
+      }
+    }
+  ]
+}

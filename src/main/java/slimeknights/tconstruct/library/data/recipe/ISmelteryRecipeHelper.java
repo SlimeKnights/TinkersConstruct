@@ -12,8 +12,8 @@ import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.registration.object.FluidObject;
-import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
@@ -56,7 +56,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    * @param isOptional  If true, recipe is optional
    * @param byproducts  List of byproduct options for this metal, first one that is present will be used
    */
-  default void oreMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional, IByproduct... byproducts) {
+  default void oreMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional, float byproductScale, IByproduct... byproducts) {
     Consumer<FinishedRecipe> wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
     Supplier<MeltingRecipeBuilder> supplier = () -> MeltingRecipeBuilder.melting(Ingredient.of(getTag("forge", tagName)), fluid, amount, factor).setOre();
     ResourceLocation location = modResource(recipePath);
@@ -67,7 +67,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       // if first option is always present, only need that one
     } else if (byproducts[0].isAlwaysPresent()) {
       supplier.get()
-              .addByproduct(new FluidStack(byproducts[0].getFluid(), byproducts[0].getNuggets()))
+              .addByproduct(new FluidStack(byproducts[0].getFluid(), (int)(byproducts[0].getNuggets() * byproductScale)))
               .save(wrapped, location);
     } else {
       // multiple options, will need a conditonal recipe
@@ -75,7 +75,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       boolean alwaysPresent = false;
       for (IByproduct byproduct : byproducts) {
         builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
-        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), byproduct.getNuggets()))::save);
+        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), (int)(byproduct.getNuggets() * byproductScale)))::save);
         // found an always present byproduct? we are done
         alwaysPresent = byproduct.isAlwaysPresent();
         if (alwaysPresent) {
@@ -108,7 +108,9 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     metalMeltingBase(consumer, fluid, FluidValues.INGOT, "ingots/" + name, 1.0f, prefix + "ingot", isOptional);
     metalMeltingBase(consumer, fluid, FluidValues.NUGGET, "nuggets/" + name, 1 / 3f, prefix + "nugget", isOptional);
     if (hasOre) {
-      oreMelting(consumer, fluid, FluidValues.INGOT, "ores/" + name, 1.5f, prefix + "ore", isOptional, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT,     "raw_materials/" + name,      1.5f, prefix + "raw",       isOptional, 1.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT * 2, "ores/" + name,               3.0f, prefix + "ore",       isOptional, 2.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT * 9, "storage_blocks/raw_" + name, 6.0f, prefix + "raw_block", isOptional, 9.0f, byproducts);
     }
     // remaining forms are always optional as we don't ship them
     // allow disabling dust as some mods treat dust as distinct from ingots

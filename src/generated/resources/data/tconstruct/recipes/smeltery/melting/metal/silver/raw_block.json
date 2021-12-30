@@ -1,0 +1,72 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/raw_silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/lead",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_silver"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_silver",
+          "amount": 1296
+        },
+        "temperature": 790,
+        "time": 359,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_lead",
+            "amount": 432
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/gold",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_silver"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_silver",
+          "amount": 1296
+        },
+        "temperature": 790,
+        "time": 359,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_gold",
+            "amount": 432
+          }
+        ]
+      }
+    }
+  ]
+}

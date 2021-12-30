@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:ore_melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/raw_cobalt"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_cobalt",
+    "amount": 1296
+  },
+  "temperature": 950,
+  "time": 389,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 432
+    }
+  ]
+}

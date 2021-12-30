@@ -127,7 +127,8 @@ public class BlockLootTableProvider extends BlockLoot {
   }
 
   private void addWorld() {
-    this.dropSelf(TinkerWorld.cobaltOre.get());
+    this.add(TinkerWorld.cobaltOre.get(), block -> createOreDrop(block, TinkerWorld.rawCobalt.asItem()));
+    this.dropSelf(TinkerWorld.rawCobaltBlock.get());
     TinkerWorld.heads.forEach(this::dropSelf);
 
     // slime blocks

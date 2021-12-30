@@ -1,0 +1,72 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/raw_tungsten",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/platinum",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_tungsten"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_tungsten",
+          "amount": 1296
+        },
+        "temperature": 950,
+        "time": 389,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_platinum",
+            "amount": 144
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/gold",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_tungsten"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_tungsten",
+          "amount": 1296
+        },
+        "temperature": 950,
+        "time": 389,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_gold",
+            "amount": 432
+          }
+        ]
+      }
+    }
+  ]
+}

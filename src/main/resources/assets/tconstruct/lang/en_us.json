@@ -87,13 +87,12 @@
 
   "__comment": "Ore Metals",
 
-  "block.tconstruct.copper_ore": "Copper Ore",
-  "block.tconstruct.copper_block": "Block of Copper",
-  "block.tconstruct.copper_block.tooltip": "Can be used as beacon base",
-  "item.tconstruct.copper_ingot": "Copper Ingot",
   "item.tconstruct.copper_nugget": "Copper Nugget",
 
   "block.tconstruct.cobalt_ore": "Nether Cobalt Ore",
+  "item.tconstruct.raw_cobalt": "Raw Cobalt",
+  "block.tconstruct.raw_cobalt_block": "Block of Raw Cobalt",
+
   "block.tconstruct.cobalt_block": "Block of Cobalt",
   "block.tconstruct.cobalt_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.cobalt_ingot": "Cobalt Ingot",

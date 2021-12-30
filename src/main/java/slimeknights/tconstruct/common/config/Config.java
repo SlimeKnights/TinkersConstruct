@@ -152,11 +152,11 @@ public class Config {
       this.smelteryNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.smelteryNuggetsPerOre")
-        .defineInRange("smelteryNuggetsPerOre", 18, 1, 45);
+        .defineInRange("smelteryNuggetsPerOre", 12, 1, 45);
       this.foundryNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.foundryNuggetsPerOre")
-        .defineInRange("foundryNuggetsPerOre", 15, 1, 45);
+        .defineInRange("foundryNuggetsPerOre", 9, 1, 45);
 
       builder.comment("Entity head drops when killed by a charged creeper").push("heads");
       headDrops = new EnumMap<>(TinkerHeadType.class);

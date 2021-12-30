@@ -54,11 +54,31 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.addSmeltery();
     this.addFluids();
     this.addHarvest();
+    this.add118Tags();
+  }
+
+  /** Adds tags for 1.18 content, while waiting for Forge PR #7891 */
+  @Deprecated
+  private void add118Tags() {
+    // copper basics
+    tag(TinkerTags.Blocks.BLOCKS_COPPER).add(Blocks.COPPER_BLOCK, Blocks.CUT_COPPER);
+    this.tag(TinkerTags.Blocks.ORES_COPPER).addTag(BlockTags.COPPER_ORES);
+    this.tag(Tags.Blocks.ORES).addTag(TinkerTags.Blocks.ORES_COPPER);
+
+    // deepslate ores
+    this.tag(Tags.Blocks.ORES_IRON).addTag(BlockTags.IRON_ORES);
+    this.tag(Tags.Blocks.ORES_GOLD).addTag(BlockTags.GOLD_ORES);
+    this.tag(Tags.Blocks.ORES_DIAMOND).addTag(BlockTags.DIAMOND_ORES);
+    this.tag(Tags.Blocks.ORES_EMERALD).addTag(BlockTags.EMERALD_ORES);
+
+    // raw ores
+    this.tag(TinkerTags.Blocks.RAW_BLOCK_COPPER).add(Blocks.RAW_COPPER_BLOCK);
+    this.tag(TinkerTags.Blocks.RAW_BLOCK_IRON).add(Blocks.RAW_IRON_BLOCK);
+    this.tag(TinkerTags.Blocks.RAW_BLOCK_GOLD).add(Blocks.RAW_GOLD_BLOCK);
+    tag(Tags.Blocks.STORAGE_BLOCKS).addTags(TinkerTags.Blocks.BLOCKS_COPPER, TinkerTags.Blocks.RAW_BLOCK_COPPER, TinkerTags.Blocks.RAW_BLOCK_IRON, TinkerTags.Blocks.RAW_BLOCK_GOLD);
   }
 
   private void addCommon() {
-    tag(TinkerTags.Blocks.BLOCKS_COPPER).add(Blocks.COPPER_BLOCK, Blocks.CUT_COPPER);
-    tag(Tags.Blocks.STORAGE_BLOCKS).addTag(TinkerTags.Blocks.BLOCKS_COPPER);
     // ores
     addMetalTags(TinkerMaterials.cobalt, true);
     // tier 3
@@ -143,8 +163,9 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void addWorld() {
     // ores
     this.tag(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
-    this.tag(TinkerTags.Blocks.ORES_COPPER).addTag(BlockTags.COPPER_ORES);
-    this.tag(Tags.Blocks.ORES).addTags(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_COPPER);
+    this.tag(Tags.Blocks.ORES).addTag(TinkerTags.Blocks.ORES_COBALT);
+    this.tag(TinkerTags.Blocks.RAW_BLOCK_COBALT).add(TinkerWorld.rawCobaltBlock.get());
+    this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(TinkerTags.Blocks.RAW_BLOCK_COBALT);
 
     // allow the enderman to hold more blocks
     TagsProvider.TagAppender<Block> endermanHoldable = this.tag(BlockTags.ENDERMAN_HOLDABLE);
@@ -355,6 +376,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   /** Applies a set of tags to a block */
+  @SuppressWarnings("SameParameterValue")
   private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, Supplier<? extends Block>... blocks) {
     tagBlocks(tag1, blocks);
     tagBlocks(tag2, blocks);
@@ -378,6 +400,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   /** Applies a set of tags to a block */
+  @SuppressWarnings("SameParameterValue")
   private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, BuildingBlockObject... blocks) {
     tagBlocks(tag1, blocks);
     tagBlocks(tag2, blocks);

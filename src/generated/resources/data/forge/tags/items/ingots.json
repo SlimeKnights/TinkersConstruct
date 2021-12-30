@@ -3,7 +3,6 @@
   "values": [
     "tconstruct:seared_brick",
     "tconstruct:scorched_brick",
-    "#forge:ingots/copper",
     "#forge:ingots/netherite_scrap",
     "#forge:ingots/cobalt",
     "#forge:ingots/slimesteel",
@@ -14,6 +13,7 @@
     "#forge:ingots/manyullyn",
     "#forge:ingots/hepatizon",
     "#forge:ingots/soulsteel",
-    "#forge:ingots/knightslime"
+    "#forge:ingots/knightslime",
+    "#forge:ingots/copper"
   ]
 }

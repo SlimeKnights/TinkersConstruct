@@ -206,8 +206,10 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     Item cobaltIngot = TinkerMaterials.cobalt.getIngot();
-    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
-                              .unlockedBy("has_item", has(TinkerWorld.cobaltOre))
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.rawCobalt, TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
+                              .unlockedBy("has_item", has(TinkerWorld.rawCobalt))
                               .save(consumer, wrap(cobaltIngot, folder, "_smelting"));
+    // pack raw cobalt
+    packingRecipe(consumer, "raw_block", TinkerWorld.rawCobaltBlock, "raw", TinkerWorld.rawCobalt, TinkerTags.Items.RAW_COBALT, folder);
   }
 }

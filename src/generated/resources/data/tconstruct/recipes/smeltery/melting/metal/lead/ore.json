@@ -27,14 +27,14 @@
         },
         "result": {
           "fluid": "tconstruct:molten_lead",
-          "amount": 144
+          "amount": 288
         },
         "temperature": 330,
-        "time": 65,
+        "time": 130,
         "byproducts": [
           {
             "fluid": "tconstruct:molten_silver",
-            "amount": 48
+            "amount": 96
           }
         ]
       }
@@ -56,14 +56,14 @@
         },
         "result": {
           "fluid": "tconstruct:molten_lead",
-          "amount": 144
+          "amount": 288
         },
         "temperature": 330,
-        "time": 65,
+        "time": 130,
         "byproducts": [
           {
             "fluid": "tconstruct:molten_gold",
-            "amount": 48
+            "amount": 96
           }
         ]
       }

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:ore_melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/raw_copper"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 1296
+  },
+  "temperature": 500,
+  "time": 300,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_gold",
+      "amount": 144
+    }
+  ]
+}

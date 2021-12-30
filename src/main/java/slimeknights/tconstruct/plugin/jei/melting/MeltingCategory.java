@@ -17,6 +17,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
@@ -120,12 +121,20 @@ public class MeltingCategory extends AbstractMeltingCategory {
 
     @Override
     protected boolean addOreTooltip(FluidStack stack, List<Component> list) {
-      list.add(TOOLTIP_SMELTERY);
-      boolean shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingContainer.applyOreBoost(stack.getAmount(), Config.COMMON.smelteryNuggetsPerOre.get()), list);
-      list.add(TextComponent.EMPTY);
-      list.add(TOOLTIP_MELTER);
-      shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingContainer.applyOreBoost(stack.getAmount(), Config.COMMON.melterNuggetsPerOre.get()), list) || shift;
-      return shift;
+      Fluid fluid = stack.getFluid();
+      int amount = stack.getAmount();
+      int smelteryRate = Config.COMMON.smelteryNuggetsPerOre.get();
+      int melterRate = Config.COMMON.melterNuggetsPerOre.get();
+      if (smelteryRate != melterRate) {
+        list.add(TOOLTIP_MELTER);
+        boolean shift = FluidTooltipHandler.appendMaterialNoShift(fluid, IMeltingContainer.applyOreBoost(amount, melterRate), list);
+        list.add(TextComponent.EMPTY);
+        list.add(TOOLTIP_SMELTERY);
+        shift = FluidTooltipHandler.appendMaterialNoShift(fluid, IMeltingContainer.applyOreBoost(amount, smelteryRate), list) || shift;
+        return shift;
+      } else {
+        return FluidTooltipHandler.appendMaterialNoShift(fluid, IMeltingContainer.applyOreBoost(amount, smelteryRate), list);
+      }
     }
   }
 }
