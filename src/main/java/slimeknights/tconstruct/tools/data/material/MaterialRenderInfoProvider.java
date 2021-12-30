@@ -24,7 +24,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 2
     buildRenderInfo(MaterialIds.iron).color(0xD8D8D8).fallbacks("metal");
-    buildRenderInfo(MaterialIds.copper).color(0xF98648).fallbacks("metal");
+    buildRenderInfo(MaterialIds.copper).color(0xE77C56).fallbacks("metal");
     buildRenderInfo(MaterialIds.searedStone).color(0x4F4A47).fallbacks("rock");
     buildRenderInfo(MaterialIds.scorchedStone).color(0x5B4C43).fallbacks("rock");
     buildRenderInfo(MaterialIds.slimewood).color(0x82c873).fallbacks("wood", "stick");

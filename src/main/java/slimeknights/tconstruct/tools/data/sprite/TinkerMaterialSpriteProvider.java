@@ -62,7 +62,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.copper)
       .meleeHarvest()
       .fallbacks("metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF72341A).addARGB(102, 0xFF934828).addARGB(140, 0xFFD87236).addARGB(178, 0xFFEF8345).addARGB(216, 0xFFFBA165).addARGB(255, 0xFFFAC493).build());
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6D3421).addARGB(102, 0xFF8A4129).addARGB(140, 0xFF9C4E31).addARGB(178, 0xFFC15A36).addARGB(216, 0xFFE77C56).addARGB(255, 0xFFFC9982).build());
     buildMaterial(MaterialIds.searedStone)
       .meleeHarvest()
       .fallbacks("rock")

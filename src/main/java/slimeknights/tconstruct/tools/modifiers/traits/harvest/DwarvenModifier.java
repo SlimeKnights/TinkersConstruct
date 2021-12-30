@@ -23,7 +23,7 @@ public class DwarvenModifier extends Modifier {
   private static final float BOOST_AT_0 = 0.1f;
 
   public DwarvenModifier() {
-    super(0xF98648);
+    super(0xE77C56);
   }
 
   /** Gets the boost for the given level and height */

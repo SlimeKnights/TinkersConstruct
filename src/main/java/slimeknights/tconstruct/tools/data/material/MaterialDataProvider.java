@@ -34,7 +34,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false, 0xD8D8D8);
-    addMaterial(MaterialIds.copper,      2, ORDER_HARVEST, true,  0xF98648);
+    addMaterial(MaterialIds.copper,      2, ORDER_HARVEST, true,  0xE77C56);
     addMaterial(MaterialIds.searedStone, 2, ORDER_WEAPON,  false, 0x4F4A47);
     addMaterial(MaterialIds.slimewood,   2, ORDER_SPECIAL, true,  0x82c873);
     addMaterial(MaterialIds.bloodbone,   2, ORDER_SPECIAL, false, 0xB30000);
