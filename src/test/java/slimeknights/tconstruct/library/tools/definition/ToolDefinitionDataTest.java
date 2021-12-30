@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.tools.definition;
 
+import com.google.common.collect.ImmutableSet;
+import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -29,6 +31,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
     assertThat(data.getSlots().containedTypes()).isEmpty();
     assertThat(data.getTraits()).isNotNull();
     assertThat(data.getTraits()).isEmpty();
+    assertThat(data.actions).isNullOrEmpty();
   }
 
   /** Checks that the stats are all empty */
@@ -55,7 +58,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
 
   @Test
   void data_nullContainsNoData() {
-    checkToolDataEmpty(new ToolDefinitionData(null, null, null, null));
+    checkToolDataEmpty(new ToolDefinitionData(null, null, null, null, null));
   }
 
   @Test
@@ -169,5 +172,14 @@ class ToolDefinitionDataTest extends BaseMcTest {
     }
 
     // packet buffers handled in packet test
+  }
+
+  @Test
+  void actions_canPerform() {
+    assertThat(ToolDefinitionData.EMPTY.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isFalse();
+    assertThat(ToolDefinitionData.EMPTY.canPerformAction(ToolActions.SWORD_DIG)).isFalse();
+    ToolDefinitionData newData = new ToolDefinitionData(null, null, null, null, ImmutableSet.of(ToolActions.SHOVEL_FLATTEN));
+    assertThat(newData.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isTrue();
+    assertThat(newData.canPerformAction(ToolActions.SWORD_DIG)).isFalse();
   }
 }

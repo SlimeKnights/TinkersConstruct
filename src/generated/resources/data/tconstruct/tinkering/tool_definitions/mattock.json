@@ -35,5 +35,9 @@
       "name": "tconstruct:shovel_transform_hidden",
       "level": 1
     }
+  ],
+  "actions": [
+    "axe_dig",
+    "shovel_dig"
   ]
 }

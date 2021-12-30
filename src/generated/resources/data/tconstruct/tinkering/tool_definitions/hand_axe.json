@@ -25,5 +25,8 @@
       "name": "tconstruct:axe_transform_hidden",
       "level": 1
     }
+  ],
+  "actions": [
+    "axe_dig"
   ]
 }

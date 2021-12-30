@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import lombok.NoArgsConstructor;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -11,6 +13,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
@@ -23,6 +26,7 @@ public class ToolDefinitionDataBuilder {
   private final DefinitionToolStats.Builder multipliers = DefinitionToolStats.builder();
   private final DefinitionModifierSlots.Builder slots = DefinitionModifierSlots.builder();
   private final ImmutableList.Builder<ModifierEntry> traits = ImmutableList.builder();
+  private final ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
 
   /* Parts */
 
@@ -141,16 +145,27 @@ public class ToolDefinitionDataBuilder {
   }
 
   /**
+   * Adds a tool action to the tool definition, only has an affect on tools with interaction behaviors
+   * @param action  Action
+   */
+  public ToolDefinitionDataBuilder action(ToolAction action) {
+    this.actions.add(action);
+    return this;
+  }
+
+  /**
    * Builds the final definition JSON to serialize
    */
   public ToolDefinitionData build() {
     List<PartRequirement> parts = this.parts.build();
     DefinitionToolStats multipliers = this.multipliers.build();
     List<ModifierEntry> traits = this.traits.build();
+    Set<ToolAction> actions = this.actions.build();
     return new ToolDefinitionData(parts.isEmpty() ? null : parts,
                                   new Stats(bonuses.build(),
                                             multipliers.containedStats().isEmpty() ? null : multipliers),
                                   slots.build(),
-                                  traits.isEmpty() ? null : traits);
+                                  traits.isEmpty() ? null : traits,
+                                  actions.isEmpty() ? null : actions);
   }
 }

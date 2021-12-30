@@ -41,5 +41,8 @@
       "name": "tconstruct:two_handed",
       "level": 1
     }
+  ],
+  "actions": [
+    "shovel_dig"
   ]
 }

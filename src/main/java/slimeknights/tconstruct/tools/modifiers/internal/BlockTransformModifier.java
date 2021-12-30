@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,17 +11,20 @@ import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.Set;
 
 public class BlockTransformModifier extends InteractionModifier.SingleUse {
-  private final ToolAction toolAction;
+  private final Set<ToolAction> actions;
   private final SoundEvent sound;
   private final boolean requireGround;
   private final int priority;
 
-  public BlockTransformModifier(int color, int priority, ToolAction toolAction, SoundEvent sound, boolean requireGround) {
+  public BlockTransformModifier(int color, int priority, SoundEvent sound, boolean requireGround, ToolAction... actions) {
     super(color);
     this.priority = priority;
-    this.toolAction = toolAction;
+    this.actions = ImmutableSet.copyOf(actions);
     this.sound = sound;
     this.requireGround = requireGround;
   }
@@ -33,6 +37,11 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
   @Override
   public boolean shouldDisplay(boolean advanced) {
     return priority > Short.MIN_VALUE;
+  }
+
+  @Override
+  public boolean canPerformAction(ToolStack tool, int level, ToolAction toolAction) {
+    return actions.contains(toolAction);
   }
 
   @Override
@@ -49,6 +58,12 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
     } else {
       harvestLogic = ToolHarvestLogic.DEFAULT;
     }
-    return harvestLogic.transformBlocks(tool, context, toolAction, sound, requireGround);
+    for (ToolAction action : actions) {
+      InteractionResult result = harvestLogic.transformBlocks(tool, context, action, sound, requireGround);
+      if (result.consumesAction()) {
+        return result;
+      }
+    }
+    return InteractionResult.PASS;
   }
 }

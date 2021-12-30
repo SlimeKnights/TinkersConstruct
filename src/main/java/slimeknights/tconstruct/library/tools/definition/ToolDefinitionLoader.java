@@ -3,7 +3,13 @@ package slimeknights.tconstruct.library.tools.definition;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -11,11 +17,13 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +40,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
     .registerTypeAdapter(PartRequirement.class, PartRequirement.SERIALIZER)
     .registerTypeAdapter(DefinitionModifierSlots.class, DefinitionModifierSlots.SERIALIZER)
     .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
+    .registerTypeAdapter(ToolAction.class, ToolActionSerializer.INSTANCE)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -125,5 +134,20 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
       throw new IllegalArgumentException("Duplicate tool definition " + name);
     }
     definitions.put(name, definition);
+  }
+
+  /** Logic to serialize and deserialize tool actions */
+  private enum ToolActionSerializer implements JsonSerializer<ToolAction>, JsonDeserializer<ToolAction> {
+    INSTANCE;
+
+    @Override
+    public ToolAction deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+      return ToolAction.get(GsonHelper.convertToString(json, "action"));
+    }
+
+    @Override
+    public JsonElement serialize(ToolAction src, Type typeOfSrc, JsonSerializationContext context) {
+      return new JsonPrimitive(src.name());
+    }
   }
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
@@ -46,6 +47,8 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
       .startingSlots(SlotType.ABILITY, 8)
       // traits
       .trait(ModifierFixture.TEST_MODIFIER_1, 10)
+      .action(ToolActions.AXE_DIG)
+      .action(ToolActions.SHOVEL_FLATTEN)
       .build();
 
     // send a packet over the buffer
@@ -70,6 +73,8 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     assertThat(parsed.getSlots().containedTypes()).isEmpty();
     // no traits
     assertThat(parsed.getTraits()).isEmpty();
+    // no actions
+    assertThat(parsed.actions).isNullOrEmpty();
 
     // next, validate the filled one
     parsed = parsedMap.get(FILLED_ID);
@@ -110,10 +115,16 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     assertThat(slots.getSlots(SlotType.UPGRADE)).isEqualTo(5);
     assertThat(slots.getSlots(SlotType.ABILITY)).isEqualTo(8);
 
-    // no traits
+    // traits
     List<ModifierEntry> traits = parsed.getTraits();
     assertThat(traits).hasSize(1);
     assertThat(traits.get(0).getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_1);
     assertThat(traits.get(0).getLevel()).isEqualTo(10);
+
+    // actions
+    assertThat(parsed.actions).isNotNull();
+    assertThat(parsed.actions).hasSize(2);
+    assertThat(parsed.canPerformAction(ToolActions.AXE_DIG)).isTrue();
+    assertThat(parsed.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isTrue();
   }
 }

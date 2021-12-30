@@ -29,6 +29,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -395,6 +396,23 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
       }
     }
     return UseAnim.NONE;
+  }
+
+  @Override
+  public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    ToolStack tool = ToolStack.from(stack);
+    if (!tool.isBroken()) {
+      // can the tool do this action inheriantly?
+      if (getToolDefinition().getData().canPerformAction(toolAction)) {
+        return true;
+      }
+      for (ModifierEntry entry : tool.getModifierList()) {
+        if (entry.getModifier().canPerformAction(tool, entry.getLevel(), toolAction)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 

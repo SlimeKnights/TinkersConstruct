@@ -29,5 +29,8 @@
       "name": "tconstruct:silky_shears",
       "level": 1
     }
+  ],
+  "actions": [
+    "sword_dig"
   ]
 }

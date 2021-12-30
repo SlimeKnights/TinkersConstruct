@@ -2,8 +2,11 @@ package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -22,12 +25,12 @@ import static java.util.Objects.requireNonNullElse;
  * Contains info about how to craft a tool and how it behaves.
  */
 @SuppressWarnings("ClassCanBeRecord")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolDefinitionData {
   @VisibleForTesting
   protected static final Stats EMPTY_STATS = new Stats(DefinitionToolStats.EMPTY, DefinitionToolStats.EMPTY);
   /** Empty tool data definition instance */
-  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList());
+  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet());
 
   @Nullable
   private final List<PartRequirement> parts;
@@ -37,6 +40,8 @@ public class ToolDefinitionData {
   private final DefinitionModifierSlots slots;
   @Nullable
   private final List<ModifierEntry> traits;
+  @Nullable @VisibleForTesting
+  protected final Set<ToolAction> actions;
 
 
   /* Getters */
@@ -59,6 +64,11 @@ public class ToolDefinitionData {
   /** Gets a list of all traits of the tool */
   public List<ModifierEntry> getTraits() {
     return requireNonNullElse(traits, Collections.emptyList());
+  }
+
+  /** Checks if the tool can natively perform the given tool action */
+  public boolean canPerformAction(ToolAction action) {
+    return this.actions != null && this.actions.contains(action);
   }
 
   /**
@@ -144,6 +154,14 @@ public class ToolDefinitionData {
     for (ModifierEntry entry : traits) {
       entry.write(buffer);
     }
+    if (actions == null) {
+      buffer.writeVarInt(0);
+    } else {
+      buffer.writeVarInt(actions.size());
+      for (ToolAction action : actions) {
+        buffer.writeUtf(action.name());
+      }
+    }
   }
 
   /** Reads a tool definition stat object from a packet buffer */
@@ -161,7 +179,12 @@ public class ToolDefinitionData {
     for (int i = 0; i < size; i++) {
       traits.add(ModifierEntry.read(buffer));
     }
-    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build());
+    size = buffer.readVarInt();
+    ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
+    for (int i = 0; i < size; i++) {
+      actions.add(ToolAction.get(buffer.readUtf()));
+    }
+    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build());
   }
 
   /** Internal stats object */

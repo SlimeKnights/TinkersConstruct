@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -41,7 +42,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 1.2f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.piercing, 1);
+      .trait(TinkerModifiers.piercing, 1)
+      .action(ToolActions.PICKAXE_DIG);
 
     define(ToolDefinitions.SLEDGE_HAMMER)
       // parts
@@ -58,7 +60,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.smite, 2)
-      .trait(TinkerModifiers.twoHanded);
+      .trait(TinkerModifiers.twoHanded)
+      .action(ToolActions.PICKAXE_DIG);
 
     define(ToolDefinitions.VEIN_HAMMER)
       // parts
@@ -75,7 +78,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.piercing, 2)
-      .trait(TinkerModifiers.twoHanded);
+      .trait(TinkerModifiers.twoHanded)
+      .action(ToolActions.PICKAXE_DIG);
 
 
     // shovels
@@ -94,7 +98,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.SECONDARY_MINING, 0.65f)
       // traits
       .trait(TinkerModifiers.knockback, 1)
-      .trait(TinkerModifiers.shovelTransformHidden);
+      .trait(TinkerModifiers.shovelTransformHidden)
+      .action(ToolActions.AXE_DIG)
+      .action(ToolActions.SHOVEL_DIG);
 
     define(ToolDefinitions.EXCAVATOR)
       // parts
@@ -112,7 +118,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.knockback, 2)
       .trait(TinkerModifiers.shovelTransformHidden)
-      .trait(TinkerModifiers.twoHanded);
+      .trait(TinkerModifiers.twoHanded)
+      .action(ToolActions.SHOVEL_DIG);
 
 
     // axes
@@ -126,7 +133,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 0.9f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeTransformHidden);
+      .trait(TinkerModifiers.axeTransformHidden)
+      .action(ToolActions.AXE_DIG);
 
     define(ToolDefinitions.BROAD_AXE)
       // parts
@@ -143,7 +151,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.axeTransformHidden)
-      .trait(TinkerModifiers.twoHanded);
+      .trait(TinkerModifiers.twoHanded)
+      .action(ToolActions.AXE_DIG);
 
     // scythes
     define(ToolDefinitions.KAMA)
@@ -159,7 +168,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.hoeTransformHidden)
       .trait(TinkerModifiers.shears)
-      .trait(TinkerModifiers.harvest);
+      .trait(TinkerModifiers.harvest)
+      .action(ToolActions.HOE_DIG);
 
     define(ToolDefinitions.SCYTHE)
       // parts
@@ -195,7 +205,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.padded, 1)
       .trait(TinkerModifiers.offhandAttack)
-      .trait(TinkerModifiers.silkyShears);
+      .trait(TinkerModifiers.silkyShears)
+      .action(ToolActions.SWORD_DIG)
+      .action(ToolActions.HOE_DIG);
 
     define(ToolDefinitions.SWORD)
       // parts
@@ -209,7 +221,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 1.1f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.silkyShears);
+      .trait(TinkerModifiers.silkyShears)
+      .action(ToolActions.SWORD_DIG);
 
     define(ToolDefinitions.CLEAVER)
       // parts
@@ -227,7 +240,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.severing, 2)
       .trait(TinkerModifiers.aoeSilkyShears)
-      .trait(TinkerModifiers.twoHanded);
+      .trait(TinkerModifiers.twoHanded)
+      .action(ToolActions.SWORD_DIG);
 
     // special
     define(ToolDefinitions.FLINT_AND_BRONZE)

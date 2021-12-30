@@ -36,5 +36,8 @@
       "name": "tconstruct:harvest",
       "level": 1
     }
+  ],
+  "actions": [
+    "hoe_dig"
   ]
 }

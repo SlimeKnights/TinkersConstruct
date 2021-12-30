@@ -10,19 +10,18 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.TripWireBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.IForgeShearable;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
-import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
@@ -50,6 +49,14 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   protected void swingTool(Player player, InteractionHand hand) {
     player.swing(hand);
     player.sweepAttack();
+  }
+
+  @Override
+  public boolean canPerformAction(ToolStack tool, int level, ToolAction toolAction) {
+    if (isShears(tool)) {
+      return toolAction == ToolActions.SHEARS_DIG || toolAction == ToolActions.SHEARS_HARVEST || toolAction == ToolActions.SHEARS_CARVE || toolAction == ToolActions.SHEARS_DISARM;
+    }
+    return false;
   }
 
   /**
@@ -139,14 +146,4 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
     }
     return false;
   }
-
-  @Override
-  public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
-    BlockState state = context.getState();
-    if (isShears(tool) && state.getBlock() instanceof TripWireBlock) {
-      context.getWorld().setBlock(context.getPos(), state.setValue(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
-    }
-    return null;
-  }
-
 }

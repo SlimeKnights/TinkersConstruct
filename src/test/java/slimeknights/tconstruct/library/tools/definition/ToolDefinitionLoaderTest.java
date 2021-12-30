@@ -4,6 +4,8 @@ import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.TConstruct;
@@ -64,6 +66,11 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(data.getTraits().get(0).getLevel()).isEqualTo(1);
     assertThat(data.getTraits().get(1).getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_2);
     assertThat(data.getTraits().get(1).getLevel()).isEqualTo(3);
+    // actions
+    assertThat(data.actions).isNotNull();
+    assertThat(data.actions).hasSize(2);
+    assertThat(data.canPerformAction(ToolActions.AXE_DIG)).isTrue();
+    assertThat(data.canPerformAction(ToolAction.get("custom_action"))).isTrue();
   }
 
   @BeforeAll

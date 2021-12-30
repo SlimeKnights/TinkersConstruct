@@ -26,5 +26,8 @@
       "name": "test:modifier_2",
       "level": 3
     }
+  ],
+  "actions": [
+    "axe_dig", "custom_action"
   ]
 }

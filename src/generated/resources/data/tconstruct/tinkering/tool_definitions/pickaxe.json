@@ -25,5 +25,8 @@
       "name": "tconstruct:piercing",
       "level": 1
     }
+  ],
+  "actions": [
+    "pickaxe_dig"
   ]
 }

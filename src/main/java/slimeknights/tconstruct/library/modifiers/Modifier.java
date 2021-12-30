@@ -32,6 +32,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -617,6 +618,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
      return UseAnim.NONE;
   }
 
+  /**
+   * Checks if the tool can perform the given tool action. If any modifier returns true, the action is assumed to be present
+   * @param tool        Tool to check, will never be broken
+   * @param level       Modifier level
+   * @param toolAction  Action to check
+   * @return  True if the tool can perform the action.
+   */
+  public boolean canPerformAction(ToolStack tool, int level, ToolAction toolAction) {
+    return false;
+  }
 
   /* Harvest hooks */
 
