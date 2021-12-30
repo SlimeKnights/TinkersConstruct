@@ -15,6 +15,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
@@ -51,6 +52,17 @@ public class SkullModelHelper implements ISafeManagerReloadListener {
     return builder.build();
   }
 
+  /** Injects the models into all entity layers */
+  private static void injectEntityLayers(EntityModelSet modelSet, EntityRenderer<?> entity) {
+    if (entity instanceof LivingEntityRenderer<?,?> livingEntity) {
+      for (RenderLayer<?,?> layer : livingEntity.layers) {
+        if (layer instanceof CustomHeadLayer<?,?> head) {
+          head.skullModels = inject(modelSet, head.skullModels);
+        }
+      }
+    }
+  }
+
   @Override
   public void onReloadSafe(ResourceManager resourceManager) {
     // first, we need to inject into the skull block renderer
@@ -61,14 +73,13 @@ public class SkullModelHelper implements ISafeManagerReloadListener {
       skullRenderer.modelByType = inject(modelSet, skullRenderer.modelByType);
     }
     // next, inject into all entity head layers
-    for (EntityRenderer<?> entity : mc.getEntityRenderDispatcher().renderers.values()) {
-      if (entity instanceof LivingEntityRenderer<?,?> livingEntity) {
-        for (RenderLayer<?,?> layer : livingEntity.layers) {
-          if (layer instanceof CustomHeadLayer<?,?> head) {
-            head.skullModels = inject(modelSet, head.skullModels);
-          }
-        }
-      }
+    EntityRenderDispatcher entityRenderDispatcher = mc.getEntityRenderDispatcher();
+    for (EntityRenderer<?> entity : entityRenderDispatcher.renderers.values()) {
+      injectEntityLayers(modelSet, entity);
+    }
+    // player renderers
+    for (EntityRenderer<?> entity : entityRenderDispatcher.getSkinMap().values()) {
+      injectEntityLayers(modelSet, entity);
     }
     // finally, block entity without level renderer, it exists in either blocks or items so does not matter which we choose
     BlockEntityWithoutLevelRenderer bewlr = mc.getItemRenderer().getBlockEntityRenderer();
