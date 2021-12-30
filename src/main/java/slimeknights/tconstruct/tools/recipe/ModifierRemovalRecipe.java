@@ -11,10 +11,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -188,14 +188,14 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
 
     @Nullable
     @Override
-    public ModifierRemovalRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public ModifierRemovalRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient ingredient = Ingredient.fromNetwork(buffer);
       ItemStack container = buffer.readItem();
       return new ModifierRemovalRecipe(id, ingredient, container);
     }
 
     @Override
-    public void writeSafe(FriendlyByteBuf buffer, ModifierRemovalRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, ModifierRemovalRecipe recipe) {
       recipe.ingredient.toNetwork(buffer);
       buffer.writeItem(recipe.container);
     }

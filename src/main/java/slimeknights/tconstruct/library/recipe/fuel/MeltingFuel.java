@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
@@ -120,7 +120,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, MeltingFuel recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, MeltingFuel recipe) {
       buffer.writeUtf(recipe.group);
       recipe.input.write(buffer);
       buffer.writeInt(recipe.duration);
@@ -129,7 +129,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
 
     @Nullable
     @Override
-    protected MeltingFuel readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected MeltingFuel fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       FluidIngredient input = FluidIngredient.read(buffer);
       int duration = buffer.readInt();

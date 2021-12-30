@@ -300,8 +300,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, IncrementalModifierRecipe recipe) {
-      super.writeSafe(buffer, recipe);
+    protected void toNetworkSafe(FriendlyByteBuf buffer, IncrementalModifierRecipe recipe) {
+      super.toNetworkSafe(buffer, recipe);
       recipe.input.toNetwork(buffer);
       buffer.writeVarInt(recipe.amountPerInput);
       buffer.writeVarInt(recipe.neededPerLevel);

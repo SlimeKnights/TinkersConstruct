@@ -4,15 +4,15 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -72,7 +72,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
 
     @Nullable
     @Override
-    protected T readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+    protected T fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient cast = Ingredient.fromNetwork(buffer);
       boolean consumed = buffer.readBoolean();
@@ -81,7 +81,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       buffer.writeUtf(recipe.group);
       recipe.cast.toNetwork(buffer);
       buffer.writeBoolean(recipe.consumed);

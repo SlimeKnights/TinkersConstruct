@@ -10,8 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -91,7 +91,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
     @Nullable
     @Override
-    protected ItemPartRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected ItemPartRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       MaterialId materialId = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
       Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
       int cost = buffer.readVarInt();
@@ -100,7 +100,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, ItemPartRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, ItemPartRecipe recipe) {
       buffer.writeUtf(recipe.materialId.toString());
       buffer.writeUtf(recipe.pattern.toString());
       buffer.writeVarInt(recipe.cost);

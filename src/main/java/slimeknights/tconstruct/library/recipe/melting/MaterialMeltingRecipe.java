@@ -11,8 +11,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -120,7 +120,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
     @Nullable
     @Override
-    protected MaterialMeltingRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected MaterialMeltingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       MaterialId inputId = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
       int temperature = buffer.readInt();
       FluidStack output = FluidStack.readFromPacket(buffer);
@@ -128,7 +128,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, MaterialMeltingRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialMeltingRecipe recipe) {
       buffer.writeUtf(recipe.inputId.toString());
       buffer.writeInt(recipe.temperature);
       recipe.result.writeToPacket(buffer);

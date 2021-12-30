@@ -9,16 +9,16 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -111,7 +111,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
 
     @Nullable
     @Override
-    protected T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       IMaterialItem result = RecipeHelper.readItem(buffer, IMaterialItem.class);
       int itemCost = buffer.readVarInt();
@@ -119,7 +119,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       buffer.writeUtf(recipe.group);
       RecipeHelper.writeItem(buffer, recipe.result);
       buffer.writeVarInt(recipe.itemCost);

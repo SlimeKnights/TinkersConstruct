@@ -88,8 +88,8 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, IncrementalModifierSalvage recipe) {
-      super.writeSafe(buffer, recipe);
+    protected void toNetworkSafe(FriendlyByteBuf buffer, IncrementalModifierSalvage recipe) {
+      super.toNetworkSafe(buffer, recipe);
       recipe.result.write(buffer);
       buffer.writeBoolean(recipe.fullSalvage);
     }

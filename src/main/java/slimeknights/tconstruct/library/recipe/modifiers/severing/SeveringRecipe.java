@@ -15,9 +15,9 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -109,14 +109,14 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
 
     @Nullable
     @Override
-    protected SeveringRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected SeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput output = ItemOutput.read(buffer);
       return new SeveringRecipe(id, ingredient, output);
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, SeveringRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, SeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
     }

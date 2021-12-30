@@ -6,8 +6,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
 import javax.annotation.Nullable;
 
@@ -29,7 +29,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
 
   @Nullable
   @Override
-  protected T readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+  protected T fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     int fluidAmount = buffer.readInt();
     Item result = RecipeHelper.readItem(buffer);
@@ -37,7 +37,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
   }
 
   @Override
-  protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
+  protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
     buffer.writeUtf(recipe.group);
     buffer.writeInt(recipe.fluidAmount);
     RecipeHelper.writeItem(buffer, recipe.container);

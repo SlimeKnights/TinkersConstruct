@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
@@ -270,7 +270,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
 
     @Override
-    protected final T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected final T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readUtf(Short.MAX_VALUE);
@@ -282,7 +282,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #fromJson(ResourceLocation, JsonObject)} */
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       recipe.toolRequirement.toNetwork(buffer);
       recipe.requirements.write(buffer);
       buffer.writeUtf(recipe.requirementsError);

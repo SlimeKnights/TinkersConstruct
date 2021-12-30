@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.registration.CastItemObject;
-import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;

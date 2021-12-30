@@ -12,15 +12,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -137,7 +137,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
 
     @Nullable
     @Override
-    protected MaterialFluidRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected MaterialFluidRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidIngredient fluid = FluidIngredient.read(buffer);
       int temperature = buffer.readInt();
       MaterialId input = null;
@@ -149,7 +149,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, MaterialFluidRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialFluidRecipe recipe) {
       recipe.fluid.write(buffer);
       buffer.writeInt(recipe.temperature);
       if (recipe.inputId != null) {

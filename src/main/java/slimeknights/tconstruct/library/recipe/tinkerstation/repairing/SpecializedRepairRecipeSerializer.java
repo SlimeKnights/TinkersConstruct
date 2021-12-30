@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
@@ -30,14 +30,14 @@ public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecialize
 
   @Nullable
   @Override
-  protected T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+  protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
     Ingredient tool = Ingredient.fromNetwork(buffer);
     MaterialId repairMaterial = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
     return factory.create(id, tool, repairMaterial);
   }
 
   @Override
-  protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
+  protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
     recipe.getTool().toNetwork(buffer);
     buffer.writeUtf(recipe.getRepairMaterialID().toString());
   }

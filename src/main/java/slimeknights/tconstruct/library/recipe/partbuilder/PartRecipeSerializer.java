@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
@@ -27,7 +27,7 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
 
   @Nullable
   @Override
-  protected PartRecipe readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+  protected PartRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
     int cost = buffer.readInt();
@@ -38,7 +38,7 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   }
 
   @Override
-  protected void writeSafe(FriendlyByteBuf buffer, PartRecipe recipe) {
+  protected void toNetworkSafe(FriendlyByteBuf buffer, PartRecipe recipe) {
     buffer.writeUtf(recipe.group);
     buffer.writeUtf(recipe.pattern.toString());
     buffer.writeInt(recipe.cost);

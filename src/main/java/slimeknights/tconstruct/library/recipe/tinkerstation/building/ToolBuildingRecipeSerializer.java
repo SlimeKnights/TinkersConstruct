@@ -5,8 +5,8 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 
 import javax.annotation.Nullable;
@@ -26,14 +26,14 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
 
   @Nullable
   @Override
-  protected ToolBuildingRecipe readSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+  protected ToolBuildingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     IModifiable result = RecipeHelper.readItem(buffer, IModifiable.class);
     return new ToolBuildingRecipe(recipeId, group, result);
   }
 
   @Override
-  protected void writeSafe(FriendlyByteBuf buffer, ToolBuildingRecipe recipe) {
+  protected void toNetworkSafe(FriendlyByteBuf buffer, ToolBuildingRecipe recipe) {
     buffer.writeUtf(recipe.group);
     RecipeHelper.writeItem(buffer, recipe.output);
   }

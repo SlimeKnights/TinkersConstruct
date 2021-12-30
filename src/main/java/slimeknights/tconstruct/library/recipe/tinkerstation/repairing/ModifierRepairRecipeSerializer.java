@@ -2,13 +2,13 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -33,7 +33,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Nullable
   @Override
-  protected T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+  protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
     Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS);
     Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int repairAmount = buffer.readVarInt();
@@ -41,7 +41,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   }
 
   @Override
-  protected void writeSafe(FriendlyByteBuf buffer, T recipe) {
+  protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
     buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, recipe.getModifier());
     recipe.getIngredient().toNetwork(buffer);
     buffer.writeVarInt(recipe.getRepairAmount());

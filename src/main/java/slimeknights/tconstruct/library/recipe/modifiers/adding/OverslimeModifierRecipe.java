@@ -10,10 +10,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.Lazy;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -164,14 +164,14 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     @Nullable
     @Override
-    protected OverslimeModifierRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected OverslimeModifierRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, OverslimeModifierRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, OverslimeModifierRecipe recipe) {
       recipe.ingredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }

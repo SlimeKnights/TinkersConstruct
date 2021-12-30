@@ -16,9 +16,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -141,7 +141,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Nullable
     @Override
-    protected T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient input = Ingredient.fromNetwork(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
@@ -156,7 +156,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, MeltingRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, MeltingRecipe recipe) {
       buffer.writeUtf(recipe.group);
       recipe.input.toNetwork(buffer);
       recipe.output.writeToPacket(buffer);

@@ -198,8 +198,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, ModifierRecipe recipe) {
-      super.writeSafe(buffer, recipe);
+    protected void toNetworkSafe(FriendlyByteBuf buffer, ModifierRecipe recipe) {
+      super.toNetworkSafe(buffer, recipe);
       buffer.writeVarInt(recipe.inputs.size());
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);

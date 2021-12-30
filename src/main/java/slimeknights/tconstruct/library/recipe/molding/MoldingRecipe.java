@@ -14,8 +14,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -108,7 +108,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingContainer> 
 
     @Nullable
     @Override
-    protected T readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient material = Ingredient.fromNetwork(buffer);
       Ingredient mold = Ingredient.fromNetwork(buffer);
       boolean moldConsumed = buffer.readBoolean();
@@ -117,7 +117,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingContainer> 
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, MoldingRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, MoldingRecipe recipe) {
       recipe.material.toNetwork(buffer);
       recipe.pattern.toNetwork(buffer);
       buffer.writeBoolean(recipe.patternConsumed);

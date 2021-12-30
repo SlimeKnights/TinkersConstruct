@@ -16,7 +16,7 @@ import net.minecraftforge.common.Tags;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
-import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.mantle.registration.object.MetalItemObject;
 
 import java.util.Objects;
 import java.util.function.Consumer;

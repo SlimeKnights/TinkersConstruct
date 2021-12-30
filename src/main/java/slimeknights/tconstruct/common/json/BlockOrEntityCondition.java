@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.recipe;
+package slimeknights.tconstruct.common.json;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;

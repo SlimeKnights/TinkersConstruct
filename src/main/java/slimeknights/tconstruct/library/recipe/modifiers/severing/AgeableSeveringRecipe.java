@@ -7,9 +7,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +44,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
 
     @Nullable
     @Override
-    protected AgeableSeveringRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected AgeableSeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput adult = ItemOutput.read(buffer);
       ItemOutput child = null;
@@ -55,7 +55,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, AgeableSeveringRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, AgeableSeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
       if (recipe.childOutput == null) {

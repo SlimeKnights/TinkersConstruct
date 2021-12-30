@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -70,8 +70,8 @@ public class ModifierSalvage extends AbstractModifierSalvage {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
-      super.writeSafe(buffer, recipe);
+    protected void toNetworkSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
+      super.toNetworkSafe(buffer, recipe);
       buffer.writeVarInt(recipe.result.size());
       for (RandomItem randomItem : recipe.result) {
         randomItem.write(buffer);

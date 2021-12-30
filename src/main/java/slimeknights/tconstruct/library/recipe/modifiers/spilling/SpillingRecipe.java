@@ -13,9 +13,9 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -91,7 +91,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
 
     @Nullable
     @Override
-    protected SpillingRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected SpillingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidIngredient ingredient = FluidIngredient.read(buffer);
       ImmutableList.Builder<ISpillingEffect> effects = ImmutableList.builder();
       int max = buffer.readVarInt();
@@ -102,7 +102,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, SpillingRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, SpillingRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeVarInt(recipe.effects.size());
       for (ISpillingEffect effect : recipe.effects) {

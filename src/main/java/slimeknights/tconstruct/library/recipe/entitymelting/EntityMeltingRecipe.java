@@ -15,10 +15,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -109,7 +109,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer>
 
     @Nullable
     @Override
-    protected EntityMeltingRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected EntityMeltingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       FluidStack output = buffer.readFluidStack();
       int damage = buffer.readVarInt();
@@ -117,7 +117,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer>
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, EntityMeltingRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, EntityMeltingRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.damage);

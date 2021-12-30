@@ -13,11 +13,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -228,7 +228,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     }
 
     @Override
-    protected void writeSafe(FriendlyByteBuf buffer, AlloyRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, AlloyRecipe recipe) {
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.inputs.size());
       for (FluidIngredient input : recipe.inputs) {
@@ -239,7 +239,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
     @Nullable
     @Override
-    protected AlloyRecipe readSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected AlloyRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidStack output = buffer.readFluidStack();
       int inputCount = buffer.readVarInt();
       ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();
