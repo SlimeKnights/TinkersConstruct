@@ -44,5 +44,42 @@
       "name": "tconstruct:two_handed",
       "level": 1
     }
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "tconstruct:mineable/scythe",
+      "modifiers": [
+        {
+          "tag": "minecraft:wool",
+          "modifier": 0.3
+        },
+        {
+          "blocks": [
+            "minecraft:vine",
+            "minecraft:glow_lichen"
+          ],
+          "modifier": 0.1
+        }
+      ]
+    },
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {
+        "width": 1,
+        "height": 1,
+        "depth": 2
+      },
+      "expansions": [
+        {
+          "width": 1,
+          "height": 1
+        },
+        {
+          "depth": 2
+        }
+      ],
+      "expansion_direction": "tconstruct:side_hit"
+    }
+  }
 }

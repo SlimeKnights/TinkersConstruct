@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.tools.helper.aoe;
+package slimeknights.tconstruct.library.tools.definition.aoe;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

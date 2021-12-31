@@ -28,5 +28,16 @@
   ],
   "actions": [
     "axe_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "tconstruct:mineable/hand_axe"
+    },
+    "aoe": {
+      "type": "tconstruct:circle",
+      "diameter": 1,
+      "3D": false
+    }
+  }
 }

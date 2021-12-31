@@ -25,9 +25,8 @@ import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
-import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
@@ -262,8 +261,8 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
 
         // if we have a player and harvest logic, try doing AOE harvest
         Item item = stack.getItem();
-        if (!broken && player != null && item instanceof IModifiableHarvest) {
-          for (BlockPos newPos : ((IModifiableHarvest)item).getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), AOEMatchType.TRANSFORM)) {
+        if (!broken && player != null) {
+          for (BlockPos newPos : tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, tool, server, world.getBlockState(newPos), newPos, slotType)) {
               didHarvest = true;

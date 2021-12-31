@@ -44,5 +44,26 @@
   ],
   "actions": [
     "sword_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "forge:mineable/sword",
+      "modifiers": [
+        {
+          "blocks": [
+            "minecraft:cobweb"
+          ],
+          "modifier": 7.5
+        },
+        {
+          "blocks": [
+            "minecraft:bamboo",
+            "minecraft:bamboo_sapling"
+          ],
+          "modifier": 100.0
+        }
+      ]
+    }
+  }
 }

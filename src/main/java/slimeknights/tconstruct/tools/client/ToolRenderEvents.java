@@ -30,9 +30,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
-import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Iterator;
@@ -67,17 +66,16 @@ public class ToolRenderEvents {
     }
     // must not be broken, must be right interface
     ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken() || !(stack.getItem() instanceof IModifiableHarvest)) {
+    if (tool.isBroken()) {
       return;
     }
     BlockHitResult blockTrace = event.getTarget();
     BlockPos origin = blockTrace.getBlockPos();
-    ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
     BlockState state = world.getBlockState(origin);
-    if (!harvestLogic.isEffective(tool, stack, state)) {
+    if (!ToolHarvestLogic.isEffective(tool, state)) {
       return;
     }
-    Iterator<BlockPos> extraBlocks = harvestLogic.getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getDirection(), AOEMatchType.BREAKING).iterator();
+    Iterator<BlockPos> extraBlocks = tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getDirection(), IAreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }
@@ -133,7 +131,7 @@ public class ToolRenderEvents {
     }
     // must not be broken, must be right interface
     ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken() || !(stack.getItem() instanceof IModifiableHarvest)) {
+    if (tool.isBroken()) {
       return;
     }
     // find breaking progress
@@ -150,12 +148,11 @@ public class ToolRenderEvents {
       return;
     }
     // determine extra blocks to highlight
-    ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
     BlockState state = world.getBlockState(target);
-    if (!harvestLogic.isEffective(tool, stack, state)) {
+    if (!ToolHarvestLogic.isEffective(tool, state)) {
       return;
     }
-    Iterator<BlockPos> extraBlocks = harvestLogic.getAOEBlocks(tool, stack, player, state, world, target, blockTrace.getDirection(), AOEMatchType.BREAKING).iterator();
+    Iterator<BlockPos> extraBlocks = tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, state, world, target, blockTrace.getDirection(), IAreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }

@@ -1,47 +1,52 @@
-package slimeknights.tconstruct.library.tools.helper.aoe;
+package slimeknights.tconstruct.library.tools.definition.aoe;
 
 import com.google.common.collect.AbstractIterator;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic.RectangleIterator;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
-import java.util.function.Predicate;
 
 /** Tree harvest logic that destroys a tree */
 @RequiredArgsConstructor
-public class TreeAOEHarvestLogic extends ToolHarvestLogic {
-  /** Max distance between the branch and the trunk */
-  private static final int MAX_BRANCK_DISTANCE = 10;
+public class TreeAOEIterator implements IAreaOfEffectIterator {
+  public static final Loader LOADER = new Loader();
 
-  private final int extraWidth;
-  private final int extraDepth;
-  private final int fallbackHeight;
+  /** Max distance between the branch and the trunk */
+  private static final int MAX_BRANCH_DISTANCE = 10;
+  /** Absolute distance to the left or right to mine, 0 or more */
+  private final int width;
+  /** How far back to mine into the tree beyond the first block, 0 or more */
+  private final int depth;
+
+  @Override
+  public IGenericLoader<?> getLoader() {
+    return LOADER;
+  }
 
   @Override
   public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
-    return calculate(this, tool, stack, player, state, world, origin, sideHit,
-                     extraWidth + (expanded + 1) / 2, extraDepth + expanded / 2, fallbackHeight, matchType);
+    return calculate(tool, stack, player, state, world, origin, sideHit, width + (expanded + 1) / 2, depth + expanded / 2, matchType);
   }
 
   /**
    * Gets an iterator, either for a tree, or falling back to a cube
-   * @param self            AOE harvest instance
    * @param tool            Tool used to mine the block
    * @param stack           Stack used to mine the block
    * @param player          Player instance
@@ -51,11 +56,10 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
    * @param sideHit         Block side hit
    * @param extraWidth      Mining width
    * @param extraDepth      Mining depth
-   * @param fallbackHeight  Bonus height to use when not a tree
    * @param matchType       Match type to use when not a tree
    * @return  Correct iterator for the targeted block
    */
-  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, int fallbackHeight, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, AOEMatchType matchType) {
     Direction depthDir;
     Direction widthDir;
     // if we have expanders, add them in
@@ -71,16 +75,8 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       depthDir = Direction.UP;
       widthDir = Direction.UP;
     }
-
-    // if logs, calculate a tree
-    if (state.is(TinkerTags.Blocks.TREE_LOGS)) {
-      // TODO: would be nice to allow the stipped logs here as well as the logs
-      return () -> new TreeIterator(world, state.getBlock(), origin, widthDir, extraWidth, depthDir, extraDepth);
-    }
-
-    // fallback to tree
-    Predicate<BlockPos> posPredicate = getDefaultBlockPredicate(self, tool, stack, world, origin, matchType);
-    return () -> new RectangleIterator(origin, widthDir, extraWidth, Direction.UP, fallbackHeight, false, depthDir, extraDepth, posPredicate);
+    // TODO: would be nice to allow the stipped logs here as well as the logs
+    return () -> new TreeIterator(world, state.getBlock(), origin, widthDir, extraWidth, depthDir, extraDepth);
   }
 
   /**
@@ -158,7 +154,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       // find the distance to the nearest corner
       int deltaX = Math.min(Math.abs(pos.getX() - minX), Math.abs(pos.getX() - maxX));
       int deltaZ = Math.min(Math.abs(pos.getZ() - minZ), Math.abs(pos.getZ() - maxZ));
-      if ((deltaX + deltaZ) > MAX_BRANCK_DISTANCE || branchVisited.contains(pos)) {
+      if ((deltaX + deltaZ) > MAX_BRANCH_DISTANCE || branchVisited.contains(pos)) {
         return false;
       }
       branchVisited.add(pos.immutable());
@@ -308,6 +304,34 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       pos.move(direction);
       isChecked = false;
       return this;
+    }
+  }
+
+  private static class Loader implements IGenericLoader<TreeAOEIterator> {
+    @Override
+    public TreeAOEIterator deserialize(JsonObject json) {
+      int width = JsonUtils.getIntMin(json, "width_bonus", 0);
+      int depth = JsonUtils.getIntMin(json, "depth_bonus", 0);
+      return new TreeAOEIterator(width, depth);
+    }
+
+    @Override
+    public TreeAOEIterator fromNetwork(FriendlyByteBuf buffer) {
+      int width = buffer.readVarInt();
+      int depth = buffer.readVarInt();
+      return new TreeAOEIterator(width, depth);
+    }
+
+    @Override
+    public void serialize(TreeAOEIterator object, JsonObject json) {
+      json.addProperty("width_bonus", object.width);
+      json.addProperty("depth_bonus", object.depth);
+    }
+
+    @Override
+    public void toNetwork(TreeAOEIterator object, FriendlyByteBuf buffer) {
+      buffer.writeVarInt(object.width);
+      buffer.writeVarInt(object.depth);
     }
   }
 }

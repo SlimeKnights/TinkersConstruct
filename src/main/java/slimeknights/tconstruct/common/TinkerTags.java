@@ -96,6 +96,19 @@ public class TinkerTags {
     /** Blocks valid in the foundry wall */
     public static final IOptionalNamedTag<Block> FOUNDRY_WALL = tag("foundry/wall");
 
+    /** Blocks that the mattock is effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_MATTOCK = tag("mineable/mattock");
+    /** Blocks that the hand axe is effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_HAND_AXE = tag("mineable/hand_axe");
+    /** Blocks that the scythe or kama are effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_SCYTHE = tag("mineable/scythe");
+    /** Blocks that the vanilla sword is effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_SWORD = forgeTag("mineable/sword");
+    /** Blocks that the vanilla shears are effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_SHEARS = forgeTag("mineable/shears");
+    /** Blocks that the dagger is effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_DAGGER = tag("mineable/dagger");
+
     /** Any block that can be harvested using a kama or scythe */
     public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");
     /** Plants that are broken to drop produce and seeds */

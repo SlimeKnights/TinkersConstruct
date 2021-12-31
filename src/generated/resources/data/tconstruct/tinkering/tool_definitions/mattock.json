@@ -18,8 +18,7 @@
     "multipliers": {
       "tconstruct:durability": 1.25,
       "tconstruct:mining_speed": 1.1,
-      "tconstruct:attack_damage": 1.1,
-      "tconstruct:secondary_mining": 0.65
+      "tconstruct:attack_damage": 1.1
     }
   },
   "slots": {
@@ -39,5 +38,22 @@
   "actions": [
     "axe_dig",
     "shovel_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "tconstruct:mineable/mattock",
+      "modifiers": [
+        {
+          "tag": "minecraft:mineable/shovel",
+          "modifier": 0.65,
+          "inverted": true
+        }
+      ]
+    },
+    "aoe": {
+      "type": "tconstruct:vein",
+      "max_distance": 0
+    }
+  }
 }

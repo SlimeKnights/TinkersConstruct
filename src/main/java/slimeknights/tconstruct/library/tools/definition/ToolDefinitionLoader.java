@@ -22,6 +22,8 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -41,6 +43,8 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
     .registerTypeAdapter(DefinitionModifierSlots.class, DefinitionModifierSlots.SERIALIZER)
     .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
     .registerTypeAdapter(ToolAction.class, ToolActionSerializer.INSTANCE)
+    .registerTypeHierarchyAdapter(IAreaOfEffectIterator.class, IAreaOfEffectIterator.LOADER)
+    .registerTypeHierarchyAdapter(IHarvestLogic.class, IHarvestLogic.LOADER)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -109,6 +113,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
       }
     }
     this.dataMap = builder.build();
+    log.info("Loaded {} tool definitions", this.dataMap.size());
   }
 
   /** Gets a list of all tool definitions registered to the loader */

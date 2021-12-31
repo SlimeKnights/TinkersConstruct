@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:mineable/axe",
+    "#minecraft:leaves"
+  ]
+}

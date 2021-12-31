@@ -1,35 +1,39 @@
 package slimeknights.tconstruct.library.utils;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.JsonSyntaxException;
-import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IHaveLoader;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
 /** Generic registry for an object that can both be sent over a friendly byte buffer and serialized into JSON */
+@RequiredArgsConstructor
 public class GenericLoaderRegistry<T extends IHaveLoader> implements JsonSerializer<T>, JsonDeserializer<T> {
   /** Map of all serializers for implementations */
-  private final BiMap<ResourceLocation,IGenericLoader<? extends T>> loaders = HashBiMap.create();
+  private final NamedComponentRegistry<IGenericLoader<? extends T>> loaders = new NamedComponentRegistry<>("Unknown loader");
+
+  /** Default instance, used for null values instead of null */
+  @Nullable
+  private final T defaultInstance;
+
+  public GenericLoaderRegistry() {
+    this(null);
+  }
 
   /** Registers a deserializer by name */
   public void register(ResourceLocation name, IGenericLoader<? extends T> loader) {
-    if (loaders.putIfAbsent(name, loader) != null) {
-      throw new IllegalArgumentException("Duplicate loader with name " + name);
-    }
+    loaders.register(name, loader);
   }
 
   /**
@@ -38,16 +42,14 @@ public class GenericLoaderRegistry<T extends IHaveLoader> implements JsonSeriali
    * @return  Deserialized object
    */
   public T deserialize(JsonObject object) {
-    ResourceLocation type = JsonHelper.getResourceLocation(object, "type");
-    IGenericLoader<? extends T> loader = loaders.get(type);
-    if (loader == null) {
-      throw new JsonSyntaxException("Unknown loader " + type);
-    }
-    return loader.deserialize(object);
+    return loaders.deserialize(object, "type").deserialize(object);
   }
 
   @Override
   public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    if (defaultInstance != null && json.isJsonNull()) {
+      return defaultInstance;
+    }
     return deserialize(GsonHelper.convertToJsonObject(json, "object"));
   }
 
@@ -55,11 +57,7 @@ public class GenericLoaderRegistry<T extends IHaveLoader> implements JsonSeriali
   @SuppressWarnings("unchecked")
   private <L extends IHaveLoader> JsonObject serialize(IGenericLoader<L> loader, T src) {
     JsonObject json = new JsonObject();
-    ResourceLocation id = loaders.inverse().get(loader);
-    if (id == null) {
-      throw new IllegalStateException("Unregistered loader " + loader);
-    }
-    json.addProperty("type", id.toString());
+    json.addProperty("type", loaders.getKey((IGenericLoader<? extends T>)loader).toString());
     loader.serialize((L)src, json);
     return json;
   }
@@ -71,22 +69,28 @@ public class GenericLoaderRegistry<T extends IHaveLoader> implements JsonSeriali
 
   @Override
   public JsonElement serialize(T src, Type typeOfSrc, JsonSerializationContext context) {
+    if (src == defaultInstance) {
+      return JsonNull.INSTANCE;
+    }
     return serialize(src);
   }
 
   /** Writes the object to the network, fighting generics */
   @SuppressWarnings("unchecked")
-  private <L extends IHaveLoader> void toNetwork(IGenericLoader<L> loader, Object src, FriendlyByteBuf buffer) {
-    ResourceLocation id = loaders.inverse().get(loader);
-    if (id == null) {
-      throw new IllegalStateException("Unregistered loader " + loader);
-    }
-    buffer.writeResourceLocation(id);
+  private <L extends IHaveLoader> void toNetwork(IGenericLoader<L> loader, T src, FriendlyByteBuf buffer) {
+    buffer.writeResourceLocation(loaders.getKey((IGenericLoader<? extends T>)loader));
     loader.toNetwork((L)src, buffer);
   }
 
   /** Writes the object to the network */
   public void toNetwork(T src, FriendlyByteBuf buffer) {
+    if (defaultInstance != null) {
+      if (src == defaultInstance) {
+        buffer.writeBoolean(false);
+        return;
+      }
+      buffer.writeBoolean(true);
+    }
     toNetwork(src.getLoader(), src, buffer);
   }
 
@@ -96,12 +100,12 @@ public class GenericLoaderRegistry<T extends IHaveLoader> implements JsonSeriali
    * @return  Read object
    */
   public T fromNetwork(FriendlyByteBuf buffer) {
-    ResourceLocation type = buffer.readResourceLocation();
-    IGenericLoader<? extends T> loader = loaders.get(type);
-    if (loader == null) {
-      throw new DecoderException("Unknown loader " + type);
+    if (defaultInstance != null) {
+      if (!buffer.readBoolean()) {
+        return defaultInstance;
+      }
     }
-    return loader.fromNetwork(buffer);
+    return loaders.fromNetwork(buffer).fromNetwork(buffer);
   }
 
   /** Interface for a loader */

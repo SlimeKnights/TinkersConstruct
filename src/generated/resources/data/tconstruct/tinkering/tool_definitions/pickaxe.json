@@ -28,5 +28,24 @@
   ],
   "actions": [
     "pickaxe_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/pickaxe"
+    },
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {},
+      "expansions": [
+        {
+          "depth": 2
+        },
+        {
+          "height": 1
+        }
+      ],
+      "expansion_direction": "tconstruct:pitch"
+    }
+  }
 }

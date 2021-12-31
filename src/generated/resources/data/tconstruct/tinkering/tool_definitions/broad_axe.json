@@ -41,5 +41,35 @@
   ],
   "actions": [
     "axe_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/axe"
+    },
+    "aoe": {
+      "type": "tconstruct:fallback",
+      "tag": "tconstruct:tree_log",
+      "if_matches": {
+        "type": "tconstruct:tree",
+        "width_bonus": 0,
+        "depth_bonus": 0
+      },
+      "fallback": {
+        "type": "tconstruct:box",
+        "bonus": {
+          "height": 5
+        },
+        "expansions": [
+          {
+            "width": 1
+          },
+          {
+            "depth": 1
+          }
+        ],
+        "expansion_direction": "tconstruct:height"
+      }
+    }
+  }
 }

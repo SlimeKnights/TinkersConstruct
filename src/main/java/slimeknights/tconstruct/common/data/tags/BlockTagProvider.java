@@ -359,6 +359,23 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_AXE, TinkerTables.craftingStation, TinkerTables.tinkerStation, TinkerTables.partBuilder, TinkerTables.tinkersChest, TinkerTables.partChest);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerTables.castChest);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerTables.tinkersAnvil, TinkerTables.scorchedAnvil);
+
+    // custom tool harvest
+    // mattock works on all axe and shovel
+    tag(TinkerTags.Blocks.MINABLE_WITH_MATTOCK).addTags(MINEABLE_WITH_AXE, MINEABLE_WITH_SHOVEL);
+    // hand axe has a leaf bonus
+    tag(TinkerTags.Blocks.MINABLE_WITH_HAND_AXE).addTags(MINEABLE_WITH_AXE, BlockTags.LEAVES);
+    // scythe/kama does hoe or shear blocks
+    tag(TinkerTags.Blocks.MINABLE_WITH_SHEARS).add(Blocks.COBWEB, Blocks.REDSTONE_WIRE, Blocks.TRIPWIRE, Blocks.VINE, Blocks.GLOW_LICHEN).addTags(BlockTags.LEAVES, BlockTags.WOOL);
+    // scythe/kama does hoe or shear blocks
+    tag(TinkerTags.Blocks.MINABLE_WITH_SCYTHE).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SHEARS);
+    // sword list is filled to best ability, but will be a bit inexact as vanilla uses materials, hopefully putting this tag under forge will get people to tag their blocks
+    tag(TinkerTags.Blocks.MINABLE_WITH_SWORD)
+      .add(Blocks.COBWEB, Blocks.COCOA, Blocks.CHORUS_PLANT, Blocks.CHORUS_FLOWER, Blocks.SWEET_BERRY_BUSH, Blocks.VINE, Blocks.MOSS_CARPET, Blocks.MOSS_BLOCK,
+           Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM, Blocks.GLOW_LICHEN, Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.MELON, Blocks.BAMBOO, Blocks.BAMBOO_SAPLING)
+      .addTags(BlockTags.LEAVES, BlockTags.SAPLINGS, BlockTags.FLOWERS, BlockTags.CROPS);
+    // dagger does hoe or sword blocks
+    tag(TinkerTags.Blocks.MINABLE_WITH_DAGGER).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SWORD);
   }
 
   @Override

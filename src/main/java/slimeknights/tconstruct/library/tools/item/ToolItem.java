@@ -12,30 +12,20 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /**
  * Extension of a modifiable tool that also is capable of harvesting blocks
+ * TODO: consider merging into modifiable item
  */
-public class ToolItem extends ModifiableItem implements IModifiableHarvest {
+public class ToolItem extends ModifiableItem {
   public ToolItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
 
   /* Mining */
-
-  /* TODO: update
-  @Override
-  public Set<ToolType> getToolTypes(ItemStack stack) {
-    // no classes if broken
-    if (ToolDamageUtil.isBroken(stack)) {
-      return Collections.emptySet();
-    }
-
-    return super.getToolTypes(stack);
-  }
-   */
 
   /* TODO: update
   @Override
@@ -50,6 +40,11 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
    */
 
   @Override
+  public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
+    return ToolHarvestLogic.isEffective(ToolStack.from(stack), state);
+  }
+
+  @Override
   public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
@@ -57,32 +52,25 @@ public class ToolItem extends ModifiableItem implements IModifiableHarvest {
     }
 
     if (!worldIn.isClientSide && worldIn instanceof ServerLevel) {
-      boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
+      boolean isEffective = ToolHarvestLogic.isEffective(tool, state);
       ToolHarvestContext context = new ToolHarvestContext((ServerLevel) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
       }
-      ToolDamageUtil.damageAnimated(tool, getToolHarvestLogic().getDamage(tool, stack, worldIn, pos, state), entityLiving);
+      ToolDamageUtil.damageAnimated(tool, ToolHarvestLogic.getDamage(tool, worldIn, pos, state), entityLiving);
     }
 
     return true;
   }
 
-  /* TODO: update
-  @Override
-  public final boolean canHarvestBlock(ItemStack stack, BlockState state) {
-    return this.getToolHarvestLogic().isEffective(ToolStack.from(stack), stack, state);
-  }
-   */
-
   @Override
   public final float getDestroySpeed(ItemStack stack, BlockState state) {
-    return this.getToolHarvestLogic().getDestroySpeed(stack, state);
+    return ToolHarvestLogic.getDestroySpeed(stack, state);
   }
 
   @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-    return getToolHarvestLogic().handleBlockBreak(stack, pos, player);
+    return ToolHarvestLogic.handleBlockBreak(stack, pos, player);
 
     // TODO: consider taking over PlayerInteractionManager#tryHarvestBlock and PlayerController#onPlayerDestroyBlock
     // will grant better AOE control, https://github.com/mekanism/Mekanism/blob/1.16.x/src/main/java/mekanism/common/item/gear/ItemMekaTool.java#L238

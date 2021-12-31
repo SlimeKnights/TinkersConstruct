@@ -39,5 +39,19 @@
   "actions": [
     "sword_dig",
     "hoe_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "tconstruct:mineable/dagger",
+      "modifiers": [
+        {
+          "blocks": [
+            "minecraft:cobweb"
+          ],
+          "modifier": 7.5
+        }
+      ]
+    }
+  }
 }

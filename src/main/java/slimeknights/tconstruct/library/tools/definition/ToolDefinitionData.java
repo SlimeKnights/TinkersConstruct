@@ -4,11 +4,14 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -30,7 +33,7 @@ public class ToolDefinitionData {
   @VisibleForTesting
   protected static final Stats EMPTY_STATS = new Stats(DefinitionToolStats.EMPTY, DefinitionToolStats.EMPTY);
   /** Empty tool data definition instance */
-  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet());
+  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet(), null);
 
   @Nullable
   private final List<PartRequirement> parts;
@@ -42,6 +45,8 @@ public class ToolDefinitionData {
   private final List<ModifierEntry> traits;
   @Nullable @VisibleForTesting
   protected final Set<ToolAction> actions;
+  @Nullable
+  private final Harvest harvest;
 
 
   /* Getters */
@@ -136,6 +141,25 @@ public class ToolDefinitionData {
   }
 
 
+  /* Harvest */
+
+  /** Gets the tools's harvest logic */
+  public IHarvestLogic getHarvestLogic() {
+    if (harvest != null && harvest.logic != null) {
+      return harvest.logic;
+    }
+    return IHarvestLogic.DEFAULT;
+  }
+
+  /** Gets the AOE logic for this tool */
+  public IAreaOfEffectIterator getAOE() {
+    if (harvest != null && harvest.aoe != null) {
+      return harvest.aoe;
+    }
+    return IAreaOfEffectIterator.DEFAULT;
+  }
+
+
   /* Packet buffers */
 
   /** Writes a tool definition stat object to a packet buffer */
@@ -162,6 +186,8 @@ public class ToolDefinitionData {
         buffer.writeUtf(action.name());
       }
     }
+    IHarvestLogic.LOADER.toNetwork(getHarvestLogic(), buffer);
+    IAreaOfEffectIterator.LOADER.toNetwork(getAOE(), buffer);
   }
 
   /** Reads a tool definition stat object from a packet buffer */
@@ -184,7 +210,9 @@ public class ToolDefinitionData {
     for (int i = 0; i < size; i++) {
       actions.add(ToolAction.get(buffer.readUtf()));
     }
-    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build());
+    IHarvestLogic harvestLogic = IHarvestLogic.LOADER.fromNetwork(buffer);
+    IAreaOfEffectIterator aoe = IAreaOfEffectIterator.LOADER.fromNetwork(buffer);
+    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build(), new Harvest(harvestLogic, aoe));
   }
 
   /** Internal stats object */
@@ -204,5 +232,14 @@ public class ToolDefinitionData {
     public DefinitionToolStats getMultipliers() {
       return requireNonNullElse(multipliers, DefinitionToolStats.EMPTY);
     }
+  }
+
+  /** Defines harvest properties */
+  @Data
+  protected static class Harvest {
+    @Nullable
+    private final IHarvestLogic logic;
+    @Nullable
+    private final IAreaOfEffectIterator aoe;
   }
 }

@@ -3,15 +3,24 @@ package slimeknights.tconstruct.library.tools.definition;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Harvest;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Stats;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -20,6 +29,7 @@ import java.util.function.Supplier;
  * Builder for a tool definition data
  */
 @NoArgsConstructor(staticName = "builder")
+@Accessors(fluent = true)
 public class ToolDefinitionDataBuilder {
   private final ImmutableList.Builder<PartRequirement> parts = ImmutableList.builder();
   private final DefinitionToolStats.Builder bonuses = DefinitionToolStats.builder();
@@ -27,6 +37,12 @@ public class ToolDefinitionDataBuilder {
   private final DefinitionModifierSlots.Builder slots = DefinitionModifierSlots.builder();
   private final ImmutableList.Builder<ModifierEntry> traits = ImmutableList.builder();
   private final ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
+  /** Tool's harvest logic */
+  @Nonnull @Setter
+  private IHarvestLogic harvestLogic = IHarvestLogic.DEFAULT;
+  /** Tool's AOE logic */
+  @Nonnull @Setter
+  private IAreaOfEffectIterator aoe = IAreaOfEffectIterator.DEFAULT;
 
   /* Parts */
 
@@ -153,6 +169,15 @@ public class ToolDefinitionDataBuilder {
     return this;
   }
 
+
+  /* Harvest */
+
+  /** Makes the tool effective on the given blocks */
+  public ToolDefinitionDataBuilder effective(Tag.Named<Block> tag) {
+    return harvestLogic(new TagHarvestLogic(tag));
+  }
+
+
   /**
    * Builds the final definition JSON to serialize
    */
@@ -161,11 +186,20 @@ public class ToolDefinitionDataBuilder {
     DefinitionToolStats multipliers = this.multipliers.build();
     List<ModifierEntry> traits = this.traits.build();
     Set<ToolAction> actions = this.actions.build();
+    // null harvest if empty
+    Harvest harvest = null;
+    boolean isDefaultHarvest = harvestLogic == IHarvestLogic.DEFAULT;
+    boolean isDefaultAOE = aoe == IAreaOfEffectIterator.DEFAULT;
+    if (!isDefaultAOE || !isDefaultHarvest) {
+      // null properties if defaults
+      harvest = new Harvest(isDefaultHarvest ? null : harvestLogic, isDefaultAOE ? null : aoe);
+    }
     return new ToolDefinitionData(parts.isEmpty() ? null : parts,
-                                  new Stats(bonuses.build(),
-                                            multipliers.containedStats().isEmpty() ? null : multipliers),
+                                  // null multipliers, traits, and actions if empty
+                                  new Stats(bonuses.build(), multipliers.containedStats().isEmpty() ? null : multipliers),
                                   slots.build(),
                                   traits.isEmpty() ? null : traits,
-                                  actions.isEmpty() ? null : actions);
+                                  actions.isEmpty() ? null : actions,
+                                  harvest);
   }
 }

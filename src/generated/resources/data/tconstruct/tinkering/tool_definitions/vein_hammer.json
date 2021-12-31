@@ -41,5 +41,15 @@
   ],
   "actions": [
     "pickaxe_dig"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/pickaxe"
+    },
+    "aoe": {
+      "type": "tconstruct:vein",
+      "max_distance": 2
+    }
+  }
 }

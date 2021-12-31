@@ -1,34 +1,15 @@
 package slimeknights.tconstruct.tools.item.broad;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
+import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.item.small.HarvestTool;
-import slimeknights.tconstruct.tools.item.small.PickaxeTool;
 
-import net.minecraft.world.item.Item.Properties;
-
-public class VeinHammerTool extends HarvestTool {
-  private static final VeiningAOEHarvestLogic HARVEST_LOGIC = new VeiningAOEHarvestLogic(2) {
-    @Override
-    public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {
-      return PickaxeTool.EXTRA_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
-    }
-  };
-
+public class VeinHammerTool extends ToolItem {
   public VeinHammerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
-  }
-
-  @Override
-  public ToolHarvestLogic getToolHarvestLogic() {
-    return HARVEST_LOGIC;
   }
 
   @Override

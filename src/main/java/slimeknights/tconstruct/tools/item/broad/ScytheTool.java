@@ -1,44 +1,21 @@
 package slimeknights.tconstruct.tools.item.broad;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
+import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.item.small.KamaTool;
 
-public class ScytheTool extends KamaTool {
-  /** Tool harvest logic to damage when breaking instant break blocks */
-  public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, true) {
-    @Override
-    public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-      // include depth in boost
-      int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
-      int sides = (expanded + 1) / 2;
-      return RectangleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, 1 + sides, 1 + sides, 3 + (expanded / 2) * 2, matchType);
-    }
-  };
-
+public class ScytheTool extends ToolItem {
   public ScytheTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
-  }
-
-  @Override
-  public ToolHarvestLogic getToolHarvestLogic() {
-    return HARVEST_LOGIC;
   }
 
   @Override

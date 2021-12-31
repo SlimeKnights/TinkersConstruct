@@ -22,10 +22,9 @@ import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
+import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
-import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -109,7 +108,7 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
     int range = tool.getModifierLevel(TinkerModifiers.fireprimer.get()) + tool.getModifierLevel(TinkerModifiers.expanded.get());
     Iterable<BlockPos> targets = Collections.emptyList();
     if (range > 0 && player != null) {
-      targets = CircleAOEHarvestLogic.calculate(ToolHarvestLogic.DEFAULT, tool, ItemStack.EMPTY, world, player, pos, sideHit, 1 + range, true, AOEMatchType.TRANSFORM);
+      targets = CircleAOEIterator.calculate(tool, ItemStack.EMPTY, world, player, pos, sideHit, 1 + range, true, IAreaOfEffectIterator.AOEMatchType.TRANSFORM);
     }
 
     // burn it all in AOE

@@ -11,26 +11,27 @@ import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
 import java.lang.reflect.InvocationTargetException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// TODO: update
 class ToolHarvestLogicTest extends ToolItemTest {
 
-  private final HarvestTool pickaxeTool = new HarvestTool(
+  private final ToolItem pickaxeTool = new ToolItem(
     new Item.Properties(),//TODO .addToolType(ToolType.PICKAXE, 1),
     ToolDefinitionFixture.getStandardToolDefinition());
-  private final ToolHarvestLogic toolHarvestLogic = new ToolHarvestLogic();
+  //private final ToolHarvestLogic toolHarvestLogic = new ToolHarvestLogic();
 
   @Test
   void calcSpeed_dirt_notEffective() {
     ItemStack tool = buildTestTool(pickaxeTool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.defaultBlockState());
+    float speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.defaultBlockState());
 
     assertThat(speed).isEqualTo(1f);
   }
@@ -39,7 +40,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
   void calcSpeed_cobble_effective() {
     ItemStack tool = buildTestTool(pickaxeTool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
+    float speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
 
     assertThat(speed).isEqualTo(MaterialStatsFixture.MATERIAL_STATS_HEAD.getMiningSpeed());
   }
@@ -48,7 +49,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
   void calcSpeed_obsidian_notEnoughHarvestLevel() {
     ItemStack tool = buildTestTool(pickaxeTool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.OBSIDIAN.defaultBlockState());
+    float speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.OBSIDIAN.defaultBlockState());
 
     assertThat(speed).isEqualTo(1f);
   }
@@ -58,7 +59,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
     ItemStack tool = buildTestTool(pickaxeTool);
     breakTool(tool);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.defaultBlockState());
+    float speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.DIRT.defaultBlockState());
 
     assertThat(speed).isLessThan(1f);
     assertThat(speed).isGreaterThan(0f);
@@ -77,10 +78,10 @@ class ToolHarvestLogicTest extends ToolItemTest {
                          .multiplier(ToolStats.MINING_SPEED, modifier)
                          .build());
 
-    IModifiable toolWithMiningModifier = new HarvestTool(new Item.Properties(),/*.addToolType(ToolType.PICKAXE, 1),*/ definition);
+    IModifiable toolWithMiningModifier = new ToolItem(new Item.Properties(),/*.addToolType(ToolType.PICKAXE, 1),*/ definition);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
-    float speed = toolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
+    float speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
 
     assertThat(speed).isEqualTo(MaterialStatsFixture.MATERIAL_STATS_HEAD.getMiningSpeed() * modifier);
   }
