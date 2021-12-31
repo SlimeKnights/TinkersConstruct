@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 import java.util.Objects;
 
@@ -39,11 +40,11 @@ public class EffectSpillingEffect implements ISpillingEffect {
   }
 
   @Override
-  public ISpillingEffectLoader<?> getLoader() {
+  public IGenericLoader<?> getLoader() {
     return LOADER;
   }
 
-  private static class Loader implements ISpillingEffectLoader<EffectSpillingEffect> {
+  private static class Loader implements IGenericLoader<EffectSpillingEffect> {
     @Override
     public EffectSpillingEffect deserialize(JsonObject json) {
       ResourceLocation id = JsonHelper.getResourceLocation(json, "name");
@@ -57,7 +58,7 @@ public class EffectSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public EffectSpillingEffect read(FriendlyByteBuf buffer) {
+    public EffectSpillingEffect fromNetwork(FriendlyByteBuf buffer) {
       MobEffect effect = buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS);
       int level = buffer.readVarInt();
       int time = buffer.readVarInt();
@@ -72,7 +73,7 @@ public class EffectSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(EffectSpillingEffect effect, FriendlyByteBuf buffer) {
+    public void toNetwork(EffectSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS, effect.effect);
       buffer.writeVarInt(effect.time);
       buffer.writeVarInt(effect.level);

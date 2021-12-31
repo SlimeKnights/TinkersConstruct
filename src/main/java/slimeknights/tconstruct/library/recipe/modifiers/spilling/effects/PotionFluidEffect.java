@@ -13,6 +13,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 /** Spilling effect that pulls the potion from a NBT potion fluid and applies it */
 @RequiredArgsConstructor
@@ -53,11 +54,11 @@ public class PotionFluidEffect implements ISpillingEffect {
   }
 
   @Override
-  public ISpillingEffectLoader<?> getLoader() {
+  public IGenericLoader<?> getLoader() {
     return LOADER;
   }
 
-  private static class Loader implements ISpillingEffectLoader<PotionFluidEffect> {
+  private static class Loader implements IGenericLoader<PotionFluidEffect> {
     @Override
     public PotionFluidEffect deserialize(JsonObject json) {
       float scale = GsonHelper.getAsFloat(json, "scale");
@@ -69,7 +70,7 @@ public class PotionFluidEffect implements ISpillingEffect {
     }
 
     @Override
-    public PotionFluidEffect read(FriendlyByteBuf buffer) {
+    public PotionFluidEffect fromNetwork(FriendlyByteBuf buffer) {
       float scale = buffer.readFloat();
       TagPredicate predicate = TagPredicate.read(buffer);
       return new PotionFluidEffect(scale, predicate);
@@ -84,7 +85,7 @@ public class PotionFluidEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(PotionFluidEffect effect, FriendlyByteBuf buffer) {
+    public void toNetwork(PotionFluidEffect effect, FriendlyByteBuf buffer) {
       buffer.writeFloat(effect.effectScale);
       effect.predicate.write(buffer);
     }

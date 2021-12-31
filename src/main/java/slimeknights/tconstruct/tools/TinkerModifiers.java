@@ -40,11 +40,11 @@ import slimeknights.tconstruct.library.recipe.modifiers.salvage.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
@@ -529,15 +529,15 @@ public final class TinkerModifiers extends TinkerModule {
 
   @SubscribeEvent
   void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("damage"), DamageSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("effect"), EffectSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("set_fire"), SetFireSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("cure_effects"), CureEffectsSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("teleport"), TeleportSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("restore_hunger"), RestoreHungerSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("extinguish"), ExtinguishSpillingEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("potion_fluid"), PotionFluidEffect.LOADER);
-    SpillingRecipeLookup.registerEffect(TConstruct.getResource("calcified"), StrongBonesModifier.SPILLING_EFFECT_LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("cure_effects"),   CureEffectsSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("damage"),         DamageSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("effect"),         EffectSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("extinguish"),     ExtinguishSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("potion_fluid"),   PotionFluidEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("restore_hunger"), RestoreHungerSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("set_fire"),       SetFireSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("teleport"),       TeleportSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("calcified"),      StrongBonesModifier.SPILLING_EFFECT_LOADER);
   }
 
   @SubscribeEvent

@@ -85,7 +85,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
     @Override
     public SpillingRecipe fromJson(ResourceLocation id, JsonObject json) {
       FluidIngredient ingredient = FluidIngredient.deserialize(json, "fluid");
-      List<ISpillingEffect> effects = JsonHelper.parseList(json, "effects", SpillingRecipeLookup::deserializeEffect);
+      List<ISpillingEffect> effects = JsonHelper.parseList(json, "effects", ISpillingEffect.LOADER::deserialize);
       return new SpillingRecipe(id, ingredient, effects);
     }
 
@@ -96,7 +96,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
       ImmutableList.Builder<ISpillingEffect> effects = ImmutableList.builder();
       int max = buffer.readVarInt();
       for (int i = 0; i < max; i++) {
-        effects.add(SpillingRecipeLookup.readEffect(buffer));
+        effects.add(ISpillingEffect.LOADER.fromNetwork(buffer));
       }
       return new SpillingRecipe(id, ingredient, effects.build());
     }
@@ -106,7 +106,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
       recipe.ingredient.write(buffer);
       buffer.writeVarInt(recipe.effects.size());
       for (ISpillingEffect effect : recipe.effects) {
-        SpillingRecipeLookup.writeEffect(effect, buffer);
+        ISpillingEffect.LOADER.toNetwork(effect, buffer);
       }
     }
   }

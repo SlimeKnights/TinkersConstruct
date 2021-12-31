@@ -72,7 +72,7 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
       json.add("fluid", fluid.serialize());
       JsonArray effectArray = new JsonArray();
       for (ISpillingEffect effect : effects) {
-        effectArray.add(SpillingRecipeLookup.serializeEffect(effect));
+        effectArray.add(ISpillingEffect.LOADER.serialize(effect));
       }
       json.add("effects", effectArray);
     }

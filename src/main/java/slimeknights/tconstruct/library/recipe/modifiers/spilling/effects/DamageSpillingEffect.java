@@ -18,6 +18,7 @@ import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -67,7 +68,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
   }
 
   @Override
-  public ISpillingEffectLoader<?> getLoader() {
+  public IGenericLoader<?> getLoader() {
     return LOADER;
   }
 
@@ -174,7 +175,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
     }
   }
 
-  private static class Loader implements ISpillingEffectLoader<DamageSpillingEffect> {
+  private static class Loader implements IGenericLoader<DamageSpillingEffect> {
     @Override
     public DamageSpillingEffect deserialize(JsonObject json) {
       EntityIngredient entity = null;
@@ -200,7 +201,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public DamageSpillingEffect read(FriendlyByteBuf buffer) {
+    public DamageSpillingEffect fromNetwork(FriendlyByteBuf buffer) {
       EntityIngredient entity = null;
       if (buffer.readBoolean()) {
         entity = EntityIngredient.read(buffer);
@@ -223,7 +224,7 @@ public class DamageSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(DamageSpillingEffect effect, FriendlyByteBuf buffer) {
+    public void toNetwork(DamageSpillingEffect effect, FriendlyByteBuf buffer) {
       if (effect.entity != null) {
         buffer.writeBoolean(true);
         effect.entity.write(buffer);

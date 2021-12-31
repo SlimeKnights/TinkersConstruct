@@ -2,11 +2,17 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IHaveLoader;
 
 /**
  * Interface to allow multiple effects for a spilling recipe
  */
-public interface ISpillingEffect {
+public interface ISpillingEffect extends IHaveLoader {
+  /** Registry for spilling effect loaders */
+  GenericLoaderRegistry<ISpillingEffect> LOADER = new GenericLoaderRegistry<>();
+
   /**
    * Applies the effect
    * @param fluid    Fluid used to perform the recipe, safe to modify
@@ -16,5 +22,6 @@ public interface ISpillingEffect {
   void applyEffects(FluidStack fluid, float scale, ToolAttackContext context);
 
   /** Gets the loader for this spilling effect */
-  ISpillingEffectLoader<?> getLoader();
+  @Override
+  IGenericLoader<?> getLoader();
 }

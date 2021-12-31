@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 /** Effect to restore hunger to the target */
 @RequiredArgsConstructor
@@ -28,11 +29,11 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
   }
 
   @Override
-  public ISpillingEffectLoader<?> getLoader() {
+  public IGenericLoader<?> getLoader() {
     return LOADER;
   }
 
-  private static class Loader implements ISpillingEffectLoader<RestoreHungerSpillingEffect> {
+  private static class Loader implements IGenericLoader<RestoreHungerSpillingEffect> {
     @Override
     public RestoreHungerSpillingEffect deserialize(JsonObject json) {
       int hunger = GsonHelper.getAsInt(json, "hunger");
@@ -47,14 +48,14 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public RestoreHungerSpillingEffect read(FriendlyByteBuf buffer) {
+    public RestoreHungerSpillingEffect fromNetwork(FriendlyByteBuf buffer) {
       int hunger = buffer.readVarInt();
       float saturation = buffer.readFloat();
       return new RestoreHungerSpillingEffect(hunger, saturation);
     }
 
     @Override
-    public void write(RestoreHungerSpillingEffect effect, FriendlyByteBuf buffer) {
+    public void toNetwork(RestoreHungerSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeVarInt(effect.hunger);
       buffer.writeFloat(effect.saturation);
     }

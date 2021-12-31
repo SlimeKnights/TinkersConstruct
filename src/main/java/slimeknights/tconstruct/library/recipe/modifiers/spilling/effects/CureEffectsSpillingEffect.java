@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 import java.util.Objects;
 
@@ -29,12 +30,11 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
   }
 
   @Override
-  public ISpillingEffectLoader<?> getLoader() {
+  public IGenericLoader<?> getLoader() {
     return LOADER;
   }
 
-  private static class Loader implements ISpillingEffectLoader<CureEffectsSpillingEffect> {
-
+  private static class Loader implements IGenericLoader<CureEffectsSpillingEffect> {
     @Override
     public CureEffectsSpillingEffect deserialize(JsonObject json) {
       ItemStack curativeItem = CraftingHelper.getItemStack(json, true);
@@ -42,7 +42,7 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public CureEffectsSpillingEffect read(FriendlyByteBuf buffer) {
+    public CureEffectsSpillingEffect fromNetwork(FriendlyByteBuf buffer) {
       ItemStack curativeItem = buffer.readItem();
       return new CureEffectsSpillingEffect(curativeItem);
     }
@@ -57,7 +57,7 @@ public class CureEffectsSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(CureEffectsSpillingEffect effect, FriendlyByteBuf buffer) {
+    public void toNetwork(CureEffectsSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeItem(effect.stack);
     }
   }

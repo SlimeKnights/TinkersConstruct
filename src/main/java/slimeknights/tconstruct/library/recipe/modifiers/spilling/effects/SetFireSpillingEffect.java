@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 /**
  * Effect to set an entity on fire
@@ -22,18 +23,18 @@ public class SetFireSpillingEffect implements ISpillingEffect {
   }
 
   @Override
-  public ISpillingEffectLoader<?> getLoader() {
+  public IGenericLoader<?> getLoader() {
     return LOADER;
   }
 
-  private static class Loader implements ISpillingEffectLoader<SetFireSpillingEffect> {
+  private static class Loader implements IGenericLoader<SetFireSpillingEffect> {
     @Override
     public SetFireSpillingEffect deserialize(JsonObject json) {
       return new SetFireSpillingEffect(GsonHelper.getAsInt(json, "time"));
     }
 
     @Override
-    public SetFireSpillingEffect read(FriendlyByteBuf buffer) {
+    public SetFireSpillingEffect fromNetwork(FriendlyByteBuf buffer) {
       return new SetFireSpillingEffect(buffer.readVarInt());
     }
 
@@ -43,7 +44,7 @@ public class SetFireSpillingEffect implements ISpillingEffect {
     }
 
     @Override
-    public void write(SetFireSpillingEffect effect, FriendlyByteBuf buffer) {
+    public void toNetwork(SetFireSpillingEffect effect, FriendlyByteBuf buffer) {
       buffer.writeVarInt(effect.time);
     }
   }

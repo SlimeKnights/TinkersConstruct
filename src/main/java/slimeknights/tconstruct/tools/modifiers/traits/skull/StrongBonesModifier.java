@@ -13,17 +13,18 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffectLoader;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class StrongBonesModifier extends TotalArmorLevelModifier {
   public static final SpillingEffect SPILLING_EFFECT = new SpillingEffect();
-  public static final ISpillingEffectLoader<SpillingEffect> SPILLING_EFFECT_LOADER = new ISpillingEffectLoader.Singleton<>(SPILLING_EFFECT);
+  public static final IGenericLoader<SpillingEffect> SPILLING_EFFECT_LOADER = new SingletonLoader<>(SPILLING_EFFECT);
   private static final TinkerDataKey<Integer> STRONG_BONES = TConstruct.createKey("strong_bones");
   /** Key for modifiers that are boosted by drinking milk */
   public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
@@ -77,7 +78,7 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
     }
 
     @Override
-    public ISpillingEffectLoader<?> getLoader() {
+    public IGenericLoader<?> getLoader() {
       return SPILLING_EFFECT_LOADER;
     }
   }
