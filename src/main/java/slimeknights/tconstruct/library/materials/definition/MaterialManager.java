@@ -49,7 +49,7 @@ import static java.util.Objects.requireNonNullElse;
  */
 @Log4j2
 public class MaterialManager extends SimpleJsonResourceReloadListener {
-  public static final String FOLDER = "materials/definition";
+  public static final String FOLDER = "tinkering/materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .registerTypeAdapter(ICondition.class, new ConditionSerializer())

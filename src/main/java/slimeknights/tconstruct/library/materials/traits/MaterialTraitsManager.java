@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.Builder> {
-  public static final String FOLDER = "materials/traits";
+  public static final String FOLDER = "tinkering/materials/traits";
   private static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
