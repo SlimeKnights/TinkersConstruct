@@ -400,19 +400,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Override
   public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-    ToolStack tool = ToolStack.from(stack);
-    if (!tool.isBroken()) {
-      // can the tool do this action inheriantly?
-      if (getToolDefinition().getData().canPerformAction(toolAction)) {
-        return true;
-      }
-      for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getModifier().canPerformAction(tool, entry.getLevel(), toolAction)) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return ModifierUtil.canPerformAction(ToolStack.from(stack), toolAction);
   }
 
 

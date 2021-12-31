@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -280,5 +281,21 @@ public final class ModifierUtil {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getInt(flag.toString());
     }
     return 0;
+  }
+
+  /** Checks if a tool can perform the given action */
+  public static boolean canPerformAction(IModifierToolStack tool, ToolAction action) {
+    if (!tool.isBroken()) {
+      // can the tool do this action inherently?
+      if (tool.getDefinition().getData().canPerformAction(action)) {
+        return true;
+      }
+      for (ModifierEntry entry : tool.getModifierList()) {
+        if (entry.getModifier().canPerformAction(tool, entry.getLevel(), action)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

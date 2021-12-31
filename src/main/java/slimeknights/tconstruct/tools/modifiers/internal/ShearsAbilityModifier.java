@@ -21,7 +21,6 @@ import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
@@ -52,7 +51,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public boolean canPerformAction(ToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
     if (isShears(tool)) {
       return toolAction == ToolActions.SHEARS_DIG || toolAction == ToolActions.SHEARS_HARVEST || toolAction == ToolActions.SHEARS_CARVE || toolAction == ToolActions.SHEARS_DISARM;
     }

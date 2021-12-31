@@ -625,7 +625,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param toolAction  Action to check
    * @return  True if the tool can perform the action.
    */
-  public boolean canPerformAction(ToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
     return false;
   }
 

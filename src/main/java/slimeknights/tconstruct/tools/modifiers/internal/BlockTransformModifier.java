@@ -11,7 +11,6 @@ import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Set;
 
@@ -40,7 +39,7 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public boolean canPerformAction(ToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
     return actions.contains(toolAction);
   }
 
