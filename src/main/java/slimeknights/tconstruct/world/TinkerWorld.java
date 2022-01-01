@@ -171,8 +171,8 @@ public final class TinkerWorld extends TinkerModule {
   /** Creates a wood variant properties function */
   private static Function<WoodVariant,BlockBehaviour.Properties> createSlimewood(MaterialColor planks, MaterialColor bark) {
     return type -> switch (type) {
-      case LOG -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, bark).sound(SoundType.WOOD).requiresCorrectToolForDrops();
-      case WOOD -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).sound(SoundType.WOOD);
+      case WOOD -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, bark).sound(SoundType.WOOD).requiresCorrectToolForDrops();
+      case LOG -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).sound(SoundType.WOOD).requiresCorrectToolForDrops();
       default -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, planks).sound(SoundType.SLIME_BLOCK);
     };
   }
