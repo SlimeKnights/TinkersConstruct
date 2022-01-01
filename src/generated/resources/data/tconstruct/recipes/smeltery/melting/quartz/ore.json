@@ -12,7 +12,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:molten_clay",
-      "amount": 250
+      "amount": 750
     }
   ]
 }

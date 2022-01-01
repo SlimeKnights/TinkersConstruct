@@ -34,6 +34,7 @@ import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameOutput;
 import slimeknights.mantle.recipe.data.NBTIngredient;
 import slimeknights.mantle.recipe.data.NBTNameIngredient;
+import slimeknights.mantle.recipe.helper.FluidTagEmptyCondition;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
@@ -42,7 +43,6 @@ import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
-import slimeknights.mantle.recipe.helper.FluidTagEmptyCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -1046,8 +1046,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), FluidValues.INGOT, 2.0f)
                         .setOre()
-                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM / 3))
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGold.get(), FluidValues.INGOT))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenGold.get(), FluidValues.INGOT * 3))
                         .save(consumer, modResource(metalFolder + "molten_debris/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.INGOTS_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), FluidValues.INGOT, 1.0f)
                         .save(consumer, modResource(metalFolder + "molten_debris/scrap"));
@@ -1165,7 +1165,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // emerald
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_EMERALD), TinkerFluids.moltenEmerald.get(), FluidValues.GEM, 1.5f)
                         .setOre()
-                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM / 3))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM))
                         .save(consumer, modResource(folder + "emerald/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GEMS_EMERALD), TinkerFluids.moltenEmerald.get(), FluidValues.GEM, 1.0f)
                         .save(consumer, modResource(folder + "emerald/gem"));
@@ -1178,7 +1178,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // quartz
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_QUARTZ), TinkerFluids.moltenQuartz.get(), FluidValues.GEM, 1.5f)
                         .setOre()
-                        .addByproduct(new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL * 3))
                         .save(consumer, modResource(folder + "quartz/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GEMS_QUARTZ), TinkerFluids.moltenQuartz.get(), FluidValues.GEM, 1.0f)
                         .save(consumer, modResource(folder + "quartz/gem"));
@@ -1192,7 +1192,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // diamond
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_DIAMOND), TinkerFluids.moltenDiamond.get(), FluidValues.GEM, 1.5f)
                         .setOre()
-                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM / 3))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM))
                         .save(consumer, modResource(folder + "diamond/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GEMS_DIAMOND), TinkerFluids.moltenDiamond.get(), FluidValues.GEM, 1.0f)
                         .save(consumer, modResource(folder + "diamond/gem"));

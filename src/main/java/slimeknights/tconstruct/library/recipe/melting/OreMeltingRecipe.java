@@ -16,7 +16,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
   public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts) {
     // multiply byproducts by the config amount, this runs on recipe parse so config is loaded by then
     super(id, group, input, output, temperature, time, byproducts.stream()
-                                                                 .map(fluid -> new FluidStack(fluid, fluid.getAmount() * Config.COMMON.foundryNuggetsPerOre.get() / IMeltingContainer.BASE_NUGGET_RATE))
+                                                                 .map(fluid -> new FluidStack(fluid, fluid.getAmount() * Config.COMMON.foundryByproductNuggetsPerOre.get() / IMeltingContainer.BASE_NUGGET_RATE))
                                                                  .toList());
   }
 
