@@ -44,7 +44,7 @@ public final class TinkerMaterials extends TinkerModule {
   public static final ItemObject<Item> bloodbone = ITEMS.register("bloodbone", TOOLTIP_ITEM);
   public static final ItemObject<Item> blazingBone = ITEMS.register("blazing_bone", TOOLTIP_ITEM);
   public static final ItemObject<Item> necroniumBone = ITEMS.register("necronium_bone", TOOLTIP_ITEM);
-  public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(Material.WOOD, MaterialColor.PODZOL, SoundType.WOOD).requiresCorrectToolForDrops().strength(25f, 300f), GENERAL_BLOCK_ITEM);
+  public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(Material.NETHER_WOOD, MaterialColor.PODZOL, SoundType.WOOD).requiresCorrectToolForDrops().strength(25f, 300f), GENERAL_BLOCK_ITEM);
 
   /*
    * Serializers

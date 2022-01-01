@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "tconstruct:cobalt_ore",
+    "tconstruct:raw_cobalt_block",
     "tconstruct:cobalt_block",
     "tconstruct:slimesteel_block",
     "tconstruct:tinkers_bronze_block",

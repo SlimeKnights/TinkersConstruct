@@ -37,6 +37,7 @@ import static net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL;
 import static net.minecraft.tags.BlockTags.NEEDS_DIAMOND_TOOL;
 import static net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL;
 import static net.minecraft.tags.BlockTags.NEEDS_STONE_TOOL;
+import static net.minecraftforge.common.Tags.Blocks.NEEDS_GOLD_TOOL;
 import static net.minecraftforge.common.Tags.Blocks.NEEDS_NETHERITE_TOOL;
 
 @SuppressWarnings("unchecked")
@@ -327,29 +328,30 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // materials
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.nahuatl);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.tinkersBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.tinkersBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel, TinkerModifiers.silkyJewelBlock);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_NETHERITE_TOOL, TinkerMaterials.knightslime);
 
     // slime
     tagBlocks(MINEABLE_WITH_SHOVEL, TinkerWorld.congealedSlime, TinkerWorld.slimeDirt, TinkerWorld.vanillaSlimeGrass, TinkerWorld.earthSlimeGrass, TinkerWorld.skySlimeGrass, TinkerWorld.enderSlimeGrass, TinkerWorld.ichorSlimeGrass);
     tagBlocks(MINEABLE_WITH_HOE, TinkerWorld.slimeLeaves);
-    tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom);
+    tagLogs(MINEABLE_WITH_AXE, NEEDS_GOLD_TOOL, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom);
+    tagPlanks(MINEABLE_WITH_SHOVEL, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom);
     tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.skySlimeVine, TinkerWorld.enderSlimeVine);
 
     // smeltery
     tagBlocks(MINEABLE_WITH_SHOVEL, TinkerSmeltery.grout, TinkerSmeltery.netherGrout);
     // seared
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedStone, TinkerSmeltery.searedPaver, TinkerSmeltery.searedCobble, TinkerSmeltery.searedBricks);
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedCrackedBricks, TinkerSmeltery.searedFancyBricks, TinkerSmeltery.searedLadder, TinkerSmeltery.searedGlass, TinkerSmeltery.searedGlassPane);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedStone, TinkerSmeltery.searedPaver, TinkerSmeltery.searedCobble, TinkerSmeltery.searedBricks);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedCrackedBricks, TinkerSmeltery.searedFancyBricks, TinkerSmeltery.searedLadder, TinkerSmeltery.searedGlass, TinkerSmeltery.searedGlassPane);
     // scorched
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.scorchedBricks, TinkerSmeltery.scorchedRoad);
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.scorchedStone, TinkerSmeltery.polishedScorchedStone, TinkerSmeltery.chiseledScorchedBricks, TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedGlass, TinkerSmeltery.scorchedGlassPane);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedBricks, TinkerSmeltery.scorchedRoad);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedStone, TinkerSmeltery.polishedScorchedStone, TinkerSmeltery.chiseledScorchedBricks, TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedGlass, TinkerSmeltery.scorchedGlassPane);
     // fluids
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedLantern,   TinkerSmeltery.searedFaucet,   TinkerSmeltery.searedChannel,   TinkerSmeltery.searedBasin,   TinkerSmeltery.searedTable);
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
-    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedLantern,   TinkerSmeltery.searedFaucet,   TinkerSmeltery.searedChannel,   TinkerSmeltery.searedBasin,   TinkerSmeltery.searedTable);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
     // tough seared + scorched
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct);
@@ -370,9 +372,9 @@ public class BlockTagProvider extends BlockTagsProvider {
     // scythe/kama does hoe or shear blocks
     tag(TinkerTags.Blocks.MINABLE_WITH_SCYTHE).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SHEARS);
     // sword list is filled to best ability, but will be a bit inexact as vanilla uses materials, hopefully putting this tag under forge will get people to tag their blocks
-    tag(TinkerTags.Blocks.MINABLE_WITH_SWORD)
-      .add(Blocks.COBWEB, Blocks.COCOA, Blocks.CHORUS_PLANT, Blocks.CHORUS_FLOWER, Blocks.SWEET_BERRY_BUSH, Blocks.VINE, Blocks.MOSS_CARPET, Blocks.MOSS_BLOCK,
-           Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM, Blocks.GLOW_LICHEN, Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.MELON, Blocks.BAMBOO, Blocks.BAMBOO_SAPLING)
+    tag(TinkerTags.Blocks.MINABLE_WITH_SWORD).add(Blocks.COBWEB)
+      .add(Blocks.COCOA, Blocks.CHORUS_PLANT, Blocks.CHORUS_FLOWER, Blocks.SWEET_BERRY_BUSH, Blocks.VINE, Blocks.MOSS_CARPET, Blocks.MOSS_BLOCK,
+           Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM, Blocks.GLOW_LICHEN, Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.MELON)
       .addTags(BlockTags.LEAVES, BlockTags.SAPLINGS, BlockTags.FLOWERS, BlockTags.CROPS);
     // dagger does hoe or sword blocks
     tag(TinkerTags.Blocks.MINABLE_WITH_DAGGER).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SWORD);
@@ -408,6 +410,13 @@ public class BlockTagProvider extends BlockTagsProvider {
     }
   }
 
+  /** Applies a tag to a set of blocks */
+  @SafeVarargs
+  private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, EnumObject<?,? extends Block>... blocks) {
+    tagBlocks(tag1, blocks);
+    tagBlocks(tag2, blocks);
+  }
+
   /** Applies a set of tags to a block */
   private void tagBlocks(Tag.Named<Block> tag, BuildingBlockObject... blocks) {
     TagAppender<Block> appender = this.tag(tag);
@@ -421,6 +430,25 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, BuildingBlockObject... blocks) {
     tagBlocks(tag1, blocks);
     tagBlocks(tag2, blocks);
+  }
+
+  /** Applies a set of tags to either wood or logs from a block */
+  @SuppressWarnings("SameParameterValue")
+  private void tagLogs(Tag.Named<Block> tag1, Tag.Named<Block> tag2, WoodBlockObject... blocks) {
+    for (WoodBlockObject block : blocks) {
+      tag(tag1).add(block.getLog(), block.getStrippedLog(), block.getWood(), block.getStrippedWood());
+      tag(tag2).add(block.getLog(), block.getStrippedLog(), block.getWood(), block.getStrippedWood());
+    }
+  }
+
+  /** Applies a set of tags to either wood or logs from a block */
+  @SuppressWarnings("SameParameterValue")
+  private void tagPlanks(Tag.Named<Block> tag, WoodBlockObject... blocks) {
+    for (WoodBlockObject block : blocks) {
+      tag(tag).add(block.get(), block.getSlab(), block.getStairs(), block.getFence(),
+                   block.getFenceGate(), block.getDoor(), block.getTrapdoor(),
+                   block.getPressurePlate(), block.getButton(), block.getSign(), block.getWallSign());
+    }
   }
 
   /**

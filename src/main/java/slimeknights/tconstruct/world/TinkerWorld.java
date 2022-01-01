@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.SlimeBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -50,6 +52,7 @@ import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
+import slimeknights.mantle.registration.object.WoodBlockObject.WoodVariant;
 import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -103,9 +106,6 @@ public final class TinkerWorld extends TinkerModule {
   private static final Function<Block, ? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
   private static final Function<Block, ? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
   private static final Item.Properties HEAD_PROPS = new Item.Properties().tab(TAB_WORLD).rarity(Rarity.UNCOMMON);
-
-  /** Flamable variant of clay, as in flamable shoveling material */
-  public static final Material SLIME_WOOD = new Material.Builder(MaterialColor.CLAY).flammable().build();
 
   /*
    * Blocks
@@ -168,10 +168,19 @@ public final class TinkerWorld extends TinkerModule {
   }
   public static final EnumObject<SlimeType, SlimeGrassSeedItem> slimeGrassSeeds = ITEMS.registerEnum(SlimeType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
 
+  /** Creates a wood variant properties function */
+  private static Function<WoodVariant,BlockBehaviour.Properties> createSlimewood(MaterialColor planks, MaterialColor bark) {
+    return type -> switch (type) {
+      case LOG -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, bark).sound(SoundType.WOOD).requiresCorrectToolForDrops();
+      case WOOD -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).sound(SoundType.WOOD);
+      default -> BlockBehaviour.Properties.of(Material.NETHER_WOOD, planks).sound(SoundType.SLIME_BLOCK);
+    };
+  }
+
   // wood
-  public static final WoodBlockObject greenheart  = BLOCKS.registerWood("greenheart",  SLIME_WOOD,    MaterialColor.COLOR_LIGHT_GREEN, SoundType.SLIME_BLOCK, Material.WOOD,        MaterialColor.COLOR_GREEN,     SoundType.WOOD, TAB_WORLD);
-  public static final WoodBlockObject skyroot     = BLOCKS.registerWood("skyroot",     SLIME_WOOD,    MaterialColor.COLOR_CYAN,        SoundType.SLIME_BLOCK, Material.WOOD,        MaterialColor.TERRACOTTA_CYAN, SoundType.WOOD, TAB_WORLD);
-  public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", Material.CLAY, MaterialColor.COLOR_RED,         SoundType.SLIME_BLOCK, Material.NETHER_WOOD, MaterialColor.COLOR_ORANGE,    SoundType.STEM, TAB_WORLD);
+  public static final WoodBlockObject greenheart  = BLOCKS.registerWood("greenheart",  createSlimewood(MaterialColor.COLOR_LIGHT_GREEN, MaterialColor.COLOR_GREEN),     false, TAB_WORLD);
+  public static final WoodBlockObject skyroot     = BLOCKS.registerWood("skyroot",     createSlimewood(MaterialColor.COLOR_CYAN,        MaterialColor.TERRACOTTA_CYAN), false, TAB_WORLD);
+  public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", createSlimewood(MaterialColor.COLOR_RED,         MaterialColor.COLOR_ORANGE),    false, TAB_WORLD);
 
   // plants
   public static final EnumObject<SlimeType, SlimeTallGrassBlock> slimeFern, slimeTallGrass;
@@ -328,9 +337,6 @@ public final class TinkerWorld extends TinkerModule {
     // flammability
     event.enqueueWork(() -> {
       FireBlock fireblock = (FireBlock)Blocks.FIRE;
-      // wood
-      setWoodFireInfo(fireblock, greenheart);
-      setWoodFireInfo(fireblock, skyroot);
       // plants
       BiConsumer<SlimeType, Block> plantFireInfo = (type, block) -> {
         if (type != SlimeType.BLOOD && type != SlimeType.ICHOR) {
