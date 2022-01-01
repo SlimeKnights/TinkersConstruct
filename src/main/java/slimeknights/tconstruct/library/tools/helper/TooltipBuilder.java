@@ -2,21 +2,22 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.util.Mth;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.ChatFormatting;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
@@ -60,6 +61,11 @@ public class TooltipBuilder {
     return this;
   }
 
+  /** Formats the stat value */
+  private <T> Component formatValue(IToolStat<T> stat) {
+    return stat.formatValue(tool.getStats().get(stat));
+  }
+
   /**
    * Adds the given stat to the tooltip
    *
@@ -67,7 +73,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder add(IToolStat<?> stat) {
-    this.tooltips.add(stat.formatValue(tool.getStats().getFloat(stat)));
+    this.tooltips.add(formatValue(stat));
     return this;
   }
 
@@ -77,7 +83,7 @@ public class TooltipBuilder {
    * @param stat  Stat to add
    * @return the tooltip builder
    */
-  public TooltipBuilder addOptional(IToolStat<?> stat) {
+  public TooltipBuilder addOptional(INumericToolStat<?> stat) {
     return addOptional(stat, 1.0f);
   }
 
@@ -88,8 +94,8 @@ public class TooltipBuilder {
    * @param scale Amount to scale this value by
    * @return the tooltip builder
    */
-  public TooltipBuilder addOptional(IToolStat<?> stat, float scale) {
-    float value = tool.getStats().getFloat(stat);
+  public TooltipBuilder addOptional(INumericToolStat<?> stat, float scale) {
+    float value = tool.getStats().get(stat).floatValue();
     if (value > 0) {
       this.tooltips.add(stat.formatValue(value * scale));
     }
@@ -146,7 +152,7 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addWithAttribute(IToolStat<?> stat, Attribute attribute) {
+  public TooltipBuilder addWithAttribute(INumericToolStat<?> stat, Attribute attribute) {
     float damage = (float) attribute.getDefaultValue();
     Player player = Minecraft.getInstance().player;
     if (player != null) {
@@ -155,7 +161,7 @@ public class TooltipBuilder {
         damage = (float) instance.getBaseValue();
       }
     }
-    this.tooltips.add(ToolStats.ATTACK_DAMAGE.formatValue(damage + tool.getStats().getFloat(stat)));
+    this.tooltips.add(stat.formatValue(damage + tool.getStats().get(stat).floatValue()));
     return this;
   }
 

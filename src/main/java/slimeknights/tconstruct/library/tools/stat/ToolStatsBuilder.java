@@ -51,14 +51,28 @@ public class ToolStatsBuilder {
     return false;
   }
 
+  /** Gets the given stat, returning a default if its missing instead of the stat's default */
+  @SuppressWarnings("SameParameterValue") // seriously IDEA, what do you expect me to do? there is no way to dynamically box a number
+  protected <T extends Number> T getStatOrDefault(IToolStat<T> stat, T defaultValue) {
+    if (toolData.hasBaseStat(stat)) {
+      return toolData.getBaseStat(stat);
+    }
+    return defaultValue;
+  }
+
+  /** Sets the given stat into the builder from the tool's base stat */
+  private <T> void setToBase(StatsNBT.Builder builder, IToolStat<T> stat) {
+    builder.set(stat, toolData.getBaseStat(stat));
+  }
+
   /** Builds default stats */
   public StatsNBT buildStats() {
     StatsNBT.Builder builder = StatsNBT.builder();
     // start by adding in all relevant bonuses that are not handled elsewhere.
     // the handled check is needed becuase the immutable map builder does not like duplicate keys
-    for (FloatToolStat stat : toolData.getAllBaseStats()) {
+    for (IToolStat<?> stat : toolData.getAllBaseStats()) {
       if (!handles(stat)) {
-        builder.set(stat, toolData.getBaseStat(stat));
+        setToBase(builder, stat);
       }
     }
     setStats(builder);

@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 
 /**
  * Provides mostly read only access to {@link ToolStack}.
@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
  */
 public interface IModifierToolStack extends IToolContext {
   /** Commonly used operation, getting a stat multiplier */
-  default float getModifier(FloatToolStat stat) {
+  default float getModifier(INumericToolStat<?> stat) {
     return getDefinition().getData().getMultiplier(stat);
   }
 

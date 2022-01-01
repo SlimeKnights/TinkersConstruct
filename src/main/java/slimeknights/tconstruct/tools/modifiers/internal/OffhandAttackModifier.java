@@ -54,7 +54,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
         IModifiableWeapon weapon = item instanceof IModifiableWeapon ? (IModifiableWeapon) item : IModifiableWeapon.DEFAULT;
         ToolAttackUtil.attackEntity(weapon, tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, slotType);
       }
-      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), 20);
+      OffhandCooldownTracker.applyCooldown(player, tool.getStats().get(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown
       OffhandCooldownTracker.swingHand(player, InteractionHand.OFF_HAND, false);
       return InteractionResult.CONSUME;
@@ -66,7 +66,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
   public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     if (canAttack(tool, player, hand)) {
       // target done in onEntityInteract, this is just for cooldown cause you missed
-      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), 20);
+      OffhandCooldownTracker.applyCooldown(player, tool.getStats().get(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown
       OffhandCooldownTracker.swingHand(player, InteractionHand.OFF_HAND, false);
       return InteractionResult.CONSUME;

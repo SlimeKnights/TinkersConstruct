@@ -49,11 +49,11 @@ public class SkullToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds durability for the tool */
   public float buildDurability() {
-    return Math.max(1, (float)getAverageValue(skulls, SkullStats::getDurability) + toolData.getBonus(ToolStats.DURABILITY));
+    return Math.max(1, (float)getAverageValue(skulls, SkullStats::getDurability) + getStatOrDefault(ToolStats.DURABILITY, 0f));
   }
 
   /** Builds armor for the tool */
   public float buildArmor() {
-    return Math.max(0, (float)getAverageValue(skulls, SkullStats::getArmor) + toolData.getBonus(ToolStats.ARMOR));
+    return Math.max(0, (float)getAverageValue(skulls, SkullStats::getArmor) + getStatOrDefault(ToolStats.ARMOR, 0f));
   }
 }

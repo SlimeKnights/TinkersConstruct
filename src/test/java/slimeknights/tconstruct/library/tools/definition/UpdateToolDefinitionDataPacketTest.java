@@ -11,6 +11,8 @@ import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
 
@@ -67,8 +69,8 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     // no parts
     assertThat(parsed.getParts()).isEmpty();
     // no stats
-    assertThat(parsed.getStats().getBase().containedStats()).isEmpty();
-    assertThat(parsed.getStats().getMultipliers().containedStats()).isEmpty();
+    assertThat(parsed.getStats().getBase().getContainedStats()).isEmpty();
+    assertThat(parsed.getStats().getMultipliers().getContainedStats()).isEmpty();
     // no slots
     assertThat(parsed.getSlots().containedTypes()).isEmpty();
     // no traits
@@ -89,23 +91,22 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     assertThat(parts.get(1).getWeight()).isEqualTo(1);
 
     // stats
-    DefinitionToolStats stats = parsed.getStats().getBase();
-    assertThat(stats.containedStats()).hasSize(2);
-    assertThat(stats.containedStats()).contains(ToolStats.DURABILITY);
-    assertThat(stats.containedStats()).contains(ToolStats.ATTACK_DAMAGE);
-    assertThat(stats.getStat(ToolStats.DURABILITY, -1)).isEqualTo(1000);
-    assertThat(stats.getStat(ToolStats.ATTACK_DAMAGE, -1)).isEqualTo(152.5f);
-    assertThat(stats.getStat(ToolStats.ATTACK_SPEED, -1)).isEqualTo(-1);
+    StatsNBT stats = parsed.getStats().getBase();
+    assertThat(stats.getContainedStats()).hasSize(2);
+    assertThat(stats.getContainedStats()).contains(ToolStats.DURABILITY);
+    assertThat(stats.getContainedStats()).contains(ToolStats.ATTACK_DAMAGE);
+    assertThat(stats.get(ToolStats.DURABILITY)).isEqualTo(1000);
+    assertThat(stats.get(ToolStats.ATTACK_DAMAGE)).isEqualTo(152.5f);
+    assertThat(stats.get(ToolStats.ATTACK_SPEED)).isEqualTo(ToolStats.ATTACK_SPEED.getDefaultValue());
 
-    stats = parsed.getStats().getMultipliers();
-    assertThat(stats.containedStats()).hasSize(3);
-    assertThat(stats.containedStats()).contains(ToolStats.ATTACK_DAMAGE);
-    assertThat(stats.containedStats()).contains(ToolStats.ATTACK_SPEED);
-    assertThat(stats.containedStats()).contains(ToolStats.MINING_SPEED);
-    assertThat(stats.getStat(ToolStats.MINING_SPEED, -1)).isEqualTo(10);
-    assertThat(stats.getStat(ToolStats.ATTACK_SPEED, -1)).isEqualTo(0.5f);
-    assertThat(stats.getStat(ToolStats.ATTACK_DAMAGE, -1)).isEqualTo(1);
-    assertThat(stats.getStat(ToolStats.DURABILITY, -1)).isEqualTo(-1);
+    MultiplierNBT multipliers = parsed.getStats().getMultipliers();
+    assertThat(multipliers.getContainedStats()).hasSize(2); // attack damage is 1, so its skipped
+    assertThat(multipliers.getContainedStats()).contains(ToolStats.ATTACK_SPEED);
+    assertThat(multipliers.getContainedStats()).contains(ToolStats.MINING_SPEED);
+    assertThat(multipliers.get(ToolStats.MINING_SPEED)).isEqualTo(10);
+    assertThat(multipliers.get(ToolStats.ATTACK_SPEED)).isEqualTo(0.5f);
+    assertThat(multipliers.get(ToolStats.ATTACK_DAMAGE)).isEqualTo(1);
+    assertThat(multipliers.get(ToolStats.DURABILITY)).isEqualTo(1);
 
     // slots
     DefinitionModifierSlots slots = parsed.getSlots();

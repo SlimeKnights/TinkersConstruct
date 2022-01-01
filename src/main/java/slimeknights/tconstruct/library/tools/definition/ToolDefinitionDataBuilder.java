@@ -17,8 +17,11 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Stats
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
+import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -32,8 +35,8 @@ import java.util.function.Supplier;
 @Accessors(fluent = true)
 public class ToolDefinitionDataBuilder {
   private final ImmutableList.Builder<PartRequirement> parts = ImmutableList.builder();
-  private final DefinitionToolStats.Builder bonuses = DefinitionToolStats.builder();
-  private final DefinitionToolStats.Builder multipliers = DefinitionToolStats.builder();
+  private final StatsNBT.Builder bonuses = StatsNBT.builder();
+  private final MultiplierNBT.Builder multipliers = MultiplierNBT.builder();
   private final DefinitionModifierSlots.Builder slots = DefinitionModifierSlots.builder();
   private final ImmutableList.Builder<ModifierEntry> traits = ImmutableList.builder();
   private final ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
@@ -89,16 +92,24 @@ public class ToolDefinitionDataBuilder {
   /**
    * Adds a bonus to the builder
    */
-  public ToolDefinitionDataBuilder stat(FloatToolStat stat, float value) {
-    bonuses.addStat(stat, value);
+  public <T> ToolDefinitionDataBuilder stat(IToolStat<T> stat, T value) {
+    bonuses.set(stat, value);
+    return this;
+  }
+
+  /**
+   * Adds a bonus to the builder, overload for floats as they come up pretty often, helps with boxing
+   */
+  public ToolDefinitionDataBuilder stat(IToolStat<Float> stat, float value) {
+    bonuses.set(stat, value);
     return this;
   }
 
   /**
    * Applies a global multiplier
    */
-  public ToolDefinitionDataBuilder multiplier(FloatToolStat stat, float value) {
-    multipliers.addStat(stat, value);
+  public ToolDefinitionDataBuilder multiplier(INumericToolStat<?> stat, float value) {
+    multipliers.set(stat, value);
     return this;
   }
 
@@ -183,7 +194,7 @@ public class ToolDefinitionDataBuilder {
    */
   public ToolDefinitionData build() {
     List<PartRequirement> parts = this.parts.build();
-    DefinitionToolStats multipliers = this.multipliers.build();
+    MultiplierNBT multipliers = this.multipliers.build();
     List<ModifierEntry> traits = this.traits.build();
     Set<ToolAction> actions = this.actions.build();
     // null harvest if empty
@@ -196,7 +207,7 @@ public class ToolDefinitionDataBuilder {
     }
     return new ToolDefinitionData(parts.isEmpty() ? null : parts,
                                   // null multipliers, traits, and actions if empty
-                                  new Stats(bonuses.build(), multipliers.containedStats().isEmpty() ? null : multipliers),
+                                  new Stats(bonuses.build(), multipliers == MultiplierNBT.EMPTY ? null : multipliers),
                                   slots.build(),
                                   traits.isEmpty() ? null : traits,
                                   actions.isEmpty() ? null : actions,

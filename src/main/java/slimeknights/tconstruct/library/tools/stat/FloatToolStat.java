@@ -1,27 +1,39 @@
 package slimeknights.tconstruct.library.tools.stat;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.minecraft.nbt.FloatTag;
+import net.minecraft.nbt.NumericTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat.FloatBuilder;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Util;
+
+import javax.annotation.Nullable;
 
 /**
  * Tool stat representing a float value, used for most numbers
  */
-@Getter
-public class FloatToolStat implements IToolStat<FloatBuilder> {
+public class FloatToolStat implements INumericToolStat<Float> {
   /** Name of this tool stat */
+  @Getter
   private final ToolStatId name;
   /** Color for this stat type */
+  @Getter
   private final TextColor color;
   /** Gets the default value for this stat */
   private final float defaultValue;
   /** Min value for this stat */
+  @Getter
   private final float minValue;
   /** Max value for this stat */
+  @Getter
   private final float maxValue;
 
   public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue) {
@@ -33,7 +45,12 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
   }
 
   @Override
-  public float clamp(float value) {
+  public Float getDefaultValue() {
+    return defaultValue;
+  }
+
+  @Override
+  public Float clamp(Float value) {
     return Mth.clamp(value, getMinValue(), getMaxValue());
   }
 
@@ -42,50 +59,66 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
     return new FloatBuilder();
   }
 
-  /**
-   * Adds the stat by the given value
-   * @param builder  Builder instance
-   * @param value    Amount to add
-   */
+  @Override
   public void add(ModifierStatsBuilder builder, double value) {
-    builder.updateStat(this, b -> b.add += value);
+    builder.<FloatBuilder>updateStat(this, b -> b.add += value);
   }
 
   @Override
-  public void applyBonus(ModifierStatsBuilder builder, double value) {
-    add(builder, value);
-  }
-
-  /**
-   * Multiplies the stat by the given value. Multiplication is applied after all addiiton
-   * @param builder  Builder instance
-   * @param factor   Amount to multiply
-   */
   public void multiply(ModifierStatsBuilder builder, double factor) {
-    builder.updateStat(this, b -> b.multiply *= factor);
-  }
-
-  /**
-   * Multiplies the stat by the given value, both among current stats and all future modifiers.
-   * Note that this can have an extreme effect on stats, so use very carefully.
-   * @param builder  Builder instance
-   * @param factor   Amount to multiply
-   */
-  public void multiplyAll(ModifierStatsBuilder builder, double factor) {
-    builder.updateStat(this, b -> {
-      b.multiply *= factor;
-      b.modifierMultiplier *= factor;
-    });
+    builder.<FloatBuilder>updateStat(this, b -> b.multiply *= factor);
   }
 
   @Override
-  public float build(FloatBuilder builder, float value) {
+  public void multiplyAll(ModifierStatsBuilder builder, double factor) {
+    builder.<FloatBuilder>updateStat(this, b -> b.multiply *= factor);
+    builder.multiplier(this, factor);
+  }
+
+  @Override
+  public Float build(Object builderObj, Float value) {
+    FloatBuilder builder = (FloatBuilder)builderObj;
     return (value + builder.add) * builder.multiply;
   }
 
+  @Nullable
   @Override
-  public Component formatValue(float number) {
-    return IToolStat.formatNumber(Util.makeTranslationKey("tool_stat", getName()), getColor(), number);
+  public Float read(Tag tag) {
+    if (TagUtil.isNumeric(tag)) {
+      return ((NumericTag) tag).getAsFloat();
+    }
+    return null;
+  }
+
+  @Override
+  public Tag write(Float value) {
+    return FloatTag.valueOf(value);
+  }
+
+  @Override
+  public Float deserialize(JsonElement json) {
+    return GsonHelper.convertToFloat(json, getName().toString());
+  }
+
+  @Override
+  public JsonElement serialize(Float value) {
+    return new JsonPrimitive(value);
+  }
+
+  @Override
+  public Float fromNetwork(FriendlyByteBuf buffer) {
+    return buffer.readFloat();
+  }
+
+  @Override
+  public void toNetwork(FriendlyByteBuf buffer, Float value) {
+    buffer.writeFloat(value);
+  }
+
+  /** Generic friendly way to format the value */
+  @Override
+  public Component formatValue(float value) {
+    return IToolStat.formatNumber(Util.makeTranslationKey("tool_stat", getName()), getColor(), value);
   }
 
   @Override
@@ -100,7 +133,5 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
     private float add = 0;
     /** Value multiplied by the sum, applies second */
     private float multiply = 1;
-    /** Value to multiply all modifier values by */
-    protected float modifierMultiplier = 1;
   }
 }

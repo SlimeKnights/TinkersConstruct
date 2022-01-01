@@ -42,7 +42,7 @@ public class EmeraldModifier extends SingleLevelModifier {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.5f));
     }
     if (HARVEST.contains(item)) {
-      ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.IRON);
+      ToolStats.HARVEST_LEVEL.update(builder, HarvestLevels.IRON);
     }
     if (ARMOR.contains(item)) {
       ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);

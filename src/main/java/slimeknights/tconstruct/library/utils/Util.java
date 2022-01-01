@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import slimeknights.tconstruct.TConstruct;
 
+import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Collection;
@@ -74,7 +75,7 @@ public class Util {
    * @param name  Object name
    * @return  Translation key
    */
-  public static String makeTranslationKey(String base, ResourceLocation name) {
+  public static String makeTranslationKey(String base, @Nullable ResourceLocation name) {
     return net.minecraft.Util.makeDescriptionId(base, name);
   }
 

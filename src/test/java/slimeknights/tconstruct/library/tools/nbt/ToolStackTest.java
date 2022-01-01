@@ -122,7 +122,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void serialize_damageBroken() {
     ToolStack stack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinitionFixture.getStandardToolDefinition(), new CompoundTag());
-    stack.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 100).build());
+    stack.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 100f).build());
     stack.setDamage(1);
     stack.setBrokenRaw(true);
 
@@ -253,7 +253,7 @@ class ToolStackTest extends ToolItemTest {
     stack.setDamageValue(100);
 
     ToolStack tool = ToolStack.from(stack);
-    tool.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 50).build());
+    tool.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 50f).build());
     assertThat(tool.getDamageRaw()).isEqualTo(50);
     assertThat(tool.isBroken()).isTrue();
   }

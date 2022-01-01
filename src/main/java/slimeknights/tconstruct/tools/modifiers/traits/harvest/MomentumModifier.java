@@ -51,7 +51,7 @@ public class MomentumModifier extends Modifier {
       LivingEntity living = context.getLiving();
       int effectLevel = Math.min(31, TinkerModifiers.momentumEffect.get().getLevel(living) + 1);
       // funny formula from 1.12, guess it makes faster tools have a slightly shorter effect
-      int duration = (int) ((10f / tool.getStats().getFloat(ToolStats.MINING_SPEED)) * 1.5f * 20f);
+      int duration = (int) ((10f / tool.getStats().get(ToolStats.MINING_SPEED)) * 1.5f * 20f);
       TinkerModifiers.momentumEffect.get().apply(living, duration, effectLevel, true);
     }
   }

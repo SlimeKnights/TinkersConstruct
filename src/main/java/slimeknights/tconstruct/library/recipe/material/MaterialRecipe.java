@@ -195,7 +195,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
       // if no ID given, just find the first repairable stats
       optional = MaterialRegistry.getInstance().getAllStats(materialId).stream().filter(stats -> stats instanceof IRepairableMaterialStats).findFirst();
     }
-    return optional.map(stats -> ((IRepairableMaterialStats)stats).getDurability()).orElseGet(() -> (int)toolData.getBaseStat(ToolStats.DURABILITY));
+    return optional.map(stats -> ((IRepairableMaterialStats)stats).getDurability()).orElseGet(() -> toolData.getBaseStat(ToolStats.DURABILITY).intValue());
   }
 
   /**

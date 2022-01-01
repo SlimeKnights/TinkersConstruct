@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilde
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
@@ -143,21 +144,43 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     /* Stats */
 
     /** Adds a bonus to the builder */
-    public ArmorDataBuilder stat(ArmorSlotType slotType, FloatToolStat stat, float value) {
+    public <T> ArmorDataBuilder stat(ArmorSlotType slotType, IToolStat<T> stat, T value) {
       getBuilder(slotType).stat(stat, value);
       return this;
     }
 
+    /** Adds a bonus to the builder */
+    public ArmorDataBuilder stat(ArmorSlotType slotType, IToolStat<Float> stat, float value) {
+      return stat(slotType, stat, (Float) value);
+    }
+
     /** Sets the same bonus on all pieces */
-    public ArmorDataBuilder stat(FloatToolStat stat, float value) {
+    public <T> ArmorDataBuilder statAll(IToolStat<T> stat, T value) {
       for (ArmorSlotType slotType : slotTypes) {
         stat(slotType, stat, value);
       }
       return this;
     }
 
+    /** Sets the same bonus on all pieces */
+    public ArmorDataBuilder statAll(IToolStat<Float> stat, float value) {
+      return statAll(stat, (Float) value);
+    }
+
     /** Sets a different bonus on all pieces */
-    public ArmorDataBuilder stat(FloatToolStat stat, float... values) {
+    @SafeVarargs
+    public final <T> ArmorDataBuilder statEach(IToolStat<T> stat, T... values) {
+      if (values.length != slotTypes.size()) {
+        throw new IllegalStateException("Wrong number of stats set");
+      }
+      for (int i = 0; i < values.length; i++) {
+        stat(slotTypes.get(i), stat, values[i]);
+      }
+      return this;
+    }
+
+    /** Sets a different bonus on all pieces, float overload as it comes up commonly */
+    public final ArmorDataBuilder statEach(IToolStat<Float> stat, float... values) {
       if (values.length != slotTypes.size()) {
         throw new IllegalStateException("Wrong number of stats set");
       }

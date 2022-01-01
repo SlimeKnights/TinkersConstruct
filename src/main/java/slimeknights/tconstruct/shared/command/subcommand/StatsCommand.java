@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.NbtTagArgument;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -17,8 +19,9 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.shared.command.HeldModifiableItemIterator;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
@@ -27,6 +30,7 @@ import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.function.BiPredicate;
 
 /** Command to modify a tool's stats */
 public class StatsCommand {
@@ -37,6 +41,7 @@ public class StatsCommand {
   private static final String RESET_STAT_MULTIPLE = TConstruct.makeTranslationKey("command", "stats.success.reset.stat.multiple");
   private static final SimpleCommandExceptionType INVALID_ADD = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.invalid_add"));
   private static final SimpleCommandExceptionType INVALID_MULTIPLY = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.invalid_multiply"));
+  private static final SimpleCommandExceptionType FAILED_TO_PARSE = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.parsing"));
   private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (Component)error);
 
   /**
@@ -49,21 +54,22 @@ public class StatsCommand {
                             // stats <target> bonus add|set <stat_type> <value>
                             .then(Commands.literal("bonus")
                                           .then(Commands.literal("add")
-                                                        .then(Commands.argument("stat_type", ToolStatArgument.stat())
+                                                        // TODO: is there a way we can use this to set max stats? would require a way to parse the stat (we have)
+                                                        .then(Commands.argument("stat_type", ToolStatArgument.stat(INumericToolStat.class))
                                                                       .then(Commands.argument("value", FloatArgumentType.floatArg())
                                                                                     .executes(context -> update(context, Type.BONUS, Operation.MODIFY)))))
                                           .then(Commands.literal("set")
                                                         .then(Commands.argument("stat_type", ToolStatArgument.stat())
-                                                                      .then(Commands.argument("value", FloatArgumentType.floatArg())
+                                                                      .then(Commands.argument("value", NbtTagArgument.nbtTag())
                                                                                     .executes(context -> update(context, Type.BONUS, Operation.SET))))))
                             // stats <target> multiplier multiply|set <float_stat> <value>
                             .then(Commands.literal("multiplier")
                                           .then(Commands.literal("multiply")
-                                                        .then(Commands.argument("float_stat", ToolStatArgument.stat(FloatToolStat.class))
+                                                        .then(Commands.argument("float_stat", ToolStatArgument.stat(INumericToolStat.class))
                                                                       .then(Commands.argument("value", FloatArgumentType.floatArg(0))
                                                                                     .executes(context -> update(context, Type.MULTIPLY, Operation.MODIFY)))))
                                           .then(Commands.literal("set")
-                                                        .then(Commands.argument("float_stat", ToolStatArgument.stat(FloatToolStat.class))
+                                                        .then(Commands.argument("float_stat", ToolStatArgument.stat(INumericToolStat.class))
                                                                       .then(Commands.argument("value", FloatArgumentType.floatArg(0))
                                                                                     .executes(context -> update(context, Type.MULTIPLY, Operation.SET))))))
                             // stats <target> reset [<stat_type>]
@@ -73,40 +79,14 @@ public class StatsCommand {
                                                         .executes(StatsCommand::resetStat))));
   }
 
-  /** Modifies a tool stat with the given operation */
-  private static int update(CommandContext<CommandSourceStack> context, Type type, Operation op) throws CommandSyntaxException {
-    float value = FloatArgumentType.getFloat(context, "value");
-    // simplifies later operations if we skip operations that do nothing
-    if (op == Operation.MODIFY) {
-      if (value == 0 && type == Type.BONUS) {
-        throw INVALID_ADD.create();
-      }
-      if (value == 1 && type == Type.MULTIPLY) {
-        throw INVALID_MULTIPLY.create();
-      }
-    }
-
-    IToolStat<?> stat = ToolStatArgument.getStat(context, type.stat);
-    List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
+  /** Updates entities using the given operation */
+  private static List<LivingEntity> updateEntities(CommandContext<CommandSourceStack> context, BiPredicate<IModifierToolStack,StatOverrideModifier> updateAction) throws CommandSyntaxException {
+    return HeldModifiableItemIterator.apply(context, (living, stack) -> {
       ToolStack tool = ToolStack.copyFrom(stack);
 
       // apply the proper operation
-      boolean needsModifier;
       StatOverrideModifier stats = TinkerModifiers.statOverride.get();
-      if (type == Type.BONUS) {
-        if (op == Operation.MODIFY) {
-          needsModifier = stats.addBonus(tool, stat, value);
-        } else {
-          needsModifier = stats.setBonus(tool, stat, value);
-        }
-      } else {
-        FloatToolStat floatStat = (FloatToolStat) stat;
-        if (op == Operation.MODIFY) {
-          needsModifier = stats.multiply(tool, floatStat, value);
-        } else {
-          needsModifier = stats.setMultiplier(tool, floatStat, value);
-        }
-      }
+      boolean needsModifier = updateAction.test(tool, stats);
 
       // ensure the modifier is present if needed/not present if not needed
       int level = tool.getUpgrades().getLevel(stats);
@@ -129,15 +109,56 @@ public class StatsCommand {
       living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
       return true;
     });
+  }
+
+  /** Sets the given stat using NBT */
+  private static <T> List<LivingEntity> setStat(CommandContext<CommandSourceStack> context, IToolStat<T> stat, Tag tag) throws CommandSyntaxException {
+    T value = stat.read(tag);
+    if (value == null) {
+      throw FAILED_TO_PARSE.create();
+    }
+    return updateEntities(context, (tool, stats) -> stats.set(tool, stat, value));
+  }
+
+  /** Modifies a tool stat with the given operation */
+  private static int update(CommandContext<CommandSourceStack> context, Type type, Operation op) throws CommandSyntaxException {
+    // simplifies later operations if we skip operations that do nothing
+    List<LivingEntity> successes;
+    IToolStat<?> stat = ToolStatArgument.getStat(context, type.stat);
+    Object display;
+    if (op == Operation.SET && type == Type.BONUS) {
+      Tag tag = NbtTagArgument.getNbtTag(context, "value");
+      successes = setStat(context, stat, tag);
+      display = tag;
+    } else {
+      float value = FloatArgumentType.getFloat(context, "value");
+      if (op == Operation.MODIFY) {
+        if (value == 0 && type == Type.BONUS) {
+          throw INVALID_ADD.create();
+        }
+        if (value == 1 && type == Type.MULTIPLY) {
+          throw INVALID_MULTIPLY.create();
+        }
+      }
+      INumericToolStat<?> numeric = (INumericToolStat<?>)stat;
+      if (type == Type.BONUS) {
+        successes = updateEntities(context, (tool, stats) -> stats.addBonus(tool, numeric, value));
+      } else if (op == Operation.SET) {
+        successes = updateEntities(context, (tool, stats) -> stats.setMultiplier(tool, numeric, value));
+      } else {
+        successes = updateEntities(context, (tool, stats) -> stats.multiply(tool, numeric, value));
+      }
+      display = value;
+    }
 
     // success message
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     String successKey = SUCCESS_KEY_PREFIX + type.key + "." + op.key + ".";
     if (size == 1) {
-      source.sendSuccess(new TranslatableComponent(successKey + "single", stat.getPrefix(), value, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(new TranslatableComponent(successKey + "single", stat.getPrefix(), display, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslatableComponent(successKey + "multiple", stat.getPrefix(), value, size), true);
+      source.sendSuccess(new TranslatableComponent(successKey + "multiple", stat.getPrefix(), display, size), true);
     }
     return size;
   }
@@ -145,36 +166,11 @@ public class StatsCommand {
   /** Resets all stats to default */
   private static int resetStat(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
     IToolStat<?> stat = ToolStatArgument.getStat(context, "stat_type");
-    List<LivingEntity> successes = HeldModifiableItemIterator.apply(context, (living, stack) -> {
-      ToolStack tool = ToolStack.from(stack);
-      StatOverrideModifier stats = TinkerModifiers.statOverride.get();
-      int currentLevel = tool.getModifierLevel(stats);
-      if (currentLevel > 0) {
-        tool = tool.copy();
-
-        // try removing both bonus and multiplier
-        if (stat instanceof FloatToolStat) {
-          stats.setMultiplier(tool, (FloatToolStat)stat, 1);
-        }
-        boolean needsModifier = stats.setBonus(tool, stat, 0);
-
-        // ensure the modifier is removed if no longer needed
-        if (!needsModifier) {
-          tool.removeModifier(stats, currentLevel);
-        } else {
-          tool.rebuildStats();
-        }
-
-        // ensure the tool is still valid
-        ValidatedResult validated = tool.validate();
-        if (validated.hasError()) {
-          throw MODIFIER_ERROR.create(validated.getMessage());
-        }
-
-        // if successful, update held item
-        living.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
+    List<LivingEntity> successes = updateEntities(context, (tool, stats) -> {
+      if (stat instanceof INumericToolStat<?> numeric) {
+        stats.setMultiplier(tool, numeric, 1);
       }
-      return true;
+      return stats.remove(tool, stat);
     });
 
     // success message

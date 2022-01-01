@@ -37,7 +37,7 @@ public class NetheriteModifier extends SingleLevelModifier {
     }
     if (HARVEST.contains(item)) {
       ToolStats.MINING_SPEED.multiply(builder, 1 + (level * 0.10f));
-      ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.NETHERITE);
+      ToolStats.HARVEST_LEVEL.update(builder, HarvestLevels.NETHERITE);
     }
     if (ARMOR.contains(item)) {
       ToolStats.ARMOR_TOUGHNESS.add(builder, level);

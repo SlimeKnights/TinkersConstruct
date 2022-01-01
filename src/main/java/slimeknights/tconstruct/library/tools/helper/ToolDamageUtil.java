@@ -196,7 +196,7 @@ public class ToolDamageUtil {
     }
 
     // no one took it? just use regular durability
-    return (double) tool.getDamage() / tool.getStats().getInt(ToolStats.DURABILITY);
+    return (double) tool.getDamage() / tool.getStats().get(ToolStats.DURABILITY);
   }
 
   /**

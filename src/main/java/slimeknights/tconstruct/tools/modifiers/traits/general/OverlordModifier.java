@@ -20,7 +20,7 @@ public class OverlordModifier extends Modifier {
 
   /** Gets the durability boost per level */
   private int getBoost(StatsNBT baseStats, int level, float perLevel) {
-    return (int)(baseStats.getFloat(ToolStats.DURABILITY) * perLevel * level);
+    return (int)(baseStats.get(ToolStats.DURABILITY) * perLevel * level);
   }
 
   @Override

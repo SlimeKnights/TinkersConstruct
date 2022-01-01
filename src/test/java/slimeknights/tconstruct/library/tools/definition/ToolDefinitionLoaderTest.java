@@ -45,10 +45,10 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(data.getBaseStat(ToolStats.ATTACK_SPEED)).isEqualTo(3.75f);
     assertThat(data.getBaseStat(ToolStats.MINING_SPEED)).isEqualTo(4f);
     // multiplier stats
-    assertThat(data.getStats().getMultipliers().containedStats()).hasSize(3);
-    assertThat(data.getStats().getMultipliers().containedStats()).contains(ToolStats.DURABILITY);
-    assertThat(data.getStats().getMultipliers().containedStats()).contains(ToolStats.ATTACK_DAMAGE);
-    assertThat(data.getStats().getMultipliers().containedStats()).contains(ToolStats.MINING_SPEED);
+    assertThat(data.getStats().getMultipliers().getContainedStats()).hasSize(3);
+    assertThat(data.getStats().getMultipliers().getContainedStats()).contains(ToolStats.DURABILITY);
+    assertThat(data.getStats().getMultipliers().getContainedStats()).contains(ToolStats.ATTACK_DAMAGE);
+    assertThat(data.getStats().getMultipliers().getContainedStats()).contains(ToolStats.MINING_SPEED);
     assertThat(data.getMultiplier(ToolStats.DURABILITY)).isEqualTo(1.5f);
     assertThat(data.getMultiplier(ToolStats.ATTACK_DAMAGE)).isEqualTo(2f);
     assertThat(data.getMultiplier(ToolStats.MINING_SPEED)).isEqualTo(0.5f);

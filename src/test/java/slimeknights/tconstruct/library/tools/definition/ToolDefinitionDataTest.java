@@ -5,6 +5,7 @@ import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -15,12 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ToolDefinitionDataTest extends BaseMcTest {
   /** Checks that the stats are all empty */
   protected static void checkStatsEmpty(ToolDefinitionData.Stats stats) {
-    DefinitionToolStats base = stats.getBase();
+    StatsNBT base = stats.getBase();
     assertThat(base).isNotNull();
-    assertThat(base.containedStats()).isEmpty();
-    DefinitionToolStats multipliers = stats.getMultipliers();
+    assertThat(base.getContainedStats()).isEmpty();
+    MultiplierNBT multipliers = stats.getMultipliers();
     assertThat(multipliers).isNotNull();
-    assertThat(multipliers.containedStats()).isEmpty();
+    assertThat(multipliers.getContainedStats()).isEmpty();
   }
 
   /** Checks that the stats are all empty */
@@ -81,14 +82,11 @@ class ToolDefinitionDataTest extends BaseMcTest {
 
     // ensure stats are in the right place
     assertThat(withBonuses.getAllBaseStats()).hasSize(2);
-    assertThat(withBonuses.getStats().getMultipliers().containedStats()).isEmpty();
+    assertThat(withBonuses.getStats().getMultipliers().getContainedStats()).isEmpty();
     assertThat(withBonuses.getBaseStat(ToolStats.DURABILITY)).isEqualTo(100);
-    assertThat(withBonuses.getBonus(ToolStats.DURABILITY)).isEqualTo(100);
     assertThat(withBonuses.getBaseStat(ToolStats.ATTACK_SPEED)).isEqualTo(5.5f);
-    assertThat(withBonuses.getBonus(ToolStats.ATTACK_SPEED)).isEqualTo(5.5f);
     // note mining speed was chosen as it has a non-zero default
     assertThat(withBonuses.getBaseStat(ToolStats.MINING_SPEED)).isEqualTo(ToolStats.MINING_SPEED.getDefaultValue());
-    assertThat(withBonuses.getBonus(ToolStats.MINING_SPEED)).isEqualTo(0);
   }
 
   @Test
@@ -101,7 +99,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
 
     // ensure stats are in the right place
     assertThat(withMultipliers.getAllBaseStats()).isEmpty();
-    assertThat(withMultipliers.getStats().getMultipliers().containedStats()).hasSize(2);
+    assertThat(withMultipliers.getStats().getMultipliers().getContainedStats()).hasSize(2);
     assertThat(withMultipliers.getMultiplier(ToolStats.DURABILITY)).isEqualTo(10);
     assertThat(withMultipliers.getMultiplier(ToolStats.ATTACK_SPEED)).isEqualTo(2.5f);
     assertThat(withMultipliers.getMultiplier(ToolStats.MINING_SPEED)).isEqualTo(1);
@@ -118,8 +116,8 @@ class ToolDefinitionDataTest extends BaseMcTest {
     assertThat(stats.getContainedStats()).hasSize(2);
     assertThat(stats.getContainedStats()).contains(ToolStats.MINING_SPEED);
     assertThat(stats.getContainedStats()).contains(ToolStats.ATTACK_DAMAGE);
-    assertThat(stats.getFloat(ToolStats.MINING_SPEED)).isEqualTo(6);
-    assertThat(stats.getFloat(ToolStats.ATTACK_DAMAGE)).isEqualTo(3);
+    assertThat(stats.get(ToolStats.MINING_SPEED)).isEqualTo(6);
+    assertThat(stats.get(ToolStats.ATTACK_DAMAGE)).isEqualTo(3);
   }
 
   @Test
@@ -140,9 +138,9 @@ class ToolDefinitionDataTest extends BaseMcTest {
     assertThat(stats.getContainedStats()).contains(ToolStats.DURABILITY);
     assertThat(stats.getContainedStats()).contains(ToolStats.MINING_SPEED);
     assertThat(stats.getContainedStats()).contains(ToolStats.ATTACK_SPEED);
-    assertThat(stats.getFloat(ToolStats.MINING_SPEED)).isEqualTo(30);
-    assertThat(stats.getFloat(ToolStats.DURABILITY)).isEqualTo(101);
-    assertThat(stats.getFloat(ToolStats.ATTACK_SPEED)).isEqualTo(2);
+    assertThat(stats.get(ToolStats.MINING_SPEED)).isEqualTo(30);
+    assertThat(stats.get(ToolStats.DURABILITY)).isEqualTo(101);
+    assertThat(stats.get(ToolStats.ATTACK_SPEED)).isEqualTo(2);
   }
 
   @Test

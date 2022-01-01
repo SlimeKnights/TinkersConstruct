@@ -7,14 +7,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
 import lombok.experimental.Accessors;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -73,7 +73,7 @@ public class AddToolDataFunction extends LootItemConditionalFunction {
       }
       // set damage last to a percentage of max damage if requested
       if (damage > 0) {
-        tool.setDamage((int)(tool.getStats().getInt(ToolStats.DURABILITY) * damage));
+        tool.setDamage((int)(tool.getStats().get(ToolStats.DURABILITY) * damage));
       }
     }
     return stack;

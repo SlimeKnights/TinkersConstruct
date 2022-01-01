@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.tools.stat;
 
+import com.google.gson.JsonSyntaxException;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
@@ -30,7 +32,7 @@ public class ToolStats {
   /** How fast the tool breaks blocks */
   public static final FloatToolStat MINING_SPEED = register(new FloatToolStat(name("mining_speed"), 0xFF78A0CD, 1, 0, 2048f));
   /** Mining level for breaking blocks */
-  public static final TierToolStat HARVEST_LEVEL = register(new TierToolStat(name("harvest_level"), HarvestLevels.WOOD, HarvestLevels::getHarvestLevelName));
+  public static final MaxToolStat HARVEST_LEVEL = register(new MaxToolStat(name("harvest_level"), HarvestLevels.WOOD, HarvestLevels::getHarvestLevelName));
 
   // armor
   /** Main armor value */
@@ -49,6 +51,32 @@ public class ToolStats {
   @Nullable
   public static IToolStat<?> getToolStat(ToolStatId name) {
     return ALL_STATS.get(name);
+  }
+
+  /**
+   * Parses a stat from JSON, throwing if invalid
+   * @throws JsonSyntaxException if invalid
+   */
+  public static IToolStat<?> fromJson(String key) {
+    ResourceLocation location = ResourceLocation.tryParse(key);
+    if (location != null) {
+      IToolStat<?> stat = ToolStats.getToolStat(new ToolStatId(location));
+      if (stat != null) {
+        return stat;
+      }
+    }
+    throw new JsonSyntaxException("Unknown stat type " + key);
+  }
+
+  /**
+   * Parses a numeric stat from JSON, throwing if invalid
+   * @throws JsonSyntaxException if invalid
+   */
+  public static INumericToolStat<?> numericFromJson(String key) {
+    if (fromJson(key) instanceof INumericToolStat<?> stat) {
+      return stat;
+    }
+    throw new JsonSyntaxException("Invalid tool stat " + key + ", must be a numeric stat");
   }
 
   /**

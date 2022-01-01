@@ -56,4 +56,14 @@ public final class TagUtil {
     }
     return null;
   }
+
+  /**
+   * Checks if the given tag is a numeric type
+   * @param tag  Tag to check
+   * @return  True if the type matches
+   */
+  public static boolean isNumeric(Tag tag) {
+    byte type = tag.getId();
+    return type == Tag.TAG_BYTE || type == Tag.TAG_SHORT || type == Tag.TAG_INT || type == Tag.TAG_LONG || type == Tag.TAG_FLOAT || type == Tag.TAG_DOUBLE;
+  }
 }

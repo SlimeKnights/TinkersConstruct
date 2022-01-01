@@ -48,7 +48,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
   @Override
   public float getDestroySpeed(IModifierToolStack tool, BlockState state) {
     if (isEffective(tool, state)) {
-      float speed = tool.getStats().getFloat(ToolStats.MINING_SPEED);
+      float speed = tool.getStats().get(ToolStats.MINING_SPEED);
       for (SpeedModifier modifier : speedModifiers) {
         if (modifier.matches(state)) {
           return Math.max(1, speed * modifier.modifier);
@@ -60,6 +60,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
   }
 
   /** Builder for the logic */
+  @SuppressWarnings("unused")
   @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   public static class Builder {
     private final LazyTag<Block> tag;

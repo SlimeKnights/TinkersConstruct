@@ -252,9 +252,9 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
       // base stats
       StatsNBT statsNBT = tool.getStats();
       UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-      builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.armor.armor", statsNBT.getFloat(ToolStats.ARMOR), AttributeModifier.Operation.ADDITION));
-      builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.armor.toughness", statsNBT.getFloat(ToolStats.ARMOR_TOUGHNESS), AttributeModifier.Operation.ADDITION));
-      double knockbackResistance = statsNBT.getFloat(ToolStats.KNOCKBACK_RESISTANCE);
+      builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.armor.armor", statsNBT.get(ToolStats.ARMOR), AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.armor.toughness", statsNBT.get(ToolStats.ARMOR_TOUGHNESS), AttributeModifier.Operation.ADDITION));
+      double knockbackResistance = statsNBT.get(ToolStats.KNOCKBACK_RESISTANCE);
       if (knockbackResistance != 0) {
         builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "tconstruct.armor.knockback_resistance", knockbackResistance, AttributeModifier.Operation.ADDITION));
       }

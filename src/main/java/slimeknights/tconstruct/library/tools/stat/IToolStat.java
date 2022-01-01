@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.tools.stat;
 
+import com.google.gson.JsonElement;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
@@ -8,44 +11,71 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface for all tool stats, can implement to determine the behavior of stats in the modifier stat builder
- * TODO: tool stats need to support strings instead of just numbers
- * @param <B>
+ * @param <T>
  */
-public interface IToolStat<B> {
+public interface IToolStat<T> {
 
   /** Gets the name of this stat for serializing to NBT */
   ToolStatId getName();
 
   /** Gets the default value for this stat */
-  float getDefaultValue();
+  T getDefaultValue();
 
   /** Clamps the value into a valid range */
-  float clamp(float value);
-
-  /**
-   * Applies the given float value as a bonus, used primarily for the stat override modifier
-   * Typically better to directly call one of the named methods such as {@link FloatToolStat#add(ModifierStatsBuilder, double)} or {@link TierToolStat#set(ModifierStatsBuilder, int)}
-   */
-  default void applyBonus(ModifierStatsBuilder builder, double value) {}
+  default T clamp(T value) {
+    return value;
+  }
 
 
   /* Modifier stat builder */
 
   /**
-   * Gets the base value for the stat builder
+   * Creates a builder instance for this stat
    * @return  Stating value
    */
-  B makeBuilder();
+  Object makeBuilder();
 
   /**
    * Builds this stat using the given builder
-   * @param builder  Builder
+   * @param builder  Builder object, will be the same object you returned in {@link #makeBuilder()} so unchecked casting is safe
    * @param value    Existing value of the stat
    * @return  Final float value
    */
-  float build(B builder, float value);
+  T build(Object builder, T value);
+
+  /**
+   * Updates the stat with a new value. The stat can determine how to merge that with existing values
+   * @param builder  Builder instance
+   * @param value    Amount to add
+   */
+  void update(ModifierStatsBuilder builder, T value);
+
+
+  /* Storing and parsing */
+
+  /** Parses this stat from NBT, return null if the type is invalid */
+  @Nullable
+  T read(Tag tag);
+
+  /** Writes this stat to NBT */
+  @Nullable
+  Tag write(T value);
+
+  /** Parses this stat from JSON */
+  T deserialize(JsonElement json);
+
+  /** Serializes this stat to JSON */
+  JsonElement serialize(T value);
+
+  /** Parses this stat from from the network */
+  T fromNetwork(FriendlyByteBuf buffer);
+
+  /** Writes this stat to the network */
+  void toNetwork(FriendlyByteBuf buffer, T value);
 
 
   /* Display */
@@ -61,7 +91,7 @@ public interface IToolStat<B> {
   }
 
   /** Formats the value using this tool stat */
-  Component formatValue(float number);
+  Component formatValue(T value);
 
 
   /* Formatting helpers */

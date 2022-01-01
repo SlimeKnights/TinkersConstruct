@@ -92,7 +92,7 @@ public class ToolAttackUtil {
 
     // next, build a list of damage modifiers from the offhand stack, handled directly as it saves parsing the tool twice and lets us simplify by filtering
     ImmutableList.Builder<AttributeModifier> listBuilder = ImmutableList.builder();
-    listBuilder.add(new AttributeModifier(OFFHAND_DAMAGE_MODIFIER_UUID, "tconstruct.tool.offhand_attack_damage", tool.getStats().getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+    listBuilder.add(new AttributeModifier(OFFHAND_DAMAGE_MODIFIER_UUID, "tconstruct.tool.offhand_attack_damage", tool.getStats().get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
     BiConsumer<Attribute, AttributeModifier> attributeConsumer = (attribute, modifier) -> {
       if (attribute == Attributes.ATTACK_DAMAGE) {
         listBuilder.add(modifier);
@@ -365,7 +365,7 @@ public class ToolAttackUtil {
     }
 
     // hurt resistance adjustment for high speed weapons
-    float speed = tool.getStats().getFloat(ToolStats.ATTACK_SPEED);
+    float speed = tool.getStats().get(ToolStats.ATTACK_SPEED);
     int time = Math.round(20f / speed);
     if (time < targetEntity.invulnerableTime) {
       targetEntity.invulnerableTime = (targetEntity.invulnerableTime + time) / 2;

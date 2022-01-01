@@ -28,7 +28,7 @@ public class PiercingModifier extends IncrementalModifier {
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     float toRemove = 0.5f * getScaledLevel(context, level);
-    float baseDamage = context.getBaseStats().getFloat(ToolStats.ATTACK_DAMAGE);
+    float baseDamage = context.getBaseStats().get(ToolStats.ATTACK_DAMAGE);
     if (baseDamage < toRemove) {
       volatileData.putFloat(PIERCING_DEBUFF, toRemove - baseDamage);
     }

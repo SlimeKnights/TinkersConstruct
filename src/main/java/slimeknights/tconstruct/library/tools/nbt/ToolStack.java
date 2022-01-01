@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
@@ -111,7 +111,7 @@ public class ToolStack implements IModifierToolStack {
   private StatsNBT stats;
   /** Data object containing stat multipliers for each stat */
   @Nullable
-  private StatsNBT multipliers;
+  private MultiplierNBT multipliers;
   /** Data object containing modifier data that is recreated when the modifier list changes */
   @Nullable
   private IModDataReadOnly volatileModData;
@@ -363,9 +363,9 @@ public class ToolStack implements IModifierToolStack {
    * Gets the tool stats if parsed, or parses from NBT if not yet parsed
    * @return stats
    */
-  protected StatsNBT getMultipliers() {
+  protected MultiplierNBT getMultipliers() {
     if (multipliers == null) {
-      multipliers = StatsNBT.readFromNBT(nbt.get(TAG_MULTIPLIERS));
+      multipliers = MultiplierNBT.readFromNBT(nbt.get(TAG_MULTIPLIERS));
     }
     return multipliers;
   }
@@ -374,16 +374,16 @@ public class ToolStack implements IModifierToolStack {
    * Sets the tool multipliers, and stores it in NBT
    * @param multipliers  Stats instance
    */
-  protected void setMultipliers(StatsNBT multipliers) {
+  protected void setMultipliers(MultiplierNBT multipliers) {
     this.multipliers = multipliers;
     nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
   }
 
   @Override
-  public float getModifier(FloatToolStat stat) {
-    StatsNBT multipliers = getMultipliers();
+  public float getModifier(INumericToolStat<?> stat) {
+    MultiplierNBT multipliers = getMultipliers();
     if (multipliers.hasStat(stat)) {
-      return multipliers.getFloat(stat);
+      return multipliers.get(stat);
     }
     return 1.0f;
   }

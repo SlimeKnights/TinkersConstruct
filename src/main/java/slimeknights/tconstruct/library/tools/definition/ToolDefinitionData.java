@@ -13,7 +13,10 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 
 import javax.annotation.Nullable;
@@ -31,7 +34,7 @@ import static java.util.Objects.requireNonNullElse;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolDefinitionData {
   @VisibleForTesting
-  protected static final Stats EMPTY_STATS = new Stats(DefinitionToolStats.EMPTY, DefinitionToolStats.EMPTY);
+  protected static final Stats EMPTY_STATS = new Stats(StatsNBT.EMPTY, MultiplierNBT.EMPTY);
   /** Empty tool data definition instance */
   public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet(), null);
 
@@ -89,27 +92,27 @@ public class ToolDefinitionData {
   /* Stats */
 
   /** Gets a set of bonuses applied to this tool, for stat building */
-  public Set<FloatToolStat> getAllBaseStats() {
-    return getStats().getBase().containedStats();
+  public Set<IToolStat<?>> getAllBaseStats() {
+    return getStats().getBase().getContainedStats();
+  }
+
+  /** Determines if the given stat is defined in this definition, for stat building */
+  public boolean hasBaseStat(IToolStat<?> stat) {
+    return getStats().getBase().hasStat(stat);
   }
 
   /** Gets the value of a stat in this tool, or the default value if missing */
-  public float getBaseStat(FloatToolStat toolStat) {
-    return getStats().getBase().getStat(toolStat, toolStat.getDefaultValue());
-  }
-
-  /** Gets the value of a stat in this tool, or 0 if missing */
-  public float getBonus(FloatToolStat toolStat) {
-    return getStats().getBase().getStat(toolStat, 0f);
+  public <T> T getBaseStat(IToolStat<T> toolStat) {
+    return getStats().getBase().get(toolStat);
   }
 
   /**
    * Gets the multiplier for this stat to use for modifiers
    *
-   * In most cases, its better to use {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack#getModifier(FloatToolStat)} as that takes the modifier multiplier into account
+   * In most cases, its better to use {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack#getModifier(INumericToolStat)} as that takes the modifier multiplier into account
    */
-  public float getMultiplier(FloatToolStat toolStat) {
-    return getStats().getMultipliers().getStat(toolStat, 1f);
+  public float getMultiplier(INumericToolStat<?> toolStat) {
+    return getStats().getMultipliers().get(toolStat);
   }
 
 
@@ -121,9 +124,9 @@ public class ToolDefinitionData {
    */
   public void buildStatMultipliers(ModifierStatsBuilder builder) {
     if (stats != null) {
-      DefinitionToolStats multipliers = stats.getMultipliers();
-      for (FloatToolStat stat : multipliers.containedStats()) {
-        stat.multiplyAll(builder, multipliers.getStat(stat, 1f));
+      MultiplierNBT multipliers = stats.getMultipliers();
+      for (INumericToolStat<?> stat : multipliers.getContainedStats()) {
+        stat.multiplyAll(builder, multipliers.get(stat));
       }
     }
   }
@@ -170,8 +173,8 @@ public class ToolDefinitionData {
       part.write(buffer);
     }
     Stats stats = getStats();
-    stats.getBase().write(buffer);
-    stats.getMultipliers().write(buffer);
+    stats.getBase().toNetwork(buffer);
+    stats.getMultipliers().toNetwork(buffer);
     getSlots().write(buffer);
     List<ModifierEntry> traits = getTraits();
     buffer.writeVarInt(traits.size());
@@ -197,8 +200,8 @@ public class ToolDefinitionData {
     for (int i = 0; i < size; i++) {
       parts.add(PartRequirement.read(buffer));
     }
-    DefinitionToolStats bonuses = DefinitionToolStats.read(buffer);
-    DefinitionToolStats multipliers = DefinitionToolStats.read(buffer);
+    StatsNBT bonuses = StatsNBT.fromNetwork(buffer);
+    MultiplierNBT multipliers = MultiplierNBT.fromNetwork(buffer);
     DefinitionModifierSlots slots = DefinitionModifierSlots.read(buffer);
     size = buffer.readVarInt();
     ImmutableList.Builder<ModifierEntry> traits = ImmutableList.builder();
@@ -219,18 +222,18 @@ public class ToolDefinitionData {
   @RequiredArgsConstructor
   public static class Stats {
     @Nullable
-    private final DefinitionToolStats base;
+    private final StatsNBT base;
     @Nullable
-    private final DefinitionToolStats multipliers;
+    private final MultiplierNBT multipliers;
 
     /** Bonus to add to each stat on top of the base value */
-    public DefinitionToolStats getBase() {
-      return requireNonNullElse(base, DefinitionToolStats.EMPTY);
+    public StatsNBT getBase() {
+      return requireNonNullElse(base, StatsNBT.EMPTY);
     }
 
     /** Multipliers to apply after modifiers */
-    public DefinitionToolStats getMultipliers() {
-      return requireNonNullElse(multipliers, DefinitionToolStats.EMPTY);
+    public MultiplierNBT getMultipliers() {
+      return requireNonNullElse(multipliers, MultiplierNBT.EMPTY);
     }
   }
 

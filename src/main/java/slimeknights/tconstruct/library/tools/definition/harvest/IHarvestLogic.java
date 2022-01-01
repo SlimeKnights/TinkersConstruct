@@ -29,6 +29,6 @@ public interface IHarvestLogic extends IHaveLoader {
 
   /** Gets the destroy speed against the given block */
   default float getDestroySpeed(IModifierToolStack tool, BlockState state) {
-    return isEffective(tool, state) ? tool.getStats().getFloat(ToolStats.MINING_SPEED) : 1.0f;
+    return isEffective(tool, state) ? tool.getStats().get(ToolStats.MINING_SPEED) : 1.0f;
   }
 }

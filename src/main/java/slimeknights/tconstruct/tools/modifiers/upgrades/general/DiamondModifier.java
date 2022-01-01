@@ -36,7 +36,7 @@ public class DiamondModifier extends SingleLevelModifier {
     }
     if (HARVEST.contains(item)) {
       ToolStats.MINING_SPEED.add(builder, level * 1f);
-      ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.DIAMOND);
+      ToolStats.HARVEST_LEVEL.update(builder, HarvestLevels.DIAMOND);
     }
     if (ARMOR.contains(item)) {
       ToolStats.ARMOR.add(builder, level);

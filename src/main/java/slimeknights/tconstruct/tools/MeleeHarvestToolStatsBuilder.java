@@ -67,7 +67,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds durability for the tool */
   public float buildDurability() {
-    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability) + toolData.getBonus(ToolStats.DURABILITY);
+    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability) + getStatOrDefault(ToolStats.DURABILITY, 0f);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getDurability, 1);
     // durability should never be below 1
     return Math.max(1, (int)(averageHeadDurability * averageHandleModifier));
@@ -75,7 +75,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds mining speed for the tool */
   public float buildMiningSpeed() {
-    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed) + toolData.getBonus(ToolStats.MINING_SPEED);
+    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed) + getStatOrDefault(ToolStats.MINING_SPEED, 0f);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getMiningSpeed, 1);
 
     return (float)Math.max(0.1d, averageHeadSpeed * averageHandleModifier);
@@ -98,7 +98,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds attack damage for the tool */
   public float buildAttackDamage() {
-    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + toolData.getBonus(ToolStats.ATTACK_DAMAGE);
+    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + getStatOrDefault(ToolStats.ATTACK_DAMAGE, 0f);
     double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
     return (float)Math.max(0.0d, averageHeadAttack * averageHandle);
   }

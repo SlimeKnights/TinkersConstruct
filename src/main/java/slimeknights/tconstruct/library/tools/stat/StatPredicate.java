@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
@@ -10,7 +9,7 @@ import java.util.function.Predicate;
 /**
  * Predicate to check if a tool has the given stat
  */
-public record StatPredicate(IToolStat<?> stat, float min, float max) implements Predicate<StatsNBT> {
+public record StatPredicate(INumericToolStat<?> stat, float min, float max) implements Predicate<StatsNBT> {
 
   /**
    * Creates a predicate matching the exact value
@@ -18,7 +17,7 @@ public record StatPredicate(IToolStat<?> stat, float min, float max) implements 
    * @param value Value to match
    * @return Predicate
    */
-  public static StatPredicate match(IToolStat<?> stat, float value) {
+  public static StatPredicate match(INumericToolStat<?> stat, float value) {
     return new StatPredicate(stat, value, value);
   }
 
@@ -28,7 +27,7 @@ public record StatPredicate(IToolStat<?> stat, float min, float max) implements 
    * @param min  Min value
    * @return Predicate
    */
-  public static StatPredicate min(IToolStat<?> stat, float min) {
+  public static StatPredicate min(INumericToolStat<?> stat, float min) {
     return new StatPredicate(stat, min, Float.POSITIVE_INFINITY);
   }
 
@@ -38,13 +37,13 @@ public record StatPredicate(IToolStat<?> stat, float min, float max) implements 
    * @param max  Max value
    * @return Predicate
    */
-  public static StatPredicate max(IToolStat<?> stat, float max) {
+  public static StatPredicate max(INumericToolStat<?> stat, float max) {
     return new StatPredicate(stat, Float.NEGATIVE_INFINITY, max);
   }
 
   @Override
   public boolean test(StatsNBT statsNBT) {
-    float value = statsNBT.getFloat(stat);
+    float value = statsNBT.get(stat).floatValue();
     return value >= min && value <= max;
   }
 
@@ -54,12 +53,11 @@ public record StatPredicate(IToolStat<?> stat, float min, float max) implements 
    * @return Predicate
    */
   public static StatPredicate deserialize(JsonObject json) {
-    ToolStatId id = new ToolStatId(GsonHelper.getAsString(json, "stat"));
-    IToolStat<?> stat = ToolStats.getToolStat(id);
-    if (stat == null) {
-      throw new JsonSyntaxException("Unknown tool stat '" + id + "'");
-    }
-    return new StatPredicate(stat, GsonHelper.getAsFloat(json, "min", Float.NEGATIVE_INFINITY), GsonHelper.getAsFloat(json, "max", Float.NEGATIVE_INFINITY));
+    return new StatPredicate(
+      ToolStats.numericFromJson(GsonHelper.getAsString(json, "stat")),
+      GsonHelper.getAsFloat(json, "min", Float.NEGATIVE_INFINITY),
+      GsonHelper.getAsFloat(json, "max", Float.NEGATIVE_INFINITY)
+    );
   }
 
   /**

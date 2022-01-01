@@ -24,6 +24,8 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -38,7 +40,8 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
   public static final String FOLDER = "tinkering/tool_definitions";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .registerTypeAdapter(DefinitionToolStats.class, DefinitionToolStats.SERIALIZER)
+    .registerTypeAdapter(StatsNBT.class, StatsNBT.SERIALIZER)
+    .registerTypeAdapter(MultiplierNBT.class, MultiplierNBT.SERIALIZER)
     .registerTypeAdapter(PartRequirement.class, PartRequirement.SERIALIZER)
     .registerTypeAdapter(DefinitionModifierSlots.class, DefinitionModifierSlots.SERIALIZER)
     .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
