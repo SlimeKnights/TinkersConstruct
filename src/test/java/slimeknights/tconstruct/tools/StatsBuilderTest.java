@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.world.item.Tiers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
@@ -104,7 +105,7 @@ class StatsBuilderTest extends BaseMcTest {
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionData.EMPTY, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(1);
-    assertThat(builder.buildHarvestLevel()).isEqualTo(0);
+    assertThat(builder.buildHarvestLevel()).isEqualTo(Tiers.WOOD);
     assertThat(builder.buildMiningSpeed()).isGreaterThan(0);
     assertThat(builder.buildMiningSpeed()).isLessThanOrEqualTo(1);
     assertThat(builder.buildAttackDamage()).isEqualTo(0);
@@ -113,8 +114,8 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildDurability_ensureAverage_head() {
-    HeadMaterialStats stats1 = new HeadMaterialStats(100, 0, 0, 0);
-    HeadMaterialStats stats2 = new HeadMaterialStats(50, 0, 0, 0);
+    HeadMaterialStats stats1 = new HeadMaterialStats(100, 0, Tiers.WOOD, 0);
+    HeadMaterialStats stats2 = new HeadMaterialStats(50, 0, Tiers.WOOD, 0);
 
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionDataBuilder.builder().stat(ToolStats.DURABILITY, 100).build(), ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
@@ -123,7 +124,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildDurability_testHandleDurability() {
-    HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
+    HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, Tiers.WOOD, 0);
     HandleMaterialStats statsHandle = new HandleMaterialStats(0.5f, 0, 0, 0);
 
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionData.EMPTY, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), Collections.emptyList());
@@ -133,7 +134,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildMiningSpeed_testHandleMiningSpeed() {
-    HeadMaterialStats statsHead = new HeadMaterialStats(0, 2.0f, 0, 0);
+    HeadMaterialStats statsHead = new HeadMaterialStats(0, 2.0f, Tiers.WOOD, 0);
     HandleMaterialStats statsHandle = new HandleMaterialStats(0, 0.5f, 0, 0);
     ExtraMaterialStats statsExtra = ExtraMaterialStats.DEFAULT;
 
@@ -144,7 +145,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildDurability_testHandleDurability_average() {
-    HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
+    HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, Tiers.WOOD, 0);
     HandleMaterialStats statsHandle1 = new HandleMaterialStats(0.3f, 0, 0, 0);
     HandleMaterialStats statsHandle2 = new HandleMaterialStats(0.7f, 0, 0, 0);
 
@@ -155,7 +156,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildMiningSpeed_testHandleMiningSpeed_average() {
-    HeadMaterialStats statsHead = new HeadMaterialStats(0, 2.0f, 0, 0);
+    HeadMaterialStats statsHead = new HeadMaterialStats(0, 2.0f, Tiers.WOOD, 0);
     HandleMaterialStats statsHandle1 = new HandleMaterialStats(0, 0.3f, 0, 0);
     HandleMaterialStats statsHandle2 = new HandleMaterialStats(0, 0.7f, 0, 0);
 
@@ -166,8 +167,8 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildMiningSpeed_ensureAverage() {
-    HeadMaterialStats stats1 = new HeadMaterialStats(1, 10, 0, 0);
-    HeadMaterialStats stats2 = new HeadMaterialStats(1, 5, 0, 0);
+    HeadMaterialStats stats1 = new HeadMaterialStats(1, 10, Tiers.WOOD, 0);
+    HeadMaterialStats stats2 = new HeadMaterialStats(1, 5, Tiers.WOOD, 0);
 
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionDataBuilder.builder().stat(ToolStats.MINING_SPEED, 10).build(), ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
@@ -176,8 +177,8 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildAttack_ensureAverage() {
-    HeadMaterialStats stats1 = new HeadMaterialStats(1, 0, 0, 5);
-    HeadMaterialStats stats2 = new HeadMaterialStats(1, 0, 0, 10);
+    HeadMaterialStats stats1 = new HeadMaterialStats(1, 0, Tiers.WOOD, 5);
+    HeadMaterialStats stats2 = new HeadMaterialStats(1, 0, Tiers.WOOD, 10);
 
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionDataBuilder.builder().stat(ToolStats.ATTACK_DAMAGE, 10).build(), ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
@@ -186,14 +187,14 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildHarvestLevel_ensureMax() {
-    HeadMaterialStats stats1 = new HeadMaterialStats(1, 1, 2, 0);
-    HeadMaterialStats stats2 = new HeadMaterialStats(1, 1, 1, 0);
-    HeadMaterialStats stats3 = new HeadMaterialStats(1, 1, 5, 0);
-    HeadMaterialStats stats4 = new HeadMaterialStats(1, 1, -1, 0);
+    HeadMaterialStats stats1 = new HeadMaterialStats(1, 1, Tiers.IRON, 0);
+    HeadMaterialStats stats2 = new HeadMaterialStats(1, 1, Tiers.STONE, 0);
+    HeadMaterialStats stats3 = new HeadMaterialStats(1, 1, Tiers.DIAMOND, 0);
+    HeadMaterialStats stats4 = new HeadMaterialStats(1, 1, Tiers.WOOD, 0);
 
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionData.EMPTY, ImmutableList.of(stats1, stats2, stats3, stats4), Collections.emptyList(), Collections.emptyList());
 
-    assertThat(builder.buildHarvestLevel()).isEqualTo(5);
+    assertThat(builder.buildHarvestLevel()).isEqualTo(Tiers.DIAMOND);
   }
 
   @Test
@@ -204,7 +205,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildAttackSpeed_testHandleAttackDamage() {
-    HeadMaterialStats head = new HeadMaterialStats(0, 0, 0, 2);
+    HeadMaterialStats head = new HeadMaterialStats(0, 0, Tiers.WOOD, 2);
     HandleMaterialStats stats = new HandleMaterialStats(0, 0, 0, 0.5f);
     MeleeHarvestToolStatsBuilder builder = new MeleeHarvestToolStatsBuilder(ToolDefinitionData.EMPTY, ImmutableList.of(head), ImmutableList.of(stats), Collections.emptyList());
 
@@ -213,7 +214,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildAttackSpeed_testHandleAttackDamage_average() {
-    HeadMaterialStats head = new HeadMaterialStats(0, 0, 0, 4);
+    HeadMaterialStats head = new HeadMaterialStats(0, 0, Tiers.WOOD, 4);
     HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 0, 1.3f);
     HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 0, 1.7f);
 

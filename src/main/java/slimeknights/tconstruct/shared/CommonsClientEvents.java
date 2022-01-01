@@ -21,7 +21,6 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.client.FluidParticle;
@@ -33,7 +32,6 @@ public class CommonsClientEvents extends ClientEventBase {
     MaterialRenderInfoLoader.addResourceListener(event);
     DomainDisplayName.addResourceListener(event);
     event.registerReloadListener(TinkerClient.textureValidator);
-    event.registerReloadListener(HarvestLevels.INSTANCE);
   }
 
   @SubscribeEvent

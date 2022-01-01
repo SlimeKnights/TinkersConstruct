@@ -10,7 +10,7 @@
     "tconstruct:head": {
       "durability": 275,
       "miningSpeed": 6.0,
-      "harvestLevel": 2,
+      "harvestTier": "minecraft:iron",
       "attack": 1.25
     }
   }

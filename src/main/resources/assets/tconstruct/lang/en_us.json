@@ -2143,8 +2143,8 @@
   "stat.tconstruct.head": "Head",
   "tool_stat.tconstruct.mining_speed": "Mining Speed: ",
   "tool_stat.tconstruct.mining_speed.description": "How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.",
-  "tool_stat.tconstruct.harvest_level": "Mining Level: ",
-  "tool_stat.tconstruct.harvest_level.description": "What range of blocks a tool with a tool head of this material can mine.",
+  "tool_stat.tconstruct.harvest_tier": "Harvest Tier: ",
+  "tool_stat.tconstruct.harvest_tier.description": "What range of blocks a tool with a tool head of this material can mine.",
   "tool_stat.tconstruct.attack_damage": "Attack Damage: ",
   "tool_stat.tconstruct.attack_damage.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
@@ -2167,11 +2167,12 @@
   "stat.tconstruct.repair_kit": "Repair Kit",
   "stat.tconstruct.skull": "Slimeskull",
 
-  "stat.tconstruct.mining_level.wood": "Wood",
-  "stat.tconstruct.mining_level.stone": "Stone",
-  "stat.tconstruct.mining_level.iron": "Iron",
-  "stat.tconstruct.mining_level.diamond": "Diamond",
-  "stat.tconstruct.mining_level.netherite": "Netherite",
+  "stat.tconstruct.harvest_tier.minecraft.wood": "Wood",
+  "stat.tconstruct.harvest_tier.minecraft.gold": "Gold",
+  "stat.tconstruct.harvest_tier.minecraft.stone": "Stone",
+  "stat.tconstruct.harvest_tier.minecraft.iron": "Iron",
+  "stat.tconstruct.harvest_tier.minecraft.diamond": "Diamond",
+  "stat.tconstruct.harvest_tier.minecraft.netherite": "Netherite",
 
   "stat.tconstruct.slot.prefix.upgrades": "Upgrades: ",
   "stat.tconstruct.slot.prefix.abilities": "Abilities: ",

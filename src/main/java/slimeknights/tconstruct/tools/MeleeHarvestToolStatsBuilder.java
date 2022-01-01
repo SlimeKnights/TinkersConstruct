@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools;
 import com.google.common.annotations.VisibleForTesting;
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.minecraft.world.item.Tier;
+import net.minecraftforge.common.TierSortingRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -11,10 +13,12 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
+import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -53,7 +57,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
   protected void setStats(StatsNBT.Builder builder) {
     // add in specific stat types handled by our materials
     builder.set(ToolStats.DURABILITY, buildDurability());
-    builder.set(ToolStats.HARVEST_LEVEL, buildHarvestLevel());
+    builder.set(ToolStats.HARVEST_TIER, buildHarvestLevel());
     builder.set(ToolStats.ATTACK_DAMAGE, buildAttackDamage());
     builder.set(ToolStats.ATTACK_SPEED, buildAttackSpeed());
     builder.set(ToolStats.MINING_SPEED, buildMiningSpeed());
@@ -61,7 +65,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   @Override
   protected boolean handles(IToolStat<?> stat) {
-    return stat == ToolStats.DURABILITY || stat == ToolStats.HARVEST_LEVEL
+    return stat == ToolStats.DURABILITY || stat == ToolStats.HARVEST_TIER
            || stat == ToolStats.ATTACK_DAMAGE || stat == ToolStats.ATTACK_SPEED || stat == ToolStats.MINING_SPEED;
   }
 
@@ -89,11 +93,12 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
   }
 
   /** Builds the harvest level for the tool */
-  public int buildHarvestLevel() {
+  public Tier buildHarvestLevel() {
+    List<Tier> sortedTiers = TierSortingRegistry.getSortedTiers();
     return heads.stream()
-      .mapToInt(HeadMaterialStats::getHarvestLevel)
-      .max()
-      .orElse(0);
+      .map(HeadMaterialStats::getTier)
+      .max(Comparator.comparingInt(sortedTiers::indexOf))
+      .orElse(HarvestTiers.minTier());
   }
 
   /** Builds attack damage for the tool */

@@ -5,6 +5,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tiers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
@@ -23,8 +24,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ToolStackTest extends ToolItemTest {
   private final StatsNBT testStatsNBT = StatsNBT.builder()
-                                                .set(ToolStats.DURABILITY, 100)
-                                                .set(ToolStats.HARVEST_LEVEL, 2)
+                                                .set(ToolStats.DURABILITY, 100f)
+                                                .set(ToolStats.HARVEST_TIER, Tiers.NETHERITE)
                                                 .set(ToolStats.ATTACK_DAMAGE, 2f)
                                                 .set(ToolStats.MINING_SPEED, 3f)
                                                 .set(ToolStats.ATTACK_SPEED, 5f)

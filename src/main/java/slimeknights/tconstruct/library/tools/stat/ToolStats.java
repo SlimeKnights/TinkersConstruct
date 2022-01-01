@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.stat;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class ToolStats {
   /** How fast the tool breaks blocks */
   public static final FloatToolStat MINING_SPEED = register(new FloatToolStat(name("mining_speed"), 0xFF78A0CD, 1, 0, 2048f));
   /** Mining level for breaking blocks */
-  public static final MaxToolStat HARVEST_LEVEL = register(new MaxToolStat(name("harvest_level"), HarvestLevels.WOOD, HarvestLevels::getHarvestLevelName));
+  public static final ToolTierStat HARVEST_TIER = register(new ToolTierStat(name("harvest_tier")));
 
   // armor
   /** Main armor value */

@@ -2,13 +2,13 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tiers;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
@@ -36,7 +36,7 @@ public class DiamondModifier extends SingleLevelModifier {
     }
     if (HARVEST.contains(item)) {
       ToolStats.MINING_SPEED.add(builder, level * 1f);
-      ToolStats.HARVEST_LEVEL.update(builder, HarvestLevels.DIAMOND);
+      ToolStats.HARVEST_TIER.update(builder, Tiers.DIAMOND);
     }
     if (ARMOR.contains(item)) {
       ToolStats.ARMOR.add(builder, level);

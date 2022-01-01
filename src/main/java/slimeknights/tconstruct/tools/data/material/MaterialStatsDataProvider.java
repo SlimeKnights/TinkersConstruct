@@ -9,11 +9,12 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
-import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
-import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
-import static slimeknights.tconstruct.library.utils.HarvestLevels.NETHERITE;
-import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
-import static slimeknights.tconstruct.library.utils.HarvestLevels.WOOD;
+import static net.minecraft.world.item.Tiers.DIAMOND;
+import static net.minecraft.world.item.Tiers.GOLD;
+import static net.minecraft.world.item.Tiers.IRON;
+import static net.minecraft.world.item.Tiers.NETHERITE;
+import static net.minecraft.world.item.Tiers.STONE;
+import static net.minecraft.world.item.Tiers.WOOD;
 
 public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider {
   public MaterialStatsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
@@ -133,7 +134,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     // vanilla gold: 32, 12f, WOOD, 0f
     addMaterialStats(MaterialIds.roseGold,
-                     new HeadMaterialStats(175, 10f, IRON, 1f), // tier 2 mining level and durability despite being tier 3
+                     new HeadMaterialStats(175, 10f, GOLD, 1f), // gold mining level technically puts it in tier 0, but lets see if some mod does something weird
                      HandleMaterialStats.DEFAULT.withDurability(0.6f).withMiningSpeed(1.25f).withAttackSpeed(1.25f),
                      ExtraMaterialStats.DEFAULT);
     // tier 3 (nether)

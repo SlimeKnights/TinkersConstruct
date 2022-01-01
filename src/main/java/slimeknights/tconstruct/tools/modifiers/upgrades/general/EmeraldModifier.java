@@ -6,6 +6,7 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -15,7 +16,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -42,7 +42,7 @@ public class EmeraldModifier extends SingleLevelModifier {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.5f));
     }
     if (HARVEST.contains(item)) {
-      ToolStats.HARVEST_LEVEL.update(builder, HarvestLevels.IRON);
+      ToolStats.HARVEST_TIER.update(builder, Tiers.IRON);
     }
     if (ARMOR.contains(item)) {
       ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
