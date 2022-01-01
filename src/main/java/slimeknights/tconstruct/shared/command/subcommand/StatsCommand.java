@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class StatsCommand {
   private static final String RESET_STAT_MULTIPLE = TConstruct.makeTranslationKey("command", "stats.success.reset.stat.multiple");
   private static final SimpleCommandExceptionType INVALID_ADD = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.invalid_add"));
   private static final SimpleCommandExceptionType INVALID_MULTIPLY = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.invalid_multiply"));
-  private static final SimpleCommandExceptionType FAILED_TO_PARSE = new SimpleCommandExceptionType(TConstruct.makeTranslation("command", "stats.failure.parsing"));
+  private static final Dynamic2CommandExceptionType FAILED_TO_PARSE = new Dynamic2CommandExceptionType((stat, tag) -> TConstruct.makeTranslation("command", "stats.success.bonus.set.parse_fail", stat, tag));
   private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (Component)error);
 
   /**
@@ -115,7 +116,7 @@ public class StatsCommand {
   private static <T> List<LivingEntity> setStat(CommandContext<CommandSourceStack> context, IToolStat<T> stat, Tag tag) throws CommandSyntaxException {
     T value = stat.read(tag);
     if (value == null) {
-      throw FAILED_TO_PARSE.create();
+      throw FAILED_TO_PARSE.create(stat.getPrefix(), tag);
     }
     return updateEntities(context, (tool, stats) -> stats.set(tool, stat, value));
   }

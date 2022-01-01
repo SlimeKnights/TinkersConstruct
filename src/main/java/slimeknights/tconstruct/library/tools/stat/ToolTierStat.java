@@ -110,6 +110,11 @@ public class ToolTierStat implements IToolStat<Tier> {
     return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName())).append(HarvestTiers.getName(value));
   }
 
+  @Override
+  public String toString() {
+    return "ToolTierStat{" + name + '}';
+  }
+
   /** Builder for a tier object */
   @AllArgsConstructor
   private static class TierBuilder {

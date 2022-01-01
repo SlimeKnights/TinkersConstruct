@@ -90,6 +90,12 @@ public class StatOverrideModifier extends SingleUseModifier {
     });
   }
 
+  @Nullable
+  private static <T> Component format(IToolStat<T> stat, Tag tag) {
+    T value = stat.read(tag);
+    return value == null ? null : stat.formatValue(value);
+  }
+
   /** Helper to get descriptions for one of the groups */
   private static void addToTooltip(IModDataReadOnly persistentData, ResourceLocation groupKey, Component listStart, DecimalFormat format, Consumer<Component> consumer) {
     if (persistentData.contains(groupKey, Tag.TAG_COMPOUND)) {
@@ -109,7 +115,14 @@ public class StatOverrideModifier extends SingleUseModifier {
               first = false;
             }
             // add stat
-            consumer.accept(new TextComponent("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
+            if (stat instanceof INumericToolStat<?>) {
+              consumer.accept(new TextComponent("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
+            } else {
+              Component formatted = format(stat, Objects.requireNonNull(stats.get(key)));
+              if (formatted != null) {
+                consumer.accept(new TextComponent("* ").append(formatted));
+              }
+            }
           }
         }
       }

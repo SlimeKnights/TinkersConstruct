@@ -2326,6 +2326,7 @@
   "command.tconstruct.stats.success.bonus.modify.multiple": "%sIncreased by %s on %s entities",
   "command.tconstruct.stats.success.bonus.set.single": "%sSet bonus to %s on %s's item",
   "command.tconstruct.stats.success.bonus.set.multiple": "%sSet bonus to %s on %s entities",
+  "command.tconstruct.stats.success.bonus.set.parse_fail": "%sFailed to parse %s",
 
   "command.tconstruct.stats.success.multiply.modify.single": "%sMultiplied by %s on %s's item",
   "command.tconstruct.stats.success.multiply.modify.multiple": "%sMultiplied by %s on %s entities",
