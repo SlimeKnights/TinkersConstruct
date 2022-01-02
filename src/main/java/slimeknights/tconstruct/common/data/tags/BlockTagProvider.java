@@ -436,8 +436,8 @@ public class BlockTagProvider extends BlockTagsProvider {
   @SuppressWarnings("SameParameterValue")
   private void tagLogs(Tag.Named<Block> tag1, Tag.Named<Block> tag2, WoodBlockObject... blocks) {
     for (WoodBlockObject block : blocks) {
-      tag(tag1).add(block.getLog(), block.getStrippedLog(), block.getWood(), block.getStrippedWood());
-      tag(tag2).add(block.getLog(), block.getStrippedLog(), block.getWood(), block.getStrippedWood());
+      tag(tag1).add(block.getLog(), block.getWood());
+      tag(tag2).add(block.getLog(), block.getWood());
     }
   }
 
@@ -446,7 +446,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void tagPlanks(Tag.Named<Block> tag, WoodBlockObject... blocks) {
     for (WoodBlockObject block : blocks) {
       tag(tag).add(block.get(), block.getSlab(), block.getStairs(), block.getFence(),
-                   block.getFenceGate(), block.getDoor(), block.getTrapdoor(),
+                   block.getStrippedLog(), block.getStrippedWood(), block.getFenceGate(), block.getDoor(), block.getTrapdoor(),
                    block.getPressurePlate(), block.getButton(), block.getSign(), block.getWallSign());
     }
   }
