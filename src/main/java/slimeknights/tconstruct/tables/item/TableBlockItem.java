@@ -1,16 +1,14 @@
 package slimeknights.tconstruct.tables.item;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.tags.Tag;
 import net.minecraft.core.NonNullList;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import slimeknights.mantle.item.RetexturedBlockItem;
 
 import java.util.function.BooleanSupplier;
-
-import net.minecraft.world.item.Item.Properties;
 
 /** Retextured block that conditionally enables show all variants */
 public class TableBlockItem extends RetexturedBlockItem {
@@ -23,7 +21,11 @@ public class TableBlockItem extends RetexturedBlockItem {
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
     if (this.allowdedIn(group)) {
-      addTagVariants(this.getBlock(), this.textureTag, items, showAllCondition.getAsBoolean());
+      if (showAllCondition.getAsBoolean()) {
+        addTagVariants(this.getBlock(), this.textureTag, items, true);
+      } else {
+        items.add(new ItemStack(this));
+      }
     }
   }
 }
