@@ -38,6 +38,7 @@ import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
+import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.MultiblockResult;
@@ -47,7 +48,6 @@ import slimeknights.tconstruct.smeltery.block.entity.tank.SmelteryTank;
 import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
 import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
 import slimeknights.tconstruct.smeltery.network.StructureUpdatePacket;
-import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -78,6 +78,8 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
   private BlockPos errorPos;
   /** Number of ticks the error will remain visible for */
   private int errorVisibleFor = 0;
+  /** Temporary hack until forge fixes {@link #onLoad()}, do a first tick listener here as drains don't tick */
+  private boolean addedDrainListeners = false;
 
   /* Saved data, written to Tag */
   /** Current structure contents */
@@ -159,6 +161,23 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
   protected void clientTick(Level level, BlockPos pos, BlockState state) {
     if (errorVisibleFor > 0) {
       errorVisibleFor--;
+    }
+    if (!addedDrainListeners) {
+      addedDrainListeners = true;
+      if (structure != null) {
+        structure.forEachContained(sPos -> {
+          if (level.getBlockEntity(sPos) instanceof IDisplayFluidListener listener) {
+            fluidDisplayListeners.add(new WeakReference<>(listener));
+          }
+        });
+        // if we have listeners and a fluid, send a first update
+        if (!fluidDisplayListeners.isEmpty()) {
+          FluidStack fluid = IDisplayFluidListener.normalizeFluid(tank.getFluidInTank(0));
+          if (!fluid.isEmpty()) {
+            updateListeners(fluid);
+          }
+        }
+      }
     }
   }
 
@@ -361,6 +380,19 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
     tank.setFluids(fluids);
   }
 
+  /** Updates all fluid display listeners */
+  private void updateListeners(FluidStack fluid) {
+    Iterator<WeakReference<IDisplayFluidListener>> iterator = fluidDisplayListeners.iterator();
+    while (iterator.hasNext()) {
+      IDisplayFluidListener listener = iterator.next().get();
+      if (listener == null) {
+        iterator.remove();
+      } else {
+        listener.notifyDisplayFluidUpdated(fluid);
+      }
+    }
+  }
+
   /**
    * Updates the fluid displayed in the block, only used client side
    * @param fluid  Fluid
@@ -373,23 +405,22 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
       this.requestModelDataUpdate();
       BlockState state = getBlockState();
       level.sendBlockUpdated(worldPosition, state, state, 48);
-
-      // update all listeners
-      Iterator<WeakReference<IDisplayFluidListener>> iterator = fluidDisplayListeners.iterator();
-      while (iterator.hasNext()) {
-        IDisplayFluidListener listener = iterator.next().get();
-        if (listener == null) {
-          iterator.remove();
-        } else {
-          listener.notifyDisplayFluidUpdated(fluid);
-        }
-      }
+      updateListeners(fluid);
     }
   }
 
   @Override
   public void addDisplayListener(IDisplayFluidListener listener) {
-    fluidDisplayListeners.add(new WeakReference<>(listener));
+    boolean have = false;
+    for (WeakReference<IDisplayFluidListener> existing : fluidDisplayListeners) {
+      if (existing.get() == listener) {
+        have = true;
+        break;
+      }
+    }
+    if (!have) {
+      fluidDisplayListeners.add(new WeakReference<>(listener));
+    }
     listener.notifyDisplayFluidUpdated(IDisplayFluidListener.normalizeFluid(tank.getFluidInTank(0)));
   }
 

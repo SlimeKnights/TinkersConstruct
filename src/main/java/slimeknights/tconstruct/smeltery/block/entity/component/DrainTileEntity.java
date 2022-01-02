@@ -13,11 +13,12 @@ import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * Fluid IO extension to display controller fluid
@@ -75,8 +76,11 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
 
   @Override
   public void handleUpdateTag(CompoundTag tag) {
+    BlockPos oldMaster = getMasterPos();
     super.handleUpdateTag(tag);
-    attachFluidListener();
+    if (!Objects.equals(oldMaster, getMasterPos())) {
+      attachFluidListener();
+    }
   }
 
   @Override
@@ -94,8 +98,11 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
     CompoundTag tag = pkt.getTag();
     if (tag != null) {
+      BlockPos oldMaster = getMasterPos();
       readMaster(tag);
-      attachFluidListener();
+      if (!Objects.equals(oldMaster, getMasterPos())) {
+        attachFluidListener();
+      }
     }
   }
 }

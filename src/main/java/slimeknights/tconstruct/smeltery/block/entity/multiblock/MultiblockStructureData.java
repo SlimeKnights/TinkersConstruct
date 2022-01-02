@@ -159,7 +159,7 @@ public class MultiblockStructureData {
    * Iterates over each position contained in this structure
    * @param consumer  Position consumer, note the position is mutable, so call {@link BlockPos#immutable()} if you have to store it
    */
-  protected void forEachContained(Consumer<BlockPos.MutableBlockPos> consumer) {
+  public void forEachContained(Consumer<BlockPos.MutableBlockPos> consumer) {
     BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
     for (int x = minPos.getX(); x <= maxPos.getX(); x++) {
       for (int y = minPos.getY(); y <= maxPos.getY(); y++) {
