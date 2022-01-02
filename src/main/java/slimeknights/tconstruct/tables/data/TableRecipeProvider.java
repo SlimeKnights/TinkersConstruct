@@ -147,6 +147,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .pattern("sss")
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerTables.tinkersAnvil)
@@ -158,6 +159,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .pattern("s s")
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, modResource(folder + "tinkers_forge"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerTables.scorchedAnvil)
@@ -168,6 +170,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .pattern("sss")
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerTables.scorchedAnvil)
@@ -179,6 +182,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .pattern("s s")
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, modResource(folder + "scorched_forge"));
 
     // tool repair recipe

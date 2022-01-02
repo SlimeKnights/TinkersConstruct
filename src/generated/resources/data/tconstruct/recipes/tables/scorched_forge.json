@@ -22,5 +22,5 @@
   "texture": {
     "tag": "tconstruct:anvil_metal"
   },
-  "match_all": false
+  "match_all": true
 }
