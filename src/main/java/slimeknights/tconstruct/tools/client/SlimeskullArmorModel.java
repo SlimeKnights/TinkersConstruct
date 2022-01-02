@@ -9,15 +9,11 @@ import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
+import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -29,9 +25,89 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 
 /** Model to render a slimeskull helmet with both the helmet and skull */
-public class SlimeskullArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
-  //** Model instance */
-  //public static final SlimeskullArmorModel<LivingEntity> INSTANCE = new SlimeskullArmorModel<>();
+public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T> {
+  /** Cache of models for each entity type */
+  private static final Map<HumanoidModel<?>,SlimeskullArmorModel<?>> MODEL_CACHE = new HashMap<>();
+
+  /** Listener to clear caches */
+  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> {
+    HEAD_MODELS = null;
+    MODEL_CACHE.clear();
+  };
+
+  /**
+   * Gets the model for a given entity
+   * @param stack      Armor stack object
+   * @param baseModel  Base model
+   * @param <A>  Model instance
+   * @return  Model for the entity
+   */
+  @SuppressWarnings("unchecked")
+  public static <A extends HumanoidModel<?>> A getModel(ItemStack stack, A baseModel) {
+    SlimeskullArmorModel<?> model = MODEL_CACHE.computeIfAbsent(baseModel, SlimeskullArmorModel::new);
+    model.setTool(stack);
+    return (A) model;
+  }
+
+  /** Head to render under the helmet */
+  @Nullable
+  private ResourceLocation headTexture;
+  /** Texture for the head */
+  @Nullable
+  private SkullModelBase headModel;
+
+  private SlimeskullArmorModel(HumanoidModel<T> base) {
+    super(base);
+  }
+
+  @Override
+  public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    matrixStackIn.pushPose();
+    matrixStackIn.translate(0.0D, this.young ? -0.015D : -0.02D, 0.0D);
+    matrixStackIn.scale(1.01f, 1.0f, 1.01f);
+    super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    matrixStackIn.popPose();
+
+    if (headModel != null && headTexture != null && buffer != null) {
+      VertexConsumer headBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(headTexture));
+      boolean needsPush = this.young || this.crouching;
+      if (needsPush) {
+        matrixStackIn.pushPose();
+        if (young) {
+          matrixStackIn.scale(0.75F, 0.75F, 0.75F);
+          matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+        }
+        if (crouching) {
+          matrixStackIn.translate(0, head.y / 16.0F, 0);
+        }
+      }
+      headModel.setupAnim(0, this.head.yRot * 180f / (float)(Math.PI), this.head.xRot * 180f / (float)(Math.PI));
+      headModel.renderToBuffer(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
+      if (needsPush) {
+        matrixStackIn.popPose();
+      }
+    }
+  }
+
+  /** Called before the model is rendered to set the base model and the tool stack data */
+  private void setTool(ItemStack stack) {
+    MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0);
+    if (!materialId.equals(IMaterial.UNKNOWN_ID)) {
+      SkullModelBase model = getHeadModel(materialId);
+      ResourceLocation texture = HEAD_TEXTURES.get(materialId);
+      if (model != null && texture != null) {
+        headModel = model;
+        headTexture = texture;
+        return;
+      }
+    }
+    headTexture = null;
+    headModel = null;
+  }
+
+
+  /* Head models */
+
   /** Map of all skull factories */
   private static final Map<MaterialId,Function<EntityModelSet,? extends SkullModelBase>> HEAD_MODEL_FACTORIES = new HashMap<>();
   /** Map of texture for the skull textures */
@@ -51,96 +127,21 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends HumanoidModel<
     HEAD_TEXTURES.put(materialId, texture);
   }
 
-  // TODO: better place for this
-  public static void init() {
-    // register listeners to set and clear the buffer
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, false, RenderLivingEvent.Pre.class, event -> buffer = event.getMultiBufferSource());
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, false, RenderLivingEvent.Post.class, event -> buffer = null);
-  }
+  /** Map of baked head models, if null it is not currently computed */
+  private static Map<MaterialId, SkullModelBase> HEAD_MODELS;
 
-  /** Buffer from the render living event, stored as we lose access to it later */
+  /** Gets the head model for the given material */
   @Nullable
-  static MultiBufferSource buffer;
-
-  /** Skull models for each head */
-  private final Map<MaterialId, SkullModelBase> modelByType;
-  /** Original helmet model to render */
-  @Nullable
-  private HumanoidModel<?> base;
-  /** Head to render under the helmet */
-  @Nullable
-  private ResourceLocation headTexture;
-  /** Texture for the head */
-  @Nullable
-  private SkullModelBase headModel;
-
-  // TODO: need to fix
-  private SlimeskullArmorModel(ModelPart part) {
-    super(part);
-    EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
-    ImmutableMap.Builder<MaterialId,SkullModelBase> models = ImmutableMap.builder();
-    for (Entry<MaterialId,Function<EntityModelSet,? extends SkullModelBase>> entry : HEAD_MODEL_FACTORIES.entrySet()) {
-      models.put(entry.getKey(), entry.getValue().apply(modelSet));
-    }
-    this.modelByType = models.build();
-  }
-
-  @Override
-  public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-    if (base != null) {
-      matrixStackIn.pushPose();
-      matrixStackIn.translate(0.0D, this.young ? -0.015D : -0.02D, 0.0D);
-      matrixStackIn.scale(1.01f, 1.0f, 1.01f);
-      base.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      matrixStackIn.popPose();
-    }
-    if (headModel != null && headTexture != null && buffer != null) {
-      VertexConsumer headBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(headTexture));
-      boolean needsPush = this.young || (this.crouching && base != null);
-      if (needsPush) {
-        matrixStackIn.pushPose();
-        if (young) {
-          matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-          matrixStackIn.translate(0.0D, 1.0D, 0.0D);
-        }
-        if (crouching && base != null) {
-          matrixStackIn.translate(0, base.head.y / 16.0F, 0);
-        }
+  private static SkullModelBase getHeadModel(MaterialId materialId) {
+    if (HEAD_MODELS == null) {
+      // vanilla rebakes these a lot, so figure we should at least do it every resource reload
+      EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
+      ImmutableMap.Builder<MaterialId,SkullModelBase> models = ImmutableMap.builder();
+      for (Entry<MaterialId,Function<EntityModelSet,? extends SkullModelBase>> entry : HEAD_MODEL_FACTORIES.entrySet()) {
+        models.put(entry.getKey(), entry.getValue().apply(modelSet));
       }
-      headModel.setupAnim(0, this.head.yRot * 180f / (float)(Math.PI), this.head.xRot * 180f / (float)(Math.PI));
-      headModel.renderToBuffer(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
-      if (needsPush) {
-        matrixStackIn.popPose();
-      }
+      HEAD_MODELS = models.build();
     }
-  }
-
-  /** Called before the model is rendered to set the base model and the tool stack data */
-  public void setToolAndBase(ItemStack stack, HumanoidModel<?> base) {
-    this.base = base;
-    MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0);
-    if (!materialId.equals(IMaterial.UNKNOWN_ID)) {
-      SkullModelBase model = modelByType.get(materialId);
-      ResourceLocation texture = HEAD_TEXTURES.get(materialId);
-      if (model != null && texture != null) {
-        headModel = model;
-        headTexture = texture;
-        return;
-      }
-    }
-    headTexture = null;
-    headModel = null;
-  }
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public void setAllVisible(boolean visible) {
-    if (base != null) {
-      base.setAllVisible(false);
-      base.head.visible = true;
-      base.hat.visible = true;
-      // attributes are copied to skull through another model's setModelAttributes, this is the best hook to copy them to the model
-      this.copyPropertiesTo((HumanoidModel<T>)base);
-    }
+    return HEAD_MODELS.get(materialId);
   }
 }
