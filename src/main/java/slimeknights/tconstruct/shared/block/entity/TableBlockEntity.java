@@ -25,11 +25,11 @@ import java.util.function.Consumer;
 public abstract class TableBlockEntity extends InventoryBlockEntity {
 
   public TableBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state, Component name, int inventorySize) {
-    super(tileEntityTypeIn, pos, state, name, inventorySize);
+    super(tileEntityTypeIn, pos, state, name, false, inventorySize);
   }
 
   public TableBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state, Component name, int inventorySize, int maxStackSize) {
-    super(tileEntityTypeIn, pos, state, name, inventorySize, maxStackSize);
+    super(tileEntityTypeIn, pos, state, name, false, inventorySize, maxStackSize);
   }
 
   /* Syncing */

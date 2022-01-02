@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.block.entity.table;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +23,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tables.block.TinkerStationBlock;
 import slimeknights.tconstruct.tables.block.entity.inventory.LazyResultContainer;
 import slimeknights.tconstruct.tables.block.entity.inventory.LazyResultContainer.ILazyCrafter;
 import slimeknights.tconstruct.tables.block.entity.inventory.TinkerStationContainerWrapper;
@@ -53,7 +53,8 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   private ValidatedResult currentError = ValidatedResult.PASS;
 
   public TinkerStationBlockEntity(BlockPos pos, BlockState state) {
-    this(pos, state, 6); // default to more slots
+    // if the block is the right type, use it for slot count
+    this(pos, state, (state.getBlock() instanceof TinkerStationBlock station) ? station.getSlotCount() : 6);
   }
 
   public TinkerStationBlockEntity(BlockPos pos, BlockState state, int slots) {
@@ -206,11 +207,5 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   public void updateRecipe(ITinkerStationRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clearContent();
-  }
-
-  @Override
-  public void load(CompoundTag tags) {
-    super.load(tags);
-    inventoryWrapper.resize();
   }
 }

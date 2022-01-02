@@ -77,8 +77,10 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
   /** Refreshes the size of this based on the size of the tinker station */
   public void resize() {
     int count = station.getInputCount();
-    this.materials = new MaterialRecipe[count];
-    this.searchedMaterial = new boolean[count];
+    if (count != materials.length) {
+      this.materials = new MaterialRecipe[count];
+      this.searchedMaterial = new boolean[count];
+    }
   }
 
   @Override
