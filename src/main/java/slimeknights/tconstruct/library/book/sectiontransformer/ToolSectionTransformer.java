@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
@@ -13,7 +11,6 @@ import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 
 /** Section transformer to generate an index with tool names */
-@OnlyIn(Dist.CLIENT)
 public class ToolSectionTransformer extends ContentListingSectionTransformer {
   public static final ToolSectionTransformer INSTANCE = new ToolSectionTransformer("tools");
 

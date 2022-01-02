@@ -17,8 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
@@ -41,7 +39,6 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
 
   @Deprecated
   @Override
-  @OnlyIn(Dist.CLIENT)
   public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
     return 1.0F;
   }

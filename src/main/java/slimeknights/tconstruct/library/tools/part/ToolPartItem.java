@@ -1,15 +1,12 @@
 package slimeknights.tconstruct.library.tools.part;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -19,6 +16,8 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
+import slimeknights.tconstruct.library.utils.SafeClientAccess;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -45,7 +44,6 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
     IMaterial material = this.getMaterial(stack);
     // add all traits to the info
@@ -55,7 +53,8 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       }
       // add stats
       if (Config.CLIENT.extraToolTips.get()) {
-        if (Screen.hasShiftDown()) {
+        TooltipKey key = SafeClientAccess.getTooltipKey();
+        if (key == TooltipKey.SHIFT || key == TooltipKey.UNKNOWN) {
           this.addStatInfoTooltip(material, tooltip);
         } else {
           // info tooltip for detailed and component info

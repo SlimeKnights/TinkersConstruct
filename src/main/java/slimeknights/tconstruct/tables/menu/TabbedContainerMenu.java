@@ -16,8 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
@@ -181,8 +180,8 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
   public void updateScreen() {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
-        if (this.tile.getLevel().isClientSide) {
-          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TabbedContainerMenu::clientScreenUpdate);
+        if (this.tile.getLevel().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+          ClientOnly.clientScreenUpdate();
         }
       }
     }
@@ -194,8 +193,8 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
   public void error(final MutableComponent message) {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
-        if (this.tile.getLevel().isClientSide) {
-          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TabbedContainerMenu.clientError(message));
+        if (this.tile.getLevel().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+          ClientOnly.clientError(message);
         }
       }
     }
@@ -207,47 +206,10 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
   public void warning(final MutableComponent message) {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
-        if (this.tile.getLevel().isClientSide) {
-          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TabbedContainerMenu.clientWarning(message));
+        if (this.tile.getLevel().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+          ClientOnly.clientWarning(message);
         }
       }
-    }
-  }
-
-  /**
-   * Updates the client's screen
-   */
-  @OnlyIn(Dist.CLIENT)
-  private static void clientScreenUpdate() {
-    Screen screen = Minecraft.getInstance().screen;
-    if (screen instanceof BaseTabbedScreen) {
-      ((BaseTabbedScreen<?,?>) screen).updateDisplay();
-    }
-  }
-
-  /**
-   * Sends the error message from the container to the client's screen
-   *
-   * @param errorMessage the error message to send to the client
-   */
-  @OnlyIn(Dist.CLIENT)
-  private static void clientError(MutableComponent errorMessage) {
-    Screen screen = Minecraft.getInstance().screen;
-    if (screen instanceof BaseTabbedScreen) {
-      ((BaseTabbedScreen<?,?>) screen).error(errorMessage);
-    }
-  }
-
-  /**
-   * Sends the warning message from the container to the client's screen
-   *
-   * @param warningMessage the warning message to send to the client
-   */
-  @OnlyIn(Dist.CLIENT)
-  private static void clientWarning(MutableComponent warningMessage) {
-    Screen screen = Minecraft.getInstance().screen;
-    if (screen instanceof BaseTabbedScreen) {
-      ((BaseTabbedScreen<?,?>) screen).warning(warningMessage);
     }
   }
 
@@ -271,6 +233,33 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
         return Integer.compare(pos1.getX(), pos2.getX());
       }
       return Integer.compare(pos1.getZ(), pos2.getZ());
+    }
+  }
+
+  /** Methods that only work on the client side */
+  private static class ClientOnly {
+    /** Updates the client's screen */
+    private static void clientScreenUpdate() {
+      Screen screen = Minecraft.getInstance().screen;
+      if (screen instanceof BaseTabbedScreen) {
+        ((BaseTabbedScreen<?,?>) screen).updateDisplay();
+      }
+    }
+
+    /** Sends the error message from the container to the client's screen */
+    private static void clientError(MutableComponent errorMessage) {
+      Screen screen = Minecraft.getInstance().screen;
+      if (screen instanceof BaseTabbedScreen) {
+        ((BaseTabbedScreen<?,?>) screen).error(errorMessage);
+      }
+    }
+
+    /** Sends the warning message from the container to the client's screen */
+    private static void clientWarning(MutableComponent warningMessage) {
+      Screen screen = Minecraft.getInstance().screen;
+      if (screen instanceof BaseTabbedScreen) {
+        ((BaseTabbedScreen<?,?>) screen).warning(warningMessage);
+      }
     }
   }
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -24,6 +23,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.utils.SafeClientAccess;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.ArrayList;
@@ -130,7 +131,7 @@ public class FluidTooltipHandler {
     int amount = original;
 
     // if holding shift, skip specific units
-    if(!Screen.hasShiftDown()) {
+    if(SafeClientAccess.getTooltipKey() != TooltipKey.SHIFT) {
       List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid, FluidTooltipHandler::calcFluidEntries);
       for(FluidGuiEntry entry : entries) {
         amount = entry.getText(tooltip, amount);
@@ -140,7 +141,6 @@ public class FluidTooltipHandler {
     // standard display stuff: bucket amounts
     appendBuckets(amount, tooltip);
 
-    //
     return amount != original;
   }
 
@@ -149,7 +149,7 @@ public class FluidTooltipHandler {
    * @param tooltip  Tooltip to append information
    */
   public static void appendShift(List<Component> tooltip) {
-    if(!Screen.hasShiftDown()) {
+    if(!SafeClientAccess.getTooltipKey().isShiftOrUnknown()) {
       tooltip.add(TextComponent.EMPTY);
       tooltip.add(HOLD_SHIFT);
     }

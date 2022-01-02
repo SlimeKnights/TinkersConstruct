@@ -12,8 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.book.data.BookData;
@@ -57,7 +55,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@OnlyIn(Dist.CLIENT)
 public class ContentMaterial extends PageContent {
   private static final Component PART_BUILDER = TConstruct.makeTranslation("book", "material.part_builder");
   private static final String CAST_FROM = TConstruct.makeTranslationKey("book", "material.cast_from");

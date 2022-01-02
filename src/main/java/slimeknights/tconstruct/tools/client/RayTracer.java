@@ -1,16 +1,13 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class RayTracer {
-
   /**
    * Creates a BlockRayTraceEvent with a block mode of COLLIDER and whatever fluid mode you pass to it.
    * Uses the corrected player's starting vector and the corrected ending vector. (Takes into account the players eye level)
@@ -76,7 +73,7 @@ public class RayTracer {
    * @return the block reach distance
    */
   public static double getBlockReachDistance(Player player) {
-    return player.level.isClientSide ? getBlockReachDistanceClient() : player instanceof ServerPlayer ? getBlockReachDistanceServer((ServerPlayer) player) : 5D;
+    return player.level.isClientSide ? ClientOnly.getBlockReachDistanceClient() : player instanceof ServerPlayer ? getBlockReachDistanceServer((ServerPlayer) player) : 5D;
   }
 
   /**
@@ -85,19 +82,17 @@ public class RayTracer {
    * @return the block reach distance from the server
    */
   private static double getBlockReachDistanceServer(ServerPlayer player) {
-    return player.getAttribute(net.minecraftforge.common.ForgeMod.REACH_DISTANCE.get()).getValue();
+    return player.getAttributeValue(net.minecraftforge.common.ForgeMod.REACH_DISTANCE.get());
   }
 
-  /**
-   * Gets the block reach distance from the client
-   *
-   * @return the block reach distance from the client
-   */
-  @OnlyIn(Dist.CLIENT)
-  private static double getBlockReachDistanceClient() {
-    assert Minecraft.getInstance().gameMode != null;
-
-    return Minecraft.getInstance().gameMode.getPickRange();
+  private static class ClientOnly {
+    /**
+     * Gets the block reach distance from the client
+     * @return the block reach distance from the client
+     */
+    private static double getBlockReachDistanceClient() {
+      assert Minecraft.getInstance().gameMode != null;
+      return Minecraft.getInstance().gameMode.getPickRange();
+    }
   }
-
 }

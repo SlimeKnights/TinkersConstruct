@@ -15,8 +15,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
@@ -49,7 +47,6 @@ import static slimeknights.tconstruct.library.book.content.ContentModifier.IMG_S
 import static slimeknights.tconstruct.library.book.content.ContentModifier.IMG_TABLE;
 import static slimeknights.tconstruct.library.book.content.ContentModifier.TEX_SIZE;
 
-@OnlyIn(Dist.CLIENT)
 public class ContentTool extends PageContent {
   public static final transient ResourceLocation ID = TConstruct.getResource("tool");
   private static final transient String KEY_PROPERTIES = TConstruct.makeTranslationKey("book", "tool.properties");

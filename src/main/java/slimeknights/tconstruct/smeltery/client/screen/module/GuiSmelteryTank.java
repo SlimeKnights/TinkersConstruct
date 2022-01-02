@@ -11,8 +11,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.smeltery.network.SmelteryFluidClickedPacket;
 import slimeknights.tconstruct.smeltery.block.entity.tank.SmelteryTank;
+import slimeknights.tconstruct.smeltery.network.SmelteryFluidClickedPacket;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -150,8 +150,7 @@ public class GuiSmelteryTank {
       int hovered = tank.getContained() == 0 ? -1 : getFluidFromMouse(calcLiquidHeights(false), checkY);
       List<Component> tooltip;
       if (hovered == -1) {
-        BiConsumer<Integer, List<Component>> formatter =
-          Screen.hasShiftDown() ? FluidTooltipHandler::appendBuckets : FluidTooltipHandler::appendIngots;
+        BiConsumer<Integer, List<Component>> formatter = Screen.hasShiftDown() ? FluidTooltipHandler::appendBuckets : FluidTooltipHandler::appendIngots;
 
         tooltip = new ArrayList<>();
         tooltip.add(new TranslatableComponent(TOOLTIP_CAPACITY));

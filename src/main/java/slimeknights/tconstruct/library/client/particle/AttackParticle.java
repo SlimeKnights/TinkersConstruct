@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.library.client.particle;
 
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.TextureSheetParticle;
 
-@OnlyIn(Dist.CLIENT)
 public abstract class AttackParticle extends TextureSheetParticle {
 
   private final SpriteSet spriteList;
@@ -33,6 +30,7 @@ public abstract class AttackParticle extends TextureSheetParticle {
     return 61680;
   }
 
+  @Override
   public void tick() {
     this.xo = this.x;
     this.yo = this.y;

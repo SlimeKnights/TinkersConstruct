@@ -2,20 +2,18 @@ package slimeknights.tconstruct.world.block;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.PlantType;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -24,9 +22,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-
-// todo: evaluate block
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
 
@@ -51,7 +46,6 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
    */
   @Nonnull
   @Override
-  @OnlyIn(Dist.CLIENT)
   public Block.OffsetType getOffsetType() {
     return Block.OffsetType.XYZ;
   }
@@ -63,10 +57,10 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
     return TinkerWorld.SLIME_PLANT_TYPE;
   }
 
+  @Nonnull
   @Override
   public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level world, BlockPos pos, int fortune) {
-    ItemStack stack = new ItemStack(this, 1);
-    return Lists.newArrayList(stack);
+    return Lists.newArrayList(new ItemStack(this, 1));
   }
 
   @Override

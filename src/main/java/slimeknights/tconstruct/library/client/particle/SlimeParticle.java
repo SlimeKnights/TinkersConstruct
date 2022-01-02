@@ -1,22 +1,19 @@
 package slimeknights.tconstruct.library.client.particle;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.particle.BreakingItemParticle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.particle.BreakingItemParticle;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 import javax.annotation.Nullable;
 
 // not part of the tic particle system since it uses vanilla particles
-@OnlyIn(Dist.CLIENT)
 public class SlimeParticle extends BreakingItemParticle {
 
   public SlimeParticle(ClientLevel worldIn, double posXIn, double posYIn, double posZIn, ItemStack stack) {

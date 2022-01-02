@@ -5,8 +5,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 
 import javax.annotation.Nullable;
@@ -15,7 +13,6 @@ import java.util.Collection;
 /**
  * Same as ElementItem, but uses the vanilla fontrenderer if none other is given
  */
-@OnlyIn(Dist.CLIENT)
 public class TinkerItemElement extends ItemElement {
 
   public boolean noTooltip = false;

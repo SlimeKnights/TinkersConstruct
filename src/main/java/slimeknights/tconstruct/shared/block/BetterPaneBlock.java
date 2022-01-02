@@ -1,16 +1,12 @@
 package slimeknights.tconstruct.shared.block;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.IronBarsBlock;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 import java.util.EnumMap;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 /** Pane block with sensible culling */
 public class BetterPaneBlock extends IronBarsBlock {
@@ -28,7 +24,6 @@ public class BetterPaneBlock extends IronBarsBlock {
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
   public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
     // cull top and bottom if all props that we have are contained in the above or below
     if (adjacentBlockState.getBlock() == this && side.getAxis().isVertical()) {

@@ -7,8 +7,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
@@ -40,7 +38,6 @@ public class MelterBlock extends TinyMultiblockControllerBlock {
 
   @Deprecated
   @Override
-  @OnlyIn(Dist.CLIENT)
   public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
     return 1.0F;
   }

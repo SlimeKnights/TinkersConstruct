@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.helper;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -22,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.DistExecutor;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -36,6 +34,7 @@ import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.SafeClientAccess;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -118,8 +117,7 @@ public class TooltipUtil {
 
   /** Replaces the world argument with the local player */
   public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    // TODO: consider a helper for the following
-    Player player = world == null ? null : DistExecutor.unsafeRunForDist(() -> () -> Minecraft.getInstance().player, () -> () -> null);
+    Player player = world == null ? null : SafeClientAccess.getPlayer();
     TooltipUtil.addInformation(item, stack, player, tooltip, tooltipKey, tooltipFlag);
   }
 

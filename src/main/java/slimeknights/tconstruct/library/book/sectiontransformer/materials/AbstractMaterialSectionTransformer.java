@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -18,7 +16,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-@OnlyIn(Dist.CLIENT)
 public abstract class AbstractMaterialSectionTransformer extends SectionTransformer {
 
   protected final boolean detailed;

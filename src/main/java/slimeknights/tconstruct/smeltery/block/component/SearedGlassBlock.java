@@ -1,13 +1,9 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class SearedGlassBlock extends SearedBlock {
 
@@ -17,7 +13,6 @@ public class SearedGlassBlock extends SearedBlock {
 
   @Deprecated
   @Override
-  @OnlyIn(Dist.CLIENT)
   public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
     return 1.0F;
   }
@@ -29,7 +24,6 @@ public class SearedGlassBlock extends SearedBlock {
 
   @Deprecated
   @Override
-  @OnlyIn(Dist.CLIENT)
   public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
     return adjacentBlockState.getBlock() == this || super.skipRendering(state, adjacentBlockState, side);
   }

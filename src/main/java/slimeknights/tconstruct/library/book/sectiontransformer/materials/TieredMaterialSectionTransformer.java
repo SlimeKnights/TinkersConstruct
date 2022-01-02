@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
@@ -14,7 +12,6 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import java.util.Set;
 
 /** Material section transformer for a given tier and material set */
-@OnlyIn(Dist.CLIENT)
 public class TieredMaterialSectionTransformer extends AbstractMaterialSectionTransformer {
   private static final Set<MaterialStatsId> VISIBLE_STATS = ImmutableSet.of(HeadMaterialStats.ID, HandleMaterialStats.ID, ExtraMaterialStats.ID);
 

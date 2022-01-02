@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -17,7 +15,6 @@ import slimeknights.tconstruct.library.book.elements.PageIconLinkElement;
 import java.util.ArrayList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
 public class ContentPageIconList extends PageContent {
 
   protected final int width;

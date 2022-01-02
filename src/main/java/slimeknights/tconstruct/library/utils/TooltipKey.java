@@ -1,9 +1,5 @@
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
 /** Options for which tooltip is being used on an item */
 public enum TooltipKey {
   /** Tooltip with neither shift nor control */
@@ -13,20 +9,12 @@ public enum TooltipKey {
   /** Tooltip with control held */
   CONTROL,
   /** Tooltip with alt held */
-  ALT;
+  ALT,
+  /** Tooltip key cannot be determined, typically caused by being on a server */
+  UNKNOWN;
 
-  /** Gets the tooltip type for the given screen properties */
-  @OnlyIn(Dist.CLIENT)
-  public static TooltipKey fromScreen() {
-    if (Screen.hasShiftDown()) {
-      return SHIFT;
-    }
-    if (Screen.hasControlDown()) {
-      return CONTROL;
-    }
-    if (Screen.hasAltDown()) {
-      return ALT;
-    }
-    return NORMAL;
+  /** Common operation is wanting to cancel when shift or unknown */
+  public boolean isShiftOrUnknown() {
+    return this == SHIFT || this == UNKNOWN;
   }
 }

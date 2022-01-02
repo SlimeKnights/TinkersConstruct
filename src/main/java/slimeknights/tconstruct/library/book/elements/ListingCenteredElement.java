@@ -3,12 +3,9 @@ package slimeknights.tconstruct.library.book.elements;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 
-@OnlyIn(Dist.CLIENT)
 public class ListingCenteredElement extends TextElement {
 
   private final int originalX;

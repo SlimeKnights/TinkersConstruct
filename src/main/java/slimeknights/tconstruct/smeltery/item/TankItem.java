@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -10,8 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.item.BlockTooltipItem;
@@ -19,6 +16,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.library.utils.SafeClientAccess;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
 
 import javax.annotation.Nullable;
@@ -57,14 +56,14 @@ public class TankItem extends BlockTooltipItem {
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
     if (stack.hasTag()) {
       FluidTank tank = getFluidTank(stack);
       if (tank.getFluidAmount() > 0) {
         tooltip.add(new TranslatableComponent(KEY_FLUID, tank.getFluid().getDisplayName()).withStyle(ChatFormatting.GRAY));
         int amount = tank.getFluidAmount();
-        if (tank.getCapacity() % FluidValues.INGOT != 0 || Screen.hasShiftDown()) {
+        TooltipKey key = SafeClientAccess.getTooltipKey();
+        if (tank.getCapacity() % FluidValues.INGOT != 0 || key == TooltipKey.SHIFT) {
           tooltip.add(new TranslatableComponent(KEY_MB, amount).withStyle(ChatFormatting.GRAY));
         } else {
           int ingots = amount / FluidValues.INGOT;
@@ -74,7 +73,9 @@ public class TankItem extends BlockTooltipItem {
           } else {
             tooltip.add(new TranslatableComponent(KEY_MIXED, ingots, mb).withStyle(ChatFormatting.GRAY));
           }
-          tooltip.add(FluidTooltipHandler.HOLD_SHIFT);
+          if (key != TooltipKey.UNKNOWN) {
+            tooltip.add(FluidTooltipHandler.HOLD_SHIFT);
+          }
         }
 
       }

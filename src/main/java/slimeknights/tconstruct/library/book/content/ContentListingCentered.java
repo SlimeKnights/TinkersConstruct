@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -15,7 +13,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
 public class ContentListingCentered extends PageContent {
 
   private String title;
