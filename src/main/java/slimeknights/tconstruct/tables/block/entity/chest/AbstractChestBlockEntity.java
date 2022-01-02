@@ -16,8 +16,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
+import slimeknights.tconstruct.tables.block.entity.inventory.IChestItemHandler;
 import slimeknights.tconstruct.tables.menu.TinkerChestContainerMenu;
 
 import javax.annotation.Nonnull;
@@ -28,10 +28,11 @@ public abstract class AbstractChestBlockEntity extends NameableBlockEntity {
   private static final String KEY_ITEMS = "Items";
 
   @Getter
-  private final ItemStackHandler itemHandler;
+  private final IChestItemHandler itemHandler;
   private final LazyOptional<IItemHandler> capability;
-  protected AbstractChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name, ItemStackHandler itemHandler) {
+  protected AbstractChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name, IChestItemHandler itemHandler) {
     super(type, pos, state, name);
+    itemHandler.setParent(this);
     this.itemHandler = itemHandler;
     this.capability = LazyOptional.of(() -> itemHandler);
   }
