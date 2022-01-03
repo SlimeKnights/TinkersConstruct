@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 //import static org.mockito.Mockito.verify;
 
 public class ToolItemHarvestTest extends ToolItemTest {
@@ -13,32 +14,29 @@ public class ToolItemHarvestTest extends ToolItemTest {
   @Test
   void getToolTypes_notBroken_ok() {
     assertThat(IsTestItemBroken()).isFalse();
-//    assertThat(testItemStack.getToolTypes()).contains(ToolType.PICKAXE);
-    fail("TODO: implement tool actions hook");
+    assertThat(testItemStack.canPerformAction(ToolActions.PICKAXE_DIG)).isTrue();
   }
 
   @Test
   void getToolTypes_broken_none() {
+
     breakTool(testItemStack);
 
     assertThat(IsTestItemBroken()).isTrue();
-    fail("TODO: implement tool actions hook");
-    //assertThat(testItemStack.getToolTypes()).isEmpty();
+    assertThat(testItemStack.canPerformAction(ToolActions.PICKAXE_DIG)).isFalse();
   }
 
   @Test
   void getHarvestLevel_notBroken_ok() {
-    fail("TODO: harvest level hooks");
-//    assertThat(testItemStack.getHarvestLevel(ToolType.PICKAXE, null, null)).isEqualTo(1);
-//    assertThat(testItemStack.getHarvestLevel(ToolType.SHOVEL, null, null)).isEqualTo(-1);
+    assertThat(IsTestItemBroken()).isFalse();
+    assertThat(testItemStack.isCorrectToolForDrops(Blocks.STONE.defaultBlockState())).isTrue();
   }
 
   @Test
   void getHarvestLevel_broken_none() {
     breakTool(testItemStack);
-    fail("TODO: harvest level hooks");
-//    assertThat(testItemStack.getHarvestLevel(ToolType.PICKAXE, null, null)).isEqualTo(-1);
-//    assertThat(testItemStack.getHarvestLevel(ToolType.SHOVEL, null, null)).isEqualTo(-1);
+    assertThat(IsTestItemBroken()).isTrue();
+    assertThat(testItemStack.isCorrectToolForDrops(Blocks.STONE.defaultBlockState())).isFalse();
   }
 
   /*

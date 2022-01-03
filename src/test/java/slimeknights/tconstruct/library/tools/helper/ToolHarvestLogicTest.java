@@ -14,8 +14,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-
-import java.lang.reflect.InvocationTargetException;
+import slimeknights.tconstruct.test.BlockHarvestLogic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -66,12 +65,13 @@ class ToolHarvestLogicTest extends ToolItemTest {
   }
 
   @Test
-  void calcSpeed_effective_withMiningModifier() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  void calcSpeed_effective_withMiningModifier() {
     float modifier = 2f;
 
     ToolDefinition definition = ToolDefinition.builder(new ResourceLocation("test", "mining_tool")).meleeHarvest().skipRegister().build();
     definition.setData(ToolDefinitionDataBuilder
                          .builder()
+                         .harvestLogic(new BlockHarvestLogic(Blocks.COBBLESTONE))
                          .part(MaterialItemFixture.MATERIAL_ITEM_HEAD)
                          .part(MaterialItemFixture.MATERIAL_ITEM_HANDLE)
                          .part(MaterialItemFixture.MATERIAL_ITEM_EXTRA)
@@ -81,8 +81,12 @@ class ToolHarvestLogicTest extends ToolItemTest {
     IModifiable toolWithMiningModifier = new ToolItem(new Item.Properties(),/*.addToolType(ToolType.PICKAXE, 1),*/ definition);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
+    // boosted by correct block
     float speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.COBBLESTONE.defaultBlockState());
-
     assertThat(speed).isEqualTo(MaterialStatsFixture.MATERIAL_STATS_HEAD.getMiningSpeed() * modifier);
+
+    // default speed
+    speed = ToolHarvestLogic.getDestroySpeed(tool, Blocks.STONE.defaultBlockState());
+    assertThat(speed).isEqualTo(1.0f);
   }
 }

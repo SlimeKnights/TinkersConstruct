@@ -94,6 +94,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
+    long time = System.nanoTime();
     ImmutableMap.Builder<ResourceLocation, ToolDefinitionData> builder = ImmutableMap.builder();
     for (Entry<ResourceLocation,ToolDefinition> entry : definitions.entrySet()) {
       ResourceLocation key = entry.getKey();
@@ -116,7 +117,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
       }
     }
     this.dataMap = builder.build();
-    log.info("Loaded {} tool definitions", this.dataMap.size());
+    log.info("Loaded {} tool definitions in {} ms", this.dataMap.size(), (System.nanoTime() - time) / 1000000f);
   }
 
   /** Gets a list of all tool definitions registered to the loader */
