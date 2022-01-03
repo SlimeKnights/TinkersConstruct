@@ -77,6 +77,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.BlockTransformWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.PlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.BucketingModifier;
@@ -105,8 +106,10 @@ import slimeknights.tconstruct.tools.modifiers.internal.FirestarterModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.PaddedModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.PathingModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.TillingModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteBonusFunction;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteLootCondition;
@@ -336,7 +339,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
   public static final RegistryObject<FrostWalkerModifier> frostWalker = MODIFIERS.register("frost_walker", FrostWalkerModifier::new);
   public static final RegistryObject<BlockTransformWalkerModifier> pathMaker = MODIFIERS.register("path_maker", () -> new BlockTransformWalkerModifier(0x8a361e, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN));
-  public static final RegistryObject<BlockTransformWalkerModifier> plowing = MODIFIERS.register("plowing", () -> new BlockTransformWalkerModifier(0x633c1e, ToolActions.HOE_DIG, SoundEvents.HOE_TILL)); // TODO: hoeing is on a new system
+  public static final RegistryObject<PlowingModifier> plowing = MODIFIERS.register("plowing", PlowingModifier::new);
   public static final RegistryObject<SnowdriftModifier> snowdrift = MODIFIERS.register("snowdrift", SnowdriftModifier::new);
   public static final RegistryObject<FlamewakeModifier> flamewake = MODIFIERS.register("flamewake", FlamewakeModifier::new);
 
@@ -360,16 +363,16 @@ public final class TinkerModifiers extends TinkerModule {
   
   // right click abilities
   public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
-  public static final RegistryObject<BlockTransformModifier> pathing = MODIFIERS.register("pathing", () -> new BlockTransformModifier(0x8a361e, 75, SoundEvents.SHOVEL_FLATTEN, true, ToolActions.SHOVEL_FLATTEN));
+  public static final RegistryObject<BlockTransformModifier> pathing = MODIFIERS.register("pathing", () -> new PathingModifier(75));
   public static final RegistryObject<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(0xab7a55, 75, SoundEvents.AXE_STRIP, false, ToolActions.AXE_STRIP, ToolActions.AXE_SCRAPE, ToolActions.AXE_WAX_OFF));
-  public static final RegistryObject<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new BlockTransformModifier(0x633c1e, 75, SoundEvents.HOE_TILL, true)); // TODO: hoeing is on a new system
+  public static final RegistryObject<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new TillingModifier(75));
   public static final RegistryObject<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(0x5D342C, 70));
   public static final RegistryObject<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", () -> new SingleLevelModifier(0x4A281D));
 
   // internal abilities
-  public static final RegistryObject<BlockTransformModifier> shovelTransformHidden = MODIFIERS.register("shovel_transform_hidden", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE + 50, SoundEvents.SHOVEL_FLATTEN, true, ToolActions.SHOVEL_FLATTEN));
+  public static final RegistryObject<BlockTransformModifier> shovelTransformHidden = MODIFIERS.register("shovel_transform_hidden", () -> new PathingModifier(Integer.MIN_VALUE + 50));
   public static final RegistryObject<BlockTransformModifier> axeTransformHidden = MODIFIERS.register("axe_transform_hidden", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, SoundEvents.AXE_STRIP, false, ToolActions.AXE_STRIP, ToolActions.AXE_SCRAPE, ToolActions.AXE_WAX_OFF));
-  public static final RegistryObject<BlockTransformModifier> hoeTransformHidden = MODIFIERS.register("hoe_transform_hidden", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE + 50, SoundEvents.HOE_TILL, true)); // TODO
+  public static final RegistryObject<BlockTransformModifier> hoeTransformHidden = MODIFIERS.register("hoe_transform_hidden", () -> new TillingModifier(Integer.MIN_VALUE + 50));
   public static final RegistryObject<FirestarterModifier> firestarterHidden = MODIFIERS.register("firestarter_hidden", () -> new FirestarterModifier(-1, Integer.MIN_VALUE + 50));
   public static final RegistryObject<VolatileFlagModifier> wings = MODIFIERS.register("wings", () -> new VolatileFlagModifier(0xD37CFF, ModifiableArmorItem.ELYTRA));
 

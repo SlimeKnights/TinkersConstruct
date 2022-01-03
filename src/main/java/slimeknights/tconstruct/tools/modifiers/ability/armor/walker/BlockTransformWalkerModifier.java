@@ -31,6 +31,11 @@ public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
   }
 
   @Override
+  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
+    return toolAction == this.action;
+  }
+
+  @Override
   public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     if (living instanceof Player) {
       super.onWalk(tool, level, living, prevPos, newPos);
