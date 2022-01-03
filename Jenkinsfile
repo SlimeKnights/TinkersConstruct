@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "./gradlew build -PBUILD_NUMBER=${env.BUILD_NUMBER} --no-daemon"
+                sh "JAVA_HOME=${env.JDK_17} ./gradlew build -PBUILD_NUMBER=${env.BUILD_NUMBER} --no-daemon"
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "./gradlew publishMavenJavaPublicationToMavenRepository -PBUILD_NUMBER=${env.BUILD_NUMBER} -PDEPLOY_DIR=${env.MAVEN_DEPLOY_DIR} --no-daemon"
+                sh "JAVA_HOME=${env.JDK_17} ./gradlew publishMavenJavaPublicationToMavenRepository -PBUILD_NUMBER=${env.BUILD_NUMBER} -PDEPLOY_DIR=${env.MAVEN_DEPLOY_DIR} --no-daemon"
             }
         }
     }
