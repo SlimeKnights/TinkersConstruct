@@ -24,6 +24,8 @@ import java.util.List;
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class StencilTableGui extends GuiContainer implements INEIGuiHandler
 {
+    int[] buttonsLeftRect = new int[]{ Integer.MAX_VALUE, Integer.MIN_VALUE };
+    int[] buttonsRightRect = new int[]{ Integer.MIN_VALUE, Integer.MIN_VALUE };
     StencilTableLogic logic;
     int activeButton;
 
@@ -73,6 +75,8 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler
         int cornerY = this.guiTop + 2;
 
         this.buttonList.clear();
+        this.buttonsLeftRect = new int[]{ Integer.MAX_VALUE, Integer.MIN_VALUE };
+        this.buttonsRightRect = new int[]{ Integer.MIN_VALUE, Integer.MIN_VALUE };
 
         int id = 0;
         for (int iter = 0; iter < TConstructClientRegistry.stencilButtons.size(); iter++)
@@ -82,6 +86,8 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler
                 continue;
             GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture, element);
             this.buttonList.add(button);
+            this.buttonsLeftRect[0] = Math.min(button.xPosition, this.buttonsLeftRect[0]);
+            this.buttonsLeftRect[1] = Math.max(button.yPosition + button.height, this.buttonsLeftRect[1]);
         }
 
         // secondary buttons, yay!
@@ -94,6 +100,8 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler
                 continue;
             GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture, element);
             this.buttonList.add(button);
+            this.buttonsRightRect[0] = Math.max(button.xPosition + button.width, this.buttonsRightRect[0]);
+            this.buttonsRightRect[1] = Math.max(button.yPosition + button.height, this.buttonsRightRect[1]);
         }
 
         // get the correct setting :I
@@ -165,16 +173,18 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler
     }
 
     @Override
-    public boolean hideItemPanelSlot(GuiContainer guiContainer, int x, int y, int w, int h) {
+    public boolean hideItemPanelSlot(GuiContainer guiContainer, int x, int y, int w, int h)
+    {
+
         // is it in the horizontal column of the right buttons?
-        if(x > this.guiLeft + this.xSize + 4 && x < this.guiLeft + this.xSize + 4 + 22*3 + 16)
-            if(y > this.guiTop - 10 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons2.size()-1)/4 + 22*(TConstructClientRegistry.stencilButtons2.size()%4 > 0 ? 1 : 0))
-                return true;
+        if (x > this.guiLeft + this.xSize && x < this.buttonsRightRect[0] && y + h > this.guiTop && y < this.buttonsRightRect[1]) {
+            return true;
+        }
 
         // is it in the horizontal column of the left buttons?
-        if(x - w < this.guiLeft && x - w > this.guiLeft - 120)
-            if(y > this.guiTop - 10 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons.size()-1)/4 + 22*(TConstructClientRegistry.stencilButtons.size()%4 > 0 ? 1 : 0))
-                return true;
+        if (x + w > this.buttonsLeftRect[0] && x < this.guiLeft && y + h > this.guiTop && y < this.buttonsLeftRect[1]) {
+            return true;
+        }
 
         return false;
     }
