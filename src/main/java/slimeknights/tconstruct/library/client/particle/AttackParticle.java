@@ -9,14 +9,15 @@ public abstract class AttackParticle extends TextureSheetParticle {
 
   private final SpriteSet spriteList;
 
-  public AttackParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
-    SpriteSet spriteList) {
-    super(world, x, y, z, xSpeed, ySpeed, zSpeed);
+  public AttackParticle(ClientLevel world, double x, double y, double z, double pQuadSizeMultiplier, SpriteSet spriteList) {
+    super(world, x, y, z, 0, 0, 0);
     this.spriteList = spriteList;
-
+    float f = this.random.nextFloat() * 0.6F + 0.4F;
+    this.rCol = f;
+    this.gCol = f;
+    this.bCol = f;
     this.lifetime = 4;
-    this.quadSize = 1.0F;
-
+    this.quadSize = 1.0F - (float)pQuadSizeMultiplier * 0.5F;
     this.setSpriteFromAge(spriteList);
   }
 
@@ -27,7 +28,7 @@ public abstract class AttackParticle extends TextureSheetParticle {
 
   @Override
   public int getLightColor(float partialTicks) {
-    return 61680;
+    return 0xF000F0;
   }
 
   @Override

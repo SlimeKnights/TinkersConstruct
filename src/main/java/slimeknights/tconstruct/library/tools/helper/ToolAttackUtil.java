@@ -413,16 +413,12 @@ public class ToolAttackUtil {
    * @param height the height offset for the particle position
    */
   public static void spawnAttackParticle(ParticleOptions particleData, Entity entity, double height) {
-    double xd = -Mth.sin(entity.getYRot() / 180.0F * (float) Math.PI) * Mth.cos(entity.getXRot() / 180.0F * (float) Math.PI);
-    double zd =  Mth.cos(entity.getYRot() / 180.0F * (float) Math.PI) * Mth.cos(entity.getXRot() / 180.0F * (float) Math.PI);
-    double yd = -Mth.sin(entity.getXRot() / 180.0F * (float) Math.PI);
-
-    xd *= 1f;
-    yd *= 1f;
-    zd *= 1f;
-
     if (entity.level instanceof ServerLevel server) {
-      server.sendParticles(particleData, entity.getX() + xd, entity.getY() + entity.getBbHeight() * height, entity.getZ() + zd, 0, xd, yd, zd, 1.0D);
+      double xd = -Mth.sin(entity.getYRot() / 180.0F * (float) Math.PI) * Mth.cos(entity.getXRot() / 180.0F * (float) Math.PI);
+      double zd =  Mth.cos(entity.getYRot() / 180.0F * (float) Math.PI) * Mth.cos(entity.getXRot() / 180.0F * (float) Math.PI);
+      double yd = -Mth.sin(entity.getXRot() / 180.0F * (float) Math.PI);
+
+      server.sendParticles(particleData, entity.getX() + xd, entity.getY() + entity.getBbHeight() * height, entity.getZ() + zd, 0, xd, yd, zd, 0.0D);
     }
   }
 
