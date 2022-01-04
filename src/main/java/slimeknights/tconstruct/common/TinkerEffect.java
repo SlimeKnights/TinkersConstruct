@@ -28,7 +28,6 @@ public class TinkerEffect extends MobEffect {
 
   @Override
   public void initializeClient(Consumer<EffectRenderer> consumer) {
-    boolean show = this.show;
     consumer.accept(new EffectRenderer() {
       @Override
       public void renderInventoryEffect(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack mStack, int x, int y, float z) {}
