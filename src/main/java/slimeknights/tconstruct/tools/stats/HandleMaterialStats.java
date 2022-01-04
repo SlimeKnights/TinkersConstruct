@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.With;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -39,10 +37,17 @@ public class HandleMaterialStats extends BaseMaterialStats {
   private static final List<Component> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, ATTACK_DAMAGE_DESCRIPTION, ATTACK_SPEED_DESCRIPTION, MINING_SPEED_DESCRIPTION);
 
   // multipliers
-  private float durability;
-  private float miningSpeed;
-  private float attackSpeed;
-  private float attackDamage;
+  private final float durability;
+  private final float miningSpeed;
+  private final float attackSpeed;
+  private final float attackDamage;
+
+  public HandleMaterialStats(FriendlyByteBuf buffer) {
+    this.durability = buffer.readFloat();
+    this.attackDamage = buffer.readFloat();
+    this.attackSpeed = buffer.readFloat();
+    this.miningSpeed = buffer.readFloat();
+  }
 
   @Override
   public void encode(FriendlyByteBuf buffer) {
@@ -50,14 +55,6 @@ public class HandleMaterialStats extends BaseMaterialStats {
     buffer.writeFloat(this.attackDamage);
     buffer.writeFloat(this.attackSpeed);
     buffer.writeFloat(this.miningSpeed);
-  }
-
-  @Override
-  public void decode(FriendlyByteBuf buffer) {
-    this.durability = buffer.readFloat();
-    this.attackDamage = buffer.readFloat();
-    this.attackSpeed = buffer.readFloat();
-    this.miningSpeed = buffer.readFloat();
   }
 
   @Override

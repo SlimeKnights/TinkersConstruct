@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
+import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
@@ -12,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Holds all materials and the extra information registered for them (stat classes).
@@ -73,8 +75,8 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   @Override
-  public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz) {
-    materialStatsManager.registerMaterialStat(defaultStats, clazz);
+  public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder) {
+    materialStatsManager.registerMaterialStat(defaultStats, clazz, decoder);
   }
 
   @Override

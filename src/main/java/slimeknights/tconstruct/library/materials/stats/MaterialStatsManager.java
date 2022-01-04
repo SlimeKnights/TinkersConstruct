@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.mantle.data.MergingJsonDataLoader;
@@ -75,13 +76,12 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
    * @param defaultStats   Default stats for the material
    * @param statsClass     Class representing the type
    */
-  public <T extends IMaterialStats> void registerMaterialStat(T defaultStats, Class<T> statsClass) {
+  public <T extends IMaterialStats> void registerMaterialStat(T defaultStats, Class<T> statsClass, Function<FriendlyByteBuf,T> decoder) {
     MaterialStatsId materialStatType = defaultStats.getIdentifier();
     if (materialStatTypes.containsKey(materialStatType)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(materialStatType);
     }
-    // todo: implement check if class is compatible with the requirements for a network syncable stats class
-    materialStatTypes.put(materialStatType, new MaterialStatType<T>(materialStatType, statsClass, defaultStats, defaultStats instanceof IRepairableMaterialStats));
+    materialStatTypes.put(materialStatType, new MaterialStatType<T>(materialStatType, statsClass, decoder, defaultStats, defaultStats instanceof IRepairableMaterialStats));
   }
 
   /**
@@ -93,6 +93,17 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   public Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     MaterialStatType<?> type = materialStatTypes.get(id);
     return type == null ? null : type.getStatsClass();
+  }
+
+  /**
+   * Gets the class for the given stats ID
+   * @param id  Stats class
+   * @return  Stats ID
+   */
+  @Nullable
+  public Function<FriendlyByteBuf,? extends IMaterialStats> getStatDecoder(MaterialStatsId id) {
+    MaterialStatType<?> type = materialStatTypes.get(id);
+    return type == null ? null : type.getDecoder();
   }
 
   /**

@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import slimeknights.tconstruct.library.network.INetworkSendable;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Basic interface for all material stats.
  * Note that you should extend {@link BaseMaterialStats} for your material to load from the JSONs.
  */
-public interface IMaterialStats extends INetworkSendable {
+public interface IMaterialStats {
 
   /**
    * Returns a unique ResourceLocation to identify the type of stats the material has.
@@ -43,4 +43,7 @@ public interface IMaterialStats extends INetworkSendable {
    * @return a list of Text Components
    */
   List<Component> getLocalizedDescriptions();
+
+  /** Encodes these stats to the buffer */
+  void encode(FriendlyByteBuf buffer);
 }

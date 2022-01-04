@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.fixture;
 
 import lombok.AllArgsConstructor;
+import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -59,7 +61,7 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
   }
 
   @Override
-  public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz) {
+  public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder) {
     throw new UnsupportedOperationException("No registration possible in test mock");
   }
 

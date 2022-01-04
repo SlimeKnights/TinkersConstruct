@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.function.Function;
 
 public final class MaterialRegistry {
   static MaterialRegistry INSTANCE;
@@ -83,11 +85,11 @@ public final class MaterialRegistry {
     });
     registry = new MaterialRegistryImpl(materialManager, materialStatsManager, materialTraitsManager);
 
-    registry.registerStatType(HeadMaterialStats.DEFAULT, HeadMaterialStats.class);
-    registry.registerStatType(HandleMaterialStats.DEFAULT, HandleMaterialStats.class);
-    registry.registerStatType(ExtraMaterialStats.DEFAULT, ExtraMaterialStats.class);
-    registry.registerStatType(RepairKitStats.DEFAULT, RepairKitStats.class);
-    registry.registerStatType(SkullStats.DEFAULT, SkullStats.class);
+    registry.registerStatType(HeadMaterialStats.DEFAULT, HeadMaterialStats.class, HeadMaterialStats::new);
+    registry.registerStatType(HandleMaterialStats.DEFAULT, HandleMaterialStats.class, HandleMaterialStats::new);
+    registry.registerStatType(ExtraMaterialStats.DEFAULT, ExtraMaterialStats.class, buffer -> ExtraMaterialStats.DEFAULT);
+    registry.registerStatType(RepairKitStats.DEFAULT, RepairKitStats.class, RepairKitStats::new);
+    registry.registerStatType(SkullStats.DEFAULT, SkullStats.class, SkullStats::new);
   }
 
   @VisibleForTesting
@@ -156,6 +158,16 @@ public final class MaterialRegistry {
   @Nullable
   public static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     return INSTANCE.materialStatsManager.getClassForStat(id);
+  }
+
+  /**
+   * Gets the class for a material stat ID
+   * @param id  Material stat type
+   * @return  Material stat class
+   */
+  @Nullable
+  public static Function<FriendlyByteBuf,? extends IMaterialStats> getStatDecoder(MaterialStatsId id) {
+    return INSTANCE.materialStatsManager.getStatDecoder(id);
   }
 
 

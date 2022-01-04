@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,6 @@ import java.util.List;
 
 /** Stats for slimeskull skulls */
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -29,19 +27,18 @@ public class SkullStats extends BaseMaterialStats implements IRepairableMaterial
   // tooltip descriptions
   private static final List<Component> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.ARMOR.getDescription());
 
-  private int durability;
-  private int armor;
+  private final int durability;
+  private final int armor;
+
+  public SkullStats(FriendlyByteBuf buffer) {
+    this.durability = buffer.readInt();
+    this.armor = buffer.readInt();
+  }
 
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.durability);
     buffer.writeInt(this.armor);
-  }
-
-  @Override
-  public void decode(FriendlyByteBuf buffer) {
-    this.durability = buffer.readInt();
-    this.armor = buffer.readInt();
   }
 
   @Override

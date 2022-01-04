@@ -18,12 +18,15 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   public static final MaterialId MATERIAL_ID = MaterialFixture.MATERIAL_1.getIdentifier();
+  private static final Map<MaterialStatsId,Function<FriendlyByteBuf,? extends IMaterialStats>> DECODER = ImmutableMap.of(
+    MaterialStatsFixture.STATS_TYPE, ComplexTestStats::new,
+    HeadMaterialStats.ID,  HeadMaterialStats::new,
+    HandleMaterialStats.ID,  HandleMaterialStats::new,
+    ExtraMaterialStats.ID, buffer -> ExtraMaterialStats.DEFAULT);
 
   @Test
   void testGenericEncodeDecode() {
@@ -61,20 +64,10 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<IMaterialStats>> materialToStats) {
     FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-    Function<MaterialStatsId, Class<?>> classResolverMock = createClassResolverMock(materialToStats);
 
     UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats);
     packetToEncode.encode(buffer);
 
-    return new UpdateMaterialStatsPacket(buffer, classResolverMock);
-  }
-
-  @SuppressWarnings("unchecked")
-  private Function<MaterialStatsId, Class<?>> createClassResolverMock(Map<MaterialId, Collection<IMaterialStats>> materialToStats) {
-    Function<MaterialStatsId, Class<?>> classResolverMock = mock(Function.class);
-    materialToStats.values().stream()
-      .flatMap(Collection::stream)
-      .forEach(stat -> when(classResolverMock.apply(stat.getIdentifier())).thenReturn((Class) stat.getClass()));
-    return classResolverMock;
+    return new UpdateMaterialStatsPacket(buffer, DECODER::get);
   }
 }

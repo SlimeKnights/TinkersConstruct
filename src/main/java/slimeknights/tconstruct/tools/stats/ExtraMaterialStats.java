@@ -31,9 +31,6 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   public void encode(FriendlyByteBuf buffer) {}
 
   @Override
-  public void decode(FriendlyByteBuf buffer) {}
-
-  @Override
   public MaterialStatsId getIdentifier() {
     return ID;
   }

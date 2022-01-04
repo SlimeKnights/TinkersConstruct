@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
+import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
@@ -10,6 +11,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public interface IMaterialRegistry {
   /**
@@ -89,8 +91,9 @@ public interface IMaterialRegistry {
    *
    * @param defaultStats  Default stats instance
    * @param clazz         Stat type class
+   * @param decoder       Logic to decode the stat from the buffer
    */
-  <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz);
+  <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder);
 
   /**
    * Gets the default material traits for the given material

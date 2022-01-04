@@ -26,10 +26,10 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
   public UpdateMaterialStatsPacket(FriendlyByteBuf buffer) {
-    this(buffer, MaterialRegistry::getClassForStat);
+    this(buffer, MaterialRegistry::getStatDecoder);
   }
 
-  public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Function<MaterialStatsId, Function<FriendlyByteBuf,? extends IMaterialStats>> decoderResolver) {
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -37,7 +37,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
       int statCount = buffer.readInt();
       List<IMaterialStats> statList = new ArrayList<>();
       for (int j = 0; j < statCount; j++) {
-        decodeStat(buffer, classResolver).ifPresent(statList::add);
+        decodeStat(buffer, decoderResolver).ifPresent(statList::add);
       }
       materialToStats.put(id, statList);
     }
@@ -45,21 +45,19 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   /**
    * Decodes a single stat
-   * @param buffer         Buffer instance
-   * @param classResolver  Stat to decode
+   * @param buffer           Buffer instance
+   * @param decoderResolver  Logic to decode stats
    * @return  Optional of the decoded material stats
    */
-  private Optional<IMaterialStats> decodeStat(FriendlyByteBuf buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  private Optional<IMaterialStats> decodeStat(FriendlyByteBuf buffer, Function<MaterialStatsId,Function<FriendlyByteBuf,? extends IMaterialStats>> decoderResolver) {
     MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
     try {
-      Class<?> clazz = classResolver.apply(statsId);
-      if (clazz == null) {
+      Function<FriendlyByteBuf,? extends IMaterialStats> decoder = decoderResolver.apply(statsId);
+      if (decoder == null) {
         log.error("Unknown stat type {}. Are client and server in sync?", statsId);
         return Optional.empty();
       }
-      IMaterialStats stats = (IMaterialStats) clazz.newInstance();
-      stats.decode(buffer);
-      return Optional.of(stats);
+      return Optional.of(decoder.apply(buffer));
     } catch (Exception e) {
       log.error("Could not load class for deserialization of stats {}. Are client and server in sync?", statsId, e);
       return Optional.empty();

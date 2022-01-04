@@ -3,11 +3,9 @@ package slimeknights.tconstruct.tools.stats;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
@@ -21,7 +19,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import java.util.List;
 import java.util.Objects;
 
-@NoArgsConstructor
 @ToString
 public class HeadMaterialStats extends BaseMaterialStats implements IRepairableMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("head"));
@@ -29,17 +26,13 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   // tooltip descriptions
   private static final List<Component> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.HARVEST_TIER.getDescription(), ToolStats.MINING_SPEED.getDescription(), ToolStats.ATTACK_DAMAGE.getDescription());
 
-  public final static TextColor DURABILITY_COLOR = TextColor.fromRgb(0xFF47cc47);
-  public final static TextColor MINING_SPEED_COLOR = TextColor.fromRgb(0xFF78A0CD);
-  public final static TextColor ATTACK_COLOR = TextColor.fromRgb(0xFFD76464);
-
   @Getter
-  private int durability;
+  private final int durability;
   @Getter
-  private float miningSpeed;
-  private ResourceLocation harvestTier;
+  private final float miningSpeed;
+  private final ResourceLocation harvestTier;
   @Getter
-  private float attack;
+  private final float attack;
 
   /** Cached tier fetched from the sorting registry */
   private transient Tier tier;
@@ -50,6 +43,13 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
     this.harvestTier = Objects.requireNonNull(TierSortingRegistry.getName(tier), "Cannot create head material stats with unsorted tier");
     this.tier = tier;
     this.attack = attack;
+  }
+
+  public HeadMaterialStats(FriendlyByteBuf buffer) {
+    this.durability = buffer.readInt();
+    this.miningSpeed = buffer.readFloat();
+    this.harvestTier = buffer.readResourceLocation();
+    this.attack = buffer.readFloat();
   }
 
   /** Gets the ID of the tier from the tier sorting registry */
@@ -76,14 +76,6 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
     buffer.writeFloat(this.miningSpeed);
     buffer.writeResourceLocation(this.harvestTier);
     buffer.writeFloat(this.attack);
-  }
-
-  @Override
-  public void decode(FriendlyByteBuf buffer) {
-    this.durability = buffer.readInt();
-    this.miningSpeed = buffer.readFloat();
-    this.harvestTier = buffer.readResourceLocation();
-    this.attack = buffer.readFloat();
   }
 
   @Override

@@ -5,9 +5,11 @@ package slimeknights.tconstruct.library.materials.stats;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * <p>Part types are actually different material stat types.
@@ -21,6 +23,7 @@ import java.util.Objects;
 public final class MaterialStatType<T extends IMaterialStats> {
   private final ResourceLocation identifier;
   private final Class<T> statsClass;
+  Function<FriendlyByteBuf,T> decoder;
   private final T defaultStats;
   @Accessors(fluent = true)
   private final boolean canRepair;

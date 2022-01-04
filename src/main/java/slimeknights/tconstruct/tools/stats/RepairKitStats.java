@@ -27,11 +27,10 @@ public class RepairKitStats extends BaseMaterialStats implements IRepairableMate
   public static final RepairKitStats DEFAULT = new RepairKitStats(1);
 
   @Getter
-  private int durability;
+  private final int durability;
 
-  @SuppressWarnings("unused") // used by reflection
-  public RepairKitStats() {
-    this(1);
+  public RepairKitStats(FriendlyByteBuf buffer) {
+    this.durability = buffer.readInt();
   }
 
   @Override
@@ -52,10 +51,5 @@ public class RepairKitStats extends BaseMaterialStats implements IRepairableMate
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.durability);
-  }
-
-  @Override
-  public void decode(FriendlyByteBuf buffer) {
-    this.durability = buffer.readInt();
   }
 }
