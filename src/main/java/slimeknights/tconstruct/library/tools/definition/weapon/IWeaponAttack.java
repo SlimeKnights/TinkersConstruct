@@ -5,14 +5,14 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** Attack logic for a modifiable weapon */
 public interface IWeaponAttack extends IHaveLoader {
   /** Default weapon attack */
   IWeaponAttack DEFAULT = new IWeaponAttack() {
     @Override
-    public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
+    public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
       return ToolAttackUtil.dealDefaultDamage(context.getAttacker(), context.getTarget(), damage);
     }
 
@@ -32,5 +32,5 @@ public interface IWeaponAttack extends IHaveLoader {
    * @param damage   Damage to deal
    * @return  True if we successfully attacked
    */
-  boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage);
+  boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage);
 }

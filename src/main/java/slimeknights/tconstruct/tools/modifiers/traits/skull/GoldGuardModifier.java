@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -33,7 +33,7 @@ public class GoldGuardModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       context.getTinkerData().ifPresent(data -> {
@@ -48,9 +48,9 @@ public class GoldGuardModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IModifierToolStack newTool = context.getReplacementTool();
+      IToolStackView newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
         context.getTinkerData().ifPresent(data -> data.remove(TOTAL_GOLD));
@@ -63,7 +63,7 @@ public class GoldGuardModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
+  public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
     EquipmentSlot changed = context.getChangedSlot();
     if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
@@ -74,7 +74,7 @@ public class GoldGuardModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (player != null && tooltipKey == TooltipKey.SHIFT) {
       AttributeInstance instance = player.getAttribute(Attributes.MAX_HEALTH);
       if (instance != null) {

@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterato
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.BlockHarvestLogic;
@@ -93,7 +93,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     // harvest
     IHarvestLogic harvestLogic = data.getHarvestLogic();
     assertThat(harvestLogic).isInstanceOf(BlockHarvestLogic.class);
-    assertThat(harvestLogic.isEffective(mock(IModifierToolStack.class), Blocks.DIAMOND_BLOCK.defaultBlockState())).isTrue();
+    assertThat(harvestLogic.isEffective(mock(IToolStackView.class), Blocks.DIAMOND_BLOCK.defaultBlockState())).isTrue();
     // aoe
     IAreaOfEffectIterator aoe = data.getAOE();
     assertThat(aoe).isInstanceOf(CircleAOEIterator.class);

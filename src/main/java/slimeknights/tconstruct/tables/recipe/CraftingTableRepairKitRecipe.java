@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -93,7 +93,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
   }
 
   /** Gets the amount to repair for the given material */
-  protected float getRepairAmount(IModifierToolStack tool, IMaterial repairMaterial) {
+  protected float getRepairAmount(IToolStackView tool, IMaterial repairMaterial) {
     MaterialStatsId repairStats = TinkerStationRepairRecipe.getDefaultStatsId(tool, repairMaterial);
     float repairAmount = MaterialRecipe.getRepairDurability(tool.getDefinition().getData(), repairMaterial.getIdentifier(), repairStats) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
     if (repairAmount > 0) {

@@ -5,8 +5,8 @@ import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -65,13 +65,13 @@ public class OverslimeModifier extends DurabilityShieldModifier {
 
   @Nullable
   @Override
-  public Boolean showDurabilityBar(IModifierToolStack tool, int level) {
+  public Boolean showDurabilityBar(IToolStackView tool, int level) {
     // only show as fully repaired if overslime is full
     return getOverslime(tool) < getCapacity(tool);
   }
 
   @Override
-  public int getDurabilityRGB(IModifierToolStack tool, int level) {
+  public int getDurabilityRGB(IToolStackView tool, int level) {
     if (getOverslime(tool) > 0) {
       // just always display light blue, not much point in color changing really
       return 0x00D0FF;
@@ -109,7 +109,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
    * @param volatileData  Volatile data instance
    * @return  Current cap
    */
-  public int getCapacity(IModDataReadOnly volatileData) {
+  public int getCapacity(IModDataView volatileData) {
     return volatileData.getInt(getCapacityKey());
   }
 
@@ -118,12 +118,12 @@ public class OverslimeModifier extends DurabilityShieldModifier {
    * @param tool  Tool instance
    * @return  Overslime cap
    */
-  public int getCapacity(IModifierToolStack tool) {
+  public int getCapacity(IToolStackView tool) {
     return getCapacity(tool.getVolatileData());
   }
 
   @Override
-  protected int getShieldCapacity(IModifierToolStack tool, int level) {
+  protected int getShieldCapacity(IToolStackView tool, int level) {
     return getCapacity(tool);
   }
 
@@ -163,7 +163,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
    * @param tool  Tool stack instance
    * @return  Default cap
    */
-  public int getOverslime(IModifierToolStack tool) {
+  public int getOverslime(IToolStackView tool) {
     return getShield(tool);
   }
 
@@ -175,14 +175,14 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   /**
    * Sets the overslime on a tool
    */
-  public void setOverslime(IModifierToolStack tool, int amount) {
+  public void setOverslime(IToolStackView tool, int amount) {
     setShield(tool, 0, amount); // level is unused for overslime capacity
   }
 
   /**
    * Adds to the overslime on a tool
    */
-  public void addOverslime(IModifierToolStack tool, int amount) {
+  public void addOverslime(IToolStackView tool, int amount) {
     // yeah, I am hardcoding overworked. If you need something similar, put in an issue request on github
     // grants +100% restoring per level
     int overworked = tool.getModifierLevel(TinkerModifiers.overworked.get());

@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -32,7 +32,7 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (!isEffective) {
       return;
     }
@@ -44,7 +44,7 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost;
       if (player != null && key == TooltipKey.SHIFT) {

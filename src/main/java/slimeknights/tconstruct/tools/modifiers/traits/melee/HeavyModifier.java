@@ -9,7 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -37,7 +37,7 @@ public class HeavyModifier extends Modifier {
 	 * @param consumer  Attribute consumer
 	 */
   @Override
-  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+  public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
     if (slot.getType() == Type.HAND) {
       consumer.accept(Attributes.MOVEMENT_SPEED, new AttributeModifier(slot == EquipmentSlot.OFFHAND ? OFFHAND_ATTRIBUTE_UUID : MAINHAND_ATTRIBUTE_UUID,
                                                                        ATTRIBUTE_NAME, level * (-0.1), Operation.MULTIPLY_BASE));

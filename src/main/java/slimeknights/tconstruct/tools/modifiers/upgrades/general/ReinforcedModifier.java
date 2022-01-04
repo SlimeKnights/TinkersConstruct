@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -40,7 +40,7 @@ public class ReinforcedModifier extends IncrementalModifier {
   }
 
   @Override
-  public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
+  public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
     // vanilla formula, 100 / (level + 1), means 50% chance at level 1
     float percentage = getPercentage(getScaledLevel(tool, level));
     // 100% protection? all damage blocked
@@ -62,7 +62,7 @@ public class ReinforcedModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     float reinforced;
     if (tool.getModifierLevel(TinkerModifiers.unbreakable.get()) > 0) {
       reinforced = 1;

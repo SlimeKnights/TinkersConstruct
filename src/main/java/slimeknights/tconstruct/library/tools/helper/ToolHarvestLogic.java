@@ -22,7 +22,7 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 
@@ -57,7 +57,7 @@ public class ToolHarvestLogic {
    * @param state  State to check
    * @return  True if this tool is effective
    */
-  public static boolean isEffective(IModifierToolStack tool, BlockState state) {
+  public static boolean isEffective(IToolStackView tool, BlockState state) {
     // must not be broken, and the tool definition must be effective
     return !tool.isBroken() && tool.getDefinition().getData().getHarvestLogic().isEffective(tool, state);
   }
@@ -86,7 +86,7 @@ public class ToolHarvestLogic {
    * @param context  Harvest context
    * @return  True if the block was removed
    */
-  private static boolean removeBlock(IModifierToolStack tool, ToolHarvestContext context) {
+  private static boolean removeBlock(IToolStackView tool, ToolHarvestContext context) {
     Boolean removed = null;
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
@@ -225,7 +225,7 @@ public class ToolHarvestLogic {
       // add enchants
       ListTag originalEnchants = ModifierUtil.applyHarvestEnchantments(tool, stack, context);
       // need to calculate the iterator before we break the block, as we need the reference hardness from the center
-      Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, state, world, pos, sideHit, IAreaOfEffectIterator.AOEMatchType.BREAKING) : Collections.emptyList();
+      Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, state, world, pos, sideHit, IAreaOfEffectIterator.AOEMatchType.BREAKING) : Collections.emptyList();
 
       // actually break the block, run AOE if successful
       if (breakBlock(tool, stack, context)) {

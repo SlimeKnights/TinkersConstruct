@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeC
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 
 import java.util.Iterator;
@@ -70,7 +70,7 @@ public class MeltingModifier extends TankModifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if tank is full, nothing to do
     FluidStack current = getFluid(tool);
     int capacity = getCapacity(tool);
@@ -108,7 +108,7 @@ public class MeltingModifier extends TankModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     // must have done damage, and must be fully charged
     if (damageDealt > 0 && context.isFullyCharged()) {
       // first, find the proper recipe

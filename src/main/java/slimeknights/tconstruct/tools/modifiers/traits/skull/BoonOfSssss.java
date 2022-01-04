@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 // TODO: rename
 public class BoonOfSssss extends TotalArmorLevelModifier {
@@ -23,10 +23,10 @@ public class BoonOfSssss extends TotalArmorLevelModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     super.onUnequip(tool, level, context);
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IModifierToolStack replacement = context.getReplacementTool();
+      IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
         // cure effects using the helmet
         context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));

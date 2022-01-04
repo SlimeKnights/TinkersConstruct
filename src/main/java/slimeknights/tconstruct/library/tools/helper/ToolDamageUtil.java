@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -49,7 +49,7 @@ public class ToolDamageUtil {
    * @param stack   Stack being damaged
    * @return  True if the tool is broken now
    */
-  public static boolean directDamage(IModifierToolStack tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+  public static boolean directDamage(IToolStackView tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
     if (entity instanceof Player && ((Player)entity).isCreative()) {
       return false;
     }
@@ -82,7 +82,7 @@ public class ToolDamageUtil {
    * @param stack   Stack to use for criteria updates, if null uses main hand stack
    * @return true if the tool broke when damaging
    */
-  public static boolean damage(IModifierToolStack tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+  public static boolean damage(IToolStackView tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
     if (amount <= 0 || tool.isBroken() || tool.isUnbreakable()) {
       return false;
     }
@@ -105,7 +105,7 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    * @param slot    Slot containing the stack
    */
-  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlot slot) {
+  public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, EquipmentSlot slot) {
     if (damage(tool, amount, entity, entity.getItemBySlot(slot))) {
       entity.broadcastBreakEvent(slot);
       return true;
@@ -121,7 +121,7 @@ public class ToolDamageUtil {
    * @param hand    Hand containing the stack
    * @return true if the tool broke when damaging
    */
-  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, InteractionHand hand) {
+  public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, InteractionHand hand) {
     if (damage(tool, amount, entity, entity.getItemInHand(hand))) {
       entity.broadcastBreakEvent(hand);
       return true;
@@ -135,7 +135,7 @@ public class ToolDamageUtil {
    * @param amount  Amount of damage
    * @param entity  Entity for animation
    */
-  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity) {
+  public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity) {
     return damageAnimated(tool, amount, entity, InteractionHand.MAIN_HAND);
   }
 
@@ -143,7 +143,7 @@ public class ToolDamageUtil {
    * Repairs the given tool stack
    * @param amount  Amount to repair
    */
-  public static void repair(IModifierToolStack tool, int amount) {
+  public static void repair(IToolStackView tool, int amount) {
     if (amount <= 0) {
       return;
     }

@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Attack logic for a sweep attack, similar to a sword */
@@ -27,7 +27,7 @@ public class SweepWeaponAttack implements IWeaponAttack {
   private final float range;
 
   @Override
-  public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
+  public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
     // deal damage first
     boolean hit = ToolAttackUtil.dealDefaultDamage(context.getAttacker(), context.getTarget(), damage);
 

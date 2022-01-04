@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -20,14 +20,14 @@ public class ZoomModifier extends SingleUseModifier implements IArmorInteractMod
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(ZOOM));
     }
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     if (player.isShiftKeyDown()) {
       if (player.level.isClientSide()) {
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(ZOOM, 0.1f));
@@ -38,7 +38,7 @@ public class ZoomModifier extends SingleUseModifier implements IArmorInteractMod
   }
 
   @Override
-  public void stopArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     if (player.level.isClientSide()) {
       player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(ZOOM));
     }

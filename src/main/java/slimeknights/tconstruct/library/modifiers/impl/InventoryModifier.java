@@ -11,8 +11,8 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
@@ -45,8 +45,8 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public ValidatedResult validate(IModifierToolStack tool, int level) {
-    IModDataReadOnly persistentData = tool.getPersistentData();
+  public ValidatedResult validate(IToolStackView tool, int level) {
+    IModDataView persistentData = tool.getPersistentData();
     if (persistentData.contains(inventoryKey, Tag.TAG_LIST)) {
       ListTag listNBT = persistentData.get(inventoryKey, GET_COMPOUND_LIST);
       if (!listNBT.isEmpty()) {
@@ -67,13 +67,13 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public void onRemoved(IModifierToolStack tool) {
+  public void onRemoved(IToolStackView tool) {
     tool.getPersistentData().remove(inventoryKey);
   }
 
   @Override
-  public ItemStack getStack(IModifierToolStack tool, int level, int slot) {
-    IModDataReadOnly modData = tool.getPersistentData();
+  public ItemStack getStack(IToolStackView tool, int level, int slot) {
+    IModDataView modData = tool.getPersistentData();
     if (slot < getSlots(tool, level) && modData.contains(inventoryKey, Tag.TAG_LIST)) {
       ListTag list = tool.getPersistentData().get(inventoryKey, GET_COMPOUND_LIST);
       for (int i = 0; i < list.size(); i++) {
@@ -87,7 +87,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public void setStack(IModifierToolStack tool, int level, int slot, ItemStack stack) {
+  public void setStack(IToolStackView tool, int level, int slot, ItemStack stack) {
     if (slot < getSlots(tool, level)) {
       ListTag list;
       ModDataNBT modData = tool.getPersistentData();
@@ -129,7 +129,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public final int getSlots(IModifierToolStack tool, int level) {
+  public final int getSlots(IToolStackView tool, int level) {
     return getSlots((IToolContext) tool, level);
   }
 

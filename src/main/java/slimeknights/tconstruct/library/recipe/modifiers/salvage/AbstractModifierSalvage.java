@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
@@ -55,7 +55,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
    * @return True if this salvage is applicable
    */
   @SuppressWarnings("unused")
-  public boolean matches(ItemStack stack, IModifierToolStack tool, int originalLevel) {
+  public boolean matches(ItemStack stack, IToolStackView tool, int originalLevel) {
     return originalLevel >= minLevel && originalLevel <= maxLevel && toolIngredient.test(stack);
   }
 
@@ -63,7 +63,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
    * Updates the tool data in light of removing this modifier
    * @param tool  Tool instance
    */
-  public void updateTool(IModifierToolStack tool) {
+  public void updateTool(IToolStackView tool) {
     if (slots != null) {
       tool.getPersistentData().addSlots(slots.getType(), slots.getCount());
     }
@@ -71,17 +71,17 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
 
   /**
    * Adds items from this salvage to the given consumer
-   * @param tool          Tool instance before the modifier was removed. If you need to change the tool, use {@link #updateTool(IModifierToolStack)}
+   * @param tool          Tool instance before the modifier was removed. If you need to change the tool, use {@link #updateTool(IToolStackView)}
    * @param stackConsumer Consumer for items
    */
-  public abstract void acceptItems(IModifierToolStack tool, Consumer<ItemStack> stackConsumer, Random random);
+  public abstract void acceptItems(IToolStackView tool, Consumer<ItemStack> stackConsumer, Random random);
 
   @Override
   public RecipeType<?> getType() {
     return RecipeTypes.DATA;
   }
 
-  /** @deprecated Use {@link #matches(ItemStack, IModifierToolStack, int)} */
+  /** @deprecated Use {@link #matches(ItemStack, IToolStackView, int)} */
   @Deprecated
   @Override
   public boolean matches(Container inv, Level level) {

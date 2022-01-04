@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class StrongBonesModifier extends TotalArmorLevelModifier {
@@ -34,10 +34,10 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     super.onUnequip(tool, level, context);
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IModifierToolStack replacement = context.getReplacementTool();
+      IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
         // cure effects using the helmet
         context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));

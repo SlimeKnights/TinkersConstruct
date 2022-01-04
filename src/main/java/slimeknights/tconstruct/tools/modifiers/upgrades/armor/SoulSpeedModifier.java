@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -55,7 +55,7 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   }
 
   @Override
-  public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
+  public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     // no point trying if not on the ground
     if (tool.isBroken() || !living.isOnGround() || living.level.isClientSide) {
       return;
@@ -108,11 +108,11 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     // remove boost when boots are removed
     LivingEntity livingEntity = context.getEntity();
     if (!livingEntity.level.isClientSide && context.getChangedSlot() == EquipmentSlot.FEET) {
-      IModifierToolStack newTool = context.getReplacementTool();
+      IToolStackView newTool = context.getReplacementTool();
       // damaging the tool will trigger this hook, so ensure the new tool has the same level
       if (newTool == null || newTool.isBroken() || newTool.getModifierLevel(this) != level) {
         AttributeInstance attribute = livingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -130,7 +130,7 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     // must either have no player or a player on soulsand
     if (player == null || key != TooltipKey.SHIFT || (!player.isFallFlying() && player.level.getBlockState(getOnPosition(player)).is(BlockTags.SOUL_SPEED_BLOCKS))) {
       // multiplies boost by 10 and displays as a percent as the players base movement speed is 0.1 and is in unknown units

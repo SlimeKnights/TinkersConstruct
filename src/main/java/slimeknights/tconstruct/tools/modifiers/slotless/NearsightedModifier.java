@@ -6,7 +6,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -21,7 +21,7 @@ public class NearsightedModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (!tool.isBroken()) {
       ResourceLocation key = SLOT_KEYS[context.getChangedSlot().getFilterFlag()];
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(key, 1 + 0.05f * level));
@@ -29,7 +29,7 @@ public class NearsightedModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (!tool.isBroken()) {
       ResourceLocation key = SLOT_KEYS[context.getChangedSlot().getFilterFlag()];
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(key));

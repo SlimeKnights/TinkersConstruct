@@ -27,7 +27,7 @@ import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -191,7 +191,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
    * @param slotType Slot used to harvest
    * @return  True if harvested
    */
-  private static boolean harvest(UseOnContext context, IModifierToolStack tool, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
+  private static boolean harvest(UseOnContext context, IToolStackView tool, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
     Player player = context.getPlayer();
     // first, check main harvestable tag
     Block block = state.getBlock();
@@ -231,7 +231,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public InteractionResult beforeBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
     if (tool.isBroken()) {
       return InteractionResult.PASS;
     }
@@ -262,7 +262,7 @@ public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
         // if we have a player and harvest logic, try doing AOE harvest
         Item item = stack.getItem();
         if (!broken && player != null) {
-          for (BlockPos newPos : tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
+          for (BlockPos newPos : tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, tool, server, world.getBlockState(newPos), newPos, slotType)) {
               didHarvest = true;

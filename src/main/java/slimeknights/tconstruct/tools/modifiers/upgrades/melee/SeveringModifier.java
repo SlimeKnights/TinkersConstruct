@@ -9,7 +9,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeCache;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class SeveringModifier extends Modifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob
     // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping player heads
     if (!context.hasParam(LootContextParams.DAMAGE_SOURCE)) {

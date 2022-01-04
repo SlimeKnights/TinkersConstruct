@@ -18,7 +18,7 @@ import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 
 import java.util.Iterator;
@@ -49,12 +49,12 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return actions.contains(toolAction);
   }
 
   @Override
-  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
     // tool must not be broken
     if (tool.isBroken()) {
       return InteractionResult.PASS;
@@ -96,7 +96,7 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
     // note we consider anything effective, as hoes are not effective on all tillable blocks
     if (player != null && !tool.isBroken()) {
       int totalTransformed = 0;
-      Iterator<BlockPos> aoePos = tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, original, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM).iterator();
+      Iterator<BlockPos> aoePos = tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, original, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM).iterator();
       if (aoePos.hasNext()) {
         MutableUseOnContext offsetContext = new MutableUseOnContext(context);
         do {

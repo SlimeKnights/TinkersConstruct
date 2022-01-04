@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.events.teleport.EnderdodgingTeleportEvent
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -20,7 +20,7 @@ public class EnderdodgingModifier extends SingleUseModifier {
   }
 
   @Override
-  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
+  public boolean isSourceBlocked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
     // teleport always from projectiles
     LivingEntity self = context.getEntity();
     if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source instanceof IndirectEntityDamageSource) {
@@ -35,7 +35,7 @@ public class EnderdodgingModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // teleport randomly from other damage
     LivingEntity self = context.getEntity();
     if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {

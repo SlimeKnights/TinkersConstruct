@@ -12,8 +12,8 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nonnull;
@@ -29,7 +29,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
 
   @Getter
   private final ItemStack container;
-  private final Supplier<? extends IModifierToolStack> tool;
+  private final Supplier<? extends IToolStackView> tool;
 
   @Override
   public int getTanks() {
@@ -45,7 +45,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
    * @return  Value from the modifiers
    */
   private <T> T runForTank(int tank, T defaultValue, ITankCallback<T> function) {
-    IModifierToolStack tool = this.tool.get();
+    IToolStackView tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -79,7 +79,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   @Override
   public int fill(FluidStack resource, FluidAction action) {
     int totalFilled = 0;
-    IModifierToolStack tool = this.tool.get();
+    IToolStackView tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -107,7 +107,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     FluidStack drainedSoFar = FluidStack.EMPTY;
-    IModifierToolStack tool = this.tool.get();
+    IToolStackView tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -143,7 +143,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   public FluidStack drain(int maxDrain, FluidAction action) {
     FluidStack drainedSoFar = FluidStack.EMPTY;
     FluidStack toDrain = FluidStack.EMPTY;
-    IModifierToolStack tool = this.tool.get();
+    IToolStackView tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -190,7 +190,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @param volatileData  Volatile data instance
      * @return  Number of tanks used
      */
-    default int getTanks(IModDataReadOnly volatileData) {
+    default int getTanks(IModDataView volatileData) {
       return 0;
     }
 
@@ -201,7 +201,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @param tank   Tank index
      * @return  Fluid in the given tank
      */
-    default FluidStack getFluidInTank(IModifierToolStack tool, int level, int tank) {
+    default FluidStack getFluidInTank(IToolStackView tool, int level, int tank) {
       return FluidStack.EMPTY;
     }
 
@@ -212,7 +212,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @param tank   Tank index
      * @return  Fluid in the given tank
      */
-    default int getTankCapacity(IModifierToolStack tool, int level, int tank) {
+    default int getTankCapacity(IToolStackView tool, int level, int tank) {
       return 0;
     }
 
@@ -224,7 +224,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @param fluid  Fluid to insert
      * @return  True if the fluid is valid
      */
-    default boolean isFluidValid(IModifierToolStack tool, int level, int tank, FluidStack fluid) {
+    default boolean isFluidValid(IToolStackView tool, int level, int tank, FluidStack fluid) {
       return true;
     }
 
@@ -236,7 +236,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @param action   If SIMULATE, fill will only be simulated.
      * @return Amount of resource that was (or would have been, if simulated) filled.
      */
-    int fill(IModifierToolStack tool, int level, FluidStack resource, FluidAction action);
+    int fill(IToolStackView tool, int level, FluidStack resource, FluidAction action);
 
     /**
      * Drains fluid out of tanks, distribution is left entirely to the IFluidHandler.
@@ -247,7 +247,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @return FluidStack representing the Fluid and amount that was (or would have been, if
      * simulated) drained.
      */
-    FluidStack drain(IModifierToolStack tool, int level, FluidStack resource, FluidAction action);
+    FluidStack drain(IToolStackView tool, int level, FluidStack resource, FluidAction action);
 
     /**
      * Drains fluid out of internal tanks, distribution is left entirely to the IFluidHandler.
@@ -258,24 +258,24 @@ public class ToolFluidCapability implements IFluidHandlerItem {
      * @return FluidStack representing the Fluid and amount that was (or would have been, if
      * simulated) drained.
      */
-    FluidStack drain(IModifierToolStack tool, int level, int maxDrain, FluidAction action);
+    FluidStack drain(IToolStackView tool, int level, int maxDrain, FluidAction action);
   }
 
   /** Helper to run a function from {@link IFluidModifier} */
   @FunctionalInterface
   private interface ITankCallback<T> {
-    T run(IFluidModifier module, IModifierToolStack tool, int level, int tank);
+    T run(IFluidModifier module, IToolStackView tool, int level, int tank);
   }
 
   /** Provider instance for a fluid cap */
   public static class Provider implements IToolCapabilityProvider {
     private final LazyOptional<IFluidHandlerItem> fluidCap;
-    public Provider(ItemStack stack, Supplier<? extends IModifierToolStack> toolStack) {
+    public Provider(ItemStack stack, Supplier<? extends IToolStackView> toolStack) {
       this.fluidCap = LazyOptional.of(() -> new ToolFluidCapability(stack, toolStack));
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(IModifierToolStack tool, Capability<T> cap) {
+    public <T> LazyOptional<T> getCapability(IToolStackView tool, Capability<T> cap) {
       if (cap == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY && tool.getVolatileData().getInt(TOTAL_TANKS) > 0) {
         return fluidCap.cast();
       }

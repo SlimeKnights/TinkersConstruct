@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
@@ -170,7 +170,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Gets the modifiers list for a tool, ignoring partial levels from incremental modifiers */
   public static List<ModifierEntry> getModifiersIgnoringPartial(ToolStack toolStack) {
     ImmutableList.Builder<ModifierEntry> finalList = ImmutableList.builder();
-    IModDataReadOnly persistentData = toolStack.getPersistentData();
+    IModDataView persistentData = toolStack.getPersistentData();
     for (ModifierEntry entry : toolStack.getModifierList()) {
       Modifier modifier = entry.getModifier();
       // if the modifier is not incremental, or does not has the key set, nothing to do

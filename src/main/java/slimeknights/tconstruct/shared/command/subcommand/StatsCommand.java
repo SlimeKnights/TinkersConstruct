@@ -20,7 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
@@ -81,7 +81,7 @@ public class StatsCommand {
   }
 
   /** Updates entities using the given operation */
-  private static List<LivingEntity> updateEntities(CommandContext<CommandSourceStack> context, BiPredicate<IModifierToolStack,StatOverrideModifier> updateAction) throws CommandSyntaxException {
+  private static List<LivingEntity> updateEntities(CommandContext<CommandSourceStack> context, BiPredicate<IToolStackView,StatOverrideModifier> updateAction) throws CommandSyntaxException {
     return HeldModifiableItemIterator.apply(context, (living, stack) -> {
       ToolStack tool = ToolStack.copyFrom(stack);
 

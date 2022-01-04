@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.UUID;
 import java.util.function.BiConsumer;
@@ -24,7 +24,7 @@ public class RevitalizingModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+  public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
     if (slot.getType() == Type.ARMOR) {
       consumer.accept(Attributes.MAX_HEALTH, new AttributeModifier(uuids[slot.getIndex()], "tconstruct.modifier.revitalizing", Math.floor(getScaledLevel(tool, level) * 2), Operation.ADDITION));
     }

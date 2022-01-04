@@ -20,7 +20,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
@@ -33,7 +33,7 @@ public class TastyModifier extends Modifier {
   }
 
   @Override
-  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     if (slotType.getType() == Type.HAND) {
       if (!tool.isBroken() && player.canEat(false)) {
         player.startUsingItem(hand);
@@ -49,13 +49,13 @@ public class TastyModifier extends Modifier {
   }
 
   @Override
-  public boolean onStoppedUsing(IModifierToolStack tool, int level, Level world, LivingEntity entity, int timeLeft) {
+  public boolean onStoppedUsing(IToolStackView tool, int level, Level world, LivingEntity entity, int timeLeft) {
     tool.getPersistentData().remove(IS_EATING);
     return false;
   }
 
   @Override
-  public boolean onFinishUsing(IModifierToolStack tool, int level, Level world, LivingEntity entity) {
+  public boolean onFinishUsing(IToolStackView tool, int level, Level world, LivingEntity entity) {
     // remove is eating tag to prevent from messing with other modifiers
     ModDataNBT persistentData = tool.getPersistentData();
     boolean wasEating = persistentData.getBoolean(IS_EATING);
@@ -82,17 +82,17 @@ public class TastyModifier extends Modifier {
   }
 
   @Override
-  public UseAnim getUseAction(IModifierToolStack tool, int level) {
+  public UseAnim getUseAction(IToolStackView tool, int level) {
     return tool.getPersistentData().getBoolean(IS_EATING) ? UseAnim.EAT : UseAnim.NONE;
   }
 
   @Override
-  public int getUseDuration(IModifierToolStack tool, int level) {
+  public int getUseDuration(IToolStackView tool, int level) {
     return tool.getPersistentData().getBoolean(IS_EATING) ? 16 : 0;
   }
 
   @Override
-  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob
     // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping bacon
     if (!context.hasParam(LootContextParams.DAMAGE_SOURCE)) {

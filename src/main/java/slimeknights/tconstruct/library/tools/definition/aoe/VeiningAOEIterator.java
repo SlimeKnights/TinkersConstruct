@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -37,7 +37,7 @@ public class VeiningAOEIterator implements IAreaOfEffectIterator {
   }
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(state, world, origin, maxDistance + expanded);
   }

@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -47,7 +47,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot equipmentSlot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot) {
     if (!player.isShiftKeyDown()) {
       if (player.level.isClientSide) {
         return false; // TODO: see below
@@ -94,7 +94,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Nullable
   @Override
-  public Pattern getPattern(IModifierToolStack tool, int level, int slot, boolean hasStack) {
+  public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
   }
 

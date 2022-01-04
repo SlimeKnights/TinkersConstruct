@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.modifiers.defense.ProtectionModifier;
 
@@ -20,7 +20,7 @@ public class FeatherFallingModifier extends IncrementalModifier {
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (source == DamageSource.FALL) {
       modifierValue += getScaledLevel(tool, level) * 3;
     }
@@ -28,7 +28,7 @@ public class FeatherFallingModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     ProtectionModifier.addResistanceTooltip(this, tool, level, 3f, tooltip);
   }
 }

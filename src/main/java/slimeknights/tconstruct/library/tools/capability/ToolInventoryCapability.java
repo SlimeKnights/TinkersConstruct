@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
@@ -39,7 +39,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   public static final ResourceLocation INCLUDE_OFFHAND = TConstruct.getResource("inventory_show_offhand");
 
   /** Supplier to the tool instance */
-  private final Supplier<? extends IModifierToolStack> tool;
+  private final Supplier<? extends IToolStackView> tool;
   /** Cache of all stacks that have been parsed thus far */
   private ItemStack[] cachedStacks;
 
@@ -65,7 +65,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   /** Gets the inventory instance for the given slot index */
   @Nullable
   private IInventoryModifier getInventory(int slot) {
-    IModifierToolStack tool = this.tool.get();
+    IToolStackView tool = this.tool.get();
     if (slot < getSlots()) {
       int start = 0;
       for (ModifierEntry entry : tool.getModifierList()) {
@@ -207,7 +207,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     }
     // next, is the item valid for the slot?
     int localSlot = slot - startForSlot;
-    IModifierToolStack tool = this.tool.get();
+    IToolStackView tool = this.tool.get();
     if (!inventory.isItemValid(tool, localSlot, stack)) {
       return stack;
     }
@@ -287,27 +287,27 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   @SuppressWarnings("unused")
   public interface IInventoryModifier {
     /** Gets the number of item slots used by the given tool. The number returned here must also be added into volatile data under {@link #TOTAL_SLOTS} */
-    int getSlots(IModifierToolStack tool, int level);
+    int getSlots(IToolStackView tool, int level);
 
     /** Sets the stack in the given slot */
-    ItemStack getStack(IModifierToolStack tool, int level, int slot);
+    ItemStack getStack(IToolStackView tool, int level, int slot);
 
     /** Sets the stack in the given slot */
-    void setStack(IModifierToolStack tool, int level, int slot, ItemStack stack);
+    void setStack(IToolStackView tool, int level, int slot, ItemStack stack);
 
     /** Gets the max stack size for the given slot */
-    default int getSlotLimit(IModifierToolStack tool, int slot) {
+    default int getSlotLimit(IToolStackView tool, int slot) {
       return 64;
     }
 
     /** Checks if the item is valid for the given slot */
-    default boolean isItemValid(IModifierToolStack tool, int slot, ItemStack stack) {
+    default boolean isItemValid(IToolStackView tool, int slot, ItemStack stack) {
       return true;
     }
 
     /** Gets the pattern to render when the given slot is empty */
     @Nullable
-		default Pattern getPattern(IModifierToolStack tool, int level, int slot, boolean hasStack) {
+		default Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
       return null;
     }
 	}
@@ -316,12 +316,12 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   public static class Provider implements IToolCapabilityProvider {
     private final LazyOptional<ToolInventoryCapability> handler;
     @SuppressWarnings("unused")
-    public Provider(ItemStack stack, Supplier<? extends IModifierToolStack> tool) {
+    public Provider(ItemStack stack, Supplier<? extends IToolStackView> tool) {
       handler = LazyOptional.of(() -> new ToolInventoryCapability(tool));
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(IModifierToolStack tool, Capability<T> cap) {
+    public <T> LazyOptional<T> getCapability(IToolStackView tool, Capability<T> cap) {
       if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && tool.getVolatileData().getInt(TOTAL_SLOTS) > 0) {
         return handler.cast();
       }
@@ -344,12 +344,12 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
 
 
   /** Opens the tool inventory container if an inventory is present on the given tool */
-  public static InteractionResult tryOpenContainer(ItemStack stack, IModifierToolStack tool, Player player, EquipmentSlot slotType) {
+  public static InteractionResult tryOpenContainer(ItemStack stack, IToolStackView tool, Player player, EquipmentSlot slotType) {
     return tryOpenContainer(stack, tool, tool.getDefinition(), player, slotType);
   }
 
   /** Opens the tool inventory container if an inventory is present on the given tool */
-  public static InteractionResult tryOpenContainer(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition definition, Player player, EquipmentSlot slotType) {
+  public static InteractionResult tryOpenContainer(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition definition, Player player, EquipmentSlot slotType) {
     IItemHandler handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(null);
     if (handler != null) {
       if (player instanceof ServerPlayer serverPlayer) {

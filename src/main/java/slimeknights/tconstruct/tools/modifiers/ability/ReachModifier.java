@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.common.ForgeMod;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.UUID;
 import java.util.function.BiConsumer;
@@ -25,7 +25,7 @@ public class ReachModifier extends Modifier {
   }
 
   @Override
-  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+  public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
     if (slot != EquipmentSlot.OFFHAND) {
       consumer.accept(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_UUIDS[slot.getFilterFlag()], "tconstruct.modifier.reach", level, Operation.ADDITION));
     }

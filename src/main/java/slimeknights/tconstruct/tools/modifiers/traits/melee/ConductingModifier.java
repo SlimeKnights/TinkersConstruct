@@ -10,7 +10,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -50,7 +50,7 @@ public class ConductingModifier extends Modifier {
   }
 
   @Override
-  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+  public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     float bonus = getBonus(context.getAttacker(), level);
     if (bonus > 0) {
       damage *= 1 + bonus;
@@ -59,7 +59,7 @@ public class ConductingModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     if (tool.hasTag(TinkerTags.Items.MELEE_OR_UNARMED)) {
       float bonus = PERCENT_PER_LEVEL * level;
       // client only knows if the player is on fire or not, not the amount of fire, so just show full if on fire

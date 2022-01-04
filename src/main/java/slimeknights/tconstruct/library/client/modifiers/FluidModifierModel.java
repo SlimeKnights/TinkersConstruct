@@ -15,7 +15,7 @@ import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -51,7 +51,7 @@ public class FluidModifierModel extends NormalModifierModel {
 
   @Nullable
   @Override
-  public Object getCacheKey(IModifierToolStack tool, ModifierEntry entry) {
+  public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
     if (entry.getModifier() instanceof TankModifier tank) {
       FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
@@ -63,12 +63,12 @@ public class FluidModifierModel extends NormalModifierModel {
   }
 
   @Nullable
-  protected Material getTemplate(TankModifier tank, IModifierToolStack tool, FluidStack fluid, boolean isLarge) {
+  protected Material getTemplate(TankModifier tank, IToolStackView tool, FluidStack fluid, boolean isLarge) {
     return fluidTextures[(isLarge ? 1 : 0)];
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
+  public ImmutableList<BakedQuad> getQuads(IToolStackView tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     // first, determine stored fluid
     ImmutableList<BakedQuad> quads = super.getQuads(tool, entry, spriteGetter, transforms, isLarge, startTintIndex, pixels);
     // modifier must be tank

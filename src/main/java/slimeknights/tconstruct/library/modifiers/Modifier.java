@@ -45,7 +45,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
@@ -206,7 +206,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Tool level
    * @return  Stack sensitive display name
    */
-  public Component getDisplayName(IModifierToolStack tool, int level) {
+  public Component getDisplayName(IToolStackView tool, int level) {
     return getDisplayName(level);
   }
 
@@ -219,7 +219,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tooltipKey   Shows if the player is holding shift, control, or neither
    * @param tooltipFlag  Flag determining tooltip type
    */
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {}
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {}
 
   /**
    * Gets the description for this modifier
@@ -249,7 +249,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level Modifier level
    * @return  Description for this modifier
    */
-  public List<Component> getDescriptionList(IModifierToolStack tool, int level) {
+  public List<Component> getDescriptionList(IToolStackView tool, int level) {
     return getDescriptionList(level);
   }
 
@@ -296,7 +296,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Gets the description for this modifier
    * @return  Description for this modifier
    */
-  public final Component getDescription(IModifierToolStack tool, int level) {
+  public final Component getDescription(IToolStackView tool, int level) {
     // if the method is not overridden, use the cached description component
     List<Component> extendedDescription = getDescriptionList(tool, level);
     if (extendedDescription == getDescriptionList()) {
@@ -313,10 +313,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>Persistent mod data (accessed via {@link IModifierToolStack}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
-   *   <li>{@link #addRawData(IModifierToolStack, int, RestrictedCompoundTag)}: Allows modifying a restricted view of the tools main data, might help with other mod compat, but not modifier compat</li>
+   *   <li>Persistent mod data (accessed via {@link IToolStackView}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
+   *   <li>{@link #addRawData(IToolStackView, int, RestrictedCompoundTag)}: Allows modifying a restricted view of the tools main data, might help with other mod compat, but not modifier compat</li>
    * </ul>
-   * @param context         Context about the tool beilt. Partial view of {@link IModifierToolStack} as the tool is not fully built
+   * @param context         Context about the tool beilt. Partial view of {@link IToolStackView} as the tool is not fully built
    * @param level           Modifier level
    * @param volatileData    Mutable mod NBT data, result of this method
    */
@@ -327,10 +327,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addAttributes(IModifierToolStack, int, EquipmentSlot, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
+   *   <li>{@link #addAttributes(IToolStackView, int, EquipmentSlot, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
+   *   <li>{@link #onBreakSpeed(IToolStackView, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
-   * @param context         Context about the tool beilt. Partial view of {@link IModifierToolStack} as the tool is not fully built. Note this hook runs after volatile data builds
+   * @param context         Context about the tool beilt. Partial view of {@link IToolStackView} as the tool is not fully built. Note this hook runs after volatile data builds
    * @param level           Modifier level
    * @param builder         Tool stat builder
    */
@@ -348,10 +348,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param slot      Slot for the attributes
    * @param consumer  Attribute consumer
    */
-  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
+  public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
   /**
-   * Allows editing a restricted view of the tools raw NBT. You are responsible for cleaning up that data on removal via {@link #beforeRemoved(IModifierToolStack, RestrictedCompoundTag)}.
+   * Allows editing a restricted view of the tools raw NBT. You are responsible for cleaning up that data on removal via {@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}.
    * In most cases volatile data via {@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)} is a much better choice, only use this hook if you have no other choice.
    * <br>
    * Alternatives:
@@ -362,7 +362,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Level of the modifier
    * @param tag    Mutable tag, will not allow modifiying any important tool stat
    */
-  public void addRawData(IModifierToolStack tool, int level, RestrictedCompoundTag tag) {}
+  public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {}
 
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
@@ -370,14 +370,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onRemoved(IModifierToolStack)}: Called when the last level of a modifier is removed after validation is finished</li>
-   *   <li>{@link #beforeRemoved(IModifierToolStack, RestrictedCompoundTag)}: Called before the modifier is actually removed</li>
+   *   <li>{@link #onRemoved(IToolStackView)}: Called when the last level of a modifier is removed after validation is finished</li>
+   *   <li>{@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}: Called before the modifier is actually removed</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level, may be 0 if the modifier is removed.
    * @return  PASS result if success, failure if there was an error.
    */
-  public ValidatedResult validate(IModifierToolStack tool, int level) {
+  public ValidatedResult validate(IToolStackView tool, int level) {
     return ValidatedResult.PASS;
   }
 
@@ -387,26 +387,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onRemoved(IModifierToolStack)}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
+   *   <li>{@link #onRemoved(IToolStackView)}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
    *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
-   *   <li>{@link #validate(IModifierToolStack, int)}: Allows marking a new state invalid</li>
+   *   <li>{@link #validate(IToolStackView, int)}: Allows marking a new state invalid</li>
    * </ul>
    * @param tool  Tool instance
    */
-  public void beforeRemoved(IModifierToolStack tool, RestrictedCompoundTag tag) {}
+  public void beforeRemoved(IToolStackView tool, RestrictedCompoundTag tag) {}
 
   /**
    * Called after this modifier is removed (and after stats are rebuilt) to clean up persistent data.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #validate(IModifierToolStack, int)}: Called when the tool still has levels and allows rejecting the new tool state</li>
-   *   <li>{@link #beforeRemoved(IModifierToolStack, RestrictedCompoundTag)}: Grants access to the tools raw NBT, but called before tool stats are rebuilt</li>
+   *   <li>{@link #validate(IToolStackView, int)}: Called when the tool still has levels and allows rejecting the new tool state</li>
+   *   <li>{@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}: Grants access to the tools raw NBT, but called before tool stats are rebuilt</li>
    *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
    * </ul>
    * @param tool  Tool instance
    */
-  public void onRemoved(IModifierToolStack tool) {}
+  public void onRemoved(IToolStackView tool) {}
 
 
   /* Hooks */
@@ -419,7 +419,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param holder     Entity holding the tool
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
    */
-  public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
+  public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
     return amount;
   }
 
@@ -430,7 +430,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param factor     Original factor
    * @return  Replacement factor. Returning 0 prevents repair
    */
-  public float getRepairFactor(IModifierToolStack toolStack, int level, float factor) {
+  public float getRepairFactor(IToolStackView toolStack, int level, float factor) {
     return factor;
   }
 
@@ -445,7 +445,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param isCorrectSlot  If true, this item is in the proper slot. For tools, that is main hand or off hand. For armor, this means its in the correct armor slot
    * @param stack          Item stack instance to check other slots for the tool. Do not modify
    */
-  public void onInventoryTick(IModifierToolStack tool, int level, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {}
+  public void onInventoryTick(IToolStackView tool, int level, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {}
 
   /**
    * Called on entity or block loot to allow modifying loot
@@ -455,7 +455,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param context        Full loot context
    * @return  Loot replacement
    */
-  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     return generatedLoot;
   }
 
@@ -464,13 +464,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when this item is used when targeting a block, <i>before</i> the block is activated.
-   * In general it is better to use {@link #afterBlockUse(IModifierToolStack, int, UseOnContext, EquipmentSlot)} for consistency with vanilla items.
+   * In general it is better to use {@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)} for consistency with vanilla items.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterEntityUse(IModifierToolStack, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, UseOnContext, EquipmentSlot)}: Runs after the block is activated, preferred hook. </li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
+   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Runs after the block is activated, preferred hook. </li>
+   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -478,7 +478,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param slot           Slot performing interaction, may mismatch the hand in context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public InteractionResult beforeBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slot) {
+  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
@@ -487,9 +487,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterEntityUse(IModifierToolStack, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
-   *   <li>{@link #beforeBlockUse(IModifierToolStack, int, UseOnContext, EquipmentSlot)}: Runs before the block is activated, can be used to prevent block interaction entirely but less consistent with vanilla </li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
+   *   <li>{@link #beforeBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Runs before the block is activated, can be used to prevent block interaction entirely but less consistent with vanilla </li>
+   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -497,7 +497,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param slot           Slot performing interaction, may mismatch the hand in context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slot) {
+  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
@@ -506,9 +506,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterEntityUse(IModifierToolStack, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Standard interaction hook, generally preferred over this one</li>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Standard interaction hook, generally preferred over this one</li>
+   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -518,7 +518,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param slot           Slot performing interaction
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public InteractionResult beforeEntityUse(IModifierToolStack tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slot) {
+  public InteractionResult beforeEntityUse(IToolStackView tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
@@ -527,9 +527,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #beforeEntityUse(IModifierToolStack, int, Player, Entity, InteractionHand, EquipmentSlot)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onToolUse(IModifierToolStack, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   *   <li>{@link #beforeEntityUse(IToolStackView, int, Player, Entity, InteractionHand, EquipmentSlot)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
+   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -539,7 +539,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param slot           Slot performing interaction
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public InteractionResult afterEntityUse(IModifierToolStack tool, int level, Player player, LivingEntity target, InteractionHand hand, EquipmentSlot slot) {
+  public InteractionResult afterEntityUse(IToolStackView tool, int level, Player player, LivingEntity target, InteractionHand hand, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
@@ -548,8 +548,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterBlockUse(IModifierToolStack, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
-   *   <li>{@link #afterEntityUse(IModifierToolStack, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
+   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
+   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -559,17 +559,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param slot           Slot performing interaction
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slot) {
+  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
   /**
    * Called when the player stops using the tool.
-   * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IModifierToolStack, int, Level, Player, InteractionHand, EquipmentSlot)}.
+   * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onFinishUsing(IModifierToolStack, int, Level, LivingEntity)}: Called when the duration timer reaches the end, even if still held
+   *   <li>{@link #onFinishUsing(IToolStackView, int, Level, LivingEntity)}: Called when the duration timer reaches the end, even if still held
    *  </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -578,17 +578,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param timeLeft       How many ticks of use duration was left
   * @return  Whether the modifier should block any incoming ones from firing
   */
-  public boolean onStoppedUsing(IModifierToolStack tool, int level, Level world, LivingEntity entity, int timeLeft) {
+  public boolean onStoppedUsing(IToolStackView tool, int level, Level world, LivingEntity entity, int timeLeft) {
     return false;
   }
 
   /**
    * Called when the use duration on this tool reaches the end.
-   * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IModifierToolStack, int, Level, Player, InteractionHand, EquipmentSlot)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
+   * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)} and set the duration in {@link #getUseDuration(IToolStackView, int)}
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onStoppedUsing(IModifierToolStack, int, Level, LivingEntity, int)}: Called when the player lets go before the duration reaches the end
+   *   <li>{@link #onStoppedUsing(IToolStackView, int, Level, LivingEntity, int)}: Called when the player lets go before the duration reaches the end
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -596,7 +596,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param entity         Entity holding tool
    * @return  Whether the modifier should block any incoming ones from firing
    */
-  public boolean onFinishUsing(IModifierToolStack tool, int level, Level world, LivingEntity entity) {
+  public boolean onFinishUsing(IToolStackView tool, int level, Level world, LivingEntity entity) {
     return false;
   }
 
@@ -605,7 +605,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level          Modifier level
   * @return  For how many ticks the modifier should run its use action
   */
-  public int getUseDuration(IModifierToolStack tool, int level) {
+  public int getUseDuration(IToolStackView tool, int level) {
      return 0;
   }
 
@@ -614,7 +614,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level          Modifier level
   * @return  Use action to be performed
   */
-  public UseAnim getUseAction(IModifierToolStack tool, int level) {
+  public UseAnim getUseAction(IToolStackView tool, int level) {
      return UseAnim.NONE;
   }
 
@@ -625,7 +625,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param toolAction  Action to check
    * @return  True if the tool can perform the action.
    */
-  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return false;
   }
 
@@ -645,18 +645,18 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param isEffective          If true, the tool is effective against this block type
    * @param miningSpeedModifier  Calculated modifier from potion effects such as haste and environment such as water, use for additive bonuses to ensure consistency with the mining speed stat
    */
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
   /**
    * Adds harvest loot table related enchantments from this modifier's effect, called before breaking a block.
    * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed.
-   * For looting, see {@link #getLootingValue(IModifierToolStack, int, LivingEntity, Entity, DamageSource, int)}
+   * For looting, see {@link #getLootingValue(IToolStackView, int, LivingEntity, Entity, DamageSource, int)}
    * @param tool      Tool used
    * @param level     Modifier level
    * @param context   Harvest context
    * @param consumer  Consumer accepting any enchantments
    */
-  public void applyHarvestEnchantments(IModifierToolStack tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
+  public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
 
   /**
    * Gets the amount of luck contained in this tool
@@ -668,7 +668,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param looting          Luck value set from previous modifiers
    * @return New luck value
    */
-  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
+  public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting;
   }
 
@@ -677,7 +677,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, ToolHarvestContext)}: Called after the block is successfully removed.</li>
+   *   <li>{@link #afterBlockBreak(IToolStackView, int, ToolHarvestContext)}: Called after the block is successfully removed.</li>
    * </ul>
    * @param tool      Tool used
    * @param level     Modifier level
@@ -685,7 +685,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  True to override the default block removing logic and stop all later modifiers from running. False to override default without breaking the block. Null to let default logic run
    */
   @Nullable
-  public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
+  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
     return null;
   }
 
@@ -694,27 +694,27 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #removeBlock(IModifierToolStack, int, ToolHarvestContext)}: Called before the block is set to air.</li>
-   *   <li>{@link #finishBreakingBlocks(IModifierToolStack, int, ToolHarvestContext)}: Called after all blocks are broken instead of per block.</li>
+   *   <li>{@link #removeBlock(IToolStackView, int, ToolHarvestContext)}: Called before the block is set to air.</li>
+   *   <li>{@link #finishBreakingBlocks(IToolStackView, int, ToolHarvestContext)}: Called after all blocks are broken instead of per block.</li>
    * </ul>
    * @param tool      Tool used
    * @param level     Modifier level
    * @param context   Harvest context
    */
-  public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {}
+  public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {}
 
   /**
    * Called after all blocks are broken on the target block
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, ToolHarvestContext)}: Called after each individual block is broken.</li>
+   *   <li>{@link #afterBlockBreak(IToolStackView, int, ToolHarvestContext)}: Called after each individual block is broken.</li>
    * </ul>
    * @param tool      Tool used
    * @param level     Modifier level
    * @param context   Harvest context
    */
-  public void finishBreakingBlocks(IModifierToolStack tool, int level, ToolHarvestContext context) {}
+  public void finishBreakingBlocks(IToolStackView tool, int level, ToolHarvestContext context) {}
 
 
   /* Attack hooks */
@@ -726,8 +726,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #beforeEntityHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: If you need to modify the entity before attacking, use this hook</li>
-   *   <li>{@link #afterEntityHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
+   *   <li>{@link #beforeEntityHit(IToolStackView, int, ToolAttackContext, float, float, float)}: If you need to modify the entity before attacking, use this hook</li>
+   *   <li>{@link #afterEntityHit(IToolStackView, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -736,17 +736,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param damage        Computed damage from all prior modifiers
    * @return  New damage to deal
    */
-  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+  public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     return damage;
   }
 
   /**
    * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedEntityHit(IModifierToolStack, int, ToolAttackContext)} will run.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedEntityHit(IToolStackView, int, ToolAttackContext)} will run.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterEntityHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
+   *   <li>{@link #afterEntityHit(IToolStackView, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
    * </ul>
    * @param tool           Tool used to attack
    * @param level          Modifier level
@@ -756,7 +756,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param knockback      Computed knockback from all prior modifiers
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     return knockback;
   }
 
@@ -766,9 +766,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #getEntityDamage(IModifierToolStack, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeEntityHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedEntityHit(IModifierToolStack, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
+   *   <li>{@link #getEntityDamage(IToolStackView, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link #beforeEntityHit(IToolStackView, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedEntityHit(IToolStackView, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -776,7 +776,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param damageDealt   Amount of damage successfully dealt
    * @return  Extra damage to deal to the tool
    */
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     return 0;
   }
 
@@ -786,7 +786,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level         Modifier level
    * @param context       Attack context
    */
-  public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {}
+  public void failedEntityHit(IToolStackView tool, int level, ToolAttackContext context) {}
 
 
   /* Armor */
@@ -797,8 +797,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br/>
    * Alternatives:
    * <ul>
-   *   <li>{@link #isSourceBlocked(IModifierToolStack, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link #onAttacked(IModifierToolStack, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   *   <li>{@link #isSourceBlocked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
+   *   <li>{@link #onAttacked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
    * </ul>
    * @param tool            Worn armor
    * @param level           Modifier level
@@ -808,7 +808,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param modifierValue   Modifier value from previous modifiers to add
    * @return  New modifier value
    */
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     return modifierValue;
   }
 
@@ -817,8 +817,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br/>
    * Alternatives:
    * <ul>
-   *   <li>{@link #getProtectionModifier(IModifierToolStack, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
-   *   <li>{@link #onAttacked(IModifierToolStack, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   *   <li>{@link #getProtectionModifier(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
+   *   <li>{@link #onAttacked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
    * </ul>
    * @param tool       Tool being used
    * @param level      Level of the modifier
@@ -828,7 +828,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount     Amount of damage caused
    * @return True if this attack should be blocked entirely
    */
-  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
+  public boolean isSourceBlocked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
     return false;
   }
 
@@ -837,8 +837,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br/>
    * Alternatives:
    * <ul>
-   *   <li>{@link #isSourceBlocked(IModifierToolStack, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link #getProtectionModifier(IModifierToolStack, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing the attack damage.</li>
+   *   <li>{@link #isSourceBlocked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
+   *   <li>{@link #getProtectionModifier(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing the attack damage.</li>
    * </ul>
    * @param tool             Tool being used
    * @param level            Level of the modifier
@@ -848,7 +848,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount           Amount of damage caused
    * @param isDirectDamage   If true, this attack is direct damage from an entity
    */
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {}
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {}
 
   /**
    * Called when an entity is attacked and this entity is the attacker
@@ -861,7 +861,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount           Amount of damage caused
    * @param isDirectDamage   If true, this attack is direct damage from an entity
    */
-  public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
+  public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
 
   /* Equipment events */
 
@@ -870,43 +870,43 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onEquip(IModifierToolStack, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
-   *   <li>{@link #onEquipmentChange(IModifierToolStack, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots that did not change</li>
+   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
+   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots that did not change</li>
    * </ul>
    * @param tool         Tool unequipped
    * @param level        Level of the modifier
    * @param context      Context about the event
    */
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {}
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
   /**
    * Called when a tinker tool is equipped to an entity
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onUnequip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquipmentChange(IModifierToolStack, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots did not change</li>
+   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
+   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots did not change</li>
    * </ul>
    * @param tool         Tool equipped
    * @param level        Level of the modifier
    * @param context      Context about the event
    */
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {}
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
   /**
    * Called when a stack in a different slot changed. Not called on the slot that changed
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onUnequip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquip(IModifierToolStack, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
+   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
+   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
    * </ul>
    * @param tool      Tool instance
    * @param level     Modifier level
    * @param context   Context describing the change
    * @param slotType  Slot containing this tool, did not change
    */
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {}
+  public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {}
 
 
   /* Display */
@@ -926,7 +926,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Modifier level
    * @return  Damage percentage. 0 is undamaged, 1 is fully damaged.
    */
-  public double getDamagePercentage(IModifierToolStack tool, int level) {
+  public double getDamagePercentage(IToolStackView tool, int level) {
     return Double.NaN;
   }
 
@@ -937,7 +937,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  True forces the bar to show, false forces it to hide. Return null to allow default behavior
    */
   @Nullable
-  public Boolean showDurabilityBar(IModifierToolStack tool, int level) {
+  public Boolean showDurabilityBar(IToolStackView tool, int level) {
     return null;
   }
 
@@ -947,7 +947,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Modifier level
    * @return  RGB, or -1 to not handle it
    */
-  public int getDurabilityRGB(IModifierToolStack tool, int level) {
+  public int getDurabilityRGB(IToolStackView tool, int level) {
     return -1;
   }
 
@@ -1062,9 +1062,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount     Amount to show, before scaling by the tool's modifier
    * @param tooltip    Tooltip list
    */
-  protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, Tag<Item> condition, float amount, List<Component> tooltip) {
+  protected void addStatTooltip(IToolStackView tool, FloatToolStat stat, Tag<Item> condition, float amount, List<Component> tooltip) {
     if (tool.hasTag(condition)) {
-      addFlatBoost(new TranslatableComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getModifier(stat), tooltip);
+      addFlatBoost(new TranslatableComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getMultiplier(stat), tooltip);
     }
   }
 
@@ -1074,7 +1074,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount   Damage amount
    * @param tooltip  Tooltip
    */
-  protected void addDamageTooltip(IModifierToolStack tool, float amount, List<Component> tooltip) {
+  protected void addDamageTooltip(IToolStackView tool, float amount, List<Component> tooltip) {
     addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
   }
 

@@ -5,7 +5,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class TotalArmorLevelModifier extends Modifier {
   private final TinkerDataKey<Integer> key;
@@ -35,12 +35,12 @@ public class TotalArmorLevelModifier extends Modifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     ModifierUtil.addTotalArmorModifierLevel(tool, context, key, level, allowBroken);
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     ModifierUtil.addTotalArmorModifierLevel(tool, context, key, -level, allowBroken);
   }
 }

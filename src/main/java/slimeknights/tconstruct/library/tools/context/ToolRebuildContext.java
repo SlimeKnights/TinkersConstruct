@@ -3,13 +3,14 @@ package slimeknights.tconstruct.library.tools.context;
 import lombok.Data;
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
-/** A more limited view of {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack} for use in tool rebuild hooks */
+/** A more limited view of {@link IToolStackView} for use in tool rebuild hooks */
 @SuppressWarnings("ClassCanBeRecord")
 @Data
 public class ToolRebuildContext implements IToolContext {
@@ -26,7 +27,7 @@ public class ToolRebuildContext implements IToolContext {
   /** Tool stats before modifiers add stats */
   private final StatsNBT baseStats;
   /** Persistent modifier data, intentionally read only */
-  private final IModDataReadOnly persistentData;
+  private final IModDataView persistentData;
   /** Volatile modifier data */
-  private final IModDataReadOnly volatileData;
+  private final IModDataView volatileData;
 }

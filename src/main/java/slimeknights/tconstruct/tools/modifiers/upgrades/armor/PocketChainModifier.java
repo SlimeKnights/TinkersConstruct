@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +15,7 @@ public class PocketChainModifier extends SingleLevelModifier implements IArmorIn
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     if (player.isShiftKeyDown()) {
       return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
     }

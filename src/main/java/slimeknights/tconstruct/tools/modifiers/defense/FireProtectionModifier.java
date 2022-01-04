@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 import slimeknights.tconstruct.tools.logic.VanillaMaxLevel;
@@ -37,7 +37,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && source.isFire()) {
       modifierValue += getScaledLevel(tool, level) * 2;
     }
@@ -45,7 +45,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
@@ -63,7 +63,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (slot.getType() == Type.ARMOR && !entity.level.isClientSide) {
@@ -84,7 +84,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (!entity.level.isClientSide && slot.getType() == Type.ARMOR && !tool.isBroken()) {
@@ -112,7 +112,7 @@ public class FireProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
+  public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (!entity.level.isClientSide && slot.getType() == Type.ARMOR) {

@@ -40,7 +40,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -249,7 +249,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
 
   @Override
-  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlot slot) {
+  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
     if (slot != getSlot()) {
       return ImmutableMultimap.of();
     }
@@ -353,7 +353,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   @Override
-  public List<Component> getStatInformation(IModifierToolStack tool, @Nullable Player player, List<Component> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
+  public List<Component> getStatInformation(IToolStackView tool, @Nullable Player player, List<Component> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
     tooltips = TooltipUtil.getArmorStats(tool, player, tooltips, key, tooltipFlag);
     TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_ARMOR_ATTRIBUTES, getSlot());
     return tooltips;

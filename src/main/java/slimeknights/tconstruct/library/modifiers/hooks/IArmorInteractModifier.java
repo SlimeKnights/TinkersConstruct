@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.modifiers.hooks;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** Hooks for interacting on a helmet, left generic for addonss to use for other armor pieces */
 public interface IArmorInteractModifier {
@@ -14,7 +14,7 @@ public interface IArmorInteractModifier {
    * @param slot     Slot source of the interaction
    * @return  True if no other modifiers should process
    */
-  default boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  default boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     return false;
   }
 
@@ -25,5 +25,5 @@ public interface IArmorInteractModifier {
    * @param player   Player wearing the helmet
    * @param slot     Slot source of the interaction
    */
-  default void stopArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {}
+  default void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {}
 }

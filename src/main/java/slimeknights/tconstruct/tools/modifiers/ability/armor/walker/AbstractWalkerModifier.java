@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +17,7 @@ public abstract class AbstractWalkerModifier extends SingleUseModifier implement
   }
 
   /** Gets the radius for this modifier */
-  protected abstract float getRadius(IModifierToolStack tool, int level);
+  protected abstract float getRadius(IToolStackView tool, int level);
 
   /**
    * Called to modify a position
@@ -28,10 +28,10 @@ public abstract class AbstractWalkerModifier extends SingleUseModifier implement
    * @param target   Position target for effect
    * @param mutable  Mutable position you can freely modify
    */
-  protected abstract void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable);
+  protected abstract void walkOn(IToolStackView tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable);
 
   @Override
-  public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
+  public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     if (living.isOnGround() && !tool.isBroken() && !living.level.isClientSide) {
       float radius = Math.min(16, getRadius(tool, level));
       MutableBlockPos mutable = new MutableBlockPos();

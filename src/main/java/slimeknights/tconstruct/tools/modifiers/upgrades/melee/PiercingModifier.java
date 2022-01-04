@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -41,7 +41,7 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     // deals 0.5 pierce damage per level, scaled, half of sharpness
     DamageSource source;
     Player player = context.getPlayerAttacker();
@@ -51,7 +51,7 @@ public class PiercingModifier extends IncrementalModifier {
       source = DamageSource.mobAttack(context.getAttacker());
     }
     source.bypassArmor();
-    float secondaryDamage = (getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE) - tool.getVolatileData().getFloat(PIERCING_DEBUFF)) * context.getCooldown();
+    float secondaryDamage = (getScaledLevel(tool, level) * tool.getMultiplier(ToolStats.ATTACK_DAMAGE) - tool.getVolatileData().getFloat(PIERCING_DEBUFF)) * context.getCooldown();
     if (context.isCritical()) {
       secondaryDamage *= 1.5f;
     }
@@ -60,7 +60,7 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addDamageTooltip(tool, getScaledLevel(tool, level) - tool.getVolatileData().getFloat(PIERCING_DEBUFF), tooltip);
   }
 }

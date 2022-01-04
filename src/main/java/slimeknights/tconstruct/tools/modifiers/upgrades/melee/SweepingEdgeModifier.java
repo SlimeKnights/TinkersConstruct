@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -21,7 +21,7 @@ public class SweepingEdgeModifier extends IncrementalModifier {
   }
 
   /** Gets the damage dealt by this tool, boosted properly by sweeping */
-  public float getSweepingDamage(IModifierToolStack toolStack, float baseDamage) {
+  public float getSweepingDamage(IToolStackView toolStack, float baseDamage) {
     int level = toolStack.getModifierLevel(this);
     float sweepingDamage = 1;
     if (level > 4) {
@@ -34,7 +34,7 @@ public class SweepingEdgeModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     float amount = getScaledLevel(tool, level) * 0.25f;
     tooltip.add(applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(amount)).append(" ").append(SWEEPING_BONUS)));
   }

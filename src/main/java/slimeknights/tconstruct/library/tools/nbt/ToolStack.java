@@ -37,7 +37,7 @@ import java.util.Set;
  * Class handling parsing all tool related NBT
  */
 @RequiredArgsConstructor(staticName = "from")
-public class ToolStack implements IModifierToolStack {
+public class ToolStack implements IToolStackView {
   /** Error messages for when there are not enough remaining modifiers */
   private static final String KEY_VALIDATE_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.validate_slots");
 
@@ -114,7 +114,7 @@ public class ToolStack implements IModifierToolStack {
   private MultiplierNBT multipliers;
   /** Data object containing modifier data that is recreated when the modifier list changes */
   @Nullable
-  private IModDataReadOnly volatileModData;
+  private IModDataView volatileModData;
 
   /* Creating */
 
@@ -380,7 +380,7 @@ public class ToolStack implements IModifierToolStack {
   }
 
   @Override
-  public float getModifier(INumericToolStat<?> stat) {
+  public float getMultiplier(INumericToolStat<?> stat) {
     MultiplierNBT multipliers = getMultipliers();
     if (multipliers.hasStat(stat)) {
       return multipliers.get(stat);
@@ -524,14 +524,14 @@ public class ToolStack implements IModifierToolStack {
   }
 
   @Override
-  public IModDataReadOnly getVolatileData() {
+  public IModDataView getVolatileData() {
     if (volatileModData == null) {
       // parse if the tag already exists
       if (nbt.contains(TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
         volatileModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_VOLATILE_MOD_DATA));
       } else {
         // if no tag exists, return empty
-        volatileModData = IModDataReadOnly.EMPTY;
+        volatileModData = IModDataView.EMPTY;
       }
     }
     return volatileModData;
@@ -544,7 +544,7 @@ public class ToolStack implements IModifierToolStack {
   protected void setVolatileModData(ModDataNBT modData) {
     CompoundTag data = modData.getData();
     if (data.isEmpty()) {
-      volatileModData = IModDataReadOnly.EMPTY;
+      volatileModData = IModDataView.EMPTY;
       nbt.remove(TAG_VOLATILE_MOD_DATA);
     } else {
       volatileModData = modData;
@@ -621,7 +621,7 @@ public class ToolStack implements IModifierToolStack {
     if (modifierList.isEmpty()) {
       // if no modifiers, clear out data that only exists with modifiers
       nbt.remove(TAG_VOLATILE_MOD_DATA);
-      volatileModData = IModDataReadOnly.EMPTY;
+      volatileModData = IModDataView.EMPTY;
     } else {
       ModDataNBT volatileData = new ModDataNBT();
 

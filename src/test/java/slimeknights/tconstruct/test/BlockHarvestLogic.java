@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Objects;
 
@@ -21,7 +21,7 @@ public class BlockHarvestLogic implements IHarvestLogic {
   private final Block block;
 
   @Override
-  public boolean isEffective(IModifierToolStack tool, BlockState state) {
+  public boolean isEffective(IToolStackView tool, BlockState state) {
     return state.getBlock() == block;
   }
 

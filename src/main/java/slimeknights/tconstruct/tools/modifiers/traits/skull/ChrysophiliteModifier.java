@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Com
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -32,7 +32,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       context.getTinkerData().ifPresent(data -> {
@@ -47,9 +47,9 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IModifierToolStack newTool = context.getReplacementTool();
+      IToolStackView newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
         context.getTinkerData().ifPresent(data -> data.remove(TOTAL_GOLD));
@@ -58,7 +58,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquipmentChange(IModifierToolStack tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
+  public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
     EquipmentSlot changed = context.getChangedSlot();
     if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
@@ -69,7 +69,7 @@ public class ChrysophiliteModifier extends SingleUseModifier {
 
   /** Checks if the entity has gold in the given slot */
   public static boolean hasGold(EquipmentChangeContext context, EquipmentSlot slotType) {
-    IModifierToolStack tool = context.getToolInSlot(slotType);
+    IToolStackView tool = context.getToolInSlot(slotType);
     if (tool != null) {
       return tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL);
     } else {

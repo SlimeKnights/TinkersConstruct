@@ -14,7 +14,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 
@@ -38,7 +38,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && isAirborne(context.getEntity())) {
       modifierValue += getScaledLevel(tool, level) * 2.5;
     }
@@ -46,7 +46,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     ProtectionModifier.addResistanceTooltip(this, tool, level, 2.5f, tooltip);
   }
 

@@ -16,12 +16,12 @@ class ModDataNBTTest extends BaseMcTest {
   @Test
   void empty() {
     for (SlotType type : SlotType.getAllSlotTypes()) {
-      assertThat(IModDataReadOnly.EMPTY.getSlots(type)).isEqualTo(0);
+      assertThat(IModDataView.EMPTY.getSlots(type)).isEqualTo(0);
     }
 
-    CompoundTag nbt = IModDataReadOnly.EMPTY.getCompound(testKey);
+    CompoundTag nbt = IModDataView.EMPTY.getCompound(testKey);
     nbt.putInt("test", 1);
-    nbt = IModDataReadOnly.EMPTY.getCompound(testKey);
+    nbt = IModDataView.EMPTY.getCompound(testKey);
     assertThat(nbt.contains("test")).overridingErrorMessage("NBT not saved in empty").isFalse();
   }
 
@@ -30,7 +30,7 @@ class ModDataNBTTest extends BaseMcTest {
     ModDataNBT nbt = new ModDataNBT();
 
     for (SlotType type : SlotType.getAllSlotTypes()) {
-      assertThat(IModDataReadOnly.EMPTY.getSlots(type)).isEqualTo(0);
+      assertThat(IModDataView.EMPTY.getSlots(type)).isEqualTo(0);
     }
     assertThat(nbt.getData().isEmpty()).isTrue();
   }

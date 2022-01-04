@@ -15,7 +15,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -36,14 +36,14 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   }
 
   @Override
-  public void updateTool(IModifierToolStack tool) {
+  public void updateTool(IToolStackView tool) {
     super.updateTool(tool);
     // remove the incremental modifier tag so we don't partially remove the next level
     tool.getPersistentData().remove(getModifier().getId());
   }
 
   @Override
-  public void acceptItems(IModifierToolStack tool, Consumer<ItemStack> stackConsumer, Random random) {
+  public void acceptItems(IToolStackView tool, Consumer<ItemStack> stackConsumer, Random random) {
     ResourceLocation key = getModifier().getId();
     int maxValue;
     // if the tag is missing, return the needed per level (assume its being treated as non-incremental)

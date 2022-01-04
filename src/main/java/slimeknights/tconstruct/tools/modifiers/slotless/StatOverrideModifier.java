@@ -11,8 +11,8 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
@@ -50,13 +50,13 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onRemoved(IModifierToolStack tool) {
+  public void onRemoved(IToolStackView tool) {
     tool.getPersistentData().remove(KEY_BONUS);
     tool.getPersistentData().remove(KEY_MULTIPLY);
   }
 
   /** Processes the stats from Tag into the consumer */
-  private static void processStats(IModDataReadOnly persistentData, ResourceLocation key, StatConsumer consumer) {
+  private static void processStats(IModDataView persistentData, ResourceLocation key, StatConsumer consumer) {
     if (persistentData.contains(key, Tag.TAG_COMPOUND)) {
       CompoundTag nbt = persistentData.getCompound(key);
       for (String name : nbt.getAllKeys()) {
@@ -81,7 +81,7 @@ public class StatOverrideModifier extends SingleUseModifier {
 
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
-    IModDataReadOnly persistentData = context.getPersistentData();
+    IModDataView persistentData = context.getPersistentData();
     processStats(persistentData, KEY_BONUS, (stat, tag) -> update(builder, stat, tag));
     processStats(persistentData, KEY_MULTIPLY, (stat, tag) -> {
       if (stat instanceof INumericToolStat<?> numeric && TagUtil.isNumeric(tag)) {
@@ -97,7 +97,7 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   /** Helper to get descriptions for one of the groups */
-  private static void addToTooltip(IModDataReadOnly persistentData, ResourceLocation groupKey, Component listStart, DecimalFormat format, Consumer<Component> consumer) {
+  private static void addToTooltip(IModDataView persistentData, ResourceLocation groupKey, Component listStart, DecimalFormat format, Consumer<Component> consumer) {
     if (persistentData.contains(groupKey, Tag.TAG_COMPOUND)) {
       CompoundTag stats = persistentData.getCompound(groupKey);
 
@@ -130,7 +130,7 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   @Override
-  public List<Component> getDescriptionList(IModifierToolStack tool, int level) {
+  public List<Component> getDescriptionList(IToolStackView tool, int level) {
     List<Component> defaultList = getDescriptionList(level);
 
     // create the list when we first try to add text
@@ -145,7 +145,7 @@ public class StatOverrideModifier extends SingleUseModifier {
     };
 
     // run all groups
-    IModDataReadOnly persistentData = tool.getPersistentData();
+    IModDataView persistentData = tool.getPersistentData();
     addToTooltip(persistentData, KEY_BONUS,    LANG_BONUS,    Util.BONUS_FORMAT,      consumer);
     addToTooltip(persistentData, KEY_MULTIPLY, LANG_MULTIPLY, Util.MULTIPLIER_FORMAT, consumer);
 
@@ -167,7 +167,7 @@ public class StatOverrideModifier extends SingleUseModifier {
    * @return  Tag, or null if missing and {@code createTag} is false
    */
   @Nullable
-  private static CompoundTag getTag(IModifierToolStack tool, ResourceLocation groupKey, boolean createTag) {
+  private static CompoundTag getTag(IToolStackView tool, ResourceLocation groupKey, boolean createTag) {
     // first, find the proper tag, create if missing
     ModDataNBT data = tool.getPersistentData();
     CompoundTag nbt;
@@ -184,7 +184,7 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   /** Gets the given stat from Tag */
-  private static float getStat(IModifierToolStack tool, ResourceLocation groupKey, INumericToolStat<?> stat, float defaultValue) {
+  private static float getStat(IToolStackView tool, ResourceLocation groupKey, INumericToolStat<?> stat, float defaultValue) {
     ModDataNBT data = tool.getPersistentData();
     if (data.contains(groupKey, Tag.TAG_COMPOUND)) {
       CompoundTag nbt = data.getCompound(groupKey);
@@ -204,7 +204,7 @@ public class StatOverrideModifier extends SingleUseModifier {
    * @param value     New stat value
    * @return  True if the modifier is required to represent this change
    */
-  private static boolean setStat(IModifierToolStack tool, ResourceLocation groupKey, INumericToolStat<?> stat, float value, float neutralValue) {
+  private static boolean setStat(IToolStackView tool, ResourceLocation groupKey, INumericToolStat<?> stat, float value, float neutralValue) {
     CompoundTag nbt = getTag(tool, groupKey, value != neutralValue);
     if (nbt == null) {
       return false;
@@ -230,7 +230,7 @@ public class StatOverrideModifier extends SingleUseModifier {
    * @param stat   Stat to set
    * @param value  New value
    */
-  public <T> boolean set(IModifierToolStack tool, IToolStat<T> stat, T value) {
+  public <T> boolean set(IToolStackView tool, IToolStat<T> stat, T value) {
     // first, find the proper tag, create if missing
     ModDataNBT data = tool.getPersistentData();
     boolean storeValue;
@@ -268,7 +268,7 @@ public class StatOverrideModifier extends SingleUseModifier {
    * @param stat   Stat to update
    * @param bonus  Value to add to current bonus
    */
-  public boolean addBonus(IModifierToolStack tool, INumericToolStat<?> stat, float bonus) {
+  public boolean addBonus(IToolStackView tool, INumericToolStat<?> stat, float bonus) {
     if (bonus != 0) {
       return setStat(tool, KEY_BONUS, stat, getStat(tool, KEY_BONUS, stat, 0) + bonus, 0);
     }
@@ -281,7 +281,7 @@ public class StatOverrideModifier extends SingleUseModifier {
    * @param stat        Stat to set
    * @param multiplier  New multiplier
    */
-  public boolean setMultiplier(IModifierToolStack tool, INumericToolStat<?> stat, float multiplier) {
+  public boolean setMultiplier(IToolStackView tool, INumericToolStat<?> stat, float multiplier) {
     return setStat(tool, KEY_MULTIPLY, stat, multiplier, 1);
   }
 
@@ -291,7 +291,7 @@ public class StatOverrideModifier extends SingleUseModifier {
    * @param stat   Stat to set
    * @param value  New multiplier
    */
-  public boolean multiply(IModifierToolStack tool, INumericToolStat<?> stat, float value) {
+  public boolean multiply(IToolStackView tool, INumericToolStat<?> stat, float value) {
     if (value != 1) {
       return setMultiplier(tool, stat, getStat(tool, KEY_MULTIPLY, stat, 1) * value);
     }
@@ -299,7 +299,7 @@ public class StatOverrideModifier extends SingleUseModifier {
   }
 
   /** Removes the given stat from the bonuses */
-  public <T> boolean remove(IModifierToolStack tool, IToolStat<T> stat) {
+  public <T> boolean remove(IToolStackView tool, IToolStat<T> stat) {
     // create tag if needed
     CompoundTag nbt = getTag(tool, KEY_BONUS, false);
     if (nbt == null) {

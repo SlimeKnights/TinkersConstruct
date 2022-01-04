@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Deals damage in a circle around the primary target */
@@ -24,7 +24,7 @@ public class CircleWeaponAttack implements IWeaponAttack {
   private final float radius;
 
   @Override
-  public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
+  public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
     boolean hit = ToolAttackUtil.dealDefaultDamage(context.getAttacker(), context.getTarget(), damage);
     // only need fully charged for scythe sweep, easier than sword sweep
     if (context.isFullyCharged()) {

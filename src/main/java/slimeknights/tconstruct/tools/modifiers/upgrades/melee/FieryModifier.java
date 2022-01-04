@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.melee;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class FieryModifier extends IncrementalModifier {
   public FieryModifier() {
@@ -11,7 +11,7 @@ public class FieryModifier extends IncrementalModifier {
   }
 
   @Override
-  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // vanilla hack: apply fire so the entity drops the proper items on instant kill
     LivingEntity target = context.getLivingTarget();
     if (target != null && !target.isOnFire()) {
@@ -21,7 +21,7 @@ public class FieryModifier extends IncrementalModifier {
   }
 
   @Override
-  public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {
+  public void failedEntityHit(IToolStackView tool, int level, ToolAttackContext context) {
     // conclusion of vanilla hack: we don't want the target on fire if we did not hit them
     LivingEntity target = context.getLivingTarget();
     if (target != null && target.isOnFire()) {
@@ -30,7 +30,7 @@ public class FieryModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
       target.setRemainingFireTicks(Math.round(getScaledLevel(tool, level) * 5));

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.traits.melee;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class LaceratingModifier extends Modifier {
@@ -12,7 +12,7 @@ public class LaceratingModifier extends Modifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     // 50% chance of applying
     LivingEntity target = context.getLivingTarget();
     if (target != null && context.isFullyCharged() && target.isAlive() && RANDOM.nextFloat() < 0.50f) {

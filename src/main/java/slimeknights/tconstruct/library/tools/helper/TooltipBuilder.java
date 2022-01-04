@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
@@ -40,7 +40,7 @@ public class TooltipBuilder {
   /** Prefixed broken string */
   private static final Component TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().append(TOOLTIP_BROKEN);
 
-  private final IModifierToolStack tool;
+  private final IToolStackView tool;
   @Getter
   private final List<Component> tooltips;
 

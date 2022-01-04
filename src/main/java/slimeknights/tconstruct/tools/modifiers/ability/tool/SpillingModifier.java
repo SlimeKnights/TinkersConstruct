@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
 
@@ -32,7 +32,7 @@ public class SpillingModifier extends TankModifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
     if (isDirectDamage && attacker != null) {
       // 25% chance of working per level
@@ -58,7 +58,7 @@ public class SpillingModifier extends TankModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (damageDealt > 0 && context.isFullyCharged()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {

@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -48,7 +48,7 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public InteractionResult afterEntityUse(IModifierToolStack tool, int level, Player player, LivingEntity target, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult afterEntityUse(IToolStackView tool, int level, Player player, LivingEntity target, InteractionHand hand, EquipmentSlot slotType) {
     if (target instanceof Creeper creeper) {
       player.level.playSound(player, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.FLINTANDSTEEL_USE, creeper.getSoundSource(), 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
       if (!player.level.isClientSide) {
@@ -61,7 +61,7 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
   }
 
   /** Ignites the given block */
-  private static boolean ignite(IModifierToolStack tool, Level world, BlockPos pos, BlockState state, Direction sideHit, Direction horizontalFacing, @Nullable Player player) {
+  private static boolean ignite(IToolStackView tool, Level world, BlockPos pos, BlockState state, Direction sideHit, Direction horizontalFacing, @Nullable Player player) {
     // campfires first
     if (CampfireBlock.canLight(state)) {
       world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
@@ -87,7 +87,7 @@ public class FirestarterModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
     if (tool.isBroken()) {
       return InteractionResult.PASS;
     }

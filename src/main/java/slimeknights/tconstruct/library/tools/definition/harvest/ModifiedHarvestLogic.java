@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.LazyTag;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
   }
 
   @Override
-  public float getDestroySpeed(IModifierToolStack tool, BlockState state) {
+  public float getDestroySpeed(IToolStackView tool, BlockState state) {
     float speed = super.getDestroySpeed(tool, state);
     for (SpeedModifier modifier : speedModifiers) {
       if (modifier.matches(state)) {

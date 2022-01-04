@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -114,7 +114,7 @@ public final class ModifierUtil {
    * @param damageSource   Damage source for looting, may ben null if no attack
    * @return  Looting value for the tool
    */
-  public static int getLootingLevel(IModifierToolStack tool, LivingEntity holder, Entity target, @Nullable DamageSource damageSource) {
+  public static int getLootingLevel(IToolStackView tool, LivingEntity holder, Entity target, @Nullable DamageSource damageSource) {
     if (tool.isBroken()) {
       return 0;
     }
@@ -195,7 +195,7 @@ public final class ModifierUtil {
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
+  public static void addTotalArmorModifierLevel(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
     if (context.getChangedSlot().getType() == Type.ARMOR && (allowBroken || !tool.isBroken())) {
       context.getTinkerData().ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
@@ -215,7 +215,7 @@ public final class ModifierUtil {
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void addTotalArmorModifierLevel(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
+  public static void addTotalArmorModifierLevel(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
     addTotalArmorModifierLevel(tool, context, key, amount, false);
   }
 
@@ -226,7 +226,7 @@ public final class ModifierUtil {
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void addTotalArmorModifierFloat(IModifierToolStack tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
+  public static void addTotalArmorModifierFloat(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
     if (context.getChangedSlot().getType() == Type.ARMOR && !tool.isBroken()) {
       context.getTinkerData().ifPresent(data -> {
         float totalLevels = data.get(key, 0f) + amount;
@@ -284,7 +284,7 @@ public final class ModifierUtil {
   }
 
   /** Checks if a tool can perform the given action */
-  public static boolean canPerformAction(IModifierToolStack tool, ToolAction action) {
+  public static boolean canPerformAction(IToolStackView tool, ToolAction action) {
     if (!tool.isBroken()) {
       // can the tool do this action inherently?
       if (tool.getDefinition().getData().canPerformAction(action)) {

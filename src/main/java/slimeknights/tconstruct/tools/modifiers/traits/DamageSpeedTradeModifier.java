@@ -16,7 +16,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
@@ -49,12 +49,12 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   /** Gets the multiplier for this modifier at the current durability and level */
-  private double getMultiplier(IModifierToolStack tool, int level) {
-    return Math.sqrt(tool.getDamage() * level / tool.getModifier(ToolStats.DURABILITY)) * multiplier;
+  private double getMultiplier(IToolStackView tool, int level) {
+    return Math.sqrt(tool.getDamage() * level / tool.getMultiplier(ToolStats.DURABILITY)) * multiplier;
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     double boost = getMultiplier(tool, level);
     if (boost != 0 && tool.hasTag(TinkerTags.Items.HARVEST)) {
       tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(-boost)).append(" ").append(MINING_SPEED)));
@@ -62,7 +62,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+  public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
     if (slot == EquipmentSlot.MAINHAND) {
       double boost = getMultiplier(tool, level);
       if (boost != 0) {
@@ -73,7 +73,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       event.setNewSpeed((float)(event.getNewSpeed() * (1 - getMultiplier(tool, level))));
     }

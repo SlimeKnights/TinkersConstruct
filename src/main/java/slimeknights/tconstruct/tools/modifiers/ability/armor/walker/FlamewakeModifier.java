@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Block;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class FlamewakeModifier extends AbstractWalkerModifier {
@@ -19,12 +19,12 @@ public class FlamewakeModifier extends AbstractWalkerModifier {
   }
 
   @Override
-  protected float getRadius(IModifierToolStack tool, int level) {
+  protected float getRadius(IToolStackView tool, int level) {
     return 1.5f + tool.getModifierLevel(TinkerModifiers.expanded.get());
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
+  protected void walkOn(IToolStackView tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     // fire starting
     if (BaseFireBlock.canBePlacedAt(world, target, living.getDirection())) {
       world.playSound(null, target, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);

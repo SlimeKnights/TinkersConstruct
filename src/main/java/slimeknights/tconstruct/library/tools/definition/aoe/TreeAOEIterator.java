@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -40,7 +40,7 @@ public class TreeAOEIterator implements IAreaOfEffectIterator {
   }
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(tool, stack, player, state, world, origin, sideHit, width + (expanded + 1) / 2, depth + expanded / 2, matchType);
   }
@@ -59,7 +59,7 @@ public class TreeAOEIterator implements IAreaOfEffectIterator {
    * @param matchType       Match type to use when not a tree
    * @return  Correct iterator for the targeted block
    */
-  public static Iterable<BlockPos> calculate(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, AOEMatchType matchType) {
     Direction depthDir;
     Direction widthDir;
     // if we have expanders, add them in

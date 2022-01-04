@@ -10,7 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 public class GlowingModifier extends InteractionModifier.SingleUse {
@@ -24,7 +24,7 @@ public class GlowingModifier extends InteractionModifier.SingleUse {
   }
   
   @Override
-  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
     Player player = context.getPlayer();
     if (tool.getCurrentDurability() >= 10) {
       if (!context.getLevel().isClientSide) {

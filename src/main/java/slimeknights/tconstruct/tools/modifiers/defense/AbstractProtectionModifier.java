@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 
 /** Base class for protection modifiers that want to keep track of the largest level for a bonus */
@@ -24,7 +24,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   protected void reset(T data) {}
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (slot.getType() == Type.ARMOR && !entity.level.isClientSide) {
@@ -41,7 +41,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (!entity.level.isClientSide && slot.getType() == Type.ARMOR && !tool.isBroken()) {

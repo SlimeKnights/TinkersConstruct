@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class RevengeModifier extends SingleUseModifier {
   public RevengeModifier() {
@@ -18,7 +18,7 @@ public class RevengeModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // must be attacked by entity
     Entity trueSource = source.getEntity();
     LivingEntity living = context.getEntity();
@@ -31,10 +31,10 @@ public class RevengeModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     super.onUnequip(tool, level, context);
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IModifierToolStack replacement = context.getReplacementTool();
+      IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
         // cure effects using the helmet
         context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));

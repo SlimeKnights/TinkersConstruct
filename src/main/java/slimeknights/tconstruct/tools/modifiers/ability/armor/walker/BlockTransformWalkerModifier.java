@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
@@ -26,24 +26,24 @@ public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
   }
 
   @Override
-  protected float getRadius(IModifierToolStack tool, int level) {
+  protected float getRadius(IToolStackView tool, int level) {
     return 1.5f + tool.getModifierLevel(TinkerModifiers.expanded.get());
   }
 
   @Override
-  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return toolAction == this.action;
   }
 
   @Override
-  public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
+  public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     if (living instanceof Player) {
       super.onWalk(tool, level, living, prevPos, newPos);
     }
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
+  protected void walkOn(IToolStackView tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     Material material = world.getBlockState(target).getMaterial();
     if (material.isReplaceable() || material == Material.PLANT) {
       mutable.set(target.getX(), target.getY() - 1, target.getZ());

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.hooks;
 
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** Module for chestplate modifiers to control flight behavior */
 public interface IElytraFlightModifier {
@@ -13,5 +13,5 @@ public interface IElytraFlightModifier {
    * @param flightTicks  Number of ticks the elytra has been in the air
    * @return  True if the elytra should keep flying
    */
-  boolean elytraFlightTick(IModifierToolStack tool, int level, LivingEntity entity, int flightTicks);
+  boolean elytraFlightTick(IToolStackView tool, int level, LivingEntity entity, int flightTicks);
 }

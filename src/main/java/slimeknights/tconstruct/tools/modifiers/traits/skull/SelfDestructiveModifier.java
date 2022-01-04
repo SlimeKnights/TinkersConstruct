@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -38,7 +38,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     if (player.isShiftKeyDown()) {
       player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(FUSE_FINISH, player.tickCount + 30));
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
@@ -61,13 +61,13 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
   }
 
   @Override
-  public void stopArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(FUSE_FINISH));
     restoreSpeed(player);
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     context.getTinkerData().ifPresent(data -> data.remove(FUSE_FINISH));
     restoreSpeed(context.getEntity());
   }

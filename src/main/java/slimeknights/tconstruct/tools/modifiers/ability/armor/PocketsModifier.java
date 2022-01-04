@@ -7,7 +7,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -18,7 +18,7 @@ public class PocketsModifier extends InventoryModifier implements IArmorInteract
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     if (player.isShiftKeyDown()) {
       return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
     }

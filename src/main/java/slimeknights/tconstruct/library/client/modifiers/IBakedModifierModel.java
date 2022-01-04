@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -24,7 +24,7 @@ public interface IBakedModifierModel {
    * @return  Cache key for the given data, or null to not cache anything
    */
   @Nullable
-  default Object getCacheKey(IModifierToolStack tool, ModifierEntry modifier) {
+  default Object getCacheKey(IToolStackView tool, ModifierEntry modifier) {
     return modifier.getModifier();
   }
 
@@ -35,11 +35,11 @@ public interface IBakedModifierModel {
    * @param spriteGetter     Function to fetch sprites
    * @param transforms       Transforms
    * @param isLarge          If true, use the large sprites and quads
-   * @param startTintIndex   First tint index that can be used for this model. Use with {@link #getTintIndexes()} and {@link #getTint(IModifierToolStack, ModifierEntry, int)}, if neither is used this index will not work
+   * @param startTintIndex   First tint index that can be used for this model. Use with {@link #getTintIndexes()} and {@link #getTint(IToolStackView, ModifierEntry, int)}, if neither is used this index will not work
    * @param pixels           Item layer pixels to reduce z-fighting. Pass into methods from {@link slimeknights.mantle.client.model.util.MantleItemLayerModel}
    * @return  List of baked quads
    */
-  ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels);
+  ImmutableList<BakedQuad> getQuads(IToolStackView tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels);
 
   /**
    * Gets the number of tint indexes used by this model
@@ -56,7 +56,7 @@ public interface IBakedModifierModel {
    * @param index  Localized tint index for this modifier, starting from 0. Only considers tint indexes this model handles as per {@link #getTintIndexes()}
    * @return  Color for this quad
    */
-  default int getTint(IModifierToolStack tool, ModifierEntry entry, int index) {
+  default int getTint(IToolStackView tool, ModifierEntry entry, int index) {
     return -1;
   }
 }

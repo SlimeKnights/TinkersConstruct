@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -26,7 +26,7 @@ public class ThornsModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     Entity attacker = source.getEntity();
     if (attacker != null && isDirectDamage) {
@@ -42,7 +42,7 @@ public class ThornsModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     // deals 1 pierce damage per level for unarmed, scaled, half of sharpness
     DamageSource source;
     Player player = context.getPlayerAttacker();
@@ -52,7 +52,7 @@ public class ThornsModifier extends IncrementalModifier {
       source = DamageSource.mobAttack(context.getAttacker());
     }
     source.bypassArmor();
-    float secondaryDamage = (getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE) * 0.75f) * context.getCooldown();
+    float secondaryDamage = (getScaledLevel(tool, level) * tool.getMultiplier(ToolStats.ATTACK_DAMAGE) * 0.75f) * context.getCooldown();
     if (context.isCritical()) {
       secondaryDamage *= 1.5f;
     }
@@ -61,7 +61,7 @@ public class ThornsModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
       addDamageTooltip(tool, getScaledLevel(tool, level) * 0.75f, tooltip);
     }

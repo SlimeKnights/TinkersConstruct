@@ -4,7 +4,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
@@ -17,8 +17,8 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
   }
 
   @Override
-  protected int getShieldCapacity(IModifierToolStack tool, int level) {
-    return (int)(level * 100 * tool.getModifier(ToolStats.DURABILITY));
+  protected int getShieldCapacity(IToolStackView tool, int level) {
+    return (int)(level * 100 * tool.getMultiplier(ToolStats.DURABILITY));
   }
 
   @Override
@@ -28,7 +28,7 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     Iterator<ItemStack> iterator = generatedLoot.iterator();
     int addedShield = 0;
     // 20% chance per level of consuming each stone
@@ -73,13 +73,13 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
 
   @Nullable
   @Override
-  public Boolean showDurabilityBar(IModifierToolStack tool, int level) {
+  public Boolean showDurabilityBar(IToolStackView tool, int level) {
     // only show if we have any shield
     return getShield(tool) > 0 ? true : null;
   }
 
   @Override
-  public int getDurabilityRGB(IModifierToolStack tool, int level) {
+  public int getDurabilityRGB(IToolStackView tool, int level) {
     if (getShield(tool) > 0) {
       // stoneshield shows in light grey
       return 0x7F7F7F;

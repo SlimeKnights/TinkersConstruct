@@ -13,7 +13,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ public class ParticleWeaponAttack implements IWeaponAttack {
   private final SimpleParticleType particle;
 
   @Override
-  public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
+  public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
     boolean hit = ToolAttackUtil.dealDefaultDamage(context.getAttacker(), context.getTarget(), damage);
     if (hit && context.isFullyCharged()) {
       ToolAttackUtil.spawnAttackParticle(particle, context.getAttacker(), 0.8d);

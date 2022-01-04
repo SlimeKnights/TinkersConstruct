@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
   public BaneOfSssssModifier() {
@@ -19,7 +19,7 @@ public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null && isEffective(target)) {
       int duration = 20;

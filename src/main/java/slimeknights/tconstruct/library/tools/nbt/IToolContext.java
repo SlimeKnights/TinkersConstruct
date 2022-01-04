@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import java.util.List;
 
 /**
- * Provides partial access to tool data, essentially a bridge between {@link IModifierToolStack} and {@link slimeknights.tconstruct.library.tools.context.ToolRebuildContext}
+ * Provides partial access to tool data, essentially a bridge between {@link IToolStackView} and {@link slimeknights.tconstruct.library.tools.context.ToolRebuildContext}
  */
 public interface IToolContext {
   /** Gets the item contained in this tool */
@@ -85,11 +85,11 @@ public interface IToolContext {
    * Gets persistent modifier data from the tool.
    * This data may be edited by modifiers and will persist when stats rebuild
    */
-  IModDataReadOnly getPersistentData();
+  IModDataView getPersistentData();
 
   /**
    * Gets volatile modifier data from the tool.
    * This data will be reset whenever modifiers reload and should not be edited.
    */
-  IModDataReadOnly getVolatileData();
+  IModDataView getVolatileData();
 }

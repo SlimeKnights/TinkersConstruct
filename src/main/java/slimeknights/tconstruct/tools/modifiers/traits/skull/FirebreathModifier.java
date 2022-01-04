@@ -11,7 +11,7 @@ import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -22,7 +22,7 @@ public class FirebreathModifier extends SingleUseModifier implements IArmorInter
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     // stopped by water and by cooldown
     if (!player.isShiftKeyDown() && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubble()) {
       // if not creative, this costs a fire charge

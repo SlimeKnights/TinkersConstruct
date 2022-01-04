@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
  */
 @EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class NamespacedNBT implements INamespacedNBTReadOnly {
+public class NamespacedNBT implements INamespacedNBTView {
   /** Compound representing modifier data */
   @Getter(AccessLevel.PROTECTED)
   private final CompoundTag data;

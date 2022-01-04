@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class SilkyShearsAbilityModifier extends ShearsAbilityModifier {
@@ -10,7 +10,7 @@ public class SilkyShearsAbilityModifier extends ShearsAbilityModifier {
   }
   
   @Override
-  protected boolean isShears(IModifierToolStack tool) {
+  protected boolean isShears(IToolStackView tool) {
     return tool.getModifierLevel(TinkerModifiers.silky.get()) > 0;
   }
 

@@ -17,7 +17,7 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class FrostWalkerModifier extends AbstractWalkerModifier implements IArmorWalkModifier {
@@ -26,17 +26,17 @@ public class FrostWalkerModifier extends AbstractWalkerModifier implements IArmo
   }
 
   @Override
-  protected float getRadius(IModifierToolStack tool, int level) {
+  protected float getRadius(IToolStackView tool, int level) {
     return 3 + tool.getModifierLevel(TinkerModifiers.expanded.get());
   }
 
   @Override
-  public boolean isSourceBlocked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
+  public boolean isSourceBlocked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
     return source == DamageSource.HOT_FLOOR;
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
+  protected void walkOn(IToolStackView tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     if (world.isEmptyBlock(target)) {
       BlockState frostedIce = Blocks.FROSTED_ICE.defaultBlockState();
       mutable.set(target.getX(), target.getY() - 1, target.getZ());

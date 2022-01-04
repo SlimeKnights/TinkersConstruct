@@ -28,7 +28,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -42,8 +42,8 @@ import java.util.function.Function;
 public class InteractionHandler {
 
   /**
-   * Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#beforeEntityUse(IModifierToolStack, int, Player, Entity, InteractionHand, EquipmentSlot)}
-   * Also implements {@link slimeknights.tconstruct.library.modifiers.Modifier#afterEntityUse(IModifierToolStack, int, Player, LivingEntity, InteractionHand, EquipmentSlot)} for chestplates
+   * Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#beforeEntityUse(IToolStackView, int, Player, Entity, InteractionHand, EquipmentSlot)}
+   * Also implements {@link slimeknights.tconstruct.library.modifiers.Modifier#afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)} for chestplates
    * TODO: update for main branch
    */
   @SubscribeEvent(priority = EventPriority.LOW)
@@ -110,7 +110,7 @@ public class InteractionHandler {
   }
 
   /** Runs one of the two blockUse hooks for a chestplate */
-  private static InteractionResult onBlockUse(UseOnContext context, IModifierToolStack tool, ItemStack stack, Function<ModifierEntry, InteractionResult> callback) {
+  private static InteractionResult onBlockUse(UseOnContext context, IToolStackView tool, ItemStack stack, Function<ModifierEntry, InteractionResult> callback) {
     Player player = context.getPlayer();
     Level world = context.getLevel();
     BlockInWorld info = new BlockInWorld(world, context.getClickedPos(), false);
@@ -198,7 +198,7 @@ public class InteractionHandler {
     }
   }
 
-  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#onToolUse(IModifierToolStack, int, net.minecraft.world.level.Level, Player, InteractionHand, EquipmentSlot)}, called differently on client and server */
+  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#onToolUse(IToolStackView, int, net.minecraft.world.level.Level, Player, InteractionHand, EquipmentSlot)}, called differently on client and server */
   public static InteractionResult onChestplateUse(Player player, ItemStack chestplate, InteractionHand hand) {
     if (player.getCooldowns().isOnCooldown(chestplate.getItem())) {
       return InteractionResult.PASS;

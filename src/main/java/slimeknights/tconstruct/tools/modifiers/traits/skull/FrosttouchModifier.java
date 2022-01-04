@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class FrosttouchModifier extends TotalArmorLevelModifier {
@@ -16,7 +16,7 @@ public class FrosttouchModifier extends TotalArmorLevelModifier {
   }
 
   @Override
-  public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
+  public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     // must drink milk to melee slowness. Always can range slowness
     if (isDirectDamage) {
       boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());

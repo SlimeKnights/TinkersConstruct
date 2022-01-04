@@ -10,7 +10,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collections;
 import java.util.function.Predicate;
@@ -20,7 +20,7 @@ public interface IAreaOfEffectIterator extends IHaveLoader {
   /** Default iterator, no blocks */
   IAreaOfEffectIterator DEFAULT = new IAreaOfEffectIterator() {
     @Override
-    public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+    public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
       return Collections.emptyList();
     }
 
@@ -45,7 +45,7 @@ public interface IAreaOfEffectIterator extends IHaveLoader {
    * @param matchType   Type of match
    * @return A list of BlockPos's that the AOE tool can affect. Note these positions will likely be mutable
    */
-  Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType);
+  Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType);
 
   /**
    * Gets the predicate for whether a given position can be broken in AOE
@@ -56,7 +56,7 @@ public interface IAreaOfEffectIterator extends IHaveLoader {
    * @param matchType  Match logic
    * @return  Predicate for AOE block matching
    */
-  static Predicate<BlockPos> defaultBlockPredicate(IModifierToolStack tool, ItemStack stack, Level world, BlockPos origin, AOEMatchType matchType) {
+  static Predicate<BlockPos> defaultBlockPredicate(IToolStackView tool, ItemStack stack, Level world, BlockPos origin, AOEMatchType matchType) {
     // requires effectiveness
     if (matchType == AOEMatchType.BREAKING) {
       // don't let hardness vary too much

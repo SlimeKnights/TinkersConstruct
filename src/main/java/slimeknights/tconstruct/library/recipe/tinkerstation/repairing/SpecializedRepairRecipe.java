@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 
@@ -42,7 +42,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   }
 
   @Override
-  protected IMaterial getPrimaryMaterial(IModifierToolStack tool) {
+  protected IMaterial getPrimaryMaterial(IToolStackView tool) {
     return getRepairMaterial();
   }
 

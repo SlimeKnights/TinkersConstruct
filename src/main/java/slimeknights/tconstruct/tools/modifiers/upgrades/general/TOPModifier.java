@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 /** Modifier for compatability with TOP */
@@ -15,7 +15,7 @@ public class TOPModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addRawData(IModifierToolStack tool, int level, RestrictedCompoundTag tag) {
+  public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {
     Item item = tool.getItem();
     if (TinkerTags.Items.HELD.contains(item)) {
       tag.putBoolean(TOP_NBT_HAND, true);
@@ -26,7 +26,7 @@ public class TOPModifier extends SingleUseModifier {
   }
 
   @Override
-  public void beforeRemoved(IModifierToolStack tool, RestrictedCompoundTag tag) {
+  public void beforeRemoved(IToolStackView tool, RestrictedCompoundTag tag) {
     tag.remove(TOP_NBT_HAND);
     tag.remove(TOP_NBT_HELMET);
   }

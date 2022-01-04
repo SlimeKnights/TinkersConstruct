@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.definition.aoe.IBoxExpansion.ExpansionDirections;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -80,7 +80,7 @@ public class BoxAOEIterator implements IAreaOfEffectIterator {
   }
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     // expanded gives an extra width every odd level, and an extra height every even level
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(tool, stack, world, player, origin, sideHit, sizeFor(expanded), direction, matchType);
@@ -98,7 +98,7 @@ public class BoxAOEIterator implements IAreaOfEffectIterator {
    * @param matchType     Type of harvest being performed
    * @return  List of block positions
    */
-  public static Iterable<BlockPos> calculate(IModifierToolStack tool, ItemStack stack, Level world, Player player, BlockPos origin, Direction sideHit, BoxSize extraSize, IBoxExpansion expansionDirection, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Level world, Player player, BlockPos origin, Direction sideHit, BoxSize extraSize, IBoxExpansion expansionDirection, AOEMatchType matchType) {
     // skip if no work
     if (extraSize.isZero()) {
       return Collections.emptyList();

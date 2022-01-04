@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
  * On a typical tool, there are two copies of this class, one for persistent data, and one that rebuilds when the modifiers refresh
  * Note unlike other NBT classes, the data inside this one is mutable as most of it is directly used by the tools.
  */
-public class ModDataNBT extends NamespacedNBT implements IModDataReadOnly {
+public class ModDataNBT extends NamespacedNBT implements IModDataView {
   public ModDataNBT() {}
 
   protected ModDataNBT(CompoundTag nbt) {

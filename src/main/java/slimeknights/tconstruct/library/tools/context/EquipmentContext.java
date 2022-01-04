@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
@@ -23,13 +23,13 @@ public class EquipmentContext {
   /** Determines if the tool in the given slot was fetched */
   protected final boolean[] fetchedTool = new boolean[6];
   /** Array of tools currently on the entity */
-  protected final IModifierToolStack[] toolsInSlots = new IModifierToolStack[6];
+  protected final IToolStackView[] toolsInSlots = new IToolStackView[6];
   /** Cached tinker data capability, saves capability lookup times slightly */
   private LazyOptional<TinkerDataCapability.Holder> tinkerData = null;
 
   /** Gets a tool stack if the stack is modifiable, null otherwise */
   @Nullable
-  protected static IModifierToolStack getToolStackIfModifiable(ItemStack stack) {
+  protected static IToolStackView getToolStackIfModifiable(ItemStack stack) {
     if (!stack.isEmpty() && MODIFIABLE.contains(stack.getItem())) {
       return ToolStack.from(stack);
     }
@@ -42,7 +42,7 @@ public class EquipmentContext {
    * @return  Tool stack in the given slot, or null if the slot is not modifiable
    */
   @Nullable
-  public IModifierToolStack getToolInSlot(EquipmentSlot slotType) {
+  public IToolStackView getToolInSlot(EquipmentSlot slotType) {
     int index = slotType.getFilterFlag();
     if (!fetchedTool[index]) {
       toolsInSlots[index] = getToolStackIfModifiable(entity.getItemBySlot(slotType));

@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Set;
 
@@ -81,7 +81,7 @@ public class EnderportingModifier extends SingleUseModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (!context.isExtraAttack()) {
       LivingEntity target = context.getLivingTarget();
       // if the entity is dead now
@@ -96,7 +96,7 @@ public class EnderportingModifier extends SingleUseModifier {
   }
 
   @Override
-  public void finishBreakingBlocks(IModifierToolStack tool, int level, ToolHarvestContext context) {
+  public void finishBreakingBlocks(IToolStackView tool, int level, ToolHarvestContext context) {
     if (context.canHarvest()) {
       BlockPos pos = context.getPos();
       LivingEntity living = context.getLiving();

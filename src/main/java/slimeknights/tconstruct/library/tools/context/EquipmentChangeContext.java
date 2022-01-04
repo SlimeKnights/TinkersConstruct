@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +21,7 @@ public class EquipmentChangeContext extends EquipmentContext {
   private final ItemStack replacement;
   /** Original tool in the slot, null if the slot does not contain a modifiable item */
   @Nullable @Getter
-  private final IModifierToolStack originalTool;
+  private final IToolStackView originalTool;
 
   public EquipmentChangeContext(LivingEntity entity, EquipmentSlot changedSlot, ItemStack original, ItemStack replacement) {
     super(entity);
@@ -39,7 +39,7 @@ public class EquipmentChangeContext extends EquipmentContext {
    * @return  Tool stack replacing, or null if the slot is not modifable
    */
   @Nullable
-  public IModifierToolStack getReplacementTool() {
+  public IToolStackView getReplacementTool() {
     return getToolInSlot(changedSlot);
   }
 }

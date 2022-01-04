@@ -4,7 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class TemperateModifier extends Modifier {
   private static final float BASELINE_TEMPERATURE = 0.75f;
@@ -14,7 +14,7 @@ public class TemperateModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       BlockPos pos = event.getPos();
       // temperature ranges from 0 to 1.25. Division makes it 0 to 0.125 per level

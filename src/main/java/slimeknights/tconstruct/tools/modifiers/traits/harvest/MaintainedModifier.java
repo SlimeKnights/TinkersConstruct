@@ -10,7 +10,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -59,7 +59,7 @@ public class MaintainedModifier extends Modifier {
    * @param level  Tool levle
    * @return  Total boost
    */
-  protected float getTotalBoost(IModifierToolStack tool, int level) {
+  protected float getTotalBoost(IToolStackView tool, int level) {
     int durability = tool.getCurrentDurability();
     int baseMax = tool.getVolatileData().getInt(KEY_ORIGINAL_DURABILITY);
 
@@ -77,7 +77,7 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost = getTotalBoost(tool, level);
       if (boost != 0) {
@@ -87,7 +87,7 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       event.setNewSpeed(event.getNewSpeed() * (1 + getTotalBoost(tool, level)));
     }

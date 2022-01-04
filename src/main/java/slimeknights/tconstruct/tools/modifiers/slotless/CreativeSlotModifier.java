@@ -9,8 +9,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import java.util.ArrayList;
@@ -26,13 +26,13 @@ public class CreativeSlotModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onRemoved(IModifierToolStack tool) {
+  public void onRemoved(IToolStackView tool) {
     tool.getPersistentData().remove(KEY_SLOTS);
   }
 
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    IModDataReadOnly persistentData = context.getPersistentData();
+    IModDataView persistentData = context.getPersistentData();
     if (persistentData.contains(KEY_SLOTS, Tag.TAG_COMPOUND)) {
       CompoundTag slots = persistentData.getCompound(KEY_SLOTS);
       for (String key : slots.getAllKeys()) {
@@ -52,9 +52,9 @@ public class CreativeSlotModifier extends SingleUseModifier {
   }
 
   @Override
-  public List<Component> getDescriptionList(IModifierToolStack tool, int level) {
+  public List<Component> getDescriptionList(IToolStackView tool, int level) {
     List<Component> tooltip = getDescriptionList(level);
-    IModDataReadOnly persistentData = tool.getPersistentData();
+    IModDataView persistentData = tool.getPersistentData();
     if (persistentData.contains(KEY_SLOTS, Tag.TAG_COMPOUND)) {
       CompoundTag slots = persistentData.getCompound(KEY_SLOTS);
 

@@ -9,7 +9,7 @@ import java.util.function.BiFunction;
 /**
  * Read only view of {@link NamespacedNBT}
  */
-public interface INamespacedNBTReadOnly {
+public interface INamespacedNBTView {
   /**
    * Gets a namespaced key from NBT
    * @param name      Namedspaced key

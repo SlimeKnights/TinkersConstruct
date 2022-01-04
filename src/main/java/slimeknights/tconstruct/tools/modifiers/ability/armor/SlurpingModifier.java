@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeL
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
@@ -36,7 +36,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   @Override
-  public boolean startArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     if (!player.isShiftKeyDown()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
@@ -114,7 +114,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   @Override
-  public void stopArmorInteract(IModifierToolStack tool, int level, Player player, EquipmentSlot slot) {
+  public void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(SLURP_FINISH_TIME));
   }
 

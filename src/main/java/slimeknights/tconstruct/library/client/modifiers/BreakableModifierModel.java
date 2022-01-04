@@ -12,7 +12,7 @@ import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -42,7 +42,7 @@ public class BreakableModifierModel implements IBakedModifierModel {
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
+  public ImmutableList<BakedQuad> getQuads(IToolStackView tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     // first get the cache index
     int index = (isLarge ? 2 : 0) | (tool.isBroken() ? 1 : 0);
     // then return the quads

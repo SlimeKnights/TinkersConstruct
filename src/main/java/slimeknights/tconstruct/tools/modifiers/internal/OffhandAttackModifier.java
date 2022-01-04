@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -40,12 +40,12 @@ public class OffhandAttackModifier extends SingleUseModifier {
   }
 
   /** If true, we can use the attack */
-  protected boolean canAttack(IModifierToolStack tool, Player player, InteractionHand hand) {
+  protected boolean canAttack(IToolStackView tool, Player player, InteractionHand hand) {
     return hand == InteractionHand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player);
   }
 
   @Override
-  public InteractionResult beforeEntityUse(IModifierToolStack tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult beforeEntityUse(IToolStackView tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
     if (canAttack(tool, player, hand)) {
       if (!player.level.isClientSide()) {
         ToolAttackUtil.attackEntity(tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, slotType);
@@ -59,7 +59,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
   }
 
   @Override
-  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     if (canAttack(tool, player, hand)) {
       // target done in onEntityInteract, this is just for cooldown cause you missed
       OffhandCooldownTracker.applyCooldown(player, tool.getStats().get(ToolStats.ATTACK_SPEED), 20);
@@ -71,14 +71,14 @@ public class OffhandAttackModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.OFFHAND) {
       context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(true));
     }
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.OFFHAND) {
       context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(false));
     }

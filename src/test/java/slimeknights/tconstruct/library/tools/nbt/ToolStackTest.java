@@ -85,7 +85,7 @@ class ToolStackTest extends ToolItemTest {
     assertThat(tool.getPersistentData()).isEqualTo(new ModDataNBT());
     assertThat(tool.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
     assertThat(tool.getStats()).isEqualTo(StatsNBT.EMPTY);
-    assertThat(tool.getVolatileData()).isEqualTo(IModDataReadOnly.EMPTY);
+    assertThat(tool.getVolatileData()).isEqualTo(IModDataView.EMPTY);
   }
 
 

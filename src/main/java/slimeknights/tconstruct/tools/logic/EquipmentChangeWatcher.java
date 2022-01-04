@@ -27,7 +27,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -93,7 +93,7 @@ public class EquipmentChangeWatcher {
     EquipmentChangeContext context = new EquipmentChangeContext(entity, changedSlot, original, replacement);
 
     // first, fire event to notify an item was removed
-    IModifierToolStack tool = context.getOriginalTool();
+    IToolStackView tool = context.getOriginalTool();
     if (tool != null) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().onUnequip(tool, entry.getLevel(), context);

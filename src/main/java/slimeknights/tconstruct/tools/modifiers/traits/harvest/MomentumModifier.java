@@ -10,7 +10,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -38,14 +38,14 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       event.setNewSpeed(event.getNewSpeed() * (1 + getBonus(event.getEntityLiving(), level)));
     }
   }
 
   @Override
-  public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {
+  public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {
     if (context.canHarvest() && context.isEffective() && !context.isAOE()) {
       // 16 blocks gets you to max, levels faster at higher levels
       LivingEntity living = context.getLiving();
@@ -57,7 +57,7 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       float bonus;
       if (player != null && key == TooltipKey.SHIFT) {

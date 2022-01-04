@@ -4,7 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -19,7 +19,7 @@ public class SolarPoweredModifier extends SingleUseModifier {
   }
 
   @Override
-  public int onDamageTool(IModifierToolStack tool, int level, int amount, @Nullable LivingEntity holder) {
+  public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
     if (holder != null) {
       Level world = holder.getCommandSenderWorld();
       // note this may go negative, that is not a problem

@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class MobDisguiseModifier extends SingleUseModifier {
   private static final TinkerDataKey<Multiset<EntityType<?>>> DISGUISES = TConstruct.createKey("mob_disguise");
@@ -30,7 +30,7 @@ public class MobDisguiseModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot().getType() == Type.ARMOR) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);
@@ -44,7 +44,7 @@ public class MobDisguiseModifier extends SingleUseModifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot().getType() == Type.ARMOR) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);

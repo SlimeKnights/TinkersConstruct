@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class NecroticModifier extends Modifier {
   public NecroticModifier() {
@@ -13,7 +13,7 @@ public class NecroticModifier extends Modifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (context.isFullyCharged() && damageDealt > 0) {
       // heals between 0 and (level) * 5% of damage dealt
       LivingEntity attacker = context.getAttacker();

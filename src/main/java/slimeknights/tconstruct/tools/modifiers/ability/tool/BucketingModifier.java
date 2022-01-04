@@ -40,7 +40,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 public class BucketingModifier extends TankModifier {
@@ -54,14 +54,14 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1, true);
     }
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1, true);
     }
@@ -93,7 +93,7 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public InteractionResult beforeBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slot) {
+  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slot) {
     if (slot.getType() != EquipmentSlot.Type.ARMOR) {
       return InteractionResult.PASS;
     }
@@ -154,7 +154,7 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public InteractionResult afterBlockUse(IModifierToolStack tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
     // only place fluid if sneaking, we contain at least a bucket, and its a block
     Player player = context.getPlayer();
     if (player == null || !player.isShiftKeyDown()) {
@@ -221,7 +221,7 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     if (player.isCrouching()) {
       return InteractionResult.PASS;
     }

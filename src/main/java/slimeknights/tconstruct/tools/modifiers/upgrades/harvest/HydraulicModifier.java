@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
@@ -41,7 +41,7 @@ public class HydraulicModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (!isEffective) {
       return;
     }
@@ -52,13 +52,13 @@ public class HydraulicModifier extends IncrementalModifier {
       if (!ModifierUtil.hasAquaAffinity(player) && player.isEyeInFluid(FluidTags.WATER)) {
         bonus *= 5;
       }
-      bonus *= getScaledLevel(tool, level) * tool.getModifier(ToolStats.MINING_SPEED) * miningSpeedModifier;
+      bonus *= getScaledLevel(tool, level) * tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier;
       event.setNewSpeed(event.getNewSpeed() + bonus);
     }
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     float bonus = 8;
     if (player != null && key == TooltipKey.SHIFT) {
       bonus = getBonus(player);

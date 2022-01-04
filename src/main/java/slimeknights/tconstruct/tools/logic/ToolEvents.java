@@ -48,7 +48,7 @@ import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -197,7 +197,7 @@ public class ToolEvents {
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
       for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IModifierToolStack toolStack = context.getToolInSlot(slotType);
+        IToolStackView toolStack = context.getToolInSlot(slotType);
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
             if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
@@ -211,7 +211,7 @@ public class ToolEvents {
       // next, give modifiers a chance to respond to the entity being attacked, for counterattack hooks mainly
       // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
       for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IModifierToolStack toolStack = context.getToolInSlot(slotType);
+        IToolStackView toolStack = context.getToolInSlot(slotType);
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
             entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
@@ -226,7 +226,7 @@ public class ToolEvents {
       context = new EquipmentContext(livingAttacker);
       if (context.hasModifiableArmor()) {
         for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-          IModifierToolStack toolStack = context.getToolInSlot(slotType);
+          IToolStackView toolStack = context.getToolInSlot(slotType);
           if (toolStack != null && !toolStack.isBroken()) {
             for (ModifierEntry entry : toolStack.getModifierList()) {
               entry.getModifier().attackWithArmor(toolStack, entry.getLevel(), context, slotType, entity, source, amount, isDirectDamage);
@@ -274,7 +274,7 @@ public class ToolEvents {
     float modifierValue = vanillaModifier;
     float originalDamage = event.getAmount();
     for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      IModifierToolStack tool = context.getToolInSlot(slotType);
+      IToolStackView tool = context.getToolInSlot(slotType);
       if (tool != null && !tool.isBroken()) {
         for (ModifierEntry entry : tool.getModifierList()) {
           modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
@@ -303,7 +303,7 @@ public class ToolEvents {
         if (damageMissed > 0 && entity instanceof Player) {
           for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
             // for our own armor, saves effort to damage directly with our utility
-            IModifierToolStack tool = context.getToolInSlot(slotType);
+            IToolStackView tool = context.getToolInSlot(slotType);
             if (tool != null && (!source.isFire() || !tool.getItem().isFireResistant())) {
               ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType);
             } else {

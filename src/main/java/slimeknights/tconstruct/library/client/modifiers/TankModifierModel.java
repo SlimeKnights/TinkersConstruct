@@ -6,7 +6,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -36,7 +36,7 @@ public class TankModifierModel extends FluidModifierModel {
 
   @Nullable
   @Override
-  public Object getCacheKey(IModifierToolStack tool, ModifierEntry entry) {
+  public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
     if (entry.getModifier() instanceof TankModifier tank) {
       FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
@@ -49,7 +49,7 @@ public class TankModifierModel extends FluidModifierModel {
 
   @Override
   @Nullable
-  protected Material getTemplate(TankModifier tank, IModifierToolStack tool, FluidStack fluid, boolean isLarge) {
+  protected Material getTemplate(TankModifier tank, IToolStackView tool, FluidStack fluid, boolean isLarge) {
     boolean isFull = fluid.getAmount() == tank.getCapacity(tool);
     return fluidTextures[(isFull ? 2 : 0) | (isLarge ? 1 : 0)];
   }

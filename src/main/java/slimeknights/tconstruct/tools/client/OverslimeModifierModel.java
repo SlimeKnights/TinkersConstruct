@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.client.modifiers.IUnbakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
@@ -36,7 +36,7 @@ public class OverslimeModifierModel extends NormalModifierModel {
 
   @Nullable
   @Override
-  public Object getCacheKey(IModifierToolStack tool, ModifierEntry entry) {
+  public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
     Modifier modifier = entry.getModifier();
     if (modifier instanceof OverslimeModifier && ((OverslimeModifier) modifier).getOverslime(tool) == 0) {
       return null;
@@ -45,7 +45,7 @@ public class OverslimeModifierModel extends NormalModifierModel {
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
+  public ImmutableList<BakedQuad> getQuads(IToolStackView tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     Modifier modifier = entry.getModifier();
     if (modifier instanceof OverslimeModifier && ((OverslimeModifier) modifier).getOverslime(tool) == 0) {
       return ImmutableList.of();

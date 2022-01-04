@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.damagesource.DamageSource;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +15,7 @@ public class LootingModifier extends SingleLevelModifier implements IArmorLootMo
   }
 
   @Override
-  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
+  public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting + level;
   }
 

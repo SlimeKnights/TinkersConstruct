@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.TierSortingRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.LazyTag;
 
@@ -24,12 +24,12 @@ public class TagHarvestLogic implements IHarvestLogic {
   }
 
   @Override
-  public boolean isEffective(IModifierToolStack tool, BlockState state) {
+  public boolean isEffective(IToolStackView tool, BlockState state) {
     return state.is(tag) && TierSortingRegistry.isCorrectTierForDrops(tool.getStats().get(ToolStats.HARVEST_TIER), state);
   }
 
   @Override
-  public float getDestroySpeed(IModifierToolStack tool, BlockState state) {
+  public float getDestroySpeed(IToolStackView tool, BlockState state) {
     // destroy speed does not require right tier to boost
     return state.is(tag) ? tool.getStats().get(ToolStats.MINING_SPEED) : 1.0f;
   }

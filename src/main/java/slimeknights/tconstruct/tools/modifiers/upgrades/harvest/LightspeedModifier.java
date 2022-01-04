@@ -9,7 +9,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
@@ -27,7 +27,7 @@ public class LightspeedModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (!isEffective) {
       return;
     }
@@ -35,13 +35,13 @@ public class LightspeedModifier extends IncrementalModifier {
     if (pos != null) {
       int light = event.getPlayer().getCommandSenderWorld().getBrightness(LightLayer.BLOCK, pos.relative(sideHit));
       // bonus is +9 mining speed at light level 15, +3 at light level 10, +1 at light level 5
-      float boost = (float)(level * Math.pow(3, (light - 5) / 5f) * tool.getModifier(ToolStats.MINING_SPEED) * miningSpeedModifier);
+      float boost = (float)(level * Math.pow(3, (light - 5) / 5f) * tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier);
       event.setNewSpeed(event.getNewSpeed() + boost);
     }
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addStatTooltip(tool, ToolStats.MINING_SPEED, TinkerTags.Items.HARVEST, 9 * getScaledLevel(tool, level), tooltip);
   }
 }

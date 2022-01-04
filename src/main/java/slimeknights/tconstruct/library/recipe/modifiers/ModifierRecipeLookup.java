@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -84,7 +84,7 @@ public class ModifierRecipeLookup {
    *               However, if addons do really hacky things the actual stack corresponding to {@code tool} might matter.
    * @param tool   Tool instance to check
    */
-  public static ValidatedResult checkRequirements(ItemStack stack, IModifierToolStack tool) {
+  public static ValidatedResult checkRequirements(ItemStack stack, IToolStackView tool) {
     List<ModifierEntry> modifiers = tool.getModifierList();
     for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
       for (ModifierRequirements requirements : getRequirements(entry.getModifier())) {
@@ -149,7 +149,7 @@ public class ModifierRecipeLookup {
    * @return  Salvage recipe, or null if no salvage is found
    */
   @Nullable
-  public static AbstractModifierSalvage getSalvage(ItemStack stack, IModifierToolStack tool, Modifier modifier, int modifierLevel) {
+  public static AbstractModifierSalvage getSalvage(ItemStack stack, IToolStackView tool, Modifier modifier, int modifierLevel) {
     for (AbstractModifierSalvage salvage : SALVAGE.get(modifier)) {
       if (salvage.matches(stack, tool, modifierLevel)) {
         return salvage;

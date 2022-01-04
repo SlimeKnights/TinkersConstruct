@@ -9,9 +9,9 @@ import java.util.function.BiFunction;
 /**
  * Read only view of {@link ModDataNBT}
  */
-public interface IModDataReadOnly extends INamespacedNBTReadOnly {
+public interface IModDataView extends INamespacedNBTView {
   /** Empty variant of mod data */
-  IModDataReadOnly EMPTY = new IModDataReadOnly() {
+  IModDataView EMPTY = new IModDataView() {
     @Override
     public int getSlots(SlotType type) {
       return 0;

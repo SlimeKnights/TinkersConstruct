@@ -75,7 +75,7 @@ public class ToolRenderEvents {
     if (!ToolHarvestLogic.isEffective(tool, state)) {
       return;
     }
-    Iterator<BlockPos> extraBlocks = tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getDirection(), IAreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
+    Iterator<BlockPos> extraBlocks = tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getDirection(), IAreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }
@@ -152,7 +152,7 @@ public class ToolRenderEvents {
     if (!ToolHarvestLogic.isEffective(tool, state)) {
       return;
     }
-    Iterator<BlockPos> extraBlocks = tool.getDefinition().getData().getAOE().getAOEBlocks(tool, stack, player, state, world, target, blockTrace.getDirection(), IAreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
+    Iterator<BlockPos> extraBlocks = tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, state, world, target, blockTrace.getDirection(), IAreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }

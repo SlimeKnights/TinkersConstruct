@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
@@ -51,7 +51,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   }
 
   @Override
-  public boolean canPerformAction(IModifierToolStack tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     if (isShears(tool)) {
       return toolAction == ToolActions.SHEARS_DIG || toolAction == ToolActions.SHEARS_HARVEST || toolAction == ToolActions.SHEARS_CARVE || toolAction == ToolActions.SHEARS_DISARM;
     }
@@ -63,12 +63,12 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
    *
    * @param tool  Current tool instance
    */
-  protected boolean isShears(IModifierToolStack tool) {
+  protected boolean isShears(IToolStackView tool) {
     return true;
   }
 
   @Override
-  public InteractionResult beforeEntityUse(IModifierToolStack tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult beforeEntityUse(IToolStackView tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
     if (tool.isBroken()) {
       return InteractionResult.PASS;
     }
@@ -110,7 +110,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   }
 
   /** Runs the hook after shearing an entity */
-  private static void runShearHook(IModifierToolStack tool, Player player, Entity entity, boolean isTarget) {
+  private static void runShearHook(IToolStackView tool, Player player, Entity entity, boolean isTarget) {
     for (ModifierEntry entry : tool.getModifierList()) {
       IShearModifier shearModifier = entry.getModifier().getModule(IShearModifier.class);
       if (shearModifier != null) {
@@ -129,7 +129,7 @@ public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
    * @param fortune the fortune to apply to the sheared entity
    * @return if the sheering of the entity was performed or not
    */
-  private static boolean shearEntity(ItemStack itemStack, IModifierToolStack tool, Level world, Player player, Entity entity, int fortune) {
+  private static boolean shearEntity(ItemStack itemStack, IToolStackView tool, Level world, Player player, Entity entity, int fortune) {
     // event to override entity shearing
     Result result = new ToolShearEvent(itemStack, tool, world, player, entity, fortune).fire();
     if (result != Result.DEFAULT) {

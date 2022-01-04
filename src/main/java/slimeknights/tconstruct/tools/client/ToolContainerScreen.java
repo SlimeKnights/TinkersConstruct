@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
 import slimeknights.tconstruct.library.tools.layout.Patterns;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
@@ -47,7 +47,7 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
   /** Number of slots in the final row */
   private final int slotsInLastRow;
   /** Tool instance being rendered */
-  private final IModifierToolStack tool;
+  private final IToolStackView tool;
   public ToolContainerScreen(ToolContainerMenu menu, Inventory inv, Component title) {
     super(menu, inv, title);
     int slots = menu.getItemHandler().getSlots();

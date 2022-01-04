@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.modifiers;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
@@ -17,7 +17,7 @@ public class IncrementalModifier extends Modifier {
   }
 
   @Override
-  public Component getDisplayName(IModifierToolStack tool, int level) {
+  public Component getDisplayName(IToolStackView tool, int level) {
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
     Component name = this.getDisplayName(level);
     if (neededPerLevel > 0) {
@@ -30,7 +30,7 @@ public class IncrementalModifier extends Modifier {
   }
 
   @Override
-  public void onRemoved(IModifierToolStack tool) {
+  public void onRemoved(IToolStackView tool) {
     // remove current progress in incremental modifiers
     tool.getPersistentData().remove(getId());
   }
@@ -43,7 +43,7 @@ public class IncrementalModifier extends Modifier {
    * @param modifier        Modifier instance
    * @return  Amount applied to the tool
    */
-  public static int getAmount(IModDataReadOnly persistentData, Modifier modifier) {
+  public static int getAmount(IModDataView persistentData, Modifier modifier) {
     if (persistentData.contains(modifier.getId(), Tag.TAG_ANY_NUMERIC)) {
       return persistentData.getInt(modifier.getId());
     }
@@ -65,7 +65,7 @@ public class IncrementalModifier extends Modifier {
    * @param persistentData  Tool persistent mod NBT
    * @return  Amount
    */
-  public int getAmount(IModDataReadOnly persistentData) {
+  public int getAmount(IModDataView persistentData) {
     return getAmount(persistentData, this);
   }
 
@@ -84,7 +84,7 @@ public class IncrementalModifier extends Modifier {
    * @param level  Modifier level
    * @return  Level, possibly reduced by an incomplete level
    */
-  public float getScaledLevel(IModDataReadOnly persistentData, int level) {
+  public float getScaledLevel(IModDataView persistentData, int level) {
     if (level <= 0) {
       return 0;
     }
@@ -124,7 +124,7 @@ public class IncrementalModifier extends Modifier {
    * @param levelAmount  Bonus per level
    * @param tooltip      Tooltip
    */
-  protected void addDamageTooltip(IModifierToolStack tool, int level, float levelAmount, List<Component> tooltip) {
+  protected void addDamageTooltip(IToolStackView tool, int level, float levelAmount, List<Component> tooltip) {
     addDamageTooltip(tool, getScaledLevel(tool, level) * levelAmount, tooltip);
   }
 }

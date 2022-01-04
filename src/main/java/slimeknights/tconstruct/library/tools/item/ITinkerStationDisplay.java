@@ -15,7 +15,7 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -41,7 +41,7 @@ public interface ITinkerStationDisplay extends ItemLike {
    * @param tooltips     List of tooltips for display
    * @param tooltipFlag  Determines the type of tooltip to display
    */
-  default List<Component> getStatInformation(IModifierToolStack tool, @Nullable Player player, List<Component> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
+  default List<Component> getStatInformation(IToolStackView tool, @Nullable Player player, List<Component> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
     tooltips = TooltipUtil.getDefaultStats(tool, player, tooltips, key, tooltipFlag);
     TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_MELEE_ATTRIBUTES, EquipmentSlot.MAINHAND);
     return tooltips;
@@ -53,7 +53,7 @@ public interface ITinkerStationDisplay extends ItemLike {
    * @param slot   Slot with attributes
    * @return  Attribute map
    */
-  default Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlot slot) {
+  default Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
     return ImmutableMultimap.of();
   }
 

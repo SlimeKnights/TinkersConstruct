@@ -31,7 +31,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.SafeClientAccess;
@@ -94,7 +94,7 @@ public class TooltipUtil {
    * @param tool   Tool instance
    * @return  Display name including the head material
    */
-  public static Component getDisplayName(ItemStack stack, @Nullable IModifierToolStack tool, ToolDefinition toolDefinition) {
+  public static Component getDisplayName(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition toolDefinition) {
     List<PartRequirement> components = toolDefinition.getData().getParts();
     Component baseName = new TranslatableComponent(stack.getDescriptionId());
     if (components.isEmpty()) {
@@ -178,7 +178,7 @@ public class TooltipUtil {
    * @param tool       Tool instance
    * @param tooltips   Tooltip list
    */
-  public static void addModifierNames(ItemStack stack, IModifierToolStack tool, List<Component> tooltips) {
+  public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().shouldDisplay(false)) {
         tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
@@ -203,7 +203,7 @@ public class TooltipUtil {
    * @param tool      Tool stack instance
    * @param tooltips  Tooltip list
    */
-  public static void getDefaultInfo(ItemStack stack, IModifierToolStack tool, List<Component> tooltips) {
+  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
     // shows as broken when broken, hold shift for proper durability
     if (tool.getItem().canBeDepleted() && !tool.isUnbreakable()) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
@@ -225,7 +225,7 @@ public class TooltipUtil {
    * @param flag      Tooltip flag
    * @return List from the parameter after filling
    */
-  public static List<Component> getDefaultStats(IModifierToolStack tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public static List<Component> getDefaultStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     Item item = tool.getItem();
     if (TinkerTags.Items.DURABILITY.contains(item)) {
@@ -257,7 +257,7 @@ public class TooltipUtil {
    * @param flag      Tooltip flag
    * @return List from the parameter after filling
    */
-  public static List<Component> getArmorStats(IModifierToolStack tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public static List<Component> getArmorStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     Item item = tool.getItem();
     if (TinkerTags.Items.DURABILITY.contains(item)) {
@@ -324,7 +324,7 @@ public class TooltipUtil {
    * @param showAttribute  Predicate to determine whether an attribute should show
    * @param slots          List of slots to display
    */
-  public static void addAttributes(ITinkerStationDisplay item, IModifierToolStack tool, @Nullable Player player, List<Component> tooltip, BiPredicate<Attribute, Operation> showAttribute, EquipmentSlot... slots) {
+  public static void addAttributes(ITinkerStationDisplay item, IToolStackView tool, @Nullable Player player, List<Component> tooltip, BiPredicate<Attribute, Operation> showAttribute, EquipmentSlot... slots) {
     for (EquipmentSlot slot : slots) {
       Multimap<Attribute,AttributeModifier> modifiers = item.getAttributeModifiers(tool, slot);
       if (!modifiers.isEmpty()) {

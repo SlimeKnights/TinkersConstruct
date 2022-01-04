@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.LazyTag;
 
 /** Iterator that tries one iterator, falling back to a second if the block does not match a tag */
@@ -39,9 +39,9 @@ public class FallbackAOEIterator implements IAreaOfEffectIterator {
   }
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     IAreaOfEffectIterator iterator = state.is(tag) ? taggedIterator : fallbackIterator;
-    return iterator.getAOEBlocks(tool, stack, player, state, world, origin, sideHit, matchType);
+    return iterator.getBlocks(tool, stack, player, state, world, origin, sideHit, matchType);
   }
 
   private static class Loader implements IGenericLoader<FallbackAOEIterator> {

@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -36,14 +36,14 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   }
 
   @Override
-  public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {
+  public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {
     if (!context.isAOE()) {
       TinkerModifiers.magneticEffect.get().apply(context.getLiving(), 30, level - 1);
     }
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (!context.isExtraAttack()) {
       TinkerModifiers.magneticEffect.get().apply(context.getAttacker(), 30, level - 1);
     }
@@ -51,7 +51,7 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   }
 
   @Override
-  public void afterHarvest(IModifierToolStack tool, int level, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos) {
+  public void afterHarvest(IToolStackView tool, int level, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos) {
     Player player = context.getPlayer();
     if (player != null) {
       TinkerModifiers.magneticEffect.get().apply(player, 30, level - 1);
@@ -59,7 +59,7 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   }
 
   @Override
-  public void afterShearEntity(IModifierToolStack tool, int level, Player player, Entity entity, boolean isTarget) {
+  public void afterShearEntity(IToolStackView tool, int level, Player player, Entity entity, boolean isTarget) {
     if (isTarget) {
       TinkerModifiers.magneticEffect.get().apply(player, 30, level - 1);
     }

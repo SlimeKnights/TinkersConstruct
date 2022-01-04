@@ -7,7 +7,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class TwoHandedAbilityModifier extends SingleUseModifier {
 	public TwoHandedAbilityModifier() {
@@ -25,7 +25,7 @@ public class TwoHandedAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public InteractionResult onToolUse(IModifierToolStack tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
     return slotType.getType() == Type.ARMOR ? InteractionResult.CONSUME : InteractionResult.PASS;
   }
 }

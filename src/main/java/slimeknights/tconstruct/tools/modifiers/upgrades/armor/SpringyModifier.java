@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -26,7 +26,7 @@ public class SpringyModifier extends Modifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getEntity();
     if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker) {
@@ -36,7 +36,7 @@ public class SpringyModifier extends Modifier {
           // each slot attempts to apply, we keep the largest one, consistent with other counter attack modifiers
           float bestBonus = 0;
           for (EquipmentSlot bouncingSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
-            IModifierToolStack bouncingTool = context.getToolInSlot(bouncingSlot);
+            IToolStackView bouncingTool = context.getToolInSlot(bouncingSlot);
             if (bouncingTool != null && !bouncingTool.isBroken()) {
               // 15% chance per level of it applying
               if (RANDOM.nextFloat() < (level * 0.25f)) {
@@ -59,7 +59,7 @@ public class SpringyModifier extends Modifier {
   }
 
   @Override
-  public void onUnequip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     // remove slot in charge if that is us
     EquipmentSlot slot = context.getChangedSlot();
     if (!tool.isBroken() && slot.getType() == Type.ARMOR && !context.getEntity().level.isClientSide) {
@@ -73,7 +73,7 @@ public class SpringyModifier extends Modifier {
   }
 
   @Override
-  public void onEquip(IModifierToolStack tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     EquipmentSlot slot = context.getChangedSlot();
     if (!tool.isBroken() && slot.getType() == Type.ARMOR && !context.getEntity().level.isClientSide) {
       context.getTinkerData().ifPresent(data -> {
@@ -87,7 +87,7 @@ public class SpringyModifier extends Modifier {
     }
   }
   @Override
-  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // unarmed bonus
     return knockback + level * 0.5f;
   }

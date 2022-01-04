@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
@@ -46,7 +46,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
    * @param material  Material to try
    * @return  Index if can repair, -1 if invalid
    */
-  public static int getRepairIndex(IModifierToolStack tool, IMaterial material) {
+  public static int getRepairIndex(IToolStackView tool, IMaterial material) {
     for (int part : tool.getDefinition().getRepairParts()) {
       if (tool.getMaterial(part) == material) {
         return part;
@@ -77,7 +77,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
 
   /** Gets the default stats ID to use if the item is not a tool part */
   @Nullable
-  public static MaterialStatsId getDefaultStatsId(IModifierToolStack tool, IMaterial repairMaterial) {
+  public static MaterialStatsId getDefaultStatsId(IToolStackView tool, IMaterial repairMaterial) {
     int repairIndex = getRepairIndex(tool, repairMaterial);
     if (repairIndex < 0) {
       return null; // default to the first repair stats
@@ -188,7 +188,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   /** Gets the primary material of the given tool */
-  protected IMaterial getPrimaryMaterial(IModifierToolStack tool) {
+  protected IMaterial getPrimaryMaterial(IToolStackView tool) {
     return tool.getMaterial(tool.getDefinition().getRepairParts()[0]);
   }
 
@@ -211,7 +211,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   /** Gets the repair weight for the given material */
-  public static float getRepairWeight(IModifierToolStack tool, IMaterial repairMaterial) {
+  public static float getRepairWeight(IToolStackView tool, IMaterial repairMaterial) {
     ToolDefinition definition = tool.getDefinition();
     // return the weight of the largest part matching this material
     return IntStream.of(definition.getRepairParts())

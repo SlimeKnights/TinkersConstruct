@@ -13,19 +13,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
-
-import net.minecraftforge.eventbus.api.Event.HasResult;
-import net.minecraftforge.eventbus.api.Event.Result;
 
 @AllArgsConstructor
 @Getter
 public abstract class TinkerToolEvent extends Event {
   private final ItemStack stack;
-  private final IModifierToolStack tool;
+  private final IToolStackView tool;
   public TinkerToolEvent(ItemStack stack) {
     this.stack = stack;
     this.tool = ToolStack.from(stack);
@@ -44,7 +41,7 @@ public abstract class TinkerToolEvent extends Event {
     private final BlockPos pos;
     private final EquipmentSlot slotType;
 
-    public ToolHarvestEvent(IModifierToolStack tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
+    public ToolHarvestEvent(IToolStackView tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
       super(getItem(context, slotType), tool);
       this.context = context;
       this.world = world;
@@ -84,7 +81,7 @@ public abstract class TinkerToolEvent extends Event {
     private final Player player;
     private final Entity target;
     private final int fortune;
-    public ToolShearEvent(ItemStack stack, IModifierToolStack tool, Level world, Player player, Entity target, int fortune) {
+    public ToolShearEvent(ItemStack stack, IToolStackView tool, Level world, Player player, Entity target, int fortune) {
       super(stack, tool);
       this.world = world;
       this.player = player;

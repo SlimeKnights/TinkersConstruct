@@ -35,8 +35,8 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
@@ -77,7 +77,7 @@ public class ModifierClientEvents {
     if (mainhand.is(TinkerTags.Items.TWO_HANDED)) {
       ToolStack tool = ToolStack.from(mainhand);
       // special support for replacing modifier
-      IModDataReadOnly volatileData = tool.getVolatileData();
+      IModDataView volatileData = tool.getVolatileData();
       boolean noInteraction = volatileData.getBoolean(IModifiable.NO_INTERACTION);
       if (!noInteraction && !volatileData.getBoolean(IModifiable.DEFER_OFFHAND)) {
         if (!(offhand.getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
@@ -130,7 +130,7 @@ public class ModifierClientEvents {
     EquipmentChangeContext context = event.getContext();
     if (Config.CLIENT.renderShieldSlotItem.get()) {
       if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.LEGS) {
-        IModifierToolStack tool = context.getToolInSlot(EquipmentSlot.LEGS);
+        IToolStackView tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
           ShieldStrapModifier modifier = TinkerModifiers.shieldStrap.get();
           int level = tool.getModifierLevel(modifier);
@@ -146,7 +146,7 @@ public class ModifierClientEvents {
     if (Config.CLIENT.renderItemFrame.get()) {
       if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.HEAD) {
         itemFrames.clear();
-        IModifierToolStack tool = context.getToolInSlot(EquipmentSlot.HEAD);
+        IToolStackView tool = context.getToolInSlot(EquipmentSlot.HEAD);
         if (tool != null) {
           ItemFrameModifier modifier = TinkerModifiers.itemFrame.get();
           int level = tool.getModifierLevel(modifier);

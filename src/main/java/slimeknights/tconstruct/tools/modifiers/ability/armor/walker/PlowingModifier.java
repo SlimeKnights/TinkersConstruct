@@ -14,7 +14,7 @@ import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -30,19 +30,19 @@ public class PlowingModifier extends AbstractWalkerModifier {
   }
 
   @Override
-  public void onWalk(IModifierToolStack tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
+  public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     super.onWalk(tool, level, living, prevPos, newPos);
     // clear the context to prevent memory leaks
     context = null;
   }
 
   @Override
-  protected float getRadius(IModifierToolStack tool, int level) {
+  protected float getRadius(IToolStackView tool, int level) {
     return 1.5f + tool.getModifierLevel(TinkerModifiers.expanded.get());
   }
 
   @Override
-  protected void walkOn(IModifierToolStack tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
+  protected void walkOn(IToolStackView tool, int level, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable) {
     if (world.isEmptyBlock(target)) {
       mutable.set(target.getX(), target.getY() - 1, target.getZ());
       Pair<Predicate<UseOnContext>,Consumer<UseOnContext>> pair = HoeItem.TILLABLES.get(world.getBlockState(mutable).getBlock());

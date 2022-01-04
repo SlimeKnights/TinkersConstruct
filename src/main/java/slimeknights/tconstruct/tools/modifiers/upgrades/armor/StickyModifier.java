@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class StickyModifier extends IncrementalModifier {
   public StickyModifier() {
@@ -28,7 +28,7 @@ public class StickyModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onAttacked(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
     if (isDirectDamage && attacker instanceof LivingEntity) {
       // 15% chance of working per level
@@ -41,7 +41,7 @@ public class StickyModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
       target.addEffect(getEffect(getScaledLevel(tool, level)));

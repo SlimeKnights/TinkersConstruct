@@ -4,7 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifier;
@@ -18,7 +18,7 @@ public class DenseModifier extends ReinforcedModifier {
   }
 
   @Override
-  public float getRepairFactor(IModifierToolStack toolStack, int level, float factor) {
+  public float getRepairFactor(IToolStackView toolStack, int level, float factor) {
     // the scale used by reinforced was quite nice to use for reduction here, so 25% loss at level 1, etc.
     // by level 5, you will be repairing at 25% efficiency, at level 10 its 0%
     return factor * (1 - super.getPercentage(level));
@@ -31,7 +31,7 @@ public class DenseModifier extends ReinforcedModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     tooltip.add(applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(getPercentage(getScaledLevel(tool, level))) + " ")
                              .append(makeDisplayName())));
   }

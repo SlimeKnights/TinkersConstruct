@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -112,7 +113,7 @@ public class ToolDefinitionData {
   /**
    * Gets the multiplier for this stat to use for modifiers
    *
-   * In most cases, its better to use {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack#getModifier(INumericToolStat)} as that takes the modifier multiplier into account
+   * In most cases, its better to use {@link IToolStackView#getMultiplier(INumericToolStat)} as that takes the modifier multiplier into account
    */
   public float getMultiplier(INumericToolStat<?> toolStat) {
     return getStats().getMultipliers().get(toolStat);

@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.RandomItem;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -34,7 +34,7 @@ public class ModifierSalvage extends AbstractModifierSalvage {
   }
 
   @Override
-  public void acceptItems(IModifierToolStack tool, Consumer<ItemStack> stackConsumer, Random random) {
+  public void acceptItems(IToolStackView tool, Consumer<ItemStack> stackConsumer, Random random) {
     for (RandomItem randomItem : result) {
       ItemStack stack = randomItem.get(random);
       if (!stack.isEmpty()) {

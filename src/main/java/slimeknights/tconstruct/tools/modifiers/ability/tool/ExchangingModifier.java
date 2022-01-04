@@ -15,7 +15,7 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
 
 public class ExchangingModifier extends SingleUseModifier {
@@ -30,7 +30,7 @@ public class ExchangingModifier extends SingleUseModifier {
   }
 
   @Override
-  public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
+  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
     // must have blocks in the offhand
     ItemStack offhand = context.getLiving().getOffhandItem();
     BlockState state = context.getState();

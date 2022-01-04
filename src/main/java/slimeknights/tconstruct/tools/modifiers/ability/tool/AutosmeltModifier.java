@@ -12,7 +12,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.SingleItemContainer;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -93,7 +93,7 @@ public class AutosmeltModifier extends SingleUseModifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     Level world = context.getLevel();
     if (!generatedLoot.isEmpty()) {
       return generatedLoot.stream()

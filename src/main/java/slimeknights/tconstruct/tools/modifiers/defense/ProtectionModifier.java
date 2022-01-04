@@ -10,7 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -23,7 +23,7 @@ public class ProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public float getProtectionModifier(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul()) {
       modifierValue += getScaledLevel(tool, level);
     }
@@ -31,7 +31,7 @@ public class ProtectionModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addResistanceTooltip(this, tool, level, 1.0f, tooltip);
   }
 
@@ -43,7 +43,7 @@ public class ProtectionModifier extends IncrementalModifier {
    * @param multiplier  Amount per level
    * @param tooltip     Tooltip to show
    */
-  public static void addResistanceTooltip(IncrementalModifier modifier, IModifierToolStack tool, int level, float multiplier, List<Component> tooltip) {
+  public static void addResistanceTooltip(IncrementalModifier modifier, IToolStackView tool, int level, float multiplier, List<Component> tooltip) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
       tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(modifier.getScaledLevel(tool, level) * multiplier / 25f))
                                .append(" ")

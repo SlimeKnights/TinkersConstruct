@@ -10,7 +10,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
@@ -30,17 +30,17 @@ public class LuckModifier extends Modifier implements IArmorLootModifier {
   }
 
   @Override
-  public Component getDisplayName(IModifierToolStack tool, int level) {
+  public Component getDisplayName(IToolStackView tool, int level) {
     return super.getDisplayName(tool, level);
   }
 
   @Override
-  public void applyHarvestEnchantments(IModifierToolStack tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
+  public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
     consumer.accept(Enchantments.BLOCK_FORTUNE, level);
   }
 
   @Override
-  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
+  public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting + level;
   }
 

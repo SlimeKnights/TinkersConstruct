@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -50,16 +50,16 @@ public class EmeraldModifier extends SingleLevelModifier {
   }
 
   @Override
-  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+  public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     LivingEntity living = context.getLivingTarget();
     if (living != null && living.getMobType() == MobType.ILLAGER) {
-      damage += level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE);
+      damage += level * 2.5f * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addDamageTooltip(tool, level * 2.5f, tooltip);
   }
 }

@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.damagesource.DamageSource;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class WildfireModifier extends SingleUseModifier {
   public WildfireModifier() {
@@ -13,7 +13,7 @@ public class WildfireModifier extends SingleUseModifier {
   }
 
   @Override
-  public void attackWithArmor(IModifierToolStack tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
+  public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     if (isDirectDamage && !source.isProjectile()) {
       int fire = context.getEntity().getRemainingFireTicks();
       if (fire > 0) {
