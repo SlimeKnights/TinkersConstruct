@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.content;
+package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
@@ -20,8 +20,8 @@ import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.book.elements.CycleRecipeElement;
-import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
+import slimeknights.tconstruct.library.client.book.elements.CycleRecipeElement;
+import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.content;
+package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.Lists;
 import slimeknights.mantle.client.book.data.BookData;
@@ -7,7 +7,7 @@ import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
-import slimeknights.tconstruct.library.book.elements.ListingCenteredElement;
+import slimeknights.tconstruct.library.client.book.elements.ListingCenteredElement;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

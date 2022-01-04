@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.elements;
+package slimeknights.tconstruct.library.client.book.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -11,7 +11,7 @@ import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.screen.book.ArrowButton;
 import slimeknights.mantle.client.screen.book.element.ArrowElement;
 import slimeknights.mantle.client.screen.book.element.BookElement;
-import slimeknights.tconstruct.library.book.content.ContentModifier;
+import slimeknights.tconstruct.library.client.book.content.ContentModifier;
 
 import java.util.ArrayList;
 import java.util.Collections;

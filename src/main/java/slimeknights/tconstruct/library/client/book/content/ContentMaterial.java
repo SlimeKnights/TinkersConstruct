@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.content;
+package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -26,7 +26,7 @@ import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
+import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -114,6 +114,7 @@ public class ContentMaterial extends PageContent {
   }
 
   /** Gets the title of this page to display in the index */
+  @Override
   public Component getTitle() {
     return getMaterial().getDisplayName();
   }

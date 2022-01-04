@@ -1,14 +1,12 @@
-package slimeknights.tconstruct.library.book.sectiontransformer;
+package slimeknights.tconstruct.library.client.book.sectiontransformer;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.transformer.ContentGroupingSectionTransformer;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.book.content.ContentModifier;
+import slimeknights.tconstruct.library.client.book.content.ContentModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-
-import slimeknights.mantle.client.book.transformer.ContentGroupingSectionTransformer.GroupingBuilder;
 
 /** Section transformer to generate an index with modifier names */
 public class ModifierSectionTransformer extends ContentGroupingSectionTransformer {

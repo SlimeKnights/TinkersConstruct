@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.elements;
+package slimeknights.tconstruct.library.client.book.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;

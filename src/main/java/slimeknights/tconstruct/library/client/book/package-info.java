@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.book.content;
+package slimeknights.tconstruct.library.client.book;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

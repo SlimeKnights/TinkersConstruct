@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.book.sectiontransformer.materials;
+package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

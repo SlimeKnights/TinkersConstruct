@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.content;
+package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
+import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;

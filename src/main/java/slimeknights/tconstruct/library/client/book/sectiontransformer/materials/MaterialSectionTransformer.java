@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.sectiontransformer.materials;
+package slimeknights.tconstruct.library.client.book.sectiontransformer.materials;
 
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 

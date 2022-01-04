@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.elements;
+package slimeknights.tconstruct.library.client.book.elements;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;

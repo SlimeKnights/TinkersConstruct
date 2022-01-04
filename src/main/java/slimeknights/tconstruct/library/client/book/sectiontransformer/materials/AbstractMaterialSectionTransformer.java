@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.sectiontransformer.materials;
+package slimeknights.tconstruct.library.client.book.sectiontransformer.materials;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
@@ -7,8 +7,8 @@ import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.mantle.client.book.transformer.SectionTransformer;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
-import slimeknights.tconstruct.library.book.content.ContentMaterial;
-import slimeknights.tconstruct.library.book.content.ContentPageIconList;
+import slimeknights.tconstruct.library.client.book.content.ContentMaterial;
+import slimeknights.tconstruct.library.client.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 

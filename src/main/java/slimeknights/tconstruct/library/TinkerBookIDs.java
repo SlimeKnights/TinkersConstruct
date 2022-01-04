@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library;
 
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.command.BookTestCommand;

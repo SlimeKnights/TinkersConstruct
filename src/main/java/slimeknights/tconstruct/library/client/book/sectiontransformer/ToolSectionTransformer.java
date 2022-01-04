@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.sectiontransformer;
+package slimeknights.tconstruct.library.client.book.sectiontransformer;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -7,7 +7,7 @@ import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.content.ContentListing;
 import slimeknights.mantle.client.book.transformer.ContentListingSectionTransformer;
-import slimeknights.tconstruct.library.book.content.ContentTool;
+import slimeknights.tconstruct.library.client.book.content.ContentTool;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 
 /** Section transformer to generate an index with tool names */

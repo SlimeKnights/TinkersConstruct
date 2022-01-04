@@ -1,7 +1,7 @@
-package slimeknights.tconstruct.library.book.sectiontransformer.materials;
+package slimeknights.tconstruct.library.client.book.sectiontransformer.materials;
 
-import slimeknights.tconstruct.library.book.content.ContentMaterial;
-import slimeknights.tconstruct.library.book.content.ContentMaterialSkull;
+import slimeknights.tconstruct.library.client.book.content.ContentMaterial;
+import slimeknights.tconstruct.library.client.book.content.ContentMaterialSkull;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.tools.stats.SkullStats;

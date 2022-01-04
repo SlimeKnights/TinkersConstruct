@@ -1,25 +1,25 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.client.book;
 
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
 import slimeknights.mantle.client.book.transformer.BookTransformer;
-import slimeknights.tconstruct.library.book.content.ContentMaterial;
-import slimeknights.tconstruct.library.book.content.ContentModifier;
-import slimeknights.tconstruct.library.book.content.ContentTool;
-import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.ToolSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.SkullMaterialSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
+import slimeknights.tconstruct.library.client.book.content.ContentMaterial;
+import slimeknights.tconstruct.library.client.book.content.ContentModifier;
+import slimeknights.tconstruct.library.client.book.content.ContentTool;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierSectionTransformer;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.ToolSectionTransformer;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.SkullMaterialSectionTransformer;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
-import static slimeknights.tconstruct.library.book.TinkerBookIDs.ENCYCLOPEDIA_ID;
-import static slimeknights.tconstruct.library.book.TinkerBookIDs.FANTASTIC_FOUNDRY_ID;
-import static slimeknights.tconstruct.library.book.TinkerBookIDs.MATERIALS_BOOK_ID;
-import static slimeknights.tconstruct.library.book.TinkerBookIDs.MIGHTY_SMELTING_ID;
-import static slimeknights.tconstruct.library.book.TinkerBookIDs.PUNY_SMELTING_ID;
-import static slimeknights.tconstruct.library.book.TinkerBookIDs.TINKERS_GADGETRY_ID;
+import static slimeknights.tconstruct.library.TinkerBookIDs.ENCYCLOPEDIA_ID;
+import static slimeknights.tconstruct.library.TinkerBookIDs.FANTASTIC_FOUNDRY_ID;
+import static slimeknights.tconstruct.library.TinkerBookIDs.MATERIALS_BOOK_ID;
+import static slimeknights.tconstruct.library.TinkerBookIDs.MIGHTY_SMELTING_ID;
+import static slimeknights.tconstruct.library.TinkerBookIDs.PUNY_SMELTING_ID;
+import static slimeknights.tconstruct.library.TinkerBookIDs.TINKERS_GADGETRY_ID;
 
 public class TinkerBook extends BookData {
   public static final BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID,    false, false);

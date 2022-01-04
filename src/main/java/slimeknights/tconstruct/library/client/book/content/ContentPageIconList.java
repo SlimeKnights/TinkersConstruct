@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book.content;
+package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.Lists;
 import net.minecraft.network.chat.Component;
@@ -10,7 +10,7 @@ import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
-import slimeknights.tconstruct.library.book.elements.PageIconLinkElement;
+import slimeknights.tconstruct.library.client.book.elements.PageIconLinkElement;
 
 import java.util.ArrayList;
 import java.util.List;
