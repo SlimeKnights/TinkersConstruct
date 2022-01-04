@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -83,6 +84,7 @@ public class ContentTool extends PageContent {
   private static final transient SlotPos[] SLOTS_5 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[1], SLOTS_WIDTH_3[2], new SlotPos(12, 22), new SlotPos(30, 22)};
 
   /* Page computed data */
+  @Nullable
   private transient IModifiableDisplay tool;
   private transient List<ItemStackList> parts;
   private transient ImageData imgSlots;
@@ -104,14 +106,11 @@ public class ContentTool extends PageContent {
     this.toolName = Objects.requireNonNull(tool.asItem().getRegistryName()).toString();
   }
 
-  @Override
-  public void load() {
-    if (this.toolName == null) {
-      this.toolName = this.parent.name;
-    }
-
-    // find the tool from the registry, ensure proper interface
+  public IModifiableDisplay getTool() {
     if (this.tool == null) {
+      if (this.toolName == null) {
+        this.toolName = this.parent.name;
+      }
       Item tool = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
       if (tool instanceof IModifiableDisplay) {
         this.tool = (IModifiableDisplay) tool;
@@ -119,16 +118,28 @@ public class ContentTool extends PageContent {
         this.tool = new Fallback(tool == null ? Items.BARRIER : tool);
       }
     }
+    return this.tool;
+  }
 
+  @Override
+  public String getTitle() {
+    if (tool != null) {
+      return tool.getLocalizedName().getString();
+    }
+    return "";
+  }
+
+  @Override
+  public void load() {
     // determine the recipe to display
     if (this.parts == null || slotPos == null) {
-      List<PartRequirement> required = tool.getToolDefinition().getData().getParts();
+      List<PartRequirement> required = getTool().getToolDefinition().getData().getParts();
       // if no required components, do a crafting recipe lookup
       if (required.isEmpty()) {
         // get the stacks for the first crafting table recipe
         Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
                                                    .flatMap(world -> world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                                          .filter(r -> r.getResultItem().getItem() == tool.asItem())
+                                                                          .filter(r -> r.getResultItem().getItem() == getTool().asItem())
                                                                           .findFirst())
                                                    .orElse(null);
         if (recipe != null) {
@@ -177,7 +188,7 @@ public class ContentTool extends PageContent {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean brightSide) {
-    this.addTitle(list, tool.getLocalizedName().getString());
+    this.addTitle(list, getTitle());
 
     int padding = 5;
 
@@ -221,7 +232,7 @@ public class ContentTool extends PageContent {
       list.add(new ImageElement(imgX, imgY, -1, -1, imgSlots, book.appearance.slotColor));
     }
 
-    ItemStack demo = tool.getRenderTool();
+    ItemStack demo = getTool().getRenderTool();
 
     TinkerItemElement toolItem = new TinkerItemElement(imgX + (imgWidth - 16) / 2, imgY - 24, 1f, demo);
     //toolItem.noTooltip = true;

@@ -60,7 +60,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
       PageData page = this.addPage(sectionData, material.getIdentifier().toString(), ContentMaterial.ID, contentMaterial);
 
       SizedBookElement icon = new ItemElement(0, 0, 1f, contentMaterial.getDisplayStacks());
-      while (!overview.addLink(icon, contentMaterial.getTitle(), page)) {
+      while (!overview.addLink(icon, contentMaterial.getTitleComponent(), page)) {
         overview = iter.next();
       }
     }

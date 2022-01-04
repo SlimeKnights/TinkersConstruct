@@ -3,10 +3,8 @@ package slimeknights.tconstruct.library.client.book.sectiontransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.transformer.ContentGroupingSectionTransformer;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.book.content.ContentModifier;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Section transformer to generate an index with modifier names */
 public class ModifierSectionTransformer extends ContentGroupingSectionTransformer {
@@ -23,21 +21,10 @@ public class ModifierSectionTransformer extends ContentGroupingSectionTransforme
   @Override
   protected boolean processPage(BookData book, GroupingBuilder builder, PageData page) {
     // modifiers add including their name
-    if (page.content instanceof ContentModifier) {
-      ContentModifier modifierContent = (ContentModifier)page.content;
-      if (modifierContent.hasRequiredMod()) {
-        ModifierId modifierId = new ModifierId(modifierContent.modifierID);
-        if (TinkerRegistries.MODIFIERS.containsKey(modifierId)) {
-          Modifier modifier = TinkerRegistries.MODIFIERS.getValue(modifierId);
-          assert modifier != null; // contains key was true
-          String title = page.getTitle();
-          // if name is not translatable, use the modifier name
-          if (page.name.equals(title)) {
-            title = modifier.getDisplayName().getString();
-          }
-          builder.addPage(title, page);
-          return true;
-        }
+    if (page.content instanceof ContentModifier modifierContent) {
+      if (modifierContent.getModifier() != TinkerModifiers.empty.get()) {
+        builder.addPage(page.getTitle(), page);
+        return true;
       }
       return false;
       // starting with group means start a new column

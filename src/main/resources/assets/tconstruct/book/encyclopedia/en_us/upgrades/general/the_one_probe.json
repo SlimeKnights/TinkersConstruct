@@ -1,6 +1,5 @@
 {
   "modifier_id": "tconstruct:the_one_probe",
-  "required_mod": "theoneprobe",
   "text": [
     {
       "text": "Shows information about the targeted block, just like the one probe item."

@@ -1,14 +1,11 @@
 package slimeknights.tconstruct.library.client.book.sectiontransformer;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.Items;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.content.ContentListing;
 import slimeknights.mantle.client.book.transformer.ContentListingSectionTransformer;
 import slimeknights.tconstruct.library.client.book.content.ContentTool;
-import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 
 /** Section transformer to generate an index with tool names */
 public class ToolSectionTransformer extends ContentListingSectionTransformer {
@@ -24,16 +21,8 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
 
   @Override
   protected boolean processPage(BookData book, ContentListing listing, PageData page) {
-    // only add tool pages if the tool exists
-    if (page.content instanceof ContentTool) {
-      ResourceLocation toolId = new ResourceLocation(((ContentTool) page.content).toolName);
-      if (ForgeRegistries.ITEMS.containsKey(toolId)) {
-        Item toolItem = ForgeRegistries.ITEMS.getValue(toolId);
-        if (toolItem instanceof IModifiableDisplay) {
-          listing.addEntry(((IModifiableDisplay)toolItem).getLocalizedName().getString(), page);
-        }
-      }
-    } else {
+    // only add tool pages if the tool exists, barrier is the fallback item for missing
+    if (!(page.content instanceof ContentTool tool && tool.getTool().asItem() == Items.BARRIER)) {
       super.processPage(book, listing, page);
     }
     return true;

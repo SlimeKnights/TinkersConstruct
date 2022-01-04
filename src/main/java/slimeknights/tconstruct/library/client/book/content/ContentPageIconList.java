@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
@@ -20,6 +21,7 @@ public class ContentPageIconList extends PageContent {
   protected final int width;
   protected final int height;
 
+  @Getter
   public String title;
   public String subText;
   public float maxScale = 2.5f;

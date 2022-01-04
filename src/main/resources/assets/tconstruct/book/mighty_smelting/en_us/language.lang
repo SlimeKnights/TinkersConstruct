@@ -1,4 +1,3 @@
-// Sections - Mighty Smelting
 intro=Introduction
 entity_melting=Entity Melting
 tier_three_materials=Tier 3 Materials
@@ -6,20 +5,6 @@ tools=Broad Tools
 tools.subtext=Broad tools all require the use of a tinker's anvil to create
 
 smeltery=Smeltery
-smeltery.features=Features
-smeltery.alloying=Alloying
-smeltery.controller=Controller
-smeltery.structure=Structure
-smeltery.structurereq=Structure
-smeltery.sgui1=Smeltery GUI
-smeltery.sgui2=Smeltery GUI Explanation
-smeltery.seared_tanks=Seared Tanks
-smeltery.seared_blocks=Seared Blocks
-smeltery.seared_ladder=Seared Ladder
-smeltery.seared_glass=Seared Glass
-smeltery.seared_drain=Seared Drain
-smeltery.seared_duct=Seared Duct
-smeltery.seared_chute=Seared Chute
 
 abilities=Abilities
 abilities.subtext=Abilities are more powerful than upgrades, but also have a more limited number of slots.

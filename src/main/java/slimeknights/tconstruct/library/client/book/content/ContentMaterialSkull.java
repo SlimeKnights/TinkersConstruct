@@ -67,13 +67,13 @@ public class ContentMaterialSkull extends ContentMaterial {
   }
 
   @Override
-  public Component getTitle() {
+  public Component getTitleComponent() {
     // display slimeskull instead of material name
     IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
     if (skullRecipe != null) {
       return skullRecipe.getOutput().getHoverName();
     }
-    return super.getTitle();
+    return super.getTitleComponent();
   }
 
   @Override
@@ -116,7 +116,7 @@ public class ContentMaterialSkull extends ContentMaterial {
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     IMaterial material = getMaterial();
-    this.addTitle(list, getTitle().getString(), true, material.getColor().getValue());
+    this.addTitle(list, getTitle(), true, material.getColor().getValue());
 
     // the cool tools to the left/right
     this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, material.getIdentifier());

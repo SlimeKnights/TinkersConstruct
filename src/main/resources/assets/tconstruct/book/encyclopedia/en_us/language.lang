@@ -1,23 +1,15 @@
-// Sections
 intro=Introduction
 
 small_tools=Small Tools
-small_tools.info=Tool Information
 large_tools=Broad Tools
-large_tools.info=Tool Information
-
 armor=Armor
-armor.info=Armor Information
 
 tier_one_materials=Tier 1 Materials
 tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
-
 tier_two_materials=Tier 2 Materials
 tier_two_materials.subtext=These materials require melting and casting to create, and may be a bit more rare
-
 tier_three_materials=Tier 3 Materials
 tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
-
 tier_four_materials=Tier 4 Materials
 tier_four_materials.subtext=These materials cannot be found without traveling to the Nether
 skull_materials=Slimeskulls
@@ -50,7 +42,4 @@ abilities.group_weapon=Weapon
 abilities.group_interact=Interaction
 abilities.group_armor=Armor
 abilities.unarmed=Unarmed
-
-modifier.effect=Effects:
-tool.properties=Properties:
 

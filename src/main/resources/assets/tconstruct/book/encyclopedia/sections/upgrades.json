@@ -49,6 +49,10 @@
     "data": "upgrades/general/tank.json"
   },
   {
+    "condition": {
+      "type": "forge:mod_loaded",
+      "modid": "theoneprobe"
+    },
     "type": "tconstruct:modifier",
     "data": "upgrades/general/the_one_probe.json"
   },

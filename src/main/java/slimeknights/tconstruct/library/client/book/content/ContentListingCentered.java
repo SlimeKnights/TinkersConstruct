@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class ContentListingCentered extends PageContent {
 
+  @Getter
   private String title;
   private final List<TextData> entries = Lists.newArrayList();
 

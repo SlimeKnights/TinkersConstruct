@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -26,11 +25,13 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
-import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ContentModifier extends PageContent {
@@ -52,6 +53,7 @@ public class ContentModifier extends PageContent {
   public static final transient int[] SLOTS_X_4 = new int[]{3, 21, 3, 21};
   public static final transient int[] SLOTS_Y_4 = new int[]{3, 3, 22, 22};
 
+  @Nullable
   private transient Modifier modifier;
   private transient List<IDisplayModifierRecipe> recipes;
 
@@ -69,35 +71,43 @@ public class ContentModifier extends PageContent {
   @SerializedName("modifier_id")
   public String modifierID;
 
-  /** Checks if this modifier has the required mods to load */
-  public boolean hasRequiredMod() {
-    return requiredMod == null || requiredMod.isEmpty() || ModList.get().isLoaded(requiredMod);
+  public Modifier getModifier() {
+    if (this.modifier == null) {
+      if (this.modifierID == null) {
+        this.modifierID = this.parent.name;
+      }
+      this.modifier = Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(new ModifierId(this.modifierID)));
+    }
+    return this.modifier;
+  }
+
+  @Override
+  public String getTitle() {
+    return this.getModifier().getDisplayName().getString();
   }
 
   @Override
   public void load() {
-    if (this.modifierID == null) {
-      this.modifierID = this.parent.name;
-    }
-
-    if (this.modifier == null) {
-      this.modifier = TinkerRegistries.MODIFIERS.getValue(new ModifierId(this.modifierID));
-    }
-
     if (this.recipes == null) {
       assert Minecraft.getInstance().level != null;
-      this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
+      Modifier modifier = getModifier();
+      if (modifier == TinkerModifiers.empty.get()) {
+        this.recipes = Collections.emptyList();
+      } else {
+        this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == modifier).collect(Collectors.toList());
+      }
     }
   }
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean brightSide) {
-    if (this.modifier == null || this.modifier instanceof EmptyModifier || this.recipes.isEmpty()) {
+    Modifier modifier = getModifier();
+    if (modifier == TinkerModifiers.empty.get() || this.recipes.isEmpty()) {
       list.add(new ImageElement(0, 0, 32, 32, ImageData.MISSING));
       System.out.println("Modifier with id " + modifierID + " not found");
       return;
     }
-    this.addTitle(list, this.modifier.getDisplayName().getString(), true, this.modifier.getColor());
+    this.addTitle(list, getTitle(), true, modifier.getColor());
 
     // description
     int y = getTitleHeight();
