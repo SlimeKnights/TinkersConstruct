@@ -49,6 +49,7 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
@@ -95,7 +96,7 @@ public class ContentMaterial extends PageContent {
       // simply combine all items from all recipes
       repairStacks = RecipeHelper.getUIRecipes(world.getRecipeManager(), RecipeTypes.MATERIAL, MaterialRecipe.class, recipe -> recipe.getMaterial() == material)
                                  .stream()
-                                 .flatMap(recipe -> recipe.getDisplayItems().stream())
+                                 .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems()))
                                  .collect(Collectors.toList());
       // no repair items? use the repair kit
       if (repairStacks.isEmpty()) {
