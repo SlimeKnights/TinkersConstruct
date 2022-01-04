@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.resources.ResourceLocation;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -40,22 +39,5 @@ public class JsonUtils {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
     return value;
-  }
-
-  /**
-   * Gets a resource location from the given json element
-   * @param json  Element
-   * @param key   Key
-   * @return  Resource location
-   * @throws JsonSyntaxException  If the resource location is invalid
-   */
-  public static ResourceLocation getResourceLocation(JsonElement json, String key) {
-    String text = GsonHelper.convertToString(json, key);
-    ResourceLocation location = ResourceLocation.tryParse(text);
-    if (location == null) {
-      throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
-    } else {
-      return location;
-    }
   }
 }

@@ -6,7 +6,7 @@ import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.ItemLike;
-import slimeknights.tconstruct.library.data.GenericDataProvider;
+import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.SlotType;

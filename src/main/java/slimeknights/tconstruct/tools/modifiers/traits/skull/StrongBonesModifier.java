@@ -10,6 +10,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
@@ -18,8 +20,6 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class StrongBonesModifier extends TotalArmorLevelModifier {

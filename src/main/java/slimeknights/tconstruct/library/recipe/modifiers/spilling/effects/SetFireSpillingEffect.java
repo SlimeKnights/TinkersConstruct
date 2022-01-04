@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 /**
  * Effect to set an entity on fire

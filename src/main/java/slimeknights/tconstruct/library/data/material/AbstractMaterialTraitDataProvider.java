@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.tconstruct.library.data.GenericDataProvider;
+import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraits;

@@ -24,7 +24,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.world.TinkerHeadType;
 
 import java.util.Arrays;

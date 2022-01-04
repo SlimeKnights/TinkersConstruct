@@ -8,10 +8,10 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.mantle.data.ResourceLocationSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider.PartSpriteInfo;
-import slimeknights.tconstruct.library.data.GenericDataProvider;
-import slimeknights.tconstruct.library.data.ResourceLocationSerializer;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.io.IOException;

@@ -8,9 +8,9 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.utils.LazyTag;
 
 /** Harvest logic that is effective if the tool has the correct tag */

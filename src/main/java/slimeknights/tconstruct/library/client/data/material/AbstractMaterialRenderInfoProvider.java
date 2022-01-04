@@ -6,11 +6,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 import javax.annotation.Nullable;

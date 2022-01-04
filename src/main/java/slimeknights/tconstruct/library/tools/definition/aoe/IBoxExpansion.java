@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.tools.definition.aoe;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.entity.player.Player;
+import slimeknights.mantle.data.NamedComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.NamedComponentRegistry;
 
 /** Logic that determines how box AOE expands */
 public interface IBoxExpansion {

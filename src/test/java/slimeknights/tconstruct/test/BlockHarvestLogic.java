@@ -3,9 +3,9 @@ package slimeknights.tconstruct.test;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 @RequiredArgsConstructor
 public class BlockHarvestLogic implements IHarvestLogic {

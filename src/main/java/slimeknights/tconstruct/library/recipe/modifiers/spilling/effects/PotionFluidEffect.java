@@ -11,9 +11,9 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 
 /** Spilling effect that pulls the potion from a NBT potion fluid and applies it */
 @RequiredArgsConstructor

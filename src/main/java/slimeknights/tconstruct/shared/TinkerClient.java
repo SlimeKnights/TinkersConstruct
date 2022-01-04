@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSprit
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
-import slimeknights.tconstruct.library.data.ResourceValidator;
+import slimeknights.mantle.data.ResourceValidator;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
 
 import java.util.function.Consumer;

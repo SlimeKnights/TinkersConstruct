@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.data;
+package slimeknights.mantle.data;
 
 import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;

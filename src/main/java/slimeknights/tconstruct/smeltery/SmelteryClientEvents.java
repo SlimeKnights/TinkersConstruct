@@ -38,7 +38,7 @@ import slimeknights.tconstruct.smeltery.client.screen.SingleItemScreenFactory;
 public class SmelteryClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent event) {
-    FaucetFluidLoader.initialize();
+    FaucetFluidLoader.initialize(event);
   }
 
   @SubscribeEvent

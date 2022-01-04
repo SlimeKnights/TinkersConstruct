@@ -15,9 +15,9 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.utils.LazyTag;
 
 import java.util.ArrayList;

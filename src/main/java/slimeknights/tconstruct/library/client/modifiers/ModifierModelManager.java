@@ -20,7 +20,7 @@ import net.minecraftforge.fml.event.IModBusEvent;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
+import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 

@@ -9,7 +9,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.tools.ArmorDefinitions;
 
 import java.util.HashMap;

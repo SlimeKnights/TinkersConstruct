@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
 
-import slimeknights.mantle.util.GenericRegisteredSerializer;
-import slimeknights.mantle.util.GenericRegisteredSerializer.IJsonSerializable;
+import slimeknights.mantle.data.GenericRegisteredSerializer;
+import slimeknights.mantle.data.GenericRegisteredSerializer.IJsonSerializable;
 
 /** Logic to map a color to another color */
 public interface IColorMapping extends IJsonSerializable {

@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.recipe.modifiers.spilling.effects;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.events.teleport.SpillingTeleportEvent;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.utils.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 

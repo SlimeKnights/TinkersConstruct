@@ -38,6 +38,7 @@ import slimeknights.tconstruct.common.data.tags.TileEntityTypeTagProvider;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.library.book.TinkerBookIDs;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -107,6 +108,7 @@ public class TConstruct {
     TinkerNetwork.setup();
     TinkerTags.init();
     // init client logic
+    TinkerBookIDs.registerCommandSuggestion();
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
 //    if (ModList.get().isLoaded("crafttweaker")) {

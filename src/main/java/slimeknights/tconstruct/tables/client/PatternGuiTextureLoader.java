@@ -6,7 +6,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import slimeknights.tconstruct.library.data.ResourceValidator;
+import slimeknights.mantle.data.ResourceValidator;
 
 /**
  * Stitches all GUI part textures into the texture sheet
