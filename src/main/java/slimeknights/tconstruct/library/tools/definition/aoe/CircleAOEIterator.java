@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.tools.definition.aoe;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.JsonObject;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,8 +28,10 @@ public class CircleAOEIterator implements IAreaOfEffectIterator {
   public static final Loader LOADER = new Loader();
 
   /** Diameter of the circle, starting from 1 */
+  @Getter @VisibleForTesting
   protected final int diameter;
   /** If true, calculates AOE blocks in 3D instead of 2D */
+  @Getter @VisibleForTesting
   protected final boolean is3D;
 
   @Override

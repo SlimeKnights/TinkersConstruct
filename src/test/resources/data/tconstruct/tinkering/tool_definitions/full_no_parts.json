@@ -29,5 +29,20 @@
   ],
   "actions": [
     "axe_dig", "custom_action"
-  ]
+  ],
+  "harvest": {
+    "logic": {
+      "type": "test:block",
+      "block": "minecraft:diamond_block"
+    },
+    "aoe": {
+      "type": "tconstruct:box",
+      "radius": 3,
+      "3D": true
+    }
+  },
+  "attack": {
+    "type": "test:sweep",
+    "range": 5.0
+  }
 }

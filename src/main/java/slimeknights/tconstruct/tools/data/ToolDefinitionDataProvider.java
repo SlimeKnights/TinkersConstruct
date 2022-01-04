@@ -16,10 +16,15 @@ import slimeknights.tconstruct.library.tools.definition.aoe.TreeAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.VeiningAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.ArmorDefinitions;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.stats.SkullStats;
@@ -78,7 +83,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
-      .aoe(BoxAOEIterator.builder(1, 1, 0).addWidth(1).addHeight(1).build());
+      .aoe(BoxAOEIterator.builder(1, 1, 0).addWidth(1).addHeight(1).build())
+      .attack(new ParticleWeaponAttack(TinkerTools.hammerAttackParticle.get()));
 
     define(ToolDefinitions.VEIN_HAMMER)
       // parts
@@ -99,7 +105,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
-      .aoe(new VeiningAOEIterator(2));
+      .aoe(new VeiningAOEIterator(2))
+      .attack(new ParticleWeaponAttack(TinkerTools.hammerAttackParticle.get()));
 
 
     // shovels
@@ -164,8 +171,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.axeTransformHidden)
       // harvest
       .action(ToolActions.AXE_DIG)
+      .action(TinkerToolActions.SHIELD_DISABLE)
       .effective(TinkerTags.Blocks.MINABLE_WITH_HAND_AXE)
-      .aoe(new CircleAOEIterator(1, false));
+      .aoe(new CircleAOEIterator(1, false))
+      .attack(new ParticleWeaponAttack(TinkerTools.axeAttackParticle.get()));
 
     define(ToolDefinitions.BROAD_AXE)
       // parts
@@ -185,10 +194,12 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.AXE_DIG)
+      .action(TinkerToolActions.SHIELD_DISABLE)
       .effective(BlockTags.MINEABLE_WITH_AXE)
       .aoe(new FallbackAOEIterator(
         TinkerTags.Blocks.TREE_LOGS, new TreeAOEIterator(0, 0),
-        BoxAOEIterator.builder(0, 5, 0).addWidth(1).addDepth(1).direction(IBoxExpansion.HEIGHT).build()));
+        BoxAOEIterator.builder(0, 5, 0).addWidth(1).addDepth(1).direction(IBoxExpansion.HEIGHT).build()))
+      .attack(new ParticleWeaponAttack(TinkerTools.axeAttackParticle.get()));
 
     // scythes
     IHarvestLogic scytheHarvest = ModifiedHarvestLogic
@@ -232,9 +243,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.harvest)
       .trait(TinkerModifiers.twoHanded)
-      // harvest
+      // behavior
       .harvestLogic(scytheHarvest)
-      .aoe(BoxAOEIterator.builder(1, 1, 2).addExpansion(1, 1, 0).addDepth(2).build());
+      .aoe(BoxAOEIterator.builder(1, 1, 2).addExpansion(1, 1, 0).addDepth(2).build())
+      .attack(new CircleWeaponAttack(2));
 
 
     // swords
@@ -253,7 +265,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.padded, 1)
       .trait(TinkerModifiers.offhandAttack)
       .trait(TinkerModifiers.silkyShears)
-      // harvest
+      // behavior
       .action(ToolActions.SWORD_DIG)
       .action(ToolActions.HOE_DIG)
       .harvestLogic(ModifiedHarvestLogic
@@ -280,7 +292,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.silkyShears)
       .action(ToolActions.SWORD_DIG)
-      .harvestLogic(swordLogic);
+      // behavior
+      .harvestLogic(swordLogic)
+      .attack(new SweepWeaponAttack(1));
 
     define(ToolDefinitions.CLEAVER)
       // parts
@@ -299,9 +313,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.severing, 2)
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.twoHanded)
-      // harvest
+      // behavior
       .action(ToolActions.SWORD_DIG)
-      .harvestLogic(swordLogic);
+      .harvestLogic(swordLogic)
+      .attack(new SweepWeaponAttack(2));
 
     // special
     define(ToolDefinitions.FLINT_AND_BRONZE)

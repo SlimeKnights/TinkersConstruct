@@ -81,5 +81,9 @@
       ],
       "expansion_direction": "tconstruct:side_hit"
     }
+  },
+  "attack": {
+    "type": "tconstruct:circle",
+    "diameter": 2.0
   }
 }

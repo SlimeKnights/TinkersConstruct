@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,8 +13,15 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.test.BlockHarvestLogic;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
 import java.util.Map;
@@ -31,6 +39,17 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   private static final ToolDefinition HAS_PARTS_NO_NEED = ToolDefinition.builder(TConstruct.getResource("has_parts_no_need")).noParts().build();
   private static final ToolDefinition NEED_PARTS_HAS_NONE = ToolDefinition.builder(TConstruct.getResource("need_parts_has_none")).meleeHarvest().build();
   private static final ToolDefinition WRONG_PART_TYPE = ToolDefinition.builder(TConstruct.getResource("wrong_part_type")).meleeHarvest().build();
+
+  @BeforeAll
+  static void beforeAll() {
+    try {
+      IHarvestLogic.LOADER.register(new ResourceLocation("test", "block"), BlockHarvestLogic.LOADER);
+      IAreaOfEffectIterator.LOADER.register(new ResourceLocation("test", "circle"), CircleAOEIterator.LOADER);
+      IWeaponAttack.LOADER.register(new ResourceLocation("test", "sweep"), SweepWeaponAttack.LOADER);
+    } catch (IllegalArgumentException e) {
+      // no-op
+    }
+  }
 
   /** Helper to do all the stats checks */
   private static void checkFullNonParts(ToolDefinitionData data) {
@@ -71,6 +90,19 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(data.actions).hasSize(2);
     assertThat(data.canPerformAction(ToolActions.AXE_DIG)).isTrue();
     assertThat(data.canPerformAction(ToolAction.get("custom_action"))).isTrue();
+    // harvest
+    IHarvestLogic harvestLogic = data.getHarvestLogic();
+    assertThat(harvestLogic).isInstanceOf(BlockHarvestLogic.class);
+    assertThat(harvestLogic.isEffective(mock(IModifierToolStack.class), Blocks.DIAMOND_BLOCK.defaultBlockState())).isTrue();
+    // aoe
+    IAreaOfEffectIterator aoe = data.getAOE();
+    assertThat(aoe).isInstanceOf(CircleAOEIterator.class);
+    assertThat(((CircleAOEIterator)aoe).getDiameter()).isEqualTo(3);
+    assertThat(((CircleAOEIterator)aoe).is3D()).isTrue();
+    // weapon
+    IWeaponAttack attack = data.getAttack();
+    assertThat(attack).isInstanceOf(SweepWeaponAttack.class);
+    assertThat(((SweepWeaponAttack)attack).getRange()).isEqualTo(5);
   }
 
   @BeforeAll

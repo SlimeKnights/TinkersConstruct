@@ -3,9 +3,12 @@ package slimeknights.tconstruct.library.tools.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,6 +31,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -35,11 +39,13 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -48,6 +54,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.SafeClientAccess;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -59,7 +66,7 @@ import java.util.function.Consumer;
  * A standard modifiable item which implements melee hooks
  * This class handles how all the modifier hooks and display data for items made out of different materials
  */
-public class ModifiableItem extends Item implements IModifiableDisplay, IModifiableWeapon {
+public class ModifiableItem extends Item implements IModifiableDisplay {
   /** Tool definition for the given tool */
   @Getter
   private final ToolDefinition toolDefinition;
@@ -217,7 +224,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Override
   public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-    return ToolAttackUtil.attackEntity(stack, this, player, entity);
+    return ToolAttackUtil.attackEntity(stack, player, entity);
   }
 
   @Override
@@ -250,6 +257,65 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
       return ImmutableMultimap.of();
     }
     return getAttributeModifiers(ToolStack.from(stack), slot);
+  }
+
+  @Override
+  public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
+    return !ToolDamageUtil.isBroken(stack) && toolDefinition.getData().canPerformAction(TinkerToolActions.SHIELD_DISABLE);
+  }
+
+
+  /* Harvest logic */
+
+  @Override
+  public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
+    return ToolHarvestLogic.isEffective(ToolStack.from(stack), state);
+  }
+
+  @Override
+  public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
+      return false;
+    }
+
+    if (!worldIn.isClientSide && worldIn instanceof ServerLevel) {
+      boolean isEffective = ToolHarvestLogic.isEffective(tool, state);
+      ToolHarvestContext context = new ToolHarvestContext((ServerLevel) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
+      }
+      ToolDamageUtil.damageAnimated(tool, ToolHarvestLogic.getDamage(tool, worldIn, pos, state), entityLiving);
+    }
+
+    return true;
+  }
+
+  @Override
+  public final float getDestroySpeed(ItemStack stack, BlockState state) {
+    return ToolHarvestLogic.getDestroySpeed(stack, state);
+  }
+
+  @Override
+  public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+    return ToolHarvestLogic.handleBlockBreak(stack, pos, player);
+
+    // TODO: offhand harvest reconsidering
+    /*// this is a really dumb hack.
+    // Basically when something with silktouch harvests a block from the offhand
+    // the game can't detect that. so we have to switch around the items in the hands for the break call
+    // it's switched back in onBlockDestroyed
+    if (DualToolHarvestUtil.shouldUseOffhand(player, pos, player.getHeldItemMainhand())) {
+      ItemStack off = player.getHeldItemOffhand();
+
+      this.switchItemsInHands(player);
+      // remember, off is in the mainhand now
+      CompoundNBT tag = off.getOrCreateTag();
+      tag.putLong(TAG_SWITCHED_HAND_HAX, player.getEntityWorld().getGameTime());
+      off.setTag(tag);
+    }*/
+
+    //return this.breakBlock(stack, pos, player);
   }
 
 

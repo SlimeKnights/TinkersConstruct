@@ -1,15 +1,14 @@
-package slimeknights.tconstruct.tools.item.small;
+package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolItem;
+import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 
-/** Tool with sword harvest and creative block breaking prevention */
-public class SwordTool extends ToolItem {
-  public SwordTool(Properties properties, ToolDefinition toolDefinition) {
+public class ModifiableSwordItem extends ModifiableItem {
+  public ModifiableSwordItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 

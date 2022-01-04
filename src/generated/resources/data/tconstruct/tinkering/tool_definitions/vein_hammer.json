@@ -51,5 +51,9 @@
       "type": "tconstruct:vein",
       "max_distance": 2
     }
+  },
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:hammer_attack"
   }
 }

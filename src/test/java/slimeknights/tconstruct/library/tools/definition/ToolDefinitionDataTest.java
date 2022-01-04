@@ -4,6 +4,9 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -33,6 +36,9 @@ class ToolDefinitionDataTest extends BaseMcTest {
     assertThat(data.getTraits()).isNotNull();
     assertThat(data.getTraits()).isEmpty();
     assertThat(data.actions).isNullOrEmpty();
+    assertThat(data.getHarvestLogic()).isEqualTo(IHarvestLogic.DEFAULT);
+    assertThat(data.getAOE()).isEqualTo(IAreaOfEffectIterator.DEFAULT);
+    assertThat(data.getAttack()).isEqualTo(IWeaponAttack.DEFAULT);
   }
 
   /** Checks that the stats are all empty */
@@ -59,7 +65,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
 
   @Test
   void data_nullContainsNoData() {
-    checkToolDataEmpty(new ToolDefinitionData(null, null, null, null, null, null));
+    checkToolDataEmpty(new ToolDefinitionData(null, null, null, null, null, null, null));
   }
 
   @Test
@@ -176,7 +182,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
   void actions_canPerform() {
     assertThat(ToolDefinitionData.EMPTY.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isFalse();
     assertThat(ToolDefinitionData.EMPTY.canPerformAction(ToolActions.SWORD_DIG)).isFalse();
-    ToolDefinitionData newData = new ToolDefinitionData(null, null, null, null, ImmutableSet.of(ToolActions.SHOVEL_FLATTEN), null);
+    ToolDefinitionData newData = new ToolDefinitionData(null, null, null, null, ImmutableSet.of(ToolActions.SHOVEL_FLATTEN), null, null);
     assertThat(newData.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isTrue();
     assertThat(newData.canPerformAction(ToolActions.SWORD_DIG)).isFalse();
   }

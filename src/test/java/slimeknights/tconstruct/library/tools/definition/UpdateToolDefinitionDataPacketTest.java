@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,15 +12,23 @@ import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
+import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.test.BlockHarvestLogic;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
   private static final ResourceLocation EMPTY_ID = new ResourceLocation("test", "empty");
@@ -29,6 +38,13 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
   static void initialize() {
     MaterialItemFixture.init();
     ModifierFixture.init();
+    try {
+      IHarvestLogic.LOADER.register(new ResourceLocation("test", "block"), BlockHarvestLogic.LOADER);
+      IAreaOfEffectIterator.LOADER.register(new ResourceLocation("test", "circle"), CircleAOEIterator.LOADER);
+      IWeaponAttack.LOADER.register(new ResourceLocation("test", "sweep"), SweepWeaponAttack.LOADER);
+    } catch (IllegalArgumentException e) {
+      // no-op
+    }
   }
 
   @Test
@@ -51,6 +67,10 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
       .trait(ModifierFixture.TEST_MODIFIER_1, 10)
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_FLATTEN)
+      // behavior
+      .harvestLogic(new BlockHarvestLogic(Blocks.GRANITE))
+      .aoe(new CircleAOEIterator(7, true))
+      .attack(new SweepWeaponAttack(4))
       .build();
 
     // send a packet over the buffer
@@ -127,5 +147,21 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     assertThat(parsed.actions).hasSize(2);
     assertThat(parsed.canPerformAction(ToolActions.AXE_DIG)).isTrue();
     assertThat(parsed.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isTrue();
+
+    // harvest
+    IHarvestLogic harvestLogic = parsed.getHarvestLogic();
+    assertThat(harvestLogic).isInstanceOf(BlockHarvestLogic.class);
+    assertThat(harvestLogic.isEffective(mock(IModifierToolStack.class), Blocks.GRANITE.defaultBlockState())).isTrue();
+
+    // aoe
+    IAreaOfEffectIterator aoe = parsed.getAOE();
+    assertThat(aoe).isInstanceOf(CircleAOEIterator.class);
+    assertThat(((CircleAOEIterator)aoe).getDiameter()).isEqualTo(7);
+    assertThat(((CircleAOEIterator)aoe).is3D()).isTrue();
+
+    // weapon
+    IWeaponAttack attack = parsed.getAttack();
+    assertThat(attack).isInstanceOf(SweepWeaponAttack.class);
+    assertThat(((SweepWeaponAttack)attack).getRange()).isEqualTo(4);
   }
 }

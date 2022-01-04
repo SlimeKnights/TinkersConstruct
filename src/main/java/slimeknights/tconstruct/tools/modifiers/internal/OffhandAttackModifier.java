@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
@@ -14,7 +13,6 @@ import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -50,9 +48,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
   public InteractionResult beforeEntityUse(IModifierToolStack tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
     if (canAttack(tool, player, hand)) {
       if (!player.level.isClientSide()) {
-        Item item = tool.getItem();
-        IModifiableWeapon weapon = item instanceof IModifiableWeapon ? (IModifiableWeapon) item : IModifiableWeapon.DEFAULT;
-        ToolAttackUtil.attackEntity(weapon, tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, slotType);
+        ToolAttackUtil.attackEntity(tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, slotType);
       }
       OffhandCooldownTracker.applyCooldown(player, tool.getStats().get(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown

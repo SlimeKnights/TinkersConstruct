@@ -11,7 +11,7 @@ import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.item.ToolItem;
+import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BlockHarvestLogic;
@@ -21,10 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 // TODO: update
 class ToolHarvestLogicTest extends ToolItemTest {
 
-  private final ToolItem pickaxeTool = new ToolItem(
-    new Item.Properties(),//TODO .addToolType(ToolType.PICKAXE, 1),
+  private final ModifiableItem pickaxeTool = new ModifiableItem(
+    new Item.Properties(),
     ToolDefinitionFixture.getStandardToolDefinition());
-  //private final ToolHarvestLogic toolHarvestLogic = new ToolHarvestLogic();
 
   @Test
   void calcSpeed_dirt_notEffective() {
@@ -78,7 +77,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
                          .multiplier(ToolStats.MINING_SPEED, modifier)
                          .build());
 
-    IModifiable toolWithMiningModifier = new ToolItem(new Item.Properties(),/*.addToolType(ToolType.PICKAXE, 1),*/ definition);
+    IModifiable toolWithMiningModifier = new ModifiableItem(new Item.Properties(), definition);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
     // boosted by correct block

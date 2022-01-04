@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Stats
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
@@ -46,6 +47,9 @@ public class ToolDefinitionDataBuilder {
   /** Tool's AOE logic */
   @Nonnull @Setter
   private IAreaOfEffectIterator aoe = IAreaOfEffectIterator.DEFAULT;
+  /** Tool's attack logic */
+  @Nonnull @Setter
+  private IWeaponAttack attack = IWeaponAttack.DEFAULT;
 
   /* Parts */
 
@@ -211,6 +215,7 @@ public class ToolDefinitionDataBuilder {
                                   slots.build(),
                                   traits.isEmpty() ? null : traits,
                                   actions.isEmpty() ? null : actions,
-                                  harvest);
+                                  harvest,
+                                  attack == IWeaponAttack.DEFAULT ? null : attack);
   }
 }

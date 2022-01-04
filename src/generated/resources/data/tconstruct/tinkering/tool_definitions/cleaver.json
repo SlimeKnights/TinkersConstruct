@@ -65,5 +65,9 @@
         }
       ]
     }
+  },
+  "attack": {
+    "type": "tconstruct:sweep",
+    "range": 2.0
   }
 }

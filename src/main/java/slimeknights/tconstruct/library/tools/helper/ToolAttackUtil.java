@@ -36,7 +36,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -126,21 +125,21 @@ public class ToolAttackUtil {
   /**
    * General version of attackEntity. Applies cooldowns but has no projectile entity
    */
-  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, Player attacker, Entity targetEntity) {
-    return attackEntity(weapon, ToolStack.from(stack), attacker, InteractionHand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false);
+  public static boolean attackEntity(ItemStack stack, Player attacker, Entity targetEntity) {
+    return attackEntity(ToolStack.from(stack), attacker, InteractionHand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false);
   }
 
   /** Normal attacking from a tool in the hand */
-  public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, InteractionHand hand,
+  public static boolean attackEntity(IModifierToolStack tool, LivingEntity attackerLiving, InteractionHand hand,
                                       Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
-    return attackEntity(weapon, tool, attackerLiving, hand, targetEntity, cooldownFunction, isExtraAttack, Util.getSlotType(hand));
+    return attackEntity(tool, attackerLiving, hand, targetEntity, cooldownFunction, isExtraAttack, Util.getSlotType(hand));
   }
 
   /**
    * Base attack logic, used by normal attacks, projectiles, and extra attacks.
    * Based on {@link Player#attack(Entity)}
    */
-  public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, InteractionHand hand,
+  public static boolean attackEntity(IModifierToolStack tool, LivingEntity attackerLiving, InteractionHand hand,
                                      Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack, EquipmentSlot sourceSlot) {
     // broken? give to vanilla
     if (tool.isBroken()) {
@@ -283,7 +282,7 @@ public class ToolAttackUtil {
     if (isExtraAttack) {
       didHit = dealDefaultDamage(attackerLiving, targetEntity, damage);
     } else {
-      didHit = weapon.dealDamage(tool, context, damage);
+      didHit = tool.getDefinition().getData().getAttack().dealDamage(tool, context, damage);
     }
 
     // reset hand to make sure we don't mess with vanilla tools
@@ -397,14 +396,13 @@ public class ToolAttackUtil {
 
   /**
    * Applies a secondary attack to an entity, notably not running AOE attacks from the tool logic
-   * @param weapon          Weapon doing attacking
    * @param tool            Tool instance
    * @param attackerLiving  Attacker
    * @param targetEntity    Target
    * @return  True if hit
    */
-  public static boolean extraEntityAttack(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, InteractionHand hand, Entity targetEntity) {
-    return attackEntity(weapon, tool, attackerLiving, hand, targetEntity, NO_COOLDOWN, true);
+  public static boolean extraEntityAttack(IModifierToolStack tool, LivingEntity attackerLiving, InteractionHand hand, Entity targetEntity) {
+    return attackEntity(tool, attackerLiving, hand, targetEntity, NO_COOLDOWN, true);
   }
 
   /**

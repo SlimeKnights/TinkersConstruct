@@ -40,7 +40,8 @@
     }
   ],
   "actions": [
-    "axe_dig"
+    "axe_dig",
+    "shield_disable"
   ],
   "harvest": {
     "logic": {
@@ -71,5 +72,9 @@
         "expansion_direction": "tconstruct:height"
       }
     }
+  },
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:axe_attack"
   }
 }

@@ -63,5 +63,9 @@
       ],
       "expansion_direction": "tconstruct:side_hit"
     }
+  },
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:hammer_attack"
   }
 }

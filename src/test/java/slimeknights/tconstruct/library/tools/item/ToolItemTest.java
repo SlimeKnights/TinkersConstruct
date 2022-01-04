@@ -17,7 +17,7 @@ import slimeknights.tconstruct.test.BaseMcTest;
 @ExtendWith(MaterialRegistryExtension.class)
 public abstract class ToolItemTest extends BaseMcTest {
 
-  protected static TestToolItem tool;
+  protected static ModifiableItem tool;
   protected ItemStack testItemStack;
 
   @BeforeAll
@@ -26,7 +26,7 @@ public abstract class ToolItemTest extends BaseMcTest {
       Item.Properties properties = new Item.Properties()
         //.addToolType(ToolType.PICKAXE, 1)
         .stacksTo(1);
-      tool = new TestToolItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
+      tool = new ModifiableItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
       tool.setRegistryName("test:toolcore");
       ForgeRegistries.ITEMS.register(tool);
     }

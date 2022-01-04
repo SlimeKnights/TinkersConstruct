@@ -28,7 +28,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
@@ -225,7 +224,7 @@ public class InteractionHandler {
       if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
         ToolStack tool = ToolStack.from(chestplate);
         if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
-          ToolAttackUtil.attackEntity(IModifiableWeapon.DEFAULT, tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
+          ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
           event.setCanceled(true);
         }
       }

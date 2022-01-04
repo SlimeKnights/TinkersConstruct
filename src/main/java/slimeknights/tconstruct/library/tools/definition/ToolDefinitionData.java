@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -36,7 +37,7 @@ public class ToolDefinitionData {
   @VisibleForTesting
   protected static final Stats EMPTY_STATS = new Stats(StatsNBT.EMPTY, MultiplierNBT.EMPTY);
   /** Empty tool data definition instance */
-  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet(), null);
+  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet(), null, null);
 
   @Nullable
   private final List<PartRequirement> parts;
@@ -50,6 +51,8 @@ public class ToolDefinitionData {
   protected final Set<ToolAction> actions;
   @Nullable
   private final Harvest harvest;
+  @Nullable
+  private final IWeaponAttack attack;
 
 
   /* Getters */
@@ -163,6 +166,14 @@ public class ToolDefinitionData {
   }
 
 
+  /* Attack */
+
+  /** Gets the tool's attack logic */
+  public IWeaponAttack getAttack() {
+    return requireNonNullElse(attack, IWeaponAttack.DEFAULT);
+  }
+
+
   /* Packet buffers */
 
   /** Writes a tool definition stat object to a packet buffer */
@@ -191,6 +202,7 @@ public class ToolDefinitionData {
     }
     IHarvestLogic.LOADER.toNetwork(getHarvestLogic(), buffer);
     IAreaOfEffectIterator.LOADER.toNetwork(getAOE(), buffer);
+    IWeaponAttack.LOADER.toNetwork(getAttack(), buffer);
   }
 
   /** Reads a tool definition stat object from a packet buffer */
@@ -215,7 +227,8 @@ public class ToolDefinitionData {
     }
     IHarvestLogic harvestLogic = IHarvestLogic.LOADER.fromNetwork(buffer);
     IAreaOfEffectIterator aoe = IAreaOfEffectIterator.LOADER.fromNetwork(buffer);
-    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build(), new Harvest(harvestLogic, aoe));
+    IWeaponAttack attack = IWeaponAttack.LOADER.fromNetwork(buffer);
+    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build(), new Harvest(harvestLogic, aoe), attack);
   }
 
   /** Internal stats object */

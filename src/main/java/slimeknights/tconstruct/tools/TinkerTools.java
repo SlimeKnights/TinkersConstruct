@@ -41,10 +41,13 @@ import slimeknights.tconstruct.library.tools.definition.aoe.VeiningAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
+import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
-import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
@@ -58,15 +61,9 @@ import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.item.ModifiableSwordItem;
 import slimeknights.tconstruct.tools.item.SlimelytraItem;
 import slimeknights.tconstruct.tools.item.SlimeskullItem;
-import slimeknights.tconstruct.tools.item.broad.CleaverTool;
-import slimeknights.tconstruct.tools.item.broad.ScytheTool;
-import slimeknights.tconstruct.tools.item.broad.SledgeHammerTool;
-import slimeknights.tconstruct.tools.item.broad.VeinHammerTool;
-import slimeknights.tconstruct.tools.item.small.HandAxeTool;
-import slimeknights.tconstruct.tools.item.small.SweepingSwordTool;
-import slimeknights.tconstruct.tools.item.small.SwordTool;
 import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
@@ -92,22 +89,22 @@ public final class TinkerTools extends TinkerModule {
    */
   private static final Item.Properties TOOL = new Item.Properties().stacksTo(1).tab(TAB_TOOLS);
 
-  public static final ItemObject<ToolItem> pickaxe = ITEMS.register("pickaxe", () -> new ToolItem(TOOL, ToolDefinitions.PICKAXE));
-  public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL, ToolDefinitions.SLEDGE_HAMMER));
-  public static final ItemObject<VeinHammerTool> veinHammer = ITEMS.register("vein_hammer", () -> new VeinHammerTool(TOOL, ToolDefinitions.VEIN_HAMMER));
+  public static final ItemObject<ModifiableItem> pickaxe = ITEMS.register("pickaxe", () -> new ModifiableItem(TOOL, ToolDefinitions.PICKAXE));
+  public static final ItemObject<ModifiableItem> sledgeHammer = ITEMS.register("sledge_hammer", () -> new ModifiableItem(TOOL, ToolDefinitions.SLEDGE_HAMMER));
+  public static final ItemObject<ModifiableItem> veinHammer = ITEMS.register("vein_hammer", () -> new ModifiableItem(TOOL, ToolDefinitions.VEIN_HAMMER));
 
-  public static final ItemObject<ToolItem> mattock = ITEMS.register("mattock", () -> new ToolItem(TOOL, ToolDefinitions.MATTOCK));
-  public static final ItemObject<ToolItem> excavator = ITEMS.register("excavator", () -> new ToolItem(TOOL, ToolDefinitions.EXCAVATOR));
+  public static final ItemObject<ModifiableItem> mattock = ITEMS.register("mattock", () -> new ModifiableItem(TOOL, ToolDefinitions.MATTOCK));
+  public static final ItemObject<ModifiableItem> excavator = ITEMS.register("excavator", () -> new ModifiableItem(TOOL, ToolDefinitions.EXCAVATOR));
 
-  public static final ItemObject<HandAxeTool> handAxe = ITEMS.register("hand_axe", () -> new HandAxeTool(TOOL, ToolDefinitions.HAND_AXE));
-  public static final ItemObject<HandAxeTool> broadAxe = ITEMS.register("broad_axe", () -> new HandAxeTool(TOOL, ToolDefinitions.BROAD_AXE));
+  public static final ItemObject<ModifiableItem> handAxe = ITEMS.register("hand_axe", () -> new ModifiableItem(TOOL, ToolDefinitions.HAND_AXE));
+  public static final ItemObject<ModifiableItem> broadAxe = ITEMS.register("broad_axe", () -> new ModifiableItem(TOOL, ToolDefinitions.BROAD_AXE));
 
-  public static final ItemObject<ToolItem> kama = ITEMS.register("kama", () -> new ToolItem(TOOL, ToolDefinitions.KAMA));
-  public static final ItemObject<ScytheTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL, ToolDefinitions.SCYTHE));
+  public static final ItemObject<ModifiableItem> kama = ITEMS.register("kama", () -> new ModifiableItem(TOOL, ToolDefinitions.KAMA));
+  public static final ItemObject<ModifiableItem> scythe = ITEMS.register("scythe", () -> new ModifiableItem(TOOL, ToolDefinitions.SCYTHE));
 
-  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new SwordTool(TOOL, ToolDefinitions.DAGGER));
-  public static final ItemObject<SweepingSwordTool> sword = ITEMS.register("sword", () -> new SweepingSwordTool(TOOL, ToolDefinitions.SWORD));
-  public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL, ToolDefinitions.CLEAVER));
+  public static final ItemObject<ModifiableItem> dagger = ITEMS.register("dagger", () -> new ModifiableSwordItem(TOOL, ToolDefinitions.DAGGER));
+  public static final ItemObject<ModifiableItem> sword = ITEMS.register("sword", () -> new ModifiableSwordItem(TOOL, ToolDefinitions.SWORD));
+  public static final ItemObject<ModifiableItem> cleaver = ITEMS.register("cleaver", () -> new ModifiableSwordItem(TOOL, ToolDefinitions.CLEAVER));
 
   public static final ItemObject<ModifiableItem> flintAndBronze = ITEMS.register("flint_and_bronze", () -> new ModifiableItem(TOOL, ToolDefinitions.FLINT_AND_BRONZE));
 
@@ -121,8 +118,8 @@ public final class TinkerTools extends TinkerModule {
     .build();
 
   /* Particles */
-  public static final RegistryObject<SimpleParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new SimpleParticleType(false));
-  public static final RegistryObject<SimpleParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new SimpleParticleType(false));
+  public static final RegistryObject<SimpleParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new SimpleParticleType(true));
+  public static final RegistryObject<SimpleParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new SimpleParticleType(true));
 
   /* Entities */
   public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () ->
@@ -160,6 +157,10 @@ public final class TinkerTools extends TinkerModule {
     IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("tree"), TreeAOEIterator.LOADER);
     IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("vein"), VeiningAOEIterator.LOADER);
     IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("fallback"), FallbackAOEIterator.LOADER);
+    // attack
+    IWeaponAttack.LOADER.register(TConstruct.getResource("sweep"), SweepWeaponAttack.LOADER);
+    IWeaponAttack.LOADER.register(TConstruct.getResource("circle"), CircleWeaponAttack.LOADER);
+    IWeaponAttack.LOADER.register(TConstruct.getResource("particle"), ParticleWeaponAttack.LOADER);
   }
 
   @SubscribeEvent
