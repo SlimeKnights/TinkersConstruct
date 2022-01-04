@@ -1,53 +1,53 @@
 [
   {
     "name": "group_general",
-    "type": "text",
+    "type": "mantle:text",
     "data": "slotless/general.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/general/farsighted.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/general/nearsighted.json"
   },
    {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/general/overslime.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/general/shiny.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/general/worldbound.json"
   },
 
   {
     "name": "group_bonus",
-    "type": "text",
+    "type": "mantle:text",
     "data": "slotless/bonus.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/bonus/draconic.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/bonus/harmonious.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/bonus/recapitated.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/bonus/resurrected.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "slotless/bonus/writable.json"
   }
 ]

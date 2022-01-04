@@ -1,8 +1,6 @@
 {
   "title": "Flint Shuriken",
-  "item": {
-    "id": "tconstruct:flint_shuriken"
-  },
+  "item": "tconstruct:flint_shuriken",
   "text": [
     {
       "text": "Sharpening flint into a star shape create a quite effective projectile weapon. While its nowhere near as good as a bow, it still produces pretty good knockback and damage, which can help you escape from monsters.",

@@ -4,7 +4,8 @@
     "data": "sections/small_tools.json",
     "icon": {
       "item": {
-        "id": "tconstruct:pickaxe",
+        "type": "forge:nbt",
+        "item": "tconstruct:pickaxe",
         "nbt": {
           "tic_broken": false,
           "tic_display_tool": true,
@@ -23,7 +24,8 @@
     "data": "sections/large_tools.json",
     "icon": {
       "item": {
-        "id": "tconstruct:cleaver",
+        "type": "forge:nbt",
+        "item": "tconstruct:cleaver",
         "nbt": {
           "tic_broken": false,
           "tic_display_tool": true,
@@ -43,7 +45,8 @@
     "data": "sections/armor.json",
     "icon": {
       "item": {
-        "id": "tconstruct:travelers_chestplate",
+        "type": "forge:nbt",
+        "item": "tconstruct:travelers_chestplate",
         "nbt": {
           "tic_broken": false,
           "tic_display_tool": true,
@@ -55,41 +58,31 @@
   {
     "name": "tier_one_materials",
     "icon": {
-      "item": {
-        "id": "minecraft:stone"
-      }
+      "item": "minecraft:stone"
     }
   },
   {
     "name": "tier_two_materials",
     "icon": {
-      "item": {
-        "id": "tconstruct:copper_ingot"
-      }
+      "item": "minecraft:copper_ingot"
     }
   },
   {
     "name": "tier_three_materials",
     "icon": {
-      "item": {
-        "id": "tconstruct:slimesteel_ingot"
-      }
+      "item": "tconstruct:slimesteel_ingot"
     }
   },
   {
     "name": "tier_four_materials",
     "icon": {
-      "item": {
-        "id": "tconstruct:manyullyn_ingot"
-      }
+      "item": "tconstruct:manyullyn_ingot"
     }
   },
   {
     "name": "skull_materials",
     "icon": {
-      "item": {
-        "id": "minecraft:skeleton_skull"
-      }
+      "item": "minecraft:skeleton_skull"
     }
   },
   {
@@ -97,7 +90,8 @@
     "data": "sections/upgrades.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot",
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "upgrades"
         }
@@ -109,7 +103,8 @@
     "data": "sections/defense.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot",
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "defense"
         }
@@ -121,7 +116,8 @@
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot",
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "slotless"
         }
@@ -133,7 +129,8 @@
     "data": "sections/abilities.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot",
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "abilities"
         }

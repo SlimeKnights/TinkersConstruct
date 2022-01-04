@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 
 import java.util.List;
 import java.util.ListIterator;
-import java.util.stream.Collectors;
 
 public abstract class AbstractMaterialSectionTransformer extends SectionTransformer {
 
@@ -45,10 +44,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
     sectionData.source = BookRepository.DUMMY;
     sectionData.parent = book;
 
-    List<IMaterial> materialList = MaterialRegistry.getMaterials().stream()
-      .filter(this::isValidMaterial)
-      .collect(Collectors.toList());
-
+    List<IMaterial> materialList = MaterialRegistry.getMaterials().stream().filter(this::isValidMaterial).toList();
     if (materialList.isEmpty()) {
       return;
     }

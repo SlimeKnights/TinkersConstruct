@@ -3,53 +3,41 @@
     "name": "intro",
     "data": "sections/intro.json",
     "icon": {
-      "item": {
-        "id": "tconstruct:sky_slime_ball"
-      }
+      "item": "tconstruct:sky_slime_ball"
     }
   },
   {
     "name": "gadgets",
     "data": "sections/gadgets.json",
     "icon": {
-      "item": {
-        "id": "tconstruct:flint_shuriken"
-      }
+      "item": "tconstruct:flint_shuriken"
     }
   },
   {
     "name": "modifiers",
     "data": "sections/modifiers.json",
     "icon": {
-      "item": {
-        "id": "minecraft:wet_sponge"
-      }
+      "item": "minecraft:wet_sponge"
     }
   },
   {
     "name": "exploration",
     "data": "sections/exploration.json",
     "icon": {
-      "item": {
-        "id": "tconstruct:sky_slime_sapling"
-      }
+      "item": "tconstruct:sky_slime_sapling"
     }
   },
   {
     "name": "armor",
     "data": "sections/armor.json",
     "icon": {
-      "item": {
-        "id": "tconstruct:slime_boots"
-      }
+      "item": "tconstruct:slime_boots"
     }
   },
   {
     "name": "skull_materials",
     "icon": {
-      "item": {
-        "id": "minecraft:skeleton_skull"
-      }
+      "item": "minecraft:skeleton_skull"
     }
   }
 ]

@@ -3,37 +3,27 @@
     "name": "intro",
     "data": "sections/introduction.json",
     "icon": {
-      "item": {
-        "id": "tconstruct:blank_cast"
-      }
+      "item": "tconstruct:blank_cast"
     }
   },
   {
     "name": "smeltery",
     "data": "sections/smeltery.json",
     "icon": {
-      "item": {
-        "id": "tconstruct:smeltery_controller",
-        "damage": 0
-      }
+      "item": "tconstruct:smeltery_controller"
     }
   },
   {
     "name": "entity_melting",
     "data": "sections/entitymelting.json",
     "icon": {
-      "item": {
-        "id": "minecraft:creeper_head",
-        "damage": 0
-      }
+      "item": "minecraft:creeper_head"
     }
   },
   {
     "name": "tier_three_materials",
     "icon": {
-      "item": {
-        "id": "tconstruct:slimesteel_ingot"
-      }
+      "item": "tconstruct:slimesteel_ingot"
     }
   },
   {
@@ -41,7 +31,8 @@
     "data": "sections/tools.json",
     "icon": {
       "item": {
-        "id": "tconstruct:cleaver",
+        "type": "forge:nbt",
+        "item": "tconstruct:cleaver",
         "nbt": {
           "tic_broken": false,
           "tic_display_tool": true,
@@ -61,7 +52,8 @@
     "data": "sections/abilities.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot",
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "abilities"
         }
@@ -73,12 +65,12 @@
     "data": "sections/defense.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_slot",
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "defense"
         }
       }
     }
   }
-  
 ]

@@ -1,53 +1,53 @@
 [
   {
     "name": "group_protection",
-    "type": "text",
+    "type": "mantle:text",
     "data": "defense/protection.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/blast.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/fire.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/magic.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/melee.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/projectile.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/turtle_shell.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/protection/dragonborn.json"
   },
 
   {
     "name": "group_special",
-    "type": "text",
+    "type": "mantle:text",
     "data": "defense/special.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/special/golden.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/special/knockback_resistance.json"
   },
   {
-    "type": "modifier",
+    "type": "tconstruct:modifier",
     "data": "defense/special/revitalizing.json"
   }
 ]

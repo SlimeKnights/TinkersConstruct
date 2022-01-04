@@ -27,7 +27,8 @@ public class PageIconLinkElement extends SizedBookElement {
     this.displayElement = displayElement;
     this.pageData = pageData;
 
-    this.action = "go-to-page-rtn:" + pageData.parent.name + "." + pageData.name;
+    this.action = "mantle:go-to-page-rtn " + pageData.parent.name + "." + pageData.name;
+
     this.name = name;
   }
 

@@ -1,8 +1,6 @@
 {
   "title": "Seared Duct",
-  "item": {
-    "id": "tconstruct:seared_duct"
-  },
+  "item": "tconstruct:seared_duct",
   "text": [
     {
       "text": "The seared duct is your way to pull a specific fluid out of the smeltery. The fluid is chosen by putting a copper can or bucket full of a liquid in the duct's filter slot.",

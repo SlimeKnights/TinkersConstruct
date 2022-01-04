@@ -1,57 +1,57 @@
 [
   {
     "name": "advertisements",
-    "type": "text",
+    "type": "mantle:text",
     "data": "intro/advertisements.json"
   },
   {
     "name": "introduction",
-    "type": "text",
+    "type": "mantle:text",
     "data": "intro/welcome.json"
   },
   {
     "name": "partbuilder",
-    "type": "image with text below",
+    "type": "mantle:image_text",
     "data": "intro/partbuilder.json"
   },
   {
     "name": "pattern_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "intro/pattern_craft.json"
   },
   {
     "name": "partbuilder_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "intro/partbuilder_craft.json"
   },
   {
     "name": "tinkerstation",
-    "type": "image with text below",
+    "type": "mantle:image_text",
     "data": "intro/tinkerstation.json"
   },
   {
     "name": "tinkerstation2",
-    "type": "text",
+    "type": "mantle:text",
     "data": "intro/tinkerstation2.json"
   },
   {
     "name": "tinkerstation_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "intro/tinkerstation_craft.json"
   },
   {
     "name": "storage",
-    "type": "text",
+    "type": "mantle:text",
     "data": "intro/storage.json"
   },
   {
     "name": "partchest_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "intro/partchest_craft.json"
   },
   {
     "name": "tinkers_chest",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "intro/tinkerschest_craft.json"
   }
 ]

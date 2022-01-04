@@ -1,17 +1,17 @@
 [
   {
     "name": "entitymelting",
-    "type": "image with text below",
+    "type": "mantle:image_text",
     "data": "entitymelting/intro.json"
   },
   {
     "name": "entitymelting",
-    "type": "text",
+    "type": "mantle:text",
     "data": "entitymelting/entitymelting.json"
   },
   {
     "name": "noteableentities",
-    "type": "text",
+    "type": "mantle:text",
     "data": "entitymelting/notable.json"
   }
 

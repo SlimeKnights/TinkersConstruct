@@ -1,22 +1,22 @@
 [
   {
     "name": "furtherreading",
-    "type": "text",
+    "type": "mantle:text",
     "data": "furtherreading/furtherreading.json"
   },
   {
     "name": "punysmelting_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "furtherreading/puny_craft.json"
   },
   {
     "name": "tinkergadgetry_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "furtherreading/gadget_craft.json"
   },
   {
     "name": "fantasticfoundry_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "furtherreading/fantastic_foundry_craft.json"
   }
 ]

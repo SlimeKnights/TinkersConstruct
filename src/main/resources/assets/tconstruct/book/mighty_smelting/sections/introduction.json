@@ -2,17 +2,17 @@
  
   {
     "name": "thruul",
-    "type": "text",
+    "type": "mantle:text",
     "data": "intro/thruul.json"
   },
   {
     "name": "tinkers_anvil",
-    "type": "showcase",
+    "type": "mantle:showcase",
     "data": "intro/tinkers_anvil.json"
   },
   {
     "name": "anvil_craft",
-    "type": "crafting",
+    "type": "mantle:crafting",
     "data": "intro/tinkersanvil_craft.json"
   }
 ]

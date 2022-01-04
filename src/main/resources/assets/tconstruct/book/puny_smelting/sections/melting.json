@@ -1,22 +1,22 @@
 [
   {
     "name": "melter",
-    "type": "image with text below",
+    "type": "mantle:image_text",
     "data": "melting/melter.json"
   },
   {
     "name": "features",
-    "type": "text",
+    "type": "mantle:text",
     "data": "melting/features.json"
   },
   {
     "name": "meltergui",
-    "type": "image with text below",
+    "type": "mantle:image_text",
     "data": "melting/meltergui.json"
   },
   {
     "name": "meltergui2",
-    "type": "text",
+    "type": "mantle:text",
     "data": "melting/meltergui2.json"
   }
 ]
