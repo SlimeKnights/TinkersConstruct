@@ -177,10 +177,16 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
               Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
                                                               .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().keySet().toArray())))
                                                               .collect(Collectors.toList())));
-    log.info("{} stats loaded for {} materials",
-             materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
-             materialToStatsPerType.size());
     onLoaded.run();
+  }
+
+  @Override
+  public void onResourceManagerReload(ResourceManager manager) {
+    long time = System.nanoTime();
+    super.onResourceManagerReload(manager);
+    log.info("{} stats loaded for {} materials in {} ms",
+             materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
+             materialToStatsPerType.size(), (System.nanoTime() - time) / 1000000f);
   }
 
   /**
