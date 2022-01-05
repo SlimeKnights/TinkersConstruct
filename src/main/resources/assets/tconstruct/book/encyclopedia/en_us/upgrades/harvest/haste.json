@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "On harvest tools and weapons, grants +5 mining speed and +5% attack speed per level."
+      "text": "On harvest tools grants +5 mining speed per level."
     },
     {
       "text": "On chestplates, grants +10% mining speed per level.", "paragraph": true

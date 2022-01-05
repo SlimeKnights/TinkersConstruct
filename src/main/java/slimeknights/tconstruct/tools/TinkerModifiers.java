@@ -207,6 +207,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.ScaledTypeDamageMo
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SwiftstrikeModifier;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.MooshroomDemushroomingRecipe;
@@ -279,6 +280,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<FortuneModifier> fortune = MODIFIERS.register("fortune", FortuneModifier::new);
 
   // weapon
+  public static final RegistryObject<SwiftstrikeModifier> swiftstrike = MODIFIERS.register("swiftstrike", SwiftstrikeModifier::new);
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
   public static final RegistryObject<PaddedModifier> padded = MODIFIERS.register("padded", PaddedModifier::new);
   public static final RegistryObject<FieryModifier> fiery = MODIFIERS.register("fiery", FieryModifier::new);

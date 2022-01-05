@@ -327,9 +327,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      */
 
     // haste can use redstone or blocks
-    Ingredient chestplateMeleeHarvest = ingredientFromTags(TinkerTags.Items.MELEE_OR_HARVEST, TinkerTags.Items.CHESTPLATES);
+    Ingredient chestplateHarvest = ingredientFromTags(TinkerTags.Items.HARVEST, TinkerTags.Items.CHESTPLATES);
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
-                                    .setTools(chestplateMeleeHarvest)
+                                    .setTools(chestplateHarvest)
                                     .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
                                     .setSalvage(Items.REDSTONE, false)
                                     .setMaxLevel(5) // +25 mining speed, vanilla +26, +50% mining speed on chestplates
@@ -337,7 +337,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .buildSalvage(consumer, prefix(TinkerModifiers.haste, upgradeSalvage))
                                     .save(consumer, wrap(TinkerModifiers.haste, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
-                                    .setTools(chestplateMeleeHarvest)
+                                    .setTools(chestplateHarvest)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
                                     .setLeftover(new ItemStack(Items.REDSTONE))
                                     .setMaxLevel(5)
@@ -510,6 +510,22 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.sweeping, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.sweeping, upgradeFolder));
+    // swiftstrike works on blocks too, we are nice
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.swiftstrike.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.AMETHYST_SHARD, 1, 72)
+                                    .setSalvage(Items.AMETHYST_SHARD, false)
+                                    .setMaxLevel(5)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .buildSalvage(consumer, prefix(TinkerModifiers.swiftstrike, upgradeSalvage))
+                                    .save(consumer, wrap(TinkerModifiers.swiftstrike, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.swiftstrike.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Blocks.AMETHYST_BLOCK, 4, 72)
+                                    .setLeftover(new ItemStack(Items.AMETHYST_SHARD))
+                                    .setMaxLevel(5)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .save(consumer, wrap(TinkerModifiers.swiftstrike, upgradeFolder, "_from_block"));
     /*
      * armor
      */

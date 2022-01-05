@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 72,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:swiftstrike",
+    "level": 1
+  },
+  "max_level": 5
+}

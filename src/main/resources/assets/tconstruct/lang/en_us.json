@@ -1524,7 +1524,7 @@
   "modifier.tconstruct.haste.4": "Hastiester",
   "modifier.tconstruct.haste.5": "Hastiestest",
   "modifier.tconstruct.haste.flavor": "Science!",
-  "modifier.tconstruct.haste.description": "Magic red dust makes tool swing and mine faster!",
+  "modifier.tconstruct.haste.description": "Magic red dust makes tool mine faster!",
 
   "modifier.tconstruct.blasting": "Blasting",
   "modifier.tconstruct.blasting.flavor": "Explosive Mining!",
@@ -1590,6 +1590,14 @@
   "modifier.tconstruct.sharpness.5": "Sharpestest",
   "modifier.tconstruct.sharpness.flavor": "How Sharp?",
   "modifier.tconstruct.sharpness.description": "Tool is so much sharper, dealing more damage!",
+  "modifier.tconstruct.swiftstrike": "Swiftstrike",
+  "modifier.tconstruct.swiftstrike.1": "Swiftstrike",
+  "modifier.tconstruct.swiftstrike.2": "Swifterstrike",
+  "modifier.tconstruct.swiftstrike.3": "Swifteststrike",
+  "modifier.tconstruct.swiftstrike.4": "Swiftesterstrike",
+  "modifier.tconstruct.swiftstrike.5": "Swiftesteststrike",
+  "modifier.tconstruct.swiftstrike.flavor": "Magic!",
+  "modifier.tconstruct.swiftstrike.description": "Magic purple gems make the weapon lighter and easier to swing!",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",

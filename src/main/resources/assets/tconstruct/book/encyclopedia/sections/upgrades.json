@@ -114,6 +114,10 @@
     "type": "tconstruct:modifier",
     "data": "upgrades/weapon/smite.json"
   },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/swiftstrike.json"
+  },
 
   {
     "name": "group_harvest",
