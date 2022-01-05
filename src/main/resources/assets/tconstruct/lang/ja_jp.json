@@ -400,7 +400,7 @@
 
   "block.tconstruct.sky_slime_fluid": "液状スカイスライム",
   "fluid.tconstruct.sky_slime": "液状スカイスライム",
-  "fluid.tconstruct.flowing_sky_slime": "液状スカイスライム",
+  "fluid.tconstruct.flowing_sky_slime": "流れる液状スカイスライム",
   "item.tconstruct.sky_slime_bucket": "液状スカイスライム入りバケツ",
 
   "block.tconstruct.magma_fluid": "液状マグマクリーム",
@@ -605,7 +605,7 @@
 
   "block.tconstruct.molten_uranium_fluid": "溶融したウラン",
   "fluid.tconstruct.molten_uranium": "溶融したウラン",
-  "fluid.tconstruct.flowing_molten_uranium": "溶融したウラン",
+  "fluid.tconstruct.flowing_molten_uranium": "流れる溶融したウラン",
   "item.tconstruct.molten_uranium_bucket": "溶融したウラン入りバケツ",
 
   "_comment": "Compat Alloys",
