@@ -1,0 +1,8 @@
+{
+  "title": "Создание литейных гаджетов",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "Об использовании слизи в повседневных делах. Руководство от Melvin о том, как Литейщику найти материалы в мире." }
+  ]
+}
