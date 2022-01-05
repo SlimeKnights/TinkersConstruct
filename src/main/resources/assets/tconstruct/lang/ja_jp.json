@@ -2315,7 +2315,7 @@
   "gui.tconstruct.tinker_station.repair": "修理と変更",
   "gui.tconstruct.tinker_station.repair.description": "小型及び大型道具の作成と全ての改造の適用が可能です。あなただけの一品を作ろう！左側の一覧から選んで始めましょう。",
   "gui.tconstruct.tinker_station.modifiers": "改造",
-  "gui.tconstruct.tinker_station.upgrades": "アップグレード & 能力",
+  "gui.tconstruct.tinker_station.upgrades": "アップグレードとアビリティ",
   "gui.tconstruct.tinker_station.traits": "能力",
   "gui.tconstruct.tinker_station.components": "構成",
   "gui.tconstruct.tinker_station.info": "道具を修理・部品交換できます。左側に道具と素材を置いてスタートします。",
