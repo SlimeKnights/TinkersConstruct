@@ -10,6 +10,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -36,9 +37,14 @@ import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.PlantType;
@@ -266,8 +272,8 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Features
    */
-  public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_SMALL;
-  public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_LARGE;
+  public static PlacedFeature COBALT_ORE_FEATURE_SMALL;
+  public static PlacedFeature COBALT_ORE_FEATURE_LARGE;
 
   /*
    * Events
@@ -353,17 +359,14 @@ public final class TinkerWorld extends TinkerModule {
 
     // ores
     event.enqueueWork(() -> {
-      // TODO: why do we have features, configured features, and placed features?
       // small veins, standard distribution
-      COBALT_ORE_FEATURE_SMALL = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_small"),
+      ConfiguredFeature<?,?> cobaltOreSmall = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_small"),
                                                    Feature.ORE.configured(new OreConfiguration(OreFeatures.NETHERRACK, cobaltOre.get().defaultBlockState(), 4)));
-                                                              //.decorated(Features.Placements.RANGE_10_20_ROOFED)
-                                                              //.squared().count(Config.COMMON.veinCountCobalt.get() / 2));
+      COBALT_ORE_FEATURE_SMALL = Registry.register(BuiltinRegistries.PLACED_FEATURE, TConstruct.getResource("cobalt_ore_small"), cobaltOreSmall.placed(CountPlacement.of(5), PlacementUtils.RANGE_8_8, BiomeFilter.biome()));
       // large veins, around y=16, up to 48
-      COBALT_ORE_FEATURE_LARGE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_large"),
-																									 Feature.ORE.configured(new OreConfiguration(OreFeatures.NETHERRACK, cobaltOre.get().defaultBlockState(), 8)));
-                                                              //.decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(32, 16)))
-                                                              //.squared().count(Config.COMMON.veinCountCobalt.get() / 2));
+      ConfiguredFeature<?,?> cobaltOreLarge = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, resource("cobalt_ore_large"),
+																									 Feature.ORE.configured(new OreConfiguration(OreFeatures.NETHERRACK, cobaltOre.get().defaultBlockState(), 6)));
+      COBALT_ORE_FEATURE_LARGE = Registry.register(BuiltinRegistries.PLACED_FEATURE, TConstruct.getResource("cobalt_ore_large"), cobaltOreLarge.placed(CountPlacement.of(3), HeightRangePlacement.triangle(VerticalAnchor.absolute(8), VerticalAnchor.absolute(32)), BiomeFilter.biome()));
     });
   }
 
