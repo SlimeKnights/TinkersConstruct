@@ -390,7 +390,7 @@
 
   "block.tconstruct.blood_fluid": "血液",
   "fluid.tconstruct.blood": "血液",
-  "fluid.tconstruct.flowing_blood": "血液",
+  "fluid.tconstruct.flowing_blood": "流れる血液",
   "item.tconstruct.blood_bucket": "血液入りバケツ",
 
   "block.tconstruct.earth_slime_fluid": "液状スライム",
