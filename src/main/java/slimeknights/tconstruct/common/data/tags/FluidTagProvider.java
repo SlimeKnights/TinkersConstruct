@@ -6,6 +6,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.TinkerTags.Fluids;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
 @SuppressWarnings("unchecked")
@@ -94,7 +95,7 @@ public class FluidTagProvider extends FluidTagsProvider {
 
 
     // tooltips //
-    this.tag(TinkerTags.Fluids.GLASS_TOOLTIPS).addTags(TinkerFluids.moltenGlass.getLocalTag(), TinkerFluids.liquidSoul.getLocalTag(), TinkerFluids.moltenObsidian.getLocalTag(), TinkerTags.Fluids.SLIME);
+    this.tag(TinkerTags.Fluids.GLASS_TOOLTIPS).addTags(TinkerFluids.moltenGlass.getLocalTag(), TinkerFluids.liquidSoul.getLocalTag(), TinkerFluids.moltenObsidian.getLocalTag());
     this.tag(TinkerTags.Fluids.SLIME_TOOLTIPS).addTags(TinkerFluids.magma.getForgeTag(), TinkerFluids.blood.getLocalTag(), TinkerFluids.moltenEnder.getForgeTag(), TinkerTags.Fluids.SLIME);
     this.tag(TinkerTags.Fluids.CLAY_TOOLTIPS).addTags(TinkerFluids.moltenClay.getLocalTag(), TinkerFluids.moltenPorcelain.getLocalTag(), TinkerFluids.searedStone.getLocalTag(), TinkerFluids.scorchedStone.getLocalTag());
     this.tag(TinkerTags.Fluids.METAL_TOOLTIPS).addTags(
@@ -116,7 +117,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         // mekanism alloys
         TinkerFluids.moltenRefinedGlowstone.getForgeTag(), TinkerFluids.moltenRefinedObsidian.getForgeTag());
 
-    this.tag(TinkerTags.Fluids.GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenQuartz.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag(), TinkerFluids.moltenAmethyst.getLocalTag());
+    this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag());
+    this.tag(Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getLocalTag(), TinkerFluids.moltenAmethyst.getLocalTag());
 
     // spilling tags - reduces the number of recipes generated //
     this.tag(TinkerTags.Fluids.CLAY_SPILLING)

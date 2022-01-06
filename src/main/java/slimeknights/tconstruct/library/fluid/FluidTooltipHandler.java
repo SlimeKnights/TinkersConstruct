@@ -19,10 +19,11 @@ import java.util.List;
 import java.util.Objects;
 
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.CLAY_TOOLTIPS;
-import static slimeknights.tconstruct.common.TinkerTags.Fluids.GEM_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.GLASS_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.LARGE_GEM_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.METAL_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SLIME_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.SMALL_GEM_TOOLTIPS;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
@@ -34,17 +35,20 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry KILOBUCKET = new FluidGuiEntry("kilobucket", 1000000);
   private static final FluidGuiEntry BUCKET = new FluidGuiEntry("bucket", 1000);
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", 1);
-  // metal/gems
+  // metal
   private static final FluidGuiEntry METAL_BLOCK = new FluidGuiEntry("block", FluidValues.METAL_BLOCK);
   private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", FluidValues.INGOT);
-  private static final FluidGuiEntry GEM = new FluidGuiEntry("gem", FluidValues.GEM);
   private static final FluidGuiEntry NUGGET = new FluidGuiEntry("nugget", FluidValues.NUGGET);
+  // gems
+  private static final FluidGuiEntry LARGE_GEM_BLOCK = new FluidGuiEntry("block", FluidValues.LARGE_GEM_BLOCK);
+  private static final FluidGuiEntry SMALL_GEM_BLOCK = new FluidGuiEntry("block", FluidValues.SMALL_GEM_BLOCK);
+  private static final FluidGuiEntry GEM = new FluidGuiEntry("gem", FluidValues.GEM);
+  private static final FluidGuiEntry GEM_NUGGET = new FluidGuiEntry("nugget", FluidValues.GEM / 9);
   // clay
-  private static final FluidGuiEntry BRICK_BLOCK = new FluidGuiEntry("block", FluidValues.METAL_BRICK);
-  private static final FluidGuiEntry BRICK = new FluidGuiEntry("brick", FluidValues.INGOT);
+  private static final FluidGuiEntry BRICK_BLOCK = new FluidGuiEntry("block", FluidValues.BRICK_BLOCK);
+  private static final FluidGuiEntry BRICK = new FluidGuiEntry("brick", FluidValues.BRICK);
   // slime
-  private static final FluidGuiEntry SLIMEBLOCK = new FluidGuiEntry("block", FluidValues.SLIMEBLOCK);
-  private static final FluidGuiEntry CONGEALED = new FluidGuiEntry("congealed", FluidValues.SLIME_CONGEALED);
+  private static final FluidGuiEntry SLIMEBLOCK = new FluidGuiEntry("block", FluidValues.SLIME_CONGEALED);
   private static final FluidGuiEntry SLIMEBALL = new FluidGuiEntry("slimeball", FluidValues.SLIMEBALL);
   // glass
   private static final FluidGuiEntry GLASS_BLOCK = new FluidGuiEntry("block", FluidValues.GLASS_BLOCK);
@@ -115,16 +119,19 @@ public class FluidTooltipHandler {
         amount = METAL_BLOCK.getText(tooltip, amount);
         amount = INGOT.getText(tooltip, amount);
         amount = NUGGET.getText(tooltip, amount);
-      } else if (fluid.is(GEM_TOOLTIPS)) {
-        amount = METAL_BLOCK.getText(tooltip, amount);
+      } else if (fluid.is(LARGE_GEM_TOOLTIPS)) {
+        amount = LARGE_GEM_BLOCK.getText(tooltip, amount);
         amount = GEM.getText(tooltip, amount);
-        amount = NUGGET.getText(tooltip, amount);
+        amount = GEM_NUGGET.getText(tooltip, amount);
+      } else if (fluid.is(SMALL_GEM_TOOLTIPS)) {
+        amount = SMALL_GEM_BLOCK.getText(tooltip, amount);
+        amount = GEM.getText(tooltip, amount);
+        amount = GEM_NUGGET.getText(tooltip, amount);
       } else if (fluid.is(GLASS_TOOLTIPS)) {
         amount = GLASS_BLOCK.getText(tooltip, amount);
         amount = PANE.getText(tooltip, amount);
       } else if (fluid.is(SLIME_TOOLTIPS)) {
         amount = SLIMEBLOCK.getText(tooltip, amount);
-        amount = CONGEALED.getText(tooltip, amount);
         amount = SLIMEBALL.getText(tooltip, amount);
       } else if (fluid.is(CLAY_TOOLTIPS)) {
         amount = BRICK_BLOCK.getText(tooltip, amount);

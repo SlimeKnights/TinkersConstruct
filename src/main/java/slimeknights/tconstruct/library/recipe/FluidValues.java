@@ -22,7 +22,9 @@ public final class FluidValues {
   /** Value of a gem such as diamond or emerald, needs to be divible by 3 for ore multipliers */
   public static final int GEM = 144;
   /** Value of a block of 9 gems, such as emerald or an ender pearl */
-  public static final int GEM_BLOCK = GEM * 9;
+  public static final int LARGE_GEM_BLOCK = GEM * 9;
+  /** Value of a block of 9 gems, such as emerald or an ender pearl */
+  public static final int SMALL_GEM_BLOCK = GEM * 4;
 
   /** Value of a single glass block, also used for obsidian */
   public static final int GLASS_BLOCK = 1000;

@@ -3,7 +3,6 @@
   "values": [
     "#tconstruct:molten_glass",
     "#tconstruct:liquid_soul",
-    "#tconstruct:molten_obsidian",
-    "#tconstruct:slime"
+    "#tconstruct:molten_obsidian"
   ]
 }

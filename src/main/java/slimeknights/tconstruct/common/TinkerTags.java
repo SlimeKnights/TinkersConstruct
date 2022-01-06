@@ -313,8 +313,10 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Fluid> CLAY_TOOLTIPS = tag("tooltips/clay");
     /** Causes the fluid to be formatted like a metal in tooltips */
     public static final IOptionalNamedTag<Fluid> METAL_TOOLTIPS = tag("tooltips/metal");
-    /** Causes the fluid to be formatted like a gem in tooltips */
-    public static final IOptionalNamedTag<Fluid> GEM_TOOLTIPS = tag("tooltips/gem");
+    /** Causes the fluid to be formatted like gems, with 3x3 blocks */
+    public static final IOptionalNamedTag<Fluid> LARGE_GEM_TOOLTIPS = tag("tooltips/gem_large");
+    /** Causes the fluid to be formatted like gems, with 2x2 blocks */
+    public static final IOptionalNamedTag<Fluid> SMALL_GEM_TOOLTIPS = tag("tooltips/gem_small");
     /** Causes the fluid to be formatted like glass in tooltips */
     public static final IOptionalNamedTag<Fluid> GLASS_TOOLTIPS = tag("tooltips/glass");
 
