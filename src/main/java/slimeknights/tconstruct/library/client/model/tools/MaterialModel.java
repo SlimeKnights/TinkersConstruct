@@ -50,11 +50,11 @@ import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -187,7 +187,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     // get quads
-    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, -1, finalSprite, transform, light, pixels));
+    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, index, finalSprite, transform, light, pixels));
 
     // return sprite
     return finalSprite;
@@ -240,7 +240,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   private static final class MaterialOverrideHandler extends ItemOverrides {
     // contains all the baked models since they'll never change, cleared automatically as the baked model is discarded
-    private final Map<MaterialId, BakedModel> cache = new HashMap<>();
+    private final Map<MaterialId, BakedModel> cache = new ConcurrentHashMap<>();
 
     // parameters needed for rebaking
     private final IModelConfiguration owner;

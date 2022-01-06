@@ -39,11 +39,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
@@ -97,7 +97,7 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
 
   /** Baked wrapper class */
   private static class Baked extends DynamicBakedWrapper<BakedModel> {
-    private final Map<FluidStack,BakedModel> cache = new HashMap<>();
+    private final Map<FluidStack,BakedModel> cache = new ConcurrentHashMap<>();
     private final List<BlockElement> elements;
     private final IModelConfiguration owner;
     private final ModelState transform;
