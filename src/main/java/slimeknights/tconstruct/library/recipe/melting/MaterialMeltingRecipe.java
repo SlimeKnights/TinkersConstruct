@@ -102,7 +102,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
               output = new FluidStack(output, output.getAmount() * entry.getIntValue());
             }
             return new MeltingRecipe(id, "", MaterialIngredient.fromItem(entry.getKey(), inputId), output, temperature,
-                                     IMeltingRecipe.calcTime(temperature, output.getAmount()), Collections.emptyList());
+                                     IMeltingRecipe.calcTimeForAmount(temperature, output.getAmount()), Collections.emptyList());
           }).collect(Collectors.toList());
       }
     }
