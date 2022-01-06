@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -27,6 +27,7 @@ public class FluidClientEvents extends ClientEventBase {
     setTranslucent(TinkerFluids.moltenGlass);
     setTranslucent(TinkerFluids.liquidSoul);
     setTranslucent(TinkerFluids.moltenSoulsteel);
+    setTranslucent(TinkerFluids.moltenAmethyst);
   }
 
   private static void setTranslucent(FluidObject<?> fluid) {

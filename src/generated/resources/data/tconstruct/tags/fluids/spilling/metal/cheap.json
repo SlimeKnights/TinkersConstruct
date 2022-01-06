@@ -12,6 +12,7 @@
     "#forge:molten_zinc",
     "#forge:molten_platinum",
     "#forge:molten_tungsten",
-    "#forge:molten_osmium"
+    "#forge:molten_osmium",
+    "#tconstruct:molten_amethyst"
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:ore_melting",
+  "ingredient": {
+    "item": "minecraft:amethyst_cluster"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_amethyst",
+    "amount": 576
+  },
+  "temperature": 950,
+  "time": 259,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_quartz",
+      "amount": 576
+    }
+  ]
+}

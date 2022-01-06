@@ -9,10 +9,22 @@
     },
     [
       {
+        "item": "minecraft:deepslate"
+      },
+      {
+        "item": "minecraft:cobbled_deepslate"
+      },
+      {
+        "item": "minecraft:polished_deepslate"
+      },
+      {
         "item": "minecraft:blackstone"
       },
       {
         "item": "minecraft:polished_blackstone"
+      },
+      {
+        "item": "minecraft:tuff"
       }
     ]
   ],

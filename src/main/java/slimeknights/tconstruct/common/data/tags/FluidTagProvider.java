@@ -36,6 +36,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenEmerald);
     tagLocal(TinkerFluids.moltenQuartz);
     tagLocal(TinkerFluids.moltenDiamond);
+    tagLocal(TinkerFluids.moltenAmethyst);
     tagAll(TinkerFluids.moltenEnder);
     tagLocal(TinkerFluids.blazingBlood);
     // ores
@@ -164,7 +165,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenZinc.getForgeTag())
         .addTag(TinkerFluids.moltenPlatinum.getForgeTag())
         .addTag(TinkerFluids.moltenTungsten.getForgeTag())
-        .addTag(TinkerFluids.moltenOsmium.getForgeTag());
+        .addTag(TinkerFluids.moltenOsmium.getForgeTag())
+        .addTag(TinkerFluids.moltenAmethyst.getLocalTag());
     this.tag(TinkerTags.Fluids.AVERAGE_METAL_SPILLING)
         .addTag(TinkerFluids.moltenQuartz.getLocalTag())
         .addTag(TinkerFluids.moltenEmerald.getLocalTag())

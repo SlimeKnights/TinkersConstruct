@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
-import net.minecraft.world.level.material.Material;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -54,10 +54,11 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> blazingBlood   = FLUIDS.register("blazing_blood",   hotBuilder().temperature(1800).density(3500), Material.LAVA, 15);
 
   // ores
-  public static final FluidObject<ForgeFlowingFluid> moltenEmerald = FLUIDS.register("molten_emerald", hotBuilder().temperature(1234), Material.LAVA,  9);
-  public static final FluidObject<ForgeFlowingFluid> moltenQuartz  = FLUIDS.register("molten_quartz",  hotBuilder().temperature( 937), Material.LAVA,  6);
-  public static final FluidObject<ForgeFlowingFluid> moltenDiamond = FLUIDS.register("molten_diamond", hotBuilder().temperature(1750), Material.LAVA, 13);
-  public static final FluidObject<ForgeFlowingFluid> moltenDebris  = FLUIDS.register("molten_debris",  hotBuilder().temperature(1475), Material.LAVA, 14);
+  public static final FluidObject<ForgeFlowingFluid> moltenEmerald  = FLUIDS.register("molten_emerald",  hotBuilder().temperature(1234), Material.LAVA,  9);
+  public static final FluidObject<ForgeFlowingFluid> moltenQuartz   = FLUIDS.register("molten_quartz",   hotBuilder().temperature( 937), Material.LAVA,  6);
+  public static final FluidObject<ForgeFlowingFluid> moltenAmethyst = FLUIDS.register("molten_amethyst", hotBuilder().temperature(1250), Material.LAVA, 11);
+  public static final FluidObject<ForgeFlowingFluid> moltenDiamond  = FLUIDS.register("molten_diamond",  hotBuilder().temperature(1750), Material.LAVA, 13);
+  public static final FluidObject<ForgeFlowingFluid> moltenDebris   = FLUIDS.register("molten_debris",   hotBuilder().temperature(1475), Material.LAVA, 14);
   // metal ores
   public static final FluidObject<ForgeFlowingFluid> moltenIron   = FLUIDS.register("molten_iron",   hotBuilder().temperature(1100), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenGold   = FLUIDS.register("molten_gold",   hotBuilder().temperature(1000), Material.LAVA, 12);

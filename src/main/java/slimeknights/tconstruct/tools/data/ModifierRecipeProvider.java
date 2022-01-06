@@ -413,10 +413,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.padded, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.severing.get())
                          .addInput(TinkerTags.Items.WITHER_BONES)
-                         .addInput(TinkerTags.Items.INGOTS_COPPER)
+                         .addInputSalvage(Items.LIGHTNING_ROD, 0.75f)
                          .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(Items.TNT)
-                         .addSalvage(Items.COPPER_INGOT, 1.0f)
                          .addSalvage(TinkerMaterials.necroticBone, 2)
                          .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
                          .setSlots(SlotType.UPGRADE, 1)

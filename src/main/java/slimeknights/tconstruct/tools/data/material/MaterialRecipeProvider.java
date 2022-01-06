@@ -51,7 +51,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.wood, IngredientDifference.difference(Ingredient.of(ItemTags.LOGS), Ingredient.of(TinkerTags.Items.SLIMY_LOGS)),
                    4, 1, ItemOutput.fromStack(new ItemStack(Items.STICK, 2)), folder + "wood/logs");
     materialRecipe(consumer, MaterialIds.stone, CompoundIngredient.from(
-      Ingredient.of(Tags.Items.STONE), Ingredient.of(Tags.Items.COBBLESTONE), Ingredient.of(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)), 1, 1, folder + "stone");
+      Ingredient.of(Tags.Items.STONE), Ingredient.of(Tags.Items.COBBLESTONE), Ingredient.of(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE, Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE, Blocks.TUFF)), 1, 1, folder + "stone");
     materialRecipe(consumer, MaterialIds.flint, Ingredient.of(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, folder + "flint");
     materialRecipe(consumer, MaterialIds.bone, Ingredient.of(Tags.Items.BONES), 1, 1, folder + "bone");
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.of(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");

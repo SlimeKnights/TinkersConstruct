@@ -453,6 +453,11 @@
   "fluid.tconstruct.flowing_molten_quartz": "Flowing Molten Quartz",
   "item.tconstruct.molten_quartz_bucket": "Molten Quartz Bucket",
 
+  "block.tconstruct.molten_amethyst_fluid": "Molten Amethyst",
+  "fluid.tconstruct.molten_amethyst": "Molten Amethyst",
+  "fluid.tconstruct.flowing_molten_amethyst": "Flowing Molten Amethyst",
+  "item.tconstruct.molten_amethyst_bucket": "Molten Amethyst Bucket",
+
   "block.tconstruct.molten_diamond_fluid": "Molten Diamond",
   "fluid.tconstruct.molten_diamond": "Molten Diamond",
   "fluid.tconstruct.flowing_molten_diamond": "Flowing Molten Diamond",

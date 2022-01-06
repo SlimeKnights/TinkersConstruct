@@ -840,10 +840,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .save(consumer, modResource(folder + "emerald/block"));
 
     // quartz
-    this.gemCasting(consumer, TinkerFluids.moltenQuartz, Items.QUARTZ, folder + "quartz/gem");
+    // this.gemCasting(consumer, TinkerFluids.moltenQuartz, Items.QUARTZ, folder + "quartz/gem");
     ItemCastingRecipeBuilder.basinRecipe(Blocks.QUARTZ_BLOCK)
                             .setFluidAndTime(TinkerFluids.moltenQuartz, false, FluidValues.GEM * 4)
                             .save(consumer, modResource(folder + "quartz/block"));
+
+    // amethyst
+    // this.gemCasting(consumer, TinkerFluids.moltenAmethyst, Items.AMETHYST_SHARD, folder + "amethyst/shard");
+    ItemCastingRecipeBuilder.basinRecipe(Blocks.AMETHYST_BLOCK)
+                            .setFluidAndTime(TinkerFluids.moltenAmethyst, false, FluidValues.GEM * 4)
+                            .save(consumer, modResource(folder + "amethyst/block"));
 
     // diamond
     this.gemCasting(consumer, TinkerFluids.moltenDiamond, Items.DIAMOND, folder + "diamond/gem");
@@ -1178,16 +1184,38 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // quartz
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_QUARTZ), TinkerFluids.moltenQuartz.get(), FluidValues.GEM, 1.5f)
                         .setOre()
-                        .addByproduct(new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL * 3))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenAmethyst.get(), FluidValues.GEM))
                         .save(consumer, modResource(folder + "quartz/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GEMS_QUARTZ), TinkerFluids.moltenQuartz.get(), FluidValues.GEM, 1.0f)
                         .save(consumer, modResource(folder + "quartz/gem"));
     MeltingRecipeBuilder.melting(
-      CompoundIngredient.from(Ingredient.of(Tags.Items.STORAGE_BLOCKS_QUARTZ), Ingredient.of(Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS)),
+      CompoundIngredient.from(Ingredient.of(Tags.Items.STORAGE_BLOCKS_QUARTZ), Ingredient.of(Blocks.SMOOTH_QUARTZ, Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS)),
       TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 4, 2.0f)
                         .save(consumer, modResource(folder + "quartz/block"));
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.QUARTZ_SLAB, Blocks.SMOOTH_QUARTZ_SLAB), TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 2, 1.5f)
                         .save(consumer, modResource(folder + "quartz/slab"));
+
+    // amethyst
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.AMETHYST_CLUSTER), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 4, 4.0f)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 4))
+                        .setOre()
+                        .save(consumer, modResource(folder + "amethyst/cluster"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.SMALL_AMETHYST_BUD), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM, 1.0f)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM))
+                        .setOre()
+                        .save(consumer, modResource(folder + "amethyst/bud_small"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.MEDIUM_AMETHYST_BUD), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 2, 2.0f)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 2))
+                        .setOre()
+                        .save(consumer, modResource(folder + "amethyst/bud_medium"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.LARGE_AMETHYST_BUD), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 3, 3.0f)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 3))
+                        .setOre()
+                        .save(consumer, modResource(folder + "amethyst/bud_large"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.AMETHYST_SHARD), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM, 1.0f)
+                        .save(consumer, modResource(folder + "amethyst/shard"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.AMETHYST_BLOCK), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 4, 2.0f)
+                        .save(consumer, modResource(folder + "amethyst/block"));
 
     // diamond
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_DIAMOND), TinkerFluids.moltenDiamond.get(), FluidValues.GEM, 1.5f)
@@ -1215,7 +1243,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // non-standard
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.CHAIN), TinkerFluids.moltenIron.get(), FluidValues.INGOT + FluidValues.NUGGET * 2)
                         .save(consumer, modResource(metalFolder + "iron/chain"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.ANVIL), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 4 + FluidValues.METAL_BLOCK * 3)
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.ANVIL, Blocks.CHIPPED_ANVIL, Blocks.DAMAGED_ANVIL), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 4 + FluidValues.METAL_BLOCK * 3)
                         .save(consumer, modResource(metalFolder + "iron/anvil"));
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.RAIL), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 6 / 16)
                         .save(consumer, modResource(metalFolder + "iron/ingot_6_16"));
@@ -1257,6 +1285,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_HORSE_ARMOR), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 7)
                         .save(consumer, modResource(metalFolder + "iron/horse_armor"));
+
 
     // gold melting
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.GOLD_CASTS), TinkerFluids.moltenGold.get(), FluidValues.INGOT)
@@ -1307,6 +1336,33 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(metalFolder + "gold/gilded_blackstone"));
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.BELL), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 4) // bit arbitrary, I am happy to change the value if someone has a better one
                         .save(consumer, modResource(metalFolder + "gold/bell"));
+
+
+    // copper melting
+    MeltingRecipeBuilder.melting(Ingredient.of(
+      Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER,
+      Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER,
+      Blocks.CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.OXIDIZED_CUT_COPPER_STAIRS,
+      Blocks.WAXED_COPPER_BLOCK, Blocks.WAXED_EXPOSED_COPPER, Blocks.WAXED_WEATHERED_COPPER, Blocks.WAXED_OXIDIZED_COPPER,
+      Blocks.WAXED_CUT_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER,
+      Blocks.WAXED_CUT_COPPER_STAIRS, Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS, Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS, Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS),
+                                 TinkerFluids.moltenCopper.get(), FluidValues.METAL_BLOCK)
+                        .save(consumer, modResource(metalFolder + "copper/decorative_block"));
+    MeltingRecipeBuilder.melting(Ingredient.of(
+                                   Blocks.CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER_SLAB,
+                                   Blocks.WAXED_CUT_COPPER_SLAB, Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB, Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB),
+                                 TinkerFluids.moltenCopper.get(), FluidValues.METAL_BLOCK / 2)
+                        .save(consumer, modResource(metalFolder + "copper/slab"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.LIGHTNING_ROD), TinkerFluids.moltenCopper.get(), FluidValues.INGOT * 3)
+                        .save(consumer, modResource(metalFolder + "copper/lightning_rod"));
+
+    // amethyst melting
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.TINTED_GLASS), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 2)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK / 2))
+                        .save(consumer, modResource(metalFolder + "amethyst/tinted_glass"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.SPYGLASS), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenCopper.get(), FluidValues.INGOT * 2))
+                        .save(consumer, modResource(metalFolder + "amethyst/spyglass"));
 
     // diamond melting
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.JUKEBOX), TinkerFluids.moltenDiamond.get(), FluidValues.GEM)
@@ -1494,7 +1550,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon.get(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCobalt.getForgeTag(), FluidValues.INGOT)
-                      .addInput(TinkerFluids.moltenObsidian.getLocalTag(), FluidValues.GLASS_BLOCK)
+                      .addInput(FluidIngredient.of(FluidIngredient.of(TinkerFluids.moltenQuartz.getLocalTag(), FluidValues.INGOT * 4), FluidIngredient.of(TinkerFluids.moltenAmethyst.getLocalTag(), FluidValues.INGOT * 4)))
                       .save(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
