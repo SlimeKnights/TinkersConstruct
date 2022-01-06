@@ -1,43 +1,31 @@
-package slimeknights.tconstruct.library.client;
+package slimeknights.tconstruct.library.fluid;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.utils.SafeClientAccess;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.CLAY_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.GEM_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.GLASS_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.METAL_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.SLIME_TOOLTIPS;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
-  private static final Map<Fluid,List<FluidGuiEntry>> CACHE = new HashMap<>();
   public static final Component HOLD_SHIFT = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "fluid.hold_shift")).withStyle(ChatFormatting.GRAY);
 
   /*
@@ -46,30 +34,21 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry KILOBUCKET = new FluidGuiEntry("kilobucket", 1000000);
   private static final FluidGuiEntry BUCKET = new FluidGuiEntry("bucket", 1000);
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", 1);
+  // metal/gems
+  private static final FluidGuiEntry METAL_BLOCK = new FluidGuiEntry("block", FluidValues.METAL_BLOCK);
   private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", FluidValues.INGOT);
+  private static final FluidGuiEntry GEM = new FluidGuiEntry("gem", FluidValues.GEM);
   private static final FluidGuiEntry NUGGET = new FluidGuiEntry("nugget", FluidValues.NUGGET);
-  private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", FluidValues.METAL_BLOCK);
-  private static final FluidGuiEntry PANE = new FluidGuiEntry("pane", FluidValues.GLASS_PANE);
+  // clay
+  private static final FluidGuiEntry BRICK_BLOCK = new FluidGuiEntry("block", FluidValues.METAL_BRICK);
+  private static final FluidGuiEntry BRICK = new FluidGuiEntry("brick", FluidValues.INGOT);
+  // slime
+  private static final FluidGuiEntry SLIMEBLOCK = new FluidGuiEntry("block", FluidValues.SLIMEBLOCK);
+  private static final FluidGuiEntry CONGEALED = new FluidGuiEntry("congealed", FluidValues.SLIME_CONGEALED);
   private static final FluidGuiEntry SLIMEBALL = new FluidGuiEntry("slimeball", FluidValues.SLIMEBALL);
-
-  /** List of options to check for table cast recipes */
-  private static final Map<Item,FluidGuiEntry> TOOLTIP_OPTIONS = new IdentityHashMap<>();
-
-  /** Initializes the tooltip handler */
-  public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), NUGGET);
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", FluidValues.GEM));
-  }
-
-  /**
-   * Called when recipes are synced from the server to the client
-   * @param event  Event instance
-   */
-  private static void onRecipesUpdated(RecipesUpdatedEvent event) {
-    CACHE.clear();
-  }
+  // glass
+  private static final FluidGuiEntry GLASS_BLOCK = new FluidGuiEntry("block", FluidValues.GLASS_BLOCK);
+  private static final FluidGuiEntry PANE = new FluidGuiEntry("pane", FluidValues.GLASS_PANE);
 
   /**
    * Gets the tooltip for a fluid stack
@@ -132,9 +111,24 @@ public class FluidTooltipHandler {
 
     // if holding shift, skip specific units
     if(SafeClientAccess.getTooltipKey() != TooltipKey.SHIFT) {
-      List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid, FluidTooltipHandler::calcFluidEntries);
-      for(FluidGuiEntry entry : entries) {
-        amount = entry.getText(tooltip, amount);
+      if (fluid.is(METAL_TOOLTIPS)) {
+        amount = METAL_BLOCK.getText(tooltip, amount);
+        amount = INGOT.getText(tooltip, amount);
+        amount = NUGGET.getText(tooltip, amount);
+      } else if (fluid.is(GEM_TOOLTIPS)) {
+        amount = METAL_BLOCK.getText(tooltip, amount);
+        amount = GEM.getText(tooltip, amount);
+        amount = NUGGET.getText(tooltip, amount);
+      } else if (fluid.is(GLASS_TOOLTIPS)) {
+        amount = GLASS_BLOCK.getText(tooltip, amount);
+        amount = PANE.getText(tooltip, amount);
+      } else if (fluid.is(SLIME_TOOLTIPS)) {
+        amount = SLIMEBLOCK.getText(tooltip, amount);
+        amount = CONGEALED.getText(tooltip, amount);
+        amount = SLIMEBALL.getText(tooltip, amount);
+      } else if (fluid.is(CLAY_TOOLTIPS)) {
+        amount = BRICK_BLOCK.getText(tooltip, amount);
+        amount = BRICK.getText(tooltip, amount);
       }
     }
 
@@ -176,103 +170,16 @@ public class FluidTooltipHandler {
     MILLIBUCKET.getText(tooltip, amount);
   }
 
-  /**
-   * Gets all relevant entries for a fluid
-   * @param fluid  Relevant fluid
-   * @return  List of entries for the fluid
-   */
-  private static List<FluidGuiEntry> calcFluidEntries(Fluid fluid) {
-    assert Minecraft.getInstance().level != null;
-    RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-
-    // first, search casting recipes for cast items
-    List<FluidGuiEntry> list = new ArrayList<>();
-    for (ItemCastingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class)) {
-      // if the fluid matches, move onto cast search
-      FluidIngredient ingredient = recipe.getFluid();
-      if (ingredient.test(fluid)) {
-        Ingredient cast = recipe.getCast();
-        // if empty, add an entry if a table recipe matches an expected unit
-        if (cast == Ingredient.EMPTY) {
-          // skip pane and slimeball for metals, some metals like gold have an empty table casting recipe
-          if (!TinkerTags.Fluids.METAL_LIKE.contains(fluid)) {
-            FluidGuiEntry entry = fluid.is(TinkerTags.Fluids.SLIMELIKE) ? SLIMEBALL : PANE;
-            list.add(entry.withAmount(ingredient.getAmount(fluid)));
-          }
-        } else {
-          // if a cast, check for a matching item in the map
-          Arrays.stream(recipe.getCast().getItems())
-                .map(stack -> TOOLTIP_OPTIONS.get(stack.getItem()))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .ifPresent(entry -> list.add(entry.withAmount(ingredient.getAmount(fluid))));
-        }
-      }
-    }
-
-    // next, iterate basin recipes to find block amounts
-    for (ItemCastingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class)) {
-      // no cast, copy amount
-      FluidIngredient ingredient = recipe.getFluid();
-      if (recipe.getCast() == Ingredient.EMPTY && ingredient.test(fluid)) {
-        list.add(BLOCK.withAmount(ingredient.getAmount(fluid)));
-      }
-    }
-
-    // certain slimeball variants lack a direct slimeball recipe, so add it directly
-    if (TinkerTags.Fluids.SLIMELIKE.contains(fluid)) {
-      if (list.stream().noneMatch(entry -> entry.translationKey.equals(SLIMEBALL.translationKey))) {
-        list.add(SLIMEBALL);
-      }
-    }
-
-    // certain "metals" do not have nuggets, make sure they get them
-    if (TinkerTags.Fluids.METAL_LIKE.contains(fluid)) {
-      if (list.stream().noneMatch(entry -> entry.translationKey.equals(NUGGET.translationKey))) {
-        list.add(NUGGET);
-      }
-    }
-
-    // sort using the fluid entry comparable
-    list.sort(null);
-    return list;
-  }
-
-  private static class FluidGuiEntry implements Comparable<FluidGuiEntry> {
-    private final String translationKey;
-    @Getter
-    private final int needed;
-
+  /** Single entry for text options */
+  private record FluidGuiEntry(String translationKey, int needed) implements Comparable<FluidGuiEntry> {
     /**
      * Creates a new fluid GUI entry
-     * @param name    Base translation name
-     * @param needed  Amount needed
+     * @param translationKey  Base translation name
+     * @param needed          Amount needed
      */
-    private FluidGuiEntry(String name, int needed) {
-      this.translationKey = TConstruct.makeTranslationKey("gui", "fluid." + name);
+    private FluidGuiEntry(String translationKey, int needed) {
+      this.translationKey = TConstruct.makeTranslationKey("gui", "fluid." + translationKey);
       this.needed = needed;
-    }
-
-    /**
-     * Copies an entry into another amount
-     * @param parent  Parent entry
-     * @param needed  New needed amount
-     */
-    private FluidGuiEntry(FluidGuiEntry parent, int needed) {
-      this.translationKey = parent.translationKey;
-      this.needed = needed;
-    }
-
-    /**
-     * Gets an entry with the given amount
-     * @param amount  Amount
-     * @return  this if amount matches, new entry if no match
-     */
-    private FluidGuiEntry withAmount(int amount) {
-      if (amount == this.needed) {
-        return this;
-      }
-      return new FluidGuiEntry(this, amount);
     }
 
     /**

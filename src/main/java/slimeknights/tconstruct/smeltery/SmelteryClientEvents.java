@@ -15,7 +15,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.model.block.CastingModel;
 import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
@@ -94,8 +93,6 @@ public class SmelteryClientEvents extends ClientEventBase {
     MenuScreens.register(TinkerSmeltery.smelteryContainer.get(), HeatingStructureScreen::new);
     MenuScreens.register(TinkerSmeltery.singleItemContainer.get(), new SingleItemScreenFactory());
     MenuScreens.register(TinkerSmeltery.alloyerContainer.get(), AlloyerScreen::new);
-
-    FluidTooltipHandler.init();
   }
 
   @SubscribeEvent

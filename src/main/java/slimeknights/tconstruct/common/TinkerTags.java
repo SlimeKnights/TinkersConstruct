@@ -306,9 +306,17 @@ public class TinkerTags {
 
   public static class Fluids {
     private static void init() {}
-    public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
-    public static final IOptionalNamedTag<Fluid> METAL_LIKE = tag("metal_like");
+    /** Causes the fluid to be formatted like a metal in tooltips */
+    public static final IOptionalNamedTag<Fluid> SLIME_TOOLTIPS = tag("tooltips/slime");
+    /** Causes the fluid to be formatted like a clay in tooltips */
+    public static final IOptionalNamedTag<Fluid> CLAY_TOOLTIPS = tag("tooltips/clay");
+    /** Causes the fluid to be formatted like a metal in tooltips */
+    public static final IOptionalNamedTag<Fluid> METAL_TOOLTIPS = tag("tooltips/metal");
+    /** Causes the fluid to be formatted like a gem in tooltips */
+    public static final IOptionalNamedTag<Fluid> GEM_TOOLTIPS = tag("tooltips/gem");
+    /** Causes the fluid to be formatted like glass in tooltips */
+    public static final IOptionalNamedTag<Fluid> GLASS_TOOLTIPS = tag("tooltips/glass");
 
     // spilling tags - used to reduce the number of spilling recipes
     public static final IOptionalNamedTag<Fluid> CLAY_SPILLING = tag("spilling/clay");

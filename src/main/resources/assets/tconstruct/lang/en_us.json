@@ -1048,12 +1048,15 @@
   "gui.tconstruct.fluid.kilobucket": "%s kb",
   "gui.tconstruct.fluid.bucket": "%s b",
   "gui.tconstruct.fluid.millibucket": "%s mb",
-  "gui.tconstruct.fluid.ingot": "%s Ingots",
-  "gui.tconstruct.fluid.nugget": "%s Nuggets",
+
   "gui.tconstruct.fluid.block": "%s Blocks",
-  "gui.tconstruct.fluid.pane": "%s Panes",
+  "gui.tconstruct.fluid.ingot": "%s Ingots",
   "gui.tconstruct.fluid.gem": "%s Gems",
+  "gui.tconstruct.fluid.nugget": "%s Nuggets",
+  "gui.tconstruct.fluid.pane": "%s Panes",
+  "gui.tconstruct.fluid.congealed": "%s Congealed Blocks",
   "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
+  "gui.tconstruct.fluid.brick": "%s Bricks",
 
   "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
 

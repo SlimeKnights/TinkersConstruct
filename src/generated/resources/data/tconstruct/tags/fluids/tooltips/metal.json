@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:molten_emerald",
-    "#tconstruct:molten_quartz",
-    "#tconstruct:molten_diamond",
     "#forge:molten_iron",
     "#forge:molten_gold",
     "#forge:molten_copper",
@@ -16,8 +13,8 @@
     "#forge:molten_manyullyn",
     "#forge:molten_hepatizon",
     "#tconstruct:molten_queens_slime",
-    "#tconstruct:molten_soulsteel",
     "#forge:molten_netherite",
+    "#tconstruct:molten_soulsteel",
     "#tconstruct:molten_knightslime",
     "#forge:molten_tin",
     "#forge:molten_aluminum",
