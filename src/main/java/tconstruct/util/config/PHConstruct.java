@@ -1,9 +1,14 @@
 package tconstruct.util.config;
 
-import java.io.File;
-import net.minecraftforge.common.config.*;
+import com.google.common.collect.Sets;
+import net.minecraftforge.common.config.ConfigCategory;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
+
+import java.io.File;
+import java.util.Set;
 
 public class PHConstruct
 {
@@ -83,22 +88,17 @@ public class PHConstruct
 
         boolean ic2 = true;
         boolean xycraft = true;
-        try
-        {
+        try {
             Class c = Class.forName("ic2.core.IC2");
             ic2 = false;
         }
-        catch (Exception e)
-        {
-        }
-        try
-        {
+        catch (Exception ignored) {}
+        
+        try {
             Class c = Class.forName("soaryn.xycraft.core.XyCraft");
             xycraft = false;
         }
-        catch (Exception e)
-        {
-        }
+        catch (Exception ignored) {}
 
         generateCopper = config.get("Worldgen Disabler", "Generate Copper", ic2).getBoolean(ic2);
         generateTin = config.get("Worldgen Disabler", "Generate Tin", ic2).getBoolean(ic2);
@@ -214,6 +214,10 @@ public class PHConstruct
         extraBlockUpdates = config.get("Experimental", "Send additional block updates when using AOE tools", true,"This fixes very fast tools sometimes resulting in ghost blocks, but causes a bit more network traffic. Should be fine in theory.").getBoolean(true);
         heartDropBlacklist = config.get("Experimental", "YellowHeartDropBlacklist", new String[] {"entitynpc", "entitycustomnpc"}, "Entity classes listed here will not drop yellow hearts. The values are the actual class names in lowercase.").getStringList();
 
+        craftingStationBlacklist = Sets.newHashSet(config.get("CraftingStationBlacklist", "tileEntities", new String[] {
+            "wanion.avaritiaddons.block.chest.infinity.TileEntityInfinityChest"
+        }).getStringList());
+        
         /* Save the configuration file only if it has changed */
         if (config.hasChanged())
             config.save();
@@ -396,4 +400,5 @@ public class PHConstruct
     public static boolean minimalTextures;
     public static boolean extraBlockUpdates;
     public static String[] heartDropBlacklist;
+    public static Set<String> craftingStationBlacklist;
 }
