@@ -91,6 +91,7 @@ public class BlockLootTableProvider extends BlockLoot {
   private void addDecorative() {
     this.dropSelf(TinkerCommons.obsidianPane.get());
     this.dropSelf(TinkerCommons.clearGlass.get());
+    this.dropSelf(TinkerCommons.clearTintedGlass.get());
     this.dropSelf(TinkerCommons.clearGlassPane.get());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
       this.dropSelf(TinkerCommons.clearStainedGlass.get(color));

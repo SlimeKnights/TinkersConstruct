@@ -850,6 +850,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     ItemCastingRecipeBuilder.basinRecipe(Blocks.AMETHYST_BLOCK)
                             .setFluidAndTime(TinkerFluids.moltenAmethyst, false, FluidValues.GEM * 4)
                             .save(consumer, modResource(folder + "amethyst/block"));
+    ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.clearTintedGlass)
+                            .setCast(Tags.Items.GLASS_COLORLESS, true)
+                            .setFluidAndTime(TinkerFluids.moltenAmethyst, false, FluidValues.GEM * 2)
+                            .save(consumer, modResource(folder + "amethyst/glass"));
 
     // diamond
     this.gemCasting(consumer, TinkerFluids.moltenDiamond, Items.DIAMOND, folder + "diamond/gem");
@@ -1357,7 +1361,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(metalFolder + "copper/lightning_rod"));
 
     // amethyst melting
-    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.TINTED_GLASS), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 2)
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.TINTED_GLASS, TinkerCommons.clearTintedGlass), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM * 2)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK / 2))
                         .save(consumer, modResource(metalFolder + "amethyst/tinted_glass"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.SPYGLASS), TinkerFluids.moltenAmethyst.get(), FluidValues.GEM)
