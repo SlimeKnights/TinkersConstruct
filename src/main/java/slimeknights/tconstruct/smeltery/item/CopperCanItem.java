@@ -64,7 +64,7 @@ public class CopperCanItem extends Item {
       } else {
         text = new TranslatableComponent(fluid.getAttributes().getTranslationKey());
       }
-      tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".contents", text.withStyle(ChatFormatting.GRAY)));
+      tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
     } else {
       tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
     }
