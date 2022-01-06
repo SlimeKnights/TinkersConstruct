@@ -100,8 +100,8 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   public enum TankType implements StringRepresentable {
     FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
     FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
-    INGOT_TANK(FluidValues.INGOT * 32),
-    INGOT_GAUGE(FluidValues.INGOT * 32);
+    INGOT_TANK(FluidValues.INGOT * 48),
+    INGOT_GAUGE(FluidValues.INGOT * 48);
 
     @Getter
     private final int capacity;

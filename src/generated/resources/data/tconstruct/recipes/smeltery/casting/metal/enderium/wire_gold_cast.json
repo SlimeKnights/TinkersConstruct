@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_enderium",
-    "amount": 72
+    "amount": 45
   },
   "result": {
     "tag": "forge:wires/enderium"

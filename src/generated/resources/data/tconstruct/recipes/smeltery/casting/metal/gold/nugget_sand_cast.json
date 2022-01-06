@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_gold",
-    "amount": 16
+    "amount": 10
   },
   "result": "minecraft:gold_nugget",
   "cooling_time": 19

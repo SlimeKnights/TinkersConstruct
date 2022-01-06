@@ -2,7 +2,7 @@
   "type": "tconstruct:material_fluid",
   "fluid": {
     "tag": "forge:molten_electrum",
-    "amount": 144
+    "amount": 90
   },
   "temperature": 760,
   "output": "tconstruct:electrum"

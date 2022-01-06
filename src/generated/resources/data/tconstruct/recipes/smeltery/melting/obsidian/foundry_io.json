@@ -17,7 +17,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:scorched_stone",
-      "amount": 576
+      "amount": 1000
     }
   ]
 }

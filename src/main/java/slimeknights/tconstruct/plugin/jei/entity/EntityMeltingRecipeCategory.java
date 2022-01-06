@@ -122,7 +122,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
     fluids.addTooltipCallback(TOOLTIP_MAP.computeIfAbsent(recipe.getDamage(), FluidTooltip::new));
-    fluids.init(1, false, 115, 11, 16, 32, FluidValues.INGOT, false, null);
+    fluids.init(1, false, 115, 11, 16, 32, FluidValues.INGOT * 2, false, null);
     fluids.set(ingredients);
 
     // show fuels that are valid for this recipe

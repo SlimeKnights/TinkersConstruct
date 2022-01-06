@@ -16,16 +16,16 @@
         "east":  { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" }
       }
     },
-    { "from": [ 10.9, 7.9, 10.9 ],
-      "to": [ 5.1, 1.1, 5.1 ],
+    { "from": [ 11.01, 7, 11.01 ],
+      "to": [ 4.99, 2, 4.99 ],
       "shade": false,
       "faces": {
         "down":  { "uv": [ 0, 9, 6, 15 ], "texture": "#lantern" },
         "up":    { "uv": [ 0, 9, 6, 15 ], "texture": "#lantern" },
-        "north": { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" },
-        "south": { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" },
-        "west":  { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" },
-        "east":  { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" }
+        "north": { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" },
+        "south": { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" },
+        "west":  { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" },
+        "east":  { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" }
       }
     },
     
@@ -64,9 +64,9 @@
   ],
   "gui": { "parent": "block/template_hanging_lantern" },
   "fluid": {
-    "from": [ 5.05, 1, 5.05 ],
-    "to": [ 10.95, 7.25, 10.95 ],
-    "increments": 25,
+    "from": [ 5.05, 2, 5.05 ],
+    "to": [ 10.95, 7, 10.95 ],
+    "increments": 10,
     "faces": {
       "up":    { "flowing": false },
       "north": { "flowing": false },

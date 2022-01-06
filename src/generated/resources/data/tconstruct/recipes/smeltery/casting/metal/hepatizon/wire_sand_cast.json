@@ -15,7 +15,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_hepatizon",
-    "amount": 72
+    "amount": 45
   },
   "result": {
     "tag": "forge:wires/hepatizon"

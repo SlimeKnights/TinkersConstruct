@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_silver",
-    "amount": 48
+    "amount": 30
   },
   "result": {
     "tag": "forge:coins/silver"

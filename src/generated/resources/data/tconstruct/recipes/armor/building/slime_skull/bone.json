@@ -12,5 +12,5 @@
     "item": "tconstruct:slime_helmet",
     "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:bone\"]}"
   },
-  "cooling_time": 187
+  "cooling_time": 237
 }

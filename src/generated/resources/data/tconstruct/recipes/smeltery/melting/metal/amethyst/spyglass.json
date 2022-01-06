@@ -5,14 +5,14 @@
   },
   "result": {
     "fluid": "tconstruct:molten_amethyst",
-    "amount": 144
+    "amount": 90
   },
   "temperature": 950,
   "time": 65,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_copper",
-      "amount": 288
+      "amount": 180
     }
   ]
 }

@@ -2,7 +2,7 @@
   "type": "tconstruct:spilling",
   "fluid": {
     "tag": "tconstruct:spilling/metal/average",
-    "amount": 16
+    "amount": 10
   },
   "effects": [
     {

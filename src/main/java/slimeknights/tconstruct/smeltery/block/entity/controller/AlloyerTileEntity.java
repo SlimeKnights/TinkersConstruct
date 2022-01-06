@@ -21,16 +21,16 @@ import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
+import slimeknights.tconstruct.smeltery.block.entity.module.alloying.MixerAlloyTank;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.SingleAlloyingModule;
 import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
-import slimeknights.tconstruct.smeltery.block.entity.module.alloying.MixerAlloyTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,7 +41,7 @@ import java.util.Collections;
  */
 public class AlloyerTileEntity extends NameableBlockEntity implements ITankTileEntity {
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = FluidValues.METAL_BLOCK * 3;
+  private static final int TANK_CAPACITY = TankType.INGOT_TANK.getCapacity();
   /** Name of the container */
   private static final Component NAME = TConstruct.makeTranslation("gui", "alloyer");
 

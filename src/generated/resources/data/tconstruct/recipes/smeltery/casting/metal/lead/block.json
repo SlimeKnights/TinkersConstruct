@@ -11,7 +11,7 @@
   ],
   "fluid": {
     "tag": "forge:molten_lead",
-    "amount": 1296
+    "amount": 810
   },
   "result": {
     "tag": "forge:storage_blocks/lead"

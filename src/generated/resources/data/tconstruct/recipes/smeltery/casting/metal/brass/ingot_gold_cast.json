@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_brass",
-    "amount": 144
+    "amount": 90
   },
   "result": {
     "tag": "forge:ingots/brass"

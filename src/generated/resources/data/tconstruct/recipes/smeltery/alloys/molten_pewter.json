@@ -19,16 +19,16 @@
   "inputs": [
     {
       "tag": "forge:molten_iron",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:molten_lead",
-      "amount": 144
+      "amount": 90
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_pewter",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 400
 }

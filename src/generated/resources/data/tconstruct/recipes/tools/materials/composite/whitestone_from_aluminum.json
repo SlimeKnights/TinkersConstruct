@@ -12,7 +12,7 @@
   "input": "tconstruct:stone",
   "fluid": {
     "tag": "forge:molten_aluminum",
-    "amount": 144
+    "amount": 90
   },
   "temperature": 425,
   "output": "tconstruct:whitestone"

@@ -33,11 +33,11 @@
   "inputs": [
     {
       "tag": "forge:molten_tin",
-      "amount": 432
+      "amount": 270
     },
     {
       "tag": "forge:molten_silver",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:glowstone",
@@ -46,7 +46,7 @@
   ],
   "result": {
     "fluid": "tconstruct:molten_lumium",
-    "amount": 576
+    "amount": 360
   },
   "temperature": 1050
 }

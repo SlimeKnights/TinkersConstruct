@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_electrum",
-    "amount": 72
+    "amount": 45
   },
   "result": {
     "tag": "forge:rods/electrum"

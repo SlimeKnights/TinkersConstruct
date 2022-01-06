@@ -8,7 +8,7 @@
   "switch_slots": true,
   "fluid": {
     "tag": "forge:molten_gold",
-    "amount": 144
+    "amount": 90
   },
   "result": "tconstruct:tool_handle_cast",
   "cooling_time": 57

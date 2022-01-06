@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_queens_slime",
-    "amount": 576
+    "amount": 360
   },
   "result": {
     "tag": "forge:gears/queens_slime"

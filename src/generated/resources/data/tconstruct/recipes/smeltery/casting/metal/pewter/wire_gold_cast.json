@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_pewter",
-    "amount": 72
+    "amount": 45
   },
   "result": {
     "tag": "forge:wires/pewter"

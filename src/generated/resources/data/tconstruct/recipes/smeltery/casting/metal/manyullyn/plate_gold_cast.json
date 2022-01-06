@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_manyullyn",
-    "amount": 144
+    "amount": 90
   },
   "result": {
     "tag": "forge:plates/manyullyn"

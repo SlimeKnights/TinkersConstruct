@@ -17,8 +17,8 @@
   "time": 76,
   "byproducts": [
     {
-      "fluid": "tconstruct:molten_gold",
-      "amount": 1
+      "fluid": "minecraft:empty",
+      "amount": 0
     }
   ]
 }

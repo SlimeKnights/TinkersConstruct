@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_quartz",
-    "amount": 144
+    "amount": 90
   },
   "result": "tconstruct:scorched_glass",
   "cooling_time": 55

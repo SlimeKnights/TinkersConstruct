@@ -7,14 +7,14 @@
   },
   "result": {
     "fluid": "tconstruct:scorched_stone",
-    "amount": 864
+    "amount": 1500
   },
   "temperature": 500,
   "time": 125,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_quartz",
-      "amount": 432
+      "amount": 270
     }
   ]
 }

@@ -35,8 +35,8 @@ import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
-import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,7 +45,7 @@ import java.util.Collections;
 public class MelterTileEntity extends NameableBlockEntity implements ITankTileEntity {
 
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = FluidValues.METAL_BLOCK;
+  private static final int TANK_CAPACITY = FluidValues.INGOT * 12;
   /* tags */
   private static final String TAG_INVENTORY = "inventory";
   /** Name of the GUI */

@@ -27,14 +27,14 @@
         },
         "result": {
           "fluid": "tconstruct:molten_zinc",
-          "amount": 144
+          "amount": 90
         },
         "temperature": 420,
         "time": 70,
         "byproducts": [
           {
             "fluid": "tconstruct:molten_tin",
-            "amount": 144
+            "amount": 90
           }
         ]
       }
@@ -56,14 +56,14 @@
         },
         "result": {
           "fluid": "tconstruct:molten_zinc",
-          "amount": 144
+          "amount": 90
         },
         "temperature": 420,
         "time": 70,
         "byproducts": [
           {
             "fluid": "tconstruct:molten_copper",
-            "amount": 144
+            "amount": 90
           }
         ]
       }

@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_iron",
-    "amount": 128
+    "amount": 80
   },
   "result": "minecraft:soul_lantern",
   "cooling_time": 57

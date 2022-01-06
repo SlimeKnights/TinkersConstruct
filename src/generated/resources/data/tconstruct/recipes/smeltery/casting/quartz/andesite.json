@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_quartz",
-    "amount": 72
+    "amount": 45
   },
   "result": "minecraft:andesite",
   "cooling_time": 39

@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_debris",
-    "amount": 16
+    "amount": 10
   },
   "result": {
     "tag": "forge:nuggets/netherite_scrap"

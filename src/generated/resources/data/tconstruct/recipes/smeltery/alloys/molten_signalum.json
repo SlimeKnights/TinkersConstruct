@@ -33,11 +33,11 @@
   "inputs": [
     {
       "tag": "forge:molten_copper",
-      "amount": 432
+      "amount": 270
     },
     {
       "tag": "forge:molten_silver",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:redstone",
@@ -46,7 +46,7 @@
   ],
   "result": {
     "fluid": "tconstruct:molten_signalum",
-    "amount": 576
+    "amount": 360
   },
   "temperature": 1125
 }

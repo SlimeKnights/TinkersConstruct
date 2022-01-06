@@ -12,8 +12,8 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_gold",
-    "amount": 2
+    "amount": 1
   },
   "result": "ceramics:golden_bricks_stairs",
-  "cooling_time": 7
+  "cooling_time": 6
 }

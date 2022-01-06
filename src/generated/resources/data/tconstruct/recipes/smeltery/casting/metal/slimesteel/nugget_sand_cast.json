@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_slimesteel",
-    "amount": 16
+    "amount": 10
   },
   "result": "tconstruct:slimesteel_nugget",
   "cooling_time": 21

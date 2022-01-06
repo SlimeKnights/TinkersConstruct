@@ -115,7 +115,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.slimesteelReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.searedReinforcement)
-                            .setFluidAndTime(TinkerFluids.searedStone, false, FluidValues.INGOT)
+                            .setFluidAndTime(TinkerFluids.searedStone, false, FluidValues.BRICK)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.searedReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.goldReinforcement)
@@ -123,7 +123,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.goldReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.emeraldReinforcement)
-                            .setFluidAndTime(TinkerFluids.moltenEmerald, false, FluidValues.INGOT / 3)
+                            .setFluidAndTime(TinkerFluids.moltenEmerald, false, FluidValues.GEM / 3)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.emeraldReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.bronzeReinforcement)
@@ -137,7 +137,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // jeweled apple
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.jeweledApple)
-                            .setFluidAndTime(TinkerFluids.moltenDiamond, false, FluidValues.INGOT * 4)
+                            .setFluidAndTime(TinkerFluids.moltenDiamond, false, FluidValues.GEM * 4)
                             .setCast(Items.APPLE, true)
                             .save(consumer, prefix(TinkerCommons.jeweledApple, folder));
 

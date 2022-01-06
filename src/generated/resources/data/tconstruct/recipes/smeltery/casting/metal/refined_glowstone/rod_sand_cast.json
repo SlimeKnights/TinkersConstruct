@@ -15,7 +15,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_refined_glowstone",
-    "amount": 72
+    "amount": 45
   },
   "result": {
     "tag": "forge:rods/refined_glowstone"

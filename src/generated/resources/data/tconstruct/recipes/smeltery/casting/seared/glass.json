@@ -6,8 +6,8 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:seared_stone",
-    "amount": 576
+    "amount": 1000
   },
   "result": "tconstruct:seared_glass",
-  "cooling_time": 107
+  "cooling_time": 178
 }

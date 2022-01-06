@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "forge:molten_rose_gold",
-    "amount": 16
+    "amount": 10
   },
   "result": {
     "tag": "forge:nuggets/rose_gold"

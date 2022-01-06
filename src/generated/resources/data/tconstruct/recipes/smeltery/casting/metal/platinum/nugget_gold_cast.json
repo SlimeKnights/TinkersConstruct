@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_platinum",
-    "amount": 16
+    "amount": 10
   },
   "result": {
     "tag": "forge:nuggets/platinum"

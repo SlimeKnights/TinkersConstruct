@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "forge:molten_refined_obsidian",
-    "amount": 48
+    "amount": 30
   },
   "result": {
     "tag": "forge:coins/refined_obsidian"

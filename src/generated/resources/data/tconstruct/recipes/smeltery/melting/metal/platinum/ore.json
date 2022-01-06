@@ -14,14 +14,14 @@
   },
   "result": {
     "fluid": "tconstruct:molten_platinum",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 970,
   "time": 196,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_gold",
-      "amount": 288
+      "amount": 180
     }
   ]
 }

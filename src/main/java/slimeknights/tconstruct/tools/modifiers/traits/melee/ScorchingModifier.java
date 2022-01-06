@@ -23,7 +23,7 @@ public class ScorchingModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    TinkerModifiers.tank.get().addCapacity(volatileData, FluidValues.INGOT * 2);
+    TinkerModifiers.tank.get().addCapacity(volatileData, FluidValues.BRICK);
   }
 
   @Override

@@ -16,7 +16,7 @@
   "switch_slots": true,
   "fluid": {
     "tag": "forge:molten_gold",
-    "amount": 144
+    "amount": 90
   },
   "result": "tconstruct:wire_cast",
   "cooling_time": 57

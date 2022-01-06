@@ -15,7 +15,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_constantan",
-    "amount": 144
+    "amount": 90
   },
   "result": {
     "tag": "forge:ingots/constantan"

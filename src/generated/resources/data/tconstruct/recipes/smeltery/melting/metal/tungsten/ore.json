@@ -27,14 +27,14 @@
         },
         "result": {
           "fluid": "tconstruct:molten_tungsten",
-          "amount": 288
+          "amount": 180
         },
         "temperature": 950,
         "time": 194,
         "byproducts": [
           {
             "fluid": "tconstruct:molten_platinum",
-            "amount": 96
+            "amount": 60
           }
         ]
       }
@@ -56,14 +56,14 @@
         },
         "result": {
           "fluid": "tconstruct:molten_tungsten",
-          "amount": 288
+          "amount": 180
         },
         "temperature": 950,
         "time": 194,
         "byproducts": [
           {
             "fluid": "tconstruct:molten_gold",
-            "amount": 288
+            "amount": 180
           }
         ]
       }

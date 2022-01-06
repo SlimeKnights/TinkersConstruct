@@ -19,11 +19,11 @@
   "inputs": [
     {
       "tag": "forge:molten_lead",
-      "amount": 432
+      "amount": 270
     },
     {
       "tag": "tconstruct:molten_diamond",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:ender",
@@ -32,7 +32,7 @@
   ],
   "result": {
     "fluid": "tconstruct:molten_enderium",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 1350
 }

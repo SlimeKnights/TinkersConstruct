@@ -10,11 +10,11 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
-import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock;
-import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 import slimeknights.tconstruct.smeltery.block.entity.module.ByproductMeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.FoundryMultiblock;
+import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock;
+import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 
 import javax.annotation.Nullable;
 

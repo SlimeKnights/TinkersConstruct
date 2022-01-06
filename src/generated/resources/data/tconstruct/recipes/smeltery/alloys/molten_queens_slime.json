@@ -3,11 +3,11 @@
   "inputs": [
     {
       "tag": "forge:molten_cobalt",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:molten_gold",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:magma",
@@ -16,7 +16,7 @@
   ],
   "result": {
     "fluid": "tconstruct:molten_queens_slime",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 1150
 }

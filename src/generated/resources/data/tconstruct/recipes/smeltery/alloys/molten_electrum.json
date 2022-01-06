@@ -19,16 +19,16 @@
   "inputs": [
     {
       "tag": "forge:molten_gold",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:molten_silver",
-      "amount": 144
+      "amount": 90
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_electrum",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 760
 }

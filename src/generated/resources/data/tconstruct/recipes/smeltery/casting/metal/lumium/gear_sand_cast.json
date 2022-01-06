@@ -15,7 +15,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_lumium",
-    "amount": 576
+    "amount": 360
   },
   "result": {
     "tag": "forge:gears/lumium"

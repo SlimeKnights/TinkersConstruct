@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:scorched_lantern",
-      "nbt": "{tank:{Amount:100,FluidName:\"tconstruct:molten_manyullyn\"}}"
+      "nbt": "{tank:{Amount:50,FluidName:\"tconstruct:molten_manyullyn\"}}"
     },
     "title": {
       "translate": "advancements.tconstruct.foundry.manyullyn_lanterns.title"
@@ -28,7 +28,7 @@
             "count": {
               "min": 64
             },
-            "nbt": "{tank:{Amount:100,FluidName:\"tconstruct:molten_manyullyn\"}}"
+            "nbt": "{tank:{Amount:50,FluidName:\"tconstruct:molten_manyullyn\"}}"
           }
         ]
       }
@@ -44,7 +44,7 @@
             "count": {
               "min": 64
             },
-            "nbt": "{tank:{Amount:100,FluidName:\"tconstruct:molten_manyullyn\"}}"
+            "nbt": "{tank:{Amount:50,FluidName:\"tconstruct:molten_manyullyn\"}}"
           }
         ]
       }

@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_diamond",
-    "amount": 576
+    "amount": 360
   },
   "result": "tconstruct:jeweled_apple",
   "cooling_time": 158

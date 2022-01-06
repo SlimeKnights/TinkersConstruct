@@ -3,7 +3,7 @@
   "inputs": [
     {
       "tag": "forge:molten_iron",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "tconstruct:blood",
@@ -16,7 +16,7 @@
   ],
   "result": {
     "fluid": "tconstruct:molten_pig_iron",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 811
 }

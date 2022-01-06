@@ -2,7 +2,7 @@
   "type": "tconstruct:material_fluid",
   "fluid": {
     "tag": "forge:molten_silver",
-    "amount": 144
+    "amount": 90
   },
   "temperature": 790,
   "output": "tconstruct:silver"

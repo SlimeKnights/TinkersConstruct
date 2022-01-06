@@ -132,11 +132,11 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // tier 2
     materialMeltingCasting(consumer, MaterialIds.iron, TinkerFluids.moltenIron, true, folder);
     materialMeltingCasting(consumer, MaterialIds.copper,        TinkerFluids.moltenCopper,  true,  folder);
-    materialMeltingCasting(consumer, MaterialIds.searedStone, TinkerFluids.searedStone, false, FluidValues.INGOT * 2, folder);
-    materialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, false, FluidValues.INGOT * 2, folder);
+    materialMeltingCasting(consumer, MaterialIds.searedStone, TinkerFluids.searedStone, false, FluidValues.BRICK * 2, folder);
+    materialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, false, FluidValues.BRICK * 2, folder);
     materialMelting(consumer, MaterialIds.chain, TinkerFluids.moltenIron.get(), FluidValues.INGOT + (FluidValues.NUGGET * 2), folder);
     // half a clay is 1 seared brick per grout amounts
-    materialComposite(consumer, MaterialIds.stone, MaterialIds.searedStone,   TinkerFluids.moltenClay, FluidValues.SLIMEBALL, false, folder);
+    materialComposite(consumer, MaterialIds.stone, MaterialIds.searedStone,   TinkerFluids.moltenClay, FluidValues.BRICK,     false, folder);
     materialComposite(consumer, MaterialIds.wood,  MaterialIds.slimewood,     TinkerFluids.earthSlime, FluidValues.SLIMEBALL, true,  folder);
     materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone, TinkerFluids.magma,      FluidValues.SLIMEBALL, true,  folder);
     materialComposite(consumer, MaterialIds.bone,  MaterialIds.bloodbone,     TinkerFluids.blood,      FluidValues.SLIMEBALL, false, folder);

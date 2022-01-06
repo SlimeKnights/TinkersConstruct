@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_queens_slime",
-    "amount": 16
+    "amount": 10
   },
   "result": "tconstruct:queens_slime_nugget",
   "cooling_time": 24

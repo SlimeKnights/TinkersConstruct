@@ -5,10 +5,10 @@
   },
   "result": {
     "fluid": "tconstruct:seared_stone",
-    "amount": 144
+    "amount": 250
   },
   "temperature": 600,
-  "time": 53,
+  "time": 89,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_obsidian",

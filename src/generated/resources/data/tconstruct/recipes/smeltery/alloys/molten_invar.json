@@ -19,16 +19,16 @@
   "inputs": [
     {
       "tag": "forge:molten_iron",
-      "amount": 288
+      "amount": 180
     },
     {
       "tag": "forge:molten_nickel",
-      "amount": 144
+      "amount": 90
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_invar",
-    "amount": 432
+    "amount": 270
   },
   "temperature": 900
 }

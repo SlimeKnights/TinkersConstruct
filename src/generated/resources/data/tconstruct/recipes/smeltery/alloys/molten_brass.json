@@ -19,16 +19,16 @@
   "inputs": [
     {
       "tag": "forge:molten_copper",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:molten_zinc",
-      "amount": 144
+      "amount": 90
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_brass",
-    "amount": 288
+    "amount": 180
   },
   "temperature": 605
 }

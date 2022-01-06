@@ -23,16 +23,16 @@
     },
     {
       "tag": "tconstruct:molten_diamond",
-      "amount": 144
+      "amount": 90
     },
     {
       "tag": "forge:molten_osmium",
-      "amount": 144
+      "amount": 90
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_refined_obsidian",
-    "amount": 144
+    "amount": 90
   },
   "temperature": 1475
 }

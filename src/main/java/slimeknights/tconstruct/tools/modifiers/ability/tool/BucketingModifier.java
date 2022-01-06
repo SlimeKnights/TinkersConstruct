@@ -37,11 +37,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 public class BucketingModifier extends TankModifier {
   public BucketingModifier() {
@@ -64,18 +62,6 @@ public class BucketingModifier extends TankModifier {
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1, true);
-    }
-  }
-
-  @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    super.addVolatileData(context, level, volatileData);
-
-    // boost to the nearest bucket amount
-    int capacity = getCapacity(volatileData);
-    int remainder = capacity % FluidAttributes.BUCKET_VOLUME;
-    if (remainder != 0) {
-      addCapacity(volatileData, FluidAttributes.BUCKET_VOLUME - remainder);
     }
   }
 

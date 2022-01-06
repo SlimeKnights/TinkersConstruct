@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_slimesteel",
-    "amount": 144
+    "amount": 90
   },
   "result": "tconstruct:slimesteel_ingot",
   "cooling_time": 63

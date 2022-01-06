@@ -14,7 +14,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_slimesteel",
-    "amount": 144
+    "amount": 90
   },
   "result": {
     "tag": "forge:plates/slimesteel"

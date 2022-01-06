@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:table_filling",
-  "fluid_amount": 16,
+  "fluid_amount": 10,
   "container": "tconstruct:scorched_lantern"
 }

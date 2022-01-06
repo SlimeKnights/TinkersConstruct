@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_diamond",
-    "amount": 144
+    "amount": 90
   },
   "result": "minecraft:diamond",
   "cooling_time": 79

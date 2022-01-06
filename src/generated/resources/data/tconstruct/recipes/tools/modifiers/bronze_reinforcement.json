@@ -6,7 +6,7 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "forge:molten_silicon_bronze",
-    "amount": 48
+    "amount": 30
   },
   "result": "tconstruct:bronze_reinforcement",
   "cooling_time": 33

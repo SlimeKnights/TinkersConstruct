@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "forge:molten_iron",
-    "amount": 16
+    "amount": 10
   },
   "result": "minecraft:iron_nugget",
   "cooling_time": 20

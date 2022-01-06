@@ -5,14 +5,14 @@
   },
   "result": {
     "fluid": "tconstruct:molten_diamond",
-    "amount": 144
+    "amount": 90
   },
   "temperature": 1450,
   "time": 118,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_quartz",
-      "amount": 144
+      "amount": 90
     }
   ]
 }

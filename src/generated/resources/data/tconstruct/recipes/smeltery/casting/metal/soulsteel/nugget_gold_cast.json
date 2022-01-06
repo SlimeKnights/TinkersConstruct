@@ -5,7 +5,7 @@
   },
   "fluid": {
     "tag": "tconstruct:molten_soulsteel",
-    "amount": 16
+    "amount": 10
   },
   "result": "tconstruct:soulsteel_nugget",
   "cooling_time": 24
