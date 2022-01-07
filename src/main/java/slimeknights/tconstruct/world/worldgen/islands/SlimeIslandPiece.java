@@ -38,16 +38,16 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator chunkGenerator;
 
-  public SlimeIslandPiece(StructureManager manager, IIslandVariant variant, String templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
-    super(TinkerStructures.slimeIslandPiece, 0, manager, variant.getStructureName(templateName), templateName, makeSettings(rotation, mirror), templatePos);
+
+  private SlimeIslandPiece(StructureManager manager, IIslandVariant variant, ResourceLocation templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
+    super(TinkerStructures.slimeIslandPiece, 0, manager, templateName, templateName.toString(), makeSettings(rotation, mirror), templatePos);
     this.variant = variant;
     this.numberOfTreesPlaced = 0;
     this.tree = tree;
   }
 
-  @Override
-  protected ResourceLocation makeTemplateLocation() {
-    return variant.getStructureName(this.templateName);
+  public SlimeIslandPiece(StructureManager manager, IIslandVariant variant, String templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
+    this(manager, variant, variant.getStructureName(templateName), templatePos, tree, rotation, mirror);
   }
 
   public SlimeIslandPiece(StructureManager templateManager, CompoundTag nbt) {
