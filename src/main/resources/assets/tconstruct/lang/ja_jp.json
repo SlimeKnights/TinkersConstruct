@@ -1590,7 +1590,7 @@
 
   "modifier.tconstruct.overslime": "オーバースライム",
   "modifier.tconstruct.overslime.flavor": "べとべと！",
-  "modifier.tconstruct.overslime.description": "道具は耐久度の代わりにオーバースライムを消費する！スライムが付いていない道具には無意味",
+  "modifier.tconstruct.overslime.description": "道具は耐久度の代わりにオーバースライムを消費する！スライムが付いていない道具にはよろしくない",
 
   "_comment": "Tool or harvest",
   "modifier.tconstruct.experienced": "経験豊富",
