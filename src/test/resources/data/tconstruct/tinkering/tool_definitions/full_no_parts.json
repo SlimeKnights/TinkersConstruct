@@ -36,8 +36,8 @@
       "block": "minecraft:diamond_block"
     },
     "aoe": {
-      "type": "tconstruct:box",
-      "radius": 3,
+      "type": "test:circle",
+      "diameter": 3,
       "3D": true
     }
   },
