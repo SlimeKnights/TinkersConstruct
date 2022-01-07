@@ -45,7 +45,7 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 public class FuelModule implements ContainerData {
   /** Block position that will never be valid in world, used for sync */
-  private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
+  private static final BlockPos NULL_POS = new BlockPos(0, Short.MIN_VALUE, 0);
   /** Temperature used for solid fuels, hot enough to melt iron */
   public static final int SOLID_TEMPERATURE = 800;
 
@@ -68,8 +68,7 @@ public class FuelModule implements ContainerData {
   @Nullable
   private LazyOptional<IItemHandler> itemHandler;
   /** Position of the last fluid handler */
-  @Nullable
-  private BlockPos lastPos = null;
+  private BlockPos lastPos = NULL_POS;
 
 
   /** Client fuel display */
@@ -99,7 +98,7 @@ public class FuelModule implements ContainerData {
   private void reset() {
     this.fluidHandler = null;
     this.itemHandler = null;
-    this.lastPos = null;
+    this.lastPos = NULL_POS;
   }
 
   /** Gets a nonnull world instance from the parent */
@@ -180,7 +179,7 @@ public class FuelModule implements ContainerData {
                 double x = (world.random.nextFloat() * 0.5F) + 0.25D;
                 double y = (world.random.nextFloat() * 0.5F) + 0.25D;
                 double z = (world.random.nextFloat() * 0.5F) + 0.25D;
-                BlockPos pos = lastPos == null ? parent.getBlockPos() : lastPos;
+                BlockPos pos = lastPos == NULL_POS ? parent.getBlockPos() : lastPos;
                 ItemEntity itementity = new ItemEntity(world, pos.getX() + x, pos.getY() + y, pos.getZ() + z, container);
                 itementity.setDefaultPickUpDelay();
                 world.addFreshEntity(itementity);
@@ -289,7 +288,7 @@ public class FuelModule implements ContainerData {
     } else if (itemHandler != null) {
       handlerTemp = itemHandler.map(trySolidFuel(consume));
     // if no handler, try to find one at the last position
-    } else if (lastPos != null) {
+    } else if (lastPos != NULL_POS) {
       int posTemp = tryFindFuel(lastPos, consume);
       if (posTemp > 0) {
         return posTemp;
@@ -349,7 +348,7 @@ public class FuelModule implements ContainerData {
     nbt.putInt(TAG_FUEL, fuel);
     nbt.putInt(TAG_TEMPERATURE, temperature);
     // technically unneeded for melters, but does not hurt to add
-    if (lastPos != null) {
+    if (lastPos != NULL_POS) {
       nbt.put(TAG_LAST_FUEL, TagUtil.writePos(lastPos));
     }
     return nbt;
@@ -375,9 +374,9 @@ public class FuelModule implements ContainerData {
       case FUEL         -> fuel;
       case FUEL_QUALITY -> fuelQuality;
       case TEMPERATURE  -> temperature;
-      case LAST_X -> lastPos == null ? 0 : lastPos.getX();
-      case LAST_Y -> lastPos == null ? -1 : lastPos.getY();
-      case LAST_Z -> lastPos == null ? 0 : lastPos.getZ();
+      case LAST_X -> lastPos.getX();
+      case LAST_Y -> lastPos.getY();
+      case LAST_Z -> lastPos.getZ();
       default -> 0;
     };
   }
@@ -392,7 +391,6 @@ public class FuelModule implements ContainerData {
       // position sync takes three parts
       case LAST_X, LAST_Y, LAST_Z -> {
         // position sync
-        if (lastPos == null) lastPos = NULL_POS;
         switch (index) {
           case LAST_X -> lastPos = new BlockPos(value, lastPos.getY(), lastPos.getZ());
           case LAST_Y -> lastPos = new BlockPos(lastPos.getX(), value, lastPos.getZ());
@@ -425,7 +423,7 @@ public class FuelModule implements ContainerData {
 
     // Y of -1 is how the UI syncs null
     BlockPos mainTank = lastPos;
-    if (mainTank == null || mainTank.getY() == -1) {
+    if (mainTank.getY() == NULL_POS.getY()) {
       // if no first, return no fuel info
       positions = tankSupplier.get();
       if (positions.isEmpty()) {
