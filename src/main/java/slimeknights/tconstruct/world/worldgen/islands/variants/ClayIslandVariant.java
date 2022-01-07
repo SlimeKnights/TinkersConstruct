@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world.worldgen.islands.variants;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -47,22 +48,18 @@ public class ClayIslandVariant implements IIslandVariant {
   @Nullable
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
-    // all variants except dark oak, no 2x2 trees
-    return null; // TODO
-    /*
     return switch (random.nextInt(10)) {
       // 40% oak
-      case 0, 1, 2, 3 -> Features.OAK;
+      case 0, 1, 2, 3 -> TreeFeatures.OAK;
       // 30% birch
-      case 4, 5, 6 -> Features.BIRCH;
+      case 4, 5, 6 -> TreeFeatures.BIRCH;
       // 10% spruce
-      case 7 -> Features.SPRUCE;
+      case 7 -> TreeFeatures.SPRUCE;
       // 10% acacia
-      case 8 -> Features.ACACIA;
+      case 8 -> TreeFeatures.ACACIA;
       // 10% jungle
-      case 9 -> Features.JUNGLE_TREE_NO_VINE;
+      case 9 -> TreeFeatures.JUNGLE_TREE_NO_VINE;
       default -> null;
     };
-     */
   }
 }

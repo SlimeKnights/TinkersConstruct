@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.world.worldgen.islands.variants;
 
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -43,6 +43,6 @@ public class EnderSlimeIslandVariant extends AbstractSlimeIslandVariant {
   @Nullable
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
-    return TinkerStructures.ENDER_SLIME_ISLAND_TREE;
+    return TinkerStructures.enderSlimeIslandTree;
   }
 }

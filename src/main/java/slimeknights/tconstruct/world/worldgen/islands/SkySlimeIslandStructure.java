@@ -5,12 +5,10 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.worldgen.islands.variants.IIslandVariant;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IslandVariants;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Overworld structure containing sky slimes, spawns in the sky
@@ -18,13 +16,12 @@ import java.util.Random;
 public class SkySlimeIslandStructure extends AbstractIslandStructure {
   private static final List<MobSpawnSettings.SpawnerData> MONSTERS = ImmutableList.of(new MobSpawnSettings.SpawnerData(TinkerWorld.skySlimeEntity.get(), 30, 4, 4));
 
-  @Override
-  public List<SpawnerData> getDefaultSpawnList(MobCategory category) {
-    return category == MobCategory.MONSTER ? MONSTERS : Collections.emptyList();
+  public SkySlimeIslandStructure() {
+    super(random -> random.nextBoolean() ? IslandVariants.SKY_BLUE : IslandVariants.SKY_GREEN);
   }
 
   @Override
-  public IIslandVariant getVariant(Random random) {
-    return random.nextBoolean() ? IslandVariants.SKY_BLUE : IslandVariants.SKY_GREEN;
+  public List<SpawnerData> getDefaultSpawnList(MobCategory category) {
+    return category == MobCategory.MONSTER ? MONSTERS : Collections.emptyList();
   }
 }

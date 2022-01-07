@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -13,7 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -44,7 +42,6 @@ import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
@@ -56,53 +53,20 @@ public class WorldEvents {
 
     BiomeCategory category = event.getCategory();
     if (category == BiomeCategory.NETHER) {
-      if (Config.COMMON.generateBloodIslands.get()) {
-        //TODO generation.addStructureStart(TinkerStructures.BLOOD_SLIME_ISLAND);
-      }
-
       if (Config.COMMON.generateCobalt.get()) {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
       }
     }
-    else if (category != BiomeCategory.THEEND) {
+    else if (category == BiomeCategory.THEEND) {
+      // slime spawns anywhere, uses the grass and liquid
+      event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
+    }
+    else {
       // slime spawns anywhere, uses the grass and liquid
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4));
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4));
-      // normal sky islands - anywhere
-      if (Config.COMMON.generateSkySlimeIslands.get()) {
-        //TODO generation.addStructureStart(TinkerStructures.SKY_SLIME_ISLAND);
-      }
-      // clay islands - no forest like biomes
-      if (Config.COMMON.generateClayIslands.get() && category != BiomeCategory.TAIGA && category != BiomeCategory.JUNGLE && category != BiomeCategory.FOREST && category != BiomeCategory.OCEAN && category != BiomeCategory.SWAMP) {
-        //TODO generation.addStructureStart(TinkerStructures.CLAY_ISLAND);
-      }
-      // ocean islands - ocean
-      if (category == BiomeCategory.OCEAN && Config.COMMON.generateEarthSlimeIslands.get()) {
-        //TODO generation.addStructureStart(TinkerStructures.EARTH_SLIME_ISLAND);
-      }
     }
-    else if (!doesNameMatchBiomes(event.getName(), Biomes.THE_END, Biomes.THE_VOID)) {
-      // slime spawns anywhere, uses the grass and liquid
-      event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
-      if (Config.COMMON.generateEndSlimeIslands.get()) {
-        //TODO generation.addStructureStart(TinkerStructures.END_SLIME_ISLAND);
-      }
-    }
-  }
-
-  /**
-   * Helper method to determine the the given Name matches that of any of the given Biomes
-   * @param name - The Name that will be compared to the given Biomes names
-   * @param biomes - The Biome that will be used for the check
-   */
-  private static boolean doesNameMatchBiomes(@Nullable ResourceLocation name, ResourceKey<?>... biomes) {
-    for (ResourceKey<?> biome : biomes) {
-      if (biome.location().equals(name)) {
-        return true;
-      }
-    }
-    return false;
   }
 
 
