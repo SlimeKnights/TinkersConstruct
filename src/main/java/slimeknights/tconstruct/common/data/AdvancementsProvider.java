@@ -33,12 +33,12 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
@@ -309,7 +309,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     builder(TinkerWorld.slimeSapling.get(SlimeType.SKY), resource("world/sky_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.skySlimeIsland.get()))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.BLOOD), resource("world/blood_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.bloodSlimeIsland.get()))));
+      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.bloodIsland.get()))));
     Advancement enderslimeIsland = builder(TinkerWorld.slimeSapling.get(SlimeType.ENDER), resource("world/ender_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.endSlimeIsland.get()))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, FrameType.GOAL, builder ->

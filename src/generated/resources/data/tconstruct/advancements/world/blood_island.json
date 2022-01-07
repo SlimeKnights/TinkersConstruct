@@ -20,7 +20,7 @@
       "trigger": "minecraft:location",
       "conditions": {
         "location": {
-          "feature": "tconstruct:nether_slime_island"
+          "feature": "tconstruct:blood_island"
         }
       }
     }

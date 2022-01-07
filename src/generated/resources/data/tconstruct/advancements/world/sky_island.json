@@ -20,7 +20,7 @@
       "trigger": "minecraft:location",
       "conditions": {
         "location": {
-          "feature": "tconstruct:overworld_slime_island"
+          "feature": "tconstruct:sky_slime_island"
         }
       }
     }

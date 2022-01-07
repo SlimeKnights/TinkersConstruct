@@ -104,12 +104,12 @@ public final class TinkerStructures extends TinkerModule {
   public static StructurePieceType slimeIslandPiece;
   public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> earthSlimeIsland = STRUCTURE_FEATURES.register("earth_slime_island", EarthSlimeIslandStructure::new);
   public static ConfiguredStructureFeature<NoneFeatureConfiguration, ? extends StructureFeature<NoneFeatureConfiguration>> configuredEarthSlimeIsland;
-  public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> skySlimeIsland = STRUCTURE_FEATURES.register("overworld_slime_island", SkySlimeIslandStructure::new);
+  public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> skySlimeIsland = STRUCTURE_FEATURES.register("sky_slime_island", SkySlimeIslandStructure::new);
   public static ConfiguredStructureFeature<NoneFeatureConfiguration, ? extends StructureFeature<NoneFeatureConfiguration>> configuredSkySlimeIsland;
   public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> clayIsland = STRUCTURE_FEATURES.register("clay_island", ClayIslandStructure::new);
   public static ConfiguredStructureFeature<NoneFeatureConfiguration, ? extends StructureFeature<NoneFeatureConfiguration>> configuredClayIsland;
   // nether
-  public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> bloodSlimeIsland = STRUCTURE_FEATURES.register("nether_slime_island", BloodSlimeIslandStructure::new);
+  public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> bloodIsland = STRUCTURE_FEATURES.register("blood_island", BloodSlimeIslandStructure::new);
   public static ConfiguredStructureFeature<NoneFeatureConfiguration, ? extends StructureFeature<NoneFeatureConfiguration>> configuredBloodIsland;
   // end
   public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> endSlimeIsland = STRUCTURE_FEATURES.register("end_slime_island", EnderSlimeIslandStructure::new);
@@ -162,7 +162,7 @@ public final class TinkerStructures extends TinkerModule {
     // need to rebuild default, start by copying default values
     ImmutableMap.Builder<StructureFeature<?>, StructureFeatureConfiguration> defaultSettings = ImmutableMap.builder();
     // skip old values that match one of the islands, we are replacing those
-    Set<StructureFeature<?>> ignore = Sets.newHashSet(earthSlimeIsland.get(), skySlimeIsland.get(), clayIsland.get(), bloodSlimeIsland.get(), endSlimeIsland.get());
+    Set<StructureFeature<?>> ignore = Sets.newHashSet(earthSlimeIsland.get(), skySlimeIsland.get(), clayIsland.get(), bloodIsland.get(), endSlimeIsland.get());
     defaultSettings.putAll(StructureSettings.DEFAULTS.entrySet().stream().filter(entry -> !ignore.contains(entry.getKey())).collect(Collectors.toList()));
 
     // overworld //
@@ -187,9 +187,9 @@ public final class TinkerStructures extends TinkerModule {
 
     // nether //
     if (Config.COMMON.generateBloodIslands.get()) {
-      addStructureSettings(defaultSettings, bloodSlimeIsland.get(), new StructureFeatureConfiguration(Config.COMMON.bloodIslandSeparation.get(), 5, 65245622));
+      addStructureSettings(defaultSettings, bloodIsland.get(), new StructureFeatureConfiguration(Config.COMMON.bloodIslandSeparation.get(), 5, 65245622));
     } else {
-      removeStructureSettings(bloodSlimeIsland.get());
+      removeStructureSettings(bloodIsland.get());
     }
 
     // end //
@@ -219,7 +219,7 @@ public final class TinkerStructures extends TinkerModule {
       addStructureToMap(earthSlimeIsland.get());
       addStructureToMap(skySlimeIsland.get());
       addStructureToMap(clayIsland.get());
-      addStructureToMap(bloodSlimeIsland.get());
+      addStructureToMap(bloodIsland.get());
       addStructureToMap(endSlimeIsland.get());
     });
 
@@ -231,7 +231,7 @@ public final class TinkerStructures extends TinkerModule {
       configuredEarthSlimeIsland = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("earth_slime_island"), earthSlimeIsland.get().configured(NoneFeatureConfiguration.INSTANCE));
       configuredSkySlimeIsland = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("sky_slime_island"), skySlimeIsland.get().configured(NoneFeatureConfiguration.INSTANCE));
       configuredClayIsland = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("clay_island"), clayIsland.get().configured(NoneFeatureConfiguration.INSTANCE));
-      configuredBloodIsland = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("blood_slime_island"), bloodSlimeIsland.get().configured(NoneFeatureConfiguration.INSTANCE));
+      configuredBloodIsland = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("blood_island"), bloodIsland.get().configured(NoneFeatureConfiguration.INSTANCE));
       configuredEndSlimeIsland = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("end_slime_island"), endSlimeIsland.get().configured(NoneFeatureConfiguration.INSTANCE));
 
       // trees
@@ -333,7 +333,7 @@ public final class TinkerStructures extends TinkerModule {
       addStructures(NoiseGeneratorSettings.AMPLIFIED,        addOverworld);
       addStructures(NoiseGeneratorSettings.FLOATING_ISLANDS, addIsland);
       // other dimensions
-      addStructures(NoiseGeneratorSettings.NETHER, builder -> builder.put(bloodSlimeIsland.get(), multimapOf(configuredBloodIsland, BiomeDictionary.getBiomes(Type.NETHER))));
+      addStructures(NoiseGeneratorSettings.NETHER, builder -> builder.put(bloodIsland.get(), multimapOf(configuredBloodIsland, BiomeDictionary.getBiomes(Type.NETHER))));
       addStructures(NoiseGeneratorSettings.END, builder -> builder.put(endSlimeIsland.get(), multimapOf(configuredEndSlimeIsland, BiomeDictionary.getBiomes(Type.END).stream().filter(key -> key != Biomes.THE_END).toList())));
     });
   }
