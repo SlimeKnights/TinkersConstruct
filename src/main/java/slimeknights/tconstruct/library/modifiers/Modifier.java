@@ -94,7 +94,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   private Component displayName;
   /** Cached text component for description */
   @Nullable
-  private List<Component> descriptionList;
+  protected List<Component> descriptionList;
   /** Cached text component for description */
   @Nullable
   private Component description;

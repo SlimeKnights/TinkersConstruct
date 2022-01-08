@@ -6,13 +6,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.IItemRenderProperties;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
-import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 
 import java.util.function.Consumer;
 
 /** This item is mainly to return the proper model for a slimeskull */
-public class SlimeskullItem extends ModifiableArmorItem {
+public class SlimeskullItem extends SlimesuitItem {
   public SlimeskullItem(ModifiableArmorMaterial material, Properties properties) {
     super(material, ArmorSlotType.HELMET, properties);
   }

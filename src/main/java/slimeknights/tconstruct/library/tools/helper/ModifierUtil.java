@@ -283,6 +283,15 @@ public final class ModifierUtil {
     return 0;
   }
 
+  /** Shortcut to get a persistent string value when the tool stack is not needed otherwise */
+  public static String getPersistentString(ItemStack stack, ResourceLocation flag) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA).getString(flag.toString());
+    }
+    return "";
+  }
+
   /** Checks if a tool can perform the given action */
   public static boolean canPerformAction(IToolStackView tool, ToolAction action) {
     if (!tool.isBroken()) {

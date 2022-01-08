@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<ModifierRecipeBuilder> {
-  private final List<SizedIngredient> inputs = new ArrayList<>();
+  protected final List<SizedIngredient> inputs = new ArrayList<>();
   private final List<RandomItem> salvage = new ArrayList<>();
   protected ModifierRecipeBuilder(ModifierEntry result) {
     super(result);
@@ -262,7 +262,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     return this;
   }
 
-  private class FinishedAdding extends ModifierFinishedRecipe {
+  protected class FinishedAdding extends ModifierFinishedRecipe {
     public FinishedAdding(ResourceLocation ID, @Nullable ResourceLocation advancementID, boolean withUnarmed) {
       super(ID, advancementID, withUnarmed);
     }

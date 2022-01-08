@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
@@ -73,6 +74,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -98,6 +100,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     addItemRecipes(consumer);
     addModifierRecipes(consumer);
+    addTextureRecipes(consumer);
     addHeadRecipes(consumer);
     addSpillingRecipes(consumer);
   }
@@ -1267,6 +1270,48 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
   }
 
+  private void addTextureRecipes(Consumer<FinishedRecipe> consumer) {
+    String folder = "tools/modifiers/slotless/";
+
+    // slimesuit //
+    Ingredient slimesuit = Ingredient.of(TinkerTools.slimesuit.values().stream().map(ItemStack::new));
+    // earth
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.earthslime.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_earth"));
+    // sky
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.skyslime.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_sky"));
+    // blood
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.blood.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_blood"));
+    // ichor
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.ichor.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_ichor"));
+    // enderslime
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.enderslime.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
+                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_ender"));
+  }
+
   private void addHeadRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/severing/";
     // first, beheading
@@ -1342,7 +1387,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // befleecing
     SpecialRecipeBuilder.special(TinkerModifiers.sheepShearing.get()).save(consumer, modPrefix(folder + "sheep_wool"));
   }
-
 
   private void addSpillingRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/spilling/";

@@ -72,6 +72,10 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.venom);
     buildRenderInfo(MaterialIds.rottenFlesh);
     // slimesuit
+    buildRenderInfo(MaterialIds.earthslime);
+    buildRenderInfo(MaterialIds.skyslime);
+    buildRenderInfo(MaterialIds.blood);
+    buildRenderInfo(MaterialIds.ichor);
     buildRenderInfo(MaterialIds.enderslime);
     buildRenderInfo(MaterialIds.phantom);
     buildRenderInfo(MaterialIds.chorus);

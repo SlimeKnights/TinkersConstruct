@@ -89,7 +89,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   private List<ItemStack> toolInputs = null;
 
   /** Gets or builds the list of tool inputs */
-  private List<ItemStack> getToolInputs() {
+  List<ItemStack> getToolInputs() {
     if (toolInputs == null) {
       toolInputs = Arrays.stream(this.toolRequirement.getItems()).map(stack -> {
         if (stack.getItem() instanceof IModifiableDisplay) {
@@ -105,7 +105,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   private List<ItemStack> displayInputs = null;
 
   /** Cache of display output */
-  private List<ItemStack> toolWithModifier = null;
+  List<ItemStack> toolWithModifier = null;
 
   /** Display result, may be a higher level than real result */
   private ModifierEntry displayResult;
@@ -191,15 +191,24 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     return finalList.build();
   }
 
+  /** Validates just the modifier requirements */
+  protected ValidatedResult validateRequirements(ToolStack tool) {
+    // validate modifier prereqs, skip building fancy list for always
+    if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
+      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : ValidatedResult.failure(requirementsError);
+    }
+    return ValidatedResult.PASS;
+  }
+
   /**
    * Validates that this tool meets the modifier requirements, is not too high of a level, and has enough upgrade/ability slots
    * @param tool           Tool stack instance
    * @return  Validated result with error, or pass if no error
    */
   protected ValidatedResult validatePrerequisites(ToolStack tool) {
-    // validate modifier prereqs, skip building fancy list for always
-    if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
-      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : ValidatedResult.failure(requirementsError);
+    ValidatedResult requirements = validateRequirements(tool);
+    if (requirements.hasError()) {
+      return requirements;
     }
     // max level of modifier
     if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getModifier()) + result.getLevel() > maxLevel) {
@@ -235,6 +244,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     public abstract T read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                   String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
+    /** Reads the result from the object */
+    protected ModifierEntry readResult(JsonObject json) {
+      return ModifierEntry.fromJson(GsonHelper.getAsJsonObject(json, "result"));
+    }
+
     @Override
     public final T fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolRequirement = Ingredient.fromJson(json.get("tools"));
@@ -245,7 +259,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
         requirements = ModifierMatch.deserialize(reqJson);
         requirementsError = GsonHelper.getAsString(reqJson, "error", "");
       }
-      ModifierEntry result = ModifierEntry.fromJson(GsonHelper.getAsJsonObject(json, "result"));
+      ModifierEntry result = readResult(json);
       int maxLevel = GsonHelper.getAsInt(json, "max_level", 0);
       if (maxLevel < 0) {
         throw new JsonSyntaxException("max must be non-negative");

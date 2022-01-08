@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.data.sprite;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 /**
@@ -9,6 +10,8 @@ import slimeknights.tconstruct.tools.stats.RepairKitStats;
  * Do not use both this and {@link TinkerMaterialSpriteProvider} in a single generator for an addon, if you need to use both make two instances of {@link slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator}
  */
 public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
+  public static final MaterialStatsId SLIMESUIT = new MaterialStatsId(TConstruct.MOD_ID, "slimesuit");
+
   public TinkerPartSpriteProvider() {
     super(TConstruct.MOD_ID);
   }
@@ -29,6 +32,16 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // misc
     addBinding("tool_binding");
     addPart("repair_kit", RepairKitStats.ID);
+
+    // slimesuit textures
+    addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/skull_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addSprite("armor/slime/wings_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/wings_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addSprite("armor/slime/shell_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/shell_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addSprite("armor/slime/boot_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/boot_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
 
     // tools
     // pickaxe

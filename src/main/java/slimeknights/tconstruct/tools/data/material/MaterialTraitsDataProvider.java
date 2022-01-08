@@ -92,6 +92,10 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard.get(), TinkerModifiers.piglinBruteDisguise.get());
     addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.get(), TinkerModifiers.zombifiedPiglinDisguise.get());
     // slimesuit
+    noTraits(MaterialIds.earthslime);
+    noTraits(MaterialIds.skyslime);
+    noTraits(MaterialIds.blood);
+    noTraits(MaterialIds.ichor);
     noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.phantom);
     noTraits(MaterialIds.chorus);

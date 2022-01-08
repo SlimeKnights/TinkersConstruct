@@ -26,6 +26,38 @@
       "statType": "tconstruct:repair_kit"
     },
     {
+      "path": "tconstruct:armor/slime/skull_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/skull_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/wings_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/wings_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/shell_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/shell_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/boot_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/boot_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
       "path": "tconstruct:pickaxe/head",
       "statType": "tconstruct:head"
     },

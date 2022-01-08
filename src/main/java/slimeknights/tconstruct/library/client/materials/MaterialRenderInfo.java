@@ -21,8 +21,9 @@ public class MaterialRenderInfo {
   /** ID of this render info */
   @Getter
   private final MaterialId identifier;
-  @Nullable
+  @Nullable @Getter
   private final ResourceLocation texture;
+  @Getter
   private final String[] fallbacks;
   /** color used to tint quads of this texture when the fallback is used */
   @Getter
@@ -89,7 +90,7 @@ public class MaterialRenderInfo {
    * @param material  Material ID
    * @return  Sprite name
    */
-  private static String getSuffix(ResourceLocation material) {
+  public static String getSuffix(ResourceLocation material) {
     // namespace will only be minecraft for a texture override, so this lets you select to always use an untinted base texture as the materials texture
     if ("minecraft".equals(material.getNamespace())) {
       return material.getPath();

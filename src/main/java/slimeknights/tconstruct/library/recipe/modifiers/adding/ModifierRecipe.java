@@ -35,7 +35,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * Order matters, as if a ingredient matches multiple ingredients it may produce unexpected behavior.
    * Making the most strict first will produce the best behavior
    */
-  private final List<SizedIngredient> inputs;
+  protected final List<SizedIngredient> inputs;
 
   public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
@@ -47,7 +47,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @param inv  Alloy tank
    * @return  Bitset
    */
-  private static BitSet makeBitset(ITinkerStationContainer inv) {
+  protected static BitSet makeBitset(ITinkerStationContainer inv) {
     int inputs = inv.getInputCount();
     BitSet used = new BitSet(inputs);
     // mark empty as used to save a bit of effort
@@ -66,7 +66,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @param used        Bitset for already used matches, will be modified
    * @return  Index of found match, or -1 if match not found
    */
-  private static int findMatch(SizedIngredient ingredient, ITinkerStationContainer inv, BitSet used) {
+  protected static int findMatch(SizedIngredient ingredient, ITinkerStationContainer inv, BitSet used) {
     ItemStack stack;
     for (int i = 0; i < inv.getInputCount(); i++) {
       // must not have used that fluid yet

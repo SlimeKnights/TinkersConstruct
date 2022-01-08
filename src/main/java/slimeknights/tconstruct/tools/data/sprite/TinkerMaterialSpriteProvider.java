@@ -227,5 +227,22 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.rabbit)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF3F2F1F).addARGB(102, 0xFF4E3A27).addARGB(140, 0xFF826041).addARGB(178, 0xFFA88054).addARGB(216, 0xFFB48B5B).addARGB(255, 0xFFC79E67).build());
+    // slimesuit embellishments
+    buildMaterial(MaterialIds.earthslime)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .fallbacks("slime")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF34532F).addARGB(102, 0xFF406D3B).addARGB(140, 0xFF508049).addARGB(178, 0xFF71AC63).addARGB(216, 0xFF8CD782).addARGB(255, 0xFFFFFFFF).build());
+    buildMaterial(MaterialIds.skyslime)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .fallbacks("slime")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3B6D6D).addARGB(140, 0xFF49807E).addARGB(178, 0xFF63ACAB).addARGB(216, 0xFF82D7D5).addARGB(255, 0xFFFFFFFF).build());
+    buildMaterial(MaterialIds.blood)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .fallbacks("slime")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
+    buildMaterial(MaterialIds.ichor)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .fallbacks("slime")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB04000).addARGB(102, 0xFFD35200).addARGB(140, 0xFFEC5E00).addARGB(178, 0xFFFF8324).addARGB(216, 0xFFFFB97C).addARGB(255, 0xFFFFFFFF).build());
   }
 }

@@ -1400,6 +1400,10 @@
   "material.tconstruct.gold.skull_flavor": "So shiny",
   "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
 
+  "material.tconstruct.earthslime": "Earthslime",
+  "material.tconstruct.skyslime":   "Skyslime",
+  "material.tconstruct.blood":      "Blood",
+  "material.tconstruct.ichor":      "Ichor",
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.chorus": "Chorus",
@@ -1620,6 +1624,10 @@
   "modifier.tconstruct.revitalizing": "Revitalizing",
   "modifier.tconstruct.revitalizing.flavor": "Can feel the energy flowing",
   "modifier.tconstruct.revitalizing.description": "Strengthens the heart, granting more hearts",
+  "modifier.tconstruct.embellishment": "Embellishment",
+  "modifier.tconstruct.embellishment.formatted": "%s Embellishment",
+  "modifier.tconstruct.embellishment.flavor": "Redecorate!",
+  "modifier.tconstruct.embellishment.description": "Armor appearance changed to match a different material",
 
   "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "Protection",

@@ -27,5 +27,7 @@
   "tconstruct:unbreakable": { "type": "tconstruct:normal", "luminosity": 2 },
   
   "tconstruct:tank":      "tconstruct:tank",
-  "tconstruct:bucketing": "tconstruct:fluid"
+  "tconstruct:bucketing": "tconstruct:fluid",
+  
+  "tconstruct:embellishment": "tconstruct:breakable_material"
 }

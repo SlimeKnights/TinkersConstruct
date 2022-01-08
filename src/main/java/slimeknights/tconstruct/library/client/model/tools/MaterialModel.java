@@ -163,7 +163,20 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @return  Model quads
    */
   public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialId material, @Nullable ItemLayerPixels pixels) {
-    Material texture = owner.resolveTexture(name);
+    return getPartQuads(quadConsumer, owner.resolveTexture(name), spriteGetter, transform, index, material, pixels);
+  }
+
+  /**
+   * Gets the quads for a material for the given texture
+   * @param texture       Base texture
+   * @param spriteGetter  Sprite getter
+   * @param transform     Model transform
+   * @param index         Sprite tint index
+   * @param material      Material to use
+   * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
+   * @return  Model quads
+   */
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, Material texture, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, int index, @Nullable MaterialId material, @Nullable ItemLayerPixels pixels) {
     int color = -1;
     int light = 0;
     TextureAtlasSprite finalSprite = null;
