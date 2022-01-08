@@ -41,12 +41,21 @@ public abstract class AbstractPartSpriteProvider {
   /* Builder functions */
 
   /**
-   * Adds a given sprite to the list to generate
+   * Adds a given texture to the list to generate
    * @param sprite  Sprite name
    * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
    */
-  protected void addSprite(ResourceLocation sprite, MaterialStatsId requiredStats) {
+  protected void addTexture(ResourceLocation sprite, MaterialStatsId requiredStats) {
     sprites.add(new PartSpriteInfo(sprite, requiredStats));
+  }
+
+  /**
+   * Adds a given sprite to the list to generate, local to textures instead of tool
+   * @param name           Name relative to the mod
+   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
+   */
+  protected void addTexture(String name, MaterialStatsId requiredStats) {
+    addTexture(new ResourceLocation(modID, name), requiredStats);
   }
 
   /**
@@ -55,7 +64,7 @@ public abstract class AbstractPartSpriteProvider {
    * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
    */
   protected void addSprite(String name, MaterialStatsId requiredStats) {
-    addSprite(new ResourceLocation(modID, name), requiredStats);
+    addTexture(new ResourceLocation(modID, "item/tool/" + name), requiredStats);
   }
 
   /**
@@ -198,7 +207,7 @@ public abstract class AbstractPartSpriteProvider {
     /** Helper to add all parts for a size */
     private void addParts(String path) {
       for (Entry<String,MaterialStatsId> entry : parts.entrySet()) {
-        addSprite(new ResourceLocation(name.getNamespace(), path + "/" + entry.getKey()), entry.getValue());
+        addTexture(new ResourceLocation(name.getNamespace(), "item/tool/" + path + "/" + entry.getKey()), entry.getValue());
       }
     }
 

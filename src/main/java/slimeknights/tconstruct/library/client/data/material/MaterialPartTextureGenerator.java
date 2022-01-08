@@ -32,7 +32,7 @@ import java.util.function.Predicate;
  */
 public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   /** Path to textures outputted by this generator */
-  public static final String FOLDER = "textures/item/tool";
+  public static final String FOLDER = "textures";
   private final DataGenSpriteReader spriteReader;
   private final ExistingFileHelper existingFileHelper;
   /** Sprite provider */
