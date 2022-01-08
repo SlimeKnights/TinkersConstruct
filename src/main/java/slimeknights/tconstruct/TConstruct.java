@@ -130,9 +130,9 @@ public class TConstruct {
 
   @SubscribeEvent
   static void gatherData(final GatherDataEvent event) {
+    DataGenerator datagenerator = event.getGenerator();
+    ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
     if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
       BlockTagProvider blockTags = new BlockTagProvider(datagenerator, existingFileHelper);
       datagenerator.addProvider(blockTags);
       datagenerator.addProvider(new ItemTagProvider(datagenerator, blockTags, existingFileHelper));
@@ -142,6 +142,10 @@ public class TConstruct {
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new AdvancementsProvider(datagenerator));
       datagenerator.addProvider(new GlobalLootModifiersProvider(datagenerator));
+      //datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.SERVER_DATA, "structures"));
+    }
+    if (event.includeClient()) {
+      //datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.CLIENT_RESOURCES, "book/structures"));
     }
   }
 
