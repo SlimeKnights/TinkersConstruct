@@ -1624,10 +1624,15 @@
   "modifier.tconstruct.revitalizing": "Revitalizing",
   "modifier.tconstruct.revitalizing.flavor": "Can feel the energy flowing",
   "modifier.tconstruct.revitalizing.description": "Strengthens the heart, granting more hearts",
+
   "modifier.tconstruct.embellishment": "Embellishment",
   "modifier.tconstruct.embellishment.formatted": "%s Embellishment",
   "modifier.tconstruct.embellishment.flavor": "Redecorate!",
   "modifier.tconstruct.embellishment.description": "Armor appearance changed to match a different material",
+  "modifier.tconstruct.dyed": "Dyed",
+  "modifier.tconstruct.dyed.formatted": "Dyed #%s",
+  "modifier.tconstruct.dyed.flavor": "Redecorate!",
+  "modifier.tconstruct.dyed.description": "Armor appearance changed to match a different material",
 
   "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "Protection",

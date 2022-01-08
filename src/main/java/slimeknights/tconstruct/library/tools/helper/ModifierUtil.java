@@ -283,6 +283,19 @@ public final class ModifierUtil {
     return 0;
   }
 
+  /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
+  public static int getPersistentInt(ItemStack stack, ResourceLocation flag, int defealtValue) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND)) {
+      CompoundTag persistent = nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA);
+      String flagString = flag.toString();
+      if (persistent.contains(flagString, Tag.TAG_INT)) {
+        return persistent.getInt(flagString);
+      }
+    }
+    return defealtValue;
+  }
+
   /** Shortcut to get a persistent string value when the tool stack is not needed otherwise */
   public static String getPersistentString(ItemStack stack, ResourceLocation flag) {
     CompoundTag nbt = stack.getTag();
