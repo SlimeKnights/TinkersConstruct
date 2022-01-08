@@ -253,7 +253,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
   }
 
   @Override
-  public ModifierRecipeBuilder buildSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public ModifierRecipeBuilder saveSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (salvageMaxLevel != 0 && salvageMaxLevel < salvageMinLevel) {
       throw new IllegalStateException("Max level must be greater than min level");
     }

@@ -156,7 +156,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @param consumer  Consumer instance
    * @param id        Recipe ID
    */
-  public abstract T buildSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id);
+  public abstract T saveSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id);
 
   /** Writes common JSON components between the two types */
   private void writeCommon(JsonObject json, @Nullable Boolean unarmed) {
