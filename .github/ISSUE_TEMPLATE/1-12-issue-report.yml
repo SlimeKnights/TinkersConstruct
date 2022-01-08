@@ -81,7 +81,8 @@ body:
   - type: checkboxes
     id: confirmations
     attributes:
-      description: "Confirm the following:"
+      label: Confirm the following
+      description: Check all actions you have performed
       options:
         - label: "Confirm you have searched the tracker to see if your issue already exists"
         - label: "Confirm you are not using performance enhancers, such as optifine"

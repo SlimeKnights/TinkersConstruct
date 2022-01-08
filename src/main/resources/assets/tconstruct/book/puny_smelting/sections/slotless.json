@@ -6,6 +6,14 @@
   },
   {
     "type": "modifier",
+    "data": "slotless/general/farsighted.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/nearsighted.json"
+  },
+  {
+    "type": "modifier",
     "data": "slotless/general/overslime.json"
   },
   {

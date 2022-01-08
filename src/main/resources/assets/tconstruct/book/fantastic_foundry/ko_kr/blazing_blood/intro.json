@@ -1,0 +1,14 @@
+{
+  "title": "블레이즈 피",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "더 나은 합금을 만들거나 강한 금속을 녹이려고 하는데, 용암이 너무 약하다고요? 그러면 저기에 있는 블레이즈를 써보는 것은 어때요?",
+      "paragraph": true
+    }
+  ]
+}

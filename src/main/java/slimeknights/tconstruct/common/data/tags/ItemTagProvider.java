@@ -19,14 +19,18 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -67,6 +71,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.addTools();
   }
 
+  @SuppressWarnings("unchecked")
   private void addCommon() {
     this.getOrCreateBuilder(TinkerTags.Items.TINKERS_GUIDES)
         .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.tinkersGadgetry.get(),
@@ -125,6 +130,17 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     Builder<Item> slimeslings = this.getOrCreateBuilder(TinkerTags.Items.SLIMESLINGS);
     TinkerGadgets.slimeSling.forEach(slimeslings::addItemEntry);
+
+    // piglins like gold and dislike zombie piglin heads
+    this.getOrCreateBuilder(ItemTags.PIGLIN_LOVED)
+        .add(TinkerModifiers.goldReinforcement.get(), TinkerGadgets.itemFrame.get(FrameType.GOLD), TinkerGadgets.itemFrame.get(FrameType.REVERSED_GOLD), TinkerFluids.moltenGold.asItem())
+        .addTag(TinkerTags.Items.GOLD_CASTS);
+    this.getOrCreateBuilder(ItemTags.PIGLIN_REPELLENTS).add(TinkerWorld.headItems.get(TinkerHeadType.ZOMBIFIED_PIGLIN));
+
+    // beacons are happy to accept any expensive ingots
+    this.getOrCreateBuilder(ItemTags.BEACON_PAYMENT_ITEMS)
+        .addTags(TinkerMaterials.cobalt.getIngotTag(), TinkerMaterials.queensSlime.getIngotTag(),
+                 TinkerMaterials.manyullyn.getIngotTag(), TinkerMaterials.hepatizon.getIngotTag());
   }
 
   private void addWorld() {
@@ -207,6 +223,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
     this.getOrCreateBuilder(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
     this.getOrCreateBuilder(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
+    this.getOrCreateBuilder(AOE).addTag(BOOTS); // boot walk modifiers
 
     // general
     this.getOrCreateBuilder(MODIFIABLE)
@@ -225,6 +242,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.SEEDS)
         .addTag(Tags.Items.SEEDS)
         .add(Items.CARROT, Items.POTATO, Items.NETHER_WART);
+
+    // tags for modifiers
+    copy(TinkerTags.Blocks.CHRYSOPHILITE_ORES, TinkerTags.Items.CHRYSOPHILITE_ORES);
 
     // tag for tool parts, mostly used by JEI right now
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
@@ -247,6 +267,12 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(Tags.Items.GRAVEL) // for shovels and axes to use
         .add(Items.NETHERRACK, Items.BASALT, Items.POLISHED_BASALT, Items.BLACKSTONE, Items.POLISHED_BLACKSTONE);
     this.getOrCreateBuilder(TinkerTags.Items.FIREBALLS).add(Items.FIRE_CHARGE);
+    this.getOrCreateBuilder(TinkerTags.Items.TOOL_INVENTORY_BLACKLIST)
+        .add(Items.SHULKER_BOX,
+             Items.WHITE_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.MAGENTA_SHULKER_BOX, Items.LIGHT_BLUE_SHULKER_BOX,
+             Items.YELLOW_SHULKER_BOX, Items.LIME_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.GRAY_SHULKER_BOX,
+             Items.LIGHT_GRAY_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.PURPLE_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
+             Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX);
   }
 
   private void addSmeltery() {

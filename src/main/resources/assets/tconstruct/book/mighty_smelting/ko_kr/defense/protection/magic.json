@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "이걸 사용해야 한다면 좋은 마법사가 아니다, 해리. 더 강력한 굴절 주문을 쓰도록."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "마법 피해가 감소한다",
+    "다중 등급, 등급당 마법 피해가 감소한다",
+    "1개의 수비 슬롯 사용"
+  ]
+}

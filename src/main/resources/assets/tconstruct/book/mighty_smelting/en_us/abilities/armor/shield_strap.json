@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "He protec, he attac, but most importantly he bring the torches bac."
+    }
+  ],
+  "effects": [
+    "Grants an extra offhand slot",
+    "Leggings interact allows swapping offhand",
+    "Multiple levels, each level gives +1 slot",
+    "Requires 1 ability slot"
+  ]
+}

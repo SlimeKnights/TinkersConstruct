@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "착용한 갑옷 중 하나라도 금빛이 나면, 피글린이 우호적으로 대해줍니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "갑옷당 최대 1등급",
+    "1개의 수비 슬롯 사용"
+  ]
+}

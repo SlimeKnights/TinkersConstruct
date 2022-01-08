@@ -196,6 +196,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790CC9).addARGB(140, 0xFF9727DD).addARGB(178, 0xFFA936ED).addARGB(216, 0xFFBF58F7).addARGB(255, 0xFFD37CFF).build());
 
     // slimeskull
+    buildMaterial(MaterialIds.gold)
+      .statType(RepairKitStats.ID)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB26411).addARGB(102, 0xFFB26411).addARGB(140, 0xFFE9B115).addARGB(178, 0xFFFAD64A).addARGB(216, 0xFFFDF55F).addARGB(255, 0xFFFFFDE0).build());
     buildMaterial(MaterialIds.gunpowder)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2D2D2D).addARGB(102, 0xFF3E3E3E).addARGB(140, 0xFF494949).addARGB(178, 0xFF545454).addARGB(216, 0xFF727272).addARGB(255, 0xFF8A8A8A).build());
@@ -211,13 +215,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.rottenFlesh)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF28140A).addARGB(102, 0xFF522C10).addARGB(140, 0xFF6F4D1B).addARGB(178, 0xFF6A5D18).addARGB(216, 0xFFB44420).addARGB(255, 0xFFC5815A).build());
-    buildMaterial(MaterialIds.potato)
-      .statType(RepairKitStats.ID)
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF86693E).addARGB(102, 0xFF9D772E).addARGB(140, 0xFFAF8444).addARGB(178, 0xFFC8973A).addARGB(216, 0xFFD9AA51).addARGB(255, 0xFFD9AA51).build());
-    buildMaterial(MaterialIds.fish)
-      .statType(RepairKitStats.ID)
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF593824).addARGB(102, 0xFF6B442B).addARGB(140, 0xFF986D4E).addARGB(178, 0xFFB18953).addARGB(216, 0xFFC6A271).addARGB(255, 0xFFD6C5AD).build());
     // slimesuit
+    buildMaterial(MaterialIds.enderslime)
+      .statType(RepairKitStats.ID)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790DC6).addARGB(140, 0xFFA936ED).addARGB(178, 0xFFBF58F7).addARGB(216, 0xFFD37CFF).addARGB(255, 0xFFEEBFFF).build());
     buildMaterial(MaterialIds.phantom)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());

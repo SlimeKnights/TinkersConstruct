@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
@@ -88,8 +87,7 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
 
   /** Updates the fluid in model data */
   public void updateFluid() {
-    Fluid fluid = itemHandler.getFluid();
-    modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+    modelData.setData(IDisplayFluidListener.PROPERTY, IDisplayFluidListener.normalizeFluid(itemHandler.getFluid()));
     requestModelDataUpdate();
     assert world != null;
     BlockState state = getBlockState();

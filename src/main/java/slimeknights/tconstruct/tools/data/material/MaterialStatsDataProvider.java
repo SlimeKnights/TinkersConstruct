@@ -207,12 +207,16 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.spider,       new SkullStats( 75, 0));
     addMaterialStats(MaterialIds.venom,        new SkullStats( 65, 0));
     addMaterialStats(MaterialIds.rottenFlesh,  new SkullStats(155, 2));
-    addMaterialStats(MaterialIds.potato,       new SkullStats(165, 2));
-    addMaterialStats(MaterialIds.fish,         new SkullStats(145, 2));
+    addMaterialStats(MaterialIds.iron,         new SkullStats(165, 2));
+    addMaterialStats(MaterialIds.copper,       new SkullStats(145, 2));
     addMaterialStats(MaterialIds.blazingBone,  new SkullStats(205, 1));
+    addMaterialStats(MaterialIds.gold,         new SkullStats(125, 0));
+    addMaterialStats(MaterialIds.roseGold,     new SkullStats(175, 1));
+    addMaterialStats(MaterialIds.pigIron,      new SkullStats(150, 2));
     // slimesuit
-    addMaterialStats(MaterialIds.phantom, new RepairKitStats(115));
-    addMaterialStats(MaterialIds.chorus,  new RepairKitStats( 65));
-    addMaterialStats(MaterialIds.rabbit,  new RepairKitStats(100));
+    addMaterialStats(MaterialIds.enderslime, new RepairKitStats( 25));
+    addMaterialStats(MaterialIds.phantom,    new RepairKitStats(115));
+    addMaterialStats(MaterialIds.chorus,     new RepairKitStats( 65));
+    addMaterialStats(MaterialIds.rabbit,     new RepairKitStats(100));
   }
 }

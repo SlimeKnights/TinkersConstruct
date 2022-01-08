@@ -1,0 +1,33 @@
+// 섹션 - 팅커스 장치
+
+intro=소개
+
+gadgets=장치
+gadgets.slimesling=슬라임 새총
+gadgets.cake=슬라임 케이크
+gadgets.piggybackpack=운반용 돼지 배낭
+gadgets.flint_shuriken=부싯돌 수리검
+gadgets.quartz_shuriken=석영 수리검
+gadgets.efln=EFLN
+gadgets.glowball=발광구
+gadgets.fancy_frames=멋진 아이템 액자
+
+modifiers=특이한 수식어
+modifiers.remove_modifiers=수식어 제거
+modifiers.damage_tools=도구 손상
+
+exploration=탐험
+exploration.skyslime=하늘슬라임 섬
+exploration.earthslime=땅슬라임 섬
+exploration.clay=점토 섬
+exploration.grass_seeds=슬라임 씨앗
+exploration.blood=핏빛 섬
+exploration.necrotic_bones=영골
+exploration.enderslime=엔더슬라임 섬
+exploration.dragon_scales=드래곤의 비늘
+
+armor=갑옷
+armor.subtext=다양한 몬스터의 부위와 슬라임을 혼합하면 흥미로운 갑옷이 만들어져, 방어적이지는 않지만, 강력한 능력을 지니고 있어.
+
+skull_materials=머리 재료
+skull_materials.subtext=이 머리 중 하나를 쇳물받이에 넣고 엔더슬라임을 넣으면, 해당 몬스터의 능력을 사용할 수 있는 투구를 만들 수 있어.

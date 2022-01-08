@@ -4,32 +4,38 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.function.Supplier;
 
 /**
  * Logic to make a tool a fluid handler
  */
 @RequiredArgsConstructor
 public class ToolFluidCapability implements IFluidHandlerItem {
-  /** Boolean key to set in volatile mod data to enable the fluid capability */
+  /** @deprecated use {@link #TOTAL_TANKS}, a value greater than 0 is treated as having the capability */
+  @Deprecated
   public static final ResourceLocation HAS_CAPABILITY = TConstruct.getResource("has_fluid_capability");
   /** Boolean key to set in volatile mod data to enable the fluid capability */
   public static final ResourceLocation TOTAL_TANKS = TConstruct.getResource("total_tanks");
 
   @Getter
   private final ItemStack container;
-  private final ToolStack tool;
+  private final Supplier<? extends IModifierToolStack> tool;
 
   @Override
   public int getTanks() {
-    return tool.getVolatileData().getInt(TOTAL_TANKS);
+    return tool.get().getVolatileData().getInt(TOTAL_TANKS);
   }
 
   /**
@@ -41,6 +47,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
    * @return  Value from the modifiers
    */
   private <T> T runForTank(int tank, T defaultValue, ITankCallback<T> function) {
+    IModifierToolStack tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -73,6 +80,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   @Override
   public int fill(FluidStack resource, FluidAction action) {
     int totalFilled = 0;
+    IModifierToolStack tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -99,6 +107,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     FluidStack drainedSoFar = FluidStack.EMPTY;
+    IModifierToolStack tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -133,6 +142,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   public FluidStack drain(int maxDrain, FluidAction action) {
     FluidStack drainedSoFar = FluidStack.EMPTY;
     FluidStack toDrain = FluidStack.EMPTY;
+    IModifierToolStack tool = this.tool.get();
     for (ModifierEntry entry : tool.getModifierList()) {
       IFluidModifier fluidModifier = entry.getModifier().getModule(IFluidModifier.class);
       if (fluidModifier != null) {
@@ -168,7 +178,7 @@ public class ToolFluidCapability implements IFluidHandlerItem {
 
   /** Adds the tanks from the fluid modifier to the tool */
   public static void addTanks(ModDataNBT volatileData, IFluidModifier modifier) {
-    volatileData.putBoolean(HAS_CAPABILITY, true);
+    volatileData.putBoolean(HAS_CAPABILITY, true); // deprecated
     volatileData.putInt(TOTAL_TANKS, modifier.getTanks(volatileData) + volatileData.getInt(TOTAL_TANKS));
   }
 
@@ -254,5 +264,21 @@ public class ToolFluidCapability implements IFluidHandlerItem {
   @FunctionalInterface
   private interface ITankCallback<T> {
     T run(IFluidModifier module, IModifierToolStack tool, int level, int tank);
+  }
+
+  /** Provider instance for a fluid cap */
+  public static class Provider implements IToolCapabilityProvider {
+    private final LazyOptional<IFluidHandlerItem> fluidCap;
+    public Provider(ItemStack stack, Supplier<? extends IModifierToolStack> toolStack) {
+      this.fluidCap = LazyOptional.of(() -> new ToolFluidCapability(stack, toolStack));
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(IModifierToolStack tool, Capability<T> cap) {
+      if (cap == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY && tool.getVolatileData().getInt(TOTAL_TANKS) > 0) {
+        return fluidCap.cast();
+      }
+      return LazyOptional.empty();
+    }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:spilling",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:potion",
+        "type": "tconstruct:fluid_tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:potion",
+    "amount": 125
+  },
+  "effects": [
+    {
+      "type": "tconstruct:potion_fluid",
+      "scale": 0.5
+    }
+  ]
+}

@@ -19,6 +19,8 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Hol
 import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Capability to make it easy for Tinkers to store common data on the player, primarily used for armor
@@ -95,6 +97,25 @@ public class TinkerDataCapability implements Capability.IStorage<Holder> {
     }
   }
 
+  /** Extension key that can automatically create an instance if missing */
+  public static class ComputableDataKey<T> extends TinkerDataKey<T> implements Function<TinkerDataKey<?>, T> {
+    private final Supplier<T> constructor;
+    private ComputableDataKey(ResourceLocation name, Supplier<T> constructor) {
+      super(name);
+      this.constructor = constructor;
+    }
+
+    /** Creates a new instance */
+    public static <T> ComputableDataKey<T> of(ResourceLocation name, Supplier<T> constructor) {
+      return new ComputableDataKey<>(name, constructor);
+    }
+
+    @Override
+    public T apply(TinkerDataKey<?> tinkerDataKey) {
+      return constructor.get();
+    }
+  }
+
 
   /** Data class holding the tinker data */
   public static class Holder {
@@ -140,6 +161,12 @@ public class TinkerDataCapability implements Capability.IStorage<Holder> {
     @SuppressWarnings("unchecked")
     public <T> T get(TinkerDataKey<T> key) {
       return (T) data.get(key);
+    }
+
+    /** Gets the value from the holder, creating it if missing */
+    @SuppressWarnings("unchecked")
+    public <T, U extends TinkerDataKey<T> & Function<TinkerDataKey<?>,T>> T computeIfAbsent(U key) {
+      return (T) data.computeIfAbsent(key, key);
     }
 
     /**

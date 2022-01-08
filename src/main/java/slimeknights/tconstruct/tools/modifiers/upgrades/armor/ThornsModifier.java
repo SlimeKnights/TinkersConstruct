@@ -50,7 +50,7 @@ public class ThornsModifier extends IncrementalModifier {
       source = DamageSource.causeMobDamage(context.getAttacker());
     }
     source.setDamageBypassesArmor();
-    float secondaryDamage = (getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE)) * context.getCooldown();
+    float secondaryDamage = (getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE) * 0.75f) * context.getCooldown();
     if (context.isCritical()) {
       secondaryDamage *= 1.5f;
     }
@@ -61,7 +61,7 @@ public class ThornsModifier extends IncrementalModifier {
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag flag) {
     if (tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
-      addDamageTooltip(tool, getScaledLevel(tool, level) * 1.0f, tooltip);
+      addDamageTooltip(tool, getScaledLevel(tool, level) * 0.75f, tooltip);
     }
   }
 }

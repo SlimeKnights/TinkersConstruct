@@ -12,8 +12,12 @@
   },
   "traits": [
     {
+      "name": "tconstruct:pockets",
+      "level": 1
+    },
+    {
       "name": "tconstruct:protection",
-      "level": 3
+      "level": 1
     }
   ]
 }

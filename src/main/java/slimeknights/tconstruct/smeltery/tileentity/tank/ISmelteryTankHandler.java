@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
-import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.extensions.IForgeTileEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -32,7 +31,7 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
    * @param type   Type of the change
    * @param fluid  Fluid changed, may be empty if multiple fluids change (order change for example)
    */
-  default void notifyFluidsChanged(FluidChange type, Fluid fluid) {}
+  default void notifyFluidsChanged(FluidChange type, FluidStack fluid) {}
 
   /**
    * Adds a listener to the display listeners list
@@ -40,7 +39,7 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
    */
   void addDisplayListener(IDisplayFluidListener listener);
 
-  /** Simple enum to make {@link #notifyFluidsChanged(FluidChange, Fluid)} more readible */
+  /** Simple enum to make {@link #notifyFluidsChanged(FluidChange, FluidStack)} more readible */
   enum FluidChange {
     /** Fluid was added to the tank */
     ADDED,
@@ -49,6 +48,6 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
     /** Fluid was removed from the block */
     REMOVED,
     /** Sent client side to signify the bottom most fluid is different */
-    ORDER_CHANGED;
+    ORDER_CHANGED
   }
 }

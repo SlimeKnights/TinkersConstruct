@@ -1,0 +1,39 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "tools": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/armor/boots"
+      },
+      {
+        "tag": "tconstruct:modifiable/durability"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:flamewake",
+    "level": 1
+  },
+  "max_level": 1
+}

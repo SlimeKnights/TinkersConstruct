@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -55,6 +56,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -218,16 +220,24 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** @deprecated use {@link #addInformation(IModifierToolStack, int, List, TooltipFlag)} */
   @Deprecated
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {}
+  
+  /** @deprecated use {@link #addInformation(IModifierToolStack, int, PlayerEntity, List, TooltipFlag)} */
+  @Deprecated
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
+    addInformation(tool, level, tooltip, tooltipFlag == TooltipFlag.ADVANCED, tooltipFlag == TooltipFlag.DETAILED);
+  }
 
   /**
    * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
    * @param tool         Tool instance
    * @param level        Tool level
+   * @param player       Player holding this tool
    * @param tooltip      Tooltip
+   * @param tooltipKey   Shows if the player is holding shift, control, or neither
    * @param tooltipFlag  Flag determining tooltip type
    */
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
-    addInformation(tool, level, tooltip, tooltipFlag == TooltipFlag.ADVANCED, tooltipFlag == TooltipFlag.DETAILED);
+  public void addInformation(IModifierToolStack tool, int level, @Nullable PlayerEntity player, List<ITextComponent> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    addInformation(tool, level, tooltip, tooltipFlag);
   }
 
   /**
@@ -317,9 +327,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /* Tool building hooks */
 
-  /** @deprecated use {@link #addVolatileData(Item, ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)} */
+  /** @deprecated use {@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)} */
   @Deprecated
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {}
+
+  /** @deprecated use {@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)} */
+  @Deprecated
+  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+    addVolatileData(toolDefinition, baseStats, persistentData, level, volatileData);
+  }
 
   /**
    * Adds any relevant volatile data to the tool data. This data is rebuilt every time modifiers rebuild.
@@ -329,20 +345,23 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    *   <li>Persistent mod data (accessed via {@link IModifierToolStack}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
    *   <li>{@link #addRawData(IModifierToolStack, int, RestrictedCompoundTag)}: Allows modifying a restricted view of the tools main data, might help with other mod compat, but not modifier compat</li>
    * </ul>
-   * @param item            Item in the stack
-   * @param toolDefinition  Tool definition, will be empty for non-multitools
-   * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account. Not stored, so if you want any data store it in volatile data
-   * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
+   * @param context         Context about the tool beilt. Partial view of {@link IModifierToolStack} as the tool is not fully built
    * @param level           Modifier level
    * @param volatileData    Mutable mod NBT data, result of this method
    */
-  public void addVolatileData(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    addVolatileData(toolDefinition, baseStats, persistentData, level, volatileData);
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+    addVolatileData(context.getItem(), context.getDefinition(), context.getStats(), context.getPersistentData(), level, volatileData);
   }
 
-  /** @deprecated Use {@link #addToolStats(Item, ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)} */
+  /** @deprecated Use {@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)} */
   @Deprecated
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {}
+
+  /** @deprecated Use {@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)} */
+  @Deprecated
+  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+    addToolStats(toolDefinition, baseStats, persistentData, volatileData, level, builder);
+  }
 
   /**
    * Adds raw stats to the tool. Called whenever tool stats are rebuilt.
@@ -352,16 +371,12 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    *   <li>{@link #addAttributes(IModifierToolStack, int, EquipmentSlotType, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
    *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
-   * @param item            Item in the stack, good for tag checks mainly
-   * @param toolDefinition  Definition of the tool in the stack
-   * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account
-   * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
-   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)}
+   * @param context         Context about the tool beilt. Partial view of {@link IModifierToolStack} as the tool is not fully built. Note this hook runs after volatile data builds
    * @param level           Modifier level
    * @param builder         Tool stat builder
    */
-  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    addToolStats(toolDefinition, baseStats, persistentData, volatileData, level, builder);
+  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+    addToolStats(context.getItem(), context.getDefinition(), context.getStats(), context.getPersistentData(), context.getVolatileData(), level, builder);
   }
 
   /**
@@ -1113,6 +1128,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Adds a flat bonus tooltip
+   * @param name     Bonus name
+   * @param bonus    Bonus amount
+   * @param tooltip  Tooltip list
+   */
+  protected void addFlatBoost(ITextComponent name, double bonus, List<ITextComponent> tooltip) {
+    tooltip.add(applyStyle(new StringTextComponent(Util.BONUS_FORMAT.format(bonus) + " ").appendSibling(name)));
+  }
+
+  /**
+   * Adds a percent bonus tooltip
+   * @param name     Bonus name
+   * @param bonus    Bonus amount
+   * @param tooltip  Tooltip list
+   */
+  protected void addPercentTooltip(ITextComponent name, double bonus, List<ITextComponent> tooltip) {
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").appendSibling(name)));
+  }
+
+  /**
    * Adds a tooltip showing a bonus stat
    * @param tool       Tool instance
    * @param stat       Stat added
@@ -1122,9 +1157,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, ITag<Item> condition, float amount, List<ITextComponent> tooltip) {
     if (tool.hasTag(condition)) {
-      tooltip.add(applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
-                               .appendString(" ")
-                               .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
+      addFlatBoost(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getModifier(stat), tooltip);
     }
   }
 

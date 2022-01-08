@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
@@ -70,15 +71,15 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     .mergeStyle(TextFormatting.DARK_GRAY);
 
   // parameters to display the still filled slots when changing layout
-  private static final int STILL_FILLED_X = 87;
+  private static final int STILL_FILLED_X = 112;
   private static final int STILL_FILLED_Y = 62;
-  private static final int STILL_FILLED_SPACING = 20;
+  private static final int STILL_FILLED_SPACING = 18;
 
   // texture
   private static final ResourceLocation TINKER_STATION_TEXTURE = TConstruct.getResource("textures/gui/tinker_station.png");
   // texture elements
   private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(0, 210, 91, 12, 256, 256);
-  private static final ElementScreen ITEM_COVER = new ElementScreen(176, 18, 80, 64);
+  private static final ElementScreen ITEM_COVER = new ElementScreen(176, 18, 70, 64);
   // slots
   private static final ElementScreen SLOT_BACKGROUND = new ElementScreen(176, 0, 18, 18);
   private static final ElementScreen SLOT_BORDER = new ElementScreen(194, 0, 18, 18);
@@ -212,7 +213,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       LayoutSlot layoutSlot = currentLayout.getSlot(i);
       if (layoutSlot.isHidden()) {
         // put the position in the still filled line
-        slot.xPos = STILL_FILLED_X + STILL_FILLED_SPACING * stillFilled;
+        slot.xPos = STILL_FILLED_X - STILL_FILLED_SPACING * stillFilled;
         slot.yPos = STILL_FILLED_Y;
         stillFilled++;
         if (slot instanceof TinkerStationSlot) {
@@ -257,7 +258,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         ITinkerStationDisplay display = (ITinkerStationDisplay) toolStack.getItem();
         this.tinkerInfo.setCaption(display.getLocalizedName());
         // TODO: tooltips on these?
-        this.tinkerInfo.setText(display.getStatInformation(tool, new ArrayList<>(), TooltipFlag.DETAILED));
+        assert minecraft != null;
+        this.tinkerInfo.setText(display.getStatInformation(tool, minecraft.player, new ArrayList<>(), TooltipKey.fromScreen(), TooltipFlag.DETAILED));
       }
       else {
         this.tinkerInfo.setCaption(toolStack.getDisplayName());

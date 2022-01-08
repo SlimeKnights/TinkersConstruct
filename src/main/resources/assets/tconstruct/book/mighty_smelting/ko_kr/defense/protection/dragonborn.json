@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "Dovah ko krif dilos ahrk qah.\n(두비 코 크리프 디로스 아크 콰.)"
+    },
+    {
+      "text": "팅커, 혹시 용언도 못 읽나? 요즘 학교에선 대체 뭘 가르치는 거야? 위의 말은, 날아다니는 용은 위험하며, 비늘로 보호되어 있다는 뜻이다.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "공중에서 보호와 공격 피해가 증가한다",
+    "다중 등급, 등급당 보호와 피해가 증가한다",
+    "1개의 수비 슬롯 사용"
+  ]
+}

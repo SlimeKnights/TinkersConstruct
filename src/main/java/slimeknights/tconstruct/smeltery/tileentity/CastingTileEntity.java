@@ -4,8 +4,6 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -216,6 +214,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   @Override
   public void tick() {
     // no recipe
+    // TODO: should consider the case where the tank has fluid, but there is no current recipe
+    // would like to avoid doing a recipe lookup every tick, so need some way to handle the case of no recipe found, ideally without fluid voiding
     if (world == null || currentRecipe == null) {
       return;
     }
@@ -224,7 +224,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
       timer++;
       if (!world.isRemote) {
-        castingInventory.setFluid(currentFluid.getFluid());
+        castingInventory.setFluid(currentFluid);
         if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
           if (!currentRecipe.matches(castingInventory, world)) {
             // if lost our recipe or the recipe needs more fluid then we have, we are done
@@ -303,7 +303,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
    * @param action  EXECUTE or SIMULATE
    * @return        Amount of fluid needed for recipe, used to resize the tank.
    */
-  public int initNewCasting(Fluid fluid, IFluidHandler.FluidAction action) {
+  public int initNewCasting(FluidStack fluid, IFluidHandler.FluidAction action) {
     if (this.currentRecipe != null || this.recipeName != null) {
       return 0;
     }
@@ -357,7 +357,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     currentRecipe = null;
     recipeName = null;
     lastOutput = null;
-    castingInventory.setFluid(Fluids.EMPTY);
+    castingInventory.setFluid(FluidStack.EMPTY);
     tank.reset();
   }
 
@@ -366,7 +366,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     if (fluid.isEmpty()) {
       reset();
     } else {
-      int capacity = initNewCasting(fluid.getFluid(), FluidAction.EXECUTE);
+      int capacity = initNewCasting(fluid, FluidAction.EXECUTE);
       if (capacity > 0) {
         tank.setCapacity(capacity);
       }
@@ -393,7 +393,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       if (currentRecipe == null) {
         return ItemStack.EMPTY;
       }
-      castingInventory.setFluid(tank.getFluid().getFluid());
+      castingInventory.setFluid(tank.getFluid());
       lastOutput = currentRecipe.getCraftingResult(castingInventory);
     }
     return lastOutput;
@@ -425,7 +425,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       // fetch recipe by name
       RecipeHelper.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
         this.currentRecipe = recipe;
-        castingInventory.setFluid(fluid.getFluid());
+        castingInventory.setFluid(fluid);
         tank.setCapacity(recipe.getFluidAmount(castingInventory));
       });
     }
@@ -445,19 +445,14 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   public void writeSynced(CompoundNBT tags) {
     super.writeSynced(tags);
     tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
-    tags.putInt(TAG_TIMER, timer);
-  }
-
-  @Override
-  @Nonnull
-  public CompoundNBT write(CompoundNBT tags) {
-    tags = super.write(tags);
+    if (currentRecipe != null || recipeName != null) {
+      tags.putInt(TAG_TIMER, timer);
+    }
     if (currentRecipe != null) {
       tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
     } else if (recipeName != null) {
       tags.putString(TAG_RECIPE, recipeName.toString());
     }
-    return tags;
   }
 
   @Override

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "능력 슬롯 1개가 강화 슬롯 2개로 변경됩니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 등급 없음",
+    "등급당 1개의 능력 슬롯 사용"
+  ]
+}

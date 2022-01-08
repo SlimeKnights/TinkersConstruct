@@ -1,0 +1,11 @@
+{
+  "title": "생명체 용해",
+  "image": {
+    "file": "tconstruct:book/images/entitymelting.png"
+  },
+  "text": [
+    {
+      "text": "복잡한 제련소를 사용하여 생명체의 쓸모 없는 부분을 녹이고, 사용할 수 있는 재료만을 얻을 수 있다."
+    }
+  ]
+}

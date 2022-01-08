@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "식욕 수식어와 같은 특수한 경우를 제외하면, 도구가 손상되지 않게 됩니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "보강 V 수식어와 네더라이트 수식어가 필요",
+    "1개의 능력 슬롯 사용"
+  ]
+}

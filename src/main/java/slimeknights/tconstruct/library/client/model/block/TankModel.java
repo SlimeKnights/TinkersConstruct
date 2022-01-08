@@ -246,7 +246,7 @@ public class TankModel implements IModelGeometry<TankModel> {
      */
     private IBakedModel getCachedModel(FluidStack fluid, int capacity) {
       int increments = original.fluid.getIncrements();
-      return getCachedModel(new FluidStack(fluid.getFluid(), MathHelper.clamp(fluid.getAmount() * increments / capacity, 1, increments)));
+      return getCachedModel(new FluidStack(fluid, MathHelper.clamp(fluid.getAmount() * increments / capacity, 1, increments)));
     }
 
     @Nonnull

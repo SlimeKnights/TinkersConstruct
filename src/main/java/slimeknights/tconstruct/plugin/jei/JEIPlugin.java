@@ -192,8 +192,8 @@ public class JEIPlugin implements IModPlugin {
                                                                .sorted((r1, r2) -> {
                                                                  SlotType t1 = r1.getSlotType();
                                                                  SlotType t2 = r2.getSlotType();
-                                                                 String n1 = t1 == null ? "" : t1.getName();
-                                                                 String n2 = t2 == null ? "" : t2.getName();
+                                                                 String n1 = t1 == null ? "zzzzzzzzzz" : t1.getName();
+                                                                 String n2 = t2 == null ? "zzzzzzzzzz" : t2.getName();
                                                                  return n1.compareTo(n2);
                                                                }).collect(Collectors.toList());
     register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);

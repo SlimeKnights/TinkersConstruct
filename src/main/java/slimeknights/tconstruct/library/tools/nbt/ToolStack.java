@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -19,8 +20,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -66,9 +69,13 @@ public class ToolStack implements IModifierToolStack {
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
+  public static final String TAG_HIDE_FLAGS = "HideFlags";
+
+  /** Flags for vanilla tooltip parts to hide */
+  private static final int HIDE_FLAGS = TooltipDisplayFlags.ENCHANTMENTS.func_242397_a() | TooltipDisplayFlags.MODIFIERS.func_242397_a();
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
-  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, ModifierUtil.TAG_HIDE_FLAGS);
+  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, TAG_HIDE_FLAGS);
 
   /** Item representing this tool */
   @Getter
@@ -575,10 +582,27 @@ public class ToolStack implements IModifierToolStack {
     return ValidatedResult.PASS;
   }
 
+  /** Called on inventory tick to ensure the tool has all required data, prevents tools with no stats from existing */
+  public void ensureHasData() {
+    // no stats but definition ready? rebuild time
+    if (definition.isDataLoaded() && !nbt.contains(TAG_STATS, NBT.TAG_COMPOUND)) {
+      // add starting modifier slots
+      definition.getData().buildSlots(getPersistentData());
+      // do we need materials?
+      if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, NBT.TAG_LIST)) {
+        setMaterialsRaw(new MaterialNBT(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false)));
+      }
+      rebuildStats();
+    }
+  }
+
   /**
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
   public void rebuildStats() {
+    // hide enchants and attributes, both are added ourself (filtered)
+    nbt.putInt(TAG_HIDE_FLAGS, HIDE_FLAGS);
+
     // first, rebuild the list of all modifiers
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
@@ -606,18 +630,17 @@ public class ToolStack implements IModifierToolStack {
     } else {
       ModDataNBT volatileData = new ModDataNBT();
 
+      // context for further modifier hooks
+      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), allMods, stats, getPersistentData(), volatileData);
+
       // build persistent data first, its a parameter to the other two hooks
-      IModDataReadOnly persistentData = getPersistentData();
-      ToolDefinition toolDefinition = getDefinition();
       for (ModifierEntry entry : modifierList) {
-        entry.getModifier().addVolatileData(item, toolDefinition, stats, persistentData, entry.getLevel(), volatileData);
+        entry.getModifier().addVolatileData(context, entry.getLevel(), volatileData);
       }
 
       // regular stats last so we can include volatile data
       for (ModifierEntry entry : modifierList) {
-        Modifier mod = entry.getModifier();
-        int level = entry.getLevel();
-        mod.addToolStats(item, toolDefinition, stats, persistentData, volatileData, level, statBuilder);
+        entry.getModifier().addToolStats(context, entry.getLevel(), statBuilder);
       }
 
       // set into NBT
@@ -664,7 +687,7 @@ public class ToolStack implements IModifierToolStack {
    */
   private static boolean needsInitialization(@Nullable CompoundNBT nbt, ToolDefinition definition) {
     // cannot initialize if datapacks are not loaded
-    if (definition.getData() == definition.getStatProvider().getDefaultData()) {
+    if (!definition.isDataLoaded()) {
       return false;
     }
     // no NBT? initialize if we don't need more data
@@ -714,7 +737,7 @@ public class ToolStack implements IModifierToolStack {
    */
   public static void verifyTag(Item item, CompoundNBT compound, ToolDefinition definition) {
     // skip if no definition data loaded
-    if (definition.getData() != definition.getStatProvider().getDefaultData() && compound.contains("tag", NBT.TAG_COMPOUND)) {
+    if (definition.isDataLoaded() && compound.contains("tag", NBT.TAG_COMPOUND)) {
       CompoundNBT nbt = compound.getCompound("tag");
       // if the stack has materials, resolve all material redirects
       if (nbt.contains(ToolStack.TAG_MATERIALS, NBT.TAG_LIST)) {

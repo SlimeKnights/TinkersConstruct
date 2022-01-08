@@ -1,0 +1,43 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:pickaxe_head",
+      "type": "tconstruct:material"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "tconstruct:small_axe_head",
+      "type": "tconstruct:material"
+    },
+    {
+      "item": "tconstruct:pickaxe_head",
+      "type": "tconstruct:material"
+    },
+    {
+      "item": "tconstruct:small_axe_head",
+      "type": "tconstruct:material"
+    }
+  ],
+  "tools": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/armor/boots"
+      },
+      {
+        "tag": "tconstruct:modifiable/durability"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:path_maker",
+    "level": 1
+  },
+  "max_level": 1
+}

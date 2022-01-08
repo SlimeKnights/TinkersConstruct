@@ -29,6 +29,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.AdvancementsProvider;
+import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
 import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
@@ -41,10 +42,12 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -62,6 +65,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
+import java.util.function.Supplier;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!
@@ -114,6 +118,11 @@ public class TConstruct {
     if (ModList.get().isLoaded("crafttweaker")) {
       MinecraftForge.EVENT_BUS.register(new CRTHelper());
     }
+
+    // compat
+    if (ModList.get().isLoaded("immersiveengineering")) {
+      bus.register(new ImmersiveEngineeringPlugin());
+    }
   }
 
   @SubscribeEvent
@@ -136,6 +145,7 @@ public class TConstruct {
       datagenerator.addProvider(new TileEntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new AdvancementsProvider(datagenerator));
+      datagenerator.addProvider(new GlobalLootModifiersProvider(datagenerator));
     }
   }
 
@@ -281,6 +291,16 @@ public class TConstruct {
    */
   public static <T> TinkerDataKey<T> createKey(String name) {
     return TinkerDataKey.of(getResource(name));
+  }
+
+  /**
+   * Gets a data key for the capability, mainly used for modifier markers
+   * @param name         Resource path
+   * @param constructor  Constructor for compute if absent
+   * @return  Location for tinkers
+   */
+  public static <T> ComputableDataKey<T> createKey(String name, Supplier<T> constructor) {
+    return ComputableDataKey.of(getResource(name), constructor);
   }
 
   /**

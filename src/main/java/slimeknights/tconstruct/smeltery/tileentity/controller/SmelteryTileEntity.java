@@ -2,8 +2,8 @@ package slimeknights.tconstruct.smeltery.tileentity.controller;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.Items;
 import slimeknights.tconstruct.common.config.Config;
@@ -125,7 +125,7 @@ public class SmelteryTileEntity extends HeatingStructureTileEntity {
   }
 
   @Override
-  public void notifyFluidsChanged(FluidChange type, Fluid fluid) {
+  public void notifyFluidsChanged(FluidChange type, FluidStack fluid) {
     super.notifyFluidsChanged(type, fluid);
 
     // adding a new fluid means recipes that previously did not match might match now

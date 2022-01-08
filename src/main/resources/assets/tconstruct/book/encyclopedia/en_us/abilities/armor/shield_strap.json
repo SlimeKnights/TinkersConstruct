@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Adds +1 offhand slot per level, allowing swapping the offhand item by interacting with the leggings."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requires 1 ability slot"
+  ]
+}

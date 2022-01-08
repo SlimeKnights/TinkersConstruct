@@ -52,14 +52,24 @@ public class ToolDefinition {
   @Getter
   private final IToolStatProvider statProvider;
 
+  /** Max tier to pull materials from if uninitialized */
+  @Getter
+  private final int defaultMaxTier;
+
   /** Base data loaded from JSON, contains stats, traits, and starting slots */
   @Getter
   protected ToolDefinitionData data;
 
+  @Deprecated
   protected ToolDefinition(ResourceLocation id, IToolStatProvider statProvider) {
+    this(id, statProvider, 1);
+  }
+
+  protected ToolDefinition(ResourceLocation id, IToolStatProvider statProvider, int defaultMaxTier) {
     this.id = id;
     this.statProvider = statProvider;
-    data = statProvider.getDefaultData();
+    this.defaultMaxTier = defaultMaxTier;
+    this.data = statProvider.getDefaultData();
   }
 
   /**
@@ -167,6 +177,10 @@ public class ToolDefinition {
     setData(statProvider.getDefaultData());
   }
 
+  /** If true, the definition data is loaded from the datapack, so we can expect it to be reliable. False typically means datapacks are not yet loaded (e.g. menu startup) */
+  public boolean isDataLoaded() {
+    return data != statProvider.getDefaultData();
+  }
 
   /* Deprecated methods from before datapack transfer */
 
@@ -196,13 +210,19 @@ public class ToolDefinition {
   }
 
 
-  /** Builder to easily create a tool definition */
+	/** Builder to easily create a tool definition */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
+    /** ID for loading the tool definition data from datapacks */
     private final ResourceLocation id;
+    /** Stats provider for building the tool from tool parts */
     @Setter @Accessors(chain = true)
     private IToolStatProvider statsProvider;
+    /** If true, registers the material with the tool definition data loader */
     private boolean register = true;
+    /** Max tier to choose from for initializing tools with no materials, unused for non-multipart tools */
+    @Setter @Accessors(chain = true)
+    private int defaultMaxTier = 1;
 
     /** Sets the tool to use a melee harvest tool stat provider, which requires at least 1 head part and uses any number of handle or bindings */
     public Builder meleeHarvest() {
@@ -230,7 +250,7 @@ public class ToolDefinition {
       if (statsProvider == null) {
         throw new IllegalArgumentException("Stats provider is required for tools");
       }
-      ToolDefinition definition = new ToolDefinition(id, statsProvider);
+      ToolDefinition definition = new ToolDefinition(id, statsProvider, defaultMaxTier);
       if (register) {
         ToolDefinitionLoader.getInstance().registerToolDefinition(definition);
       }

@@ -2,19 +2,24 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:sky_congealed_slime"
+      "item": "tconstruct:sky_congealed_slime",
+      "amount_needed": 4
     },
     {
-      "item": "tconstruct:ender_congealed_slime"
+      "item": "tconstruct:ichor_congealed_slime",
+      "amount_needed": 4
     },
     {
-      "item": "tconstruct:sky_congealed_slime"
+      "item": "tconstruct:sky_congealed_slime",
+      "amount_needed": 4
     },
     {
-      "item": "tconstruct:ichor_congealed_slime"
+      "item": "tconstruct:earth_congealed_slime",
+      "amount_needed": 4
     },
     {
-      "item": "tconstruct:ichor_congealed_slime"
+      "item": "tconstruct:earth_congealed_slime",
+      "amount_needed": 4
     }
   ],
   "tools": {

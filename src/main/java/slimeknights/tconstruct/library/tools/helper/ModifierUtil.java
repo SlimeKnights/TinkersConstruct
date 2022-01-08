@@ -11,7 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.DamageSource;
@@ -43,7 +42,14 @@ public final class ModifierUtil {
   /** Vanilla enchantments tag */
   public static final String TAG_ENCHANTMENTS = "Enchantments";
   /** Vanilla tag to hide certain tooltips */
-  public static final String TAG_HIDE_FLAGS = "HideFlags";
+  @Deprecated
+  public static final String TAG_HIDE_FLAGS = ToolStack.TAG_HIDE_FLAGS;
+
+  /** Use {@link #applyHarvestEnchantments(ToolStack, ItemStack, ToolHarvestContext)} */
+  @Deprecated
+  public static boolean applyHarvestEnchants(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+    return applyHarvestEnchantments(tool, stack, context) != null;
+  }
 
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
@@ -51,10 +57,11 @@ public final class ModifierUtil {
    * @param tool     Tool instance
    * @param stack    Base stack instance
    * @param context  Tool harvest context
-   * @return  True if enchants were applied
+   * @return  Old tag if enchants were applied
    */
-  public static boolean applyHarvestEnchants(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
-    boolean addedEnchants = false;
+  @Nullable
+  public static ListNBT applyHarvestEnchantments(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+    ListNBT originalEnchants = null;
     PlayerEntity player = context.getPlayer();
     if (player == null || !player.isCreative()) {
       Map<Enchantment, Integer> enchantments = new HashMap<>();
@@ -84,12 +91,12 @@ public final class ModifierUtil {
         }
       }
       if (!enchantments.isEmpty()) {
-        addedEnchants = true;
+        // note this returns a new list if there is no tag, this is intentional as we need non-null to tell the tool to remove the tag
+        originalEnchants = stack.getEnchantmentTagList();
         EnchantmentHelper.setEnchantments(enchantments, stack);
-        stack.getOrCreateTag().putInt(TAG_HIDE_FLAGS, TooltipDisplayFlags.ENCHANTMENTS.func_242397_a());
       }
     }
-    return addedEnchants;
+    return originalEnchants;
   }
 
   /**
@@ -100,7 +107,22 @@ public final class ModifierUtil {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
       nbt.remove(TAG_ENCHANTMENTS);
-      nbt.remove(TAG_HIDE_FLAGS);
+    }
+  }
+
+  /**
+   * Restores the original enchants to the given stack
+   * @param stack        Stack to clear enchants
+   * @param originalTag  Original list of enchantments. If empty, will remove the tag
+   */
+  public static void restoreEnchantments(ItemStack stack, ListNBT originalTag) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt != null) {
+      if (originalTag.isEmpty()) {
+        nbt.remove(TAG_ENCHANTMENTS);
+      } else {
+        nbt.put(TAG_ENCHANTMENTS, originalTag);
+      }
     }
   }
 

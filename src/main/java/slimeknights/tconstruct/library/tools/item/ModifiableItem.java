@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -36,12 +36,14 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -90,6 +92,11 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
     return false;
+  }
+
+  @Override
+  public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+    return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
   }
 
 
@@ -219,14 +226,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
   @Override
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt == null || nbt.getBoolean(TooltipUtil.KEY_DISPLAY)) {
-      return ImmutableMultimap.of();
-    }
-
+  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-    ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
       // base stats
       if (slot == EquipmentSlotType.MAINHAND) {
@@ -244,8 +245,16 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
         }
       }
     }
-
     return builder.build();
+  }
+
+  @Override
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt == null || slot.getSlotType() != Group.HAND) {
+      return ImmutableMultimap.of();
+    }
+    return getAttributeModifiers(ToolStack.from(stack), slot);
   }
 
 
@@ -258,6 +267,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     // don't care about non-living, they skip most tool context
     if (entityIn instanceof LivingEntity) {
       ToolStack tool = ToolStack.from(stack);
+      if (!worldIn.isRemote) {
+        tool.ensureHasData();
+      }
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
@@ -341,7 +353,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
         }
       }
     }
-    return ActionResult.resultPass(stack);
+    ActionResultType result = ToolInventoryCapability.tryOpenContainer(stack, tool, playerIn, Util.getSlotType(hand));
+    return new ActionResult<>(result, stack);
   }
 
   @Override
@@ -401,7 +414,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    TooltipUtil.addInformation(this, stack, tooltip, TooltipKey.fromScreen(), flagIn == TooltipFlags.ADVANCED);
+    TooltipUtil.addInformation(this, stack, worldIn, tooltip, TooltipKey.fromScreen(), flagIn);
   }
 
 

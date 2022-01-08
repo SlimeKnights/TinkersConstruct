@@ -3,9 +3,6 @@
   "entity": {
     "type": "minecraft:turtle"
   },
-  "adult_result": {
-    "item": "minecraft:turtle_helmet",
-    "nbt": "{Damage:0}"
-  },
+  "adult_result": "minecraft:turtle_helmet",
   "child_result": "minecraft:scute"
 }

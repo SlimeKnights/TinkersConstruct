@@ -97,6 +97,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> HARVESTABLE_STACKABLE = tag("harvestable/stackable");
     /** Any block that counts as a tree trunk for the lumber axe. Note it must also be harvestable by axes to be effective */
     public static final IOptionalNamedTag<Block> TREE_LOGS = tag("tree_log");
+    /** List of blocks that should produce bonus gold nugget drops from the chrysophilite modifier. Will only drop bonus if the block does not drop itself */
+    public static final IOptionalNamedTag<Block> CHRYSOPHILITE_ORES = tag("chrysophilite_ores");
 
     // ceramics compat
     public static final IOptionalNamedTag<Block> CISTERN_CONNECTIONS = BlockTags.createOptional(new ResourceLocation("ceramics", "cistern_connections"));
@@ -183,6 +185,10 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> STONESHIELDS = tag("stoneshields");
     /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
     public static final IOptionalNamedTag<Item> FIREBALLS = tag("fireballs");
+    /** Items in this tag cannot be placed inside tool inventories */
+    public static final IOptionalNamedTag<Item> TOOL_INVENTORY_BLACKLIST = tag("inventory_blacklist");
+    /** List of blocks that should produce bonus gold nugget drops from the chrysophilite modifier. Will only drop bonus if the block does not drop itself */
+    public static final IOptionalNamedTag<Item> CHRYSOPHILITE_ORES = tag("chrysophilite_ores");
 
     /*
      * Tool tags

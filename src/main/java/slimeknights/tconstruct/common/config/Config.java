@@ -10,6 +10,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
@@ -29,8 +30,14 @@ public class Config {
     public final BooleanValue cheaperNetheriteAlloy;
     public final BooleanValue witherBoneDrop;
     public final BooleanValue witherBoneConversion;
+    public final BooleanValue slimeRecipeFix;
     public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
+
+    // loot
+    public final BooleanValue slimyLootChests;
+    public final IntValue barterBlazingBlood;
+    public final IntValue tinkerToolBonusChest;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
@@ -128,6 +135,11 @@ public class Config {
         .worldRestart()
         .define("witherBoneConversion", true);
 
+      this.slimeRecipeFix = builder
+        .comment("Slimealls not being usable in vanilla recipes that require slimeballs. Config option exists to disable easily in case this fix is redundant to another mod")
+        .worldRestart()
+        .define("slimeRecipeFix", true);
+
       this.glassRecipeFix = builder
         .comment("Fixes clear glass not being usable in vanilla recipes that require glass. Config option exists to disable easily in case this fix is redundant to another mod")
         .translation("tconstruct.configgui.glassRecipeFix")
@@ -156,6 +168,26 @@ public class Config {
       }
 
       builder.pop(2);
+
+      builder.comment(
+        "Options related to loot table injections. Note some of the changes are done via global loot managers, these only control injecting loot into loot pools",
+        "If your modpack makes extensive loot table changes, many of these may be automatically disabled. You can also manually set up tables for more control.").push("loot");
+
+      slimyLootChests = builder
+        .comment("Adds slimy saplings and seeds into various loot chests. Helps for worlds without slime islands")
+        .worldRestart()
+        .define("slimy_loot", true);
+      barterBlazingBlood = builder
+        .comment("Weight of blazing blood in the piglin bartering tables. Set to 0 to disable")
+        .worldRestart()
+        .defineInRange("barter_blazing_blood", 20, 0, 100);
+      tinkerToolBonusChest = builder
+        .comment("Weight of tinker tools in the vanilla spawn bonus chest, randomly replacing the vanilla axe or shovel. Tool will have a random tier 1 head and binding, plus a wooden handle. Set to 0 to disable.",
+                 "For comparison, vanilla wooden axes and pickaxes have a weight of 3, and stone axes/pickaxes have a weight of 1")
+        .worldRestart()
+        .defineInRange("tinker_tool_bonus_chest", 2, 0, 25);
+
+      builder.pop();
 
       builder.comment("Everything to do with world generation").push("worldgen");
 
@@ -259,6 +291,15 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
+    public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
+
+    // framed modifier
+    public final ForgeConfigSpec.BooleanValue renderItemFrame;
+    public final ForgeConfigSpec.IntValue itemFrameXOffset;
+    public final ForgeConfigSpec.IntValue itemFrameYOffset;
+    public final ForgeConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
+    public final ForgeConfigSpec.IntValue itemsPerRow;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -295,6 +336,40 @@ public class Config {
         .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
         .translation("tconstruct.configgui.showModifiersInJEI")
         .define("showModifiersInJEI", true);
+
+      this.maxSmelteryItemQuads = builder
+        .comment("Maximum number of quads to render for items in the smeltery. Most blocks are about 6 quads, items like ingots are around 26.",
+                 "Setting this lower will cause fewer items to be renderer (but never a partial item). Set to -1 to allow unlimited quads, and 0 to disable the item renderer.")
+        .defineInRange("maxSmelteryItemQuads", 3500, -1, Short.MAX_VALUE);
+
+      builder.comment("Settings related to modifiers").push("modifiers");
+      {
+
+        this.renderShieldSlotItem = builder
+          .comment("If true, the shield slot legging modifier will render the next offhand item above the offhand slot.")
+          .define("renderShieldSlotItem", true);
+
+        builder.comment("Settings related to the frame helmet modifier").push("itemFrame");
+        {
+          this.renderItemFrame = builder
+            .comment("If true, the item frame modifier for helmets will render its items. Turning this to false makes the modifier useless.")
+            .define("render", true);
+          this.itemFrameXOffset = builder
+            .comment("Offset in the X direction for the frame items.")
+            .defineInRange("xOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.itemFrameYOffset = builder
+            .comment("Offset in the Y direction for the frame items.")
+            .defineInRange("yOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.itemFrameLocation = builder
+            .comment("Location of the frame on the screen.")
+            .defineEnum("location", Orientation2D.TOP_LEFT);
+          this.itemsPerRow = builder
+            .comment("Number of items to display in each row of the item frame.")
+            .defineInRange("itemsPerRow", 5, 0, 100);
+        }
+        builder.pop();
+      }
+      builder.pop();
 
       builder.pop();
     }

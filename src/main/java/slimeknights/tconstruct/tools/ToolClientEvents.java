@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -36,6 +38,7 @@ import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
@@ -51,6 +54,8 @@ import static slimeknights.tconstruct.library.client.model.tools.ToolModel.regis
 public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using a helmet */
   private static final KeyBinding HELMET_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.z"), "key.categories.gameplay");
+  /** Keybinding for interacting using leggings */
+  private static final KeyBinding LEGGINGS_INTERACT = new KeyBinding(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputMappings.getInputByName("key.keyboard.i"), "key.categories.gameplay");
 
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
@@ -81,6 +86,10 @@ public class ToolClientEvents extends ClientEventBase {
 
     // keybinds
     ClientRegistry.registerKeyBinding(HELMET_INTERACT);
+    ClientRegistry.registerKeyBinding(LEGGINGS_INTERACT);
+
+    // screens
+    ScreenManager.registerFactory(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
   }
 
   @SubscribeEvent
@@ -113,15 +122,18 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.cleaver);
   }
 
-  /** If true, we were jumping last tick. Safe as a static value as we only care about a single player client side */
+  // values to check if a key was being pressed last tick, safe as a static value as we only care about a single player client side
+  /** If true, we were jumping last tick */
   private static boolean wasJumping = false;
-  /** If true, we were interacting last tick. Safe as a static value as we only care about a single player client side */
+  /** If true, we were interacting with helmet last tick */
   private static boolean wasHelmetInteracting = false;
+  /** If true, we were interacting with leggings last tick */
+  private static boolean wasLeggingsInteracting = false;
 
   /** Called on player tick to handle keybinding presses */
   private static void handleKeyBindings(PlayerTickEvent event) {
     Minecraft minecraft = Minecraft.getInstance();
-    if (minecraft.player != null && event.phase == Phase.START && event.side == LogicalSide.CLIENT && !minecraft.player.isSpectator()) {
+    if (minecraft.player != null && minecraft.player == event.player && event.phase == Phase.START && event.side == LogicalSide.CLIENT && !minecraft.player.isSpectator()) {
 
       // jumping in mid air for double jump
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
@@ -136,17 +148,31 @@ public class ToolClientEvents extends ClientEventBase {
       // helmet interaction
       boolean isHelmetInteracting = HELMET_INTERACT.isKeyDown();
       if (!wasHelmetInteracting && isHelmetInteracting) {
-        if (InteractionHandler.startHelmetInteract(event.player)) {
+        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlotType.HEAD)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_HELMET_INTERACT);
         }
       }
       if (wasHelmetInteracting && !isHelmetInteracting) {
-        if (InteractionHandler.stopHelmetInteract(event.player)) {
+        if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlotType.HEAD)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_HELMET_INTERACT);
         }
       }
 
+      // leggings interaction
+      boolean isLeggingsInteract = LEGGINGS_INTERACT.isKeyDown();
+      if (!wasLeggingsInteracting && isLeggingsInteract) {
+        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlotType.LEGS)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_LEGGINGS_INTERACT);
+        }
+      }
+      if (wasLeggingsInteracting && !isLeggingsInteract) {
+        if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlotType.LEGS)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_LEGGINGS_INTERACT);
+        }
+      }
+
       wasHelmetInteracting = isHelmetInteracting;
+      wasLeggingsInteracting = isLeggingsInteract;
     }
   }
 

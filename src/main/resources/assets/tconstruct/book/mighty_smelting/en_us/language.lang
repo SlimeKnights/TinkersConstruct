@@ -28,6 +28,7 @@ abilities.group_harvest=Harvest
 abilities.group_weapon=Weapon
 abilities.group_interact=Interact
 abilities.group_armor=Armor
+abilities.unarmed=Unarmed
 upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied to each tool.
 
 defense=Defense

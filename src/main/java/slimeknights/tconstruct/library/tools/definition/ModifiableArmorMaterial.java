@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 /** Armor material that doubles as a container for tool definitions for each armor slot */
 public class ModifiableArmorMaterial implements IArmorMaterial {
@@ -135,6 +136,20 @@ public class ModifiableArmorMaterial implements IArmorMaterial {
         throw new IllegalArgumentException("Unsupported slot type " + slotType + " for material " + name);
       }
       return builder;
+    }
+
+    /** Generic method to set any property on a tool definition builder */
+    public Builder set(ArmorSlotType slot, Consumer<ToolDefinition.Builder> builderConsumer) {
+      builderConsumer.accept(getBuilder(slot));
+      return this;
+    }
+
+    /** Generic method to set any property on a tool definition builder */
+    public Builder set(Consumer<ToolDefinition.Builder> builderConsumer) {
+      for (ArmorSlotType slotType : slotTypes) {
+        set(slotType, builderConsumer);
+      }
+      return this;
     }
 
     /** Sets the stat provider for the given slot */

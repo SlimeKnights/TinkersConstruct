@@ -4,10 +4,13 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.loot.LootFunctionType;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,9 +25,14 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
+import slimeknights.tconstruct.library.loot.AddToolDataFunction;
+import slimeknights.tconstruct.library.loot.RandomMaterial;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
+import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
@@ -40,6 +48,7 @@ import slimeknights.tconstruct.tools.data.material.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
+import slimeknights.tconstruct.tools.inventory.ToolContainer;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.SlimelytraItem;
 import slimeknights.tconstruct.tools.item.SlimeskullItem;
@@ -49,6 +58,7 @@ import slimeknights.tconstruct.tools.item.broad.ExcavatorTool;
 import slimeknights.tconstruct.tools.item.broad.ScytheTool;
 import slimeknights.tconstruct.tools.item.broad.SledgeHammerTool;
 import slimeknights.tconstruct.tools.item.broad.VeinHammerTool;
+import slimeknights.tconstruct.tools.item.small.DaggerTool;
 import slimeknights.tconstruct.tools.item.small.HandAxeTool;
 import slimeknights.tconstruct.tools.item.small.HarvestTool;
 import slimeknights.tconstruct.tools.item.small.KamaTool;
@@ -68,10 +78,14 @@ public final class TinkerTools extends TinkerModule {
     SlotType.init();
     BlockSideHitListener.init();
     ModifierLootingHandler.init();
+    RandomMaterial.init();
   }
 
   /** Creative tab for all tool items */
   public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.MOD_ID, "tools", () -> TinkerTools.pickaxe.get().getRenderTool());
+
+  /** Loot function type for tool add data */
+  public static LootFunctionType lootAddToolData;
 
   /*
    * Items
@@ -91,7 +105,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
   public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));
 
-  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new SwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.DAGGER));
+  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new DaggerTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.DAGGER));
   public static final ItemObject<SweepingSwordTool> sword = ITEMS.register("sword", () -> new SweepingSwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.SWORD));
   public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.CLEAVER));
 
@@ -106,20 +120,20 @@ public final class TinkerTools extends TinkerModule {
     .put(ArmorSlotType.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, TOOL.get())))
     .build();
 
-  /*
-   * Particles
-   */
+  /* Particles */
   public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new BasicParticleType(false));
   public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new BasicParticleType(false));
 
-  /*
-   * Entities
-   */
+  /* Entities */
   public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
     return EntityType.Builder.<IndestructibleItemEntity>create(IndestructibleItemEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
       .immuneToFire();
   });
+
+  /* Containers */
+  public static final RegistryObject<ContainerType<ToolContainer>> toolContainer = CONTAINERS.register("tool_container", ToolContainer::forClient);
+
 
   /*
    * Events
@@ -128,11 +142,14 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void commonSetup(FMLCommonSetupEvent event) {
     EquipmentChangeWatcher.register();
+    ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
+    ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
   }
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
+    lootAddToolData = Registry.register(Registry.LOOT_FUNCTION_TYPE, AddToolDataFunction.ID, new LootFunctionType(AddToolDataFunction.SERIALIZER));
   }
 
   @SubscribeEvent

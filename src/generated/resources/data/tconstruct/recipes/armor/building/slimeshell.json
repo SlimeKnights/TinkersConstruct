@@ -8,9 +8,6 @@
     "tag": "tconstruct:ender_slime",
     "amount": 7000
   },
-  "result": {
-    "item": "tconstruct:slime_leggings",
-    "nbt": "{tic_broken:0b,Damage:0}"
-  },
+  "result": "tconstruct:slime_leggings",
   "cooling_time": 222
 }

@@ -2,11 +2,13 @@ package slimeknights.tconstruct.library.utils;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
+import slimeknights.tconstruct.common.Sounds;
 
 import java.util.IdentityHashMap;
 
@@ -48,6 +50,9 @@ public class SlimeBounceHandler {
       info.bounce = bounce;
       // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
       info.bounceTick = entity.ticksExisted + 1;
+      Vector3d motion = entity.getMotion();
+      info.lastMagSq = motion.x * motion.x + motion.z * motion.z;
+      info.lastAngle = MathHelper.atan2(motion.z, motion.x);
     }
   }
 
@@ -70,18 +75,44 @@ public class SlimeBounceHandler {
         entity.setMotion(motion.x, info.bounce, motion.z);
         info.bounceTick = 0;
       }
+
+      boolean isInAir = !entity.isOnGround() && !entity.isInWater() && !entity.isOnLadder();
+
       // preserve motion
-      // TODO: needs cleanup, this basically gives you superspeed, we really need to check that the speed was reduced
-      if (!entity.isOnGround() && (info.lastMovX != entity.getMotion().x || info.lastMovZ != entity.getMotion().z)) {
+      if (isInAir && info.lastMagSq > 0) {
+        // figure out how much motion has reduced
         Vector3d motion = entity.getMotion();
-        entity.setMotion(motion.x / 0.935d , motion.y, motion.z / 0.935d);
-        entity.isAirBorne = true;
-        info.lastMovX = entity.getMotion().x;
-        info.lastMovZ = entity.getMotion().z;
+        double motionSq = motion.x * motion.x + motion.z * motion.z;
+        // if not moving, cancel velocity preserving in 5 ticks
+        if (motionSq == 0) {
+          if (info.stopMagTick == 0) {
+            info.stopMagTick = entity.ticksExisted + 5;
+          } else if (entity.ticksExisted > info.stopMagTick) {
+            info.lastMagSq = 0;
+          }
+        } else if (motionSq < info.lastMagSq) {
+          info.stopMagTick = 0;
+          // preserve 95% of former speed
+          double boost = Math.sqrt(info.lastMagSq / motionSq) * 0.95f;
+          if (boost > 1) {
+            entity.setMotion(motion.x * boost, motion.y, motion.z * boost);
+            entity.isAirBorne = true;
+            info.lastMagSq = info.lastMagSq * 0.95f * 0.95f;
+            // play sound if we had a big angle change
+            double newAngle = MathHelper.atan2(motion.z, motion.x);
+            if (Math.abs(newAngle - info.lastAngle) > 1) {
+              entity.playSound(Sounds.SLIMY_BOUNCE.getSound(), 1.0f, 1.0f);
+            }
+            info.lastAngle = newAngle;
+          } else {
+            info.lastMagSq = motionSq;
+            info.lastAngle = MathHelper.atan2(motion.z, motion.x);
+          }
+        }
       }
 
       // timing the effect out
-      if (info.wasInAir && entity.isOnGround()) {
+      if (info.wasInAir && !isInAir) {
         if (info.endHandler == 0) {
           info.endHandler = entity.ticksExisted + 5;
         } else if (entity.ticksExisted > info.endHandler) {
@@ -105,12 +136,16 @@ public class SlimeBounceHandler {
     private double bounce;
     /** Time to update the entities velocity */
     private int bounceTick;
-    /** Last motion of the entity */
-    private double lastMovX, lastMovZ;
+    /** Tick to stop entity magnitude changes */
+    private int stopMagTick;
+    /** Magnitude of the X/Z motion last tick */
+    private double lastMagSq;
     /** If true, the entity was in air last tick */
     private boolean wasInAir = false;
     /** Time when motion should stop */
     private int endHandler = 0;
+    /** Last angle of motion, used for sound effects */
+    private double lastAngle;
 
     public BounceInfo(LivingEntity entity, double bounce) {
       this.bounce = bounce;
@@ -120,8 +155,8 @@ public class SlimeBounceHandler {
       } else {
         this.bounceTick = 0;
       }
-      //this.lastMovX = entity.getMotion().x;
-      //this.lastMovZ = entity.getMotion().z;
+      Vector3d motion = entity.getMotion();
+      this.lastMagSq = motion.x * motion.x + motion.z * motion.z;
     }
   }
 }

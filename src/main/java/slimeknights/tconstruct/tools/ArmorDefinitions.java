@@ -62,6 +62,7 @@ public class ArmorDefinitions {
     .builder(TConstruct.getResource("slime"))
     .setStatsProvider(ToolStatProviders.NO_PARTS)
     .setStatsProvider(ArmorSlotType.HELMET, SKULL_STAT_PROVIDER)
+    .set(ArmorSlotType.HELMET, builder -> builder.setDefaultMaxTier(6))
     .setSoundEvent(Sounds.EQUIP_SLIME.getSound())
     .build();
 

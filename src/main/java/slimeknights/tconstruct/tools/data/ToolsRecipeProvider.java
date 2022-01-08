@@ -156,13 +156,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     slimeskullCasting(consumer, MaterialIds.bone,         Items.SKELETON_SKULL,        armorFolder);
     slimeskullCasting(consumer, MaterialIds.necroticBone, Items.WITHER_SKELETON_SKULL, armorFolder);
     slimeskullCasting(consumer, MaterialIds.rottenFlesh,  Items.ZOMBIE_HEAD,           armorFolder);
-    slimeskullCasting(consumer, MaterialIds.enderPearl,  TinkerWorld.heads.get(TinkerHeadType.ENDERMAN),    armorFolder);
-    slimeskullCasting(consumer, MaterialIds.bloodbone,   TinkerWorld.heads.get(TinkerHeadType.STRAY),       armorFolder);
-    slimeskullCasting(consumer, MaterialIds.spider,      TinkerWorld.heads.get(TinkerHeadType.SPIDER),      armorFolder);
-    slimeskullCasting(consumer, MaterialIds.venom,       TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER), armorFolder);
-    slimeskullCasting(consumer, MaterialIds.potato,      TinkerWorld.heads.get(TinkerHeadType.HUSK),        armorFolder);
-    slimeskullCasting(consumer, MaterialIds.fish,        TinkerWorld.heads.get(TinkerHeadType.DROWNED),     armorFolder);
-    slimeskullCasting(consumer, MaterialIds.blazingBone, TinkerWorld.heads.get(TinkerHeadType.BLAZE),       armorFolder);
+    slimeskullCasting(consumer, MaterialIds.enderPearl,  TinkerWorld.heads.get(TinkerHeadType.ENDERMAN),         armorFolder);
+    slimeskullCasting(consumer, MaterialIds.bloodbone,   TinkerWorld.heads.get(TinkerHeadType.STRAY),            armorFolder);
+    slimeskullCasting(consumer, MaterialIds.spider,      TinkerWorld.heads.get(TinkerHeadType.SPIDER),           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.venom,       TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER),      armorFolder);
+    slimeskullCasting(consumer, MaterialIds.iron,        TinkerWorld.heads.get(TinkerHeadType.HUSK),             armorFolder);
+    slimeskullCasting(consumer, MaterialIds.copper,      TinkerWorld.heads.get(TinkerHeadType.DROWNED),          armorFolder);
+    slimeskullCasting(consumer, MaterialIds.blazingBone, TinkerWorld.heads.get(TinkerHeadType.BLAZE),            armorFolder);
+    slimeskullCasting(consumer, MaterialIds.gold,        TinkerWorld.heads.get(TinkerHeadType.PIGLIN),           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.roseGold,    TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE),     armorFolder);
+    slimeskullCasting(consumer, MaterialIds.pigIron,     TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), armorFolder);
 
     // slimelytra
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
@@ -190,6 +193,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     SpecializedRepairRecipeBuilder.repair(Ingredient.fromItems(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.rabbit)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "slime_boots_station"));
+
+    // general repair with enderslime
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.slimesuit.values().stream().map(ItemStack::new)), MaterialIds.enderslime)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimesuit_repair_kit"))
+                                  .build(consumer, modResource(armorRepairFolder + "slimesuit_station"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

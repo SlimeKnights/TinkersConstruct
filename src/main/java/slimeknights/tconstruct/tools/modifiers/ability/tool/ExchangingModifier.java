@@ -9,8 +9,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.BlockFlags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -18,6 +16,7 @@ import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.Util;
 
 public class ExchangingModifier extends SingleUseModifier {
   public ExchangingModifier() {
@@ -64,8 +63,7 @@ public class ExchangingModifier extends SingleUseModifier {
     // generate placing context
     Direction sideHit = context.getSideHit();
     // subtract the offsets instead of adding as the position is empty, want to "hit" a realistic location
-    Vector3d hit = new Vector3d((double)pos.getX() + 0.5D - sideHit.getXOffset() * 0.5D, pos.getY() + 0.5D - sideHit.getYOffset() * 0.5D, pos.getZ() + 0.5D - sideHit.getZOffset() * 0.5D);
-    BlockItemUseContext blockUseContext = new BlockItemUseContext(world, player, Hand.OFF_HAND, offhand, new BlockRayTraceResult(hit, sideHit, pos, false));
+    BlockItemUseContext blockUseContext = new BlockItemUseContext(world, player, Hand.OFF_HAND, offhand, Util.createTraceResult(pos, sideHit, true));
     blockUseContext.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
 
     // swap the block, it never goes to air so things like torches will remain

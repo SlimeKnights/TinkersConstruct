@@ -22,7 +22,7 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockTagProvider extends BlockTagsProvider {
@@ -42,21 +42,20 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   private void addCommon() {
     // ores
-    addMetalTags(TinkerMaterials.copper);
-    addMetalTags(TinkerMaterials.cobalt);
+    addMetalTags(TinkerMaterials.copper, false);
+    addMetalTags(TinkerMaterials.cobalt, true);
     // tier 3
-    addMetalTags(TinkerMaterials.slimesteel);
-    addMetalTags(TinkerMaterials.tinkersBronze);
-    addMetalTags(TinkerMaterials.roseGold);
-    addMetalTags(TinkerMaterials.pigIron);
+    addMetalTags(TinkerMaterials.slimesteel, false);
+    addMetalTags(TinkerMaterials.tinkersBronze, false);
+    addMetalTags(TinkerMaterials.roseGold, false);
+    addMetalTags(TinkerMaterials.pigIron, false);
     // tier 4
-    addMetalTags(TinkerMaterials.queensSlime);
-    addMetalTags(TinkerMaterials.manyullyn);
-    addMetalTags(TinkerMaterials.hepatizon);
-    addMetalTags(TinkerMaterials.soulsteel);
+    addMetalTags(TinkerMaterials.queensSlime, true);
+    addMetalTags(TinkerMaterials.manyullyn, true);
+    addMetalTags(TinkerMaterials.hepatizon, true);
+    addMetalTags(TinkerMaterials.soulsteel, true);
     // tier 5
-    addMetalTags(TinkerMaterials.knightslime);
-    this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).add(TinkerModifiers.silkyJewelBlock.get());
+    addMetalTags(TinkerMaterials.knightslime, false);
 
     // glass
     this.getOrCreateBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
@@ -103,10 +102,6 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
 
-    this.getOrCreateBuilder(BlockTags.GUARDED_BY_PIGLINS)
-        .add(TinkerModifiers.silkyJewelBlock.get())
-        .addTag(TinkerMaterials.roseGold.getBlockTag());
-
     // can harvest crops and sugar cane
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_STACKABLE)
         .add(Blocks.SUGAR_CANE, Blocks.KELP_PLANT);
@@ -123,6 +118,8 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.HARVESTABLE_STACKABLE);
     // just logs for lumber axe, but modpack makers can add more
     this.getOrCreateBuilder(TinkerTags.Blocks.TREE_LOGS).addTag(BlockTags.LOGS);
+    // blocks that drop gold and should drop more gold
+    this.getOrCreateBuilder(TinkerTags.Blocks.CHRYSOPHILITE_ORES).addTag(Tags.Blocks.ORES_GOLD).add(Blocks.GILDED_BLACKSTONE);
   }
 
 
@@ -136,7 +133,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // allow the enderman to hold more blocks
     TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
-    endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get());
+    endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get(), TinkerSmeltery.netherGrout.get());
 
     // wood
     this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS)
@@ -189,6 +186,15 @@ public class BlockTagProvider extends BlockTagsProvider {
     }));
     TinkerWorld.slimeDirt.forEach((type, block) -> this.getOrCreateBuilder(type.getDirtBlockTag()).add(block));
     endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
+
+    this.getOrCreateBuilder(BlockTags.GUARDED_BY_PIGLINS)
+        .add(TinkerTables.castChest.get(),
+             // piglins do not appreciate you touching their corpses
+             TinkerWorld.heads.get(TinkerHeadType.PIGLIN), TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE),
+             TinkerWorld.wallHeads.get(TinkerHeadType.PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.PIGLIN_BRUTE));
+    // piglins are not a fan of zombie piglin corpses though
+    this.getOrCreateBuilder(BlockTags.PIGLIN_REPELLENTS)
+        .add(TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.ZOMBIFIED_PIGLIN));
   }
 
   private void addSmeltery() {
@@ -288,9 +294,11 @@ public class BlockTagProvider extends BlockTagsProvider {
    * Adds relevant tags for a metal object
    * @param metal  Metal object
    */
-  private void addMetalTags(MetalItemObject metal) {
+  private void addMetalTags(MetalItemObject metal, boolean beacon) {
     this.getOrCreateBuilder(metal.getBlockTag()).add(metal.get());
-    this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).addTag(metal.getBlockTag());
+    if (beacon) {
+      this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).addTag(metal.getBlockTag());
+    }
     this.getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(metal.getBlockTag());
   }
 

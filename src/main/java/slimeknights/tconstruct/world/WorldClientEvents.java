@@ -29,6 +29,7 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.world.client.HeadWithOverlayModel;
+import slimeknights.tconstruct.world.client.PiglinHeadModel;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.TerracubeRenderer;
@@ -109,12 +110,17 @@ public class WorldClientEvents extends ClientEventBase {
     // zombies
     GenericHeadModel zombieHead = new GenericHeadModel(0, 0, 64, 64);
     SlimeskullArmorModel.registerHeadModel(MaterialIds.rottenFlesh, zombieHead, new ResourceLocation("textures/entity/zombie/zombie.png"));
-    registerHeadModel(TinkerHeadType.HUSK, MaterialIds.potato, zombieHead, new ResourceLocation("textures/entity/zombie/husk.png"));
-    registerHeadModel(TinkerHeadType.DROWNED, MaterialIds.fish, tinkersOverlayHead, TConstruct.getResource("textures/entity/skull/drowned.png"));
+    registerHeadModel(TinkerHeadType.HUSK, MaterialIds.iron, zombieHead, new ResourceLocation("textures/entity/zombie/husk.png"));
+    registerHeadModel(TinkerHeadType.DROWNED, MaterialIds.copper, tinkersOverlayHead, TConstruct.getResource("textures/entity/skull/drowned.png"));
     // spider
     GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
     registerHeadModel(TinkerHeadType.SPIDER, MaterialIds.spider, spiderHead, new ResourceLocation("textures/entity/spider/spider.png"));
     registerHeadModel(TinkerHeadType.CAVE_SPIDER, MaterialIds.venom, spiderHead, new ResourceLocation("textures/entity/spider/cave_spider.png"));
+    // piglins
+    GenericHeadModel piglinHead = new PiglinHeadModel();
+    registerHeadModel(TinkerHeadType.PIGLIN,           MaterialIds.gold,     piglinHead, new ResourceLocation("textures/entity/piglin/piglin.png"));
+    registerHeadModel(TinkerHeadType.PIGLIN_BRUTE,     MaterialIds.roseGold, piglinHead, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
+    registerHeadModel(TinkerHeadType.ZOMBIFIED_PIGLIN, MaterialIds.pigIron,  piglinHead, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
   }
 
   @SubscribeEvent

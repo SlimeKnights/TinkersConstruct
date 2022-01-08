@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "내 다리, 내 다리." },
+	{
+      "text": "이 레깅스는 모든 싸움에서 높은 보호 기능을 수행합니다!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "높은 내구도",
+    "높은 갑옷",
+    "1 강화 슬롯",
+    "4 수비 슬롯",
+    "1 능력 슬롯"
+  ]
+}

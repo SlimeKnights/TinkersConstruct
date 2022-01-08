@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:speedy",
   "text": [
     {
-      "text": "Increases speed by 10% per level."
+      "text": "Multiplies speed by an extra 10% per level."
     }
   ],
   "more_text_space": true,

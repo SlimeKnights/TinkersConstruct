@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "웅크리고 레깅스 상호작용 키를 누르거나 레깅스를 손에 들고 상호작용하면 접근할 수 있는 슬롯이 등급당 9개만큼 추가됩니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1개의 능력 슬롯 사용"
+  ]
+}

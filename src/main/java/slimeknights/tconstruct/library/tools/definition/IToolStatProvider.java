@@ -35,7 +35,7 @@ public interface IToolStatProvider {
     }
   }
 
-  /** Gets the default data for this definition, used for missing or erroring stats */
+  /** Gets the default data for this definition, used for missing or erroring stats. If called multiple times, should return the same instance each time */
   default ToolDefinitionData getDefaultData() {
     return ToolDefinitionData.EMPTY;
   }

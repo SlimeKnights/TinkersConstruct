@@ -22,6 +22,7 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -120,6 +121,8 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
         }
       }
     }
+    // fire event for modifiers that want to watch equipment when not equipped
+    MinecraftForge.EVENT_BUS.post(new ToolEquipmentChangeEvent(context));
   }
 
   /* Required methods */
@@ -150,8 +153,8 @@ public class EquipmentChangeWatcher implements Capability.IStorage<PlayerLastEqu
 
     /** Called on player tick to update the stacks and run the event */
     public void update() {
-      // run once a second, should be plenty fast enough
-      if (player != null && player.ticksExisted % 20 == 0) {
+      // run twice a second, should be plenty fast enough
+      if (player != null) {
         for (EquipmentSlotType slot : EquipmentSlotType.values()) {
           ItemStack newStack = player.getItemStackFromSlot(slot);
           ItemStack oldStack = lastItems.get(slot);

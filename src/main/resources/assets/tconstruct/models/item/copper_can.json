@@ -1,10 +1,8 @@
 {
   "parent": "forge:item/default",
-  "loader": "forge:bucket",
+  "loader": "tconstruct:copper_can",
   "textures": {
     "base": "tconstruct:item/copper_can",
     "fluid": "tconstruct:item/copper_can_fluid"
-  },
-  "flipGas": false,
-  "fluid": "minecraft:empty"
+  }
 }

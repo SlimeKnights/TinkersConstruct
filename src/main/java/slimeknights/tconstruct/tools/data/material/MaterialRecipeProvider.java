@@ -18,7 +18,9 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -108,18 +110,19 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // no plated slimewood, use repair kits
 
     // slimeskull
+    metalMaterialRecipe(consumer, MaterialIds.gold, folder, "gold", false);
     materialRecipe(consumer, MaterialIds.gunpowder,   Ingredient.fromTag(Tags.Items.GUNPOWDER),                      1, 4, folder + "gunpowder");
     materialRecipe(consumer, MaterialIds.enderPearl,  Ingredient.fromTag(Tags.Items.ENDER_PEARLS),                   1, 1, folder + "ender_pearl");
     materialRecipe(consumer, MaterialIds.spider,      Ingredient.fromItems(Items.SPIDER_EYE),                        1, 4, folder + "spider");
     materialRecipe(consumer, MaterialIds.venom,       FluidContainerIngredient.fromFluid(TinkerFluids.venom, false), 4, 1, folder + "venom_bucket");
     materialRecipe(consumer, MaterialIds.rottenFlesh, Ingredient.fromItems(Items.ROTTEN_FLESH),                      1, 1, folder + "rotten_flesh");
-    materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromTag(Tags.Items.CROPS_POTATO),                   1, 1, folder + "potato");
-    materialRecipe(consumer, MaterialIds.potato,      Ingredient.fromItems(Items.POISONOUS_POTATO),                  1, 2, folder + "potato_poisonous");
-    materialRecipe(consumer, MaterialIds.fish,        Ingredient.fromTag(ItemTags.FISHES),                           1, 1, folder + "fish");
     // slimesuit
-    materialRecipe(consumer, MaterialIds.phantom, Ingredient.fromItems(Items.PHANTOM_MEMBRANE),    1, 1, folder + "phantom_membrane");
-    materialRecipe(consumer, MaterialIds.chorus,  Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");
-    materialRecipe(consumer, MaterialIds.rabbit,  Ingredient.fromItems(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
+    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.fromItems(TinkerCommons.slimeball.get(SlimeType.ENDER)),    1, 1, folder + "enderslime/ball");
+    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.ENDER)), 4, 1, folder + "enderslime/congealed");
+    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.ENDER)),          9, 1, folder + "enderslime/block");
+    materialRecipe(consumer, MaterialIds.phantom,    Ingredient.fromItems(Items.PHANTOM_MEMBRANE),    1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.chorus,     Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");
+    materialRecipe(consumer, MaterialIds.rabbit,     Ingredient.fromItems(Items.RABBIT_HIDE),         1, 2, folder + "rabbit_hide");
   }
 
   private void addMaterialSmeltery(Consumer<IFinishedRecipe> consumer) {
@@ -171,6 +174,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingComposite(consumer, MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
 
     // slimesuit
+    materialMeltingCasting(consumer, MaterialIds.gold, TinkerFluids.moltenGold, FluidValues.INGOT, folder);
+    materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.venom, TinkerFluids.venom, FluidAttributes.BUCKET_VOLUME / 4, folder);
   }
 }

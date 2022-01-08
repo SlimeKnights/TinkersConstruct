@@ -67,7 +67,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
             float max = dragonborn.getMax();
             if (max > 0) {
               // adds +10% critical hit per level
-              event.setDamageModifier(event.getDamageModifier() + max * 0.1f);
+              event.setDamageModifier(event.getDamageModifier() + max * 0.05f);
             }
           }
         });

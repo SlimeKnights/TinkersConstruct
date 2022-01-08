@@ -1,5 +1,9 @@
 {
   "stats": {
+    "tconstruct:skull": {
+      "durability": 145,
+      "armor": 2
+    },
     "tconstruct:extra": {},
     "tconstruct:handle": {
       "durability": 0.85,

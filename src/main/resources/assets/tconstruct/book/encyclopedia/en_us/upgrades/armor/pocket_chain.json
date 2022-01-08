@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:pocket_chain",
+  "text": [
+    {
+      "text": "This modifier allows tool belt or shield strap to open the armor UI by interacting while sneaking, without being required to add pockets as well."
+    },
+    {
+      "text": "This modifier also grants +1 slot to both shield strap and tool belt, allowing a full hotbar swap with tool belt.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Slotless",
+    "Requires tool belt or shield strap"
+  ]
+}

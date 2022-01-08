@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:melee_protection",
+  "text": [
+    {
+      "text": "이동식 샌드백."
+    }
+   
+  ],
+  "more_text_space": true,
+  "effects": [
+    "좀비나 검, 낙하 등의 피해가 감소한다",
+    "다중 등급, 등급당 피해가 감소한다",
+    "1개의 수비 슬롯 사용"
+  ]
+}

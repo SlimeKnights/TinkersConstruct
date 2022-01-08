@@ -2,13 +2,9 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
 import slimeknights.mantle.network.packet.ISimplePacket;
@@ -60,7 +56,8 @@ public final class MaterialRegistry {
     MinecraftForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
     // on the client, mark materials not fully loaded when the client logs out.
     // this also runs when starting a world in SP, but its early enough that the player login event will correct the state later (see handleLogin method)
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
+    // TODO: is this still needed? disabled as it runs before the world finishes unloading in SP
+    // DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
   }
 
   /**

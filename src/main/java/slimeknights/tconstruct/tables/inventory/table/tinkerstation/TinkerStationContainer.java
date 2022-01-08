@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import lombok.Getter;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
@@ -12,6 +16,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -20,6 +25,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
+  private static final ResourceLocation[] ARMOR_SLOT_BACKGROUNDS = new ResourceLocation[] {
+    PlayerContainer.EMPTY_ARMOR_SLOT_BOOTS,
+    PlayerContainer.EMPTY_ARMOR_SLOT_LEGGINGS,
+    PlayerContainer.EMPTY_ARMOR_SLOT_CHESTPLATE,
+    PlayerContainer.EMPTY_ARMOR_SLOT_HELMET
+  };
+
   @Getter
   private final List<Slot> inputSlots;
   private final LazyResultSlot resultSlot;
@@ -47,7 +59,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       }
 
       // add result slot, will fetch result cache
-      this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 37));
+      this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 114, 38));
       // set initial slot filters and activations
       setToolSelection(StationSlotLayoutLoader.getInstance().get(Objects.requireNonNull(tile.getBlockState().getBlock().getRegistryName())));
     }
@@ -56,6 +68,13 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       this.resultSlot = null;
       this.inputSlots = Collections.emptyList();
     }
+
+    // add armor and offhand slots, for convenience
+    for (ArmorSlotType slotType : ArmorSlotType.values()) {
+      int index = slotType.getIndex();
+      this.addSlot(new ArmorSlot(inv, slotType.getEquipmentSlot(), 152, 16 + (3 - index) * 18));
+    }
+    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(PlayerContainer.LOCATION_BLOCKS_TEXTURE, PlayerContainer.EMPTY_ARMOR_SLOT_SHIELD));
 
     this.addInventorySlots();
   }
@@ -105,5 +124,26 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
 
   public ItemStack getResult() {
     return this.resultSlot.getStack();
+  }
+
+  private static class ArmorSlot extends Slot {
+    private final PlayerEntity player;
+    private final EquipmentSlotType slotType;
+    public ArmorSlot(PlayerInventory inv, EquipmentSlotType slotType, int xPosition, int yPosition) {
+      super(inv, 36 + slotType.getIndex(), xPosition, yPosition);
+      this.player = inv.player;
+      this.slotType = slotType;
+      setBackground(PlayerContainer.LOCATION_BLOCKS_TEXTURE, ARMOR_SLOT_BACKGROUNDS[slotType.getIndex()]);
+    }
+
+    @Override
+    public int getSlotStackLimit() {
+      return 1;
+    }
+
+    @Override
+    public boolean isItemValid(ItemStack stack) {
+      return stack.canEquip(slotType, player);
+    }
   }
 }

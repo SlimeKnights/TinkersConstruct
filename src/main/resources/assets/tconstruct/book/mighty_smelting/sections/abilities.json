@@ -14,6 +14,10 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/general/reach.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/general/luck.json"
   },
   {
@@ -55,10 +59,6 @@
   {
     "type": "modifier",
     "data": "abilities/harvest/expanded.json"
-  },
-  {
-    "type": "modifier",
-    "data": "abilities/harvest/reach.json"
   },
   {
     "type": "modifier",
@@ -114,11 +114,35 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/flamewake.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/frost_walker.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/armor/looting.json"
   },
   {
     "type": "modifier",
-    "data": "abilities/harvest/reach.json"
+    "data": "abilities/armor/path_maker.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/plowing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/pockets.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/pocket_chain.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/shield_strap.json"
   },
   {
     "type": "modifier",
@@ -126,9 +150,22 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/armor/snowdrift.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/weapon/spilling.json"
   },
   {
+    "type": "modifier",
+    "data": "abilities/armor/strength.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/armor/tool_belt.json"
+  },
+  {
+    "name": "unarmed",
     "type": "modifier",
     "data": "abilities/armor/unarmed_attack.json"
   },

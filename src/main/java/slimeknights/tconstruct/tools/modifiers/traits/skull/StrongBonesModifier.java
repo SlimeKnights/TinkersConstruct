@@ -28,7 +28,7 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
   /** Key for modifiers that are boosted by drinking milk */
   public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
   public StrongBonesModifier() {
-    super(-1, STRONG_BONES, true);
+    super(0xD3D3D3, STRONG_BONES, true);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingEntityUseItemEvent.Finish.class, StrongBonesModifier::onItemFinishUse);
   }
 

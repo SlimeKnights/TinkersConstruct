@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "등급당 주로 사용하지 않는 손 슬롯을 1개만큼 추가하여, 레깅스와 상호작용하여 주로 사용하지 않는 손의 아이템을 교체할 수 있습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1개의 능력 슬롯 사용"
+  ]
+}

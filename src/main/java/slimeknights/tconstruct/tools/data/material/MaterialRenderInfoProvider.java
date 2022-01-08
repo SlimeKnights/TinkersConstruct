@@ -41,7 +41,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.cobalt).color(0x2376dd).fallbacks("metal");
 
     // tier 4
-    buildRenderInfo(MaterialIds.queensSlime).color(0x809912).fallbacks("slime_metal", "metal");
+    buildRenderInfo(MaterialIds.queensSlime).color(0x809912).fallbacks("slime_metal", "metal").luminosity(9);
     buildRenderInfo(MaterialIds.hepatizon).color(0x60496b).fallbacks("metal");
     buildRenderInfo(MaterialIds.manyullyn).color(0x9261cc).fallbacks("metal");
     buildRenderInfo(MaterialIds.blazingBone).color(0xF2D500).fallbacks("bone", "rock").luminosity(15);
@@ -65,14 +65,14 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");
 
     // slimeskull
+    buildRenderInfo(MaterialIds.gold).color(0xFDF55F).fallbacks("metal");
     buildRenderInfo(MaterialIds.gunpowder);
     buildRenderInfo(MaterialIds.enderPearl).fallbacks("contrast");
     buildRenderInfo(MaterialIds.spider);
     buildRenderInfo(MaterialIds.venom);
     buildRenderInfo(MaterialIds.rottenFlesh);
-    buildRenderInfo(MaterialIds.potato);
-    buildRenderInfo(MaterialIds.fish);
     // slimesuit
+    buildRenderInfo(MaterialIds.enderslime);
     buildRenderInfo(MaterialIds.phantom);
     buildRenderInfo(MaterialIds.chorus);
     buildRenderInfo(MaterialIds.rabbit);

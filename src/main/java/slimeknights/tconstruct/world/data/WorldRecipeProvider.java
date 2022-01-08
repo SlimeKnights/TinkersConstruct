@@ -9,6 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.recipe.ICommonRecipeHelper;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -74,13 +75,14 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
     }
 
     // craft other slime based items, forge does not automatically add recipes using the tag anymore
+    Consumer<IFinishedRecipe> slimeConsumer = withCondition(consumer, ConfigEnabledCondition.SLIME_RECIPE_FIX);
     ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON)
                        .patternLine("#")
                        .patternLine("P")
                        .key('#', Tags.Items.SLIMEBALLS)
                        .key('P', Blocks.PISTON)
                        .addCriterion("has_slime_ball", hasItem(Tags.Items.SLIMEBALLS))
-                       .build(consumer, modResource("common/slime/sticky_piston"));
+                       .build(slimeConsumer, modResource("common/slime/sticky_piston"));
     ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2)
                        .key('~', Items.STRING)
                        .key('O', Tags.Items.SLIMEBALLS)
@@ -88,12 +90,12 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                        .patternLine("~O ")
                        .patternLine("  ~")
                        .addCriterion("has_slime_ball", hasItem(Tags.Items.SLIMEBALLS))
-                       .build(consumer, modResource("common/slime/lead"));
+                       .build(slimeConsumer, modResource("common/slime/lead"));
     ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM)
                           .addIngredient(Items.BLAZE_POWDER)
                           .addIngredient(Tags.Items.SLIMEBALLS)
                           .addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER))
-                          .build(consumer, modResource("common/slime/magma_cream"));
+                          .build(slimeConsumer, modResource("common/slime/magma_cream"));
 
     // wood
     String woodFolder = "world/wood/";

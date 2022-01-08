@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "Only thing you need now is a pocket calculator so you can properly add up the number of pockets."
+    }
+  ],
+  "effects": [
+    "Adds more inventory space",
+    "Access with sneaking and leggings interact",
+    "Multiple levels, each level gives +9 slots",
+    "Requires 1 ability slot"
+  ]
+}

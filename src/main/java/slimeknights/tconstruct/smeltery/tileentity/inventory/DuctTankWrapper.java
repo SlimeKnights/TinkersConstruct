@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -31,7 +29,7 @@ public class DuctTankWrapper implements IFluidHandler {
 
   @Override
   public boolean isFluidValid(int tank, FluidStack stack) {
-    return stack.getFluid() == itemHandler.getFluid();
+    return itemHandler.getFluid().isFluidEqual(stack);
   }
 
 
@@ -39,7 +37,7 @@ public class DuctTankWrapper implements IFluidHandler {
 
   @Override
   public int fill(FluidStack resource, FluidAction action) {
-    if (resource.isEmpty() || resource.getFluid() != itemHandler.getFluid()) {
+    if (resource.isEmpty() || !itemHandler.getFluid().isFluidEqual(resource)) {
       return 0;
     }
     return parent.fill(resource, action);
@@ -47,8 +45,8 @@ public class DuctTankWrapper implements IFluidHandler {
 
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
-    Fluid fluid = itemHandler.getFluid();
-    if (fluid == Fluids.EMPTY) {
+    FluidStack fluid = itemHandler.getFluid();
+    if (fluid.isEmpty()) {
       return FluidStack.EMPTY;
     }
     return parent.drain(new FluidStack(fluid, maxDrain), action);
@@ -56,7 +54,7 @@ public class DuctTankWrapper implements IFluidHandler {
 
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
-    if (resource.isEmpty() || resource.getFluid() != itemHandler.getFluid()) {
+    if (resource.isEmpty() || !itemHandler.getFluid().isFluidEqual(resource)) {
       return FluidStack.EMPTY;
     }
     return parent.drain(resource, action);

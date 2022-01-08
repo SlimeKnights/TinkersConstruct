@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_armor",
+  "text": [
+    {
+      "text": "등급당 사용하는 도구의 밀치기가 1만큼 증가하여, 약 2블록만큼 몬스터를 밀어내는 거리가 증가합니다. 대부분의 도구는 밀치기가 0.4 정도입니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 3등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}

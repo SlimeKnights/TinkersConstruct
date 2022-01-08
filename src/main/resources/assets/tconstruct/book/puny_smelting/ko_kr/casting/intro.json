@@ -1,0 +1,11 @@
+{
+  "title": "주조",
+  "image": {
+    "file": "tconstruct:book/images/sandcast.png"
+  },
+  "text": [
+    {
+      "text": "좋아 팅커, 금속을 녹여 이동하는 방법까지는 알아냈군. 이제 금속으로 도구 부품을 만들면 된다."
+    }
+  ]
+}

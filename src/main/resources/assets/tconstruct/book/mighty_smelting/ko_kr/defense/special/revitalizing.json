@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "보석 사과라니, 정말 추억이네."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "분할 적용",
+    "투구나 부츠는 최대 2등급",
+    "흉갑이나 레깅스는 최대 3등급",
+    "1개의 수비 슬롯 사용"
+  ]
+}

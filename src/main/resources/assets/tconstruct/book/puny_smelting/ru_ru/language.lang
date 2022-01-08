@@ -1,0 +1,15 @@
+// Sections - Puny Smelting
+intro=Вступление
+melter=Плавильная печь
+moving_fluids=Перемещение жидкостей
+casting=Литьё
+tier_two_materials=Материалы 2-го уровня
+
+upgrades=Улучшения
+upgrades.general=§1§lОсновные§r
+upgrades.harvest=§1§lДля копания§r
+upgrades.weapon=§1§lДля оружия§r
+
+slotless=Бесслотовые модификаторы
+slotless.slotless=§1§lБесслотовые§r
+slotless.bonus_upgrades=§1§lУлучшения++§r

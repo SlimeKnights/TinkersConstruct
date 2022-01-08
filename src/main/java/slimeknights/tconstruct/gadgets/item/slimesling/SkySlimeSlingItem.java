@@ -42,12 +42,10 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       return;
     }
 
-    float f = getForce(stack, timeLeft);
-
     player.addExhaustion(0.2F);
-    player.getCooldownTracker().setCooldown(stack.getItem(), 3);
     player.setSprinting(true);
 
+    float f = getForce(stack, timeLeft);
     float speed = f / 3F;
     Vector3d look = player.getLookVec();
     player.addVelocity(
@@ -55,8 +53,11 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       (1 + look.y) * speed / 2f,
       (look.z * speed));
 
-    playerServerMovement(player);
     onSuccess(player, stack);
     SlimeBounceHandler.addBounceHandler(player);
+    if (!worldIn.isRemote) {
+      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+      onSuccess(player, stack);
+    }
   }
 }

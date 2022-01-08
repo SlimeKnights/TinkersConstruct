@@ -1,0 +1,16 @@
+{
+  "title": "타오른 유리",
+  "item": {
+    "id": "tconstruct:scorched_glass"
+  },
+  "text": [
+    {
+      "text": "재료가 녹아 있는 경이로운 광경을 볼 수 있습니다. 탱크처럼 생겼지만, 안에 액체를 저장할 수는 없습니다.",
+      "paragraph": true
+    },
+    {
+      "text": "유리는 용해소의 바닥으로 사용할 수 없습니다.",
+      "paragraph": true
+    }
+  ]
+}

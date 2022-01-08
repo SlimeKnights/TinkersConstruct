@@ -12,6 +12,7 @@
     "tconstruct:scythe",
     "tconstruct:sword",
     "tconstruct:cleaver",
-    "tconstruct:flint_and_bronze"
+    "tconstruct:flint_and_bronze",
+    "#tconstruct:modifiable/armor/boots"
   ]
 }

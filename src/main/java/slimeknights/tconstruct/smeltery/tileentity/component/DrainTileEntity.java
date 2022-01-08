@@ -2,14 +2,13 @@ package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -26,7 +25,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   @Getter
   private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
   @Getter
-  private Fluid displayFluid = Fluids.EMPTY;
+  private FluidStack displayFluid = FluidStack.EMPTY;
 
   public DrainTileEntity() {
     super(TinkerSmeltery.drain.get());
@@ -37,10 +36,11 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   }
 
   @Override
-  public void notifyDisplayFluidUpdated(Fluid fluid) {
-    if (fluid != displayFluid) {
+  public void notifyDisplayFluidUpdated(FluidStack fluid) {
+    if (!fluid.isFluidEqual(displayFluid)) {
+      // no need to copy as the fluid was copied by the caller
       displayFluid = fluid;
-      modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+      modelData.setData(IDisplayFluidListener.PROPERTY, displayFluid);
       requestModelDataUpdate();
       assert world != null;
       BlockState state = getBlockState();

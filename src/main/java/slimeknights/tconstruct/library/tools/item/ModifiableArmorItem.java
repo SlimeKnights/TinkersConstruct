@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -18,6 +18,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -32,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -43,6 +47,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
@@ -95,6 +100,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   @Override
+  public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+    return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
+  }
+
+  @Override
   public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
     return ModifierUtil.checkVolatileFlag(stack, PIGLIN_NEUTRAL);
   }
@@ -117,6 +127,16 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
     ToolStack.ensureInitialized(stack, getToolDefinition());
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack stack = playerIn.getHeldItem(handIn);
+    ActionResultType result = ToolInventoryCapability.tryOpenContainer(stack, null, getToolDefinition(), playerIn, Util.getSlotType(handIn));
+    if (result.isSuccessOrConsume()) {
+      return new ActionResult<>(result, stack);
+    }
+    return super.onItemRightClick(worldIn, playerIn, handIn);
   }
 
 
@@ -230,15 +250,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     return false;
   }
 
+
   @Override
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (slot != getEquipmentSlot() || nbt == null || nbt.getBoolean(TooltipUtil.KEY_DISPLAY)) {
+  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IModifierToolStack tool, EquipmentSlotType slot) {
+    if (slot != getEquipmentSlot()) {
       return ImmutableMultimap.of();
     }
 
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-    ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
@@ -257,6 +276,15 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     }
 
     return builder.build();
+  }
+
+  @Override
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    if (slot != getEquipmentSlot() || nbt == null) {
+      return ImmutableMultimap.of();
+    }
+    return getAttributeModifiers(ToolStack.from(stack), slot);
   }
 
 
@@ -299,6 +327,9 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     // don't care about non-living, they skip most tool context
     if (entityIn instanceof LivingEntity) {
       ToolStack tool = ToolStack.from(stack);
+      if (!worldIn.isRemote) {
+        tool.ensureHasData();
+      }
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
@@ -322,12 +353,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    TooltipUtil.addInformation(this, stack, tooltip, TooltipKey.fromScreen(), flagIn == TooltipFlags.ADVANCED);
+    TooltipUtil.addInformation(this, stack, worldIn, tooltip, TooltipKey.fromScreen(), flagIn);
   }
 
   @Override
-  public List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
-    return TooltipUtil.getArmorStats(tool, tooltips, tooltipFlag);
+  public List<ITextComponent> getStatInformation(IModifierToolStack tool, @Nullable PlayerEntity player, List<ITextComponent> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
+    tooltips = TooltipUtil.getArmorStats(tool, player, tooltips, key, tooltipFlag);
+    TooltipUtil.addAttributes(this, tool, player, tooltips, TooltipUtil.SHOW_ARMOR_ATTRIBUTES, getEquipmentSlot());
+    return tooltips;
   }
 
   /* Display items */

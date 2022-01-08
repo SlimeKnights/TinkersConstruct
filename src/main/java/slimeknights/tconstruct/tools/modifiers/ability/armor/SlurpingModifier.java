@@ -44,7 +44,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
         // if we have a recipe, start drinking
         SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getEntityWorld().getRecipeManager(), fluid.getFluid());
         if (recipe != null) {
-          player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.ticksExisted + 32)));
+          player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.ticksExisted + 20)));
           return true;
         }
       }

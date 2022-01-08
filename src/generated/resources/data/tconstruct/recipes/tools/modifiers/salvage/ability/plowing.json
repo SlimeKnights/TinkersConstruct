@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/armor/boots"
+      },
+      {
+        "tag": "tconstruct:modifiable/durability"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:plowing",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:netherite_scrap",
+      "chance": 0.35
+    }
+  ]
+}

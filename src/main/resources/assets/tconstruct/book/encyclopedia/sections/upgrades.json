@@ -149,11 +149,23 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/armor/item_frame.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/knockback.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/armor/leaping.json"
   },
   {
     "type": "modifier",
-    "data": "upgrades/armor/power.json"
+    "data": "upgrades/armor/lightspeed.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/pocket_chain.json"
   },
   {
     "type": "modifier",
@@ -162,6 +174,10 @@
   {
     "type": "modifier",
     "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "modifier",
+    "data": "upgrades/armor/soulspeed.json"
   },
   {
     "type": "modifier",

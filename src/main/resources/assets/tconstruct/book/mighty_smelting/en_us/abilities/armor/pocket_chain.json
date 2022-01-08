@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pocket_chain",
+  "text": [
+    {
+      "text": "Ever find stuff is too hard to reach in your pocket?"
+    }
+  ],
+  "effects": [
+    "Access legging inventory with sneaking and leggings interact",
+    "Requires tool belt or shield strap",
+    "Grants +1 slot to tool belt and shield strap",
+    "Requires 1 upgrade slot"
+  ]
+}

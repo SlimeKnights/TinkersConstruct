@@ -1,8 +1,10 @@
 {
-  "title": "Puny Smelting",
-  "subtitle": "by Thruul M'Gon",
+  "coverTexture": "tconstruct:book/images/covers/puny_smelting_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/puny_smelting_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0xE8EBED,
   "drawSectionListText": true,
-  "coverColor": 0xb6b9c6,
   "largePageTitles": true,
   "centerPageTitles": true
 }
