@@ -42,6 +42,7 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -1279,41 +1280,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // slimesuit //
     Ingredient slimesuit = Ingredient.of(TinkerTools.slimesuit.values().stream().map(ItemStack::new));
-    // earth
-    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.earthslime.toString())
-                                  .setTools(slimesuit)
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_earth"));
-    // sky
-    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.skyslime.toString())
-                                  .setTools(slimesuit)
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY))
-                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_sky"));
-    // blood
-    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.blood.toString())
-                                  .setTools(slimesuit)
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
-                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_blood"));
-    // ichor
-    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.ichor.toString())
-                                  .setTools(slimesuit)
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
-                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_ichor"));
-    // enderslime
-    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.enderslime.toString())
-                                  .setTools(slimesuit)
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
-                                  .addInput(TinkerWorld.congealedSlime.get(SlimeType.ENDER))
-                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_ender"));
+    slimeTexture(consumer, slimesuit, MaterialIds.earthslime, SlimeType.EARTH, folder);
+    slimeTexture(consumer, slimesuit, MaterialIds.skyslime,   SlimeType.SKY, folder);
+    slimeTexture(consumer, slimesuit, MaterialIds.blood,      SlimeType.BLOOD, folder);
+    slimeTexture(consumer, slimesuit, MaterialIds.ichor,      SlimeType.ICHOR, folder);
   }
 
   private void addHeadRecipes(Consumer<FinishedRecipe> consumer) {
@@ -1514,6 +1484,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new PotionFluidEffect(1f, createBottle.apply("LINGERING")))
                          .save(withCondition(consumer, modLoaded(create)), modResource(folder + "create_potion_fluid"));
 
+  }
+
+  private void slimeTexture(Consumer<FinishedRecipe> consumer, Ingredient tool, MaterialId material, SlimeType slime, String folder) {
+    ItemLike congealed = TinkerWorld.congealedSlime.get(slime);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), material.toString())
+                                  .setTools(tool)
+                                  .addInput(congealed).addInput(congealed).addInput(congealed)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + slime.getSerializedName()));
   }
 
   private void burningSpilling(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time) {

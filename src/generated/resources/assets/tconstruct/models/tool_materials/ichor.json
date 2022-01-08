@@ -1,7 +1,4 @@
 {
-  "fallbacks": [
-    "slime"
-  ],
   "color": "FFB97C",
   "luminosity": 0,
   "generator": {
