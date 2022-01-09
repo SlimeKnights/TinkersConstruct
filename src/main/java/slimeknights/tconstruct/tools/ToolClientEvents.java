@@ -39,6 +39,7 @@ import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.tools.client.ArmorModelWrapper;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.PlateArmorModel;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
@@ -61,6 +62,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent manager) {
     ModifierModelManager.init(manager);
+    manager.registerReloadListener(PlateArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimeskullArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimelytraArmorModel.RELOAD_LISTENER);
   }

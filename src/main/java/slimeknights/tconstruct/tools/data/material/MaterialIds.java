@@ -61,6 +61,8 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
 
+  // plate
+  public static final MaterialId netherite = id("netherite");
   // slimeskull
   public static final MaterialId gunpowder = id("gunpowder");
   public static final MaterialId enderPearl = id("ender_pearl");

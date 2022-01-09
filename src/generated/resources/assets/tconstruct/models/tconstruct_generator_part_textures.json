@@ -26,6 +26,46 @@
       "statType": "tconstruct:repair_kit"
     },
     {
+      "path": "tconstruct:item/tool/armor/plate/helmet_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/helmet_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/chestplate_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/chestplate_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/leggings_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/leggings_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boot_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boot_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:models/armor/plate/layer_1",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:models/armor/plate/layer_2",
+      "statType": "tconstruct:plate"
+    },
+    {
       "path": "tconstruct:item/tool/armor/slime/skull_modifiers/tconstruct_embellishment",
       "statType": "tconstruct:slimesuit"
     },

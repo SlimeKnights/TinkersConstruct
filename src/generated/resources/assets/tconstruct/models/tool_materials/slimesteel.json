@@ -46,7 +46,8 @@
       "tconstruct:head",
       "tconstruct:handle",
       "tconstruct:extra",
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:plate"
     ],
     "ignoreMaterialStats": false
   }

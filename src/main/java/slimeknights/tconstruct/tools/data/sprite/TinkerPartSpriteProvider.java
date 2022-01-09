@@ -10,6 +10,7 @@ import slimeknights.tconstruct.tools.stats.RepairKitStats;
  * Do not use both this and {@link TinkerMaterialSpriteProvider} in a single generator for an addon, if you need to use both make two instances of {@link slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator}
  */
 public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
+  public static final MaterialStatsId PLATE = new MaterialStatsId(TConstruct.MOD_ID, "plate");
   public static final MaterialStatsId SLIMESUIT = new MaterialStatsId(TConstruct.MOD_ID, "slimesuit");
 
   public TinkerPartSpriteProvider() {
@@ -32,6 +33,19 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // misc
     addBinding("tool_binding");
     addPart("repair_kit", RepairKitStats.ID);
+
+    // plate textures
+    addSprite("armor/plate/helmet_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/helmet_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/chestplate_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/chestplate_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/leggings_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/leggings_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/boot_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/boot_modifiers/tconstruct_embellishment_broken", PLATE);
+
+    addTexture("models/armor/plate/layer_1", PLATE);
+    addTexture("models/armor/plate/layer_2", PLATE);
 
     // slimesuit textures
     addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
