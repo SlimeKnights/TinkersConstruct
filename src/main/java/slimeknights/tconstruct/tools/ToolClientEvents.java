@@ -43,6 +43,7 @@ import slimeknights.tconstruct.tools.client.PlateArmorModel;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
+import slimeknights.tconstruct.tools.client.TravelersGearModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
@@ -62,6 +63,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent manager) {
     ModifierModelManager.init(manager);
+    manager.registerReloadListener(TravelersGearModel.RELOAD_LISTENER);
     manager.registerReloadListener(PlateArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimeskullArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimelytraArmorModel.RELOAD_LISTENER);

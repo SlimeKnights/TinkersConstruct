@@ -23,12 +23,15 @@ public class SlimelytraArmorModel<T extends LivingEntity> extends ArmorModelWrap
   /** Cache of models for each entity type */
   private static final Map<HumanoidModel<?>,SlimelytraArmorModel<?>> MODEL_CACHE = new HashMap<>();
   /** Cache of wing texture names */
-  private static final Map<String,ResourceLocation> WING_TEXTURE_CACHE = new HashMap<>();
+  private static final Map<String,RenderType> WING_RENDER_CACHE = new HashMap<>();
   /** Function to get leg names */
-  private static final Function<String,ResourceLocation> WING_GETTER = mat -> new ResourceLocation(SlimesuitItem.makeArmorTexture(mat, "wings"));
+  private static final Function<String,RenderType> WING_GETTER = mat -> RenderType.entityCutoutNoCullZOffset(new ResourceLocation(SlimesuitItem.makeArmorTexture(mat, "wings")));
 
   /** Called on resource reload to clear the model caches */
-  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> MODEL_CACHE.clear();
+  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> {
+    MODEL_CACHE.clear();
+    WING_RENDER_CACHE.clear();
+  };
 
   /**
    * Gets the model for a given entity
@@ -59,7 +62,7 @@ public class SlimelytraArmorModel<T extends LivingEntity> extends ArmorModelWrap
     if (buffer != null) {
       matrixStackIn.pushPose();
       matrixStackIn.translate(0.0D, 0.0D, 0.125D);
-      VertexConsumer elytraBuffer = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(WING_TEXTURE_CACHE.computeIfAbsent(material, WING_GETTER)));
+      VertexConsumer elytraBuffer = buffer.getBuffer(WING_RENDER_CACHE.computeIfAbsent(material, WING_GETTER));
       elytraModel.renderToBuffer(matrixStackIn, elytraBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       matrixStackIn.popPose();
     }
