@@ -1299,12 +1299,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.platinum, true, folder);
     plateTexture(consumer, plate, MaterialIds.silver,   true, folder);
     plateTexture(consumer, plate, MaterialIds.lead,     true, folder);
+    plateTexture(consumer, plate, MaterialIds.aluminum, true, folder);
+    plateTexture(consumer, plate, MaterialIds.nickel,   true, folder);
+    plateTexture(consumer, plate, MaterialIds.tin,      true, folder);
+    plateTexture(consumer, plate, MaterialIds.zinc,     true, folder);
+    plateTexture(consumer, plate, MaterialIds.uranium,  true, folder);
     // tier 3 compat
     plateTexture(consumer, plate, MaterialIds.steel,      true, folder);
     plateTexture(consumer, plate, MaterialIds.bronze,     true, folder);
     plateTexture(consumer, plate, MaterialIds.constantan, true, folder);
     plateTexture(consumer, plate, MaterialIds.invar,      true, folder);
     plateTexture(consumer, plate, MaterialIds.electrum,   true, folder);
+    plateTexture(consumer, plate, MaterialIds.brass,      true, folder);
 
     // slimesuit //
     Ingredient slimesuit = Ingredient.of(TinkerTools.slimesuit.values().stream().map(ItemStack::new));

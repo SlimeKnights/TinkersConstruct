@@ -5,6 +5,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
+import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
@@ -148,18 +149,20 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest().statType(TinkerPartSpriteProvider.PLATE)
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A666A).addARGB(102, 0xFF5C7C7B).addARGB(140, 0xFF859792).addARGB(178, 0xFFA3B1A8).addARGB(216, 0xFFC5CCC3).addARGB(255, 0xFFE1E7E5).build());
+    IColorMapping uraniumPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF363D2F).addARGB(102, 0xFF48543F).addARGB(140, 0xFF5F7050).addARGB(178, 0xFF728762).addARGB(216, 0xFF88A075).addARGB(255, 0xFF9EBF8B).build();
     buildMaterial(MaterialIds.necronium)
       .meleeHarvest()
       .fallbacks("bone", "metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF363D2F).addARGB(102, 0xFF48543F).addARGB(140, 0xFF5F7050).addARGB(178, 0xFF728762).addARGB(216, 0xFF88A075).addARGB(255, 0xFF9EBF8B).build());
+      .colorMapper(uraniumPalette);
     buildMaterial(MaterialIds.electrum)
       .meleeHarvest().statType(TinkerPartSpriteProvider.PLATE)
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF605626).addARGB(102, 0xFF7C7031).addARGB(140, 0xFFB2A03E).addARGB(178, 0xFFD6C044).addARGB(216, 0xFFF2DE60).addARGB(255, 0xFFFFF2A3).build());
+    IColorMapping brassPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF563B1F).addARGB(102, 0xFF775633).addARGB(140, 0xFFA0763E).addARGB(178, 0xFFCCA353).addARGB(216, 0xFFEDD578).addARGB(255, 0xFFFCF7AE).build();
     buildMaterial(MaterialIds.platedSlimewood)
       .meleeHarvest()
       .fallbacks("slime_metal", "metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF563B1F).addARGB(102, 0xFF775633).addARGB(140, 0xFFA0763E).addARGB(178, 0xFFCCA353).addARGB(216, 0xFFEDD578).addARGB(255, 0xFFFCF7AE).build());
+      .colorMapper(brassPalette);
     buildMaterial(MaterialIds.cobalt)
       .meleeHarvest()
       .fallbacks("metal")
@@ -203,6 +206,27 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .statType(RepairKitStats.ID).statType(TinkerPartSpriteProvider.PLATE)
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB26411).addARGB(102, 0xFFB26411).addARGB(140, 0xFFE9B115).addARGB(178, 0xFFFAD64A).addARGB(216, 0xFFFDF55F).addARGB(255, 0xFFFFFDE0).build());
+    // compat plate
+    buildMaterial(MaterialIds.aluminum)
+      .statType(TinkerPartSpriteProvider.PLATE)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF777B7C).addARGB(102, 0xFF818587).addARGB(140, 0xFF909698).addARGB(178, 0xFF999FA2).addARGB(216, 0xFFB2BABC).addARGB(255, 0xFFC5CDD0).build());
+    buildMaterial(MaterialIds.nickel)
+      .statType(TinkerPartSpriteProvider.PLATE)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF54564F).addARGB(102, 0xFF656A60).addARGB(140, 0xFF83887A).addARGB(178, 0xFF969C8B).addARGB(216, 0xFFC6CAB8).addARGB(255, 0xFFEBF1DE).build());
+    buildMaterial(MaterialIds.tin)
+      .statType(TinkerPartSpriteProvider.PLATE)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF475969).addARGB(102, 0xFF61798D).addARGB(140, 0xFF7C96A7).addARGB(178, 0xFFA2BEC9).addARGB(216, 0xFFBAD6DD).addARGB(255, 0xFFD3E4E4).build());
+    buildMaterial(MaterialIds.zinc)
+      .statType(TinkerPartSpriteProvider.PLATE)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1D3247).addARGB(102, 0xFF475456).addARGB(140, 0xFF626B61).addARGB(178, 0xFF7E806C).addARGB(216, 0xFFA8AA93).addARGB(255, 0xFFD3D5C7).build());
+    buildMaterial(MaterialIds.brass).statType(TinkerPartSpriteProvider.PLATE).fallbacks("metal").colorMapper(brassPalette);
+    buildMaterial(MaterialIds.uranium).statType(TinkerPartSpriteProvider.PLATE).fallbacks("metal").colorMapper(uraniumPalette);
+
+
     // slimeskull
     buildMaterial(MaterialIds.gunpowder)
       .statType(RepairKitStats.ID)

@@ -102,5 +102,12 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     noTraits(MaterialIds.phantom);
     noTraits(MaterialIds.chorus);
     noTraits(MaterialIds.rabbit);
+    // compat plate
+    noTraits(MaterialIds.aluminum);
+    noTraits(MaterialIds.nickel);
+    noTraits(MaterialIds.tin);
+    noTraits(MaterialIds.zinc);
+    noTraits(MaterialIds.brass);
+    noTraits(MaterialIds.uranium);
   }
 }

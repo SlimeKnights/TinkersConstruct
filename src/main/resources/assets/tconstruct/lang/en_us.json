@@ -1410,6 +1410,13 @@
   "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.rabbit": "Rabbit Hide",
 
+  "material.tconstruct.aluminum": "Aluminum",
+  "material.tconstruct.nickel":   "Nickel",
+  "material.tconstruct.tin":      "Tin",
+  "material.tconstruct.zinc":     "Zinc",
+  "material.tconstruct.brass":    "Brass",
+  "material.tconstruct.uranium":  "Uranium",
+
 
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "Osmium",

@@ -225,5 +225,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.skyslime);
     addMaterialStats(MaterialIds.blood);
     addMaterialStats(MaterialIds.ichor);
+    // compat
+    addMaterialStats(MaterialIds.aluminum);
+    addMaterialStats(MaterialIds.nickel);
+    addMaterialStats(MaterialIds.tin);
+    addMaterialStats(MaterialIds.zinc);
+    addMaterialStats(MaterialIds.brass);
+    addMaterialStats(MaterialIds.uranium);
   }
 }
