@@ -375,9 +375,9 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         chestLeft = guiLeft - chestWidth;
         chestTop = guiTop;
 
-        // Leaving out the xsize increase by chestSize and adjusting where it's used, because otherwise it shifts both the bookmarks and item panel
-        // way too far out.
-        //xSize += guiLeft - chestLeft;
+        // Leaving out the xSize increase by chestSize and adjusting where it's used, because otherwise it shifts both the bookmarks and item panel
+        // way too far out.  If anything (mouseClick, for example) relies on xSize, you'll need to hack it like below.
+//        xSize += guiLeft - chestLeft;
         guiLeft = chestLeft;
 
         if (logic.doubleChest != null)
@@ -392,6 +392,22 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         slider.setSliderParameters(0, logic.invRows - getDisplayedRows(), 1);
 
         updateChestSlots();
+    }
+
+    @Override
+    protected void mouseClicked(int x, int y, int button) {
+        // Hacks
+        xSize += chestWidth;
+        super.mouseClicked(x, y, button);
+        xSize -= chestWidth;
+    }
+    
+    @Override
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        // Hacks
+        xSize += chestWidth;
+        super.mouseMovedOrUp(x, y, button);
+        xSize -= chestWidth;  
     }
     
     // updates slot visibility
