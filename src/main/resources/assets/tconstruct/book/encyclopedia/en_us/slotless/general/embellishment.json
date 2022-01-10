@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Allows changing the appearance of plate armor and the slimesuit."
+    },
+    {
+      "text": "Plate armor is embellished using metal ingots, while the slimesuit uses congealed slime blocks.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-use",
+    "Slotless"
+  ]
+}

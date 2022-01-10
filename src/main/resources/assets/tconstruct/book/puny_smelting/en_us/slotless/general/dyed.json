@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Does it come in black?"
+    }
+  ],
+  "effects": [
+    "Can use dyes to change the color of traveler's gear",
+    "Multi-use",
+    "Slotless"
+  ]
+}

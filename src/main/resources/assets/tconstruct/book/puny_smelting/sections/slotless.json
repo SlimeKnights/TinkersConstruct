@@ -6,6 +6,14 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "slotless/general/dyed.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "slotless/general/embellishment.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "slotless/general/farsighted.json"
   },
   {
