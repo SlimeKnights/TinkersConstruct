@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,9 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.items.ItemStackHandler;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.client.inventory.library.IScalingInventory;
+
+import javax.annotation.Nullable;
 
 /**
  * Chest holding 64 slots of 16 items each
@@ -60,7 +63,9 @@ public class TinkersChestTileEntity extends ChestTileEntity {
   }
 
   /** Item handler for tinkers chests */
-  public static class TinkersChestItemHandler extends ItemStackHandler implements IScalingInventory {
+  public static class TinkersChestItemHandler extends ItemStackHandler implements IChestItemHandler {
+    @Setter @Nullable
+    private MantleTileEntity parent;
     public TinkersChestItemHandler() {
       super(64);
     }
@@ -73,6 +78,13 @@ public class TinkersChestTileEntity extends ChestTileEntity {
     @Override
     public int getVisualSize() {
       return getSlots();
+    }
+
+    @Override
+    protected void onContentsChanged(int slot) {
+      if (parent != null) {
+        parent.markDirtyFast();
+      }
     }
   }
 }
