@@ -59,15 +59,12 @@ public class SlimeBounceHandler {
   /** Called on living tick to preserve momentum and bounce */
   private static void onLivingTick(LivingUpdateEvent event) {
     LivingEntity entity = event.getEntityLiving();
-    if (entity.isSpectator()) {
-      return;
-    }
     BounceInfo info = BOUNCING_ENTITIES.get(entity);
 
     // if we have info for this entity, time to work
     if (info != null) {
       // if flying, nothing to do
-      if (entity.isElytraFlying()) {
+      if (entity.isElytraFlying() || entity.isSpectator()) {
         BOUNCING_ENTITIES.remove(entity);
         return;
       }

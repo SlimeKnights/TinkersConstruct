@@ -14,11 +14,11 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
-public class BoonOfSssss extends TotalArmorLevelModifier {
+public class BoonOfSssssModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> POTENT_POTIONS = TConstruct.createKey("boon_of_sssss");
-  public BoonOfSssss() {
+  public BoonOfSssssModifier() {
     super(0x605448, POTENT_POTIONS, true);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionEvent.PotionAddedEvent.class, BoonOfSssss::onPotionStart);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionEvent.PotionAddedEvent.class, BoonOfSssssModifier::onPotionStart);
   }
 
   @Override
