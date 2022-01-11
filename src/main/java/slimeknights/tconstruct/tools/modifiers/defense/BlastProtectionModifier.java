@@ -90,7 +90,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   /** If the entity is marked for knockback update, adjust velocity */
   private static void livingTick(LivingUpdateEvent event) {
     LivingEntity living = event.getEntityLiving();
-    if (!living.level.isClientSide) {
+    if (!living.level.isClientSide && !living.isSpectator()) {
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         BlastData blastData = data.get(BLAST_DATA);
         if (blastData != null && blastData.wasKnockback) {

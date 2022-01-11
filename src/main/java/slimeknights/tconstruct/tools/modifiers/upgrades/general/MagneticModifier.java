@@ -81,7 +81,7 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   /** Called to perform the magnet for armor */
   private static void onLivingTick(LivingUpdateEvent event) {
     LivingEntity entity = event.getEntityLiving();
-    if ((entity.tickCount & 1) == 0) {
+    if (!entity.isSpectator() && (entity.tickCount & 1) == 0) {
       int level = ModifierUtil.getTotalModifierLevel(entity, MAGNET);
       if (level > 0) {
         applyMagnet(entity, level);

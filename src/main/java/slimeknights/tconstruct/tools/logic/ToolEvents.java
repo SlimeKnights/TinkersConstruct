@@ -325,7 +325,7 @@ public class ToolEvents {
     LivingEntity living = event.getEntityLiving();
     // this event runs before vanilla updates prevBlockPos
     BlockPos pos = living.blockPosition();
-    if (!living.level.isClientSide() && living.isAlive() && !Objects.equals(living.lastPos, pos)) {
+    if (!living.isSpectator() && !living.level.isClientSide() && living.isAlive() && !Objects.equals(living.lastPos, pos)) {
       ItemStack boots = living.getItemBySlot(EquipmentSlot.FEET);
       if (!boots.isEmpty() && TinkerTags.Items.BOOTS.contains(boots.getItem())) {
         ToolStack tool = ToolStack.from(boots);
