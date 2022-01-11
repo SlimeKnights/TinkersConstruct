@@ -3,7 +3,11 @@ package slimeknights.tconstruct.library.utils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import slimeknights.mantle.util.JsonHelper;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -39,5 +43,38 @@ public class JsonUtils {
       throw new JsonSyntaxException(key + " must be at least " + min);
     }
     return value;
+  }
+
+  /**
+   * Parses a registry entry from JSON
+   * @param registry  Registry
+   * @param element   Element to deserialize
+   * @param key       Json key
+   * @param <T>  Object type
+   * @return  Registry value
+   * @throws JsonSyntaxException  If something failed to parse
+   */
+  public static <T extends IForgeRegistryEntry<T>> T convertToEntry(IForgeRegistry<T> registry, JsonElement element, String key) {
+    ResourceLocation name = JsonHelper.convertToResourceLocation(element, key);
+    if (registry.containsKey(name)) {
+      T value = registry.getValue(name);
+      if (value != null) {
+        return value;
+      }
+    }
+    throw new JsonSyntaxException("Unknown " + registry.getRegistryName() + " " + name);
+  }
+
+  /**
+   * Parses a registry entry from JSON
+   * @param registry  Registry
+   * @param parent    Parent JSON object
+   * @param key       Json key
+   * @param <T>  Object type
+   * @return  Registry value
+   * @throws JsonSyntaxException  If something failed to parse
+   */
+  public static <T extends IForgeRegistryEntry<T>> T getAsEntry(IForgeRegistry<T> registry, JsonObject parent, String key) {
+    return convertToEntry(registry, JsonHelper.getElement(parent, key), key);
   }
 }

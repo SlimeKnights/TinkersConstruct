@@ -5,5 +5,6 @@
     "tool":   "tconstruct:item/tool/armor/travelers/pants",
     "broken": "tconstruct:item/tool/armor/travelers/pants_broken"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/pants_modifiers/" ]
+  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/pants_modifiers/" ],
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:golden" ]
 }

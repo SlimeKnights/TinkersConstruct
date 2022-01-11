@@ -7,16 +7,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.TinkerRegistries;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import java.lang.reflect.Type;
-import java.util.Objects;
 
 /**
  * Data class holding a modifier with a level
@@ -44,12 +42,9 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
     return mod1.getId().getPath().compareTo(mod2.getId().getPath());
   }
 
-  public static Modifier deserializeModifier(JsonObject json, String key) {
-    ResourceLocation name = new ResourceLocation(GsonHelper.getAsString(json, key));
-    if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
-      return Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(name));
-    }
-    throw new JsonSyntaxException("Unable to find modifier " + name);
+  /** Deserializes a modifier from JSON */
+  public static Modifier deserializeModifier(JsonObject parent, String key) {
+    return JsonUtils.getAsEntry(TinkerRegistries.MODIFIERS, parent, key);
   }
 
   /**

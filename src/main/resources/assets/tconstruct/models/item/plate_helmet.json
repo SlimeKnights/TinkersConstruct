@@ -5,5 +5,6 @@
     "tool":   "tconstruct:item/tool/armor/plate/helmet",
     "broken": "tconstruct:item/tool/armor/plate/helmet_broken"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/plate/helmet_modifiers/" ]
+  "modifier_roots": [ "tconstruct:item/tool/armor/plate/helmet_modifiers/" ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden" ]
 }

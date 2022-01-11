@@ -49,6 +49,7 @@ import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.ReversedListBuilder;
+import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
@@ -60,6 +61,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -131,6 +133,8 @@ public class ToolModel implements IModelGeometry<ToolModel> {
   private final List<ResourceLocation> smallModifierRoots;
   /** Location to fetch modifier textures for large variant */
   private final List<ResourceLocation> largeModifierRoots;
+  /** Modifiers that show first on tools, bypassing normal sort order */
+  private final List<Modifier> firstModifiers;
 
   /** Models for the relevant modifiers */
   private Map<Modifier,IBakedModifierModel> modifierModels = Collections.emptyMap();
@@ -193,22 +197,43 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    * @param transforms      Transforms to apply
    * @param isLarge         If true, the quads are for a large tool
    */
-  private static void addModifierQuads(Function<Material, TextureAtlasSprite> spriteGetter, Map<Modifier,IBakedModifierModel> modifierModels, IToolStackView tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, ItemLayerPixels pixels, Transformation transforms, boolean isLarge) {
+  private static void addModifierQuads(Function<Material, TextureAtlasSprite> spriteGetter, Map<Modifier,IBakedModifierModel> modifierModels, List<Modifier> firstModifiers, IToolStackView tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, ItemLayerPixels pixels, Transformation transforms, boolean isLarge) {
     if (!modifierModels.isEmpty()) {
       // keep a running tint index so models know where they should start, currently starts at 0 as the main model does not use tint indexes
       int modelIndex = 0;
       // reversed order to ensure the pixels is updated correctly
       List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
-      for (int i = modifiers.size() - 1; i >= 0; i--) {
-        ModifierEntry entry = modifiers.get(i);
-        IBakedModifierModel model = modifierModels.get(entry.getModifier());
-        if (model != null) {
-          quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
-          modelIndex += model.getTintIndexes();
+      if (!modifiers.isEmpty()) {
+        // last, add all regular modifiers
+        FirstModifier[] firsts = new FirstModifier[firstModifiers.size()];
+        for (int i = modifiers.size() - 1; i >= 0; i--) {
+          ModifierEntry entry = modifiers.get(i);
+          Modifier modifier = entry.getModifier();
+          IBakedModifierModel model = modifierModels.get(modifier);
+          if (model != null) {
+            // if the modifier is in the list, delay adding its quads, but keep the expected tint index
+            int index = firstModifiers.indexOf(modifier);
+            if (index == -1) {
+              quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
+            } else {
+              firsts[index] = new FirstModifier(entry, model, modelIndex);
+            }
+            modelIndex += model.getTintIndexes();
+          }
+        }
+        // first, add the first modifiers
+        for (int i = firsts.length - 1; i >= 0; i--) {
+          FirstModifier first = firsts[i];
+          if (first != null) {
+            quadConsumer.accept(first.model.getQuads(tool, first.entry, spriteGetter, transforms, isLarge, first.modelIndex, pixels));
+          }
         }
       }
     }
   }
+
+  /** Record for a first modifier in the model */
+  private record FirstModifier(ModifierEntry entry, IBakedModifierModel model, int modelIndex) {}
 
   /**
    * Same as {@link #bake(IModelConfiguration, ModelBakery, Function, ModelState, ItemOverrides, ResourceLocation)}, but uses fewer arguments and does not require an instance
@@ -223,7 +248,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    * @return  Baked model
    */
   private static BakedModel bakeInternal(IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, @Nullable Transformation largeTransforms,
-                                         List<ToolPart> parts, Map<Modifier,IBakedModifierModel> modifierModels,
+                                         List<ToolPart> parts, Map<Modifier,IBakedModifierModel> modifierModels, List<Modifier> firstModifiers,
                                          List<MaterialId> materials, @Nullable IToolStackView tool, ItemOverrides overrides) {
     boolean isBroken = tool != null && tool.isBroken();
     TextureAtlasSprite particle = null;
@@ -243,9 +268,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
 
     // add quads for all modifiers first, for the sake of the item layer pixels
     if (tool != null && !modifierModels.isEmpty()) {
-      addModifierQuads(spriteGetter, modifierModels, tool, smallConsumer, smallPixels, Transformation.identity(), false);
+      addModifierQuads(spriteGetter, modifierModels, firstModifiers, tool, smallConsumer, smallPixels, Transformation.identity(), false);
       if (largeTransforms != null) {
-        addModifierQuads(spriteGetter, modifierModels, tool, largeConsumer, largePixels, largeTransforms, true);
+        addModifierQuads(spriteGetter, modifierModels, firstModifiers, tool, largeConsumer, largePixels, largeTransforms, true);
       }
     }
 
@@ -299,9 +324,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     // Map<Modifier,IBakedModifierModel> modifierModels = ModifierModelManager.getModelsForTool(smallModifierRoots, isLarge ? largeModifierRoots : Collections.emptyList());
 
     Transformation largeTransforms = isLarge ? new Transformation(new Vector3f((offset.x - 8) / 32, (-offset.y - 8) / 32, 0), null, new Vector3f(2, 2, 1), null) : null;
-    overrides = new MaterialOverrideHandler(owner, toolParts, largeTransforms, modifierModels); // TODO: nest original overrides?
+    overrides = new MaterialOverrideHandler(owner, toolParts, firstModifiers, largeTransforms, modifierModels); // TODO: nest original overrides?
     // bake the original with no modifiers or materials
-    return bakeInternal(owner, spriteGetter, largeTransforms, toolParts, modifierModels, Collections.emptyList(), null, overrides);
+    return bakeInternal(owner, spriteGetter, largeTransforms, toolParts, modifierModels, firstModifiers, Collections.emptyList(), null, overrides);
   }
 
   /**
@@ -367,13 +392,15 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     // parameters needed for rebaking
     private final IModelConfiguration owner;
     private final List<ToolPart> toolParts;
+    private final List<Modifier> firstModifiers;
     @Nullable
     private final Transformation largeTransforms;
     private final Map<Modifier,IBakedModifierModel> modifierModels;
 
-    private MaterialOverrideHandler(IModelConfiguration owner, List<ToolPart> toolParts, @Nullable Transformation largeTransforms, Map<Modifier,IBakedModifierModel> modifierModels) {
+    private MaterialOverrideHandler(IModelConfiguration owner, List<ToolPart> toolParts, List<Modifier> firstModifiers, @Nullable Transformation largeTransforms, Map<Modifier,IBakedModifierModel> modifierModels) {
       this.owner = owner;
       this.toolParts = toolParts;
+      this.firstModifiers = firstModifiers;
       this.largeTransforms = largeTransforms;
       this.modifierModels = modifierModels;
     }
@@ -396,7 +423,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     private BakedModel bakeDynamic(List<MaterialId> materials, IToolStackView tool) {
       // bake internal does not require an instance to bake, we can pass in whatever material we want
       // use empty override list as the sub model never calls overrides, and already has a material
-      return bakeInternal(owner, ForgeModelBakery.defaultTextureGetter(), largeTransforms, toolParts, modifierModels, materials, tool, ItemOverrides.EMPTY);
+      return bakeInternal(owner, ForgeModelBakery.defaultTextureGetter(), largeTransforms, toolParts, modifierModels, firstModifiers, materials, tool, ItemOverrides.EMPTY);
     }
 
     @Override
@@ -550,7 +577,12 @@ public class ToolModel implements IModelGeometry<ToolModel> {
           smallModifierRoots = JsonHelper.parseList(modelContents, "modifier_roots", (element, string) -> new ResourceLocation(GsonHelper.convertToString(element, string)));
         }
       }
-      return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots);
+      // modifiers first
+      List<Modifier> firstModifiers = Collections.emptyList();
+      if (modelContents.has("first_modifiers")) {
+        firstModifiers = JsonHelper.parseList(modelContents, "first_modifiers", (element, key) -> JsonUtils.convertToEntry(TinkerRegistries.MODIFIERS, element, key));
+      }
+      return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots, firstModifiers);
     }
   }
 
