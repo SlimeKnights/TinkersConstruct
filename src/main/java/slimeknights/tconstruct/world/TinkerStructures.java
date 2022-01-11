@@ -206,7 +206,7 @@ public final class TinkerStructures extends TinkerModule {
             .baseHeight(4).randomHeight(3)
             .build())));
       EARTH_SLIME_ISLAND_TREE = Registry.register(
-        WorldGenRegistries.CONFIGURED_FEATURE, resource("earth_slime_tree"),
+        WorldGenRegistries.CONFIGURED_FEATURE, resource("earth_slime_island_tree"),
         SLIME_TREE.get().withConfiguration((
           new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState())
