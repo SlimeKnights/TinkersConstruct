@@ -82,14 +82,12 @@
 
   "block.tconstruct.glow": "Glow",
   "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
-  "block.tconstruct.silky_jewel_block.tooltip": "Can be used as beacon base",
 
 
   "__comment": "Ore Metals",
 
   "block.tconstruct.copper_ore": "Copper Ore",
   "block.tconstruct.copper_block": "Block of Copper",
-  "block.tconstruct.copper_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.copper_ingot": "Copper Ingot",
   "item.tconstruct.copper_nugget": "Copper Nugget",
 
@@ -103,22 +101,18 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "Block of Slimesteel",
-  "block.tconstruct.slimesteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
   "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
 
   "block.tconstruct.tinkers_bronze_block": "Block of Tinker's Bronze",
-  "block.tconstruct.tinkers_bronze_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.tinkers_bronze_ingot": "Tinker's Bronze Ingot",
   "item.tconstruct.tinkers_bronze_nugget": "Tinker's Bronze Nugget",
 
   "block.tconstruct.rose_gold_block": "Block of Rose Gold",
-  "block.tconstruct.rose_gold_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
   "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
 
   "block.tconstruct.pig_iron_block": "Block of Pig Iron",
-  "block.tconstruct.pig_iron_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.pig_iron_ingot": "Pig Iron Ingot",
   "item.tconstruct.pig_iron_nugget": "Pig Iron Nugget",
 
@@ -153,7 +147,6 @@
   "__comment": "Tier 5 Metals",
 
   "block.tconstruct.knightslime_block": "Block of Knightslime",
-  "block.tconstruct.knightslime_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
   "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
   "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
