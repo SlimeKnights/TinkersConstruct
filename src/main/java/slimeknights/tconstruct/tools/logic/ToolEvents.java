@@ -324,6 +324,9 @@ public class ToolEvents {
   @SubscribeEvent
   static void livingWalk(LivingUpdateEvent event) {
     LivingEntity living = event.getEntityLiving();
+    if (living.isSpectator()) {
+      return;
+    }
     // this event runs before vanilla updates prevBlockPos
     BlockPos pos = living.getPosition();
     if (!living.world.isRemote() && living.isAlive() && !Objects.equals(living.prevBlockpos, pos)) {

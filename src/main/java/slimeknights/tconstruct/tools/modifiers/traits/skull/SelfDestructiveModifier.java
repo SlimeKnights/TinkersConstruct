@@ -80,7 +80,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
 
   /** Called on player tick to update the fuse */
   private static void playerTick(PlayerTickEvent event) {
-    if (event.phase == Phase.START && !event.player.getEntityWorld().isRemote) {
+    if (event.phase == Phase.START && !event.player.getEntityWorld().isRemote && !event.player.isSpectator()) {
       event.player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         Integer fuseFinish = data.get(FUSE_FINISH);
         if (fuseFinish != null && fuseFinish <= event.player.ticksExisted) {

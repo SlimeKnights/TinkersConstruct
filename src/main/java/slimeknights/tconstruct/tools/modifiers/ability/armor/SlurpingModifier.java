@@ -74,6 +74,9 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   /** Called on player tick to update drinking */
   private void playerTick(PlayerTickEvent event) {
     PlayerEntity player = event.player;
+    if (player.isSpectator()) {
+      return;
+    }
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       // if drinking
       SlurpingInfo info = data.get(SLURP_FINISH_TIME);

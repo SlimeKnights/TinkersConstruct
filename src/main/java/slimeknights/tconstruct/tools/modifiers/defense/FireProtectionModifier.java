@@ -134,7 +134,7 @@ public class FireProtectionModifier extends IncrementalModifier {
     // plus, saves us doing slot checks every tool with the modifier
     LivingEntity entity = event.getEntityLiving();
     // no need to run clientside
-    if (!entity.getEntityWorld().isRemote) {
+    if (!entity.getEntityWorld().isRemote && !entity.isSpectator()) {
       entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         FireData fireData = data.get(FIRE_DATA);
         if (fireData != null) {
