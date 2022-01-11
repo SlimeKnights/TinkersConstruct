@@ -41,6 +41,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   protected final ResourceLocation id;
   @Getter
   protected final String group;
+  @Getter
   protected final Ingredient ingredient;
   /** Amount of material this recipe returns */
   @Getter
