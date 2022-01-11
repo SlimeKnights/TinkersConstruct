@@ -44,7 +44,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
       player.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
       // make the player slow
       ModifiableAttributeInstance instance = player.getAttributeManager().createInstanceIfAbsent(Attributes.MOVEMENT_SPEED);
-      if (instance != null) {
+      if (instance != null && !instance.hasModifier(SPEED_MODIFIER)) {
         instance.applyNonPersistentModifier(SPEED_MODIFIER);
       }
       return true;
