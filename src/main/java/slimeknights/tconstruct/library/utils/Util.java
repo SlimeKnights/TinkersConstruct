@@ -143,6 +143,11 @@ public class Util {
     return hand == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
   }
 
+  /** Gets the opposite hand of the given hand */
+  public static InteractionHand getOpposite(InteractionHand hand) {
+    return hand == InteractionHand.OFF_HAND ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+  }
+
   /** Converts a position and a side hit into a hit vector */
   public static Vec3 toHitVec(BlockPos pos, Direction sideHit) {
     return new Vec3(

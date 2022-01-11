@@ -40,14 +40,9 @@ import java.util.function.Function;
  */
 @EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class InteractionHandler {
-
-  /**
-   * Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#beforeEntityUse(IToolStackView, int, Player, Entity, InteractionHand, EquipmentSlot)}
-   * Also implements {@link slimeknights.tconstruct.library.modifiers.Modifier#afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)} for chestplates
-   * TODO: update for main branch
-   */
-  @SubscribeEvent(priority = EventPriority.LOW)
-  static void interactWithEntity(EntityInteract event) {
+  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#beforeEntityUse(IToolStackView, int, Player, Entity, InteractionHand, EquipmentSlot)} */
+  @SubscribeEvent
+  static void beforeEntityInteract(EntityInteract event) {
     ItemStack stack = event.getItemStack();
     Player player = event.getPlayer();
     InteractionHand hand = event.getHand();
@@ -77,35 +72,47 @@ public class InteractionHandler {
         return;
       }
     }
+  }
 
-    if (slotType == EquipmentSlot.CHEST) {
-      // from this point on, we are taking over interaction logic, to ensure chestplate hooks run in the right order
-      event.setCanceled(true);
+  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)} for chestplates */
+  @SubscribeEvent(priority = EventPriority.LOWEST)
+  static void afterEntityInteract(EntityInteract event) {
+    Player player = event.getPlayer();
+    if (event.getItemStack().isEmpty() && !player.isSpectator()) {
+      ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
+      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
+        // from this point on, we are taking over interaction logic, to ensure chestplate hooks run in the right order
+        event.setCanceled(true);
 
-      // initial entity interaction
-      InteractionResult result = target.interact(player, hand);
-      if (result.consumesAction()) {
-        event.setCancellationResult(result);
-        return;
-      }
+        ToolStack tool = ToolStack.from(chestplate);
+        Entity target = event.getTarget();
+        InteractionHand hand = event.getHand();
 
-      // after entity use for chestplates
-      if (target instanceof LivingEntity livingTarget) {
-        for (ModifierEntry entry : tool.getModifierList()) {
-          // exit on first successful result
-          result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), player, livingTarget, hand, slotType);
-          if (result.consumesAction()) {
-            event.setCanceled(true);
-            event.setCancellationResult(result);
-            return;
+        // initial entity interaction
+        InteractionResult result = target.interact(player, hand);
+        if (result.consumesAction()) {
+          event.setCancellationResult(result);
+          return;
+        }
+
+        // after entity use for chestplates
+        if (target instanceof LivingEntity livingTarget) {
+          for (ModifierEntry entry : tool.getModifierList()) {
+            // exit on first successful result
+            result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), player, livingTarget, hand, EquipmentSlot.CHEST);
+            if (result.consumesAction()) {
+              event.setCanceled(true);
+              event.setCancellationResult(result);
+              return;
+            }
           }
         }
-      }
 
-      // did not interact with an entity? try direct interaction
-      // needs to be run here as the interact empty hook does not fire when targeting entities
-      result = onChestplateUse(player, stack, hand);
-      event.setCancellationResult(result);
+        // did not interact with an entity? try direct interaction
+        // needs to be run here as the interact empty hook does not fire when targeting entities
+        result = onChestplateUse(player, chestplate, hand);
+        event.setCancellationResult(result);
+      }
     }
   }
 
@@ -132,7 +139,7 @@ public class InteractionHandler {
   }
 
   /** Implements modifier hooks for a chestplate right clicking a block with an empty hand */
-  @SubscribeEvent(priority = EventPriority.LOW)
+  @SubscribeEvent(priority = EventPriority.LOWEST)
   static void chestplateInteractWithBlock(PlayerInteractEvent.RightClickBlock event) {
     // only handle chestplate interacts if the current hand is empty
     Player player = event.getPlayer();
@@ -158,10 +165,12 @@ public class InteractionHandler {
           }
         }
 
-        // next, block interaction, simplified by declaring that the chestplate never bypasses use
+        // next, block interaction
+        // empty stack automatically bypasses sneak, so no need to check the hand we interacted with, just need to check the other hand
         BlockPos pos = event.getPos();
         Result useBlock = event.getUseBlock();
-        if (useBlock == Result.ALLOW || (useBlock != Result.DENY && !player.isSecondaryUseActive())) {
+        if (useBlock == Result.ALLOW || (useBlock != Result.DENY
+                                         && (!player.isSecondaryUseActive() || player.getItemInHand(Util.getOpposite(hand)).doesSneakBypassUse(player.getLevel(), pos, player)))) {
           InteractionResult result = player.level.getBlockState(pos).use(player.level, player, hand, trace);
           if (result.consumesAction()) {
             if (player instanceof ServerPlayer serverPlayer) {
@@ -216,7 +225,7 @@ public class InteractionHandler {
   }
 
   /** Handles attacking using the chestplate */
-  @SubscribeEvent
+  @SubscribeEvent(priority = EventPriority.LOW)
   static void onChestplateAttack(AttackEntityEvent event) {
     Player attacker = event.getPlayer();
     if (attacker.getMainHandItem().isEmpty()) {
