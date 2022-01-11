@@ -1182,7 +1182,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.GEMS_QUARTZ), TinkerFluids.moltenQuartz.get(), FluidValues.GEM, 1.0f)
                         .build(consumer, modResource(folder + "quartz/gem"));
     MeltingRecipeBuilder.melting(
-      CompoundIngredient.from(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_QUARTZ), Ingredient.fromItems(Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS)),
+      CompoundIngredient.from(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_QUARTZ), Ingredient.fromItems(Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.SMOOTH_QUARTZ, Blocks.QUARTZ_STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS)),
       TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 4, 2.0f)
                         .build(consumer, modResource(folder + "quartz/block"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.QUARTZ_SLAB, Blocks.SMOOTH_QUARTZ_SLAB), TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 2, 1.5f)
@@ -1214,7 +1214,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // non-standard
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.CHAIN), TinkerFluids.moltenIron.get(), FluidValues.INGOT + FluidValues.NUGGET * 2)
                         .build(consumer, modResource(metalFolder + "iron/chain"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.ANVIL), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 4 + FluidValues.METAL_BLOCK * 3)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.ANVIL, Blocks.CHIPPED_ANVIL, Blocks.DAMAGED_ANVIL), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 4 + FluidValues.METAL_BLOCK * 3)
                         .build(consumer, modResource(metalFolder + "iron/anvil"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.RAIL), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 6 / 16)
                         .build(consumer, modResource(metalFolder + "iron/ingot_6_16"));
@@ -1493,7 +1493,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon.get(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCobalt.getForgeTag(), FluidValues.INGOT)
-                      .addInput(TinkerFluids.moltenObsidian.getLocalTag(), FluidValues.GLASS_BLOCK)
+                      .addInput(TinkerFluids.moltenQuartz.getLocalTag(), FluidValues.GEM * 4)
                       .build(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
