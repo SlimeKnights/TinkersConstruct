@@ -98,12 +98,12 @@ public class Config {
         .define("showOnlyPartMaterial", "");
 
       this.showAllTableVariants = builder
-        .comment("If true, tables such as the part builder and tinker station will show all variants. If false they will show just the first entry in the tag, typically oak.")
+        .comment("If true, tables such as the part builder and tinker station will show all variants. If false shows only a variant with a default texture.")
         .translation("tconstruct.configgui.showAllTableVariants")
         .define("showAllTableVariants", true);
 
       this.showAllAnvilVariants = builder
-        .comment("If true, anvils will show all metal variants. If false, only the first variant in the tag will show (typically tinkers bronze)")
+        .comment("If true, anvils will show all metal variants. If false, shows only a variant with the default texture")
         .translation("tconstruct.configgui.showAllAnvilVariants")
         .define("showAllAnvilVariants", true);
 

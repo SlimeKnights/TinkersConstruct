@@ -21,7 +21,11 @@ public class TableBlockItem extends RetexturedBlockItem {
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.isInGroup(group)) {
-      addTagVariants(this.getBlock(), this.textureTag, items, showAllCondition.getAsBoolean());
+      if (showAllCondition.getAsBoolean()) {
+        addTagVariants(this.getBlock(), this.textureTag, items, true);
+      } else {
+        items.add(new ItemStack(this));
+      }
     }
   }
 }
