@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
@@ -143,6 +144,12 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
     @Override
     public boolean mayPlace(ItemStack stack) {
       return stack.canEquip(slotType, player);
+    }
+
+    @Override
+    public boolean mayPickup(Player player) {
+      ItemStack stack = this.getItem();
+      return stack.isEmpty() || player.isCreative() || !EnchantmentHelper.hasBindingCurse(stack);
     }
   }
 }
