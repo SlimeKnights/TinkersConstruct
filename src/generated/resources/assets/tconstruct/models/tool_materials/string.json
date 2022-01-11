@@ -1,4 +1,7 @@
 {
+  "fallbacks": [
+    "primitive"
+  ],
   "color": "FFFFFF",
   "luminosity": 0,
   "generator": {
