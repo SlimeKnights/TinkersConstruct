@@ -41,12 +41,12 @@ public class SlimesuitItem extends ModifiableArmorItem {
   }
 
   /** Creates the texture for a regular armor texture */
-  public static String makeArmorTexture(String material, String suffix) {
+  public static String makeArmorTexture(String material, String texture) {
     ResourceLocation location = ResourceLocation.tryParse(material);
     if (location == null) {
       location = MaterialIds.enderslime;
     }
-    return String.format("%s:textures/models/armor/slime/%s_%s_%s.png", TConstruct.MOD_ID, location.getNamespace(), location.getPath(), suffix);
+    return String.format("%s:textures/models/armor/slime/%s_%s_%s.png", TConstruct.MOD_ID, texture, location.getNamespace(), location.getPath());
   }
 
   @Nullable

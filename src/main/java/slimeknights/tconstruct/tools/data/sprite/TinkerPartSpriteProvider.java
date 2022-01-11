@@ -43,7 +43,6 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addSprite("armor/plate/leggings_modifiers/tconstruct_embellishment_broken", PLATE);
     addSprite("armor/plate/boot_modifiers/tconstruct_embellishment", PLATE);
     addSprite("armor/plate/boot_modifiers/tconstruct_embellishment_broken", PLATE);
-
     addTexture("models/armor/plate/layer_1", PLATE);
     addTexture("models/armor/plate/layer_2", PLATE);
 
@@ -56,6 +55,9 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addSprite("armor/slime/shell_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
     addSprite("armor/slime/boot_modifiers/tconstruct_embellishment", SLIMESUIT);
     addSprite("armor/slime/boot_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addTexture("models/armor/slime/layer_1", SLIMESUIT);
+    addTexture("models/armor/slime/layer_2", SLIMESUIT);
+    addTexture("models/armor/slime/wings", SLIMESUIT);
 
     // tools
     // pickaxe
