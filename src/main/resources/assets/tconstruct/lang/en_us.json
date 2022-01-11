@@ -1382,11 +1382,11 @@
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
   "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 30 second cooldown",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 15 second cooldown",
 
   "material.tconstruct.spider": "Spider",
   "material.tconstruct.spider.skull_flavor": "Spiders are a master of potions, maybe their secret can help me enhance potions...",
-  "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 50% longer",
+  "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 25% longer",
 
   "material.tconstruct.venom": "Venom",
   "material.tconstruct.venom.skull_flavor": "Perfect for battles of wits, when you have to decide and drink to find out who is right.",

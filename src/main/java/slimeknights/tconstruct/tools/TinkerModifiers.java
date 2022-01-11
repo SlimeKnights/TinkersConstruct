@@ -156,7 +156,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.SearingModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.BoonOfSssss;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.BoonOfSssssModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BreathtakingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier;
@@ -464,7 +464,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<StrongBonesModifier> strongBones = MODIFIERS.register("strong_bones", StrongBonesModifier::new);
   public static final RegistryObject<FrosttouchModifier> frosttouch = MODIFIERS.register("frosttouch", FrosttouchModifier::new);
   public static final RegistryObject<WitheredModifier> withered = MODIFIERS.register("withered", WitheredModifier::new);
-  public static final RegistryObject<BoonOfSssss> boonOfSssss = MODIFIERS.register("boon_of_sssss", BoonOfSssss::new);
+  public static final RegistryObject<BoonOfSssssModifier> boonOfSssss = MODIFIERS.register("boon_of_sssss", BoonOfSssssModifier::new);
   public static final RegistryObject<MithridatismModifier> mithridatism = MODIFIERS.register("mithridatism", MithridatismModifier::new);
   public static final RegistryObject<WildfireModifier> wildfire = MODIFIERS.register("wildfire", WildfireModifier::new);
   public static final RegistryObject<PlagueModifier> plague = MODIFIERS.register("plague", PlagueModifier::new);

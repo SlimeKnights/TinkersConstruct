@@ -29,6 +29,6 @@ public class MeleeProtectionModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 1.0f, tooltip);
+    ProtectionModifier.addResistanceTooltip(this, tool, level, 2.0f, tooltip);
   }
 }
