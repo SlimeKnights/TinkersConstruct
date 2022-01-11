@@ -96,10 +96,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
   private void addCraftingRecipes(Consumer<FinishedRecipe> consumer) {
     ShapedRecipeBuilder.shaped(TinkerSmeltery.copperCan, 3)
-                       .define('c', TinkerTags.Items.INGOTS_COPPER)
+                       .define('c', Tags.Items.INGOTS_COPPER)
                        .pattern("c c")
                        .pattern(" c ")
-                       .unlockedBy("has_item", has(TinkerTags.Items.INGOTS_COPPER))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, prefix(TinkerSmeltery.copperCan, "smeltery/"));
 
     // sand casts
@@ -299,7 +299,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // peripherals
     ShapedRecipeBuilder.shaped(TinkerSmeltery.searedDrain)
                        .define('#', TinkerSmeltery.searedBrick)
-                       .define('C', TinkerTags.Items.INGOTS_COPPER)
+                       .define('C', Tags.Items.INGOTS_COPPER)
                        .pattern("# #")
                        .pattern("C C")
                        .pattern("# #")
@@ -307,7 +307,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, modResource(folder + "drain"));
     ShapedRecipeBuilder.shaped(TinkerSmeltery.searedChute)
                        .define('#', TinkerSmeltery.searedBrick)
-                       .define('C', TinkerTags.Items.INGOTS_COPPER)
+                       .define('C', Tags.Items.INGOTS_COPPER)
                        .pattern("#C#")
                        .pattern("   ")
                        .pattern("#C#")

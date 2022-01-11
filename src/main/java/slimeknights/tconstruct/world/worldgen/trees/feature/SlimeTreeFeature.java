@@ -23,7 +23,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
-import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 
@@ -89,7 +88,7 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
       return;
     }
     BlockState state = ((LevelAccessor)reader).getBlockState(pos);
-    if (state.is(Tags.Blocks.DIRT)) {
+    if (state.is(BlockTags.DIRT)) {
       reader.setBlock(pos, Blocks.DIRT.defaultBlockState(), 2);
     }
   }

@@ -69,31 +69,6 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.addWorld();
     this.addSmeltery();
     this.addTools();
-    this.add118Tags();
-  }
-
-  /** Adds tags for 1.18 content, while waiting for Forge PR #7891 */
-  @Deprecated
-  private void add118Tags() {
-    // copper basics
-    copy(TinkerTags.Blocks.BLOCKS_COPPER, TinkerTags.Items.BLOCKS_COPPER);
-    copy(TinkerTags.Blocks.ORES_COPPER, TinkerTags.Items.ORES_COPPER);
-    this.tag(TinkerTags.Items.INGOTS_COPPER).add(Items.COPPER_INGOT);
-    this.tag(Tags.Items.INGOTS).addTag(TinkerTags.Items.INGOTS_COPPER);
-
-    // deepslate ores
-    copy(Tags.Blocks.ORES_IRON, Tags.Items.ORES_IRON);
-    copy(Tags.Blocks.ORES_GOLD, Tags.Items.ORES_GOLD);
-    copy(Tags.Blocks.ORES_DIAMOND, Tags.Items.ORES_DIAMOND);
-    copy(Tags.Blocks.ORES_EMERALD, Tags.Items.ORES_EMERALD);
-
-    // raw ores
-    copy(TinkerTags.Blocks.RAW_BLOCK_COPPER, TinkerTags.Items.RAW_BLOCK_COPPER);
-    copy(TinkerTags.Blocks.RAW_BLOCK_IRON, TinkerTags.Items.RAW_BLOCK_IRON);
-    copy(TinkerTags.Blocks.RAW_BLOCK_GOLD, TinkerTags.Items.RAW_BLOCK_GOLD);
-    tag(TinkerTags.Items.RAW_COPPER).add(Items.RAW_COPPER);
-    tag(TinkerTags.Items.RAW_IRON).add(Items.RAW_IRON);
-    tag(TinkerTags.Items.RAW_GOLD).add(Items.RAW_GOLD);
   }
 
   @SuppressWarnings("unchecked")

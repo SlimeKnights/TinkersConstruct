@@ -55,28 +55,6 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.addSmeltery();
     this.addFluids();
     this.addHarvest();
-    this.add118Tags();
-  }
-
-  /** Adds tags for 1.18 content, while waiting for Forge PR #7891 */
-  @Deprecated
-  private void add118Tags() {
-    // copper basics
-    tag(TinkerTags.Blocks.BLOCKS_COPPER).add(Blocks.COPPER_BLOCK, Blocks.CUT_COPPER);
-    this.tag(TinkerTags.Blocks.ORES_COPPER).addTag(BlockTags.COPPER_ORES);
-    this.tag(Tags.Blocks.ORES).addTag(TinkerTags.Blocks.ORES_COPPER);
-
-    // deepslate ores
-    this.tag(Tags.Blocks.ORES_IRON).addTag(BlockTags.IRON_ORES);
-    this.tag(Tags.Blocks.ORES_GOLD).addTag(BlockTags.GOLD_ORES);
-    this.tag(Tags.Blocks.ORES_DIAMOND).addTag(BlockTags.DIAMOND_ORES);
-    this.tag(Tags.Blocks.ORES_EMERALD).addTag(BlockTags.EMERALD_ORES);
-
-    // raw ores
-    this.tag(TinkerTags.Blocks.RAW_BLOCK_COPPER).add(Blocks.RAW_COPPER_BLOCK);
-    this.tag(TinkerTags.Blocks.RAW_BLOCK_IRON).add(Blocks.RAW_IRON_BLOCK);
-    this.tag(TinkerTags.Blocks.RAW_BLOCK_GOLD).add(Blocks.RAW_GOLD_BLOCK);
-    tag(Tags.Blocks.STORAGE_BLOCKS).addTags(TinkerTags.Blocks.BLOCKS_COPPER, TinkerTags.Blocks.RAW_BLOCK_COPPER, TinkerTags.Blocks.RAW_BLOCK_IRON, TinkerTags.Blocks.RAW_BLOCK_GOLD);
   }
 
   private void addCommon() {

@@ -10,7 +10,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
@@ -86,33 +85,33 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .pattern("l l")
                        .pattern("glg")
                        .pattern("c c")
-                       .define('c', TinkerTags.Items.INGOTS_COPPER)
+                       .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
                        .define('g', Tags.Items.GLASS_PANES_COLORLESS)
-                       .unlockedBy("has_item", has(TinkerTags.Items.INGOTS_COPPER))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, modResource(armorFolder + "travelers_goggles"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.CHESTPLATE))
                        .pattern("l l")
                        .pattern("lcl")
                        .pattern("lcl")
-                       .define('c', TinkerTags.Items.INGOTS_COPPER)
+                       .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
-                       .unlockedBy("has_item", has(TinkerTags.Items.INGOTS_COPPER))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, modResource(armorFolder + "travelers_chestplate"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.LEGGINGS))
                        .pattern("lll")
                        .pattern("c c")
                        .pattern("l l")
-                       .define('c', TinkerTags.Items.INGOTS_COPPER)
+                       .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
-                       .unlockedBy("has_item", has(TinkerTags.Items.INGOTS_COPPER))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, modResource(armorFolder + "travelers_pants"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.BOOTS))
                        .pattern("c c")
                        .pattern("l l")
-                       .define('c', TinkerTags.Items.INGOTS_COPPER)
+                       .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
-                       .unlockedBy("has_item", has(TinkerTags.Items.INGOTS_COPPER))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, modResource(armorFolder + "travelers_boots"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.copper)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_repair_kit"))

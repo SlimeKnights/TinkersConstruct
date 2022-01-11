@@ -51,18 +51,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
     public static final IOptionalNamedTag<Block> RAW_BLOCK_COBALT = forgeTag("storage_blocks/raw_cobalt");
 
-    // temporary tags while forge waits to merge #7891
-    @Deprecated
-    public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Block> BLOCKS_COPPER = forgeTag("storage_blocks/copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Block> RAW_BLOCK_COPPER = forgeTag("storage_blocks/raw_copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Block> RAW_BLOCK_IRON = forgeTag("storage_blocks/raw_iron");
-    @Deprecated
-    public static final IOptionalNamedTag<Block> RAW_BLOCK_GOLD = forgeTag("storage_blocks/raw_gold");
-
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
     public static final IOptionalNamedTag<Block> SEARED_TANKS = tag("seared_tanks");
@@ -166,26 +154,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE_SCRAP = forgeTag("nuggets/netherite_scrap");
     public static final IOptionalNamedTag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
-
-    // temporary tags while forge waits to merge #7891
-    @Deprecated
-    public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> BLOCKS_COPPER = forgeTag("storage_blocks/copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> RAW_BLOCK_COPPER = forgeTag("storage_blocks/raw_copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> RAW_BLOCK_IRON = forgeTag("storage_blocks/raw_iron");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> RAW_BLOCK_GOLD = forgeTag("storage_blocks/raw_gold");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> RAW_COPPER = forgeTag("raw_materials/copper");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> RAW_IRON = forgeTag("raw_materials/iron");
-    @Deprecated
-    public static final IOptionalNamedTag<Item> RAW_GOLD = forgeTag("raw_materials/gold");
 
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");
     public static final IOptionalNamedTag<Item> GOLD_CASTS = tag("casts/gold");
