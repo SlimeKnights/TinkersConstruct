@@ -28,7 +28,8 @@
   
   "tconstruct:tank":      "tconstruct:tank",
   "tconstruct:bucketing": "tconstruct:fluid",
-  
+
+  "tconstruct:golden":        "tconstruct:breakable",
   "tconstruct:embellishment": "tconstruct:breakable_material",
   "tconstruct:dyed":          "tconstruct:breakable_dyed"
 }

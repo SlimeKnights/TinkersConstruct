@@ -71,7 +71,11 @@ public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T
   }
 
   private void setup(ItemStack stack, EquipmentSlot slot) {
-    material = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
+    if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.get()) > 0) {
+      material = MaterialIds.gold.toString();
+    } else {
+      material = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
+    }
     isLegs = slot == EquipmentSlot.LEGS;
   }
 }

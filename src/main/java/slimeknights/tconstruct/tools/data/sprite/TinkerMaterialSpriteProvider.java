@@ -203,7 +203,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF0A0A0A).addARGB(102, 0xFF191616).addARGB(104, 0xFF241F20).addARGB(153, 0xFF322727).addARGB(178, 0xFF3F303B).addARGB(196, 0xFF49393F).addARGB(216, 0xFF51444E).addARGB(235, 0xFF5D565D).addARGB(255, 0xFF766A76).build());
     buildMaterial(MaterialIds.gold)
-      .statType(RepairKitStats.ID).statType(TinkerPartSpriteProvider.PLATE)
+      .statType(RepairKitStats.ID).statType(TinkerPartSpriteProvider.PLATE).statType(TinkerPartSpriteProvider.SLIMESUIT)
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB26411).addARGB(102, 0xFFB26411).addARGB(140, 0xFFE9B115).addARGB(178, 0xFFFAD64A).addARGB(216, 0xFFFDF55F).addARGB(255, 0xFFFFFDE0).build());
     // compat plate

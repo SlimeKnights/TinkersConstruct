@@ -572,13 +572,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.knockbackResistance, defenseSalvage))
                          .save(consumer, prefix(TinkerModifiers.knockbackResistance, defenseFolder));
+    Ingredient goldIngot = CompoundIngredient.from(Ingredient.of(TinkerSmeltery.blankCast), Ingredient.of(Tags.Items.INGOTS_GOLD));
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden.get())
                          .setTools(TinkerTags.Items.ARMOR)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
+                         .addInput(goldIngot)
+                         .addInput(goldIngot)
+                         .addInput(goldIngot)
+                         .addSalvage(TinkerSmeltery.blankCast.get(), 1, 5)
                          .setSlots(SlotType.DEFENSE, 1)
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.golden, defenseSalvage))
@@ -1283,7 +1283,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // tier 2
     plateTexture(consumer, plate, MaterialIds.iron,   false, folder);
     plateTexture(consumer, plate, MaterialIds.copper, false, folder);
-    plateTexture(consumer, plate, MaterialIds.gold,   false, folder);
     // tier 3
     plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
     plateTexture(consumer, plate, MaterialIds.tinkersBronze, "ingots/silicon_bronze", false, folder);

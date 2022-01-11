@@ -33,6 +33,9 @@ public class SlimesuitItem extends ModifiableArmorItem {
 
   /** Gets the material from a given stack */
   public static String getMaterial(ItemStack stack) {
+    if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.get()) > 0) {
+      return MaterialIds.gold.toString();
+    }
     String key = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
     if (key.isEmpty()) {
       return MaterialIds.enderslime.toString();
