@@ -2,10 +2,10 @@
   "loader": "tconstruct:table",
   "parent": "block/block",
   "textures": {
-    "particle": "tconstruct:block/storage/tinkers_bronze",
-    "top": "tconstruct:block/storage/tinkers_bronze",
-    "base": "tconstruct:block/table/anvil_base",
-    "upper": "tconstruct:block/table/anvil_base_upper"
+    "particle": "tconstruct:block/chest/cast/side",
+    "top":      "tconstruct:block/chest/cast/side",
+    "base":     "tconstruct:block/table/anvil_base",
+    "upper":    "tconstruct:block/table/anvil_base_upper"
   },
   "retextured": [ "particle", "top" ],
   "items": [

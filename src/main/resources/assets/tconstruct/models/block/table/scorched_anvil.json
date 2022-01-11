@@ -2,10 +2,10 @@
   "loader": "tconstruct:table",
   "parent": "block/block",
   "textures": {
-    "particle": "tconstruct:block/storage/tinkers_bronze",
-    "top": "tconstruct:block/storage/tinkers_bronze",
-    "base": "tconstruct:block/table/scorched_anvil_base",
-    "upper": "tconstruct:block/table/scorched_anvil_base_upper"
+    "particle": "minecraft:block/gilded_blackstone",
+    "top":      "minecraft:block/gilded_blackstone",
+    "base":     "tconstruct:block/table/scorched_anvil_base",
+    "upper":    "tconstruct:block/table/scorched_anvil_base_upper"
   },
   "retextured": [ "particle", "top" ],
   "items": [
