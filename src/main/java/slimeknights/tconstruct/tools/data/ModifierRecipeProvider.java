@@ -1247,7 +1247,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(RandomItem.chance(ItemNameOutput.fromName(probe), 0.9f))
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
-                         .buildSalvage(consumer, prefix(TinkerModifiers.theOneProbe, compatSalvage))
+                         .buildSalvage(topConsumer, prefix(TinkerModifiers.theOneProbe, compatSalvage))
                          .build(topConsumer, prefix(TinkerModifiers.theOneProbe, compatFolder));
 
   }
