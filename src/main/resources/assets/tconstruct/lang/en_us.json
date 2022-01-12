@@ -82,14 +82,12 @@
 
   "block.tconstruct.glow": "Glow",
   "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
-  "block.tconstruct.silky_jewel_block.tooltip": "Can be used as beacon base",
 
 
   "__comment": "Ore Metals",
 
   "block.tconstruct.copper_ore": "Copper Ore",
   "block.tconstruct.copper_block": "Block of Copper",
-  "block.tconstruct.copper_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.copper_ingot": "Copper Ingot",
   "item.tconstruct.copper_nugget": "Copper Nugget",
 
@@ -103,22 +101,18 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "Block of Slimesteel",
-  "block.tconstruct.slimesteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
   "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
 
   "block.tconstruct.tinkers_bronze_block": "Block of Tinker's Bronze",
-  "block.tconstruct.tinkers_bronze_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.tinkers_bronze_ingot": "Tinker's Bronze Ingot",
   "item.tconstruct.tinkers_bronze_nugget": "Tinker's Bronze Nugget",
 
   "block.tconstruct.rose_gold_block": "Block of Rose Gold",
-  "block.tconstruct.rose_gold_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
   "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
 
   "block.tconstruct.pig_iron_block": "Block of Pig Iron",
-  "block.tconstruct.pig_iron_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.pig_iron_ingot": "Pig Iron Ingot",
   "item.tconstruct.pig_iron_nugget": "Pig Iron Nugget",
 
@@ -153,7 +147,6 @@
   "__comment": "Tier 5 Metals",
 
   "block.tconstruct.knightslime_block": "Block of Knightslime",
-  "block.tconstruct.knightslime_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
   "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
   "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
@@ -1381,11 +1374,11 @@
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
   "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 30 second cooldown",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 15 second cooldown",
 
   "material.tconstruct.spider": "Spider",
   "material.tconstruct.spider.skull_flavor": "Spiders are a master of potions, maybe their secret can help me enhance potions...",
-  "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 50% longer",
+  "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 25% longer",
 
   "material.tconstruct.venom": "Venom",
   "material.tconstruct.venom.skull_flavor": "Perfect for battles of wits, when you have to decide and drink to find out who is right.",

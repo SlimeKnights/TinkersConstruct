@@ -33,6 +33,7 @@ import slimeknights.tconstruct.tables.block.ChestBlock;
 import slimeknights.tconstruct.tables.block.TinkersChestBlock;
 import slimeknights.tconstruct.tables.block.table.CraftingStationBlock;
 import slimeknights.tconstruct.tables.block.table.PartBuilderBlock;
+import slimeknights.tconstruct.tables.block.table.ScorchedAnvilBlock;
 import slimeknights.tconstruct.tables.block.table.TinkerStationBlock;
 import slimeknights.tconstruct.tables.block.table.TinkersAnvilBlock;
 import slimeknights.tconstruct.tables.data.TableRecipeProvider;
@@ -77,7 +78,7 @@ public final class TinkerTables extends TinkerModule {
 
   private static final Block.Properties METAL_TABLE = builder(Material.ANVIL, ToolType.PICKAXE, SoundType.ANVIL).setRequiresTool().hardnessAndResistance(5.0F, 1200.0F).notSolid();
   public static final ItemObject<TableBlock> tinkersAnvil = BLOCKS.register("tinkers_anvil", () -> new TinkersAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL, Config.COMMON.showAllAnvilVariants::get));
-  public static final ItemObject<TableBlock> scorchedAnvil = BLOCKS.register("scorched_anvil", () -> new TinkersAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL, Config.COMMON.showAllAnvilVariants::get));
+  public static final ItemObject<TableBlock> scorchedAnvil = BLOCKS.register("scorched_anvil", () -> new ScorchedAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL, Config.COMMON.showAllAnvilVariants::get));
   private static final Block.Properties STONE_TABLE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid();
   public static final ItemObject<TableBlock> castChest = BLOCKS.register("cast_chest", () -> new ChestBlock(STONE_TABLE, CastChestTileEntity::new, false), GENERAL_BLOCK_ITEM);
 

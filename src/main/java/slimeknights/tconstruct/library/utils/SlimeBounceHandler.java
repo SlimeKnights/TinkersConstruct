@@ -64,7 +64,7 @@ public class SlimeBounceHandler {
     // if we have info for this entity, time to work
     if (info != null) {
       // if flying, nothing to do
-      if (entity.isElytraFlying()) {
+      if (entity.isElytraFlying() || entity.isSpectator()) {
         BOUNCING_ENTITIES.remove(entity);
         return;
       }

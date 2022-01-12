@@ -42,10 +42,10 @@ import net.minecraftforge.client.model.BakedItemModel;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
+import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.ReversedListBuilder;
@@ -255,9 +255,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     // add quads for all parts
     if (parts.isEmpty()) {
       particle = spriteGetter.apply(owner.resolveTexture(isBroken && owner.isTexturePresent("broken") ? "broken" : "tool"));
-      smallConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, particle, TransformationMatrix.identity()));
+      smallConsumer.accept(MantleItemLayerModel.getQuadsForSprite(-1, -1, particle, TransformationMatrix.identity(), 0, smallPixels));
       if (largeTransforms != null) {
-        largeConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, spriteGetter.apply(owner.resolveTexture(isBroken && owner.isTexturePresent("broken_large") ? "broken_large" : "tool_large")), largeTransforms));
+        largeConsumer.accept(MantleItemLayerModel.getQuadsForSprite(-1, -1, spriteGetter.apply(owner.resolveTexture(isBroken && owner.isTexturePresent("broken_large") ? "broken_large" : "tool_large")), largeTransforms, 0, largePixels));
       }
     } else {
       for (int i = parts.size() - 1; i >= 0; i--) {
@@ -277,9 +277,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
         } else {
           // part without materials
           particle = spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, false)));
-          smallConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, particle, TransformationMatrix.identity()));
+          smallConsumer.accept(MantleItemLayerModel.getQuadsForSprite(-1, -1, particle, TransformationMatrix.identity(), 0, smallPixels));
           if (largeTransforms != null) {
-            largeConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, true))), largeTransforms));
+            largeConsumer.accept(MantleItemLayerModel.getQuadsForSprite(-1, -1, spriteGetter.apply(owner.resolveTexture(part.getName(isBroken, true))), largeTransforms, 0, largePixels));
           }
         }
       }

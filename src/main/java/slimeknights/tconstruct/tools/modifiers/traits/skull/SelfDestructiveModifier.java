@@ -44,7 +44,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
       player.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
       // make the player slow
       ModifiableAttributeInstance instance = player.getAttributeManager().createInstanceIfAbsent(Attributes.MOVEMENT_SPEED);
-      if (instance != null) {
+      if (instance != null && !instance.hasModifier(SPEED_MODIFIER)) {
         instance.applyNonPersistentModifier(SPEED_MODIFIER);
       }
       return true;
@@ -80,7 +80,7 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
 
   /** Called on player tick to update the fuse */
   private static void playerTick(PlayerTickEvent event) {
-    if (event.phase == Phase.START && !event.player.getEntityWorld().isRemote) {
+    if (event.phase == Phase.START && !event.player.getEntityWorld().isRemote && !event.player.isSpectator()) {
       event.player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         Integer fuseFinish = data.get(FUSE_FINISH);
         if (fuseFinish != null && fuseFinish <= event.player.ticksExisted) {

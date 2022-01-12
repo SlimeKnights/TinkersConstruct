@@ -15,10 +15,10 @@ import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Shared base logic for all Tinkers' chest tile entities */
@@ -26,14 +26,16 @@ public abstract class ChestTileEntity extends NamableTileEntity {
   private static final String KEY_ITEMS = "Items";
 
   @Getter
-  private final ItemStackHandler itemHandler;
+  private final IChestItemHandler itemHandler;
   private final LazyOptional<IItemHandler> capability;
-  protected ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, ItemStackHandler itemHandler) {
+  protected ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, IChestItemHandler itemHandler) {
     super(tileEntityTypeIn, new TranslationTextComponent(name));
+    itemHandler.setParent(this);
     this.itemHandler = itemHandler;
     this.capability = LazyOptional.of(() -> itemHandler);
   }
 
+  @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {

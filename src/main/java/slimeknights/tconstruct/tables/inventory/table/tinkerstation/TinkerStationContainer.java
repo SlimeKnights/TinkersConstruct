@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import lombok.Getter;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -144,6 +145,12 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
     @Override
     public boolean isItemValid(ItemStack stack) {
       return stack.canEquip(slotType, player);
+    }
+
+    @Override
+    public boolean canTakeStack(PlayerEntity playerIn) {
+      ItemStack stack = this.getStack();
+      return stack.isEmpty() || playerIn.isCreative() || !EnchantmentHelper.hasBindingCurse(stack);
     }
   }
 }

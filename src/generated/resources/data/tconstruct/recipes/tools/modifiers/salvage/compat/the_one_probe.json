@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "conditions": [
+    {
+      "modid": "theoneprobe",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/helmets"

@@ -147,6 +147,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .patternLine("sss")
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersAnvil)
@@ -158,6 +159,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .patternLine("s s")
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, modResource(folder + "tinkers_forge"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.scorchedAnvil)
@@ -168,6 +170,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .patternLine("sss")
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.scorchedAnvil)
@@ -179,6 +182,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .patternLine("s s")
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .setMatchAll()
                                  .build(consumer, modResource(folder + "scorched_forge"));
 
     // tool repair recipe

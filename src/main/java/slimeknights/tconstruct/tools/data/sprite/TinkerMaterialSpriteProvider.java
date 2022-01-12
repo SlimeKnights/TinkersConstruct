@@ -25,7 +25,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     // tier 1
     buildMaterial(MaterialIds.wood)
       .meleeHarvest()
-      .fallbacks("wood", "stick")
+      .fallbacks("wood", "stick", "primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF281E0B).addARGB(102, 0xFF493615).addARGB(140, 0xFF584014).addARGB(178, 0xFF684E1E).addARGB(216, 0xFF785A22).addARGB(255, 0xFF896727).build());
     buildMaterial(MaterialIds.stone)
       .meleeHarvest()
@@ -33,7 +33,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF181818).addARGB(102, 0xFF494949).addARGB(140, 0xFF5A5A5A).addARGB(178, 0xFF787777).addARGB(216, 0xFF95918D).addARGB(255, 0xFFB3B1AF).build());
     buildMaterial(MaterialIds.flint)
       .meleeHarvest()
-      .fallbacks("rock", "stick")
+      .fallbacks("crystal", "rock", "stick")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF0E0E0E).addARGB(102, 0xFF222020).addARGB(140, 0xFF2E2D2D).addARGB(178, 0xFF3D3C3C).addARGB(216, 0xFF565656).addARGB(255, 0xFF7F7F7F).build());
     buildMaterial(MaterialIds.bone)
       .meleeHarvest()
@@ -48,10 +48,11 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF3D1C10).addARGB(102, 0xFF542716).addARGB(140, 0xFF893B25).addARGB(178, 0xFF9E492A).addARGB(216, 0xFFC65C35).addARGB(255, 0xFFD76B43).build());
     buildMaterial(MaterialIds.string)
       .statType(ExtraMaterialStats.ID)
+      .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F4547).addARGB(102, 0xFF4D5859).addARGB(140, 0xFF838B8C).addARGB(178, 0xFFAFB3B5).addARGB(216, 0xFFDBDBDB).addARGB(255, 0xFFF7F7F7).build());
     buildMaterial(MaterialIds.vine)
       .statType(ExtraMaterialStats.ID)
-      .fallbacks("vine")
+      .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF143306).addARGB(102, 0xFF183D08).addARGB(140, 0xFF1F4E0A).addARGB(178, 0xFF265F0D).addARGB(216, 0xFF2E730F).addARGB(255, 0xFF3A9313).build());
 
     // tier 2
@@ -73,7 +74,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.slimewood)
       .meleeHarvest()
-      .fallbacks("wood")
+      .fallbacks("wood", "primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF34532F).addARGB(102, 0xFF477A42).addARGB(140, 0xFF5E9854).addARGB(178, 0xFF71AC63).addARGB(216, 0xFF76BE6D).addARGB(255, 0xFF96DD8F).build());
     buildMaterial(MaterialIds.osmium)
       .meleeHarvest()
@@ -111,7 +112,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1B202D).addARGB(102, 0xFF252C3D).addARGB(140, 0xFF323847).addARGB(178, 0xFF3E4453).addARGB(216, 0xFF495065).addARGB(255, 0xFF545C72).build());
     buildMaterial(MaterialIds.skyslimeVine)
       .statType(ExtraMaterialStats.ID)
-      .fallbacks("vine")
+      .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3C6A68).addARGB(140, 0xFF4F918F).addARGB(178, 0xFF63ACAB).addARGB(216, 0xFF6DBEBD).addARGB(255, 0xFF82D7D5).build());
     buildMaterial(MaterialIds.slimesteel)
       .meleeHarvest()
@@ -191,7 +192,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF7F3611).addARGB(102, 0xFF934114).addARGB(140, 0xFFB5671E).addARGB(178, 0xFFE28F28).addARGB(216, 0xFFEFC62F).addARGB(255, 0xFFF4EA5A).build());
     buildMaterial(MaterialIds.enderslimeVine)
       .statType(ExtraMaterialStats.ID)
-      .fallbacks("vine")
+      .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790CC9).addARGB(140, 0xFF9727DD).addARGB(178, 0xFFA936ED).addARGB(216, 0xFFBF58F7).addARGB(255, 0xFFD37CFF).build());
 
     // slimeskull

@@ -1,14 +1,21 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
-import slimeknights.tconstruct.tables.client.inventory.library.IScalingInventory;
+import slimeknights.mantle.tileentity.MantleTileEntity;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Base logic for scaling chest inventories */
-public abstract class ScalingChestItemHandler extends ItemStackHandler implements IScalingInventory {
+public abstract class ScalingChestItemHandler extends ItemStackHandler implements IChestItemHandler {
   /** Default maximum size */
   protected static final int DEFAULT_MAX = 256;
+  /** Parent for updates about changes */
+  @Nullable @Setter
+  private MantleTileEntity parent;
   /** Current size for display in containers */
   @Getter
   private int visualSize = 1;
@@ -66,6 +73,7 @@ public abstract class ScalingChestItemHandler extends ItemStackHandler implement
     updateVisualSize(slot, stack);
   }
 
+  @Nonnull
   @Override
   public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
     ItemStack result = super.insertItem(slot, stack, simulate);
@@ -75,6 +83,7 @@ public abstract class ScalingChestItemHandler extends ItemStackHandler implement
     return result;
   }
 
+  @Nonnull
   @Override
   public ItemStack extractItem(int slot, int amount, boolean simulate) {
     ItemStack result = super.extractItem(slot, amount, simulate);
@@ -82,5 +91,12 @@ public abstract class ScalingChestItemHandler extends ItemStackHandler implement
       updateVisualSize(slot, getStackInSlot(slot));
     }
     return result;
+  }
+
+  @Override
+  protected void onContentsChanged(int slot) {
+    if (parent != null) {
+      parent.markDirtyFast();
+    }
   }
 }

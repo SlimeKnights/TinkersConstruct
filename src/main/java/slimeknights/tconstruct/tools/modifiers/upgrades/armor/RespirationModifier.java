@@ -34,6 +34,9 @@ public class RespirationModifier extends TotalArmorLevelModifier {
   /** Called before air is lost to add an air buffer */
   private static void livingTick(LivingUpdateEvent event) {
     LivingEntity living = event.getEntityLiving();
+    if (living.isSpectator()) {
+      return;
+    }
     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       int respiration = data.get(RESPIRATION, 0);
       int air = living.getAir();
