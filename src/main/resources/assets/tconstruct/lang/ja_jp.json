@@ -103,22 +103,18 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "スライムスチールブロック",
-  "block.tconstruct.slimesteel_block.tooltip": "ビーコンの土台に使用可能",
   "item.tconstruct.slimesteel_ingot": "スライムスチールインゴット",
   "item.tconstruct.slimesteel_nugget": "スライムスチール塊",
 
   "block.tconstruct.tinkers_bronze_block": "ティンカー青銅ブロック",
-  "block.tconstruct.tinkers_bronze_block.tooltip": "ビーコンの土台に使用可能",
   "item.tconstruct.tinkers_bronze_ingot": "ティンカー青銅インゴット",
   "item.tconstruct.tinkers_bronze_nugget": "ティンカー青銅塊",
 
   "block.tconstruct.rose_gold_block": "ローズゴールドブロック",
-  "block.tconstruct.rose_gold_block.tooltip": "ビーコンの土台に使用可能",
   "item.tconstruct.rose_gold_ingot": "ローズゴールドインゴット",
   "item.tconstruct.rose_gold_nugget": "ローズゴールド塊",
 
   "block.tconstruct.pig_iron_block": "銑鉄ブロック",
-  "block.tconstruct.pig_iron_block.tooltip": "ビーコンの土台に使用可能",
   "item.tconstruct.pig_iron_ingot": "銑鉄インゴット",
   "item.tconstruct.pig_iron_nugget": "銑鉄塊",
 
@@ -153,7 +149,6 @@
   "__comment": "Tier 5 Metals",
 
   "block.tconstruct.knightslime_block": "ナイトスライムブロック",
-  "block.tconstruct.knightslime_block.tooltip": "ビーコンの土台に使用可能",
   "item.tconstruct.knightslime_ingot": "ナイトスライムインゴット",
   "item.tconstruct.knightslime_ingot.tooltip": "べとつくが金属のようであり石でもある？何だかわからないがすごい！",
   "item.tconstruct.knightslime_nugget": "ナイトスライム塊",
@@ -1425,11 +1420,11 @@
 
   "material.tconstruct.ender_pearl": "エンダーパール",
   "material.tconstruct.ender_pearl.skull_flavor": "エンダーマンは危害から遠ざかる術を知っており、また科学者でもある。彼らは何週間もの間私のインタビューのリクエストを無視し続けた！",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "飛翔体で攻撃されると自動的にテレポートし、近接攻撃でもランダムでテレポートする。30秒間のクールタイムがある",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "飛翔体で攻撃されると自動的にテレポートし、近接攻撃でもランダムでテレポートする。15秒間のクールタイムがある",
 
   "material.tconstruct.spider": "クモ",
   "material.tconstruct.spider.skull_flavor": "クモはポーションの達人であり、その秘密を知ればポーションの効果を高めることができるかもしれない…",
-  "material.tconstruct.spider.skull_encyclopedia": "正のポーション効果の持続時間が50%伸びる",
+  "material.tconstruct.spider.skull_encyclopedia": "正のポーション効果の持続時間が25%伸びる",
 
   "material.tconstruct.venom": "毒",
   "material.tconstruct.venom.skull_flavor": "あなたが誰が正直者かを見極めるためにどれを飲むか決める知恵比べをしている場合には、最高である",
@@ -1761,10 +1756,10 @@
   "modifier.tconstruct.strength": "ダメージ増加",
   "modifier.tconstruct.strength.flavor": "あなたを通して流れてくる力を感じることができる？",
   "modifier.tconstruct.strength.description": "武器が強くなる",
-  "modifier.tconstruct.unarmed": "非武装攻撃",
+  "modifier.tconstruct.unarmed": "素手攻撃",
   "modifier.tconstruct.unarmed.flavor": "僧侶の選択",
-  "modifier.tconstruct.unarmed.description": "非武装の相手に与えるダメージが増加する",
-  "recipe.tconstruct.modifier.unarmed": "非武装攻撃の改造は最初に適用する必要があります",
+  "modifier.tconstruct.unarmed.description": "チェストプレートに改造を施すと素手攻撃のダメージが高まる",
+  "recipe.tconstruct.modifier.unarmed": "素手の改造は最初に適用する必要があります",
   "modifier.tconstruct.wings": "翼",
   "modifier.tconstruct.wings.flavor": "空はあなたのもの",
   "modifier.tconstruct.wings.description": "空中でジャンプすることで空を翔けることができるようになる",
