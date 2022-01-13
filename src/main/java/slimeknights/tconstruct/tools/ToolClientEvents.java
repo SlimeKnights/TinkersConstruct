@@ -29,6 +29,8 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
+import slimeknights.tconstruct.library.client.modifiers.BreakableDyedModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.BreakableMaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
@@ -77,6 +79,8 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerModel(TConstruct.getResource("overslime"), OverslimeModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("fluid"), FluidModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("tank"), TankModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(TConstruct.getResource("breakable_material"), BreakableMaterialModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(TConstruct.getResource("breakable_dyed"), BreakableDyedModifierModel.UNBAKED_INSTANCE);
   }
 
   @SubscribeEvent
