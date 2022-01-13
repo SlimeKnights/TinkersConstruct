@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import slimeknights.mantle.util.JsonHelper;
 
 /** Helpers for a few JSON related tasks */
@@ -65,4 +67,25 @@ public class JsonUtils {
       return location;
     }
   }
+
+  /**
+   * Parses a registry entry from JSON
+   * @param registry  Registry
+   * @param element   Element to deserialize
+   * @param key       Json key
+   * @param <T>  Object type
+   * @return  Registry value
+   * @throws JsonSyntaxException  If something failed to parse
+   */
+  public static <T extends IForgeRegistryEntry<T>> T convertToEntry(IForgeRegistry<T> registry, JsonElement element, String key) {
+    ResourceLocation name = getResourceLocation(element, key);
+    if (registry.containsKey(name)) {
+      T value = registry.getValue(name);
+      if (value != null) {
+        return value;
+      }
+    }
+    throw new JsonSyntaxException("Unknown " + registry.getRegistryName() + " " + name);
+  }
+
 }

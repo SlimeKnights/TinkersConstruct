@@ -10,5 +10,6 @@
   "parts": [
     { "name": "skull",  "index": 0 },
     { "name": "helmet", "broken": "broken" }
-  ]
+  ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden" ]
 }
