@@ -109,7 +109,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   private List<ItemStack> toolInputs = null;
 
   /** Gets or builds the list of tool inputs */
-  private List<ItemStack> getToolInputs() {
+  protected List<ItemStack> getToolInputs() {
     if (toolInputs == null) {
       toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
         if (stack.getItem() instanceof IModifiableDisplay) {
@@ -125,7 +125,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   private List<ItemStack> displayInputs = null;
 
   /** Cache of display output */
-  private List<ItemStack> toolWithModifier = null;
+  protected List<ItemStack> toolWithModifier = null;
 
   /** Display result, may be a higher level than real result */
   private ModifierEntry displayResult;
@@ -216,10 +216,23 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
    * @param tool           Tool stack instance
    * @return  Validated result with error, or pass if no error
    */
-  protected ValidatedResult validatePrerequisites(ToolStack tool) {
+  protected ValidatedResult validateRequirements(ToolStack tool) {
     // validate modifier prereqs, skip building fancy list for always
     if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
       return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : ValidatedResult.failure(requirementsError);
+    }
+    return ValidatedResult.PASS;
+  }
+
+  /**
+   * Validates that this tool meets the modifier requirements, is not too high of a level, and has enough upgrade/ability slots
+   * @param tool           Tool stack instance
+   * @return  Validated result with error, or pass if no error
+   */
+  protected ValidatedResult validatePrerequisites(ToolStack tool) {
+    ValidatedResult prereq = validateRequirements(tool);
+    if (prereq.hasError()) {
+      return prereq;
     }
     // max level of modifier
     if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getModifier()) + result.getLevel() > maxLevel) {
@@ -241,6 +254,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   /** Shared serializer logic */
   public static abstract class Serializer<T extends AbstractModifierRecipe> extends LoggingRecipeSerializer<T> {
+    /** Reads the result from the object */
+    protected ModifierEntry readResult(JsonObject json) {
+      return ModifierEntry.fromJson(JSONUtils.getJsonObject(json, "result"));
+    }
+
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
@@ -283,7 +301,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
         requirements = ModifierMatch.deserialize(reqJson);
         requirementsError = JSONUtils.getString(reqJson, "error", "");
       }
-      ModifierEntry result = ModifierEntry.fromJson(JSONUtils.getJsonObject(json, "result"));
+      ModifierEntry result = readResult(json);
       int maxLevel = JSONUtils.getInt(json, "max_level", 0);
       if (maxLevel < 0) {
         throw new JsonSyntaxException("max must be non-negative");

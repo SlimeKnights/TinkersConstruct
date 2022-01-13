@@ -36,7 +36,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * Order matters, as if a ingredient matches multiple ingredients it may produce unexpected behavior.
    * Making the most strict first will produce the best behavior
    */
-  private final List<SizedIngredient> inputs;
+  protected final List<SizedIngredient> inputs;
 
   /** @deprecated use {@link #ModifierRecipe(ResourceLocation, List, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
   @Deprecated
