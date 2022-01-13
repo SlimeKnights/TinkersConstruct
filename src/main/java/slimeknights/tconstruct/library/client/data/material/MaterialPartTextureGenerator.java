@@ -124,7 +124,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
         base = part.getTexture(spriteReader, "");
       }
       if (base == null) {
-        throw new IllegalStateException("Missing sprite at " + partPath.getNamespace() + ":item/tool/" + partPath.getPath() + ".png, cannot generate textures");
+        throw new IllegalStateException("Missing sprite at " + partPath + ".png, cannot generate textures");
       }
       // successfully found a texture, now transform and save
       NativeImage transformed = material.getTransformer().transformCopy(base);

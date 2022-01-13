@@ -1,0 +1,41 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/platinum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:ingots/platinum"
+    },
+    {
+      "tag": "forge:ingots/platinum"
+    },
+    {
+      "tag": "forge:ingots/platinum"
+    }
+  ],
+  "tools": [
+    {
+      "item": "tconstruct:plate_boots"
+    },
+    {
+      "item": "tconstruct:plate_leggings"
+    },
+    {
+      "item": "tconstruct:plate_chestplate"
+    },
+    {
+      "item": "tconstruct:plate_helmet"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:platinum"
+  }
+}

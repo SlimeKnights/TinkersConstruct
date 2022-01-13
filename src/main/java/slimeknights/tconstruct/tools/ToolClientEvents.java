@@ -39,7 +39,10 @@ import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
+import slimeknights.tconstruct.tools.client.ArmorModelWrapper;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.PlateArmorModel;
+import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
@@ -64,6 +67,8 @@ public class ToolClientEvents extends ClientEventBase {
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
     ModifierModelManager.init(manager);
+    manager.addReloadListener(PlateArmorModel.RELOAD_LISTENER);
+    manager.addReloadListener(SlimelytraArmorModel.RELOAD_LISTENER);
   }
 
   @SubscribeEvent
@@ -87,6 +92,7 @@ public class ToolClientEvents extends ClientEventBase {
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
+    ArmorModelWrapper.init();
 
     // keybinds
     ClientRegistry.registerKeyBinding(HELMET_INTERACT);

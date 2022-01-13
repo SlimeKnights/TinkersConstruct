@@ -1392,10 +1392,22 @@
   "material.tconstruct.gold.skull_flavor": "So shiny",
   "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
 
+  "material.tconstruct.netherite":  "Netherite",
+  "material.tconstruct.earthslime": "Earthslime",
+  "material.tconstruct.skyslime":   "Skyslime",
+  "material.tconstruct.blood":      "Blood",
+  "material.tconstruct.ichor":      "Ichor",
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.rabbit": "Rabbit Hide",
+
+  "material.tconstruct.aluminum": "Aluminum",
+  "material.tconstruct.nickel":   "Nickel",
+  "material.tconstruct.tin":      "Tin",
+  "material.tconstruct.zinc":     "Zinc",
+  "material.tconstruct.brass":    "Brass",
+  "material.tconstruct.uranium":  "Uranium",
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -1604,6 +1616,15 @@
   "modifier.tconstruct.revitalizing": "Revitalizing",
   "modifier.tconstruct.revitalizing.flavor": "Can feel the energy flowing",
   "modifier.tconstruct.revitalizing.description": "Strengthens the heart, granting more hearts",
+
+  "modifier.tconstruct.embellishment": "Embellishment",
+  "modifier.tconstruct.embellishment.formatted": "%s Embellishment",
+  "modifier.tconstruct.embellishment.flavor": "Redecorate!",
+  "modifier.tconstruct.embellishment.description": "Armor appearance changed to match a different material",
+  "modifier.tconstruct.dyed": "Dyed",
+  "modifier.tconstruct.dyed.formatted": "Dyed #%s",
+  "modifier.tconstruct.dyed.flavor": "Redecorate!",
+  "modifier.tconstruct.dyed.description": "Armor appearance changed to match a different material",
 
   "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "Protection",

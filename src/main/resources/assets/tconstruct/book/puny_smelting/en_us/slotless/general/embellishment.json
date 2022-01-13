@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Ever seen a metal so nice you wish it were armor? Now any metal is armor."
+    }
+  ],
+  "effects": [
+    "Changes the appearance of armor",
+    "Use ingots to embellish plate",
+    "Use congealed slime to embellish slime suit",
+    "Multi-use",
+    "Slotless"
+  ]
+}

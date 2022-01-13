@@ -61,14 +61,27 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
 
+  // plate
+  public static final MaterialId gold = id("gold");
+  public static final MaterialId netherite = id("netherite");
+  // plate - compat
+  public static final MaterialId aluminum = id("aluminum");
+  public static final MaterialId nickel = id("nickel");
+  public static final MaterialId tin = id("tin");
+  public static final MaterialId zinc = id("zinc");
+  public static final MaterialId uranium = id("uranium");
+  public static final MaterialId brass = id("brass");
   // slimeskull
   public static final MaterialId gunpowder = id("gunpowder");
   public static final MaterialId enderPearl = id("ender_pearl");
   public static final MaterialId spider = id("spider");
   public static final MaterialId venom = id("venom");
   public static final MaterialId rottenFlesh = id("rotten_flesh");
-  public static final MaterialId gold = id("gold");
   // slimesuit
+  public static final MaterialId earthslime = id("earthslime");
+  public static final MaterialId skyslime = id("skyslime");
+  public static final MaterialId blood = id("blood");
+  public static final MaterialId ichor = id("ichor");
   public static final MaterialId enderslime = id("enderslime");
   public static final MaterialId phantom = id("phantom");
   public static final MaterialId chorus = id("chorus");

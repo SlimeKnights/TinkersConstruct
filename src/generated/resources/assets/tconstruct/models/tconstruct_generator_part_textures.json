@@ -26,6 +26,95 @@
       "statType": "tconstruct:repair_kit"
     },
     {
+      "path": "tconstruct:armor/plate/helmet_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/helmet_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/chestplate_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/chestplate_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/leggings_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/leggings_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/boot_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:armor/plate/boot_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:models/armor/plate/layer_1",
+      "statType": "tconstruct:plate",
+      "baseFolder": true
+    },
+    {
+      "path": "tconstruct:models/armor/plate/layer_2",
+      "statType": "tconstruct:plate",
+      "baseFolder": true
+    },
+    {
+      "path": "tconstruct:armor/slime/skull_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/skull_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/slimelytra_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/slimelytra_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/shell_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/shell_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/boot_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:armor/slime/boot_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:models/armor/slime/layer_1",
+      "statType": "tconstruct:slimesuit",
+      "baseFolder": true
+    },
+    {
+      "path": "tconstruct:models/armor/slime/layer_2",
+      "statType": "tconstruct:slimesuit",
+      "baseFolder": true
+    },
+    {
+      "path": "tconstruct:models/armor/slime/wings",
+      "statType": "tconstruct:slimesuit",
+      "baseFolder": true
+    },
+    {
       "path": "tconstruct:pickaxe/head",
       "statType": "tconstruct:head"
     },

@@ -3,16 +3,12 @@ package slimeknights.tconstruct.tools.client;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.GenericHeadModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -22,26 +18,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Model to render a slimeskull helmet with both the helmet and skull */
-public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> {
+public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T> {
   /** Model instance */
-  public static final SlimeskullArmorModel<LivingEntity> INSTANCE = new SlimeskullArmorModel<>();
-  /** Map of all skull models */
-  private static final Map<MaterialId,Pair<ResourceLocation,GenericHeadModel>> HEAD_MODELS = new HashMap<>();
+  private static final SlimeskullArmorModel<LivingEntity> INSTANCE = new SlimeskullArmorModel<>();
 
-  /** Registers a head model and texture, most of these are registered via world as it already had the needed models setup */
-  public static void registerHeadModel(MaterialId materialId, GenericHeadModel headModel, ResourceLocation texture) {
-    if (HEAD_MODELS.containsKey(materialId)) {
-      throw new IllegalArgumentException("Duplicate head model " + materialId);
-    }
-    HEAD_MODELS.put(materialId, Pair.of(texture, headModel));
+  /**
+   * Gets the model for a given entity
+   * @param stack      Armor stack object
+   * @param baseModel  Base model
+   * @param <A>  Model instance
+   * @return  Model for the entity
+   */
+  @SuppressWarnings("unchecked")
+  public static <A extends BipedModel<?>> A getModel(ItemStack stack, A baseModel) {
+    INSTANCE.setToolAndBase(stack, baseModel);
+    return (A) INSTANCE;
   }
 
-  /** Buffer from the render living event, stored as we lose access to it later */
-  @Nullable
-  static IRenderTypeBuffer buffer;
-  /** Original helmet model to render */
-  @Nullable
-  private BipedModel<?> base;
   /** Head to render under the helmet */
   @Nullable
   private ResourceLocation headTexture;
@@ -49,16 +42,10 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
   @Nullable
   private GenericHeadModel headModel;
 
-  private SlimeskullArmorModel() {
-    super(1.0f);
-    // register listeners to set and clear the buffer
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, false, RenderLivingEvent.Pre.class, event -> buffer = event.getBuffers());
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, false, RenderLivingEvent.Post.class, event -> buffer = null);
-  }
-
   @Override
   public void render(MatrixStack matrixStackIn, IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
     if (base != null) {
+      copyToBase();
       matrixStackIn.push();
       matrixStackIn.translate(0.0D, this.isChild ? -0.015D : -0.02D, 0.0D);
       matrixStackIn.scale(1.01f, 1.0f, 1.01f);
@@ -102,15 +89,17 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends BipedModel<T> 
     headModel = null;
   }
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public void setVisible(boolean visible) {
-    if (base != null) {
-      base.setVisible(false);
-      base.bipedHead.showModel = true;
-      base.bipedHeadwear.showModel = true;
-      // attributes are copied to skull through another model's setModelAttributes, this is the best hook to copy them to the model
-      this.setModelAttributes((BipedModel<T>)base);
+
+  /* Head models */
+
+  /** Map of all skull models */
+  private static final Map<MaterialId,Pair<ResourceLocation,GenericHeadModel>> HEAD_MODELS = new HashMap<>();
+
+  /** Registers a head model and texture, most of these are registered via world as it already had the needed models setup */
+  public static void registerHeadModel(MaterialId materialId, GenericHeadModel headModel, ResourceLocation texture) {
+    if (HEAD_MODELS.containsKey(materialId)) {
+      throw new IllegalArgumentException("Duplicate head model " + materialId);
     }
+    HEAD_MODELS.put(materialId, Pair.of(texture, headModel));
   }
 }

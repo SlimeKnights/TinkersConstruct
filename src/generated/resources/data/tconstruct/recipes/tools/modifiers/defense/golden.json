@@ -2,19 +2,34 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:blank_cast"
+      "ingredient": [
+        {
+          "item": "tconstruct:blank_cast"
+        },
+        {
+          "tag": "forge:ingots/gold"
+        }
+      ]
     },
     {
-      "item": "tconstruct:blank_cast"
+      "ingredient": [
+        {
+          "item": "tconstruct:blank_cast"
+        },
+        {
+          "tag": "forge:ingots/gold"
+        }
+      ]
     },
     {
-      "item": "tconstruct:blank_cast"
-    },
-    {
-      "item": "tconstruct:blank_cast"
-    },
-    {
-      "item": "tconstruct:blank_cast"
+      "ingredient": [
+        {
+          "item": "tconstruct:blank_cast"
+        },
+        {
+          "tag": "forge:ingots/gold"
+        }
+      ]
     }
   ],
   "tools": {
