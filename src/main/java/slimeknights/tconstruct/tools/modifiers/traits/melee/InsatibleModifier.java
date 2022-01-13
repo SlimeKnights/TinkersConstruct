@@ -28,7 +28,7 @@ public class InsatibleModifier extends Modifier {
   @Override
   public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     // gives +2 damage per level at max
-    return damage + (getBonus(context.getAttacker(), level) / 4f * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
+    return damage + (getBonus(context.getAttacker(), level) * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
   }
 
   @Override
