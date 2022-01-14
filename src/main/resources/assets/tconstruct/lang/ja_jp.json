@@ -1901,7 +1901,7 @@
   "modifier.tconstruct.bucketing.description": "道具で液体を掬うことができ、スニークして使うと設置することができる",
   "modifier.tconstruct.spilling": "氾濫",
   "modifier.tconstruct.spilling.flavor": "バシャバシャ！",
-  "modifier.tconstruct.spilling.description": "武器に含まれた液体が攻撃した相手や防具にこぼれて、その液体に基づく効果が発生する",
+  "modifier.tconstruct.spilling.description": "武器や防具に含まれた液体が攻撃した相手や攻撃してきた相手にこぼれて、その液体に基づく効果が発生する",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "クリエイティブスロット",
