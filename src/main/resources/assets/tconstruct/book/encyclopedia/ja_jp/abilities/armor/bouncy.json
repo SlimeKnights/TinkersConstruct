@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "着地時にバウンドするようになり、落下ダメージを防ぐとともに、落下速度の90%で跳ね上がります。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大1レベル",
+    "アビリティスロットが1つ必要"
+  ]
+}

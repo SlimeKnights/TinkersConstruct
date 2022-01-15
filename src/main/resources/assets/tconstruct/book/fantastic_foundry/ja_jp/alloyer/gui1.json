@@ -1,0 +1,14 @@
+{
+  "title": "合金炉のGUI",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "基本的な合金炉のGUIです。それ以上でもそれ以下でもありません。",
+      "paragraph": true
+    }
+	]
+}

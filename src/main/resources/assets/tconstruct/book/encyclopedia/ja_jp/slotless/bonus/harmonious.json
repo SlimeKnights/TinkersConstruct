@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "アップグレードスロットが+1されます。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1回のみ",
+    "スロット不要"
+  ]
+}

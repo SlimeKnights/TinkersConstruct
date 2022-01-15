@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "ネザライトの代替品で、アップグレードスロットを使うことなく、ドロップしたアイテムが消滅しないようになります。能力向上効果はありません。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1回のみ",
+    "スロット不要"
+  ]
+}

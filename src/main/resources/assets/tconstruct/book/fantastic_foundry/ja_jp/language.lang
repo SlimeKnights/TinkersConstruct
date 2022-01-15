@@ -1,0 +1,33 @@
+// Sections - Fantastic Foundry
+intro=はじめに
+
+alloyer=合金炉
+
+foundry=鋳造炉
+foundry.features=特徴
+foundry.byproducts=副産物
+foundry.controller=コントローラー
+foundry.structure=構造
+foundry.structurereq=構造要件
+foundry.scorched_tanks=焦熱石のタンク
+foundry.scorched_blocks=焦熱ブロック
+foundry.scorched_ladder=焦熱石のはしご
+foundry.scorched_glass=焦熱ガラス
+foundry.scorched_drain=焦熱石のドレン
+foundry.scorched_duct=焦熱石のダクト
+foundry.scorched_chute=焦熱石のシュート
+foundry.fgui1=鋳造炉のGUI
+foundry.fgui2=鋳造炉のGUIの説明
+
+blazing_blood=燃え盛る血液
+blazing_blood.carry=運搬
+blazing_blood.foundry=鋳造炉
+blazing_blood.head=頭の溶融
+blazing_blood.melting=溶融
+blazing_blood.piglin_bartering=ピグリン交易
+
+armor=プレートアーマー
+armor.subtext=この防具は、ティンカー台やティンカー金床ではなく、作業台で作ります。強固なプレートアーマーは高い防御力を持っていますが、改造の自由度は低いです。守ってもらえるなら、余計な機能は必要ないでしょう？
+
+tier_four_materials=Tier 4 の素材
+tier_four_materials.subtext=以下は作成に燃え盛る血液が必要な素材です。

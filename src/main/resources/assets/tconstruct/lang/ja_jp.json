@@ -82,14 +82,12 @@
 
   "block.tconstruct.glow": "グロウ",
   "block.tconstruct.silky_jewel_block": "シルキージュエルブロック",
-  "block.tconstruct.silky_jewel_block.tooltip": "ビーコンの土台に使用可能",
 
 
   "__comment": "Ore Metals",
 
   "block.tconstruct.copper_ore": "銅鉱石",
   "block.tconstruct.copper_block": "銅ブロック",
-  "block.tconstruct.copper_block.tooltip": "ビーコンの土台に使用可能",
   "item.tconstruct.copper_ingot": "銅インゴット",
   "item.tconstruct.copper_nugget": "銅塊",
 
@@ -1383,7 +1381,7 @@
 
   "material.tconstruct.blazing_bone": "ブレイズボーン",
   "material.tconstruct.blazing_bone.flavor": "骨とブレイズ - ネザー要塞のすべての力の結晶",
-  "material.tconstruct.blazing_bone.encyclopedia": "炎上中は1秒ごとに+1%、溶岩に浸かると15秒間最大で+15%のダメージ増加を得る。耐火状態ではボーナスが減少する。",
+  "material.tconstruct.blazing_bone.encyclopedia": "炎上中は1秒ごとに+1%、溶岩に浸かると15秒間最大で+15%の攻撃力補正を得る。耐火状態では上昇値が減少する。",
   "material.tconstruct.blazing_bone.skull_flavor": "これは技術的にはファイアスピットであり、ファイアブレスではないのだが、どうやら私は自分が発明したこの能力の名前を決めることができない",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "インベントリ内のファイヤーチャージを使って火球を飛ばせる。発動後に5秒間のクールタイムがあり、水中では発動しない",
 
@@ -1438,10 +1436,22 @@
   "material.tconstruct.gold.skull_flavor": "何という輝き",
   "material.tconstruct.gold.skull_encyclopedia": "金鉱石を採掘すると追加の金塊がドロップされることがあり、また金の防具をドロップする確率が4%増加する。金塊や防具のドロップ確率は、金装備をしている部位の個数によって更に増加する。",
 
+  "material.tconstruct.netherite":  "ネザライト",
+  "material.tconstruct.earthslime": "アーススライム",
+  "material.tconstruct.skyslime":   "スカイスライム",
+  "material.tconstruct.blood":      "血",
+  "material.tconstruct.ichor":      "イコル",
   "material.tconstruct.enderslime": "エンダースライム",
   "material.tconstruct.phantom": "ファントムの皮膜",
   "material.tconstruct.chorus": "コーラス",
   "material.tconstruct.rabbit": "ウサギの革",
+
+  "material.tconstruct.aluminum": "アルミニウム",
+  "material.tconstruct.nickel":   "ニッケル",
+  "material.tconstruct.tin":      "錫",
+  "material.tconstruct.zinc":     "亜鉛",
+  "material.tconstruct.brass":    "黄銅",
+  "material.tconstruct.uranium":  "ウラン",
 
   "__comment": "Format definition to make tool names natural in Japanese",
   "__comment": "日本語で道具名を自然な表記にするためのフォーマット定義",
@@ -1451,10 +1461,21 @@
   "material.tconstruct.venom.format": "毒の%s",
   "material.tconstruct.rotten_flesh.format": "腐った肉の%s",
   "material.tconstruct.gold.format": "金の%s",
+  "material.tconstruct.netherite.format":  "ネザライトの%s",
+  "material.tconstruct.earthslime.format": "アーススライムの%s",
+  "material.tconstruct.skyslime.format":   "スカイスライムの%s",
+  "material.tconstruct.blood.format":      "血の%s",
+  "material.tconstruct.ichor.format":      "イコルの%s",
   "material.tconstruct.enderslime.format": "エンダースライムの%s",
   "material.tconstruct.phantom.format": "ファントムの皮膜の%s",
   "material.tconstruct.chorus.format": "コーラスの%s",
   "material.tconstruct.rabbit.format": "ウサギの革の%s",
+  "material.tconstruct.aluminum.format": "アルミニウムの%s",
+  "material.tconstruct.nickel.format":   "ニッケルの%s",
+  "material.tconstruct.tin.format":      "錫の%s",
+  "material.tconstruct.zinc.format":     "亜鉛の%s",
+  "material.tconstruct.brass.format":    "黄銅の%s",
+  "material.tconstruct.uranium.format":  "ウランの%s",
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -1683,6 +1704,15 @@
   "modifier.tconstruct.revitalizing.flavor": "エネルギーが流れてくるのを感じる",
   "modifier.tconstruct.revitalizing.description": "心が強化され、追加のハートを得る",
 
+  "modifier.tconstruct.embellishment": "装飾",
+  "modifier.tconstruct.embellishment.formatted": "%sの装飾",
+  "modifier.tconstruct.embellishment.flavor": "模様替え！",
+  "modifier.tconstruct.embellishment.description": "防具の外観は別の素材に合わせて変更された",
+  "modifier.tconstruct.dyed": "染色",
+  "modifier.tconstruct.dyed.formatted": "#%sで染色",
+  "modifier.tconstruct.dyed.flavor": "模様替え！",
+  "modifier.tconstruct.dyed.description": "防具の外観は別の素材に合わせて変更された",
+
   "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "ダメージ軽減",
   "modifier.tconstruct.protection.flavor": "なんでも屋！",
@@ -1757,9 +1787,9 @@
   "modifier.tconstruct.strength.flavor": "あなたを通して流れてくる力を感じることができる？",
   "modifier.tconstruct.strength.description": "武器が強くなる",
   "modifier.tconstruct.unarmed": "素手攻撃",
-  "modifier.tconstruct.unarmed.flavor": "僧侶の選択",
-  "modifier.tconstruct.unarmed.description": "チェストプレートに改造を施すと素手攻撃のダメージが高まる",
-  "recipe.tconstruct.modifier.unarmed": "素手の改造は最初に適用する必要があります",
+  "modifier.tconstruct.unarmed.flavor": "モンクという選択",
+  "modifier.tconstruct.unarmed.description": "チェストプレートの改造で素手攻撃のダメージが高まる",
+  "recipe.tconstruct.modifier.unarmed": "素手の改造を最初に適用する必要があります",
   "modifier.tconstruct.wings": "翼",
   "modifier.tconstruct.wings.flavor": "空はあなたのもの",
   "modifier.tconstruct.wings.description": "空中でジャンプすることで空を翔けることができるようになる",
@@ -2456,8 +2486,8 @@
   "jei.tconstruct.alloy.title": "合金化",
 
   "jei.tconstruct.modifiers.title": "改造",
-  "jei.tconstruct.modifiers.slot": "この改造を適用するには1つの%sスロットが必要です",
-  "jei.tconstruct.modifiers.slots": "この改造を適用するには%sつの%sスロットが必要です",
+  "jei.tconstruct.modifiers.slot": "この改造を適用するには%sスロットが1つ必要です",
+  "jei.tconstruct.modifiers.slots": "この改造を適用するには%2$sスロットが%1$sつ必要です",
   "jei.tconstruct.modifiers.free": "改造スロットは不要です",
   "jei.tconstruct.modifiers.incremental": "このレシピは材料を部分的に設定でき、必要数に満たない入力の場合は部分的な効果を得られます",
   "jei.tconstruct.modifiers.max": "最大: ",

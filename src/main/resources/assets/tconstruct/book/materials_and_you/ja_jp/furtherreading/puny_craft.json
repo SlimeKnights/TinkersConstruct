@@ -1,0 +1,8 @@
+{
+  "title": "初等精錬のレシピ",
+  "recipe": "tconstruct:common/puny_smelting",
+  "grid_size": "small",
+  "description": [
+    { "text": "初心者のための溶融と鋳造の案内書。Thruul M'Gonによる、乾式精錬炉についてのシリーズ第1巻。" }
+  ]
+}

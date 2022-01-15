@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "ヘルメットにスロットが追加され、ヘルメット装備時にそれがUIに表示されるようになります。"
+    },
+    {
+      "text": "ヘルメットを手に持って右クリックすると、ヘルメットのインベントリを開けます。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "レベルごとにアップグレードスロットが1つ必要"
+  ]
+}

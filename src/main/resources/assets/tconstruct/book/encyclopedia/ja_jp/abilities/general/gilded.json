@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "アビリティスロット1つをアップグレードスロット2つに交換します。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大レベルなし",
+    "レベルごとにアビリティスロットが1つ必要"
+  ]
+}

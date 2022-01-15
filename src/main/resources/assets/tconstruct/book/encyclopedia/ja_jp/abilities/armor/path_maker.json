@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:path_maker",
+  "text": [
+    {
+      "text": "足を踏み入れると草を平らにし、道が残ります。「広範」で効果範囲が広がります。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大1レベル",
+    "アビリティスロットが1つ必要"
+  ]
+}
