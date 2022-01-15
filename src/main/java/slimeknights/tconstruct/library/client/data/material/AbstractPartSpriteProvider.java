@@ -45,7 +45,7 @@ public abstract class AbstractPartSpriteProvider {
    * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
    */
   protected void addSprite(ResourceLocation sprite, MaterialStatsId requiredStats) {
-    sprites.add(new PartSpriteInfo(sprite, requiredStats));
+    sprites.add(new PartSpriteInfo(sprite, requiredStats, null));
   }
 
   /**
@@ -55,6 +55,24 @@ public abstract class AbstractPartSpriteProvider {
    */
   protected void addSprite(String name, MaterialStatsId requiredStats) {
     addSprite(new ResourceLocation(modID, name), requiredStats);
+  }
+
+  /**
+   * Adds a given texture to the list to generate, local to textures instead of tool
+   * @param sprite  Sprite name
+   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
+   */
+  protected void addTexture(ResourceLocation sprite, MaterialStatsId requiredStats) {
+    sprites.add(new PartSpriteInfo(sprite, requiredStats, true));
+  }
+
+  /**
+   * Adds a given sprite to the list to generated, local to textures instead of tool
+   * @param name           Name relative to the mod
+   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
+   */
+  protected void addTexture(String name, MaterialStatsId requiredStats) {
+    addTexture(new ResourceLocation(modID, name), requiredStats);
   }
 
   /**
@@ -122,13 +140,33 @@ public abstract class AbstractPartSpriteProvider {
   @RequiredArgsConstructor
   public static class PartSpriteInfo {
     /** Path to the base sprite */
-    @Getter
     private final ResourceLocation path;
     /** Stat type of this part */
     @Getter
     private final MaterialStatsId statType;
+    /** If true, the texture comes from textures instead of textures/item/tool */
+    private final Boolean baseFolder;
     /** Cache of fetched images for each sprite name */
     private transient final Map<String,NativeImage> sprites = new HashMap<>();
+
+    /** Path including the item tool folder */
+    private transient ResourceLocation computedPath;
+
+    public PartSpriteInfo(ResourceLocation path, MaterialStatsId statType) {
+      this(path, statType, null);
+    }
+
+    /** Gets the path to the sprite */
+    public ResourceLocation getPath() {
+      if (computedPath == null) {
+        if (baseFolder == Boolean.TRUE) {
+          computedPath = path;
+        } else {
+          computedPath = new ResourceLocation(path.getNamespace(), "item/tool/" + path.getPath());
+        }
+      }
+      return computedPath;
+    }
 
     /** Gets the texture for the given fallback name, use empty string for the default */
     @Nullable
@@ -137,6 +175,7 @@ public abstract class AbstractPartSpriteProvider {
         return sprites.get(name);
       }
       // determine the path to try for the sprite
+      ResourceLocation path = getPath();
       ResourceLocation fallbackPath = path;
       if (!name.isEmpty()) {
         fallbackPath = new ResourceLocation(path.getNamespace(), path.getPath() + "_" + name);

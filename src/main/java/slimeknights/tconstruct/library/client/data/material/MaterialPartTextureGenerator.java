@@ -32,7 +32,7 @@ import java.util.function.Predicate;
  */
 public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   /** Path to textures outputted by this generator */
-  public static final String FOLDER = "textures/item/tool";
+  public static final String FOLDER = "textures";
   private final DataGenSpriteReader spriteReader;
   private final ExistingFileHelper existingFileHelper;
   /** Sprite provider */
@@ -124,7 +124,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
         base = part.getTexture(spriteReader, "");
       }
       if (base == null) {
-        throw new IllegalStateException("Missing sprite at " + partPath.getNamespace() + ":item/tool/" + partPath.getPath() + ".png, cannot generate textures");
+        throw new IllegalStateException("Missing sprite at " + partPath + ".png, cannot generate textures");
       }
       // successfully found a texture, now transform and save
       NativeImage transformed = material.getTransformer().transformCopy(base);

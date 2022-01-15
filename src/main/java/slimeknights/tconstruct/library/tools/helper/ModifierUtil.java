@@ -302,4 +302,26 @@ public final class ModifierUtil {
     }
     return 0;
   }
+
+  /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
+  public static int getPersistentInt(ItemStack stack, ResourceLocation flag, int defealtValue) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
+      CompoundNBT persistent = nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA);
+      String flagString = flag.toString();
+      if (persistent.contains(flagString, NBT.TAG_INT)) {
+        return persistent.getInt(flagString);
+      }
+    }
+    return defealtValue;
+  }
+
+  /** Shortcut to get a persistent string value when the tool stack is not needed otherwise */
+  public static String getPersistentString(ItemStack stack, ResourceLocation flag) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA).getString(flag.toString());
+    }
+    return "";
+  }
 }

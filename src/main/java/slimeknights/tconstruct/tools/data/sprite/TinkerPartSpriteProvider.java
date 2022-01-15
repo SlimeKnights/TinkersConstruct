@@ -10,6 +10,8 @@ import slimeknights.tconstruct.tools.stats.RepairKitStats;
  * Do not use both this and {@link TinkerMaterialSpriteProvider} in a single generator for an addon, if you need to use both make two instances of {@link slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator}
  */
 public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
+  public static final MaterialStatsId PLATE = new MaterialStatsId(TConstruct.MOD_ID, "plate");
+  public static final MaterialStatsId SLIMESUIT = new MaterialStatsId(TConstruct.MOD_ID, "slimesuit");
   /** @deprecated use {@link RepairKitStats#ID} */
   @Deprecated
   public static final MaterialStatsId REPAIR_KIT = RepairKitStats.ID;
@@ -34,6 +36,31 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // misc
     addBinding("tool_binding");
     addPart("repair_kit", REPAIR_KIT);
+
+    // plate textures
+    addSprite("armor/plate/helmet_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/helmet_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/chestplate_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/chestplate_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/leggings_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/leggings_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/boot_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/boot_modifiers/tconstruct_embellishment_broken", PLATE);
+    addTexture("models/armor/plate/layer_1", PLATE);
+    addTexture("models/armor/plate/layer_2", PLATE);
+
+    // slimesuit textures
+    addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/skull_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addSprite("armor/slime/slimelytra_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/slimelytra_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addSprite("armor/slime/shell_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/shell_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addSprite("armor/slime/boot_modifiers/tconstruct_embellishment", SLIMESUIT);
+    addSprite("armor/slime/boot_modifiers/tconstruct_embellishment_broken", SLIMESUIT);
+    addTexture("models/armor/slime/layer_1", SLIMESUIT);
+    addTexture("models/armor/slime/layer_2", SLIMESUIT);
+    addTexture("models/armor/slime/wings", SLIMESUIT);
 
     // tools
     // pickaxe

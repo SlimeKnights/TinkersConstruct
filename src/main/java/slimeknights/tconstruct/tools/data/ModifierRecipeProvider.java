@@ -43,6 +43,7 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -53,6 +54,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
@@ -74,8 +76,10 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
+import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -99,6 +103,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     addItemRecipes(consumer);
     addModifierRecipes(consumer);
+    addTextureRecipes(consumer);
     addHeadRecipes(consumer);
     addSpillingRecipes(consumer);
   }
@@ -552,13 +557,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.knockbackResistance, defenseSalvage))
                          .build(consumer, prefix(TinkerModifiers.knockbackResistance, defenseFolder));
+    Ingredient goldIngot = CompoundIngredient.from(Ingredient.fromItems(TinkerSmeltery.blankCast), Ingredient.fromTag(Tags.Items.INGOTS_GOLD));
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden.get())
                          .setTools(TinkerTags.Items.ARMOR)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
-                         .addInputSalvage(TinkerSmeltery.blankCast.get(), 0.4f)
+                         .addInput(goldIngot)
+                         .addInput(goldIngot)
+                         .addInput(goldIngot)
+                         .addSalvage(TinkerSmeltery.blankCast.get(), 1, 5)
                          .setSlots(SlotType.DEFENSE, 1)
                          .setMaxLevel(1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.golden, defenseSalvage))
@@ -1252,6 +1257,53 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
   }
 
+  private void addTextureRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "tools/modifiers/slotless/";
+
+    // travelers gear //
+    consumer.accept(new ArmorDyeingRecipe.Finished(modResource(folder + "travelers_dyeing"), Ingredient.fromStacks(TinkerTools.travelersGear.values().stream().map(ItemStack::new))));
+
+    // plate //
+    Ingredient plate = Ingredient.fromStacks(TinkerTools.plateArmor.values().stream().map(ItemStack::new));
+    // tier 2
+    plateTexture(consumer, plate, MaterialIds.iron, false, folder);
+    plateTexture(consumer, plate, MaterialIds.copper, false, folder);
+    // tier 3
+    plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
+    plateTexture(consumer, plate, MaterialIds.tinkersBronze, "ingots/silicon_bronze", false, folder);
+    plateTexture(consumer, plate, MaterialIds.roseGold,      false, folder);
+    plateTexture(consumer, plate, MaterialIds.pigIron,       false, folder);
+    // tier 4
+    plateTexture(consumer, plate, MaterialIds.manyullyn, false, folder);
+    plateTexture(consumer, plate, MaterialIds.hepatizon, false, folder);
+    plateTexture(consumer, plate, MaterialIds.netherite, false, folder);
+    // tier 2 compat
+    plateTexture(consumer, plate, MaterialIds.osmium,   true, folder);
+    plateTexture(consumer, plate, MaterialIds.tungsten, true, folder);
+    plateTexture(consumer, plate, MaterialIds.platinum, true, folder);
+    plateTexture(consumer, plate, MaterialIds.silver,   true, folder);
+    plateTexture(consumer, plate, MaterialIds.lead,     true, folder);
+    plateTexture(consumer, plate, MaterialIds.aluminum, true, folder);
+    plateTexture(consumer, plate, MaterialIds.nickel,   true, folder);
+    plateTexture(consumer, plate, MaterialIds.tin,      true, folder);
+    plateTexture(consumer, plate, MaterialIds.zinc,     true, folder);
+    plateTexture(consumer, plate, MaterialIds.uranium,  true, folder);
+    // tier 3 compat
+    plateTexture(consumer, plate, MaterialIds.steel,      true, folder);
+    plateTexture(consumer, plate, MaterialIds.bronze,     true, folder);
+    plateTexture(consumer, plate, MaterialIds.constantan, true, folder);
+    plateTexture(consumer, plate, MaterialIds.invar,      true, folder);
+    plateTexture(consumer, plate, MaterialIds.electrum,   true, folder);
+    plateTexture(consumer, plate, MaterialIds.brass,      true, folder);
+
+    // slimesuit //
+    Ingredient slimesuit = Ingredient.fromStacks(TinkerTools.slimesuit.values().stream().map(ItemStack::new));
+    slimeTexture(consumer, slimesuit, MaterialIds.earthslime, SlimeType.EARTH, folder);
+    slimeTexture(consumer, slimesuit, MaterialIds.skyslime,   SlimeType.SKY, folder);
+    slimeTexture(consumer, slimesuit, MaterialIds.blood,      SlimeType.BLOOD, folder);
+    slimeTexture(consumer, slimesuit, MaterialIds.ichor,      SlimeType.ICHOR, folder);
+  }
+
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/severing/";
     // first, beheading
@@ -1452,6 +1504,32 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new PotionFluidEffect(1f, createBottle.apply("LINGERING")))
                          .build(withCondition(consumer, modLoaded(create)), modResource(folder + "create_potion_fluid"));
 
+  }
+
+  /** Adds recipes for a plate armor texture */
+  private void plateTexture(Consumer<IFinishedRecipe> consumer, Ingredient tool, MaterialId material, boolean optional, String folder) {
+    plateTexture(consumer, tool, material, "ingots/" + material.getPath(), optional, folder);
+  }
+
+  /** Adds recipes for a plate armor texture with a custom tag */
+  private void plateTexture(Consumer<IFinishedRecipe> consumer, Ingredient tool, MaterialId material, String tag, boolean optional, String folder) {
+    Ingredient ingot = Ingredient.fromTag(ItemTags.createOptional(new ResourceLocation("forge", tag)));
+    if (optional) {
+      consumer = withCondition(consumer, tagCondition(tag));
+    }
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), material.toString())
+                                  .setTools(tool)
+                                  .addInput(ingot).addInput(ingot).addInput(ingot)
+                                  .build(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + material.getPath()));
+  }
+
+  /** Adds recipes for a slime armor texture */
+  private void slimeTexture(Consumer<IFinishedRecipe> consumer, Ingredient tool, MaterialId material, SlimeType slime, String folder) {
+    IItemProvider congealed = TinkerWorld.congealedSlime.get(slime);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), material.toString())
+                                  .setTools(tool)
+                                  .addInput(congealed).addInput(congealed).addInput(congealed)
+                                  .build(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + slime.getString()));
   }
 
   private void burningSpilling(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time) {

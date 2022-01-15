@@ -6,6 +6,14 @@
   },
   {
     "type": "modifier",
+    "data": "slotless/general/dyed.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/embellishment.json"
+  },
+  {
+    "type": "modifier",
     "data": "slotless/general/farsighted.json"
   },
   {

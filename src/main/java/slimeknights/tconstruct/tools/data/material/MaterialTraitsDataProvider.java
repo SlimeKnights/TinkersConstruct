@@ -91,10 +91,23 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.gold,         SkullStats.ID, TinkerModifiers.chrysophilite.get(), TinkerModifiers.piglinDisguise.get());
     addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard.get(), TinkerModifiers.piglinBruteDisguise.get());
     addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.get(), TinkerModifiers.zombifiedPiglinDisguise.get());
+    // plate
+    noTraits(MaterialIds.netherite);
     // slimesuit
+    noTraits(MaterialIds.earthslime);
+    noTraits(MaterialIds.skyslime);
+    noTraits(MaterialIds.blood);
+    noTraits(MaterialIds.ichor);
     noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.phantom);
     noTraits(MaterialIds.chorus);
     noTraits(MaterialIds.rabbit);
+    // compat plate
+    noTraits(MaterialIds.aluminum);
+    noTraits(MaterialIds.nickel);
+    noTraits(MaterialIds.tin);
+    noTraits(MaterialIds.zinc);
+    noTraits(MaterialIds.brass);
+    noTraits(MaterialIds.uranium);
   }
 }

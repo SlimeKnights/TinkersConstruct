@@ -42,7 +42,9 @@
       }
     },
     "supportedStats": [
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:plate",
+      "tconstruct:slimesuit"
     ],
     "ignoreMaterialStats": false
   }

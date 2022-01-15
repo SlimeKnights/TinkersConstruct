@@ -193,7 +193,8 @@ public class ClientGeneratePartTexturesCommand {
                 JsonObject part = JSONUtils.getJsonObject(element, name);
                 ResourceLocation path = JsonHelper.getResourceLocation(part, "path");
                 MaterialStatsId statId = new MaterialStatsId(JsonHelper.getResourceLocation(part, "statType"));
-                return new PartSpriteInfo(path, statId);
+                boolean baseFolder = JSONUtils.getBoolean(part, "baseFolder", false);
+                return new PartSpriteInfo(path, statId, baseFolder);
               });
               builder.addAll(parts);
 

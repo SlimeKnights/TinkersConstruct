@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.IncrementalModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
@@ -111,6 +112,8 @@ import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteBonusFunction;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteLootCondition;
 import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
+import slimeknights.tconstruct.tools.modifiers.slotless.DyedModifier;
+import slimeknights.tconstruct.tools.modifiers.slotless.EmbellishmentModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.FarsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
@@ -204,6 +207,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.ScaledTypeDamageMo
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
+import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.MooshroomDemushroomingRecipe;
@@ -306,6 +310,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<VolatileFlagModifier> golden = MODIFIERS.register("golden", () -> new VolatileFlagModifier(0xFFD83E, ModifiableArmorItem.PIGLIN_NEUTRAL));
   public static final RegistryObject<RicochetModifier> ricochet = MODIFIERS.register("ricochet", RicochetModifier::new);
   public static final RegistryObject<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
+  public static final RegistryObject<EmbellishmentModifier> embellishment = MODIFIERS.register("embellishment", EmbellishmentModifier::new);
+  public static final RegistryObject<DyedModifier> dyed = MODIFIERS.register("dyed", DyedModifier::new);
   // counterattack
   public static final RegistryObject<ThornsModifier> thorns = MODIFIERS.register("thorns", ThornsModifier::new);
   public static final RegistryObject<SpringyModifier> springy = MODIFIERS.register("springy", SpringyModifier::new);
@@ -498,10 +504,12 @@ public final class TinkerModifiers extends TinkerModule {
    */
   public static final RegistryObject<ModifierRecipe.Serializer> modifierSerializer = RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
   public static final RegistryObject<IncrementalModifierRecipe.Serializer> incrementalModifierSerializer = RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
+  public static final RegistryObject<SwappableModifierRecipe.Serializer> swappableModifierSerializer = RECIPE_SERIALIZERS.register("swappable_modifier", SwappableModifierRecipe.Serializer::new);
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", ModifierRemovalRecipe.Serializer::new);
   public static final RegistryObject<ModifierSalvage.Serializer> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", ModifierSalvage.Serializer::new);
   public static final RegistryObject<IncrementalModifierSalvage.Serializer> incrementalModifierSalvageSerializer = RECIPE_SERIALIZERS.register("incremental_modifier_salvage", IncrementalModifierSalvage.Serializer::new);
+  public static final RegistryObject<ArmorDyeingRecipe.Serializer> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", ArmorDyeingRecipe.Serializer::new);
   public static final RegistryObject<SpecialRecipeSerializer<CreativeSlotRecipe>> creativeSlotSerializer = RECIPE_SERIALIZERS.register("creative_slot_modifier", () -> new SpecialRecipeSerializer<>(CreativeSlotRecipe::new));
   // modifiers
   public static final RegistryObject<SpillingRecipe.Serializer> spillingSerializer = RECIPE_SERIALIZERS.register("spilling", SpillingRecipe.Serializer::new);

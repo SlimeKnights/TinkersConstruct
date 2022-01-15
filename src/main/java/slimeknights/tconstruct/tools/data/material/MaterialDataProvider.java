@@ -86,6 +86,14 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, 0xD9C25F);
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
 
+    // plate
+    addMaterial(MaterialIds.netherite, 6, 9, false, 0x4C4143);
+    addCompatMetalMaterial(MaterialIds.aluminum, 6, 9, 0xCDD5D8);
+    addCompatMetalMaterial(MaterialIds.nickel,   6, 9, 0xEBF1DE);
+    addCompatMetalMaterial(MaterialIds.tin,      6, 9, 0xA1C6C2);
+    addCompatMetalMaterial(MaterialIds.zinc,     6, 9, 0xA8AA93);
+    addCompatMetalMaterial(MaterialIds.brass,    6, 9, 0xE6D08D);
+    addCompatMetalMaterial(MaterialIds.uranium,  6, 9, 0xA3B1A8);
     // slimeskull - marked tier 6 to push to tne end of repair kits
     addMaterial(MaterialIds.gold,        6, 0, false, 0xFDF55F);
     addMaterial(MaterialIds.gunpowder,   6, 1, true,  0x95D78E);
@@ -93,8 +101,13 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.spider,      6, 4, true,  0x9D1E2D);
     addMaterial(MaterialIds.venom,       6, 5, true,  0xEDEDED);
     addMaterial(MaterialIds.enderPearl,  6, 6, true,  0x349988);
-    // slimesuit - hidden as we don't need to see material variants
+    // slimesuit - textures
+    addMaterial(MaterialIds.earthslime, 6, 9, true, 0x01cd4e);
+    addMaterial(MaterialIds.skyslime,   6, 9, true, 0x01cbcd);
+    addMaterial(MaterialIds.blood,      6, 9, true, 0xb50101);
+    addMaterial(MaterialIds.ichor,      6, 9, true, 0xff970d);
     addMaterial(MaterialIds.enderslime, 6, 9, true, 0xD37CFF);
+    // slimesuit - repair
     addMaterial(MaterialIds.phantom,    6, 9, true, 0xC3B9A1);
     addMaterial(MaterialIds.chorus,     6, 9, true, 0x8F648F);
     addMaterial(MaterialIds.rabbit,     6, 9, true, 0xC79E67);

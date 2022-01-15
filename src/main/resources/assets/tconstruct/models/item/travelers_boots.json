@@ -5,5 +5,6 @@
     "tool":   "tconstruct:item/tool/armor/travelers/boots",
     "broken": "tconstruct:item/tool/armor/travelers/boots_broken"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/boot_modifiers/" ]
+  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/boot_modifiers/" ],
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:golden" ]
 }
