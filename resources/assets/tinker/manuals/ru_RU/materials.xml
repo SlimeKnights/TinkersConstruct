@@ -499,9 +499,9 @@ Shift+ПКМ: Поставить предмет
 <title>Дерево</title>
 <icon>woodaxe</icon>
 <text>Кажется оно растёт везде.</text>
-<material>
 <toolmaterial>Wood</toolmaterial>
- <main>woodplanks</main>
+<material>
+<main>woodplanks</main>
 </material>
 </page>
 
@@ -509,8 +509,8 @@ Shift+ПКМ: Поставить предмет
 <title>Камень</title>
 <icon>stonepick</icon>
 <text>Один из наиболее распространённых материалов в мире.</text>
-<material>
 <toolmaterial>Stone</toolmaterial>
+<material>
  <main>stoneblock</main>
 </material>
 </page>
@@ -520,8 +520,8 @@ Shift+ПКМ: Поставить предмет
 <icon>ironpick</icon>
 <text>Основа для инструментов, оно может быть улучшено и обработано.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Iron</toolmaterial>
+<material>
  <main>ironingot</main>
 </material>
 </page>
@@ -530,8 +530,8 @@ Shift+ПКМ: Поставить предмет
 <title>Кремень</title>
 <icon>flintshovel</icon>
 <text>Прочнее камня. Материал для пещерных людей.</text>
-<material>
 <toolmaterial>Flint</toolmaterial>
+<material>
  <main>flint</main>
 </material>
 </page>
@@ -540,8 +540,8 @@ Shift+ПКМ: Поставить предмет
 <title>Кактус</title>
 <icon>cactussword</icon>
 <text>Вид дерева, который можно найти в пустыни.</text>
-<material>
 <toolmaterial>Cactus</toolmaterial>
+<material>
  <main>cactus</main>
 </material>
 </page>
@@ -550,8 +550,8 @@ Shift+ПКМ: Поставить предмет
 <title>Кость</title>
 <icon>bonerapier</icon>
 <text>Материал с большим количеством применений, мёртвый или живой.</text>
-<material>
 <toolmaterial>Bone</toolmaterial>
+<material>
  <main>bone</main>
 </material>
 </page>
@@ -560,8 +560,8 @@ Shift+ПКМ: Поставить предмет
 <title>Обсидиан</title>
 <icon>bonefrypan</icon>
 <text>Прочный как гвозди, но хрупкий, если придать ему форму.</text>
-<material>
 <toolmaterial>Obsidian</toolmaterial>
+<material>
  <main>obsidian</main>
 </material>
 </page>
@@ -571,8 +571,8 @@ Shift+ПКМ: Поставить предмет
 <icon>alumitepick</icon>
 <text>Редкий сплав. Достаточно прочный.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Alumite</toolmaterial>
+<material>
  <main>alumiteingot</main>
 </material>
 </page>
@@ -581,8 +581,8 @@ Shift+ПКМ: Поставить предмет
 <title>Камень Нижнего мира</title>
 <icon>netherrackmattock</icon>
 <text>Из чего он сделан?!</text>
-<material>
 <toolmaterial>Netherrack</toolmaterial>
+<material>
  <main>netherrack</main>
 </material>
 </page>
@@ -624,8 +624,8 @@ Shift+ПКМ: Поставить предмет
 <title>Бумага</title>
 <icon>paperpick</icon>
 <text>Она очень слабая, но она может быть сильно модифицирована.</text>
-<material>
 <toolmaterial>Paper</toolmaterial>
+<material>
  <main>paperstack</main>
 </material>
 </page>
@@ -643,8 +643,8 @@ Shift+ПКМ: Поставить предмет
 <icon>cobaltlongsword</icon>
 <text>Один из материалов Нижнего мира. Светло-синий.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Cobalt</toolmaterial>
+<material>
  <main>cobaltingot</main>
 </material>
 </page>
@@ -654,8 +654,8 @@ Shift+ПКМ: Поставить предмет
 <icon>arditelongsword</icon>
 <text>Один из материалов Нижнего мира. Добывает быстрее, когда изнашивается.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Ardite</toolmaterial>
+<material>
  <main>arditeingot</main>
 </material>
 </page>
@@ -665,8 +665,8 @@ Shift+ПКМ: Поставить предмет
 <icon>manyullynlongsword</icon>
 <text>Сплав Нижнего мира. Крепче алмаза.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Manyullyn</toolmaterial>
+<material>
  <main>manyullyningot</main>
 </material>
 </page>
@@ -676,8 +676,8 @@ Shift+ПКМ: Поставить предмет
 <icon>copperaxe</icon>
 <text>Распространённый металл, который можно найти под землёй.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Copper</toolmaterial>
+<material>
  <main>copperingot</main>
 </material>
 </page>
@@ -687,8 +687,8 @@ Shift+ПКМ: Поставить предмет
 <icon>bronzeaxe</icon>
 <text>Распространённый сплав. Немного лучше чем железо.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Bronze</toolmaterial>
+<material>
  <main>bronzeingot</main>
 </material>
 </page>
@@ -698,8 +698,8 @@ Shift+ПКМ: Поставить предмет
 <icon>steelsword</icon>
 <text>Сплав железа. Метод получения неизвестен.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Steel</toolmaterial>
+<material>
  <main>steelingot</main>
 </material>
 </page>
@@ -710,8 +710,8 @@ Shift+ПКМ: Поставить предмет
 <toolmaterial>PigIron</toolmaterial>
 <text>Сплав железа. Кажется сделано из крови, железа и изумрудов.
 - Требуется плавильня</text>
-<material>
 <toolmaterial>Pigiron</toolmaterial>
+<material>
  <main>pigironingot</main>
 </material>
 </page>
@@ -1025,7 +1025,7 @@ Shift+ПКМ: Поставить предмет
 
 <page type="sectionpage">
 <title>Флакс</title>
-<text>Добавление усиленного флаксового конденсатора или свинцовой энергетической ячейки даёт инструменту энергию. Инструмент продолжает функционировать, если ячейка/конденсатор не имеет заряда.
+<text>Добавление свинцового флаксового конденсатора или свинцовой энергетической ячейки даёт инструменту энергию. Инструмент продолжает функционировать, если ячейка/конденсатор не имеет заряда.
 
 Эффекты:
 - Позволяет зарядить инструмент энергией Redstone Flux
@@ -1044,7 +1044,7 @@ Shift+ПКМ: Поставить предмет
 
 <page type="sectionpage">
 <title>Флакс</title>
-<text>Добавление усиленного флаксового конденсатора или свинцовой энергетической ячейки даёт инструменту энергию. Инструмент продолжает функционировать, если ячейка/конденсатор не имеет заряда.
+<text>Добавление свинцового флаксового конденсатора или свинцовой энергетической ячейки даёт инструменту энергию. Инструмент продолжает функционировать, если ячейка/конденсатор не имеет заряда.
 
 Эффекты:
 - Позволяет зарядить инструмент энергией Redstone Flux
