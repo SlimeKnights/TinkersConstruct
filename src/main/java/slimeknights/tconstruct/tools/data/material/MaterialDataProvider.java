@@ -3,10 +3,8 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 public class MaterialDataProvider extends AbstractMaterialDataProvider {
   public MaterialDataProvider(DataGenerator gen) {
@@ -111,8 +109,5 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.phantom,    6, 9, true, 0xC3B9A1);
     addMaterial(MaterialIds.chorus,     6, 9, true, 0x8F648F);
     addMaterial(MaterialIds.rabbit,     6, 9, true, 0xC79E67);
-    // old slimeskull materials
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "potato"), redirect(MaterialIds.iron));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "fish"),   redirect(MaterialIds.copper));
   }
 }
