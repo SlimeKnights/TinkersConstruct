@@ -23,11 +23,6 @@
     "data": "casting/sandcast_craft.json"
   },
   {
-    "name": "red_sand_cast_craft",
-    "type": "mantle:crafting",
-    "data": "casting/redsandcast_craft.json"
-  },
-  {
     "name": "gold_cast",
     "type": "mantle:image_text",
     "data": "casting/goldcast.json"
@@ -36,5 +31,10 @@
     "name": "other_cast",
     "type": "mantle:image_text",
     "data": "casting/othercast.json"
+  },
+  {
+    "name": "automation",
+    "type": "mantle:image_text",
+    "data": "casting/automation.json"
   }
 ]

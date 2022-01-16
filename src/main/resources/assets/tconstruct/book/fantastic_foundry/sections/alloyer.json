@@ -18,5 +18,10 @@
     "name": "alloyergui2",
     "type": "mantle:text",
     "data": "alloyer/gui2.json"
+  },
+  {
+    "name": "casting",
+    "type": "mantle:image_text",
+    "data": "alloyer/casting.json"
   }
 ]
