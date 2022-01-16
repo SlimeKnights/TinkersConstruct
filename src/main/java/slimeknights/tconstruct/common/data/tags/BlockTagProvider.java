@@ -205,7 +205,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
 
     this.tag(BlockTags.GUARDED_BY_PIGLINS)
-        .add(TinkerTables.castChest.get(),
+        .add(TinkerTables.castChest.get(), TinkerCommons.goldBars.get(), TinkerCommons.goldPlatform.get(),
              // piglins do not appreciate you touching their corpses
              TinkerWorld.heads.get(TinkerHeadType.PIGLIN), TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE),
              TinkerWorld.wallHeads.get(TinkerHeadType.PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.PIGLIN_BRUTE));
