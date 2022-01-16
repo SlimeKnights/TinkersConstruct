@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:gold_bars"
+    }
+  },
+  "result": {
+    "item": "tconstruct:gold_platform"
+  }
+}

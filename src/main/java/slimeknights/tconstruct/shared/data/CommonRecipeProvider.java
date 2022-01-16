@@ -63,6 +63,21 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     // mud bricks
     slabStairsCrafting(consumer, TinkerCommons.mudBricks, "common/", false);
 
+    // gold
+    ShapedRecipeBuilder.shaped(TinkerCommons.goldBars, 16)
+                       .define('#', Tags.Items.INGOTS_GOLD)
+                       .pattern("###")
+                       .pattern("###")
+                       .unlockedBy("has_ingot", has(Tags.Items.INGOTS_GOLD))
+                       .save(consumer, modResource("common/gold_bars"));
+    ShapedRecipeBuilder.shaped(TinkerCommons.goldPlatform, 1)
+                       .define('#', TinkerCommons.goldBars)
+                       .pattern("##")
+                       .pattern("##")
+                       .unlockedBy("has_bars", has(TinkerCommons.goldBars))
+                       .save(consumer, modResource("common/gold_platform"));
+
+
     // book
     ShapelessRecipeBuilder.shapeless(TinkerCommons.materialsAndYou)
                           .requires(Items.BOOK)

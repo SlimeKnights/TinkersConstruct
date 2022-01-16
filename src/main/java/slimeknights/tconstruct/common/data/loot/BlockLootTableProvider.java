@@ -71,6 +71,8 @@ public class BlockLootTableProvider extends BlockLoot {
     this.registerFenceBuildingLootTables(TinkerMaterials.nahuatl);
 
     this.dropSelf(TinkerModifiers.silkyJewelBlock.get());
+    this.dropSelf(TinkerCommons.goldBars.get());
+    this.dropSelf(TinkerCommons.goldPlatform.get());
 
     // ores
     this.dropSelf(TinkerMaterials.cobalt.get());

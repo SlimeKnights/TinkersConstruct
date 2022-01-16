@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:common/gold_platform"
+    ]
+  },
+  "criteria": {
+    "has_bars": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:gold_bars"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:common/gold_platform"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bars",
+      "has_the_recipe"
+    ]
+  ]
+}

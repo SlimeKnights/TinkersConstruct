@@ -35,6 +35,9 @@ public class TinkerTags {
     /** Metals that can be used to craft the anvil */
     public static final IOptionalNamedTag<Block> ANVIL_METAL = tag("anvil_metal");
 
+    /** Things the gold platform connects to */
+    public static final IOptionalNamedTag<Block> PLATFORM_CONNECTIONS = tag("platform_connections");
+
     public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");

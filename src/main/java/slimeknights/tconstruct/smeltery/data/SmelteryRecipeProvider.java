@@ -1307,6 +1307,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerModifiers.goldReinforcement), TinkerFluids.moltenGold.get(), FluidValues.NUGGET * 3)
                         .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
                         .save(consumer, modResource(metalFolder + "gold/reinforcement"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerCommons.goldBars), TinkerFluids.moltenGold.get(), FluidValues.NUGGET * 3)
+                        .save(consumer, modResource(metalFolder + "gold/nugget_3"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerCommons.goldPlatform), TinkerFluids.moltenGold.get(), FluidValues.NUGGET * 12)
+                        .save(consumer, modResource(metalFolder + "gold/nugget_12"));
     // armor
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_HELMET), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 5)
                         .setDamagable()

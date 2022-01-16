@@ -1,0 +1,43 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "tconstruct:block/gold_bars/post_ends" }
+    },
+    {
+      "when": { "north": "false", "west": "false", "south": "false", "east": "false" },
+      "apply": { "model": "tconstruct:block/gold_bars/post" }
+    },
+    {
+      "when": { "north": "true", "west": "false", "south": "false", "east": "false" },
+      "apply": { "model": "tconstruct:block/gold_bars/cap" }
+    },
+    {
+      "when": { "north": "false", "west": "false", "south": "false", "east": "true" },
+      "apply": { "model": "tconstruct:block/gold_bars/cap", "y": 90 }
+    },
+    {
+      "when": { "north": "false", "west": "false", "south": "true", "east": "false" },
+      "apply": { "model": "tconstruct:block/gold_bars/cap_alt" }
+    },
+    {
+      "when": { "north": "false", "west": "true", "south": "false", "east": "false" },
+      "apply": { "model": "tconstruct:block/gold_bars/cap_alt", "y": 90 }
+    },
+    {
+      "when": { "north": "true" },
+      "apply": { "model": "tconstruct:block/gold_bars/side" }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": { "model": "tconstruct:block/gold_bars/side", "y": 90 }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": { "model": "tconstruct:block/gold_bars/side_alt" }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": { "model": "tconstruct:block/gold_bars/side_alt", "y": 90 }
+    }
+  ]
+}

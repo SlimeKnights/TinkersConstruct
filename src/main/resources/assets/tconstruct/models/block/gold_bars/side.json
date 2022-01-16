@@ -1,0 +1,8 @@
+{
+    "parent": "block/iron_bars_side",
+    "textures": {
+        "particle": "tconstruct:block/gold_bars",
+        "bars":     "tconstruct:block/gold_bars",
+        "edge":     "tconstruct:block/gold_bars"
+    }
+}

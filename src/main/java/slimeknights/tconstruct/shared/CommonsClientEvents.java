@@ -50,6 +50,8 @@ public class CommonsClientEvents extends ClientEventBase {
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldBars.get(), RenderType.cutout());
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldPlatform.get(), RenderType.cutout());
 
     Font unicode = unicodeFontRender();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
