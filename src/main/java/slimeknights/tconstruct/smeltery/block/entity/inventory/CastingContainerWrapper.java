@@ -23,7 +23,11 @@ public class CastingContainerWrapper implements ICastingContainer {
 
   @Override
   public ItemStack getStack() {
-    return tile.getItem(switchSlots ? CastingBlockEntity.OUTPUT : CastingBlockEntity.INPUT);
+    ItemStack stack = tile.getItem(switchSlots ? CastingBlockEntity.OUTPUT : CastingBlockEntity.INPUT);
+    if (stack.is(tile.getEmptyCastTag())) {
+      return ItemStack.EMPTY;
+    }
+    return stack;
   }
 
   @Override

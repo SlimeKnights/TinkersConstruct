@@ -27,8 +27,8 @@ public class CastingTableBlock extends AbstractCastingBlock {
       Block.box(1.0D, 15.0D, 1.0D, 15.0D, 16.0D, 15.0D)
     ), BooleanOp.ONLY_FIRST);
 
-  public CastingTableBlock(Properties builder) {
-    super(builder);
+  public CastingTableBlock(Properties builder, boolean requireCast) {
+    super(builder, requireCast);
   }
 
   @Deprecated

@@ -30,8 +30,8 @@ public class CastingBasinBlock extends AbstractCastingBlock {
       Block.box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)),
     BooleanOp.ONLY_FIRST);
 
-  public CastingBasinBlock(Properties builder) {
-    super(builder);
+  public CastingBasinBlock(Properties builder, boolean requireCast) {
+    super(builder, requireCast);
   }
 
   @Deprecated

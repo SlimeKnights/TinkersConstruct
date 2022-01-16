@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,8 +14,11 @@ import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 public abstract class AbstractCastingBlock extends TableBlock {
-  protected AbstractCastingBlock(Properties builder) {
+  @Getter
+  private final boolean requireCast;
+  protected AbstractCastingBlock(Properties builder, boolean requireCast) {
     super(builder);
+    this.requireCast = requireCast;
   }
 
   @Deprecated

@@ -5,15 +5,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -34,12 +35,14 @@ import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.AbstractCastingBlock;
 import slimeknights.tconstruct.smeltery.block.entity.inventory.CastingContainerWrapper;
 import slimeknights.tconstruct.smeltery.block.entity.inventory.MoldingContainerWrapper;
 import slimeknights.tconstruct.smeltery.block.entity.tank.CastingFluidHandler;
@@ -85,6 +88,11 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private ICastingRecipe lastCastingRecipe;
   /** Last recipe output for client side display */
   private ItemStack lastOutput = null;
+  /** If true, this block is allowed to cast without a cast */
+  private final boolean requireCast;
+  /** Items that count as empty in the casting table */
+  @Getter
+  private final Tag<Item> emptyCastTag;
 
   /* Molding recipes */
   /** Recipe type for molding recipes, may be basin or table */
@@ -93,9 +101,10 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private final MoldingContainerWrapper moldingInventory;
   /** Cache recipe to reduce time during recipe lookups. Not saved to Tag */
   private MoldingRecipe lastMoldingRecipe;
-
-  protected CastingBlockEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType) {
+  protected CastingBlockEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType, Tag<Item> emptyCastTag) {
     super(beType, pos, state, NAME, 2, 1);
+    this.requireCast = state.getBlock() instanceof AbstractCastingBlock casting && casting.isRequireCast();
+    this.emptyCastTag = emptyCastTag;
     this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
     this.castingType = castingType;
     this.moldingType = moldingType;
@@ -337,6 +346,10 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     this.castingInventory.setFluid(fluid);
     // normal casting requires an empty output
     if (!hasOutput) {
+      // scorched basins require a cast to be present
+      if (!hasInput && requireCast) {
+        return 0;
+      }
       castingInventory.useInput();
       ICastingRecipe castingRecipe = findCastingRecipe();
       if (castingRecipe != null) {
@@ -478,7 +491,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     super.load(tags);
     tank.readFromTag(tags.getCompound(TAG_TANK));
     timer = tags.getInt(TAG_TIMER);
-    if (tags.contains(TAG_RECIPE, Tag.TAG_STRING)) {
+    if (tags.contains(TAG_RECIPE, CompoundTag.TAG_STRING)) {
       ResourceLocation name = new ResourceLocation(tags.getString(TAG_RECIPE));
       // if we have a level, fetch the recipe
       if (level != null) {
@@ -492,13 +505,13 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
 
   public static class Basin extends CastingBlockEntity {
     public Basin(BlockPos pos, BlockState state) {
-      super(TinkerSmeltery.basin.get(), pos, state, RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
+      super(TinkerSmeltery.basin.get(), pos, state, RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN, TinkerTags.Items.BASIN_EMPTY_CASTS);
     }
   }
 
   public static class Table extends CastingBlockEntity {
     public Table(BlockPos pos, BlockState state) {
-      super(TinkerSmeltery.table.get(), pos, state, RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
+      super(TinkerSmeltery.table.get(), pos, state, RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE, TinkerTags.Items.TABLE_EMPTY_CASTS);
     }
   }
 

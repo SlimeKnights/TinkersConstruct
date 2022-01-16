@@ -346,6 +346,8 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.GOLD_CASTS)
         .addTag(TinkerTags.Items.SAND_CASTS)
         .addTag(TinkerTags.Items.RED_SAND_CASTS);
+    this.tag(TinkerTags.Items.TABLE_EMPTY_CASTS).add(TinkerCommons.goldBars.asItem());
+    this.tag(TinkerTags.Items.BASIN_EMPTY_CASTS).add(TinkerCommons.goldPlatform.asItem());
 
     this.tag(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get(), TinkerSmeltery.searedLantern.asItem(), TinkerSmeltery.scorchedLantern.asItem());
 
