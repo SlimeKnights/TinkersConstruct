@@ -1,11 +1,16 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": {
-    "item": "tconstruct:seared_faucet"
-  },
+  "ingredient": [
+    {
+      "item": "tconstruct:seared_faucet"
+    },
+    {
+      "item": "tconstruct:seared_channel"
+    }
+  ],
   "result": {
     "fluid": "tconstruct:seared_stone",
-    "amount": 375
+    "amount": 250
   },
   "temperature": 600,
   "time": 80
