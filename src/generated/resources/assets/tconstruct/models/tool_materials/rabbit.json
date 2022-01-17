@@ -1,4 +1,7 @@
 {
+  "fallbacks": [
+    "wood"
+  ],
   "color": "B48B5B",
   "luminosity": 0,
   "generator": {

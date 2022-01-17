@@ -1,4 +1,7 @@
 {
+  "fallbacks": [
+    "rock"
+  ],
   "color": "8F648F",
   "luminosity": 0,
   "generator": {
