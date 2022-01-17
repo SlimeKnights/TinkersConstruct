@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
@@ -169,8 +170,14 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     this.inventoryWrapper.setPlayer(null);
 
     // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
-    if (this.isStackInSlot(TINKER_SLOT)) {
-      this.setItem(TINKER_SLOT, ItemStack.EMPTY);
+    ItemStack tinkerable = this.getItem(TINKER_SLOT);
+    if (!tinkerable.isEmpty()) {
+      int shrinkToolSlot = lastRecipe.shrinkToolSlotBy();
+      if (tinkerable.getCount() <= shrinkToolSlot) {
+        this.setItem(TINKER_SLOT, ItemStack.EMPTY);
+      } else {
+        this.setItem(TINKER_SLOT, ItemHandlerHelper.copyStackWithSize(tinkerable, tinkerable.getCount() - shrinkToolSlot));
+      }
     }
   }
 

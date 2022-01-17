@@ -37,8 +37,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   protected final List<SizedIngredient> inputs;
 
-  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-    super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     this.inputs = inputs;
   }
 
@@ -114,7 +114,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
-    ToolStack tool = ToolStack.from(inv.getTinkerableStack());
+    ItemStack tinkerable = inv.getTinkerableStack();
+    ToolStack tool = ToolStack.from(tinkerable);
 
     // common errors
     ValidatedResult commonError = validatePrerequisites(tool);
@@ -139,7 +140,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       return toolValidation;
     }
 
-    return ValidatedResult.success(tool.createStack());
+    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
   /**
@@ -180,21 +181,21 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<ModifierRecipe> {
     @Override
-    public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      return new ModifierRecipe(id, ingredients, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+      return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override
-    public ModifierRecipe read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       int size = buffer.readVarInt();
       ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
-      return new ModifierRecipe(id, builder.build(), toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+      return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override

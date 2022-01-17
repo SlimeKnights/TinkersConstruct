@@ -15,6 +15,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -31,6 +32,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   // shared
   protected final ModifierEntry result;
   protected Ingredient tools = Ingredient.EMPTY;
+  protected int maxToolSize = ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
   protected SlotType slotType;
   protected int slots;
   protected int maxLevel = 0;
@@ -54,7 +56,18 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @return  Builder instance
    */
   public T setTools(Ingredient tools) {
+    return setTools(tools, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
+  }
+
+  /**
+   * Sets the list of tools this modifier can be applied to
+   * @param tools    Modifier tools list
+   * @param maxSize  Max stack size this recipe applies to
+   * @return  Builder instance
+   */
+  public T setTools(Ingredient tools, int maxSize) {
     this.tools = tools;
+    this.maxToolSize = maxSize;
     return (T) this;
   }
 
@@ -172,6 +185,9 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
       ingredient = CompoundIngredient.from(ingredient, Ingredient.of(TinkerTags.Items.CHESTPLATES));
     }
     json.add("tools", ingredient.toJson());
+    if (maxToolSize != ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE) {
+      json.addProperty("max_tool_size", maxToolSize);
+    }
     if (slotType != null && slots > 0) {
       JsonObject slotJson = new JsonObject();
       slotJson.addProperty(slotType.getName(), slots);

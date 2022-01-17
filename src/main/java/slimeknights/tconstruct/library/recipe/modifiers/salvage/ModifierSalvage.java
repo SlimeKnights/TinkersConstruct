@@ -27,8 +27,8 @@ public class ModifierSalvage extends AbstractModifierSalvage {
   /** List of random items that may be returned by this */
   private final List<RandomItem> result;
 
-  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, List<RandomItem> result, @Nullable SlotCount slots) {
-    super(id, toolIngredient, modifier, minLevel, maxLevel, slots);
+  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, List<RandomItem> result, @Nullable SlotCount slots) {
+    super(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     this.result = result;
     ModifierRecipeLookup.addSalvage(this);
   }
@@ -51,22 +51,22 @@ public class ModifierSalvage extends AbstractModifierSalvage {
   /** Serializer instance */
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<ModifierSalvage> {
     @Override
-    protected ModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected ModifierSalvage fromJson(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       List<RandomItem> result = ImmutableList.of();
       if (json.has("salvage")) {
         result = JsonHelper.parseList(json, "salvage", RandomItem::fromJson);
       }
-      return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, slots);
+      return new ModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result, slots);
     }
 
     @Override
-    protected ModifierSalvage read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected ModifierSalvage fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ImmutableList.Builder<RandomItem> result = ImmutableList.builder();
       int count = buffer.readVarInt();
       for (int i = 0; i < count; i++) {
         result.add(RandomItem.read(buffer));
       }
-      return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result.build(), slots);
+      return new ModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result.build(), slots);
     }
 
     @Override

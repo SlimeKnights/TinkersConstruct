@@ -28,8 +28,8 @@ import java.util.function.Consumer;
 public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   private final ItemOutput result;
   private final boolean fullSalvage;
-  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
-    super(id, toolIngredient, modifier, minLevel, maxLevel, slots);
+  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
+    super(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     this.result = result;
     this.fullSalvage = fullSalvage;
     ModifierRecipeLookup.addSalvage(this);
@@ -70,21 +70,21 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   /** Serializer instance */
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<IncrementalModifierSalvage> {
     @Override
-    protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected IncrementalModifierSalvage fromJson(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       JsonElement salvageElement = JsonHelper.getElement(json, "salvage");
       ItemOutput result = ItemOutput.fromJson(salvageElement);
       boolean fullSalvage = false;
       if (salvageElement.isJsonObject()) {
         fullSalvage = GsonHelper.getAsBoolean(salvageElement.getAsJsonObject(), "full", false);
       }
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+      return new IncrementalModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }
 
     @Override
-    protected IncrementalModifierSalvage read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected IncrementalModifierSalvage fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ItemOutput result = ItemOutput.read(buffer);
       boolean fullSalvage = buffer.readBoolean();
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+      return new IncrementalModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }
 
     @Override

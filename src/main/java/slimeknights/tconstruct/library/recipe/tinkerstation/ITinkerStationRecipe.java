@@ -11,6 +11,9 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
  * Main interface for all recipes in the Tinker Station
  */
 public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContainer> {
+  /** Max number of tools in the tinker station slot, if the stack size is larger than this, only some of the tool is consumed */
+  int DEFAULT_TOOL_STACK_SIZE = 16;
+
   /* Recipe data */
 
   @Override
@@ -46,9 +49,14 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
     return ValidatedResult.success(result);
   }
 
+  /** Gets the number to shrink the tool slot by, perfectly valid for this to be higher than the contained number of tools */
+  default int shrinkToolSlotBy() {
+    return DEFAULT_TOOL_STACK_SIZE;
+  }
+
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #getCraftingResult(ITinkerStationContainer)}. Generally should not be modified
+   * @param result  Result from {@link #assemble(ITinkerStationContainer)}. Generally should not be modified
    * @param inv     Inventory instance to modify inputs
    * @param isServer  If true, this is on the serverside. Use to handle randomness, {@link IMutableTinkerStationContainer#giveItem(ItemStack)} should handle being called serverside only
    */

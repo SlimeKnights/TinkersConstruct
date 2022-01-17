@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
@@ -127,7 +128,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     }
 
     // check the modifier requirements
-    ItemStack resultStack = tool.createStack(); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
+    ItemStack resultStack = tool.createStack(Math.min(toolStack.getCount(), shrinkToolSlotBy())); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
     validated = ModifierRecipeLookup.checkRequirements(resultStack, tool);
     if (validated.hasError()) {
       return validated;
@@ -135,6 +136,11 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     
     // successfully removed
     return ValidatedResult.success(resultStack);
+  }
+
+  @Override
+  public int shrinkToolSlotBy() {
+    return 64;
   }
 
   @Override
@@ -147,7 +153,36 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       if (toRemove != null) {
         AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getModifier(), toRemove.getLevel());
         if (salvage != null) {
-          salvage.acceptItems(tool, inv::giveItem, TConstruct.RANDOM);
+          int salvageMax = Math.min(toolStack.getMaxStackSize(), salvage.getMaxToolSize());
+          int currentSize = result.getCount();
+          Consumer<ItemStack> consumer;
+          // if the size is smaller than 16, shrink all salvage stack sizes to prevent a salvage dupe
+          if (currentSize < salvageMax) {
+            consumer = stack -> {
+              int newSize = stack.getCount() * currentSize / salvageMax;
+              if (newSize > 0) {
+                stack.setCount(newSize);
+                inv.giveItem(stack);
+              }
+            };
+            // if larger, grow salvage
+          } else if (currentSize > salvageMax) {
+            consumer = stack -> {
+              int newSize = stack.getCount() * currentSize / salvageMax;
+              int maxStackSize = stack.getMaxStackSize();
+              while (newSize > maxStackSize) {
+                inv.giveItem(ItemHandlerHelper.copyStackWithSize(stack, maxStackSize));
+                newSize -= maxStackSize;
+              }
+              if (newSize > 0) {
+                stack.setCount(newSize);
+                inv.giveItem(stack);
+              }
+            };
+          } else {
+            consumer = inv::giveItem;
+          }
+          salvage.acceptItems(tool, consumer, TConstruct.RANDOM);
         }
       }
     }

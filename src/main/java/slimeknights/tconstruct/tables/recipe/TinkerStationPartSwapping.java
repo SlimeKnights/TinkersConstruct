@@ -88,7 +88,8 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     // copy the tool NBT to ensure the original tool is intact
-    ToolStack tool = ToolStack.from(inv.getTinkerableStack());
+    ItemStack tinkerable = inv.getTinkerableStack();
+    ToolStack tool = ToolStack.from(tinkerable);
     List<PartRequirement> parts = tool.getDefinition().getData().getParts();
 
     // prevent part swapping on large tools in small tables
@@ -192,7 +193,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
 
         // ensure no modifier problems after removing
         // first check tool requirements
-        ItemStack result = tool.createStack();
+        ItemStack result = tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy()));
         ValidatedResult toolValidation = ModifierRecipeLookup.checkRequirements(result, tool);
         if (toolValidation.hasError()) {
           return toolValidation;

@@ -47,6 +47,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   private final ResourceLocation id;
   /** Ingredient representing the required tool, typically a tag */
   protected final Ingredient toolRequirement;
+  /** Max size of the tool for this modifier. If the tool size is smaller, the stack will reduce by less */
+  protected final int maxToolSize;
   /** Modifiers that must match for this recipe */
   protected final ModifierMatch requirements;
   /** Error message to display if the requirements do not match */
@@ -61,10 +63,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Nullable
   private final SlotCount slots;
 
-  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, ModifierMatch requirements,
+  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                    String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
     this.id = id;
     this.toolRequirement = toolRequirement;
+    this.maxToolSize = maxToolSize;
     this.requirements = requirements;
     this.requirementsError = requirementsError;
     this.result = result;
@@ -82,6 +85,10 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     return ItemStack.EMPTY;
   }
 
+  @Override
+  public int shrinkToolSlotBy() {
+    return maxToolSize;
+  }
 
   /* JEI display */
   /** Cache of input items shared between result and input */
@@ -234,14 +241,14 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public abstract T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public abstract T fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                            String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public abstract T read(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public abstract T fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                   String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
 
     /** Reads the result from the object */
@@ -252,6 +259,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     @Override
     public final T fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolRequirement = Ingredient.fromJson(json.get("tools"));
+      int maxToolSize = GsonHelper.getAsInt(json, "max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
       ModifierMatch requirements = ModifierMatch.ALWAYS;
       String requirementsError = "";
       if (json.has("requirements")) {
@@ -280,24 +288,26 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
           TConstruct.LOG.warn("Using deprecated modifier recipe key ability_slots for recipe " + id);
         }
       }
-      return read(id, json, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+      return fromJson(id, json, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override
     protected final T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
+      int maxToolSize = buffer.readVarInt();
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readUtf(Short.MAX_VALUE);
       ModifierEntry result = ModifierEntry.read(buffer);
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
-      return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+      return fromNetwork(id, buffer, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     }
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #fromJson(ResourceLocation, JsonObject)} */
     @Override
     protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       recipe.toolRequirement.toNetwork(buffer);
+      buffer.writeVarInt(recipe.maxToolSize);
       recipe.requirements.write(buffer);
       buffer.writeUtf(recipe.requirementsError);
       recipe.result.write(buffer);

@@ -210,10 +210,15 @@ public class ToolStack implements IToolStackView {
   }
 
   /** Creates an item stack from this tool stack */
-  public ItemStack createStack() {
-    ItemStack stack = new ItemStack(item, 1);
+  public ItemStack createStack(int size) {
+    ItemStack stack = new ItemStack(item, size);
     stack.setTag(nbt);
     return stack;
+  }
+
+  /** Creates an item stack from this tool stack */
+  public ItemStack createStack() {
+    return createStack(1);
   }
 
   /**
