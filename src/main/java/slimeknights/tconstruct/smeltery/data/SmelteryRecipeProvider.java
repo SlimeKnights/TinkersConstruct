@@ -103,20 +103,20 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, prefix(TinkerSmeltery.copperCan, "smeltery/"));
 
     // sand casts
-    ShapelessRecipeBuilder.shapeless(TinkerSmeltery.blankCast.getSand(), 4)
+    ShapelessRecipeBuilder.shapeless(TinkerSmeltery.blankSandCast, 4)
                           .requires(Tags.Items.SAND_COLORLESS)
                           .unlockedBy("has_casting", has(TinkerSmeltery.searedTable))
                           .save(consumer, modResource("smeltery/sand_cast"));
-    ShapelessRecipeBuilder.shapeless(TinkerSmeltery.blankCast.getRedSand(), 4)
+    ShapelessRecipeBuilder.shapeless(TinkerSmeltery.blankRedSandCast, 4)
                           .requires(Tags.Items.SAND_RED)
                           .unlockedBy("has_casting", has(TinkerSmeltery.searedTable))
                           .save(consumer, modResource("smeltery/red_sand_cast"));
 
     // pick up sand casts from the table
-    MoldingRecipeBuilder.moldingTable(TinkerSmeltery.blankCast.getSand())
+    MoldingRecipeBuilder.moldingTable(TinkerSmeltery.blankSandCast)
                         .setMaterial(TinkerTags.Items.SAND_CASTS)
                         .save(consumer, modResource("smeltery/sand_cast_pickup"));
-    MoldingRecipeBuilder.moldingTable(TinkerSmeltery.blankCast.getRedSand())
+    MoldingRecipeBuilder.moldingTable(TinkerSmeltery.blankRedSandCast)
                         .setMaterial(TinkerTags.Items.RED_SAND_CASTS)
                         .save(consumer, modResource("smeltery/red_sand_cast_pickup"));
   }
@@ -955,12 +955,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(TinkerTags.Items.WITHER_BONES, true)
                             .save(consumer, modResource(folder + "blaze/bone"));
 
-    // Cast recipes
-    ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)
-                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.INGOT)
-                            .setSwitchSlots()
-                            .save(consumer, modResource(folder + "casts/blank"));
-
     String castFolder = "smeltery/casts/";
     this.castCreation(consumer, Tags.Items.INGOTS, TinkerSmeltery.ingotCast, castFolder);
     this.castCreation(consumer, Tags.Items.NUGGETS, TinkerSmeltery.nuggetCast, castFolder);
@@ -973,6 +967,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     this.castCreation(withCondition(consumer, tagCondition("wires")), getTag("forge", "wires"), TinkerSmeltery.wireCast, castFolder);
 
     // misc casting - gold
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.goldBars)
+                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.NUGGET * 3)
+                            .save(consumer, modResource(metalFolder + "gold/bars"));
     ItemCastingRecipeBuilder.tableRecipe(Items.GOLDEN_APPLE)
                             .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.INGOT * 8)
                             .setCast(Items.APPLE, true)
@@ -1102,7 +1099,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GLASS_BOTTLE), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK, 1.25f)
                         .save(consumer, modResource(folder + "glass/bottle"));
     // melt extra sand casts back
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.blankCast.getSand(), TinkerSmeltery.blankCast.getRedSand()),
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.blankSandCast, TinkerSmeltery.blankRedSandCast),
                                  TinkerFluids.moltenGlass.get(), FluidValues.GLASS_PANE, 0.75f)
                         .save(consumer, modResource(folder + "glass/sand_cast"));
 

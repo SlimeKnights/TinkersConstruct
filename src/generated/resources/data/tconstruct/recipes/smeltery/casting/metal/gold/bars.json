@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_table",
+  "fluid": {
+    "tag": "forge:molten_gold",
+    "amount": 30
+  },
+  "result": "tconstruct:gold_bars",
+  "cooling_time": 33
+}

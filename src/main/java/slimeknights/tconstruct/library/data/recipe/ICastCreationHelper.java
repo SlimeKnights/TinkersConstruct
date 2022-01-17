@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.data.recipe;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.tags.Tag.Named;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -45,11 +45,11 @@ public interface ICastCreationHelper extends IRecipeHelper {
                             .setSwitchSlots()
                             .save(consumer, modResource(folder + "gold_casts/" + name));
     MoldingRecipeBuilder.moldingTable(cast.getSand())
-                        .setMaterial(TinkerSmeltery.blankCast.getSand())
+                        .setMaterial(TinkerSmeltery.blankSandCast)
                         .setPattern(input, false)
                         .save(consumer, modResource(folder + "sand_casts/" + name));
     MoldingRecipeBuilder.moldingTable(cast.getRedSand())
-                        .setMaterial(TinkerSmeltery.blankCast.getRedSand())
+                        .setMaterial(TinkerSmeltery.blankRedSandCast)
                         .setPattern(input, false)
                         .save(consumer, modResource(folder + "red_sand_casts/" + name));
   }

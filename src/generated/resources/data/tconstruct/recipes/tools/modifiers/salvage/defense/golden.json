@@ -7,12 +7,5 @@
     "defense": 1
   },
   "modifier": "tconstruct:golden",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "tconstruct:blank_cast",
-      "min": 1,
-      "max": 5
-    }
-  ]
+  "min_level": 1
 }

@@ -572,13 +572,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.knockbackResistance, defenseSalvage))
                          .save(consumer, prefix(TinkerModifiers.knockbackResistance, defenseFolder));
-    Ingredient goldIngot = CompoundIngredient.from(Ingredient.of(TinkerSmeltery.blankCast), Ingredient.of(Tags.Items.INGOTS_GOLD));
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden.get())
                          .setTools(TinkerTags.Items.ARMOR)
-                         .addInput(goldIngot)
-                         .addInput(goldIngot)
-                         .addInput(goldIngot)
-                         .addSalvage(TinkerSmeltery.blankCast.get(), 1, 5)
+                         .addInput(Tags.Items.INGOTS_GOLD)
+                         .addInput(Tags.Items.INGOTS_GOLD)
+                         .addInput(Tags.Items.INGOTS_GOLD)
                          .setSlots(SlotType.DEFENSE, 1)
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.golden, defenseSalvage))

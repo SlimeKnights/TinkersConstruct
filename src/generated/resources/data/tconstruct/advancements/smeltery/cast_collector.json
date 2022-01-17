@@ -16,18 +16,6 @@
     "hidden": false
   },
   "criteria": {
-    "blank": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:blank_cast"
-            ]
-          }
-        ]
-      }
-    },
     "ingot": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -210,9 +198,6 @@
     }
   },
   "requirements": [
-    [
-      "blank"
-    ],
     [
       "ingot"
     ],

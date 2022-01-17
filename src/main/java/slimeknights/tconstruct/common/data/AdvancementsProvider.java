@@ -172,12 +172,11 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.requirements(new CountRequirementsStrategy(1, 1, 1, 1, 1 + TankType.values().length));
     });
     builder(TinkerSmeltery.toolHandleCast.getSand(), resource("smeltery/sand_casting"), melter, FrameType.TASK, builder ->
-      builder.addCriterion("crafted_cast", hasTag(TinkerSmeltery.blankCast.getSingleUseTag())));
+      builder.addCriterion("crafted_cast", hasTag(TinkerTags.Items.BLANK_SINGLE_USE_CASTS)));
     Advancement goldCasting = builder(TinkerSmeltery.pickaxeHeadCast, resource("smeltery/gold_casting"), melter, FrameType.TASK, builder ->
       builder.addCriterion("crafted_cast", hasTag(TinkerTags.Items.GOLD_CASTS)));
     builder(TinkerSmeltery.hammerHeadCast, resource("smeltery/cast_collector"), goldCasting, FrameType.GOAL, builder -> {
       Consumer<CastItemObject> with = cast -> builder.addCriterion(cast.getName().getPath(), hasItem(cast.get()));
-      with.accept(TinkerSmeltery.blankCast);
       with.accept(TinkerSmeltery.ingotCast);
       with.accept(TinkerSmeltery.nuggetCast);
       with.accept(TinkerSmeltery.gemCast);

@@ -164,6 +164,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> RED_SAND_CASTS = tag("casts/red_sand");
     public static final IOptionalNamedTag<Item> SINGLE_USE_CASTS = tag("casts/single_use");
     public static final IOptionalNamedTag<Item> MULTI_USE_CASTS = tag("casts/multi_use");
+    public static final IOptionalNamedTag<Item> BLANK_SINGLE_USE_CASTS = tag("casts/single_use/blank");
     /** Items that count as empty in a casting table */
     public static final IOptionalNamedTag<Item> TABLE_EMPTY_CASTS = tag("casts/empty/table");
     /** Items that count as empty in a casting basin */

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:blank_cast",
     "tconstruct:ingot_cast",
     "tconstruct:nugget_cast",
     "tconstruct:gem_cast",

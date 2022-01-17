@@ -270,7 +270,8 @@ public final class TinkerSmeltery extends TinkerModule {
 
   // casts
   // basic
-  public static final CastItemObject blankCast  = ITEMS.registerCast("blank",  SMELTERY_PROPS);
+  public static final ItemObject<Item> blankSandCast  = ITEMS.register("blank_sand_cast",  SMELTERY_PROPS);
+  public static final ItemObject<Item> blankRedSandCast  = ITEMS.register("blank_red_sand_cast",  SMELTERY_PROPS);
   public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot",  SMELTERY_PROPS);
   public static final CastItemObject nuggetCast = ITEMS.registerCast("nugget", SMELTERY_PROPS);
   public static final CastItemObject gemCast    = ITEMS.registerCast("gem",    SMELTERY_PROPS);
