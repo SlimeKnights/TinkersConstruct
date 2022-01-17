@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_trapdoor_bottom",
+  "parent": "minecraft:block/template_orientable_trapdoor_bottom",
   "textures": {
     "texture": "tconstruct:block/wood/bloodshroom/trapdoor"
   }
