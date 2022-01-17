@@ -1,0 +1,59 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:cut_copper"
+    },
+    {
+      "item": "minecraft:exposed_cut_copper"
+    },
+    {
+      "item": "minecraft:weathered_cut_copper"
+    },
+    {
+      "item": "minecraft:oxidized_cut_copper"
+    },
+    {
+      "item": "minecraft:cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:exposed_cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:weathered_cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:oxidized_cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:waxed_cut_copper"
+    },
+    {
+      "item": "minecraft:waxed_exposed_cut_copper"
+    },
+    {
+      "item": "minecraft:waxed_weathered_cut_copper"
+    },
+    {
+      "item": "minecraft:waxed_oxidized_cut_copper"
+    },
+    {
+      "item": "minecraft:waxed_cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:waxed_exposed_cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:waxed_weathered_cut_copper_stairs"
+    },
+    {
+      "item": "minecraft:waxed_oxidized_cut_copper_stairs"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 200
+  },
+  "temperature": 500,
+  "time": 74
+}

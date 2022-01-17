@@ -150,6 +150,9 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(TinkerTags.Blocks.RAW_BLOCK_COBALT).add(TinkerWorld.rawCobaltBlock.get());
     this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(TinkerTags.Blocks.RAW_BLOCK_COBALT);
 
+    // vanilla made cut copper dumb, so untag it in forge
+    this.tag(Tags.Blocks.STORAGE_BLOCKS_COPPER).remove(Blocks.CUT_COPPER);
+
     // allow the enderman to hold more blocks
     TagsProvider.TagAppender<Block> endermanHoldable = this.tag(BlockTags.ENDERMAN_HOLDABLE);
     endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get(), TinkerSmeltery.netherGrout.get());

@@ -161,8 +161,9 @@ public class TConstruct {
   @SubscribeEvent
   void missingItems(final MissingMappings<Item> event) {
     RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> {
-      if ("copper_ingot".equals(name)) {
-        return Items.COPPER_INGOT;
+      switch(name) {
+        case "copper_ingot": return Items.COPPER_INGOT;
+        case "blank_cast": return Items.GOLD_INGOT;
       }
       ItemLike block = missingBlock(name);
       return block == null ? null : block.asItem();
