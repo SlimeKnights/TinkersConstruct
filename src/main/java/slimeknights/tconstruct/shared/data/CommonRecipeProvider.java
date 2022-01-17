@@ -70,10 +70,12 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("###")
                        .unlockedBy("has_ingot", has(Tags.Items.INGOTS_GOLD))
                        .save(consumer, modResource("common/gold_bars"));
-    ShapedRecipeBuilder.shaped(TinkerCommons.goldPlatform, 1)
-                       .define('#', TinkerCommons.goldBars)
-                       .pattern("##")
-                       .pattern("##")
+    ShapedRecipeBuilder.shaped(TinkerCommons.goldPlatform, 4)
+                       .define('#', Tags.Items.INGOTS_GOLD)
+                       .define('.', Tags.Items.NUGGETS_GOLD)
+                       .pattern("#.#")
+                       .pattern(". .")
+                       .pattern("#.#")
                        .unlockedBy("has_bars", has(TinkerCommons.goldBars))
                        .save(consumer, modResource("common/gold_platform"));
 
