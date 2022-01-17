@@ -3,8 +3,10 @@ package slimeknights.tconstruct.smeltery.block.component;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -15,6 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.block.entity.component.DuctTileEntity;
@@ -24,11 +27,11 @@ import javax.annotation.Nullable;
 
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
 public class SearedDuctBlock extends InventoryBlock {
-  public static final BooleanProperty ACTIVE = SearedBlock.IN_STRUCTURE;
+  public static final BooleanProperty IN_STRUCTURE = SearedBlock.IN_STRUCTURE;
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
   public SearedDuctBlock(Properties properties) {
     super(properties);
-    this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
+    this.registerDefaultState(this.defaultBlockState().setValue(IN_STRUCTURE, false));
   }
 
   @Nullable
@@ -59,7 +62,13 @@ public class SearedDuctBlock extends InventoryBlock {
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-    builder.add(ACTIVE, FACING);
+    builder.add(IN_STRUCTURE, FACING);
+  }
+
+  @Nullable
+  @Override
+  public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+    return state.getValue(IN_STRUCTURE) ? BlockPathTypes.DAMAGE_FIRE : BlockPathTypes.OPEN;
   }
 
   @Nullable
