@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * Shared logic between drains and ducts
  */
-public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponentTileEntity {
+public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponentBlockEntity {
   /** Capability this TE watches */
   private final Capability<T> capability;
   /** Empty capability for in case the valid capability becomes invalid without invalidating */
@@ -36,7 +36,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   @Nullable
   private LazyOptional<T> capabilityHolder = null;
 
-  protected SmelteryInputOutputTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Capability<T> capability, T emptyInstance) {
+  protected SmelteryInputOutputBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Capability<T> capability, T emptyInstance) {
     super(type, pos, state);
     this.capability = capability;
     this.emptyInstance = emptyInstance;
@@ -118,7 +118,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   }
 
   /** Fluid implementation of smeltery IO */
-  public static abstract class SmelteryFluidIO extends SmelteryInputOutputTileEntity<IFluidHandler> {
+  public static abstract class SmelteryFluidIO extends SmelteryInputOutputBlockEntity<IFluidHandler> {
     protected SmelteryFluidIO(BlockEntityType<?> type, BlockPos pos, BlockState state) {
       super(type, pos, state, CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EmptyFluidHandler.INSTANCE);
     }
@@ -143,12 +143,12 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   }
 
   /** Item implementation of smeltery IO */
-  public static class ChuteTileEntity extends SmelteryInputOutputTileEntity<IItemHandler> {
-    public ChuteTileEntity(BlockPos pos, BlockState state) {
+  public static class ChuteBlockEntity extends SmelteryInputOutputBlockEntity<IItemHandler> {
+    public ChuteBlockEntity(BlockPos pos, BlockState state) {
       this(TinkerSmeltery.chute.get(), pos, state);
     }
 
-    protected ChuteTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    protected ChuteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
       super(type, pos, state, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EmptyItemHandler.INSTANCE);
     }
   }

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.block.entity.tank;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 /** Tank for channel contents */
 public class ChannelTank extends FluidTank {
@@ -17,9 +17,9 @@ public class ChannelTank extends FluidTank {
 	private int locked;
 
 	/** Tank owner */
-	private final ChannelTileEntity parent;
+	private final ChannelBlockEntity parent;
 
-	public ChannelTank(int capacity, ChannelTileEntity parent) {
+	public ChannelTank(int capacity, ChannelBlockEntity parent) {
 		super(capacity, fluid -> !fluid.getFluid().getAttributes().isGaseous(fluid));
 		this.parent = parent;
 	}

@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -27,26 +27,26 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new FoundryTileEntity(pPos, pState);
+    return new FoundryBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> type) {
-    return HeatingStructureTileEntity.getTicker(pLevel, type, TinkerSmeltery.foundry.get());
+    return HeatingStructureBlockEntity.getTicker(pLevel, type, TinkerSmeltery.foundry.get());
   }
 
   @Override
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     // check structure
-    BlockEntityHelper.get(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::updateStructure);
+    BlockEntityHelper.get(FoundryBlockEntity.class, worldIn, pos).ifPresent(FoundryBlockEntity::updateStructure);
   }
 
   @Override
   @Deprecated
   public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (!newState.is(this)) {
-      BlockEntityHelper.get(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::invalidateStructure);
+      BlockEntityHelper.get(FoundryBlockEntity.class, worldIn, pos).ifPresent(FoundryBlockEntity::invalidateStructure);
     }
     super.onRemove(state, worldIn, pos, newState, isMoving);
   }

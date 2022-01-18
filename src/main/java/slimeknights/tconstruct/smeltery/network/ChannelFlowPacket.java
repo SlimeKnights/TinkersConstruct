@@ -7,7 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 /** Packet for when the flowing state changes on a channel side */
 public class ChannelFlowPacket implements IThreadsafePacket {
@@ -40,7 +40,7 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 
 	private static class HandleClient {
 		private static void handle(ChannelFlowPacket packet) {
-			BlockEntityHelper.get(ChannelTileEntity.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
+			BlockEntityHelper.get(ChannelBlockEntity.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
 		}
 	}
 }

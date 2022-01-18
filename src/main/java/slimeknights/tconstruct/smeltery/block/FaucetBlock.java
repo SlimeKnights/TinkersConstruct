@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
@@ -87,13 +87,13 @@ public class FaucetBlock extends Block implements EntityBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new FaucetTileEntity(pPos, pState);
+    return new FaucetBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> type) {
-    return BlockEntityHelper.castTicker(type, TinkerSmeltery.faucet.get(), FaucetTileEntity.SERVER_TICKER);
+    return BlockEntityHelper.castTicker(type, TinkerSmeltery.faucet.get(), FaucetBlockEntity.SERVER_TICKER);
   }
 
   @SuppressWarnings("deprecation")
@@ -103,7 +103,7 @@ public class FaucetBlock extends Block implements EntityBlock {
     if (player.isShiftKeyDown()) {
       return InteractionResult.PASS;
     }
-    getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
+    getFaucet(worldIn, pos).ifPresent(FaucetBlockEntity::activate);
     return InteractionResult.SUCCESS;
   }
 
@@ -124,7 +124,7 @@ public class FaucetBlock extends Block implements EntityBlock {
   @Deprecated
   @Override
   public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
-    getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
+    getFaucet(worldIn, pos).ifPresent(FaucetBlockEntity::activate);
   }
 
   /**
@@ -133,8 +133,8 @@ public class FaucetBlock extends Block implements EntityBlock {
    * @param pos    Faucet position
    * @return  Optional of faucet, empty if missing or wrong type
    */
-  private Optional<FaucetTileEntity> getFaucet(Level world, BlockPos pos) {
-    return BlockEntityHelper.get(FaucetTileEntity.class, world, pos);
+  private Optional<FaucetBlockEntity> getFaucet(Level world, BlockPos pos) {
+    return BlockEntityHelper.get(FaucetBlockEntity.class, world, pos);
   }
 
   /* Display */

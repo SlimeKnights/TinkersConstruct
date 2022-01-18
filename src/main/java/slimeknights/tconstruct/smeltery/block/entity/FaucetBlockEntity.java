@@ -26,13 +26,13 @@ import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
-public class FaucetTileEntity extends MantleBlockEntity {
+public class FaucetBlockEntity extends MantleBlockEntity {
   /** Transfer rate of the faucet */
   public static final int MB_PER_TICK = 12;
   /** amount of MB to extract from the input at a time */
   public static final int PACKET_SIZE = 144;
 
-  public static final BlockEntityTicker<FaucetTileEntity> SERVER_TICKER = (level, pos, world, self) -> self.tick();
+  public static final BlockEntityTicker<FaucetBlockEntity> SERVER_TICKER = (level, pos, world, self) -> self.tick();
 
   private static final String TAG_DRAINED = "drained";
   private static final String TAG_RENDER_FLUID = "render_fluid";
@@ -61,12 +61,12 @@ public class FaucetTileEntity extends MantleBlockEntity {
   /** Listener for when the output handler is invalidated */
   private final NonNullConsumer<LazyOptional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
 
-  public FaucetTileEntity(BlockPos pos, BlockState state) {
+  public FaucetBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.faucet.get(), pos, state);
   }
 
   @SuppressWarnings("WeakerAccess")
-  protected FaucetTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  protected FaucetBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
   }
 

@@ -11,15 +11,15 @@ import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.MelterModel.Baked;
-import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 
 import java.util.List;
 
-public class MelterTileEntityRenderer implements BlockEntityRenderer<MelterTileEntity> {
-  public MelterTileEntityRenderer(Context context) {}
+public class MelterBlockEntityRenderer implements BlockEntityRenderer<MelterBlockEntity> {
+  public MelterBlockEntityRenderer(Context context) {}
 
   @Override
-  public void render(MelterTileEntity melter, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
+  public void render(MelterBlockEntity melter, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = melter.getBlockState();
     Baked model = ModelHelper.getBakedModel(state, Baked.class);
     if (model != null) {

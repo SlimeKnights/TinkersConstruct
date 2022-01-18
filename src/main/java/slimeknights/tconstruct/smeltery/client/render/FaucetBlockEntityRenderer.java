@@ -22,15 +22,15 @@ import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
-import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
 import java.util.function.Function;
 
-public class FaucetTileEntityRenderer implements BlockEntityRenderer<FaucetTileEntity> {
-  public FaucetTileEntityRenderer(Context context) {}
+public class FaucetBlockEntityRenderer implements BlockEntityRenderer<FaucetBlockEntity> {
+  public FaucetBlockEntityRenderer(Context context) {}
 
   @Override
-  public void render(FaucetTileEntity tileEntity, float partialTicks, PoseStack matrices, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+  public void render(FaucetBlockEntity tileEntity, float partialTicks, PoseStack matrices, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
     FluidStack renderFluid = tileEntity.getRenderFluid();
     if (!tileEntity.isPouring() || renderFluid.isEmpty()) {
       return;

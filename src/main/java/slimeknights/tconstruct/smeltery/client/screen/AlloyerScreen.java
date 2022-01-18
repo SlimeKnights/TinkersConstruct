@@ -9,7 +9,7 @@ import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.MixerAlloyTank;
 import slimeknights.tconstruct.smeltery.client.screen.module.GuiFuelModule;
@@ -31,7 +31,7 @@ public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainerMenu>
   private GuiTankModule[] inputTanks = new GuiTankModule[0];
   public AlloyerScreen(AlloyerContainerMenu container, Inventory inv, Component name) {
     super(container, inv, name);
-    AlloyerTileEntity te = container.getTile();
+    AlloyerBlockEntity te = container.getTile();
     if (te != null) {
       FuelModule fuelModule = te.getFuelModule();
       fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15, container.isHasFuelSlot());
@@ -45,7 +45,7 @@ public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainerMenu>
 
   /** Updates the tanks from the tile entity */
   private void updateTanks() {
-    AlloyerTileEntity te = menu.getTile();
+    AlloyerBlockEntity te = menu.getTile();
     if (te != null) {
       MixerAlloyTank alloyTank = te.getAlloyTank();
       int numTanks = alloyTank.getTanks();
@@ -62,7 +62,7 @@ public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainerMenu>
   protected void containerTick() {
     super.containerTick();
     // if the input count changes, update
-    AlloyerTileEntity te = menu.getTile();
+    AlloyerBlockEntity te = menu.getTile();
     if (te != null && te.getAlloyTank().getTanks() != inputTanks.length) {
       this.updateTanks();
     }

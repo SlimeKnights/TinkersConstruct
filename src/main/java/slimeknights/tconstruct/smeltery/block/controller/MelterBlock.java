@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -22,13 +22,13 @@ public class MelterBlock extends TinyMultiblockControllerBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new MelterTileEntity(pPos, pState);
+    return new MelterBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> check) {
-    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(check, TinkerSmeltery.melter.get(), MelterTileEntity.SERVER_TICKER);
+    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(check, TinkerSmeltery.melter.get(), MelterBlockEntity.SERVER_TICKER);
   }
 
 

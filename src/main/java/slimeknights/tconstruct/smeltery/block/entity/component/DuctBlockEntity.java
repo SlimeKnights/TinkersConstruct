@@ -21,11 +21,11 @@ import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.block.entity.inventory.DuctItemHandler;
 import slimeknights.tconstruct.smeltery.block.entity.inventory.DuctTankWrapper;
 import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
+import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 /**
  * Filtered drain tile entity
  */
-public class DuctTileEntity extends SmelteryFluidIO implements MenuProvider {
+public class DuctBlockEntity extends SmelteryFluidIO implements MenuProvider {
   private static final String TAG_ITEM = "item";
   private static final Component TITLE = TConstruct.makeTranslation("gui", "duct");
 
@@ -43,11 +43,11 @@ public class DuctTileEntity extends SmelteryFluidIO implements MenuProvider {
   @Getter
   private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
 
-  public DuctTileEntity(BlockPos pos, BlockState state) {
+  public DuctBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.duct.get(), pos, state);
   }
 
-  protected DuctTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  protected DuctBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
   }
 

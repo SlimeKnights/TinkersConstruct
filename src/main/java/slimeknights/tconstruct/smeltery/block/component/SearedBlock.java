@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -34,21 +34,21 @@ public class SearedBlock extends Block implements EntityBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-    return new SmelteryComponentTileEntity(pos, state);
+    return new SmelteryComponentBlockEntity(pos, state);
   }
 
   @Override
   @Deprecated
   public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (!newState.is(this)) {
-      BlockEntityHelper.get(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
+      BlockEntityHelper.get(SmelteryComponentBlockEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
     super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
+    SmelteryComponentBlockEntity.updateNeighbors(world, pos, state);
   }
 
   @Override

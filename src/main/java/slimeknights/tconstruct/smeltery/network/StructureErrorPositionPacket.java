@@ -7,7 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -47,7 +47,7 @@ public class StructureErrorPositionPacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(StructureErrorPositionPacket packet) {
-      BlockEntityHelper.get(HeatingStructureTileEntity.class, Minecraft.getInstance().level, packet.controllerPos)
+      BlockEntityHelper.get(HeatingStructureBlockEntity.class, Minecraft.getInstance().level, packet.controllerPos)
                        .ifPresent(te -> te.setErrorPos(packet.errorPos));
     }
   }

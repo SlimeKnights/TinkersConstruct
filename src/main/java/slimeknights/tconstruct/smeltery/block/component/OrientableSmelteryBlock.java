@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 public class OrientableSmelteryBlock extends SearedBlock implements EntityBlock {
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-  private final BlockEntitySupplier<? extends SmelteryComponentTileEntity> blockEntity;
-  public OrientableSmelteryBlock(Properties properties, BlockEntitySupplier<? extends SmelteryComponentTileEntity> blockEntity) {
+  private final BlockEntitySupplier<? extends SmelteryComponentBlockEntity> blockEntity;
+  public OrientableSmelteryBlock(Properties properties, BlockEntitySupplier<? extends SmelteryComponentBlockEntity> blockEntity) {
     super(properties);
     this.blockEntity = blockEntity;
   }

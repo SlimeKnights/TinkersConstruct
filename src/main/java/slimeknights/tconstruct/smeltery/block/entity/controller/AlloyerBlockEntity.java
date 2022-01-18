@@ -26,7 +26,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.MixerAlloyTank;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.SingleAlloyingModule;
@@ -39,13 +39,13 @@ import java.util.Collections;
 /**
  * Dedicated alloying block
  */
-public class AlloyerTileEntity extends NameableBlockEntity implements ITankTileEntity {
+public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBlockEntity {
   /** Max capacity for the tank */
   private static final int TANK_CAPACITY = TankType.INGOT_TANK.getCapacity();
   /** Name of the container */
   private static final Component NAME = TConstruct.makeTranslation("gui", "alloyer");
 
-  public static final BlockEntityTicker<AlloyerTileEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(level, pos, state);
+  public static final BlockEntityTicker<AlloyerBlockEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(level, pos, state);
 
   /** Tank for this mixer */
   @Getter
@@ -70,11 +70,11 @@ public class AlloyerTileEntity extends NameableBlockEntity implements ITankTileE
   /** Internal tick counter */
   private int tick;
 
-  public AlloyerTileEntity(BlockPos pos, BlockState state) {
+  public AlloyerBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.alloyer.get(), pos, state);
   }
 
-  protected AlloyerTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  protected AlloyerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state, NAME);
   }
 

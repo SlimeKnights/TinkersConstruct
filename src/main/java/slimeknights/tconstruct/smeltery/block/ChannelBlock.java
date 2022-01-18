@@ -33,7 +33,7 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
@@ -316,7 +316,7 @@ public class ChannelBlock extends Block implements EntityBlock {
 		if (newState != null) {
 			Direction finalSide = side;
 			if (!world.isClientSide) {
-				BlockEntityHelper.get(ChannelTileEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
+				BlockEntityHelper.get(ChannelBlockEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
 			}
 			world.setBlockAndUpdate(pos, newState);
 			return InteractionResult.SUCCESS;
@@ -336,7 +336,7 @@ public class ChannelBlock extends Block implements EntityBlock {
 				state = state.setValue(POWERED, isPowered).setValue(DOWN, isPowered && canConnect(worldIn, pos, Direction.DOWN));
 				worldIn.setBlock(pos, state, Block.UPDATE_CLIENTS);
 			}
-      BlockEntityHelper.get(ChannelTileEntity.class, worldIn, pos)
+      BlockEntityHelper.get(ChannelBlockEntity.class, worldIn, pos)
                       .ifPresent(te -> te.removeCachedNeighbor(Util.directionFromOffset(pos, fromPos)));
 		}
 	}
@@ -350,13 +350,13 @@ public class ChannelBlock extends Block implements EntityBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new ChannelTileEntity(pPos, pState);
+    return new ChannelBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> givenType) {
-    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(givenType, TinkerSmeltery.channel.get(), ChannelTileEntity.SERVER_TICKER);
+    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(givenType, TinkerSmeltery.channel.get(), ChannelBlockEntity.SERVER_TICKER);
   }
 
   public enum ChannelConnection implements StringRepresentable {

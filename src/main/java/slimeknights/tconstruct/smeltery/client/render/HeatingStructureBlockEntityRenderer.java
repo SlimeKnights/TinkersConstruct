@@ -25,17 +25,17 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.TinkerRenderTypes;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 
-public class HeatingStructureTileEntityRenderer implements BlockEntityRenderer<HeatingStructureTileEntity> {
+public class HeatingStructureBlockEntityRenderer implements BlockEntityRenderer<HeatingStructureBlockEntity> {
   private static final float ITEM_SCALE = 15f/16f;
 
-  public HeatingStructureTileEntityRenderer(Context context) {}
+  public HeatingStructureBlockEntityRenderer(Context context) {}
 
   @Override
-  public void render(HeatingStructureTileEntity smeltery, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+  public void render(HeatingStructureBlockEntity smeltery, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
     Level world = smeltery.getLevel();
     if (world == null) return;
     BlockState state = smeltery.getBlockState();
@@ -132,7 +132,7 @@ public class HeatingStructureTileEntityRenderer implements BlockEntityRenderer<H
   }
 
   @Override
-  public boolean shouldRenderOffScreen(HeatingStructureTileEntity tile) {
+  public boolean shouldRenderOffScreen(HeatingStructureBlockEntity tile) {
     return tile.getBlockState().getValue(ControllerBlock.IN_STRUCTURE) && tile.getStructure() != null;
   }
 }

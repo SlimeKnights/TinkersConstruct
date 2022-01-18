@@ -2,8 +2,8 @@ package slimeknights.tconstruct.smeltery.item;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,7 +53,7 @@ public class TankItemFluidHandler implements IFluidHandlerItem, ICapabilityProvi
 
   @Override
   public int getTankCapacity(int tank) {
-    return TankTileEntity.getCapacity(container.getItem());
+    return TankBlockEntity.getCapacity(container.getItem());
   }
 
   @Override

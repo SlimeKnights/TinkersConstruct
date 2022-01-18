@@ -14,19 +14,19 @@ import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.inventory.TriggeringBaseContainerMenu;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterTileEntity> {
+public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlockEntity> {
   @SuppressWarnings("MismatchedReadAndWriteOfArray")
   @Getter
   private final Slot[] inputs;
   @Getter
   private boolean hasFuelSlot = false;
-  public MelterContainerMenu(int id, @Nullable Inventory inv, @Nullable MelterTileEntity melter) {
+  public MelterContainerMenu(int id, @Nullable Inventory inv, @Nullable MelterBlockEntity melter) {
     super(TinkerSmeltery.melterContainer.get(), id, inv, melter);
 
     // create slots
@@ -62,6 +62,6 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterTileE
   }
 
   public MelterContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-    this(id, inv, getTileEntityFromBuf(buf, MelterTileEntity.class));
+    this(id, inv, getTileEntityFromBuf(buf, MelterBlockEntity.class));
   }
 }

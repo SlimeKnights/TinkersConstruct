@@ -9,7 +9,7 @@ import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.client.screen.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.screen.module.GuiMeltingModule;
@@ -29,7 +29,7 @@ public class MelterScreen extends AbstractContainerScreen<MelterContainerMenu> i
   private final GuiTankModule tank;
   public MelterScreen(MelterContainerMenu container, Inventory inv, Component name) {
     super(container, inv, name);
-    MelterTileEntity te = container.getTile();
+    MelterBlockEntity te = container.getTile();
     if (te != null) {
       FuelModule fuelModule = te.getFuelModule();
       melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, slot -> true);

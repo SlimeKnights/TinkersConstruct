@@ -6,7 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
 /** Sent to clients to activate the faucet animation clientside **/
 public class FaucetActivationPacket extends FluidUpdatePacket {
@@ -38,8 +38,8 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
     private static void handle(FaucetActivationPacket packet) {
       assert Minecraft.getInstance().level != null;
       BlockEntity te = Minecraft.getInstance().level.getBlockEntity(packet.pos);
-      if (te instanceof FaucetTileEntity) {
-        ((FaucetTileEntity) te).onActivationPacket(packet.fluid, packet.isPouring);
+      if (te instanceof FaucetBlockEntity) {
+        ((FaucetBlockEntity) te).onActivationPacket(packet.fluid, packet.isPouring);
       }
     }
   }

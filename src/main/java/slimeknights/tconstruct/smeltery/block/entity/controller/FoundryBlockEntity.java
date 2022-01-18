@@ -18,7 +18,7 @@ import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructure
 
 import javax.annotation.Nullable;
 
-public class FoundryTileEntity extends HeatingStructureTileEntity {
+public class FoundryBlockEntity extends HeatingStructureBlockEntity {
   /** Fluid capacity per internal block */
   private static final int CAPACITY_PER_BLOCK = FluidValues.INGOT * 8;
   /** GUI name */
@@ -27,7 +27,7 @@ public class FoundryTileEntity extends HeatingStructureTileEntity {
    * this is a bit higher than the smeltery as the structure uses more blocks, balances out in larger structures */
   private static final int BLOCKS_PER_FUEL = 18;
 
-  public FoundryTileEntity(BlockPos pos, BlockState state) {
+  public FoundryBlockEntity(BlockPos pos, BlockState state) {
     super(TinkerSmeltery.foundry.get(), pos, state, NAME);
   }
 

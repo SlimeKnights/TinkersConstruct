@@ -59,16 +59,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public abstract class HeatingStructureTileEntity extends NameableBlockEntity implements IMasterLogic, ISmelteryTankHandler {
+public abstract class HeatingStructureBlockEntity extends NameableBlockEntity implements IMasterLogic, ISmelteryTankHandler {
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
   private static final String TAG_ERROR_POS = "errorPos";
 
   /** Ticker instance for the serverside */
-  public static final BlockEntityTicker<HeatingStructureTileEntity> SERVER_TICKER = (level, pos, state, self) -> self.serverTick(level, pos, state);
+  public static final BlockEntityTicker<HeatingStructureBlockEntity> SERVER_TICKER = (level, pos, state, self) -> self.serverTick(level, pos, state);
   /** Ticker instance for the clientside */
-  public static final BlockEntityTicker<HeatingStructureTileEntity> CLIENT_TICKER = (level, pos, state, self) -> self.clientTick(level, pos, state);
+  public static final BlockEntityTicker<HeatingStructureBlockEntity> CLIENT_TICKER = (level, pos, state, self) -> self.clientTick(level, pos, state);
 
   /** Sub module to detect the multiblock for this structure */
   private final HeatingStructureMultiblock<?> multiblock = createMultiblock();
@@ -87,7 +87,7 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
   protected StructureData structure;
   /** Tank instance for this smeltery */
   @Getter
-  protected final SmelteryTank<HeatingStructureTileEntity> tank = new SmelteryTank<>(this);
+  protected final SmelteryTank<HeatingStructureBlockEntity> tank = new SmelteryTank<>(this);
   /** Capability to pass to drains for fluid handling */
   @Getter
   private LazyOptional<IFluidHandler> fluidCapability = LazyOptional.empty();
@@ -130,7 +130,7 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
   /** Function to drop an item */
   protected final Consumer<ItemStack> dropItem = this::dropItem;
 
-  protected HeatingStructureTileEntity(BlockEntityType<? extends HeatingStructureTileEntity> type, BlockPos pos, BlockState state, Component name) {
+  protected HeatingStructureBlockEntity(BlockEntityType<? extends HeatingStructureBlockEntity> type, BlockPos pos, BlockState state, Component name) {
     super(type, pos, state, name);
   }
 
@@ -589,7 +589,7 @@ public abstract class HeatingStructureTileEntity extends NameableBlockEntity imp
 
   /** Handles the unchecked cast for a block entity ticker */
   @Nullable
-  public static <HAVE extends HeatingStructureTileEntity, RET extends BlockEntity> BlockEntityTicker<RET> getTicker(Level level, BlockEntityType<RET> expected, BlockEntityType<HAVE> have) {
+  public static <HAVE extends HeatingStructureBlockEntity, RET extends BlockEntity> BlockEntityTicker<RET> getTicker(Level level, BlockEntityType<RET> expected, BlockEntityType<HAVE> have) {
     return BlockEntityHelper.castTicker(expected, have, level.isClientSide ? CLIENT_TICKER : SERVER_TICKER);
   }
 }

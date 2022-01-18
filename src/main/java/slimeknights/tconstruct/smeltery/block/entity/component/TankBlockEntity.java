@@ -24,13 +24,13 @@ import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TankTileEntity extends SmelteryComponentTileEntity implements ITankTileEntity {
+public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITankBlockEntity {
   /** Max capacity for the tank */
   public static final int DEFAULT_CAPACITY = FluidAttributes.BUCKET_VOLUME * 4;
 
@@ -69,18 +69,18 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Getter @Setter
   private int lastStrength = -1;
 
-  public TankTileEntity(BlockPos pos, BlockState state) {
+  public TankBlockEntity(BlockPos pos, BlockState state) {
     this(pos, state, TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
   }
 
   /** Main constructor */
-  public TankTileEntity(BlockPos pos, BlockState state, ITankBlock block) {
+  public TankBlockEntity(BlockPos pos, BlockState state, ITankBlock block) {
     this(TinkerSmeltery.tank.get(), pos, state, block);
   }
 
   /** Extendable constructor */
   @SuppressWarnings("WeakerAccess")
-  protected TankTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ITankBlock block) {
+  protected TankBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ITankBlock block) {
     super(type, pos, state);
     tank = new FluidTankAnimated(block.getCapacity(), this);
     holder = LazyOptional.of(() -> tank);
@@ -115,7 +115,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   @Override
   public void onTankContentsChanged() {
-    ITankTileEntity.super.onTankContentsChanged();
+    ITankBlockEntity.super.onTankContentsChanged();
     if (this.level != null) {
       level.getLightEngine().checkBlock(this.worldPosition);
     }
@@ -123,7 +123,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   @Override
   public void updateFluidTo(FluidStack fluid) {
-    ITankTileEntity.super.updateFluidTo(fluid);
+    ITankBlockEntity.super.updateFluidTo(fluid);
     // update light if the fluid changes
     if (this.level != null) {
       level.getLightEngine().checkBlock(this.worldPosition);

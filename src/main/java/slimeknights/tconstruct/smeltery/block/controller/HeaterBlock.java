@@ -8,7 +8,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.smeltery.block.entity.HeaterTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -24,7 +24,7 @@ public class HeaterBlock extends ControllerBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new HeaterTileEntity(pPos, pState);
+    return new HeaterBlockEntity(pPos, pState);
   }
 
   @Override

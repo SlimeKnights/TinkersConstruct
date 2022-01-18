@@ -7,17 +7,17 @@ import net.minecraft.world.inventory.DataSlot;
 import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainerMenu;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class HeatingStructureContainerMenu extends TriggeringMultiModuleContainerMenu<HeatingStructureTileEntity> {
+public class HeatingStructureContainerMenu extends TriggeringMultiModuleContainerMenu<HeatingStructureBlockEntity> {
   @Getter
-  private final SideInventoryContainer<HeatingStructureTileEntity> sideInventory;
-  public HeatingStructureContainerMenu(int id, @Nullable Inventory inv, @Nullable HeatingStructureTileEntity structure) {
+  private final SideInventoryContainer<HeatingStructureBlockEntity> sideInventory;
+  public HeatingStructureContainerMenu(int id, @Nullable Inventory inv, @Nullable HeatingStructureBlockEntity structure) {
     super(TinkerSmeltery.smelteryContainer.get(), id, inv, structure);
     if (inv != null && structure != null) {
       // can hold 7 in a column, so try to fill the first column first
@@ -36,7 +36,7 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
   }
 
   public HeatingStructureContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-    this(id, inv, getTileEntityFromBuf(buf, HeatingStructureTileEntity.class));
+    this(id, inv, getTileEntityFromBuf(buf, HeatingStructureBlockEntity.class));
   }
 
   /**

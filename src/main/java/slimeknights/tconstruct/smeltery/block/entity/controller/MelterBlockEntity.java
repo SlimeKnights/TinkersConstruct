@@ -33,7 +33,7 @@ import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
@@ -42,7 +42,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 
-public class MelterTileEntity extends NameableBlockEntity implements ITankTileEntity {
+public class MelterBlockEntity extends NameableBlockEntity implements ITankBlockEntity {
 
   /** Max capacity for the tank */
   private static final int TANK_CAPACITY = FluidValues.INGOT * 12;
@@ -51,7 +51,7 @@ public class MelterTileEntity extends NameableBlockEntity implements ITankTileEn
   /** Name of the GUI */
   private static final MutableComponent NAME = TConstruct.makeTranslation("gui", "melter");
 
-  public static final BlockEntityTicker<MelterTileEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(level, pos, state);
+  public static final BlockEntityTicker<MelterBlockEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(level, pos, state);
 
   /* Tank */
   /** Internal fluid tank output */
@@ -81,13 +81,13 @@ public class MelterTileEntity extends NameableBlockEntity implements ITankTileEn
   private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.worldPosition.below()));
 
   /** Main constructor */
-  public MelterTileEntity(BlockPos pos, BlockState state) {
+  public MelterBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.melter.get(), pos, state);
   }
 
   /** Extendable constructor */
   @SuppressWarnings("WeakerAccess")
-  protected MelterTileEntity(BlockEntityType<? extends MelterTileEntity> type, BlockPos pos, BlockState state) {
+  protected MelterBlockEntity(BlockEntityType<? extends MelterBlockEntity> type, BlockPos pos, BlockState state) {
     super(type, pos, state, NAME);
   }
 

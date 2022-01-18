@@ -7,7 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class StructureUpdatePacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(StructureUpdatePacket packet) {
-      BlockEntityHelper.get(HeatingStructureTileEntity.class, Minecraft.getInstance().level, packet.pos)
+      BlockEntityHelper.get(HeatingStructureBlockEntity.class, Minecraft.getInstance().level, packet.pos)
                        .ifPresent(te -> te.setStructureSize(packet.minPos, packet.maxPos, packet.tanks));
     }
   }

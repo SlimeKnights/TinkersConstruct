@@ -12,14 +12,14 @@ import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.CastingModel;
-import slimeknights.tconstruct.smeltery.client.util.CastingItemRenderTypeBuffer;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.tank.CastingFluidHandler;
+import slimeknights.tconstruct.smeltery.client.util.CastingItemRenderTypeBuffer;
 
 import java.util.List;
 
-public class CastingTileEntityRenderer implements BlockEntityRenderer<CastingBlockEntity> {
-  public CastingTileEntityRenderer(Context context) {}
+public class CastingBlockEntityRenderer implements BlockEntityRenderer<CastingBlockEntity> {
+  public CastingBlockEntityRenderer(Context context) {}
 
   @Override
   public void render(CastingBlockEntity casting, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {

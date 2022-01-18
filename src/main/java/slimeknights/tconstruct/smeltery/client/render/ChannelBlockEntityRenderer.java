@@ -22,13 +22,13 @@ import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
-import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
-public class ChannelTileEntityRenderer implements BlockEntityRenderer<ChannelTileEntity> {
-  public ChannelTileEntityRenderer(Context context) {}
+public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBlockEntity> {
+  public ChannelBlockEntityRenderer(Context context) {}
 
 	@Override
-	public void render(ChannelTileEntity te, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn)  {
+	public void render(ChannelBlockEntity te, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn)  {
 		FluidStack fluid = te.getFluid();
 		if (fluid.isEmpty()) {
 			return;

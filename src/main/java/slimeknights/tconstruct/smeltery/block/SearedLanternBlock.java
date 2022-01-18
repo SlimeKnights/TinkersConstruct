@@ -16,10 +16,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.LanternTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity.ITankBlock;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 
@@ -34,14 +34,14 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-    return new LanternTileEntity(pos, state, this);
+    return new LanternBlockEntity(pos, state, this);
   }
 
   @Override
   public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof TankTileEntity) {
-      FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
+    if (te instanceof TankBlockEntity) {
+      FluidStack fluid = ((TankBlockEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
     }
     return 0;
@@ -51,7 +51,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     if (nbt != null) {
-      BlockEntityHelper.get(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
+      BlockEntityHelper.get(TankBlockEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
   }
 
@@ -66,13 +66,13 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   @Deprecated
   @Override
   public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-    return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
+    return ITankBlockEntity.getComparatorInputOverride(worldIn, pos);
   }
 
   @Override
   public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
-    BlockEntityHelper.get(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
+    BlockEntityHelper.get(TankBlockEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
     return stack;
   }
 }

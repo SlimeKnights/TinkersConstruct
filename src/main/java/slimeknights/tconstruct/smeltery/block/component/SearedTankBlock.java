@@ -22,9 +22,9 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity.ITankBlock;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -46,7 +46,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   @Override
   @Nullable
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new TankTileEntity(pPos, pState);
+    return new TankBlockEntity(pPos, pState);
   }
 
   @Deprecated
@@ -61,8 +61,8 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   @Override
   public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof TankTileEntity) {
-      FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
+    if (te instanceof TankBlockEntity) {
+      FluidStack fluid = ((TankBlockEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
     }
     return super.getLightEmission(state, world, pos);
@@ -72,7 +72,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     if (nbt != null) {
-      BlockEntityHelper.get(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
+      BlockEntityHelper.get(TankBlockEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
     super.setPlacedBy(worldIn, pos, state, placer, stack);
   }
@@ -86,20 +86,20 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   @Deprecated
   @Override
   public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-    return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
+    return ITankBlockEntity.getComparatorInputOverride(worldIn, pos);
   }
 
   @Override
   public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
-    BlockEntityHelper.get(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
+    BlockEntityHelper.get(TankBlockEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
     return stack;
   }
 
   @AllArgsConstructor
   public enum TankType implements StringRepresentable {
-    FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
-    FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
+    FUEL_TANK(TankBlockEntity.DEFAULT_CAPACITY),
+    FUEL_GAUGE(TankBlockEntity.DEFAULT_CAPACITY),
     INGOT_TANK(FluidValues.INGOT * 48),
     INGOT_GAUGE(FluidValues.INGOT * 48);
 

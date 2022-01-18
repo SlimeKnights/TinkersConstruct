@@ -14,16 +14,16 @@ import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.inventory.TriggeringBaseContainerMenu;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.MixerAlloyTank;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerTileEntity> {
+public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerBlockEntity> {
   @Getter
   private boolean hasFuelSlot = false;
-  public AlloyerContainerMenu(int id, @Nullable Inventory inv, @Nullable AlloyerTileEntity alloyer) {
+  public AlloyerContainerMenu(int id, @Nullable Inventory inv, @Nullable AlloyerBlockEntity alloyer) {
     super(TinkerSmeltery.alloyerContainer.get(), id, inv, alloyer);
 
     // create slots
@@ -60,6 +60,6 @@ public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerTil
   }
 
   public AlloyerContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-    this(id, inv, getTileEntityFromBuf(buf, AlloyerTileEntity.class));
+    this(id, inv, getTileEntityFromBuf(buf, AlloyerBlockEntity.class));
   }
 }

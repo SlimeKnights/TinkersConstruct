@@ -24,18 +24,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Tile entity for the heater block below the melter */
-public class HeaterTileEntity extends NameableBlockEntity {
+public class HeaterBlockEntity extends NameableBlockEntity {
   private static final String TAG_ITEM = "item";
   private static final Component TITLE = TConstruct.makeTranslation("gui", "heater");
 
   private final HeaterItemHandler itemHandler = new HeaterItemHandler(this);
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> itemHandler);
 
-  protected HeaterTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  protected HeaterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state, TITLE);
   }
 
-  public HeaterTileEntity(BlockPos pos, BlockState state) {
+  public HeaterBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.heater.get(), pos, state);
   }
 

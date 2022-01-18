@@ -16,13 +16,13 @@ import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 import javax.annotation.Nullable;
 
 /** Mostly extended to make type validaton easier, and the servant base class is not registered */
-public class SmelteryComponentTileEntity extends ServantTileEntity {
+public class SmelteryComponentBlockEntity extends ServantTileEntity {
 
-  public SmelteryComponentTileEntity(BlockPos pos, BlockState state) {
+  public SmelteryComponentBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.smelteryComponent.get(), pos, state);
   }
 
-  protected SmelteryComponentTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  protected SmelteryComponentBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
   }
 
@@ -57,7 +57,7 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
           break;
         }
         // if the neighbor is a servant, notify its master we exist
-      } else if (tileEntity instanceof SmelteryComponentTileEntity component) {
+      } else if (tileEntity instanceof SmelteryComponentBlockEntity component) {
         if (component.hasMaster()) {
           component.notifyMasterOfChange(pos, state);
           break;

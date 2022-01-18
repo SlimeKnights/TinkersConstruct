@@ -10,14 +10,14 @@ import slimeknights.mantle.inventory.SingleItemHandler;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
-import slimeknights.tconstruct.smeltery.block.entity.component.DuctTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
 
 /**
  * Item handler for the duct
  */
-public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
+public class DuctItemHandler extends SingleItemHandler<DuctBlockEntity> {
 
-  public DuctItemHandler(DuctTileEntity parent) {
+  public DuctItemHandler(DuctBlockEntity parent) {
     super(parent, 1);
   }
 

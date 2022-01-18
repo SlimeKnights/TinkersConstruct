@@ -66,20 +66,20 @@ import slimeknights.tconstruct.smeltery.block.controller.HeaterBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
-import slimeknights.tconstruct.smeltery.block.entity.ChannelTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.FaucetTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.HeaterTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.LanternTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.DrainTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.ChuteTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.controller.MelterTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.ChuteBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryBlockEntity;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -153,7 +153,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // peripherals
   public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(TOUGH_SEARED), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(TOUGH_SEARED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(TOUGH_SEARED, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(TOUGH_SEARED, ChuteBlockEntity::new), TOOLTIP_BLOCK_ITEM);
 
   // scorched blocks
   private static final Properties SCORCHED, TOUGH_SCORCHED, SCORCHED_GLASS, SCORCHED_NON_SOLID, SCORCHED_LANTERN;
@@ -189,7 +189,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // peripherals
   public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(TOUGH_SCORCHED), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> scorchedDuct = BLOCKS.register("scorched_duct", () -> new SearedDuctBlock(TOUGH_SCORCHED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> scorchedChute = BLOCKS.register("scorched_chute", () -> new OrientableSmelteryBlock(TOUGH_SCORCHED, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedChute = BLOCKS.register("scorched_chute", () -> new OrientableSmelteryBlock(TOUGH_SCORCHED, ChuteBlockEntity::new), TOOLTIP_BLOCK_ITEM);
 
   // seared
   public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SEARED_NON_SOLID, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS, true));
@@ -228,7 +228,7 @@ public final class TinkerSmeltery extends TinkerModule {
    * Tile entities
    */
   // smeltery
-  public static final RegistryObject<BlockEntityType<SmelteryComponentTileEntity>> smelteryComponent = BLOCK_ENTITIES.register("smeltery_component", SmelteryComponentTileEntity::new, set -> {
+  public static final RegistryObject<BlockEntityType<SmelteryComponentBlockEntity>> smelteryComponent = BLOCK_ENTITIES.register("smeltery_component", SmelteryComponentBlockEntity::new, set -> {
     // seared
     set.addAll(searedStone.values());
     set.addAll(searedCobble.values());
@@ -240,23 +240,23 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(scorchedBricks.values());
     set.addAll(scorchedRoad.values());
   });
-  public static final RegistryObject<BlockEntityType<SmelteryFluidIO>> drain = BLOCK_ENTITIES.register("drain", DrainTileEntity::new, set -> set.add(searedDrain.get(), scorchedDrain.get()));
-  public static final RegistryObject<BlockEntityType<ChuteTileEntity>> chute = BLOCK_ENTITIES.register("chute", ChuteTileEntity::new, set -> set.add(searedChute.get(), scorchedChute.get()));
-  public static final RegistryObject<BlockEntityType<DuctTileEntity>> duct = BLOCK_ENTITIES.register("duct", DuctTileEntity::new, set -> set.add(searedDuct.get(), scorchedDuct.get()));
-  public static final RegistryObject<BlockEntityType<TankTileEntity>> tank = BLOCK_ENTITIES.register("tank", TankTileEntity::new, set -> {
+  public static final RegistryObject<BlockEntityType<SmelteryFluidIO>> drain = BLOCK_ENTITIES.register("drain", DrainBlockEntity::new, set -> set.add(searedDrain.get(), scorchedDrain.get()));
+  public static final RegistryObject<BlockEntityType<ChuteBlockEntity>> chute = BLOCK_ENTITIES.register("chute", ChuteBlockEntity::new, set -> set.add(searedChute.get(), scorchedChute.get()));
+  public static final RegistryObject<BlockEntityType<DuctBlockEntity>> duct = BLOCK_ENTITIES.register("duct", DuctBlockEntity::new, set -> set.add(searedDuct.get(), scorchedDuct.get()));
+  public static final RegistryObject<BlockEntityType<TankBlockEntity>> tank = BLOCK_ENTITIES.register("tank", TankBlockEntity::new, set -> {
     set.addAll(searedTank.values());
     set.addAll(scorchedTank.values());
   });
-  public static final RegistryObject<BlockEntityType<LanternTileEntity>> lantern = BLOCK_ENTITIES.register("lantern", LanternTileEntity::new, set -> set.add(searedLantern.get(), scorchedLantern.get()));
+  public static final RegistryObject<BlockEntityType<LanternBlockEntity>> lantern = BLOCK_ENTITIES.register("lantern", LanternBlockEntity::new, set -> set.add(searedLantern.get(), scorchedLantern.get()));
   // controller
-  public static final RegistryObject<BlockEntityType<MelterTileEntity>> melter = BLOCK_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
-  public static final RegistryObject<BlockEntityType<SmelteryTileEntity>> smeltery = BLOCK_ENTITIES.register("smeltery", SmelteryTileEntity::new, smelteryController);
-  public static final RegistryObject<BlockEntityType<FoundryTileEntity>> foundry = BLOCK_ENTITIES.register("foundry", FoundryTileEntity::new, foundryController);
-  public static final RegistryObject<BlockEntityType<HeaterTileEntity>> heater = BLOCK_ENTITIES.register("heater", HeaterTileEntity::new, searedHeater);
-  public static final RegistryObject<BlockEntityType<AlloyerTileEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerTileEntity::new, scorchedAlloyer);
+  public static final RegistryObject<BlockEntityType<MelterBlockEntity>> melter = BLOCK_ENTITIES.register("melter", MelterBlockEntity::new, searedMelter);
+  public static final RegistryObject<BlockEntityType<SmelteryBlockEntity>> smeltery = BLOCK_ENTITIES.register("smeltery", SmelteryBlockEntity::new, smelteryController);
+  public static final RegistryObject<BlockEntityType<FoundryBlockEntity>> foundry = BLOCK_ENTITIES.register("foundry", FoundryBlockEntity::new, foundryController);
+  public static final RegistryObject<BlockEntityType<HeaterBlockEntity>> heater = BLOCK_ENTITIES.register("heater", HeaterBlockEntity::new, searedHeater);
+  public static final RegistryObject<BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
   // fluid transfer
-  public static final RegistryObject<BlockEntityType<FaucetTileEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetTileEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
-  public static final RegistryObject<BlockEntityType<ChannelTileEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelTileEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
+  public static final RegistryObject<BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
+  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
   // casting
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));

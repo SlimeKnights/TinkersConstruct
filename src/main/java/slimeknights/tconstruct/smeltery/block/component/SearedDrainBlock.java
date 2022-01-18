@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.smeltery.block.entity.component.DrainTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
 
 /** Extenson to include interaction behavior */
 public class SearedDrainBlock extends OrientableSmelteryBlock {
   public SearedDrainBlock(Properties properties) {
-    super(properties, DrainTileEntity::new);
+    super(properties, DrainBlockEntity::new);
   }
 
   @SuppressWarnings("deprecation")

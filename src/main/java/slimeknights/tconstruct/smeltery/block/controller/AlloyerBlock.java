@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -26,20 +26,20 @@ public class AlloyerBlock extends TinyMultiblockControllerBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new AlloyerTileEntity(pPos, pState);
+    return new AlloyerBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> wanted) {
-    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(wanted, TinkerSmeltery.alloyer.get(), AlloyerTileEntity.SERVER_TICKER);
+    return pLevel.isClientSide ? null : BlockEntityHelper.castTicker(wanted, TinkerSmeltery.alloyer.get(), AlloyerBlockEntity.SERVER_TICKER);
   }
 
   @Override
   public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     Direction direction = Util.directionFromOffset(pos, fromPos);
     if (direction != Direction.DOWN) {
-      BlockEntityHelper.get(AlloyerTileEntity.class, world, pos).ifPresent(te -> te.neighborChanged(direction));
+      BlockEntityHelper.get(AlloyerBlockEntity.class, world, pos).ifPresent(te -> te.neighborChanged(direction));
     }
   }
 

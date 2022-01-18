@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.library.utils.SafeClientAccess;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.smeltery.block.entity.component.TankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -118,7 +118,7 @@ public class TankItem extends BlockTooltipItem {
    * @return  Tank stored in the stack
    */
   public static FluidTank getFluidTank(ItemStack stack) {
-    FluidTank tank = new FluidTank(TankTileEntity.getCapacity(stack.getItem()));
+    FluidTank tank = new FluidTank(TankBlockEntity.getCapacity(stack.getItem()));
     if (stack.hasTag()) {
       assert stack.getTag() != null;
       tank.readFromNBT(stack.getTag().getCompound(NBTTags.TANK));

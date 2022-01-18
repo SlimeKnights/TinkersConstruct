@@ -19,7 +19,7 @@ import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 /**
  * Common logic between the tank and the melter
  */
-public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IFluidPacketReceiver {
+public interface ITankBlockEntity extends IFluidTankUpdater, FluidUpdatePacket.IFluidPacketReceiver {
   /**
    * Gets the tank in this tile entity
    * @return  Tank
@@ -118,9 +118,9 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
   static int getComparatorInputOverride(LevelAccessor world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
-    if (!(te instanceof ITankTileEntity)) {
+    if (!(te instanceof ITankBlockEntity)) {
       return 0;
     }
-    return ((ITankTileEntity) te).comparatorStrength();
+    return ((ITankBlockEntity) te).comparatorStrength();
   }
 }

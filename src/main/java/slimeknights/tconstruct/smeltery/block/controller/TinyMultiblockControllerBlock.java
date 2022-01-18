@@ -1,20 +1,20 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 
 public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
   private static final Component NO_FUEL_TANK = TConstruct.makeTranslation("multiblock", "tiny.no_fuel_tank");
@@ -86,7 +86,7 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
   @Deprecated
   @Override
   public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-    return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
+    return ITankBlockEntity.getComparatorInputOverride(worldIn, pos);
   }
 
 }

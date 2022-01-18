@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -23,21 +23,21 @@ public class SearedStairsBlock extends StairBlock implements EntityBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new SmelteryComponentTileEntity(pPos, pState);
+    return new SmelteryComponentBlockEntity(pPos, pState);
   }
 
   @Override
   @Deprecated
   public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (!newState.is(this)) {
-      BlockEntityHelper.get(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
+      BlockEntityHelper.get(SmelteryComponentBlockEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
     super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
+    SmelteryComponentBlockEntity.updateNeighbors(world, pos, state);
   }
 
   @Override

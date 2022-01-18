@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -26,26 +26,26 @@ public class SmelteryControllerBlock extends HeatingControllerBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new SmelteryTileEntity(pPos, pState);
+    return new SmelteryBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> type) {
-    return HeatingStructureTileEntity.getTicker(pLevel, type, TinkerSmeltery.smeltery.get());
+    return HeatingStructureBlockEntity.getTicker(pLevel, type, TinkerSmeltery.smeltery.get());
   }
 
   @Override
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     // check structure
-    BlockEntityHelper.get(SmelteryTileEntity.class, worldIn, pos).ifPresent(SmelteryTileEntity::updateStructure);
+    BlockEntityHelper.get(SmelteryBlockEntity.class, worldIn, pos).ifPresent(SmelteryBlockEntity::updateStructure);
   }
 
   @Override
   @Deprecated
   public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (!newState.is(this)) {
-      BlockEntityHelper.get(SmelteryTileEntity.class, worldIn, pos).ifPresent(SmelteryTileEntity::invalidateStructure);
+      BlockEntityHelper.get(SmelteryBlockEntity.class, worldIn, pos).ifPresent(SmelteryBlockEntity::invalidateStructure);
     }
     super.onRemove(state, worldIn, pos, newState, isMoving);
   }

@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.block.entity.component.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -37,7 +37,7 @@ public class SearedDuctBlock extends InventoryBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new DuctTileEntity(pPos, pState);
+    return new DuctBlockEntity(pPos, pState);
   }
 
   /* Seared block interaction */
@@ -47,14 +47,14 @@ public class SearedDuctBlock extends InventoryBlock {
   @Deprecated
   public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (!newState.is(this)) {
-      BlockEntityHelper.get(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
+      BlockEntityHelper.get(SmelteryComponentBlockEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
     super.onRemove(state, worldIn, pos, newState, isMoving);
   }
 
   @Override
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
+    SmelteryComponentBlockEntity.updateNeighbors(world, pos, state);
   }
 
 

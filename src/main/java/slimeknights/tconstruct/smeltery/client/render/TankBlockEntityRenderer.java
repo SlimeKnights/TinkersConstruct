@@ -10,11 +10,11 @@ import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.TankModel.Baked;
-import slimeknights.tconstruct.smeltery.block.entity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 
 @Log4j2
-public class TankTileEntityRenderer<T extends BlockEntity & ITankTileEntity> implements BlockEntityRenderer<T> {
-  public TankTileEntityRenderer(Context context) {}
+public class TankBlockEntityRenderer<T extends BlockEntity & ITankBlockEntity> implements BlockEntityRenderer<T> {
+  public TankBlockEntityRenderer(Context context) {}
 
   @Override
   public void render(T tile, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn) {

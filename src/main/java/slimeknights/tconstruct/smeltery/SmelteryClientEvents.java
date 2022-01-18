@@ -21,12 +21,12 @@ import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.smeltery.client.CopperCanModel;
-import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
-import slimeknights.tconstruct.smeltery.client.render.ChannelTileEntityRenderer;
-import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
-import slimeknights.tconstruct.smeltery.client.render.HeatingStructureTileEntityRenderer;
-import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
-import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.CastingBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.ChannelBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.FaucetBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.HeatingStructureBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.MelterBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.TankBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.screen.AlloyerScreen;
 import slimeknights.tconstruct.smeltery.client.screen.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.client.screen.MelterScreen;
@@ -42,15 +42,15 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-    event.registerBlockEntityRenderer(TinkerSmeltery.tank.get(), TankTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.channel.get(), ChannelTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.alloyer.get(), TankTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.smeltery.get(), HeatingStructureTileEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.foundry.get(), HeatingStructureTileEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.tank.get(), TankBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.faucet.get(), FaucetBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.channel.get(), ChannelBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.table.get(), CastingBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.basin.get(), CastingBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.melter.get(), MelterBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.alloyer.get(), TankBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.smeltery.get(), HeatingStructureBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.foundry.get(), HeatingStructureBlockEntityRenderer::new);
   }
 
   @SubscribeEvent

@@ -21,7 +21,7 @@ import slimeknights.tconstruct.smeltery.block.entity.multiblock.SmelteryMultiblo
 
 import javax.annotation.Nullable;
 
-public class SmelteryTileEntity extends HeatingStructureTileEntity {
+public class SmelteryBlockEntity extends HeatingStructureBlockEntity {
   /** Fluid capacity per internal block TODO: adjust size */
   private static final int CAPACITY_PER_BLOCK = FluidValues.INGOT * 12;
   /** Number of wall blocks needed to increase the fuel cost by 1 */
@@ -34,7 +34,7 @@ public class SmelteryTileEntity extends HeatingStructureTileEntity {
   @Getter
   private final MultiAlloyingModule alloyingModule = new MultiAlloyingModule(this, alloyTank);
 
-  public SmelteryTileEntity(BlockPos pos, BlockState state) {
+  public SmelteryBlockEntity(BlockPos pos, BlockState state) {
     super(TinkerSmeltery.smeltery.get(), pos, state, NAME);
   }
 

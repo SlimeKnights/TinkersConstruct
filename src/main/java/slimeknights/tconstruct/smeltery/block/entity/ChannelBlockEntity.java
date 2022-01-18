@@ -26,11 +26,11 @@ import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
+import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelSideTank;
+import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelTank;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
-import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelSideTank;
-import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelTank;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * Logic for channel fluid transfer
  */
-public class ChannelTileEntity extends MantleBlockEntity implements IFluidPacketReceiver {
+public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacketReceiver {
 	/** Channel internal tank */
 	private final ChannelTank tank = new ChannelTank(36, this);
 	/** Handler to return from channel top */
@@ -61,16 +61,16 @@ public class ChannelTileEntity extends MantleBlockEntity implements IFluidPacket
 	private final Map<Direction,NonNullConsumer<LazyOptional<IFluidHandler>>> neighborConsumers = new EnumMap<>(Direction.class);
 
   /** Ticker instance for this TE, serverside only */
-  public static final BlockEntityTicker<ChannelTileEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(state);
+  public static final BlockEntityTicker<ChannelBlockEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(state);
 
 	/** Stores if the channel is currently flowing, set to 2 to allow a small buffer */
 	private final byte[] isFlowing = new byte[5];
 
-	public ChannelTileEntity(BlockPos pos, BlockState state) {
+	public ChannelBlockEntity(BlockPos pos, BlockState state) {
 		this(TinkerSmeltery.channel.get(), pos, state);
 	}
 
-	protected ChannelTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected ChannelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
@@ -312,13 +312,13 @@ public class ChannelTileEntity extends MantleBlockEntity implements IFluidPacket
 			// if we have down and can flow, skip sides
 			boolean hasFlown = false;
 			if(state.getValue(ChannelBlock.DOWN)) {
-				hasFlown = trySide(Direction.DOWN, FaucetTileEntity.MB_PER_TICK);
+				hasFlown = trySide(Direction.DOWN, FaucetBlockEntity.MB_PER_TICK);
 			}
 			// try sides if we have any sides
 			int outputs = countOutputs(state);
 			if(!hasFlown && outputs > 0) {
 				// split the fluid evenly between sides
-				int flowRate = Mth.clamp(tank.getMaxUsable() / outputs, 1, FaucetTileEntity.MB_PER_TICK);
+				int flowRate = Mth.clamp(tank.getMaxUsable() / outputs, 1, FaucetBlockEntity.MB_PER_TICK);
 				// then transfer on each side
 				for(Direction side : Plane.HORIZONTAL) {
 					trySide(side, flowRate);

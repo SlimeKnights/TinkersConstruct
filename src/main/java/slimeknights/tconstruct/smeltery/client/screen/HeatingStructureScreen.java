@@ -10,7 +10,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
-import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.client.screen.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.screen.module.GuiMeltingModule;
@@ -25,7 +25,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
   private static final ElementScreen SCALA = new ElementScreen(176, 76, 52, 52, 256, 256);
 
   private final HeatingStructureSideInventoryScreen sideInventory;
-  private final HeatingStructureTileEntity te;
+  private final HeatingStructureBlockEntity te;
   private final GuiSmelteryTank tank;
   public final GuiMeltingModule melting;
   private final GuiFuelModule fuel;
@@ -33,7 +33,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
   public HeatingStructureScreen(HeatingStructureContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
 
-    HeatingStructureTileEntity te = container.getTile();
+    HeatingStructureBlockEntity te = container.getTile();
     if (te != null) {
       this.te = te;
       this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h);

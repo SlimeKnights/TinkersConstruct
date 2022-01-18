@@ -13,7 +13,7 @@ import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
@@ -23,17 +23,17 @@ import java.util.Objects;
 /**
  * Fluid IO extension to display controller fluid
  */
-public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidListener {
+public class DrainBlockEntity extends SmelteryFluidIO implements IDisplayFluidListener {
   @Getter
   private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
   @Getter
   private FluidStack displayFluid = FluidStack.EMPTY;
 
-  public DrainTileEntity(BlockPos pos, BlockState state) {
+  public DrainBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.drain.get(), pos, state);
   }
 
-  protected DrainTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  protected DrainBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
   }
 
