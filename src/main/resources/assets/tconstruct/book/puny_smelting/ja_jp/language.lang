@@ -12,6 +12,13 @@ upgrades.group_harvest=収穫
 upgrades.group_weapon=武器
 upgrades.group_damage=攻撃力上昇
 upgrades.group_armor=防具
+upgrades.diamond=ﾀﾞｲﾔﾓﾝﾄﾞ
+upgrades.overforced=ｵｰﾊﾞｰﾌｫｰｽ
+upgrades.soulbound=ｿｳﾙﾊﾞｳﾝﾄﾞ
+upgrades.knockback=ﾉｯｸﾊﾞｯｸ
+upgrades.necrotic=ﾈｸﾛﾏﾝｼｰ
+upgrades.sweeping_edge=範囲ﾀﾞﾒ増加
+upgrades.smite=ｱﾝﾃﾞｯﾄﾞ特効
 
 slotless=スロット不要の改造
 slotless.subtext=これらの改造は、適用するためにスロットは不要で、望むなら全てを適用できます。
