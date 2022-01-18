@@ -21,16 +21,17 @@ import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
 public class FaucetBlockEntity extends MantleBlockEntity {
-  /** Transfer rate of the faucet */
-  public static final int MB_PER_TICK = 12;
   /** amount of MB to extract from the input at a time */
-  public static final int PACKET_SIZE = 144;
+  public static final int PACKET_SIZE = FluidValues.INGOT;
+  /** Transfer rate of the faucet */
+  public static final int MB_PER_TICK = 10;
 
   public static final BlockEntityTicker<FaucetBlockEntity> SERVER_TICKER = (level, pos, world, self) -> self.tick();
 
