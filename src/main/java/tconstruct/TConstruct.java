@@ -71,7 +71,7 @@ import java.util.Random;
 
 @Mod(modid = TConstruct.modID, name = "TConstruct", version = TConstruct.modVersion,
         dependencies = "required-after:Forge@[10.13.3.1384,11.14);" +
-                "required-after:Mantle@[1.7.10-0.3.2,);" +
+                "required-after:Mantle@[0.3.2,1.7.10),[1.7.10-0.3.2,);" + //make sure we still have the 0.3.2 requirement, even without the 1.7.10 prefix
                 "after:MineFactoryReloaded@[1.7.10R2.8.0RC7,);" +
                 "after:ThermalExpansion@[1.7.10R4.0.0RC2,);" +
                 "after:ThermalFoundation@[1.7.10R1.0.0RC3,);" +

@@ -1,7 +1,7 @@
 // Add your dependencies here
 
 dependencies {
-    compile("com.github.GTNewHorizons:Mantle:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:Mantle:0.3.4:dev")
     compile("com.github.GTNewHorizons:ForgeMultipart:1.2.7:dev")
     compile("com.github.GTNewHorizons:NotEnoughItems:2.1.22-GTNH:dev")
     compile("com.github.GTNewHorizons:CodeChickenLib:1.1.5.1:dev")
