@@ -31,7 +31,7 @@ public class CastingBlockEntityRenderer implements BlockEntityRenderer<CastingBl
 
       // if the recipe is in progress, start fading the item away
       int timer = casting.getTimer();
-      int totalTime = casting.getRecipeTime();
+      int totalTime = casting.getCoolingTime();
       int itemOpacity = 0;
       int fluidOpacity = 0xFF;
       if (timer > 0 && totalTime > 0) {

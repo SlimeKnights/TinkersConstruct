@@ -3,19 +3,15 @@ package slimeknights.tconstruct.smeltery.block.entity.tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
-import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -52,7 +48,6 @@ public class CastingFluidHandler implements IFluidHandler {
     capacity = 0;
     fluid = FluidStack.EMPTY;
     filter = Fluids.EMPTY;
-    onContentsChanged();
   }
 
   @Override
@@ -80,7 +75,7 @@ public class CastingFluidHandler implements IFluidHandler {
       int amount = Math.min(capacity, resource.getAmount());
       if (action.execute()) {
         fluid = new FluidStack(resource, amount);
-        onContentsChanged();
+        tile.onContentsChanged();
       }
       return amount;
     }
@@ -100,14 +95,14 @@ public class CastingFluidHandler implements IFluidHandler {
     if (amount < space) {
       if (action.execute()) {
         fluid.grow(amount);
-        onContentsChanged();
+        tile.onContentsChanged();
       }
       return amount;
     } else {
       // too much? set to max
       if (action.execute()) {
         fluid.setAmount(capacity);
-        onContentsChanged();
+        tile.onContentsChanged();
       }
       return space;
     }
@@ -139,7 +134,7 @@ public class CastingFluidHandler implements IFluidHandler {
         tile.reset();
       } else {
         // called in reset
-        onContentsChanged();
+        tile.onContentsChanged();
       }
     }
     return stack;
@@ -200,14 +195,5 @@ public class CastingFluidHandler implements IFluidHandler {
       nbt.putString(TAG_FILTER, Objects.requireNonNull(filter.getRegistryName()).toString());
     }
     return nbt;
-  }
-
-  protected void onContentsChanged() {
-    tile.setChangedFast();
-    Level world = tile.getLevel();
-    if (world != null && !world.isClientSide) {
-      BlockPos pos = tile.getBlockPos();
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(pos, this.getFluid()), world, pos);
-    }
   }
 }

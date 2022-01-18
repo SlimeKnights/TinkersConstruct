@@ -68,14 +68,6 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Override
   public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-    return BlockEntityHelper.get(CastingBlockEntity.class, worldIn, pos).map(te -> {
-      if (te.isStackInSlot(CastingBlockEntity.OUTPUT)) {
-        return 15;
-      }
-      if (te.isStackInSlot(CastingBlockEntity.INPUT)) {
-        return 1;
-      }
-      return 0;
-    }).orElse(0);
+    return BlockEntityHelper.get(CastingBlockEntity.class, worldIn, pos).map(te -> te.getAnalogSignal()).orElse(0);
   }
 }

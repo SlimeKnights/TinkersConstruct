@@ -36,6 +36,7 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
@@ -81,6 +82,9 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   /** Current recipe progress */
   @Getter
   private int timer;
+  /** Time needed for the recipe to finish */
+  @Getter
+  private int coolingTime = -1;
   /** Current in progress recipe */
   private ICastingRecipe currentRecipe;
   /** Name of the current recipe, fetched from Tag. Used since Tag is read before recipe manager access */
@@ -104,6 +108,8 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private MoldingRecipe lastMoldingRecipe;
   /** Last redstone state of the block */
   private boolean lastRedstone = false;
+  /** Last analog signal strength */
+  private int lastAnalogSignal;
 
   protected CastingBlockEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType, Tag<Item> emptyCastTag) {
     super(beType, pos, state, NAME, 2, 1);
@@ -213,8 +219,8 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     ItemStack original = getItem(slot);
     super.setItem(slot, stack);
     // if the stack changed emptiness, update
-    if (original.isEmpty() != stack.isEmpty() && level != null && !level.isClientSide) {
-      level.updateNeighbourForOutputSignal(worldPosition, this.getBlockState().getBlock());
+    if (original.isEmpty() != stack.isEmpty()) {
+      updateAnalogSignal();
     }
   }
 
@@ -232,9 +238,11 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
 
   /** Called after a redstone tick to swap input and output */
   public void swap() {
-    ItemStack input = getItem(INPUT);
-    setItem(INPUT, getItem(OUTPUT));
-    setItem(OUTPUT, input);
+    if (currentRecipe == null) {
+      ItemStack output = getItem(OUTPUT);
+      setItem(OUTPUT, getItem(INPUT));
+      setItem(INPUT, output);
+    }
   }
   
   @Override
@@ -263,10 +271,9 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     }
     // fully filled
     FluidStack currentFluid = tank.getFluid();
-    if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
+    if (coolingTime >= 0) {
       timer++;
-      castingInventory.setFluid(currentFluid);
-      if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
+      if (timer >= coolingTime) {
         if (!currentRecipe.matches(castingInventory, level)) {
           // if lost our recipe or the recipe needs more fluid then we have, we are done
           // will come around later for the proper fluid amount
@@ -274,6 +281,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
           recipeName = null;
           if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > currentFluid.getAmount()) {
             timer = 0;
+            updateAnalogSignal();
             return;
           }
         }
@@ -294,7 +302,8 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         }
         level.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundSource.AMBIENT, 0.5f, 4f);
         reset();
-        level.updateNeighborsAt(pos, this.getBlockState().getBlock());
+      } else {
+        updateAnalogSignal();
       }
     }
   }
@@ -413,6 +422,28 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     lastOutput = null;
     castingInventory.setFluid(FluidStack.EMPTY);
     tank.reset();
+    onContentsChanged();
+  }
+
+  /** Called when tank contents change */
+  public void onContentsChanged() {
+    // start timer
+    FluidStack fluidStack = tank.getFluid();
+    if (fluidStack.getAmount() >= tank.getCapacity() && currentRecipe != null) {
+      castingInventory.setFluid(fluidStack);
+      coolingTime = Math.max(0, currentRecipe.getCoolingTime(castingInventory));
+    } else {
+      coolingTime = -1;
+    }
+    setChangedFast();
+    // update comparators
+    updateAnalogSignal();
+    // update client
+    Level world = getLevel();
+    if (world != null && !world.isClientSide) {
+      BlockPos pos = getBlockPos();
+      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(pos, fluidStack), world, pos);
+    }
   }
 
   @Override
@@ -426,6 +457,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       }
     }
     tank.setFluid(fluid);
+    onContentsChanged();
   }
 
   @Nullable
@@ -453,15 +485,39 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     return lastOutput;
   }
 
-  /**
-   * Gets the total time for this recipe for display in the TER
-   * @return  total recipe time
-   */
-  public int getRecipeTime() {
-    if (currentRecipe == null) {
-      return -1;
+  /** Updates the comparator strength if needed */
+  private void updateAnalogSignal() {
+    if (level == null || !level.isClientSide) {
+      int newStrength = getAnalogSignal();
+      if (newStrength != lastAnalogSignal) {
+        lastAnalogSignal = newStrength;
+        if (level != null) {
+          level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
+        }
+      }
     }
-    return currentRecipe.getCoolingTime(castingInventory);
+  }
+
+  /** Gets the comparator strength */
+  public int getAnalogSignal() {
+    if (isStackInSlot(CastingBlockEntity.OUTPUT)) {
+      return 15;
+    }
+    // 11 - 14 are cooling time from 0 to 99%
+    if (coolingTime > 0) {
+      return 11 + (timer * 4 / coolingTime);
+    }
+    // 2 - 9 are fluid between 0 and 99%
+    int capacity = tank.getCapacity();
+    if (capacity > 0) {
+      return 2 + (tank.getFluid().getAmount() * 8 / capacity);
+    }
+    // 1: has cast
+    if (isStackInSlot(CastingBlockEntity.INPUT)) {
+      return 1;
+    }
+    // 0: empty
+    return 0;
   }
 
 
@@ -481,6 +537,9 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         this.currentRecipe = recipe;
         castingInventory.setFluid(fluid);
         tank.setCapacity(recipe.getFluidAmount(castingInventory));
+        if (fluid.getAmount() >= tank.getCapacity()) {
+          coolingTime = recipe.getCoolingTime(castingInventory);
+        }
       });
     }
   }
