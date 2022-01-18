@@ -60,6 +60,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private static final String TAG_TANK = "tank";
   private static final String TAG_TIMER = "timer";
   private static final String TAG_RECIPE = "recipe";
+  private static final String TAG_REDSTONE = "redstone";
   private static final Component NAME = TConstruct.makeTranslation("gui", "casting");
 
   /** Handles ticking on the serverside */
@@ -101,6 +102,9 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private final MoldingContainerWrapper moldingInventory;
   /** Cache recipe to reduce time during recipe lookups. Not saved to Tag */
   private MoldingRecipe lastMoldingRecipe;
+  /** Last redstone state of the block */
+  private boolean lastRedstone = false;
+
   protected CastingBlockEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType, Tag<Item> emptyCastTag) {
     super(beType, pos, state, NAME, 2, 1);
     this.requireCast = state.getBlock() instanceof AbstractCastingBlock casting && casting.isRequireCast();
@@ -213,6 +217,25 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       level.updateNeighbourForOutputSignal(worldPosition, this.getBlockState().getBlock());
     }
   }
+
+  /** Called on block update to update the redstone state */
+  public void handleRedstone(boolean hasSignal) {
+    if (lastRedstone != hasSignal) {
+      if (hasSignal) {
+        if (level != null){
+          level.scheduleTick(worldPosition, this.getBlockState().getBlock(), 2);
+        }
+      }
+      lastRedstone = hasSignal;
+    }
+  }
+
+  /** Called after a redstone tick to swap input and output */
+  public void swap() {
+    ItemStack input = getItem(INPUT);
+    setItem(INPUT, getItem(OUTPUT));
+    setItem(OUTPUT, input);
+  }
   
   @Override
   @Nonnull
@@ -258,7 +281,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         // actual recipe result
         ItemStack output = currentRecipe.assemble(castingInventory);
         ToolStack.ensureInitialized(output); // its possible we are casting a modifiable tool
-        if (currentRecipe.switchSlots()) {
+        if (currentRecipe.switchSlots() != lastRedstone) {
           if (!currentRecipe.isConsumed()) {
             setItem(OUTPUT, getItem(INPUT));
           }
@@ -473,6 +496,12 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   }
 
   @Override
+  public void saveAdditional(CompoundTag tags) {
+    super.saveAdditional(tags);
+    tags.putBoolean(TAG_REDSTONE, lastRedstone);
+  }
+
+  @Override
   public void saveSynced(CompoundTag tags) {
     super.saveSynced(tags);
     tags.put(TAG_TANK, tank.writeToTag(new CompoundTag()));
@@ -501,6 +530,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         recipeName = name;
       }
     }
+    lastRedstone = tags.getBoolean(TAG_REDSTONE);
   }
 
   public static class Basin extends CastingBlockEntity {
