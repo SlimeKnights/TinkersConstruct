@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "tconstruct:gold_bars",
+    "tconstruct:gold_platform",
     "tconstruct:cobalt_ore",
     "tconstruct:raw_cobalt_block",
     "tconstruct:cobalt_block",
