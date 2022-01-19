@@ -167,34 +167,34 @@ public final class TinkerStructures extends TinkerModule {
 
     // overworld //
     // earth
-    if (Config.COMMON.generateEarthSlimeIslands.get()) {
-      addStructureSettings(defaultSettings, earthSlimeIsland.get(), new StructureFeatureConfiguration(Config.COMMON.earthSlimeIslandSeparation.get(), 5, 25988585));
+    if (Config.COMMON.earthslimeIslands.doesGenerate()) {
+      addStructureSettings(defaultSettings, earthSlimeIsland.get(), Config.COMMON.earthslimeIslands.makeConfiguration());
     } else {
       removeStructureSettings(earthSlimeIsland.get());
     }
     // sky
-    if (Config.COMMON.generateSkySlimeIslands.get()) {
-      addStructureSettings(defaultSettings, skySlimeIsland.get(), new StructureFeatureConfiguration(Config.COMMON.skySlimeIslandSeparation.get(), 5, 14357800));
+    if (Config.COMMON.skyslimeIslands.doesGenerate()) {
+      addStructureSettings(defaultSettings, skySlimeIsland.get(), Config.COMMON.skyslimeIslands.makeConfiguration());
     } else {
       removeStructureSettings(skySlimeIsland.get());
     }
     // clay
-    if (Config.COMMON.generateClayIslands.get()) {
-      addStructureSettings(defaultSettings, clayIsland.get(), new StructureFeatureConfiguration(Config.COMMON.clayIslandSeparation.get(), 5, 162976988));
+    if (Config.COMMON.clayIslands.doesGenerate()) {
+      addStructureSettings(defaultSettings, clayIsland.get(), Config.COMMON.clayIslands.makeConfiguration());
     } else {
       removeStructureSettings(clayIsland.get());
     }
 
     // nether //
-    if (Config.COMMON.generateBloodIslands.get()) {
-      addStructureSettings(defaultSettings, bloodIsland.get(), new StructureFeatureConfiguration(Config.COMMON.bloodIslandSeparation.get(), 5, 65245622));
+    if (Config.COMMON.bloodIslands.doesGenerate()) {
+      addStructureSettings(defaultSettings, bloodIsland.get(), Config.COMMON.bloodIslands.makeConfiguration());
     } else {
       removeStructureSettings(bloodIsland.get());
     }
 
     // end //
-    if (Config.COMMON.generateEndSlimeIslands.get()) {
-      addStructureSettings(defaultSettings, endSlimeIsland.get(), new StructureFeatureConfiguration(Config.COMMON.endSlimeIslandSeparation.get(), 5, 368963602));
+    if (Config.COMMON.endslimeIslands.doesGenerate()) {
+      addStructureSettings(defaultSettings, endSlimeIsland.get(), Config.COMMON.endslimeIslands.makeConfiguration());
     } else {
       removeStructureSettings(endSlimeIsland.get());
     }

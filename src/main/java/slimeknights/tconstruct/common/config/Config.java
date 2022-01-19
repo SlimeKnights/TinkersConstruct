@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.common.config;
 
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -49,18 +51,11 @@ public class Config {
     public final ConfigValue<Integer> veinCountCobalt;
 
     // overworld
-    public final BooleanValue generateEarthSlimeIslands;
-    public final BooleanValue generateSkySlimeIslands;
-    public final BooleanValue generateClayIslands;
-    public final IntValue earthSlimeIslandSeparation;
-    public final IntValue skySlimeIslandSeparation;
-    public final IntValue clayIslandSeparation;
-    // nether
-    public final BooleanValue generateBloodIslands;
-    public final IntValue bloodIslandSeparation;
-    // end
-    public final BooleanValue generateEndSlimeIslands;
-    public final IntValue endSlimeIslandSeparation;
+    public final SlimeIslandConfiguration earthslimeIslands;
+    public final SlimeIslandConfiguration skyslimeIslands;
+    public final SlimeIslandConfiguration clayIslands;
+    public final SlimeIslandConfiguration bloodIslands;
+    public final SlimeIslandConfiguration endslimeIslands;
 
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
@@ -208,58 +203,23 @@ public class Config {
 
       builder.comment("Options related to slime islands").push("slime_islands");
       builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
-      this.generateEarthSlimeIslands = builder
-        .comment("If true, this island generates")
-        .worldRestart()
-        .define("generate", true);
-      this.earthSlimeIslandSeparation = builder
-        .comment("How many chunks on average between islands")
-        .worldRestart()
-        .defineInRange("separation", 25, 10, 500);
+      this.earthslimeIslands = new SlimeIslandConfiguration(builder, 35, 0.75, 25988585);
       builder.pop();
 
       builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
-      this.generateSkySlimeIslands = builder
-        .comment("If true, this island generates")
-        .worldRestart()
-        .define("generate", true);
-      this.skySlimeIslandSeparation = builder
-        .comment("How many chunks on average between islands")
-        .worldRestart()
-        .defineInRange("separation", 30, 10, 500);
+      this.skyslimeIslands = new SlimeIslandConfiguration(builder, 40, 0.35, 14357800);
       builder.pop();
 
       builder.comment("Settings for clay islands in the overworld sky").push("clay");
-      this.generateClayIslands = builder
-        .comment("If true, this island generates")
-        .worldRestart()
-        .define("generate", true);
-      this.clayIslandSeparation = builder
-        .comment("How many chunks on average between islands")
-        .worldRestart()
-        .defineInRange("separation", 100, 10, 500);
+      this.clayIslands = new SlimeIslandConfiguration(builder, 125, 0.65, 162976988);
       builder.pop();
 
       builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
-      this.generateBloodIslands = builder
-        .comment("If true, this island generates")
-        .worldRestart()
-        .define("generate", true);
-      this.bloodIslandSeparation = builder
-        .comment("How many chunks on average between islands")
-        .worldRestart()
-        .defineInRange("separation", 13, 10, 500);
+      this.bloodIslands = new SlimeIslandConfiguration(builder, 15, 0.6, 65245622);
       builder.pop();
 
       builder.comment("Settings for end slime islands in the outer end islands").push("end");
-      this.generateEndSlimeIslands = builder
-        .comment("If true, this island generates")
-        .worldRestart()
-        .define("generate", true);
-      this.endSlimeIslandSeparation = builder
-        .comment("How many chunks on average between islands")
-        .worldRestart()
-        .defineInRange("separation", 25, 10, 500);
+      this.endslimeIslands = new SlimeIslandConfiguration(builder, 25, 0.5, 368963602);
       builder.pop(2);
 
       builder.pop();
@@ -403,6 +363,40 @@ public class Config {
       if (spec == Config.commonSpec) {
         TinkerStructures.addStructureSeparation();
       }
+    }
+  }
+
+  /** Configuration settings for the island */
+  public static class SlimeIslandConfiguration {
+    private final BooleanValue generate;
+    private final IntValue spacing;
+    private final DoubleValue separationPercent;
+    private final int salt;
+    public SlimeIslandConfiguration(ForgeConfigSpec.Builder builder, int defaultSpacing, double defaultSeparation, int salt) {
+      this.salt = salt;
+      this.generate = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.spacing = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("spacing", defaultSpacing, 10, 500);
+      this.separationPercent = builder
+        .comment("Percentage of spacing to use for separation")
+        .worldRestart()
+        .defineInRange("separationPercent", defaultSeparation, 0.0, 1.0);
+    }
+
+    /** If true, this island generates */
+    public boolean doesGenerate() {
+      return generate.get();
+    }
+
+    /** Creates the actual configuration object */
+    public StructureFeatureConfiguration makeConfiguration() {
+      int spacing = this.spacing.get();
+      return new StructureFeatureConfiguration(spacing, (int)(this.separationPercent.get() * spacing), salt);
     }
   }
 }
