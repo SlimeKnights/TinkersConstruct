@@ -282,6 +282,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
           if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > currentFluid.getAmount()) {
             timer = 0;
             updateAnalogSignal();
+            // TODO: client does not get updated if this happens
             return;
           }
         }
@@ -510,7 +511,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     // 2 - 9 are fluid between 0 and 99%
     int capacity = tank.getCapacity();
     if (capacity > 0) {
-      return 2 + (tank.getFluid().getAmount() * 8 / capacity);
+      return 2 + (tank.getFluid().getAmount() * 9 / capacity);
     }
     // 1: has cast
     if (isStackInSlot(CastingBlockEntity.INPUT)) {
