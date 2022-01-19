@@ -1289,7 +1289,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // tier 4
     plateTexture(consumer, plate, MaterialIds.manyullyn, false, folder);
     plateTexture(consumer, plate, MaterialIds.hepatizon, false, folder);
-    plateTexture(consumer, plate, MaterialIds.netherite, false, folder);
+    plateTexture(consumer, plate, MaterialIds.netherite, "nuggets/netherite", false, folder);
     // tier 2 compat
     plateTexture(consumer, plate, MaterialIds.osmium,   true, folder);
     plateTexture(consumer, plate, MaterialIds.tungsten, true, folder);
