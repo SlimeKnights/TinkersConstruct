@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -35,9 +35,9 @@ public abstract class RandomMaterial {
   public static void init() {
     if (initialized) return;
     initialized = true;
-    registerDeserializer(Fixed.ID, Fixed::deserialize);
-    registerDeserializer(First.ID, First::deserialize);
-    registerDeserializer(RandomInTier.ID, RandomInTier::deserialize);
+    registerDeserializer(Fixed.ID, Fixed::fromJson);
+    registerDeserializer(First.ID, First::fromJson);
+    registerDeserializer(RandomInTier.ID, RandomInTier::fromJson);
   }
 
   /** Registers a deserializer */
@@ -84,6 +84,12 @@ public abstract class RandomMaterial {
     private final MaterialId materialId;
     private IMaterial material;
 
+    /** Creates an instance from JSON */
+    public static Fixed fromJson(JsonObject json) {
+      MaterialId materialId = new MaterialId(JsonHelper.getResourceLocation(json, "name"));
+      return new Fixed(materialId);
+    }
+
     @Override
     public IMaterial getMaterial(Random random) {
       if (material == null) {
@@ -110,6 +116,12 @@ public abstract class RandomMaterial {
     private final MaterialStatsId statType;
 
     private IMaterial material;
+
+    /** Creates an instance from JSON */
+    public static First fromJson(JsonObject json) {
+      MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(json, "stat_type"));
+      return new First(statType);
+    }
 
     @Override
     public boolean test(IMaterial material) {
