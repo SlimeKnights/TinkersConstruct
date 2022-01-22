@@ -3,10 +3,10 @@ package slimeknights.tconstruct.tools.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
@@ -14,17 +14,20 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T> {
-  /** Cache of models for each entity type */
-  private static final Map<HumanoidModel<?>,PlateArmorModel<?>> MODEL_CACHE = new HashMap<>();
+public class PlateArmorModel extends Model {
+  /** Singleton model instance, all data is passed in via setters */
+  private static final PlateArmorModel INSTANCE = new PlateArmorModel();
+
   /** Cache of armor render types */
   private static final Map<String,RenderType> ARMOR_RENDER_CACHE = new HashMap<>();
   /** Cache of leg render types */
   private static final Map<String,RenderType> LEG_RENDER_CACHE = new HashMap<>();
+
   /** Gets the armor texture for a material */
   private static ResourceLocation getArmorTexture(String material, int variant) {
     ResourceLocation location = ResourceLocation.tryParse(material);
@@ -40,7 +43,6 @@ public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T
 
   /** Listener to clear caches */
   public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> {
-    MODEL_CACHE.clear();
     ARMOR_RENDER_CACHE.clear();
     LEG_RENDER_CACHE.clear();
   };
@@ -48,29 +50,32 @@ public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T
   /**
    * Gets the model for a given entity
    */
-  @SuppressWarnings("unchecked")
-  public static <A extends HumanoidModel<?>> A getModel(ItemStack stack, EquipmentSlot slot, A baseModel) {
-    PlateArmorModel<?> model = MODEL_CACHE.computeIfAbsent(baseModel, PlateArmorModel::new);
-    model.setup(stack, slot);
-    return (A) model;
+  public static Model getModel(ItemStack stack, EquipmentSlot slot, HumanoidModel<?> baseModel) {
+    INSTANCE.setup(baseModel, stack, slot);
+    return INSTANCE;
   }
 
+  @Nullable
+  private HumanoidModel<?> base;
   private String material = "";
   private boolean isLegs = false;
-  public PlateArmorModel(HumanoidModel<T> base) {
-    super(base);
+  public PlateArmorModel() {
+    super(RenderType::entityCutoutNoCull);
   }
 
   @Override
   public void renderToBuffer(PoseStack matrices, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-    super.renderToBuffer(matrices, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    if (!material.isEmpty() && buffer != null) {
-      VertexConsumer overlayBuffer = buffer.getBuffer(isLegs ? LEG_RENDER_CACHE.computeIfAbsent(material, LEG_GETTER) : ARMOR_RENDER_CACHE.computeIfAbsent(material, ARMOR_GETTER));
-      super.renderToBuffer(matrices, overlayBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    if (this.base != null) {
+      base.renderToBuffer(matrices, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      if (!material.isEmpty() && ArmorModelHelper.buffer != null) {
+        VertexConsumer overlayBuffer = ArmorModelHelper.buffer.getBuffer(isLegs ? LEG_RENDER_CACHE.computeIfAbsent(material, LEG_GETTER) : ARMOR_RENDER_CACHE.computeIfAbsent(material, ARMOR_GETTER));
+        base.renderToBuffer(matrices, overlayBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      }
     }
   }
 
-  private void setup(ItemStack stack, EquipmentSlot slot) {
+  private void setup(HumanoidModel<?> base, ItemStack stack, EquipmentSlot slot) {
+    this.base = base;
     if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.get()) > 0) {
       material = MaterialIds.gold.toString();
     } else {

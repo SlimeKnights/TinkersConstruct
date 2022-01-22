@@ -233,7 +233,7 @@ dependencies {
 
     // compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${minecraft_version}:${crt_version}")
     compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
-    //runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:3279930")
+    // runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:3546593")
     runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:3544496")
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'

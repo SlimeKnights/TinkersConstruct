@@ -5,13 +5,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -25,30 +25,27 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 
 /** Model to render a slimeskull helmet with both the helmet and skull */
-public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T> {
-  /** Cache of models for each entity type */
-  private static final Map<HumanoidModel<?>,SlimeskullArmorModel<?>> MODEL_CACHE = new HashMap<>();
+public class SlimeskullArmorModel extends Model {
+  /** Singleton model instance, all data is passed in via setters */
+  private static final SlimeskullArmorModel INSTANCE = new SlimeskullArmorModel();
 
   /** Listener to clear caches */
-  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> {
-    HEAD_MODELS = null;
-    MODEL_CACHE.clear();
-  };
+  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> HEAD_MODELS = null;
 
   /**
    * Gets the model for a given entity
    * @param stack      Armor stack object
    * @param baseModel  Base model
-   * @param <A>  Model instance
    * @return  Model for the entity
    */
-  @SuppressWarnings("unchecked")
-  public static <A extends HumanoidModel<?>> A getModel(ItemStack stack, A baseModel) {
-    SlimeskullArmorModel<?> model = MODEL_CACHE.computeIfAbsent(baseModel, SlimeskullArmorModel::new);
-    model.setTool(stack);
-    return (A) model;
+  public static Model getModel(ItemStack stack, HumanoidModel<?> baseModel) {
+    INSTANCE.setup(baseModel, stack);
+    return INSTANCE;
   }
 
+  /** Base model to render */
+  @Nullable
+  private HumanoidModel<?> base;
   /** Head to render under the helmet */
   @Nullable
   private ResourceLocation headTexture;
@@ -56,41 +53,44 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrap
   @Nullable
   private SkullModelBase headModel;
 
-  private SlimeskullArmorModel(HumanoidModel<T> base) {
-    super(base);
+  private SlimeskullArmorModel() {
+    super(RenderType::entityCutoutNoCull);
   }
 
   @Override
   public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-    matrixStackIn.pushPose();
-    matrixStackIn.translate(0.0D, this.young ? -0.015D : -0.02D, 0.0D);
-    matrixStackIn.scale(1.01f, 1.0f, 1.01f);
-    super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    matrixStackIn.popPose();
+    if (base != null) {
+      matrixStackIn.pushPose();
+      matrixStackIn.translate(0.0D, base.young ? -0.015D : -0.02D, 0.0D);
+      matrixStackIn.scale(1.01f, 1.0f, 1.01f);
+      base.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      matrixStackIn.popPose();
 
-    if (headModel != null && headTexture != null && buffer != null) {
-      VertexConsumer headBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(headTexture));
-      boolean needsPush = this.young || this.crouching;
-      if (needsPush) {
-        matrixStackIn.pushPose();
-        if (young) {
-          matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-          matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+      if (headModel != null && headTexture != null && ArmorModelHelper.buffer != null) {
+        VertexConsumer headBuilder = ArmorModelHelper.buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(headTexture));
+        boolean needsPush = base.young || base.crouching;
+        if (needsPush) {
+          matrixStackIn.pushPose();
+          if (base.young) {
+            matrixStackIn.scale(0.75F, 0.75F, 0.75F);
+            matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+          }
+          if (base.crouching) {
+            matrixStackIn.translate(0, base.head.y / 16.0F, 0);
+          }
         }
-        if (crouching) {
-          matrixStackIn.translate(0, head.y / 16.0F, 0);
+        headModel.setupAnim(0, base.head.yRot * 180f / (float)(Math.PI), base.head.xRot * 180f / (float)(Math.PI));
+        headModel.renderToBuffer(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
+        if (needsPush) {
+          matrixStackIn.popPose();
         }
-      }
-      headModel.setupAnim(0, this.head.yRot * 180f / (float)(Math.PI), this.head.xRot * 180f / (float)(Math.PI));
-      headModel.renderToBuffer(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
-      if (needsPush) {
-        matrixStackIn.popPose();
       }
     }
   }
 
   /** Called before the model is rendered to set the base model and the tool stack data */
-  private void setTool(ItemStack stack) {
+  private void setup(HumanoidModel<?> base, ItemStack stack) {
+    this.base = base;
     MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0);
     if (!materialId.equals(IMaterial.UNKNOWN_ID)) {
       SkullModelBase model = getHeadModel(materialId);

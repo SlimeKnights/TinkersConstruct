@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -8,6 +9,7 @@ import net.minecraftforge.client.IItemRenderProperties;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class SlimelytraItem extends SlimesuitItem {
@@ -18,8 +20,9 @@ public class SlimelytraItem extends SlimesuitItem {
   @Override
   public void initializeClient(Consumer<IItemRenderProperties> consumer) {
     consumer.accept(new IItemRenderProperties() {
+      @Nonnull
       @Override
-      public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+      public Model getBaseArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
         return SlimelytraArmorModel.getModel(entityLiving, itemStack, _default);
       }
     });
