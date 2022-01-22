@@ -3,20 +3,14 @@ package slimeknights.tconstruct.shared;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 @SuppressWarnings("unused")
@@ -49,22 +43,5 @@ public class CommonsEvents {
   private static void bounce(Entity entity, float amount) {
     entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, amount, 0.0D));
     entity.playSound(Sounds.SLIMY_BOUNCE.getSound(), 0.5f + amount, 1f);
-  }
-
-  /** Tag for players who have received the book */
-  private static final String TAG_PLAYER_HAS_BOOK = TConstruct.prefix("spawned_book");
-
-  @SubscribeEvent
-  static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-    // TODO: migrate to advancement
-    if (Config.COMMON.shouldSpawnWithTinkersBook.get()) {
-      CompoundTag playerData = event.getPlayer().getPersistentData();
-      CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-      if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
-        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.materialsAndYou.get()));
-        data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
-        playerData.put(Player.PERSISTED_NBT_TAG, data);
-      }
-    }
   }
 }

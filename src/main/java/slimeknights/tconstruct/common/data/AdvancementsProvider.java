@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.data;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
@@ -17,6 +18,7 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.advancements.critereon.PlacedBlockTrigger;
 import net.minecraft.advancements.critereon.PlayerInteractTrigger;
+import net.minecraft.advancements.critereon.TickTrigger;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
 import net.minecraft.nbt.CompoundTag;
@@ -30,12 +32,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.crafting.ConditionalAdvancement;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -67,6 +72,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -74,6 +80,8 @@ public class AdvancementsProvider extends GenericDataProvider {
 
   /** Advancment consumer instance */
   protected Consumer<Advancement> advancementConsumer;
+  /** Advancment consumer instance */
+  protected BiConsumer<ResourceLocation, ConditionalAdvancement.Builder> conditionalConsumer;
 
   public AdvancementsProvider(DataGenerator generatorIn) {
     super(generatorIn, "advancements");
@@ -350,6 +358,12 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.pigIron);
     });
+
+    // internal advancements
+    hiddenBuilder(resource("internal/starting_book"), ConfigEnabledCondition.SPAWN_WITH_BOOK, builder -> {
+      builder.addCriterion("tick", new TickTrigger.TriggerInstance(EntityPredicate.Composite.ANY));
+      builder.rewards(AdvancementRewards.Builder.loot(TConstruct.getResource("gameplay/starting_book")));
+    });
   }
 
   /** Gets a tank filled with the given fluid */
@@ -381,6 +395,13 @@ public class AdvancementsProvider extends GenericDataProvider {
         throw new IllegalStateException("Duplicate advancement " + advancement.getId());
       } else {
         saveThing(cache, advancement.getId(), advancement.deconstruct().serializeToJson());
+      }
+    };
+    this.conditionalConsumer = (id, advancement) -> {
+      if (!set.add(id)) {
+        throw new IllegalStateException("Duplicate advancement " + id);
+      } else {
+        saveThing(cache, id, advancement.write());
       }
     };
     generate();
@@ -454,5 +475,19 @@ public class AdvancementsProvider extends GenericDataProvider {
                              background, frame, true, frame != FrameType.TASK, false);
     consumer.accept(builder);
     return builder.save(advancementConsumer, name.toString());
+  }
+
+  /**
+   * Helper for making an advancement builder
+   * @param name         Advancement name
+   */
+  protected void hiddenBuilder(ResourceLocation name, ICondition condition, Consumer<Advancement.Builder> consumer) {
+    Advancement.Builder builder = Advancement.Builder.advancement();
+    consumer.accept(builder);
+    ConditionalAdvancement.Builder conditionalBuilder = new ConditionalAdvancement.Builder();
+    conditionalBuilder.addCondition(condition);
+    conditionalBuilder.addAdvancement(builder);
+    conditionalBuilder.write();
+    conditionalConsumer.accept(name, conditionalBuilder);
   }
 }
