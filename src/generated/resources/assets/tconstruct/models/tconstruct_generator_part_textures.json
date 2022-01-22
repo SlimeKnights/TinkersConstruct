@@ -2,6 +2,10 @@
   "replace": false,
   "parts": [
     {
+      "path": "tconstruct:item/tool/parts/round_plate",
+      "statType": "tconstruct:head"
+    },
+    {
       "path": "tconstruct:item/tool/parts/large_plate",
       "statType": "tconstruct:head"
     },
@@ -243,6 +247,14 @@
     },
     {
       "path": "tconstruct:item/tool/mattock/broken_pick",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickadze/broken_axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickadze/axe",
       "statType": "tconstruct:head"
     },
     {

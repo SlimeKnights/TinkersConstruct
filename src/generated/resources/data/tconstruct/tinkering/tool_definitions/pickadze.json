@@ -1,0 +1,55 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:pickaxe_head"
+    },
+    {
+      "item": "tconstruct:tool_handle"
+    },
+    {
+      "item": "tconstruct:round_plate"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 0.5,
+      "tconstruct:attack_speed": 1.4
+    },
+    "multipliers": {
+      "tconstruct:durability": 1.3,
+      "tconstruct:mining_speed": 0.75,
+      "tconstruct:attack_damage": 1.15
+    }
+  },
+  "slots": {
+    "upgrades": 3,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:shovel_transform_hidden",
+      "level": 1
+    }
+  ],
+  "actions": [
+    "pickaxe_dig",
+    "shovel_dig"
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:fixed_tier",
+      "effective": "tconstruct:mineable/pickadze",
+      "tier": "minecraft:wood"
+    },
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {},
+      "expansions": [
+        {
+          "height": 1
+        }
+      ],
+      "expansion_direction": "tconstruct:side_hit"
+    }
+  }
+}

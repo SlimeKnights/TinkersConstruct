@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.TConstruct;
@@ -14,6 +15,7 @@ import slimeknights.tconstruct.library.tools.definition.aoe.FallbackAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IBoxExpansion;
 import slimeknights.tconstruct.library.tools.definition.aoe.TreeAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.VeiningAOEIterator;
+import slimeknights.tconstruct.library.tools.definition.harvest.FixedTierHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
@@ -34,6 +36,7 @@ import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
 import static slimeknights.tconstruct.tools.TinkerToolParts.hammerHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.largePlate;
 import static slimeknights.tconstruct.tools.TinkerToolParts.pickaxeHead;
+import static slimeknights.tconstruct.tools.TinkerToolParts.roundPlate;
 import static slimeknights.tconstruct.tools.TinkerToolParts.smallAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.smallBlade;
 import static slimeknights.tconstruct.tools.TinkerToolParts.toolBinding;
@@ -114,7 +117,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // parts
       .part(smallAxeHead)
       .part(toolHandle)
-      .part(pickaxeHead)
+      .part(roundPlate)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 1.5f)
       .stat(ToolStats.ATTACK_SPEED, 0.9f)
@@ -124,7 +127,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
       .trait(TinkerModifiers.knockback, 1)
-      .trait(TinkerModifiers.shovelTransformHidden)
+      .trait(TinkerModifiers.hoeTransformHidden)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -133,6 +136,26 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
                       .notTagModifier(BlockTags.MINEABLE_WITH_SHOVEL, 0.65f)
                       .build())
       .aoe(new VeiningAOEIterator(0));
+
+    define(ToolDefinitions.PICKADZE)
+      // parts
+      .part(pickaxeHead)
+      .part(toolHandle)
+      .part(roundPlate)
+      // stats
+      .stat(ToolStats.ATTACK_DAMAGE, 0.5f)
+      .stat(ToolStats.ATTACK_SPEED, 1.4f)
+      .smallToolStartingSlots()
+      .multiplier(ToolStats.DURABILITY, 1.3f)
+      .multiplier(ToolStats.MINING_SPEED, 0.75f)
+      .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
+      // traits
+      .trait(TinkerModifiers.shovelTransformHidden)
+      // harvest
+      .action(ToolActions.PICKAXE_DIG)
+      .action(ToolActions.SHOVEL_DIG)
+      .harvestLogic(new FixedTierHarvestLogic(TinkerTags.Blocks.MINABLE_WITH_PICKADZE, Tiers.WOOD))
+      .aoe(BoxAOEIterator.builder(0, 0, 0).addHeight(1).build());
 
     define(ToolDefinitions.EXCAVATOR)
       // parts
@@ -218,7 +241,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 0.75f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.hoeTransformHidden)
       .trait(TinkerModifiers.shears)
       .trait(TinkerModifiers.harvest)
       // harvest

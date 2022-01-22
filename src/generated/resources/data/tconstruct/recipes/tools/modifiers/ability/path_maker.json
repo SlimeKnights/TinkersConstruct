@@ -2,22 +2,22 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:pickaxe_head",
+      "item": "tconstruct:round_plate",
       "type": "tconstruct:material"
     },
     {
       "tag": "forge:ingots/netherite_scrap"
     },
     {
-      "item": "tconstruct:small_axe_head",
+      "item": "tconstruct:tool_binding",
       "type": "tconstruct:material"
     },
     {
-      "item": "tconstruct:pickaxe_head",
+      "item": "tconstruct:round_plate",
       "type": "tconstruct:material"
     },
     {
-      "item": "tconstruct:small_axe_head",
+      "item": "tconstruct:tool_binding",
       "type": "tconstruct:material"
     }
   ],

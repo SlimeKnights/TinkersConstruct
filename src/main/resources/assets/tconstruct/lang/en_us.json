@@ -247,6 +247,7 @@
   "_comment": "Binding Gold Casts",
 
   "pattern.tconstruct.tool_binding": "Tool Binding",
+  "pattern.tconstruct.round_plate": "Round Plate",
   "pattern.tconstruct.large_plate": "Large Plate",
 
   "_comment": "Tool Handle Gold Casts",
@@ -287,6 +288,7 @@
   "_comment": "Binding Gold Casts",
 
   "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
+  "item.tconstruct.round_plate_cast": "Round Plate Gold Cast",
   "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
 
   "_comment": "Tool Handle Gold Casts",
@@ -327,6 +329,7 @@
   "_comment": "Binding Sand Casts",
 
   "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
+  "item.tconstruct.round_plate_sand_cast": "Round Plate Sand Cast",
   "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
 
   "_comment": "Tool Handle Sand Casts",
@@ -367,6 +370,7 @@
   "_comment": "Binding Red Sand Casts",
 
   "item.tconstruct.tool_binding_red_sand_cast": "Tool Binding Red Sand Cast",
+  "item.tconstruct.round_plate_red_sand_cast": "Round Plate Red Sand Cast",
   "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
 
   "_comment": "Tool Handle Red Sand Casts",
@@ -758,6 +762,7 @@
   "item.tconstruct.vein_hammer": "Vein Hammer",
 
   "item.tconstruct.mattock": "Mattock",
+  "item.tconstruct.pickadze": "Pickadze",
   "item.tconstruct.excavator": "Excavator",
 
   "item.tconstruct.hand_axe": "Hand Axe",
@@ -817,16 +822,18 @@
   "item.tconstruct.tool_handle": "Tool Handle",
   "item.tconstruct.tough_handle": "Tough Handle",
   "item.tconstruct.tool_binding": "Tool Binding",
+  "item.tconstruct.round_plate": "Round Plate",
   "item.tconstruct.large_plate": "Large Plate",
 
 
   "_conment": "Tool Descriptions",
 
-  "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
+  "item.tconstruct.pickaxe.description": "The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
   "item.tconstruct.sledge_hammer.description": "The Sledge Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
   "item.tconstruct.vein_hammer.description": "The Vein Hammer is a broad mining tool. It harvests many connected blocks of the same type, perfect for ores.",
 
-  "item.tconstruct.mattock.description": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, sand, gravel, and plants.\nJust don't dig your own grave!",
+  "item.tconstruct.mattock.description": "The Cutter Mattock is a versatile farming tool. It is effective on logs, dirt, sand, gravel, and plants.\nJust don't dig your own grave!",
+  "item.tconstruct.pickadze.description": "The Pickadze is a versatile mining tool. It is effective on rock, dirt, sand and gravel, but is not sharp enough to mine tougher stone blocks like many ores.",
   "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
 
   "item.tconstruct.hand_axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",

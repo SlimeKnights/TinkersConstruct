@@ -25,12 +25,12 @@
       }
     },
     {
-      "icon": "tconstruct:pickaxe_head",
-      "translation_key": "item.tconstruct.pickaxe_head",
+      "icon": "tconstruct:round_plate",
+      "translation_key": "item.tconstruct.round_plate",
       "x": 51,
       "y": 34,
       "filter": {
-        "item": "tconstruct:pickaxe_head"
+        "item": "tconstruct:round_plate"
       }
     }
   ]

@@ -875,23 +875,24 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
+
+    // transform ingredients
     Ingredient bootsWithDuraibility = IngredientIntersection.intersection(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));
-    SizedIngredient pickaxeHead = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.pickaxeHead.get()));
-    SizedIngredient smallAxeHead = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get()));
+    SizedIngredient roundPlate = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.roundPlate.get()));
+    SizedIngredient smallBlade = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallBlade.get()));
+    SizedIngredient toolBinding = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get()));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathMaker.get())
                          .setTools(bootsWithDuraibility)
-                         .addInput(pickaxeHead)
+                         .addInput(roundPlate)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
-                         .addInput(smallAxeHead)
-                         .addInput(pickaxeHead)
-                         .addInput(smallAxeHead)
+                         .addInput(toolBinding)
+                         .addInput(roundPlate)
+                         .addInput(toolBinding)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.pathMaker, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.pathMaker, abilityFolder));
-    SizedIngredient smallBlade = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallBlade.get()));
-    SizedIngredient toolBinding = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get()));
     ModifierRecipeBuilder.modifier(TinkerModifiers.plowing.get())
                          .setTools(bootsWithDuraibility)
                          .addInput(smallBlade)
@@ -1105,9 +1106,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     Ingredient heldWithDurability = IngredientIntersection.intersection(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
                          .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.excavator)))
-                         .addInput(pickaxeHead)
+                         .addInput(roundPlate)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
-                         .addInput(smallAxeHead)
+                         .addInput(toolBinding)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
@@ -1117,7 +1118,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
-                         .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get())))
+                         .addInput(toolBinding)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)

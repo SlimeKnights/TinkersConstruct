@@ -41,6 +41,18 @@
         ]
       }
     },
+    "pickadze": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:pickadze"
+            ]
+          }
+        ]
+      }
+    },
     "hand_axe": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -96,6 +108,9 @@
     ],
     [
       "mattock"
+    ],
+    [
+      "pickadze"
     ],
     [
       "hand_axe"

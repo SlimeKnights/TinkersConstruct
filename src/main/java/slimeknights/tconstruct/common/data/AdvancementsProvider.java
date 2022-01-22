@@ -136,6 +136,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       Consumer<Item> with = item -> builder.addCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
       with.accept(TinkerTools.pickaxe.get());
       with.accept(TinkerTools.mattock.get());
+      with.accept(TinkerTools.pickadze.get());
       with.accept(TinkerTools.handAxe.get());
       with.accept(TinkerTools.kama.get());
       with.accept(TinkerTools.dagger.get());
@@ -190,6 +191,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerSmeltery.broadBladeCast);
       with.accept(TinkerSmeltery.broadAxeHeadCast);
       with.accept(TinkerSmeltery.toolBindingCast);
+      with.accept(TinkerSmeltery.roundPlateCast);
       with.accept(TinkerSmeltery.largePlateCast);
       with.accept(TinkerSmeltery.toolHandleCast);
       with.accept(TinkerSmeltery.toughHandleCast);

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:round_plate",
+  "cost": 2,
+  "result": {
+    "item": "tconstruct:round_plate"
+  }
+}

@@ -13,6 +13,7 @@ public final class ToolDefinitions {
 
   // dirt
   public static final ToolDefinition MATTOCK = ToolDefinition.builder(TinkerTools.mattock).meleeHarvest().build();
+  public static final ToolDefinition PICKADZE = ToolDefinition.builder(TinkerTools.pickadze).meleeHarvest().build();
   public static final ToolDefinition EXCAVATOR = ToolDefinition.builder(TinkerTools.excavator).meleeHarvest().build();
 
   // wood

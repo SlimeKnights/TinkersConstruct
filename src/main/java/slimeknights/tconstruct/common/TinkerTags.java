@@ -89,6 +89,8 @@ public class TinkerTags {
 
     /** Blocks that the mattock is effective on */
     public static final IOptionalNamedTag<Block> MINABLE_WITH_MATTOCK = tag("mineable/mattock");
+    /** Blocks that the mattock is effective on */
+    public static final IOptionalNamedTag<Block> MINABLE_WITH_PICKADZE = tag("mineable/pickadze");
     /** Blocks that the hand axe is effective on */
     public static final IOptionalNamedTag<Block> MINABLE_WITH_HAND_AXE = tag("mineable/hand_axe");
     /** Blocks that the scythe or kama are effective on */

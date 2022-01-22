@@ -119,6 +119,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.veinHammer);
     // dirt
     registerItemColors(colors, TinkerTools.mattock);
+    registerItemColors(colors, TinkerTools.pickadze);
     registerItemColors(colors, TinkerTools.excavator);
     // wood
     registerItemColors(colors, TinkerTools.handAxe);

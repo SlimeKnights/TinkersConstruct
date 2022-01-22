@@ -160,6 +160,18 @@
         ]
       }
     },
+    "round_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:round_plate_cast"
+            ]
+          }
+        ]
+      }
+    },
     "large_plate": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -233,6 +245,9 @@
     ],
     [
       "tool_binding"
+    ],
+    [
+      "round_plate"
     ],
     [
       "large_plate"

@@ -349,8 +349,15 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerTables.tinkersAnvil, TinkerTables.scorchedAnvil);
 
     // custom tool harvest
-    // mattock works on all axe and shovel
-    tag(TinkerTags.Blocks.MINABLE_WITH_MATTOCK).addTags(MINEABLE_WITH_AXE, MINEABLE_WITH_SHOVEL);
+    // mattock works on all shovel and natural axe
+    tag(TinkerTags.Blocks.MINABLE_WITH_MATTOCK).addTags(MINEABLE_WITH_SHOVEL, BlockTags.LOGS).add(
+      Blocks.AZALEA, Blocks.BAMBOO, Blocks.GLOW_LICHEN, Blocks.VINE,
+      Blocks.BEE_NEST, Blocks.BEEHIVE,
+      Blocks.CARVED_PUMPKIN, Blocks.JACK_O_LANTERN, Blocks.PUMPKIN,
+      Blocks.CHORUS_FLOWER, Blocks.CHORUS_PLANT, Blocks.COCOA,
+      Blocks.BROWN_MUSHROOM_BLOCK, Blocks.MUSHROOM_STEM, Blocks.RED_MUSHROOM_BLOCK);
+    // pickadze is shovel or pickaxe
+    tag(TinkerTags.Blocks.MINABLE_WITH_PICKADZE).addTags(MINEABLE_WITH_SHOVEL, MINEABLE_WITH_PICKAXE);
     // hand axe has a leaf bonus
     tag(TinkerTags.Blocks.MINABLE_WITH_HAND_AXE).addTags(MINEABLE_WITH_AXE, BlockTags.LEAVES);
     // scythe/kama does hoe or shear blocks

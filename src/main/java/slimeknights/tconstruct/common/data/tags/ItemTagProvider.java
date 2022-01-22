@@ -195,8 +195,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.pickaxe,      MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         ONE_HANDED, AOE);
     addToolTags(TinkerTools.sledgeHammer, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_PRIMARY, TWO_HANDED, AOE);
     addToolTags(TinkerTools.veinHammer,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         TWO_HANDED, AOE);
-    // dirt
+    // dirtD
     addToolTags(TinkerTools.mattock,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE);
+    addToolTags(TinkerTools.pickadze,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE, STONE_HARVEST);
     addToolTags(TinkerTools.excavator, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, TWO_HANDED, AOE);
     // wood
     addToolTags(TinkerTools.handAxe,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, ONE_HANDED, AOE);
@@ -256,7 +257,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
 						 TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
 						 TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
-						 TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
+						 TinkerToolParts.toolBinding.get(), TinkerToolParts.roundPlate.get(), TinkerToolParts.largePlate.get(),
 						 TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
 						 TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
 
@@ -343,6 +344,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.broadBladeCast);
     // bindings
     addCast.accept(TinkerSmeltery.toolBindingCast);
+    addCast.accept(TinkerSmeltery.roundPlateCast);
     addCast.accept(TinkerSmeltery.largePlateCast);
     // tool rods
     addCast.accept(TinkerSmeltery.toolHandleCast);

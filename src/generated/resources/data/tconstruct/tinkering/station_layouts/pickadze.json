@@ -1,0 +1,37 @@
+{
+  "translation_key": "item.tconstruct.pickadze",
+  "icon": {
+    "item": "tconstruct:pickadze",
+    "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"]}"
+  },
+  "sortIndex": 6,
+  "input_slots": [
+    {
+      "icon": "tconstruct:pickaxe_head",
+      "translation_key": "item.tconstruct.pickaxe_head",
+      "x": 31,
+      "y": 22,
+      "filter": {
+        "item": "tconstruct:pickaxe_head"
+      }
+    },
+    {
+      "icon": "tconstruct:tool_handle",
+      "translation_key": "item.tconstruct.tool_handle",
+      "x": 22,
+      "y": 53,
+      "filter": {
+        "item": "tconstruct:tool_handle"
+      }
+    },
+    {
+      "icon": "tconstruct:round_plate",
+      "translation_key": "item.tconstruct.round_plate",
+      "x": 51,
+      "y": 34,
+      "filter": {
+        "item": "tconstruct:round_plate"
+      }
+    }
+  ]
+}

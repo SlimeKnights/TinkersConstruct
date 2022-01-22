@@ -72,7 +72,13 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .sortIndex(SORT_HARVEST)
       .addInputItem(TinkerToolParts.smallAxeHead, 31, 22)
       .addInputItem(TinkerToolParts.toolHandle,   22, 53)
-      .addInputItem(TinkerToolParts.pickaxeHead,  51, 34)
+      .addInputItem(TinkerToolParts.roundPlate,   51, 34)
+      .build();
+    defineModifiable(TinkerTools.pickadze)
+      .sortIndex(SORT_HARVEST)
+      .addInputItem(TinkerToolParts.pickaxeHead, 31, 22)
+      .addInputItem(TinkerToolParts.toolHandle,  22, 53)
+      .addInputItem(TinkerToolParts.roundPlate,  51, 34)
       .build();
     defineModifiable(TinkerTools.excavator)
       .sortIndex(SORT_HARVEST + SORT_LARGE)

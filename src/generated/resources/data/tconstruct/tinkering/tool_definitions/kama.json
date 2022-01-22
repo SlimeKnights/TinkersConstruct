@@ -25,10 +25,6 @@
   },
   "traits": [
     {
-      "name": "tconstruct:hoe_transform_hidden",
-      "level": 1
-    },
-    {
       "name": "tconstruct:shears",
       "level": 1
     },
