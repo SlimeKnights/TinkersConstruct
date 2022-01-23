@@ -22,11 +22,12 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -49,7 +50,6 @@ import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -136,16 +136,25 @@ public final class TinkerStructures extends TinkerModule {
   }
 
   /** Adds the settings to the given dimension */
-  private static void addStructures(ResourceKey<NoiseGeneratorSettings> key, Consumer<ImmutableMap.Builder<StructureFeature<?>,ImmutableMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>>> consumer) {
-    NoiseGeneratorSettings dimensionSettings = BuiltinRegistries.NOISE_GENERATOR_SETTINGS.get(key);
-    if (dimensionSettings != null) {
+  private static void addStructures() {
+    // floating islands skips earth
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = multimapOf(configuredClayIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.FOREST)).toList());
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = multimapOf(configuredSkySlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD));
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> earthIslandMap = multimapOf(configuredEarthSlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.OCEAN)).toList());
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> bloodIslandMap = multimapOf(configuredBloodIsland, BiomeDictionary.getBiomes(Type.NETHER));
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> endIslandMap = multimapOf(configuredEndSlimeIsland, BiomeDictionary.getBiomes(Type.END).stream().filter(key -> key != Biomes.THE_END).toList());
+
+    // simply add to all dimensions, if the island does not belong it won't add the biome
+    for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
       StructureSettings settings = dimensionSettings.structureSettings();
       ImmutableMap.Builder<StructureFeature<?>, ImmutableMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> builder = ImmutableMap.builder();
       builder.putAll(settings.configuredStructures);
-      consumer.accept(builder);
+      builder.put(clayIsland.get(), clayIslandMap);
+      builder.put(skySlimeIsland.get(), skyIslandMap);
+      builder.put(earthSlimeIsland.get(), earthIslandMap);
+      builder.put(bloodIsland.get(), bloodIslandMap);
+      builder.put(endSlimeIsland.get(), endIslandMap);
       settings.configuredStructures = builder.build();
-    } else {
-      TConstruct.LOG.error("Failed to find generator {} for structure placement", key);
     }
   }
 
@@ -314,27 +323,10 @@ public final class TinkerStructures extends TinkerModule {
             TinkerWorld.congealedSlime.get(SlimeType.ICHOR).defaultBlockState(),
             false)));
     });
+  }
 
-    event.enqueueWork(() -> {
-      // floating islands skips earth
-      ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = multimapOf(configuredClayIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.FOREST)).toList());
-      ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = multimapOf(configuredSkySlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD));
-      ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> earthIslandMap = multimapOf(configuredEarthSlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.OCEAN)).toList());
-      Consumer<ImmutableMap.Builder<StructureFeature<?>,ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>>>> addIsland = builder -> {
-        builder.put(clayIsland.get(), clayIslandMap);
-        builder.put(skySlimeIsland.get(), skyIslandMap);
-      };
-      Consumer<ImmutableMap.Builder<StructureFeature<?>,ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>>>> addOverworld = builder -> {
-        addIsland.accept(builder);
-        builder.put(earthSlimeIsland.get(), earthIslandMap);
-      };
-      addStructures(NoiseGeneratorSettings.OVERWORLD,        addOverworld);
-      addStructures(NoiseGeneratorSettings.LARGE_BIOMES,     addOverworld);
-      addStructures(NoiseGeneratorSettings.AMPLIFIED,        addOverworld);
-      addStructures(NoiseGeneratorSettings.FLOATING_ISLANDS, addIsland);
-      // other dimensions
-      addStructures(NoiseGeneratorSettings.NETHER, builder -> builder.put(bloodIsland.get(), multimapOf(configuredBloodIsland, BiomeDictionary.getBiomes(Type.NETHER))));
-      addStructures(NoiseGeneratorSettings.END, builder -> builder.put(endSlimeIsland.get(), multimapOf(configuredEndSlimeIsland, BiomeDictionary.getBiomes(Type.END).stream().filter(key -> key != Biomes.THE_END).toList())));
-    });
+  @SubscribeEvent(priority = EventPriority.LOWEST)
+  void loadComplete(FMLLoadCompleteEvent event) {
+    event.enqueueWork(TinkerStructures::addStructures);
   }
 }
