@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.tools.modifiers.defense.ProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.defense.AbstractProtectionModifier;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,6 +29,6 @@ public class FeatherFallingModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 3f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 3f, tooltip);
   }
 }

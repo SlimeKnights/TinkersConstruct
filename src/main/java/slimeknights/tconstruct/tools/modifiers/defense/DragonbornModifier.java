@@ -47,7 +47,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 2.5f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2.5f, tooltip);
   }
 
   /** Boosts critical hit damage */

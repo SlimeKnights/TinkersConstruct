@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:gold_reinforcement",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:seared_reinforcement",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:bronze_reinforcement",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:emerald_reinforcement",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:cobalt_reinforcement",
+      "amount_needed": 4
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:protection",
+    "level": 1
+  }
+}

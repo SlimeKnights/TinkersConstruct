@@ -22,6 +22,16 @@ public class ProtectionModifier extends IncrementalModifier {
     super(0xA8A8A8);
   }
 
+  /** Gets the protection value for the given level and modifier value */
+  private double getProtectionValue(IToolStackView tool, int level) {
+    float scaled = getScaledLevel(tool, level);
+    if (scaled > 1) {
+      return 0.5 + scaled;
+    } else {
+      return scaled * 1.5;
+    }
+  }
+
   @Override
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul()) {
@@ -32,22 +42,10 @@ public class ProtectionModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    addResistanceTooltip(this, tool, level, 1.0f, tooltip);
-  }
-
-  /**
-   * Adds the resistance type tooltip to the armor
-   * @param modifier    Modifier instance
-   * @param tool        Tool getting the tooltip
-   * @param level       Modifier level
-   * @param multiplier  Amount per level
-   * @param tooltip     Tooltip to show
-   */
-  public static void addResistanceTooltip(IncrementalModifier modifier, IToolStackView tool, int level, float multiplier, List<Component> tooltip) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
-      tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(modifier.getScaledLevel(tool, level) * multiplier / 25f))
+      tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(getProtectionValue(tool, level) / 25f))
                                .append(" ")
-                               .append(new TranslatableComponent(modifier.getTranslationKey() + ".resistance"))));
+                               .append(new TranslatableComponent(getTranslationKey() + ".resistance"))));
     }
   }
 }

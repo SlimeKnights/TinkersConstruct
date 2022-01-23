@@ -39,7 +39,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
   @Override
