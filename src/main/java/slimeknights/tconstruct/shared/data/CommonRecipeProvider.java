@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonRecipeHelper {
@@ -76,8 +78,42 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("#.#")
                        .pattern(". .")
                        .pattern("#.#")
-                       .unlockedBy("has_bars", has(TinkerCommons.goldBars))
+                       .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
                        .save(consumer, modResource("common/gold_platform"));
+    ShapedRecipeBuilder.shaped(TinkerCommons.ironPlatform, 4)
+                       .define('#', Tags.Items.INGOTS_IRON)
+                       .define('.', Tags.Items.NUGGETS_IRON)
+                       .pattern("#.#")
+                       .pattern(". .")
+                       .pattern("#.#")
+                       .unlockedBy("has_bars", has(Tags.Items.INGOTS_IRON))
+                       .save(consumer, modResource("common/iron_platform"));
+    ShapedRecipeBuilder.shaped(TinkerCommons.copperPlatform.get(WeatherState.UNAFFECTED), 4)
+                       .define('#', Tags.Items.INGOTS_COPPER)
+                       .define('.', TinkerTags.Items.NUGGETS_COPPER)
+                       .pattern("#.#")
+                       .pattern(". .")
+                       .pattern("#.#")
+                       .unlockedBy("has_bars", has(Tags.Items.INGOTS_COPPER))
+                       .save(consumer, modResource("common/copper_platform"));
+    ShapedRecipeBuilder.shaped(TinkerCommons.cobaltPlatform, 4)
+                       .define('#', TinkerMaterials.cobalt.getIngotTag())
+                       .define('.', TinkerMaterials.cobalt.getNuggetTag())
+                       .pattern("#.#")
+                       .pattern(". .")
+                       .pattern("#.#")
+                       .unlockedBy("has_bars", has(TinkerMaterials.cobalt.getIngotTag()))
+                       .save(consumer, modResource("common/cobalt_platform"));
+    TinkerCommons.waxedCopperPlatform.forEach((age, block) -> {
+      Block unwaxed = TinkerCommons.copperPlatform.get(age);
+      ShapelessRecipeBuilder.shapeless(block)
+                            .requires(unwaxed)
+                            .requires(Items.HONEYCOMB)
+                            .group("tconstruct:wax_copper_platform")
+                            .unlockedBy("has_block", has(unwaxed))
+                            .save(consumer, modResource("common/copper_platform_waxing_" + age.toString().toLowerCase(Locale.ROOT)));
+    });
+
 
 
     // book

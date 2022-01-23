@@ -145,6 +145,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
         .addTags(TinkerMaterials.cobalt.getIngotTag(), TinkerMaterials.queensSlime.getIngotTag(),
                  TinkerMaterials.manyullyn.getIngotTag(), TinkerMaterials.hepatizon.getIngotTag());
+
+    this.copy(TinkerTags.Blocks.COPPER_PLATFORMS, TinkerTags.Items.COPPER_PLATFORMS);
   }
 
   private void addWorld() {

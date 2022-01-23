@@ -1,0 +1,7 @@
+{
+    "parent": "tconstruct:block/platform/top",
+	"textures": {
+		"side": "tconstruct:block/platform/copper_side",
+		"top":  "tconstruct:block/platform/copper_top"
+	}
+}

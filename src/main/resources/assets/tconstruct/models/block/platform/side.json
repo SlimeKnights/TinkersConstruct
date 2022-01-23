@@ -1,9 +1,8 @@
 {
     "ambientocclusion": false,
-    "textures": {
-		"side":     "tconstruct:block/platform_side",
-		"particle": "tconstruct:block/platform_top"
-    },
+	"textures": {
+		"particle": "#top"
+	},
     "elements": [
         {   "from": [ 2, 2, 15.95 ],
             "to": [ 14, 14, 16 ],

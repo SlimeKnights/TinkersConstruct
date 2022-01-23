@@ -1,0 +1,7 @@
+{
+    "parent": "tconstruct:block/platform/both",
+	"textures": {
+		"side": "tconstruct:block/platform/iron_side",
+		"top":  "tconstruct:block/platform/iron_top"
+	}
+}

@@ -2,36 +2,36 @@
   "multipart": [
     {
       "when": { "up": "false", "down": "false" },
-      "apply": { "model": "tconstruct:block/platform/both" }
+      "apply": { "model": "tconstruct:block/platform/gold/both" }
     },
     {
       "when": { "up": "false", "down": "true" },
-      "apply": { "model": "tconstruct:block/platform/top" }
+      "apply": { "model": "tconstruct:block/platform/gold/top" }
     },
     {
       "when": { "up": "true", "down": "false" },
-      "apply": { "model": "tconstruct:block/platform/bottom" }
+      "apply": { "model": "tconstruct:block/platform/gold/bottom" }
     },
     {
       "when": { "up": "true", "down": "true" },
-      "apply": { "model": "tconstruct:block/platform/neither" }
+      "apply": { "model": "tconstruct:block/platform/gold/neither" }
     },
 
     {
       "when": { "north": "true" },
-      "apply": { "model": "tconstruct:block/platform/side", "y": 180 }
+      "apply": { "model": "tconstruct:block/platform/gold/side", "y": 180 }
     },
     {
       "when": { "east": "true" },
-      "apply": { "model": "tconstruct:block/platform/side", "y": 270 }
+      "apply": { "model": "tconstruct:block/platform/gold/side", "y": 270 }
     },
     {
       "when": { "south": "true" },
-      "apply": { "model": "tconstruct:block/platform/side" }
+      "apply": { "model": "tconstruct:block/platform/gold/side" }
     },
     {
       "when": { "west": "true" },
-      "apply": { "model": "tconstruct:block/platform/side", "y": 90 }
+      "apply": { "model": "tconstruct:block/platform/gold/side", "y": 90 }
     }
   ]
 }

@@ -35,8 +35,10 @@ public class TinkerTags {
     /** Metals that can be used to craft the anvil */
     public static final IOptionalNamedTag<Block> ANVIL_METAL = tag("anvil_metal");
 
-    /** Things the gold platform connects to */
+    /** Things the platform connects to */
     public static final IOptionalNamedTag<Block> PLATFORM_CONNECTIONS = tag("platform_connections");
+    /** Copper platform variants */
+    public static final IOptionalNamedTag<Block> COPPER_PLATFORMS = tag("copper_platforms");
 
     public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
@@ -137,6 +139,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> PLANKLIKE = tag("planklike");
     /** Metals that can be used to craft the anvil */
     public static final IOptionalNamedTag<Item> ANVIL_METAL = tag("anvil_metal");
+    /** Copper platform variants */
+    public static final IOptionalNamedTag<Item> COPPER_PLATFORMS = tag("copper_platforms");
+
 
     public static final IOptionalNamedTag<Item> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");

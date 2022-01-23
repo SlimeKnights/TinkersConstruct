@@ -30,7 +30,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.UP;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WEST;
 
-public class GoldPlatformBlock extends Block implements SimpleWaterloggedBlock {
+public class PlatformBlock extends Block implements SimpleWaterloggedBlock {
   private static final VoxelShape[] SHAPES = new VoxelShape[64];
   private static final BooleanProperty[] DIRECTIONS = { DOWN, UP, NORTH, SOUTH, WEST, EAST };
 
@@ -88,8 +88,8 @@ public class GoldPlatformBlock extends Block implements SimpleWaterloggedBlock {
   }
   public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-  public GoldPlatformBlock(Properties p_49795_) {
-    super(p_49795_);
+  public PlatformBlock(Properties props) {
+    super(props);
   }
 
   @Override
@@ -133,6 +133,11 @@ public class GoldPlatformBlock extends Block implements SimpleWaterloggedBlock {
            && facingConnected(direction, state, BlockStateProperties.FACING_HOPPER);
   }
 
+  /** Returns true if this platform connects vertically to the block */
+  protected boolean verticalConnect(BlockState state) {
+    return state.is(this);
+  }
+
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext context) {
     BlockPos pos = context.getClickedPos();
@@ -141,8 +146,8 @@ public class GoldPlatformBlock extends Block implements SimpleWaterloggedBlock {
     BlockState belowState = level.getBlockState(below);
     BlockState state = this.defaultBlockState()
                            .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER)
-                           .setValue(UP, level.getBlockState(pos.above()).is(this))
-                           .setValue(DOWN, belowState.is(this) || belowState.isFaceSturdy(level, below, Direction.UP));
+                           .setValue(UP, verticalConnect(level.getBlockState(pos.above())))
+                           .setValue(DOWN, verticalConnect(belowState) || belowState.isFaceSturdy(level, below, Direction.UP));
     for (Direction direction : Plane.HORIZONTAL) {
       state = state.setValue(DIRECTIONS[direction.get3DDataValue()], connected(direction, level.getBlockState(pos.relative(direction))));
     }
@@ -156,9 +161,9 @@ public class GoldPlatformBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     if (direction == Direction.UP) {
-      return state.setValue(UP, neighbor.is(this));
+      return state.setValue(UP, verticalConnect(neighbor));
     } else if (direction == Direction.DOWN) {
-      return state.setValue(DOWN, neighbor.is(this) || neighbor.isFaceSturdy(level, neighborPos, Direction.UP));
+      return state.setValue(DOWN, verticalConnect(neighbor) || neighbor.isFaceSturdy(level, neighborPos, Direction.UP));
     }
     return state.setValue(DIRECTIONS[direction.get3DDataValue()], connected(direction, neighbor));
   }

@@ -1,8 +1,6 @@
 {
 	"textures": {
-		"side":     "tconstruct:block/platform_side",
-		"top":      "tconstruct:block/platform_top",
-		"particle": "tconstruct:block/platform_top"
+		"particle": "#top"
 	},
 	"elements": [
 		{

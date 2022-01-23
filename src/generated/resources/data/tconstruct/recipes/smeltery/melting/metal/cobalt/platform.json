@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:cobalt_platform"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_cobalt",
+    "amount": 100
+  },
+  "temperature": 950,
+  "time": 68
+}

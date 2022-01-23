@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:copper_platform",
+    "tconstruct:exposed_copper_platform",
+    "tconstruct:weathered_copper_platform",
+    "tconstruct:oxidized_copper_platform",
+    "tconstruct:waxed_copper_platform",
+    "tconstruct:waxed_exposed_copper_platform",
+    "tconstruct:waxed_weathered_copper_platform",
+    "tconstruct:waxed_oxidized_copper_platform"
+  ]
+}

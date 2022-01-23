@@ -6,14 +6,12 @@
     ]
   },
   "criteria": {
-    "has_bars": {
+    "has_gold": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "tconstruct:gold_bars"
-            ]
+            "tag": "forge:ingots/gold"
           }
         ]
       }
@@ -27,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_bars",
+      "has_gold",
       "has_the_recipe"
     ]
   ]

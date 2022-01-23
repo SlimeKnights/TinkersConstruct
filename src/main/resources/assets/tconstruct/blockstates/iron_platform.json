@@ -1,0 +1,37 @@
+{
+  "multipart": [
+    {
+      "when": { "up": "false", "down": "false" },
+      "apply": { "model": "tconstruct:block/platform/iron/both" }
+    },
+    {
+      "when": { "up": "false", "down": "true" },
+      "apply": { "model": "tconstruct:block/platform/iron/top" }
+    },
+    {
+      "when": { "up": "true", "down": "false" },
+      "apply": { "model": "tconstruct:block/platform/iron/bottom" }
+    },
+    {
+      "when": { "up": "true", "down": "true" },
+      "apply": { "model": "tconstruct:block/platform/iron/neither" }
+    },
+
+    {
+      "when": { "north": "true" },
+      "apply": { "model": "tconstruct:block/platform/iron/side", "y": 180 }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": { "model": "tconstruct:block/platform/iron/side", "y": 270 }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": { "model": "tconstruct:block/platform/iron/side" }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": { "model": "tconstruct:block/platform/iron/side", "y": 90 }
+    }
+  ]
+}

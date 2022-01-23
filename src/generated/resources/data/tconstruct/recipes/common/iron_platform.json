@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#.#",
+    ". .",
+    "#.#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    ".": {
+      "tag": "forge:nuggets/iron"
+    }
+  },
+  "result": {
+    "item": "tconstruct:iron_platform",
+    "count": 4
+  }
+}

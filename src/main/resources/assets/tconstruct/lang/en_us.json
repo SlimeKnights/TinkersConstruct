@@ -44,7 +44,20 @@
 
   "block.tconstruct.obsidian_pane": "Obsidian Pane",
   "block.tconstruct.gold_bars": "Gold Bars",
+  
   "block.tconstruct.gold_platform": "Gold Platform",
+  "block.tconstruct.iron_platform": "Iron Platform",
+  "block.tconstruct.cobalt_platform": "Cobalt Platform",
+  
+  "block.tconstruct.copper_platform":           "Copper Platform",
+  "block.tconstruct.exposed_copper_platform":   "Exposed Copper Platform",
+  "block.tconstruct.weathered_copper_platform": "Weathered Copper Platform",
+  "block.tconstruct.oxidized_copper_platform":  "Oxidized Copper Platform",
+  
+  "block.tconstruct.waxed_copper_platform":           "Waxed Copper Platform",
+  "block.tconstruct.waxed_exposed_copper_platform":   "Waxed Exposed Copper Platform",
+  "block.tconstruct.waxed_weathered_copper_platform": "Waxed Weathered Copper Platform",
+  "block.tconstruct.waxed_oxidized_copper_platform":  "Waxed Oxidized Copper Platform",
 
   "block.tconstruct.white_clear_stained_glass": "Clear White Stained Glass",
   "block.tconstruct.orange_clear_stained_glass": "Clear Orange Stained Glass",

@@ -73,6 +73,10 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(TinkerModifiers.silkyJewelBlock.get());
     this.dropSelf(TinkerCommons.goldBars.get());
     this.dropSelf(TinkerCommons.goldPlatform.get());
+    this.dropSelf(TinkerCommons.ironPlatform.get());
+    this.dropSelf(TinkerCommons.cobaltPlatform.get());
+    TinkerCommons.copperPlatform.forEach(this::dropSelf);
+    TinkerCommons.waxedCopperPlatform.forEach(this::dropSelf);
 
     // ores
     this.dropSelf(TinkerMaterials.cobalt.get());

@@ -25,6 +25,8 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.client.FluidParticle;
 
+import java.util.function.Consumer;
+
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
   @SubscribeEvent
@@ -50,8 +52,14 @@ public class CommonsClientEvents extends ClientEventBase {
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldBars.get(), RenderType.cutout());
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldPlatform.get(), RenderType.cutout());
+    RenderType cutout = RenderType.cutout();
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldBars.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldPlatform.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.ironPlatform.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.cobaltPlatform.get(), cutout);
+    Consumer<Block> setCutout = block -> ItemBlockRenderTypes.setRenderLayer(block, cutout);
+    TinkerCommons.copperPlatform.forEach(setCutout);
+    TinkerCommons.waxedCopperPlatform.forEach(setCutout);
 
     Font unicode = unicodeFontRender();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
