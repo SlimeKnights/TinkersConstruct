@@ -12,7 +12,7 @@ import net.minecraftforge.common.ToolActions;
 
 public class PathingModifier extends BlockTransformModifier {
   public PathingModifier(int priority) {
-    super(0x8a361e, priority, SoundEvents.SHOVEL_FLATTEN, true, ToolActions.SHOVEL_FLATTEN);
+    super(0x8a361e, priority, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN, true);
   }
 
   @Override

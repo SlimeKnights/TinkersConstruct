@@ -372,15 +372,17 @@ public final class TinkerModifiers extends TinkerModule {
   // right click abilities
   public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
   public static final RegistryObject<BlockTransformModifier> pathing = MODIFIERS.register("pathing", () -> new PathingModifier(75));
-  public static final RegistryObject<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(0xab7a55, 75, SoundEvents.AXE_STRIP, false, ToolActions.AXE_STRIP, ToolActions.AXE_SCRAPE, ToolActions.AXE_WAX_OFF));
+  public static final RegistryObject<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(0xab7a55, 75, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
   public static final RegistryObject<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new TillingModifier(75));
   public static final RegistryObject<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(0x5D342C, 70));
   public static final RegistryObject<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", () -> new SingleLevelModifier(0x4A281D));
 
   // internal abilities
-  public static final RegistryObject<BlockTransformModifier> shovelTransformHidden = MODIFIERS.register("shovel_transform_hidden", () -> new PathingModifier(Integer.MIN_VALUE + 50));
-  public static final RegistryObject<BlockTransformModifier> axeTransformHidden = MODIFIERS.register("axe_transform_hidden", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, SoundEvents.AXE_STRIP, false, ToolActions.AXE_STRIP, ToolActions.AXE_SCRAPE, ToolActions.AXE_WAX_OFF));
-  public static final RegistryObject<BlockTransformModifier> hoeTransformHidden = MODIFIERS.register("hoe_transform_hidden", () -> new TillingModifier(Integer.MIN_VALUE + 50));
+  public static final RegistryObject<BlockTransformModifier> shovelFlatten = MODIFIERS.register("shovel_flatten", () -> new PathingModifier(Integer.MIN_VALUE + 50));
+  public static final RegistryObject<BlockTransformModifier> axeStrip = MODIFIERS.register("axe_strip", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> axeScrape = MODIFIERS.register("axe_scrape", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 49, ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005));
+  public static final RegistryObject<BlockTransformModifier> axeWaxOff = MODIFIERS.register("axe_wax_off", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 48, ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF, false, 3004));
+  public static final RegistryObject<BlockTransformModifier> hoeTill = MODIFIERS.register("hoe_till", () -> new TillingModifier(Integer.MIN_VALUE + 50));
   public static final RegistryObject<FirestarterModifier> firestarterHidden = MODIFIERS.register("firestarter_hidden", () -> new FirestarterModifier(-1, Integer.MIN_VALUE + 50));
   public static final RegistryObject<VolatileFlagModifier> wings = MODIFIERS.register("wings", () -> new VolatileFlagModifier(0xD37CFF, ModifiableArmorItem.ELYTRA));
 

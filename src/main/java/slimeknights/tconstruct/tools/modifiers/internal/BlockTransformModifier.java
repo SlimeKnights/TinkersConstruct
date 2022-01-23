@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -22,20 +21,25 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 
 import java.util.Iterator;
-import java.util.Set;
 
 public class BlockTransformModifier extends InteractionModifier.SingleUse {
-  private final Set<ToolAction> actions;
+  private final ToolAction action;
   private final SoundEvent sound;
   private final boolean requireGround;
+  private final int eventId;
   private final int priority;
 
-  public BlockTransformModifier(int color, int priority, SoundEvent sound, boolean requireGround, ToolAction... actions) {
+  public BlockTransformModifier(int color, int priority, ToolAction action, SoundEvent sound, boolean requireGround, int eventId) {
     super(color);
     this.priority = priority;
-    this.actions = ImmutableSet.copyOf(actions);
+    this.action = action;
     this.sound = sound;
     this.requireGround = requireGround;
+    this.eventId = eventId;
+  }
+
+  public BlockTransformModifier(int color, int priority, ToolAction action, SoundEvent sound, boolean requireGround) {
+    this(color, priority, action, sound, requireGround, -1);
   }
 
   @Override
@@ -50,7 +54,7 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
 
   @Override
   public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
-    return actions.contains(toolAction);
+    return action == toolAction;
   }
 
   @Override
@@ -149,20 +153,21 @@ public class BlockTransformModifier extends InteractionModifier.SingleUse {
 
     // normal action transform
     Player player = context.getPlayer();
-    for (ToolAction action : actions) {
-      BlockState transformed = original.getToolModifiedState(level, pos, player, context.getItemInHand(), action);
-      if (transformed != null) {
-        if (!level.isClientSide) {
-          level.setBlock(pos, transformed, Block.UPDATE_ALL_IMMEDIATE);
-          if (playSound) {
-            level.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
-          }
-          if (requireGround) {
-            level.destroyBlock(above, true);
-          }
+    BlockState transformed = original.getToolModifiedState(level, pos, player, context.getItemInHand(), action);
+    if (transformed != null) {
+      if (playSound) {
+        level.playSound(player, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (eventId != -1) {
+          level.levelEvent(player, eventId, pos, 0);
         }
-        return true;
       }
+      if (!level.isClientSide) {
+        level.setBlock(pos, transformed, Block.UPDATE_ALL_IMMEDIATE);
+        if (requireGround) {
+          level.destroyBlock(above, true);
+        }
+      }
+      return true;
     }
     return false;
   }

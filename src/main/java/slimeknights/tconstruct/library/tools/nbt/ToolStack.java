@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -732,24 +733,23 @@ public class ToolStack implements IToolStackView {
    * Rebuilds the item stack when loaded from NBT
    * stops things from being wrong if modifiers or materials change
    * @param item        Item to build
-   * @param compound    Full stack NBT including item
+   * @param tag         Stack tag
    * @param definition  Tool definition
    */
-  public static void verifyTag(Item item, CompoundTag compound, ToolDefinition definition) {
+  public static void verifyTag(Item item, CompoundTag tag, ToolDefinition definition) {
     // skip if no definition data loaded
-    if (definition.isDataLoaded() && compound.contains("tag", Tag.TAG_COMPOUND)) {
-      CompoundTag nbt = compound.getCompound("tag");
+    if (definition.isDataLoaded() && !tag.getBoolean(TooltipUtil.KEY_DISPLAY)) {
       // if the stack has materials, resolve all material redirects
-      if (nbt.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
-        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
+      if (tag.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
+        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(tag.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
         MaterialIdNBT resolved = stored.resolveRedirects();
         if (resolved != stored) {
-          resolved.updateNBT(nbt);
+          resolved.updateNBT(tag);
         }
       }
-      ToolStack tool = ToolStack.from(item, definition, nbt);
+      ToolStack tool = ToolStack.from(item, definition, tag);
       // if uninitialized, add slots
-      if (needsInitialization(nbt, definition)) {
+      if (needsInitialization(tag, definition)) {
         definition.getData().buildSlots(tool.getPersistentData());
       }
       // build stats regardless

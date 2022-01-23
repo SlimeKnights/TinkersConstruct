@@ -127,7 +127,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
       .trait(TinkerModifiers.knockback, 1)
-      .trait(TinkerModifiers.hoeTransformHidden)
+      .trait(TinkerModifiers.hoeTill)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -150,7 +150,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
-      .trait(TinkerModifiers.shovelTransformHidden)
+      .trait(TinkerModifiers.shovelFlatten)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -172,7 +172,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.knockback, 2)
-      .trait(TinkerModifiers.shovelTransformHidden)
+      .trait(TinkerModifiers.shovelFlatten)
       .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.SHOVEL_DIG)
@@ -191,7 +191,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 0.9f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeTransformHidden)
+      .trait(TinkerModifiers.axeScrape)
+      .trait(TinkerModifiers.axeStrip)
+      .trait(TinkerModifiers.axeWaxOff)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(TinkerToolActions.SHIELD_DISABLE)
@@ -213,7 +215,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 4.25f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeTransformHidden)
+      .trait(TinkerModifiers.axeScrape)
+      .trait(TinkerModifiers.axeStrip)
+      .trait(TinkerModifiers.axeWaxOff)
       .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.AXE_DIG)
@@ -261,7 +265,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 2.5f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.hoeTransformHidden)
+      .trait(TinkerModifiers.hoeTill)
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.harvest)
       .trait(TinkerModifiers.twoHanded)

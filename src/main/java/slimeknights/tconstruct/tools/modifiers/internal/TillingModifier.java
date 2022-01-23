@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 public class TillingModifier extends BlockTransformModifier {
   public static final ToolAction HOE_TILL = ToolAction.get("hoe_till");
   public TillingModifier(int priority) {
-    super(0x633c1e, priority, SoundEvents.HOE_TILL, true, HOE_TILL);
+    super(0x633c1e, priority, HOE_TILL, SoundEvents.HOE_TILL, true);
   }
 
   @Override
