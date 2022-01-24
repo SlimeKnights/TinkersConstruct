@@ -22,10 +22,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -136,7 +134,7 @@ public final class TinkerStructures extends TinkerModule {
   }
 
   /** Adds the settings to the given dimension */
-  private static void addStructures() {
+  static void addStructures() {
     // floating islands skips earth
     ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = multimapOf(configuredClayIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.FOREST)).toList());
     ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = multimapOf(configuredSkySlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD));
@@ -147,14 +145,17 @@ public final class TinkerStructures extends TinkerModule {
     // simply add to all dimensions, if the island does not belong it won't add the biome
     for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
       StructureSettings settings = dimensionSettings.structureSettings();
-      ImmutableMap.Builder<StructureFeature<?>, ImmutableMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> builder = ImmutableMap.builder();
-      builder.putAll(settings.configuredStructures);
-      builder.put(clayIsland.get(), clayIslandMap);
-      builder.put(skySlimeIsland.get(), skyIslandMap);
-      builder.put(earthSlimeIsland.get(), earthIslandMap);
-      builder.put(bloodIsland.get(), bloodIslandMap);
-      builder.put(endSlimeIsland.get(), endIslandMap);
-      settings.configuredStructures = builder.build();
+      // assuming if they have one island, they have them all
+      if (!settings.configuredStructures.containsKey(skySlimeIsland.get())) {
+        ImmutableMap.Builder<StructureFeature<?>,ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>>> builder = ImmutableMap.builder();
+        builder.putAll(settings.configuredStructures);
+        builder.put(clayIsland.get(), clayIslandMap);
+        builder.put(skySlimeIsland.get(), skyIslandMap);
+        builder.put(earthSlimeIsland.get(), earthIslandMap);
+        builder.put(bloodIsland.get(), bloodIslandMap);
+        builder.put(endSlimeIsland.get(), endIslandMap);
+        settings.configuredStructures = builder.build();
+      }
     }
   }
 
@@ -323,10 +324,5 @@ public final class TinkerStructures extends TinkerModule {
             TinkerWorld.congealedSlime.get(SlimeType.ICHOR).defaultBlockState(),
             false)));
     });
-  }
-
-  @SubscribeEvent(priority = EventPriority.LOWEST)
-  void loadComplete(FMLLoadCompleteEvent event) {
-    event.enqueueWork(TinkerStructures::addStructures);
   }
 }

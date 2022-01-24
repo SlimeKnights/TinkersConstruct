@@ -24,6 +24,7 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
@@ -169,11 +170,16 @@ public class WorldEvents {
     }
   }
 
+  @SubscribeEvent
+  static void serverStarting(ServerAboutToStartEvent event) {
+    TinkerStructures.addStructures();
+  }
+
 
   /* Heads */
 
   @SubscribeEvent
-  public void livingVisibility(LivingVisibilityEvent event) {
+  static void livingVisibility(LivingVisibilityEvent event) {
     Entity lookingEntity = event.getLookingEntity();
     if (lookingEntity == null) {
       return;
@@ -189,7 +195,7 @@ public class WorldEvents {
   }
 
   @SubscribeEvent
-  public void creeperKill(LivingDropsEvent event) {
+  static void creeperKill(LivingDropsEvent event) {
     DamageSource source = event.getSource();
     if (source != null) {
       Entity entity = source.getEntity();
