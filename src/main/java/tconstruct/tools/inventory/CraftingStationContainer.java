@@ -139,15 +139,15 @@ public class CraftingStationContainer extends Container {
             return null;
         }
         
-        ItemStack ret = slot.getStack().copy();
-        ItemStack itemstack = slot.getStack().copy();
+        ItemStack itemstack = slot.getStack();
+        ItemStack ret = itemstack.copy();
 
         boolean nothingDone = true;
         
         if (index == 0) {
             // Crafting Result
             if (ret.getItem() instanceof IModifyable) {
-                nothingDone &= this.mergeCraftedStack(itemstack, logic.getSizeInventory(), this.inventorySlots.size(), true, entityPlayer);
+                nothingDone &= !this.mergeCraftedStack(itemstack, logic.getSizeInventory(), this.inventorySlots.size(), true, entityPlayer);
             } else {
                 // First refill the attached chests
                 nothingDone &= this.refillChest(itemstack);
