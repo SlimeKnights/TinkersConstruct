@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.utils;
+package slimeknights.tconstruct.library.json;
 
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;

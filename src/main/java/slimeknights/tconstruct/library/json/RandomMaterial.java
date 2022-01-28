@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.loot;
+package slimeknights.tconstruct.library.json;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;

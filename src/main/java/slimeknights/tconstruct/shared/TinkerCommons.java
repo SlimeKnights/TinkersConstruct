@@ -35,6 +35,8 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
+import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
+import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -144,6 +146,9 @@ public final class TinkerCommons extends TinkerModule {
     lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootItemConditionType(ConfigEnabledCondition.SERIALIZER));
     lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootItemConditionType(BlockOrEntityCondition.SERIALIZER));
     CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
+
+    CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
+    CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
   }
 
   @SubscribeEvent
