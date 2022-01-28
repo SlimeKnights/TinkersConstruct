@@ -12,6 +12,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -29,7 +30,8 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   private final FluidStack output;
   private final int temperature;
   private final int time;
-  private boolean isOre = false;
+  @Nullable
+  private OreRateType oreRate = null;
   private boolean isDamagable = false;
   private final List<FluidStack> byproducts = new ArrayList<>();
 
@@ -86,8 +88,8 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * Sets this recipe as an ore recipe, output multiplied based on the melter
    * @return  Builder instance
    */
-  public MeltingRecipeBuilder setOre() {
-    this.isOre = true;
+  public MeltingRecipeBuilder setOre(OreRateType rate) {
+    this.oreRate = rate;
     return this;
   }
 
@@ -117,7 +119,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    if (isOre && isDamagable) {
+    if (oreRate != null && isDamagable) {
       throw new IllegalStateException("Builder cannot be both ore and damagable");
     }
     // only build JSON if needed
@@ -132,6 +134,9 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
     @Override
     public void serializeRecipeData(JsonObject json) {
+      if (oreRate != null) {
+        json.addProperty("rate", oreRate.getName());
+      }
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
@@ -150,7 +155,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
     @Override
     public RecipeSerializer<?> getType() {
-      if (isOre) {
+      if (oreRate != null) {
         return TinkerSmeltery.oreMeltingSerializer.get();
       }
       if (isDamagable) {

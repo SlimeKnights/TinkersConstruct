@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -35,15 +36,15 @@ public class MeltingRecipe implements IMeltingRecipe {
   @Getter
   private final ResourceLocation id;
   @Getter
-  private final String group;
-  private final Ingredient input;
+  protected final String group;
+  protected final Ingredient input;
   @Getter(AccessLevel.PROTECTED)
-  private final FluidStack output;
+  protected final FluidStack output;
   @Getter
-  private final int temperature;
+  protected final int temperature;
   /** Number of "steps" needed to melt this, by default lava increases steps by 5 every 4 ticks (25 a second) */
   @Getter
-  private final int time;
+  protected final int time;
   protected final List<FluidStack> byproducts;
   private List<List<FluidStack>> outputWithByproducts;
 
@@ -77,9 +78,10 @@ public class MeltingRecipe implements IMeltingRecipe {
     return TinkerSmeltery.meltingSerializer.get();
   }
 
-  /** If true, this recipe is an ore recipe with increased output based on the machine */
-  public boolean isOre() {
-    return false;
+  /** If nonnull, recipe is boosted by this ore type */
+  @Nullable
+  public OreRateType getOreType() {
+    return null;
   }
 
   @Override
@@ -112,12 +114,12 @@ public class MeltingRecipe implements IMeltingRecipe {
     T create(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts);
   }
 
-  /**
-   * Serializer for {@link MeltingRecipe}
-   */
-  @RequiredArgsConstructor
-  public static class Serializer<T extends MeltingRecipe> extends LoggingRecipeSerializer<T> {
-    private final IFactory<T> factory;
+  protected abstract static class AbstractSerializer<T extends MeltingRecipe> extends LoggingRecipeSerializer<T> {
+    /** Creates a new recipe instance from Json */
+    protected abstract T createFromJson(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, JsonObject json);
+
+    /** Creates a new recipe instance from the network */
+    protected abstract T createFromNetwork(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, FriendlyByteBuf buffer);
 
     @Override
     public T fromJson(ResourceLocation id, JsonObject json) {
@@ -136,7 +138,7 @@ public class MeltingRecipe implements IMeltingRecipe {
         byproducts = JsonHelper.parseList(json, "byproducts", RecipeHelper::deserializeFluidStack);
       }
 
-      return factory.create(id, group, input, output, temperature, time, byproducts);
+      return createFromJson(id, group, input, output, temperature, time, byproducts, json);
     }
 
     @Nullable
@@ -152,11 +154,11 @@ public class MeltingRecipe implements IMeltingRecipe {
       for (int i = 0; i < byproductCount; i++) {
         builder.add(FluidStack.readFromPacket(buffer));
       }
-      return factory.create(id, group, input, output, temperature, time, builder.build());
+      return createFromNetwork(id, group, input, output, temperature, time, builder.build(), buffer);
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, MeltingRecipe recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       buffer.writeUtf(recipe.group);
       recipe.input.toNetwork(buffer);
       recipe.output.writeToPacket(buffer);
@@ -166,6 +168,24 @@ public class MeltingRecipe implements IMeltingRecipe {
       for (FluidStack fluidStack : recipe.byproducts) {
         fluidStack.writeToPacket(buffer);
       }
+    }
+  }
+
+  /**
+   * Serializer for {@link MeltingRecipe}
+   */
+  @RequiredArgsConstructor
+  public static class Serializer<T extends MeltingRecipe> extends AbstractSerializer<T> {
+    private final IFactory<T> factory;
+
+    @Override
+    protected T createFromJson(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, JsonObject json) {
+      return factory.create(id, group, input, output, temperature, time, byproducts);
+    }
+
+    @Override
+    protected T createFromNetwork(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, FriendlyByteBuf buffer) {
+      return factory.create(id, group, input, output, temperature, time, byproducts);
     }
   }
 }

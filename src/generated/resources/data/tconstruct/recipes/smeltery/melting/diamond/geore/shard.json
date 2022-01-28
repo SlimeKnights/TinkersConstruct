@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_shards/diamond",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_shards/diamond"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_diamond",
+    "amount": 100
+  },
+  "temperature": 1450,
+  "time": 79
+}

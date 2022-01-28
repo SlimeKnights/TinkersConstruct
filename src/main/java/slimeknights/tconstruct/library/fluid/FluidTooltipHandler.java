@@ -43,7 +43,7 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry LARGE_GEM_BLOCK = new FluidGuiEntry("block", FluidValues.LARGE_GEM_BLOCK);
   private static final FluidGuiEntry SMALL_GEM_BLOCK = new FluidGuiEntry("block", FluidValues.SMALL_GEM_BLOCK);
   private static final FluidGuiEntry GEM = new FluidGuiEntry("gem", FluidValues.GEM);
-  private static final FluidGuiEntry GEM_NUGGET = new FluidGuiEntry("nugget", FluidValues.GEM / 9);
+  private static final FluidGuiEntry SHARDS = new FluidGuiEntry("shard", FluidValues.GEM_SHARD);
   // clay
   private static final FluidGuiEntry BRICK_BLOCK = new FluidGuiEntry("block", FluidValues.BRICK_BLOCK);
   private static final FluidGuiEntry BRICK = new FluidGuiEntry("brick", FluidValues.BRICK);
@@ -122,11 +122,11 @@ public class FluidTooltipHandler {
       } else if (fluid.is(LARGE_GEM_TOOLTIPS)) {
         amount = LARGE_GEM_BLOCK.getText(tooltip, amount);
         amount = GEM.getText(tooltip, amount);
-        amount = GEM_NUGGET.getText(tooltip, amount);
+        amount = SHARDS.getText(tooltip, amount);
       } else if (fluid.is(SMALL_GEM_TOOLTIPS)) {
         amount = SMALL_GEM_BLOCK.getText(tooltip, amount);
         amount = GEM.getText(tooltip, amount);
-        amount = GEM_NUGGET.getText(tooltip, amount);
+        amount = SHARDS.getText(tooltip, amount);
       } else if (fluid.is(GLASS_TOOLTIPS)) {
         amount = GLASS_BLOCK.getText(tooltip, amount);
         amount = PANE.getText(tooltip, amount);

@@ -19,8 +19,10 @@ public final class FluidValues {
   public static final int METAL_BLOCK = INGOT * 9;
 
   // gem
-  /** Value of a gem such as diamond or emerald, needs to be divisible by 3 for ore multipliers */
-  public static final int GEM = 90;
+  /** Value of a gem such as diamond or emerald */
+  public static final int GEM = 100;
+  /** Value of a quarter gem */
+  public static final int GEM_SHARD = GEM / 4;
   /** Value of a block of 9 gems, such as emerald or an ender pearl */
   public static final int LARGE_GEM_BLOCK = GEM * 9;
   /** Value of a block of 9 gems, such as emerald or an ender pearl */
@@ -28,7 +30,7 @@ public final class FluidValues {
 
   // clay/brick
   /** Value of a single brick, divisible by 2 */
-  public static final int BRICK = 250; // TODO: we want half clays in a few spots
+  public static final int BRICK = 250;
   /** Value of a single metal brick block, is divisible by 36 */
   public static final int BRICK_BLOCK = BRICK * 4;
 

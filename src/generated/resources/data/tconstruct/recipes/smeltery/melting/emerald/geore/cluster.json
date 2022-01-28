@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_clusters/emerald",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_clusters/emerald"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_emerald",
+    "amount": 400
+  },
+  "temperature": 934,
+  "time": 161
+}

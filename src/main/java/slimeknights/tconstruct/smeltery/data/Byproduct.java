@@ -13,18 +13,22 @@ import java.util.function.Supplier;
 /** Standard ore byproducts for smeltery ores, this enum exists to simplify our builders to allow passing 3 args in varargs */
 @RequiredArgsConstructor
 public enum Byproduct implements IByproduct {
-  // base mod
+  // base metals
   COPPER    (true, TinkerFluids.moltenCopper),
   IRON      (true, TinkerFluids.moltenIron),
   GOLD      (true, TinkerFluids.moltenGold),
   SMALL_GOLD("gold", true, TinkerFluids.moltenGold, FluidValues.NUGGET * 3),
   COBALT    (true, TinkerFluids.moltenCobalt),
-  // compat
+  // compat metals
   TIN     (false, TinkerFluids.moltenTin),
   SILVER  (false, TinkerFluids.moltenSilver),
   NICKEL  (false, TinkerFluids.moltenNickel),
   LEAD    (false, TinkerFluids.moltenLead),
-  PLATINUM("platinum", false, TinkerFluids.moltenPlatinum, FluidValues.NUGGET * 3);
+  PLATINUM("platinum", false, TinkerFluids.moltenPlatinum, FluidValues.NUGGET * 3),
+  // gems
+  DIAMOND ("diamond",  true, TinkerFluids.moltenDiamond, FluidValues.GEM),
+  AMETHYST("amethyst", true, TinkerFluids.moltenAmethyst, FluidValues.GEM),
+  QUARTZ  ("quartz",   true, TinkerFluids.moltenQuartz, FluidValues.GEM);
 
   @Getter
   private final String name;

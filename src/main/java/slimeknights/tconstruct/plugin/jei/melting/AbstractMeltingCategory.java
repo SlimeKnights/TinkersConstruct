@@ -73,7 +73,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   public void draw(MeltingRecipe recipe, PoseStack matrices, double mouseX, double mouseY) {
     // draw the arrow
     cachedArrows.getUnchecked(recipe.getTime() * 5).draw(matrices, 56, 18);
-    if (recipe.isOre()) {
+    if (recipe.getOreType() != null) {
       plus.draw(matrices, 87, 31);
     }
 
@@ -89,7 +89,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   public List<Component> getTooltipStrings(MeltingRecipe recipe, double mouseXD, double mouseYD) {
     int mouseX = (int)mouseXD;
     int mouseY = (int)mouseYD;
-    if (recipe.isOre() && GuiUtil.isHovered(mouseX, mouseY, 87, 31, 16, 16)) {
+    if (recipe.getOreType() != null && GuiUtil.isHovered(mouseX, mouseY, 87, 31, 16, 16)) {
       return Collections.singletonList(TOOLTIP_ORE);
     }
     // time tooltip
@@ -101,16 +101,19 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
 
   /** Adds amounts to outputs and temperatures to fuels */
   @RequiredArgsConstructor
-  public static abstract class MeltingFluidCallback implements ITooltipCallback<FluidStack> {
-    private final boolean isOre;
+  public static class MeltingFluidCallback implements ITooltipCallback<FluidStack> {
+    public static final MeltingFluidCallback INSTANCE = new MeltingFluidCallback();
 
     /**
      * Adds teh tooltip for ores
+     *
      * @param stack  Fluid to draw
      * @param list   Tooltip so far
-     * @return  True if the shift message should display
+     * @return true if the amount is not in buckets
      */
-    protected abstract boolean addOreTooltip(FluidStack stack, List<Component> list);
+    protected boolean appendMaterial(FluidStack stack, List<Component> list) {
+      return FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), stack.getAmount(), list);
+    }
 
     @Override
     public void onTooltip(int index, boolean input, FluidStack stack, List<Component> list) {
@@ -121,8 +124,8 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
 
       // outputs show amounts
       if (index != -1) {
-        if (isOre && index == 0) {
-          if (addOreTooltip(stack, list)) {
+        if (index == 0) {
+          if (appendMaterial(stack, list)) {
             FluidTooltipHandler.appendShift(list);
           }
         } else {

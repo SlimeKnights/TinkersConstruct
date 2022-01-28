@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_large_buds/diamond",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_large_buds/diamond"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_diamond",
+    "amount": 300
+  },
+  "temperature": 1450,
+  "time": 158
+}

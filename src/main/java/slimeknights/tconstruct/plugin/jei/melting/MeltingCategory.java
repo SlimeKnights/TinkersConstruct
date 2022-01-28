@@ -2,6 +2,7 @@ package slimeknights.tconstruct.plugin.jei.melting;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -23,7 +24,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -50,9 +51,9 @@ public class MeltingCategory extends AbstractMeltingCategory {
     }
   };
 
-  /** Tooltip callback for fluids */
-  private static final ITooltipCallback<FluidStack> FLUID_TOOLTIP = new MeltingFluidCallback(false);
-  private static final ITooltipCallback<FluidStack> ORE_FLUID_TOOLTIP = new MeltingFluidCallback(true);
+  /** Tooltip callback for ores */
+  private static final ITooltipCallback<FluidStack> METAL_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.METAL);
+  private static final ITooltipCallback<FluidStack> GEM_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.GEM);
 
   @Getter
   private final IDrawable icon;
@@ -110,30 +111,39 @@ public class MeltingCategory extends AbstractMeltingCategory {
     // liquid fuel
     fluids.init(-1, true, 4, 4, 12, fluidHeight, 1, false, null);
     fluids.set(-1, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
-    fluids.addTooltipCallback(recipe.isOre() ? ORE_FLUID_TOOLTIP : FLUID_TOOLTIP);
+
+    // change tooltip for ore boosted recipes
+    OreRateType oreType = recipe.getOreType();
+    if (oreType == OreRateType.METAL) {
+      fluids.addTooltipCallback(METAL_ORE_TOOLTIP);
+    } else if (oreType == OreRateType.GEM) {
+      fluids.addTooltipCallback(GEM_ORE_TOOLTIP);
+    } else {
+      fluids.addTooltipCallback(MeltingFluidCallback.INSTANCE);
+    }
   }
 
   /** Adds amounts to outputs and temperatures to fuels */
+  @RequiredArgsConstructor
   private static class MeltingFluidCallback extends AbstractMeltingCategory.MeltingFluidCallback {
-    public MeltingFluidCallback(boolean isOre) {
-      super(isOre);
-    }
+    @Getter
+    private final OreRateType oreType;
 
     @Override
-    protected boolean addOreTooltip(FluidStack stack, List<Component> list) {
+    protected boolean appendMaterial(FluidStack stack, List<Component> list) {
       Fluid fluid = stack.getFluid();
       int amount = stack.getAmount();
-      int smelteryRate = Config.COMMON.smelteryNuggetsPerOre.get();
-      int melterRate = Config.COMMON.melterNuggetsPerOre.get();
-      if (smelteryRate != melterRate) {
+      int smelteryAmount = Config.COMMON.smelteryOreRate.applyOreBoost(oreType, amount);
+      int melterAmount = Config.COMMON.melterOreRate.applyOreBoost(oreType, amount);
+      if (smelteryAmount != melterAmount) {
         list.add(TOOLTIP_MELTER);
-        boolean shift = FluidTooltipHandler.appendMaterialNoShift(fluid, IMeltingContainer.applyOreBoost(amount, melterRate), list);
+        boolean shift = FluidTooltipHandler.appendMaterialNoShift(fluid, melterAmount, list);
         list.add(TextComponent.EMPTY);
         list.add(TOOLTIP_SMELTERY);
-        shift = FluidTooltipHandler.appendMaterialNoShift(fluid, IMeltingContainer.applyOreBoost(amount, smelteryRate), list) || shift;
+        shift = FluidTooltipHandler.appendMaterialNoShift(fluid, smelteryAmount, list) || shift;
         return shift;
       } else {
-        return FluidTooltipHandler.appendMaterialNoShift(fluid, IMeltingContainer.applyOreBoost(amount, smelteryRate), list);
+        return FluidTooltipHandler.appendMaterialNoShift(fluid, smelteryAmount, list);
       }
     }
   }

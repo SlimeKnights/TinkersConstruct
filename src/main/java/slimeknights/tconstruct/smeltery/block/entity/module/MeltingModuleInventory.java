@@ -11,12 +11,12 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.function.IntSupplier;
 
 /**
  * Inventory composite made of a set of melting module inventories
@@ -35,20 +35,20 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   /** If true, module cannot be resized */
   private final boolean strictSize;
   /** Number of nuggets to produce when melting an ore */
-  private final IntSupplier nuggetsPerOre;
+  private final IOreRate oreRate;
 
   /**
    * Creates a new inventory with a fixed size
    * @param parent         Parent tile
    * @param fluidHandler   Tank for output
-   * @param nuggetsPerOre  Number of nuggets to produce from an ore block
+   * @param oreRate        Ore rate
    * @param size           Size
    */
-  public MeltingModuleInventory(MantleBlockEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre, int size) {
+  public MeltingModuleInventory(MantleBlockEntity parent, IFluidHandler fluidHandler, IOreRate oreRate, int size) {
     this.parent = parent;
     this.fluidHandler = fluidHandler;
     this.modules = new MeltingModule[size];
-    this.nuggetsPerOre = nuggetsPerOre;
+    this.oreRate = oreRate;
     this.strictSize = size != 0;
   }
 
@@ -56,10 +56,10 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * Creates a new inventory with a variable size
    * @param parent         Parent tile
    * @param fluidHandler   Tank for output
-   * @param nuggetsPerOre  Number of nuggets to produce from an ore block
+   * @param oreRate        Ore rate
    */
-  public MeltingModuleInventory(MantleBlockEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre) {
-    this(parent, fluidHandler, nuggetsPerOre, 0);
+  public MeltingModuleInventory(MantleBlockEntity parent, IFluidHandler fluidHandler, IOreRate oreRate) {
+    this(parent, fluidHandler, oreRate, 0);
   }
 
   /* Properties */
@@ -134,7 +134,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent, recipe -> tryFillTank(slot, recipe), nuggetsPerOre, slot);
+      modules[slot] = new MeltingModule(parent, recipe -> tryFillTank(slot, recipe), oreRate, slot);
     }
     return modules[slot];
   }

@@ -72,7 +72,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
   /* Heating */
   /** Handles all the melting needs */
   @Getter
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.melterNuggetsPerOre::get, 3);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.melterOreRate, 3);
   /** Capability holder for the tank */
   private final LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> meltingInventory);
 

@@ -39,7 +39,7 @@ public class FoundryBlockEntity extends HeatingStructureBlockEntity {
 
   @Override
   protected MeltingModuleInventory createMeltingInventory() {
-    return new ByproductMeltingModuleInventory(this, tank, Config.COMMON.foundryNuggetsPerOre::get);
+    return new ByproductMeltingModuleInventory(this, tank, Config.COMMON.foundryOreRate);
   }
 
   @Override

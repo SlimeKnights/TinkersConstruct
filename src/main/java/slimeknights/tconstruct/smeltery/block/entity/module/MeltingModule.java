@@ -16,7 +16,6 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 /**
@@ -37,8 +36,8 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   private final MantleBlockEntity parent;
   /** Function that accepts fluid output from this module */
   private final Predicate<IMeltingRecipe> outputFunction;
-  /** Function that gives the nuggets per ore for this module */
-  private final IntSupplier nuggetsPerOre;
+  /** Function that boosts the ores based on the rate type */
+  private final IOreRate oreRate;
   /** Slot index for updates */
   private final int slotIndex;
 
@@ -60,8 +59,8 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   private ItemStack stack = ItemStack.EMPTY;
 
   @Override
-  public int getNuggetsPerOre() {
-    return nuggetsPerOre.getAsInt();
+  public IOreRate getOreRate() {
+    return oreRate;
   }
 
   /**

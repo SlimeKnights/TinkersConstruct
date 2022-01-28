@@ -14,6 +14,8 @@ import net.minecraftforge.fml.event.config.ModConfigEvent.Reloading;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerStructures;
@@ -43,9 +45,9 @@ public class Config {
     public final IntValue barterBlazingBlood;
     public final IntValue tinkerToolBonusChest;
 
-    public final ConfigValue<Integer> melterNuggetsPerOre;
-    public final ConfigValue<Integer> smelteryNuggetsPerOre;
-    public final ConfigValue<Integer> foundryNuggetsPerOre, foundryByproductNuggetsPerOre;
+    public final OreRate melterOreRate;
+    public final OreRate smelteryOreRate;
+    public final OreRate foundryOreRate, foundryByproductRate;
 
     public final BooleanValue generateCobalt;
     public final ConfigValue<Integer> veinCountCobalt;
@@ -140,23 +142,25 @@ public class Config {
         .worldRestart()
         .define("glassRecipeFix", true);
 
-      this.melterNuggetsPerOre = builder
-        .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")
-        .translation("tconstruct.configgui.melterNuggetsPerOre")
-        .defineInRange("melterNuggetsPerOre", 12, 1, 45);
-      this.smelteryNuggetsPerOre = builder
-        .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
-        .translation("tconstruct.configgui.smelteryNuggetsPerOre")
-        .defineInRange("smelteryNuggetsPerOre", 12, 1, 45);
-      this.foundryNuggetsPerOre = builder
-        .comment("Number of nuggets produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot")
-        .translation("tconstruct.configgui.foundryNuggetsPerOre")
-        .defineInRange("foundryNuggetsPerOre", 9, 1, 45);
-      this.foundryByproductNuggetsPerOre = builder
-        .comment("Number of nuggets of byproduct produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot",
-                 "Note some byproducts (such as gold from copper) have a reduced value")
-        .worldRestart()
-        .defineInRange("foundryByproductNuggetsPerOre", 3, 1, 45);
+      builder.push("ore_rates");
+      {
+        builder.comment("Ore rates when melting in the melter").push("melter");
+        this.melterOreRate = new OreRate(builder, 12, 8);
+        builder.pop();
+
+        builder.comment("Ore rates when melting in the smeltery").push("smeltery");
+        this.smelteryOreRate = new OreRate(builder, 12, 8);
+        builder.pop();
+
+        builder.comment("Ore rates when melting in the foundry").push("foundry");
+        this.foundryOreRate = new OreRate(builder, 9, 4);
+        builder.pop();
+
+        builder.comment("Byprouct rates when melting in the foundry").push("foundry_byproduct");
+        this.foundryByproductRate = new OreRate(builder, 3, 4);
+        builder.pop();
+      }
+      builder.pop();
 
       builder.comment("Entity head drops when killed by a charged creeper").push("heads");
       headDrops = new EnumMap<>(TinkerHeadType.class);
@@ -397,6 +401,29 @@ public class Config {
     public StructureFeatureConfiguration makeConfiguration() {
       int spacing = this.spacing.get();
       return new StructureFeatureConfiguration(spacing, (int)(this.separationPercent.get() * spacing), salt);
+    }
+  }
+
+  /** Configuration for an ore rate, such as melter or foundry */
+  public static class OreRate implements IOreRate {
+    private final ConfigValue<Integer> nuggetsPerMetal;
+    private final ConfigValue<Integer> shardsPerGem;
+
+    public OreRate(ForgeConfigSpec.Builder builder, int defaultNuggets, int defaultQuarters) {
+      nuggetsPerMetal = builder
+        .comment("Number of nuggets produced per metal ore unit melted. 9 nuggets would give 1 ingot")
+        .defineInRange("nuggetsPerMetal", defaultNuggets, 1, 45);
+      shardsPerGem = builder
+        .comment("Number of gem shards produced per gem ore unit melted. 4 gem shards would give 1 gem")
+        .defineInRange("shardsPerGem", defaultQuarters, 1, 20);
+    }
+
+    @Override
+    public int applyOreBoost(OreRateType rate, int amount) {
+      return switch (rate) {
+        case METAL -> amount * nuggetsPerMetal.get() / 9;
+        case GEM -> amount * shardsPerGem.get() / 4;
+      };
     }
   }
 }

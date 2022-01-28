@@ -45,7 +45,7 @@ public class SmelteryBlockEntity extends HeatingStructureBlockEntity {
 
   @Override
   protected MeltingModuleInventory createMeltingInventory() {
-    return new MeltingModuleInventory(this, tank, Config.COMMON.smelteryNuggetsPerOre::get);
+    return new MeltingModuleInventory(this, tank, Config.COMMON.smelteryOreRate);
   }
 
   @Override
