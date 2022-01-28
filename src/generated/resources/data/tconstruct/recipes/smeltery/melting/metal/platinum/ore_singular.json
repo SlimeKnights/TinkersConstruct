@@ -10,6 +10,7 @@
       "type": "tconstruct:tag_difference_present"
     }
   ],
+  "rate": "metal",
   "ingredient": {
     "type": "mantle:difference",
     "base": {

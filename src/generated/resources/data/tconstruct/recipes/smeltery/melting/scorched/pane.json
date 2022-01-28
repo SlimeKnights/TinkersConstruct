@@ -12,7 +12,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:molten_quartz",
-      "amount": 30
+      "amount": 25
     }
   ]
 }

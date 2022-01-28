@@ -9,6 +9,7 @@
       "type": "tconstruct:tag_intersection_present"
     }
   ],
+  "rate": "metal",
   "ingredient": {
     "type": "mantle:intersection",
     "ingredients": [

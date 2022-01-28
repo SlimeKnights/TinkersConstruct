@@ -9,6 +9,7 @@
       "type": "forge:not"
     }
   ],
+  "rate": "metal",
   "ingredient": {
     "tag": "forge:storage_blocks/raw_osmium"
   },

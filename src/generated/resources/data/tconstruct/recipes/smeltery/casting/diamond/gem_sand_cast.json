@@ -6,8 +6,8 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_diamond",
-    "amount": 90
+    "amount": 100
   },
   "result": "minecraft:diamond",
-  "cooling_time": 79
+  "cooling_time": 83
 }

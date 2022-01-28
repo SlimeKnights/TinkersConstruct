@@ -6,8 +6,8 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_emerald",
-    "amount": 30
+    "amount": 25
   },
   "result": "tconstruct:emerald_reinforcement",
-  "cooling_time": 37
+  "cooling_time": 34
 }

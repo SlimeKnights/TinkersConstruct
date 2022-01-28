@@ -6,8 +6,8 @@
   "cast_consumed": true,
   "fluid": {
     "tag": "tconstruct:molten_amethyst",
-    "amount": 180
+    "amount": 200
   },
   "result": "tconstruct:clear_tinted_glass",
-  "cooling_time": 92
+  "cooling_time": 97
 }

@@ -128,7 +128,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.goldReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.emeraldReinforcement)
-                            .setFluidAndTime(TinkerFluids.moltenEmerald, false, FluidValues.GEM / 3)
+                            .setFluidAndTime(TinkerFluids.moltenEmerald, false, FluidValues.GEM_SHARD)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.emeraldReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.bronzeReinforcement)

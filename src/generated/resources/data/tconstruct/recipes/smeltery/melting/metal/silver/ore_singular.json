@@ -23,6 +23,7 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
+        "rate": "metal",
         "ingredient": {
           "type": "mantle:difference",
           "base": {
@@ -59,6 +60,7 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
+        "rate": "metal",
         "ingredient": {
           "type": "mantle:difference",
           "base": {

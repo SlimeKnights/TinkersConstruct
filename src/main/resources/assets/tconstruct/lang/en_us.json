@@ -1074,8 +1074,9 @@
 
   "gui.tconstruct.fluid.block": "%s Blocks",
   "gui.tconstruct.fluid.ingot": "%s Ingots",
-  "gui.tconstruct.fluid.gem": "%s Gems",
   "gui.tconstruct.fluid.nugget": "%s Nuggets",
+  "gui.tconstruct.fluid.gem": "%s Gems",
+  "gui.tconstruct.fluid.shard": "%s Shards",
   "gui.tconstruct.fluid.pane": "%s Panes",
   "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
   "gui.tconstruct.fluid.brick": "%s Bricks",

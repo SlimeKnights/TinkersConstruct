@@ -9,6 +9,7 @@
       "type": "forge:not"
     }
   ],
+  "rate": "metal",
   "ingredient": {
     "tag": "forge:raw_materials/osmium"
   },

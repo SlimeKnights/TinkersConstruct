@@ -13,6 +13,7 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
+        "rate": "metal",
         "ingredient": {
           "tag": "forge:raw_materials/iron"
         },
@@ -38,6 +39,7 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
+        "rate": "metal",
         "ingredient": {
           "tag": "forge:raw_materials/iron"
         },

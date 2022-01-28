@@ -236,6 +236,9 @@ dependencies {
     // runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:3546593")
     runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:3544496")
 
+    runtimeOnly fg.deobf("curse.maven:terrablender-563928:3619749")
+    runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:3616582")
+
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'

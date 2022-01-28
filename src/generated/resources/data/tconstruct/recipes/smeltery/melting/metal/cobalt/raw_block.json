@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "rate": "metal",
   "ingredient": {
     "tag": "forge:storage_blocks/raw_cobalt"
   },

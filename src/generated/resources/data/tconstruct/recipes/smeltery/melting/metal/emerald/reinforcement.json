@@ -5,10 +5,10 @@
   },
   "result": {
     "fluid": "tconstruct:molten_emerald",
-    "amount": 30
+    "amount": 25
   },
   "temperature": 934,
-  "time": 37,
+  "time": 34,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_obsidian",

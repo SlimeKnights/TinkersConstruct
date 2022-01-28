@@ -5,10 +5,10 @@
   },
   "result": {
     "fluid": "tconstruct:molten_diamond",
-    "amount": 180
+    "amount": 200
   },
   "temperature": 1450,
-  "time": 112,
+  "time": 118,
   "byproducts": [
     {
       "fluid": "tconstruct:molten_obsidian",

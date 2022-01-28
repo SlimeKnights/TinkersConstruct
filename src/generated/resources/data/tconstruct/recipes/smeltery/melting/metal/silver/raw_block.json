@@ -22,6 +22,7 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
+        "rate": "metal",
         "ingredient": {
           "tag": "forge:storage_blocks/raw_silver"
         },
@@ -47,6 +48,7 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
+        "rate": "metal",
         "ingredient": {
           "tag": "forge:storage_blocks/raw_silver"
         },

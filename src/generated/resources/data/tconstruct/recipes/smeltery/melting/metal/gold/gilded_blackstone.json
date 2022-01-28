@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "rate": "metal",
   "ingredient": {
     "item": "minecraft:gilded_blackstone"
   },

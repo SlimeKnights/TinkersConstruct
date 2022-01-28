@@ -145,8 +145,8 @@ public class MeltingModifier extends TankModifier {
     private ItemStack stack;
 
     @Override
-    public int getNuggetsPerOre() {
-      return Config.COMMON.melterNuggetsPerOre.get();
+    public IOreRate getOreRate() {
+      return Config.COMMON.melterOreRate;
     }
   }
 }

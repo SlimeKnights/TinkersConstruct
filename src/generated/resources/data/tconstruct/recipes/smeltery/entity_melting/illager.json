@@ -5,12 +5,13 @@
       "minecraft:evoker",
       "minecraft:illusioner",
       "minecraft:pillager",
-      "minecraft:vindicator"
+      "minecraft:vindicator",
+      "minecraft:witch"
     ]
   },
   "result": {
     "fluid": "tconstruct:molten_emerald",
-    "amount": 10
+    "amount": 25
   },
   "damage": 2
 }
