@@ -8,7 +8,6 @@ import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -30,7 +29,7 @@ public class SpringyModifier extends Modifier {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getEntity();
     if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker) {
-      user.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      context.getTinkerData().ifPresent(data -> {
         // ensure this slot is in charge before continuing
         if (Optional.ofNullable(data.get(SLOT_IN_CHARGE)).filter(slot -> slot.inCharge == slotType).isPresent()) {
           // each slot attempts to apply, we keep the largest one, consistent with other counter attack modifiers

@@ -55,26 +55,28 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
     if (event.getResult() != Result.DENY) {
       // force critical if not already critical and in the air
       LivingEntity living = event.getEntityLiving();
-      // make it critical if we meet our simpler conditions, note this does not boost attack damage
-      boolean isCritical = event.isVanillaCritical() || event.getResult() == Result.ALLOW;
-      if (!isCritical && isAirborne(living)) {
-        isCritical = true;
-        event.setResult(Result.ALLOW);
-      }
 
-      // if we either were or became critical, time to boost
-      if (isCritical) {
-        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-          ModifierMaxLevel dragonborn = data.get(DRAGONBORN);
-          if (dragonborn != null) {
-            float max = dragonborn.getMax();
-            if (max > 0) {
+      // check dragonborn first, faster check
+      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        ModifierMaxLevel dragonborn = data.get(DRAGONBORN);
+        if (dragonborn != null) {
+          float max = dragonborn.getMax();
+          if (max > 0) {
+            // make it critical if we meet our simpler conditions, note this does not boost attack damage
+            boolean isCritical = event.isVanillaCritical() || event.getResult() == Result.ALLOW;
+            if (!isCritical && isAirborne(living)) {
+              isCritical = true;
+              event.setResult(Result.ALLOW);
+            }
+
+            // if we either were or became critical, time to boost
+            if (isCritical) {
               // adds +10% critical hit per level
               event.setDamageModifier(event.getDamageModifier() + max * 0.05f);
             }
           }
-        });
-      }
+        }
+      });
     }
   }
 }
