@@ -1114,7 +1114,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(folder + "clay/ball"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.FLOWER_POT), TinkerFluids.moltenClay.get(), FluidValues.BRICK * 3, 2.0f)
                         .save(consumer, modResource(folder + "clay/pot"));
-    metalMeltingBase(consumer, TinkerFluids.moltenClay.get(), FluidValues.BRICK, "plates/brick", 1.0f, folder + "clay/plate", true);
+    tagMelting(consumer, TinkerFluids.moltenClay.get(), FluidValues.BRICK, "plates/brick", 1.0f, folder + "clay/plate", true);
     // terracotta
     Ingredient terracottaBlock = Ingredient.of(
       Blocks.TERRACOTTA, Blocks.BRICKS, Blocks.BRICK_WALL, Blocks.BRICK_STAIRS,
@@ -1163,7 +1163,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.ENDER_CHEST), TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_BLOCK * 8, 5.0f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenEnder.get(), FluidValues.SLIMEBALL))
                         .save(consumer, modResource(folder + "obsidian/chest"));
-    metalMeltingBase(consumer, TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE, "dusts/obsidian", 1.0f, folder + "obsidian/dust", true);
+    tagMelting(consumer, TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE, "dusts/obsidian", 1.0f, folder + "obsidian/dust", true);
 
     // emerald
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_EMERALD), TinkerFluids.moltenEmerald.get(), FluidValues.GEM, 1.5f)

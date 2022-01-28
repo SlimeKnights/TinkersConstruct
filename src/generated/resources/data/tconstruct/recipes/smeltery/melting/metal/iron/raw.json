@@ -33,11 +33,7 @@
     {
       "conditions": [
         {
-          "value": {
-            "tag": "forge:ingots/copper",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+          "type": "forge:true"
         }
       ],
       "recipe": {

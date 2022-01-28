@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_medium_buds/tungsten",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_medium_buds/tungsten"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tungsten",
+    "amount": 180
+  },
+  "temperature": 950,
+  "time": 97
+}

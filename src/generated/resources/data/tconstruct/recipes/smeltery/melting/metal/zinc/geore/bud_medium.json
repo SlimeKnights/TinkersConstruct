@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_medium_buds/zinc",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_medium_buds/zinc"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_zinc",
+    "amount": 180
+  },
+  "temperature": 420,
+  "time": 70
+}

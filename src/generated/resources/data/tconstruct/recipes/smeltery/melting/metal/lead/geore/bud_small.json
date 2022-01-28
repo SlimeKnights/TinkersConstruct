@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_small_buds/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_small_buds/lead"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_lead",
+    "amount": 90
+  },
+  "temperature": 330,
+  "time": 43
+}

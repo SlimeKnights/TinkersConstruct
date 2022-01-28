@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_medium_buds/cobalt",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_medium_buds/cobalt"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_cobalt",
+    "amount": 180
+  },
+  "temperature": 950,
+  "time": 97
+}

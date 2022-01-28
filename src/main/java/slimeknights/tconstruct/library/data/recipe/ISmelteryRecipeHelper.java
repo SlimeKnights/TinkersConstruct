@@ -7,15 +7,22 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.IngredientDifference;
+import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
+import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -39,7 +46,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    * @param recipePath  Recipe output name
    * @param isOptional  If true, recipe is optional
    */
-  default void metalMeltingBase(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional) {
+  default void tagMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional) {
     Consumer<FinishedRecipe> wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
     MeltingRecipeBuilder.melting(Ingredient.of(getTag("forge", tagName)), fluid, amount, factor)
                         .save(wrapped, modResource(recipePath));
@@ -53,12 +60,28 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    * @param tagName     Input tag
    * @param factor      Melting factor
    * @param recipePath  Recipe output name
+   * @param oreRate     Ore rate for boosting
    * @param isOptional  If true, recipe is optional
    * @param byproducts  List of byproduct options for this metal, first one that is present will be used
    */
-  default void oreMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional, float byproductScale, IByproduct... byproducts) {
-    Consumer<FinishedRecipe> wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
-    Supplier<MeltingRecipeBuilder> supplier = () -> MeltingRecipeBuilder.melting(Ingredient.of(getTag("forge", tagName)), fluid, amount, factor).setOre();
+  default void oreMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, @Nullable Tag.Named<Item> size, float factor, String recipePath, boolean isOptional, float byproductScale, IByproduct... byproducts) {
+    Consumer<FinishedRecipe> wrapped;
+    Ingredient baseIngredient = Ingredient.of(getTag("forge", tagName));
+    Ingredient ingredient;
+    // not everyone sets size, so treat singular as the fallback, means we want anything in the tag that is not sparse or dense
+    if (size == Tags.Items.ORE_RATES_SINGULAR) {
+      ingredient = IngredientDifference.difference(baseIngredient, CompoundIngredient.from(Ingredient.of(Tags.Items.ORE_RATES_SPARSE), Ingredient.of(Tags.Items.ORE_RATES_DENSE)));
+      wrapped = withCondition(consumer, new TagDifferencePresentCondition(new ResourceLocation("forge", tagName), Tags.Items.ORE_RATES_SPARSE.getName(), Tags.Items.ORE_RATES_DENSE.getName()));
+      // size tag means we want an intersection between the tag and that size
+    } else if (size != null) {
+      ingredient = IngredientIntersection.intersection(baseIngredient, Ingredient.of(size));
+      wrapped = withCondition(consumer, new TagIntersectionPresentCondition(new ResourceLocation("forge", tagName), size.getName()));
+      // default only need it to be in the tag
+    } else {
+      ingredient = baseIngredient;
+      wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
+    }
+    Supplier<MeltingRecipeBuilder> supplier = () -> MeltingRecipeBuilder.melting(ingredient, fluid, amount, factor).setOre();
     ResourceLocation location = modResource(recipePath);
 
     // if no byproducts, just build directly
@@ -74,10 +97,15 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       ConditionalRecipe.Builder builder = ConditionalRecipe.builder();
       boolean alwaysPresent = false;
       for (IByproduct byproduct : byproducts) {
-        builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
-        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), (int)(byproduct.getAmount() * byproductScale)))::save);
-        // found an always present byproduct? we are done
+        // found an always present byproduct? no need to tag and we are done
         alwaysPresent = byproduct.isAlwaysPresent();
+        if (alwaysPresent) {
+          builder.addCondition(TrueCondition.INSTANCE);
+        } else {
+          builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
+        }
+        builder.addRecipe(supplier.get().addByproduct(new FluidStack(byproduct.getFluid(), (int)(byproduct.getAmount() * byproductScale)))::save);
+
         if (alwaysPresent) {
           break;
         }
@@ -89,6 +117,24 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       }
       builder.build(wrapped, location);
     }
+  }
+
+  /**
+   * Mod compat for Geores, adds melting for geore shards and blocks
+   * @param consumer  Recipe consumer
+   * @param fluid     Fluid
+   * @param name      Material name
+   * @param folder    Output folder
+   */
+  default void georeMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int unit, String name, String folder) {
+    // base
+    tagMelting(consumer, fluid, unit,     "geore_shards/" + name, 1.0f, folder + "geore/shard", true);
+    tagMelting(consumer, fluid, unit * 4, "geore_blocks/" + name, 2.0f, folder + "geore/block", true);
+    // clusters
+    tagMelting(consumer, fluid, unit * 4, "geore_clusters/" + name,    2.5f, folder + "geore/cluster", true);
+    tagMelting(consumer, fluid, unit,     "geore_small_buds/" + name,  1.0f, folder + "geore/bud_small", true);
+    tagMelting(consumer, fluid, unit * 2, "geore_medium_buds/" + name, 1.5f, folder + "geore/bud_medium", true);
+    tagMelting(consumer, fluid, unit * 3, "geore_large_buds/" + name,  2.0f, folder + "geore/bud_large", true);
   }
 
   /**
@@ -104,25 +150,28 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    */
   default void metalMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, String name, boolean hasOre, boolean hasDust, String folder, boolean isOptional, IByproduct... byproducts) {
     String prefix = folder + "/" + name + "/";
-    metalMeltingBase(consumer, fluid, FluidValues.METAL_BLOCK, "storage_blocks/" + name, 3.0f, prefix + "block", isOptional);
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT, "ingots/" + name, 1.0f, prefix + "ingot", isOptional);
-    metalMeltingBase(consumer, fluid, FluidValues.NUGGET, "nuggets/" + name, 1 / 3f, prefix + "nugget", isOptional);
+    tagMelting(consumer, fluid, FluidValues.METAL_BLOCK, "storage_blocks/" + name, 3.0f, prefix + "block", isOptional);
+    tagMelting(consumer, fluid, FluidValues.INGOT, "ingots/" + name, 1.0f, prefix + "ingot", isOptional);
+    tagMelting(consumer, fluid, FluidValues.NUGGET, "nuggets/" + name, 1 / 3f, prefix + "nugget", isOptional);
     if (hasOre) {
-      oreMelting(consumer, fluid, FluidValues.INGOT,     "raw_materials/" + name,      1.5f, prefix + "raw",       isOptional, 1.0f, byproducts);
-      oreMelting(consumer, fluid, FluidValues.INGOT * 2, "ores/" + name,               3.0f, prefix + "ore",       isOptional, 2.0f, byproducts);
-      oreMelting(consumer, fluid, FluidValues.INGOT * 9, "storage_blocks/raw_" + name, 6.0f, prefix + "raw_block", isOptional, 9.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT,     "raw_materials/" + name,      null, 1.5f, prefix + "raw",       isOptional, 1.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT * 9, "storage_blocks/raw_" + name, null, 6.0f, prefix + "raw_block", isOptional, 9.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT,     "ores/" + name, Tags.Items.ORE_RATES_SPARSE,   1.5f, prefix + "ore_sparse",   isOptional, 1.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT * 2, "ores/" + name, Tags.Items.ORE_RATES_SINGULAR, 2.5f, prefix + "ore_singular", isOptional, 2.0f, byproducts);
+      oreMelting(consumer, fluid, FluidValues.INGOT * 6, "ores/" + name, Tags.Items.ORE_RATES_DENSE,    4.5f, prefix + "ore_dense",    isOptional, 6.0f, byproducts);
+      georeMelting(consumer, fluid, FluidValues.INGOT, name, prefix);
     }
     // remaining forms are always optional as we don't ship them
     // allow disabling dust as some mods treat dust as distinct from ingots
     if (hasDust) {
-      metalMeltingBase(consumer, fluid, FluidValues.INGOT, "dusts/" + name, 0.75f, prefix + "dust", true);
+      tagMelting(consumer, fluid, FluidValues.INGOT, "dusts/" + name, 0.75f, prefix + "dust", true);
     }
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT, "plates/" + name, 1.0f, prefix + "plates", true);
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT * 4, "gears/" + name, 2.0f, prefix + "gear", true);
-    metalMeltingBase(consumer, fluid, FluidValues.NUGGET * 3, "coins/" + name, 2 / 3f, prefix + "coin", true);
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT / 2, "rods/" + name, 1 / 5f, prefix + "rod", true);
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT / 2, "wires/" + name, 1 / 5f, prefix + "wire", true);
-    metalMeltingBase(consumer, fluid, FluidValues.INGOT, "sheetmetals/" + name, 1.0f, prefix + "sheetmetal", true);
+    tagMelting(consumer, fluid, FluidValues.INGOT, "plates/" + name, 1.0f, prefix + "plates", true);
+    tagMelting(consumer, fluid, FluidValues.INGOT * 4, "gears/" + name, 2.0f, prefix + "gear", true);
+    tagMelting(consumer, fluid, FluidValues.NUGGET * 3, "coins/" + name, 2 / 3f, prefix + "coin", true);
+    tagMelting(consumer, fluid, FluidValues.INGOT / 2, "rods/" + name, 1 / 5f, prefix + "rod", true);
+    tagMelting(consumer, fluid, FluidValues.INGOT / 2, "wires/" + name, 1 / 5f, prefix + "wire", true);
+    tagMelting(consumer, fluid, FluidValues.INGOT, "sheetmetals/" + name, 1.0f, prefix + "sheetmetal", true);
   }
 
   /**

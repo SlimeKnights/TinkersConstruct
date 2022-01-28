@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_blocks/osmium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_blocks/osmium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_osmium",
+    "amount": 360
+  },
+  "temperature": 975,
+  "time": 131
+}

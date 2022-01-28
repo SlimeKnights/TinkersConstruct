@@ -42,11 +42,7 @@
     {
       "conditions": [
         {
-          "value": {
-            "tag": "forge:ingots/gold",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+          "type": "forge:true"
         }
       ],
       "recipe": {
