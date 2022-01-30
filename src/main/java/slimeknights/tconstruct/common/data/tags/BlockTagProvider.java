@@ -172,8 +172,8 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(TinkerTags.Blocks.SLIMY_PLANKS).add(TinkerWorld.greenheart.get(), TinkerWorld.skyroot.get(), TinkerWorld.bloodshroom.get());
     this.tag(BlockTags.PLANKS).addTag(TinkerTags.Blocks.SLIMY_PLANKS);
     this.tag(BlockTags.LOGS).addTag(TinkerTags.Blocks.SLIMY_LOGS);
-    this.addWoodTags(TinkerWorld.greenheart, true);
-    this.addWoodTags(TinkerWorld.skyroot, true);
+    this.addWoodTags(TinkerWorld.greenheart, false);
+    this.addWoodTags(TinkerWorld.skyroot, false);
     this.addWoodTags(TinkerWorld.bloodshroom, false);
 
     // slime blocks

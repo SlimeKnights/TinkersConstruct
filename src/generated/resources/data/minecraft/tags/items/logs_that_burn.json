@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "#tconstruct:greenheart_logs",
-    "#tconstruct:skyroot_logs"
-  ]
+  "values": []
 }
