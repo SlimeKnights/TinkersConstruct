@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:overslime_modifier",
   "ingredient": {
-    "item": "tconstruct:ender_slime_crystal"
+    "item": "minecraft:slime_block"
   },
-  "restore_amount": 200
+  "restore_amount": 108
 }

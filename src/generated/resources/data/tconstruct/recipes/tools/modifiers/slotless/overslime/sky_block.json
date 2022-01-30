@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:overslime_modifier",
   "ingredient": {
-    "item": "tconstruct:ichor_slime_crystal"
+    "item": "tconstruct:sky_slime"
   },
-  "restore_amount": 100
+  "restore_amount": 432
 }

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:overslime_modifier",
   "ingredient": {
-    "item": "tconstruct:earth_slime_crystal"
+    "item": "tconstruct:sky_congealed_slime"
   },
-  "restore_amount": 10
+  "restore_amount": 180
 }

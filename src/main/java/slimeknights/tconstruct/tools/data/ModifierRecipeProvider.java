@@ -239,15 +239,27 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.netherite, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.netherite, upgradeFolder));
 
-    // overslime
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.earthGeode, 10)
-                                  .save(consumer, modResource(slotlessFolder + "overslime/earth"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.skyGeode, 40)
-                                  .save(consumer, modResource(slotlessFolder + "overslime/sky"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.ichorGeode, 100)
-                                  .save(consumer, modResource(slotlessFolder + "overslime/ichor"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.enderGeode, 200)
-                                  .save(consumer, modResource(slotlessFolder + "overslime/ender"));
+    // overslime - earth
+    OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(SlimeType.EARTH), 10)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/earth_ball"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 45)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/earth_congealed"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(SlimeType.EARTH), 108)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/earth_block"));
+    // sky
+    OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(SlimeType.SKY), 40)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/sky_ball"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(SlimeType.SKY), 180)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/sky_congealed"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(SlimeType.SKY), 432)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/sky_block"));
+    // ichor
+    OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(SlimeType.ICHOR), 100)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/ichor_ball"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 450)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/ichor_congealed"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(SlimeType.ICHOR), 1080)
+                                  .save(consumer, modResource(slotlessFolder + "overslime/ichor_block"));
 
     /*
      * general effects
@@ -1541,7 +1553,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ItemLike congealed = TinkerWorld.congealedSlime.get(slime);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), material.toString())
                                   .setTools(tool)
-                                  .addInput(congealed).addInput(congealed).addInput(congealed)
+                                  .addInput(congealed).addInput(TinkerWorld.slime.get(slime)).addInput(congealed)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + slime.getSerializedName()));
   }
 
