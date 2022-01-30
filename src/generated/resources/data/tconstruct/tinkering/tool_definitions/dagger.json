@@ -46,10 +46,13 @@
       "effective": "tconstruct:mineable/dagger",
       "modifiers": [
         {
-          "blocks": [
-            "minecraft:cobweb"
-          ],
-          "modifier": 7.5
+          "modifier": 7.5,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:cobweb"
+            ]
+          }
         }
       ]
     }

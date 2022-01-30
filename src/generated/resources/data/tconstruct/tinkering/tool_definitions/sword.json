@@ -39,17 +39,23 @@
       "effective": "forge:mineable/sword",
       "modifiers": [
         {
-          "blocks": [
-            "minecraft:cobweb"
-          ],
-          "modifier": 7.5
+          "modifier": 7.5,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:cobweb"
+            ]
+          }
         },
         {
-          "blocks": [
-            "minecraft:bamboo",
-            "minecraft:bamboo_sapling"
-          ],
-          "modifier": 100.0
+          "modifier": 100.0,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:bamboo",
+              "minecraft:bamboo_sapling"
+            ]
+          }
         }
       ]
     }

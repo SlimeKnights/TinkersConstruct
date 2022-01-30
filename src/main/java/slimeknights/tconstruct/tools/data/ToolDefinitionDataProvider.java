@@ -18,6 +18,8 @@ import slimeknights.tconstruct.library.tools.definition.aoe.VeiningAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.FixedTierHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.AndBlockPredicate;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.TagBlockPredicate;
 import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
@@ -133,7 +135,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .action(ToolActions.SHOVEL_DIG)
       .harvestLogic(ModifiedHarvestLogic
                       .builder(TinkerTags.Blocks.MINABLE_WITH_MATTOCK)
-                      .notTagModifier(BlockTags.MINEABLE_WITH_SHOVEL, 0.65f)
+                      // 200% hand speed on any axe block we do not directly target
+                      .addModifier(2f, new AndBlockPredicate(new TagBlockPredicate(BlockTags.MINEABLE_WITH_AXE),
+                                                             new TagBlockPredicate(TinkerTags.Blocks.MINABLE_WITH_MATTOCK).inverted()))
                       .build())
       .aoe(new VeiningAOEIterator(0));
 

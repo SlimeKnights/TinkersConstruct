@@ -45,9 +45,23 @@
       "effective": "tconstruct:mineable/mattock",
       "modifiers": [
         {
-          "tag": "minecraft:mineable/shovel",
-          "modifier": 0.65,
-          "inverted": true
+          "modifier": 2.0,
+          "predicate": {
+            "type": "tconstruct:and",
+            "predicates": [
+              {
+                "type": "tconstruct:tag",
+                "tag": "minecraft:mineable/axe"
+              },
+              {
+                "type": "tconstruct:inverted",
+                "predicate": {
+                  "type": "tconstruct:tag",
+                  "tag": "tconstruct:mineable/mattock"
+                }
+              }
+            ]
+          }
         }
       ]
     },

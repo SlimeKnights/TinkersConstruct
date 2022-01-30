@@ -41,6 +41,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_NO_LEVEL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
@@ -198,9 +199,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.sledgeHammer, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_PRIMARY, TWO_HANDED, AOE);
     addToolTags(TinkerTools.veinHammer,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         TWO_HANDED, AOE);
     // dirtD
-    addToolTags(TinkerTools.mattock,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE);
-    addToolTags(TinkerTools.pickadze,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE, STONE_HARVEST);
-    addToolTags(TinkerTools.excavator, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, TWO_HANDED, AOE);
+    addToolTags(TinkerTools.mattock,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY,  MELEE, ONE_HANDED, AOE);
+    addToolTags(TinkerTools.pickadze,  MULTIPART_TOOL, DURABILITY, HARVEST_NO_LEVEL, MELEE, ONE_HANDED, AOE, STONE_HARVEST);
+    addToolTags(TinkerTools.excavator, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY,  MELEE, TWO_HANDED, AOE);
     // wood
     addToolTags(TinkerTools.handAxe,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, ONE_HANDED, AOE);
     addToolTags(TinkerTools.broadAxe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, TWO_HANDED, AOE);

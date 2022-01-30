@@ -51,15 +51,21 @@
       "effective": "tconstruct:mineable/scythe",
       "modifiers": [
         {
-          "tag": "minecraft:wool",
-          "modifier": 0.3
+          "modifier": 0.3,
+          "predicate": {
+            "type": "tconstruct:tag",
+            "tag": "minecraft:wool"
+          }
         },
         {
-          "blocks": [
-            "minecraft:vine",
-            "minecraft:glow_lichen"
-          ],
-          "modifier": 0.1
+          "modifier": 0.1,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:vine",
+              "minecraft:glow_lichen"
+            ]
+          }
         }
       ]
     },

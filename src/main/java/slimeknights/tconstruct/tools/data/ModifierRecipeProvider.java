@@ -1030,7 +1030,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(Items.ENDER_PEARL, 2)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.HARVEST_PRIMARY)
+                         .setTools(TinkerTags.Items.HARVEST)
                          .saveSalvage(consumer, prefix(TinkerModifiers.exchanging, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.exchanging, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.autosmelt.get())
@@ -1042,7 +1042,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(TinkerCommons.blazewood, 1, 2)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.HARVEST_PRIMARY)
+                         .setTools(TinkerTags.Items.HARVEST)
                          .saveSalvage(consumer, prefix(TinkerModifiers.autosmelt, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.autosmelt, abilityFolder));
     // fluid stuff

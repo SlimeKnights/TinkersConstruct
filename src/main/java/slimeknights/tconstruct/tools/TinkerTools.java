@@ -42,6 +42,12 @@ import slimeknights.tconstruct.library.tools.definition.harvest.FixedTierHarvest
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.AndBlockPredicate;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.BlockPredicate;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.InvertedBlockPredicate;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.OrBlockPredicate;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.SetBlockPredicate;
+import slimeknights.tconstruct.library.tools.definition.harvest.predicate.TagBlockPredicate;
 import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
@@ -157,6 +163,12 @@ public final class TinkerTools extends TinkerModule {
     IHarvestLogic.LOADER.register(TConstruct.getResource("effective_tag"), TagHarvestLogic.LOADER);
     IHarvestLogic.LOADER.register(TConstruct.getResource("modified_tag"), ModifiedHarvestLogic.LOADER);
     IHarvestLogic.LOADER.register(TConstruct.getResource("fixed_tier"), FixedTierHarvestLogic.LOADER);
+    // harvest predicates
+    BlockPredicate.LOADER.register(TConstruct.getResource("and"), AndBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(TConstruct.getResource("or"), OrBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(TConstruct.getResource("inverted"), InvertedBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
     // aoe
     IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("box"), BoxAOEIterator.LOADER);
     IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("circle"), CircleAOEIterator.LOADER);
