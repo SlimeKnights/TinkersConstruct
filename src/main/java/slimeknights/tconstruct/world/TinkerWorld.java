@@ -386,15 +386,15 @@ public final class TinkerWorld extends TinkerModule {
       GeodeLayerSettings defaultLayers = new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D);
       Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, TConstruct.getResource("earth_geode"), earthGeode.configureGeode(
         BlockStateProvider.simple(Blocks.CLAY), BlockStateProvider.simple(Blocks.GRANITE),
-        defaultLayers, new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1));
+        new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1));
       Registry.register(BuiltinRegistries.PLACED_FEATURE, TConstruct.getResource("earth_geode"), earthGeode.placeGeode(
-        RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.aboveBottom(64))));
+        RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.aboveBottom(54))));
 
       Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, TConstruct.getResource("sky_geode"), skyGeode.configureGeode(
         BlockStateProvider.simple(Blocks.PACKED_ICE), BlockStateProvider.simple(Blocks.DIORITE),
-        defaultLayers, new GeodeCrackSettings(0.20D, 0.5D, 2), UniformInt.of(3, 4), UniformInt.of(2, 3), ConstantInt.of(1), 8, 5));
+        defaultLayers, new GeodeCrackSettings(0.55D, 0.5D, 2), UniformInt.of(3, 4), UniformInt.of(2, 3), ConstantInt.of(1), 8, 5));
       Registry.register(BuiltinRegistries.PLACED_FEATURE, TConstruct.getResource("sky_geode"), skyGeode.placeGeode(
-        RarityFilter.onAverageOnceEvery(64), HeightRangePlacement.uniform(VerticalAnchor.absolute(16), VerticalAnchor.absolute(48))));
+        RarityFilter.onAverageOnceEvery(64), HeightRangePlacement.uniform(VerticalAnchor.absolute(16), VerticalAnchor.absolute(54))));
 
       Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, TConstruct.getResource("ichor_geode"), ichorGeode.configureGeode(
         BlockStateProvider.simple(Blocks.MAGMA_BLOCK), BlockStateProvider.simple(Blocks.NETHERRACK),

@@ -83,7 +83,7 @@ public class WorldEvents {
       if (Config.COMMON.earthGeodes.get()) {
         generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.earthGeode.getPlacedGeode());
       }
-      if (Config.COMMON.skyGeodes.get() && category != BiomeCategory.OCEAN) {
+      if (Config.COMMON.skyGeodes.get() && category != BiomeCategory.OCEAN && category != BiomeCategory.RIVER && category != BiomeCategory.SWAMP) {
         generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.skyGeode.getPlacedGeode());
       }
     }
