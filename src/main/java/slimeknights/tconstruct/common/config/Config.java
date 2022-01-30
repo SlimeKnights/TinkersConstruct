@@ -58,6 +58,10 @@ public class Config {
     public final SlimeIslandConfiguration clayIslands;
     public final SlimeIslandConfiguration bloodIslands;
     public final SlimeIslandConfiguration endslimeIslands;
+    public final BooleanValue earthGeodes;
+    public final BooleanValue skyGeodes;
+    public final BooleanValue ichorGeodes;
+    public final BooleanValue enderGeodes;
 
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
@@ -193,39 +197,54 @@ public class Config {
       builder.pop();
 
       builder.comment("Everything to do with world generation").push("worldgen");
+      {
+        this.generateCobalt = builder
+          .comment("Generate Cobalt")
+          .translation("tconstruct.configgui.generateCobalt")
+          .worldRestart()
+          .define("generateCobalt", true);
+        this.veinCountCobalt = builder
+          .comment("Approx Ores per Chunk")
+          .translation("tconstruct.configgui.veinCountCobalt")
+          .worldRestart()
+          .define("veinCountCobalt", 8);
 
-      this.generateCobalt = builder
-        .comment("Generate Cobalt")
-        .translation("tconstruct.configgui.generateCobalt")
-        .worldRestart()
-        .define("generateCobalt", true);
-      this.veinCountCobalt = builder
-        .comment("Approx Ores per Chunk")
-        .translation("tconstruct.configgui.veinCountCobalt")
-        .worldRestart()
-        .define("veinCountCobalt", 8);
+        builder.comment("Options related to slime islands").push("slime_islands");
+        builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
+        this.earthslimeIslands = new SlimeIslandConfiguration(builder, 35, 0.75, 25988585);
+        builder.pop();
 
-      builder.comment("Options related to slime islands").push("slime_islands");
-      builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
-      this.earthslimeIslands = new SlimeIslandConfiguration(builder, 35, 0.75, 25988585);
-      builder.pop();
+        builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
+        this.skyslimeIslands = new SlimeIslandConfiguration(builder, 40, 0.35, 14357800);
+        builder.pop();
 
-      builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
-      this.skyslimeIslands = new SlimeIslandConfiguration(builder, 40, 0.35, 14357800);
-      builder.pop();
+        builder.comment("Settings for clay islands in the overworld sky").push("clay");
+        this.clayIslands = new SlimeIslandConfiguration(builder, 125, 0.65, 162976988);
+        builder.pop();
 
-      builder.comment("Settings for clay islands in the overworld sky").push("clay");
-      this.clayIslands = new SlimeIslandConfiguration(builder, 125, 0.65, 162976988);
-      builder.pop();
+        builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
+        this.bloodIslands = new SlimeIslandConfiguration(builder, 15, 0.6, 65245622);
+        builder.pop();
 
-      builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
-      this.bloodIslands = new SlimeIslandConfiguration(builder, 15, 0.6, 65245622);
-      builder.pop();
+        builder.comment("Settings for end slime islands in the outer end islands").push("end");
+        this.endslimeIslands = new SlimeIslandConfiguration(builder, 25, 0.5, 368963602);
+        builder.pop(2);
 
-      builder.comment("Settings for end slime islands in the outer end islands").push("end");
-      this.endslimeIslands = new SlimeIslandConfiguration(builder, 25, 0.5, 368963602);
-      builder.pop(2);
-
+        builder.comment("Options related to slime geodes").push("geodes");
+        this.earthGeodes = builder
+          .comment("If true, earthslime geodes generate deep in the world as another way to get slime")
+            .define("earth", true);
+        this.skyGeodes = builder
+          .comment("If true, skyslime geodes generate above amethyst as another way to get skyslime")
+          .define("earth", true);
+        this.ichorGeodes = builder
+          .comment("If true, ichor geodes generate high in the nether")
+          .define("earth", true);
+        this.enderGeodes = builder
+          .comment("If true, enderslime geodes generate as additional islands in the end")
+          .define("earth", true);
+        builder.pop();
+      }
       builder.pop();
 
       builder.comment("Features to use in debugging gameplay and mechanics, generally should not be enabled in packs").push("debug");

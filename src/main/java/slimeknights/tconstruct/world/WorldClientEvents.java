@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -127,6 +128,14 @@ public class WorldClientEvents extends ClientEventBase {
     ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skyroot.getTrapdoor(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerWorld.bloodshroom.getDoor(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerWorld.bloodshroom.getTrapdoor(), cutout);
+
+    // geodes
+    for (BudSize size : BudSize.values()) {
+      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.earthGeode.getBud(size), cutout);
+      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skyGeode.getBud(size),   cutout);
+      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.ichorGeode.getBud(size), cutout);
+      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderGeode.getBud(size), cutout);
+    }
 
     // skull textures
     event.enqueueWork(() -> {

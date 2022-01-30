@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:ore_melting",
+  "rate": "gem",
+  "ingredient": {
+    "item": "tconstruct:medium_sky_slime_crystal_bud"
+  },
+  "result": {
+    "fluid": "tconstruct:sky_slime",
+    "amount": 500
+  },
+  "temperature": 10,
+  "time": 43
+}

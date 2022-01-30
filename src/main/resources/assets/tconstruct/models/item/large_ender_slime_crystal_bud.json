@@ -1,0 +1,6 @@
+  {
+  "parent": "item/large_amethyst_bud",
+  "textures": {
+    "layer0": "tconstruct:block/geode/ender/large_bud"
+  }
+}

@@ -4,7 +4,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -156,14 +155,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD))
                        .save(consumer, prefix(TinkerModifiers.silkyCloth, folder));
 
-    // slime crystals
-    TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
-      ItemLike slimeball = TinkerCommons.slimeball.get(type);
-      SimpleCookingRecipeBuilder.blasting(Ingredient.of(slimeball), crystal, 1.0f, 400)
-                          .unlockedBy("has_item", has(slimeball))
-                          .save(consumer, folder + "slime_crystal/" + type.getSerializedName());
-    });
-
     // wither bone purifying
     ShapelessRecipeBuilder.shapeless(Items.BONE)
                           .requires(TinkerTags.Items.WITHER_BONES)
@@ -249,13 +240,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.netherite, upgradeFolder));
 
     // overslime
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.EARTH), 10)
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.earthGeode, 10)
                                   .save(consumer, modResource(slotlessFolder + "overslime/earth"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.SKY), 40)
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.skyGeode, 40)
                                   .save(consumer, modResource(slotlessFolder + "overslime/sky"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ICHOR), 100)
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.ichorGeode, 100)
                                   .save(consumer, modResource(slotlessFolder + "overslime/ichor"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ENDER), 200)
+    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.enderGeode, 200)
                                   .save(consumer, modResource(slotlessFolder + "overslime/ender"));
 
     /*

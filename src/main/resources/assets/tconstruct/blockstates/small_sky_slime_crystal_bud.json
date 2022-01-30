@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "tconstruct:block/geode/sky/small_bud",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "tconstruct:block/geode/sky/small_bud",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tconstruct:block/geode/sky/small_bud",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "tconstruct:block/geode/sky/small_bud",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "tconstruct:block/geode/sky/small_bud"
+    },
+    "facing=west": {
+      "model": "tconstruct:block/geode/sky/small_bud",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

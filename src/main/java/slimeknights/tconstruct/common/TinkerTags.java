@@ -40,6 +40,14 @@ public class TinkerTags {
     /** Copper platform variants */
     public static final IOptionalNamedTag<Block> COPPER_PLATFORMS = tag("copper_platforms");
 
+    // Slime spawn
+    /** Blocks skyslimes can spawn on in the overworld */
+    public static final IOptionalNamedTag<Block> SKY_SLIME_SPAWN = tag("slime_spawn/sky");
+    /** Blocks earthslimes can spawn on in the overworld */
+    public static final IOptionalNamedTag<Block> EARTH_SLIME_SPAWN = tag("slime_spawn/earth");
+    /** Blocks enderslimes can spawn on in the end */
+    public static final IOptionalNamedTag<Block> ENDER_SLIME_SPAWN = tag("slime_spawn/ender");
+
     public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");

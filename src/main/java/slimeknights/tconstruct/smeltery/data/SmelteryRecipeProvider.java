@@ -44,6 +44,8 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.registration.GeodeItemObject;
+import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.data.recipe.ICommonRecipeHelper;
@@ -1460,13 +1462,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .save(consumer, modResource(slimeFolder + type.getSerializedName() + "/sling"));
       }
     });
-    TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
-      if (type != SlimeType.ICHOR) { // no ichor fluid
-        MeltingRecipeBuilder.melting(Ingredient.of(crystal), TinkerFluids.slime.get(type).get(), FluidValues.SLIMEBALL)
-                            .setDamagable()
-                            .save(consumer, modResource(slimeFolder + type.getSerializedName() + "/crystal"));
-      }
-    });
+
+    // geode stuff
+    crystalMelting(consumer, TinkerWorld.earthGeode, TinkerFluids.earthSlime.get(), slimeFolder + "earth/");
+    crystalMelting(consumer, TinkerWorld.skyGeode,   TinkerFluids.skySlime.get(),   slimeFolder + "sky/");
+    crystalMelting(consumer, TinkerWorld.enderGeode, TinkerFluids.enderSlime.get(), slimeFolder + "ender/");
+
     // recycle saplings
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(SlimeType.EARTH)), TinkerFluids.earthSlime.get(), FluidValues.SLIMEBALL)
                         .save(consumer, modResource(slimeFolder + "earth/sapling"));
@@ -2072,5 +2073,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.slimeball.get(slimeType))
                             .setFluidAndTime(fluid, forgeTag, FluidValues.SLIMEBALL)
                             .save(consumer, modResource(colorFolder + "slimeball"));
+  }
+
+  /** Adds recipes for melting slime crystals */
+  private void crystalMelting(Consumer<FinishedRecipe> consumer, GeodeItemObject geode, Fluid fluid, String folder) {
+    MeltingRecipeBuilder.melting(Ingredient.of(geode), fluid, FluidValues.SLIMEBALL, 1.0f).save(consumer, modResource(folder + "crystal"));
+    MeltingRecipeBuilder.melting(Ingredient.of(geode.getBlock()), fluid, FluidValues.SLIMEBALL * 4, 2.0f).save(consumer, modResource(folder + "crystal_block"));
+    for (BudSize bud : BudSize.values()) {
+      int size = bud.getSize();
+      MeltingRecipeBuilder.melting(Ingredient.of(geode.getBud(bud)), fluid, FluidValues.SLIMEBALL * size, (size + 1) / 2f)
+                          .setOre(OreRateType.GEM)
+                          .save(consumer, modResource(folder + "bud_" + bud.getName()));
+    }
   }
 }

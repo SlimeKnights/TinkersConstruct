@@ -1,0 +1,6 @@
+  {
+  "parent": "item/medium_amethyst_bud",
+  "textures": {
+    "layer0": "tconstruct:block/geode/earth/medium_bud"
+  }
+}

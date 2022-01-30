@@ -4,12 +4,15 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.registration.GeodeItemObject;
 import slimeknights.tconstruct.library.data.recipe.ICommonRecipeHelper;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -102,5 +105,25 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
     woodCrafting(consumer, TinkerWorld.greenheart, woodFolder + "greenheart/");
     woodCrafting(consumer, TinkerWorld.skyroot, woodFolder + "skyroot/");
     woodCrafting(consumer, TinkerWorld.bloodshroom, woodFolder + "bloodshroom/");
+
+    // geodes
+    geodeRecipes(consumer, TinkerWorld.earthGeode, SlimeType.EARTH, "common/slime/earth/");
+    geodeRecipes(consumer, TinkerWorld.skyGeode,   SlimeType.SKY,   "common/slime/sky/");
+    geodeRecipes(consumer, TinkerWorld.ichorGeode, SlimeType.ICHOR, "common/slime/ichor/");
+    geodeRecipes(consumer, TinkerWorld.enderGeode, SlimeType.ENDER, "common/slime/ender/");
+  }
+
+  private void geodeRecipes(Consumer<FinishedRecipe> consumer, GeodeItemObject geode, SlimeType slime, String folder) {
+    ShapedRecipeBuilder.shaped(geode.getBlock())
+                       .define('#', geode.asItem())
+                       .pattern("##")
+                       .pattern("##")
+                       .unlockedBy("has_item", has(geode.asItem()))
+                       .group("tconstruct:slime_crystal_block")
+                       .save(consumer, modResource(folder + "crystal_block"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(geode), TinkerCommons.slimeball.get(slime), 0.2f, 200)
+                              .unlockedBy("has_crystal", has(geode))
+                              .group("tconstruct:slime_crystal")
+                              .save(consumer, modResource(folder + "crystal_smelting"));
   }
 }

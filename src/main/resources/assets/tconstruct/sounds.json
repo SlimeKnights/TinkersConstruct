@@ -146,25 +146,21 @@
   },
 
   "frypan_hit": {
-    "category": "player",
     "sounds": [
       "tconstruct:frypan_hit"
     ]
   },
   "toy_squeak": {
-    "category": "player",
     "sounds": [
       "tconstruct:toy_squeak"
     ]
   },
   "crossbow_reload": {
-    "category": "player",
     "sounds": [
       "tconstruct:crossbow_reload"
     ]
   },
   "wood_hit": {
-    "category": "block",
     "sounds": [
       "tconstruct:wood_hit1",
       "tconstruct:wood_hit2",
@@ -174,7 +170,6 @@
     ]
   },
   "stone_hit": {
-    "category": "block",
     "sounds": [
       "tconstruct:stone_hit1",
       "tconstruct:stone_hit2",
@@ -182,15 +177,38 @@
     ]
   },
   "charged": {
-    "category": "player",
     "sounds": [
       "tconstruct:charged"
     ]
   },
   "discharge": {
-    "category": "player",
     "sounds": [
       "tconstruct:discharge"
     ]
+  },
+
+  "block.earth_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 0.75, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.earth_crystal.chime"
+  },
+  "block.sky_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 1.2, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.sky_crystal.chime"
+  },
+  "block.ichor_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 0.35, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.ichor_crystal.chime"
+  },
+  "block.ender_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 1.45, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.ender_crystal.chime"
   }
 }

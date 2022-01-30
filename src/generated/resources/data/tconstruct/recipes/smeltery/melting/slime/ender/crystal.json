@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:damagable_melting",
+  "type": "tconstruct:melting",
   "ingredient": {
     "item": "tconstruct:ender_slime_crystal"
   },
@@ -8,5 +8,5 @@
     "amount": 250
   },
   "temperature": 70,
-  "time": 53
+  "time": 32
 }

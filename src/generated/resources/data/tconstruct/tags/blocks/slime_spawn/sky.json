@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:earth_slime_crystal_block",
+    "tconstruct:budding_earth_slime_crystal",
+    "#tconstruct:slimy_grass/sky"
+  ]
+}

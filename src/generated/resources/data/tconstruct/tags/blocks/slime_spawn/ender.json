@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:ender_slime_crystal_block",
+    "tconstruct:budding_ender_slime_crystal",
+    "#tconstruct:slimy_grass/ender"
+  ]
+}

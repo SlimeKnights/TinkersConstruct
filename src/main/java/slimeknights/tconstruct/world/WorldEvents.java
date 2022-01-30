@@ -12,9 +12,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
@@ -58,15 +60,32 @@ public class WorldEvents {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
       }
+      // ichor can be anywhere
+      if (Config.COMMON.ichorGeodes.get()) {
+        generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.ichorGeode.getPlacedGeode());
+      }
     }
     else if (category == BiomeCategory.THEEND) {
-      // slime spawns anywhere, uses the grass and liquid
+      // slime spawns anywhere, uses the grass
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
+      ResourceLocation name = event.getName();
+      // geodes only on outer islands
+      if (Config.COMMON.enderGeodes.get() && !Biomes.THE_END.location().equals(name) && !Biomes.THE_VOID.location().equals(name)) {
+        generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.enderGeode.getPlacedGeode());
+      }
     }
     else {
-      // slime spawns anywhere, uses the grass and liquid
+      // slime spawns anywhere, uses the grass
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4));
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4));
+
+      // earth spawns anywhere, sky does not spawn in ocean (looks weird)
+      if (Config.COMMON.earthGeodes.get()) {
+        generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.earthGeode.getPlacedGeode());
+      }
+      if (Config.COMMON.skyGeodes.get() && category != BiomeCategory.OCEAN) {
+        generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.skyGeode.getPlacedGeode());
+      }
     }
   }
 

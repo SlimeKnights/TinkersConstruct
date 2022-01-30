@@ -4,6 +4,7 @@ import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -12,8 +13,10 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
 import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
@@ -28,6 +31,8 @@ import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.registration.GeodeItemObject;
+import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -179,6 +184,12 @@ public class BlockLootTableProvider extends BlockLoot {
     this.registerWoodLootTables(TinkerWorld.greenheart);
     this.registerWoodLootTables(TinkerWorld.skyroot);
     this.registerWoodLootTables(TinkerWorld.bloodshroom);
+
+    // geode
+    this.registerGeode(TinkerWorld.earthGeode);
+    this.registerGeode(TinkerWorld.skyGeode);
+    this.registerGeode(TinkerWorld.ichorGeode);
+    this.registerGeode(TinkerWorld.enderGeode);
   }
 
   private void addGadgets() {
@@ -338,5 +349,22 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(object.getButton());
     // sign
     this.dropSelf(object.getSign());
+  }
+
+  /** Adds all loot tables relevant to the given geode block set */
+  private void registerGeode(GeodeItemObject geode) {
+    this.dropSelf(geode.getBlock());
+    // cluster
+    this.add(geode.getBud(BudSize.CLUSTER), block -> createSilkTouchDispatchTable(
+      block, LootItem.lootTableItem(geode.get())
+                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
+                     .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+                     .otherwise(applyExplosionDecay(block, LootItem.lootTableItem(geode.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+    // buds
+    for (BudSize size : BudSize.SIZES) {
+      this.dropWhenSilkTouch(geode.getBud(size));
+    }
+    this.add(geode.getBudding(), noDrop());
   }
 }

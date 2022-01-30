@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.world.worldgen.trees;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import slimeknights.tconstruct.world.TinkerStructures;
@@ -24,6 +25,16 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
 
   public SupplierBlockStateProvider(Supplier<BlockState> blockStateSupplier) {
     this.supplier = blockStateSupplier;
+  }
+
+  /** Create a supplier for a state */
+  public static SupplierBlockStateProvider ofState(Supplier<BlockState> supplier) {
+    return new SupplierBlockStateProvider(supplier);
+  }
+
+  /** Create a supplier for a blocks default state */
+  public static SupplierBlockStateProvider ofBlock(Supplier<? extends Block> supplier) {
+    return ofState(() -> supplier.get().defaultBlockState());
   }
 
   @Override
