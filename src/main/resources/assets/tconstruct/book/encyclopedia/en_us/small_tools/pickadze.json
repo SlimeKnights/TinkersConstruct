@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    { "text": "The Pickadze is a multipurpose stone and dirt mining tool, effective on a variety of blocks but unable to use harvest levels." },
+    { "text": "Expanders increase the height mined, allowing for effective staircases.", "paragraph": true }
+  ],
+  "properties": [
+    "+0.5 Attack Damage",
+    "115% Attack Modifier",
+    "1.4 Attack Speed",
+    "75% Mining Modifier",
+    "130% Durability Modifier",
+    "Makes paths",
+    "Harvest level limited to wood"
+  ]
+}

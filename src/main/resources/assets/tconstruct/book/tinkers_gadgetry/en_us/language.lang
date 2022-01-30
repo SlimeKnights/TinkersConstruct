@@ -1,4 +1,3 @@
-// Sections
 intro=Introduction
 
 gadgets=Gadgets
@@ -6,6 +5,18 @@ gadgets=Gadgets
 modifiers=Odd Modifiers
 
 exploration=Exploration
+exploration.necrotic_bones=Necrotic Bone
+
+exploration.skyslime_island=Skyslime
+exploration.earthslime_island=Earthslime
+exploration.clay_island=Clay
+exploration.blood_island=Blood
+exploration.enderslime_island=Enderslime
+
+exploration.skyslime_geode=Skyslime
+exploration.earthslime_geode=Earthslime
+exploration.ichor_geode=Ichor
+exploration.enderslime_geode=Enderslime
 
 armor=Armor
 armor.subtext=Mixing slime with various mob parts produces an interesting set of armor. Its not the most defensive, but it can really enhance your abilities.

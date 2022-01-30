@@ -25,6 +25,11 @@
     "data": "tools/mattock.json"
   },
   {
+    "name": "pickadze",
+    "type": "tconstruct:tool",
+    "data": "tools/pickadze.json"
+  },
+  {
     "name": "pickaxe",
     "type": "tconstruct:tool",
     "data": "tools/pickaxe.json"
