@@ -1,0 +1,14 @@
+{
+  "title": "部品作成台",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "部品を作成するにはまず空白の木型を木型スロットに置きます。作りたい部品を選択し、手で成形できる素材を素材スロットに入れてあとは部品を取り出すだけです。",
+      "paragraph": true
+    }
+	]
+}

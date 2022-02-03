@@ -1,0 +1,22 @@
+// Sections - Materials And you
+
+intro=概要
+
+tier_one_materials=ティア1 素材
+tier_one_materials.subtext=道具を作るにはまず材料が必要です。材料を部品作成台に配置して道具の部品を作ることができます。
+
+tools=道具
+tools.part_swapping=部品の交換
+tools.repairing=修理
+
+armor=旅人の装備
+armor.subtext=旅人の装備は道具組立台を使用して製作します。防御力は高くありませんが、アップグレードの機会は多くあります。あなたはどんな面白いものを作り上げるのでしょうか？
+
+modifiers=改造
+modifiers.traits=特性
+modifiers.upgrades=アップグレード
+modifiers.slotless=スロットレス
+modifiers.abilities=アビリティ
+modifiers.defense=ディフェンス
+
+further_reading=その他の資料

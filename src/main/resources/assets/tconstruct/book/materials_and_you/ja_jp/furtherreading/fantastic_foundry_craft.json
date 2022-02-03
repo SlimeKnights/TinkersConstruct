@@ -1,0 +1,8 @@
+{
+  "title": "素晴らしい鍛冶場の作成",
+  "recipe": "tconstruct:common/fantastic_foundry",
+  "grid_size": "small",
+  "description": [
+    { "text": "溶けた金属を用いた、今最も熱い新技術についてまとめた本。製錬炉を飛ばして鋳造所を作ろう！" }
+  ]
+}

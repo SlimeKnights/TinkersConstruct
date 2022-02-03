@@ -1,0 +1,14 @@
+{
+  "title": "道具組立台",
+  "image": {
+    "file": "tconstruct:book/images/tinkerstation.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "ここにこれを入れて、そこにこれ、あ、これ逆だ。どんどんいじってみよう。",
+      "paragraph": true
+    }
+	]
+}

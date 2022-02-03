@@ -1,0 +1,8 @@
+{
+  "title": "ティンカーの小道具集の作成",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "日常におけるスライム活用術を掲載した本。Melvinによる世界での素材探しについての指導書です。" }
+  ]
+}

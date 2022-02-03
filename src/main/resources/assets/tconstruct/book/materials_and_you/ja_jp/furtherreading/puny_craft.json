@@ -1,0 +1,8 @@
+{
+  "title": "簡単な製錬法の作成",
+  "recipe": "tconstruct:common/puny_smelting",
+  "grid_size": "small",
+  "description": [
+    { "text": "初心者向けの製錬と鋳造の指導書。Thruul M'Gonによる製錬所シリーズの第一弾。" }
+  ]
+}
