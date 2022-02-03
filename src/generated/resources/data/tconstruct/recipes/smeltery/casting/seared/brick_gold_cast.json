@@ -5,8 +5,8 @@
   },
   "fluid": {
     "tag": "tconstruct:seared_stone",
-    "amount": 90
+    "amount": 250
   },
   "result": "tconstruct:seared_brick",
-  "cooling_time": 53
+  "cooling_time": 89
 }
