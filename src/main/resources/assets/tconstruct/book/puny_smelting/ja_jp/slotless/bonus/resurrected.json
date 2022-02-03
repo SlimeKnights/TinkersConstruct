@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:resurrected",
+  "text": [
+    {
+      "text": "龍の命が道具を流れている。ああ、これを使って召喚したらどうだろう。代わりに道具で使ったけどね。"
+    }
+  ],
+  "effects": [
+    "アップグレードスロットを追加",
+    "Single Use"
+  ]
+}

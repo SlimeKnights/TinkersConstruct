@@ -1,0 +1,11 @@
+{
+  "title": "水栓",
+  "image": {
+    "file": "tconstruct:book/images/faucet_pour.png"
+  },
+  "text": [
+    {
+      "text": "キッチン、バスルーム...液体を運ぶ全てに対応"
+    }
+  ] 
+}

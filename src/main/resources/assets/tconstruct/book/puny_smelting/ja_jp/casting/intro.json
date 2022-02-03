@@ -1,0 +1,11 @@
+{
+  "title": "鋳造",
+  "image": {
+    "file": "tconstruct:book/images/sandcast.png"
+  },
+  "text": [
+    {
+      "text": "さてティンカー、ここまでで金属の溶かし方とその移動法を学んできた。あとは道具の部品に加工するだけだ！"
+    }
+  ]
+}

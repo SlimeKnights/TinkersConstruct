@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "音楽は魂に良いし、道具にも良い。道具にも魂が宿っているのかもしれない。"
+    }
+  ],
+  "effects": [
+    "アップグレードスロットを追加",
+    "Single Use"
+    
+  ]
+}

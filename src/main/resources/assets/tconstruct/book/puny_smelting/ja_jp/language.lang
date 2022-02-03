@@ -1,0 +1,19 @@
+// Sections - Puny Smelting
+intro=概要
+melter=簡易製錬炉
+moving_fluids=液体の移動
+casting=鋳造
+tier_two_materials=ティア2 素材
+
+upgrades=アップグレード
+upgrades.subtext=道具はアップグレードにより強化することができるが、一つの道具に適用できる数は限られています。
+upgrades.group_general=全般
+upgrades.group_harvest=採取・採掘
+upgrades.group_weapon=武器
+upgrades.group_damage=追加ダメージ
+upgrades.group_armor=防具
+
+slotless=スロットレス
+slotless.subtext=この改造はスロットを必要としないため、望むだけ適用することができます。
+slotless.group_slotless=スロットレス
+slotless.group_bonus_upgrades=アップグレード++

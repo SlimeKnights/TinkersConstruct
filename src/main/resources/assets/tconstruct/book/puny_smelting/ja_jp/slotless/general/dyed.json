@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "これの黒色はありますか？"
+    }
+  ],
+  "effects": [
+    "染料を使って旅人装備の色を変更可能",
+    "Multi-use",
+    "スロットレス"
+  ]
+}

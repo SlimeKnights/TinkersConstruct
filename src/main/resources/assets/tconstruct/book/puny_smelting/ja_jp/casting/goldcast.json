@@ -1,0 +1,13 @@
+{
+  "title": "金製鋳型",
+  "image": {
+    "file": "tconstruct:book/images/gold_pick.png",
+    "width": 170,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "金製鋳型は再利用ができます。作り方は鋳造台においた部品にインゴット一つ分の金を流し込むだけです。この際、部品は失われます。"
+    }
+  ]
+}

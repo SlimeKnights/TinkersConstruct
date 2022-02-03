@@ -1,0 +1,13 @@
+{
+  "title": "Melter GUI",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "製錬炉の基本的なUI。それ以上でも以下でもない。"
+    }
+	]
+}

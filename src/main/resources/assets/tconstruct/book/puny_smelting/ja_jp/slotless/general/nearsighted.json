@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "いつか丸石の道具から卒業せねばならない。"
+    }
+  ],
+  "effects": [
+    "道具や防具を装備中に防具のFOVを増加させる",
+    "Multi-use",
+    "スロットレス"
+  ]
+}

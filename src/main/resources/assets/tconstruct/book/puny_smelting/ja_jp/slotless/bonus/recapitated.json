@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "最初に首を切り落としたのに、今度はもとに戻したいって？ お前は誰なんだ？ フランケンシュタインか？"
+    }
+  ],
+  "effects": [
+    "アップグレードスロットを追加",
+    "Single Use"
+  ]
+}

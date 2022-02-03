@@ -1,0 +1,11 @@
+{
+  "title": "簡易製錬炉",
+  "image": {
+    "file": "tconstruct:book/images/melter.png"
+  },
+  "text": [
+    {
+      "text": "これは様々な作業を簡易的に行える、最も基本的な製錬炉です。"
+    }
+  ]
+}
