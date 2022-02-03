@@ -236,13 +236,13 @@ public class Config {
             .define("earth", true);
         this.skyGeodes = builder
           .comment("If true, skyslime geodes generate above amethyst as another way to get skyslime")
-          .define("earth", true);
+          .define("sky", true);
         this.ichorGeodes = builder
           .comment("If true, ichor geodes generate high in the nether")
-          .define("earth", true);
+          .define("ichor", true);
         this.enderGeodes = builder
           .comment("If true, enderslime geodes generate as additional islands in the end")
-          .define("earth", true);
+          .define("ender", true);
         builder.pop();
       }
       builder.pop();
