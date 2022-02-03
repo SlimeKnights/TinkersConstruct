@@ -1,17 +1,17 @@
-name: 1.16 Enhancement
-description: Suggest a change to existing 1.16 features
-labels: [1.16, Enhancement, Unreviewed]
+name: 1.18 Enhancement
+description: Suggest a change to existing 1.18 features
+labels: [1.18, Enhancement, Unreviewed]
 body:
   - type: markdown
     attributes:
       value: |
         If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) instead of posting a new issue.
-        
+        S
         Please search the following links to make sure your issue is not covered:
         
         * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
-        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.16 alphas
-        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.16 versions
+        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.18 alphas
+        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.18 versions
   
   - type: markdown
     attributes:
@@ -26,7 +26,7 @@ body:
     id: minecraft-version
     attributes:
       label: Minecraft Version
-      value: 1.16.5
+      value: 1.18.1
     validations:
       required: true
   - type: input

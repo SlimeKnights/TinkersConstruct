@@ -1,15 +1,15 @@
-name: 1.16 Issue Report
-description: Report an issue with the 1.16 beta of Minecraft
-labels: [1.16, Bug, Unreviewed]
+name: 1.18 Issue Report
+description: Report an issue with the 1.18 alphas of Minecraft
+labels: [1.18, Bug, Unreviewed]
 body:
   - type: markdown
     attributes:
       value: |
-        Please note that 1.16 versions of the mod are in nearing end of support as we move to 1.18. Before submitting an issue, please search the following links to make sure your issue is not covered:
+        Please note that 1.18 versions of the mod are in alpha, so are subject to change. Before submitting an issue, please search the following links to make sure your issue is not covered:
         
         * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
-        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.16 versions
-        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.16 versions
+        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.18 alphas
+        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.18 versions
         
         Please fill in the following template to report your issue.
         
@@ -21,7 +21,7 @@ body:
     id: minecraft-version
     attributes:
       label: Minecraft Version
-      value: 1.16.5
+      value: 1.18.1
     validations:
       required: true
   - type: input
