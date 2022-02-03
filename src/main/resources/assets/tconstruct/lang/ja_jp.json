@@ -1288,98 +1288,118 @@
   "material.tconstruct.wood.encyclopedia": "部品1つあたり修理効果の効率が50％増加する",
 
   "material.tconstruct.stone": "石",
+  "material.tconstruct.stone.format": "石の%s",
   "material.tconstruct.stone.flavor": "堅実にね",
   "material.tconstruct.stone.encyclopedia": "失った耐久度の平方根の半分だけ採掘速度が増加する",
 
   "material.tconstruct.flint": "火打石",
+  "material.tconstruct.flint.format": "火打石の%s",
   "material.tconstruct.flint.flavor": "これはティンカーの心に火を付けるのさ！",
   "material.tconstruct.flint.encyclopedia": "失った耐久度の平方根の四分の一だけダメージが増加する",
 
   "material.tconstruct.bone": "骨",
+  "material.tconstruct.bone.format": "骨の%s",
   "material.tconstruct.bone.flavor": "―――体は剣で出来ている",
   "material.tconstruct.bone.encyclopedia": "0.5のダメージを1の貫通ダメージに変換する",
   "material.tconstruct.bone.skull_flavor": "牛乳は飲んだか？",
   "material.tconstruct.bone.skull_encyclopedia": "牛乳を飲むと一分間耐性を付与する",
 
   "material.tconstruct.necrotic_bone": "壊死骨",
+  "material.tconstruct.necrotic_bone.format": "壊死骨の%s",
   "material.tconstruct.necrotic_bone.flavor": "なんか文句あるのか？",
   "material.tconstruct.necrotic_bone.encyclopedia": "レベル毎に与えたダメージの5%回復する",
   "material.tconstruct.necrotic_bone.skull_flavor": "不気味で恐ろしい骸骨！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "近接攻撃が衰弱を引き起こす。牛乳を飲んだ後はその効果がより早くなる",
 
   "material.tconstruct.string": "糸",
+  "material.tconstruct.string.format": "糸の%s",
   "material.tconstruct.string.flavor": "最高の素材です。理論的にはね。",
   "material.tconstruct.string.encyclopedia": "道具組立台や作業台で糸を使って道具を修理できるようになる",
 
   "material.tconstruct.leather": "革",
+  "material.tconstruct.leather.format": "革の%s",
   "material.tconstruct.leather.flavor": "牛を殺してその皮をなめすんだ",
   "material.tconstruct.leather.encyclopedia": "道具が一度のアクションで1以上のダメージを受けないようになる",
 
   "material.tconstruct.vine": "ツタ",
+  "material.tconstruct.vine.format": "ツタの%s",
   "material.tconstruct.vine.flavor": "ソーシャルネットワークとは違って生き続ける",
   "material.tconstruct.vine.encyclopedia": "日光下で75%の確率でダメージを受けない",
 
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "鉄",
+  "material.tconstruct.iron.format": "鉄の%s",
   "material.tconstruct.iron.flavor": "皮肉だな。彼は他人を死から救うことはできても、自分自身を救うことはできなかったんだ",
   "material.tconstruct.iron.encyclopedia": "パーツごとに10％耐久度が増加する",
   "material.tconstruct.iron.skull_flavor": "検疫違反",
   "material.tconstruct.iron.skull_encyclopedia": "近接攻撃によって、装備者の全デバフステータスをターゲットにコピーする。",
 
   "material.tconstruct.seared_stone": "焼成石",
+  "material.tconstruct.seared_stone.format": "焼成石の%s",
   "material.tconstruct.seared_stone.flavor": "熱いグラウト",
   "material.tconstruct.seared_stone.encyclopedia": "レベル毎に暑い場所ではダメージが2.5増加し、寒い場所ではダメージが2.5減少する",
 
   "material.tconstruct.scorched_stone": "焦土石",
+  "material.tconstruct.scorched_stone.format": "焦土石の%s",
   "material.tconstruct.scorched_stone.flavor": "ファウンダーズエディションの特典",
   "material.tconstruct.scorched_stone.encyclopedia": "燃えているターゲットに対してレベル毎にダメージ2増加する",
 
   "material.tconstruct.copper": "銅",
+  "material.tconstruct.copper.format": "銅の%s",
   "material.tconstruct.copper.flavor": "これで懲りずに頑張ろう",
   "material.tconstruct.copper.encyclopedia": "深部に近ければ近いほどレベル毎に採掘速度が上昇し、最大10％増加する",
   "material.tconstruct.copper.skull_flavor": "風を吹き飛ばすんだ",
   "material.tconstruct.copper.skull_encyclopedia": "近接攻撃で3秒間相手を窒息させる",
 
   "material.tconstruct.slimewood": "スライムウッド",
+  "material.tconstruct.slimewood.format": "スライムウッドの%s",
   "material.tconstruct.slimewood.flavor": "これはスライムの木なのか、それとも木を取り込んだスライム？",
   "material.tconstruct.slimewood.encyclopedia": "レベル毎に5%の確率で毎秒スライムコーティングを回復する",
 
   "material.tconstruct.bloodbone": "血骨",
+  "material.tconstruct.bloodbone.format": "血骨の%s",
   "material.tconstruct.bloodbone.flavor": "血液は骨の中にあるはずでは？",
   "material.tconstruct.bloodbone.encyclopedia": "体力が低い場合にダメージが増加する。ハート1でレベル毎に最大4ダメージ",
   "material.tconstruct.bloodbone.skull_flavor": "骨まで染み入る悪寒",
   "material.tconstruct.bloodbone.skull_encyclopedia": "遠距離攻撃でターゲットに移動速度低下を付与する。牛乳を飲むと近接攻撃でより効果の高い移動速度低下が発生する",
 
   "material.tconstruct.rose_gold": "ローズゴールド",
+  "material.tconstruct.rose_gold.format": "ローズゴールドの%s",
   "material.tconstruct.rose_gold.flavor": "免責事項：実際にバラを使用して作られたものではありません",
   "material.tconstruct.rose_gold.encyclopedia": "パーツごとに1つのアップグレードスロットを追加する",
   "material.tconstruct.rose_gold.skull_flavor": "アームシールドを上手く使え",
   "material.tconstruct.rose_gold.skull_encyclopedia": "体力を1増加し、更に金装備一着ごとに体力が1増加する",
 
   "material.tconstruct.chain": "鎖",
+  "material.tconstruct.chain.format": "鎖の%s",
   "material.tconstruct.chain.flavor": "あなたも今すぐ鎖の使い手になれます",
   "material.tconstruct.chain.encyclopedia": "道具が受けるダメージが25%減少する",
 
   "material.tconstruct.skyslime_vine": "ヌメヌメしたツタ",
+  "material.tconstruct.skyslime_vine.format": "ヌメヌメしたツタの%s",
   "material.tconstruct.skyslime_vine.flavor": "蝶のように舞い、蜂のように刺す",
   "material.tconstruct.skyslime_vine.encyclopedia": "地に足をついていないときの採掘速度の低下を打ち消す",
 
 
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "スライムスチール",
+  "material.tconstruct.slimesteel.format": "スライムスチールの%s",
   "material.tconstruct.slimesteel.flavor": "スライムスチールを手に入れるにはスライムから盗む（スティール）必要があるぞ",
   "material.tconstruct.slimesteel.encyclopedia": "スライムコーティングを25増加させ、レベルごとに最大値の50%増加する",
 
   "material.tconstruct.nahuatl": "ナワトル",
+  "material.tconstruct.nahuatl.format": "ナワトルの%s",
   "material.tconstruct.nahuatl.flavor": "これは黒曜石じゃないよ。黒曜石だったら「黒曜石」と書くに決まってる",
   "material.tconstruct.nahuatl.encyclopedia": "50%の確率で合計5ダメージの継続ダメージを与える。レベルが高くなるとダメージも高くなる",
 
   "material.tconstruct.tinkers_bronze": "ティンカーブロンズ",
+  "material.tconstruct.tinkers_bronze.format": "ティンカーブロンズの%s",
   "material.tconstruct.tinkers_bronze.flavor": "ブロンズと間違えるなよ",
   "material.tconstruct.tinkers_bronze.encyclopedia": "他の改造をもとに、耐久度が最大である場合にレベル毎に採掘速度を10%から15%増加させる",
 
   "material.tconstruct.pig_iron": "豚鉄",
+  "material.tconstruct.pig_iron.format": "豚鉄の%s",
   "material.tconstruct.pig_iron.flavor": "まごうことなき最高の素材。異論は認めない",
   "material.tconstruct.pig_iron.encyclopedia": "食べるとレベル毎に満腹度が1、隠し満腹度が0.1回復する",
   "material.tconstruct.pig_iron.skull_flavor": "あなたは怒ってる私が嫌いでしょ！",
@@ -1389,22 +1409,27 @@
 
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "コバルト",
+  "material.tconstruct.cobalt.format": "コバルトの%s",
   "material.tconstruct.cobalt.flavor": "コバルト。赤軍の素材",
   "material.tconstruct.cobalt.encyclopedia": "レベル毎に採掘速度と攻撃速度が7％増加する",
 
   "material.tconstruct.manyullyn": "マニュリン",
+  "material.tconstruct.manyullyn.format": "マニュリンの%s",
   "material.tconstruct.manyullyn.flavor": "ティンカーの大部分が発音することのできない金属。星の切削材としても知られている",
   "material.tconstruct.manyullyn.encyclopedia": "8回連続ヒットした後、レベル毎にダメージが2増加する",
 
   "material.tconstruct.hepatizon": "ヘパティゾン",
+  "material.tconstruct.hepatizon.format": "ヘパティゾンの%s",
   "material.tconstruct.hepatizon.flavor": "ヘ・パ・ティ・ゾン - 茹でたり、潰したり、シチューに入れたりする",
   "material.tconstruct.hepatizon.encyclopedia": "32連続でブロックを破壊すると、レベル毎に採掘速度が25%増加する",
 
   "material.tconstruct.queens_slime": "クイーンスライム",
+  "material.tconstruct.queens_slime.format": "クイーンスライムの%s",
   "material.tconstruct.queens_slime.flavor": "姫は邪悪だ。女王になるんだ",
   "material.tconstruct.queens_slime.encyclopedia": "レベル毎に耐久度が15%減少し、そのうちの66%がスライムコーティングに付与される",
 
   "material.tconstruct.blazing_bone": "ブレイズの骨",
+  "material.tconstruct.blazing_bone.format": "ブレイズの骨の%s",
   "material.tconstruct.blazing_bone.flavor": "ネザー要塞のすべてを利用するのさ - 骨と炎",
   "material.tconstruct.blazing_bone.encyclopedia": "火がついた状態で1秒毎にダメージが1%増加し、溶岩に触れた際の延焼時間が15秒であることから最大15%まで増加する。",
   "material.tconstruct.blazing_bone.skull_flavor": "これは火の粉であり、火の息ではないことを伝えたのだが、どうやら私には自分の生み出したものに名前をつける権利がないようだ",
@@ -1414,7 +1439,7 @@
 
 
   "__comment": "Tier End Materials",
-  "material.tconstruct.endstone": "エンドの",
+  "material.tconstruct.endstone": "エンド",
   "material.tconstruct.knightslime": "ナイトスライム",
 
   "material.tconstruct.enderslime_vine": "ヌメヌメしたツタ",
