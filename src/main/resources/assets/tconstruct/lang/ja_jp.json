@@ -175,9 +175,9 @@
   "item.tconstruct.tinkers_gadgetry": "ティンカーの小道具集",
   "item.tconstruct.tinkers_gadgetry.tooltip": "日常におけるスライム活用術\nby Melvin",
 
-  "item.tconstruct.puny_smelting": "簡単な製錬法",
+  "item.tconstruct.puny_smelting": "簡単な製錬炉",
   "item.tconstruct.puny_smelting.tooltip": "初心者のための製錬・鋳造ガイドブック\nby Thruul M'Gon",
-  "item.tconstruct.mighty_smelting": "大規模な製錬法",
+  "item.tconstruct.mighty_smelting": "大規模な製錬炉",
   "item.tconstruct.mighty_smelting.tooltip": "溶解、鋳造、合金化を習得するための教科書\nby Thruul M'Gon",
 
   "item.tconstruct.fantastic_foundry": "素晴らしい鍛冶場",
@@ -2542,7 +2542,7 @@
   "advancements.tconstruct.smeltery.cast_collector.title": "鋳型の蒐集者",
   "advancements.tconstruct.smeltery.cast_collector.description": "すべての金製鋳型を作成する",
   "advancements.tconstruct.smeltery.mighty_smelting.title": "製錬についての201の事柄",
-  "advancements.tconstruct.smeltery.mighty_smelting.description": "製錬の指導書、大規模な製錬法を作成する",
+  "advancements.tconstruct.smeltery.mighty_smelting.description": "製錬の指導書、大規模な製錬炉を作成する",
   "advancements.tconstruct.smeltery.structure.title": "大規模製錬",
   "advancements.tconstruct.smeltery.structure.description": "溶けた銅から鋳造して製錬炉制御ブロック作成、製錬炉を作ってUIを開く",
   "advancements.tconstruct.smeltery.tinkers_anvil.title": "高度な道具の作成",
