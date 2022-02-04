@@ -3,14 +3,13 @@
 dependencies {
     compile("com.github.GTNewHorizons:Mantle:0.3.4:dev")
     compile("com.github.GTNewHorizons:ForgeMultipart:1.2.7:dev")
-    compile("com.github.GTNewHorizons:NotEnoughItems:2.2.1-GTNH:dev")
-    compile("com.github.GTNewHorizons:CodeChickenLib:1.1.5.1:dev")
+    compile("com.github.GTNewHorizons:NotEnoughItems:2.2.3-GTNH:dev")
+    compile("com.github.GTNewHorizons:CodeChickenLib:1.1.5.2:dev")
     compileOnly("com.github.GTNewHorizons:inventory-tweaks:1.5.13:api")
     compileOnly("com.github.GTNewHorizons:waila:1.5.18:api")
     compileOnly("com.github.GTNewHorizons:Battlegear2:master-SNAPSHOT:api") {
         transitive = false
     }
-
     compile("curse.maven:cofh-core-69162:2388751")
     compileOnly("curse.maven:minefactory-reloaded-66672:2366150")
     compileOnly("curse.maven:zelda-sword-skills-220540:2384889")
