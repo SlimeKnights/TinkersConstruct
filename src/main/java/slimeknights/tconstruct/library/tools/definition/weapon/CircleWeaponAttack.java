@@ -37,7 +37,7 @@ public class CircleWeaponAttack implements IWeaponAttack {
         Entity target = context.getTarget();
         for (LivingEntity aoeTarget : attacker.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(range, 0.25D, range))) {
           if (aoeTarget != attacker && aoeTarget != target && !attacker.isAlliedTo(aoeTarget)
-              && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && attacker.distanceToSqr(target) < rangeSq) {
+              && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
             float angle = attacker.getYRot() * ((float)Math.PI / 180F);
             aoeTarget.knockback(0.4F, Mth.sin(angle), -Mth.cos(angle));
             hit |= ToolAttackUtil.extraEntityAttack(tool, attacker, context.getHand(), aoeTarget);

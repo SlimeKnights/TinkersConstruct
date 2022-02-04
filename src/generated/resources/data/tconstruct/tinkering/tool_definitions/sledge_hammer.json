@@ -33,10 +33,6 @@
     {
       "name": "tconstruct:smite",
       "level": 2
-    },
-    {
-      "name": "tconstruct:two_handed",
-      "level": 1
     }
   ],
   "actions": [
