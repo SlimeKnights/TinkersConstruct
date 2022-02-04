@@ -39,10 +39,6 @@
     {
       "name": "tconstruct:harvest",
       "level": 1
-    },
-    {
-      "name": "tconstruct:two_handed",
-      "level": 1
     }
   ],
   "harvest": {

@@ -84,7 +84,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.smite, 2)
-      .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -106,7 +105,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.piercing, 2)
-      .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -177,7 +175,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.knockback, 2)
       .trait(TinkerModifiers.shovelFlatten)
-      .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.SHOVEL_DIG)
       .effective(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -222,7 +219,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.axeScrape)
       .trait(TinkerModifiers.axeStrip)
       .trait(TinkerModifiers.axeWaxOff)
-      .trait(TinkerModifiers.twoHanded)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(TinkerToolActions.SHIELD_DISABLE)
@@ -272,7 +268,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.hoeTill)
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.harvest)
-      .trait(TinkerModifiers.twoHanded)
       // behavior
       .harvestLogic(scytheHarvest)
       .aoe(BoxAOEIterator.builder(1, 1, 2).addExpansion(1, 1, 0).addDepth(2).build())
@@ -342,7 +337,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .trait(TinkerModifiers.severing, 2)
       .trait(TinkerModifiers.aoeSilkyShears)
-      .trait(TinkerModifiers.twoHanded)
       // behavior
       .action(ToolActions.SWORD_DIG)
       .harvestLogic(swordLogic)

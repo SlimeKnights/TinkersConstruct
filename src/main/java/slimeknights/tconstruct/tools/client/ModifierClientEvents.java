@@ -93,11 +93,16 @@ public class ModifierClientEvents {
     }
 
     // if the data is set, render the empty offhand
-    if (offhand.isEmpty() && !player.isInvisible() && mainhand.getItem() != Items.FILLED_MAP && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
-      PoseStack matrices = event.getPoseStack();
-      matrices.pushPose();
-      Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
-      matrices.popPose();
+    if (offhand.isEmpty()) {
+      if (!player.isInvisible() && mainhand.getItem() != Items.FILLED_MAP && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
+        PoseStack matrices = event.getPoseStack();
+        matrices.pushPose();
+        Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
+        matrices.popPose();
+        event.setCanceled(true);
+      }
+      // if the offhand is two handed and is not upgraded to be used
+    } else if (offhand.is(TinkerTags.Items.TWO_HANDED) && !ModifierUtil.checkVolatileFlag(offhand, IModifiable.DEFER_OFFHAND)) {
       event.setCanceled(true);
     }
   }
