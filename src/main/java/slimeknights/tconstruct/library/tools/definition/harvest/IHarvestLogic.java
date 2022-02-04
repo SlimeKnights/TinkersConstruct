@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.definition.harvest;
 
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
@@ -30,5 +31,10 @@ public interface IHarvestLogic extends IHaveLoader {
   /** Gets the destroy speed against the given block */
   default float getDestroySpeed(IToolStackView tool, BlockState state) {
     return isEffective(tool, state) ? tool.getStats().get(ToolStats.MINING_SPEED) : 1.0f;
+  }
+
+  /** Gets the tier to display in tooltips, used for harvest logic that limits harvest tier */
+  default Tier getTier(IToolStackView tool) {
+    return tool.getStats().get(ToolStats.HARVEST_TIER);
   }
 }

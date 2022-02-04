@@ -12,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Tier;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -74,6 +75,17 @@ public class TooltipBuilder {
    */
   public TooltipBuilder add(IToolStat<?> stat) {
     this.tooltips.add(formatValue(stat));
+    return this;
+  }
+
+  /**
+   * Adds harvest tier to the tooltip
+   *
+   * @return the tooltip builder
+   */
+  public TooltipBuilder addTier() {
+    Tier tier = tool.getDefinition().getData().getHarvestLogic().getTier(tool);
+    this.tooltips.add(ToolStats.HARVEST_TIER.formatValue(tier));
     return this;
   }
 

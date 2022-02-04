@@ -237,7 +237,7 @@ public class TooltipUtil {
     }
     if (TinkerTags.Items.HARVEST.contains(item)) {
       if (TinkerTags.Items.HARVEST_PRIMARY.contains(tool.getItem())) {
-        builder.add(ToolStats.HARVEST_TIER);
+        builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
     }

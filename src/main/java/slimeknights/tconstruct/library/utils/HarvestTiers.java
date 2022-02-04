@@ -64,6 +64,16 @@ public class HarvestTiers {
     return a;
   }
 
+  /** Gets the smaller of two tiers */
+  public static Tier min(Tier a, Tier b) {
+    List<Tier> sorted = TierSortingRegistry.getSortedTiers();
+    // note indexOf returns -1 if the tier is missing, so the smaller of an unsorted tier and a sorted one is the unsorted one
+    if (sorted.indexOf(b) < sorted.indexOf(a)) {
+      return b;
+    }
+    return a;
+  }
+
   /** Gets the smallest tier in the sorting registry */
   public static Tier minTier() {
     List<Tier> sortedTiers = TierSortingRegistry.getSortedTiers();

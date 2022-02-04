@@ -16,6 +16,8 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LazyTag;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.HarvestTiers;
 
 import java.util.Objects;
 
@@ -33,7 +35,12 @@ public class FixedTierHarvestLogic implements IHarvestLogic {
 
   @Override
   public boolean isEffective(IToolStackView tool, BlockState state) {
-    return state.is(tag) && TierSortingRegistry.isCorrectTierForDrops(tier, state);
+    return state.is(tag) && TierSortingRegistry.isCorrectTierForDrops(getTier(tool), state);
+  }
+
+  @Override
+  public Tier getTier(IToolStackView tool) {
+    return HarvestTiers.min(this.tier, tool.getStats().get(ToolStats.HARVEST_TIER));
   }
 
   @Override

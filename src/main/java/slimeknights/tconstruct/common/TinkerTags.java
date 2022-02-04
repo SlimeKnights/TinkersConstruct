@@ -265,8 +265,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
     /** Modifiable items that are specifically designed for harvest, removes harvest penalties */
     public static final IOptionalNamedTag<Item> HARVEST_PRIMARY = tag("modifiable/harvest/primary");
-    /** Modifiable items that are specifically designed for harvest, but cannot do harvest levels */
-    public static final IOptionalNamedTag<Item> HARVEST_NO_LEVEL = tag("modifiable/harvest/no_level");
     /** Modifiable items that can break stone blocks */
     public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
 

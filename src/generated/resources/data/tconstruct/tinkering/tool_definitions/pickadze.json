@@ -43,7 +43,7 @@
     "logic": {
       "type": "tconstruct:fixed_tier",
       "effective": "tconstruct:mineable/pickadze",
-      "tier": "minecraft:wood"
+      "tier": "minecraft:gold"
     },
     "aoe": {
       "type": "tconstruct:box",
