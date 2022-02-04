@@ -16,7 +16,7 @@
   "stats": {
     "base": {
       "tconstruct:attack_damage": 1.0,
-      "tconstruct:attack_speed": 0.8
+      "tconstruct:attack_speed": 0.7
     },
     "multipliers": {
       "tconstruct:mining_speed": 0.45,

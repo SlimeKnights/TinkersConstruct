@@ -9,11 +9,11 @@
   ],
   "stats": {
     "base": {
-      "tconstruct:attack_damage": 2.0,
+      "tconstruct:attack_damage": 3.0,
       "tconstruct:attack_speed": 2.0
     },
     "multipliers": {
-      "tconstruct:attack_damage": 0.5,
+      "tconstruct:attack_damage": 0.65,
       "tconstruct:mining_speed": 0.75,
       "tconstruct:durability": 0.75
     }

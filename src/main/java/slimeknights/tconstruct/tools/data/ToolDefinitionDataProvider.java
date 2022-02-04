@@ -98,7 +98,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(largePlate)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 3f) // gains +1.25 damage from piercing
-      .stat(ToolStats.ATTACK_SPEED, 1.1f)
+      .stat(ToolStats.ATTACK_SPEED, 0.85f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.25f)
       .multiplier(ToolStats.MINING_SPEED, 0.3f)
       .multiplier(ToolStats.DURABILITY, 5.0f)
@@ -146,13 +146,14 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(roundPlate)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 0.5f)
-      .stat(ToolStats.ATTACK_SPEED, 1.4f)
+      .stat(ToolStats.ATTACK_SPEED, 1.3f)
       .smallToolStartingSlots()
       .multiplier(ToolStats.DURABILITY, 1.3f)
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
       .trait(TinkerModifiers.shovelFlatten)
+      .trait(TinkerModifiers.baneOfSssss)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -241,8 +242,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(toolBinding)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 1f)
-      .stat(ToolStats.ATTACK_SPEED, 1.8f)
-      .multiplier(ToolStats.ATTACK_DAMAGE, 0.75f)
+      .stat(ToolStats.ATTACK_SPEED, 1.6f)
+      .multiplier(ToolStats.ATTACK_DAMAGE, 0.5f)
       .smallToolStartingSlots()
       // traits
       .trait(TinkerModifiers.shears)
@@ -250,7 +251,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // harvest
       .action(ToolActions.HOE_DIG)
       .harvestLogic(scytheHarvest)
-      .aoe(new CircleAOEIterator(1, true));
+      .aoe(new CircleAOEIterator(1, true))
+      .attack(new CircleWeaponAttack(1));;
 
     define(ToolDefinitions.SCYTHE)
       // parts
@@ -260,7 +262,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(TinkerToolParts.toughHandle)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 1f)
-      .stat(ToolStats.ATTACK_SPEED, 0.8f)
+      .stat(ToolStats.ATTACK_SPEED, 0.7f)
       .multiplier(ToolStats.MINING_SPEED, 0.45f)
       .multiplier(ToolStats.DURABILITY, 2.5f)
       .largeToolStartingSlots()
@@ -280,8 +282,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(smallBlade)
       .part(toolHandle)
       // stats
-      .stat(ToolStats.ATTACK_DAMAGE, 2f)
-      .multiplier(ToolStats.ATTACK_DAMAGE, 0.5f)
+      .stat(ToolStats.ATTACK_DAMAGE, 3f)
+      .multiplier(ToolStats.ATTACK_DAMAGE, 0.65f)
       .stat(ToolStats.ATTACK_SPEED, 2.0f)
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.DURABILITY, 0.75f)
@@ -328,8 +330,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(toughHandle)
       .part(largePlate)
       // stats
-      .stat(ToolStats.ATTACK_DAMAGE, 3.5f)
-      .stat(ToolStats.ATTACK_SPEED, 0.9f)
+      .stat(ToolStats.ATTACK_DAMAGE, 3f)
+      .stat(ToolStats.ATTACK_SPEED, 1.0f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.5f)
       .multiplier(ToolStats.MINING_SPEED, 0.25f)
       .multiplier(ToolStats.DURABILITY, 3.5f)

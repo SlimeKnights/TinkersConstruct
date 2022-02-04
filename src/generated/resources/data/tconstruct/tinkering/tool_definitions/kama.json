@@ -13,10 +13,10 @@
   "stats": {
     "base": {
       "tconstruct:attack_damage": 1.0,
-      "tconstruct:attack_speed": 1.8
+      "tconstruct:attack_speed": 1.6
     },
     "multipliers": {
-      "tconstruct:attack_damage": 0.75
+      "tconstruct:attack_damage": 0.5
     }
   },
   "slots": {
@@ -65,5 +65,9 @@
       "diameter": 1,
       "3D": true
     }
+  },
+  "attack": {
+    "type": "tconstruct:circle",
+    "diameter": 1.0
   }
 }
