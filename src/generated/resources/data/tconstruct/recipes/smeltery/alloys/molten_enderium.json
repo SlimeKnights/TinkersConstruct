@@ -1,0 +1,38 @@
+{
+  "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/enderium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:molten_lead",
+      "amount": 270
+    },
+    {
+      "tag": "tconstruct:molten_diamond",
+      "amount": 100
+    },
+    {
+      "tag": "forge:ender",
+      "amount": 500
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_enderium",
+    "amount": 180
+  },
+  "temperature": 1350
+}

@@ -1,0 +1,67 @@
+[
+  {
+    "name": "index",
+    "type": "mantle:index",
+    "data": "exploration/index.json"
+  },
+  {
+    "name": "grass_seeds",
+    "type": "mantle:showcase",
+    "data": "exploration/grass_seeds.json"
+  },
+  {
+    "name": "necrotic_bones",
+    "type": "mantle:showcase",
+    "data": "exploration/necrotic_bones.json"
+  },
+  {
+    "name": "dragon_scales",
+    "type": "mantle:showcase",
+    "data": "exploration/dragon_scales.json"
+  },
+  {
+    "name": "skyslime_island",
+    "type": "mantle:image_text",
+    "data": "exploration/island/skyslime.json"
+  },
+  {
+    "name": "earthslime_island",
+    "type": "mantle:image_text",
+    "data": "exploration/island/earthslime.json"
+  },
+  {
+    "name": "clay_island",
+    "type": "mantle:image_text",
+    "data": "exploration/island/clay.json"
+  },
+  {
+    "name": "blood_island",
+    "type": "mantle:image_text",
+    "data": "exploration/island/blood.json"
+  },
+  {
+    "name": "enderslime_island",
+    "type": "mantle:image_text",
+    "data": "exploration/island/enderslime.json"
+  },
+  {
+    "name": "skyslime_geode",
+    "type": "mantle:image_text",
+    "data": "exploration/geode/skyslime.json"
+  },
+  {
+    "name": "earthslime_geode",
+    "type": "mantle:image_text",
+    "data": "exploration/geode/earthslime.json"
+  },
+  {
+    "name": "ichor_geode",
+    "type": "mantle:image_text",
+    "data": "exploration/geode/ichor.json"
+  },
+  {
+    "name": "enderslime_geode",
+    "type": "mantle:image_text",
+    "data": "exploration/geode/enderslime.json"
+  }
+]

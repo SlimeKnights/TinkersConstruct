@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "map=false": { "model": "tconstruct:block/manyullyn_frame" },
+        "map=true": { "model": "tconstruct:block/manyullyn_frame_map" }
+    }
+}

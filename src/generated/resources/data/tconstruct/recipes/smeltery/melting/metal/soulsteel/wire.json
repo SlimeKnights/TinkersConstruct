@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:wires/soulsteel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:wires/soulsteel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_soulsteel",
+    "amount": 45
+  },
+  "temperature": 1200,
+  "time": 14
+}

@@ -1,0 +1,86 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "tags": [
+        "forge:ores/silver",
+        "forge:ore_rates/sparse"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/lead",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:intersection",
+          "ingredients": [
+            {
+              "tag": "forge:ores/silver"
+            },
+            {
+              "tag": "forge:ore_rates/sparse"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_silver",
+          "amount": 90
+        },
+        "temperature": 790,
+        "time": 90,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_lead",
+            "amount": 90
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:intersection",
+          "ingredients": [
+            {
+              "tag": "forge:ores/silver"
+            },
+            {
+              "tag": "forge:ore_rates/sparse"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_silver",
+          "amount": 90
+        },
+        "temperature": 790,
+        "time": 90,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_gold",
+            "amount": 90
+          }
+        ]
+      }
+    }
+  ]
+}

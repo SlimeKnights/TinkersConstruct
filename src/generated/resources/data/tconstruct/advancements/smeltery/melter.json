@@ -1,0 +1,95 @@
+{
+  "parent": "tconstruct:smeltery/puny_smelting",
+  "display": {
+    "icon": {
+      "item": "tconstruct:seared_melter"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.melter.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.melter.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "seared_melter": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_melter"
+      }
+    },
+    "seared_table": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_table"
+      }
+    },
+    "seared_basin": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_basin"
+      }
+    },
+    "seared_faucet": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_faucet"
+      }
+    },
+    "seared_heater": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_heater"
+      }
+    },
+    "seared_fuel_tank": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_fuel_tank"
+      }
+    },
+    "seared_fuel_gauge": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_fuel_gauge"
+      }
+    },
+    "seared_ingot_tank": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_ingot_tank"
+      }
+    },
+    "seared_ingot_gauge": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "tconstruct:seared_ingot_gauge"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "seared_melter"
+    ],
+    [
+      "seared_table"
+    ],
+    [
+      "seared_basin"
+    ],
+    [
+      "seared_faucet"
+    ],
+    [
+      "seared_heater",
+      "seared_fuel_tank",
+      "seared_fuel_gauge",
+      "seared_ingot_tank",
+      "seared_ingot_gauge"
+    ]
+  ]
+}

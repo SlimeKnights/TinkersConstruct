@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/manyullyn",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/manyullyn"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_manyullyn",
+    "amount": 45
+  },
+  "temperature": 1200,
+  "time": 14
+}

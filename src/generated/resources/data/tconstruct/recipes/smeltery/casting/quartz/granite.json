@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:diorite"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_quartz",
+    "amount": 100
+  },
+  "result": "minecraft:granite",
+  "cooling_time": 58
+}

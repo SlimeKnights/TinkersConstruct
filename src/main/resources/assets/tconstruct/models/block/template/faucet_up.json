@@ -1,0 +1,67 @@
+{
+  "loader": "mantle:fluids",
+  "textures": {
+    "particle": "#tex"
+  },
+  "elements": [
+    {
+      "from": [  4, 10,  4 ],
+      "to":   [ 12, 16,  6 ],
+      "faces": {
+        "up":    { "uv": [  4,  4, 12,  6 ], "texture": "#tex", "cullface": "up"},
+        "down":  { "uv": [  4,  6, 12,  4 ], "texture": "#tex"},
+        "north": { "uv": [ 12, 16,  4, 10 ], "texture": "#tex"},
+        "east":  { "uv": [  4, 10,  6, 16 ], "texture": "#tex", "rotation": 180},
+        "south": { "uv": [  4, 16, 12, 10 ], "texture": "#tex"},
+        "west":  { "uv": [ 10, 10, 12, 16 ], "texture": "#tex", "rotation": 180}
+      }
+    },
+    {
+      "from": [  4, 10, 10 ],
+      "to":   [ 12, 16, 12 ],
+      "faces": {
+        "up":    { "uv": [  4, 10, 12, 12 ], "texture": "#tex", "cullface": "up"},
+        "down":  { "uv": [  4, 12, 12, 10 ], "texture": "#tex"},
+        "north": { "uv": [  4, 16, 12, 10 ], "texture": "#tex"},
+        "east":  { "uv": [ 10, 10, 12, 16 ], "texture": "#tex", "rotation": 180},
+        "south": { "uv": [ 12, 16,  4, 10 ], "texture": "#tex"},
+        "west":  { "uv": [  4, 10,  6, 16 ], "texture": "#tex", "rotation": 180}
+      }
+    },
+    {
+      "from": [  4, 10,  6 ],
+      "to":   [  6, 16, 10 ],
+      "faces": {
+        "up":    { "uv": [  4,  6,  6, 10 ], "texture": "#tex", "cullface": "up"},
+        "down":  { "uv": [  4, 10,  6,  6 ], "texture": "#tex"},
+        "north": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+        "east":  { "uv": [  6, 10, 10, 16 ], "texture": "#tex", "rotation": 180},
+        "south": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+        "west":  { "uv": [  6, 10, 10, 16 ], "texture": "#tex", "rotation": 180}
+      }
+    },
+    {
+      "from": [ 10, 10,  6 ],
+      "to":   [ 12, 16, 10 ],
+      "faces": {
+        "up":    { "uv": [ 10,  6, 12, 10 ], "texture": "#tex", "cullface": "up"},
+        "down":  { "uv": [ 10, 10, 12,  6 ], "texture": "#tex"},
+        "north": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+        "east":  { "uv": [  6, 10, 10, 16 ], "texture": "#tex", "rotation": 180},
+        "south": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+        "west":  { "uv": [  6, 10, 10, 16 ], "texture": "#tex", "rotation": 180}
+      }
+    }
+  ],
+  "fluids": {
+    "from": [  6,  0, 6 ],
+    "to":   [ 10, 16, 10 ],
+    "faces": {
+      "up":    {},
+      "north": { "flowing": true },
+      "east":  { "flowing": true },
+      "south": { "flowing": true },
+      "west":  { "flowing": true }
+    }
+  }
+}

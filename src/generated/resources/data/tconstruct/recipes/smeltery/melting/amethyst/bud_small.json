@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:ore_melting",
+  "rate": "gem",
+  "ingredient": {
+    "item": "minecraft:small_amethyst_bud"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_amethyst",
+    "amount": 100
+  },
+  "temperature": 950,
+  "time": 65,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_quartz",
+      "amount": 100
+    }
+  ]
+}

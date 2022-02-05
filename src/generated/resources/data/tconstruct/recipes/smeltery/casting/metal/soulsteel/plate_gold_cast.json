@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/soulsteel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_soulsteel",
+    "amount": 90
+  },
+  "result": {
+    "tag": "forge:plates/soulsteel"
+  },
+  "cooling_time": 72
+}

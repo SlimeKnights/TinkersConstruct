@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/refined_glowstone",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/refined_glowstone"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_refined_glowstone",
+    "amount": 30
+  },
+  "temperature": 825,
+  "time": 41
+}

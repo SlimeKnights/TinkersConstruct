@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/broad_axe_head"
+  },
+  "item_cost": 8,
+  "result": "tconstruct:broad_axe_head"
+}

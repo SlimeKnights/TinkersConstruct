@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:bell"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 360
+  },
+  "temperature": 700,
+  "time": 114
+}

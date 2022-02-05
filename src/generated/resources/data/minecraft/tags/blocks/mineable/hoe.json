@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:earth_slime_leaves",
+    "tconstruct:sky_slime_leaves",
+    "tconstruct:ichor_slime_leaves",
+    "tconstruct:ender_slime_leaves",
+    "tconstruct:blood_slime_leaves"
+  ]
+}

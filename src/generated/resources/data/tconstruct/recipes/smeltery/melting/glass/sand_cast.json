@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "tconstruct:blank_sand_cast"
+    },
+    {
+      "item": "tconstruct:blank_red_sand_cast"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_glass",
+    "amount": 250
+  },
+  "temperature": 750,
+  "time": 44
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/brass",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/brass"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_brass",
+    "amount": 45
+  },
+  "temperature": 605,
+  "time": 11
+}

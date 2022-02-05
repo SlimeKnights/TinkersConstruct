@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:sky_slime_crystal"
+  },
+  "result": {
+    "fluid": "tconstruct:sky_slime",
+    "amount": 250
+  },
+  "temperature": 10,
+  "time": 29
+}

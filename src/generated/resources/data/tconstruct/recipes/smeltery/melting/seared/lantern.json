@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "type": "forge:nbt",
+    "item": "tconstruct:seared_lantern",
+    "count": 1
+  },
+  "result": {
+    "fluid": "tconstruct:seared_stone",
+    "amount": 500
+  },
+  "temperature": 600,
+  "time": 53,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 250
+    },
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 30
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/refined_obsidian",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_refined_obsidian",
+    "amount": 810
+  },
+  "result": {
+    "tag": "forge:storage_blocks/refined_obsidian"
+  },
+  "cooling_time": 239
+}

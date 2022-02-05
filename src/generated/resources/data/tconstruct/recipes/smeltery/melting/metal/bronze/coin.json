@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/bronze"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_bronze",
+    "amount": 30
+  },
+  "temperature": 700,
+  "time": 38
+}

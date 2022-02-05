@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tconstruct:materials_and_you"
+    },
+    {
+      "item": "tconstruct:puny_smelting"
+    },
+    {
+      "item": "tconstruct:mighty_smelting"
+    },
+    {
+      "item": "tconstruct:fantastic_foundry"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:encyclopedia"
+  }
+}

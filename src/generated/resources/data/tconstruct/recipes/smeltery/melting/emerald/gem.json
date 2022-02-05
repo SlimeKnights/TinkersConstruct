@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:gems/emerald"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_emerald",
+    "amount": 100
+  },
+  "temperature": 934,
+  "time": 64
+}

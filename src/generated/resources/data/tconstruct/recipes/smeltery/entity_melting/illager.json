@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "types": [
+      "minecraft:evoker",
+      "minecraft:illusioner",
+      "minecraft:pillager",
+      "minecraft:vindicator",
+      "minecraft:witch"
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_emerald",
+    "amount": 25
+  },
+  "damage": 2
+}

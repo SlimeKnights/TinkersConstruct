@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "tconstruct:molten_amethyst",
+    "amount": 400
+  },
+  "result": "minecraft:amethyst_block",
+  "cooling_time": 137
+}

@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "type": "minecraft:zombified_piglin"
+  },
+  "result": "tconstruct:zombified_piglin_head"
+}

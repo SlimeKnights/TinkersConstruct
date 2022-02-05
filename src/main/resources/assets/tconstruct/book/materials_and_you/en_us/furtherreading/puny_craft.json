@@ -1,0 +1,8 @@
+{
+  "title": "Puny Smelting Crafting",
+  "recipe": "tconstruct:common/puny_smelting",
+  "grid_size": "small",
+  "description": [
+    { "text": "Smelting and Casting guidebook for beginners. First in a series by Thruul M'Gon about the smeltery." }
+  ]
+}

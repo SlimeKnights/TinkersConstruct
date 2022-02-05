@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "Increases max health by 1 heart per level."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 2 levels on helmets or boots",
+    "Maximum of 3 levels on chestplates or leggings",
+    "Requires 1 defense slot"
+  ]
+}

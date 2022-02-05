@@ -1,0 +1,70 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/raw_uranium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/lead",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_uranium"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_uranium",
+          "amount": 810
+        },
+        "temperature": 830,
+        "time": 367,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_lead",
+            "amount": 810
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_uranium"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_uranium",
+          "amount": 810
+        },
+        "temperature": 830,
+        "time": 367,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_copper",
+            "amount": 810
+          }
+        ]
+      }
+    }
+  ]
+}

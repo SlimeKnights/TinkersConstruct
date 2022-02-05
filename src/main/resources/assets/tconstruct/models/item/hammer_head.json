@@ -1,0 +1,8 @@
+{
+  "loader": "tconstruct:material",
+  "parent": "forge:item/default",
+  "textures": {
+    "texture": "tconstruct:item/tool/sledge_hammer/head"
+  },
+  "offset": [-3, 3]
+}

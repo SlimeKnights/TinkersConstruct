@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "I spy with my little eyes, something off in the vast distance."
+    }
+  ],
+  "effects": [
+    "Allows you to zoom in",
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

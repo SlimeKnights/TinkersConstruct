@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "A little bit of floofhips never hurt anyone."
+    }
+  ],
+  "effects": [
+    "Reduces knockback of tool",
+    "Multiple levels, each level decreases knockback further",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "tags": [
+        "forge:ores/copper",
+        "forge:ore_rates/sparse"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "forge:ores/copper"
+      },
+      {
+        "tag": "forge:ore_rates/sparse"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 90
+  },
+  "temperature": 500,
+  "time": 75,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_gold",
+      "amount": 30
+    }
+  ]
+}

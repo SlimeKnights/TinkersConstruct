@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "The world is your trampoline."
+    }
+  ],
+  "effects": [
+    "Bounce on landing",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

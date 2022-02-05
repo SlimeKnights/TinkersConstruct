@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Allows swapping the first 4 hotbar slots using the leggings interact. Second level allows swapping up to 8 hotbar slots. Also apply pocket chain to get all 9 slots."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requires 1 ability slot",
+    "Max 2 levels"
+  ]
+}

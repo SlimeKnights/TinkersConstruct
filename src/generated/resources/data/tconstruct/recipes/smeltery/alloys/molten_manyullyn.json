@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "tag": "forge:molten_cobalt",
+      "amount": 270
+    },
+    {
+      "tag": "tconstruct:molten_debris",
+      "amount": 90
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_manyullyn",
+    "amount": 360
+  },
+  "temperature": 1200
+}

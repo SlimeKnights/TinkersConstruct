@@ -1,0 +1,33 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":         "tconstruct:item/tool/sledge_hammer/head",
+    "broken_head":  "tconstruct:item/tool/sledge_hammer/broken_head",
+    "handle":       "tconstruct:item/tool/sledge_hammer/handle",
+    "back":         "tconstruct:item/tool/sledge_hammer/back",
+    "broken_back":  "tconstruct:item/tool/sledge_hammer/broken_back",
+    "front":        "tconstruct:item/tool/sledge_hammer/front",
+    "broken_front": "tconstruct:item/tool/sledge_hammer/broken_front",
+    
+    "large_head":         "tconstruct:item/tool/sledge_hammer/large/head",
+    "large_broken_head":  "tconstruct:item/tool/sledge_hammer/large/broken_head",
+    "large_handle":       "tconstruct:item/tool/sledge_hammer/large/handle",
+    "large_back":         "tconstruct:item/tool/sledge_hammer/large/back",
+    "large_broken_back":  "tconstruct:item/tool/sledge_hammer/large/broken_back",
+    "large_front":        "tconstruct:item/tool/sledge_hammer/large/front",
+    "large_broken_front": "tconstruct:item/tool/sledge_hammer/large/broken_front"
+  },
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/sledge_hammer/modifiers/" ],
+    "large": [ "tconstruct:item/tool/sledge_hammer/large/modifiers/" ]
+  },
+  "large": true,
+  "large_offset": [-2, 2],
+  "parts": [
+    { "name": "handle", "index": 1 },
+    { "name": "head",   "index": 0, "broken": "broken_head" },
+    { "name": "back",   "index": 2, "broken": "broken_back" },
+    { "name": "front",  "index": 3, "broken": "broken_front" }
+  ]
+}

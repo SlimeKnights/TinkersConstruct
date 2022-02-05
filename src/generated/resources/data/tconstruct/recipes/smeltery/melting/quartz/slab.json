@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:quartz_slab"
+    },
+    {
+      "item": "minecraft:smooth_quartz_slab"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 200
+  },
+  "temperature": 637,
+  "time": 82
+}

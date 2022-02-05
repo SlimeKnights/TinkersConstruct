@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:wither_bones"
+    },
+    {
+      "item": "minecraft:lightning_rod"
+    },
+    {
+      "tag": "forge:wither_bones"
+    },
+    {
+      "item": "minecraft:tnt"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:severing",
+    "level": 1
+  },
+  "max_level": 5
+}

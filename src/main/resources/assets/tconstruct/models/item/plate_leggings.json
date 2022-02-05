@@ -1,0 +1,10 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "tool":   "tconstruct:item/tool/armor/plate/leggings",
+    "broken": "tconstruct:item/tool/armor/plate/leggings_broken"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/armor/plate/leggings_modifiers/" ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden" ]
+}

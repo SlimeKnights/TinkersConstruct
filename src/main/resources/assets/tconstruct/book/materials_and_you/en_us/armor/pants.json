@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { "text": "Honey, where are my paaaaaaaaaaaaaaaaaants?" },
+	{
+      "text": "Going out in the world without pants on is not a very good idea, why not take a pair of pants to keep you warm, and help you travel!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Low Armor",
+	"Low Durability",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

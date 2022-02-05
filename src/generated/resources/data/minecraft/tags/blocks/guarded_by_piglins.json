@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:cast_chest",
+    "tconstruct:gold_bars",
+    "tconstruct:gold_platform",
+    "tconstruct:piglin_head",
+    "tconstruct:piglin_brute_head",
+    "tconstruct:piglin_wall_head",
+    "tconstruct:piglin_brute_wall_head"
+  ]
+}

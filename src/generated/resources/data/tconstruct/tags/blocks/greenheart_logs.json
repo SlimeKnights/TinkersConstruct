@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:greenheart_log",
+    "tconstruct:stripped_greenheart_log",
+    "tconstruct:greenheart_wood",
+    "tconstruct:stripped_greenheart_wood"
+  ]
+}

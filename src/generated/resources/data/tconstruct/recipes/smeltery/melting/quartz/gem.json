@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:gems/quartz"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 100
+  },
+  "temperature": 637,
+  "time": 55
+}

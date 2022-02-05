@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:gears/signalum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gears/signalum"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_signalum",
+    "amount": 360
+  },
+  "temperature": 1125,
+  "time": 140
+}

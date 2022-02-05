@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/small_axe_head"
+  },
+  "item_cost": 2,
+  "result": "tconstruct:small_axe_head"
+}

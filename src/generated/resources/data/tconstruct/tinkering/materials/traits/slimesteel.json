@@ -1,0 +1,12 @@
+{
+  "default": [
+    {
+      "name": "tconstruct:overcast",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:overslime",
+      "level": 1
+    }
+  ]
+}

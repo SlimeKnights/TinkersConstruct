@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "잠깐, 뭘 벗길 수 있다고?"
+    }
+  ],
+  "effects": [
+    "도구로 나무를 벗길 수 있다",
+    "단일 등급",
+    "1개의 능력 슬롯을 사용한다"
+  ]
+}

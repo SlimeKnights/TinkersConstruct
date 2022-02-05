@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:polished_basalt"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:magma",
+    "amount": 500
+  },
+  "result": "tconstruct:polished_scorched_stone",
+  "cooling_time": 99
+}

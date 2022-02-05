@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/uranium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "forge:wither_bones"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:molten_uranium",
+    "amount": 90
+  },
+  "result": "tconstruct:necronium_bone",
+  "cooling_time": 61
+}

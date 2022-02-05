@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "bites=0": { "model": "tconstruct:block/slime/cake/ender/full" },
+    "bites=1": { "model": "tconstruct:block/slime/cake/ender/slice1" },
+    "bites=2": { "model": "tconstruct:block/slime/cake/ender/slice2" },
+    "bites=3": { "model": "tconstruct:block/slime/cake/ender/slice3" },
+    "bites=4": { "model": "tconstruct:block/slime/cake/ender/slice4" },
+    "bites=5": { "model": "tconstruct:block/slime/cake/ender/slice5" },
+    "bites=6": { "model": "tconstruct:block/slime/cake/ender/slice6" }
+  }
+}

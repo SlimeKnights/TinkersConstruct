@@ -1,0 +1,86 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "tags": [
+        "forge:ores/zinc",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/tin",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:intersection",
+          "ingredients": [
+            {
+              "tag": "forge:ores/zinc"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_zinc",
+          "amount": 540
+        },
+        "temperature": 420,
+        "time": 211,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_tin",
+            "amount": 540
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:intersection",
+          "ingredients": [
+            {
+              "tag": "forge:ores/zinc"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_zinc",
+          "amount": 540
+        },
+        "temperature": 420,
+        "time": 211,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_copper",
+            "amount": 540
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "tconstruct:scorched_blocks"
+  },
+  "value": 2,
+  "needed": 1,
+  "material": "tconstruct:scorched_stone",
+  "leftover": "tconstruct:scorched_brick"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/netherite",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/netherite"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_netherite",
+    "amount": 45
+  },
+  "temperature": 1250,
+  "time": 15
+}

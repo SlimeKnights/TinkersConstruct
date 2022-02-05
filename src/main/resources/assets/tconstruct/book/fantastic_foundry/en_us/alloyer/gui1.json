@@ -1,0 +1,14 @@
+{
+  "title": "Alloyer GUI",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "Your basic Alloyer GUI, except there could be more or less",
+      "paragraph": true
+    }
+	]
+}

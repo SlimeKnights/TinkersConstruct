@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "forge:stone"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_clay",
+    "amount": 500
+  },
+  "result": "tconstruct:seared_stone",
+  "cooling_time": 113
+}

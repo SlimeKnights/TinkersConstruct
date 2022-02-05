@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "tconstruct:block/smeltery/seared/paver",
+    "side": "tconstruct:block/smeltery/seared/paver_slab"
+  }
+}

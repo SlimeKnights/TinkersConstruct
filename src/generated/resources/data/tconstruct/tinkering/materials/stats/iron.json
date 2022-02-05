@@ -1,0 +1,21 @@
+{
+  "stats": {
+    "tconstruct:skull": {
+      "durability": 165,
+      "armor": 2
+    },
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
+      "durability": 1.1,
+      "miningSpeed": 1.0,
+      "attackSpeed": 1.0,
+      "attackDamage": 1.0
+    },
+    "tconstruct:head": {
+      "durability": 250,
+      "miningSpeed": 6.0,
+      "harvestTier": "minecraft:iron",
+      "attack": 2.0
+    }
+  }
+}

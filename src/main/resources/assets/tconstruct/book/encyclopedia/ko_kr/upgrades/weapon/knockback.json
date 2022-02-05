@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "등급당 밀치기가 1만큼 증가하여, 몬스터를 약 2블럭 정도 더 멀리 날려보냅니다. 대부분의 도구는 0.4의 밀치기를 가지고 있습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 5등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "tconstruct:block/platform/side",
+    "textures": {
+		"side": "tconstruct:block/platform/gold_side",
+		"top":  "tconstruct:block/platform/gold_top"
+    }
+}

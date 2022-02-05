@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:respiration",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:kelp",
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:kelp",
+      "chance": 0.5
+    }
+  ]
+}

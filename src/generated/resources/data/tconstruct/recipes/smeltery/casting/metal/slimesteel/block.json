@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "tconstruct:molten_slimesteel",
+    "amount": 810
+  },
+  "result": "tconstruct:slimesteel_block",
+  "cooling_time": 190
+}

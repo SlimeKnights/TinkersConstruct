@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "Everything changed when the firestarter modifier attacked."
+    }
+  ],
+  "effects": [
+    "Interact to start fires",
+    "Single Level",
+    "Requires 1 Ability Slot",
+    "Using on flint and bronze increases radius, requiring 1 Upgrade slot"
+  ]
+}

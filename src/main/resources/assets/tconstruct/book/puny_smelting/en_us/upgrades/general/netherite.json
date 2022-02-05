@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "The strength of the nether flows intensely through your tool."
+    }
+  ],
+  "effects": [
+    "Boosts durability, attack damage, mining speed, and makes it immune to external damage such as fire and lava",
+    "Requires Diamond or Emerald to be applied",
+    "Single Level",
+    "Requires 1 Upgrade Slot"
+  ]
+}

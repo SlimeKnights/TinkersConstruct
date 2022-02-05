@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:greenheart_wall_sign",
+    "tconstruct:skyroot_wall_sign",
+    "tconstruct:bloodshroom_wall_sign"
+  ]
+}

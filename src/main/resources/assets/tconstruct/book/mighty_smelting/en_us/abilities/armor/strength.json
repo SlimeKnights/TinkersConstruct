@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "With great power, comes greater damage."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Increases attack damage of weapons",
+    "Multiple levels, each level increases damage further",
+    "Requires 1 upgrade slot per level"
+  ]
+}

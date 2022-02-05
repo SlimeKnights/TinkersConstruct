@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/platinum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/platinum"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_platinum",
+    "amount": 30
+  },
+  "temperature": 970,
+  "time": 44
+}

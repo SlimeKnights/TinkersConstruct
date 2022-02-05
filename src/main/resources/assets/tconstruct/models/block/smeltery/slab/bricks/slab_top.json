@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab_top",
+    "textures": {
+        "bottom": "tconstruct:block/smeltery/seared/bricks",
+        "top": "tconstruct:block/smeltery/seared/bricks",
+        "side": "tconstruct:block/smeltery/seared/bricks"
+    }
+}

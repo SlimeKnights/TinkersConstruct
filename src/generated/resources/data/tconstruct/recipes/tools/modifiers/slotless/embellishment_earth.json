@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    },
+    {
+      "item": "minecraft:slime_block"
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    }
+  ],
+  "tools": [
+    {
+      "item": "tconstruct:slime_boots"
+    },
+    {
+      "item": "tconstruct:slime_leggings"
+    },
+    {
+      "item": "tconstruct:slime_chestplate"
+    },
+    {
+      "item": "tconstruct:slime_helmet"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:earthslime"
+  }
+}

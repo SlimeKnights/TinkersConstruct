@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/lumium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:plates/lumium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_lumium",
+    "amount": 90
+  },
+  "temperature": 1050,
+  "time": 68
+}

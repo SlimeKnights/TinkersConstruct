@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:scorched_blocks",
+    "#tconstruct:foundry/tanks",
+    "tconstruct:scorched_glass",
+    "tconstruct:scorched_ladder",
+    "tconstruct:scorched_drain",
+    "tconstruct:scorched_chute",
+    "tconstruct:scorched_duct"
+  ]
+}

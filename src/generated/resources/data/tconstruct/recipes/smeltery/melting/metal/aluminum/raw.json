@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:raw_materials/aluminum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "tag": "forge:raw_materials/aluminum"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_aluminum",
+    "amount": 90
+  },
+  "temperature": 425,
+  "time": 71,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 90
+    }
+  ]
+}

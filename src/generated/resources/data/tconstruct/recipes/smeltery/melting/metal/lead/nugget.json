@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/lead"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_lead",
+    "amount": 10
+  },
+  "temperature": 330,
+  "time": 14
+}

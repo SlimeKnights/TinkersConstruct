@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:wires/steel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:wires/steel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_steel",
+    "amount": 45
+  },
+  "temperature": 950,
+  "time": 13
+}

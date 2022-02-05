@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "tconstruct:block/storage/pig_iron" },
+    "facing=south": { "model": "tconstruct:block/storage/pig_iron", "y": 180 },
+    "facing=west":  { "model": "tconstruct:block/storage/pig_iron", "y": 270 },
+    "facing=east":  { "model": "tconstruct:block/storage/pig_iron", "y": 90 }
+  }
+}

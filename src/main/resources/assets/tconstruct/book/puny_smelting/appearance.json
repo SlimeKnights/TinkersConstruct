@@ -1,0 +1,10 @@
+{
+  "coverTexture": "tconstruct:book/images/covers/puny_smelting_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/puny_smelting_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0xE8EBED,
+  "drawSectionListText": true,
+  "largePageTitles": true,
+  "centerPageTitles": true
+}

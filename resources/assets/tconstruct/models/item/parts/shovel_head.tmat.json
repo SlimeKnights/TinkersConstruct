@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/shovel/head"
-    },
-    "offset": {
-        "x": -3,
-        "y": 3
-    }
-}

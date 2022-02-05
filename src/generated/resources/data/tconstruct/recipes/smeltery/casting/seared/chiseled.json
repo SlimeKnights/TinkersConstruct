@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:chiseled_stone_bricks"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_clay",
+    "amount": 500
+  },
+  "result": "tconstruct:seared_fancy_bricks",
+  "cooling_time": 113
+}

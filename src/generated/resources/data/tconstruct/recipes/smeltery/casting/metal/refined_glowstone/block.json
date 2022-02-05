@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/refined_glowstone",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_refined_glowstone",
+    "amount": 810
+  },
+  "result": {
+    "tag": "forge:storage_blocks/refined_glowstone"
+  },
+  "cooling_time": 183
+}

@@ -1,0 +1,46 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:small_blade",
+      "type": "tconstruct:material"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "tconstruct:tool_binding",
+      "type": "tconstruct:material"
+    }
+  ],
+  "tools": {
+    "type": "mantle:difference",
+    "base": {
+      "type": "mantle:intersection",
+      "ingredients": [
+        {
+          "tag": "tconstruct:modifiable/durability"
+        },
+        {
+          "tag": "tconstruct:modifiable/interactable"
+        }
+      ]
+    },
+    "subtracted": [
+      {
+        "item": "tconstruct:kama"
+      },
+      {
+        "item": "tconstruct:scythe"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:tilling",
+    "level": 1
+  },
+  "max_level": 1
+}

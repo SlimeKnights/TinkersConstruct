@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:wither_rose"
+    },
+    {
+      "item": "tconstruct:blood_congealed_slime"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "requirements": {
+    "name": "tconstruct:unarmed",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.unarmed"
+  },
+  "result": {
+    "name": "tconstruct:necrotic",
+    "level": 1
+  },
+  "max_level": 5
+}

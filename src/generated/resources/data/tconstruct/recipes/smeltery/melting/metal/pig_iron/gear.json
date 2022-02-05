@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:gears/pig_iron",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gears/pig_iron"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_pig_iron",
+    "amount": 360
+  },
+  "temperature": 811,
+  "time": 121
+}

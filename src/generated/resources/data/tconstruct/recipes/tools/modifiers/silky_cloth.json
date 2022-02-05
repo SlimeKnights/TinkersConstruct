@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "sgs",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "tag": "forge:string"
+    },
+    "g": {
+      "tag": "forge:ingots/rose_gold"
+    }
+  },
+  "result": {
+    "item": "tconstruct:silky_cloth"
+  }
+}

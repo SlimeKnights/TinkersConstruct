@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/amethyst_cluster",
+  "textures": {
+    "layer0": "tconstruct:block/geode/ender/cluster"
+  }
+}

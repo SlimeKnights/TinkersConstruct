@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:daylight_detector"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 300
+  },
+  "temperature": 637,
+  "time": 100,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 3000
+    }
+  ]
+}

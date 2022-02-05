@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/queens_slime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_queens_slime",
+    "amount": 90
+  },
+  "result": {
+    "tag": "forge:plates/queens_slime"
+  },
+  "cooling_time": 71
+}

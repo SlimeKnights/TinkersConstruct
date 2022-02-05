@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:mud_bricks_stairs",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "tconstruct:mud_bricks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:mud_bricks_stairs",
+    "count": 4
+  }
+}

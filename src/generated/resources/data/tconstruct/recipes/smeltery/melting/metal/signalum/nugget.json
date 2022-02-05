@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/signalum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/signalum"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_signalum",
+    "amount": 10
+  },
+  "temperature": 1125,
+  "time": 23
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=x": { "model": "tconstruct:block/foundry/scorched/polished", "x": 90, "y": 90 },
+    "axis=y": { "model": "tconstruct:block/foundry/scorched/polished" },
+    "axis=z": { "model": "tconstruct:block/foundry/scorched/polished", "x": 90 }
+  }
+}

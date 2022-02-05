@@ -1,0 +1,14 @@
+{
+  "title": "Part Builder",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "To make a part: simply grab a blank stencil, put it in the stencil slot. Select what tool part you are wanting to make, insert a soft material you can shape with your hands, and grab your part.",
+      "paragraph": true
+    }
+	]
+}

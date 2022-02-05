@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#.#",
+    ". .",
+    "#.#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/gold"
+    },
+    ".": {
+      "tag": "forge:nuggets/gold"
+    }
+  },
+  "result": {
+    "item": "tconstruct:gold_platform",
+    "count": 4
+  }
+}

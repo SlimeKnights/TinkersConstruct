@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "채굴한 블록을 주로 사용하지 않는 손에 있는 블록으로 대체합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

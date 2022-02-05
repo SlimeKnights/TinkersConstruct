@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:overslime_modifier",
+  "ingredient": {
+    "item": "tconstruct:sky_slime_ball"
+  },
+  "restore_amount": 40
+}

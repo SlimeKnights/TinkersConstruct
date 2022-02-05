@@ -1,0 +1,38 @@
+{
+  "multipart": [
+    { "when": { "facing": "down"  }, "apply": { "model": "tconstruct:block/punji/base" } },
+    { "when": { "facing": "up"    }, "apply": { "model": "tconstruct:block/punji/base", "x": 180 } },
+    { "when": { "facing": "north" }, "apply": { "model": "tconstruct:block/punji/base", "x": 270 } },
+    { "when": { "facing": "east"  }, "apply": { "model": "tconstruct:block/punji/base", "x": 270, "y":  90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "tconstruct:block/punji/base", "x": 270, "y": 180 } },
+    { "when": { "facing": "west"  }, "apply": { "model": "tconstruct:block/punji/base", "x": 270, "y": 270 } },
+  
+    { "when": { "north": "true", "facing": "down"  }, "apply": { "model": "tconstruct:block/punji/stick_north" } },
+    { "when": { "north": "true", "facing": "up"    }, "apply": { "model": "tconstruct:block/punji/stick_north", "x": 180 } },
+    { "when": { "north": "true", "facing": "north" }, "apply": { "model": "tconstruct:block/punji/stick_north", "x": 270 } },
+    { "when": { "north": "true", "facing": "east"  }, "apply": { "model": "tconstruct:block/punji/stick_north", "x": 270, "y":  90 } },
+    { "when": { "north": "true", "facing": "south" }, "apply": { "model": "tconstruct:block/punji/stick_north", "x": 270, "y": 180 } },
+    { "when": { "north": "true", "facing": "west"  }, "apply": { "model": "tconstruct:block/punji/stick_north", "x": 270, "y": 270 } },
+    
+    { "when": { "east": "true", "facing": "down"  }, "apply": { "model": "tconstruct:block/punji/stick_east" } },
+    { "when": { "east": "true", "facing": "up"    }, "apply": { "model": "tconstruct:block/punji/stick_east", "x": 180 } },
+    { "when": { "east": "true", "facing": "north" }, "apply": { "model": "tconstruct:block/punji/stick_east", "x": 270 } },
+    { "when": { "east": "true", "facing": "east"  }, "apply": { "model": "tconstruct:block/punji/stick_east", "x": 270, "y":  90 } },
+    { "when": { "east": "true", "facing": "south" }, "apply": { "model": "tconstruct:block/punji/stick_east", "x": 270, "y": 180 } },
+    { "when": { "east": "true", "facing": "west"  }, "apply": { "model": "tconstruct:block/punji/stick_east", "x": 270, "y": 270 } },
+    
+    { "when": { "northeast": "true", "facing": "down"  }, "apply": { "model": "tconstruct:block/punji/stick_northeast" } },
+    { "when": { "northeast": "true", "facing": "up"    }, "apply": { "model": "tconstruct:block/punji/stick_northeast", "x": 180 } },
+    { "when": { "northeast": "true", "facing": "north" }, "apply": { "model": "tconstruct:block/punji/stick_northeast", "x": 270 } },
+    { "when": { "northeast": "true", "facing": "east"  }, "apply": { "model": "tconstruct:block/punji/stick_northeast", "x": 270, "y":  90 } },
+    { "when": { "northeast": "true", "facing": "south" }, "apply": { "model": "tconstruct:block/punji/stick_northeast", "x": 270, "y": 180 } },
+    { "when": { "northeast": "true", "facing": "west"  }, "apply": { "model": "tconstruct:block/punji/stick_northeast", "x": 270, "y": 270 } },
+    
+    { "when": { "northwest": "true", "facing": "down"  }, "apply": { "model": "tconstruct:block/punji/stick_northwest" } },
+    { "when": { "northwest": "true", "facing": "up"    }, "apply": { "model": "tconstruct:block/punji/stick_northwest", "x": 180 } },
+    { "when": { "northwest": "true", "facing": "north" }, "apply": { "model": "tconstruct:block/punji/stick_northwest", "x": 270 } },
+    { "when": { "northwest": "true", "facing": "east"  }, "apply": { "model": "tconstruct:block/punji/stick_northwest", "x": 270, "y":  90 } },
+    { "when": { "northwest": "true", "facing": "south" }, "apply": { "model": "tconstruct:block/punji/stick_northwest", "x": 270, "y": 180 } },
+    { "when": { "northwest": "true", "facing": "west"  }, "apply": { "model": "tconstruct:block/punji/stick_northwest", "x": 270, "y": 270 } }
+  ]
+}

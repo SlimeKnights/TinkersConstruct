@@ -1,0 +1,11 @@
+{
+  "title": "The Melter",
+  "image": {
+    "file": "tconstruct:book/images/melter.png"
+  },
+  "text": [
+    {
+      "text": "This here is your most basic melter able to perform a variety of simple tasks."
+    }
+  ]
+}

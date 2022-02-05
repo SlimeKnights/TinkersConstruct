@@ -1,0 +1,10 @@
+{
+	"loader": "mantle:colored_block",
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "bottom":   "tconstruct:block/storage/queens_slime_bottom",
+        "top":      "tconstruct:block/storage/queens_slime_top",
+        "side":     "tconstruct:block/storage/queens_slime_side"
+    },
+	"colors": [{ "luminosity": 9 }]
+}

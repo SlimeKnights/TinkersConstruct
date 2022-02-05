@@ -1,0 +1,12 @@
+{
+  "title": "합금기",
+  "image": {
+    "file": "tconstruct:book/images/alloyer.png"
+  },
+  "text": [
+    {
+      "text": "앞선 합금!",
+      "paragraph": true
+    }
+    ]
+}

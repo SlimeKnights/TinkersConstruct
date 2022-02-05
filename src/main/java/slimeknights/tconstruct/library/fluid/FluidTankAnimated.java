@@ -1,20 +1,14 @@
 package slimeknights.tconstruct.library.fluid;
 
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import lombok.Getter;
+import lombok.Setter;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 
-public class FluidTankAnimated extends FluidTankBase<MantleTileEntity> {
+public class FluidTankAnimated extends FluidTankBase<MantleBlockEntity> {
+  @Getter @Setter
+  private float renderOffset;
 
-  public float renderOffset;
-
-  public FluidTankAnimated(int capacity, MantleTileEntity parent) {
+  public FluidTankAnimated(int capacity, MantleBlockEntity parent) {
     super(capacity, parent);
-  }
-
-  @Override
-  protected void sendUpdate(int amount) {
-    if(amount != 0) {
-      renderOffset += amount;
-      super.sendUpdate(amount);
-    }
   }
 }

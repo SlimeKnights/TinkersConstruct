@@ -1,0 +1,87 @@
+{
+  "parent": "tconstruct:world/slime_collector",
+  "display": {
+    "icon": {
+      "item": "tconstruct:ender_slime_sling",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.world.slime_sling.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.world.slime_sling.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "earth": {
+      "trigger": "minecraft:item_durability_changed",
+      "conditions": {
+        "item": {
+          "items": [
+            "tconstruct:earth_slime_sling"
+          ]
+        },
+        "durability": {
+          "max": 150
+        }
+      }
+    },
+    "sky": {
+      "trigger": "minecraft:item_durability_changed",
+      "conditions": {
+        "item": {
+          "items": [
+            "tconstruct:sky_slime_sling"
+          ]
+        },
+        "durability": {
+          "max": 150
+        }
+      }
+    },
+    "ichor": {
+      "trigger": "minecraft:item_durability_changed",
+      "conditions": {
+        "item": {
+          "items": [
+            "tconstruct:ichor_slime_sling"
+          ]
+        },
+        "durability": {
+          "max": 150
+        }
+      }
+    },
+    "ender": {
+      "trigger": "minecraft:item_durability_changed",
+      "conditions": {
+        "item": {
+          "items": [
+            "tconstruct:ender_slime_sling"
+          ]
+        },
+        "durability": {
+          "max": 150
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "earth"
+    ],
+    [
+      "sky"
+    ],
+    [
+      "ichor"
+    ],
+    [
+      "ender"
+    ]
+  ]
+}

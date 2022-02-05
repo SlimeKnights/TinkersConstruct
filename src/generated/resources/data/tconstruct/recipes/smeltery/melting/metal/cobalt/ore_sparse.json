@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "tags": [
+        "forge:ores/cobalt",
+        "forge:ore_rates/sparse"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "forge:ores/cobalt"
+      },
+      {
+        "tag": "forge:ore_rates/sparse"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_cobalt",
+    "amount": 90
+  },
+  "temperature": 950,
+  "time": 97,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 90
+    }
+  ]
+}

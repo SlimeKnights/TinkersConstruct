@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:greenheart_log"
+    }
+  },
+  "result": {
+    "item": "tconstruct:greenheart_wood",
+    "count": 3
+  }
+}

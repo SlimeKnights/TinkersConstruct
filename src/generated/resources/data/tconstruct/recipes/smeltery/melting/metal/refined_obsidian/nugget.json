@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/refined_obsidian",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/refined_obsidian"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_refined_obsidian",
+    "amount": 10
+  },
+  "temperature": 1475,
+  "time": 27
+}

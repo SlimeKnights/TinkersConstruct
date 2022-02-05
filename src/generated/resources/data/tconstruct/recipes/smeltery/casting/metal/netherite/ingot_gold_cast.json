@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "fluid": {
+    "tag": "forge:molten_netherite",
+    "amount": 90
+  },
+  "result": "minecraft:netherite_ingot",
+  "cooling_time": 74
+}

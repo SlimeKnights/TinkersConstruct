@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "type": "mantle:difference",
+    "base": {
+      "tag": "tconstruct:scorched_blocks"
+    },
+    "subtracted": {
+      "item": "tconstruct:polished_scorched_stone"
+    }
+  },
+  "result": "tconstruct:polished_scorched_stone",
+  "count": 1
+}

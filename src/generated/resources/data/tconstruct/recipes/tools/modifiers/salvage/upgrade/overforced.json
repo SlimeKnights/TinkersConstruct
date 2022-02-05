@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:overforced",
+  "min_level": 1,
+  "salvage": {
+    "item": "tconstruct:slimesteel_reinforcement",
+    "full": false
+  }
+}

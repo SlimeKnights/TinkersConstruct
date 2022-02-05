@@ -1,0 +1,10 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "tool":   "tconstruct:item/tool/armor/slime/wings",
+    "broken": "tconstruct:item/tool/armor/slime/wings_broken"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/armor/slime/wings_modifiers/" ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden" ]
+}

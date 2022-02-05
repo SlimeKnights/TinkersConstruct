@@ -1,0 +1,16 @@
+{
+  "title": "Tinker Station",
+  "text": [
+    {
+      "text": "The first step in your grand tinkering adventure is crafting your first tool. It may not start off the best, but it is your work, and you should be proud of it."
+    },
+    {
+      "text": "Once you have acquired all the parts you need to make a tool, construction can begin! In order to make them, first get a Tinker Station, then select which tool you want to make and tinker away! ",
+      "paragraph": true
+    },
+	{
+      "text": "You can also use the Tinker Station to add modifiers to your tools. The basic table only has enough room to combine three parts maximum, meaning no broad tools can be crafted. Other master tinkers know the secret to making tools out of four or five parts.",
+      "paragraph": true
+    }
+  ]
+}

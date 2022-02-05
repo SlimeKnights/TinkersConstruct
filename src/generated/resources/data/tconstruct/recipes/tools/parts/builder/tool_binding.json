@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:tool_binding",
+  "cost": 1,
+  "result": {
+    "item": "tconstruct:tool_binding"
+  }
+}

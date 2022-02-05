@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:storage_blocks/slimesteel"
+  },
+  "value": 9,
+  "needed": 1,
+  "material": "tconstruct:slimesteel",
+  "leftover": {
+    "tag": "forge:ingots/slimesteel"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/sword"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:sweeping_edge",
+  "min_level": 1,
+  "salvage": {
+    "item": "minecraft:chain",
+    "full": true
+  }
+}

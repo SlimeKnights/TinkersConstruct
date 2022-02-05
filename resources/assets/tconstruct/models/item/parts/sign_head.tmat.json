@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/battlesign/head"
-    },
-    "offset": {
-        "x": 0,
-        "y": 2
-    }
-}

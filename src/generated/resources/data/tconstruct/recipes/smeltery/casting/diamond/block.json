@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "tconstruct:molten_diamond",
+    "amount": 900
+  },
+  "result": "minecraft:diamond_block",
+  "cooling_time": 250
+}

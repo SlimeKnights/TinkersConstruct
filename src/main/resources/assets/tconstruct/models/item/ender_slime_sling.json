@@ -1,0 +1,6 @@
+{
+    "parent": "tconstruct:item/base/slime_sling",
+    "textures": {
+        "layer0": "tconstruct:item/gadgets/ender_slime_sling"
+    }
+}

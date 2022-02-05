@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:ore_melting",
+  "rate": "gem",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_crystal_cluster"
+  },
+  "result": {
+    "fluid": "tconstruct:ender_slime",
+    "amount": 1000
+  },
+  "temperature": 70,
+  "time": 79
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:greenheart_button",
+    "tconstruct:skyroot_button",
+    "tconstruct:bloodshroom_button"
+  ]
+}

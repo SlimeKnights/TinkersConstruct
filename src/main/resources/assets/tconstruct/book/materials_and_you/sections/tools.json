@@ -1,0 +1,47 @@
+[
+  {
+    "name": "sword",
+    "type": "tconstruct:tool",
+    "data": "tools/sword.json"
+  },
+  {
+    "name": "dagger",
+    "type": "tconstruct:tool",
+    "data": "tools/dagger.json"
+  },
+  {
+    "name": "axe",
+    "type": "tconstruct:tool",
+    "data": "tools/axe.json"
+  },
+  {
+    "name": "kama",
+    "type": "tconstruct:tool",
+    "data": "tools/kama.json"
+  },
+  {
+    "name": "mattock",
+    "type": "tconstruct:tool",
+    "data": "tools/mattock.json"
+  },
+  {
+    "name": "pickadze",
+    "type": "tconstruct:tool",
+    "data": "tools/pickadze.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tconstruct:tool",
+    "data": "tools/pickaxe.json"
+  },
+  {
+    "name": "repairing",
+    "type": "mantle:image_text",
+    "data": "tools/repairing.json"
+  },
+  {
+    "name": "part_swapping",
+    "type": "mantle:image_text",
+    "data": "tools/part_swapping.json"
+  }
+]

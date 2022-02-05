@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/refined_glowstone",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/osmium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "forge:dusts/glowstone"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_osmium",
+    "amount": 90
+  },
+  "result": {
+    "tag": "forge:ingots/refined_glowstone"
+  },
+  "cooling_time": 66
+}

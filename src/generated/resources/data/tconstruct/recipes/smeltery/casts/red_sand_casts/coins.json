@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:molding_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "material": {
+    "item": "tconstruct:blank_red_sand_cast"
+  },
+  "pattern": {
+    "tag": "forge:coins"
+  },
+  "result": "tconstruct:coin_red_sand_cast"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/enderium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/enderium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_enderium",
+    "amount": 45
+  },
+  "temperature": 1350,
+  "time": 15
+}

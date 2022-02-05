@@ -1,8 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/broadsword/handle",
-        "layer1": "tconstruct:items/broadsword/blade",
-		"layer2": "tconstruct:items/broadsword/guard",
-		"broken1": "tconstruct:items/broadsword/broken_blade"
-    }
-}

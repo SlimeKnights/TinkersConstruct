@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/osmium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/osmium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_osmium",
+    "amount": 45
+  },
+  "temperature": 975,
+  "time": 13
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "The light flows through your tool and helps the tool mine faster."
+    }
+  ],
+  "effects": [
+    "Mines well lit blocks faster",
+    "Multiple levels, increases speed further with each level",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

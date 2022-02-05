@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/invar",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/invar"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_invar",
+    "amount": 10
+  },
+  "temperature": 900,
+  "time": 21
+}

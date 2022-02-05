@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_glass",
+    "amount": 1000
+  },
+  "temperature": 750,
+  "time": 73
+}

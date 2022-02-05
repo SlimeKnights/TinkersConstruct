@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "크나큰 힘에는, 크나큰 피해가 뒤따른다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "무기의 공격 피해가 증가한다",
+    "다중 등급, 등급당 피해가 증가한다",
+    "등급당 1개의 능력 슬롯 사용"
+  ]
+}

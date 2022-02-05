@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/battleaxe/handle",
-        "layer1": "tconstruct:items/battleaxe/backhead",
-        "layer2": "tconstruct:items/battleaxe/fronthead",
-        "layer3": "tconstruct:items/battleaxe/binding",
-        "broken1": "tconstruct:items/battleaxe/broken_head"
-    }
-}

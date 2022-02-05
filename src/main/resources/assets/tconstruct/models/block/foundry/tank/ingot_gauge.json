@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/tank",
+  "textures": {
+    "top":  "tconstruct:block/foundry/tank/gauge_top",
+    "side": "tconstruct:block/foundry/tank/ingot_gauge"
+  }
+}

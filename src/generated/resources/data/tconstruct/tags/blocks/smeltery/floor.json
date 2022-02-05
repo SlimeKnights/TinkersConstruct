@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:seared_blocks",
+    "tconstruct:seared_drain",
+    "tconstruct:seared_chute",
+    "tconstruct:seared_duct"
+  ]
+}

@@ -1,0 +1,57 @@
+// 섹션 - 팅커 백과사전
+intro=소개
+
+small_tools=작은 도구
+small_tools.info=도구 설명
+large_tools=넓은 도구
+large_tools.info=도구 설명
+
+armor=갑옷
+armor.info=갑옷 설명
+
+tier_one_materials=1등급 재료
+tier_one_materials.subtext=재료는 도구를 만들 때 가장 중요한 요소입니다. 이러한 재료들은 부품 제작대로 가공할 수 있습니다
+
+tier_two_materials=2등급 재료
+tier_two_materials.subtext=이러한 재료들은 용해와 주조로 가공할 수 있습니다
+
+tier_three_materials=3등급 재료
+tier_three_materials.subtext=이러한 재료들은 합금기나 제련소로 금속을 합쳐서 가공할 수 있습니다
+
+tier_four_materials=4등급 재료
+tier_four_materials.subtext=이러한 재료들은 네더를 여행해야 가공할 수 있습니다
+
+skull_materials=슬라임머리
+skull_materials.subtext=여기에서는 슬라임머리에 사용할 수 있는 모든 종류의 머리 효과를 설명합니다
+
+upgrades=강화
+upgrades.subtext=도구에는 제한된 총 강화 슬롯 수가 있습니다.
+upgrades.group_general=일반
+upgrades.group_harvest=수확
+upgrades.group_weapon=무기
+upgrades.group_damage=추가 피해
+upgrades.group_armor=갑옷
+upgrades.feather_falling=가벼운 착지
+
+defense=수비
+defense.subtext=갑옷에는 재료 특성 대신에 수비 슬롯이 있습니다.
+defense.group_protection=보호
+defense.group_special=특수
+
+slotless=무슬롯
+slotless.subtext=무슬롯 수식어는 슬롯을 사용하지 않습니다.
+slotless.group_general=일반
+slotless.group_bonus=추가
+
+abilities=능력
+abilities.subtext=능력 슬롯은 강화 슬롯보다는 수가 적지만, 슬롯당 증가하는 성능의 차이가 큽니다
+abilities.group_general=일반
+abilities.group_harvest=수확
+abilities.group_weapon=무기
+abilities.group_interact=상호작용
+abilities.group_armor=갑옷
+abilities.unarmed=맨손
+
+modifier.effect=효과:
+tool.properties=특성:
+

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:stained_clear_glass",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:clear_glass"
+    },
+    "X": {
+      "tag": "forge:dyes/lime"
+    }
+  },
+  "result": {
+    "item": "tconstruct:lime_clear_stained_glass",
+    "count": 8
+  }
+}

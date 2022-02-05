@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:storage_blocks/redstone"
+  },
+  "amount_per_item": 9,
+  "needed_per_level": 45,
+  "leftover": "minecraft:redstone",
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:haste",
+    "level": 1
+  },
+  "max_level": 5
+}

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/queens_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_queens_slime",
+    "amount": 10
+  },
+  "temperature": 1150,
+  "time": 24
+}

@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "tconstruct:block/table/chest/part"
+        },
+        "facing=south": {
+            "model": "tconstruct:block/table/chest/part",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "tconstruct:block/table/chest/part",
+            "y": 270
+        },
+        "facing=east": {
+            "model": "tconstruct:block/table/chest/part",
+            "y": 90
+        }
+    }
+}

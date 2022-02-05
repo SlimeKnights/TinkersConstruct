@@ -1,6 +1,0 @@
-{
-    "parent": "tconstruct:block/channel/side_in",
-    "textures": {
-        "top": "tconstruct:blocks/smeltery/channel_out"
-    }
-}

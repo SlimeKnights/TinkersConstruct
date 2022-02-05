@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "tconstruct:pattern"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:materials_and_you"
+  }
+}

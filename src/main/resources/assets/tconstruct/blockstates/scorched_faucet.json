@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "facing=down":  { "model": "tconstruct:block/foundry/faucet_up" },
+    "facing=north": { "model": "tconstruct:block/foundry/faucet", "y":   0 },
+    "facing=east":  { "model": "tconstruct:block/foundry/faucet", "y":  90 },
+    "facing=south": { "model": "tconstruct:block/foundry/faucet", "y": 180 },
+    "facing=west":  { "model": "tconstruct:block/foundry/faucet", "y": 270 }
+  }
+}

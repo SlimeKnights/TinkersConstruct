@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "채굴된 블록이 그대로 떨어집니다. 또한, 검, 클리버, 낫, 단검에 적용하면, 동물의 털을 깎을 수 있습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

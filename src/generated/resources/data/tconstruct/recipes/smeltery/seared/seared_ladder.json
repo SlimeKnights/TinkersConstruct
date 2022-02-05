@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "b b",
+    "b b",
+    "BBB"
+  ],
+  "key": {
+    "b": {
+      "item": "tconstruct:seared_brick"
+    },
+    "B": {
+      "tag": "tconstruct:seared_bricks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:seared_ladder",
+    "count": 4
+  }
+}

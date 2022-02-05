@@ -1,8 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/shuriken/shuriken",
-        "layer1": "tconstruct:items/shuriken/shuriken2",
-		"layer2": "tconstruct:items/shuriken/shuriken3",
-        "layer3": "tconstruct:items/shuriken/shuriken4"
-    }
-}

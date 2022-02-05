@@ -1,0 +1,8 @@
+{
+  "title": "간단한 제련 제작법",
+  "recipe": "tconstruct:common/puny_smelting",
+  "grid_size": "small",
+  "description": [
+    { "text": "초보자를 위한 제련과 주조의 안내서입니다. 트루얼 므곤의 제련소에 대한 시리즈, 그 첫 번째입니다." }
+  ]
+}

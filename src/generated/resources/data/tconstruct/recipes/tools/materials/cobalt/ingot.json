@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:ingots/cobalt"
+  },
+  "value": 1,
+  "needed": 1,
+  "material": "tconstruct:cobalt"
+}

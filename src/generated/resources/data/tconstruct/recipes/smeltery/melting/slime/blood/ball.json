@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:slimeball/blood"
+  },
+  "result": {
+    "fluid": "tconstruct:blood",
+    "amount": 250
+  },
+  "temperature": 36,
+  "time": 30
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "name": "index",
+    "type": "mantle:index",
+    "data": "smeltery/index.json"
+  },
+
+  {
+    "name": "features",
+    "type": "mantle:text",
+    "data": "smeltery/features.json"
+  },
+  {
+    "name": "controller",
+    "type": "mantle:image_text",
+    "data": "smeltery/controller.json"
+  },
+  {
+    "name": "hidden",
+    "type": "mantle:right_padding"
+  },
+  {
+    "name": "structure",
+    "type": "mantle:structure",
+    "data": "smeltery/multiblock.json"
+  },
+  {
+    "name": "structurereq",
+    "type": "mantle:text",
+    "data": "smeltery/structurerequirements.json"
+  },
+  {
+    "name": "alloying",
+    "type": "mantle:text",
+    "data": "smeltery/alloying.json"
+  },
+  {
+    "name": "hidden",
+    "type": "mantle:right_padding"
+  },
+  {
+    "name": "sgui1",
+    "type": "mantle:image_text",
+    "data": "smeltery/gui1.json"
+  },
+  {
+    "name": "sgui2",
+    "type": "mantle:text",
+    "data": "smeltery/gui2.json"
+  },
+
+  {
+    "name": "seared_tanks",
+    "type": "mantle:showcase",
+    "data": "smeltery/tanks.json"
+  },
+  {
+    "name": "seared_blocks",
+    "type": "mantle:showcase",
+    "data": "smeltery/searedblocks.json"
+  },
+  {
+    "name": "seared_ladder",
+    "type": "mantle:showcase",
+    "data": "smeltery/searedladder.json"
+  },
+  {
+    "name": "seared_glass",
+    "type": "mantle:showcase",
+    "data": "smeltery/searedglass.json"
+  },
+  {
+    "name": "seared_drain",
+    "type": "mantle:showcase",
+    "data": "smeltery/seared_drain.json"
+  },
+  {
+    "name": "seared_duct",
+    "type": "mantle:showcase",
+    "data": "smeltery/seared_duct.json"
+  },
+  {
+    "name": "seared_chute",
+    "type": "mantle:showcase",
+    "data": "smeltery/seared_chute.json"
+  }
+ ]

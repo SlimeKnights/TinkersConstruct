@@ -1,0 +1,489 @@
+{
+  "replace": false,
+  "parts": [
+    {
+      "path": "tconstruct:item/tool/parts/round_plate",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/large_plate",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/small_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/tool_handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/tough_handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/tool_binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/repair_kit",
+      "statType": "tconstruct:repair_kit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/helmet_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/helmet_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/chestplate_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/chestplate_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/leggings_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/leggings_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boot_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boot_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:models/armor/plate/layer_1",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:models/armor/plate/layer_2",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/skull_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/skull_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/wings_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/wings_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/shell_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/shell_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/boot_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/slime/boot_modifiers/tconstruct_embellishment_broken",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:models/armor/slime/layer_1",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:models/armor/slime/layer_2",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:models/armor/slime/wings",
+      "statType": "tconstruct:slimesuit"
+    },
+    {
+      "path": "tconstruct:item/tool/pickaxe/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickaxe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/pickaxe/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickaxe/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sledge_hammer/large/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/large/broken_front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/large/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/vein_hammer/large/front",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/mattock/pick",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/mattock/broken_axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/mattock/axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/mattock/broken_pick",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickadze/broken_axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickadze/axe",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/grip",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/binding",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/large/grip",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/large/binding",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/excavator/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/hand_axe/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/hand_axe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/hand_axe/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/large/back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/large/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/large/broken_back",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/large/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/broad_axe/large/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/kama/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/kama/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/kama/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/accessory",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/large/binding",
+      "statType": "tconstruct:extra"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/large/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/scythe/large/accessory",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/dagger/crossguard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/dagger/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/dagger/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sword/guard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/sword/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/sword/broken_blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/sword/blade",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/guard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/broken_shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/handle",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/large/head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/large/shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/large/guard",
+      "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/large/broken_head",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/large/broken_shield",
+      "statType": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/cleaver/large/handle",
+      "statType": "tconstruct:handle"
+    }
+  ]
+}

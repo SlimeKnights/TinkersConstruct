@@ -1,0 +1,10 @@
+[
+  {
+    "type": "mantle:blank"
+  },
+  {
+    "name": "thruul",
+    "type": "mantle:text",
+    "data": "introduction/thruul.json"
+  }
+]

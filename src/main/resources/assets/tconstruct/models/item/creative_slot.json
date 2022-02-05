@@ -1,0 +1,14 @@
+{
+  "loader": "mantle:nbt_key",
+  "parent": "forge:item/default",
+  "textures": {
+    "default": "tconstruct:item/slot/default",
+    "slotless": "tconstruct:item/slot/slotless",
+    "upgrades": "tconstruct:item/slot/upgrade",
+    "abilities": "tconstruct:item/slot/ability",
+    "souls": "tconstruct:item/materials/hollow_gem",
+    "defense": "tconstruct:item/slot/defense"
+  },
+  "nbt_key": "slot",
+  "extra_textures_key": "tconstruct:creative_slot"
+}

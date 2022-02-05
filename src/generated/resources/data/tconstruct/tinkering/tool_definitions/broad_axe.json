@@ -1,0 +1,84 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:broad_axe_head",
+      "weight": 2
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    },
+    {
+      "item": "tconstruct:pickaxe_head"
+    },
+    {
+      "item": "tconstruct:tool_binding"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 5.0,
+      "tconstruct:attack_speed": 0.6
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 1.5,
+      "tconstruct:mining_speed": 0.3,
+      "tconstruct:durability": 4.25
+    }
+  },
+  "slots": {
+    "upgrades": 2,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:axe_scrape",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:axe_strip",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:axe_wax_off",
+      "level": 1
+    }
+  ],
+  "actions": [
+    "axe_dig",
+    "shield_disable"
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/axe"
+    },
+    "aoe": {
+      "type": "tconstruct:fallback",
+      "tag": "tconstruct:tree_log",
+      "if_matches": {
+        "type": "tconstruct:tree",
+        "width_bonus": 0,
+        "depth_bonus": 0
+      },
+      "fallback": {
+        "type": "tconstruct:box",
+        "bonus": {
+          "height": 5
+        },
+        "expansions": [
+          {
+            "width": 1
+          },
+          {
+            "depth": 1
+          }
+        ],
+        "expansion_direction": "tconstruct:height"
+      }
+    }
+  },
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:axe_attack"
+  }
+}

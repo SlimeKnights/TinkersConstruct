@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:dusts/obsidian",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/obsidian"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_obsidian",
+    "amount": 250
+  },
+  "temperature": 1000,
+  "time": 66
+}

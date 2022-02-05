@@ -1,0 +1,43 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro.json",
+    "icon": {
+      "item": "tconstruct:sky_slime_ball"
+    }
+  },
+  {
+    "name": "gadgets",
+    "data": "sections/gadgets.json",
+    "icon": {
+      "item": "tconstruct:flint_shuriken"
+    }
+  },
+  {
+    "name": "modifiers",
+    "data": "sections/modifiers.json",
+    "icon": {
+      "item": "minecraft:wet_sponge"
+    }
+  },
+  {
+    "name": "exploration",
+    "data": "sections/exploration.json",
+    "icon": {
+      "item": "tconstruct:sky_slime_sapling"
+    }
+  },
+  {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": "tconstruct:slime_boots"
+    }
+  },
+  {
+    "name": "skull_materials",
+    "icon": {
+      "item": "minecraft:skeleton_skull"
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:bane_of_sssss",
+  "min_level": 1,
+  "salvage": {
+    "item": "minecraft:fermented_spider_eye",
+    "full": false
+  }
+}

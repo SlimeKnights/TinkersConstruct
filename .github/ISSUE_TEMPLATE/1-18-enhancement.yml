@@ -1,0 +1,97 @@
+name: 1.18 Enhancement
+description: Suggest a change to existing 1.18 features
+labels: [1.18, Enhancement, Unreviewed]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) instead of posting a new issue.
+        S
+        Please search the following links to make sure your issue is not covered:
+        
+        * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
+        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.18 alphas
+        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.18 versions
+  
+  - type: markdown
+    attributes:
+      value: "## Versions"
+      
+  - type: markdown
+    attributes:
+      value: |
+        List the last version of the mod you played before making this suggestion, to ensure you are not missing new features.
+  
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft Version
+      value: 1.18.1
+    validations:
+      required: true
+  - type: input
+    id: forge-version
+    attributes:
+      label: Forge Version
+      placeholder: "Ex: 36.1.0"
+    validations:
+      required: true
+  - type: input
+    id: mantle-version
+    attributes:
+      label: Mantle Version
+    validations:
+      required: true
+  - type: input
+    id: tinkers-version
+    attributes:
+      label: "Tinkers' Construct Version"
+      description: "'Latest' is not a valid answer, write an exact version number"
+    validations:
+      required: true
+  
+  
+  - type: markdown
+    attributes:
+      value: "## Enhancement Description"
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem description
+      description: "Describe the reason for this suggestion, what is the problem you are trying to solve?"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: solution
+    attributes:
+      label: Suggested solution
+      description: "Describe the solution you would suggest to the above problem"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: "Describe any alternatives you have considered to your suggested solution"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: "If there is any additional context needed, such as screenshots, include them here"
+    validations:
+      required: false
+  
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirm the following
+      description: Check all actions you have performed
+      options:
+        - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
+          required: true

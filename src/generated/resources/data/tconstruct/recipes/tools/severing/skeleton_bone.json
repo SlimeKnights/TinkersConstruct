@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "types": [
+      "minecraft:skeleton",
+      "minecraft:skeleton_horse",
+      "minecraft:stray"
+    ]
+  },
+  "result": {
+    "item": "minecraft:bone",
+    "count": 2
+  }
+}

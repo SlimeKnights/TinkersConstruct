@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:modifier_repair",
+  "modifier": "tconstruct:tasty",
+  "ingredient": {
+    "item": "tconstruct:bacon"
+  },
+  "repair_amount": 25
+}

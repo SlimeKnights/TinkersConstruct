@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:tinkers_bronze_ingot",
+  "ingredients": [
+    {
+      "item": "tconstruct:tinkers_bronze_block"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:tinkers_bronze_ingot",
+    "count": 9
+  }
+}

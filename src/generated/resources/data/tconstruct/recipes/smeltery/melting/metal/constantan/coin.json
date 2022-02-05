@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/constantan",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/constantan"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_constantan",
+    "amount": 30
+  },
+  "temperature": 920,
+  "time": 43
+}

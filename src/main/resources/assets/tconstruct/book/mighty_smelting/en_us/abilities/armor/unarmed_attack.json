@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:unarmed",
+  "text": [
+    {
+      "text": "Everybody is Kung Fu Fighting."
+    }
+  ],
+  "effects": [
+    "Increases unarmed damage",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

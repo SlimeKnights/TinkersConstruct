@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/signalum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/signalum"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_signalum",
+    "amount": 810
+  },
+  "temperature": 1125,
+  "time": 210
+}

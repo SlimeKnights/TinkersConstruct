@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "tags": [
+        "forge:ores/tin",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "forge:ores/tin"
+      },
+      {
+        "tag": "forge:ore_rates/dense"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tin",
+    "amount": 540
+  },
+  "temperature": 225,
+  "time": 176,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_copper",
+      "amount": 540
+    }
+  ]
+}

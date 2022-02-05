@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "type": "minecraft:magma_cube"
+  },
+  "result": {
+    "fluid": "tconstruct:magma",
+    "amount": 25
+  },
+  "damage": 2
+}

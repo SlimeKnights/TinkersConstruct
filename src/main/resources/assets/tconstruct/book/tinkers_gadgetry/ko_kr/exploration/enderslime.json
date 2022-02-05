@@ -1,0 +1,13 @@
+{
+  "title": "엔더슬라임 섬",
+  "image": {
+    "file": "tconstruct:book/images/islands/enderslime.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "엔더슬라임 섬은 엔더슬라임이 생성되는 곳이야. 나는 하늘슬라임과 엔더슬라임이 우리의 세계에 오기 전에는 같았으나, 서로 다른 환경에서 생활하여, 달라졌다고 생각해."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": [
+    {
+      "item": "minecraft:basalt"
+    },
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:magma",
+    "amount": 500
+  },
+  "result": "tconstruct:scorched_stone",
+  "cooling_time": 99
+}

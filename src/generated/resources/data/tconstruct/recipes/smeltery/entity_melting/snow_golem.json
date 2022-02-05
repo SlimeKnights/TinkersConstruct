@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "type": "minecraft:snow_golem"
+  },
+  "result": {
+    "fluid": "minecraft:water",
+    "amount": 100
+  },
+  "damage": 2
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_blocks/tin",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_blocks/tin"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tin",
+    "amount": 360
+  },
+  "temperature": 225,
+  "time": 78
+}

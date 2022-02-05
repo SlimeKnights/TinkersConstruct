@@ -1,0 +1,114 @@
+{
+  "loader": "tconstruct:casting",
+  "parent": "block/block",
+  "textures": {
+    "particle": "#side"
+  },
+  "elements": [
+    {
+      "name": "Table outer",
+      "from": [ 0, 10, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "north": { "texture": "#side", "cullface": "north" },
+        "east":  { "texture": "#side", "cullface": "east"  },
+        "south": { "texture": "#side", "cullface": "south" },
+        "west":  { "texture": "#side", "cullface": "west"  },
+        "down":  { "texture": "#bottom" }
+      }
+    },
+    {
+      "name": "Table inner",
+      "from": [ 15, 16, 15 ],
+      "to": [ 1, 15, 1 ],
+      "faces": {
+        "north": { "texture": "#side", "cullface": "up" },
+        "east":  { "texture": "#side", "cullface": "up" },
+        "south": { "texture": "#side", "cullface": "up" },
+        "west":  { "texture": "#side", "cullface": "up" },
+        "up":    { "texture": "#top",  "cullface": "up" }
+      }
+    },
+    {
+      "name": "Northwest leg",
+      "from": [ 0, 0, 0] ,
+      "to": [ 4, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#side",   "cullface": "north" },
+        "east":  { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Northeast leg",
+      "from": [ 12, 0, 0 ],
+      "to": [ 16, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#side",   "cullface": "north" },
+        "east":  { "texture": "#side",   "cullface": "east"  },
+        "south": { "texture": "#side"},
+        "west":  { "texture": "#side"},
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Southeast leg",
+      "from": [ 12, 0, 12 ],
+      "to": [ 16, 10, 16 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "east":  { "texture": "#side",   "cullface": "east"  },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side" },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Southwest leg",
+      "from": [ 0, 0, 12 ],
+      "to": [ 4, 10, 16 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "east":  { "texture": "#side" },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "West top edge",
+      "from": [ 0, 16, 0 ],
+      "to": [ 1, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "East top edge",
+      "from": [ 15, 16, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "North top edge",
+      "from": [ 1, 16, 0 ],
+      "to": [ 15, 16, 1 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "South top edge",
+      "from": [ 1, 16, 15 ],
+      "to": [ 15, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    }
+  ],
+  "fluid": {
+    "from": [ 1, 15, 1 ],
+    "to": [ 15, 15.9, 15 ],
+    "faces": { "up": {} }
+  },
+  "items": [
+    { "center": [ 8, 15.5, 8 ], "size": 14,   "x": 270, "y": 180, "transform": "fixed" },
+    { "center": [ 8, 15.5, 8 ], "size": 14.1, "x": 270, "y": 180, "transform": "fixed" }
+  ]
+}

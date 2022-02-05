@@ -1,0 +1,7 @@
+{
+    "parent": "block/slime_block",
+    "textures": {
+        "particle": "tconstruct:block/slime/storage/sky",
+        "texture": "tconstruct:block/slime/storage/sky"
+    }
+}

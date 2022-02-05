@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gem"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_diamond",
+    "amount": 100
+  },
+  "result": "minecraft:diamond",
+  "cooling_time": 83
+}

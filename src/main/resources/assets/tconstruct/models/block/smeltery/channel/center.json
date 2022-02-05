@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/template/channel/center",
+  "textures": {
+    "texture": "tconstruct:block/smeltery/seared/stone"
+  }
+}

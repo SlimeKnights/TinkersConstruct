@@ -1,0 +1,64 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/introduction.json",
+    "icon": {
+      "item": "tconstruct:pattern"
+    }
+  },
+  {
+    "name": "tier_one_materials",
+    "icon": {
+      "item": "minecraft:stone"
+    }
+  },
+  {
+    "name": "tools",
+    "data": "sections/tools.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render_head",
+            "tconstruct:ui_render_handle",
+            "tconstruct:ui_render_extra"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:travelers_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "modifiers",
+    "data": "sections/modifiers.json",
+    "icon": {
+      "item": "minecraft:redstone"
+    }
+  },
+  {
+    "name": "further_reading",
+    "data": "sections/furtherreading.json",
+    "icon": {
+      "item": "tconstruct:puny_smelting"
+    }
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/rose_gold"
+    },
+    {
+      "item": "minecraft:rabbit_foot"
+    },
+    {
+      "tag": "forge:ingots/rose_gold"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:name_tag"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  },
+  "requirements": {
+    "name": "tconstruct:looting",
+    "level": 2,
+    "error": "recipe.tconstruct.modifier.looting.level_3"
+  },
+  "result": {
+    "name": "tconstruct:looting",
+    "level": 1
+  },
+  "max_level": 3
+}

@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/knightslime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/single_use/rod"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_knightslime",
+    "amount": 45
+  },
+  "result": {
+    "tag": "forge:rods/knightslime"
+  },
+  "cooling_time": 49
+}

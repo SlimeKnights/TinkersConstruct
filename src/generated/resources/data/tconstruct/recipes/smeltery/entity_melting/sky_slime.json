@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "type": "tconstruct:sky_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:sky_slime",
+    "amount": 25
+  },
+  "damage": 2
+}

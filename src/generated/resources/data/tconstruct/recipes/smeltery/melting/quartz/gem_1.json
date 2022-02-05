@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:observer"
+    },
+    {
+      "item": "minecraft:comparator"
+    },
+    {
+      "item": "tconstruct:quartz_shuriken"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 100
+  },
+  "temperature": 637,
+  "time": 58
+}

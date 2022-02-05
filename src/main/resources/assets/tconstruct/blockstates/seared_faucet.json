@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "facing=down":  { "model": "tconstruct:block/smeltery/faucet_up" },
+    "facing=north": { "model": "tconstruct:block/smeltery/faucet", "y":   0 },
+    "facing=east":  { "model": "tconstruct:block/smeltery/faucet", "y":  90 },
+    "facing=south": { "model": "tconstruct:block/smeltery/faucet", "y": 180 },
+    "facing=west":  { "model": "tconstruct:block/smeltery/faucet", "y": 270 }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:wires/pig_iron",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/wire"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_pig_iron",
+    "amount": 45
+  },
+  "result": {
+    "tag": "forge:wires/pig_iron"
+  },
+  "cooling_time": 43
+}

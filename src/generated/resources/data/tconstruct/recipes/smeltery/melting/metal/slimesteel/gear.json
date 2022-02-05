@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:gears/slimesteel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gears/slimesteel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 360
+  },
+  "temperature": 900,
+  "time": 127
+}

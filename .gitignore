@@ -48,3 +48,11 @@ options.txt
 /classes/
 #custom
 *.tmp
+/generated/
+/run/
+/build.old/
+/banned-ips.json
+/banned-players.json
+/ops.json
+/whitelist.json
+src/generated/resources/.cache/cache

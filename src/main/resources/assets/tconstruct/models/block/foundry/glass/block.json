@@ -1,0 +1,10 @@
+{
+  "loader": "mantle:connected",
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "tconstruct:block/foundry/glass"
+  },
+  "connection": {
+    "textures": {"all": "cornerless_full"}
+  }
+}

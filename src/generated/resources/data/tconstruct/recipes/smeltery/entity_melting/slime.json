@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "types": [
+      "minecraft:slime",
+      "tconstruct:earth_slime"
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:earth_slime",
+    "amount": 25
+  },
+  "damage": 2
+}

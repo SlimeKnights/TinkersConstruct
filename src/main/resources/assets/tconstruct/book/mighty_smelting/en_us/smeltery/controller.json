@@ -1,0 +1,11 @@
+{
+  "title": "Smeltery Controller",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png"
+  },
+  "text": [
+    {
+      "text": "Using your melter, pour four ingots worth of copper on a heater to get your smeltery controller."
+    }
+  ]
+}

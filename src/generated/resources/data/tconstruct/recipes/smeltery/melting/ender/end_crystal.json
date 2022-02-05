@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:end_crystal"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_ender",
+    "amount": 250
+  },
+  "temperature": 477,
+  "time": 82,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 7000
+    }
+  ]
+}

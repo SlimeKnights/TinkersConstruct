@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "ceramics",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "ceramics:kiln",
+        "ingredient": {
+          "item": "tconstruct:nether_grout"
+        },
+        "result": "tconstruct:scorched_brick",
+        "experience": 0.3,
+        "cookingtime": 100
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:blasting",
+        "ingredient": {
+          "item": "tconstruct:nether_grout"
+        },
+        "result": "tconstruct:scorched_brick",
+        "experience": 0.3,
+        "cookingtime": 100
+      }
+    }
+  ]
+}

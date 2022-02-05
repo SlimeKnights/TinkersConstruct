@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "forge:molten_iron",
+    "amount": 810
+  },
+  "result": "minecraft:iron_block",
+  "cooling_time": 180
+}

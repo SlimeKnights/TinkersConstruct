@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/slimesteel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 810
+  },
+  "temperature": 900,
+  "time": 190
+}

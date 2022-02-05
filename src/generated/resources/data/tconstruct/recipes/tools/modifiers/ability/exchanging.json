@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:sticky_piston"
+    },
+    {
+      "tag": "forge:ingots/hepatizon"
+    },
+    {
+      "item": "minecraft:sticky_piston"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:exchanging",
+    "level": 1
+  },
+  "max_level": 1
+}

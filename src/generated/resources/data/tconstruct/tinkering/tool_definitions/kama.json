@@ -1,0 +1,73 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:small_blade"
+    },
+    {
+      "item": "tconstruct:tool_handle"
+    },
+    {
+      "item": "tconstruct:tool_binding"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 1.0,
+      "tconstruct:attack_speed": 1.6
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 0.5
+    }
+  },
+  "slots": {
+    "upgrades": 3,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:shears",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:harvest",
+      "level": 1
+    }
+  ],
+  "actions": [
+    "hoe_dig"
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "tconstruct:mineable/scythe",
+      "modifiers": [
+        {
+          "modifier": 0.3,
+          "predicate": {
+            "type": "tconstruct:tag",
+            "tag": "minecraft:wool"
+          }
+        },
+        {
+          "modifier": 0.1,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:vine",
+              "minecraft:glow_lichen"
+            ]
+          }
+        }
+      ]
+    },
+    "aoe": {
+      "type": "tconstruct:circle",
+      "diameter": 1,
+      "3D": true
+    }
+  },
+  "attack": {
+    "type": "tconstruct:circle",
+    "diameter": 1.0
+  }
+}

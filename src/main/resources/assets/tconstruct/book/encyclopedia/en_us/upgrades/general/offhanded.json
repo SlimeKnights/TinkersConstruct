@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "Prevents using the main hand's interaction ability if the offhand is occupied. For example, an axe will not strip wood if a shield is in the offhand. On two handed tools, this effectively makes it one handed."
+    },
+    {
+      "text": "The second level entirely disables the tool interaction ability.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 2 levels",
+    "Different recipe for each level",
+    "Requires 1 upgrade slot"
+  ]
+}

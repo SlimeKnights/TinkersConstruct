@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cobweb",
+    "minecraft:cocoa",
+    "minecraft:chorus_plant",
+    "minecraft:chorus_flower",
+    "minecraft:sweet_berry_bush",
+    "minecraft:vine",
+    "minecraft:moss_carpet",
+    "minecraft:moss_block",
+    "minecraft:big_dripleaf",
+    "minecraft:big_dripleaf_stem",
+    "minecraft:glow_lichen",
+    "minecraft:pumpkin",
+    "minecraft:carved_pumpkin",
+    "minecraft:melon",
+    "#minecraft:leaves",
+    "#minecraft:saplings",
+    "#minecraft:flowers",
+    "#minecraft:crops"
+  ]
+}

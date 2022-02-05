@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/gold"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 10
+  },
+  "temperature": 700,
+  "time": 19
+}

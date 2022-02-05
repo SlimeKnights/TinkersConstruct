@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_crystal"
+  },
+  "result": {
+    "fluid": "tconstruct:ender_slime",
+    "amount": 250
+  },
+  "temperature": 70,
+  "time": 32
+}

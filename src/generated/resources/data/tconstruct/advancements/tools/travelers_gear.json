@@ -1,0 +1,83 @@
+{
+  "parent": "tconstruct:tools/tinker_station",
+  "display": {
+    "icon": {
+      "item": "tconstruct:travelers_helmet",
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.travelers_gear.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.travelers_gear.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "crafted_boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:travelers_boots"
+            ]
+          }
+        ]
+      }
+    },
+    "crafted_leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:travelers_leggings"
+            ]
+          }
+        ]
+      }
+    },
+    "crafted_chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:travelers_chestplate"
+            ]
+          }
+        ]
+      }
+    },
+    "crafted_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:travelers_helmet"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafted_boots"
+    ],
+    [
+      "crafted_leggings"
+    ],
+    [
+      "crafted_chestplate"
+    ],
+    [
+      "crafted_helmet"
+    ]
+  ]
+}

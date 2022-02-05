@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/hammer_head"
+  },
+  "item_cost": 8,
+  "result": "tconstruct:hammer_head"
+}

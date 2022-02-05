@@ -1,0 +1,7 @@
+{
+    "parent": "block/iron_bars_post_ends",
+    "textures": {
+        "particle": "tconstruct:block/gold_bars",
+        "edge":     "tconstruct:block/gold_bars"
+    }
+}

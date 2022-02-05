@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_queens_slime",
+    "amount": 90
+  },
+  "result": "tconstruct:queens_slime_ingot",
+  "cooling_time": 71
+}

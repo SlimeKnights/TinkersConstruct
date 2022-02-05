@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "forge:molten_cobalt",
+    "amount": 810
+  },
+  "result": {
+    "tag": "forge:storage_blocks/cobalt"
+  },
+  "cooling_time": 194
+}

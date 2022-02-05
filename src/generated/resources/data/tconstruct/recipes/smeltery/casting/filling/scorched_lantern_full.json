@@ -1,0 +1,5 @@
+{
+  "type": "tconstruct:basin_filling",
+  "fluid_amount": 50,
+  "container": "tconstruct:scorched_lantern"
+}

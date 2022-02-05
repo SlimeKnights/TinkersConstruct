@@ -1,0 +1,10 @@
+{
+    "parent": "tconstruct:block/table/chest/chest",
+    "textures": {
+        "side": "tconstruct:block/chest/part/side",
+        "front": "tconstruct:block/chest/part/front",
+        "top": "tconstruct:block/chest/part/top",
+        "drawer_front": "tconstruct:block/chest/part/drawer_front",
+        "drawer_side": "tconstruct:block/chest/part/drawer_side"
+    }
+}

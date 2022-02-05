@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:pickaxe",
+    "tconstruct:sledge_hammer",
+    "tconstruct:vein_hammer",
+    "tconstruct:mattock",
+    "tconstruct:pickadze",
+    "tconstruct:excavator",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
+    "tconstruct:kama",
+    "tconstruct:scythe"
+  ]
+}

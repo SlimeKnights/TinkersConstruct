@@ -1,0 +1,8 @@
+{
+  "loader": "mantle:fluid_texture",
+  "textures": {
+    "still": "tconstruct:block/fluid/slimesteel/still",
+    "flowing": "tconstruct:block/fluid/slimesteel/flowing"
+  }
+}
+

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:spider_eye"
+  },
+  "result": {
+    "fluid": "tconstruct:venom",
+    "amount": 50
+  },
+  "temperature": 10,
+  "time": 29
+}

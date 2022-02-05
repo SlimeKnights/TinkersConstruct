@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/iron",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/iron"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 45
+  },
+  "temperature": 800,
+  "time": 12
+}

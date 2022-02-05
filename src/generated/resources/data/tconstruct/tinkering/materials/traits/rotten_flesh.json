@@ -1,0 +1,14 @@
+{
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "name": "tconstruct:wildfire",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:zombie_disguise",
+        "level": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "ceramics:dark_bricks_slab"
+    },
+    {
+      "item": "ceramics:dragon_bricks_slab"
+    },
+    {
+      "item": "ceramics:terracotta_faucet"
+    },
+    {
+      "item": "ceramics:terracotta_channel"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 500
+  },
+  "temperature": 450,
+  "time": 64
+}

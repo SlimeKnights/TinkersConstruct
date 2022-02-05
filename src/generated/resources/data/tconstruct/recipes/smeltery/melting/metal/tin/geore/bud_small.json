@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_small_buds/tin",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_small_buds/tin"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tin",
+    "amount": 90
+  },
+  "temperature": 225,
+  "time": 39
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "type": "mantle:blank"
+  },
+  {
+    "name": "intro",
+    "type": "mantle:text",
+    "data": "intro/intro.json"
+  }
+]

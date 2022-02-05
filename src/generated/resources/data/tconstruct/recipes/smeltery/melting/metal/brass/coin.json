@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/brass",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/brass"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_brass",
+    "amount": 30
+  },
+  "temperature": 605,
+  "time": 36
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "착지하면, 속도의 90%만큼 위로 튕겨나가며, 낙하 피해를 받지 않습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

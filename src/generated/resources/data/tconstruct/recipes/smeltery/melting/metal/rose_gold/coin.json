@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/rose_gold",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/rose_gold"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_rose_gold",
+    "amount": 30
+  },
+  "temperature": 550,
+  "time": 34
+}

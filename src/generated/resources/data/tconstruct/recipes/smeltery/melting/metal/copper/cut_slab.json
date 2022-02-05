@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:cut_copper_slab"
+    },
+    {
+      "item": "minecraft:exposed_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:weathered_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:oxidized_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:waxed_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:waxed_exposed_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:waxed_weathered_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:waxed_oxidized_cut_copper_slab"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 100
+  },
+  "temperature": 500,
+  "time": 53
+}

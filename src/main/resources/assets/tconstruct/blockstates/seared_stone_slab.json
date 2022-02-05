@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "tconstruct:block/smeltery/slab/stone/slab" },
+        "type=top": { "model": "tconstruct:block/smeltery/slab/stone/slab_top" },
+        "type=double": { "model": "tconstruct:block/smeltery/seared/stone" }
+    }
+}

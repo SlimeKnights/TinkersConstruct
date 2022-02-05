@@ -1,0 +1,70 @@
+[
+  {
+    "name": "info",
+    "type": "mantle:text",
+    "data": "armor/info.json"
+  },
+
+  {
+    "name": "travelers_goggles",
+    "type": "tconstruct:tool",
+    "data": "armor/travelers/goggles.json"
+  },
+  {
+    "name": "travelers_vest",
+    "type": "tconstruct:tool",
+    "data": "armor/travelers/vest.json"
+  },
+  {
+    "name": "travelers_pants",
+    "type": "tconstruct:tool",
+    "data": "armor/travelers/pants.json"
+  },
+  {
+    "name": "travelers_boots",
+    "type": "tconstruct:tool",
+    "data": "armor/travelers/boots.json"
+  },
+
+  {
+    "name": "plate_helmet",
+    "type": "tconstruct:tool",
+    "data": "armor/plate/helmet.json"
+  },
+  {
+    "name": "plate_chestplate",
+    "type": "tconstruct:tool",
+    "data": "armor/plate/chestplate.json"
+  },
+  {
+    "name": "plate_leggings",
+    "type": "tconstruct:tool",
+    "data": "armor/plate/leggings.json"
+  },
+  {
+    "name": "plate_boots",
+    "type": "tconstruct:tool",
+    "data": "armor/plate/boots.json"
+  },
+
+  {
+    "name": "slimeskull",
+    "type": "tconstruct:tool",
+    "data": "armor/slime/skull.json"
+  },
+  {
+    "name": "slimelytra",
+    "type": "tconstruct:tool",
+    "data": "armor/slime/slimelytra.json"
+  },
+  {
+    "name": "slimeshell",
+    "type": "tconstruct:tool",
+    "data": "armor/slime/shell.json"
+  },
+  {
+    "name": "slime_boots",
+    "type": "tconstruct:tool",
+    "data": "armor/slime/boots.json"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "Grants an extra 9 slots that can be accessed by sneaking and pressing the leggings interact key or while holding the pants."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requires 1 ability slot"
+  ]
+}

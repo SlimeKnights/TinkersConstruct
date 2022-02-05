@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:seared_blocks",
+    "#tconstruct:smeltery/tanks",
+    "tconstruct:seared_glass",
+    "tconstruct:seared_ladder",
+    "tconstruct:seared_drain",
+    "tconstruct:seared_chute",
+    "tconstruct:seared_duct"
+  ]
+}

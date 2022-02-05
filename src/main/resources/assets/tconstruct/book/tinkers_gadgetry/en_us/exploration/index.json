@@ -1,0 +1,11 @@
+{
+  "title": "Exploration",
+  "subText": "Many Tinkers mention resources useful in modifiers or tool materials, but neglect to tell you how to obtain them. Luckily in my travels I have located many of them, so I can pass on my findings to you.",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "Resources" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "Islands" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "Geodes" }
+  ]
+}

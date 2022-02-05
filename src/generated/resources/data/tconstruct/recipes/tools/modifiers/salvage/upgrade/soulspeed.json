@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:soulspeed",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:magma_block",
+      "chance": 0.2
+    },
+    {
+      "item": "minecraft:crying_obsidian",
+      "chance": 0.4
+    },
+    {
+      "item": "minecraft:magma_block",
+      "chance": 0.2
+    }
+  ]
+}

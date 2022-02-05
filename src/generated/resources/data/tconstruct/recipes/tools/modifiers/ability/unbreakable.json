@@ -1,0 +1,45 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:shulker_shell"
+    },
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "item": "minecraft:shulker_shell"
+    },
+    {
+      "tag": "forge:ingots/netherite"
+    },
+    {
+      "tag": "forge:ingots/netherite"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "requirements": {
+    "options": [
+      {
+        "name": "tconstruct:netherite",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:reinforced",
+        "level": 5
+      }
+    ],
+    "matches_needed": 2,
+    "error": "recipe.tconstruct.modifier.unbreakable_requirements"
+  },
+  "result": {
+    "name": "tconstruct:unbreakable",
+    "level": 1
+  },
+  "max_level": 1
+}

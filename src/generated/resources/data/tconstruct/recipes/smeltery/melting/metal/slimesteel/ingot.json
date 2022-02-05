@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ingots/slimesteel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 90
+  },
+  "temperature": 900,
+  "time": 63
+}

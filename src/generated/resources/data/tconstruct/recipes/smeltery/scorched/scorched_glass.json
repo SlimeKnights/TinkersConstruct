@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " b ",
+    "bGb",
+    " b "
+  ],
+  "key": {
+    "b": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "G": {
+      "tag": "forge:gems/quartz"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_glass"
+  }
+}

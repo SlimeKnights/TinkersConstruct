@@ -1,0 +1,41 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:sky_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime",
+      "amount_needed": 4
+    }
+  ],
+  "tools": {
+    "type": "mantle:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/armor/boots"
+    },
+    "subtracted": {
+      "item": "tconstruct:slime_boots"
+    }
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:bouncy",
+    "level": 1
+  }
+}

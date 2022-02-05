@@ -1,0 +1,214 @@
+{
+  "little_saw": {
+    "category": "player",
+    "sounds": [
+      "tconstruct:little_saw"
+    ],
+    "subtitle": "subtitles.tconstruct.little_saw"
+  },
+  "item_frame_click": {
+    "sounds": [
+      "random/click"
+    ],
+    "subtitle": "subtitles.tconstruct.item_frame_click"
+  },
+  "casting_cools": {
+    "sounds": [
+      "random/fizz"
+    ],
+    "subtitle": "subtitles.tconstruct.casting_cools"
+  },
+
+  "slime_sling": {
+    "category": "player",
+    "sounds": [
+      "tconstruct:slime_sling"
+    ],
+    "subtitle": "subtitles.tconstruct.slime_sling"
+  },
+  "slime_sling.teleport": {
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ],
+    "subtitle": "subtitles.tconstruct.slime_sling.teleport"
+  },
+  "throw.throwball": {
+    "sounds": [
+      "random/bow"
+    ],
+    "subtitle": "subtitles.tconstruct.throw.throwball"
+  },
+  "throw.shuriken": {
+    "sounds": [
+      "random/bow"
+    ],
+    "subtitle": "subtitles.tconstruct.throw.shuriken"
+  },
+
+  "necrotic_heal": {
+    "sounds": [
+      "mob/zombie/infect"
+    ],
+    "subtitle": "subtitles.tconstruct.necrotic_heal"
+  },
+  "enderporting": {
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ],
+    "subtitle": "subtitles.tconstruct.enderporting"
+  },
+  "extra_jump": {
+    "sounds": [
+      "damage/fallsmall"
+    ],
+    "subtitle": "subtitles.tconstruct.extra_jump"
+  },
+
+  "slimy_bounce": {
+    "sounds": [
+      "mob/slime/big1",
+      "mob/slime/big2",
+      "mob/slime/big3",
+      "mob/slime/big4"
+    ],
+    "subtitle": "subtitles.tconstruct.slimy_bounce"
+  },
+
+  "slime_teleport": {
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ],
+    "subtitle": "subtitles.tconstruct.slime_teleport"
+  },
+  "equip.slime": {
+    "sounds": [
+      "mob/slime/big1",
+      "mob/slime/big2",
+      "mob/slime/big3",
+      "mob/slime/big4"
+    ],
+    "subtitle": "subtitles.tconstruct.equip.slime"
+  },
+  "equip.travelers": {
+    "sounds": [
+      "item/armor/equip_chain1",
+      "item/armor/equip_chain2",
+      "item/armor/equip_chain3",
+      "item/armor/equip_chain4",
+      "item/armor/equip_chain5",
+      "item/armor/equip_chain6"
+    ],
+    "subtitle": "subtitles.tconstruct.equip.travelers"
+  },
+  "equip.plate": {
+    "sounds": [
+      {
+        "name": "item/armor/equip_netherite1",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite2",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite3",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite4",
+        "volume": 0.8
+      },
+      {
+        "name": "item/armor/equip_netherite1",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "item/armor/equip_netherite2",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "item/armor/equip_netherite3",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "item/armor/equip_netherite4",
+        "volume": 0.8,
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.tconstruct.equip.plate"
+  },
+
+  "frypan_hit": {
+    "sounds": [
+      "tconstruct:frypan_hit"
+    ]
+  },
+  "toy_squeak": {
+    "sounds": [
+      "tconstruct:toy_squeak"
+    ]
+  },
+  "crossbow_reload": {
+    "sounds": [
+      "tconstruct:crossbow_reload"
+    ]
+  },
+  "wood_hit": {
+    "sounds": [
+      "tconstruct:wood_hit1",
+      "tconstruct:wood_hit2",
+      "tconstruct:wood_hit3",
+      "tconstruct:wood_hit4",
+      "tconstruct:wood_hit5"
+    ]
+  },
+  "stone_hit": {
+    "sounds": [
+      "tconstruct:stone_hit1",
+      "tconstruct:stone_hit2",
+      "tconstruct:stone_hit3"
+    ]
+  },
+  "charged": {
+    "sounds": [
+      "tconstruct:charged"
+    ]
+  },
+  "discharge": {
+    "sounds": [
+      "tconstruct:discharge"
+    ]
+  },
+
+  "block.earth_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 0.75, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.earth_crystal.chime"
+  },
+  "block.sky_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 1.2, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.sky_crystal.chime"
+  },
+  "block.ichor_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 0.35, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.ichor_crystal.chime"
+  },
+  "block.ender_crystal.chime": {
+    "sounds": [
+      { "name": "block/amethyst/shimmer", "pitch": 1.45, "volume": 0.2 }
+    ],
+    "subtitle": "subtitles.tconstruct.block.ender_crystal.chime"
+  }
+}

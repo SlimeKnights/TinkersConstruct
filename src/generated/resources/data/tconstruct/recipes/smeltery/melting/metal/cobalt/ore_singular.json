@@ -1,0 +1,40 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "base": "forge:ores/cobalt",
+      "subtracted": [
+        "forge:ore_rates/sparse",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "mantle:difference",
+    "base": {
+      "tag": "forge:ores/cobalt"
+    },
+    "subtracted": [
+      {
+        "tag": "forge:ore_rates/sparse"
+      },
+      {
+        "tag": "forge:ore_rates/dense"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_cobalt",
+    "amount": 180
+  },
+  "temperature": 950,
+  "time": 162,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 180
+    }
+  ]
+}

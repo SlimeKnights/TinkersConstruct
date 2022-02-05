@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Causes the side of the targeted block to glow, giving off light. Placing a glow consumes 10 durability, which bypasses other modifiers that reduce durability loss."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

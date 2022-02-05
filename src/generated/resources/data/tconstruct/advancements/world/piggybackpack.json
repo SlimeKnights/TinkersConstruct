@@ -1,0 +1,44 @@
+{
+  "parent": "tconstruct:world/tinkers_gadgetry",
+  "display": {
+    "icon": {
+      "item": "tconstruct:piggy_backpack"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.world.piggybackpack.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.world.piggybackpack.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "used_pack": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "tconstruct:piggy_backpack"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "minecraft:pig"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_pack"
+    ]
+  ]
+}

@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/frypan/head"
-    },
-    "offset": {
-        "x": -2,
-        "y": 2
-    }
-}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/tin",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:coins/tin"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tin",
+    "amount": 30
+  },
+  "temperature": 225,
+  "time": 26
+}

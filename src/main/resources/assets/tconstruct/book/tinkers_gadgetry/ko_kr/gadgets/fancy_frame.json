@@ -1,0 +1,13 @@
+{
+  "title": "멋진 아이템 액자",
+  "image": {
+    "file": "tconstruct:book/images/fancy_frames.png",
+    "width": 140,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "희귀한 금속을 이용해, 독특한 성질을 가진 멋진 아이템 액자를 만들어냈어."
+    }
+  ]
+}

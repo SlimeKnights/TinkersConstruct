@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/channel/side",
+  "textures": {
+    "texture": "tconstruct:block/foundry/scorched/stone_side",
+    "top":     "tconstruct:block/foundry/channel_in"
+  }
+}

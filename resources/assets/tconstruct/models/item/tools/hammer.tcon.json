@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/hammer/handle",
-        "layer1": "tconstruct:items/hammer/head",
-		"layer2": "tconstruct:items/hammer/back",
-		"layer3": "tconstruct:items/hammer/front",
-		"broken0": "tconstruct:items/hammer/broken_handle"
-    }
-}

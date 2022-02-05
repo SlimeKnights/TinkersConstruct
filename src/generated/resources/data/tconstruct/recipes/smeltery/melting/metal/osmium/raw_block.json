@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/raw_osmium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "tag": "forge:storage_blocks/raw_osmium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_osmium",
+    "amount": 810
+  },
+  "temperature": 975,
+  "time": 393,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 810
+    }
+  ]
+}

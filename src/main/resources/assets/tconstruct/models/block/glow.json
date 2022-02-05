@@ -1,0 +1,6 @@
+{
+    "parent": "tconstruct:block/flat_in",
+    "textures": {
+        "all": "tconstruct:block/glow"
+    }
+}

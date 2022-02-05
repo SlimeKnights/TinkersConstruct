@@ -1,0 +1,30 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "prop": "spawn_with_book",
+          "type": "tconstruct:config"
+        }
+      ],
+      "advancement": {
+        "rewards": {
+          "loot": [
+            "tconstruct:gameplay/starting_book"
+          ]
+        },
+        "criteria": {
+          "tick": {
+            "trigger": "minecraft:tick",
+            "conditions": {}
+          }
+        },
+        "requirements": [
+          [
+            "tick"
+          ]
+        ]
+      }
+    }
+  ]
+}

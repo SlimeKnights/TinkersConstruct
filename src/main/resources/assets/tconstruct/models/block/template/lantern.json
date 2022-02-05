@@ -1,0 +1,93 @@
+{
+  "loader": "tconstruct:tank",
+  "parent": "block/block",
+  "textures": {
+    "particle": "#lantern"
+  },
+  "display": {
+    "gui": {
+      "rotation": [ 30, 225, 0 ],
+      "translation": [ 0, 2, 0],
+      "scale":[ 0.925, 0.925, 0.925 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 45, 0 ],
+      "translation": [ 0, 2, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 225, 0 ],
+      "translation": [ 0, 2, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    }
+  },
+  "elements": [
+    { "from": [ 5, 0, 5 ],
+      "to": [ 11, 7, 11 ],
+      "faces": {
+        "down":  { "uv": [ 0, 9, 6, 15 ], "texture": "#lantern", "cullface": "down" },
+        "up":    { "uv": [ 0, 9, 6, 15 ], "texture": "#lantern" },
+        "north": { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" },
+        "south": { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" },
+        "west":  { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" },
+        "east":  { "uv": [ 0, 2, 6,  9 ], "texture": "#lantern" }
+      }
+    },
+    { "from": [ 11.01, 6, 11.01 ],
+      "to": [ 4.99, 1, 4.99 ],
+      "shade": false,
+      "faces": {
+        "down":  { "uv": [ 0, 9, 6, 15 ], "texture": "#lantern" },
+        "up":    { "uv": [ 0, 9, 6, 15 ], "texture": "#lantern" },
+        "north": { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" },
+        "south": { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" },
+        "west":  { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" },
+        "east":  { "uv": [ 0, 3, 6,  8 ], "texture": "#lantern" }
+      }
+    },
+    
+    { "from": [ 6, 7, 6 ],
+      "to": [ 10, 9, 10 ],
+      "faces": {
+        "up":    { "uv": [ 1, 10, 5, 14 ], "texture": "#lantern" },
+        "north": { "uv": [ 1,  0, 5,  2 ], "texture": "#lantern" },
+        "south": { "uv": [ 1,  0, 5,  2 ], "texture": "#lantern" },
+        "west":  { "uv": [ 1,  0, 5,  2 ], "texture": "#lantern" },
+        "east":  { "uv": [ 1,  0, 5,  2 ], "texture": "#lantern" }
+      }
+    },
+    
+    { "from": [ 6.5, 9, 8 ],
+      "to": [ 9.5, 11, 8 ],
+      "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": 45 },
+      "shade": false,
+      "faces": {
+        "north": { "uv": [ 11, 1, 14, 3 ], "texture": "#lantern" },
+        "south": { "uv": [ 11, 1, 14, 3 ], "texture": "#lantern" }
+      }
+    },
+    { "from": [ 8, 9, 6.5 ],
+      "to": [ 8, 11, 9.5 ],
+      "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": 45 },
+      "shade": false,
+      "faces": {
+        "west": { "uv": [ 11, 10, 14, 12 ], "texture": "#lantern" },
+        "east": { "uv": [ 11, 10, 14, 12 ], "texture": "#lantern" }
+      }
+    }
+  ],
+  "gui": { "parent": "block/template_lantern" },
+  "fluid": {
+    "from": [ 5.05, 1, 5.05 ],
+    "to": [ 10.95, 6, 10.95 ],
+    "increments": 10,
+    "faces": {
+      "up":    { "flowing": false },
+      "north": { "flowing": false },
+      "east":  { "flowing": false },
+      "south": { "flowing": false },
+      "west":  { "flowing": false }
+    }
+  },
+  "render_fluid_in_model": true
+}

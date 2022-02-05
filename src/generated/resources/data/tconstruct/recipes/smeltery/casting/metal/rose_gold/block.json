@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "forge:molten_rose_gold",
+    "amount": 810
+  },
+  "result": {
+    "tag": "forge:storage_blocks/rose_gold"
+  },
+  "cooling_time": 155
+}

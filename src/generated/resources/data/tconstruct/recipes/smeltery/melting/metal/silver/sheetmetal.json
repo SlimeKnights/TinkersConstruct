@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:sheetmetals/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:sheetmetals/silver"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_silver",
+    "amount": 90
+  },
+  "temperature": 790,
+  "time": 60
+}

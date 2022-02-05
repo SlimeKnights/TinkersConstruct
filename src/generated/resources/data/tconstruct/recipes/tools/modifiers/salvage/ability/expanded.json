@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/aoe"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:expanded",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:piston",
+      "chance": 0.9
+    },
+    {
+      "tag": "forge:ingots/silicon_bronze"
+    },
+    {
+      "item": "minecraft:piston",
+      "chance": 0.9
+    }
+  ]
+}

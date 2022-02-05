@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/knightslime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/knightslime"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_knightslime",
+    "amount": 45
+  },
+  "temperature": 1125,
+  "time": 14
+}

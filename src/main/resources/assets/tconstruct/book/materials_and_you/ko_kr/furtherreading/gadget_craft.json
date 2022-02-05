@@ -1,0 +1,8 @@
+{
+  "title": "팅커스 장치 제작법",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "슬라임을 매일 사용할 수 있는 방법이 담겨 있습니다. 멜빈이 팅커질할 수 있는 재료를 찾는 방법에 대해 알려줍니다." }
+  ]
+}

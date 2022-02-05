@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:gears/invar",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gears/invar"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_invar",
+    "amount": 360
+  },
+  "temperature": 900,
+  "time": 127
+}

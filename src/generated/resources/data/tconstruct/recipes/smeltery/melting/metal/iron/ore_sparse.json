@@ -1,0 +1,86 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "tags": [
+        "forge:ores/iron",
+        "forge:ore_rates/sparse"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/nickel",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:intersection",
+          "ingredients": [
+            {
+              "tag": "forge:ores/iron"
+            },
+            {
+              "tag": "forge:ore_rates/sparse"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_iron",
+          "amount": 90
+        },
+        "temperature": 800,
+        "time": 90,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_nickel",
+            "amount": 90
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:intersection",
+          "ingredients": [
+            {
+              "tag": "forge:ores/iron"
+            },
+            {
+              "tag": "forge:ore_rates/sparse"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_iron",
+          "amount": 90
+        },
+        "temperature": 800,
+        "time": 90,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_copper",
+            "amount": 90
+          }
+        ]
+      }
+    }
+  ]
+}

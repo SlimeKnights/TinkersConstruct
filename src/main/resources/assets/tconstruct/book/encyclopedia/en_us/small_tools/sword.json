@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    { "text": "The Sword is an all around weapon, granting medium speed and attack." },
+    { "text": "Expanders on a sword increase the area of the sweep attack, while Silky grants shearing.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Attack Damage",
+    "1.6 Attack Speed",
+    "110% Durability Modifier",
+    "Sweep Attack"
+  ]
+}

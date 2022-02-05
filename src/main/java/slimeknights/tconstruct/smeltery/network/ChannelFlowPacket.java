@@ -1,54 +1,46 @@
 package slimeknights.tconstruct.smeltery.network;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import slimeknights.mantle.network.AbstractPacketThreadsafe;
-import slimeknights.tconstruct.smeltery.tileentity.TileChannel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
+import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
-public class ChannelFlowPacket extends AbstractPacketThreadsafe {
-  protected BlockPos pos;
-  protected EnumFacing side;
-  protected boolean flow;
+/** Packet for when the flowing state changes on a channel side */
+public class ChannelFlowPacket implements IThreadsafePacket {
+	private final BlockPos pos;
+	private final Direction side;
+	private final boolean flow;
+	public ChannelFlowPacket(BlockPos pos, Direction side, boolean flow) {
+		this.pos = pos;
+		this.side = side;
+		this.flow = flow;
+	}
 
-  public ChannelFlowPacket() {}
+	public ChannelFlowPacket(FriendlyByteBuf buffer) {
+		pos = buffer.readBlockPos();
+		side = buffer.readEnum(Direction.class);
+		flow = buffer.readBoolean();
+	}
 
-  public ChannelFlowPacket(BlockPos pos, EnumFacing side, boolean flow) {
-    this.pos = pos;
-    this.side = side;
-    this.flow = flow;
+	@Override
+	public void encode(FriendlyByteBuf buffer) {
+		buffer.writeBlockPos(pos);
+		buffer.writeEnum(side);
+		buffer.writeBoolean(flow);
+	}
 
-  }
+	@Override
+	public void handleThreadsafe(Context context) {
+		HandleClient.handle(this);
+	}
 
-  @Override
-  public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    TileEntity te = Minecraft.getMinecraft().world.getTileEntity(pos);
-    if(te instanceof TileChannel) {
-      ((TileChannel) te).updateFlow(side, flow);
-    }
-  }
-
-  @Override
-  public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    // clientside only
-    throw new UnsupportedOperationException("Serverside only");
-  }
-
-  @Override
-  public void fromBytes(ByteBuf buf) {
-    pos = readPos(buf);
-    side = EnumFacing.getFront(buf.readByte());
-    flow = buf.readBoolean();
-  }
-
-  @Override
-  public void toBytes(ByteBuf buf) {
-    writePos(pos, buf);
-    buf.writeByte(side.getIndex());
-    buf.writeBoolean(flow);
-  }
+	private static class HandleClient {
+		private static void handle(ChannelFlowPacket packet) {
+			BlockEntityHelper.get(ChannelBlockEntity.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
+		}
+	}
 }

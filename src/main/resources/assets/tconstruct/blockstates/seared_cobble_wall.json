@@ -1,0 +1,15 @@
+{
+  "multipart": [
+    { "when": { "up": "true" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/post" }},
+    
+    { "when": { "north": "low" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side", "uvlock": true }},
+    { "when": { "east":  "low" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side", "uvlock": true, "y":  90 }},
+    { "when": { "south": "low" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side", "uvlock": true, "y": 180 }},
+    { "when": { "west":  "low" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side", "uvlock": true, "y": 270 }},
+    
+    { "when": { "north": "tall" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side_tall", "uvlock": true }},
+    { "when": { "east":  "tall" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side_tall", "uvlock": true, "y":  90 }},
+    { "when": { "south": "tall" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side_tall", "uvlock": true, "y": 180 }},
+    { "when": { "west":  "tall" }, "apply": { "model": "tconstruct:block/smeltery/wall/cobble/side_tall", "uvlock": true, "y": 270 }}
+  ]
+}

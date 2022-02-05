@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Diamonds are forever!"
+    }
+  ],
+  "effects": [
+    "Increases durability, mining speed, and attack damage",
+    "Single Level",
+    "Requires 1 Upgrade Slot"
+  ]
+}

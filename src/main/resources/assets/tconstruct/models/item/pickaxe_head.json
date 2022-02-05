@@ -1,0 +1,8 @@
+{
+  "loader": "tconstruct:material",
+  "parent": "forge:item/default",
+  "textures": {
+    "texture": "tconstruct:item/tool/pickaxe/head"
+  },
+  "offset": [-2, 1]
+}

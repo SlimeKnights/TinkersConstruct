@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "Causes piglins to be friendly towards you. Only one piece out of the whole set needs to be golden."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level per piece",
+    "Requires 1 defense slot"
+  ]
+}

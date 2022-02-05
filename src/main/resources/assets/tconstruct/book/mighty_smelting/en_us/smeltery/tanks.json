@@ -1,0 +1,16 @@
+{
+  "title": "Seared Tanks",
+  "item": {
+    "tag": "tconstruct:seared_tanks"
+  },
+  "text": [
+    {
+      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your smeltery you'll need one! Tanks can also be poured into from the smeltery if you want to store stuff for later.",
+      "paragraph": true
+    },
+    {
+      "text": "Tanks can not be used for the floor of the smeltery.",
+      "paragraph": true
+    }
+  ]
+}

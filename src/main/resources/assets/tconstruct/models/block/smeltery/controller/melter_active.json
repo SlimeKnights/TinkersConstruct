@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/smeltery/controller/melter",
+  "textures": {
+    "front": "tconstruct:block/smeltery/controller/melter_active"
+  }
+}

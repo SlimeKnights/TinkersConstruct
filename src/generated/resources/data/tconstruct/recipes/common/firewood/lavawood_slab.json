@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:lavawood_slab",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "tconstruct:lavawood"
+    }
+  },
+  "result": {
+    "item": "tconstruct:lavawood_slab",
+    "count": 6
+  }
+}

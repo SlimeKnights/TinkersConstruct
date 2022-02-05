@@ -1,0 +1,32 @@
+{   "parent": "block/block",
+    "textures": {
+        "particle": "tconstruct:block/storage/slimesteel",
+        "slime": "tconstruct:block/storage/slimesteel_slime",
+        "metal": "tconstruct:block/storage/slimesteel_steel"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "slime", "cullface": "down" },
+                "up":    { "texture": "slime", "cullface": "up" },
+                "north": { "texture": "slime", "cullface": "north" },
+                "south": { "texture": "slime", "cullface": "south" },
+                "west":  { "texture": "slime", "cullface": "west" },
+                "east":  { "texture": "slime", "cullface": "east" }
+            }
+        },
+        {   "from": [ 1, 1, 1 ],
+            "to": [ 15, 15, 15 ],
+            "faces": {
+                "down":  { "uv": [ 1, 1, 15, 15 ], "texture": "metal"},
+                "up":    { "uv": [ 1, 1, 15, 15 ], "texture": "metal"},
+                "north": { "uv": [ 1, 1, 15, 15 ], "texture": "metal"},
+                "south": { "uv": [ 1, 1, 15, 15 ], "texture": "metal"},
+                "west":  { "uv": [ 1, 1, 15, 15 ], "texture": "metal"},
+                "east":  { "uv": [ 1, 1, 15, 15 ], "texture": "metal"}
+            }
+        }
+    ]
+}
+

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "cleaver",
+    "type": "tconstruct:tool",
+    "data": "tools/cleaver.json"
+  },
+  {
+    "name": "broad_axe",
+    "type": "tconstruct:tool",
+    "data": "tools/broad_axe.json"
+  },
+  {
+    "name": "scythe",
+    "type": "tconstruct:tool",
+    "data": "tools/scythe.json"
+  },
+  {
+    "name": "excavator",
+    "type": "tconstruct:tool",
+    "data": "tools/excavator.json"
+  },
+  
+  {
+    "name": "sledge_hammer",
+    "type": "tconstruct:tool",
+    "data": "tools/sledge_hammer.json"
+  },
+  {
+    "name": "vein_hammer",
+    "type": "tconstruct:tool",
+    "data": "tools/vein_hammer.json"
+  },
+  {
+    "name": "flint_and_bronze",
+    "type": "tconstruct:tool",
+    "data": "tools/flint_and_bronze.json"
+  }
+]

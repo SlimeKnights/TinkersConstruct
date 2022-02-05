@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "tconstruct:block/wood/greenheart/slab"
+    },
+    "type=double": {
+      "model": "tconstruct:block/wood/greenheart/planks"
+    },
+    "type=top": {
+      "model": "tconstruct:block/wood/greenheart/slab_top"
+    }
+  }
+}

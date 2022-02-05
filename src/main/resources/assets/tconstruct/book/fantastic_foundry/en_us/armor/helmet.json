@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_helmet",
+  "text": [
+    { "text": "Hard hats for hard heads." },
+	{
+      "text": "A good solid helmet to protect your brain. Nothing can hurt that head of yours!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "High Durability",
+    "High Armor",
+    "1 Upgrade Slots",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

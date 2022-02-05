@@ -1,0 +1,62 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/introduction.json",
+    "icon": {
+      "item": "tconstruct:blank_red_sand_cast"
+    }
+  },
+  {
+    "name": "melter",
+    "data": "sections/melting.json",
+    "icon": {
+      "item": "tconstruct:seared_melter"
+    }
+  },
+  {
+    "name": "moving_fluids",
+    "data": "sections/movingfluids.json",
+    "icon": {
+      "item": "tconstruct:seared_channel"
+    }
+  },
+  {
+    "name": "casting",
+    "data": "sections/casting.json",
+    "icon": {
+      "item": "tconstruct:ingot_red_sand_cast"
+    }
+  }, 
+  {
+    "name": "tier_two_materials",
+    "icon": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  {
+    "name": "upgrades",
+    "data": "sections/upgrades.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "upgrades"
+        }
+      }
+    }
+  },
+  {
+    "name": "slotless",
+    "data": "sections/slotless.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "slotless"
+        }
+      }
+    }
+  }
+]

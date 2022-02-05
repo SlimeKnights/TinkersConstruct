@@ -1,0 +1,10 @@
+{
+  "coverTexture": "tconstruct:book/images/covers/gadgetry_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/gadgetry_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0x4FB4E1,
+  "drawSectionListText": true,
+  "largePageTitles": false,
+  "centerPageTitles": false
+}

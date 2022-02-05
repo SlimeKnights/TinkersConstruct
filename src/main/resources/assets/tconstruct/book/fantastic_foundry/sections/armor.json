@@ -1,0 +1,22 @@
+[
+  {
+    "name": "plate_helmet",
+    "type": "tconstruct:tool",
+    "data": "armor/helmet.json"
+  },
+  {
+    "name": "plate_chestplate",
+    "type": "tconstruct:tool",
+    "data": "armor/chestplate.json"
+  },
+  {
+    "name": "plate_leggings",
+    "type": "tconstruct:tool",
+    "data": "armor/leggings.json"
+  },
+  {
+    "name": "plate_boots",
+    "type": "tconstruct:tool",
+    "data": "armor/boots.json"
+  }
+]

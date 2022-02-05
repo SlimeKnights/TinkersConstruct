@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Boosts experience from killing mobs and breaking blocks by 50% per level."
+    },
+    {
+      "text": "On chestplates, the bonus experience only works against mobs killed with an empty hand. Leggings affect all tools.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

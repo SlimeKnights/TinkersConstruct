@@ -1,0 +1,38 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "minecraft:cornflower"
+        },
+        {
+          "item": "minecraft:blue_orchid"
+        }
+      ]
+    },
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "forge:storage_blocks/lapis"
+    },
+    {
+      "tag": "forge:storage_blocks/lapis"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:luck",
+    "level": 1
+  },
+  "max_level": 1
+}

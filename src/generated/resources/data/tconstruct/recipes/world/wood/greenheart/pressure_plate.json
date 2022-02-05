@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_pressure_plate",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:greenheart_planks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:greenheart_pressure_plate"
+  }
+}

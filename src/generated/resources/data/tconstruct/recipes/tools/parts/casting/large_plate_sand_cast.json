@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/large_plate"
+  },
+  "cast_consumed": true,
+  "item_cost": 4,
+  "result": "tconstruct:large_plate"
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "name": "index",
+    "type": "mantle:index",
+    "data": "foundry/index.json"
+  },
+
+  {
+    "name": "features",
+    "type": "mantle:text",
+    "data": "foundry/features.json"
+  },
+  {
+    "name": "byproducts",
+    "type": "mantle:text",
+    "data": "foundry/byproducts.json"
+  },
+  {
+    "name": "controller",
+    "type": "mantle:image_text",
+    "data": "foundry/controller.json"
+  },
+  {
+    "name": "structure",
+    "type": "mantle:structure",
+    "data": "foundry/multiblock.json"
+  },
+  {
+    "name": "structurereq",
+    "type": "mantle:text",
+    "data": "foundry/structurerequirements.json"
+  },
+  {
+    "name": "hidden",
+    "type": "mantle:right_padding"
+  },
+  {
+    "name": "fgui1",
+    "type": "mantle:image_text",
+    "data": "foundry/gui1.json"
+  },
+  {
+    "name": "fgui2",
+    "type": "mantle:text",
+    "data": "foundry/gui2.json"
+  },
+
+  {
+    "name": "scorched_tanks",
+    "type": "mantle:showcase",
+    "data": "foundry/tanks.json"
+  },
+  {
+    "name": "scorched_blocks",
+    "type": "mantle:showcase",
+    "data": "foundry/scorchedblocks.json"
+  },
+  {
+    "name": "scorched_ladder",
+    "type": "mantle:showcase",
+    "data": "foundry/scorchedladder.json"
+  },
+  {
+    "name": "scorched_glass",
+    "type": "mantle:showcase",
+    "data": "foundry/scorchedglass.json"
+  },
+  {
+    "name": "scorched_drain",
+    "type": "mantle:showcase",
+    "data": "foundry/scorched_drain.json"
+  },
+  {
+    "name": "scorched_duct",
+    "type": "mantle:showcase",
+    "data": "foundry/scorched_duct.json"
+  },
+  {
+    "name": "scorched_chute",
+    "type": "mantle:showcase",
+    "data": "foundry/scorched_chute.json"
+  }
+]

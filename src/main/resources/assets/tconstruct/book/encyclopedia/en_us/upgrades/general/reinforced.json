@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Reduces the chance for the tool to take damage. Has a 75% chance of taking damage at level 1, 55% chance at level 2, 40% at level 3, 30% at level 4, and 25% at level 5."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "default": [
+    {
+      "name": "tconstruct:conducting",
+      "level": 1
+    }
+  ],
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "name": "tconstruct:firebreath",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:blaze_disguise",
+        "level": 1
+      }
+    ]
+  }
+}

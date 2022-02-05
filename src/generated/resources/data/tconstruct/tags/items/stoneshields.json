@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:stone",
+    "#forge:cobblestone",
+    "#forge:sandstone",
+    "#forge:end_stones",
+    "#forge:gravel",
+    "minecraft:netherrack",
+    "minecraft:basalt",
+    "minecraft:polished_basalt",
+    "minecraft:blackstone",
+    "minecraft:polished_blackstone"
+  ]
+}

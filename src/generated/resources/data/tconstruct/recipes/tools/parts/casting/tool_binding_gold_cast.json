@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/tool_binding"
+  },
+  "item_cost": 1,
+  "result": "tconstruct:tool_binding"
+}

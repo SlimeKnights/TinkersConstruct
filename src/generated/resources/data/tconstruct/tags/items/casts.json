@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:casts/gold",
+    "#tconstruct:casts/sand",
+    "#tconstruct:casts/red_sand"
+  ]
+}

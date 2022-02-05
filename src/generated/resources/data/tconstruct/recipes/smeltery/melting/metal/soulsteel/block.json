@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/soulsteel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_soulsteel",
+    "amount": 810
+  },
+  "temperature": 1200,
+  "time": 216
+}

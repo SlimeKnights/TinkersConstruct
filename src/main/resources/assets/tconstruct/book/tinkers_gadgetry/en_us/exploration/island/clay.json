@@ -1,0 +1,13 @@
+{
+  "title": "Clay Islands",
+  "image": {
+	"file": "tconstruct:book/images/islands/clay.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Clay islands are odd compared to the others as the islands appear more overworld than slime. These islands do sometimes produce an odd clay slime I have named \"terracubes\". They cannot jump very high, and seem bound to darkness like many other monsters in the overworld."
+    }
+  ]
+}

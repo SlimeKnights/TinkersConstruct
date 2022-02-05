@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:snowdrift",
+  "min_level": 1,
+  "salvage": [
+    {
+      "item": "minecraft:snowball",
+      "min": 0,
+      "max": 16
+    }
+  ]
+}

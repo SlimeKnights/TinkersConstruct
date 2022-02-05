@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "in_structure=false,facing=north": { "model": "tconstruct:block/smeltery/controller/melter_inactive" },
+    "in_structure=false,facing=south": { "model": "tconstruct:block/smeltery/controller/melter_inactive", "uvlock": true, "y": 180 },
+    "in_structure=false,facing=west":  { "model": "tconstruct:block/smeltery/controller/melter_inactive", "uvlock": true, "y": 270 },
+    "in_structure=false,facing=east":  { "model": "tconstruct:block/smeltery/controller/melter_inactive", "uvlock": true, "y": 90 },
+    
+    "in_structure=true,active=false,facing=north": { "model": "tconstruct:block/smeltery/controller/melter_inactive" },
+    "in_structure=true,active=false,facing=south": { "model": "tconstruct:block/smeltery/controller/melter_inactive", "uvlock": true, "y": 180 },
+    "in_structure=true,active=false,facing=west":  { "model": "tconstruct:block/smeltery/controller/melter_inactive", "uvlock": true, "y": 270 },
+    "in_structure=true,active=false,facing=east":  { "model": "tconstruct:block/smeltery/controller/melter_inactive", "uvlock": true, "y": 90 },
+    
+    "in_structure=true,active=true,facing=north": { "model": "tconstruct:block/smeltery/controller/melter_active" },
+    "in_structure=true,active=true,facing=south": { "model": "tconstruct:block/smeltery/controller/melter_active", "uvlock": true, "y": 180 },
+    "in_structure=true,active=true,facing=west":  { "model": "tconstruct:block/smeltery/controller/melter_active", "uvlock": true, "y": 270 },
+    "in_structure=true,active=true,facing=east":  { "model": "tconstruct:block/smeltery/controller/melter_active", "uvlock": true, "y": 90 }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Grants +500 durability (+250 on armor), +1 attack damage, +1 mining speed, and +1 armor. Additionally boosts the tools harvest level to diamond."
+    },
+    {
+      "text": "Tools and armor will only receive applicable stat boosts, for instance held tools will not receive +1 armor.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 upgrade slot"
+  ]
+}

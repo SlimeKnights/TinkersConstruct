@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:flint_and_bronze",
+  "text": [
+    { "text": "Flint and Bronze is a handheld tool starting with firestarter." },
+    { "text": "Expanded increases the radius of fire, which is further increased by fireprimer.", "paragraph": true }
+  ],
+  "properties": [
+    "+0 Attack Damage",
+    "1.0 Attack Speed",
+    "100 Durability",
+    "Fiery 1",
+    "Firestarting"
+  ]
+}

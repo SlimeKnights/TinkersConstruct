@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": [
+    {
+      "item": "tconstruct:raw_cobalt"
+    },
+    {
+      "item": "tconstruct:cobalt_ore"
+    }
+  ],
+  "result": "tconstruct:cobalt_ingot",
+  "experience": 1.5,
+  "cookingtime": 200
+}

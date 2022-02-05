@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:storage_blocks/iron"
+  },
+  "value": 9,
+  "needed": 1,
+  "material": "tconstruct:iron",
+  "leftover": {
+    "tag": "forge:ingots/iron"
+  }
+}

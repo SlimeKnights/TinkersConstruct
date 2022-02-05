@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:tinker_station_damaging",
+  "ingredient": {
+    "type": "forge:nbt",
+    "item": "minecraft:potion",
+    "count": 1,
+    "nbt": "{Potion:\"minecraft:mundane\"}"
+  },
+  "damage_amount": 1
+}

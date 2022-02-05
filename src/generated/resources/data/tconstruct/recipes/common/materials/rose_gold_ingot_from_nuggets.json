@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:rose_gold_ingot",
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:nuggets/rose_gold"
+    },
+    "*": {
+      "item": "tconstruct:rose_gold_nugget"
+    }
+  },
+  "result": {
+    "item": "tconstruct:rose_gold_ingot"
+  }
+}

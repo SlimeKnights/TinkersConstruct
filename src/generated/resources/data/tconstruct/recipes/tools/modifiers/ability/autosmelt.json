@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:fire_charge"
+    },
+    {
+      "item": "minecraft:magma_block"
+    },
+    {
+      "item": "minecraft:fire_charge"
+    },
+    {
+      "item": "tconstruct:blazing_bone"
+    },
+    {
+      "item": "tconstruct:blazing_bone"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:autosmelt",
+    "level": 1
+  },
+  "max_level": 1
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/invar",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/invar"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_invar",
+    "amount": 810
+  },
+  "temperature": 900,
+  "time": 190
+}

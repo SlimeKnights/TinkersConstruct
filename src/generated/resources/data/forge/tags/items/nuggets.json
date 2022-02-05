@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/copper",
+    "#forge:nuggets/netherite",
+    "#forge:nuggets/netherite_scrap",
+    "#forge:nuggets/cobalt",
+    "#forge:nuggets/slimesteel",
+    "#forge:nuggets/silicon_bronze",
+    "#forge:nuggets/rose_gold",
+    "#forge:nuggets/pig_iron",
+    "#forge:nuggets/queens_slime",
+    "#forge:nuggets/manyullyn",
+    "#forge:nuggets/hepatizon",
+    "#forge:nuggets/soulsteel",
+    "#forge:nuggets/knightslime"
+  ]
+}

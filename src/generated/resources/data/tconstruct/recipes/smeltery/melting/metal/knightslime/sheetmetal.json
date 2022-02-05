@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:sheetmetals/knightslime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:sheetmetals/knightslime"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_knightslime",
+    "amount": 90
+  },
+  "temperature": 1125,
+  "time": 70
+}

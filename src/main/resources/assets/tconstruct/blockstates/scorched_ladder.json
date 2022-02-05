@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "bottom=false,facing=north": { "model": "tconstruct:block/foundry/scorched/ladder" },
+    "bottom=false,facing=south": { "model": "tconstruct:block/foundry/scorched/ladder", "uvlock": true, "y": 180 },
+    "bottom=false,facing=west":  { "model": "tconstruct:block/foundry/scorched/ladder", "uvlock": true, "y": 270 },
+    "bottom=false,facing=east":  { "model": "tconstruct:block/foundry/scorched/ladder", "uvlock": true, "y": 90 },
+    "bottom=true,facing=north":  { "model": "tconstruct:block/foundry/scorched/ladder_base" },
+    "bottom=true,facing=south":  { "model": "tconstruct:block/foundry/scorched/ladder_base", "uvlock": true, "y": 180 },
+    "bottom=true,facing=west":   { "model": "tconstruct:block/foundry/scorched/ladder_base", "uvlock": true, "y": 270 },
+    "bottom=true,facing=east":   { "model": "tconstruct:block/foundry/scorched/ladder_base", "uvlock": true, "y": 90 }
+  }
+}

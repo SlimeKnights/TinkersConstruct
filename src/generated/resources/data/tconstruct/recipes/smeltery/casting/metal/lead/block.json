@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_lead",
+    "amount": 810
+  },
+  "result": {
+    "tag": "forge:storage_blocks/lead"
+  },
+  "cooling_time": 130
+}

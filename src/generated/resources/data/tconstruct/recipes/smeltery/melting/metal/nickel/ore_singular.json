@@ -1,0 +1,93 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "base": "forge:ores/nickel",
+      "subtracted": [
+        "forge:ore_rates/sparse",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/platinum",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:difference",
+          "base": {
+            "tag": "forge:ores/nickel"
+          },
+          "subtracted": [
+            {
+              "tag": "forge:ore_rates/sparse"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_nickel",
+          "amount": 180
+        },
+        "temperature": 950,
+        "time": 162,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_platinum",
+            "amount": 60
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:difference",
+          "base": {
+            "tag": "forge:ores/nickel"
+          },
+          "subtracted": [
+            {
+              "tag": "forge:ore_rates/sparse"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_nickel",
+          "amount": 180
+        },
+        "temperature": 950,
+        "time": 162,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_iron",
+            "amount": 180
+          }
+        ]
+      }
+    }
+  ]
+}

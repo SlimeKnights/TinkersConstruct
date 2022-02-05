@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/silver"
+  },
+  "value": 9,
+  "needed": 1,
+  "material": "tconstruct:silver",
+  "leftover": {
+    "tag": "forge:ingots/silver"
+  }
+}

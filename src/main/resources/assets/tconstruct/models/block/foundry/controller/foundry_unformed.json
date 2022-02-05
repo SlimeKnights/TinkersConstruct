@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top":   "tconstruct:block/foundry/scorched/bricks",
+    "front": "tconstruct:block/foundry/controller/foundry_unformed",
+    "side":  "tconstruct:block/foundry/scorched/bricks"
+  }
+}

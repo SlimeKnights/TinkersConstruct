@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "modifier": "tconstruct:luck",
+  "min_level": 3,
+  "max_level": 3,
+  "salvage": [
+    {
+      "item": "minecraft:rabbit_foot",
+      "chance": 0.15
+    },
+    {
+      "item": "minecraft:name_tag",
+      "chance": 0.1
+    },
+    {
+      "item": "minecraft:diamond",
+      "chance": 0.65
+    },
+    {
+      "tag": "forge:ingots/rose_gold",
+      "min": 2,
+      "max": 2
+    }
+  ]
+}

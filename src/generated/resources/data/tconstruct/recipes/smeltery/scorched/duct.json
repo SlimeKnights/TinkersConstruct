@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "C C",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "C": {
+      "tag": "forge:ingots/cobalt"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_duct"
+  }
+}

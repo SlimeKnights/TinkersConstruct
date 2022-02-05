@@ -1,8 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/pickaxe/handle",
-        "layer1": "tconstruct:items/hatchet/head",
-		"layer2": "tconstruct:items/hatchet/binding",
-		"broken1": "tconstruct:items/hatchet/broken_head"
-    }
-}

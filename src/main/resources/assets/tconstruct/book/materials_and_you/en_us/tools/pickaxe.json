@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    {
+      "text": "The Pickaxe is a precise mining tool. It is effective on stone and ores."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "It breaks blocks, OK?"
+    }
+  ],
+  "properties": [
+    "Basic mining tool",
+    "It's a pickaxe",
+    "Mines stone blocks and similar",
+    "Bonus piercing damage"
+  ]
+}

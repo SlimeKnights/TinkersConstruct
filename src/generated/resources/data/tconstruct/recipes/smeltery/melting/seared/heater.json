@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:seared_heater"
+  },
+  "result": {
+    "fluid": "tconstruct:seared_stone",
+    "amount": 2000
+  },
+  "temperature": 600,
+  "time": 160
+}

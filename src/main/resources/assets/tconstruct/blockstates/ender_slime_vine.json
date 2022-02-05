@@ -1,0 +1,23 @@
+{
+  "multipart": [
+    { "when": { "south": "false", "east": "false", "west": "false", "north": "false", "up": "false" },
+      "apply": { "model": "tconstruct:block/slime/vine/top" }
+    },
+    { "when": { "up": "true" }, "apply": { "model": "tconstruct:block/slime/vine/top" }},
+      
+    { "when": { "stage": "start", "south": "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_start" }},
+    { "when": { "stage": "start", "west":  "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_start", "y": 90 }},
+    { "when": { "stage": "start", "north": "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_start", "y": 180 }},
+    { "when": { "stage": "start", "east":  "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_start", "y": 270 }},
+    
+    { "when": { "stage": "middle", "south": "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_middle" }},
+    { "when": { "stage": "middle", "west":  "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_middle", "y": 90 }},
+    { "when": { "stage": "middle", "north": "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_middle", "y": 180 }},
+    { "when": { "stage": "middle", "east":  "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_middle", "y": 270 }},
+    
+    { "when": { "stage": "end", "south": "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_end" }},
+    { "when": { "stage": "end", "west":  "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_end", "y": 90 }},
+    { "when": { "stage": "end", "north": "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_end", "y": 180 }},
+    { "when": { "stage": "end", "east":  "true" }, "apply": { "model": "tconstruct:block/slime/vine/side_end", "y": 270 }}
+  ]
+}

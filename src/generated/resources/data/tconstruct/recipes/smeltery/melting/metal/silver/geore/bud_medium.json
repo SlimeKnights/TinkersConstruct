@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_medium_buds/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_medium_buds/silver"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_silver",
+    "amount": 180
+  },
+  "temperature": 790,
+  "time": 90
+}

@@ -1,0 +1,9 @@
+{
+    "stats": {
+        "test:stat": {
+            "num": 123,
+            "floating": 12.34,
+            "text": "why would you ever do this for stats"
+        }
+    }
+}

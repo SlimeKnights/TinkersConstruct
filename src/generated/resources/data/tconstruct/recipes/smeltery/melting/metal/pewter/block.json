@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/pewter",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/pewter"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_pewter",
+    "amount": 810
+  },
+  "temperature": 400,
+  "time": 139
+}

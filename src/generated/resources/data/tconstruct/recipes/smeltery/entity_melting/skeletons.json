@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": [
+    {
+      "tag": "minecraft:skeletons"
+    },
+    {
+      "type": "minecraft:skeleton_horse"
+    }
+  ],
+  "result": {
+    "fluid": "minecraft:milk",
+    "amount": 100
+  },
+  "damage": 2
+}

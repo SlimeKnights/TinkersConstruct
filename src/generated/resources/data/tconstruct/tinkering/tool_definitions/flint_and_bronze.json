@@ -1,0 +1,20 @@
+{
+  "stats": {
+    "base": {
+      "tconstruct:durability": 100.0
+    }
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:firestarter_hidden",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:fiery",
+      "level": 1
+    }
+  ]
+}

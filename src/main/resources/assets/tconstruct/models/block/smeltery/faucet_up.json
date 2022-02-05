@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/template/faucet_up",
+  "textures": {
+    "tex": "tconstruct:block/smeltery/seared/stone"
+  }
+}

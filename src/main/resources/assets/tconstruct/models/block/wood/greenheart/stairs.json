@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "tconstruct:block/wood/greenheart/planks",
+    "top": "tconstruct:block/wood/greenheart/planks",
+    "side": "tconstruct:block/wood/greenheart/planks"
+  }
+}

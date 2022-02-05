@@ -1,0 +1,13 @@
+{
+  "title": "용해기 GUI",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "기본적인 용해기 GUI다. 그 이상도 이하도 아니지."
+    }
+    ]
+}

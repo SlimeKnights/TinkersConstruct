@@ -1,0 +1,181 @@
+[
+  {
+    "name": "group_general",
+    "type": "mantle:text",
+    "data": "upgrades/general.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/diamond.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/emerald.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/experienced.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/netherite.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/overforced.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/reinforced.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/soulbound.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/tank.json"
+  },
+
+  {
+    "name": "group_weapon",
+    "type": "mantle:text",
+    "data": "upgrades/weapon.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/fiery.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/knockback.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/necrotic.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/padded.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/severing.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/sticky.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/sweeping_edge.json"
+  },
+  {
+    "name": "group_damage"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/antiaquatic.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/baneofsssss.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/cooling.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/piercing.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/sharpness.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/smite.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/swiftstrike.json"
+  },
+
+  {
+    "name": "group_harvest",
+    "type": "mantle:text",
+    "data": "upgrades/harvest.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/harvest/blasting.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/harvest/haste.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/harvest/hydraulic.json"
+  },
+   {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/harvest/lightspeed.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/harvest/magnetic.json"
+  },
+  
+  {
+    "name": "group_armor",
+    "type": "mantle:text",
+    "data": "upgrades/armor.json"
+  },
+  {
+    "name": "feather_falling",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/feather_falling.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/knockback.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/item_frame.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/leaping.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/lightspeed.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/respiration.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/soulspeed.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/speedy.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/springy.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/thorns.json"
+  }
+]

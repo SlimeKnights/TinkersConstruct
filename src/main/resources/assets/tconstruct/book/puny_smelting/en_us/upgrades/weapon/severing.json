@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Who knew you could blow heads clean off with some well placed explosives? Just a little off the top."
+    }
+  ],
+  "effects": [
+    "Enemies drop their heads",
+    "Multiple levels, each level increases decapitation chance further",
+	"Requires 1 Upgrade Slot per level"
+  ]
+}

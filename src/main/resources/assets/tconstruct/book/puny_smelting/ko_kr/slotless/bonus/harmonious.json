@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "음악은 영혼에 좋고, 도구에도 좋다. 어쩌면 도구에도 영혼이?"
+    }
+  ],
+  "effects": [
+    "강화 슬롯이 추가된다",
+    "단일 등급"
+    
+  ]
+}

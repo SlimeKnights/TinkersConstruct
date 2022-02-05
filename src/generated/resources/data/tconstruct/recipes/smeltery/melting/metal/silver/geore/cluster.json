@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_clusters/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_clusters/silver"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_silver",
+    "amount": 360
+  },
+  "temperature": 790,
+  "time": 150
+}

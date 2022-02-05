@@ -1,0 +1,26 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "pattern": [
+    "mmm",
+    "sts",
+    "s s"
+  ],
+  "key": {
+    "m": {
+      "tag": "tconstruct:anvil_metal"
+    },
+    "s": {
+      "tag": "tconstruct:seared_blocks"
+    },
+    "t": {
+      "item": "tconstruct:tinker_station"
+    }
+  },
+  "result": {
+    "item": "tconstruct:tinkers_anvil"
+  },
+  "texture": {
+    "tag": "tconstruct:anvil_metal"
+  },
+  "match_all": true
+}

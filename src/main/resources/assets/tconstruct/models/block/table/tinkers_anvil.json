@@ -1,0 +1,101 @@
+{
+  "loader": "tconstruct:table",
+  "parent": "block/block",
+  "textures": {
+    "particle": "tconstruct:block/chest/cast/side",
+    "top": "tconstruct:block/chest/cast/side",
+    "base": "tconstruct:block/table/anvil_base",
+    "upper": "tconstruct:block/table/anvil_base_upper"
+  },
+  "retextured": [ "particle", "top" ],
+  "items": [
+    { "center": [  8, 16.234375, 9 ], "size": 7.5, "x": 270 },
+    { "center": [  2.5, 17.5, 10.5 ], "size": 3 },
+    { "center": [  2.5, 17.5,  5.5 ], "size": 3 },
+    { "center": [  8,   17.5,  4.5 ], "size": 3 },
+    { "center": [ 13.5, 17.5,  5.5 ], "size": 3 },
+    { "center": [ 13.5, 17.5, 10.5 ], "size": 3 }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [ 0, 90, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    }
+  },
+  "elements": [
+    { "__comment": "Anvil base",
+      "from": [ 2, 0, 2 ],
+      "to": [ 14, 4, 14 ],
+      "faces": {
+        "down":  { "uv": [ 0,  0, 12, 12 ], "texture": "#base", "cullface": "down" },
+        "up":    { "uv": [ 0,  0, 12, 12 ], "texture": "#base" },
+        "north": { "uv": [ 0, 12, 12, 16 ], "texture": "#base" },
+        "south": { "uv": [ 0, 12, 12, 16 ], "texture": "#base" },
+        "west":  { "uv": [ 0, 12, 12, 16 ], "texture": "#base" },
+        "east":  { "uv": [ 0, 12, 12, 16 ], "texture": "#base" }
+      }
+    },
+    { "__comment": "Lower narrow portion",
+      "from": [ 4, 4, 3 ],
+      "to": [ 12, 5, 13 ],
+      "faces": {
+        "up":    { "uv": [ 0,  0, 8, 10 ], "texture": "#upper", "rotation": 180 },
+        "north": { "uv": [ 0, 10, 8, 11 ], "texture": "#upper" },
+        "south": { "uv": [ 0, 10, 8, 11 ], "texture": "#upper" },
+        "west":  { "uv": [ 8,  0, 9, 10 ], "texture": "#upper", "rotation":  90 },
+        "east":  { "uv": [ 9,  0, 8, 10 ], "texture": "#upper", "rotation": 270 }
+      }
+    },
+    { "__comment": "Wider section beneath top portion",
+      "from": [ 6, 5, 4 ],
+      "to": [ 10, 10, 12 ],
+      "faces": {
+        "north": { "uv": [ 12,  0, 16,  5 ], "texture": "#upper" },
+        "south": { "uv": [ 12,  0, 16,  5 ], "texture": "#upper" },
+        "west":  { "uv": [ 11, 16, 16,  8 ], "texture": "#upper", "rotation":  90 },
+        "east":  { "uv": [ 16,  8, 11, 16 ], "texture": "#upper", "rotation": 270 }
+      }
+    },
+    { "__comment": "Anvil top top right",
+      "from": [ 3, 13, 0 ],
+      "to": [ 8, 16, 16 ],
+      "faces": {
+        "up":    { "uv": [  0,  0, 5, 16 ], "texture": "#top", "cullface": "up" },
+        "north": { "uv": [  0, 16, 3, 11 ], "texture": "#top", "rotation": 90 },
+        "south": { "uv": [  0,  5, 3,  0 ], "texture": "#top", "rotation": 90 },
+        "west":  { "uv": [  0, 16, 3,  0 ], "texture": "#top", "rotation": 90 }
+      }
+    },
+    { "__comment": "Anvil top top left",
+      "from": [ 8, 13, 0 ],
+      "to": [ 13, 16, 16 ],
+      "faces": {
+        "up":    { "uv": [ 11,  0, 16, 16 ], "texture": "#top", "cullface": "up" },
+        "north": { "uv": [  0,  5,  3,  0 ], "texture": "#top", "rotation": 90 },
+        "south": { "uv": [  0, 16,  3, 11 ], "texture": "#top", "rotation": 90 },
+        "east":  { "uv": [  0, 16,  3,  0 ], "texture": "#top", "rotation": 90 }
+      }
+    },
+    { "__comment": "Anvil top bottom right",
+      "from": [ 3, 10, 0 ],
+      "to": [ 8, 13, 16 ],
+      "faces": {
+        "down":  { "uv": [  0,  0,  5, 16 ], "texture": "#top" },
+        "north": { "uv": [ 13, 16, 16, 11 ], "texture": "#top", "rotation": 90 },
+        "south": { "uv": [ 13,  5, 16,  0 ], "texture": "#top", "rotation": 90 },
+        "west":  { "uv": [ 13, 16, 16,  0 ], "texture": "#top", "rotation": 90 }
+      }
+    },
+    { "__comment": "Anvil top bottom left",
+      "from": [ 8, 10, 0 ],
+      "to": [ 13, 13, 16 ],
+      "faces": {
+        "down":  { "uv": [ 11,  0, 16, 16 ], "texture": "#top" },
+        "north": { "uv": [ 13,  5, 16,  0 ], "texture": "#top", "rotation": 90 },
+        "south": { "uv": [ 13, 16, 16, 11 ], "texture": "#top", "rotation": 90 },
+        "east":  { "uv": [ 13, 16, 16,  0 ], "texture": "#top", "rotation": 90 }
+      }
+    }
+  ]
+}

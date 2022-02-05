@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "tconstruct:stray_head"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:ender_slime",
+    "amount": 5000
+  },
+  "result": {
+    "item": "tconstruct:slime_helmet",
+    "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:bloodbone\"]}"
+  },
+  "cooling_time": 237
+}

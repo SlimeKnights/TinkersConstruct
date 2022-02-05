@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "A nice comfortable modifier."
+    }
+  ],
+  "effects": [
+    "Mined blocks drop themselves",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}

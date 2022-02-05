@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:slimy_soil/earth",
+    "#tconstruct:slimy_soil/sky",
+    "#tconstruct:slimy_soil/ichor",
+    "#tconstruct:slimy_soil/ender",
+    "#tconstruct:slimy_soil/vanilla"
+  ]
+}

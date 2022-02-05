@@ -1,0 +1,31 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":         "tconstruct:item/tool/vein_hammer/head",
+    "broken_head":  "tconstruct:item/tool/vein_hammer/broken_head",
+    "handle":       "tconstruct:item/tool/vein_hammer/handle",
+    "back":         "tconstruct:item/tool/vein_hammer/back",
+    "front":        "tconstruct:item/tool/vein_hammer/front",
+    "broken_front": "tconstruct:item/tool/vein_hammer/broken_front",
+    
+    "large_head":         "tconstruct:item/tool/vein_hammer/large/head",
+    "large_broken_head":  "tconstruct:item/tool/vein_hammer/large/broken_head",
+    "large_handle":       "tconstruct:item/tool/vein_hammer/large/handle",
+    "large_back":         "tconstruct:item/tool/vein_hammer/large/back",
+    "large_front":        "tconstruct:item/tool/vein_hammer/large/front",
+    "large_broken_front": "tconstruct:item/tool/vein_hammer/large/broken_front"
+  },
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/vein_hammer/modifiers/" ],
+    "large": [ "tconstruct:item/tool/vein_hammer/large/modifiers/" ]
+  },
+  "large": true,
+  "large_offset": [-2, 2],
+  "parts": [
+    { "name": "handle", "index": 1 },
+    { "name": "head",   "index": 0, "broken": "broken_head" },
+    { "name": "back",   "index": 2 },
+    { "name": "front",  "index": 3, "broken": "broken_front" }
+  ]
+}

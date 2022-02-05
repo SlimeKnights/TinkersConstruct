@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:seared_brick",
+    "tconstruct:scorched_brick",
+    "#forge:ingots/netherite_scrap",
+    "#forge:ingots/cobalt",
+    "#forge:ingots/slimesteel",
+    "#forge:ingots/silicon_bronze",
+    "#forge:ingots/rose_gold",
+    "#forge:ingots/pig_iron",
+    "#forge:ingots/queens_slime",
+    "#forge:ingots/manyullyn",
+    "#forge:ingots/hepatizon",
+    "#forge:ingots/soulsteel",
+    "#forge:ingots/knightslime"
+  ]
+}

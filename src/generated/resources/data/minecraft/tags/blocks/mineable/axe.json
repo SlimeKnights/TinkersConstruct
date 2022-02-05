@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:lavawood",
+    "tconstruct:lavawood_slab",
+    "tconstruct:lavawood_stairs",
+    "tconstruct:blazewood",
+    "tconstruct:blazewood_slab",
+    "tconstruct:blazewood_stairs",
+    "tconstruct:nahuatl",
+    "tconstruct:nahuatl_slab",
+    "tconstruct:nahuatl_stairs",
+    "tconstruct:nahuatl_fence",
+    "tconstruct:greenheart_log",
+    "tconstruct:greenheart_wood",
+    "tconstruct:skyroot_log",
+    "tconstruct:skyroot_wood",
+    "tconstruct:bloodshroom_log",
+    "tconstruct:bloodshroom_wood",
+    "tconstruct:sky_slime_vine",
+    "tconstruct:ender_slime_vine",
+    "tconstruct:crafting_station",
+    "tconstruct:tinker_station",
+    "tconstruct:part_builder",
+    "tconstruct:tinkers_chest",
+    "tconstruct:part_chest"
+  ]
+}

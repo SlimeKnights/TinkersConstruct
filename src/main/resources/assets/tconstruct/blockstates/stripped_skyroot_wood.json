@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "tconstruct:block/wood/skyroot/stripped_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "tconstruct:block/wood/skyroot/stripped_wood"
+    },
+    "axis=z": {
+      "model": "tconstruct:block/wood/skyroot/stripped_wood",
+      "x": 90
+    }
+  }
+}

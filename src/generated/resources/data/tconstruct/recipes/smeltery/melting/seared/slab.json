@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "tconstruct:seared_cobble_slab"
+    },
+    {
+      "item": "tconstruct:seared_stone_slab"
+    },
+    {
+      "item": "tconstruct:seared_bricks_slab"
+    },
+    {
+      "item": "tconstruct:seared_paver_slab"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:seared_stone",
+    "amount": 500
+  },
+  "temperature": 600,
+  "time": 80
+}

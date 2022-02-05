@@ -1,0 +1,113 @@
+{
+  "textures": {
+    "particle": "#side"
+  },
+  "elements": [
+    {
+      "name": "sides",
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "south": {"texture": "#top", "cullface": "south"},
+        "west":  {"texture": "#top", "cullface": "west"},
+        "east":  {"texture": "#top", "cullface": "east"},
+        "down":  {"texture": "#top", "cullface": "down"}
+      }
+    },
+    {
+      "name": "inside west",
+      "from": [0, 2, 0],
+      "to": [2, 16, 3],
+      "faces": {
+        "north": {"texture": "#side", "cullface": "north"},
+        "east":  {"texture": "#side"}
+      }
+    },
+    {
+      "name": "inside east",
+      "from": [14, 2, 0],
+      "to": [16, 16, 3],
+      "faces": {
+        "north": {"texture": "#side", "cullface": "north"},
+        "west":  {"texture": "#side"}
+      }
+    },
+    
+    {
+      "name": "top plate",
+      "from": [0, 16, 2],
+      "to": [16, 16, 16],
+      "faces": {"up": {"texture": "#top", "cullface": "up"}}
+    },
+    {
+      "name": "top west piece",
+      "from": [0, 16, 0],
+      "to": [2, 16, 2],
+      "faces": {"up": {"texture": "#top", "cullface": "up"}}
+    },
+    {
+      "name": "top east piece",
+      "from": [14, 16, 0],
+      "to": [16, 16, 2],
+      "faces": {"up": {"texture": "#top", "cullface": "up"}}
+    },
+
+    {
+      "name": "base front",
+      "from": [0, 0, 0],
+      "to": [16, 2, 0],
+      "faces": {"north": {"texture": "#side", "cullface": "north"}}
+    },
+    {
+      "name": "base top",
+      "from": [2, 2, 0],
+      "to": [14, 2, 2],
+      "faces": {"up": {"texture": "#top"}}
+    },
+    
+    {
+      "name": "north rung 1",
+      "from": [2, 2, 2],
+      "to": [14, 4, 3],
+      "faces": {
+        "north": {"texture": "#side"},
+        "up":    {"texture": "#bottom"}
+      }
+    },
+    {
+      "name": "north rung 2",
+      "from": [2, 6, 2],
+      "to": [14, 8, 3],
+      "faces": {
+        "north": {"texture": "#side"},
+        "up":    {"texture": "#bottom"},
+        "down":  {"texture": "#bottom"}
+      }
+    },
+    {
+      "name": "north rung 3",
+      "from": [2, 10, 2],
+      "to": [14, 12, 3],
+      "faces": {
+        "north": {"texture": "#side"},
+        "up":    {"texture": "#bottom"},
+        "down":  {"texture": "#bottom"}
+      }
+    },
+    {
+      "name": "north rung 4",
+      "from": [2, 14, 2],
+      "to": [14, 16, 2],
+      "faces": {"north": {"texture": "#side"}}
+    },
+    {
+      "name": "north rung back",
+      "from": [14, 14, 3],
+      "to": [2, 4, 2],
+      "faces": {
+        "north": {"texture": "#side"},
+        "down":  {"texture": "#bottom"}
+      }
+    }
+  ]
+}

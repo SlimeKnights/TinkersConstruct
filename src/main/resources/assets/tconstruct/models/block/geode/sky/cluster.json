@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "tconstruct:block/geode/sky/cluster"
+  }
+}

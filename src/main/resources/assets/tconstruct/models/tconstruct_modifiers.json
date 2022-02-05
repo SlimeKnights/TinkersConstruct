@@ -1,0 +1,35 @@
+{
+  "tconstruct:reinforced": "tconstruct:normal",
+  "tconstruct:emerald":    "tconstruct:normal",
+  "tconstruct:diamond":    "tconstruct:normal",
+  "tconstruct:netherite":  "tconstruct:normal",
+  "tconstruct:overforced": "tconstruct:normal",
+  "tconstruct:overslime":  "tconstruct:overslime",
+
+  "tconstruct:haste":      { "type": "tconstruct:normal", "luminosity": 7 },
+  "tconstruct:blasting":   "tconstruct:normal",
+  "tconstruct:lightspeed": { "type": "tconstruct:normal", "luminosity": 15 },
+  "tconstruct:hydraulic":  "tconstruct:normal",
+
+  "tconstruct:knockback":   "tconstruct:normal",
+  "tconstruct:fiery":       { "type": "tconstruct:normal", "luminosity": 10 },
+  "tconstruct:experienced": "tconstruct:normal",
+  "tconstruct:magnetic":    "tconstruct:normal",
+
+  "tconstruct:antiaquatic":   "tconstruct:normal",
+  "tconstruct:bane_of_sssss": "tconstruct:normal",
+  "tconstruct:cooling":       "tconstruct:normal",
+  "tconstruct:smite":         "tconstruct:normal",
+  "tconstruct:sharpness":     "tconstruct:normal",
+
+  "tconstruct:luck":        "tconstruct:normal",
+  "tconstruct:silky":       "tconstruct:normal",
+  "tconstruct:unbreakable": { "type": "tconstruct:normal", "luminosity": 2 },
+  
+  "tconstruct:tank":      "tconstruct:tank",
+  "tconstruct:bucketing": "tconstruct:fluid",
+
+  "tconstruct:golden":        "tconstruct:breakable",
+  "tconstruct:embellishment": "tconstruct:breakable_material",
+  "tconstruct:dyed":          "tconstruct:breakable_dyed"
+}

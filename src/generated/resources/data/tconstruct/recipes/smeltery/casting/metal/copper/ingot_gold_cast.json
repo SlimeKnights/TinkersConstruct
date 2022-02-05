@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "fluid": {
+    "tag": "forge:molten_copper",
+    "amount": 90
+  },
+  "result": "minecraft:copper_ingot",
+  "cooling_time": 50
+}

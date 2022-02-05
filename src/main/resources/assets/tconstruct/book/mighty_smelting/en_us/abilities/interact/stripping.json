@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Wait it's not that kind of stripping? THIS IS DISAPPOINTING."
+    }
+  ],
+  "effects": [
+    "Allows you to strip wood with your tools",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}

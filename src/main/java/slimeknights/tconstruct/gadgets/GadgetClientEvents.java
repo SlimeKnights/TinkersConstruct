@@ -1,39 +1,33 @@
 package slimeknights.tconstruct.gadgets;
 
-import net.minecraft.block.BlockLever.EnumOrientation;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ForgeModelBakery;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
+import slimeknights.tconstruct.gadgets.client.RenderShuriken;
 
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.tools.ToolClientEvents;
-
-public class GadgetClientEvents {
-
-  private static final String LOCATION_RackBlock = Util.resource("rack");
-
-  public static final ModelResourceLocation[] locRackDrying;
-  public static final ModelResourceLocation[] locRackItem;
-  public static final ModelResourceLocation locRackInventory = new ModelResourceLocation(LOCATION_RackBlock, "inventory");
-  //public static final ModelResourceLocation locRackItemItem = new ModelResourceLocation(Util.resource("item_rack"), "inventory");
-  //public static final ModelResourceLocation locRackDryingItem = new ModelResourceLocation(Util.resource("drying_rack"), "inventory");
-
-  static {
-    locRackItem = new ModelResourceLocation[8];
-    locRackDrying = new ModelResourceLocation[8];
-    for(int i = 0; i < 8; i++) {
-      locRackItem[i] = new ModelResourceLocation(LOCATION_RackBlock, "drying=false,facing=" + EnumOrientation.byMetadata(i).getName());
-      locRackDrying[i] = new ModelResourceLocation(LOCATION_RackBlock, "drying=true,facing=" + EnumOrientation.byMetadata(i).getName());
-    }
+@SuppressWarnings("unused")
+@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
+public class GadgetClientEvents extends ClientEventBase {
+  @SubscribeEvent
+  static void registerModels(ModelRegistryEvent event) {
+    FancyItemFrameRenderer.LOCATIONS_MODEL.forEach((type, loc) -> ForgeModelBakery.addSpecialModel(loc));
+    FancyItemFrameRenderer.LOCATIONS_MODEL_MAP.forEach((type, loc) -> ForgeModelBakery.addSpecialModel(loc));
   }
 
   @SubscribeEvent
-  public void onModelBake(ModelBakeEvent event) {
-    // convert racks
-    for(int i = 0; i < 8; i++) {
-      ToolClientEvents.replaceTableModel(locRackItem[i], event);
-      ToolClientEvents.replaceTableModel(locRackDrying[i], event);
-    }
-    ToolClientEvents.replaceTableModel(locRackInventory, event);
+  static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    event.registerEntityRenderer(TinkerGadgets.itemFrameEntity.get(), FancyItemFrameRenderer::new);
+    event.registerEntityRenderer(TinkerGadgets.glowBallEntity.get(), ThrownItemRenderer::new);
+    event.registerEntityRenderer(TinkerGadgets.eflnEntity.get(), ThrownItemRenderer::new);
+    event.registerEntityRenderer(TinkerGadgets.quartzShurikenEntity.get(), RenderShuriken::new);
+    event.registerEntityRenderer(TinkerGadgets.flintShurikenEntity.get(), RenderShuriken::new);
   }
 }

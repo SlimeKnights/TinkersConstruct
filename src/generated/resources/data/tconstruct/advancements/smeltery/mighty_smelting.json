@@ -1,0 +1,37 @@
+{
+  "parent": "tconstruct:smeltery/melter",
+  "display": {
+    "icon": {
+      "item": "tconstruct:mighty_smelting"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.mighty_smelting.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.mighty_smelting.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "crafted_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:mighty_smelting"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafted_book"
+    ]
+  ]
+}

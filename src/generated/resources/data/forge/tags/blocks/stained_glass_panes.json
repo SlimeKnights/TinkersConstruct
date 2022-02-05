@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:white_clear_stained_glass_pane",
+    "tconstruct:orange_clear_stained_glass_pane",
+    "tconstruct:magenta_clear_stained_glass_pane",
+    "tconstruct:light_blue_clear_stained_glass_pane",
+    "tconstruct:yellow_clear_stained_glass_pane",
+    "tconstruct:lime_clear_stained_glass_pane",
+    "tconstruct:pink_clear_stained_glass_pane",
+    "tconstruct:gray_clear_stained_glass_pane",
+    "tconstruct:light_gray_clear_stained_glass_pane",
+    "tconstruct:cyan_clear_stained_glass_pane",
+    "tconstruct:purple_clear_stained_glass_pane",
+    "tconstruct:blue_clear_stained_glass_pane",
+    "tconstruct:brown_clear_stained_glass_pane",
+    "tconstruct:green_clear_stained_glass_pane",
+    "tconstruct:red_clear_stained_glass_pane",
+    "tconstruct:black_clear_stained_glass_pane"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:broad_blade"
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    },
+    {
+      "item": "tconstruct:tool_binding"
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 1.0,
+      "tconstruct:attack_speed": 0.7
+    },
+    "multipliers": {
+      "tconstruct:mining_speed": 0.45,
+      "tconstruct:durability": 2.5
+    }
+  },
+  "slots": {
+    "upgrades": 2,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:hoe_till",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:silky_aoe_shears",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:harvest",
+      "level": 1
+    }
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "tconstruct:mineable/scythe",
+      "modifiers": [
+        {
+          "modifier": 0.3,
+          "predicate": {
+            "type": "tconstruct:tag",
+            "tag": "minecraft:wool"
+          }
+        },
+        {
+          "modifier": 0.1,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:vine",
+              "minecraft:glow_lichen"
+            ]
+          }
+        }
+      ]
+    },
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {
+        "width": 1,
+        "height": 1,
+        "depth": 2
+      },
+      "expansions": [
+        {
+          "width": 1,
+          "height": 1
+        },
+        {
+          "depth": 2
+        }
+      ],
+      "expansion_direction": "tconstruct:side_hit"
+    }
+  },
+  "attack": {
+    "type": "tconstruct:circle",
+    "diameter": 2.0
+  }
+}

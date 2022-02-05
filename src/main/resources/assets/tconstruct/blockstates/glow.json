@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=down": { "model": "tconstruct:block/glow", "x": 90 },
+        "facing=up": { "model": "tconstruct:block/glow", "x": -90 },
+        "facing=north": { "model": "tconstruct:block/glow" },
+        "facing=east": { "model": "tconstruct:block/glow", "y": 90 },
+        "facing=south": { "model": "tconstruct:block/glow", "y": 180 },
+        "facing=west": { "model": "tconstruct:block/glow", "y": 270 }
+    }
+}

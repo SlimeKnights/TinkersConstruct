@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "type": "minecraft:iron_golem"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 10
+  },
+  "damage": 4
+}

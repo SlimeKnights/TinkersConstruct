@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "minecraft:planks"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_obsidian",
+    "amount": 1000
+  },
+  "result": "tconstruct:nahuatl",
+  "cooling_time": 221
+}

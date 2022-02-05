@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/copper",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/copper"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 45
+  },
+  "temperature": 500,
+  "time": 10
+}

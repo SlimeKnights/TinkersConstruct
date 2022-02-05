@@ -1,0 +1,57 @@
+[
+  {
+    "name": "advertisements",
+    "type": "mantle:text",
+    "data": "intro/advertisements.json"
+  },
+  {
+    "name": "introduction",
+    "type": "mantle:text",
+    "data": "intro/welcome.json"
+  },
+  {
+    "name": "partbuilder",
+    "type": "mantle:image_text",
+    "data": "intro/partbuilder.json"
+  },
+  {
+    "name": "pattern_craft",
+    "type": "mantle:crafting",
+    "data": "intro/pattern_craft.json"
+  },
+  {
+    "name": "partbuilder_craft",
+    "type": "mantle:crafting",
+    "data": "intro/partbuilder_craft.json"
+  },
+  {
+    "name": "tinkerstation",
+    "type": "mantle:image_text",
+    "data": "intro/tinkerstation.json"
+  },
+  {
+    "name": "tinkerstation2",
+    "type": "mantle:text",
+    "data": "intro/tinkerstation2.json"
+  },
+  {
+    "name": "tinkerstation_craft",
+    "type": "mantle:crafting",
+    "data": "intro/tinkerstation_craft.json"
+  },
+  {
+    "name": "storage",
+    "type": "mantle:text",
+    "data": "intro/storage.json"
+  },
+  {
+    "name": "partchest_craft",
+    "type": "mantle:crafting",
+    "data": "intro/partchest_craft.json"
+  },
+  {
+    "name": "tinkers_chest",
+    "type": "mantle:crafting",
+    "data": "intro/tinkerschest_craft.json"
+  }
+]

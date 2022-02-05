@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "등급당 낙하 피해에 대한 저항이 12%만큼 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "분할 적용",
+    "최대 4등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}

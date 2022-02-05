@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "등급당 5초 동안 공격한 몬스터를 불태웁니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "분할 적용",
+    "최대 5등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}

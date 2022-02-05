@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:slimesling",
+  "pattern": [
+    "#X#",
+    "L L",
+    " L "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "X": {
+      "item": "tconstruct:ender_congealed_slime"
+    },
+    "L": {
+      "tag": "forge:slimeball/ender"
+    }
+  },
+  "result": {
+    "item": "tconstruct:ender_slime_sling"
+  }
+}

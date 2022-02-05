@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "item": "tconstruct:blank_red_sand_cast"
+  },
+  "pattern": {
+    "tag": "forge:ingots"
+  },
+  "result": "tconstruct:ingot_red_sand_cast"
+}

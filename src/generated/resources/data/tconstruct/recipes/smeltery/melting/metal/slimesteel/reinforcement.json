@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:slimesteel_reinforcement"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 30
+  },
+  "temperature": 900,
+  "time": 37,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_obsidian",
+      "amount": 250
+    }
+  ]
+}

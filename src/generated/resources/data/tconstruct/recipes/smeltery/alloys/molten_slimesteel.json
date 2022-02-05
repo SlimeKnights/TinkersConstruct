@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "tag": "forge:molten_iron",
+      "amount": 90
+    },
+    {
+      "tag": "tconstruct:sky_slime",
+      "amount": 250
+    },
+    {
+      "tag": "tconstruct:seared_stone",
+      "amount": 250
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 180
+  },
+  "temperature": 900
+}

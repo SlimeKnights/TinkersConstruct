@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:wires/pig_iron",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:wires/pig_iron"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_pig_iron",
+    "amount": 45
+  },
+  "temperature": 811,
+  "time": 12
+}

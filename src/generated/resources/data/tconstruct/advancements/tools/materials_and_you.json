@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "tconstruct:materials_and_you"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.materials_and_you.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.materials_and_you.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "tconstruct:textures/gui/advancement_background.png"
+  },
+  "criteria": {
+    "crafted_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:materials_and_you"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafted_book"
+    ]
+  ]
+}

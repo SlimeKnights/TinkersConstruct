@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:glowstone"
+    },
+    {
+      "item": "minecraft:daylight_detector"
+    },
+    {
+      "item": "minecraft:shroomlight"
+    }
+  ],
+  "tools": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:glowing",
+    "level": 1
+  },
+  "max_level": 1
+}

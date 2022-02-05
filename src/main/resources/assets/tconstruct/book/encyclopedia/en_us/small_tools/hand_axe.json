@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    { "text": "The Hand Axe is a precision chopping tool, effective on wood, plants, and leaves." },
+    { "text": "Expanders increase the circular radius of the axe.", "paragraph": true }
+  ],
+  "properties": [
+    "+6 Attack Damage",
+    "0.9 Attack Speed",
+    "Strips wood"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "tool":   "tconstruct:item/tool/armor/slime/boots",
+    "broken": "tconstruct:item/tool/armor/slime/boots_broken"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/armor/slime/boot_modifiers/" ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden" ]
+}

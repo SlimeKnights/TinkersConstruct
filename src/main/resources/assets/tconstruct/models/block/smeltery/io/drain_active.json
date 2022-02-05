@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/active_io",
+  "textures": {
+    "side":  "tconstruct:block/smeltery/io/drain_front_active",
+    "front": "tconstruct:block/smeltery/io/back"
+  }
+}

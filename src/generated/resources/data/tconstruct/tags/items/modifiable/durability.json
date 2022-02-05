@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:pickaxe",
+    "tconstruct:sledge_hammer",
+    "tconstruct:vein_hammer",
+    "tconstruct:mattock",
+    "tconstruct:pickadze",
+    "tconstruct:excavator",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
+    "tconstruct:kama",
+    "tconstruct:scythe",
+    "tconstruct:dagger",
+    "tconstruct:sword",
+    "tconstruct:cleaver",
+    "tconstruct:flint_and_bronze",
+    "tconstruct:travelers_boots",
+    "tconstruct:travelers_leggings",
+    "tconstruct:travelers_chestplate",
+    "tconstruct:travelers_helmet",
+    "tconstruct:plate_boots",
+    "tconstruct:plate_leggings",
+    "tconstruct:plate_chestplate",
+    "tconstruct:plate_helmet",
+    "tconstruct:slime_boots",
+    "tconstruct:slime_leggings",
+    "tconstruct:slime_chestplate",
+    "tconstruct:slime_helmet"
+  ]
+}

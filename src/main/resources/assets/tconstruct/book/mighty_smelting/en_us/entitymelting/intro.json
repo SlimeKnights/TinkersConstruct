@@ -1,0 +1,11 @@
+{
+  "title": "Entity Melting",
+  "image": {
+    "file": "tconstruct:book/images/entitymelting.png"
+  },
+  "text": [
+    {
+      "text": "The mighty smeltery can be used to melt away the useless part of entities in order to harvest their true insides."
+    }
+  ]
+}

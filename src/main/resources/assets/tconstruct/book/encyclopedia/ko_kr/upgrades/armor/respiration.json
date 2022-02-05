@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "착용하면 산소 소비량이 감소합니다. 1등급에서는 산소 소비량이 50%, 2등급에서는 33%, 3등급에서는 25%만큼으로 감소합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 3등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}

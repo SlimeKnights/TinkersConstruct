@@ -1,0 +1,93 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "base": "forge:ores/lead",
+      "subtracted": [
+        "forge:ore_rates/sparse",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/silver",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:difference",
+          "base": {
+            "tag": "forge:ores/lead"
+          },
+          "subtracted": [
+            {
+              "tag": "forge:ore_rates/sparse"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_lead",
+          "amount": 180
+        },
+        "temperature": 330,
+        "time": 109,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_silver",
+            "amount": 180
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "type": "mantle:difference",
+          "base": {
+            "tag": "forge:ores/lead"
+          },
+          "subtracted": [
+            {
+              "tag": "forge:ore_rates/sparse"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "result": {
+          "fluid": "tconstruct:molten_lead",
+          "amount": 180
+        },
+        "temperature": 330,
+        "time": 109,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_gold",
+            "amount": 180
+          }
+        ]
+      }
+    }
+  ]
+}

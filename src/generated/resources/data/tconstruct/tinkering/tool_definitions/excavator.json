@@ -1,0 +1,66 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:large_plate"
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    },
+    {
+      "item": "tconstruct:large_plate"
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 1.5,
+      "tconstruct:attack_speed": 1.0
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 1.2,
+      "tconstruct:mining_speed": 0.3,
+      "tconstruct:durability": 3.75
+    }
+  },
+  "slots": {
+    "upgrades": 2,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:knockback",
+      "level": 2
+    },
+    {
+      "name": "tconstruct:shovel_flatten",
+      "level": 1
+    }
+  ],
+  "actions": [
+    "shovel_dig"
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/shovel"
+    },
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {
+        "width": 1,
+        "height": 1
+      },
+      "expansions": [
+        {
+          "width": 1
+        },
+        {
+          "height": 1
+        }
+      ],
+      "expansion_direction": "tconstruct:side_hit"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:zombie_head"
+    },
+    {
+      "item": "tconstruct:husk_head"
+    },
+    {
+      "item": "tconstruct:piglin_head"
+    },
+    {
+      "item": "tconstruct:piglin_brute_head"
+    },
+    {
+      "item": "tconstruct:zombified_piglin_head"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:blood",
+    "amount": 500
+  },
+  "temperature": 36,
+  "time": 71
+}

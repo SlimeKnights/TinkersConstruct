@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:slime_block",
+    "tconstruct:sky_slime",
+    "tconstruct:ichor_slime",
+    "tconstruct:ender_slime",
+    "tconstruct:blood_slime"
+  ]
+}

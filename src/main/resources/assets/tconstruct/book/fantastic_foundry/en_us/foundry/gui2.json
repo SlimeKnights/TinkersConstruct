@@ -1,0 +1,16 @@
+{
+  "title": "Foundry GUI",
+  "text": [
+    {
+      "text": "1: This is where your items go that you want smelted. The number of slots will change depending on the size of your foundry."
+    },
+    {
+      "text": "2: This is where your molten materials can be seen. You can click on one to select it for pouring, hovering over the blank section will give you details about the capacity of the foundry.",
+      "paragraph": true
+    },
+    {
+      "text": "3: This is where you can see your fuel. Hovering over it will show the exact amount and type.",
+      "paragraph": true
+    }
+  ]
+}

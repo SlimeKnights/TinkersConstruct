@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:gold",
+  "temperature": 700,
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 90
+  }
+}

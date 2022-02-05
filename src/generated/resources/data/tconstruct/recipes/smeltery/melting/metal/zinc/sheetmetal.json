@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:sheetmetals/zinc",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:sheetmetals/zinc"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_zinc",
+    "amount": 90
+  },
+  "temperature": 420,
+  "time": 47
+}

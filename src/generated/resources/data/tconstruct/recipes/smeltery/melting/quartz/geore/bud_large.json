@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_large_buds/quartz",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_large_buds/quartz"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 300
+  },
+  "temperature": 637,
+  "time": 110
+}

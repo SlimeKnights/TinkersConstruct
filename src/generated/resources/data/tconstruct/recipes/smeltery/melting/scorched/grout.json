@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:nether_grout"
+  },
+  "result": {
+    "fluid": "tconstruct:scorched_stone",
+    "amount": 500
+  },
+  "temperature": 500,
+  "time": 75
+}

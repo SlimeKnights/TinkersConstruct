@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "강화 슬롯이 1만큼 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "단일 등급",
+    "무슬롯"
+  ]
+}

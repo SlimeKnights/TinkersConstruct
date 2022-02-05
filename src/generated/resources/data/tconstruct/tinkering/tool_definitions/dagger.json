@@ -1,0 +1,60 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:small_blade"
+    },
+    {
+      "item": "tconstruct:tool_handle"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 3.0,
+      "tconstruct:attack_speed": 2.0
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 0.65,
+      "tconstruct:mining_speed": 0.75,
+      "tconstruct:durability": 0.75
+    }
+  },
+  "slots": {
+    "upgrades": 3,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:padded",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:offhand_attack",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:silky_shears",
+      "level": 1
+    }
+  ],
+  "actions": [
+    "sword_dig",
+    "hoe_dig"
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "tconstruct:mineable/dagger",
+      "modifiers": [
+        {
+          "modifier": 7.5,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:cobweb"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

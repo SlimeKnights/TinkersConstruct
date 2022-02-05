@@ -1,0 +1,29 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":        "tconstruct:item/tool/scythe/head",
+    "broken_head": "tconstruct:item/tool/scythe/broken_head",
+    "handle":      "tconstruct:item/tool/scythe/handle",
+    "binding":     "tconstruct:item/tool/scythe/binding",
+    "accessory":   "tconstruct:item/tool/scythe/accessory",
+    
+    "large_head":        "tconstruct:item/tool/scythe/large/head",
+    "large_broken_head": "tconstruct:item/tool/scythe/large/broken_head",
+    "large_handle":      "tconstruct:item/tool/scythe/large/handle",
+    "large_binding":     "tconstruct:item/tool/scythe/large/binding",
+    "large_accessory":   "tconstruct:item/tool/scythe/large/accessory"
+  },
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/scythe/modifiers/" ],
+    "large": [ "tconstruct:item/tool/scythe/large/modifiers/" ]
+  },
+  "large": true,
+  "large_offset": [-2, 2],
+  "parts": [
+    { "name": "accessory", "index": 3 },
+    { "name": "handle",    "index": 1 },
+    { "name": "head",      "index": 0, "broken": "broken_head" },
+    { "name": "binding",   "index": 2 }
+  ]
+}

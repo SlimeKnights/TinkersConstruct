@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_boots",
+  "text": [
+    { "text": "These boots are made for walkin', and that's just what they'll do." },
+	{
+      "text": "Every adventurer needs a good pair of stylish, customizable boots to start their journey", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Low Armor",
+	"Low Durability",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

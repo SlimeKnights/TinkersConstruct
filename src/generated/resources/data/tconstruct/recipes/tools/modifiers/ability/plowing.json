@@ -1,0 +1,43 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:small_blade",
+      "type": "tconstruct:material"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "tconstruct:tool_binding",
+      "type": "tconstruct:material"
+    },
+    {
+      "item": "tconstruct:small_blade",
+      "type": "tconstruct:material"
+    },
+    {
+      "item": "tconstruct:tool_binding",
+      "type": "tconstruct:material"
+    }
+  ],
+  "tools": {
+    "type": "mantle:intersection",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/armor/boots"
+      },
+      {
+        "tag": "tconstruct:modifiable/durability"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:plowing",
+    "level": 1
+  },
+  "max_level": 1
+}

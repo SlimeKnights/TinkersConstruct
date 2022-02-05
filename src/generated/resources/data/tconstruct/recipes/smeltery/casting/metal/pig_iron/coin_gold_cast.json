@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/pig_iron",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_pig_iron",
+    "amount": 30
+  },
+  "result": {
+    "tag": "forge:coins/pig_iron"
+  },
+  "cooling_time": 35
+}

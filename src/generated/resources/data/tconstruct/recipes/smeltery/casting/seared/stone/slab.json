@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:stone_slab"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_clay",
+    "amount": 250
+  },
+  "result": "tconstruct:seared_stone_slab",
+  "cooling_time": 80
+}

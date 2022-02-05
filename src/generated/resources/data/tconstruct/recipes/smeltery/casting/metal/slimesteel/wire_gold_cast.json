@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:wires/slimesteel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/wire"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_slimesteel",
+    "amount": 45
+  },
+  "result": {
+    "tag": "forge:wires/slimesteel"
+  },
+  "cooling_time": 45
+}

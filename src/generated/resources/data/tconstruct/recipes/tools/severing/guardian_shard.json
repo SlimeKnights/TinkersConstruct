@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "types": [
+      "minecraft:guardian",
+      "minecraft:elder_guardian"
+    ]
+  },
+  "result": {
+    "item": "minecraft:prismarine_shard",
+    "count": 2
+  }
+}

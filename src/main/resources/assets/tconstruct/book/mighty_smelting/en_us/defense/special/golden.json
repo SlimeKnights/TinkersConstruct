@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "Piglins love that drip."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Piglins will not attack you",
+    "Single level",
+    "Requires 1 defense slot"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "map=false": { "model": "tconstruct:block/clear_frame" },
+        "map=true": { "model": "tconstruct:block/clear_frame_map" }
+    }
+}

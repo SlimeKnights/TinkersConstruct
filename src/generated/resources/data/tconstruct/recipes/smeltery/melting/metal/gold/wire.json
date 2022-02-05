@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:wires/gold",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:wires/gold"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 45
+  },
+  "temperature": 700,
+  "time": 11
+}

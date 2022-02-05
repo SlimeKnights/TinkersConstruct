@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:gears/queens_slime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_queens_slime",
+    "amount": 360
+  },
+  "result": {
+    "tag": "forge:gears/queens_slime"
+  },
+  "cooling_time": 141
+}

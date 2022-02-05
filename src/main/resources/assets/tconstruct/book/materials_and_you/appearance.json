@@ -1,0 +1,10 @@
+{
+  "coverTexture": "tconstruct:book/images/covers/materials_and_you_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/materials_and_you_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0xE5C682,
+  "drawSectionListText": true,
+  "largePageTitles": false,
+  "centerPageTitles": true
+}

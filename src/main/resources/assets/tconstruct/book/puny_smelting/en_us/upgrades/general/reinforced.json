@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Strengthening your tool might be less work for both of you!"
+    }
+  ],
+  "effects": [
+    "Chance for durability to not be consumed",
+    "Multiple levels, each level decreases the chance of the tool taking damage",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

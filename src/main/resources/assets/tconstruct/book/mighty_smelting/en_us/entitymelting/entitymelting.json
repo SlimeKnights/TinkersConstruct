@@ -1,0 +1,16 @@
+{
+  "title":"Entity Melting",
+  "text": [
+    {
+      "text": "Entity melting is as simple as getting the entity inside your smeltery. The only requirement is that the smeltery has fuel."
+    },
+    {
+      "text": "Almost any mob can be melted, some however will be much more useful than others.",
+	  "paragraph": true
+    },
+    {
+      "text": "I have a challenge for the mightiest of Tinkers: if you can manage to melt the Ender Dragon, you will receive awesome power!",
+	  "paragraph": true
+    }
+  ]
+}

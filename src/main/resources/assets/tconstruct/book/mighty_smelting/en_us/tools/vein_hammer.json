@@ -1,0 +1,26 @@
+{
+  "tool": "tconstruct:vein_hammer",
+  "text": [
+    {
+      "text": "The vein hammer is a broad mining tool. It harvests blocks of the same type in veins."
+    },
+    {
+      "text": "\n"
+    },
+	{
+      "text": "It is optimal for getting all ores in a vein in one hit."
+    },
+	{
+      "text": "\n"
+    },
+    {
+      "text": "Disclaimer: Thruul Industries is not responsible for mass vein mining of property."
+    }
+  ],
+  "properties": [
+    "Advanced mining tool",
+    "Vein mining",
+    "Effective on stone and ores",
+    "Bonus piercing damage"
+  ]
+}

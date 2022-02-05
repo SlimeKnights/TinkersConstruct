@@ -1,0 +1,40 @@
+[
+  {
+    "type": "mantle:blank"
+  },
+  {
+    "name": "casting",
+    "type": "mantle:image_text",
+    "data": "casting/intro.json"
+  },
+  {
+    "name": "sand_cast",
+    "type": "mantle:text",
+    "data": "casting/sandcast.json"
+  },
+  {
+    "name": "sand_cast2",
+    "type": "mantle:image_text",
+    "data": "casting/sandcast2.json"
+  },
+  {
+    "name": "sand_cast_craft",
+    "type": "mantle:crafting",
+    "data": "casting/sandcast_craft.json"
+  },
+  {
+    "name": "gold_cast",
+    "type": "mantle:image_text",
+    "data": "casting/goldcast.json"
+  },
+  {
+    "name": "other_cast",
+    "type": "mantle:image_text",
+    "data": "casting/othercast.json"
+  },
+  {
+    "name": "automation",
+    "type": "mantle:image_text",
+    "data": "casting/automation.json"
+  }
+]

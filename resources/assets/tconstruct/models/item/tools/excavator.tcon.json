@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/excavator/handle",
-        "layer1": "tconstruct:items/excavator/head",
-        "layer2": "tconstruct:items/excavator/binding",
-        "layer3": "tconstruct:items/excavator/grip",
-        "broken1": "tconstruct:items/excavator/broken_head"
-    }
-}

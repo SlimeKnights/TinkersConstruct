@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "tools": {
+    "item": "tconstruct:flint_and_bronze"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:fireprimer",
+    "level": 1
+  },
+  "max_level": 1
+}

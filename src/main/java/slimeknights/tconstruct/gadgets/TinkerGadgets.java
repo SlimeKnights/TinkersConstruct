@@ -1,346 +1,174 @@
 package slimeknights.tconstruct.gadgets;
 
-import com.google.common.eventbus.Subscribe;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemHangingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
-
+import net.minecraft.data.DataGenerator;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
-
-import slimeknights.mantle.item.ItemMetaDynamic;
-import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.common.EntityIDs;
-import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.gadgets.block.BlockBrownstone;
-import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab;
-import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab2;
-import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
-import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
-import slimeknights.tconstruct.gadgets.block.BlockPunji;
-import slimeknights.tconstruct.gadgets.block.BlockRack;
-import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
-import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
-import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
-import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
-import slimeknights.tconstruct.gadgets.block.BlockWoodRailDropper;
-import slimeknights.tconstruct.gadgets.block.BlockWoodenHopper;
-import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
-import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
-import slimeknights.tconstruct.gadgets.item.ItemBlockRack;
-import slimeknights.tconstruct.gadgets.item.ItemFancyItemFrame;
-import slimeknights.tconstruct.gadgets.item.ItemMomsSpaghetti;
-import slimeknights.tconstruct.gadgets.item.ItemPiggybackPack;
-import slimeknights.tconstruct.gadgets.item.ItemSlimeBoots;
-import slimeknights.tconstruct.gadgets.item.ItemSlimeSling;
-import slimeknights.tconstruct.gadgets.item.ItemSpaghetti;
-import slimeknights.tconstruct.gadgets.item.ItemThrowball;
-import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiMeat;
-import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiSauce;
-import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
-import slimeknights.tconstruct.gadgets.tileentity.TileWoodenHopper;
-import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
-import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
+import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.gadgets.block.FoodCakeBlock;
+import slimeknights.tconstruct.gadgets.block.PunjiBlock;
+import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
+import slimeknights.tconstruct.gadgets.data.GadgetRecipeProvider;
+import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
+import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
+import slimeknights.tconstruct.gadgets.entity.shuriken.FlintShurikenEntity;
+import slimeknights.tconstruct.gadgets.entity.shuriken.QuartzShurikenEntity;
+import slimeknights.tconstruct.gadgets.item.EflnBallItem;
+import slimeknights.tconstruct.gadgets.item.FancyItemFrameItem;
+import slimeknights.tconstruct.gadgets.item.GlowBallItem;
+import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
+import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
+import slimeknights.tconstruct.gadgets.item.ShurikenItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.BaseSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.EarthSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.IchorSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.SkySlimeSlingItem;
+import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.shared.TinkerFood;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
-@Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
-public class TinkerGadgets extends TinkerPulse {
+import java.util.function.Function;
 
-  public static final String PulseId = "TinkerGadgets";
-  static final Logger log = Util.getLogger(PulseId);
+/**
+ * Contains any special tools unrelated to the base tools
+ */
+@SuppressWarnings("unused")
+public final class TinkerGadgets extends TinkerModule {
+  /** Tab for all special tools added by the mod */
+  public static final CreativeModeTab TAB_GADGETS = new SupplierCreativeTab(TConstruct.MOD_ID, "gadgets", () -> new ItemStack(TinkerGadgets.slimeSling.get(SlimeType.EARTH)));
+  static final Logger log = Util.getLogger("tinker_gadgets");
 
-  @SidedProxy(clientSide = "slimeknights.tconstruct.gadgets.GadgetClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
-  public static CommonProxy proxy;
+  /*
+   * Block base properties
+   */
+  private static final Item.Properties GADGET_PROPS = new Item.Properties().tab(TAB_GADGETS);
+  private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().tab(TAB_GADGETS).stacksTo(1);
+  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
+  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
+  private static final Function<Block,? extends BlockItem> UNSTACKABLE_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, UNSTACKABLE_PROPS);
 
-  public static Block stoneTorch;
-  public static Block stoneLadder;
-  public static Block punji;
-  public static BlockRack rack;
-  public static BlockDriedClay driedClay;
-  public static BlockBrownstone brownstone;
+  /*
+   * Blocks
+   */
+  // TODO: moving to natura
+  public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANT, SoundType.GRASS).strength(3.0F).noOcclusion()), HIDDEN_BLOCK_ITEM);
 
-  public static Block woodRail;
-  public static Block woodRailTrapdoor;
+  /*
+   * Items
+   */
+  public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().tab(TinkerGadgets.TAB_GADGETS).stacksTo(16)));
+  public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(GADGET_PROPS, (world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type)));
+  // slime tools
+  private static final Item.Properties SLING_PROPS = new Item.Properties().tab(TAB_GADGETS).stacksTo(1).durability(250);
+  public static final EnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new EnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
+    .put(SlimeType.EARTH, ITEMS.register("earth_slime_sling", () -> new EarthSlimeSlingItem(SLING_PROPS)))
+    .put(SlimeType.SKY, ITEMS.register("sky_slime_sling", () -> new SkySlimeSlingItem(SLING_PROPS)))
+    .put(SlimeType.ICHOR, ITEMS.register("ichor_slime_sling", () -> new IchorSlimeSlingItem(SLING_PROPS)))
+    .put(SlimeType.ENDER, ITEMS.register("ender_slime_sling", () -> new EnderSlimeSlingItem(SLING_PROPS)))
+    .build();
+  // throwballs
+  public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
+  public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
-  public static BlockWoodenHopper woodenHopper;
+  // foods
+  private static final BlockBehaviour.Properties CAKE = builder(Material.CAKE, SoundType.WOOL).strength(0.5F);
+  public static final EnumObject<SlimeType,FoodCakeBlock> cake = BLOCKS.registerEnum(SlimeType.LIQUID, "cake", type -> new FoodCakeBlock(CAKE, TinkerFood.getCake(type)), UNSTACKABLE_BLOCK_ITEM);
+  public static final ItemObject<FoodCakeBlock> magmaCake = BLOCKS.register("magma_cake", () -> new FoodCakeBlock(CAKE, TinkerFood.MAGMA_CAKE), UNSTACKABLE_BLOCK_ITEM);
 
-  public static BlockSlimeChannel slimeChannel;
+  // Shurikens
+  private static final Item.Properties THROWABLE_PROPS = new Item.Properties().stacksTo(16).tab(TAB_GADGETS);
+  public static final ItemObject<ShurikenItem> quartzShuriken = ITEMS.register("quartz_shuriken", () -> new ShurikenItem(THROWABLE_PROPS, QuartzShurikenEntity::new));
+  public static final ItemObject<ShurikenItem> flintShuriken = ITEMS.register("flint_shuriken", () -> new ShurikenItem(THROWABLE_PROPS, FlintShurikenEntity::new));
 
-  public static BlockDriedClaySlab driedClaySlab;
-  public static BlockBrownstoneSlab brownstoneSlab;
-  public static BlockBrownstoneSlab2 brownstoneSlab2;
+  /*
+   * Entities
+   */
+  public static final RegistryObject<EntityType<FancyItemFrameEntity>> itemFrameEntity = ENTITIES.register("fancy_item_frame", () ->
+    EntityType.Builder.<FancyItemFrameEntity>of(
+      FancyItemFrameEntity::new, MobCategory.MISC)
+      .sized(0.5F, 0.5F)
+      .setTrackingRange(10)
+      .setUpdateInterval(Integer.MAX_VALUE)
+      .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(false)
+  );
+  public static final RegistryObject<EntityType<GlowballEntity>> glowBallEntity = ENTITIES.register("glow_ball", () ->
+    EntityType.Builder.<GlowballEntity>of(GlowballEntity::new, MobCategory.MISC)
+      .sized(0.25F, 0.25F)
+      .setTrackingRange(4)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(true)
+  );
+  public static final RegistryObject<EntityType<EflnBallEntity>> eflnEntity = ENTITIES.register("efln_ball", () ->
+    EntityType.Builder.<EflnBallEntity>of(EflnBallEntity::new, MobCategory.MISC)
+      .sized(0.25F, 0.25F)
+      .setTrackingRange(4)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(TinkerGadgets.eflnEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(true)
+  );
+  public static final RegistryObject<EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () ->
+    EntityType.Builder.<QuartzShurikenEntity>of(QuartzShurikenEntity::new, MobCategory.MISC)
+      .sized(0.25F, 0.25F)
+      .setTrackingRange(4)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(true)
+  );
+  public static final RegistryObject<EntityType<FlintShurikenEntity>> flintShurikenEntity = ENTITIES.register("flint_shuriken", () ->
+    EntityType.Builder.<FlintShurikenEntity>of(FlintShurikenEntity::new, MobCategory.MISC)
+      .sized(0.25F, 0.25F)
+      .setTrackingRange(4)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(true)
+  );
 
-  public static Block driedClayStairs;
-  public static Block driedBrickStairs;
-  public static Block brownstoneStairsSmooth;
-  public static Block brownstoneStairsRough;
-  public static Block brownstoneStairsPaver;
-  public static Block brownstoneStairsBrick;
-  public static Block brownstoneStairsBrickCracked;
-  public static Block brownstoneStairsBrickFancy;
-  public static Block brownstoneStairsBrickSquare;
-  public static Block brownstoneStairsBrickTriangle;
-  public static Block brownstoneStairsBrickSmall;
-  public static Block brownstoneStairsRoad;
-  public static Block brownstoneStairsTile;
-  public static Block brownstoneStairsCreeper;
+  /*
+   * Potions
+   */
+  public static final RegistryObject<CarryPotionEffect> carryEffect = MOB_EFFECTS.register("carry", CarryPotionEffect::new);
 
-  public static ItemSlimeSling slimeSling;
-  public static ItemSlimeBoots slimeBoots;
-  public static ItemPiggybackPack piggybackPack;
-  public static ItemThrowball throwball;
-  public static Item stoneStick;
-
-  public static ItemMetaDynamic spaghetti;
-  public static ItemMomsSpaghetti momsSpaghetti;
-  public static Modifier modSpaghettiSauce;
-  public static Modifier modSpaghettiMeat;
-
-  public static ItemHangingEntity fancyFrame;
-
+  /*
+   * Events
+   */
   @SubscribeEvent
-  public void registerBlocks(Register<Block> event) {
-    IForgeRegistry<Block> registry = event.getRegistry();
-
-    stoneTorch = registerBlock(registry, new BlockStoneTorch(), "stone_torch");
-    stoneLadder = registerBlock(registry, new BlockStoneLadder(), "stone_ladder");
-    punji = registerBlock(registry, new BlockPunji(), "punji");
-    rack = registerBlock(registry, new BlockRack(), "rack");
-
-    woodRail = registerBlock(registry, new BlockWoodRail(), "wood_rail");
-    woodRailTrapdoor = registerBlock(registry, new BlockWoodRailDropper(), "wood_rail_trapdoor");
-
-    woodenHopper = registerBlock(registry, new BlockWoodenHopper(), "wooden_hopper");
-
-    // slime channels
-    slimeChannel = registerBlock(registry, new BlockSlimeChannel(), "slime_channel");
-
-    // dried clay
-    driedClay = registerBlock(registry, new BlockDriedClay(), "dried_clay");
-    driedClaySlab = registerBlock(registry, new BlockDriedClaySlab(), "dried_clay_slab");
-    driedClayStairs = registerBlockStairsFrom(registry, driedClay, BlockDriedClay.DriedClayType.CLAY, "dried_clay_stairs");
-    driedBrickStairs = registerBlockStairsFrom(registry, driedClay, BlockDriedClay.DriedClayType.BRICK, "dried_brick_stairs");
-
-    // brownstone
-    brownstone = registerBlock(registry, new BlockBrownstone(), "brownstone");
-    brownstoneSlab = registerBlock(registry, new BlockBrownstoneSlab(), "brownstone_slab");
-    brownstoneSlab2 = registerBlock(registry, new BlockBrownstoneSlab2(), "brownstone_slab2");
-
-    // stairs
-    brownstoneStairsSmooth = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.SMOOTH, "brownstone_stairs_smooth");
-    brownstoneStairsRough = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.ROUGH, "brownstone_stairs_rough");
-    brownstoneStairsPaver = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.PAVER, "brownstone_stairs_paver");
-    brownstoneStairsBrick = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.BRICK, "brownstone_stairs_brick");
-    brownstoneStairsBrickCracked = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.BRICK_CRACKED, "brownstone_stairs_brick_cracked");
-    brownstoneStairsBrickFancy = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.BRICK_FANCY, "brownstone_stairs_brick_fancy");
-    brownstoneStairsBrickSquare = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.BRICK_SQUARE, "brownstone_stairs_brick_square");
-    brownstoneStairsBrickTriangle = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, "brownstone_stairs_brick_triangle");
-    brownstoneStairsBrickSmall = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.BRICK_SMALL, "brownstone_stairs_brick_small");
-    brownstoneStairsRoad = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.ROAD, "brownstone_stairs_road");
-    brownstoneStairsTile = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.TILE, "brownstone_stairs_tile");
-    brownstoneStairsCreeper = registerBlockStairsFrom(registry, brownstone, BlockBrownstone.BrownstoneType.CREEPER, "brownstone_stairs_creeper");
-
-    registerTE(TileItemRack.class, "item_rack");
-    registerTE(TileDryingRack.class, "drying_rack");
-    registerTE(TileWoodenHopper.class, "wooden_hopper");
-    registerTE(TileSlimeChannel.class, "slime_channel");
+  void commonSetup(final FMLCommonSetupEvent event) {
+    PiggybackCapability.register();
+    event.enqueueWork(() -> {
+      cake.forEach(block -> ComposterBlock.add(1.0f, block));
+      ComposterBlock.add(1.0f, magmaCake.get());
+    });
   }
 
   @SubscribeEvent
-  public void registerItems(Register<Item> event) {
-    IForgeRegistry<Item> registry = event.getRegistry();
-
-    stoneTorch = registerItemBlock(registry, stoneTorch);
-    stoneLadder = registerItemBlock(registry, stoneLadder);
-    punji = registerItemBlock(registry, punji);
-    rack = registerItemBlock(registry, new ItemBlockRack(rack));
-
-    woodRail = registerItemBlock(registry, woodRail);
-    woodRailTrapdoor = registerItemBlock(registry, woodRailTrapdoor);
-
-    woodenHopper = registerItemBlock(registry, woodenHopper);
-
-    // slime channels
-    slimeChannel = registerEnumItemBlock(registry, slimeChannel);
-
-    // dried clay
-    driedClay = registerEnumItemBlock(registry, driedClay);
-    driedClaySlab = registerEnumItemBlockSlab(registry, driedClaySlab);
-    driedClayStairs = registerItemBlock(registry, driedClayStairs);
-    driedBrickStairs = registerItemBlock(registry, driedBrickStairs);
-
-    // brownstone
-    brownstone = registerEnumItemBlock(registry, brownstone);
-    brownstoneSlab = registerEnumItemBlockSlab(registry, brownstoneSlab);
-    brownstoneSlab2 = registerEnumItemBlockSlab(registry, brownstoneSlab2);
-
-    // stairs
-    brownstoneStairsSmooth = registerItemBlock(registry, brownstoneStairsSmooth);
-    brownstoneStairsRough = registerItemBlock(registry, brownstoneStairsRough);
-    brownstoneStairsPaver = registerItemBlock(registry, brownstoneStairsPaver);
-    brownstoneStairsBrick = registerItemBlock(registry, brownstoneStairsBrick);
-    brownstoneStairsBrickCracked = registerItemBlock(registry, brownstoneStairsBrickCracked);
-    brownstoneStairsBrickFancy = registerItemBlock(registry, brownstoneStairsBrickFancy);
-    brownstoneStairsBrickSquare = registerItemBlock(registry, brownstoneStairsBrickSquare);
-    brownstoneStairsBrickTriangle = registerItemBlock(registry, brownstoneStairsBrickTriangle);
-    brownstoneStairsBrickSmall = registerItemBlock(registry, brownstoneStairsBrickSmall);
-    brownstoneStairsRoad = registerItemBlock(registry, brownstoneStairsRoad);
-    brownstoneStairsTile = registerItemBlock(registry, brownstoneStairsTile);
-    brownstoneStairsCreeper = registerItemBlock(registry, brownstoneStairsCreeper);
-
-    slimeSling = registerItem(registry, new ItemSlimeSling(), "slimesling");
-    slimeBoots = registerItem(registry, new ItemSlimeBoots(), "slime_boots");
-    piggybackPack = registerItem(registry, new ItemPiggybackPack(), "piggybackpack");
-    throwball = registerItem(registry, new ItemThrowball(), "throwball");
-    stoneStick = registerItem(registry, new Item(), "stone_stick");
-    stoneStick.setFull3D().setCreativeTab(TinkerRegistry.tabGadgets);
-
-    fancyFrame = registerItem(registry, new ItemFancyItemFrame(), "fancy_frame");
-
-    spaghetti = registerItem(registry, new ItemSpaghetti(), "spaghetti");
-    momsSpaghetti = registerItem(registry, new ItemMomsSpaghetti(), "moms_spaghetti");
-
-    ItemStack hardSpaghetti = spaghetti.addMeta(0, "hard");
-    ItemStack wetSpaghetti = spaghetti.addMeta(1, "soggy");
-    ItemStack coldSpaghetti = spaghetti.addMeta(2, "cold");
-
-    modSpaghettiSauce = new ModSpaghettiSauce();
-
-    modSpaghettiMeat = new ModSpaghettiMeat();
-    modSpaghettiMeat.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.COOKED_BEEF), new ItemStack(Items.COOKED_CHICKEN), new ItemStack(Items.COOKED_MUTTON), new ItemStack(Items.COOKED_PORKCHOP)));
-
-    // Recipe for mom's spaghetti: soak em, dry em, cook em, eat em
-    TinkerRegistry.registerTableCasting(new CastingRecipe(wetSpaghetti, RecipeMatch.of(hardSpaghetti), new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME * 3), 15 * 60 * 20, true, false));
-    TinkerRegistry.registerDryingRecipe(wetSpaghetti, coldSpaghetti, 15 * 60 * 20);
-    GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 2.0f);
-
-    MinecraftForge.EVENT_BUS.register(slimeBoots);
-  }
-
-  @SubscribeEvent
-  public void registerEntities(Register<EntityEntry> event) {
-    EntityRegistry.registerModEntity(Util.getResource("fancy_frame"), EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
-    EntityRegistry.registerModEntity(Util.getResource("throwball"), EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
-  }
-
-  @SubscribeEvent
-  public void registerModels(ModelRegistryEvent event) {
-    proxy.registerModels();
-  }
-
-  // PRE-INITIALIZATION
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
-    proxy.preInit();
-  }
-
-  // INITIALIZATION
-  @Subscribe
-  public void init(FMLInitializationEvent event) {
-    registerSmelting();
-
-    proxy.init();
-  }
-
-  private void registerSmelting() {
-    // slime channels
-    for(SlimeType type : SlimeType.values()) {
-      GameRegistry.addSmelting(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, type.getMeta()),
-                               new ItemStack(slimeChannel, 3, type.getMeta()), 0.15f);
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new GadgetRecipeProvider(datagenerator));
     }
-
-    ItemStack stackBrownstoneSmooth = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.SMOOTH.getMeta());
-    ItemStack stackBrownstoneRough = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROUGH.getMeta());
-    ItemStack stackBrownstoneBrick = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK.getMeta());
-    ItemStack stackBrownstoneBrickCracked = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK_CRACKED.getMeta());
-
-    // smelting to get smooth and cracked
-    GameRegistry.addSmelting(stackBrownstoneRough.copy(), stackBrownstoneSmooth.copy(), 0.1f);
-    GameRegistry.addSmelting(stackBrownstoneBrick.copy(), stackBrownstoneBrickCracked.copy(), 0.1f);
-  }
-
-  // POST-INITIALIZATION
-  @Subscribe
-  public void postInit(FMLPostInitializationEvent event) {
-    registerDrying();
-
-    // prevents items from despawning in slime channels
-    MinecraftForge.EVENT_BUS.register(BlockSlimeChannel.EventHandler.instance);
-    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
-
-    proxy.postInit();
-
-    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slimeSling));
-  }
-
-  private void registerDrying() {
-    // Jerky
-    int time = 20 * 60 * 5;
-    TinkerRegistry.registerDryingRecipe(Items.ROTTEN_FLESH, TinkerCommons.jerkyMonster, time);
-    TinkerRegistry.registerDryingRecipe(Items.BEEF, TinkerCommons.jerkyBeef, time);
-    TinkerRegistry.registerDryingRecipe(Items.CHICKEN, TinkerCommons.jerkyChicken, time);
-    TinkerRegistry.registerDryingRecipe(Items.PORKCHOP, TinkerCommons.jerkyPork, time);
-    TinkerRegistry.registerDryingRecipe(Items.MUTTON, TinkerCommons.jerkyMutton, time);
-    TinkerRegistry.registerDryingRecipe(Items.RABBIT, TinkerCommons.jerkyRabbit, time);
-
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 0), TinkerCommons.jerkyFish, time);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 1), TinkerCommons.jerkySalmon, time);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 2), TinkerCommons.jerkyClownfish, time);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 3), TinkerCommons.jerkyPufferfish, time);
-
-    TinkerRegistry.registerDryingRecipe(Items.SLIME_BALL, TinkerCommons.slimedropGreen, time);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlue, TinkerCommons.slimedropBlue, time);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallPurple, TinkerCommons.slimedropPurple, time);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlood, TinkerCommons.slimedropBlood, time);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallMagma, TinkerCommons.slimedropMagma, time);
-
-    // leather
-    if(Config.leatherDryingRecipe) {
-      ItemStack leather = new ItemStack(Items.LEATHER);
-      time = (int) (20 * 60 * 8.5);
-      TinkerRegistry.registerDryingRecipe(Items.COOKED_BEEF, leather, time);
-      TinkerRegistry.registerDryingRecipe(Items.COOKED_CHICKEN, leather, time);
-      TinkerRegistry.registerDryingRecipe(Items.COOKED_FISH, leather, time);
-      TinkerRegistry.registerDryingRecipe(Items.COOKED_MUTTON, leather, time);
-      TinkerRegistry.registerDryingRecipe(Items.COOKED_PORKCHOP, leather, time);
-      TinkerRegistry.registerDryingRecipe(Items.COOKED_RABBIT, leather, time);
-    }
-
-    // Dried Clay
-    TinkerRegistry.registerDryingRecipe(Items.CLAY_BALL, TinkerCommons.driedBrick, 20 * 60 * 2);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.CLAY), new ItemStack(driedClay, 1, BlockDriedClay.DriedClayType.CLAY.getMeta()), 20 * 60 * 6);
-
-    // Wet sponge to dry sponge
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.SPONGE, 1, 1), new ItemStack(Blocks.SPONGE, 1, 0), 20 * 60 * 2);
-
-    // Sapling to dead bush
-    TinkerRegistry.registerDryingRecipe("treeSapling", new ItemStack(Blocks.DEADBUSH), 20 * 60 * 6);
   }
 }

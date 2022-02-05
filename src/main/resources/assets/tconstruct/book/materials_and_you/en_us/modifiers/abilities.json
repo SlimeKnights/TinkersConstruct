@@ -1,0 +1,16 @@
+{
+  "title": "Abilities",
+  "text": [
+    {
+      "text": "Abilities are powerful modifiers that drastically change a tool. Modifiers such as silk touch and autosmelt are notable as both change the effects of mining blocks, while dual wielding makes tools much easier to handle."
+    },
+    {
+      "text": "Abilities require ability slots to be applied. Nearly all tools start with a single ability slot, and can only receive up to 1 more, so choose abilities wisely.",
+      "paragraph": true
+    },
+    {
+      "text": "Thruul M'Gon's Mighty Smelting has a full list of abilities available on tools, along with the Encyclopedia of Tinkering.",
+      "paragraph": true
+    }
+  ]
+}

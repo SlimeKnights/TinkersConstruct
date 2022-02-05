@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:storage_blocks/cobalt"
+  },
+  "value": 9,
+  "needed": 1,
+  "material": "tconstruct:cobalt",
+  "leftover": {
+    "tag": "forge:ingots/cobalt"
+  }
+}

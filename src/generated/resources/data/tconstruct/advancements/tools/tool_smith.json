@@ -1,0 +1,128 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "display": {
+    "icon": {
+      "item": "tconstruct:pickaxe",
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"]}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.tool_smith.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.tool_smith.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:pickaxe"
+            ]
+          }
+        ]
+      }
+    },
+    "mattock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:mattock"
+            ]
+          }
+        ]
+      }
+    },
+    "pickadze": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:pickadze"
+            ]
+          }
+        ]
+      }
+    },
+    "hand_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:hand_axe"
+            ]
+          }
+        ]
+      }
+    },
+    "kama": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:kama"
+            ]
+          }
+        ]
+      }
+    },
+    "dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:dagger"
+            ]
+          }
+        ]
+      }
+    },
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:sword"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickaxe"
+    ],
+    [
+      "mattock"
+    ],
+    [
+      "pickadze"
+    ],
+    [
+      "hand_axe"
+    ],
+    [
+      "kama"
+    ],
+    [
+      "dagger"
+    ],
+    [
+      "sword"
+    ]
+  ]
+}

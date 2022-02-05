@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/knightslime"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_knightslime",
+    "amount": 810
+  },
+  "temperature": 1125,
+  "time": 210
+}

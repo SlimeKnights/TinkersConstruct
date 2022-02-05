@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_medium_buds/emerald",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_medium_buds/emerald"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_emerald",
+    "amount": 200
+  },
+  "temperature": 934,
+  "time": 96
+}

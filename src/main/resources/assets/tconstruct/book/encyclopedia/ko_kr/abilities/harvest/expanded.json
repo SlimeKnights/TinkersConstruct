@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "도구의 효과 범위가 증가합니다. 자세한 설명은 각 도구 페이지에 나와 있습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 등급 없음",
+    "등급당 1개의 능력 슬롯 사용"
+  ]
+}

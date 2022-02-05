@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:mineable/shovel",
+    "#minecraft:logs",
+    "minecraft:azalea",
+    "minecraft:bamboo",
+    "minecraft:glow_lichen",
+    "minecraft:vine",
+    "minecraft:bee_nest",
+    "minecraft:beehive",
+    "minecraft:carved_pumpkin",
+    "minecraft:jack_o_lantern",
+    "minecraft:pumpkin",
+    "minecraft:chorus_flower",
+    "minecraft:chorus_plant",
+    "minecraft:cocoa",
+    "minecraft:brown_mushroom_block",
+    "minecraft:mushroom_stem",
+    "minecraft:red_mushroom_block"
+  ]
+}

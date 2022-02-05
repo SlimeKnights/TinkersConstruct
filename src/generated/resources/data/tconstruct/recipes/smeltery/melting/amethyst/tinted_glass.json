@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:tinted_glass"
+    },
+    {
+      "item": "tconstruct:clear_tinted_glass"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_amethyst",
+    "amount": 200
+  },
+  "temperature": 950,
+  "time": 97,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 500
+    }
+  ]
+}

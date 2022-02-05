@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { "text": "Goggles fit for a King, or Lemmings, or King Lemmings." },
+	{
+      "text": "A good pair of goggles provide for safer adventures, easier sight, and the makings of a King.", "paragraph": true
+    }
+  ],
+  "properties": [
+   "Low Armor",
+	"Low Durability",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

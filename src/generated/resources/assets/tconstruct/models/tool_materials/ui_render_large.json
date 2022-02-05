@@ -1,0 +1,8 @@
+{
+  "texture": "tconstruct:manyullyn",
+  "fallbacks": [
+    "metal"
+  ],
+  "color": "9261CC",
+  "luminosity": 0
+}

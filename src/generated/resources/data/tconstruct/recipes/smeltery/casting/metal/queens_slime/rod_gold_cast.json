@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/queens_slime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/rod"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_queens_slime",
+    "amount": 45
+  },
+  "result": {
+    "tag": "forge:rods/queens_slime"
+  },
+  "cooling_time": 50
+}

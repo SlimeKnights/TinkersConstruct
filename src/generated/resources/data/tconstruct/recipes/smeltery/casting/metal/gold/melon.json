@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:melon_slice"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:molten_gold",
+    "amount": 80
+  },
+  "result": "minecraft:glistering_melon_slice",
+  "cooling_time": 54
+}

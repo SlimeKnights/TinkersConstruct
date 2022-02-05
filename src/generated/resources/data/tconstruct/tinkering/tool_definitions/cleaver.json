@@ -1,0 +1,75 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:broad_blade"
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    },
+    {
+      "item": "tconstruct:tough_handle"
+    },
+    {
+      "item": "tconstruct:large_plate"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 3.0,
+      "tconstruct:attack_speed": 1.0
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 1.5,
+      "tconstruct:mining_speed": 0.25,
+      "tconstruct:durability": 3.5
+    }
+  },
+  "slots": {
+    "upgrades": 2,
+    "abilities": 1
+  },
+  "traits": [
+    {
+      "name": "tconstruct:severing",
+      "level": 2
+    },
+    {
+      "name": "tconstruct:silky_aoe_shears",
+      "level": 1
+    }
+  ],
+  "actions": [
+    "sword_dig"
+  ],
+  "harvest": {
+    "logic": {
+      "type": "tconstruct:modified_tag",
+      "effective": "forge:mineable/sword",
+      "modifiers": [
+        {
+          "modifier": 7.5,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:cobweb"
+            ]
+          }
+        },
+        {
+          "modifier": 100.0,
+          "predicate": {
+            "type": "tconstruct:set",
+            "blocks": [
+              "minecraft:bamboo",
+              "minecraft:bamboo_sapling"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "attack": {
+    "type": "tconstruct:sweep",
+    "range": 2.0
+  }
+}

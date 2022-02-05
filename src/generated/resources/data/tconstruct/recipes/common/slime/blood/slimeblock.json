@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "slime_blocks",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:slimeball/blood"
+    }
+  },
+  "result": {
+    "item": "tconstruct:blood_slime"
+  }
+}

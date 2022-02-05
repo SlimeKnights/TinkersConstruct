@@ -1,0 +1,12 @@
+{
+  "default": [
+    {
+      "name": "tconstruct:overworked",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:overslime",
+      "level": 1
+    }
+  ]
+}

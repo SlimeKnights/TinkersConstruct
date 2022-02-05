@@ -1,0 +1,7 @@
+{
+    "parent": "tconstruct:block/platform/side",
+    "textures": {
+		"side":     "tconstruct:block/platform/copper_side",
+		"particle": "tconstruct:block/platform/copper_top"
+    }
+}

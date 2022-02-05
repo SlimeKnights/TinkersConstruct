@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "m m",
+    "mmm",
+    "cmc"
+  ],
+  "key": {
+    "m": {
+      "tag": "forge:ingots/cobalt"
+    },
+    "c": {
+      "item": "minecraft:chain"
+    }
+  },
+  "result": {
+    "item": "tconstruct:plate_chestplate"
+  }
+}

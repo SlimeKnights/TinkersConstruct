@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:blaze_head"
+  },
+  "result": {
+    "fluid": "tconstruct:blazing_blood",
+    "amount": 100
+  },
+  "temperature": 1000,
+  "time": 80
+}

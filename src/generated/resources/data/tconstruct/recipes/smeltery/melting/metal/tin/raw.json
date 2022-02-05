@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:raw_materials/tin",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "tag": "forge:raw_materials/tin"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tin",
+    "amount": 90
+  },
+  "temperature": 225,
+  "time": 59,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_copper",
+      "amount": 90
+    }
+  ]
+}

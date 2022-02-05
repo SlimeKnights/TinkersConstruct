@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:dusts/copper",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/copper"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 90
+  },
+  "temperature": 500,
+  "time": 37
+}

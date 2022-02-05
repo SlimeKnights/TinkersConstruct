@@ -1,0 +1,70 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:raw_materials/zinc",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/tin",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "tag": "forge:raw_materials/zinc"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_zinc",
+          "amount": 90
+        },
+        "temperature": 420,
+        "time": 70,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_tin",
+            "amount": 90
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "rate": "metal",
+        "ingredient": {
+          "tag": "forge:raw_materials/zinc"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_zinc",
+          "amount": 90
+        },
+        "temperature": 420,
+        "time": 70,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_copper",
+            "amount": 90
+          }
+        ]
+      }
+    }
+  ]
+}

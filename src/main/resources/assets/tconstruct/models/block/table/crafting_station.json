@@ -1,0 +1,24 @@
+{
+  "loader": "tconstruct:table",
+  "parent": "tconstruct:block/table/table",
+  "textures": {
+    "particle": "tconstruct:block/table/crafting_station_top",
+    "top": "tconstruct:block/table/crafting_station_top",
+    "side": "tconstruct:block/table/crafting_station_side",
+    "leg": "tconstruct:block/table/crafting_station_side",
+    "bottom": "tconstruct:block/table/bottom",
+    "legBottom": "tconstruct:block/table/bottom"
+  },
+  "retextured": [ "leg", "legBottom" ],
+  "items": [
+    { "center": [  5, 17,  5 ], "size": 2 },
+    { "center": [  8, 17,  5 ], "size": 2 },
+    { "center": [ 11, 17,  5 ], "size": 2 },
+    { "center": [  5, 17,  8 ], "size": 2 },
+    { "center": [  8, 17,  8 ], "size": 2 },
+    { "center": [ 11, 17,  8 ], "size": 2 },
+    { "center": [  5, 17, 11 ], "size": 2 },
+    { "center": [  8, 17, 11 ], "size": 2 },
+    { "center": [ 11, 17, 11 ], "size": 2 }
+  ]
+}

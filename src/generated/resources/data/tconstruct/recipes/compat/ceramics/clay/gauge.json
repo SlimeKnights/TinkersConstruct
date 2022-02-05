@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:terracotta_gauge"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 250
+  },
+  "temperature": 450,
+  "time": 48,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 62
+    }
+  ]
+}

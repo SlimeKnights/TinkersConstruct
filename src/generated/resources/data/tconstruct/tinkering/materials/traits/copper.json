@@ -1,0 +1,20 @@
+{
+  "default": [
+    {
+      "name": "tconstruct:dwarven",
+      "level": 1
+    }
+  ],
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "name": "tconstruct:breathtaking",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:drowned_disguise",
+        "level": 1
+      }
+    ]
+  }
+}

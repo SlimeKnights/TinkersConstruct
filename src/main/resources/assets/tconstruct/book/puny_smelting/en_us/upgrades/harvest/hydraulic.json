@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:hydraulic",
+  "text": [
+    {
+      "text": "Using the magic of pumps and fluids you can move things with ease. I mean you can just not in this case."
+    }
+  ],
+  "effects": [
+    "Mines faster underwater or in the rain",
+    "Multiple levels, increases speed further with each level",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

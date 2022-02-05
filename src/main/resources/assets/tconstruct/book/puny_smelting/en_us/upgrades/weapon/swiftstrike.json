@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swiftstrike",
+  "text": [
+    {
+      "text": "Such a nice \"clink\" sound when you break amethyst."
+    }
+  ],
+  "effects": [
+    "Increases attack speed speed",
+    "Multiple levels, each level increases speed a bit more",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

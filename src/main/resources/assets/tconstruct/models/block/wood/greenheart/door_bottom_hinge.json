@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_rh",
+  "textures": {
+    "top": "tconstruct:block/wood/greenheart/door_top",
+    "bottom": "tconstruct:block/wood/greenheart/door_bottom"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/tin",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:plates/tin"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tin",
+    "amount": 90
+  },
+  "temperature": 225,
+  "time": 39
+}

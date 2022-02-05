@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/steel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/steel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_steel",
+    "amount": 810
+  },
+  "temperature": 950,
+  "time": 194
+}

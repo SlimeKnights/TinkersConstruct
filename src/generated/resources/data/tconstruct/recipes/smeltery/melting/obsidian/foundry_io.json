@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "tconstruct:scorched_drain"
+    },
+    {
+      "item": "tconstruct:scorched_chute"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_obsidian",
+    "amount": 500
+  },
+  "temperature": 1000,
+  "time": 166,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:scorched_stone",
+      "amount": 1000
+    }
+  ]
+}

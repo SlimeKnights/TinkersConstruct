@@ -1,0 +1,33 @@
+// 섹션 - 환상적인 용해소
+
+intro=소개
+alloyer=합금기
+
+foundry=용해소
+foundry.features=특징
+foundry.byproducts=부산물
+foundry.controller=관리기
+foundry.structure=구조물
+foundry.structurereq=구조물 조건
+foundry.scorched_tanks=타오른 탱크
+foundry.scorched_blocks=타오른 블록
+foundry.scorched_ladder=타오른 사다리
+foundry.scorched_glass=타오른 유리
+foundry.scorched_drain=타오른 배출구
+foundry.scorched_duct=타오른 송출구
+foundry.scorched_chute=타오른 전송구
+foundry.fgui1=용해소 GUI
+foundry.fgui2=용해소 GUI 설명
+
+blazing_blood=블레이즈 피
+blazing_blood.carry=운반
+blazing_blood.foundry=용해소
+blazing_blood.head=머리 용해
+blazing_blood.melting=용해
+blazing_blood.piglin_bartering=피글린 물물교환
+
+armor=판금 갑옷
+armor.subtext=판금 갑옷은 제작대 대신에 팅커 작업대나 모루를 사용하여 제작할 수 있습니다! 강력한 판금 갑옷은 높은 방어력을 자랑하지만, 변형성이 떨어집니다. 안전히 보호할 수 있는데, 추가 기능까지 필요한가요?
+
+tier_four_materials=4등급 재료
+tier_four_materials.subtext=블레이즈 피가 필요한 재료입니다.

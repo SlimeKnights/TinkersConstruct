@@ -1,0 +1,8 @@
+{
+	"loader": "mantle:item_layer",
+  "parent": "forge:item/default",
+    "textures": {
+        "layer0": "tconstruct:item/materials/queens_slime_ingot"
+    },
+	"layers": [{ "luminosity": 9 }]
+}

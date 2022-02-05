@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "forge:cobblestone"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_quartz",
+    "amount": 50
+  },
+  "result": "minecraft:andesite",
+  "cooling_time": 41
+}

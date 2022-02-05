@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "Prevents the tool from taking damage, except from special damage sources such as tasty."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires Reinforced V and the Netherite modifier",
+    "Requires 1 ability slot"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "tconstruct:spider_head"
+    },
+    {
+      "item": "tconstruct:cave_spider_head"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:venom",
+    "amount": 500
+  },
+  "temperature": 10,
+  "time": 68
+}

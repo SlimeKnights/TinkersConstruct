@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/queens_slime",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/queens_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_queens_slime",
+    "amount": 45
+  },
+  "temperature": 1150,
+  "time": 14
+}

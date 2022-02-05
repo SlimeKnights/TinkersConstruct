@@ -1,0 +1,40 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "base": "forge:ores/diamond",
+      "subtracted": [
+        "forge:ore_rates/sparse",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "rate": "gem",
+  "ingredient": {
+    "type": "mantle:difference",
+    "base": {
+      "tag": "forge:ores/diamond"
+    },
+    "subtracted": [
+      {
+        "tag": "forge:ore_rates/sparse"
+      },
+      {
+        "tag": "forge:ore_rates/dense"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_diamond",
+    "amount": 100
+  },
+  "temperature": 1450,
+  "time": 118,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_quartz",
+      "amount": 100
+    }
+  ]
+}

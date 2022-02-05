@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "tconstruct:scorched_faucet"
+    },
+    {
+      "item": "tconstruct:scorched_channel"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:scorched_stone",
+    "amount": 250
+  },
+  "temperature": 500,
+  "time": 75
+}

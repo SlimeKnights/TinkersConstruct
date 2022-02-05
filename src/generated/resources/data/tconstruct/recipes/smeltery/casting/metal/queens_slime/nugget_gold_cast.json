@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_queens_slime",
+    "amount": 10
+  },
+  "result": "tconstruct:queens_slime_nugget",
+  "cooling_time": 24
+}

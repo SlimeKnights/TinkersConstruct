@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:earth_congealed_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:earth_slime",
+    "amount": 1000
+  },
+  "temperature": 50,
+  "time": 62
+}

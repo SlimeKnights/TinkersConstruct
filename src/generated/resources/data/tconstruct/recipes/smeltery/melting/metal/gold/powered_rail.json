@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:powered_rail"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 90
+  },
+  "temperature": 700,
+  "time": 57
+}

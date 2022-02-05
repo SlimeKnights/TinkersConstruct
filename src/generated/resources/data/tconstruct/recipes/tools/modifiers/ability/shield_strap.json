@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:sky_slime_vine"
+    },
+    {
+      "tag": "forge:ingots/slimesteel"
+    },
+    {
+      "item": "tconstruct:sky_slime_vine"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:shield_strap",
+    "level": 1
+  },
+  "max_level": 1
+}

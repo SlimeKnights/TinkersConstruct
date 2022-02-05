@@ -1,0 +1,27 @@
+[
+  {
+    "name": "alloyer",
+    "type": "mantle:image_text",
+    "data": "alloyer/alloyer.json"
+  },
+  {
+    "name": "alloy",
+    "type": "mantle:text",
+    "data": "alloyer/features.json"
+  },
+  {
+    "name": "alloyergui1",
+    "type": "mantle:image_text",
+    "data": "alloyer/gui1.json"
+  },
+  {
+    "name": "alloyergui2",
+    "type": "mantle:text",
+    "data": "alloyer/gui2.json"
+  },
+  {
+    "name": "casting",
+    "type": "mantle:image_text",
+    "data": "alloyer/casting.json"
+  }
+]

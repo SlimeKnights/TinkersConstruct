@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "tag": "forge:molten_copper",
+      "amount": 180
+    },
+    {
+      "tag": "forge:molten_cobalt",
+      "amount": 90
+    },
+    [
+      {
+        "tag": "tconstruct:molten_quartz",
+        "amount": 400
+      },
+      {
+        "tag": "tconstruct:molten_amethyst",
+        "amount": 400
+      }
+    ]
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_hepatizon",
+    "amount": 180
+  },
+  "temperature": 1400
+}

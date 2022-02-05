@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/small_blade"
+  },
+  "item_cost": 2,
+  "result": "tconstruct:small_blade"
+}

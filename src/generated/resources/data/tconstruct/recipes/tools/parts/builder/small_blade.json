@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:small_blade",
+  "cost": 2,
+  "result": {
+    "item": "tconstruct:small_blade"
+  }
+}

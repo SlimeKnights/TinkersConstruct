@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:stone_button"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_clay",
+    "amount": 125
+  },
+  "result": "tconstruct:seared_brick",
+  "cooling_time": 57
+}

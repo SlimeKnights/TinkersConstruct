@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:geore_large_buds/gold",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:geore_large_buds/gold"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 270
+  },
+  "temperature": 700,
+  "time": 114
+}

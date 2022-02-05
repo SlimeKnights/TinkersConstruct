@@ -1,0 +1,6 @@
+{
+    "parent": "item/bone",
+    "textures": {
+        "layer0": "tconstruct:item/materials/necrotic_bone"
+    }
+}

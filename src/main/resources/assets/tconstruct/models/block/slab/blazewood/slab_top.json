@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab_top",
+    "textures": {
+        "bottom": "tconstruct:block/blazewood",
+        "top": "tconstruct:block/blazewood",
+        "side": "tconstruct:block/blazewood"
+    }
+}

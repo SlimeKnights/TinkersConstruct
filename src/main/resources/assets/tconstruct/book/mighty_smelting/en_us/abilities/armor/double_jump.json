@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "Bunny hopping increases your skills and makes you way better at the game. Don't forget to throw in some proning for maximum effect."
+    }
+  ],
+  "effects": [
+    "Allows an extra jump",
+	"Multiple levels, each level gives an extra jump",
+    "Requires 1 ability slot"
+  ]
+}

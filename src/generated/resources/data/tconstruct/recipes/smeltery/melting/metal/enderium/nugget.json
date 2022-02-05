@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/enderium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/enderium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_enderium",
+    "amount": 10
+  },
+  "temperature": 1350,
+  "time": 25
+}

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "tag": "tconstruct:molten_emerald",
+    "amount": 900
+  },
+  "result": "minecraft:emerald_block",
+  "cooling_time": 203
+}

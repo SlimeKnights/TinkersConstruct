@@ -1,0 +1,18 @@
+{
+  "loader": "tconstruct:table",
+  "parent": "tconstruct:block/table/table",
+  "textures": {
+    "particle": "tconstruct:block/table/part_builder_top",
+    "top": "tconstruct:block/table/part_builder_top",
+    "side": "tconstruct:block/table/side",
+    "leg": "tconstruct:block/table/side",
+    "bottom": "tconstruct:block/table/bottom",
+    "legBottom": "tconstruct:block/table/bottom"
+  },
+  "retextured": [ "leg", "legBottom" ],
+  "items": [
+    { "center": [  4.5, 17.5,     4.5 ], "size": 3 },
+    { "center": [  4.5, 16.3125, 11.5 ], "size": 5, "x": 270 },
+    { "center": [ 11.5, 17.5,     4.5 ], "size": 3 }
+  ]
+}

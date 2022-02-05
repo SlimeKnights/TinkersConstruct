@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Increases knockback received by 20% per level."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 2 levels per piece",
+    "Combines effect of all pieces",
+    "Requires 1 upgrade slot per level"
+  ]
+}

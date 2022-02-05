@@ -1,0 +1,8 @@
+{
+  "title": "Tinker's Gadgetry Crafting",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "Uses of slime in everyday things. Guide by Melvin about how to find materials for tinkering in the world." }
+  ]
+}

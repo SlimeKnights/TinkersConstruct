@@ -1,0 +1,583 @@
+{
+  "parent": "tconstruct:smeltery/tinkers_anvil",
+  "display": {
+    "icon": {
+      "item": "tconstruct:silky_cloth"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.abilities.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.abilities.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "gilded": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:gilded",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "luck": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:luck",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "reach": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:reach",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "unbreakable": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:unbreakable",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "aqua_affinity": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:aqua_affinity",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "bouncy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:bouncy",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "double_jump": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:double_jump",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "flamewake": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:flamewake",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "frost_walker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:frost_walker",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "looting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:looting",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "path_maker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:path_maker",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "plowing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:plowing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "pockets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:pockets",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "shield_strap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:shield_strap",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "slurping": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:slurping",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "snowdrift": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:snowdrift",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "strength": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:strength",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "tool_belt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:tool_belt",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "unarmed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:unarmed",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "zoom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:zoom",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "autosmelt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:autosmelt",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "exchanging": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:exchanging",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "expanded": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:expanded",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "silky": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:silky",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "bucketing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:bucketing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "firestarter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:firestarter",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "glowing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:glowing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "pathing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:pathing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "stripping": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:stripping",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "tilling": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:tilling",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "dual_wielding": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:dual_wielding",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "melting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:melting",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "spilling": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:spilling",
+              "level": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "gilded"
+    ],
+    [
+      "luck"
+    ],
+    [
+      "reach"
+    ],
+    [
+      "unbreakable"
+    ],
+    [
+      "aqua_affinity"
+    ],
+    [
+      "bouncy"
+    ],
+    [
+      "double_jump"
+    ],
+    [
+      "flamewake"
+    ],
+    [
+      "frost_walker"
+    ],
+    [
+      "looting"
+    ],
+    [
+      "path_maker"
+    ],
+    [
+      "plowing"
+    ],
+    [
+      "pockets"
+    ],
+    [
+      "shield_strap"
+    ],
+    [
+      "slurping"
+    ],
+    [
+      "snowdrift"
+    ],
+    [
+      "strength"
+    ],
+    [
+      "tool_belt"
+    ],
+    [
+      "unarmed"
+    ],
+    [
+      "zoom"
+    ],
+    [
+      "autosmelt"
+    ],
+    [
+      "exchanging"
+    ],
+    [
+      "expanded"
+    ],
+    [
+      "silky"
+    ],
+    [
+      "bucketing"
+    ],
+    [
+      "firestarter"
+    ],
+    [
+      "glowing"
+    ],
+    [
+      "pathing"
+    ],
+    [
+      "stripping"
+    ],
+    [
+      "tilling"
+    ],
+    [
+      "dual_wielding"
+    ],
+    [
+      "melting"
+    ],
+    [
+      "spilling"
+    ]
+  ]
+}

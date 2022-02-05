@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/steel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_steel",
+    "amount": 810
+  },
+  "result": {
+    "tag": "forge:storage_blocks/steel"
+  },
+  "cooling_time": 194
+}

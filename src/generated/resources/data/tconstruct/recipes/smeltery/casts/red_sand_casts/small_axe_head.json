@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "item": "tconstruct:blank_red_sand_cast"
+  },
+  "pattern": {
+    "item": "tconstruct:small_axe_head",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:small_axe_head_red_sand_cast"
+}

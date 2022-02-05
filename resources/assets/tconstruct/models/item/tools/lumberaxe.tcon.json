@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/lumberaxe/handle",
-        "layer1": "tconstruct:items/lumberaxe/head",
-        "layer2": "tconstruct:items/lumberaxe/shield",
-        "layer3": "tconstruct:items/lumberaxe/binding",
-        "broken1": "tconstruct:items/lumberaxe/broken_head"
-    }
-}

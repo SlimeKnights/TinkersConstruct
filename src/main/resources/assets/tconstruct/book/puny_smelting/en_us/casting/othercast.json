@@ -1,0 +1,17 @@
+{
+  "title": "Composite Casts",
+  "image": {
+    "file": "tconstruct:book/images/compositecast.png",
+    "width": 177,
+    "height": 50
+  },
+  "text": [
+    {
+      "text": "Composite casting allows you to make new materials by pouring fluid over an item/block in a casting table/basin."
+    },
+    {
+      "text": "Notable materials are Slimewood and Nahuatl, which are made by pouring slime or molten obsidian, respectively, over wooden tool parts.",
+      "paragraph": true
+    }
+  ]
+}

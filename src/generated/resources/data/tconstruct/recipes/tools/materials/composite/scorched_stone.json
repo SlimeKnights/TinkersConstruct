@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "input": "tconstruct:flint",
+  "fluid": {
+    "tag": "forge:magma",
+    "amount": 250
+  },
+  "temperature": 300,
+  "output": "tconstruct:scorched_stone"
+}
