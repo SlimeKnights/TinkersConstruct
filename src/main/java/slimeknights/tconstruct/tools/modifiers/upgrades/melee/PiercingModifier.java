@@ -6,7 +6,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -21,9 +21,6 @@ import java.util.List;
 
 public class PiercingModifier extends IncrementalModifier {
   private static final ResourceLocation PIERCING_DEBUFF = TConstruct.getResource("piercing_debuff");
-  public PiercingModifier() {
-    super(0xD1D37A);
-  }
 
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {

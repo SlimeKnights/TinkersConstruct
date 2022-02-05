@@ -7,10 +7,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class LaceratingModifier extends Modifier {
-  public LaceratingModifier() {
-    super(0x601cc4);
-  }
-
   @Override
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     // 50% chance of applying

@@ -2,7 +2,7 @@
   "parent": "tconstruct:smeltery/melter",
   "display": {
     "icon": {
-      "item": "tconstruct:pickaxe_head_cast"
+      "item": "tconstruct:pick_head_cast"
     },
     "title": {
       "translate": "advancements.tconstruct.smeltery.gold_casting.title"

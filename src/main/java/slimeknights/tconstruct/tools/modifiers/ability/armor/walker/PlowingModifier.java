@@ -25,9 +25,6 @@ import java.util.function.Predicate;
 public class PlowingModifier extends AbstractWalkerModifier {
 
   private MutableUseOnContext context;
-  public PlowingModifier() {
-    super(0x633c1e);
-  }
 
   @Override
   public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {

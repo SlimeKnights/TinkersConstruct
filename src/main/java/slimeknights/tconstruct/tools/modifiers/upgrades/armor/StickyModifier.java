@@ -1,22 +1,18 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.damagesource.DamageSource;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class StickyModifier extends IncrementalModifier {
-  public StickyModifier() {
-    super(0xffffff);
-  }
-
   /** Gets the slowness effect for the given level */
   private static MobEffectInstance getEffect(float scaledLevel) {
     int duration = 20;

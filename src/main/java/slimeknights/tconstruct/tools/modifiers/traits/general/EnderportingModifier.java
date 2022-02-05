@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -23,10 +23,6 @@ import java.util.Set;
 
 public class EnderportingModifier extends SingleUseModifier {
   private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
-
-  public EnderportingModifier() {
-    super(0xa92dff);
-  }
 
   @Override
   public int getPriority() {

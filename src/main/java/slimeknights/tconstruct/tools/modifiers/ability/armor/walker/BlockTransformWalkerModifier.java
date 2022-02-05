@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor.walker;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -16,14 +17,10 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+@RequiredArgsConstructor
 public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
   private final ToolAction action;
   private final SoundEvent sound;
-  public BlockTransformWalkerModifier(int color, ToolAction action, SoundEvent sound) {
-    super(color);
-    this.action = action;
-    this.sound = sound;
-  }
 
   @Override
   protected float getRadius(IToolStackView tool, int level) {

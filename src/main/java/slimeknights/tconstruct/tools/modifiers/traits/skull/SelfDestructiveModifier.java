@@ -15,8 +15,8 @@ import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -33,7 +33,6 @@ public class SelfDestructiveModifier extends SingleUseModifier implements IArmor
   private static final TinkerDataKey<Integer> FUSE_FINISH = TConstruct.createKey("self_destruct_finish");
 
   public SelfDestructiveModifier() {
-    super(0x95D78E);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerTickEvent.class, SelfDestructiveModifier::playerTick);
   }
 

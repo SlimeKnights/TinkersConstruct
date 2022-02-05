@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TooltipFlag;
-import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -26,10 +26,6 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 
 public class EmeraldModifier extends SingleLevelModifier {
-  public EmeraldModifier() {
-    super(0x41f384);
-  }
-
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     IModifiable.setRarity(volatileData, Rarity.UNCOMMON);

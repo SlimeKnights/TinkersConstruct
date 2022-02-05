@@ -12,14 +12,13 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Iterator;
 
 public class SoulboundModifier extends SingleUseModifier {
   public SoulboundModifier() {
-    super(0xD1A75D);
     // high priority so we do it before other possibly death-inventory-modifying mods
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onPlayerDeath);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onPlayerClone);

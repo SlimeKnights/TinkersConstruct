@@ -14,7 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -32,7 +32,6 @@ public class FireProtectionModifier extends IncrementalModifier {
   /** Entity data key for the data associated with this modifier */
   private static final TinkerDataKey<FireData> FIRE_DATA = TConstruct.createKey("fire_protection");
   public FireProtectionModifier() {
-    super(0x4F4A47);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingUpdateEvent.class, FireProtectionModifier::livingTick);
   }
 

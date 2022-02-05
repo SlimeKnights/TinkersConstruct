@@ -21,10 +21,6 @@ import java.util.List;
 public class SearingModifier extends Modifier {
   private static final float BASELINE_TEMPERATURE = 0.75f;
 
-  public SearingModifier() {
-    super(0x4F4A47);
-  }
-
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     TinkerModifiers.tank.get().addCapacity(volatileData, FluidValues.BRICK);

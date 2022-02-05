@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.defense;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -7,7 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -17,12 +18,9 @@ import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 import java.util.List;
 
 /** Base class for protection modifiers that want to keep track of the largest level for a bonus */
+@RequiredArgsConstructor
 public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> extends IncrementalModifier {
   private final TinkerDataKey<T> key;
-  public AbstractProtectionModifier(int color, TinkerDataKey<T> key) {
-    super(color);
-    this.key = key;
-  }
 
   /** Creates a new data instance */
   protected abstract T createData();

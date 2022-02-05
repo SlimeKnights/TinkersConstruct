@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
@@ -10,9 +10,6 @@ import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 public class TOPModifier extends SingleUseModifier {
   private static final String TOP_NBT_HELMET = "theoneprobe";
   private static final String TOP_NBT_HAND = "theoneprobe_hand";
-  public TOPModifier() {
-    super(0x7FF2FF);
-  }
 
   @Override
   public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {

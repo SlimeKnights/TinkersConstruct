@@ -40,11 +40,9 @@ public class DamageSpeedTradeModifier extends Modifier {
 
   /**
    * Creates a new instance of
-   * @param color       Modifier text color
    * @param multiplier  Multiplier. Positive boosts damage, negative boosts mining speed
    */
-  public DamageSpeedTradeModifier(int color, float multiplier) {
-    super(color);
+  public DamageSpeedTradeModifier(float multiplier) {
     this.multiplier = multiplier;
   }
 

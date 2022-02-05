@@ -29,7 +29,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
   private final String modId;
   private final AbstractPartSpriteProvider spriteProvider;
   public GeneratorPartTextureJsonGenerator(DataGenerator generator, String modId, AbstractPartSpriteProvider spriteProvider) {
-    super(generator, PackType.CLIENT_RESOURCES, "models", GSON);
+    super(generator, PackType.CLIENT_RESOURCES, "tinkering", GSON);
     this.modId = modId;
     this.spriteProvider = spriteProvider;
   }
@@ -43,7 +43,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
       parts.add(GSON.toJsonTree(spriteInfo));
     }
     json.add("parts", parts);
-    saveThing(cache, new ResourceLocation(modId, "tconstruct_generator_part_textures"), json);
+    saveThing(cache, new ResourceLocation(modId, "generator_part_textures"), json);
   }
 
   @Override

@@ -25,7 +25,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
   /** Entity data key for the data associated with this modifier */
   private static final TinkerDataKey<ModifierMaxLevel> MAGIC_DATA = TConstruct.createKey("magic_protection");
   public MagicProtectionModifier() {
-    super(0xF4D362, MAGIC_DATA);
+    super(MAGIC_DATA);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionEvent.PotionAddedEvent.class, MagicProtectionModifier::onPotionStart);
   }
 

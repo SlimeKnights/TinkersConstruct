@@ -9,7 +9,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -39,10 +39,6 @@ public class StatOverrideModifier extends SingleUseModifier {
   private static final Component LANG_BONUS = TConstruct.makeTranslation("modifier", "stat_override.bonuses").withStyle(ChatFormatting.UNDERLINE);
   /** Prefix for adding multipliers to the tooltip */
   private static final Component LANG_MULTIPLY = TConstruct.makeTranslation("modifier", "stat_override.multipliers").withStyle(ChatFormatting.UNDERLINE);
-
-  public StatOverrideModifier() {
-    super(-1);
-  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {

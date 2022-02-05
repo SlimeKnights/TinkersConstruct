@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
@@ -12,7 +12,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class ExperiencedModifier extends Modifier {
   public ExperiencedModifier() {
-    super(0xe8db49);
     MinecraftForge.EVENT_BUS.addListener(this::onEntityKill);
     MinecraftForge.EVENT_BUS.addListener(this::beforeBlockBreak);
   }

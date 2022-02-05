@@ -8,10 +8,6 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class DecayModifier extends Modifier {
-  public DecayModifier() {
-    super(0x7F9374);
-  }
-  
   /* gets the effect for the given level, including a random time */
   private static MobEffectInstance makeDecayEffect(int level) {
     // potions are 0 indexed instead of 1 indexed

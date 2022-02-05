@@ -13,7 +13,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
@@ -28,9 +28,6 @@ import java.util.UUID;
 public class GoldGuardModifier extends SingleUseModifier {
   private static final UUID GOLD_GUARD_UUID = UUID.fromString("fbae11f1-b547-47e8-ae0c-f2cf24a46d93");
   private static final ComputableDataKey<GoldGuardGold> TOTAL_GOLD = TConstruct.createKey("gold_guard", GoldGuardGold::new);
-  public GoldGuardModifier() {
-    super(0xF5DA2A);
-  }
 
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {

@@ -12,7 +12,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class FrosttouchModifier extends TotalArmorLevelModifier {
   public FrosttouchModifier() {
-    super(0xC5D6D5, StrongBonesModifier.CALCIFIABLE, true);
+    super(StrongBonesModifier.CALCIFIABLE, true);
   }
 
   @Override

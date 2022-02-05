@@ -16,8 +16,8 @@ import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -27,7 +27,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   private static final ResourceLocation KEY = TConstruct.getResource("shield_strap");
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "shield_plus");
   public ShieldStrapModifier() {
-    super(0x01cbcd, KEY, 1);
+    super(KEY, 1);
   }
 
   @Override

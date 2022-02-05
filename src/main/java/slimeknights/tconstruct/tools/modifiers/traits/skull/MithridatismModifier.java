@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 public class MithridatismModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> MITHRIDATISM = TConstruct.createKey("mithridatism");
   public MithridatismModifier() {
-    super(0x153A34, MITHRIDATISM, true);
+    super(MITHRIDATISM, true);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionApplicableEvent.class, MithridatismModifier::isPotionApplicable);
   }
 

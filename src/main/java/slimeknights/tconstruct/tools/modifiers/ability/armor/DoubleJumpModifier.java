@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -25,7 +25,7 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
   private Component levelTwoName = null;
 
   public DoubleJumpModifier() {
-    super(0x01cbcd, EXTRA_JUMPS);
+    super(EXTRA_JUMPS);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onLand);
   }
 

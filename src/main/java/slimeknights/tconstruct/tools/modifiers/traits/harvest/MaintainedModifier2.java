@@ -5,10 +5,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 /** Well maintained for classic Bronze */
 public class MaintainedModifier2 extends MaintainedModifier {
-  public MaintainedModifier2() {
-    super(0xD58F36);
-  }
-
   @Override
   protected float getTotalBoost(IToolStackView tool, int level) {
     int durability = tool.getCurrentDurability();

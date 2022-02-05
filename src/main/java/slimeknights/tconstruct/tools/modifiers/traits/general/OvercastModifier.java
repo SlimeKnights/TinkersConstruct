@@ -7,10 +7,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 public class OvercastModifier extends Modifier {
-  public OvercastModifier() {
-    super(0x27C6C6);
-  }
-
   @Override
   public int getPriority() {
     return 90; // after overslime and overforced

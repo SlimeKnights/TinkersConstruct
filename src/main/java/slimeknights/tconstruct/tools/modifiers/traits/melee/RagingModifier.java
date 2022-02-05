@@ -18,10 +18,6 @@ public class RagingModifier extends Modifier {
   private static final float HIGHEST_HEALTH = 10f;
   private static final float DAMAGE_PER_LEVEL = 4f;
 
-  public RagingModifier() {
-    super(0xB30000);
-  }
-
   /** Gets the bonus for the given health */
   private static float getBonus(LivingEntity attacker, int level) {
     float health = attacker.getHealth();

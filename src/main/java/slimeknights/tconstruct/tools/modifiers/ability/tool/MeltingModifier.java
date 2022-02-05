@@ -10,7 +10,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.modifiers.TankModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
@@ -33,7 +33,7 @@ public class MeltingModifier extends TankModifier {
   private static final MeltingContainer inventory = new MeltingContainer();
 
   public MeltingModifier() {
-    super(0xFFD800, FluidAttributes.BUCKET_VOLUME);
+    super(FluidAttributes.BUCKET_VOLUME);
   }
 
   @Override

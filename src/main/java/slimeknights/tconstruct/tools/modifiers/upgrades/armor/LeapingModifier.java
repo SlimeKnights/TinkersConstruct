@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 public class LeapingModifier extends IncrementalArmorLevelModifier {
   private static final TinkerDataKey<Float> LEAPING = TConstruct.createKey("leaping");
   public LeapingModifier() {
-    super(0xD8B281, LEAPING);
+    super(LEAPING);
     MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingFall);
     MinecraftForge.EVENT_BUS.addListener(LeapingModifier::onLivingJump);
   }

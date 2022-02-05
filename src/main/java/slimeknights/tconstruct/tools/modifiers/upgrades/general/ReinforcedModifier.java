@@ -5,7 +5,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
@@ -15,14 +15,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ReinforcedModifier extends IncrementalModifier {
-  public ReinforcedModifier() {
-    this(0xcacaca);
-  }
-
-  protected ReinforcedModifier(int color) {
-    super(color);
-  }
-
   /**
    * Gets the reinforcment percentage for the given level
    * @param level  Level from 0 to 10

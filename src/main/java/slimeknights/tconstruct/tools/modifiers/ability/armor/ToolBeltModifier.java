@@ -14,8 +14,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -27,7 +27,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   private static final ResourceLocation KEY = TConstruct.getResource("tool_belt");
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
   public ToolBeltModifier() {
-    super(0x893B25, KEY, 4);
+    super(KEY, 4);
   }
 
   @Override

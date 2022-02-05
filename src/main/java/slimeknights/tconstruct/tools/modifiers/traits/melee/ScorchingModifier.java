@@ -17,10 +17,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ScorchingModifier extends Modifier {
-  public ScorchingModifier() {
-    super(0x5B4C43);
-  }
-
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     TinkerModifiers.tank.get().addCapacity(volatileData, FluidValues.BRICK);

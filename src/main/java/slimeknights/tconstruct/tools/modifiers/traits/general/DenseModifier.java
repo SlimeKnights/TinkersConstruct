@@ -13,10 +13,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class DenseModifier extends ReinforcedModifier {
-  public DenseModifier() {
-    super(0xBED3CD);
-  }
-
   @Override
   public float getRepairFactor(IToolStackView toolStack, int level, float factor) {
     // the scale used by reinforced was quite nice to use for reduction here, so 25% loss at level 1, etc.

@@ -23,9 +23,9 @@ public final class TinkerToolParts extends TinkerModule {
   public static final CreativeModeTab TAB_TOOL_PARTS = new SupplierCreativeTab(TConstruct.MOD_ID, "tool_parts", () -> {
     List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getVisibleMaterials());
     if (materials.isEmpty()) {
-      return new ItemStack(TinkerToolParts.pickaxeHead);
+      return new ItemStack(TinkerToolParts.pickHead);
     }
-    return TinkerToolParts.pickaxeHead.get().withMaterial(materials.get(TConstruct.RANDOM.nextInt(materials.size())));
+    return TinkerToolParts.pickHead.get().withMaterial(materials.get(TConstruct.RANDOM.nextInt(materials.size())));
   });
   private static final Item.Properties PARTS_PROPS = new Item.Properties().tab(TAB_TOOL_PARTS);
 
@@ -33,7 +33,7 @@ public final class TinkerToolParts extends TinkerModule {
   public static final ItemObject<RepairKitItem> repairKit = ITEMS.register("repair_kit", () -> new RepairKitItem(PARTS_PROPS));
 
   // rock
-  public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  public static final ItemObject<ToolPartItem> pickHead = ITEMS.register("pick_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> hammerHead = ITEMS.register("hammer_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   // axe
   public static final ItemObject<ToolPartItem> smallAxeHead = ITEMS.register("small_axe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));

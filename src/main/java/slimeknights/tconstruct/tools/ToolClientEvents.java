@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
@@ -24,9 +25,11 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableDyedModifierModel;
@@ -37,6 +40,8 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.PlateArmorModel;
@@ -59,12 +64,21 @@ public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using leggings */
   private static final KeyMapping LEGGINGS_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.i"), "key.categories.tconstruct");
 
+  /** Listener to clear modifier cache */
+  private static final ISafeManagerReloadListener MODIFIER_RELOAD_LISTENER = manager -> {
+    for (Modifier modifier : TinkerRegistries.MODIFIERS.getValues()) {
+      modifier.clearCache(PackType.CLIENT_RESOURCES);
+    }
+  };
+
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent manager) {
     ModifierModelManager.init(manager);
+    manager.registerReloadListener(MODIFIER_RELOAD_LISTENER);
     manager.registerReloadListener(PlateArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimeskullArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimelytraArmorModel.RELOAD_LISTENER);
+    manager.registerReloadListener(HarvestTiers.RELOAD_LISTENER);
   }
 
   @SubscribeEvent

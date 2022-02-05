@@ -1,18 +1,14 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.Level;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import net.minecraft.world.level.LightLayer;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
 public class SolarPoweredModifier extends SingleUseModifier {
-  public SolarPoweredModifier() {
-    super(0x48B518);
-  }
-
   @Override
   public int getPriority() {
     return 185; // after tanned, before stoneshield

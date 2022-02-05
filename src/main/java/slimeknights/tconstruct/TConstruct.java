@@ -144,9 +144,11 @@ public class TConstruct {
       datagenerator.addProvider(new GlobalLootModifiersProvider(datagenerator));
       //datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.SERVER_DATA, "structures"));
     }
+    /*
     if (event.includeClient()) {
-      //datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.CLIENT_RESOURCES, "book/structures"));
+      datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.CLIENT_RESOURCES, "book/structures"));
     }
+    */
   }
 
   @Nullable
@@ -164,6 +166,10 @@ public class TConstruct {
       switch(name) {
         case "copper_ingot": return Items.COPPER_INGOT;
         case "blank_cast": return Items.GOLD_INGOT;
+        case "pickaxe_head": return TinkerToolParts.pickHead.get();
+        case "pickaxe_head_cast": return TinkerSmeltery.pickHeadCast.get();
+        case "pickaxe_head_sand_cast": return TinkerSmeltery.pickHeadCast.getSand();
+        case "pickaxe_head_red_sand_cast": return TinkerSmeltery.pickHeadCast.getRedSand();
       }
       ItemLike block = missingBlock(name);
       return block == null ? null : block.asItem();

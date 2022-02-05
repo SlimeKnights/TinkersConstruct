@@ -99,7 +99,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.materialsAndYou)));
     Advancement partBuilder = builder(TinkerTables.partBuilder, resource("tools/part_builder"), materialsAndYou, FrameType.TASK, builder ->
       builder.addCriterion("crafted_block", hasItem(TinkerTables.partBuilder)));
-    builder(TinkerToolParts.pickaxeHead.get().withMaterialForDisplay(MaterialIds.wood), resource("tools/make_part"), partBuilder, FrameType.TASK, builder ->
+    builder(TinkerToolParts.pickHead.get().withMaterialForDisplay(MaterialIds.wood), resource("tools/make_part"), partBuilder, FrameType.TASK, builder ->
       builder.addCriterion("crafted_part", hasTag(TinkerTags.Items.TOOL_PARTS)));
     Advancement tinkerStation = builder(TinkerTables.tinkerStation, resource("tools/tinker_station"), partBuilder, FrameType.TASK, builder ->
       builder.addCriterion("crafted_block", hasItem(TinkerTables.tinkerStation)));
@@ -182,7 +182,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     });
     builder(TinkerSmeltery.toolHandleCast.getSand(), resource("smeltery/sand_casting"), melter, FrameType.TASK, builder ->
       builder.addCriterion("crafted_cast", hasTag(TinkerTags.Items.BLANK_SINGLE_USE_CASTS)));
-    Advancement goldCasting = builder(TinkerSmeltery.pickaxeHeadCast, resource("smeltery/gold_casting"), melter, FrameType.TASK, builder ->
+    Advancement goldCasting = builder(TinkerSmeltery.pickHeadCast, resource("smeltery/gold_casting"), melter, FrameType.TASK, builder ->
       builder.addCriterion("crafted_cast", hasTag(TinkerTags.Items.GOLD_CASTS)));
     builder(TinkerSmeltery.hammerHeadCast, resource("smeltery/cast_collector"), goldCasting, FrameType.GOAL, builder -> {
       Consumer<CastItemObject> with = cast -> builder.addCriterion(cast.getName().getPath(), hasItem(cast.get()));
@@ -192,7 +192,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerSmeltery.rodCast);
       with.accept(TinkerSmeltery.repairKitCast);
       // parts
-      with.accept(TinkerSmeltery.pickaxeHeadCast);
+      with.accept(TinkerSmeltery.pickHeadCast);
       with.accept(TinkerSmeltery.smallAxeHeadCast);
       with.accept(TinkerSmeltery.smallBladeCast);
       with.accept(TinkerSmeltery.hammerHeadCast);

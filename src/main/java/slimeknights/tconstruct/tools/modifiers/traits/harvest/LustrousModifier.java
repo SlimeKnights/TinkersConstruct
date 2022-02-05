@@ -17,10 +17,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LustrousModifier extends Modifier {
-  public LustrousModifier() {
-    super(0xA3E7FE);
-  }
-
   @Override
   public int getPriority() {
     return 125; // run before trait boosts such as dwarven

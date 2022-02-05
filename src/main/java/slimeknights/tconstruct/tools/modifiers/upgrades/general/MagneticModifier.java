@@ -31,7 +31,7 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   private static final TinkerDataKey<Integer> MAGNET = TConstruct.createKey("magnet");
 
   public MagneticModifier() {
-    super(0x720000, MAGNET);
+    super(MAGNET);
     MinecraftForge.EVENT_BUS.addListener(MagneticModifier::onLivingTick);
   }
 

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gem"
+  },
+  "fluid": {
+    "tag": "tconstruct:molten_quartz",
+    "amount": 100
+  },
+  "result": "minecraft:quartz",
+  "cooling_time": 58
+}

@@ -1,22 +1,16 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-import java.util.Objects;
-
 public class DyedModifier extends SingleUseModifier {
   private static final String FORMAT_KEY = TConstruct.makeTranslationKey("modifier", "dyed.formatted");
-  public DyedModifier() {
-    super(Objects.requireNonNull(ChatFormatting.GRAY.getColor()));
-  }
 
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {

@@ -15,9 +15,9 @@ public class ModifierFixture {
   protected static final IForgeRegistry<Modifier> MODIFIER_REGISTRY = new RegistryBuilder<Modifier>()
 			.setType(Modifier.class).setName(TConstruct.getResource("modifiers")).setDefaultKey(EMPTY_ID).create();
 
-  public static final Modifier EMPTY = new Modifier(-1).setRegistryName(EMPTY_ID);
-  public static final Modifier TEST_MODIFIER_1 = new Modifier(-1).setRegistryName(TEST_1);
-  public static final Modifier TEST_MODIFIER_2 = new Modifier(-1).setRegistryName(TEST_2);
+  public static final Modifier EMPTY = new Modifier().setRegistryName(EMPTY_ID);
+  public static final Modifier TEST_MODIFIER_1 = new Modifier().setRegistryName(TEST_1);
+  public static final Modifier TEST_MODIFIER_2 = new Modifier().setRegistryName(TEST_2);
 
   private static boolean init = false;
 

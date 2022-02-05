@@ -19,7 +19,7 @@ public class ProjectileProtectionModifier extends AbstractProtectionModifier<Mod
   /** Entity data key for the data associated with this modifier */
   public static final TinkerDataKey<ModifierMaxLevel> PROJECTILE_DATA = TConstruct.createKey("projectile_protection");
   public ProjectileProtectionModifier() {
-    super(0xE2A856, PROJECTILE_DATA);
+    super(PROJECTILE_DATA);
   }
 
   @Override

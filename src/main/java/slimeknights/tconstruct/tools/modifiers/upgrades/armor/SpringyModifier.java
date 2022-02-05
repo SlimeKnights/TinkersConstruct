@@ -20,9 +20,6 @@ import java.util.Optional;
 
 public class SpringyModifier extends Modifier {
   private static final TinkerDataKey<SlotInCharge> SLOT_IN_CHARGE = TConstruct.createKey("springy");
-  public SpringyModifier() {
-    super(0xFF950D);
-  }
 
   @Override
   public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
