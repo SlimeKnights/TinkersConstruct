@@ -1,368 +1,258 @@
 package slimeknights.tconstruct.library.client;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat.Mode;
+import com.mojang.math.Matrix4f;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.screen.ElementScreen;
 
-import org.lwjgl.opengl.GL11;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
-
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
-import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
-import slimeknights.tconstruct.library.smeltery.SmelteryTank;
-import slimeknights.tconstruct.library.utils.ListUtil;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
-import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
-
-public class GuiUtil {
-
-  private GuiUtil() {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class GuiUtil {
+  /**
+   * Draws the background of a container
+   * @param matrices    Matrix context
+   * @param screen      Parent screen
+   * @param background  Background location
+   */
+  public static void drawBackground(PoseStack matrices, AbstractContainerScreen<?> screen, ResourceLocation background) {
+    RenderUtils.setup(background);
+    screen.blit(matrices, screen.leftPos, screen.topPos, 0, 0, screen.imageWidth, screen.imageHeight);
   }
 
-  protected static Minecraft mc = Minecraft.getMinecraft();
-
-  /** Renders the given texture tiled into a GUI */
-  public static void renderTiledTexture(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
-    Tessellator tessellator = Tessellator.getInstance();
-    BufferBuilder worldrenderer = tessellator.getBuffer();
-    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-    mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-    putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite, upsideDown);
-
-    tessellator.draw();
+  /**
+   * Draws the container names
+   * @param matrices    Matrix context
+   * @param screen    Screen name
+   * @param font      Screen font
+   * @param invName   Name of the player inventory
+   * @deprecated  Switch to the vanilla method
+   */
+  @Deprecated
+  public static void drawContainerNames(PoseStack matrices, AbstractContainerScreen<?> screen, Font font, Component invName) {
+    String name = screen.getTitle().getString();
+    font.draw(matrices, name, (screen.imageWidth / 2f - font.width(name) / 2f), 6.0F, 0x404040);
+    font.draw(matrices, invName, 8.0F, (screen.imageHeight - 96 + 2), 0x404040);
   }
 
-  public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
-    TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
-    RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTexture(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
+  /**
+   * Checks if the given area is hovered
+   * @param mouseX    Mouse X position
+   * @param mouseY    Mouse Y position
+   * @param x         Tank X position
+   * @param y         Tank Y position
+   * @param width     Tank width
+   * @param height    Tank height
+   * @return  True if the area is hovered
+   */
+  public static boolean isHovered(int mouseX, int mouseY, int x, int y, int width, int height) {
+    return mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
   }
 
-  /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
-  public static void putTiledTextureQuads(BufferBuilder renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
-    float u1 = sprite.getMinU();
-    float v1 = sprite.getMinV();
+  /**
+   * Checks if the given tank area is hovered
+   * @param mouseX    Mouse X position
+   * @param mouseY    Mouse Y position
+   * @param amount    Current tank amount
+   * @param capacity  Tank capacity
+   * @param x         Tank X position
+   * @param y         Tank Y position
+   * @param width     Tank width
+   * @param height    Tank height
+   * @return  True if the tank is hovered, false otherwise
+   */
+  public static boolean isTankHovered(int mouseX, int mouseY, int amount, int capacity, int x, int y, int width, int height) {
+    // check X position first, its easier
+    if (mouseX < x || mouseX > x + width || mouseY > y + height) {
+      return false;
+    }
+    // next, try height
+    int topHeight = height - (height * amount / capacity);
+    return mouseY > y + topHeight;
+  }
+
+  /**
+   * Renders a fluid tank with a partial fluid level
+   * @param screen    Parent screen
+   * @param stack     Fluid stack
+   * @param capacity  Tank capacity, determines height
+   * @param x         Tank X position
+   * @param y         Tank Y position
+   * @param width     Tank width
+   * @param height    Tank height
+   * @param depth     Tank depth
+   */
+  public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
+    renderFluidTank(matrices, screen, stack, stack.getAmount(), capacity, x, y, width, height, depth);
+  }
+
+  /**
+   * Renders a fluid tank with a partial fluid level and an amount override
+   * @param screen    Parent screen
+   * @param stack     Fluid stack
+   * @param capacity  Tank capacity, determines height
+   * @param x         Tank X position
+   * @param y         Tank Y position
+   * @param width     Tank width
+   * @param height    Tank height
+   * @param depth     Tank depth
+   */
+  public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
+    if(!stack.isEmpty()) {
+      int maxY = y + height;
+      int fluidHeight = Math.min(height * amount / capacity, height);
+      renderTiledFluid(matrices, screen, stack, x, maxY - fluidHeight, width, fluidHeight, depth);
+    }
+  }
+
+  /**
+   * Colors and renders a fluid sprite
+   * @param matrices    Matrix instance
+   * @param screen  Parent screen
+   * @param stack   Fluid stack
+   * @param x       Fluid X
+   * @param y       Fluid Y
+   * @param width   Fluid width
+   * @param height  Fluid height
+   * @param depth   Fluid depth
+   */
+  public static void renderTiledFluid(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
+    if (!stack.isEmpty()) {
+      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
+      RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
+      renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
+      RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+  }
+
+  /**
+   * Renders a texture atlas sprite tiled over the given area
+   * @param matrices    Matrix instance
+   * @param screen      Parent screen
+   * @param sprite      Sprite to render
+   * @param x           X position to render
+   * @param y           Y position to render
+   * @param width       Render width
+   * @param height      Render height
+   * @param depth       Render depth
+   * @param upsideDown  If true, flips the sprite
+   */
+  public static void renderTiledTextureAtlas(PoseStack matrices, AbstractContainerScreen<?> screen, TextureAtlasSprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
+    // start drawing sprites
+    RenderUtils.bindTexture(sprite.atlas().location());
+    BufferBuilder builder = Tesselator.getInstance().getBuilder();
+    builder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
     // tile vertically
+    float u1 = sprite.getU0();
+    float v1 = sprite.getV0();
+    int spriteHeight = sprite.getHeight();
+    int spriteWidth = sprite.getWidth();
+    int startX = x + screen.leftPos;
+    int startY = y + screen.topPos;
     do {
-      int renderHeight = Math.min(sprite.getIconHeight(), height);
+      int renderHeight = Math.min(spriteHeight, height);
       height -= renderHeight;
-
-      float v2 = sprite.getInterpolatedV((16f * renderHeight) / (float) sprite.getIconHeight());
+      float v2 = sprite.getV((16f * renderHeight) / spriteHeight);
 
       // we need to draw the quads per width too
-      int x2 = x;
-      int width2 = width;
+      int x2 = startX;
+      int widthLeft = width;
+      Matrix4f matrix = matrices.last().pose();
       // tile horizontally
       do {
-        int renderWidth = Math.min(sprite.getIconWidth(), width2);
-        width2 -= renderWidth;
+        int renderWidth = Math.min(spriteWidth, widthLeft);
+        widthLeft -= renderWidth;
 
-        float u2 = sprite.getInterpolatedU((16f * renderWidth) / (float) sprite.getIconWidth());
-
+        float u2 = sprite.getU((16f * renderWidth) / spriteWidth);
         if(upsideDown) {
-          renderer.pos(x2, y, depth).tex(u2, v1).endVertex();
-          renderer.pos(x2, y + renderHeight, depth).tex(u2, v2).endVertex();
-          renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u1, v2).endVertex();
-          renderer.pos(x2 + renderWidth, y, depth).tex(u1, v1).endVertex();
+          // FIXME: I think this causes tiling errors, look into it
+          buildSquare(matrix, builder, x2, x2 + renderWidth, startY, startY + renderHeight, depth, u1, u2, v2, v1);
         } else {
-          renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
-          renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
-          renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
-          renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
+          buildSquare(matrix, builder, x2, x2 + renderWidth, startY, startY + renderHeight, depth, u1, u2, v1, v2);
         }
-
         x2 += renderWidth;
-      } while(width2 > 0);
+      } while(widthLeft > 0);
 
-      y += renderHeight;
+      startY += renderHeight;
     } while(height > 0);
-  }
 
-  /* GUI Tanks */
-  /** @deprecated Will be removed next version */
-  @Deprecated
-  public static List<String> drawTankTooltip(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
-    return getTankTooltip(tank, mouseX, mouseY, xmin, ymin, xmax, ymax);
-  }
-
-  public static List<String> getTankTooltip(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
-
-    // Liquids
-    if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
-      FluidStack hovered = getFluidHovered(tank, ymax - mouseY - 1, ymax - ymin);
-      List<String> text = Lists.newArrayList();
-
-      Consumer<Integer> stringFn = Util.isShiftKeyDown() ? (i) -> GuiUtil.amountToString(i, text) : (i) -> GuiUtil.amountToIngotString(i, text);
-
-      if(hovered == null) {
-        int usedCap = tank.getFluidAmount();
-        int maxCap = tank.getCapacity();
-        text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.capacity"));
-        stringFn.accept(maxCap);
-        text.add(Util.translateFormatted("gui.smeltery.capacity_available"));
-        stringFn.accept(maxCap - usedCap);
-        text.add(Util.translateFormatted("gui.smeltery.capacity_used"));
-        stringFn.accept(usedCap);
-        if(!Util.isShiftKeyDown()) {
-          text.add("");
-          text.add(Util.translate("tooltip.tank.holdShift"));
-        }
-      }
-      else {
-        text.add(TextFormatting.WHITE + hovered.getLocalizedName());
-        GuiUtil.liquidToString(hovered, text);
-      }
-
-      return text;
-    }
-
-    return null;
-  }
-
-  private static FluidStack getFluidHovered(SmelteryTank tank, int y, int height) {
-    int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity(), height);
-
-    for(int i = 0; i < heights.length; i++) {
-      if(y < heights[i]) {
-        return tank.getFluids().get(i);
-      }
-      y -= heights[i];
-    }
-
-    return null;
-  }
-
-  private static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height) {
-    return SmelteryRenderer.calcLiquidHeights(liquids, capacity, height, 3);
-  }
-
-  public static void drawGuiTank(SmelteryTank liquids, int x, int y, int w, int height, float zLevel) {
-    // draw liquids
-    if(liquids.getFluidAmount() > 0) {
-      int capacity = Math.max(liquids.getFluidAmount(), liquids.getCapacity());
-      int[] heights = calcLiquidHeights(liquids.getFluids(), capacity, height);
-
-      int bottom = y + w;
-      for(int i = 0; i < heights.length; i++) {
-        int h = heights[i];
-        FluidStack liquid = liquids.getFluids().get(i);
-        renderTiledFluid(x, bottom - h, w, h, zLevel, liquid);
-
-        bottom -= h;
-      }
-    }
-  }
-
-  public static FluidStack getFluidStackAtPosition(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
-    return getFluidStackIndexAtPosition(tank, mouseX, mouseY, xmin, ymin, xmax, ymax).map(tank.getFluids()::get).orElse(null);
-  }
-
-  public static void handleTankClick(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
-    getFluidStackIndexAtPosition(tank, mouseX, mouseY, xmin, ymin, xmax, ymax).ifPresent(
-        i -> TinkerNetwork.sendToServer(new SmelteryFluidClicked(i))
-    );
-  }
-
-  public static Optional<Integer> getFluidStackIndexAtPosition(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
-    if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
-      int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity(), ymax - ymin);
-      int y = ymax - mouseY - 1;
-
-      for(int i = 0; i < heights.length; i++) {
-        if(y < heights[i]) {
-          return Optional.of(i);
-        }
-        y -= heights[i];
-      }
-    }
-
-    return Optional.empty();
-  }
-
-  /* Fluid amount displays */
-  private static Map<Fluid, List<FluidGuiEntry>> fluidGui = Maps.newHashMap();
-  private static boolean smelteryLoaded = TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId);
-
-  /**
-   * Adds information for the tooltip based on the fluid stacks size.
-   *
-   * @param fluid Input fluid stack
-   * @param text  Text to add information to.
-   */
-  public static void liquidToString(FluidStack fluid, List<String> text) {
-    int amount = fluid.amount;
-
-    if(smelteryLoaded && !Util.isShiftKeyDown()) {
-      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
-      if(entries == null) {
-        entries = calcFluidGuiEntries(fluid.getFluid());
-        fluidGui.put(fluid.getFluid(), entries);
-      }
-
-      for(FluidGuiEntry entry : entries) {
-        amount = calcLiquidText(amount, entry.amount, entry.getText(), text);
-      }
-    }
-
-    // standard display stuff: bucket amounts
-    amountToString(amount, text);
+    // finish drawing sprites
+    builder.end();
+    // RenderSystem.enableAlphaTest();
+    RenderSystem.enableDepthTest(); // TODO: correct
+    BufferUploader.end(builder);
   }
 
   /**
-   * Function called to show fluid tooltips in JEI. Placed in GuiUtils since it is not specific to any one handler
-   * it is easier to have access to GuiUtil internals
-   *
-   * @param slotIndex  Fluid slot index in JEI
-   * @param input      If true, this is an input, if false an output
-   * @param fluid      Input fluid stack
-   * @param text       Text to add information to.
+   * Adds a square of texture to a buffer builder
+   * @param builder  Builder instance
+   * @param x1       X start
+   * @param x2       X end
+   * @param y1       Y start
+   * @param y2       Y end
+   * @param z        Depth
+   * @param u1       Texture U start
+   * @param u2       Texture U end
+   * @param v1       Texture V start
+   * @param v2       Texture V end
    */
-  public static void onFluidTooltip(int slotIndex, boolean input, FluidStack fluid, List<String> text) {
-    // first, store the original name and mod name from JEI
-    String ingredientName = text.get(0);
-    String modName = text.get(text.size() - 1);
-    text.clear();
-    text.add(ingredientName);
-
-    // next, determine smeltery amounts to show
-    int amount = fluid.amount;
-    int originalAmount = amount;
-    if(smelteryLoaded && !Util.isShiftKeyDown()) {
-      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
-      if(entries == null) {
-        entries = calcFluidGuiEntries(fluid.getFluid());
-        fluidGui.put(fluid.getFluid(), entries);
-      }
-
-      for(FluidGuiEntry entry : entries) {
-        amount = calcLiquidText(amount, entry.amount, entry.getText(), text);
-      }
-    }
-
-    // finally, show standard mb amounts
-    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
-
-    // if not just mb, state to hold shift to show buckets
-    if(!Util.isShiftKeyDown() && amount != originalAmount) {
-      text.add(Util.translate("tooltip.tank.holdShift"));
-    }
-
-    // add mod name back
-    text.add(modName);
-  }
-
-  public static void amountToIngotString(int amount, List<String> text) {
-    amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.ingot"), text);
-    amountToString(amount, text);
+  private static void buildSquare(Matrix4f matrix, BufferBuilder builder, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
+    builder.vertex(matrix, x1, y2, z).uv(u1, v2).endVertex();
+    builder.vertex(matrix, x2, y2, z).uv(u2, v2).endVertex();
+    builder.vertex(matrix, x2, y1, z).uv(u2, v1).endVertex();
+    builder.vertex(matrix, x1, y1, z).uv(u1, v1).endVertex();
   }
 
   /**
-   * Adds information to the tooltip based on the fluid amount
-   * @param amount Fluid amount
-   * @param text   Text to add information to.
+   * Draws an upwards progress bar
+   * @param element   Element to draw
+   * @param x         X position to start
+   * @param y         Y position to start
+   * @param progress  Progress between 0 and 1
    */
-  public static void amountToString(int amount, List<String> text) {
-    amount = calcLiquidText(amount, 1000000, Util.translate("gui.smeltery.liquid.kilobucket"), text);
-    amount = calcLiquidText(amount, 1000, Util.translate("gui.smeltery.liquid.bucket"), text);
-    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
+  public static void drawProgressUp(PoseStack matrices, ElementScreen element, int x, int y, float progress) {
+    int height;
+    if (progress > 1) {
+      height = element.h;
+    } else if (progress < 0) {
+      height = 0;
+    } else {
+      // add an extra 0.5 so it rounds instead of flooring
+      height = (int)(progress * element.h + 0.5);
+    }
+    // amount to offset element by for the height
+    int deltaY = element.h - height;
+    Screen.blit(matrices, x, y + deltaY, element.x, element.y + deltaY, element.w, height, element.texW, element.texH);
   }
 
-  private static List<FluidGuiEntry> calcFluidGuiEntries(Fluid fluid) {
-    List<FluidGuiEntry> list = Lists.newArrayList();
-
-    // go through all casting recipes for the fluids and check for known "units" like blocks, ingots,...
-    for(ICastingRecipe irecipe : TinkerRegistry.getAllBasinCastingRecipes()) {
-      if(irecipe instanceof CastingRecipe) {
-        CastingRecipe recipe = (CastingRecipe) irecipe;
-        // search for a block recipe
-        if(recipe.getFluid().getFluid() == fluid && recipe.cast == null) {
-          // it's a block that is cast solely from the material, using no cast, therefore it's a block made out of the material
-          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.block"));
-        }
-      }
-    }
-    // table casting
-    for(ICastingRecipe irecipe : TinkerRegistry.getAllTableCastingRecipes()) {
-      if(irecipe instanceof CastingRecipe) {
-        CastingRecipe recipe = (CastingRecipe) irecipe;
-        if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
-          // nugget
-          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castNugget)).isPresent()) {
-            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
-          }
-          // ingot
-          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castIngot)).isPresent()) {
-            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
-          }
-          // gem
-          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castGem)).isPresent()) {
-            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
-          }
-        }
-      }
-    }
-
-    // sort by amount descending because the order in which they're accessed is important since it changes the remaining value during processing
-    list.sort((o1, o2) -> o2.amount - o1.amount);
-
-    return ImmutableList.copyOf(list);
-  }
-
-  private static int calcLiquidText(int amount, int divider, String unit, List<String> text) {
-    int full = amount / divider;
-    if(full > 0) {
-      text.add(String.format("%s%d %s", TextFormatting.GRAY, full, unit));
-    }
-
-    return amount % divider;
-  }
-
-  private static class FluidGuiEntry {
-
-    public final int amount;
-    public final String unlocName;
-
-    private FluidGuiEntry(int amount, String unlocName) {
-      this.amount = amount;
-      this.unlocName = unlocName;
-    }
-
-    public String getText() {
-      return Util.translate(unlocName);
-    }
-  }
-
-  /*
-   * VANILLA FIX ANTI-HACK SECTION
-   * Basically vanillafix changes the method content, which causes crashes.
-   * So we renamed the methods since the author is MIA for many months now.
-   * These methods are only here to let vanillafix think their hacks still work, since the game wont start otherwise.
+  /**
+   * Renders a highlight overlay for the given area
+   * @param matrices  Matrix instance
+   * @param x         Element X position
+   * @param y         Element Y position
+   * @param width     Element width
+   * @param height    Element height
    */
-
-  @Deprecated
-  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
-
+  public static void renderHighlight(PoseStack matrices, int x, int y, int width, int height) {
+      RenderSystem.disableDepthTest();
+      RenderSystem.colorMask(true, true, true, false);
+      GuiComponent.fill(matrices, x, y, x + width, y + height, 0x80FFFFFF);
+      RenderSystem.colorMask(true, true, true, true);
+      RenderSystem.enableDepthTest();
   }
 }

@@ -1,892 +1,346 @@
 package slimeknights.tconstruct.smeltery;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.eventbus.Subscribe;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.monster.EntityEvoker;
-import net.minecraft.entity.monster.EntityIllusionIllager;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.monster.EntityVindicator;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.registries.IForgeRegistry;
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.block.EnumBlock;
-import slimeknights.mantle.item.ItemBlockMeta;
-import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.mantle.util.RecipeMatchRegistry;
-import slimeknights.tconstruct.TinkerIntegration;
-import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.smeltery.BucketCastingRecipe;
-import slimeknights.tconstruct.library.smeltery.Cast;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
-import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
-import slimeknights.tconstruct.library.smeltery.PreferenceCastingRecipe;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.TinkerFluids;
-import slimeknights.tconstruct.shared.block.BlockSlime;
-import slimeknights.tconstruct.smeltery.block.BlockCasting;
-import slimeknights.tconstruct.smeltery.block.BlockChannel;
-import slimeknights.tconstruct.smeltery.block.BlockFaucet;
-import slimeknights.tconstruct.smeltery.block.BlockSeared;
-import slimeknights.tconstruct.smeltery.block.BlockSearedFurnaceController;
-import slimeknights.tconstruct.smeltery.block.BlockSearedGlass;
-import slimeknights.tconstruct.smeltery.block.BlockSearedSlab;
-import slimeknights.tconstruct.smeltery.block.BlockSearedSlab2;
-import slimeknights.tconstruct.smeltery.block.BlockSearedStairs;
-import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
-import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
-import slimeknights.tconstruct.smeltery.block.BlockTank;
-import slimeknights.tconstruct.smeltery.block.BlockTinkerTankController;
-import slimeknights.tconstruct.smeltery.item.CastCustom;
-import slimeknights.tconstruct.smeltery.item.ItemChannel;
-import slimeknights.tconstruct.smeltery.item.ItemTank;
-import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
-import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
-import slimeknights.tconstruct.smeltery.tileentity.TileChannel;
-import slimeknights.tconstruct.smeltery.tileentity.TileDrain;
-import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
-import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
-import slimeknights.tconstruct.smeltery.tileentity.TileTank;
-import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
-import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
+import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.mantle.registration.object.WallBuildingBlockObject;
+import slimeknights.mantle.util.SupplierCreativeTab;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.library.recipe.melting.DamageableMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.OreMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.OreMeltingRecipe.Serializer;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
+import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
+import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
+import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
+import slimeknights.tconstruct.smeltery.block.ChannelBlock;
+import slimeknights.tconstruct.smeltery.block.FaucetBlock;
+import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
+import slimeknights.tconstruct.smeltery.block.component.OrientableSmelteryBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedDrainBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedDuctBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedGlassBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedLadderBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedPillarBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.controller.AlloyerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.FoundryControllerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.HeaterBlock;
+import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
+import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
+import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.ChuteBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryBlockEntity;
+import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
+import slimeknights.tconstruct.smeltery.item.CopperCanItem;
+import slimeknights.tconstruct.smeltery.item.TankItem;
+import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
+import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
+import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
+import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
 
-@Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
-public class TinkerSmeltery extends TinkerPulse {
+/**
+ * Contains logic for the multiblocks in the mod
+ */
+@SuppressWarnings("unused")
+public final class TinkerSmeltery extends TinkerModule {
+  /** Tab for all blocks related to the smeltery */
+  public static final CreativeModeTab TAB_SMELTERY = new SupplierCreativeTab(TConstruct.MOD_ID, "smeltery", () -> new ItemStack(TinkerSmeltery.smelteryController));
+  public static final Logger log = Util.getLogger("tinker_smeltery");
 
-  public static final String PulseId = "TinkerSmeltery";
-  public static final Logger log = Util.getLogger(PulseId);
+  /* Bricks */
+  /* Crafting related items */
 
-  @SidedProxy(clientSide = "slimeknights.tconstruct.smeltery.SmelteryClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
-  public static CommonProxy proxy;
+  /*
+   * Block base properties
+   */
+  private static final Item.Properties SMELTERY_PROPS = new Item.Properties().tab(TAB_SMELTERY);
+  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, SMELTERY_PROPS);
 
-  // Blocks
-  public static BlockSeared searedBlock;
-  public static BlockSmelteryController smelteryController;
-  public static BlockTank searedTank;
-  public static BlockFaucet faucet;
-  public static BlockChannel channel;
-  public static BlockCasting castingBlock;
-  public static BlockSmelteryIO smelteryIO;
-  public static BlockSearedGlass searedGlass;
+  /*
+   * Blocks
+   */
+  public static final ItemObject<Block> grout = BLOCKS.register("grout", builder(Material.SAND, MaterialColor.COLOR_LIGHT_GRAY, SoundType.SAND).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> netherGrout = BLOCKS.register("nether_grout", builder(Material.SAND, SoundType.SOUL_SOIL).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
 
-  public static Block searedFurnaceController;
-  public static Block tinkerTankController;
+  // seared blocks
+  private static final Properties SEARED, TOUGH_SEARED, SEARED_GLASS, SEARED_NON_SOLID, SEARED_LANTERN;
+  static {
+    // solid
+    IntFunction<Properties> solidProps = factor ->
+      builder(Material.STONE, MaterialColor.COLOR_GRAY, SoundType.METAL).requiresCorrectToolForDrops().strength(3.0F * factor, 9.0F * factor)
+                                                                                   .isValidSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.getValue(SearedBlock.IN_STRUCTURE));
+    SEARED = solidProps.apply(1);
+    TOUGH_SEARED = solidProps.apply(2);
+    // non-solid
+    Function<SoundType,Properties> nonSolidProps = sound -> builder(Material.STONE, MaterialColor.COLOR_GRAY, sound)
+      .requiresCorrectToolForDrops().strength(3.0F, 9.0F).noOcclusion()
+      .isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
+    SEARED_GLASS = nonSolidProps.apply(SoundType.GLASS);
+    SEARED_NON_SOLID = nonSolidProps.apply(SoundType.METAL);
+    SEARED_LANTERN = nonSolidProps.apply(SoundType.LANTERN);
+  }
+  // blocks
+  public static final BuildingBlockObject searedStone, searedPaver;
+  public static final WallBuildingBlockObject searedCobble, searedBricks;
+  public static final ItemObject<Block> searedCrackedBricks, searedFancyBricks, searedTriangleBricks;
+  static {
+    Supplier<SearedBlock> searedBlock = () -> new SearedBlock(SEARED);
+    searedStone = BLOCKS.registerBuilding("seared_stone", searedBlock, TOOLTIP_BLOCK_ITEM);
+    searedCobble = BLOCKS.registerWallBuilding("seared_cobble", searedBlock, TOOLTIP_BLOCK_ITEM);
+    searedPaver = BLOCKS.registerBuilding("seared_paver", searedBlock, TOOLTIP_BLOCK_ITEM);
+    searedBricks = BLOCKS.registerWallBuilding("seared_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
+    searedCrackedBricks = BLOCKS.register("seared_cracked_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
+    searedFancyBricks = BLOCKS.register("seared_fancy_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
+    searedTriangleBricks = BLOCKS.register("seared_triangle_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
+  }
+  public static final ItemObject<SearedLadderBlock> searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
+  // peripherals
+  public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(TOUGH_SEARED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(TOUGH_SEARED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(TOUGH_SEARED, ChuteBlockEntity::new), TOOLTIP_BLOCK_ITEM);
 
-  public static BlockSearedSlab searedSlab;
-  public static BlockSearedSlab2 searedSlab2;
+  // scorched blocks
+  private static final Properties SCORCHED, TOUGH_SCORCHED, SCORCHED_GLASS, SCORCHED_NON_SOLID, SCORCHED_LANTERN;
+  static {
+    IntFunction<Properties> solidProps = factor -> builder(Material.STONE, MaterialColor.TERRACOTTA_BROWN, SoundType.BASALT)
+      .requiresCorrectToolForDrops().strength(2.5F * factor, 8.0F * factor).isValidSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.getValue(SearedBlock.IN_STRUCTURE));
+    SCORCHED = solidProps.apply(1);
+    TOUGH_SCORCHED = solidProps.apply(3);
+    Function<SoundType,Properties> nonSolidProps = sound -> builder(Material.STONE, MaterialColor.TERRACOTTA_BROWN, sound)
+      .requiresCorrectToolForDrops().strength(2.5F, 8.0F).noOcclusion()
+      .isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
+    SCORCHED_GLASS = nonSolidProps.apply(SoundType.GLASS);
+    SCORCHED_NON_SOLID = nonSolidProps.apply(SoundType.BASALT);
+    SCORCHED_LANTERN = nonSolidProps.apply(SoundType.LANTERN);
+  }
 
-  // stairs
-  public static Block searedStairsStone;
-  public static Block searedStairsCobble;
-  public static Block searedStairsPaver;
-  public static Block searedStairsBrick;
-  public static Block searedStairsBrickCracked;
-  public static Block searedStairsBrickFancy;
-  public static Block searedStairsBrickSquare;
-  public static Block searedStairsBrickTriangle;
-  public static Block searedStairsBrickSmall;
-  public static Block searedStairsRoad;
-  public static Block searedStairsTile;
-  public static Block searedStairsCreeper;
+  // blocks
+  public static final ItemObject<Block> scorchedStone, polishedScorchedStone, chiseledScorchedBricks;
+  public static final FenceBuildingBlockObject scorchedBricks;
+  public static final BuildingBlockObject scorchedRoad;
+  static {
+    Supplier<SearedPillarBlock> pillar = () -> new SearedPillarBlock(SCORCHED);
+    scorchedStone = BLOCKS.register("scorched_stone", pillar, TOOLTIP_BLOCK_ITEM);
+    polishedScorchedStone = BLOCKS.register("polished_scorched_stone", pillar, TOOLTIP_BLOCK_ITEM);
+    Supplier<SearedBlock> block = () -> new SearedBlock(SCORCHED);
+    scorchedBricks = BLOCKS.registerFenceBuilding("scorched_bricks", block, TOOLTIP_BLOCK_ITEM);
+    scorchedRoad = BLOCKS.registerBuilding("scorched_road", block, TOOLTIP_BLOCK_ITEM);
+    chiseledScorchedBricks = BLOCKS.register("chiseled_scorched_bricks", block, TOOLTIP_BLOCK_ITEM);
+  }
+  public static final ItemObject<SearedLadderBlock> scorchedLadder = BLOCKS.register("scorched_ladder", () -> new SearedLadderBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedGlassBlock> scorchedGlass = BLOCKS.register("scorched_glass", () -> new SearedGlassBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
+  // peripherals
+  public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(TOUGH_SCORCHED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedDuct = BLOCKS.register("scorched_duct", () -> new SearedDuctBlock(TOUGH_SCORCHED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedChute = BLOCKS.register("scorched_chute", () -> new OrientableSmelteryBlock(TOUGH_SCORCHED, ChuteBlockEntity::new), TOOLTIP_BLOCK_ITEM);
 
-  // Items
-  public static Cast cast;
-  public static CastCustom castCustom;
-  public static Cast clayCast;
+  // seared
+  public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SEARED_NON_SOLID, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS, true));
+  public static final ItemObject<SearedLanternBlock> searedLantern = BLOCKS.register("seared_lantern", () -> new SearedLanternBlock(SEARED_LANTERN, FluidValues.LANTERN_CAPACITY), b -> new TankItem(b, SMELTERY_PROPS, false));
+  public static final ItemObject<FaucetBlock> searedFaucet = BLOCKS.register("seared_faucet", () -> new FaucetBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ChannelBlock> searedChannel = BLOCKS.register("seared_channel", () -> new ChannelBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingBasinBlock> searedBasin = BLOCKS.register("seared_basin", () -> new CastingBasinBlock(SEARED_NON_SOLID, false), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingTableBlock> searedTable = BLOCKS.register("seared_table", () -> new CastingTableBlock(SEARED_NON_SOLID, false), TOOLTIP_BLOCK_ITEM);
+  // scorched
+  public static final EnumObject<TankType,SearedTankBlock> scorchedTank = BLOCKS.registerEnum("scorched", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SCORCHED_NON_SOLID, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS, true));
+  public static final ItemObject<SearedLanternBlock> scorchedLantern = BLOCKS.register("scorched_lantern", () -> new SearedLanternBlock(SCORCHED_LANTERN, FluidValues.LANTERN_CAPACITY), b -> new TankItem(b, SMELTERY_PROPS, false));
+  public static final ItemObject<FaucetBlock> scorchedFaucet = BLOCKS.register("scorched_faucet", () -> new FaucetBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ChannelBlock> scorchedChannel = BLOCKS.register("scorched_channel", () -> new ChannelBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingBasinBlock> scorchedBasin = BLOCKS.register("scorched_basin", () -> new CastingBasinBlock(SCORCHED_NON_SOLID, true), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingTableBlock> scorchedTable = BLOCKS.register("scorched_table", () -> new CastingTableBlock(SCORCHED_NON_SOLID, true), TOOLTIP_BLOCK_ITEM);
 
-  // itemstacks!
-  public static ItemStack castIngot;
-  public static ItemStack castNugget;
-  public static ItemStack castGem;
-  public static ItemStack castShard;
-  public static ItemStack castPlate;
-  public static ItemStack castGear;
+  // controllers
+  public static final ItemObject<SmelteryControllerBlock> smelteryController;
+  public static final ItemObject<FoundryControllerBlock> foundryController;
+  // tiny
+  public static final ItemObject<MelterBlock> searedMelter;
+  public static final ItemObject<HeaterBlock> searedHeater;
+  public static final ItemObject<AlloyerBlock> scorchedAlloyer;
+  static {
+    Supplier<Properties> seared = () -> builder(Material.STONE, MaterialColor.COLOR_GRAY, SoundType.METAL).requiresCorrectToolForDrops().strength(8.0F, 28F).lightLevel(s -> s.getValue(ControllerBlock.ACTIVE) ? 13 : 0);
+    Supplier<Properties> scorched = () -> builder(Material.STONE, MaterialColor.TERRACOTTA_BROWN, SoundType.BASALT).requiresCorrectToolForDrops().strength(9.0F, 35f).lightLevel(s -> s.getValue(ControllerBlock.ACTIVE) ? 13 : 0);
+    smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(seared.get()), TOOLTIP_BLOCK_ITEM);
+    foundryController = BLOCKS.register("foundry_controller", () -> new FoundryControllerBlock(scorched.get()), TOOLTIP_BLOCK_ITEM);
+    // tiny
+    searedMelter = BLOCKS.register("seared_melter", () -> new MelterBlock(seared.get().noOcclusion()), TOOLTIP_BLOCK_ITEM);
+    searedHeater = BLOCKS.register("seared_heater", () -> new HeaterBlock(seared.get()), TOOLTIP_BLOCK_ITEM);
+    scorchedAlloyer = BLOCKS.register("scorched_alloyer", () -> new AlloyerBlock(scorched.get().noOcclusion()), TOOLTIP_BLOCK_ITEM);
+  }
 
-  private static Map<Fluid, Set<Pair<String, Integer>>> knownOreFluids = Maps.newHashMap();
-  public static List<FluidStack> castCreationFluids = Lists.newLinkedList();
-  public static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
+  /*
+   * Tile entities
+   */
+  // smeltery
+  public static final RegistryObject<BlockEntityType<SmelteryComponentBlockEntity>> smelteryComponent = BLOCK_ENTITIES.register("smeltery_component", SmelteryComponentBlockEntity::new, set -> {
+    // seared
+    set.addAll(searedStone.values());
+    set.addAll(searedCobble.values());
+    set.addAll(searedBricks.values());
+    set.addAll(searedPaver.values());
+    set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedLadder.get(), searedGlass.get());
+    // scorched
+    set.add(scorchedStone.get(), polishedScorchedStone.get(), chiseledScorchedBricks.get(), scorchedLadder.get());
+    set.addAll(scorchedBricks.values());
+    set.addAll(scorchedRoad.values());
+  });
+  public static final RegistryObject<BlockEntityType<SmelteryFluidIO>> drain = BLOCK_ENTITIES.register("drain", DrainBlockEntity::new, set -> set.add(searedDrain.get(), scorchedDrain.get()));
+  public static final RegistryObject<BlockEntityType<ChuteBlockEntity>> chute = BLOCK_ENTITIES.register("chute", ChuteBlockEntity::new, set -> set.add(searedChute.get(), scorchedChute.get()));
+  public static final RegistryObject<BlockEntityType<DuctBlockEntity>> duct = BLOCK_ENTITIES.register("duct", DuctBlockEntity::new, set -> set.add(searedDuct.get(), scorchedDuct.get()));
+  public static final RegistryObject<BlockEntityType<TankBlockEntity>> tank = BLOCK_ENTITIES.register("tank", TankBlockEntity::new, set -> {
+    set.addAll(searedTank.values());
+    set.addAll(scorchedTank.values());
+  });
+  public static final RegistryObject<BlockEntityType<LanternBlockEntity>> lantern = BLOCK_ENTITIES.register("lantern", LanternBlockEntity::new, set -> set.add(searedLantern.get(), scorchedLantern.get()));
+  // controller
+  public static final RegistryObject<BlockEntityType<MelterBlockEntity>> melter = BLOCK_ENTITIES.register("melter", MelterBlockEntity::new, searedMelter);
+  public static final RegistryObject<BlockEntityType<SmelteryBlockEntity>> smeltery = BLOCK_ENTITIES.register("smeltery", SmelteryBlockEntity::new, smelteryController);
+  public static final RegistryObject<BlockEntityType<FoundryBlockEntity>> foundry = BLOCK_ENTITIES.register("foundry", FoundryBlockEntity::new, foundryController);
+  public static final RegistryObject<BlockEntityType<HeaterBlockEntity>> heater = BLOCK_ENTITIES.register("heater", HeaterBlockEntity::new, searedHeater);
+  public static final RegistryObject<BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
+  // fluid transfer
+  public static final RegistryObject<BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
+  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
+  // casting
+  public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
+  public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
 
-  public static ImmutableSet<Block> validSmelteryBlocks;
-  public static ImmutableSet<Block> searedStairsSlabs;
-  public static ImmutableSet<Block> validTinkerTankBlocks;
-  public static ImmutableSet<Block> validTinkerTankFloorBlocks;
-  public static List<ItemStack> meltingBlacklist = Lists.newLinkedList();
+  /*
+   * Items
+   */
+  public static final ItemObject<Item> searedBrick = ITEMS.register("seared_brick", SMELTERY_PROPS);
+  public static final ItemObject<Item> scorchedBrick = ITEMS.register("scorched_brick", SMELTERY_PROPS);
+  public static final ItemObject<Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().stacksTo(16).tab(TAB_SMELTERY)));
+
+  // casts
+  // basic
+  public static final ItemObject<Item> blankSandCast  = ITEMS.register("blank_sand_cast",  SMELTERY_PROPS);
+  public static final ItemObject<Item> blankRedSandCast  = ITEMS.register("blank_red_sand_cast",  SMELTERY_PROPS);
+  public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot",  SMELTERY_PROPS);
+  public static final CastItemObject nuggetCast = ITEMS.registerCast("nugget", SMELTERY_PROPS);
+  public static final CastItemObject gemCast    = ITEMS.registerCast("gem",    SMELTERY_PROPS);
+  public static final CastItemObject rodCast    = ITEMS.registerCast("rod",   SMELTERY_PROPS);
+  public static final CastItemObject repairKitCast = ITEMS.registerCast("repair_kit", SMELTERY_PROPS);
+  // compatability
+  public static final CastItemObject plateCast  = ITEMS.registerCast("plate", SMELTERY_PROPS);
+  public static final CastItemObject gearCast   = ITEMS.registerCast("gear",  SMELTERY_PROPS);
+  public static final CastItemObject coinCast   = ITEMS.registerCast("coin",  SMELTERY_PROPS);
+  public static final CastItemObject wireCast   = ITEMS.registerCast("wire",  SMELTERY_PROPS);
+  // small tool heads
+  public static final CastItemObject pickaxeHeadCast  = ITEMS.registerCast("pickaxe_head", SMELTERY_PROPS);
+  public static final CastItemObject smallAxeHeadCast = ITEMS.registerCast("small_axe_head", SMELTERY_PROPS);
+  public static final CastItemObject smallBladeCast = ITEMS.registerCast("small_blade", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> signHeadCast = ITEMS.register("sign_head_cast", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> bowLimbCast = ITEMS.register("bow_limb_cast", SMELTERY_PROPS);
+  // large tool heads
+  public static final CastItemObject hammerHeadCast   = ITEMS.registerCast("hammer_head", SMELTERY_PROPS);
+  public static final CastItemObject broadBladeCast   = ITEMS.registerCast("broad_blade", SMELTERY_PROPS);
+  public static final CastItemObject broadAxeHeadCast = ITEMS.registerCast("broad_axe_head", SMELTERY_PROPS);
+  // bindings
+  public static final CastItemObject toolBindingCast = ITEMS.registerCast("tool_binding", SMELTERY_PROPS);
+  public static final CastItemObject roundPlateCast  = ITEMS.registerCast("round_plate", SMELTERY_PROPS);
+  public static final CastItemObject largePlateCast  = ITEMS.registerCast("large_plate", SMELTERY_PROPS);
+  // tool rods
+  public static final CastItemObject toolHandleCast  = ITEMS.registerCast("tool_handle", SMELTERY_PROPS);
+  public static final CastItemObject toughHandleCast = ITEMS.registerCast("tough_handle", SMELTERY_PROPS);
+
+  /*
+   * Recipe
+   */
+  // casting
+  public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
+  public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
+  public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
+  public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  // material casting
+  public static final RegistryObject<MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
+  public static final RegistryObject<MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));
+  public static final RegistryObject<CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Basin>> basinCompositeSerializer = RECIPE_SERIALIZERS.register("basin_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Basin::new));
+  public static final RegistryObject<CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Table>> tableCompositeSerializer = RECIPE_SERIALIZERS.register("table_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Table::new));
+  public static final RegistryObject<MaterialFluidRecipe.Serializer> materialFluidRecipe = RECIPE_SERIALIZERS.register("material_fluid", MaterialFluidRecipe.Serializer::new);
+  // molding
+  public static final RegistryObject<MoldingRecipe.Serializer<MoldingRecipe.Table>> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Table::new));
+  public static final RegistryObject<MoldingRecipe.Serializer<MoldingRecipe.Basin>> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Basin::new));
+  // melting
+  public static final RegistryObject<RecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
+  public static final RegistryObject<RecipeSerializer<OreMeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", Serializer::new);
+  public static final RegistryObject<RecipeSerializer<MeltingRecipe>> damagableMeltingSerializer = RECIPE_SERIALIZERS.register("damagable_melting", () -> new MeltingRecipe.Serializer<>(DamageableMeltingRecipe::new));
+  public static final RegistryObject<RecipeSerializer<MaterialMeltingRecipe>> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", MaterialMeltingRecipe.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<MeltingFuel>> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", MeltingFuel.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<EntityMeltingRecipe>> entityMeltingSerializer = RECIPE_SERIALIZERS.register("entity_melting", EntityMeltingRecipe.Serializer::new);
+  // alloying
+  public static final RegistryObject<RecipeSerializer<AlloyRecipe>> alloyingSerializer = RECIPE_SERIALIZERS.register("alloy", AlloyRecipe.Serializer::new);
+
+  /*
+   * Inventory
+   */
+  public static final RegistryObject<MenuType<MelterContainerMenu>> melterContainer = CONTAINERS.register("melter", MelterContainerMenu::new);
+  public static final RegistryObject<MenuType<HeatingStructureContainerMenu>> smelteryContainer = CONTAINERS.register("smeltery", HeatingStructureContainerMenu::new);
+  public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainerMenu::new);
+  public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = CONTAINERS.register("alloyer", AlloyerContainerMenu::new);
 
   @SubscribeEvent
-  public void registerBlocks(Register<Block> event) {
-    IForgeRegistry<Block> registry = event.getRegistry();
-
-    searedBlock = registerBlock(registry, new BlockSeared(), "seared");
-    smelteryController = registerBlock(registry, new BlockSmelteryController(), "smeltery_controller");
-    searedTank = registerBlock(registry, new BlockTank(), "seared_tank");
-    faucet = registerBlock(registry, new BlockFaucet(), "faucet");
-    channel = registerBlock(registry, new BlockChannel(), "channel");
-    castingBlock = registerBlock(registry, new BlockCasting(), "casting");
-    smelteryIO = registerBlock(registry, new BlockSmelteryIO(), "smeltery_io");
-    searedGlass = registerBlock(registry, new BlockSearedGlass(), "seared_glass");
-
-    searedFurnaceController = registerBlock(registry, new BlockSearedFurnaceController(), "seared_furnace_controller");
-    tinkerTankController = registerBlock(registry, new BlockTinkerTankController(), "tinker_tank_controller");
-
-    // slabs
-    searedSlab = registerBlock(registry, new BlockSearedSlab(), "seared_slab");
-    searedSlab2 = registerBlock(registry, new BlockSearedSlab2(), "seared_slab2");
-
-    // stairs
-    searedStairsStone = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.STONE, "seared_stairs_stone");
-    searedStairsCobble = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.COBBLE, "seared_stairs_cobble");
-    searedStairsPaver = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.PAVER, "seared_stairs_paver");
-    searedStairsBrick = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.BRICK, "seared_stairs_brick");
-    searedStairsBrickCracked = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.BRICK_CRACKED, "seared_stairs_brick_cracked");
-    searedStairsBrickFancy = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.BRICK_FANCY, "seared_stairs_brick_fancy");
-    searedStairsBrickSquare = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.BRICK_SQUARE, "seared_stairs_brick_square");
-    searedStairsBrickTriangle = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.BRICK_TRIANGLE, "seared_stairs_brick_triangle");
-    searedStairsBrickSmall = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.BRICK_SMALL, "seared_stairs_brick_small");
-    searedStairsRoad = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.ROAD, "seared_stairs_road");
-    searedStairsTile = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.TILE, "seared_stairs_tile");
-    searedStairsCreeper = registerBlockSearedStairsFrom(registry, searedBlock, BlockSeared.SearedType.CREEPER, "seared_stairs_creeper");
-
-    registerTE(TileSmeltery.class, "smeltery_controller");
-    registerTE(TileSmelteryComponent.class, "smeltery_component");
-    registerTE(TileTank.class, "tank");
-    registerTE(TileFaucet.class, "faucet");
-    registerTE(TileChannel.class, "channel");
-    registerTE(TileCastingTable.class, "casting_table");
-    registerTE(TileCastingBasin.class, "casting_basin");
-    registerTE(TileDrain.class, "smeltery_drain");
-    registerTE(TileSearedFurnace.class, "seared_furnace");
-    registerTE(TileTinkerTank.class, "tinker_tank");
-  }
-
-  @SubscribeEvent
-  public void registerItems(Register<Item> event) {
-    IForgeRegistry<Item> registry = event.getRegistry();
-
-    searedBlock = registerEnumItemBlock(registry, searedBlock);
-    smelteryController = registerItemBlock(registry, smelteryController);
-    searedTank = registerItemBlockProp(registry, new ItemTank(searedTank), BlockTank.TYPE);
-    faucet = registerItemBlock(registry, faucet);
-    channel = registerItemBlock(registry, new ItemChannel(channel));
-    castingBlock = registerItemBlockProp(registry, new ItemBlockMeta(castingBlock), BlockCasting.TYPE);
-    smelteryIO = registerEnumItemBlock(registry, smelteryIO);
-    searedGlass = registerEnumItemBlock(registry, searedGlass);
-
-    searedFurnaceController = registerItemBlock(registry, searedFurnaceController);
-    tinkerTankController = registerItemBlock(registry, tinkerTankController);
-
-    // slabs
-    searedSlab = registerEnumItemBlockSlab(registry, searedSlab);
-    searedSlab2 = registerEnumItemBlockSlab(registry, searedSlab2);
-
-    // stairs
-    searedStairsStone = registerItemBlock(registry, searedStairsStone);
-    searedStairsCobble = registerItemBlock(registry, searedStairsCobble);
-    searedStairsPaver = registerItemBlock(registry, searedStairsPaver);
-    searedStairsBrick = registerItemBlock(registry, searedStairsBrick);
-    searedStairsBrickCracked = registerItemBlock(registry, searedStairsBrickCracked);
-    searedStairsBrickFancy = registerItemBlock(registry, searedStairsBrickFancy);
-    searedStairsBrickSquare = registerItemBlock(registry, searedStairsBrickSquare);
-    searedStairsBrickTriangle = registerItemBlock(registry, searedStairsBrickTriangle);
-    searedStairsBrickSmall = registerItemBlock(registry, searedStairsBrickSmall);
-    searedStairsRoad = registerItemBlock(registry, searedStairsRoad);
-    searedStairsTile = registerItemBlock(registry, searedStairsTile);
-    searedStairsCreeper = registerItemBlock(registry, searedStairsCreeper);
-
-    cast = registerItem(registry, new Cast(), "cast");
-    castCustom = registerItem(registry, new CastCustom(), "cast_custom");
-    castIngot = castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
-    castNugget = castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
-    castGem = castCustom.addMeta(2, "gem", Material.VALUE_Gem);
-    castPlate = castCustom.addMeta(3, "plate", Material.VALUE_Ingot);
-    castGear = castCustom.addMeta(4, "gear", Material.VALUE_Ingot * 4);
-
-    clayCast = registerItem(registry, new Cast(), "clay_cast");
-
-    if(TinkerRegistry.getShard() != null) {
-      TinkerRegistry.addCastForItem(TinkerRegistry.getShard());
-      castShard = new ItemStack(cast);
-      Cast.setTagForPart(castShard, TinkerRegistry.getShard());
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new SmelteryRecipeProvider(datagenerator));
     }
-    
-    // smeltery blocks
-    ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
-    builder.add(searedBlock);
-    builder.add(searedTank);
-    builder.add(smelteryIO);
-    builder.add(searedGlass);
-
-    validSmelteryBlocks = builder.build();
-    validTinkerTankBlocks = builder.build(); // same blocks right now
-    validTinkerTankFloorBlocks = ImmutableSet.of(searedBlock, searedGlass, smelteryIO);
-
-    // seared furnace ceiling blocks, no smelteryIO or seared glass
-    // does not affect sides, those are forced to use seared blocks/tanks where relevant
-    builder = ImmutableSet.builder();
-    builder.add(searedBlock);
-
-    builder.add(searedSlab);
-    builder.add(searedSlab2);
-    builder.add(searedStairsStone);
-    builder.add(searedStairsCobble);
-    builder.add(searedStairsPaver);
-    builder.add(searedStairsBrick);
-    builder.add(searedStairsBrickCracked);
-    builder.add(searedStairsBrickFancy);
-    builder.add(searedStairsBrickSquare);
-    builder.add(searedStairsBrickTriangle);
-    builder.add(searedStairsBrickSmall);
-    builder.add(searedStairsRoad);
-    builder.add(searedStairsTile);
-    builder.add(searedStairsCreeper);
-
-    searedStairsSlabs = builder.build();
-  }
-
-  @SubscribeEvent
-  public void registerModels(ModelRegistryEvent event) {
-    proxy.registerModels();
-  }
-
-  // PRE-INITIALIZATION
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
-    proxy.preInit();
-  }
-
-  // INITIALIZATION
-  @Subscribe
-  public void init(FMLInitializationEvent event) {
-    // done here so they're present for integration in MaterialIntegration and fluids in TinkerFluids are also initialized
-    castCreationFluids.add(new FluidStack(TinkerFluids.gold, Material.VALUE_Ingot * 2));
-
-    // always add extra fluids, as we are not sure if they are integrated until the end of postInit and we added recipes using them before integration
-    castCreationFluids.add(new FluidStack(TinkerFluids.brass, Material.VALUE_Ingot));
-    castCreationFluids.add(new FluidStack(TinkerFluids.alubrass, Material.VALUE_Ingot));
-
-    // add clay casts if enabled
-    if(Config.claycasts) {
-      clayCreationFluids.add(new FluidStack(TinkerFluids.clay, Material.VALUE_Ingot * 2));
-    }
-
-    registerSmelting();
-
-    proxy.init();
-  }
-
-  private void registerSmelting() {
-    GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0.4f);
-
-    GameRegistry.addSmelting(new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK.getMeta()), new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_CRACKED.getMeta()), 0.1f);
-  }
-
-  // POST-INITIALIZATION
-  @Subscribe
-  public void postInit(FMLPostInitializationEvent event) {
-    registerSmelteryFuel();
-    registerMeltingCasting();
-
-    // register remaining cast creation
-    for(FluidStack fs : castCreationFluids) {
-      TinkerRegistry.registerTableCasting(new ItemStack(cast), ItemStack.EMPTY, fs.getFluid(), fs.amount);
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castGem, RecipeMatch.of("gemEmerald"), fs, true, true));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrick"), fs, true, true));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrickNether"), fs, true, true));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, new RecipeMatch.Item(TinkerCommons.searedBrick, 1), fs, true, true));
-    }
-
-    proxy.postInit();
-    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
-  }
-
-  private void registerSmelteryFuel() {
-    TinkerRegistry.registerSmelteryFuel(new FluidStack(FluidRegistry.LAVA, 50), 100);
-  }
-
-  private void registerMeltingCasting() {
-    // used in several places to register fluids for the crafting recipe scan
-    ImmutableSet.Builder<Pair<String, Integer>> builder;
-    int bucket = Fluid.BUCKET_VOLUME;
-
-    // bucket casting
-    TinkerRegistry.registerTableCasting(new BucketCastingRecipe(Items.BUCKET));
-
-    // Water
-    Fluid water = FluidRegistry.WATER;
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.ICE, bucket), water, 305));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.PACKED_ICE, bucket * 2), water, 310));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.SNOW, bucket), water, 305));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.SNOWBALL, bucket / 8), water, 301));
-
-    // bloooooood
-    TinkerRegistry.registerMelting(Items.ROTTEN_FLESH, TinkerFluids.blood, 40);
-    if(TinkerCommons.matSlimeBallBlood != null) {
-      TinkerRegistry.registerTableCasting(TinkerCommons.matSlimeBallBlood.copy(), ItemStack.EMPTY, TinkerFluids.blood, 160);
-    }
-
-    // purple slime
-    TinkerRegistry.registerMelting(TinkerCommons.matSlimeBallPurple, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall);
-    ItemStack slimeblock = new ItemStack(TinkerCommons.blockSlimeCongealed, 1, BlockSlime.SlimeType.PURPLE.meta);
-    TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 4);
-    slimeblock = new ItemStack(TinkerCommons.blockSlime, 1, BlockSlime.SlimeType.PURPLE.meta);
-    TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 9);
-
-    // seared stone, takes as long as a full block to melt, but gives less
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("stone", Material.VALUE_SearedMaterial),
-                                                           TinkerFluids.searedStone, Material.VALUE_Ore()));
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("cobblestone", Material.VALUE_SearedMaterial),
-                                                           TinkerFluids.searedStone, Material.VALUE_Ore()));
-
-    // obsidian
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore()),
-                                                           TinkerFluids.obsidian, Material.VALUE_Ore()));
-    // note that obsidian casting gives you 2 ingot value per obsidian, while part crafting only gives 1 per obsidian
-    registerToolpartMeltingCasting(TinkerMaterials.obsidian);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), ItemStack.EMPTY, TinkerFluids.obsidian, Material.VALUE_Ore());
-
-    // gold is integrated via MaterialIntegration in TinkerIntegration now
-
-    // special melting
-    TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot * 4);
-    TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot * 4);
-
-    // rails, some of these are caught through registerOredictMelting, but for consistency all are just registered here
-    TinkerRegistry.registerMelting(Blocks.RAIL, TinkerFluids.iron, Material.VALUE_Ingot * 6 / 16);
-    TinkerRegistry.registerMelting(Blocks.ACTIVATOR_RAIL, TinkerFluids.iron, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(Blocks.DETECTOR_RAIL, TinkerFluids.iron, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(Blocks.GOLDEN_RAIL, TinkerFluids.gold, Material.VALUE_Ingot);
-
-    // register stone toolpart melting
-    for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
-      if(toolPart.canBeCasted()) {
-        if(toolPart instanceof MaterialItem) {
-          ItemStack stack = toolPart.getItemstackWithMaterial(TinkerMaterials.stone);
-          TinkerRegistry.registerMelting(MeltingRecipe.forAmount(
-              RecipeMatch.ofNBT(stack, (toolPart.getCost() * Material.VALUE_SearedMaterial) / Material.VALUE_Ingot),
-              TinkerFluids.searedStone, (int)(toolPart.getCost() * Config.oreToIngotRatio)));
-        }
-      }
-    }
-
-    // seared block casting and melting
-    ItemStack blockSeared = new ItemStack(searedBlock);
-    blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
-    TinkerRegistry.registerTableCasting(TinkerCommons.searedBrick, castIngot, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
-    TinkerRegistry.registerBasinCasting(blockSeared, ItemStack.EMPTY, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
-
-    ItemStack searedCobble = new ItemStack(searedBlock, 1, BlockSeared.SearedType.COBBLE.getMeta());
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(searedCobble, RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, Material.VALUE_SearedBlock - Material.VALUE_SearedMaterial, true, false));
-
-    // seared furnaces have an additional recipe above using a crafting table, to allow creation without a smeltery
-    // this one is convenience for those with one
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(searedFurnaceController),
-                                                          RecipeMatch.of(Blocks.FURNACE),
-                                                          new FluidStack(TinkerFluids.searedStone, Material.VALUE_SearedMaterial * 8),
-                                                          true, true));
-
-    // seared glass convenience recipe
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(searedGlass, 1, BlockSearedGlass.GlassType.GLASS.getMeta()),
-                                                          RecipeMatch.of("blockGlass"),
-                                                          new FluidStack(TinkerFluids.searedStone, Material.VALUE_SearedMaterial * 4),
-                                                          true, true));
-
-    // basically a pseudo-oredict of the seared blocks to support wildcard value
-    TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
-    TinkerRegistry.registerMelting(TinkerCommons.searedBrick, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout, Material.VALUE_SearedMaterial), TinkerFluids.searedStone, Material.VALUE_SearedMaterial / 3));
-
-    // melt all the dirt into mud
-    ItemStack stack = new ItemStack(Blocks.DIRT, 1, OreDictionary.WILDCARD_VALUE);
-    RecipeMatch rm = new RecipeMatch.Item(stack, 1, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(rm, TinkerFluids.dirt, Material.VALUE_BrickBlock));
-    TinkerRegistry.registerTableCasting(TinkerCommons.mudBrick, castIngot, TinkerFluids.dirt, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(TinkerCommons.mudBrick, TinkerFluids.dirt, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(TinkerCommons.mudBrickBlock, TinkerFluids.dirt, Material.VALUE_BrickBlock);
-
-    // hardened clay
-    builder = ImmutableSet.builder();
-    builder.add(Pair.of("clay", Material.VALUE_Ingot));
-    builder.add(Pair.of("blockClay", Material.VALUE_BrickBlock));
-    addKnownOreFluid(TinkerFluids.clay, builder.build());
-
-    // decided against support for melting hardened clay. Once it's hardened, it stays hard. Same for bricks.
-    //TinkerRegistry.registerMelting(Blocks.hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
-    //TinkerRegistry.registerMelting(Blocks.stained_hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.HARDENED_CLAY), ItemStack.EMPTY, TinkerFluids.clay, Material.VALUE_BrickBlock);
-    // funny thing about hardened clay. If it's stained and you wash it with water, it turns back into regular hardened clay!
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(
-                                                          new ItemStack(Blocks.HARDENED_CLAY),
-                                                          RecipeMatch.of(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE)),
-                                                          new FluidStack(FluidRegistry.WATER, 250),
-                                                          150,
-                                                          true,
-                                                          false));
-    // let's allow bricks because we're nice
-    if(Config.castableBricks) {
-      TinkerRegistry.registerTableCasting(new ItemStack(Items.BRICK), castIngot, TinkerFluids.clay, Material.VALUE_Ingot);
-    }
-
-    // emerald melting and casting
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("oreEmerald", (int) (Material.VALUE_Gem * Config.oreToIngotRatio)), TinkerFluids.emerald));
-    builder = ImmutableSet.builder();
-    builder.add(Pair.of("gemEmerald", Material.VALUE_Gem));
-    builder.add(Pair.of("blockEmerald", Material.VALUE_Gem * 9));
-    addKnownOreFluid(TinkerFluids.emerald, builder.build());
-
-    TinkerRegistry.registerTableCasting(new ItemStack(Items.EMERALD), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), ItemStack.EMPTY, TinkerFluids.emerald, Material.VALUE_Gem * 9);
-
-    // glass melting and casting
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("sand", Material.VALUE_Glass), TinkerFluids.glass));
-    builder = ImmutableSet.builder();
-    builder.add(Pair.of("blockGlass", Material.VALUE_Glass));
-    builder.add(Pair.of("paneGlass", Material.VALUE_Glass * 6 / 16));
-    addKnownOreFluid(TinkerFluids.glass, builder.build());
-
-    TinkerRegistry.registerTableCasting(new CastingRecipe(new ItemStack(Blocks.GLASS_PANE), null, TinkerFluids.glass, Material.VALUE_Glass * 6 / 16, 50));
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(TinkerCommons.blockClearGlass), null, TinkerFluids.glass, Material.VALUE_Glass, 120));
-
-    // lavawood
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(TinkerCommons.lavawood, RecipeMatch.of("plankWood"),
-                                                          new FluidStack(FluidRegistry.LAVA, 250),
-                                                          100, true, false));
-
-    // red sand
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(Blocks.SAND, 1, 1),
-                                                          RecipeMatch.of(new ItemStack(Blocks.SAND, 1, 0)),
-                                                          new FluidStack(TinkerFluids.blood, 10),
-                                                          true, false));
-
-    // melt entities into a pulp
-    TinkerRegistry.registerEntityMelting(EntityIronGolem.class, new FluidStack(TinkerFluids.iron, 18));
-    TinkerRegistry.registerEntityMelting(EntitySnowman.class, new FluidStack(FluidRegistry.WATER, 100));
-    TinkerRegistry.registerEntityMelting(EntityVillager.class, new FluidStack(TinkerFluids.emerald, 6));
-    TinkerRegistry.registerEntityMelting(EntityVindicator.class, new FluidStack(TinkerFluids.emerald, 6));
-    TinkerRegistry.registerEntityMelting(EntityEvoker.class, new FluidStack(TinkerFluids.emerald, 6));
-    TinkerRegistry.registerEntityMelting(EntityIllusionIllager.class, new FluidStack(TinkerFluids.emerald, 6));
-  }
-
-  /**
-   * Called by Tinkers Integration to register allows, some are conditional on integrations being loaded
-   */
-  public static void registerAlloys() {
-    if(!isSmelteryLoaded()) {
-      return;
-    }
-
-    // 1 bucket lava + 1 bucket water = 2 ingots = 1 block obsidian
-    // 1000 + 1000 = 288
-    // 125 + 125 = 36
-    if(Config.obsidianAlloy) {
-      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.obsidian, 36),
-                                   new FluidStack(FluidRegistry.WATER, 125),
-                                   new FluidStack(FluidRegistry.LAVA, 125));
-    }
-
-    // 1 bucket water + 4 seared ingot + 4 mud bricks = 1 block hardened clay
-    // 1000 + 288 + 576 = 576
-    // 250 + 72 + 144 = 144
-    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.clay, 144),
-                                 new FluidStack(FluidRegistry.WATER, 250),
-                                 new FluidStack(TinkerFluids.searedStone, 72),
-                                 new FluidStack(TinkerFluids.dirt, 144));
-
-    // 1 iron ingot + 1 purple slime ball + seared stone in molten form = 1 knightslime ingot
-    // 144 + 250 + 288 = 144
-    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.knightslime, 72),
-                                 new FluidStack(TinkerFluids.iron, 72),
-                                 new FluidStack(TinkerFluids.purpleSlime, 125),
-                                 new FluidStack(TinkerFluids.searedStone, 144));
-
-    // i iron ingot + 1 blood... unit thingie + 1/3 gem = 1 pigiron
-    // 144 + 99 + 222 = 144
-    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.pigIron, 144),
-                                 new FluidStack(TinkerFluids.iron, 144),
-                                 new FluidStack(TinkerFluids.blood, 40),
-                                 new FluidStack(TinkerFluids.clay, 72));
-
-    // 1 ingot cobalt + 1 ingot ardite = 1 ingot manyullyn!
-    // 144 + 144 = 144
-    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.manyullyn, 2),
-                                 new FluidStack(TinkerFluids.cobalt, 2),
-                                 new FluidStack(TinkerFluids.ardite, 2));
-
-    // 3 ingots copper + 1 ingot tin = 4 ingots bronze
-    if(TinkerIntegration.isIntegrated(TinkerFluids.bronze) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.copper) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.tin)) {
-      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.bronze, 4),
-                                   new FluidStack(TinkerFluids.copper, 3),
-                                   new FluidStack(TinkerFluids.tin, 1));
-    }
-
-    // 1 ingot gold + 1 ingot silver = 2 ingots electrum
-    if(TinkerIntegration.isIntegrated(TinkerFluids.electrum) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.gold) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.silver)) {
-      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.electrum, 2),
-                                   new FluidStack(TinkerFluids.gold, 1),
-                                   new FluidStack(TinkerFluids.silver, 1));
-    }
-
-    // 1 ingot copper + 3 ingots aluminium = 4 ingots alubrass
-    if(TinkerIntegration.isIntegrated(TinkerFluids.alubrass) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.copper) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.aluminum)) {
-      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.alubrass, 4),
-                                   new FluidStack(TinkerFluids.copper, 1),
-                                   new FluidStack(TinkerFluids.aluminum, 3));
-    }
-
-    // 2 ingots copper + 1 ingot zinc = 3 ingots brass
-    if(TinkerIntegration.isIntegrated(TinkerFluids.brass) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.copper) &&
-       TinkerIntegration.isIntegrated(TinkerFluids.zinc)) {
-      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.brass, 3),
-                                   new FluidStack(TinkerFluids.copper, 2),
-                                   new FluidStack(TinkerFluids.zinc, 1));
-    }
-  }
-
-  /**
-   * Called by MaterialIntegration's to register tool part recipes
-   * @param material
-   */
-  public static void registerToolpartMeltingCasting(Material material) {
-    // melt ALL the toolparts n stuff. Also cast them.
-    Fluid fluid = material.getFluid();
-    for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
-      if(!toolPart.canBeCasted()) {
-        continue;
-      }
-      if(!toolPart.canUseMaterial(material)) {
-        continue;
-      }
-      if(toolPart instanceof MaterialItem) {
-        ItemStack stack = toolPart.getItemstackWithMaterial(material);
-        ItemStack cast = new ItemStack(TinkerSmeltery.cast);
-        Cast.setTagForPart(cast, stack.getItem());
-
-        if(fluid != null) {
-          // melting
-          TinkerRegistry.registerMelting(stack, fluid, toolPart.getCost());
-          // casting
-          TinkerRegistry.registerTableCasting(stack, cast, fluid, toolPart.getCost());
-        }
-        // register cast creation from the toolparts
-        for(FluidStack fs : castCreationFluids) {
-          TinkerRegistry.registerTableCasting(new CastingRecipe(cast,
-                                                                RecipeMatch.ofNBT(stack),
-                                                                fs,
-                                                                true, true));
-        }
-
-        // clay casts
-        if(Config.claycasts) {
-          ItemStack clayCast = new ItemStack(TinkerSmeltery.clayCast);
-          Cast.setTagForPart(clayCast, stack.getItem());
-
-          if(fluid != null) {
-            RecipeMatch rm = RecipeMatch.ofNBT(clayCast);
-            FluidStack fs = new FluidStack(fluid, toolPart.getCost());
-            TinkerRegistry.registerTableCasting(new CastingRecipe(stack, rm, fs, true, false));
-          }
-          for(FluidStack fs : clayCreationFluids) {
-            TinkerRegistry.registerTableCasting(new CastingRecipe(clayCast,
-                                                                  RecipeMatch.ofNBT(stack),
-                                                                  fs,
-                                                                  true, true));
-          }
-        }
-      }
-    }
-
-    // same for shard
-    if(castShard != null) {
-      ItemStack stack = TinkerRegistry.getShard(material);
-      int cost = TinkerRegistry.getShard().getCost();
-
-      if(fluid != null) {
-        // melting
-        TinkerRegistry.registerMelting(stack, fluid, cost);
-        // casting
-        TinkerRegistry.registerTableCasting(stack, castShard, fluid, cost);
-      }
-      // register cast creation from the toolparts
-      for(FluidStack fs : castCreationFluids) {
-        TinkerRegistry.registerTableCasting(new CastingRecipe(castShard,
-                                                              RecipeMatch.ofNBT(stack),
-                                                              fs,
-                                                              true, true));
-      }
-    }
-  }
-
-  /**
-   * Registers melting for all directly supported pre- and suffixes of the ore.
-   * E.g. "Iron" -> "ingotIron", "blockIron", "oreIron",
-   */
-  @SuppressWarnings("unchecked")
-  public static void registerOredictMeltingCasting(Fluid fluid, String ore) {
-    ImmutableSet.Builder<Pair<String, Integer>> builder = ImmutableSet.builder();
-    Pair<String, Integer> nuggetOre = Pair.of("nugget" + ore, Material.VALUE_Nugget);
-    Pair<String, Integer> ingotOre = Pair.of("ingot" + ore, Material.VALUE_Ingot);
-    Pair<String, Integer> blockOre = Pair.of("block" + ore, Material.VALUE_Block);
-    Pair<String, Integer> oreOre = Pair.of("ore" + ore, Material.VALUE_Ore());
-    Pair<String, Integer> oreNetherOre = Pair.of("oreNether" + ore, (int) (2 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<String, Integer> oreDenseOre = Pair.of("denseore" + ore, (int) (3 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<String, Integer> orePoorOre = Pair.of("orePoor" + ore, (int) (Material.VALUE_Nugget * 3 * Config.oreToIngotRatio));
-    Pair<String, Integer> oreNuggetOre = Pair.of("oreNugget" + ore, (int) (Material.VALUE_Nugget * Config.oreToIngotRatio));
-    Pair<String, Integer> plateOre = Pair.of("plate" + ore, Material.VALUE_Ingot);
-    Pair<String, Integer> gearOre = Pair.of("gear" + ore, Material.VALUE_Ingot * 4);
-    Pair<String, Integer> dustOre = Pair.of("dust" + ore, Material.VALUE_Ingot);
-
-    builder.add(nuggetOre, ingotOre, blockOre, oreOre, oreNetherOre, oreDenseOre, orePoorOre, oreNuggetOre, plateOre, gearOre, dustOre);
-    Set<Pair<String, Integer>> knownOres = builder.build();
-
-    // register oredicts
-    addKnownOreFluid(fluid, knownOres);
-
-    // register oredict castings!
-    // ingot casting
-    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(ingotOre.getLeft(),
-                                                                    RecipeMatch.ofNBT(castIngot),
-                                                                    fluid,
-                                                                    ingotOre.getRight()));
-    // nugget casting
-    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(nuggetOre.getLeft(),
-                                                                    RecipeMatch.ofNBT(castNugget),
-                                                                    fluid,
-                                                                    nuggetOre.getRight()));
-    // block casting
-    TinkerRegistry.registerBasinCasting(new PreferenceCastingRecipe(blockOre.getLeft(),
-                                                                    null, // no cast
-                                                                    fluid,
-                                                                    blockOre.getRight()));
-    // plate casting
-    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(plateOre.getLeft(),
-                                                                    RecipeMatch.ofNBT(castPlate),
-                                                                    fluid,
-                                                                    plateOre.getRight()));
-    // gear casting
-    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(gearOre.getLeft(),
-                                                                    RecipeMatch.ofNBT(castGear),
-                                                                    fluid,
-                                                                    gearOre.getRight()));
-
-    // and also cast creation!
-    for(FluidStack fs : castCreationFluids) {
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of(ingotOre.getLeft()), fs, true, true));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castNugget, RecipeMatch.of(nuggetOre.getLeft()), fs, true, true));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castPlate, RecipeMatch.of(plateOre.getLeft()), fs, true, true));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castGear, RecipeMatch.of(gearOre.getLeft()), fs, true, true));
-    }
-  }
-
-  /**
-   * Adds a fluid to the knownOreFluids list, adding recipes for each combination
-   * @param fluid      Fluid recipes belong to
-   * @param knownOres  Set of pairs of an oredict name to a integer fluid amount
-   */
-  private static void addKnownOreFluid(Fluid fluid, Set<Pair<String, Integer>> knownOres) {
-    for(Pair<String, Integer> pair : knownOres) {
-      TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid));
-    }
-
-    knownOreFluids.put(fluid, knownOres);
-  }
-
-  /**
-   * take all fluids we registered oredicts for and scan all recipies for oredict-recipies that we can apply this to
-   *
-   * called in TinkerIntegration
-   */
-  public static void registerRecipeOredictMelting() {
-    if(!isSmelteryLoaded()) {
-      return;
-    }
-
-    log.info("Started adding oredict melting recipes");
-    long start = System.nanoTime();
-
-    // parse the ignore list from the config
-    RecipeMatchRegistry oredictMeltingIgnore = new RecipeMatchRegistry();
-    for(String ignore : Config.oredictMeltingIgnore) {
-      // skip comments and empty lines
-      if(ignore.isEmpty() || ignore.startsWith("#")) {
-        continue;
-      }
-
-      // if it has a colon, assume item stack
-      if(ignore.contains(":")) {
-        String[] parts = ignore.split(":");
-        int meta = OreDictionary.WILDCARD_VALUE;
-
-        // try parsing meta if given
-        if(parts.length > 2) {
-          try {
-            meta = Integer.parseInt(parts[2]);
-          } catch(NumberFormatException e) {
-            log.error("Invalid oredict melting ignore {}, metadata must be a number", ignore);
-            continue;
-          }
-          if(meta < 0) {
-            log.error("Invalid oredict melting ignore {}, metadata must be non-negative", ignore);
-            continue;
-          }
-        }
-
-        // find the item
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parts[0], parts[1]));
-        if(item == null || item == Items.AIR) {
-          log.error("Invalid oredict melting ignore {}, unknown item", ignore);
-          continue;
-        }
-
-        // add the override
-        oredictMeltingIgnore.addItem(new ItemStack(item, 1, meta), 1, 1);
-      } else {
-        oredictMeltingIgnore.addItem(ignore);
-      }
-    }
-
-    // we go through all recipes, and check if it only consists of one of our known oredict entries
-    recipes:
-    for(IRecipe irecipe : CraftingManager.REGISTRY) {
-      // empty?
-      ItemStack output = irecipe.getRecipeOutput();
-      if(output.isEmpty()) {
-        continue;
-      }
-
-      // blacklisted?
-      for(ItemStack blacklistItem : meltingBlacklist) {
-        if(OreDictionary.itemMatches(blacklistItem, output, false)) {
-          continue recipes;
-        }
-      }
-
-      // recipe already has a melting recipe?
-      if(TinkerRegistry.getMelting(output) != null) {
-        continue;
-      }
-
-      NonNullList<Ingredient> inputs = irecipe.getIngredients();
-
-      // this map holds how much of which fluid is known of the recipe
-      // if an recipe contains an itemstack that can't be mapped to a fluid calculation is aborted
-      Map<Fluid, Integer> known = Maps.newHashMap();
-      for(Ingredient ingredient : inputs) {
-        // can contain empty entries because of shapedrecipe
-        if(ingredient.getMatchingStacks().length == 0) {
-          continue;
-        }
-
-        // process skippable items, such as sticks
-        if(Arrays.stream(ingredient.getMatchingStacks()).anyMatch((stack) -> oredictMeltingIgnore.matches(stack).isPresent())) {
-          continue;
-        }
-
-        // try and find a match from the oredict list
-        boolean found = false;
-        knownOres:
-        for(Map.Entry<Fluid, Set<Pair<String, Integer>>> entry : knownOreFluids.entrySet()) {
-          // check if it's a known oredict (all oredict lists are equal if they match the same oredict)
-          // OR if it's an itemstack contained in one of our oredicts
-          for(Pair<String, Integer> pair : entry.getValue()) {
-            for(ItemStack itemStack : OreDictionary.getOres(pair.getLeft(), false)) {
-              if(ingredientMatches(ingredient, itemStack)) {
-                // matches! Update fluid amount known
-                Integer amount = known.get(entry.getKey()); // what we found for the liquid so far
-                if(amount == null) {
-                  // nothing is what we found so far.
-                  amount = 0;
-                }
-                amount += pair.getRight();
-                known.put(entry.getKey(), amount);
-                found = true;
-                break knownOres;
-              }
-            }
-          }
-        }
-        // not a recipe we can process, contains an item that can't melt
-        if(!found) {
-          continue recipes;
-        }
-      }
-
-      // add a melting recipe for it
-      // we only support single-liquid recipes currently :I
-      if(known.keySet().size() == 1) {
-        Fluid fluid = known.keySet().iterator().next();
-        output = output.copy();
-        int amount = known.get(fluid) / output.getCount();
-        output.setCount(1);
-        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
-        log.trace("Added automatic melting recipe for {} ({} {})", output.toString(), amount, fluid
-            .getName());
-      }
-    }
-    // how fast were we?
-    log.info("Oredict melting recipes finished in {} ms", (System.nanoTime() - start) / 1000000D);
-  }
-
-  /**
-   * Ingredients do not handle the passed in item stack having wildcard metadata, so handle using getSubItems
-   */
-  private static boolean ingredientMatches(Ingredient ingredient, ItemStack stack) {
-    if (stack.getMetadata() != OreDictionary.WILDCARD_VALUE) {
-      return ingredient.apply(stack);
-    }
-    NonNullList<ItemStack> stacks = NonNullList.create();
-    stack.getItem().getSubItems(CreativeTabs.SEARCH, stacks);
-    return stacks.stream().anyMatch(ingredient::apply);
-  }
-
-  protected static <E extends Enum<E> & EnumBlock.IEnumMeta & IStringSerializable> BlockSearedStairs registerBlockSearedStairsFrom(IForgeRegistry<Block> registry, EnumBlock<E> block, E value, String name) {
-    return registerBlock(registry, new BlockSearedStairs(block.getDefaultState().withProperty(block.prop, value)), name);
   }
 }

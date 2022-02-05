@@ -1,386 +1,448 @@
 package slimeknights.tconstruct.common.config;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.ConfigCategory;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.pulsar.config.ForgeCFG;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.IConfigSpec;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent.Reloading;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.utils.RecipeUtil;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
+import slimeknights.tconstruct.library.utils.Orientation2D;
+import slimeknights.tconstruct.world.TinkerHeadType;
+import slimeknights.tconstruct.world.TinkerStructures;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.EnumMap;
+import java.util.Map;
 
-public final class Config {
+public class Config {
+  /**
+   * Common specific configuration
+   */
+  public static class Common {
 
-  public static ForgeCFG pulseConfig = new ForgeCFG("TinkerModules", "Modules");
-  public static Config instance = new Config();
-  public static Logger log = Util.getLogger("Config");
+    public final BooleanValue shouldSpawnWithTinkersBook;
 
-  private Config() {
-  }
+    // recipes
+    public final BooleanValue addGravelToFlintRecipe;
+    public final BooleanValue cheaperNetheriteAlloy;
+    public final BooleanValue witherBoneDrop;
+    public final BooleanValue witherBoneConversion;
+    public final BooleanValue slimeRecipeFix;
+    public final BooleanValue glassRecipeFix;
+    public final Map<TinkerHeadType,BooleanValue> headDrops;
 
+    // loot
+    public final BooleanValue slimyLootChests;
+    public final IntValue barterBlazingBlood;
+    public final IntValue tinkerToolBonusChest;
 
-  public static boolean forceRegisterAll = false; // enables all common items, even if their module is not present
+    public final OreRate melterOreRate;
+    public final OreRate smelteryOreRate;
+    public final OreRate foundryOreRate, foundryByproductRate;
 
-  // Tools and general
-  public static boolean spawnWithBook = true;
-  public static boolean reuseStencil = true;
-  public static boolean craftCastableMaterials = false;
-  public static boolean chestsKeepInventory = true;
-  public static boolean autosmeltlapis = true;
-  public static boolean obsidianAlloy = true;
-  public static boolean claycasts = true;
-  public static boolean castableBricks = true;
-  public static boolean leatherDryingRecipe = true;
-  public static boolean gravelFlintRecipe = true;
-  public static double oreToIngotRatio = 2;
-  public static boolean matchVanillaSlimeblock = false;
-  public static boolean limitPiggybackpack = false;
-  private static String[] craftingStationBlacklistArray = new String[] {
-      "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
-  };
-  private static String[] orePreference = {
-      "minecraft",
-      "tconstruct",
-      "thermalfoundation",
-      "forestry",
-      "immersiveengineering",
-      "embers",
-      "ic2"
-  };
-  public static Set<String> craftingStationBlacklist = Collections.emptySet();
-  public static String[] oredictMeltingIgnore = {
-          "dustRedstone",
-          "plankWood",
-          "stickWood",
-          "stickTreatedWood",
-          "string",
-          "minecraft:chest:0"
-  };
+    public final BooleanValue generateCobalt;
+    public final ConfigValue<Integer> veinCountCobalt;
 
-  // Worldgen
-  public static boolean genSlimeIslands = true;
-  public static boolean genIslandsInSuperflat = false;
-  public static int slimeIslandsRate = 730; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
-  public static int magmaIslandsRate = 100; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
-  public static int[] slimeIslandBlacklist = new int[]{-1, 1};
-  public static boolean slimeIslandsOnlyGenerateInSurfaceWorlds = true;
-  public static boolean genCobalt = true;
-  public static int cobaltRate = 20; // max. cobalt per chunk
-  public static boolean genArdite = true;
-  public static int arditeRate = 20; // max. ardite per chunk
+    // overworld
+    public final SlimeIslandConfiguration earthslimeIslands;
+    public final SlimeIslandConfiguration skyslimeIslands;
+    public final SlimeIslandConfiguration clayIslands;
+    public final SlimeIslandConfiguration bloodIslands;
+    public final SlimeIslandConfiguration endslimeIslands;
+    public final BooleanValue earthGeodes;
+    public final BooleanValue skyGeodes;
+    public final BooleanValue ichorGeodes;
+    public final BooleanValue enderGeodes;
 
-  // Clientside configs
-  public static boolean renderTableItems = true;
-  public static boolean renderInventoryNullLayer = true;
-  public static boolean extraTooltips = true;
-  public static boolean listAllTables = true;
-  public static boolean listAllToolMaterials = true;
-  public static boolean listAllPartMaterials = true;
-  public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
-  public static boolean dumpTextureMap = false; // requires debug module
-  public static boolean testIMC = false; // requires debug module
-  public static boolean temperatureCelsius = true;
+    public final ConfigValue<String> showOnlyToolMaterial;
+    public final ConfigValue<String> showOnlyPartMaterial;
+    public final BooleanValue showAllTableVariants;
+    public final BooleanValue showAllAnvilVariants;
 
-  /* Config File */
+    public final BooleanValue forceIntegrationMaterials;
 
-  static Configuration configFile;
+    Common(ForgeConfigSpec.Builder builder) {
+      builder.comment("Everything to do with gameplay").push("gameplay");
 
-  static ConfigCategory Modules;
-  static ConfigCategory Gameplay;
-  static ConfigCategory Worldgen;
-  static ConfigCategory ClientSide;
+      this.shouldSpawnWithTinkersBook = builder
+        .comment("Set this to false to disable new players spawning with the Tinkers' Book.")
+        .translation("tconstruct.configgui.shouldSpawnWithTinkersBook")
+        .worldRestart()
+        .define("shouldSpawnWithTinkersBook", true);
 
-  public static void load(FMLPreInitializationEvent event) {
-    configFile = new Configuration(event.getSuggestedConfigurationFile(), "0.1", false);
+//      this.chestsKeepInventory = builder
+//        .comment("Pattern and Part chests keep their inventory when harvested.")
+//        .translation("tconstruct.configgui.chestsKeepInventory")
+//        .worldRestart()
+//        .define("chestsKeepInventory", true);
 
-    MinecraftForge.EVENT_BUS.register(instance);
+      this.showOnlyToolMaterial = builder
+        .comment("If non-empty, only this material will be shown on tools in creative and JEI (or the first valid material if this is invalid for the tool).", "If empty, all materials will show")
+        .translation("tconstruct.configgui.showOnlyToolMaterial")
+        .worldRestart()
+        .define("showOnlyToolMaterial", "");
 
-    syncConfig();
-  }
+      this.showOnlyPartMaterial = builder
+        .comment("If non-empty, only material will be shown on parts in creative and JEI (or the first valid material if this is invalid for the part).", "If empty, all materials will show")
+        .translation("tconstruct.configgui.showOnlyPartMaterial")
+        .worldRestart()
+        .define("showOnlyPartMaterial", "");
 
-  @SubscribeEvent
-  public void update(ConfigChangedEvent.OnConfigChangedEvent event) {
-    if(event.getModID().equals(TConstruct.modID)) {
-      syncConfig();
-    }
-  }
+      this.showAllTableVariants = builder
+        .comment("If true, tables such as the part builder and tinker station will show all variants. If false shows only a variant with a default texture.")
+        .translation("tconstruct.configgui.showAllTableVariants")
+        .define("showAllTableVariants", true);
 
+      this.showAllAnvilVariants = builder
+        .comment("If true, anvils will show all metal variants. If false, shows only a variant with the default texture")
+        .translation("tconstruct.configgui.showAllAnvilVariants")
+        .define("showAllAnvilVariants", true);
 
-  public static boolean syncConfig() {
-    Property prop;
+      builder.pop();
 
-    // Modules
-    {
-      Modules = pulseConfig.getCategory();
-      /*
-      List<String> propOrder = Lists.newArrayList();
-      // convert pulse config to MC compatible config for GUI config
-      Modules = new ConfigCategory("modules");
-      for(PulseMeta pm : TConstruct.pulseManager.getAllPulseMetadata()) {
-        if(pm.isForced()) continue;
-        prop = new Property(pm.getId(), pm.isDefaultEnabled() ? "true" : "false", Property.Type.BOOLEAN);
-        prop.setValue(pm.isEnabled());
-        prop.setRequiresMcRestart(true);
-        Modules.put(pm.getId(), prop);
-        propOrder.add(prop.getName());
+      builder.comment("Options related to recipes, limited options as a datapack allows most recipes to be modified").push("recipes");
+
+      this.addGravelToFlintRecipe = builder
+        .comment("Add a recipe that allows you to craft a piece of flint using 3 gravel")
+        .translation("tconstruct.configgui.addGravelToFlintRecipe")
+        .worldRestart()
+        .define("addGravelToFlintRecipe", true);
+
+      this.cheaperNetheriteAlloy = builder
+        .comment("Makes the recipe to alloy netherite in the smeltery only cost 2 gold per netherite ingot. If false uses the vanilla rate of 4 gold per ingot. Disable if there are crafting duplications.")
+        .translation("tconstruct.configgui.cheaperNetheriteAlloy")
+        .worldRestart()
+        .define("cheaperNetheriteAlloy", true);
+
+      this.witherBoneDrop = builder
+        .comment("Makes wither skeletons drop necrotic bones")
+        .translation("tconstruct.configgui.witherBoneDrop")
+        .worldRestart()
+        .define("witherBoneDrop", true);
+
+      this.witherBoneConversion = builder
+        .comment("Allows converting wither bones to regular bones")
+        .translation("tconstruct.configgui.witherBoneConversion")
+        .worldRestart()
+        .define("witherBoneConversion", true);
+
+      this.slimeRecipeFix = builder
+        .comment("Slimealls not being usable in vanilla recipes that require slimeballs. Config option exists to disable easily in case this fix is redundant to another mod")
+        .worldRestart()
+        .define("slimeRecipeFix", true);
+
+      this.glassRecipeFix = builder
+        .comment("Fixes clear glass not being usable in vanilla recipes that require glass. Config option exists to disable easily in case this fix is redundant to another mod")
+        .translation("tconstruct.configgui.glassRecipeFix")
+        .worldRestart()
+        .define("glassRecipeFix", true);
+
+      builder.push("ore_rates");
+      {
+        builder.comment("Ore rates when melting in the melter").push("melter");
+        this.melterOreRate = new OreRate(builder, 12, 8);
+        builder.pop();
+
+        builder.comment("Ore rates when melting in the smeltery").push("smeltery");
+        this.smelteryOreRate = new OreRate(builder, 12, 8);
+        builder.pop();
+
+        builder.comment("Ore rates when melting in the foundry").push("foundry");
+        this.foundryOreRate = new OreRate(builder, 9, 4);
+        builder.pop();
+
+        builder.comment("Byprouct rates when melting in the foundry").push("foundry_byproduct");
+        this.foundryByproductRate = new OreRate(builder, 3, 4);
+        builder.pop();
       }
-      Modules.setPropertyOrder(propOrder);*/
+      builder.pop();
+
+      builder.comment("Entity head drops when killed by a charged creeper").push("heads");
+      headDrops = new EnumMap<>(TinkerHeadType.class);
+      for (TinkerHeadType headType : TinkerHeadType.values()) {
+        headDrops.put(headType, builder
+          .translation("tconstruct.configgui.heads." + headType.getSerializedName())
+          .define(headType.getSerializedName(), true));
+      }
+
+      builder.pop(2);
+
+      builder.comment(
+        "Options related to loot table injections. Note some of the changes are done via global loot managers, these only control injecting loot into loot pools",
+        "If your modpack makes extensive loot table changes, many of these may be automatically disabled. You can also manually set up tables for more control.").push("loot");
+
+      slimyLootChests = builder
+        .comment("Adds slimy saplings and seeds into various loot chests. Helps for worlds without slime islands")
+        .worldRestart()
+        .define("slimy_loot", true);
+      barterBlazingBlood = builder
+        .comment("Weight of blazing blood in the piglin bartering tables. Set to 0 to disable")
+        .worldRestart()
+        .defineInRange("barter_blazing_blood", 20, 0, 100);
+      tinkerToolBonusChest = builder
+        .comment("Weight of tinker tools in the vanilla spawn bonus chest, randomly replacing the vanilla axe or shovel. Tool will have a random tier 1 head and binding, plus a wooden handle. Set to 0 to disable.",
+                 "For comparison, vanilla wooden axes and pickaxes have a weight of 3, and stone axes/pickaxes have a weight of 1")
+        .worldRestart()
+        .defineInRange("tinker_tool_bonus_chest", 2, 0, 25);
+
+      builder.pop();
+
+      builder.comment("Everything to do with world generation").push("worldgen");
+      {
+        this.generateCobalt = builder
+          .comment("Generate Cobalt")
+          .translation("tconstruct.configgui.generateCobalt")
+          .worldRestart()
+          .define("generateCobalt", true);
+        this.veinCountCobalt = builder
+          .comment("Approx Ores per Chunk")
+          .translation("tconstruct.configgui.veinCountCobalt")
+          .worldRestart()
+          .define("veinCountCobalt", 8);
+
+        builder.comment("Options related to slime islands").push("slime_islands");
+        builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
+        this.earthslimeIslands = new SlimeIslandConfiguration(builder, 35, 0.75, 25988585);
+        builder.pop();
+
+        builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
+        this.skyslimeIslands = new SlimeIslandConfiguration(builder, 40, 0.35, 14357800);
+        builder.pop();
+
+        builder.comment("Settings for clay islands in the overworld sky").push("clay");
+        this.clayIslands = new SlimeIslandConfiguration(builder, 125, 0.65, 162976988);
+        builder.pop();
+
+        builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
+        this.bloodIslands = new SlimeIslandConfiguration(builder, 15, 0.6, 65245622);
+        builder.pop();
+
+        builder.comment("Settings for end slime islands in the outer end islands").push("end");
+        this.endslimeIslands = new SlimeIslandConfiguration(builder, 25, 0.5, 368963602);
+        builder.pop(2);
+
+        builder.comment("Options related to slime geodes").push("geodes");
+        this.earthGeodes = builder
+          .comment("If true, earthslime geodes generate deep in the world as another way to get slime")
+            .define("earth", true);
+        this.skyGeodes = builder
+          .comment("If true, skyslime geodes generate above amethyst as another way to get skyslime")
+          .define("sky", true);
+        this.ichorGeodes = builder
+          .comment("If true, ichor geodes generate high in the nether")
+          .define("ichor", true);
+        this.enderGeodes = builder
+          .comment("If true, enderslime geodes generate as additional islands in the end")
+          .define("ender", true);
+        builder.pop();
+      }
+      builder.pop();
+
+      builder.comment("Features to use in debugging gameplay and mechanics, generally should not be enabled in packs").push("debug");
+      this.forceIntegrationMaterials = builder
+        .comment("If true, forces integration materials to be enabled, even if the relevant metal is missing. Useful for testing material balance.",
+                 "Does not provide recipes for any of them, they will only be available to cheat in creative.")
+        .worldRestart()
+        .define("forceIntegrationMaterials", false);
+      builder.pop();
     }
-    // Gameplay
-    {
-      String cat = "gameplay";
-      List<String> propOrder = Lists.newArrayList();
-      Gameplay = configFile.getCategory(cat);
+  }
 
-      prop = configFile.get(cat, "spawnWithBook", spawnWithBook);
-      prop.setComment("Players who enter the world for the first time get a Tinkers' Book");
-      spawnWithBook = prop.getBoolean();
-      propOrder.add(prop.getName());
+  /**
+   * Client specific configuration - only loaded clientside from tconstruct-client.toml
+   */
+  public static class Client {
+    //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
+    public final ForgeConfigSpec.BooleanValue tankFluidModel;
+    public final ForgeConfigSpec.BooleanValue extraToolTips;
+    public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
+    public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
+    public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
+    public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
 
-      prop = configFile.get(cat, "reuseStencils", reuseStencil);
-      prop.setComment("Allows to reuse stencils in the stencil table to turn them into other stencils");
-      reuseStencil = prop.getBoolean();
-      propOrder.add(prop.getName());
+    // framed modifier
+    public final ForgeConfigSpec.BooleanValue renderItemFrame;
+    public final ForgeConfigSpec.IntValue itemFrameXOffset;
+    public final ForgeConfigSpec.IntValue itemFrameYOffset;
+    public final ForgeConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
+    public final ForgeConfigSpec.IntValue itemsPerRow;
 
-      prop = configFile.get(cat, "chestsKeepInventory", chestsKeepInventory);
-      prop.setComment("Pattern and Part chests keep their inventory when harvested.");
-      chestsKeepInventory = prop.getBoolean();
-      propOrder.add(prop.getName());
+    Client(ForgeConfigSpec.Builder builder) {
+      builder.comment("Client only settings").push("client");
 
-      prop = configFile.get(cat, "enableClayCasts", claycasts);
-      prop.setComment("Adds single-use clay casts.");
-      claycasts = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+//      this.temperatureInCelsius = builder
+//        .comment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for developers")
+//        .translation("tconstruct.configgui.temperatureInCelsius")
+//        .define("temperatureInCelsius", true);
 
-      prop = configFile.get(cat, "allowBrickCasting", castableBricks);
-      prop.setComment("Allows the creation of bricks from molten clay");
-      castableBricks = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+      this.tankFluidModel = builder
+        .comment(
+          "Experimental. If true, renders fluids in tanks using a dynamic model, being more efficient when the tank is static",
+          "If false, renders fluids in tanks using a TESR, which is more efficient when the tank contents are changing"
+         )
+        .translation("tconstruct.configgui.tankFluidModel")
+        .define("tankFluidModel", false);
 
-      prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);
-      prop.setComment("Fortune increases drops after harvesting a block with autosmelt");
-      autosmeltlapis = prop.getBoolean();
-      propOrder.add(prop.getName());
+      this.extraToolTips = builder
+        .comment("If true tools will show additional info in their tooltips")
+        .translation("tconstruct.configgui.extraToolTips")
+        .define("extraToolTips", true);
 
-      prop = configFile.get(cat, "craftCastableMaterials", craftCastableMaterials);
-      prop.setComment("Allows to craft all tool parts of all materials in the part builder, including materials that normally have to be cast with a smeltery.");
-      craftCastableMaterials = prop.getBoolean();
-      propOrder.add(prop.getName());
+      this.logMissingMaterialTextures = builder
+        .comment("If true, the game will log all material textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
+        .translation("tconstruct.configgui.logMissingMaterialTextures")
+        .define("logMissingMaterialTextures", false);
 
-      prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
-      prop.setComment("Enables all items, even if the Module needed to obtain them is not active");
-      forceRegisterAll = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+      this.logMissingModifierTextures = builder
+        .comment("If true, the game will log all modifier textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
+        .translation("tconstruct.configgui.logMissingMaterialTextures")
+        .define("logMissingModifierTextures", false);
 
-      prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
-      prop.setComment("Allows the creation of obsidian in the smeltery, using a bucket of lava and water.");
-      obsidianAlloy = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+      this.showModifiersInJEI = builder
+        .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
+        .translation("tconstruct.configgui.showModifiersInJEI")
+        .define("showModifiersInJEI", true);
 
-      prop = configFile.get(cat, "addLeatherDryingRecipe", leatherDryingRecipe);
-      prop.setComment("Adds a recipe that allows you to get leather from drying cooked meat");
-      leatherDryingRecipe = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+      this.maxSmelteryItemQuads = builder
+        .comment("Maximum number of quads to render for items in the smeltery. Most blocks are about 6 quads, items like ingots are around 26.",
+                 "Setting this lower will cause fewer items to be renderer (but never a partial item). Set to -1 to allow unlimited quads, and 0 to disable the item renderer.")
+        .defineInRange("maxSmelteryItemQuads", 3500, -1, Short.MAX_VALUE);
 
-      prop = configFile.get(cat, "addFlintRecipe", gravelFlintRecipe);
-      prop.setComment("Adds a recipe that allows you to craft 3 gravel into a flint");
-      gravelFlintRecipe = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+      builder.comment("Settings related to modifiers").push("modifiers");
+      {
 
-      prop = configFile.get(cat, "oreToIngotRatio", oreToIngotRatio);
-      prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");
-      prop.setMinValue(1);
-      oreToIngotRatio = prop.getDouble();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
+        this.renderShieldSlotItem = builder
+          .comment("If true, the shield slot legging modifier will render the next offhand item above the offhand slot.")
+          .define("renderShieldSlotItem", true);
 
-      prop = configFile.get(cat, "matchVanillaSlimeblock", matchVanillaSlimeblock);
-      prop.setComment("If true, requires slimeballs in the vanilla slimeblock recipe to match in color, otherwise gives a pink slimeblock");
-      matchVanillaSlimeblock = prop.getBoolean();
-      prop.setRequiresMcRestart(true);
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "limitPiggybackpack", limitPiggybackpack);
-      prop.setComment("If true, piggybackpacks can only pick up players and mobs that can be leashed in vanilla. If false any mob can be picked up.");
-      limitPiggybackpack = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklistArray);
-      prop.setComment("Blacklist of registry names or TE classnames for the crafting station to connect to. Mainly for compatibility.");
-      craftingStationBlacklistArray = prop.getStringList();
-      craftingStationBlacklist = Sets.newHashSet(craftingStationBlacklistArray);
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "orePreference", orePreference);
-      prop.setComment("Preferred mod ID for oredictionary outputs. Top most mod ID will be the preferred output ID, and if none is found the first output stack is used.");
-      orePreference = prop.getStringList();
-      RecipeUtil.setOrePreferences(orePreference);
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "oredictMeltingIgnore", oredictMeltingIgnore);
-      prop.setComment("List of items to ignore when generating melting recipes from the crafting registry. For example, ignoring sticks allows metal pickaxes to melt down.\nFormat: oreName or modid:item[:meta]. If meta is unset, uses wildcard");
-      oredictMeltingIgnore = prop.getStringList();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "testIMC", testIMC);
-      prop.setComment("REQUIRES DEBUG MODULE. Tests all IMC integrations with dummy recipes. May significantly impact gameplay, so its advised you disable this outside of dev environements.");
-      testIMC = prop.getBoolean();
-      propOrder.add(prop.getName());
-    }
-    // Worldgen
-    {
-      String cat = "worldgen";
-      List<String> propOrder = Lists.newArrayList();
-      Worldgen = configFile.getCategory(cat);
-
-      // Slime Islands
-      prop = configFile.get(cat, "generateSlimeIslands", genSlimeIslands);
-      prop.setComment("If true slime islands will generate");
-      genSlimeIslands = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "generateIslandsInSuperflat", genIslandsInSuperflat);
-      prop.setComment("If true slime islands generate in superflat worlds");
-      genIslandsInSuperflat = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "slimeIslandRate", slimeIslandsRate);
-      prop.setComment("One in every X chunks will contain a slime island");
-      slimeIslandsRate = prop.getInt();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "magmaIslandRate", magmaIslandsRate);
-      prop.setComment("One in every X chunks will contain a magma island in the nether");
-      magmaIslandsRate = prop.getInt();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "slimeIslandBlacklist", slimeIslandBlacklist);
-      prop.setComment("Prevents generation of slime islands in the listed dimensions");
-      slimeIslandBlacklist = prop.getIntList();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "slimeIslandsOnlyGenerateInSurfaceWorlds", slimeIslandsOnlyGenerateInSurfaceWorlds);
-      prop.setComment("If false, slime islands only generate in dimensions which are of type surface. This means they won't generate in modded cave dimensions like the Deep Dark. Note that the name of this property is inverted: It must be set to false to prevent slime islands from generating in non-surface dimensions.");
-      slimeIslandsOnlyGenerateInSurfaceWorlds = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      // Nether ore generation
-      prop = configFile.get(cat, "genCobalt", genCobalt);
-      prop.setComment("If true, cobalt ore will generate in the nether");
-      genCobalt = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "genArdite", genArdite);
-      prop.setComment("If true, ardite ore will generate in the nether");
-      genArdite = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "cobaltRate", cobaltRate);
-      prop.setComment("Approx Ores per chunk");
-      cobaltRate = prop.getInt();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "arditeRate", arditeRate);
-      arditeRate = prop.getInt();
-      propOrder.add(prop.getName());
-
-      Worldgen.setPropertyOrder(propOrder);
-    }
-    // Clientside
-    {
-      String cat = "clientside";
-      List<String> propOrder = Lists.newArrayList();
-      ClientSide = configFile.getCategory(cat);
-
-      // rename renderTableItems to renderInventoryInWorld
-      configFile.renameProperty(cat, "renderTableItems", "renderInventoryInWorld");
-
-      prop = configFile.get(cat, "renderInventoryInWorld", renderTableItems);
-      prop.setComment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world");
-      renderTableItems = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "renderInventoryNullLayer", renderInventoryNullLayer);
-      prop.setComment("If true use a null render layer when building the models to render tables. Fixes an issue with chisel, but the config is provide in case it breaks something.");
-      renderInventoryNullLayer = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "extraTooltips", extraTooltips);
-      prop.setComment("If true tools will show additional info in their tooltips");
-      extraTooltips = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "listAllTables", listAllTables);
-      prop.setComment("If true all variants of the different tables will be listed in creative. Set to false to only have the oak variant for all tables.");
-      listAllTables = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      configFile.renameProperty(cat, "listAllMaterials", "listAllToolMaterials");
-      prop = configFile.get(cat, "listAllToolMaterials", listAllToolMaterials);
-      prop.setComment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).");
-      listAllToolMaterials = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "listAllPartMaterials", listAllToolMaterials); // property was split, so defailt to the value of tool materials
-      prop.setComment("If true all material variants of the different parts will be listed in creative. Set to false to only have the first found material for all parts (usually wood).");
-      listAllPartMaterials = prop.getBoolean();
-      propOrder.add(prop.getName());
-
-      prop = configFile.get(cat, "temperatureCelsius", temperatureCelsius);
-      prop.setComment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for devs");
-      temperatureCelsius = prop.getBoolean();
-      propOrder.add(prop.getName());
-      Util.setTemperaturePref(temperatureCelsius);
-
-      prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
-      prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");
-      enableForgeBucketModel = prop.getBoolean();
-      if(enableForgeBucketModel) {
-        prop.set(false);
-        ForgeModContainer.replaceVanillaBucketModel = true;
-        Property forgeProp = ForgeModContainer.getConfig().getCategory(Configuration.CATEGORY_CLIENT).get("replaceVanillaBucketModel");
-        if(forgeProp != null) {
-          forgeProp.set(true);
-          ForgeModContainer.getConfig().save();
+        builder.comment("Settings related to the frame helmet modifier").push("itemFrame");
+        {
+          this.renderItemFrame = builder
+            .comment("If true, the item frame modifier for helmets will render its items. Turning this to false makes the modifier useless.")
+            .define("render", true);
+          this.itemFrameXOffset = builder
+            .comment("Offset in the X direction for the frame items.")
+            .defineInRange("xOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.itemFrameYOffset = builder
+            .comment("Offset in the Y direction for the frame items.")
+            .defineInRange("yOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.itemFrameLocation = builder
+            .comment("Location of the frame on the screen.")
+            .defineEnum("location", Orientation2D.TOP_LEFT);
+          this.itemsPerRow = builder
+            .comment("Number of items to display in each row of the item frame.")
+            .defineInRange("itemsPerRow", 5, 0, 100);
         }
+        builder.pop();
       }
-      propOrder.add(prop.getName());
+      builder.pop();
 
-      prop = configFile.get(cat, "dumpTextureMap", dumpTextureMap);
-      prop.setComment("REQUIRES DEBUG MODULE. Will do nothing if debug module is disabled. If true the texture map will be dumped into the run directory, just like old forge did.");
-      dumpTextureMap = prop.getBoolean();
-      propOrder.add(prop.getName());
+      builder.pop();
+    }
+  }
 
-      ClientSide.setPropertyOrder(propOrder);
+  public static final ForgeConfigSpec clientSpec;
+  public static final Client CLIENT;
+
+  static {
+    final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+    clientSpec = specPair.getRight();
+    CLIENT = specPair.getLeft();
+  }
+
+  public static final ForgeConfigSpec commonSpec;
+  public static final Common COMMON;
+
+  static {
+    final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+    commonSpec = specPair.getRight();
+    COMMON = specPair.getLeft();
+  }
+
+  /** Registers any relevant listeners for config */
+  public static void init() {
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(Config::configChanged);
+  }
+
+  /** Called when config reloaded to update cached settings */
+  private static void configChanged(Reloading event) {
+    ModConfig config = event.getConfig();
+    if (config.getModId().equals(TConstruct.MOD_ID)) {
+      IConfigSpec<?> spec = config.getSpec();
+      if (spec == Config.commonSpec) {
+        TinkerStructures.addStructureSeparation();
+      }
+    }
+  }
+
+  /** Configuration settings for the island */
+  public static class SlimeIslandConfiguration {
+    private final BooleanValue generate;
+    private final IntValue spacing;
+    private final DoubleValue separationPercent;
+    private final int salt;
+    public SlimeIslandConfiguration(ForgeConfigSpec.Builder builder, int defaultSpacing, double defaultSeparation, int salt) {
+      this.salt = salt;
+      this.generate = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.spacing = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("spacing", defaultSpacing, 10, 500);
+      this.separationPercent = builder
+        .comment("Percentage of spacing to use for separation")
+        .worldRestart()
+        .defineInRange("separationPercent", defaultSeparation, 0.0, 1.0);
     }
 
-    // save changes if any
-    boolean changed = false;
-    if(configFile.hasChanged()) {
-      configFile.save();
-      changed = true;
+    /** If true, this island generates */
+    public boolean doesGenerate() {
+      return generate.get();
     }
-    if(pulseConfig.getConfig().hasChanged()) {
-      pulseConfig.flush();
-      changed = true;
+
+    /** Creates the actual configuration object */
+    public StructureFeatureConfiguration makeConfiguration() {
+      int spacing = this.spacing.get();
+      return new StructureFeatureConfiguration(spacing, (int)(this.separationPercent.get() * spacing), salt);
     }
-    return changed;
+  }
+
+  /** Configuration for an ore rate, such as melter or foundry */
+  public static class OreRate implements IOreRate {
+    private final ConfigValue<Integer> nuggetsPerMetal;
+    private final ConfigValue<Integer> shardsPerGem;
+
+    public OreRate(ForgeConfigSpec.Builder builder, int defaultNuggets, int defaultQuarters) {
+      nuggetsPerMetal = builder
+        .comment("Number of nuggets produced per metal ore unit melted. 9 nuggets would give 1 ingot")
+        .defineInRange("nuggetsPerMetal", defaultNuggets, 1, 45);
+      shardsPerGem = builder
+        .comment("Number of gem shards produced per gem ore unit melted. 4 gem shards would give 1 gem")
+        .defineInRange("shardsPerGem", defaultQuarters, 1, 20);
+    }
+
+    @Override
+    public int applyOreBoost(OreRateType rate, int amount) {
+      return switch (rate) {
+        case METAL -> amount * nuggetsPerMetal.get() / 9;
+        case GEM -> amount * shardsPerGem.get() / 4;
+      };
+    }
   }
 }
