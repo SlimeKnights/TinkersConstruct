@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gem"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:molten_amethyst",
+    "amount": 100
+  },
+  "result": "minecraft:amethyst_shard",
+  "cooling_time": 68
+}

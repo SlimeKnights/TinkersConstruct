@@ -839,13 +839,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .save(consumer, modResource(folder + "emerald/block"));
 
     // quartz
-    // this.gemCasting(consumer, TinkerFluids.moltenQuartz, Items.QUARTZ, folder + "quartz/gem");
+    this.gemCasting(consumer, TinkerFluids.moltenQuartz, Items.QUARTZ, folder + "quartz/gem");
     ItemCastingRecipeBuilder.basinRecipe(Blocks.QUARTZ_BLOCK)
                             .setFluidAndTime(TinkerFluids.moltenQuartz, false, FluidValues.SMALL_GEM_BLOCK)
                             .save(consumer, modResource(folder + "quartz/block"));
 
     // amethyst
-    // this.gemCasting(consumer, TinkerFluids.moltenAmethyst, Items.AMETHYST_SHARD, folder + "amethyst/shard");
+    this.gemCasting(consumer, TinkerFluids.moltenAmethyst, Items.AMETHYST_SHARD, folder + "amethyst/shard");
     ItemCastingRecipeBuilder.basinRecipe(Blocks.AMETHYST_BLOCK)
                             .setFluidAndTime(TinkerFluids.moltenAmethyst, false, FluidValues.SMALL_GEM_BLOCK)
                             .save(consumer, modResource(folder + "amethyst/block"));
