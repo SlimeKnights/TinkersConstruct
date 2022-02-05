@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:pickaxe_head",
+    "tconstruct:pick_head",
     "tconstruct:hammer_head",
     "tconstruct:small_axe_head",
     "tconstruct:broad_axe_head",

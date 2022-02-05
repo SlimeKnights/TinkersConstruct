@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:table_casting_material",
   "cast": {
-    "tag": "tconstruct:casts/single_use/pickaxe_head"
+    "tag": "tconstruct:casts/single_use/pick_head"
   },
   "cast_consumed": true,
   "item_cost": 2,
-  "result": "tconstruct:pickaxe_head"
+  "result": "tconstruct:pick_head"
 }

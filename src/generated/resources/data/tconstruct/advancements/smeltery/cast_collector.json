@@ -76,13 +76,13 @@
         ]
       }
     },
-    "pickaxe_head": {
+    "pick_head": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "tconstruct:pickaxe_head_cast"
+              "tconstruct:pick_head_cast"
             ]
           }
         ]
@@ -226,7 +226,7 @@
       "repair_kit"
     ],
     [
-      "pickaxe_head"
+      "pick_head"
     ],
     [
       "small_axe_head"

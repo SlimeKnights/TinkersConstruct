@@ -256,7 +256,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // tag for tool parts, mostly used by JEI right now
     this.tag(TinkerTags.Items.TOOL_PARTS)
-        .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
+        .add(TinkerToolParts.pickHead.get(), TinkerToolParts.hammerHead.get(),
 						 TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
 						 TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
 						 TinkerToolParts.toolBinding.get(), TinkerToolParts.roundPlate.get(), TinkerToolParts.largePlate.get(),
@@ -337,7 +337,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.coinCast);
     addCast.accept(TinkerSmeltery.wireCast);
     // small heads
-    addCast.accept(TinkerSmeltery.pickaxeHeadCast);
+    addCast.accept(TinkerSmeltery.pickHeadCast);
     addCast.accept(TinkerSmeltery.smallAxeHeadCast);
     addCast.accept(TinkerSmeltery.smallBladeCast);
     // large heads

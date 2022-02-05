@@ -1,7 +1,7 @@
 {
   "parts": [
     {
-      "item": "tconstruct:pickaxe_head"
+      "item": "tconstruct:pick_head"
     },
     {
       "item": "tconstruct:tool_handle"

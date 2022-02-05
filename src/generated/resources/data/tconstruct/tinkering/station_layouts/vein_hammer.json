@@ -25,12 +25,12 @@
       }
     },
     {
-      "icon": "tconstruct:pickaxe_head",
-      "translation_key": "item.tconstruct.pickaxe_head",
+      "icon": "tconstruct:pick_head",
+      "translation_key": "item.tconstruct.pick_head",
       "x": 50,
       "y": 48,
       "filter": {
-        "item": "tconstruct:pickaxe_head"
+        "item": "tconstruct:pick_head"
       }
     },
     {

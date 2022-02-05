@@ -2,7 +2,7 @@
   "parent": "tconstruct:tools/part_builder",
   "display": {
     "icon": {
-      "item": "tconstruct:pickaxe_head",
+      "item": "tconstruct:pick_head",
       "nbt": "{Material:\"tconstruct:wood\"}"
     },
     "title": {

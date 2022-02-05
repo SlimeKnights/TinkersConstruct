@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:pickaxe_head",
+    "item": "tconstruct:pick_head",
     "type": "tconstruct:material"
   },
-  "result": "tconstruct:pickaxe_head_red_sand_cast"
+  "result": "tconstruct:pick_head_red_sand_cast"
 }

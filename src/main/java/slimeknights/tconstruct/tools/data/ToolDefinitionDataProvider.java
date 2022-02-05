@@ -37,7 +37,7 @@ import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
 import static slimeknights.tconstruct.tools.TinkerToolParts.hammerHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.largePlate;
-import static slimeknights.tconstruct.tools.TinkerToolParts.pickaxeHead;
+import static slimeknights.tconstruct.tools.TinkerToolParts.pickHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.roundPlate;
 import static slimeknights.tconstruct.tools.TinkerToolParts.smallAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.smallBlade;
@@ -55,7 +55,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     // pickaxes
     define(ToolDefinitions.PICKAXE)
       // parts
-      .part(pickaxeHead)
+      .part(pickHead)
       .part(toolHandle)
       .part(toolBinding)
       // stats
@@ -94,7 +94,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // parts
       .part(hammerHead, 2)
       .part(toughHandle)
-      .part(pickaxeHead, 1)
+      .part(pickHead, 1)
       .part(largePlate)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 3f) // gains +1.25 damage from piercing
@@ -141,7 +141,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
     define(ToolDefinitions.PICKADZE)
       // parts
-      .part(pickaxeHead)
+      .part(pickHead)
       .part(toolHandle)
       .part(roundPlate)
       // stats
@@ -207,7 +207,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // parts
       .part(broadAxeHead, 2)
       .part(toughHandle)
-      .part(pickaxeHead, 1)
+      .part(pickHead, 1)
       .part(toolBinding)
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 5f)
