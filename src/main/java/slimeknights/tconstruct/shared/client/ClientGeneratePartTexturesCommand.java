@@ -57,7 +57,7 @@ public class ClientGeneratePartTexturesCommand {
   /** Path to add the data */
   private static final String PACK_NAME = "TinkersConstructGeneratedPartTextures";
   /** Part file to load, pulls from all namespaces, but no merging */
-  private static final String GENERATOR_PART_TEXTURES = "models/tconstruct_generator_part_textures.json";
+  private static final String GENERATOR_PART_TEXTURES = "tinkering/generator_part_textures.json";
 
   /** Gets the clickable output link */
   protected static Component getOutputComponent(File file) {

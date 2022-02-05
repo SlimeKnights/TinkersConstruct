@@ -17,10 +17,10 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
+import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -47,7 +47,7 @@ import java.util.stream.Stream;
 @Log4j2
 public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   /** Modifier file to load, has merging behavior but forge prevents multiple mods from loading the same file */
-  private static final String VISIBLE_MODIFIERS = "models/tconstruct_modifiers.json";
+  private static final String VISIBLE_MODIFIERS = "tinkering/modifiers.json";
   /** Instance of this manager */
   public static final ModifierModelManager INSTANCE = new ModifierModelManager();
 
