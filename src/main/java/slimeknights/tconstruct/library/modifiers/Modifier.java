@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -10,6 +9,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
@@ -38,6 +38,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.client.ResourceColorManager;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -69,7 +70,6 @@ import java.util.function.BiConsumer;
  * Any behavior special to either one is handled elsewhere.
  */
 @SuppressWarnings("unused")
-@RequiredArgsConstructor
 public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /** Modifier random instance, use for chance based effects */
@@ -77,10 +77,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /** Priority of modfiers by default */
   public static final int DEFAULT_PRIORITY = 100;
-
-  /** Display color for all text for this modifier */
-  @Getter
-  private final int color;
 
   /** Registry name of this modifier, null before fully registered */
   @Getter @Nullable
@@ -143,6 +139,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Tooltips */
 
   /**
+   * Called on pack reload to clear caches
+   * @param packType type of pack being reloaded
+   */
+  public void clearCache(PackType packType) {
+    if (packType == PackType.CLIENT_RESOURCES) {
+      displayName = null;
+    }
+  }
+
+  /** Gets the color for this modifier */
+  public final TextColor getTextColor() {
+    return ResourceColorManager.getTextColor(getTranslationKey());
+  }
+
+  /** Gets the color for this modifier */
+  public final int getColor() {
+    return getTextColor().getValue();
+  }
+
+  /**
    * Overridable method to create a translation key. Will be called once and the result cached
    * @return  Translation key
    */
@@ -175,7 +191,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Resulting component
    */
   public MutableComponent applyStyle(MutableComponent component) {
-      return component.withStyle(style -> style.withColor(TextColor.fromRgb(color)));
+      return component.withStyle(style -> style.withColor(getTextColor()));
   }
 
   /**
@@ -184,7 +200,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public final Component getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslatableComponent(getTranslationKey()).withStyle(style -> style.withColor(TextColor.fromRgb(getColor())));
+      displayName = new TranslatableComponent(getTranslationKey()).withStyle(style -> style.withColor(getTextColor()));
     }
     return displayName;
   }

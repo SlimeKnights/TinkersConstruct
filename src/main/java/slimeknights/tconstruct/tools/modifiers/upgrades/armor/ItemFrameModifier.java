@@ -17,7 +17,7 @@ public class ItemFrameModifier extends InventoryModifier {
   /** Pattern and inventory key */
   private static final Pattern ITEM_FRAME = new Pattern(TConstruct.MOD_ID, "item_frame");
   public ItemFrameModifier() {
-    super(0x7FB7D7, ITEM_FRAME, 1);
+    super(ITEM_FRAME, 1);
   }
 
   @Override

@@ -22,9 +22,6 @@ public class ConductingModifier extends Modifier {
   private static final Component ATTACK_DAMAGE = TConstruct.makeTranslation("modifier", "conducting.attack_damage");
   private static final int MAX_BONUS_TICKS = 15 * 20; // time from lava
   private static final float PERCENT_PER_LEVEL = 0.15f; // 15% bonus when in lava essentially
-  public ConductingModifier() {
-    super(0xDBCC0B);
-  }
 
   @Override
   public int getPriority() {

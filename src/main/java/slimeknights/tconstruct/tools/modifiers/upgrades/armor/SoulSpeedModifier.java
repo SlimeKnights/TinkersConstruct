@@ -32,9 +32,6 @@ import java.util.UUID;
 public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   /** UUID for speed boost */
   private static final UUID ATTRIBUTE_BONUS = UUID.fromString("f61dde72-5b8d-11ec-bf63-0242ac130002");
-  public SoulSpeedModifier() {
-    super(0x5B4538);
-  }
 
   /** Gets the position this entity is standing on, cloned from protected living entity method */
   private static BlockPos getOnPosition(LivingEntity living) {

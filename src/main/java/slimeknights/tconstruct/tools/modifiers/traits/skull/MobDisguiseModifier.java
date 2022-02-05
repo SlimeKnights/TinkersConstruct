@@ -2,25 +2,20 @@ package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+@RequiredArgsConstructor
 public class MobDisguiseModifier extends SingleUseModifier {
   public static final TinkerDataKey<Multiset<EntityType<?>>> DISGUISES = TConstruct.createKey("mob_disguise");
-  private static boolean registeredListener = false;
+
   private final EntityType<?> type;
-  public MobDisguiseModifier(int color, EntityType<?> type) {
-    super(color);
-    this.type = type;
-    if (!registeredListener) {
-      registeredListener = true;
-    }
-  }
 
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {

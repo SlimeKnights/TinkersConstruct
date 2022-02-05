@@ -25,11 +25,11 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.modifiers.ExtraModifier;
-import slimeknights.tconstruct.library.modifiers.ExtraModifier.ModifierSource;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.modifiers.TankModifier;
+import slimeknights.tconstruct.library.modifiers.impl.ExtraModifier;
+import slimeknights.tconstruct.library.modifiers.impl.ExtraModifier.ModifierSource;
+import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
@@ -67,6 +67,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.PocketsModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.ProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.StrengthModifier;
@@ -78,6 +79,13 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeMod
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.PlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockTransformModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.FirestarterModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.HarvestAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.PathingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.ShearsAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.SilkyShearsAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.TillingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.BucketingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.DuelWieldingModifier;
@@ -85,6 +93,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.tool.ExchangingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.MeltingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.tool.OffhandAttackModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.SpillingModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier;
@@ -94,21 +103,11 @@ import slimeknights.tconstruct.tools.modifiers.defense.KnockbackResistanceModifi
 import slimeknights.tconstruct.tools.modifiers.defense.MagicProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.MeleeProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.ProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.RevitalizingModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.TurtleShellModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
-import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.FirestarterModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.PaddedModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.PathingModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
-import slimeknights.tconstruct.tools.modifiers.internal.TillingModifier;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteBonusFunction;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteLootCondition;
 import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
@@ -202,6 +201,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.LootingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PaddedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
@@ -259,7 +259,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OverforcedModifier> overforced = MODIFIERS.register("overforced", OverforcedModifier::new);
   public static final RegistryObject<EmeraldModifier> emerald = MODIFIERS.register("emerald", EmeraldModifier::new);
   public static final RegistryObject<DiamondModifier> diamond = MODIFIERS.register("diamond", DiamondModifier::new);
-  public static final RegistryObject<VolatileFlagModifier> worldbound = MODIFIERS.register("worldbound", () -> new VolatileFlagModifier(0x7E6059, IModifiable.INDESTRUCTIBLE_ENTITY));
+  public static final RegistryObject<VolatileFlagModifier> worldbound = MODIFIERS.register("worldbound", () -> new VolatileFlagModifier(IModifiable.INDESTRUCTIBLE_ENTITY));
   public static final RegistryObject<SoulboundModifier> soulbound = MODIFIERS.register("soulbound", SoulboundModifier::new);
   public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
   public static final RegistryObject<OverslimeModifier> overslime = MODIFIERS.register("overslime", OverslimeModifier::new);
@@ -267,7 +267,7 @@ public final class TinkerModifiers extends TinkerModule {
   // general effects
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
-  public static final RegistryObject<VolatileFlagModifier> shiny = MODIFIERS.register("shiny", () -> new VolatileFlagModifier(0xFFA3EF, IModifiable.SHINY, Rarity.EPIC));
+  public static final RegistryObject<VolatileFlagModifier> shiny = MODIFIERS.register("shiny", () -> new VolatileFlagModifier(IModifiable.SHINY, Rarity.EPIC));
   public static final RegistryObject<OffhandedModifier> offhanded = MODIFIERS.register("offhanded", OffhandedModifier::new);
   public static final RegistryObject<FarsightedModifier> farsighted = MODIFIERS.register("farsighted", FarsightedModifier::new);
   public static final RegistryObject<NearsightedModifier> nearsighted = MODIFIERS.register("nearsighted", NearsightedModifier::new);
@@ -289,9 +289,9 @@ public final class TinkerModifiers extends TinkerModule {
 
   // damage boost
   public static final RegistryObject<PiercingModifier> piercing = MODIFIERS.register("piercing", PiercingModifier::new);
-  public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(0xCC9720, MobType.UNDEAD));
+  public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(MobType.UNDEAD));
   public static final RegistryObject<BaneOfSssssModifier> baneOfSssss = MODIFIERS.register("bane_of_sssss", BaneOfSssssModifier::new);
-  public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0xD58520, MobType.WATER));
+  public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(MobType.WATER));
   public static final RegistryObject<CoolingModifier> cooling = MODIFIERS.register("cooling", CoolingModifier::new);
   public static final RegistryObject<SharpnessModifier> sharpness = MODIFIERS.register("sharpness", SharpnessModifier::new);
   public static final RegistryObject<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
@@ -308,7 +308,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<TurtleShellModifier> turtleShell = MODIFIERS.register("turtle_shell", TurtleShellModifier::new);
   public static final RegistryObject<DragonbornModifier> dragonborn = MODIFIERS.register("dragonborn", DragonbornModifier::new);
   // general
-  public static final RegistryObject<VolatileFlagModifier> golden = MODIFIERS.register("golden", () -> new VolatileFlagModifier(0xFFD83E, ModifiableArmorItem.PIGLIN_NEUTRAL));
+  public static final RegistryObject<VolatileFlagModifier> golden = MODIFIERS.register("golden", () -> new VolatileFlagModifier(ModifiableArmorItem.PIGLIN_NEUTRAL));
   public static final RegistryObject<RicochetModifier> ricochet = MODIFIERS.register("ricochet", RicochetModifier::new);
   public static final RegistryObject<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
   public static final RegistryObject<EmbellishmentModifier> embellishment = MODIFIERS.register("embellishment", EmbellishmentModifier::new);
@@ -322,7 +322,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ItemFrameModifier> itemFrame = MODIFIERS.register("item_frame", ItemFrameModifier::new);
   public static final RegistryObject<ZoomModifier> zoom = MODIFIERS.register("zoom", ZoomModifier::new);
   public static final RegistryObject<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
-  public static final RegistryObject<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(0x3FA442, TinkerDataKeys.AQUA_AFFINITY, true));
+  public static final RegistryObject<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(TinkerDataKeys.AQUA_AFFINITY, true));
   // chestplate
   public static final RegistryObject<ArmorKnockbackModifier> armorKnockback = MODIFIERS.register("knockback_armor", ArmorKnockbackModifier::new);
   public static final RegistryObject<UnarmedModifier> unarmed = MODIFIERS.register("unarmed", UnarmedModifier::new);
@@ -342,7 +342,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);
   public static final RegistryObject<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
   public static final RegistryObject<FrostWalkerModifier> frostWalker = MODIFIERS.register("frost_walker", FrostWalkerModifier::new);
-  public static final RegistryObject<BlockTransformWalkerModifier> pathMaker = MODIFIERS.register("path_maker", () -> new BlockTransformWalkerModifier(0x8a361e, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN));
+  public static final RegistryObject<BlockTransformWalkerModifier> pathMaker = MODIFIERS.register("path_maker", () -> new BlockTransformWalkerModifier(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN));
   public static final RegistryObject<PlowingModifier> plowing = MODIFIERS.register("plowing", PlowingModifier::new);
   public static final RegistryObject<SnowdriftModifier> snowdrift = MODIFIERS.register("snowdrift", SnowdriftModifier::new);
   public static final RegistryObject<FlamewakeModifier> flamewake = MODIFIERS.register("flamewake", FlamewakeModifier::new);
@@ -356,63 +356,69 @@ public final class TinkerModifiers extends TinkerModule {
   // harvest
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
-  public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
+  public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", Modifier::new);
   public static final RegistryObject<ExchangingModifier> exchanging = MODIFIERS.register("exchanging", ExchangingModifier::new);
 
   // fluid abilities
   public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
-  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0x3f3f3f, FluidAttributes.BUCKET_VOLUME));
+  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(FluidAttributes.BUCKET_VOLUME));
   public static final RegistryObject<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
   public static final RegistryObject<SpillingModifier> spilling = MODIFIERS.register("spilling", SpillingModifier::new);
   
   // right click abilities
   public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
   public static final RegistryObject<BlockTransformModifier> pathing = MODIFIERS.register("pathing", () -> new PathingModifier(75));
-  public static final RegistryObject<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(0xab7a55, 75, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(75, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
   public static final RegistryObject<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new TillingModifier(75));
-  public static final RegistryObject<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(0x5D342C, 70));
-  public static final RegistryObject<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", () -> new SingleLevelModifier(0x4A281D));
+  public static final RegistryObject<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(70));
+  public static final RegistryObject<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", SingleLevelModifier::new);
 
   // internal abilities
   public static final RegistryObject<BlockTransformModifier> shovelFlatten = MODIFIERS.register("shovel_flatten", () -> new PathingModifier(Integer.MIN_VALUE + 50));
-  public static final RegistryObject<BlockTransformModifier> axeStrip = MODIFIERS.register("axe_strip", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
-  public static final RegistryObject<BlockTransformModifier> axeScrape = MODIFIERS.register("axe_scrape", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 49, ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005));
-  public static final RegistryObject<BlockTransformModifier> axeWaxOff = MODIFIERS.register("axe_wax_off", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 48, ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF, false, 3004));
+  public static final RegistryObject<BlockTransformModifier> axeStrip = MODIFIERS.register("axe_strip", () -> new BlockTransformModifier(Integer.MIN_VALUE + 50, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> axeScrape = MODIFIERS.register("axe_scrape", () -> new BlockTransformModifier(Integer.MIN_VALUE + 49, ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005));
+  public static final RegistryObject<BlockTransformModifier> axeWaxOff = MODIFIERS.register("axe_wax_off", () -> new BlockTransformModifier(Integer.MIN_VALUE + 48, ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF, false, 3004));
   public static final RegistryObject<BlockTransformModifier> hoeTill = MODIFIERS.register("hoe_till", () -> new TillingModifier(Integer.MIN_VALUE + 50));
-  public static final RegistryObject<FirestarterModifier> firestarterHidden = MODIFIERS.register("firestarter_hidden", () -> new FirestarterModifier(-1, Integer.MIN_VALUE + 50));
-  public static final RegistryObject<VolatileFlagModifier> wings = MODIFIERS.register("wings", () -> new VolatileFlagModifier(0xD37CFF, ModifiableArmorItem.ELYTRA));
+  public static final RegistryObject<FirestarterModifier> firestarterHidden = MODIFIERS.register("firestarter_hidden", () -> new FirestarterModifier(Integer.MIN_VALUE + 50));
+  public static final RegistryObject<VolatileFlagModifier> wings = MODIFIERS.register("wings", () -> new VolatileFlagModifier(ModifiableArmorItem.ELYTRA));
 
-  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, 0, Short.MIN_VALUE));
-  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, 0, Short.MIN_VALUE));
-  public static final RegistryObject<SilkyShearsAbilityModifier> aoeSilkyShears = MODIFIERS.register("silky_aoe_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, 1, Short.MIN_VALUE));
-  public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
-  public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", () -> new OffhandAttackModifier(-1));
+  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0, Short.MIN_VALUE));
+  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0, Short.MIN_VALUE));
+  public static final RegistryObject<SilkyShearsAbilityModifier> aoeSilkyShears = MODIFIERS.register("silky_aoe_shears", () -> new SilkyShearsAbilityModifier(1, Short.MIN_VALUE));
+  public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(Integer.MIN_VALUE + 51));
+  public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", OffhandAttackModifier::new);
 
   // bonus modifier slots
-  public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));
-  public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0x67d755));
-  public static final RegistryObject<ExtraModifier> harmonious = MODIFIERS.register("harmonious", () -> new ExtraModifier(0xffd800));
-  public static final RegistryObject<ExtraModifier> resurrected = MODIFIERS.register("resurrected", () -> new ExtraModifier(0xbe95d4));
-  public static final RegistryObject<ExtraModifier> gilded = MODIFIERS.register("gilded", () -> new ExtraModifier(0xeccb45, SlotType.UPGRADE, ModifierSource.MULTI_LEVEL, 2));
-  public static final RegistryObject<ExtraModifier> draconic = MODIFIERS.register("draconic", () -> new ExtraModifier(0x707070, SlotType.ABILITY, ModifierSource.SINGLE_LEVEL));
+  public static final RegistryObject<ExtraModifier> writable, recapitated, harmonious, resurrected;
+  public static final RegistryObject<ExtraModifier> redExtraUpgrade, greenExtraUpgrade, blueExtraUpgrade;
+  static {
+    Supplier<ExtraModifier> extraModifier = ExtraModifier::new;
+    writable    = MODIFIERS.register("writable", extraModifier);
+    recapitated = MODIFIERS.register("recapitated", extraModifier);
+    harmonious  = MODIFIERS.register("harmonious", extraModifier);
+    resurrected = MODIFIERS.register("resurrected", extraModifier);
+    // extra slots for pack makers
+    redExtraUpgrade   = MODIFIERS.register("red_extra_upgrade", extraModifier);
+    greenExtraUpgrade = MODIFIERS.register("green_extra_upgrade", extraModifier);
+    blueExtraUpgrade   = MODIFIERS.register("blue_extra_upgrade", extraModifier);
+  }
+  public static final RegistryObject<ExtraModifier> gilded = MODIFIERS.register("gilded", () -> new ExtraModifier(SlotType.UPGRADE, ModifierSource.MULTI_LEVEL, 2));
+  public static final RegistryObject<ExtraModifier> draconic = MODIFIERS.register("draconic", () -> new ExtraModifier(SlotType.ABILITY, ModifierSource.SINGLE_LEVEL));
   // extra modifier slots for modpacks
-  public static final RegistryObject<ExtraModifier> redExtraUpgrade = MODIFIERS.register("red_extra_upgrade", () -> new ExtraModifier(0xff0000));
-  public static final RegistryObject<ExtraModifier> greenExtraUpgrade = MODIFIERS.register("green_extra_upgrade", () -> new ExtraModifier(0x00ff00));
-  public static final RegistryObject<ExtraModifier> blueExtraUpgrade = MODIFIERS.register("blue_extra_upgrade", () -> new ExtraModifier(0x0000ff));
-  public static final RegistryObject<ExtraModifier> extraAbility = MODIFIERS.register("extra_ability", () -> new ExtraModifier(0xB8A0FF, SlotType.ABILITY, ModifierSource.SINGLE_LEVEL));
+  public static final RegistryObject<ExtraModifier> extraAbility = MODIFIERS.register("extra_ability", () -> new ExtraModifier(SlotType.ABILITY, ModifierSource.SINGLE_LEVEL));
   // creative
   public static final RegistryObject<CreativeSlotModifier> creativeSlot = MODIFIERS.register("creative_slot", CreativeSlotModifier::new);
   public static final RegistryObject<StatOverrideModifier> statOverride = MODIFIERS.register("stat_override", StatOverrideModifier::new);
 
   // traits - tier 1
   public static final RegistryObject<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
-  public static final RegistryObject<DamageSpeedTradeModifier> jagged = MODIFIERS.register("jagged", () -> new DamageSpeedTradeModifier(0x696969, 0.005f));
-  public static final RegistryObject<DamageSpeedTradeModifier> stonebound = MODIFIERS.register("stonebound", () -> new DamageSpeedTradeModifier(0x999999, -0.005f));
-  public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0xE8E5D2, 0.5f));
+  public static final RegistryObject<DamageSpeedTradeModifier> jagged = MODIFIERS.register("jagged", () -> new DamageSpeedTradeModifier(0.005f));
+  public static final RegistryObject<DamageSpeedTradeModifier> stonebound = MODIFIERS.register("stonebound", () -> new DamageSpeedTradeModifier(-0.005f));
+  public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0.5f));
   // traits - tier 1 nether
   public static final RegistryObject<NecroticModifier> necrotic = MODIFIERS.register("necrotic", NecroticModifier::new);
   // traits - tier 1 bindings
-  public static final RegistryObject<Modifier> stringy = MODIFIERS.register("stringy", () -> new Modifier(-1));
+  public static final RegistryObject<Modifier> stringy = MODIFIERS.register("stringy", Modifier::new);
   public static final RegistryObject<TannedModifier> tanned = MODIFIERS.register("tanned", TannedModifier::new);
   public static final RegistryObject<SolarPoweredModifier> solarPowered = MODIFIERS.register("solar_powered", SolarPoweredModifier::new);
   // traits - tier 2
@@ -427,7 +433,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
-  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xF7CDBB, SlotType.UPGRADE, ModifierSource.TRAIT));
+  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(SlotType.UPGRADE, ModifierSource.TRAIT));
   public static final RegistryObject<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
   // traits - tier 3 nether
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
@@ -471,20 +477,20 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<GoldGuardModifier> goldGuard = MODIFIERS.register("gold_guard", GoldGuardModifier::new);
   public static final RegistryObject<RevengeModifier> revenge = MODIFIERS.register("revenge", RevengeModifier::new);
   // disguise
-  public static final RegistryObject<MobDisguiseModifier> creeperDisguise = MODIFIERS.register("creeper_disguise", () -> new MobDisguiseModifier(0x95D78E, EntityType.CREEPER));
-  public static final RegistryObject<MobDisguiseModifier> endermanDisguise = MODIFIERS.register("enderman_disguise", () -> new MobDisguiseModifier(0xCC00FA, EntityType.ENDERMAN));
-  public static final RegistryObject<MobDisguiseModifier> skeletonDisguise = MODIFIERS.register("skeleton_disguise", () -> new MobDisguiseModifier(0xD3D3D3, EntityType.SKELETON));
-  public static final RegistryObject<MobDisguiseModifier> strayDisguise = MODIFIERS.register("stray_disguise", () -> new MobDisguiseModifier(0xC5D6D5, EntityType.STRAY));
-  public static final RegistryObject<MobDisguiseModifier> witherSkeletonDisguise = MODIFIERS.register("wither_skeleton_disguise", () -> new MobDisguiseModifier(0x343434, EntityType.WITHER_SKELETON));
-  public static final RegistryObject<MobDisguiseModifier> spiderDisguise = MODIFIERS.register("spider_disguise", () -> new MobDisguiseModifier(0x605448, EntityType.SPIDER));
-  public static final RegistryObject<MobDisguiseModifier> caveSpiderDisguise = MODIFIERS.register("cave_spider_disguise", () -> new MobDisguiseModifier(0x153A34, EntityType.CAVE_SPIDER));
-  public static final RegistryObject<MobDisguiseModifier> zombieDisguise = MODIFIERS.register("zombie_disguise", () -> new MobDisguiseModifier(0x487532, EntityType.ZOMBIE));
-  public static final RegistryObject<MobDisguiseModifier> huskDisguise = MODIFIERS.register("husk_disguise", () -> new MobDisguiseModifier(0x59503B, EntityType.HUSK));
-  public static final RegistryObject<MobDisguiseModifier> drownedDisguise = MODIFIERS.register("drowned_disguise", () -> new MobDisguiseModifier(0x56847E, EntityType.DROWNED));
-  public static final RegistryObject<MobDisguiseModifier> blazeDisguise = MODIFIERS.register("blaze_disguise", () -> new MobDisguiseModifier(0xFC9600, EntityType.BLAZE));
-  public static final RegistryObject<MobDisguiseModifier> piglinDisguise = MODIFIERS.register("piglin_disguise", () -> new MobDisguiseModifier(0xE8A074, EntityType.PIGLIN));
-  public static final RegistryObject<MobDisguiseModifier> piglinBruteDisguise = MODIFIERS.register("piglin_brute_disguise", () -> new MobDisguiseModifier(0xF5DA2A, EntityType.PIGLIN_BRUTE));
-  public static final RegistryObject<MobDisguiseModifier> zombifiedPiglinDisguise = MODIFIERS.register("zombified_piglin_disguise", () -> new MobDisguiseModifier(0x698E45, EntityType.ZOMBIFIED_PIGLIN));
+  public static final RegistryObject<MobDisguiseModifier> creeperDisguise         = MODIFIERS.register("creeper_disguise",          () -> new MobDisguiseModifier(EntityType.CREEPER));
+  public static final RegistryObject<MobDisguiseModifier> endermanDisguise        = MODIFIERS.register("enderman_disguise",         () -> new MobDisguiseModifier(EntityType.ENDERMAN));
+  public static final RegistryObject<MobDisguiseModifier> skeletonDisguise        = MODIFIERS.register("skeleton_disguise",         () -> new MobDisguiseModifier(EntityType.SKELETON));
+  public static final RegistryObject<MobDisguiseModifier> strayDisguise           = MODIFIERS.register("stray_disguise",            () -> new MobDisguiseModifier(EntityType.STRAY));
+  public static final RegistryObject<MobDisguiseModifier> witherSkeletonDisguise  = MODIFIERS.register("wither_skeleton_disguise",  () -> new MobDisguiseModifier(EntityType.WITHER_SKELETON));
+  public static final RegistryObject<MobDisguiseModifier> spiderDisguise          = MODIFIERS.register("spider_disguise",           () -> new MobDisguiseModifier(EntityType.SPIDER));
+  public static final RegistryObject<MobDisguiseModifier> caveSpiderDisguise      = MODIFIERS.register("cave_spider_disguise",      () -> new MobDisguiseModifier(EntityType.CAVE_SPIDER));
+  public static final RegistryObject<MobDisguiseModifier> zombieDisguise          = MODIFIERS.register("zombie_disguise",           () -> new MobDisguiseModifier(EntityType.ZOMBIE));
+  public static final RegistryObject<MobDisguiseModifier> huskDisguise            = MODIFIERS.register("husk_disguise",             () -> new MobDisguiseModifier(EntityType.HUSK));
+  public static final RegistryObject<MobDisguiseModifier> drownedDisguise         = MODIFIERS.register("drowned_disguise",          () -> new MobDisguiseModifier(EntityType.DROWNED));
+  public static final RegistryObject<MobDisguiseModifier> blazeDisguise           = MODIFIERS.register("blaze_disguise",            () -> new MobDisguiseModifier(EntityType.BLAZE));
+  public static final RegistryObject<MobDisguiseModifier> piglinDisguise          = MODIFIERS.register("piglin_disguise",           () -> new MobDisguiseModifier(EntityType.PIGLIN));
+  public static final RegistryObject<MobDisguiseModifier> piglinBruteDisguise     = MODIFIERS.register("piglin_brute_disguise",     () -> new MobDisguiseModifier(EntityType.PIGLIN_BRUTE));
+  public static final RegistryObject<MobDisguiseModifier> zombifiedPiglinDisguise = MODIFIERS.register("zombified_piglin_disguise", () -> new MobDisguiseModifier(EntityType.ZOMBIFIED_PIGLIN));
 
   // mod compat
   public static final RegistryObject<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);

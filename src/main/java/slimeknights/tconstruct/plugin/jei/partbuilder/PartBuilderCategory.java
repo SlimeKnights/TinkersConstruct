@@ -67,7 +67,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   public void draw(IDisplayPartBuilderRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
     Font fontRenderer = Minecraft.getInstance().font;
     IMaterial material = recipe.getMaterial();
-    fontRenderer.drawShadow(matrixStack, I18n.get(material.getTranslationKey()), 3, 2, material.getColor().value);
+    fontRenderer.drawShadow(matrixStack, I18n.get(material.getTranslationKey()), 3, 2, material.getColor().getValue());
     String coolingString = I18n.get(KEY_COST, recipe.getCost());
     fontRenderer.draw(matrixStack, coolingString, 3, 35, Color.GRAY.getRGB());
   }

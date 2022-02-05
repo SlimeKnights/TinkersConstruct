@@ -1,6 +1,7 @@
-package slimeknights.tconstruct.library.modifiers;
+package slimeknights.tconstruct.library.modifiers.impl;
 
 import net.minecraft.network.chat.Component;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 
 
 /**
@@ -9,10 +10,6 @@ import net.minecraft.network.chat.Component;
  * If the modifier is only single level by design, {@link SingleUseModifier} is better.
  */
 public class SingleLevelModifier extends Modifier {
-  public SingleLevelModifier(int color) {
-    super(color);
-  }
-
   @Override
   public Component getDisplayName(int level) {
     if (level == 1) {

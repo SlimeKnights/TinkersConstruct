@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.world.item.Rarity;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import net.minecraft.world.item.Rarity;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -10,17 +11,13 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 /**
  * Simple modifier that sets a flag in volatile mod data to true
  */
+@RequiredArgsConstructor
 public class VolatileFlagModifier extends SingleUseModifier {
-  private final Rarity rarity;
   private final ResourceLocation flag;
-  public VolatileFlagModifier(int color, ResourceLocation flag, Rarity rarity) {
-    super(color);
-    this.flag = flag;
-    this.rarity = rarity;
-  }
+  private final Rarity rarity;
 
-  public VolatileFlagModifier(int color, ResourceLocation flag) {
-    this(color, flag, Rarity.COMMON);
+  public VolatileFlagModifier(ResourceLocation flag) {
+    this(flag, Rarity.COMMON);
   }
 
   @Override

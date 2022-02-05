@@ -1,6 +1,7 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -16,23 +17,18 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+@RequiredArgsConstructor
 public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
   private final int range;
   @Getter
   private final int priority;
-  
-  public ShearsAbilityModifier(int color, int range, int priority) {
-    super(color);
-    this.range = range;
-    this.priority = priority;
-  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {

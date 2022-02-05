@@ -53,8 +53,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
       buffer.writeBoolean(material.isCraftable());
-      // the color int getter is private
-      buffer.writeInt(material.getColor().value);
+      buffer.writeInt(material.getColor().getValue());
       buffer.writeBoolean(material.isHidden());
     });
     buffer.writeVarInt(this.redirects.size());

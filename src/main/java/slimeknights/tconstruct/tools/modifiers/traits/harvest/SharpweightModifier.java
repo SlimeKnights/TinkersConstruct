@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.traits.harvest;
 
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -20,9 +20,6 @@ public class SharpweightModifier extends Modifier {
   private static final UUID MAINHAND_ATTRIBUTE_UUID = UUID.fromString("695891a0-a5d3-4d6d-8872-0b5c855821d4");
   private static final UUID OFFHAND_ATTRIBUTE_UUID = UUID.fromString("f401c376-2d66-4dc8-a8bd-44c7cb14eb4d");
   private static final String ATTRIBUTE_NAME = TConstruct.prefix("sharpweight");
-  public SharpweightModifier() {
-    super(0xD1C08B);
-  }
 
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {

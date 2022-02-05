@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 public class BouncyModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> BOUNCY = TConstruct.createKey("bouncy");
   public BouncyModifier() {
-    super(0x27C6C6, BOUNCY, true);
+    super(BOUNCY, true);
     MinecraftForge.EVENT_BUS.addListener(BouncyModifier::onFall);
   }
 

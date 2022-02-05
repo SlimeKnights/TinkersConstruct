@@ -20,9 +20,6 @@ import java.util.List;
 
 public class MomentumModifier extends Modifier {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "momentum.mining_speed");
-  public MomentumModifier() {
-    super(0x60496b);
-  }
 
   @Override
   public int getPriority() {

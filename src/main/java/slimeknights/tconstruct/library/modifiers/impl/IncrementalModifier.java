@@ -1,21 +1,18 @@
-package slimeknights.tconstruct.library.modifiers;
+package slimeknights.tconstruct.library.modifiers.impl;
 
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import java.util.List;
 
 /** Modifier which can take just part of an input instead of the whole input */
 public class IncrementalModifier extends Modifier {
-  public IncrementalModifier(int color) {
-    super(color);
-  }
-
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);

@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -16,9 +16,6 @@ public class NearsightedModifier extends IncrementalModifier {
                                                      .sorted(Comparator.comparing(EquipmentSlot::getFilterFlag))
                                                      .map(slot -> TConstruct.getResource("nearsighted_" + slot.getName()))
                                                      .toArray(ResourceLocation[]::new);
-  public NearsightedModifier() {
-    super(0x796571);
-  }
 
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {

@@ -7,14 +7,11 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class EmbellishmentModifier extends SingleUseModifier {
   private static final String FORMAT_KEY = TConstruct.makeTranslationKey("modifier", "embellishment.formatted");
-  public EmbellishmentModifier() {
-    super(-1);
-  }
 
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {

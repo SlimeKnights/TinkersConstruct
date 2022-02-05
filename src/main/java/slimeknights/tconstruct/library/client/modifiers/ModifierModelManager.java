@@ -3,13 +3,11 @@ package slimeknights.tconstruct.library.client.modifiers;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -22,23 +20,17 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 /**
  * Class handling the loading of modifier models
@@ -66,21 +58,6 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    */
   public static void init(RegisterClientReloadListenersEvent manager) {
     manager.registerReloadListener(INSTANCE);
-  }
-
-  /**
-   * Converts the resource into a JSON file
-   * @param resource  Resource to read. Closed when done
-   * @return  JSON object, or null if failed to parse
-   */
-  @Nullable
-  private static JsonObject getJson(Resource resource) {
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
-      return GsonHelper.parse(reader);
-    } catch (JsonParseException | IOException e) {
-      log.error("Failed to load texture JSON " + resource.getLocation(), e);
-      return null;
-    }
   }
 
   /**
@@ -119,20 +96,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     Map<Modifier,IUnbakedModifierModel> models = new HashMap<>();
 
     // get a list of files from all namespaces
-    List<JsonObject> jsonFiles = manager.getNamespaces().stream()
-                                        .flatMap(namespace -> {
-                                          ResourceLocation location = new ResourceLocation(namespace, VISIBLE_MODIFIERS);
-                                          try {
-                                            return manager.getResources(location).stream();
-                                          } catch (FileNotFoundException e) {
-                                            // suppress, the above method throws instead of returning empty
-                                          } catch (IOException e) {
-                                            log.error("Failed to load modifier models from {}", location, e);
-                                          }
-                                          return Stream.empty();
-                                        })
-                                        .map(ModifierModelManager::getJson)
-                                        .filter(Objects::nonNull).toList();
+    List<JsonObject> jsonFiles = JsonUtils.getFileInAllDomainsAndPacks(manager, VISIBLE_MODIFIERS);
     // first object is bottom most pack, so upper resource packs will replace it
     for (int i = jsonFiles.size() - 1; i >= 0; i--) {
       JsonObject json = jsonFiles.get(i);

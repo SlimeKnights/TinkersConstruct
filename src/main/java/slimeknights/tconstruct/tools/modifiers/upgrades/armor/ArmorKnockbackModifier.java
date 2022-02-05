@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -19,10 +19,6 @@ public class ArmorKnockbackModifier extends Modifier {
     UUID.fromString("9fac6cf4-5ac3-11ec-bf63-0242ac130002"),
     UUID.fromString("9fac6e02-5ac3-11ec-bf63-0242ac130002")
   };
-
-  public ArmorKnockbackModifier() {
-    super(0xBC9862);
-  }
 
   @Override
   public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {

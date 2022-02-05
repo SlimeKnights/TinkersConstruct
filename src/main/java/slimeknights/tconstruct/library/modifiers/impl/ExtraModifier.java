@@ -1,6 +1,8 @@
-package slimeknights.tconstruct.library.modifiers;
+package slimeknights.tconstruct.library.modifiers.impl;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -8,24 +10,18 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 /**
  * Shared logic for all modifiers that just grant a bonus modifier
  */
+@RequiredArgsConstructor
 public class ExtraModifier extends Modifier {
   private final SlotType type;
   private final ModifierSource source;
   private final int slotsPerLevel;
 
-  public ExtraModifier(int color, SlotType type, ModifierSource source, int slotsPerLevel) {
-    super(color);
-    this.type = type;
-    this.source = source;
-    this.slotsPerLevel = slotsPerLevel;
+  public ExtraModifier(SlotType type, ModifierSource source) {
+    this(type, source, 1);
   }
 
-  public ExtraModifier(int color, SlotType type, ModifierSource source) {
-    this(color, type, source, 1);
-  }
-
-  public ExtraModifier(int color) {
-    this(color, SlotType.UPGRADE, ModifierSource.SINGLE_LEVEL);
+  public ExtraModifier() {
+    this(SlotType.UPGRADE, ModifierSource.SINGLE_LEVEL);
   }
 
   @Override

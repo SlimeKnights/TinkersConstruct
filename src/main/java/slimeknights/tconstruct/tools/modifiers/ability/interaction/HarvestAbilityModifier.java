@@ -1,5 +1,7 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -23,8 +25,8 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
+import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -34,18 +36,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
+  @Getter
   private final int priority;
-  
-  public HarvestAbilityModifier(int color, int priority) {
-    super(color);
-    this.priority = priority;
-  }
-  
-  @Override
-  public int getPriority() {
-    return priority;
-  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {

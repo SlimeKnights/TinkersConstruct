@@ -25,7 +25,7 @@ public class HasteModifier extends IncrementalArmorLevelModifier {
   public static final TinkerDataKey<Float> HASTE = TConstruct.createKey("haste");
 
   public HasteModifier() {
-    super(0x7F0901, HASTE);
+    super(HASTE);
   }
 
   @Override

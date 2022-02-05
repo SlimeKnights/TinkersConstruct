@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.SingleItemContainer;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -30,7 +30,6 @@ public class AutosmeltModifier extends SingleUseModifier {
   private final SingleItemContainer inventory = new SingleItemContainer();
 
   public AutosmeltModifier() {
-    super(0xBA541C);
     RecipeCacheInvalidator.addReloadListener(client -> {
       if (!client) {
         recipeCache.invalidateAll();

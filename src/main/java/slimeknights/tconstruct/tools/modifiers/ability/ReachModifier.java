@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.ability;
 
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.common.ForgeMod;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -20,9 +20,6 @@ public class ReachModifier extends Modifier {
     UUID.fromString("5812abda-fa77-11eb-9a03-0242ac130003"),
     UUID.fromString("803c6bd2-fa77-11eb-9a03-0242ac130003")
   };
-  public ReachModifier() {
-    super(0xd37cff);
-  }
 
   @Override
   public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {

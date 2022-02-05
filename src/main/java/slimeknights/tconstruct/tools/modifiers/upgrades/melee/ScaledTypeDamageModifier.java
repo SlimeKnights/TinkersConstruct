@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.melee;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -15,12 +16,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Shared logic for all modifiers that boost damage against a creature type */
+@RequiredArgsConstructor
 public class ScaledTypeDamageModifier extends IncrementalModifier {
   private final MobType type;
-  public ScaledTypeDamageModifier(int color, MobType type) {
-    super(color);
-    this.type = type;
-  }
 
   /**
    * Method to check if this modifier is effective on the given entity

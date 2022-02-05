@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -12,7 +12,7 @@ import net.minecraftforge.common.ToolActions;
 
 public class PathingModifier extends BlockTransformModifier {
   public PathingModifier(int priority) {
-    super(0x8a361e, priority, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN, true);
+    super(priority, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN, true);
   }
 
   @Override

@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -18,10 +18,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class HydraulicModifier extends IncrementalModifier {
-  public HydraulicModifier() {
-    super(0x7CB3A4);
-  }
-
   @Override
   public int getPriority() {
     return 125; // run before trait boosts such as dwarven

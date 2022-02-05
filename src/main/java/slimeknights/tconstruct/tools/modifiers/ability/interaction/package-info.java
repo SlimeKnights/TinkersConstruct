@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.modifiers.base;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

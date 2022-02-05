@@ -1,5 +1,7 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -14,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ToolAction;
-import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -22,29 +24,17 @@ import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 
 import java.util.Iterator;
 
+@RequiredArgsConstructor
 public class BlockTransformModifier extends InteractionModifier.SingleUse {
+  @Getter
+  private final int priority;
   private final ToolAction action;
   private final SoundEvent sound;
   private final boolean requireGround;
   private final int eventId;
-  private final int priority;
 
-  public BlockTransformModifier(int color, int priority, ToolAction action, SoundEvent sound, boolean requireGround, int eventId) {
-    super(color);
-    this.priority = priority;
-    this.action = action;
-    this.sound = sound;
-    this.requireGround = requireGround;
-    this.eventId = eventId;
-  }
-
-  public BlockTransformModifier(int color, int priority, ToolAction action, SoundEvent sound, boolean requireGround) {
-    this(color, priority, action, sound, requireGround, -1);
-  }
-
-  @Override
-  public int getPriority() {
-    return priority;
+  public BlockTransformModifier(int priority, ToolAction action, SoundEvent sound, boolean requireGround) {
+    this(priority, action, sound, requireGround, -1);
   }
 
   @Override

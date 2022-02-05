@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -19,10 +19,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class OffhandAttackModifier extends SingleUseModifier {
   public static final ResourceLocation DUEL_WIELDING = TConstruct.getResource("duel_wielding");
-
-  public OffhandAttackModifier(int color) {
-    super(color);
-  }
 
   @Override
   public int getPriority() {

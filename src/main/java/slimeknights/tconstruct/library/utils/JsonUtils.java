@@ -2,12 +2,26 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
+
+import javax.annotation.Nullable;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -76,5 +90,57 @@ public class JsonUtils {
    */
   public static <T extends IForgeRegistryEntry<T>> T getAsEntry(IForgeRegistry<T> registry, JsonObject parent, String key) {
     return convertToEntry(registry, JsonHelper.getElement(parent, key), key);
+  }
+
+  /**
+   * Converts the resource into a JSON file
+   * @param resource  Resource to read. Closed when done
+   * @return  JSON object, or null if failed to parse
+   */
+  @Nullable
+  public static JsonObject getJson(Resource resource) {
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
+      return GsonHelper.parse(reader);
+    } catch (JsonParseException | IOException e) {
+      TConstruct.LOG.error("Failed to load JSON from resource " + resource.getLocation(), e);
+      return null;
+    }
+  }
+
+  /**
+   * @return {@code true} if the specified {@code namespace} is valid: consists only of {@code [a-z0-9_.-]} characters
+   */
+  private static boolean isValidNamespace(String pNamespace) {
+    for (int i = 0; i < pNamespace.length(); ++i) {
+      if (!validNamespaceChar(pNamespace.charAt(i))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private static boolean validNamespaceChar(char c) {
+    return c == '_' || c == '-' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c == '.';
+  }
+
+  /** Gets a list of JSON objects for a single path in all domains and packs, for a language file like loader */
+  public static List<JsonObject> getFileInAllDomainsAndPacks(ResourceManager manager, String path) {
+    return manager
+      .getNamespaces().stream()
+      .filter(JsonUtils::isValidNamespace)
+      .flatMap(namespace -> {
+        ResourceLocation location = new ResourceLocation(namespace, path);
+        try {
+          return manager.getResources(location).stream();
+        } catch (FileNotFoundException e) {
+          // suppress, the above method throws instead of returning empty
+        } catch (IOException e) {
+          TConstruct.LOG.error("Failed to load JSON files from {}", location, e);
+        }
+        return Stream.empty();
+      })
+      .map(JsonUtils::getJson)
+      .filter(Objects::nonNull).toList();
   }
 }

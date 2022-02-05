@@ -10,9 +10,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 public class OverlordModifier extends Modifier {
-  public OverlordModifier() {
-    super(0x236c45);
-  }
   @Override
   public int getPriority() {
     return 80; // after overcast

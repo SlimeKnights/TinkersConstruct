@@ -30,7 +30,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   /** Entity data key for the data associated with this modifier */
   private static final TinkerDataKey<BlastData> BLAST_DATA = TConstruct.createKey("blast_protection");
   public BlastProtectionModifier() {
-    super(0x17DD62, BLAST_DATA);
+    super(BLAST_DATA);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, ExplosionEvent.Detonate.class, BlastProtectionModifier::onExplosionDetonate);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingUpdateEvent.class, BlastProtectionModifier::livingTick);
   }

@@ -1,8 +1,9 @@
-package slimeknights.tconstruct.library.modifiers;
+package slimeknights.tconstruct.library.modifiers.impl;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -10,10 +11,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import javax.annotation.Nullable;
 
 public abstract class DurabilityShieldModifier extends Modifier {
-  public DurabilityShieldModifier(int color) {
-    super(color);
-  }
-
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
     return getDisplayName(level).copy()

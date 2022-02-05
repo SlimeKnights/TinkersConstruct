@@ -14,10 +14,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 public class SeveringModifier extends Modifier {
-  public SeveringModifier() {
-    super(0xBB8972);
-  }
-
   @Override
   public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob

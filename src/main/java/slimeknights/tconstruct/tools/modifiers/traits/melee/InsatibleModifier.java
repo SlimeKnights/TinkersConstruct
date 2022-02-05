@@ -15,10 +15,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class InsatibleModifier extends Modifier {
-  public InsatibleModifier() {
-    super(0x9261cc);
-  }
-
   /** Gets the current bonus for the entity */
   private static float getBonus(LivingEntity attacker, int level) {
     int effectLevel = TinkerModifiers.insatiableEffect.get().getLevel(attacker) + 1;

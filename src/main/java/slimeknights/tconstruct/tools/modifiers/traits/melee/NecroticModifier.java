@@ -8,10 +8,6 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class NecroticModifier extends Modifier {
-  public NecroticModifier() {
-    super(0x4D4D4D);
-  }
-
   @Override
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (context.isFullyCharged() && damageDealt > 0) {

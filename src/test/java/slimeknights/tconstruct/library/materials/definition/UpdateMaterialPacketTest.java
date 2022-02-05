@@ -45,7 +45,7 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     assertThat(parsedMat.getTier()).isEqualTo(1);
     assertThat(parsedMat.getSortOrder()).isEqualTo(2);
     assertThat(parsedMat.isCraftable()).isTrue();
-    assertThat(parsedMat.getColor().value).isEqualTo(0x123456);
+    assertThat(parsedMat.getColor().getValue()).isEqualTo(0x123456);
     assertThat(parsedMat.isHidden()).isFalse();
 
     // material 2
@@ -54,7 +54,7 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     assertThat(parsedMat.getTier()).isEqualTo(3);
     assertThat(parsedMat.getSortOrder()).isEqualTo(4);
     assertThat(parsedMat.isCraftable()).isFalse();
-    assertThat(parsedMat.getColor().value).isEqualTo(0xFFFFFF);
+    assertThat(parsedMat.getColor().getValue()).isEqualTo(0xFFFFFF);
     assertThat(parsedMat.isHidden()).isTrue();
 
     // redirects not included

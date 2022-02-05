@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.impl;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -12,14 +13,15 @@ import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.function.BiFunction;
 
 /** Modifier that has an inventory */
+@RequiredArgsConstructor
 public class InventoryModifier extends Modifier implements IInventoryModifier {
   /** Mod Data NBT mapper to get a compound list */
   protected static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
@@ -32,12 +34,6 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   private final ResourceLocation inventoryKey;
   /** Number of slots to add per modifier level */
   private final int slotsPerLevel;
-
-  public InventoryModifier(int color, ResourceLocation inventoryKey, int slotsPerLevel) {
-    super(color);
-    this.inventoryKey = inventoryKey;
-    this.slotsPerLevel = slotsPerLevel;
-  }
 
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {

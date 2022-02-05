@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.DurabilityShieldModifier;
+import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -19,14 +19,6 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   private static final ResourceLocation KEY_OVERSLIME_CAP = TConstruct.getResource("overslime_cap");
   /** Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs */
   private static final ResourceLocation KEY_OVERSLIME_FRIEND = TConstruct.getResource("overslime_friend");
-
-  protected OverslimeModifier(int color) {
-    super(color);
-  }
-
-  public OverslimeModifier() {
-    this(0x71DC85);
-  }
 
   @Override
   public Component getDisplayName(int level) {

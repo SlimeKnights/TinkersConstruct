@@ -22,13 +22,6 @@ import java.util.List;
 public class MaintainedModifier extends Modifier {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "maintained.mining_speed");
   private static final ResourceLocation KEY_ORIGINAL_DURABILITY = TConstruct.getResource("durability");
-  public MaintainedModifier() {
-    super(0xE8B465);
-  }
-
-  protected MaintainedModifier(int color) {
-    super(color);
-  }
 
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {

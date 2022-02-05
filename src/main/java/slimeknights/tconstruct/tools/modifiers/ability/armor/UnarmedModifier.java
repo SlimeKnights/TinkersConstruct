@@ -9,13 +9,9 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.tool.OffhandAttackModifier;
 
 public class UnarmedModifier extends OffhandAttackModifier {
-  public UnarmedModifier() {
-    super(0xAA7D66);
-  }
-
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.4f);

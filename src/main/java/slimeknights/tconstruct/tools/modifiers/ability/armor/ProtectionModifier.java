@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.defense;
+package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -8,7 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -18,10 +18,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ProtectionModifier extends IncrementalModifier {
-  public ProtectionModifier() {
-    super(0xA8A8A8);
-  }
-
   /** Gets the protection value for the given level and modifier value */
   private double getProtectionValue(IToolStackView tool, int level) {
     float scaled = getScaledLevel(tool, level);

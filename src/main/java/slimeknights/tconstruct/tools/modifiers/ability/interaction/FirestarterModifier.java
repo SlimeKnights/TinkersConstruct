@@ -1,6 +1,7 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import slimeknights.tconstruct.library.modifiers.base.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -34,13 +35,10 @@ import java.util.Collections;
 /**
  * Modifier that starts a fire at the given position
  */
+@RequiredArgsConstructor
 public class FirestarterModifier extends InteractionModifier.SingleUse {
   @Getter
   private final int priority;
-  public FirestarterModifier(int color, int priority) {
-    super(color);
-    this.priority = priority;
-  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {

@@ -1,17 +1,15 @@
 package slimeknights.tconstruct.library.modifiers.impl;
 
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+/** Cross of {@link IncrementalModifier} and {@link TotalArmorLevelModifier} */
+@RequiredArgsConstructor
 public class IncrementalArmorLevelModifier extends IncrementalModifier {
   private final TinkerDataKey<Float> key;
-  public IncrementalArmorLevelModifier(int color, TinkerDataKey<Float> key) {
-    super(color);
-    this.key = key;
-  }
 
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {

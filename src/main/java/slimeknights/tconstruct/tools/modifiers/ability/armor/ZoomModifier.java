@@ -4,8 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -15,9 +15,6 @@ import javax.annotation.Nullable;
 
 public class ZoomModifier extends SingleUseModifier implements IArmorInteractModifier {
   private static final ResourceLocation ZOOM = TConstruct.getResource("zoom");
-  public ZoomModifier() {
-    super(-1);
-  }
 
   @Override
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {

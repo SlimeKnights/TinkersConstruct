@@ -1,12 +1,11 @@
-package slimeknights.tconstruct.tools.modifiers.internal;
+package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class SilkyShearsAbilityModifier extends ShearsAbilityModifier {
-
-  public SilkyShearsAbilityModifier(int color, int range, int priority) {
-    super(color, range, priority);
+  public SilkyShearsAbilityModifier(int range, int priority) {
+    super(range, priority);
   }
   
   @Override

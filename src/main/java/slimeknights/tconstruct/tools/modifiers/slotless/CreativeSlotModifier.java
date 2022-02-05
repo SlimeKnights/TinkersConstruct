@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -20,10 +20,6 @@ import java.util.List;
 public class CreativeSlotModifier extends SingleUseModifier {
   /** Key representing the slots object in the modifier */
   public static final ResourceLocation KEY_SLOTS = TConstruct.getResource("creative");
-
-  public CreativeSlotModifier() {
-    super(0xCCBA47);
-  }
 
   @Override
   public void onRemoved(IToolStackView tool) {

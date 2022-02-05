@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
   public BaneOfSssssModifier() {
-    super(0xD39A88, MobType.ARTHROPOD);
+    super(MobType.ARTHROPOD);
   }
 
   @Override

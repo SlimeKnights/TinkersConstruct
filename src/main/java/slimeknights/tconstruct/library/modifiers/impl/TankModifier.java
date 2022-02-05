@@ -1,5 +1,6 @@
-package slimeknights.tconstruct.library.modifiers;
+package slimeknights.tconstruct.library.modifiers.impl;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.IFluidModifier;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 /** Modifier containing the standard tank, extend if you want to share this tank */
+@RequiredArgsConstructor
 public class TankModifier extends Modifier {
   private static final String FILLED_KEY = TConstruct.makeTranslationKey("modifier", "tank.filled");
   private static final String CAPACITY_KEY = TConstruct.makeTranslationKey("modifier", "tank.capacity");
@@ -40,10 +43,6 @@ public class TankModifier extends Modifier {
 
   private final ModifierTank tank = new ModifierTank();
   private final int capacity;
-  public TankModifier(int color, int capacity) {
-    super(color);
-    this.capacity = capacity;
-  }
 
   @SuppressWarnings("unchecked")
   @Nullable

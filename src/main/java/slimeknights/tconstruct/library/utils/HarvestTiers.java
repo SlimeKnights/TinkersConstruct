@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Maps;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.ResourceColorManager;
 
 import java.util.List;
 import java.util.Map;
@@ -20,28 +20,16 @@ import java.util.Map;
 public class HarvestTiers {
   private HarvestTiers() {}
 
-  private static boolean namesLoaded = false;
+  /** Cache of name for each tier */
   private static final Map<Tier, Component> harvestLevelNames = Maps.newHashMap();
+  /** Listener to clear name cache so we get new colors */
+  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> harvestLevelNames.clear();
 
   /** Makes a translation key for the given name */
   private static MutableComponent makeLevelKey(Tier tier) {
-    return new TranslatableComponent(TConstruct.makeTranslationKey("stat", Util.makeTranslationKey("harvest_tier", TierSortingRegistry.getName(tier))));
-  }
-
-  /**
-   * Loads the list of names from the lang file
-   */
-  private static void loadNames() {
-    if (namesLoaded) return;
-    namesLoaded = true;
-
-    // default names: vanilla levels (have colors)
-    harvestLevelNames.put(Tiers.WOOD, makeLevelKey(Tiers.WOOD).withStyle(style -> style.withColor(TextColor.fromRgb(0x8e661b))));
-    harvestLevelNames.put(Tiers.STONE, makeLevelKey(Tiers.STONE).withStyle(style -> style.withColor(TextColor.fromRgb(0x999999))));
-    harvestLevelNames.put(Tiers.IRON, makeLevelKey(Tiers.IRON).withStyle(style -> style.withColor(TextColor.fromRgb(0xcacaca))));
-    harvestLevelNames.put(Tiers.DIAMOND, makeLevelKey(Tiers.DIAMOND).withStyle(ChatFormatting.AQUA));
-    harvestLevelNames.put(Tiers.NETHERITE, makeLevelKey(Tiers.NETHERITE).withStyle(ChatFormatting.DARK_GRAY));
-    harvestLevelNames.put(Tiers.GOLD, makeLevelKey(Tiers.GOLD).withStyle(ChatFormatting.GOLD));
+    String key = Util.makeTranslationKey("harvest_tier", TierSortingRegistry.getName(tier));
+    TextColor color = ResourceColorManager.getTextColor(key);
+    return TConstruct.makeTranslation("stat", key).withStyle(style -> style.withColor(color));
   }
 
   /**
@@ -50,7 +38,6 @@ public class HarvestTiers {
    * @return  Level name
    */
   public static Component getName(Tier tier) {
-    loadNames();
     return harvestLevelNames.computeIfAbsent(tier, n ->  makeLevelKey(tier));
   }
 

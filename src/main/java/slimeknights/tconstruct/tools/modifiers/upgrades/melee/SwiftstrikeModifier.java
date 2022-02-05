@@ -2,16 +2,12 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.melee;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class SwiftstrikeModifier extends IncrementalModifier {
-  public SwiftstrikeModifier() {
-    super(0xB38EF1);
-  }
-
   @Override
   public Component getDisplayName(int level) {
     // displays special names for levels of haste

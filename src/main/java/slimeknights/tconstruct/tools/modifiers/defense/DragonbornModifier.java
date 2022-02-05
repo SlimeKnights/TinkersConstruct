@@ -24,7 +24,7 @@ import java.util.List;
 public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLevel> {
   private static final TinkerDataKey<ModifierMaxLevel> DRAGONBORN = TConstruct.createKey("dragonborn");
   public DragonbornModifier() {
-    super(0x232323, DRAGONBORN);
+    super(DRAGONBORN);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, CriticalHitEvent.class, DragonbornModifier::onCritical);
   }
 

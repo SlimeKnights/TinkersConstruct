@@ -34,7 +34,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.TankModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -43,7 +43,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class BucketingModifier extends TankModifier {
   public BucketingModifier() {
-    super(0xD8D8D8, FluidAttributes.BUCKET_VOLUME);
+    super(FluidAttributes.BUCKET_VOLUME);
   }
 
   @Override

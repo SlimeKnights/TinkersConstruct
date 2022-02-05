@@ -12,7 +12,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class WitheredModifier extends TotalArmorLevelModifier {
   public WitheredModifier() {
-    super(0x343434, StrongBonesModifier.CALCIFIABLE, true);
+    super(StrongBonesModifier.CALCIFIABLE, true);
   }
 
   @Override

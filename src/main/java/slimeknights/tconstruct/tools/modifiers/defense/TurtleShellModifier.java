@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.common.ForgeMod;
-import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -27,10 +27,6 @@ public class TurtleShellModifier extends IncrementalModifier {
     UUID.fromString("62a1c5e4-50e5-11ec-bf63-0242ac130002"),
     UUID.fromString("62a1c6e8-50e5-11ec-bf63-0242ac130002")
   };
-
-  public TurtleShellModifier() {
-    super(0x47BF4A);
-  }
 
   @Override
   public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {

@@ -16,15 +16,10 @@ import java.util.List;
 
 public class DwarvenModifier extends Modifier {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "dwarven.mining_speed");
-  // todo: adjust boost
   /** Baseline height where boost is 1 */
   private static final int SEA_LEVEL = 64;
   /** Max percentage bonus per level when y = 0 */
   private static final float BOOST_AT_0 = 0.1f;
-
-  public DwarvenModifier() {
-    super(0xE77C56);
-  }
 
   /** Gets the boost for the given level and height */
   private static float getBoost(int y, int level) {

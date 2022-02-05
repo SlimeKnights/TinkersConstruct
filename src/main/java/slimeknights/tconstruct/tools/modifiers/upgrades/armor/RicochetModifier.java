@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 public class RicochetModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> LEVELS = TConstruct.createKey("ricochet");
   public RicochetModifier() {
-    super(0x01cbcd, LEVELS);
+    super(LEVELS);
     MinecraftForge.EVENT_BUS.addListener(this::livingKnockback);
   }
 

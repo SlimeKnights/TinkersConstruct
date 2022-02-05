@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.base;
+package slimeknights.tconstruct.library.modifiers.impl;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,10 +10,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** Modifier that implements interaction abilities, set up to automatically set relevant properties for chestplates */
 public class InteractionModifier extends Modifier {
-  public InteractionModifier(int color) {
-    super(color);
-  }
-
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.CHEST) {
@@ -29,10 +25,6 @@ public class InteractionModifier extends Modifier {
   }
 
   public static class SingleUse extends InteractionModifier {
-    public SingleUse(int color) {
-      super(color);
-    }
-
     @Override
     public Component getDisplayName(int level) {
       // display name without the level

@@ -12,8 +12,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -31,7 +31,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final TinkerDataKey<SlurpingInfo> SLURP_FINISH_TIME = TConstruct.createKey("slurping_finish");
   public SlurpingModifier() {
-    super(0xF98648, FluidAttributes.BUCKET_VOLUME);
+    super(FluidAttributes.BUCKET_VOLUME);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerTickEvent.class, this::playerTick);
   }
 

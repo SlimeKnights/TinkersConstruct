@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.modifiers.TankModifier;
+import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -21,7 +21,7 @@ import slimeknights.tconstruct.shared.particle.FluidParticleData;
 /** Modifier to handle spilling recipes */
 public class SpillingModifier extends TankModifier {
   public SpillingModifier() {
-    super(0xF98648, FluidAttributes.BUCKET_VOLUME);
+    super(FluidAttributes.BUCKET_VOLUME);
   }
 
   /** Spawns particles at the given entity */

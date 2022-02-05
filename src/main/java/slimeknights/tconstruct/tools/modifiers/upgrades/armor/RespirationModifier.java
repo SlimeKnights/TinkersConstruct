@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 public class RespirationModifier extends TotalArmorLevelModifier {
   private static final TinkerDataKey<Integer> RESPIRATION = TConstruct.createKey("respiration");
   public RespirationModifier() {
-    super(0x47BF4A, RESPIRATION);
+    super(RESPIRATION);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingUpdateEvent.class, RespirationModifier::livingTick);
   }
 
