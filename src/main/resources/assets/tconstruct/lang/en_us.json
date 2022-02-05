@@ -215,12 +215,12 @@
   "block.tconstruct.budding_ichor_slime_crystal": "Budding Ichor Crystal",
 
   "item.tconstruct.ender_slime_crystal": "Enderslime Crystal",
-  "block.tconstruct.ender_slime_crystal_block": "Endeslime Crystal Block",
-  "block.tconstruct.small_ender_slime_crystal_bud": "Small Endeslime Crystal Bud",
-  "block.tconstruct.medium_ender_slime_crystal_bud": "Medium Endeslime Crystal Bud",
-  "block.tconstruct.large_ender_slime_crystal_bud": "Large Endeslime Crystal Bud",
-  "block.tconstruct.ender_slime_crystal_cluster": "Endeslime Crystal Cluster",
-  "block.tconstruct.budding_ender_slime_crystal": "Budding Endeslime Crystal",
+  "block.tconstruct.ender_slime_crystal_block": "Enderslime Crystal Block",
+  "block.tconstruct.small_ender_slime_crystal_bud": "Small Enderslime Crystal Bud",
+  "block.tconstruct.medium_ender_slime_crystal_bud": "Medium Enderslime Crystal Bud",
+  "block.tconstruct.large_ender_slime_crystal_bud": "Large Enderslime Crystal Bud",
+  "block.tconstruct.ender_slime_crystal_cluster": "Enderslime Crystal Cluster",
+  "block.tconstruct.budding_ender_slime_crystal": "Budding Enderslime Crystal",
 
   "item.tconstruct.iron_reinforcement": "Iron Reinforcement",
   "item.tconstruct.iron_reinforcement.tooltip": "Reduces chance of a tool taking damage",
