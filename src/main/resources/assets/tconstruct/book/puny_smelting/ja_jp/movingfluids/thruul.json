@@ -1,0 +1,13 @@
+{
+  "title": "Thruul",
+  "image": {
+    "file": "tconstruct:book/images/thruul.png",
+    "width": 120,
+    "height": 120
+  },
+  "text": [
+    {
+      "text": "何を見ているんだティンカー？誰かをハンサムで格好いいと思ったことはないか？"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+intro=はじめに
+
+alloyer=合金炉
+
+foundry=鋳造炉
+
+blazing_blood=燃え盛る血液
+
+armor=プレートアーマー
+armor.subtext=この防具は、ティンカー台やティンカー金床ではなく、作業台で作ります。強固なプレートアーマーは高い防御力を持っていますが、改造の自由度は低いです。守ってもらえるなら、余計な機能は必要ないでしょう？
+
+tier_four_materials=Tier 4 の素材
+tier_four_materials.subtext=以下は作成に燃え盛る血液が必要な素材です。

@@ -1,0 +1,5 @@
+{
+  "title": "部品作成台のレシピ",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small"
+}

@@ -1,0 +1,8 @@
+{
+  "title": "ティンカーのガジェット類のレシピ",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "日常生活におけるスライムの利用法。Melvinによるガイドで、世界を駆け巡るための素材の見つけ方をお教えします。" }
+  ]
+}

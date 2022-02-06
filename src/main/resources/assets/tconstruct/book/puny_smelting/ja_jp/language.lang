@@ -1,0 +1,26 @@
+// Sections - Puny Smelting
+intro=はじめに
+melter=溶融器
+moving_fluids=液体の移動
+casting=鋳造
+tier_two_materials=Tier 2 の素材
+
+upgrades=アップグレード
+upgrades.subtext=道具はアップグレードで強化できますが、各道具に適用できるのは有限個のみです。
+upgrades.group_general=一般
+upgrades.group_harvest=収穫
+upgrades.group_weapon=武器
+upgrades.group_damage=攻撃力上昇
+upgrades.group_armor=防具
+upgrades.diamond=ﾀﾞｲﾔﾓﾝﾄﾞ
+upgrades.overforced=ｵｰﾊﾞｰﾌｫｰｽ
+upgrades.soulbound=ｿｳﾙﾊﾞｳﾝﾄﾞ
+upgrades.knockback=ﾉｯｸﾊﾞｯｸ
+upgrades.necrotic=ﾈｸﾛﾏﾝｼｰ
+upgrades.sweeping_edge=範囲ﾀﾞﾒ増加
+upgrades.smite=ｱﾝﾃﾞｯﾄﾞ特効
+
+slotless=スロット不要の改造
+slotless.subtext=これらの改造は、適用するためにスロットは不要で、望むなら全てを適用できます。
+slotless.group_slotless=スロット不要
+slotless.group_bonus_upgrades=アップグレード++
