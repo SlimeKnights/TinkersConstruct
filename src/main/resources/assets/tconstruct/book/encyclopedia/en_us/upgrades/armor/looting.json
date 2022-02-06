@@ -8,7 +8,7 @@
   "more_text_space": true,
   "effects": [
     "Maximum of 3 levels",
-    "First level requires 1 ability slot",
-    "Second and third levels are slotless"
+    "Requires 1 upgrade slot per level",
+    "Requires unarmed"
   ]
 }

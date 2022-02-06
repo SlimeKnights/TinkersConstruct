@@ -83,7 +83,6 @@ import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Arrays;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -941,58 +940,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.gilded, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.gilded, abilityFolder));
-    // luck is 3 recipes, first uses slots, second 2 do not
-    BiConsumer<Modifier,Tag.Named<Item>> luckRecipes = (modifier, tag) -> {
-      String key = modifier.getId().getPath();
-      ModifierRecipeBuilder.modifier(modifier)
-                           .setTools(tag)
-                           .addInput(Tags.Items.INGOTS_COPPER)
-                           .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
-                           .addInput(Tags.Items.INGOTS_COPPER)
-                           .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
-                           .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
-                           .addSalvage(Items.COPPER_INGOT, 2, 2)
-                           .addSalvage(Items.LAPIS_LAZULI, 3, 18)
-                           .setSalvageLevelRange(1, 1)
-                           .setMaxLevel(1)
-                           .setSlots(SlotType.ABILITY, 1)
-                           .saveSalvage(consumer, wrap(modifier, abilitySalvage, "_level_1"))
-                           .save(consumer, wrap(modifier, abilityFolder, "_level_1"));
-      ModifierRecipeBuilder.modifier(modifier)
-                           .setTools(tag)
-                           .addInput(Tags.Items.INGOTS_GOLD)
-                           .addInput(Items.GOLDEN_CARROT)
-                           .addInput(Tags.Items.INGOTS_GOLD)
-                           .addInput(Tags.Items.ENDER_PEARLS)
-                           .addInput(Tags.Items.ENDER_PEARLS)
-                           .addSalvage(Items.GOLD_INGOT, 2, 3)
-                           .addSalvage(Items.GOLD_NUGGET, 1, 8)
-                           .addSalvage(Items.CARROT, 0.75f) // all the magic is gone, its just a carrot now
-                           .addSalvage(Items.ENDER_PEARL, 2)
-                           .setRequirements(ModifierMatch.entry(modifier, 1))
-                           .setRequirementsError(makeRequirementsError(key + ".level_2"))
-                           .setSalvageLevelRange(2, 2)
-                           .setMaxLevel(2)
-                           .saveSalvage(consumer, wrap(modifier, abilitySalvage, "_level_2"))
-                           .save(consumer, wrap(modifier, abilityFolder, "_level_2"));
-      ModifierRecipeBuilder.modifier(modifier)
-                           .setTools(tag)
-                           .addInput(TinkerMaterials.roseGold.getIngotTag())
-                           .addInputSalvage(Items.RABBIT_FOOT, 0.15f)
-                           .addInput(TinkerMaterials.roseGold.getIngotTag())
-                           .addInput(Tags.Items.GEMS_DIAMOND)
-                           .addInputSalvage(Items.NAME_TAG, 0.1f)
-                           .addSalvage(Items.DIAMOND, 0.65f)
-                           .addSalvage(TinkerMaterials.roseGold.getIngotTag(), 2, 2)
-                           .setRequirements(ModifierMatch.entry(modifier, 2))
-                           .setRequirementsError(makeRequirementsError(key + ".level_3"))
-                           .setSalvageLevelRange(3, 3)
-                           .setMaxLevel(3)
-                           .saveSalvage(consumer, wrap(modifier, abilitySalvage, "_level_3"))
-                           .save(consumer, wrap(modifier, abilityFolder, "_level_3"));
-    };
-    luckRecipes.accept(TinkerModifiers.luck.get(), TinkerTags.Items.MELEE_OR_HARVEST);
-    luckRecipes.accept(TinkerModifiers.looting.get(), TinkerTags.Items.CHESTPLATES);
+    // luck is 3 recipes, similar for both so pulled into a function
+    luckRecipes(consumer, TinkerModifiers.luck.get(), TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
+    luckRecipes(consumer, TinkerModifiers.looting.get(), TinkerTags.Items.CHESTPLATES, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
     ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
@@ -1566,6 +1516,64 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new DamageSpillingEffect(DamageType.FIRE, damage))
                          .addEffect(new SetFireSpillingEffect(time))
                          .save(consumer, prefix(fluid, "tools/spilling/"));
+  }
+
+  /** Common logic to add recipes for luck and unarmed looting */
+  private void luckRecipes(Consumer<FinishedRecipe> consumer, Modifier modifier, Tag<Item> tools, SlotType slotType, boolean unarmed, String folder, String salvage) {
+    String key = modifier.getId().getPath();
+    // level 1 always requires a slot
+    ModifierRecipeBuilder builder1 = ModifierRecipeBuilder.modifier(modifier)
+                         .setTools(tools)
+                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
+                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                         .addSalvage(Items.COPPER_INGOT, 2, 2)
+                         .addSalvage(Items.LAPIS_LAZULI, 3, 18)
+                         .setSalvageLevelRange(1, 1)
+                         .setMaxLevel(1)
+                         .setSlots(slotType, 1);
+    if (unarmed) {
+      builder1.setRequirements(ModifierMatch.entry(TinkerModifiers.unarmed.get()));
+      builder1.setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.unarmed"));
+    }
+    builder1.saveSalvage(consumer, wrap(modifier, salvage, "_level_1")).save(consumer, wrap(modifier, folder, "_level_1"));
+    // level 2 and 3 only charge if not ability
+    ModifierRecipeBuilder builder2 = ModifierRecipeBuilder.modifier(modifier)
+                         .setTools(tools)
+                         .addInput(Tags.Items.INGOTS_GOLD)
+                         .addInput(Items.GOLDEN_CARROT)
+                         .addInput(Tags.Items.INGOTS_GOLD)
+                         .addInput(Tags.Items.ENDER_PEARLS)
+                         .addInput(Tags.Items.ENDER_PEARLS)
+                         .addSalvage(Items.GOLD_INGOT, 2, 3)
+                         .addSalvage(Items.GOLD_NUGGET, 1, 8)
+                         .addSalvage(Items.CARROT, 0.75f) // all the magic is gone, its just a carrot now
+                         .addSalvage(Items.ENDER_PEARL, 2)
+                         .setRequirements(ModifierMatch.entry(modifier, 1))
+                         .setRequirementsError(makeRequirementsError(key + ".level_2"))
+                         .setSalvageLevelRange(2, 2)
+                         .setMaxLevel(2);
+    ModifierRecipeBuilder builder3 = ModifierRecipeBuilder.modifier(modifier)
+                         .setTools(tools)
+                         .addInput(TinkerMaterials.roseGold.getIngotTag())
+                         .addInputSalvage(Items.RABBIT_FOOT, 0.15f)
+                         .addInput(TinkerMaterials.roseGold.getIngotTag())
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .addInputSalvage(Items.NAME_TAG, 0.1f)
+                         .addSalvage(Items.DIAMOND, 0.65f)
+                         .addSalvage(TinkerMaterials.roseGold.getIngotTag(), 2, 2)
+                         .setRequirements(ModifierMatch.entry(modifier, 2))
+                         .setRequirementsError(makeRequirementsError(key + ".level_3"))
+                         .setSalvageLevelRange(3, 3)
+                         .setMaxLevel(3);
+    if (slotType == SlotType.UPGRADE) {
+      builder2.setSlots(slotType, 1);
+      builder3.setSlots(slotType, 1);
+    }
+    builder2.saveSalvage(consumer, wrap(modifier, salvage, "_level_2")).save(consumer, wrap(modifier, folder, "_level_2"));
+    builder3.saveSalvage(consumer, wrap(modifier, salvage, "_level_3")).save(consumer, wrap(modifier, folder, "_level_3"));
   }
 
   /** Just a helper for consistency of requirements errors */

@@ -122,10 +122,6 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "abilities/armor/looting.json"
-  },
-  {
-    "type": "tconstruct:modifier",
     "data": "abilities/armor/path_maker.json"
   },
   {
