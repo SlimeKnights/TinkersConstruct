@@ -1130,13 +1130,13 @@
   "item.tconstruct.earth_slime_grass_seeds": "べとつく種",
   "item.tconstruct.earth_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムの草ブロックに変化する",
   "item.tconstruct.sky_slime_grass_seeds": "べとつく種",
-  "item.tconstruct.sky_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムの草ブロックに変化し、ツタに使うとスライムツタに変化する",
+  "item.tconstruct.sky_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムの草ブロックに変化し、ツタに使うとべとつくツタに変化する",
   "item.tconstruct.blood_slime_grass_seeds": "べとつく種",
   "item.tconstruct.blood_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムのナイリウムに変化する",
   "item.tconstruct.ichor_slime_grass_seeds": "べとつく種",
   "item.tconstruct.ichor_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムのナイリウムに変化する",
   "item.tconstruct.ender_slime_grass_seeds": "べとつく種",
-  "item.tconstruct.ender_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムの草ブロックに変化し、ツタに使うとスライムツタに変化する",
+  "item.tconstruct.ender_slime_grass_seeds.tooltip": "土やスライムの土に使うとスライムの草ブロックに変化し、ツタに使うとべとつくツタに変化する",
 
   "block.tconstruct.earth_slime_leaves": "べとつく葉",
   "block.tconstruct.sky_slime_leaves": "べとつく葉",
@@ -1317,7 +1317,7 @@
   "material.tconstruct.chain.flavor": "これであなたも今から鎖使いになれる。",
   "material.tconstruct.chain.encyclopedia": "道具が受けるダメージが25%減少する",
 
-  "material.tconstruct.skyslime_vine": "スライムツタ",
+  "material.tconstruct.skyslime_vine": "べとつくツタ",
   "material.tconstruct.skyslime_vine.flavor": "蝶のように舞い、蜂のように刺す。",
   "material.tconstruct.skyslime_vine.encyclopedia": "足が大地に付いてない場合でも採掘速度が低下しなくなる",
 
@@ -1331,7 +1331,7 @@
   "material.tconstruct.bloodbone.format": "ブラッドボーンの%s",
   "material.tconstruct.rose_gold.format": "ローズゴールドの%s",
   "material.tconstruct.chain.format": "鎖の%s",
-  "material.tconstruct.skyslime_vine.format": "スライムツタの%s",
+  "material.tconstruct.skyslime_vine.format": "べとつくツタの%s",
 
 
   "__comment": "Tier 3 Materials",
@@ -1401,7 +1401,7 @@
   "material.tconstruct.endstone": "エンド",
   "material.tconstruct.knightslime": "ナイトスライム",
 
-  "material.tconstruct.enderslime_vine": "スライムツタ",
+  "material.tconstruct.enderslime_vine": "べとつくツタ",
   "material.tconstruct.enderslime_vine.flavor": "おしまい？",
   "material.tconstruct.enderslime_vine.encyclopedia": "所有者を採掘したブロックまたは倒したMobの位置にテレポートさせる",
 
@@ -1409,7 +1409,7 @@
   "__comment": "日本語で道具名を自然な表記にするためのフォーマット定義",
   "material.tconstruct.endstone.format": "エンドの%s",
   "material.tconstruct.knightslime.format": "ナイトスライムの%s",
-  "material.tconstruct.enderslime_vine.format": "スライムツタの%s",
+  "material.tconstruct.enderslime_vine.format": "べとつくツタの%s",
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "火薬",
@@ -1622,7 +1622,7 @@
   "modifier.tconstruct.haste.3": "超超加速",
   "modifier.tconstruct.haste.4": "超超超加速",
   "modifier.tconstruct.haste.5": "超超超超加速",
-  "modifier.tconstruct.haste.flavor": "巨大な超加速!",
+  "modifier.tconstruct.haste.flavor": "科学！",
   "modifier.tconstruct.haste.description": "不思議な赤い粉の力で道具をより早く動かせるようになる！",
 
   "modifier.tconstruct.blasting": "爆風",

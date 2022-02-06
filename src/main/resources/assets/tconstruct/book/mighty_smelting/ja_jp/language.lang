@@ -28,8 +28,6 @@ abilities.group_harvest=収穫
 abilities.group_weapon=武器
 abilities.group_interact=アクション
 abilities.group_armor=防具
-abilities.unarmed=非武装
-upgrades.subtext=装具はアップグレードで強化できますが、各道具に適用できるのは限られた個数のみです。
 
 defense=防御
 defense.subtext=防御の改造は防具に適用でき、防御スロットを消費します。
