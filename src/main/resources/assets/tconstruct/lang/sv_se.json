@@ -814,11 +814,11 @@
   
   "_conment": "Tool Descriptions",
   
-  "item.tconstruct.pickaxe.description": "Hackan är ett ensidigt grävverktyg. Den är effektivt på sten och malm.\nDen bryter block, hajar du?",
+  "item.tconstruct.pickaxe.description": "Hackan är ett ensidigt grävverktyg. Den är effektiv på sten och malm.\nDen bryter block, hajar du?",
   "item.tconstruct.sledge_hammer.description": "Släggan är ett mångsidigt grävverktyg. Den skördar block i ett brett område.\nDen är även effektiv mot odöda.",
   "item.tconstruct.vein_hammer.description": "Åderhammaren är ett mångsidigt grävverktyg. Den skördar många block av samma typ som ligger intill varandra, vilket gör den perfekt för malmer.",
   
-  "item.tconstruct.mattock.description": "Jordhackan är ett mångsidigt jordbruksverktyg. Den är effektivt på trä, jord och plantor.\nGräv bara inte din egen grav!",
+  "item.tconstruct.mattock.description": "Jordhackan är ett mångsidigt jordbruksverktyg. Den är effektiv på trä, jord och plantor.\nGräv bara inte din egen grav!",
   "item.tconstruct.excavator.description": "Utgrävaren är ett mångsidigt grävverktyg. Den gräver upp större områden av jord och snö i ett brett område.\nTerraformering!",
   
   "item.tconstruct.hand_axe.description": "Handyxan hugger trä och tar hand om löv. Den fungerar också som ett effektivt vapen.\nHugg, hugg!",
