@@ -818,11 +818,11 @@
   "item.tconstruct.sledge_hammer.description": "Släggan är ett mångsidigt grävverktyg. Den skördar block i ett brett område.\nDen är även effektiv mot odöda.",
   "item.tconstruct.vein_hammer.description": "Åderhammaren är ett mångsidigt grävverktyg. Den skördar många block av samma typ som ligger intill varandra, vilket gör den perfekt för malmer.",
   
-  "item.tconstruct.mattock.description": "Jordhackan är ett mångsidigt jordbruksverktyg. Det är effektivt på trä, jord och plantor.\nGräv bara inte din egen grav!",
+  "item.tconstruct.mattock.description": "Jordhackan är ett mångsidigt jordbruksverktyg. Den är effektivt på trä, jord och plantor.\nGräv bara inte din egen grav!",
   "item.tconstruct.excavator.description": "Utgrävaren är ett mångsidigt grävverktyg. Den gräver upp större områden av jord och snö i ett brett område.\nTerraformering!",
   
-  "item.tconstruct.hand_axe.description": "Handyxan hugger trä och tar hand om löv. Det fungerar också som ett effektivt vapen.\nHugg, hugg!",
-  "item.tconstruct.broad_axe.description": "Bilan hugger ned små träd i ett enda slag och tar hand om stora träd. Det fungerar också som ett kraftfullt vapen.\nSe upp för fallande träd!",
+  "item.tconstruct.hand_axe.description": "Handyxan hugger trä och tar hand om löv. Den fungerar också som ett effektivt vapen.\nHugg, hugg!",
+  "item.tconstruct.broad_axe.description": "Bilan hugger ned små träd i ett enda slag och tar hand om stora träd. Den fungerar också som ett kraftfullt vapen.\nSe upp för fallande träd!",
   
   "item.tconstruct.kama.description": "Kaman är ett ensidigt skördeverktyg som klipper ned plantor och klipper djur.\nHögerklick: Skörda och plantera grödor",
   "item.tconstruct.scythe.description": "Lien är ett mångsidigt skördeverktyg som slår ned plantor inom ett bredd område.\nHögerklick: Skördar och planterar grödor",
