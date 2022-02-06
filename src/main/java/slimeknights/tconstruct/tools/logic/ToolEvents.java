@@ -40,6 +40,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -168,6 +169,9 @@ public class ToolEvents {
 
   @SubscribeEvent
   static void enderDragonDamage(LivingDamageEvent event) {
+    if (!Config.COMMON.dropDragonScales.get()) {
+      return;
+    }
     // dragon being damaged
     LivingEntity entity = event.getEntityLiving();
     if (entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0 && !entity.level.isClientSide) {
