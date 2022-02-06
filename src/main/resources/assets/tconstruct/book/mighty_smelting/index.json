@@ -3,7 +3,7 @@
     "name": "intro",
     "data": "sections/introduction.json",
     "icon": {
-      "item": "tconstruct:blank_cast"
+      "item": "tconstruct:pick_head_cast"
     }
   },
   {

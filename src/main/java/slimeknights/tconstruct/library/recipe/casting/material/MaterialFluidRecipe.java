@@ -5,7 +5,6 @@ import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -14,12 +13,11 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
-import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -33,23 +31,17 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   @Getter
   private final int temperature;
   /** Material base for composite */
-  @Getter @Nullable
-  private final MaterialId inputId;
+  @Nullable
+  private final LazyMaterial input;
   /** Output material ID */
-  @Getter
-  private final MaterialId outputId;
-
-  /** Cached input material */
-  private IMaterial input;
-  /** Cached output material */
-  private IMaterial output;
+  private final LazyMaterial output;
 
   public MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialId inputId, MaterialId outputId) {
     this.id = id;
     this.fluid = fluid;
     this.temperature = temperature;
-    this.inputId = inputId;
-    this.outputId = outputId;
+    this.input = inputId == null ? null : LazyMaterial.of(inputId);
+    this.output = LazyMaterial.of(outputId);
     MaterialCastingLookup.registerFluid(this);
   }
 
@@ -58,14 +50,13 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     if (getOutput() == IMaterial.UNKNOWN || !fluid.test(inv.getFluid())) {
       return false;
     }
-    if (inputId != null) {
+    if (input != null) {
       // if the input ID is null, want to avoid checking this
       // not null means we should have a material and it failed to find
-      if (getInput() == IMaterial.UNKNOWN) {
+      if (input.isUnknown()) {
         return false;
       }
-      ItemStack stack = inv.getStack();
-      return !stack.isEmpty() && IMaterialItem.getMaterialIdFromStack(stack).equals(getInputId());
+      return input.matches(inv.getStack());
     }
     return true;
   }
@@ -77,29 +68,16 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
 
   /** Gets the material output for this recipe */
   public IMaterial getOutput() {
-    if (!MaterialRegistry.isFullyLoaded()) {
-      return IMaterial.UNKNOWN;
-    }
-    if (output == null) {
-      output = MaterialRegistry.getMaterial(outputId);
-    }
-    return output;
+    return output.get();
   }
 
   /** Gets the material input for this recipe */
   @Nullable
   public IMaterial getInput() {
-    if (inputId == null) {
+    if (input == null) {
       return null;
     }
-    // prevent caching if the registry is not loaded
-    if (!MaterialRegistry.isFullyLoaded()) {
-      return IMaterial.UNKNOWN;
-    }
-    if (input == null) {
-      input = MaterialRegistry.getMaterial(inputId);
-    }
-    return input;
+    return input.get();
   }
 
   /** Gets a list of fluids for display */
@@ -152,13 +130,13 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialFluidRecipe recipe) {
       recipe.fluid.write(buffer);
       buffer.writeInt(recipe.temperature);
-      if (recipe.inputId != null) {
+      if (recipe.input != null) {
         buffer.writeBoolean(true);
-        buffer.writeUtf(recipe.inputId.toString());
+        buffer.writeUtf(recipe.input.getId().toString());
       } else {
         buffer.writeBoolean(false);
       }
-      buffer.writeUtf(recipe.outputId.toString());
+      buffer.writeUtf(recipe.output.getId().toString());
     }
   }
 }

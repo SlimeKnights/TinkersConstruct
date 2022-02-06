@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.melting;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -13,12 +12,11 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
-import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -29,35 +27,35 @@ import java.util.stream.Collectors;
 /**
  * Recipe to melt all castable tool parts of a given material
  */
-@RequiredArgsConstructor
 public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<MeltingRecipe> {
   @Getter
   private final ResourceLocation id;
-  private final MaterialId inputId;
+  private final LazyMaterial input;
   private final int temperature;
   private final FluidStack result;
 
-  private IMaterial input;
+  public MaterialMeltingRecipe(ResourceLocation id, MaterialId input, int temperature, FluidStack result) {
+    this.id = id;
+    this.input = LazyMaterial.of(input);
+    this.temperature = temperature;
+    this.result = result;
+  }
 
   /** Gets the input material for this recipe */
   public IMaterial getInput() {
-    if (input == null) {
-      input = MaterialRegistry.getMaterial(inputId);
-    }
-    return input;
+    return input.get();
   }
 
   @Override
   public boolean matches(IMeltingContainer inv, Level worldIn) {
-    IMaterial input = getInput();
-    if (input == IMaterial.UNKNOWN) {
+    if (input.isUnknown()) {
       return false;
     }
     ItemStack stack = inv.getStack();
     if (stack.isEmpty() || MaterialCastingLookup.getItemCost(stack.getItem()) == 0) {
       return false;
     }
-    return IMaterialItem.getMaterialFromStack(stack) == input;
+    return input.matches(stack);
   }
 
   @Override
@@ -101,7 +99,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
             if (entry.getIntValue() != 1) {
               output = new FluidStack(output, output.getAmount() * entry.getIntValue());
             }
-            return new MeltingRecipe(id, "", MaterialIngredient.fromItem(entry.getKey(), inputId), output, temperature,
+            return new MeltingRecipe(id, "", MaterialIngredient.fromItem(entry.getKey(), input.getId()), output, temperature,
                                      IMeltingRecipe.calcTimeForAmount(temperature, output.getAmount()), Collections.emptyList());
           }).collect(Collectors.toList());
       }
@@ -129,7 +127,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
     @Override
     protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialMeltingRecipe recipe) {
-      buffer.writeUtf(recipe.inputId.toString());
+      buffer.writeUtf(recipe.input.getId().toString());
       buffer.writeInt(recipe.temperature);
       recipe.result.writeToPacket(buffer);
     }

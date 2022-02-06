@@ -14,6 +14,7 @@ import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
@@ -49,13 +50,10 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   @Getter
   protected final int needed;
   /** Material ID for the recipe return */
-  @Getter
-  protected final MaterialId materialId;
+  protected final LazyMaterial material;
   /** Leftover stack of value 1, used if the value is more than 1 */
   protected final ItemOutput leftover;
 
-  /** Material returned by this recipe, lazy loaded */
-  private IMaterial material;
   /** Durability restored per item input, lazy loaded */
   @Nullable
   private Float repairPerItem;
@@ -70,7 +68,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
     this.ingredient = ingredient;
     this.value = value;
     this.needed = needed;
-    this.materialId = materialId;
+    this.material = LazyMaterial.of(materialId);
     this.leftover = leftover;
   }
 
@@ -121,17 +119,19 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   }
 
   /**
+   * Returns the material ID for this recipe
+   * @return  Material for the recipe
+   */
+  public MaterialId getMaterialId() {
+    return material.getId();
+  }
+
+  /**
    * Returns a material instance for this recipe
    * @return  Material for the recipe
    */
   public IMaterial getMaterial() {
-    if (material == null) {
-      if (!MaterialRegistry.isFullyLoaded()) {
-        return IMaterial.UNKNOWN;
-      }
-      material = MaterialRegistry.getMaterial(materialId);
-    }
-    return material;
+    return material.get();
   }
 
   /**
@@ -175,7 +175,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   public float getRepairPerItem(ToolDefinitionData data, @Nullable MaterialStatsId statsId) {
     if (repairPerItem == null) {
       // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by ingots per repair
-      repairPerItem = this.getValue() * getRepairDurability(data, materialId, statsId) / INGOTS_PER_REPAIR / this.getNeeded();
+      repairPerItem = this.getValue() * getRepairDurability(data, material.getId(), statsId) / INGOTS_PER_REPAIR / this.getNeeded();
     }
     return repairPerItem;
   }

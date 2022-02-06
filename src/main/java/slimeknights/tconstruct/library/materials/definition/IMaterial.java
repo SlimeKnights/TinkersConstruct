@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.materials.definition;
 
 import net.minecraft.Util;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.TConstruct;
 
@@ -84,5 +84,10 @@ public interface IMaterial extends Comparable<IMaterial> {
       return Integer.compare(this.getSortOrder(), other.getSortOrder());
     }
     return this.getIdentifier().compareTo(other.getIdentifier());
+  }
+
+  /** Checks if the given material is the same material as the other, matches by ID */
+  default boolean matches(IMaterial other) {
+    return this == other || this.getIdentifier().matches(other);
   }
 }

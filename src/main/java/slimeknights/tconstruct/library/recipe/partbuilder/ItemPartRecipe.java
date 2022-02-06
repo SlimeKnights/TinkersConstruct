@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -12,11 +11,10 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
@@ -24,27 +22,32 @@ import javax.annotation.Nullable;
 /**
  * Recipe to craft an ordinary item using the part builder
  */
-@RequiredArgsConstructor
 public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   @Getter
   private final ResourceLocation id;
-  @Getter
-  private final MaterialId materialId;
-  @Nullable
-  private IMaterial material = null;
+  private final LazyMaterial material;
   @Getter
   private final Pattern pattern;
   @Getter
   private final int cost;
   private final ItemOutput result;
 
-  /** Gets the material used in this recipe */
+  public ItemPartRecipe(ResourceLocation id, MaterialId material, Pattern pattern, int cost, ItemOutput result) {
+    this.id = id;
+    this.material = LazyMaterial.of(material);
+    this.pattern = pattern;
+    this.cost = cost;
+    this.result = result;
+  }
+
+  @Override
+  public MaterialId getMaterialId() {
+    return material.getId();
+  }
+
   @Override
   public IMaterial getMaterial() {
-    if (material == null) {
-      material = MaterialRegistry.getMaterial(materialId);
-    }
-    return material;
+    return material.get();
   }
 
   @Override
@@ -82,7 +85,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   public static class Serializer extends LoggingRecipeSerializer<ItemPartRecipe> {
     @Override
     public ItemPartRecipe fromJson(ResourceLocation id, JsonObject json) {
-      MaterialId materialId = MaterialRecipeSerializer.getMaterial(json, "material");
+      MaterialId materialId = MaterialId.fromJson(json, "material");
       Pattern pattern = new Pattern(GsonHelper.getAsString(json, "pattern"));
       int cost = GsonHelper.getAsInt(json, "cost");
       ItemOutput result = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
@@ -101,7 +104,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
     @Override
     protected void toNetworkSafe(FriendlyByteBuf buffer, ItemPartRecipe recipe) {
-      buffer.writeUtf(recipe.materialId.toString());
+      buffer.writeUtf(recipe.material.getId().toString());
       buffer.writeUtf(recipe.pattern.toString());
       buffer.writeVarInt(recipe.cost);
       recipe.result.write(buffer);

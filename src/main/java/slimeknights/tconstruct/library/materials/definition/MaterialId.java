@@ -1,7 +1,13 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import net.minecraft.resources.ResourceLocation;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.ResourceLocationException;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 
@@ -22,6 +28,16 @@ public class MaterialId extends ResourceLocation {
     super(resourceLocation.getNamespace(), resourceLocation.getPath());
   }
 
+  /** Checks if this ID matches the given material */
+  public boolean matches(IMaterial material) {
+    return this.equals(material.getIdentifier());
+  }
+
+  /** Checks if this ID matches the given stack */
+  public boolean matches(ItemStack stack) {
+    return this.equals(IMaterialItem.getMaterialIdFromStack(stack));
+  }
+
   /**
    * Creates a new material ID from the given string
    * @param string  String
@@ -34,5 +50,36 @@ public class MaterialId extends ResourceLocation {
     } catch (ResourceLocationException resourcelocationexception) {
       return null;
     }
+  }
+
+  /** Shared logic for {@link #fromJson(JsonObject, String)} and {@link #convertJson(JsonElement, String)} */
+  private static MaterialId parse(String text, String key) {
+    MaterialId location = tryCreate(text);
+    if (location == null) {
+      throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
+    }
+    return location;
+  }
+
+  /**
+   * Gets a resource location from JSON, throwing a nice exception if invalid
+   * @param json  JSON object
+   * @param key   Key to fetch
+   * @return  Resource location parsed
+   */
+  public static MaterialId fromJson(JsonObject json, String key) {
+    String text = GsonHelper.getAsString(json, key);
+    return parse(text, key);
+  }
+
+  /**
+   * Gets a resource location from JSON, throwing a nice exception if invalid
+   * @param json  JSON object
+   * @param key   Key to fetch
+   * @return  Resource location parsed
+   */
+  public static MaterialId convertJson(JsonElement json, String key) {
+    String text = GsonHelper.convertToString(json, key);
+    return parse(text, key);
   }
 }

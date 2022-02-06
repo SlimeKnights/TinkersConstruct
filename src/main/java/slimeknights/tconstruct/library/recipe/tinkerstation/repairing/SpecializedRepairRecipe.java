@@ -6,8 +6,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
@@ -23,34 +23,27 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   @Getter
   private final Ingredient tool;
   /** ID of material used in repairing */
-  @Getter
-  private final MaterialId repairMaterialID;
-  /** Cache of the material used to repair */
-  private IMaterial repairMaterial;
+  private final LazyMaterial repairMaterial;
   public SpecializedRepairRecipe(ResourceLocation id, Ingredient tool, MaterialId repairMaterialID) {
     super(id);
     this.tool = tool;
-    this.repairMaterialID = repairMaterialID;
+    this.repairMaterial = LazyMaterial.of(repairMaterialID);
   }
 
-  /** Gets the material used to repair */
-  private IMaterial getRepairMaterial() {
-    if (repairMaterial == null) {
-      repairMaterial = MaterialRegistry.getMaterial(repairMaterialID);
-    }
-    return repairMaterial;
+  @Override
+  public MaterialId getRepairMaterialID() {
+    return repairMaterial.getId();
   }
 
   @Override
   protected IMaterial getPrimaryMaterial(IToolStackView tool) {
-    return getRepairMaterial();
+    return repairMaterial.get();
   }
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
-    IMaterial repairMaterial = getRepairMaterial();
-    if (!tool.test(tinkerable) || repairMaterial == IMaterial.UNKNOWN) {
+    if (!tool.test(tinkerable) || repairMaterial.isUnknown()) {
       return false;
     }
 
@@ -65,7 +58,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
 
       // ensure we have a material
       IMaterial inputMaterial = TinkerStationRepairRecipe.getMaterialFrom(inv, i);
-      if (inputMaterial != repairMaterial) {
+      if (repairMaterial.matches(inputMaterial)) {
         return false;
       }
       found = true;
@@ -77,5 +70,4 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.specializedRepairSerializer.get();
   }
-
 }

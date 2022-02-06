@@ -10,6 +10,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
@@ -77,32 +78,30 @@ public abstract class RandomMaterial {
   }
 
   /** Constant material */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   private static class Fixed extends RandomMaterial {
     private static final ResourceLocation ID = TConstruct.getResource("fixed");
 
-    private final MaterialId materialId;
-    private IMaterial material;
+    private final LazyMaterial material;
+    private Fixed(MaterialId materialId) {
+      this.material = LazyMaterial.of(materialId);
+    }
 
     /** Creates an instance from JSON */
     public static Fixed fromJson(JsonObject json) {
-      MaterialId materialId = new MaterialId(JsonHelper.getResourceLocation(json, "name"));
+      MaterialId materialId = MaterialId.fromJson(json, "name");
       return new Fixed(materialId);
     }
 
     @Override
     public IMaterial getMaterial(Random random) {
-      if (material == null) {
-        material = MaterialRegistry.getMaterial(materialId);
-      }
-      return material;
+      return material.get();
     }
 
     @Override
     public JsonObject serialize() {
       JsonObject json = new JsonObject();
       json.addProperty("type", ID.toString());
-      json.addProperty("name", materialId.toString());
+      json.addProperty("name", material.getId().toString());
       return json;
     }
   }
