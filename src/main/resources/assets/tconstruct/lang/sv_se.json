@@ -1293,7 +1293,7 @@
   
   "material.tconstruct.copper": "Koppar",
   "material.tconstruct.copper.format": "%s av koppar",
-  "material.tconstruct.copper.flavor": "Ädelmetall med fler användningsområden.",
+  "material.tconstruct.copper.flavor": "Ädelmetall med flera användningsområden.",
   "material.tconstruct.copper.encyclopedia": "Ger högre grävhastighet vid lägre djup, upp till +10 % per nivå",
   "material.tconstruct.copper.skull_flavor": "Slår luften ur dem",
   "material.tconstruct.copper.skull_encyclopedia": "Närstridsattacker stjäl 3 sekunders luft från målet",
