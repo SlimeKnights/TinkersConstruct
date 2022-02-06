@@ -44,7 +44,7 @@ public class MaterialId extends ResourceLocation {
    * @return  Material ID, or null if invalid
    */
   @Nullable
-  public static MaterialId tryCreate(String string) {
+  public static MaterialId tryParse(String string) {
     try {
       return new MaterialId(string);
     } catch (ResourceLocationException resourcelocationexception) {
@@ -54,7 +54,7 @@ public class MaterialId extends ResourceLocation {
 
   /** Shared logic for {@link #fromJson(JsonObject, String)} and {@link #convertJson(JsonElement, String)} */
   private static MaterialId parse(String text, String key) {
-    MaterialId location = tryCreate(text);
+    MaterialId location = tryParse(text);
     if (location == null) {
       throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
     }

@@ -69,7 +69,7 @@ public class BreakableMaterialModifierModel implements IBakedModifierModel {
   private static MaterialId getMaterial(IToolStackView tool, Modifier modifier) {
     String material = tool.getPersistentData().getString(modifier.getId());
     if (!material.isEmpty()) {
-      return MaterialId.tryCreate(material);
+      return MaterialId.tryParse(material);
     }
     return null;
   }

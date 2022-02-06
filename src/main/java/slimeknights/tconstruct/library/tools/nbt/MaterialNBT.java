@@ -97,7 +97,7 @@ public class MaterialNBT {
 
     List<IMaterial> materials = listNBT.stream()
       .map(Tag::getAsString)
-      .map(MaterialId::tryCreate)
+      .map(MaterialId::tryParse)
       .filter(Objects::nonNull)
       .map(MaterialRegistry::getMaterial)
       .collect(Collectors.toList());

@@ -39,7 +39,7 @@ public class MaterialItem extends Item implements IMaterialItem {
     return Optional.ofNullable(nbt)
                    .map(compoundNBT -> compoundNBT.getString(NBTTags.PART_MATERIAL))
                    .filter(string -> !string.isEmpty())
-                   .map(MaterialId::tryCreate);
+                   .map(MaterialId::tryParse);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
       boolean added = false;
       if (!showOnlyId.isEmpty()) {
-        MaterialId materialId = MaterialId.tryCreate(showOnlyId);
+        MaterialId materialId = MaterialId.tryParse(showOnlyId);
         if (materialId != null) {
           IMaterial material = MaterialRegistry.getMaterial(materialId);
           if (material != IMaterial.UNKNOWN && !material.isHidden() && canUseMaterial(material)) {

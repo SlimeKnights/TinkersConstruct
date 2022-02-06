@@ -15,7 +15,7 @@ public class EmbellishmentModifier extends SingleUseModifier {
 
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
-    MaterialId location = MaterialId.tryCreate(tool.getPersistentData().getString(getId()));
+    MaterialId location = MaterialId.tryParse(tool.getPersistentData().getString(getId()));
     if (location != null) {
       IMaterial material = MaterialRegistry.getMaterial(location);
       TextColor color = material.getColor();

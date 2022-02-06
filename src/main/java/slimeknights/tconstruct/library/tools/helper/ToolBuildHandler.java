@@ -141,7 +141,7 @@ public final class ToolBuildHandler {
       String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
       boolean added = false;
       if (!showOnlyId.isEmpty()) {
-        MaterialId materialId = MaterialId.tryCreate(showOnlyId);
+        MaterialId materialId = MaterialId.tryParse(showOnlyId);
         if (materialId != null) {
           IMaterial material = MaterialRegistry.getMaterial(materialId);
           if (material != IMaterial.UNKNOWN) {
