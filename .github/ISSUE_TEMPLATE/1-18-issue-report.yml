@@ -90,7 +90,7 @@ body:
       label: Confirm the following
       description: Check all actions you have performed
       options:
-        - label: "Check if you have checked the roadmap, what's new, and the FAQ for your issue"
-        - label: "Check if you have searched the tracker to see if your issue already exists"
         - label: "Check if you are not using performance enhancers, such as optifine"
+        - label: "Check if you have searched the tracker to see if your issue already exists, notably pinned issues"
+        - label: "Check if you have look at FAQ to see if your issue is answered"
         - label: "Check if you did not read all of the above checkboxes and just checked all the boxes"
