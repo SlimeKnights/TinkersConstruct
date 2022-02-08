@@ -16,8 +16,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -188,8 +190,8 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
    * @param materialRecipe  New material recipe
    */
   private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
-    IMaterial material = materialRecipe.getMaterial();
-    this.infoPanelScreen.setCaption(material.getColoredDisplayName());
+    MaterialVariant materialVariant = materialRecipe.getMaterial();
+    this.infoPanelScreen.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()));
 
     // determine how much material we have
     // get exact number of material, rather than rounded
@@ -208,14 +210,15 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     List<Component> tips = Lists.newArrayList();
 
     // add warning that the material is uncraftable
-    if (!material.isCraftable()) {
+    if (!materialVariant.get().isCraftable()) {
       stats.add(UNCRAFTABLE_MATERIAL);
       stats.add(TextComponent.EMPTY);
       tips.add(UNCRAFTABLE_MATERIAL_TOOLTIP);
       tips.add(TextComponent.EMPTY);
     }
 
-    for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
+    MaterialId id = materialVariant.getId();
+    for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(id)) {
       List<Component> info = stat.getLocalizedInfo();
 
       if (!info.isEmpty()) {
@@ -225,7 +228,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
         stats.addAll(info);
         tips.addAll(stat.getLocalizedDescriptions());
 
-        List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(material.getIdentifier(), stat.getIdentifier());
+        List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(id, stat.getIdentifier());
         if (!traits.isEmpty()) {
           for (ModifierEntry trait : traits) {
             Modifier mod = trait.getModifier();

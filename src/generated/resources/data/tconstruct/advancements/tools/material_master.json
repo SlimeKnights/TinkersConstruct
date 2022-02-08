@@ -42,14 +42,14 @@
         ]
       }
     },
-    "stone": {
+    "rock": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "type": "tconstruct:tool",
             "materials": [
-              "tconstruct:stone"
+              "tconstruct:rock"
             ]
           }
         ]
@@ -250,14 +250,14 @@
         ]
       }
     },
-    "tinkers_bronze": {
+    "bronze": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "type": "tconstruct:tool",
             "materials": [
-              "tconstruct:tinkers_bronze"
+              "tconstruct:bronze"
             ]
           }
         ]
@@ -363,7 +363,7 @@
       "flint"
     ],
     [
-      "stone"
+      "rock"
     ],
     [
       "bone"
@@ -411,7 +411,7 @@
       "nahuatl"
     ],
     [
-      "tinkers_bronze"
+      "bronze"
     ],
     [
       "pig_iron"

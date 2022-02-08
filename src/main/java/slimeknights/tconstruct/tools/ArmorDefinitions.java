@@ -2,13 +2,13 @@ package slimeknights.tconstruct.tools;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.definition.ToolStatProviders;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.stats.SkullStats;
@@ -20,7 +20,7 @@ public class ArmorDefinitions {
   /** Stat provider for slimeskull */
   public static final IToolStatProvider SKULL_STAT_PROVIDER = new IToolStatProvider() {
     @Override
-    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+    public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
       return SkullToolStatsBuilder.from(definition, materials).buildStats();
     }
 

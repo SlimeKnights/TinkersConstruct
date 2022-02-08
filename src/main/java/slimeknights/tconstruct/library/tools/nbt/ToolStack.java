@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack.TooltipPart;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -166,7 +166,7 @@ public class ToolStack implements IToolStackView {
    * @param definition  Tool definition
    * @return  Tool stack
    */
-  public static ToolStack createTool(Item item, ToolDefinition definition, List<IMaterial> materials) {
+  public static ToolStack createTool(Item item, ToolDefinition definition, MaterialNBT materials) {
     ToolStack tool = from(item, definition, new CompoundTag());
     // set cached to empty, saves a NBT lookup or two
     tool.damage = 0;
@@ -430,20 +430,12 @@ public class ToolStack implements IToolStackView {
   }
 
   /**
-   * Sets the materials on this tool stack
-   * @param materials  New materials NBT
-   */
-  public void setMaterials(List<IMaterial> materials) {
-    setMaterials(materials.isEmpty() ? MaterialNBT.EMPTY : new MaterialNBT(materials));
-  }
-
-  /**
    * Replaces the material at the given index
    * @param index        Index to replace
    * @param replacement  New material
    * @throws IndexOutOfBoundsException  If the index is invalid
    */
-  public void replaceMaterial(int index, IMaterial replacement) {
+  public void replaceMaterial(int index, MaterialVariantId replacement) {
     setMaterials(getMaterials().replaceMaterial(index, replacement));
   }
 
@@ -591,7 +583,7 @@ public class ToolStack implements IToolStackView {
       definition.getData().buildSlots(getPersistentData());
       // do we need materials?
       if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
-        setMaterialsRaw(new MaterialNBT(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false)));
+        setMaterialsRaw(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false));
       }
       rebuildStats();
     }
@@ -609,10 +601,10 @@ public class ToolStack implements IToolStackView {
     modBuilder.add(getUpgrades());
     modBuilder.add(getDefinition().getData().getTraits());
     List<PartRequirement> parts = getDefinition().getData().getParts();
-    List<IMaterial> materials = getMaterialsList();
+    MaterialNBT materials = getMaterials();
     int max = Math.min(materials.size(), parts.size());
     for (int i = 0; i < max; i++) {
-      modBuilder.add(MaterialRegistry.getInstance().getTraits(materials.get(i).getIdentifier(), parts.get(i).getStatType()));
+      modBuilder.add(MaterialRegistry.getInstance().getTraits(materials.get(i).getId(), parts.get(i).getStatType()));
     }
     ModifierNBT allMods = modBuilder.build();
     setModifiers(allMods);

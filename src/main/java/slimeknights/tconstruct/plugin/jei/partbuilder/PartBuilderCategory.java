@@ -17,7 +17,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.client.ResourceColorManager;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -58,7 +60,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
 
   @Override
   public void setIngredients(IDisplayPartBuilderRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(MaterialItemList.getItems(recipe.getMaterialId()), recipe.getPatternItems()));
+    ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(MaterialItemList.getItems(recipe.getMaterial().getVariant()), recipe.getPatternItems()));
     ingredients.setInput(JEIPlugin.PATTERN_TYPE, recipe.getPattern());
     ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
   }
@@ -66,8 +68,8 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   @Override
   public void draw(IDisplayPartBuilderRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
     Font fontRenderer = Minecraft.getInstance().font;
-    IMaterial material = recipe.getMaterial();
-    fontRenderer.drawShadow(matrixStack, I18n.get(material.getTranslationKey()), 3, 2, material.getColor().getValue());
+    Component name = MaterialTooltipCache.getColoredDisplayName(recipe.getMaterial().getVariant());
+    fontRenderer.drawShadow(matrixStack, name.getString(), 3, 2, Objects.requireNonNullElse(name.getStyle().getColor(), ResourceColorManager.WHITE).getValue());
     String coolingString = I18n.get(KEY_COST, recipe.getCost());
     fontRenderer.draw(matrixStack, coolingString, 3, 35, Color.GRAY.getRGB());
   }

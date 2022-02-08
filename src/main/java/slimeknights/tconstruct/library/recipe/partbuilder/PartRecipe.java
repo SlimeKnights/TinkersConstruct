@@ -9,7 +9,9 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -54,8 +56,8 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
       if (materialRecipe == null) {
         return false;
       }
-      IMaterial material = materialRecipe.getMaterial();
-      return material.isCraftable() && output.canUseMaterial(material);
+      MaterialVariant material = materialRecipe.getMaterial();
+      return material.get().isCraftable() && output.canUseMaterial(material.getId());
     }
     // no material item? return match in case we get one later
     return true;
@@ -73,14 +75,14 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
     MaterialRecipe materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
       // material must be craftable, usable in the item, and have a cost we can afford
-      IMaterial material = materialRecipe.getMaterial();
-      return material.isCraftable() && output.canUseMaterial(material)
+      MaterialVariant material = materialRecipe.getMaterial();
+      return material.get().isCraftable() && output.canUseMaterial(material.getId())
              && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);
     }
     return false;
   }
 
-  /** @deprecated use {@link #getRecipeOutput(IMaterial)} */
+  /** @deprecated use {@link #getRecipeOutput(MaterialVariantId)} */
   @Deprecated
   @Override
   public ItemStack getResultItem() {
@@ -93,7 +95,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
    * @return  Output of the recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public ItemStack getRecipeOutput(IMaterial material) {
+  public ItemStack getRecipeOutput(MaterialVariantId material) {
     ItemStack stack = output.withMaterial(material);
     stack.setCount(outputCount);
     return stack;
@@ -101,12 +103,12 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
 
   @Override
   public ItemStack assemble(IPartBuilderContainer inv) {
-    IMaterial material = IMaterial.UNKNOWN;
+    MaterialVariant material = MaterialVariant.UNKNOWN;
     MaterialRecipe materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
       material = materialRecipe.getMaterial();
     }
-    return this.getRecipeOutput(material);
+    return this.getRecipeOutput(material.getVariant());
   }
 
   /** Cache of recipes for display in JEI */
@@ -116,10 +118,14 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   @Override
   public List<ItemPartRecipe> getRecipes() {
     if (multiRecipes == null) {
+      // TODO: recipe per variant instead of per material?
       multiRecipes = MaterialRegistry
         .getMaterials().stream()
         .filter(mat -> mat.isCraftable() && output.canUseMaterial(mat))
-        .map(mat -> new ItemPartRecipe(id, mat.getIdentifier(), pattern, getCost(), ItemOutput.fromStack(output.withMaterial(mat))))
+        .map(mat -> {
+          MaterialId materialId = mat.getIdentifier();
+          return new ItemPartRecipe(materialId, mat.getIdentifier(), pattern, getCost(), ItemOutput.fromStack(output.withMaterial(materialId)));
+        })
         .collect(Collectors.toList());
     }
     return multiRecipes;

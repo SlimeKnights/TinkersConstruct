@@ -3,11 +3,10 @@ package slimeknights.tconstruct.library.tools.part;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-
-import java.util.Optional;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.utils.NBTTags;
 
 /**
  * Items implementing this interface contain a material
@@ -16,50 +15,35 @@ public interface IMaterialItem extends ItemLike {
   /**
    * Returns the material ID of the part this itemstack holds.
    *
-   * @return Material or Material.UNKNOWN if invalid
+   * @return Material ID or {@link IMaterial#UNKNOWN_ID} if invalid
    */
-  Optional<MaterialId> getMaterialId(ItemStack stack);
+  MaterialVariantId getMaterial(ItemStack stack);
 
-  /**
-   * Returns the material of the part this itemstack holds.
-   *
-   * @return Material or Material.UNKNOWN if invalid
-   */
-  default IMaterial getMaterial(ItemStack stack) {
-    return getMaterialId(stack)
-      .map(MaterialRegistry::getMaterial)
-      .filter(this::canUseMaterial)
-      .orElse(IMaterial.UNKNOWN);
+  /** Returns the item with the given material, bypassing material validation */
+  default ItemStack withMaterialForDisplay(MaterialVariantId materialId) {
+    ItemStack stack = new ItemStack(this);
+    stack.getOrCreateTag().putString(NBTTags.PART_MATERIAL, materialId.toString());
+    return stack;
   }
 
-  /**
-   * Returns the item with the given material
-   */
-  ItemStack withMaterialForDisplay(MaterialId material);
-
-  /**
-   * Returns the item with the given material
-   */
-  ItemStack withMaterial(IMaterial material);
+  /** Returns the item with the given material, validating it */
+  default ItemStack withMaterial(MaterialVariantId material) {
+    if (canUseMaterial(material.getId())) {
+      return withMaterialForDisplay(material);
+    }
+    return new ItemStack(this);
+  }
 
   /**
    * Returns true if the material can be used for this toolpart
    */
-  default boolean canUseMaterial(IMaterial mat) {
+  default boolean canUseMaterial(MaterialId mat) {
     return true;
   }
 
-  /**
-   * Gets the material from a given item stack
-   * @param stack  Item stack containing a material item
-   * @return  Material, or unknown if none
-   */
-  static MaterialId getMaterialIdFromStack(ItemStack stack) {
-    if ((stack.getItem() instanceof IMaterialItem)) {
-      return ((IMaterialItem) stack.getItem()).getMaterialId(stack)
-                                              .orElse(IMaterial.UNKNOWN_ID);
-    }
-    return IMaterial.UNKNOWN_ID;
+  /** Returns true if the material can be used for this toolpart, simply an alias for {@link #canUseMaterial(MaterialId)} */
+  default boolean canUseMaterial(IMaterial mat) {
+    return canUseMaterial(mat.getIdentifier());
   }
 
   /**
@@ -67,11 +51,11 @@ public interface IMaterialItem extends ItemLike {
    * @param stack  Item stack containing a material item
    * @return  Material, or unknown if none
    */
-  static IMaterial getMaterialFromStack(ItemStack stack) {
+  static MaterialVariantId getMaterialFromStack(ItemStack stack) {
     if ((stack.getItem() instanceof IMaterialItem)) {
       return ((IMaterialItem) stack.getItem()).getMaterial(stack);
     }
-    return IMaterial.UNKNOWN;
+    return IMaterial.UNKNOWN_ID;
   }
 
   /**
@@ -80,7 +64,7 @@ public interface IMaterialItem extends ItemLike {
    * @param material  Material
    * @return  Stack with material, or original stack if not a material item
    */
-  static ItemStack withMaterial(ItemStack stack, IMaterial material) {
+  static ItemStack withMaterial(ItemStack stack, MaterialVariantId material) {
     Item item = stack.getItem();
     if (item instanceof IMaterialItem) {
       ItemStack output = ((IMaterialItem) item).withMaterial(material);

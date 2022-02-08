@@ -150,6 +150,10 @@ public class TinkerTags {
     /** Copper platform variants */
     public static final IOptionalNamedTag<Item> COPPER_PLATFORMS = tag("copper_platforms");
 
+    /** Planks in this tag are skipped in the default wood crafting recipe as they have their own variant. Tagging your planks here will allow you to add another wood variant */
+    public static final IOptionalNamedTag<Item> VARIANT_PLANKS = tag("wood_variants/planks");
+    /** Logs in this tag are skipped in the default wood crafting recipe as they have their own variant. Tagging your planks here will allow you to add another wood variant */
+    public static final IOptionalNamedTag<Item> VARIANT_LOGS = tag("wood_variants/logs");
 
     public static final IOptionalNamedTag<Item> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");

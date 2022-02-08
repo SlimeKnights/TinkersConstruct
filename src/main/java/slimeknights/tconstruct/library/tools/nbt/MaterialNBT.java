@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,12 +8,13 @@ import lombok.ToString;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -28,11 +30,22 @@ public class MaterialNBT {
 
   /** List of materials contained in this NBT */
   @Getter
-  private final List<IMaterial> materials;
+  private final List<MaterialVariant> list;
 
   /** Creates a new material NBT */
-  public MaterialNBT(List<IMaterial> materials) {
-    this.materials = ImmutableList.copyOf(materials);
+  public MaterialNBT(List<MaterialVariant> list) {
+    this.list = ImmutableList.copyOf(list);
+  }
+
+  /** Creates a new material NBT */
+  @VisibleForTesting
+  public static MaterialNBT of(IMaterial... materials) {
+    return new MaterialNBT(Arrays.stream(materials).map(MaterialVariant::of).toList());
+  }
+
+  /** Creates a builder for this NBT */
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -40,11 +53,16 @@ public class MaterialNBT {
    * @param index  Index
    * @return  Material, or unknown if index is invalid
    */
-  public IMaterial getMaterial(int index) {
-    if (index >= materials.size() || index < 0) {
-      return IMaterial.UNKNOWN;
+  public MaterialVariant get(int index) {
+    if (index >= list.size() || index < 0) {
+      return MaterialVariant.UNKNOWN;
     }
-    return materials.get(index);
+    return list.get(index);
+  }
+
+  /** Gets the number of materials in this list */
+  public int size() {
+    return list.size();
   }
 
   /**
@@ -54,18 +72,18 @@ public class MaterialNBT {
    * @return  Copy of NBt with the new material
    * @throws IndexOutOfBoundsException  If the index is invalid
    */
-  public MaterialNBT replaceMaterial(int index, IMaterial replacement) {
+  public MaterialNBT replaceMaterial(int index, MaterialVariantId replacement) {
     if (index < 0) {
       throw new IndexOutOfBoundsException("Material index is out of bounds");
     }
     // start by copying all materials over
-    int size = materials.size();
-    ArrayList<IMaterial> list = new ArrayList<>(Math.max(size, index + 1));
+    int size = list.size();
+    ArrayList<MaterialVariant> list = new ArrayList<>(Math.max(size, index + 1));
     for (int i = 0; i < size; i++) {
       if (i == index) {
-        list.add(replacement);
+        list.add(MaterialVariant.of(replacement));
       } else {
-        list.add(materials.get(i));
+        list.add(this.list.get(i));
       }
     }
 
@@ -73,9 +91,9 @@ public class MaterialNBT {
     // handles the case where a tool has broken material NBT without crashing
     if (index >= size) {
       for (int i = size; i < index; i++) {
-        list.add(IMaterial.UNKNOWN);
+        list.add(MaterialVariant.of(IMaterial.UNKNOWN, ""));
       }
-      list.add(replacement);
+      list.add(MaterialVariant.of(replacement));
     }
 
     return new MaterialNBT(list);
@@ -95,12 +113,11 @@ public class MaterialNBT {
       return EMPTY;
     }
 
-    List<IMaterial> materials = listNBT.stream()
-      .map(Tag::getAsString)
-      .map(MaterialId::tryParse)
-      .filter(Objects::nonNull)
-      .map(MaterialRegistry::getMaterial)
-      .collect(Collectors.toList());
+    List<MaterialVariant> materials = listNBT.stream()
+                                             .map(tag -> MaterialVariantId.tryParse(tag.getAsString()))
+                                             .filter(Objects::nonNull)
+                                             .map(MaterialVariant::of)
+                                             .collect(Collectors.toList());
 
     return new MaterialNBT(materials);
   }
@@ -110,10 +127,34 @@ public class MaterialNBT {
    * @return  List of materials
    */
   public ListTag serializeToNBT() {
-    return materials.stream()
-      .map(IMaterial::getIdentifier)
-      .map(MaterialId::toString)
-      .map(StringTag::valueOf)
-      .collect(Collectors.toCollection(ListTag::new));
+    return list.stream()
+               .map(lazy -> StringTag.valueOf(lazy.getVariant().toString()))
+               .collect(Collectors.toCollection(ListTag::new));
+  }
+
+  /** Builder for material NBT */
+  public static class Builder {
+    private final ImmutableList.Builder<MaterialVariant> builder = ImmutableList.builder();
+
+    /** Adds a material to the builder */
+    public Builder add(MaterialVariant variant) {
+      builder.add(variant);
+      return this;
+    }
+
+    /** Adds a material to the builder */
+    public Builder add(MaterialVariantId variantId) {
+      return add(MaterialVariant.of(variantId));
+    }
+
+    /** Adds a material to the builder */
+    public Builder add(IMaterial material) {
+      return add(MaterialVariant.of(material));
+    }
+
+    /** Builds the final list */
+    public MaterialNBT build() {
+      return new MaterialNBT(builder.build());
+    }
   }
 }

@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ResourceColorManager implements ISafeManagerReloadListener {
   /** Modifier file to load, has merging behavior but forge prevents multiple mods from loading the same file */
   private static final String COLORS_PATH = "tinkering/colors.json";
   /** Default color so the getter can be nonnull */
-  private static final TextColor WHITE = TextColor.fromRgb(-1);
+  public static final TextColor WHITE = TextColor.fromRgb(-1);
   /** Instance of this manager */
   public static final ResourceColorManager INSTANCE = new ResourceColorManager();
 
@@ -81,6 +82,12 @@ public class ResourceColorManager implements ISafeManagerReloadListener {
     }
     // replace the map
     COLORS = colors;
+  }
+
+  /** Gets the text color at the given path, or null if undefined */
+  @Nullable
+  public static TextColor getOrNull(String path) {
+    return COLORS.get(path);
   }
 
   /** Gets the text color at the given path */

@@ -13,8 +13,8 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ToolDefinition {
   /** Empty tool definition instance to prevent the need for null for a fallback */
   public static final ToolDefinition EMPTY = new ToolDefinition(TConstruct.getResource("empty"), new IToolStatProvider() {
     @Override
-    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+    public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
       return StatsNBT.EMPTY;
     }
 
@@ -95,7 +95,7 @@ public class ToolDefinition {
    * @param materials  Materials list
    * @return  Stats NBT
    */
-  public StatsNBT buildStats(List<IMaterial> materials) {
+  public StatsNBT buildStats(MaterialNBT materials) {
     return statProvider.buildStats(this, materials);
   }
 

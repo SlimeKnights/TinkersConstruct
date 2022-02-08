@@ -18,9 +18,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -61,7 +61,7 @@ public class AddToolDataFunction extends LootItemConditionalFunction {
       ToolStack tool = ToolStack.from(stack);
       ToolDefinition definition = tool.getDefinition();
       if (definition.isMultipart() && !materials.isEmpty()) {
-        ImmutableList.Builder<IMaterial> builder = ImmutableList.builder();
+        MaterialNBT.Builder builder = MaterialNBT.builder();
         Random random = context.getRandom();
         for (RandomMaterial material : materials) {
           builder.add(material.getMaterial(random));

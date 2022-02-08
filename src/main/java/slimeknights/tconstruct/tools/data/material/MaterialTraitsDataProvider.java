@@ -20,7 +20,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
   protected void addMaterialTraits() {
     // tier 1
     addDefaultTraits(MaterialIds.wood, TinkerModifiers.cultivated.get());
-    addDefaultTraits(MaterialIds.stone, TinkerModifiers.stonebound.get());
+    addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound.get());
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged.get());
     addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing.get());
     // tier 1 - nether
@@ -44,7 +44,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast.get(), TinkerModifiers.overslime.get());
-    addDefaultTraits(MaterialIds.tinkersBronze, TinkerModifiers.wellMaintained.get());
+    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.wellMaintained.get());
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating.get());
     addDefaultTraits(MaterialIds.roseGold, TinkerModifiers.enhanced.get());
     addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty.get());
@@ -69,7 +69,6 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield.get());
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, TinkerModifiers.ductile.get());
-    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.wellMaintained2.get());
     addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate.get());
     addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant.get());
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay.get());

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -36,20 +36,12 @@ public interface IToolContext {
   MaterialNBT getMaterials();
 
   /**
-   * Gets the list of all materials
-   * @return List of all materials
-   */
-  default List<IMaterial> getMaterialsList() {
-    return getMaterials().getMaterials();
-  }
-
-  /**
    * Gets the material at the given index
    * @param index  Index
    * @return  Material, or unknown if index is invalid
    */
-  default IMaterial getMaterial(int index) {
-    return getMaterials().getMaterial(index);
+  default MaterialVariant getMaterial(int index) {
+    return getMaterials().get(index);
   }
 
 

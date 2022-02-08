@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.data.material;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
-import net.minecraft.network.chat.TextColor;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
@@ -113,24 +112,24 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   /** Creates a normal material with a condition and a redirect */
-  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
-    addMaterial(new Material(location, tier, order, craftable, TextColor.fromRgb(color), hidden), condition, redirect);
+  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+    addMaterial(new Material(location, tier, order, craftable, hidden), condition, redirect);
   }
 
   /** Creates a normal material */
-  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, int color) {
-    addMaterial(location, tier, order, craftable, color, false, null);
+  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable) {
+    addMaterial(location, tier, order, craftable, false, null);
   }
 
   /** Creates a new compat material */
-  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color, String ingotName) {
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, String ingotName) {
     ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("ingots/" + ingotName));
-    addMaterial(location, tier, order, false, color & 0xFFFFFF, false, condition);
+    addMaterial(location, tier, order, false, false, condition);
   }
 
   /** Creates a new compat material */
-  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color) {
-    addCompatMetalMaterial(location, tier, order, color, location.getPath());
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order) {
+    addCompatMetalMaterial(location, tier, order, location.getPath());
   }
 
 
@@ -161,9 +160,9 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
       redirect = null;
     }
     if (material == null) {
-      return new MaterialJson(data.condition, null, null, null, null, null, redirect);
+      return new MaterialJson(data.condition, null, null, null, null, redirect);
     }
-    return new MaterialJson(data.condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getColor().serialize(), material.isHidden(), redirect);
+    return new MaterialJson(data.condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.isHidden(), redirect);
   }
 
   private record DataMaterial(@Nullable IMaterial material, @Nullable ICondition condition, MaterialJson.Redirect[] redirect) {}

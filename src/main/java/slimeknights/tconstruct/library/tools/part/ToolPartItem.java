@@ -7,12 +7,12 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeI18n;
-import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
@@ -45,25 +45,40 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
 
   @Override
   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    IMaterial material = this.getMaterial(stack);
+    if (TooltipUtil.isDisplay(stack)) {
+      return;
+    }
+
     // add all traits to the info
-    if (!this.checkMissingMaterialTooltip(stack, material, tooltip)) {
-      for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(material.getIdentifier(), getStatType())) {
-        tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
-      }
-      // add stats
-      if (Config.CLIENT.extraToolTips.get()) {
-        TooltipKey key = SafeClientAccess.getTooltipKey();
-        if (key == TooltipKey.SHIFT || key == TooltipKey.UNKNOWN) {
-          this.addStatInfoTooltip(material, tooltip);
+    MaterialVariantId materialVariant = this.getMaterial(stack);
+    MaterialId id = materialVariant.getId();
+    if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
+      if (canUseMaterial(id)) {
+        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, getStatType())) {
+          tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
+        }
+        // add stats
+        if (Config.CLIENT.extraToolTips.get()) {
+          TooltipKey key = SafeClientAccess.getTooltipKey();
+          if (key == TooltipKey.SHIFT || key == TooltipKey.UNKNOWN) {
+            this.addStatInfoTooltip(id, tooltip);
+          } else {
+            // info tooltip for detailed and component info
+            tooltip.add(TextComponent.EMPTY);
+            tooltip.add(TooltipUtil.TOOLTIP_HOLD_SHIFT);
+          }
+        }
+      } else {
+        // is the material missing, or is it not valid for this stat type?
+        IMaterial material = MaterialRegistry.getMaterial(id);
+        if (material == IMaterial.UNKNOWN) {
+          tooltip.add(new TranslatableComponent(MISSING_MATERIAL_KEY, id));
         } else {
-          // info tooltip for detailed and component info
-          tooltip.add(TextComponent.EMPTY);
-          tooltip.add(TooltipUtil.TOOLTIP_HOLD_SHIFT);
+          tooltip.add(new TranslatableComponent(MISSING_STATS_KEY, materialStatId).withStyle(ChatFormatting.GRAY));
         }
       }
-      // mod handled by getCreatorModId
     }
+    // mod handled by getCreatorModId
   }
 
   /**
@@ -71,8 +86,8 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
    * @param tooltip   Tooltip list
    * @param material  Material to add
    */
-  protected void addStatInfoTooltip(IMaterial material, List<Component> tooltip) {
-    MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).ifPresent((stat) -> {
+  protected void addStatInfoTooltip(MaterialId material, List<Component> tooltip) {
+    MaterialRegistry.getInstance().getMaterialStats(material, this.materialStatId).ifPresent((stat) -> {
       List<Component> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
         tooltip.add(TextComponent.EMPTY);
@@ -80,26 +95,5 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         tooltip.addAll(stat.getLocalizedInfo());
       }
     });
-  }
-
-  /**
-   * Adds the tooltip for missing materials
-   * @param stack     Stack in case material is missing
-   * @param material  Material to check
-   * @param tooltip   Tooltip list
-   * @return  True if the material is unknown
-   */
-  protected boolean checkMissingMaterialTooltip(ItemStack stack, IMaterial material, List<Component> tooltip) {
-    if (material == IMaterial.UNKNOWN) {
-      if (!TooltipUtil.isDisplay(stack)) {
-        getMaterialId(stack).ifPresent(id -> tooltip.add(new TranslatableComponent(TConstruct.makeTranslationKey("tooltip", "part.missing_material"), id)));
-      }
-      return true;
-    }
-    else if (!canUseMaterial(material)) {
-      TranslationHelper.addEachLine(ForgeI18n.parseMessage(MISSING_STATS_KEY, material.getTranslationKey(), materialStatId), tooltip);
-    }
-
-    return false;
   }
 }

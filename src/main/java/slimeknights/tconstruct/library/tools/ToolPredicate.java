@@ -21,8 +21,8 @@ import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.Items;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -68,8 +68,8 @@ public class ToolPredicate extends ItemPredicate {
     // materials
     matLoop:
     for (MaterialId check : materials) {
-      for (IMaterial mat : tool.getMaterials().getMaterials()) {
-        if (mat.getIdentifier().equals(check)) {
+      for (MaterialVariant mat : tool.getMaterials().getList()) {
+        if (mat.getId().equals(check)) {
           continue matLoop;
         }
       }

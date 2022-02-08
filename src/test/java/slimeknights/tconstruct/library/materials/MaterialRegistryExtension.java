@@ -56,6 +56,7 @@ public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCa
   public void afterAll(ExtensionContext context) {
     // cleanup
     MaterialRegistry.INSTANCE = new MaterialRegistry(mock(IMaterialRegistry.class));
+    MaterialRegistry.fullyLoaded = true;
   }
 
   @Override

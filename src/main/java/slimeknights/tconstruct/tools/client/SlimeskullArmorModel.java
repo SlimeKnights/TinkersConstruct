@@ -91,7 +91,7 @@ public class SlimeskullArmorModel extends Model {
   /** Called before the model is rendered to set the base model and the tool stack data */
   private void setup(HumanoidModel<?> base, ItemStack stack) {
     this.base = base;
-    MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0);
+    MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0).getId();
     if (!materialId.equals(IMaterial.UNKNOWN_ID)) {
       SkullModelBase model = getHeadModel(materialId);
       ResourceLocation texture = HEAD_TEXTURES.get(materialId);

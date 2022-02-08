@@ -11,6 +11,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -108,8 +110,8 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         }
 
         // ensure the part is valid
-        IMaterial partMaterial = part.getMaterial(stack);
-        if (partMaterial == IMaterial.UNKNOWN) {
+        MaterialVariantId partVariant = part.getMaterial(stack);
+        if (partVariant.equals(IMaterial.UNKNOWN_ID)) {
           return ValidatedResult.PASS;
         }
 
@@ -125,9 +127,9 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           }
         }
 
-        // ensure there is a change in the part
-        IMaterial toolMaterial = tool.getMaterial(index);
-        if (toolMaterial == partMaterial) {
+        // ensure there is a change in the part, note we compare variants so you could swap oak head for birch head
+        MaterialVariant toolVariant = tool.getMaterial(index);
+        if (toolVariant.sameVariant(partVariant)) {
           return ValidatedResult.PASS;
         }
 
@@ -137,11 +139,11 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         // determine which modifiers are going to be removed
         Map<Modifier,Integer> removedTraits = new HashMap<>();
         // start with a map of all modifiers on the old part
-        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(toolMaterial.getIdentifier(), part.getStatType())) {
+        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(toolVariant.getId(), part.getStatType())) {
           removedTraits.put(entry.getModifier(), entry.getLevel());
         }
         // subtract any modifiers on the new part
-        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(partMaterial.getIdentifier(), part.getStatType())) {
+        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(partVariant.getId(), part.getStatType())) {
           Modifier modifier = entry.getModifier();
           if (removedTraits.containsKey(modifier)) {
             int value = removedTraits.get(modifier) - entry.getLevel();
@@ -163,7 +165,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         }
 
         // do the actual part replacement
-        tool.replaceMaterial(index, partMaterial);
+        tool.replaceMaterial(index, partVariant);
 
         // allow modifiers to remove any extra NBT based on the new state
         for (Modifier modifier : actuallyRemoved) {
@@ -172,7 +174,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
 
         // if swapping in a new head, repair the tool (assuming the give stats type can repair)
         // ideally we would validate before repairing, but don't want to create the stack before repairing
-        IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partMaterial.getIdentifier(), part.getStatType()).orElse(null);
+        IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partVariant.getId(), part.getStatType()).orElse(null);
         if (stats instanceof IRepairableMaterialStats) {
           // must have a registered recipe
           int cost = MaterialCastingLookup.getItemCost(part);

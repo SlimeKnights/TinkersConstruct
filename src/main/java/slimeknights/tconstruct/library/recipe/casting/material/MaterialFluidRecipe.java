@@ -13,9 +13,8 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -31,23 +30,24 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   @Getter
   private final int temperature;
   /** Material base for composite */
-  @Nullable
-  private final LazyMaterial input;
+  @Nullable @Getter
+  private final MaterialVariant input;
   /** Output material ID */
-  private final LazyMaterial output;
+  @Getter
+  private final MaterialVariant output;
 
-  public MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialId inputId, MaterialId outputId) {
+  public MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId) {
     this.id = id;
     this.fluid = fluid;
     this.temperature = temperature;
-    this.input = inputId == null ? null : LazyMaterial.of(inputId);
-    this.output = LazyMaterial.of(outputId);
+    this.input = inputId == null ? null : MaterialVariant.of(inputId);
+    this.output = MaterialVariant.of(outputId);
     MaterialCastingLookup.registerFluid(this);
   }
 
   /** Checks if the recipe matches the given inventory */
   public boolean matches(ICastingContainer inv) {
-    if (getOutput() == IMaterial.UNKNOWN || !fluid.test(inv.getFluid())) {
+    if (output.isUnknown() || !fluid.test(inv.getFluid())) {
       return false;
     }
     if (input != null) {
@@ -56,7 +56,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
       if (input.isUnknown()) {
         return false;
       }
-      return input.matches(inv.getStack());
+      return input.matchesVariant(inv.getStack());
     }
     return true;
   }
@@ -64,20 +64,6 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   /** Gets the amount of fluid to cast this recipe */
   public int getFluidAmount(Fluid fluid) {
     return this.fluid.getAmount(fluid);
-  }
-
-  /** Gets the material output for this recipe */
-  public IMaterial getOutput() {
-    return output.get();
-  }
-
-  /** Gets the material input for this recipe */
-  @Nullable
-  public IMaterial getInput() {
-    if (input == null) {
-      return null;
-    }
-    return input.get();
   }
 
   /** Gets a list of fluids for display */
@@ -105,11 +91,11 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     public MaterialFluidRecipe fromJson(ResourceLocation id, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
       int temperature = GsonHelper.getAsInt(json, "temperature");
-      MaterialId input = null;
+      MaterialVariantId input = null;
       if (json.has("input")) {
-        input = new MaterialId(GsonHelper.getAsString(json, "input"));
+        input = MaterialVariantId.fromJson(json, "input");
       }
-      MaterialId output = new MaterialId(GsonHelper.getAsString(json, "output"));
+      MaterialVariantId output = MaterialVariantId.fromJson(json, "output");
       return new MaterialFluidRecipe(id, fluid, temperature, input, output);
     }
 
@@ -118,11 +104,11 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     protected MaterialFluidRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidIngredient fluid = FluidIngredient.read(buffer);
       int temperature = buffer.readInt();
-      MaterialId input = null;
+      MaterialVariantId input = null;
       if (buffer.readBoolean()) {
-        input = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
+        input = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
       }
-      MaterialId output = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
+      MaterialVariantId output = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
       return new MaterialFluidRecipe(id, fluid, temperature, input, output);
     }
 
@@ -132,11 +118,11 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
       buffer.writeInt(recipe.temperature);
       if (recipe.input != null) {
         buffer.writeBoolean(true);
-        buffer.writeUtf(recipe.input.getId().toString());
+        buffer.writeUtf(recipe.input.getVariant().toString());
       } else {
         buffer.writeBoolean(false);
       }
-      buffer.writeUtf(recipe.output.getId().toString());
+      buffer.writeUtf(recipe.output.getVariant().toString());
     }
   }
 }

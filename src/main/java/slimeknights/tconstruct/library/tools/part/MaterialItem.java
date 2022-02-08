@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools.part;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -12,16 +11,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents an item that has a Material associated with it. The NBT of the itemstack identifies which material the
@@ -35,31 +35,22 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   /** Gets the material ID for the given NBT compound */
-  private static Optional<MaterialId> getMaterialId(@Nullable CompoundTag nbt) {
-    return Optional.ofNullable(nbt)
-                   .map(compoundNBT -> compoundNBT.getString(NBTTags.PART_MATERIAL))
-                   .filter(string -> !string.isEmpty())
-                   .map(MaterialId::tryParse);
-  }
-
-  @Override
-  public Optional<MaterialId> getMaterialId(ItemStack stack) {
-    return getMaterialId(stack.getTag());
-  }
-
-  @Override
-  public ItemStack withMaterialForDisplay(MaterialId materialId) {
-    ItemStack stack = new ItemStack(this);
-    stack.getOrCreateTag().putString(NBTTags.PART_MATERIAL, materialId.toString());
-    return stack;
-  }
-
-  @Override
-  public ItemStack withMaterial(IMaterial material) {
-    if (canUseMaterial(material)) {
-      return withMaterialForDisplay(material.getIdentifier());
+  private static MaterialVariantId getMaterialId(@Nullable CompoundTag nbt) {
+    if (nbt != null) {
+      String str = nbt.getString(NBTTags.PART_MATERIAL);
+      if (!str.isEmpty()) {
+        MaterialVariantId id = MaterialVariantId.tryParse(str);
+        if (id != null) {
+          return id;
+        }
+      }
     }
-    return new ItemStack(this);
+    return IMaterial.UNKNOWN_ID;
+  }
+
+  @Override
+  public MaterialVariantId getMaterial(ItemStack stack) {
+    return getMaterialId(stack.getTag());
   }
 
   @Override
@@ -69,20 +60,18 @@ public class MaterialItem extends Item implements IMaterialItem {
       String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
       boolean added = false;
       if (!showOnlyId.isEmpty()) {
-        MaterialId materialId = MaterialId.tryParse(showOnlyId);
-        if (materialId != null) {
-          IMaterial material = MaterialRegistry.getMaterial(materialId);
-          if (material != IMaterial.UNKNOWN && !material.isHidden() && canUseMaterial(material)) {
-            items.add(this.withMaterial(MaterialRegistry.getMaterial(materialId)));
-            added = true;
-          }
+        MaterialVariantId materialId = MaterialVariantId.tryParse(showOnlyId);
+        if (materialId != null && canUseMaterial(materialId.getId())) {
+          items.add(this.withMaterialForDisplay(materialId));
+          added = true;
         }
       }
       // if no material is set or we failed to find it, iterate all materials
       if (!added) {
         for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
-          if (this.canUseMaterial(material)) {
-            items.add(this.withMaterial(material));
+          MaterialId id = material.getIdentifier();
+          if (this.canUseMaterial(id)) {
+            items.add(this.withMaterial(id));
             // if a specific material was requested and not found, stop after first
             if (!showOnlyId.isEmpty()) {
               break;
@@ -93,34 +82,59 @@ public class MaterialItem extends Item implements IMaterialItem {
     }
   }
 
-  @Override
-  public Component getName(ItemStack stack) {
-    // if no material, return part name directly
-    IMaterial material = getMaterial(stack);
-    if (material == IMaterial.UNKNOWN) {
-      return super.getName(stack);
-    }
-    String key = this.getDescriptionId(stack);
-    ResourceLocation loc = material.getIdentifier();
+  @Nullable
+  private static Component getName(String baseKey, MaterialVariantId material) {
     // if there is a specific name, use that
-    String fullKey = String.format("%s.%s.%s", key, loc.getNamespace(), loc.getPath());
+    ResourceLocation location = material.getLocation('.');
+    String fullKey = String.format("%s.%s.%s", baseKey, location.getNamespace(), location.getPath());
     if (Util.canTranslate(fullKey)) {
       return new TranslatableComponent(fullKey);
     }
     // try material name prefix next
-    String materialKey = material.getTranslationKey();
+    String materialKey = MaterialTooltipCache.getKey(material);
     String materialPrefix = materialKey + ".format";
     if (Util.canTranslate(materialPrefix)) {
-      return new TranslatableComponent(materialPrefix, new TranslatableComponent(key));
+      return new TranslatableComponent(materialPrefix, new TranslatableComponent(baseKey));
     }
     // format as "<material> <item name>"
-    return new TranslatableComponent(materialKey).append(" ").append(new TranslatableComponent(key));
+    if (Util.canTranslate(materialKey)) {
+      return new TranslatableComponent(materialKey).append(" ").append(new TranslatableComponent(baseKey));
+    }
+    return null;
+  }
+
+  @Override
+  public Component getName(ItemStack stack) {
+    // if no material, return part name directly
+    MaterialVariantId material = getMaterial(stack);
+    if (material.equals(IMaterial.UNKNOWN_ID)) {
+      return super.getName(stack);
+    }
+    // try variant first
+    String key = this.getDescriptionId(stack);
+    if (material.hasVariant()) {
+      Component component = getName(key, material);
+      if (component != null) {
+        return component;
+      }
+    }
+    // if variant did not work, do base material
+    Component component = getName(key, material.getId());
+    if (component != null) {
+      return component;
+    }
+    // if neither worked, format directly
+    return new TranslatableComponent(key);
   }
 
   @Nullable
   @Override
   public String getCreatorModId(ItemStack stack) {
-    ResourceLocation id = getMaterialId(stack).map(loc -> (ResourceLocation)loc).orElse(getRegistryName());
+    MaterialVariantId material = getMaterial(stack);
+    if (!IMaterial.UNKNOWN_ID.equals(material)) {
+      return material.getId().getNamespace();
+    }
+    ResourceLocation id = getRegistryName();
     return id == null ? null : id.getNamespace();
   }
 
@@ -140,12 +154,13 @@ public class MaterialItem extends Item implements IMaterialItem {
   @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     // if the material exists and was changed, update it
-    if (nbt.contains("tag", Tag.TAG_COMPOUND)) {
-      CompoundTag tag = nbt.getCompound("tag");
-      getMaterialId(tag).map(id -> {
-        MaterialId resolved = MaterialRegistry.getInstance().resolve(id);
-        return resolved == id ? null : resolved;
-      }).ifPresent(id -> tag.putString(NBTTags.PART_MATERIAL, id.toString()));
+    MaterialVariantId id = getMaterialId(nbt);
+    if (!id.equals(IMaterial.UNKNOWN_ID)) {
+      MaterialId original = id.getId();
+      MaterialId resolved = MaterialRegistry.getInstance().resolve(original);
+      if (original != resolved) {
+        nbt.putString(NBTTags.PART_MATERIAL, MaterialVariantId.create(resolved, id.getVariant()).toString());
+      }
     }
   }
 }

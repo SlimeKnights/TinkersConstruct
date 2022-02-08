@@ -77,7 +77,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                           .requires(TinkerMaterials.tinkersBronze.getIngotTag())
                           .unlockedBy("has_bronze", has(TinkerMaterials.tinkersBronze.getIngotTag()))
                           .save(consumer, prefix(TinkerTools.flintAndBronze, folder));
-    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBronze, MaterialIds.tinkersBronze)
+    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBronze, MaterialIds.bronze)
                                   .buildRepairKit(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_repair_kit"))
                                   .save(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_station"));
 

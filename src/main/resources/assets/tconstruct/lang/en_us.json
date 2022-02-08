@@ -1283,13 +1283,27 @@
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Wood",
+  "material.tconstruct.wood.oak":      "Oak Wood",
+  "material.tconstruct.wood.spruce":   "Spruce Wood",
+  "material.tconstruct.wood.birch":    "Birch Wood",
+  "material.tconstruct.wood.jungle":   "Jungle Wood",
+  "material.tconstruct.wood.acacia":   "Acacia Wood",
+  "material.tconstruct.wood.dark_oak": "Dark Oak Wood",
+  "material.tconstruct.wood.crimson":  "Crimson Wood",
+  "material.tconstruct.wood.warped":   "Warped Wood",
   "material.tconstruct.wood.format": "Wooden %s",
   "material.tconstruct.wood.flavor": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
   "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",
 
-  "material.tconstruct.stone": "Stone",
-  "material.tconstruct.stone.flavor": "Rock solid",
-  "material.tconstruct.stone.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
+  "material.tconstruct.rock": "Rock",
+  "material.tconstruct.rock.stone":      "Stone",
+  "material.tconstruct.rock.andesite":   "Andesite",
+  "material.tconstruct.rock.diorite":    "Diorite",
+  "material.tconstruct.rock.granite":    "Granite",
+  "material.tconstruct.rock.blackstone": "Blackstone",
+  "material.tconstruct.rock.deepslate":  "Deepslate",
+  "material.tconstruct.rock.flavor": "Rock solid",
+  "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
 
   "material.tconstruct.flint": "Flint",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
@@ -1342,6 +1356,9 @@
   "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
   "material.tconstruct.slimewood": "Slimewood",
+  "material.tconstruct.slimewood.greenheart":  "Greenheart",
+  "material.tconstruct.slimewood.skyroot":     "Skyroot",
+  "material.tconstruct.slimewood.bloodshroom": "Bloodshroom",
   "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
   "material.tconstruct.slimewood.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
 
@@ -1375,9 +1392,10 @@
   "material.tconstruct.nahuatl.flavor": "This is not an obsidian part, if it was it would say \"Obsidian.\"",
   "material.tconstruct.nahuatl.encyclopedia": "Has a 50% chance of doing up to 5 damage over time, more damage at higher levels",
 
-  "material.tconstruct.tinkers_bronze": "Tinker's Bronze",
-  "material.tconstruct.tinkers_bronze.flavor": "Not to be confused with Bronze.",
-  "material.tconstruct.tinkers_bronze.encyclopedia": "Grants +10% to +15% mining speed per level at full durability, based on other modifiers",
+  "material.tconstruct.bronze": "Bronze",
+  "material.tconstruct.bronze.silicon": "Tinker's Bronze",
+  "material.tconstruct.bronze.flavor": "Not to be confused with bronze.",
+  "material.tconstruct.bronze.encyclopedia": "Grants +10% to +15% mining speed per level at full durability, based on other modifiers",
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
@@ -1491,10 +1509,6 @@
 
 
   "__comment": "Tier 3 Integration Materials",
-  "material.tconstruct.bronze": "Bronze",
-  "material.tconstruct.bronze.flavor": "Not to be confused with Tinker's Bronze.",
-  "material.tconstruct.bronze.encyclopedia": "Grants +12.5% mining speed per level at full durability",
-
   "material.tconstruct.steel": "Steel",
   "material.tconstruct.steel.flavor": "Basically 90% of material science",
   "material.tconstruct.steel.encyclopedia": "Grants +4% durability, damage, and speed per level",
@@ -2284,7 +2298,7 @@
 
   "tooltip.tconstruct.part.added_by": "Material added by %s",
   "tooltip.tconstruct.part.missing_material": "Missing material: %s",
-  "tooltip.tconstruct.part.missing_stats": "Material is missing the required stats:\n{0}",
+  "tooltip.tconstruct.part.missing_stats": "Material does not support %s",
   "tooltip.tconstruct.part.missing_info": "Part has no data",
 
   "_comment": "GUIs",

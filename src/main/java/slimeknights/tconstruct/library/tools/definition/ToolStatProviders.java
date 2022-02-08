@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.definition;
 
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
@@ -15,7 +15,7 @@ public class ToolStatProviders {
   /** For tools that have no parts, crafted directly in the crafting table */
   public static final IToolStatProvider NO_PARTS = new IToolStatProvider() {
     @Override
-    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+    public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
       return ToolStatsBuilder.noParts(definition).buildStats();
     }
 
@@ -35,7 +35,7 @@ public class ToolStatProviders {
   /** Tools with 1 or more tool parts using melee stats */
   public static final IToolStatProvider MELEE_HARVEST = new IToolStatProvider() {
     @Override
-    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+    public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
       return MeleeHarvestToolStatsBuilder.from(definition, materials).buildStats();
     }
 

@@ -4,13 +4,16 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+
+import static slimeknights.tconstruct.library.materials.definition.MaterialVariantId.create;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MaterialIds {
   // tier 1
   public static final MaterialId wood = id("wood");
   public static final MaterialId flint = id("flint");
-  public static final MaterialId stone = id("stone");
+  public static final MaterialId rock = id("rock");
   public static final MaterialId bone = id("bone");
   // tier 1 - nether
   public static final MaterialId necroticBone = id("necrotic_bone");
@@ -31,7 +34,7 @@ public final class MaterialIds {
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId nahuatl = id("nahuatl");
-  public static final MaterialId tinkersBronze = id("tinkers_bronze");
+  public static final MaterialId bronze = id("bronze");
   public static final MaterialId pigIron = id("pig_iron");
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
@@ -54,7 +57,6 @@ public final class MaterialIds {
   public static final MaterialId whitestone = id("whitestone");
   // tier 3 (mod integration)
   public static final MaterialId steel = id("steel");
-  public static final MaterialId bronze = id("bronze");
   public static final MaterialId constantan = id("constantan");
   public static final MaterialId invar = id("invar");
   public static final MaterialId necronium = id("necronium");
@@ -86,6 +88,38 @@ public final class MaterialIds {
   public static final MaterialId phantom = id("phantom");
   public static final MaterialId chorus = id("chorus");
   public static final MaterialId rabbit = id("rabbit");
+
+  /*
+   * Variants
+   */
+  // wood
+  public static final MaterialVariantId oak     = create(wood, "oak");
+  public static final MaterialVariantId spruce  = create(wood, "spruce");
+  public static final MaterialVariantId birch   = create(wood, "birch");
+  public static final MaterialVariantId jungle  = create(wood, "jungle");
+  public static final MaterialVariantId acacia  = create(wood, "acacia");
+  public static final MaterialVariantId darkOak = create(wood, "dark_oak");
+  public static final MaterialVariantId crimson = create(wood, "crimson");
+  public static final MaterialVariantId warped  = create(wood, "warped");
+
+  // stone
+  public static final MaterialVariantId stone      = create(rock, "stone");
+  public static final MaterialVariantId andesite   = create(rock, "andesite");
+  public static final MaterialVariantId diorite    = create(rock, "diorite");
+  public static final MaterialVariantId granite    = create(rock, "granite");
+  public static final MaterialVariantId blackstone = create(rock, "blackstone");
+  public static final MaterialVariantId deepslate  = create(rock, "deepslate");
+
+  // TODO: flint
+
+  // slimewood
+  public static final MaterialVariantId greenheart  = create(slimewood, "greenheart");
+  public static final MaterialVariantId skyroot     = create(slimewood, "skyroot");
+  public static final MaterialVariantId bloodshroom = create(slimewood, "bloodshroom");
+
+  // bronze
+  public static final MaterialVariantId siliconBronze = create(bronze, "silicon");
+  public static final MaterialVariantId tinBronze     = create(bronze, "tin");
 
   /**
    * Creates a new material ID

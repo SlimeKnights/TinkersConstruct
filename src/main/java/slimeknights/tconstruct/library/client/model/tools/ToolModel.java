@@ -53,7 +53,7 @@ import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -249,7 +249,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    */
   private static BakedModel bakeInternal(IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, @Nullable Transformation largeTransforms,
                                          List<ToolPart> parts, Map<Modifier,IBakedModifierModel> modifierModels, List<Modifier> firstModifiers,
-                                         List<MaterialId> materials, @Nullable IToolStackView tool, ItemOverrides overrides) {
+                                         List<MaterialVariantId> materials, @Nullable IToolStackView tool, ItemOverrides overrides) {
     boolean isBroken = tool != null && tool.isBroken();
     TextureAtlasSprite particle = null;
     // we create both builders always, though large may be unused
@@ -287,7 +287,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
         if (part.hasMaterials()) {
           // part with materials
           int index = part.index();
-          MaterialId material = null;
+          MaterialVariantId material = null;
           if (index < materials.size()) {
             material = materials.get(index);
           }
@@ -420,7 +420,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
      * @param materials  New materials for the model
      * @return  Baked model
      */
-    private BakedModel bakeDynamic(List<MaterialId> materials, IToolStackView tool) {
+    private BakedModel bakeDynamic(List<MaterialVariantId> materials, IToolStackView tool) {
       // bake internal does not require an instance to bake, we can pass in whatever material we want
       // use empty override list as the sub model never calls overrides, and already has a material
       return bakeInternal(owner, ForgeModelBakery.defaultTextureGetter(), largeTransforms, toolParts, modifierModels, firstModifiers, materials, tool, ItemOverrides.EMPTY);
@@ -429,7 +429,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     @Override
     public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
       // use material IDs for the sake of internal rendering materials
-      List<MaterialId> materialIds = MaterialIdNBT.from(stack).getMaterials();
+      List<MaterialVariantId> materialIds = MaterialIdNBT.from(stack).getMaterials();
       IToolStackView tool = ToolStack.from(stack);
       boolean broken = ToolDamageUtil.isBroken(stack);
 
@@ -587,6 +587,5 @@ public class ToolModel implements IModelGeometry<ToolModel> {
   }
 
   /** Simple data class to cache built tool modifiers, contains everything unique in the textures */
-  private record ToolCacheKey(List<MaterialId> materials, List<Object> modifierData, boolean broken) {
-  }
+  private record ToolCacheKey(List<MaterialVariantId> materials, List<Object> modifierData, boolean broken) {}
 }

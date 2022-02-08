@@ -4,6 +4,7 @@ import slimeknights.tconstruct.library.client.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.client.book.content.ContentMaterialSkull;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
 /** Section transformer for skull material pages */
@@ -18,7 +19,7 @@ public class SkullMaterialSectionTransformer extends AbstractMaterialSectionTran
   }
 
   @Override
-  protected ContentMaterial getPageContent(IMaterial material) {
+  protected ContentMaterial getPageContent(MaterialVariantId material) {
     return new ContentMaterialSkull(material, detailed);
   }
 }

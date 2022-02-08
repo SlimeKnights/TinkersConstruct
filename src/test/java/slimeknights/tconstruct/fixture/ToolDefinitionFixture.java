@@ -4,16 +4,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.Lazy;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.definition.IToolStatProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.test.BlockHarvestLogic;
 import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
-
-import java.util.List;
 
 public final class ToolDefinitionFixture {
   private static final ResourceLocation DEFINITION_ID = new ResourceLocation("test", "test_tool");
@@ -27,7 +25,7 @@ public final class ToolDefinitionFixture {
                                      .harvestLogic(new BlockHarvestLogic(Blocks.STONE))
                                      .build());
     @Override
-    public StatsNBT buildStats(ToolDefinition definition, List<IMaterial> materials) {
+    public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
       return MeleeHarvestToolStatsBuilder.from(definition, materials).buildStats();
     }
 

@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "base": "minecraft:logs",
+      "subtracted": [
+        "tconstruct:wood_variants/logs"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "ingredient": {
+    "type": "mantle:difference",
+    "base": {
+      "tag": "minecraft:logs"
+    },
+    "subtracted": {
+      "tag": "tconstruct:wood_variants/logs"
+    }
+  },
+  "value": 4,
+  "needed": 1,
+  "material": "tconstruct:wood",
+  "leftover": {
+    "item": "minecraft:stick",
+    "count": 2
+  }
+}

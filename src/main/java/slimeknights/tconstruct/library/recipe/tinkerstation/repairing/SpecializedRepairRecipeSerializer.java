@@ -38,7 +38,7 @@ public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecialize
   @Override
   protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
     recipe.getTool().toNetwork(buffer);
-    buffer.writeUtf(recipe.getRepairMaterialID().toString());
+    buffer.writeUtf(recipe.getRepairMaterial().toString());
   }
 
   /** Interface for serializing the recipe */
@@ -47,7 +47,7 @@ public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecialize
     Ingredient getTool();
 
     /** Gets the material ID from the recipe */
-    MaterialId getRepairMaterialID();
+    MaterialId getRepairMaterial();
   }
 
   /** Factory constructor for this serializer */

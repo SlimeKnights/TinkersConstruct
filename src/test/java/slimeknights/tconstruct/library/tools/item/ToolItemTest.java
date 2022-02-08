@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -12,6 +11,7 @@ import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 @ExtendWith(MaterialRegistryExtension.class)
@@ -38,13 +38,7 @@ public abstract class ToolItemTest extends BaseMcTest {
   }
 
   protected ItemStack buildTestTool(IModifiable tool) {
-    return ToolBuildHandler.buildItemFromMaterials(
-      tool,
-      ImmutableList.of(
-        MaterialFixture.MATERIAL_WITH_HEAD,
-        MaterialFixture.MATERIAL_WITH_HANDLE,
-        MaterialFixture.MATERIAL_WITH_EXTRA)
-																									);
+    return ToolBuildHandler.buildItemFromMaterials(tool, MaterialNBT.of(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA));
   }
 
   /** Checks if the test item is broken */

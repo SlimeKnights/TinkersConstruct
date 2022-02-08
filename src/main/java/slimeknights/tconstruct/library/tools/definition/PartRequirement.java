@@ -18,8 +18,9 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 
@@ -53,10 +54,10 @@ public abstract class PartRequirement {
   public abstract boolean matches(Item item);
 
   /** If true, this requirement can use the given material */
-  public abstract boolean canUseMaterial(IMaterial material);
+  public abstract boolean canUseMaterial(MaterialVariantId material);
 
-  /** Gets the name of this part for the given mateiral */
-  public abstract Component nameForMaterial(IMaterial material);
+  /** Gets the name of this part for the given material */
+  public abstract Component nameForMaterial(MaterialVariantId material);
 
   /** Gets the stat type for this part */
   public abstract MaterialStatsId getStatType();
@@ -130,12 +131,12 @@ public abstract class PartRequirement {
     }
 
     @Override
-    public boolean canUseMaterial(IMaterial material) {
-      return part.canUseMaterial(material);
+    public boolean canUseMaterial(MaterialVariantId material) {
+      return part.canUseMaterial(material.getId());
     }
 
     @Override
-    public Component nameForMaterial(IMaterial material) {
+    public Component nameForMaterial(MaterialVariantId material) {
       return part.withMaterial(material).getHoverName();
     }
 
@@ -183,13 +184,13 @@ public abstract class PartRequirement {
     }
 
     @Override
-    public boolean canUseMaterial(IMaterial material) {
-      return MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statType).isPresent();
+    public boolean canUseMaterial(MaterialVariantId material) {
+      return MaterialRegistry.getInstance().getMaterialStats(material.getId(), statType).isPresent();
     }
 
     @Override
-    public Component nameForMaterial(IMaterial material) {
-      return material.getDisplayName();
+    public Component nameForMaterial(MaterialVariantId material) {
+      return MaterialTooltipCache.getDisplayName(material);
     }
 
     @Override

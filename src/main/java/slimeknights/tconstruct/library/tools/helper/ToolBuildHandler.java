@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
@@ -9,6 +8,8 @@ import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
@@ -16,11 +17,11 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -46,7 +47,7 @@ public final class ToolBuildHandler {
    * @param materials  Material list
    * @return  Item stack with materials
    */
-  public static ItemStack buildItemFromMaterials(IModifiable tool, List<IMaterial> materials) {
+  public static ItemStack buildItemFromMaterials(IModifiable tool, MaterialNBT materials) {
     return ToolStack.createTool(tool.asItem(), tool.getToolDefinition(), materials).createStack();
   }
 
@@ -83,7 +84,7 @@ public final class ToolBuildHandler {
    * @param allowHidden  If true, hidden materials may be used
    * @return  List of random materials
    */
-  public static List<IMaterial> randomMaterials(ToolDefinitionData data, int maxTier, boolean allowHidden) {
+  public static MaterialNBT randomMaterials(ToolDefinitionData data, int maxTier, boolean allowHidden) {
     // start by getting a list of materials for each stat type we need
     List<PartRequirement> requirements = data.getParts();
     // figure out which stat types we need
@@ -104,18 +105,18 @@ public final class ToolBuildHandler {
             });
 
     // then randomly choose a material from the lists for each part
-    ImmutableList.Builder<IMaterial> materials = ImmutableList.builder();
+    MaterialNBT.Builder builder = MaterialNBT.builder();
     for (PartRequirement requirement : requirements) {
       // if the list has no materials for some reason, skip, null should be impossible but might as well be safe
       List<IMaterial> choices = materialChoices.get(requirement.getStatType());
       if (choices == null || choices.isEmpty()) {
-        materials.add(IMaterial.UNKNOWN);
-        TConstruct.LOG.error("Failed to find a {}material of type {} below tier {}", allowHidden ? "non-hidden " : "", requirement.getStatType(), maxTier);
+        builder.add(MaterialVariant.UNKNOWN);
+        TConstruct.LOG.error("Failed to find a {} material of type {} below tier {}", allowHidden ? "non-hidden " : "", requirement.getStatType(), maxTier);
       } else {
-        materials.add(choices.get(TConstruct.RANDOM.nextInt(choices.size())));
+        builder.add(choices.get(TConstruct.RANDOM.nextInt(choices.size())));
       }
     }
-    return materials.build();
+    return builder.build();
   }
 
 
@@ -127,7 +128,7 @@ public final class ToolBuildHandler {
    * @param itemList         List to fill with items
    * @param fixedMaterials   Materials that should be forced
    */
-  public static void addDefaultSubItems(IModifiable item, List<ItemStack> itemList, IMaterial... fixedMaterials) {
+  public static void addDefaultSubItems(IModifiable item, List<ItemStack> itemList, MaterialVariantId... fixedMaterials) {
     ToolDefinition definition = item.getToolDefinition();
     boolean isMultipart = definition.isMultipart();
     if (!definition.isDataLoaded() || (isMultipart && !MaterialRegistry.isFullyLoaded())) {
@@ -135,7 +136,7 @@ public final class ToolBuildHandler {
       itemList.add(new ItemStack(item));
     } else if (!isMultipart) {
       // no parts? just add this item
-      itemList.add(buildItemFromMaterials(item, Collections.emptyList()));
+      itemList.add(buildItemFromMaterials(item, MaterialNBT.EMPTY));
     } else {
       // if a specific material is set, show just that
       String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
@@ -164,20 +165,20 @@ public final class ToolBuildHandler {
   }
 
   /** Makes a single sub item for the given materials */
-  private static boolean addSubItem(IModifiable item, List<ItemStack> items, IMaterial material, IMaterial[] fixedMaterials) {
+  private static boolean addSubItem(IModifiable item, List<ItemStack> items, IMaterial material, MaterialVariantId[] fixedMaterials) {
     List<PartRequirement> required = item.getToolDefinition().getData().getParts();
-    List<IMaterial> materials = new ArrayList<>(required.size());
+    MaterialNBT.Builder materials = MaterialNBT.builder();
     for (int i = 0; i < required.size(); i++) {
       if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
         materials.add(fixedMaterials[i]);
       }
-      else if (required.get(i).canUseMaterial(material)) {
+      else if (required.get(i).canUseMaterial(material.getIdentifier())) {
         materials.add(material);
       } else {
         return false;
       }
     }
-    items.add(buildItemFromMaterials(item, materials));
+    items.add(buildItemFromMaterials(item, materials.build()));
     return true;
   }
 }

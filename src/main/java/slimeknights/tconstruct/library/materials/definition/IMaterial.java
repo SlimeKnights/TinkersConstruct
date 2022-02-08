@@ -1,9 +1,5 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import net.minecraft.Util;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.TConstruct;
 
 public interface IMaterial extends Comparable<IMaterial> {
@@ -31,36 +27,6 @@ public interface IMaterial extends Comparable<IMaterial> {
    * @return Return false if the material can only be cast or is not craftable at all.
    */
   boolean isCraftable();
-
-  /**
-   * Gets the translation key for this material
-   * @return the translation key
-   */
-  default String getTranslationKey() {
-    return Util.makeDescriptionId("material", getIdentifier());
-  }
-
-  /**
-   * Gets the display name for this material
-   * @return the translation key
-   */
-  default Component getDisplayName() {
-    return new TranslatableComponent(getTranslationKey());
-  }
-
-  /**
-   * Gets the display name for this material
-   * @return the translation key
-   */
-  default Component getColoredDisplayName() {
-    return new TranslatableComponent(getTranslationKey()).withStyle(style -> style.withColor(getColor()));
-  }
-
-  /**
-   * Gets the text color for this material
-   * @return the text color
-   */
-  TextColor getColor();
 
   /** If true, this material is hidden from display, such as in JEI and the books */
   boolean isHidden();

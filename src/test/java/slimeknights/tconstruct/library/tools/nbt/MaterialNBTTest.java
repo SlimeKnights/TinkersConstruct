@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -19,7 +18,7 @@ class MaterialNBTTest extends BaseMcTest {
 
   public static final IMaterial TEST_MATERIAL_1 = MaterialFixture.MATERIAL_1;
   public static final IMaterial TEST_MATERIAL_2 = MaterialFixture.MATERIAL_2;
-  private final MaterialNBT testMaterialNBT = new MaterialNBT(ImmutableList.of(TEST_MATERIAL_1, TEST_MATERIAL_2));
+  private final MaterialNBT testMaterialNBT = MaterialNBT.of(TEST_MATERIAL_1, TEST_MATERIAL_2);
 
   @Test
   void serialize() {
@@ -48,7 +47,9 @@ class MaterialNBTTest extends BaseMcTest {
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbtList);
 
-    assertThat(materialNBT.getMaterials()).containsExactly(TEST_MATERIAL_2, TEST_MATERIAL_1);
+    assertThat(materialNBT.getList()).hasSize(2);
+    assertThat(materialNBT.get(0).get()).isEqualTo(TEST_MATERIAL_2);
+    assertThat(materialNBT.get(1).get()).isEqualTo(TEST_MATERIAL_1);
   }
 
   @Test
@@ -57,7 +58,7 @@ class MaterialNBTTest extends BaseMcTest {
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbtList);
 
-    assertThat(materialNBT.getMaterials()).isEmpty();
+    assertThat(materialNBT.getList()).isEmpty();
   }
 
   @Test
@@ -66,7 +67,7 @@ class MaterialNBTTest extends BaseMcTest {
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(wrongNbt);
 
-    assertThat(materialNBT.getMaterials()).isEmpty();
+    assertThat(materialNBT.getList()).isEmpty();
   }
 
   @Test
@@ -76,18 +77,18 @@ class MaterialNBTTest extends BaseMcTest {
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(wrongNbt);
 
-    assertThat(materialNBT.getMaterials()).isEmpty();
+    assertThat(materialNBT.getList()).isEmpty();
   }
 
   @Test
   void replaceMaterial() {
     MaterialNBT nbt = MaterialNBT.EMPTY;
-    assertThat(nbt.getMaterial(1)).isEqualTo(IMaterial.UNKNOWN);
+    assertThat(nbt.get(1).get()).isEqualTo(IMaterial.UNKNOWN);
 
     // note 1 is out of bounds of empty, but replace material needs to be able to extend the material list to deal with errors
-    nbt = nbt.replaceMaterial(1, MaterialFixture.MATERIAL_1);
+    nbt = nbt.replaceMaterial(1, MaterialFixture.MATERIAL_1.getIdentifier());
 
     assertThat(nbt).overridingErrorMessage("replaceMaterial should not modify the original").isNotSameAs(MaterialNBT.EMPTY);
-    assertThat(nbt.getMaterial(1)).isEqualTo(MaterialFixture.MATERIAL_1);
+    assertThat(nbt.get(1).get()).isEqualTo(MaterialFixture.MATERIAL_1);
   }
 }

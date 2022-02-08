@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
-  "input": "tconstruct:stone",
+  "input": "tconstruct:rock",
   "fluid": {
     "tag": "tconstruct:molten_clay",
     "amount": 250

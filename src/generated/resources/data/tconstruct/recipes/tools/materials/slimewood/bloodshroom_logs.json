@@ -5,6 +5,6 @@
   },
   "value": 4,
   "needed": 1,
-  "material": "tconstruct:slimewood",
+  "material": "tconstruct:slimewood#bloodshroom",
   "leftover": "tconstruct:bloodshroom_planks"
 }

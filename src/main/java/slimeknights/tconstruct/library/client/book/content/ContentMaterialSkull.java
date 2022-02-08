@@ -16,8 +16,9 @@ import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -43,7 +44,7 @@ public class ContentMaterialSkull extends ContentMaterial {
   /** List of skull items as inputs */
   protected transient List<ItemStack> skullStacks = null;
 
-  public ContentMaterialSkull(IMaterial material, boolean detailed) {
+  public ContentMaterialSkull(MaterialVariantId material, boolean detailed) {
     super(material, detailed);
   }
 
@@ -57,7 +58,7 @@ public class ContentMaterialSkull extends ContentMaterial {
                          .map(recipe -> (IDisplayableCastingRecipe)recipe)
                          .filter(recipe -> {
                            ItemStack output = recipe.getOutput();
-                           return output.getItem() == TinkerTools.slimesuit.get(ArmorSlotType.HELMET) && MaterialIdNBT.from(output).getMaterial(0).toString().equals(materialName);
+                           return output.getItem() == TinkerTools.slimesuit.get(ArmorSlotType.HELMET) && MaterialIdNBT.from(output).getMaterial(0).getId().toString().equals(materialName);
                          })
                          .findFirst()
                          .orElse(null);
@@ -95,7 +96,7 @@ public class ContentMaterialSkull extends ContentMaterial {
   }
 
   @Override
-  protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialId materialId) {
+  protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
     displayTools.add(new TinkerItemElement(TinkerToolParts.repairKit.get().withMaterialForDisplay(materialId)));
 
     super.addPrimaryDisplayItems(displayTools, materialId);
@@ -115,11 +116,11 @@ public class ContentMaterialSkull extends ContentMaterial {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
-    IMaterial material = getMaterial();
-    this.addTitle(list, getTitle(), true, material.getColor().getValue());
+    MaterialVariantId materialVariant = getMaterialVariant();
+    this.addTitle(list, getTitle(), true, MaterialTooltipCache.getColor(materialVariant).getValue());
 
     // the cool tools to the left/right
-    this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, material.getIdentifier());
+    this.addDisplayItems(list, rightSide ? BookScreen.PAGE_WIDTH - 18 : 0, materialVariant);
 
     // align page
     int top = getTitleHeight();
@@ -129,12 +130,12 @@ public class ContentMaterialSkull extends ContentMaterial {
     int w = BookScreen.PAGE_WIDTH - 20;
 
     // skull stats, full width
-    int skullTraits = this.addStatsDisplay(x, y, w, list, material, SkullStats.ID);
+    MaterialId materialId = materialVariant.getId();
+    int skullTraits = this.addStatsDisplay(x, y, w, list, materialId, SkullStats.ID);
     y+= 65;
 
     // inspirational quote, or boring description text
-    MaterialId id = material.getIdentifier();
-    String textKey = String.format(detailed ? "material.%s.%s.skull_encyclopedia" : "material.%s.%s.skull_flavor", id.getNamespace(), id.getPath());
+    String textKey = String.format(detailed ? "material.%s.%s.skull_encyclopedia" : "material.%s.%s.skull_flavor", materialId.getNamespace(), materialId.getPath());
     if (I18n.exists(textKey)) {
       // using forge instead of I18n.format as that prevents % from being interpreted as a format key
       String translated = ForgeI18n.getPattern(textKey);

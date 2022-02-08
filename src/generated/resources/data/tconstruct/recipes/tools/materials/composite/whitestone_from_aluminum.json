@@ -9,7 +9,7 @@
       "type": "forge:not"
     }
   ],
-  "input": "tconstruct:stone",
+  "input": "tconstruct:rock",
   "fluid": {
     "tag": "forge:molten_aluminum",
     "amount": 90

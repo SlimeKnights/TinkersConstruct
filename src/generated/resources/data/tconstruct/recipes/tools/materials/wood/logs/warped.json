@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "minecraft:warped_stems"
+  },
+  "value": 4,
+  "needed": 1,
+  "material": "tconstruct:wood#warped",
+  "leftover": "minecraft:warped_planks"
+}

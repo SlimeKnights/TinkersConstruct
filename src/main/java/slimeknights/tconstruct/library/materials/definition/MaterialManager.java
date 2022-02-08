@@ -11,7 +11,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -205,15 +204,8 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
       boolean hidden = Boolean.TRUE.equals(materialJson.getHidden());
 
-      // parse color from string
-      TextColor color = Optional.ofNullable(materialJson.getTextColor())
-                                .filter(str -> !str.isEmpty())
-                                .map(TextColor::parseColor)
-                                .orElse(Material.WHITE);
-
-
       // parse trait
-      return new Material(materialId, requireNonNullElse(materialJson.getTier(), 0), requireNonNullElse(materialJson.getSortOrder(), 100), isCraftable, color, hidden);
+      return new Material(materialId, requireNonNullElse(materialJson.getTier(), 0), requireNonNullElse(materialJson.getSortOrder(), 100), isCraftable, hidden);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;

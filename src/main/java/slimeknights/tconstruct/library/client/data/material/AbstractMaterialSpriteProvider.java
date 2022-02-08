@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpri
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -57,12 +58,22 @@ public abstract class AbstractMaterialSpriteProvider {
     return getMaterials().get(name);
   }
 
-  /** Adds a new material to the data generator */
+  /** Adds a new texture to the data generator */
   protected MaterialSpriteInfoBuilder buildMaterial(ResourceLocation name) {
     if (builtMaterials != null) {
       throw new IllegalStateException("Attempted to add a material when materials already built");
     }
     return materialBuilders.computeIfAbsent(name, MaterialSpriteInfoBuilder::new);
+  }
+
+  /** Adds a new material to the data generator */
+  protected MaterialSpriteInfoBuilder buildMaterial(MaterialId name) {
+    return buildMaterial((ResourceLocation)name);
+  }
+
+  /** Adds a new material variant to the data generator */
+  protected MaterialSpriteInfoBuilder buildMaterial(MaterialVariantId name) {
+    return buildMaterial(name.getLocation('_'));
   }
 
   /** Data for material rendering */

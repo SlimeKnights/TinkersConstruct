@@ -14,8 +14,7 @@ import javax.annotation.Nullable;
 /**
  * This is just a copy of ResourceLocation for type safety.
  */
-public class MaterialId extends ResourceLocation {
-
+public final class MaterialId extends ResourceLocation implements MaterialVariantId {
   public MaterialId(String resourceName) {
     super(resourceName);
   }
@@ -35,8 +34,35 @@ public class MaterialId extends ResourceLocation {
 
   /** Checks if this ID matches the given stack */
   public boolean matches(ItemStack stack) {
-    return this.equals(IMaterialItem.getMaterialIdFromStack(stack));
+    return !stack.isEmpty() && this.equals(IMaterialItem.getMaterialFromStack(stack));
   }
+
+  @Override
+  public MaterialId getId() {
+    return this;
+  }
+
+  @Override
+  public String getVariant() {
+    return "";
+  }
+
+  @Override
+  public boolean hasVariant() {
+    return false;
+  }
+
+  @Override
+  public ResourceLocation getLocation(char separator) {
+    return this;
+  }
+
+  @Override
+  public boolean matchesVariant(MaterialVariantId other) {
+    return sameVariant(other);
+  }
+
+  /* Helpers */
 
   /**
    * Creates a new material ID from the given string
@@ -56,7 +82,7 @@ public class MaterialId extends ResourceLocation {
   private static MaterialId parse(String text, String key) {
     MaterialId location = tryParse(text);
     if (location == null) {
-      throw new JsonSyntaxException("Expected " + key + " to be a Resource location, was '" + text + "'");
+      throw new JsonSyntaxException("Expected " + key + " to be a material ID, was '" + text + "'");
     }
     return location;
   }

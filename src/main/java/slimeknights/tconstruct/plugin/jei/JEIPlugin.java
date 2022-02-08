@@ -45,7 +45,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -268,11 +268,11 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTables.scorchedAnvil.asItem(), tables);
 
     IIngredientSubtypeInterpreter<ItemStack> toolPartInterpreter = (stack, context) -> {
-      MaterialId materialId = IMaterialItem.getMaterialIdFromStack(stack);
+      MaterialVariantId materialId = IMaterialItem.getMaterialFromStack(stack);
       if (materialId.equals(IMaterial.UNKNOWN_ID)) {
         return IIngredientSubtypeInterpreter.NONE;
       }
-      return materialId.toString();
+      return materialId.getId().toString();
     };
 
     // parts
@@ -386,13 +386,13 @@ public class JEIPlugin implements IModPlugin {
     public String apply(ItemStack itemStack, UidContext context) {
       if (this == ALWAYS || context == UidContext.Ingredient) {
         StringBuilder builder = new StringBuilder();
-        List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
+        List<MaterialVariantId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
         if (!materialList.isEmpty()) {
           // append first entry without a comma
           builder.append(materialList.get(0));
           for (int i = 1; i < materialList.size(); i++) {
             builder.append(',');
-            builder.append(materialList.get(i));
+            builder.append(materialList.get(i).getId());
           }
         }
         return builder.toString();

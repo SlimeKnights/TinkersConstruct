@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
 import slimeknights.tconstruct.test.BaseMcTest;
@@ -18,7 +19,6 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static slimeknights.tconstruct.fixture.MaterialFixture.MATERIAL_WITH_ALL_STATS;
@@ -34,16 +34,15 @@ class StatsBuilderTest extends BaseMcTest {
    * @param materials  List of materials
    * @return  Melee harvest tool stats builder
    */
-  static MeleeHarvestToolStatsBuilder getBuilder(List<IMaterial> materials) {
-    ToolStatsBuilder builder = MeleeHarvestToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
+  static MeleeHarvestToolStatsBuilder getBuilder(IMaterial... materials) {
+    ToolStatsBuilder builder = MeleeHarvestToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), MaterialNBT.of(materials));
     assertThat(builder).overridingErrorMessage("Given materials list is the wrong size").isInstanceOf(MeleeHarvestToolStatsBuilder.class);
     return (MeleeHarvestToolStatsBuilder) builder;
   }
 
   @Test
   void init_onlyHead() {
-    ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HEAD, MATERIAL_WITH_HEAD, MATERIAL_WITH_HEAD);
-    MeleeHarvestToolStatsBuilder builder = getBuilder(materials);
+    MeleeHarvestToolStatsBuilder builder = getBuilder(MATERIAL_WITH_HEAD, MATERIAL_WITH_HEAD, MATERIAL_WITH_HEAD);
 
     assertThat(builder.getHeads()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HEAD);
     assertThat(builder.getHandles()).containsExactly(HandleMaterialStats.DEFAULT);
@@ -52,8 +51,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void init_onlyHandle() {
-    ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HANDLE, MATERIAL_WITH_HANDLE, MATERIAL_WITH_HANDLE);
-    MeleeHarvestToolStatsBuilder builder = getBuilder(materials);
+    MeleeHarvestToolStatsBuilder builder = getBuilder(MATERIAL_WITH_HANDLE, MATERIAL_WITH_HANDLE, MATERIAL_WITH_HANDLE);
 
     assertThat(builder.getHeads()).containsExactly(HeadMaterialStats.DEFAULT);
     assertThat(builder.getHandles()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HANDLE);
@@ -62,8 +60,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void init_onlyExtra() {
-    ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_EXTRA, MATERIAL_WITH_EXTRA, MATERIAL_WITH_EXTRA);
-    MeleeHarvestToolStatsBuilder builder = getBuilder(materials);
+    MeleeHarvestToolStatsBuilder builder = getBuilder(MATERIAL_WITH_EXTRA, MATERIAL_WITH_EXTRA, MATERIAL_WITH_EXTRA);
 
     assertThat(builder.getHeads()).containsExactly(HeadMaterialStats.DEFAULT);
     assertThat(builder.getHandles()).containsExactly(HandleMaterialStats.DEFAULT);
@@ -72,8 +69,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void init_allCorrectStats() {
-    ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HEAD, MATERIAL_WITH_HANDLE, MATERIAL_WITH_EXTRA);
-    MeleeHarvestToolStatsBuilder builder = getBuilder(materials);
+    MeleeHarvestToolStatsBuilder builder = getBuilder(MATERIAL_WITH_HEAD, MATERIAL_WITH_HANDLE, MATERIAL_WITH_EXTRA);
 
     assertThat(builder.getHeads()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HEAD);
     assertThat(builder.getHandles()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HANDLE);
@@ -82,8 +78,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void init_wrongOrder() {
-    ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HANDLE, MATERIAL_WITH_EXTRA, MATERIAL_WITH_HEAD);
-    MeleeHarvestToolStatsBuilder builder = getBuilder(materials);
+    MeleeHarvestToolStatsBuilder builder = getBuilder(MATERIAL_WITH_HANDLE, MATERIAL_WITH_EXTRA, MATERIAL_WITH_HEAD);
 
     assertThat(builder.getHeads()).containsExactly(HeadMaterialStats.DEFAULT);
     assertThat(builder.getHandles()).containsExactly(HandleMaterialStats.DEFAULT);
@@ -92,8 +87,7 @@ class StatsBuilderTest extends BaseMcTest {
 
   @Test
   void init_singleMaterialAllStats() {
-    ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_ALL_STATS, MATERIAL_WITH_ALL_STATS, MATERIAL_WITH_ALL_STATS);
-    MeleeHarvestToolStatsBuilder builder = getBuilder(materials);
+    MeleeHarvestToolStatsBuilder builder = getBuilder(MATERIAL_WITH_ALL_STATS, MATERIAL_WITH_ALL_STATS, MATERIAL_WITH_ALL_STATS);
 
     assertThat(builder.getHeads()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HEAD);
     assertThat(builder.getHandles()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HANDLE);

@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -22,11 +21,11 @@ public class SpecializedRepairKitRecipe extends CraftingTableRepairKitRecipe imp
   private final Ingredient tool;
   /** ID of material used in repairing */
   @Getter
-  private final MaterialId repairMaterialID;
-  public SpecializedRepairKitRecipe(ResourceLocation id, Ingredient tool, MaterialId repairMaterialID) {
+  private final MaterialId repairMaterial;
+  public SpecializedRepairKitRecipe(ResourceLocation id, Ingredient tool, MaterialId repairMaterial) {
     super(id);
     this.tool = tool;
-    this.repairMaterialID = repairMaterialID;
+    this.repairMaterial = repairMaterial;
   }
 
   @Override
@@ -36,8 +35,8 @@ public class SpecializedRepairKitRecipe extends CraftingTableRepairKitRecipe imp
 
   @Override
   public boolean matches(CraftingContainer inv, Level worldIn) {
-    Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
-    return inputs != null && repairMaterialID.matches(inputs.getSecond());
+    Pair<ToolStack, MaterialId> inputs = getRelevantInputs(inv);
+    return inputs != null && repairMaterial.equals(inputs.getSecond());
   }
 
   @Override

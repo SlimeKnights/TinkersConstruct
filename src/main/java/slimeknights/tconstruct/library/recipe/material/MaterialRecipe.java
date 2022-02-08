@@ -13,9 +13,9 @@ import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -50,7 +50,8 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   @Getter
   protected final int needed;
   /** Material ID for the recipe return */
-  protected final LazyMaterial material;
+  @Getter
+  protected final MaterialVariant material;
   /** Leftover stack of value 1, used if the value is more than 1 */
   protected final ItemOutput leftover;
 
@@ -62,13 +63,13 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
    * Creates a new material recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId, ItemOutput leftover) {
+  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialVariantId materialId, ItemOutput leftover) {
     this.id = id;
     this.group = group;
     this.ingredient = ingredient;
     this.value = value;
     this.needed = needed;
-    this.material = LazyMaterial.of(materialId);
+    this.material = MaterialVariant.of(materialId);
     this.leftover = leftover;
   }
 
@@ -93,7 +94,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
 
   @Override
   public boolean matches(ISingleStackContainer inv, Level worldIn) {
-    return getMaterial() != IMaterial.UNKNOWN && this.ingredient.test(inv.getStack());
+    return !material.isUnknown() && this.ingredient.test(inv.getStack());
   }
 
   @Override
@@ -116,22 +117,6 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
       }
     }
     return displayItems;
-  }
-
-  /**
-   * Returns the material ID for this recipe
-   * @return  Material for the recipe
-   */
-  public MaterialId getMaterialId() {
-    return material.getId();
-  }
-
-  /**
-   * Returns a material instance for this recipe
-   * @return  Material for the recipe
-   */
-  public IMaterial getMaterial() {
-    return material.get();
   }
 
   /**

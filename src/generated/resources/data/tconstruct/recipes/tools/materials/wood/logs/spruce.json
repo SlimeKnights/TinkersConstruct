@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "minecraft:spruce_logs"
+  },
+  "value": 4,
+  "needed": 1,
+  "material": "tconstruct:wood#spruce",
+  "leftover": "minecraft:spruce_planks"
+}

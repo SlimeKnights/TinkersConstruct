@@ -15,7 +15,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -34,8 +34,8 @@ import java.util.Optional;
  * Loads the material render info from resource packs. Loaded independently of materials loaded in data packs, so a resource needs to exist in both lists to be used.
  * See {@link slimeknights.tconstruct.library.materials.stats.MaterialStatsManager} for stats.
  * <p>
- * The location inside resource packs is "toolmaterials".
- * So if your mods name is "foobar", the location for your mods materials is "assets/foobar/toolmaterials".
+ * The location inside resource packs is "tinkering/materials".
+ * So if your mods name is "foobar", the location for your mods materials is "assets/foobar/tinkering/materials".
  */
 @Log4j2
 public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener {
@@ -61,7 +61,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   }
 
   /** Map of all loaded materials */
-  private Map<MaterialId,MaterialRenderInfo> renderInfos = ImmutableMap.of();
+  private Map<MaterialVariantId,MaterialRenderInfo> renderInfos = ImmutableMap.of();
 
   private MaterialRenderInfoLoader() {}
 
@@ -75,22 +75,39 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
   /**
    * Gets the render info for the given material
-   * @param materialId  Material loaded
+   * @param variantId  Material loaded
    * @return  Material render info
    */
-  public Optional<MaterialRenderInfo> getRenderInfo(MaterialId materialId) {
-    return Optional.ofNullable(renderInfos.get(materialId));
+  public Optional<MaterialRenderInfo> getRenderInfo(MaterialVariantId variantId) {
+    // if there is a variant, try fetching for the variant
+    if (variantId.hasVariant()) {
+      MaterialRenderInfo info = renderInfos.get(variantId);
+      if (info != null) {
+        return Optional.of(info);
+      }
+    }
+    // no variant or the variant was not found? default to the material
+    return Optional.ofNullable(renderInfos.get(variantId.getId()));
   }
 
   @Override
   public void onReloadSafe(ResourceManager manager) {
     // first, we need to fetch all relevant JSON files
     int trim = FOLDER.length() + 1;
-    Map<MaterialId,MaterialRenderInfo> map = new HashMap<>();
+    Map<MaterialVariantId,MaterialRenderInfo> map = new HashMap<>();
     for(ResourceLocation location : manager.listResources(FOLDER, (loc) -> loc.endsWith(".json"))) {
-      // clean up ID by trimming off the extension
+      // clean up ID by trimming off the extension and folder
       String path = location.getPath();
-      MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));
+      String localPath = path.substring(trim, path.length() - 5);
+
+      // locate variant as a subfolder, and create final ID
+      String variant = "";
+      int slashIndex = localPath.lastIndexOf('/');
+      if (slashIndex >= 0) {
+        variant = localPath.substring(slashIndex + 1);
+        localPath = localPath.substring(0, slashIndex);
+      }
+      MaterialVariantId id = MaterialVariantId.create(location.getNamespace(), localPath, variant);
 
       // read in the JSON data
       try (
@@ -120,24 +137,23 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
   /**
    * Gets material render info based on the given JSON
-   * @param loc   Material location
+   * @param material   Material location
    * @param json  Render info JSON data
    * @return  Material render info data
    */
-  private MaterialRenderInfo loadRenderInfo(ResourceLocation loc, MaterialRenderInfoJson json) {
+  private MaterialRenderInfo loadRenderInfo(MaterialVariantId material, MaterialRenderInfoJson json) {
     // parse color
     int color = 0xFFFFFFFF;
     if (json.getColor() != null) {
       color = JsonHelper.parseColor(json.getColor());
     }
 
-    MaterialId id = new MaterialId(loc);
     // texture fallback to ID if not told to skip
     ResourceLocation texture = null;
     if (!json.isSkipUniqueTexture()) {
       texture = json.getTexture();
       if (texture == null) {
-        texture = id;
+        texture = material.getLocation('_');
       }
     }
     // list of fallback textures
@@ -145,6 +161,6 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     if (fallback == null) {
       fallback = new String[0];
     }
-    return new MaterialRenderInfo(id, texture, fallback, color, json.getLuminosity());
+    return new MaterialRenderInfo(material, texture, fallback, color, json.getLuminosity());
   }
 }

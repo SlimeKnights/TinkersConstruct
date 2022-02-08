@@ -11,6 +11,8 @@ import slimeknights.tconstruct.library.client.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.client.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -35,7 +37,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
    * @param material       Material to display
    * @return  Material page
    */
-  protected ContentMaterial getPageContent(IMaterial material) {
+  protected ContentMaterial getPageContent(MaterialVariantId material) {
     return new ContentMaterial(material, detailed);
   }
 
@@ -56,8 +58,9 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
     ContentPageIconList overview = iter.next();
 
     for (IMaterial material : materialList) {
-      ContentMaterial contentMaterial = this.getPageContent(material);
-      PageData page = this.addPage(sectionData, material.getIdentifier().toString(), ContentMaterial.ID, contentMaterial);
+      MaterialId materialId = material.getIdentifier();
+      ContentMaterial contentMaterial = this.getPageContent(materialId);
+      PageData page = this.addPage(sectionData, materialId.toString(), ContentMaterial.ID, contentMaterial);
 
       SizedBookElement icon = new ItemElement(0, 0, 1f, contentMaterial.getDisplayStacks());
       while (!overview.addLink(icon, contentMaterial.getTitleComponent(), page)) {

@@ -14,7 +14,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   protected void addMaterialRenderInfo() {
     // tier 1
     buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick", "primitive");
-    buildRenderInfo(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
+    buildRenderInfo(MaterialIds.rock).color(0xB1AFAD).fallbacks("rock");
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
@@ -34,7 +34,9 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x46ECE7).fallbacks("slime_metal", "metal");
-    buildRenderInfo(MaterialIds.tinkersBronze).color(0xE8B465).fallbacks("metal");
+    // default texture is tin even though silicon is the one we provide, as it makes the names cleaner
+    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal").texture(MaterialIds.tinBronze.getLocation('_'));
+    buildRenderInfo(MaterialIds.siliconBronze).color(0xE8B465).fallbacks("metal");
     buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");
     buildRenderInfo(MaterialIds.roseGold).color(0xF7CDBB).fallbacks("metal");
@@ -57,7 +59,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 3 compat
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
-    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal");
+    buildRenderInfo(MaterialIds.tinBronze).color(0xD49765).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0xFF8B70).fallbacks("metal");
     buildRenderInfo(MaterialIds.invar).color(0xCADBD0).fallbacks("metal");
     buildRenderInfo(MaterialIds.necronium).color(0x9CBD89).fallbacks("bone", "metal");

@@ -17,8 +17,6 @@ public class MaterialJson {
   @Nullable
   private final Integer sortOrder;
   @Nullable
-  private final String textColor;
-  @Nullable
   private final Boolean hidden;
   @Nullable
   private final Redirect[] redirect;

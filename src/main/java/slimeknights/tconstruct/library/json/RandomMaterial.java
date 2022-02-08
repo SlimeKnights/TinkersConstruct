@@ -10,8 +10,8 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public abstract class RandomMaterial {
   }
 
   /** Gets a random material */
-  public abstract IMaterial getMaterial(Random random);
+  public abstract MaterialVariantId getMaterial(Random random);
 
   /** Serializes the given material to json */
   public abstract JsonObject serialize();
@@ -78,30 +78,28 @@ public abstract class RandomMaterial {
   }
 
   /** Constant material */
+  @RequiredArgsConstructor
   private static class Fixed extends RandomMaterial {
     private static final ResourceLocation ID = TConstruct.getResource("fixed");
 
-    private final LazyMaterial material;
-    private Fixed(MaterialId materialId) {
-      this.material = LazyMaterial.of(materialId);
-    }
+    private final MaterialVariantId material;
 
     /** Creates an instance from JSON */
     public static Fixed fromJson(JsonObject json) {
-      MaterialId materialId = MaterialId.fromJson(json, "name");
+      MaterialVariantId materialId = MaterialVariantId.fromJson(json, "name");
       return new Fixed(materialId);
     }
 
     @Override
-    public IMaterial getMaterial(Random random) {
-      return material.get();
+    public MaterialVariantId getMaterial(Random random) {
+      return material;
     }
 
     @Override
     public JsonObject serialize() {
       JsonObject json = new JsonObject();
       json.addProperty("type", ID.toString());
-      json.addProperty("name", material.getId().toString());
+      json.addProperty("name", material.toString());
       return json;
     }
   }
@@ -114,7 +112,7 @@ public abstract class RandomMaterial {
     /** Stat type for random materials */
     private final MaterialStatsId statType;
 
-    private IMaterial material;
+    private MaterialId material;
 
     /** Creates an instance from JSON */
     public static First fromJson(JsonObject json) {
@@ -128,9 +126,13 @@ public abstract class RandomMaterial {
     }
 
     @Override
-    public IMaterial getMaterial(Random random) {
+    public MaterialVariantId getMaterial(Random random) {
       if (material == null) {
-        material = MaterialRegistry.getInstance().getVisibleMaterials().stream().filter(this).findFirst().orElse(IMaterial.UNKNOWN);
+        material = MaterialRegistry.getInstance().getVisibleMaterials().stream()
+                                   .filter(this)
+                                   .findFirst()
+                                   .orElse(IMaterial.UNKNOWN)
+                                   .getIdentifier();
       }
       return material;
     }
@@ -159,7 +161,7 @@ public abstract class RandomMaterial {
     private final boolean allowHidden;
 
     /** Cached list of material choices, automatically deleted when loot tables reload */
-    private List<IMaterial> materialChoices;
+    private List<MaterialId> materialChoices;
 
     /** Creates an instance from JSON */
     public static RandomInTier fromJson(JsonObject json) {
@@ -179,19 +181,20 @@ public abstract class RandomMaterial {
     }
 
     @Override
-    public IMaterial getMaterial(Random random) {
+    public MaterialId getMaterial(Random random) {
       if (materialChoices == null) {
         materialChoices = MaterialRegistry.getInstance()
                                           .getAllMaterials()
                                           .stream()
                                           .filter(this)
+                                          .map(IMaterial::getIdentifier)
                                           .collect(Collectors.toList());
         if (materialChoices.isEmpty()) {
           TConstruct.LOG.warn("Random material found no options for statType={}, minTier={}, maxTier={}, allowHidden={}", statType, minTier, maxTier, allowHidden);
         }
       }
       if (materialChoices.isEmpty()) {
-        return IMaterial.UNKNOWN;
+        return IMaterial.UNKNOWN_ID;
       }
       return materialChoices.get(random.nextInt(materialChoices.size()));
     }

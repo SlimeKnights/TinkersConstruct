@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -31,13 +30,13 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
   }
 
   @Override
-  public MaterialId getRepairMaterialID() {
+  public MaterialId getRepairMaterial() {
     return repairMaterial.getId();
   }
 
   @Override
-  protected IMaterial getPrimaryMaterial(IToolStackView tool) {
-    return repairMaterial.get();
+  protected MaterialId getPrimaryMaterial(IToolStackView tool) {
+    return repairMaterial.getId();
   }
 
   @Override
@@ -57,8 +56,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
       }
 
       // ensure we have a material
-      IMaterial inputMaterial = TinkerStationRepairRecipe.getMaterialFrom(inv, i);
-      if (repairMaterial.matches(inputMaterial)) {
+      if (repairMaterial.matches(TinkerStationRepairRecipe.getMaterialFrom(inv, i))) {
         return false;
       }
       found = true;

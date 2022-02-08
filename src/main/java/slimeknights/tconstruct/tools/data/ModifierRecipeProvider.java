@@ -42,6 +42,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -1247,7 +1248,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.copper, false, folder);
     // tier 3
     plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
-    plateTexture(consumer, plate, MaterialIds.tinkersBronze, "ingots/silicon_bronze", false, folder);
+    plateTexture(consumer, plate, MaterialIds.siliconBronze, "ingots/silicon_bronze", false, folder);
     plateTexture(consumer, plate, MaterialIds.roseGold,      false, folder);
     plateTexture(consumer, plate, MaterialIds.pigIron,       false, folder);
     // tier 4
@@ -1267,7 +1268,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.uranium,  true, folder);
     // tier 3 compat
     plateTexture(consumer, plate, MaterialIds.steel,      true, folder);
-    plateTexture(consumer, plate, MaterialIds.bronze,     true, folder);
+    plateTexture(consumer, plate, MaterialIds.tinBronze,  "ingots/bronze", true, folder);
     plateTexture(consumer, plate, MaterialIds.constantan, true, folder);
     plateTexture(consumer, plate, MaterialIds.invar,      true, folder);
     plateTexture(consumer, plate, MaterialIds.electrum,   true, folder);
@@ -1487,7 +1488,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   /** Adds recipes for a plate armor texture with a custom tag */
-  private void plateTexture(Consumer<FinishedRecipe> consumer, Ingredient tool, MaterialId material, String tag, boolean optional, String folder) {
+  private void plateTexture(Consumer<FinishedRecipe> consumer, Ingredient tool, MaterialVariantId material, String tag, boolean optional, String folder) {
     Ingredient ingot = Ingredient.of(ItemTags.createOptional(new ResourceLocation("forge", tag)));
     if (optional) {
       consumer = withCondition(consumer, tagCondition(tag));
@@ -1495,7 +1496,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), material.toString())
                                   .setTools(tool)
                                   .addInput(ingot).addInput(ingot).addInput(ingot)
-                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + material.getPath()));
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + material.getLocation('_').getPath()));
   }
 
   /** Adds recipes for a slime armor texture */

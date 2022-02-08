@@ -4,12 +4,13 @@ import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 import javax.annotation.Nullable;
@@ -90,8 +91,8 @@ public class ToolStatsBuilder {
    * @return  Stat, or default if the part type accepts it, null if the part type does not
    */
   @Nullable
-  public static <T extends IMaterialStats> T fetchStatsOrDefault(IMaterial material, MaterialStatsId statsId) {
-      return MaterialRegistry.getInstance().<T>getMaterialStats(material.getIdentifier(), statsId)
+  public static <T extends IMaterialStats> T fetchStatsOrDefault(MaterialId material, MaterialStatsId statsId) {
+      return MaterialRegistry.getInstance().<T>getMaterialStats(material, statsId)
         .orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
   }
 
@@ -103,7 +104,7 @@ public class ToolStatsBuilder {
    * @param <T>  Type of stats
    * @return  List of stats
    */
-  public static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<PartRequirement> parts) {
+  public static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, MaterialNBT materials, List<PartRequirement> parts) {
     ImmutableList.Builder<T> builder = ImmutableList.builder();
     // iterating both lists at once, precondition that they have the same size
     int size = parts.size();
@@ -111,7 +112,7 @@ public class ToolStatsBuilder {
       // ensure stat type is valid
       PartRequirement part = parts.get(i);
       if (part.getStatType().equals(statsId)) {
-        T stats = fetchStatsOrDefault(materials.get(i), part.getStatType());
+        T stats = fetchStatsOrDefault(materials.get(i).getId(), part.getStatType());
         if (stats != null) {
           // add a copy of the stat once per weight, lazy way to do weighting
           for (int w = 0; w < part.getWeight(); w++) {

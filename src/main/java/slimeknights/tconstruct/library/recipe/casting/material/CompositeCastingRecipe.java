@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
@@ -48,15 +48,15 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
       multiRecipes = MaterialCastingLookup
         .getAllCompositeFluids().stream()
         .filter(recipe -> {
-          IMaterial output = recipe.getOutput();
-          IMaterial input = recipe.getInput();
-          return output != IMaterial.UNKNOWN && input != null && input != IMaterial.UNKNOWN
-            && !output.isHidden() && !input.isHidden() && result.canUseMaterial(output) && result.canUseMaterial(input);
+          MaterialVariant output = recipe.getOutput();
+          MaterialVariant input = recipe.getInput();
+          return !output.isUnknown() && input != null && !input.isUnknown()
+            && !output.get().isHidden() && !input.get().isHidden() && result.canUseMaterial(output.getId()) && result.canUseMaterial(input.getId());
         })
         .map(recipe -> {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());
           int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);
-          return new DisplayCastingRecipe(type, Collections.singletonList(result.withMaterial(Objects.requireNonNull(recipe.getInput()))), fluids, result.withMaterial(recipe.getOutput()),
+          return new DisplayCastingRecipe(type, Collections.singletonList(result.withMaterial(Objects.requireNonNull(recipe.getInput()).getVariant())), fluids, result.withMaterial(recipe.getOutput().getId()),
                                           ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluidAmount), consumed);
         })
         .collect(Collectors.toList());

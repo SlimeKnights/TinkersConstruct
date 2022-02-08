@@ -29,9 +29,11 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class InfoPanelScreen extends ModuleScreen {
-
   private static final int resW = 118;
   private static final int resH = 75;
+
+  /** Default caption displayed until one is set */
+  private static final Component DEFAULT_CAPTION = TConstruct.makeTranslation("gui", "caption").withStyle(ChatFormatting.UNDERLINE);
 
   protected static ResourceLocation BACKGROUND_IMAGE = TConstruct.getResource("textures/gui/panel.png");
 
@@ -82,7 +84,7 @@ public class InfoPanelScreen extends ModuleScreen {
     this.imageWidth = resW + 8;
     this.imageHeight = resH + 8;
 
-    this.caption = new TranslatableComponent("gui.tconstruct.caption");
+    this.caption = DEFAULT_CAPTION;
     this.text = Lists.newLinkedList();
   }
 
@@ -103,7 +105,7 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   public void setCaption(Component caption) {
-    this.caption = caption;
+    this.caption = caption.copy().withStyle(ChatFormatting.UNDERLINE);
     this.updateSliderParameters();
   }
 
@@ -346,7 +348,7 @@ public class InfoPanelScreen extends ModuleScreen {
       int x2 = this.imageWidth / 2;
       x2 -= this.font.width(this.caption) / 2;
 
-      this.font.drawShadow(matrices, this.caption.plainCopy().withStyle(ChatFormatting.UNDERLINE).getVisualOrderText(), (float) this.leftPos + x2, y, color);
+      this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
       y += scaledFontHeight + 3;
     }
 

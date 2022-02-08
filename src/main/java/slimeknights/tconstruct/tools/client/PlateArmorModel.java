@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
@@ -30,10 +31,11 @@ public class PlateArmorModel extends Model {
 
   /** Gets the armor texture for a material */
   private static ResourceLocation getArmorTexture(String material, int variant) {
-    ResourceLocation location = ResourceLocation.tryParse(material);
-    if (location == null) {
-      location = MaterialIds.cobalt;
+    MaterialVariantId variantId = MaterialVariantId.tryParse(material);
+    if (variantId == null) {
+      variantId = MaterialIds.cobalt;
     }
+    ResourceLocation location = variantId.getLocation('_');
     return TConstruct.getResource(String.format("textures/models/armor/plate/layer_%d_%s_%s.png", variant, location.getNamespace(), location.getPath()));
   }
   /** Function to get armor render type */

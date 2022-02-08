@@ -17,8 +17,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -265,7 +263,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void materials_serialize() {
     ToolStack toolStack = ToolStack.from(tool, tool.getToolDefinition(), new CompoundTag());
-    MaterialNBT setMaterials = new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA));
+    MaterialNBT setMaterials = MaterialNBT.of(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA);
     toolStack.setMaterialsRaw(setMaterials);
 
     CompoundTag nbt = toolStack.getNbt();
@@ -278,7 +276,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void materials_deserialize() {
     ItemStack stack = new ItemStack(tool);
-    MaterialNBT setMaterials = new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA));
+    MaterialNBT setMaterials = MaterialNBT.of(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA);
     stack.getOrCreateTag().put(ToolStack.TAG_MATERIALS, setMaterials.serializeToNBT());
 
     ToolStack tool = ToolStack.from(stack);
@@ -290,17 +288,17 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void materials_replaceMaterial() {
     ToolStack toolStack = ToolStack.from(testItemStack);
-    assertThat(toolStack.getMaterialsList().size()).isEqualTo(3);
-    assertThat(toolStack.getMaterial(0)).isEqualTo(MaterialFixture.MATERIAL_WITH_HEAD);
-    assertThat(toolStack.getMaterial(1)).isEqualTo(MaterialFixture.MATERIAL_WITH_HANDLE);
-    assertThat(toolStack.getMaterial(2)).isEqualTo(MaterialFixture.MATERIAL_WITH_EXTRA);
+    assertThat(toolStack.getMaterials().size()).isEqualTo(3);
+    assertThat(toolStack.getMaterial(0).get()).isEqualTo(MaterialFixture.MATERIAL_WITH_HEAD);
+    assertThat(toolStack.getMaterial(1).get()).isEqualTo(MaterialFixture.MATERIAL_WITH_HANDLE);
+    assertThat(toolStack.getMaterial(2).get()).isEqualTo(MaterialFixture.MATERIAL_WITH_EXTRA);
 
     // ensure it updated and no side-effects
-    toolStack.replaceMaterial(0, MaterialFixture.MATERIAL_WITH_ALL_STATS);
-    assertThat(toolStack.getMaterialsList().size()).isEqualTo(3);
-    assertThat(toolStack.getMaterial(0)).isEqualTo(MaterialFixture.MATERIAL_WITH_ALL_STATS);
-    assertThat(toolStack.getMaterial(1)).isEqualTo(MaterialFixture.MATERIAL_WITH_HANDLE);
-    assertThat(toolStack.getMaterial(2)).isEqualTo(MaterialFixture.MATERIAL_WITH_EXTRA);
+    toolStack.replaceMaterial(0, MaterialFixture.MATERIAL_WITH_ALL_STATS.getIdentifier());
+    assertThat(toolStack.getMaterials().size()).isEqualTo(3);
+    assertThat(toolStack.getMaterial(0).get()).isEqualTo(MaterialFixture.MATERIAL_WITH_ALL_STATS);
+    assertThat(toolStack.getMaterial(1).get()).isEqualTo(MaterialFixture.MATERIAL_WITH_HANDLE);
+    assertThat(toolStack.getMaterial(2).get()).isEqualTo(MaterialFixture.MATERIAL_WITH_EXTRA);
   }
 
 
@@ -415,7 +413,7 @@ class ToolStackTest extends ToolItemTest {
     ToolStack toolStack = ToolStack.from(tool, tool.getToolDefinition(), new CompoundTag());
     assertThat(toolStack.getStats()).isEqualTo(StatsNBT.EMPTY);
 
-    MaterialNBT materials = new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA));
+    MaterialNBT materials = MaterialNBT.of(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA);
     toolStack.setMaterials(materials);
     assertThat(toolStack.getStats()).isNotEqualTo(StatsNBT.EMPTY);
   }
@@ -424,7 +422,7 @@ class ToolStackTest extends ToolItemTest {
   void addModifier_refreshesData() {
     ToolStack toolStack = ToolStack.from(tool, tool.getToolDefinition(), new CompoundTag());
     // need materials for rebuild
-    toolStack.setMaterialsRaw(new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA)));
+    toolStack.setMaterialsRaw(MaterialNBT.of(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA));
     // set some data that will get cleared out
     ModDataNBT volatileData = new ModDataNBT();
     volatileData.setSlots(SlotType.UPGRADE, 4);

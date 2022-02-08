@@ -107,28 +107,11 @@ public class JsonUtils {
     }
   }
 
-  /**
-   * @return {@code true} if the specified {@code namespace} is valid: consists only of {@code [a-z0-9_.-]} characters
-   */
-  private static boolean isValidNamespace(String pNamespace) {
-    for (int i = 0; i < pNamespace.length(); ++i) {
-      if (!validNamespaceChar(pNamespace.charAt(i))) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  private static boolean validNamespaceChar(char c) {
-    return c == '_' || c == '-' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c == '.';
-  }
-
   /** Gets a list of JSON objects for a single path in all domains and packs, for a language file like loader */
   public static List<JsonObject> getFileInAllDomainsAndPacks(ResourceManager manager, String path) {
     return manager
       .getNamespaces().stream()
-      .filter(JsonUtils::isValidNamespace)
+      .filter(ResourceLocation::isValidNamespace)
       .flatMap(namespace -> {
         ResourceLocation location = new ResourceLocation(namespace, path);
         try {

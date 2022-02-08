@@ -44,7 +44,8 @@ public final class MaterialRegistry {
   private static boolean statsLoaded = false;
   private static boolean traitsLoaded = false;
   /** True if the material registry is fully loaded on the client */
-  private static boolean fullyLoaded = false;
+  @VisibleForTesting
+  static boolean fullyLoaded = false;
 
   public static IMaterialRegistry getInstance() {
     return INSTANCE.registry;

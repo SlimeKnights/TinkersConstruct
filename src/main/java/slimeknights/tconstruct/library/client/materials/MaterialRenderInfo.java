@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 public class MaterialRenderInfo {
   /** ID of this render info */
   @Getter
-  private final MaterialId identifier;
+  private final MaterialVariantId identifier;
   @Nullable @Getter
   private final ResourceLocation texture;
   @Getter

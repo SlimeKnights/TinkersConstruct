@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.tools.item;
 
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class RepairKitItem extends MaterialItem {
   public RepairKitItem(Properties properties) {
@@ -13,9 +11,9 @@ public class RepairKitItem extends MaterialItem {
   }
 
   @Override
-  public boolean canUseMaterial(IMaterial material) {
+  public boolean canUseMaterial(MaterialId material) {
     return MaterialRegistry.getInstance()
-                           .getAllStats(material.getIdentifier())
+                           .getAllStats(material)
                            .stream()
                            .anyMatch(stats -> stats instanceof IRepairableMaterialStats);
   }

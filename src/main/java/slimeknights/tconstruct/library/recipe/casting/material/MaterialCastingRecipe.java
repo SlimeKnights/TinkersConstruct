@@ -13,15 +13,15 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -67,7 +67,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
     if (!this.cast.test(inv.getStack())) {
       return false;
     }
-    return getCachedMaterialFluid(inv).filter(recipe -> result.canUseMaterial(recipe.getOutput())).isPresent();
+    return getCachedMaterialFluid(inv).filter(recipe -> result.canUseMaterial(recipe.getOutput().getId())).isPresent();
   }
 
   @Override
@@ -91,8 +91,8 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   @Override
   public ItemStack assemble(ICastingContainer inv) {
-    IMaterial material = getCachedMaterialFluid(inv).map(MaterialFluidRecipe::getOutput).orElse(IMaterial.UNKNOWN);
-    return result.withMaterial(material);
+    MaterialVariant material = getCachedMaterialFluid(inv).map(MaterialFluidRecipe::getOutput).orElse(MaterialVariant.UNKNOWN);
+    return result.withMaterial(material.getVariant());
   }
 
   /* JEI display */
@@ -116,13 +116,13 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
       multiRecipes = MaterialCastingLookup
         .getAllCastingFluids().stream()
         .filter(recipe -> {
-          IMaterial output = recipe.getOutput();
-          return output != IMaterial.UNKNOWN && !output.isHidden() && result.canUseMaterial(output);
+          MaterialVariant output = recipe.getOutput();
+          return !output.isUnknown() && !output.get().isHidden() && result.canUseMaterial(output.getId());
         })
         .map(recipe -> {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());
           int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);
-          return new DisplayCastingRecipe(type, castItems, fluids, result.withMaterial(recipe.getOutput()),
+          return new DisplayCastingRecipe(type, castItems, fluids, result.withMaterial(recipe.getOutput().getVariant()),
                                           ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluidAmount), consumed);
         })
         .collect(Collectors.toList());

@@ -138,7 +138,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.imageWidth / 2;
       x2 -= this.font.width(this.caption) / 2;
 
-      this.font.drawShadow(matrices, this.caption.plainCopy().withStyle(ChatFormatting.UNDERLINE).getVisualOrderText(), (float) this.leftPos + x2, y, color);
+      this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
       y += scaledFontHeight + 3;
     }
 

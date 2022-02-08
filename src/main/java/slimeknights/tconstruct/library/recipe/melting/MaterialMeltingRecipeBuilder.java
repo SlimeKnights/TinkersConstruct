@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -21,12 +22,12 @@ import java.util.function.Consumer;
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<MaterialMeltingRecipeBuilder> {
-  private final MaterialId inputId;
+  private final MaterialVariantId inputId;
   private final int temperature;
   private final FluidStack result;
 
   /** Creates a recipe using the fluids temperature */
-  public static MaterialMeltingRecipeBuilder material(MaterialId materialId, int temperature, FluidStack result) {
+  public static MaterialMeltingRecipeBuilder material(MaterialVariantId materialId, int temperature, FluidStack result) {
     if (temperature < 0) {
       throw new IllegalArgumentException("Invalid temperature " + temperature + ", must be 0 or greater");
     }
@@ -34,7 +35,7 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   /** Creates a recipe using the fluids temperature */
-  public static MaterialMeltingRecipeBuilder material(MaterialId materialId, FluidStack result) {
+  public static MaterialMeltingRecipeBuilder material(MaterialVariantId materialId, FluidStack result) {
     return material(materialId, result.getFluid().getAttributes().getTemperature(result) - 300, result);
   }
 
@@ -45,7 +46,7 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, inputId);
+    save(consumer, inputId.getId());
   }
 
   @Override

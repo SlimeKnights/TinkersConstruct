@@ -1,7 +1,6 @@
 {
     "craftable": true,
     "hidden": true,
-    "textColor": "#1234ab",
     "temperature": 1234,
 	"tier": 15,
 	"sortOrder": 4

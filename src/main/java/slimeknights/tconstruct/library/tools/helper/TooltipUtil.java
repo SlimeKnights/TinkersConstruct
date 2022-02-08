@@ -23,8 +23,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -32,13 +35,17 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.SafeClientAccess;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -78,6 +85,71 @@ public class TooltipUtil {
     return nbt != null && nbt.getBoolean(KEY_DISPLAY);
   }
 
+  /** Gets the name for a given material variant */
+  @Nullable
+  private static Component nameFor(String itemKey, Component itemName, MaterialVariantId variantId) {
+    String materialKey = MaterialTooltipCache.getKey(variantId);
+    String key = itemKey + "." + materialKey;
+    if (Util.canTranslate(key)) {
+      return new TranslatableComponent(key);
+    }
+    // name format override
+    String formatKey = materialKey + ".format";
+    if (Util.canTranslate(formatKey)) {
+      return new TranslatableComponent(formatKey, itemName);
+    }
+    // base name
+    if (Util.canTranslate(materialKey)) {
+      return new TranslatableComponent(materialKey).append(" ").append(itemName);
+    }
+    return null;
+  }
+
+  /**
+   * Gets the display name for a single material
+   * @param stack     Stack instance
+   * @param itemName  Name of the stack on its own
+   * @param material  Material to use
+   * @return  Name for a material tool
+   */
+  private static Component getMaterialItemName(ItemStack stack, Component itemName, MaterialVariantId material) {
+    String itemKey = stack.getDescriptionId();
+    if (material.hasVariant()) {
+      Component component = nameFor(itemKey, itemName, material);
+      if (component != null) {
+        return component;
+      }
+    }
+    Component component = nameFor(itemKey, itemName, material.getId());
+    if (component != null) {
+      return component;
+    }
+    return itemName;
+  }
+
+  /**
+   * Combines the given display name with the material names to form the new given name
+   *
+   * @param itemName the standard display name
+   * @param materials the list of material names
+   * @return the combined item name
+   */
+  private static Component getCombinedItemName(Component itemName, Collection<Component> materials) {
+    if (materials.isEmpty()) {
+      return itemName;
+    }
+    // separate materials by dash
+    TextComponent name = new TextComponent("");
+    Iterator<Component> iter = materials.iterator();
+    name.append(iter.next());
+    while (iter.hasNext()) {
+      name.append("-").append(iter.next());
+    }
+    name.append(" ").append(itemName);
+
+    return name;
+  }
+
   /**
    * Gets the display name for a tool including the head material in the name
    * @param stack           Stack instance
@@ -100,19 +172,36 @@ public class TooltipUtil {
     if (components.isEmpty()) {
       return baseName;
     }
-    // if the tool is not named we use the repair tools for a prefix like thing
-    // we save all the ones for the name in a set so we don't have the same material in it twice
-    Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
+
+    // if there is a mismatch in material size, just stop here
     if (tool == null) tool = ToolStack.from(stack);
-    List<IMaterial> materials = tool.getMaterialsList();
-    if (materials.size() == components.size()) {
-      for (int i = 0; i < components.size(); i++) {
-        if (i < materials.size() && MaterialRegistry.getInstance().canRepair(components.get(i).getStatType())) {
-          nameMaterials.add(materials.get(i));
+    MaterialNBT materials = tool.getMaterials();
+    if (materials.size() != components.size()) {
+      return baseName;
+    }
+
+    // if the tool is not named we use the repair materials for a prefix like thing
+    // set ensures we don't use the same name twice, specifically a set of components ensures if two variants have the same name we don't use both
+    Set<Component> nameMaterials = Sets.newLinkedHashSet();
+    MaterialVariantId firstMaterial = null;
+    IMaterialRegistry registry = MaterialRegistry.getInstance();
+    for (int i = 0; i < components.size(); i++) {
+      if (i < materials.size() && registry.canRepair(components.get(i).getStatType())) {
+        MaterialVariantId material = materials.get(i).getVariant();
+        if (!IMaterial.UNKNOWN_ID.equals(material)) {
+          if (firstMaterial == null) {
+            firstMaterial = material;
+          }
+          nameMaterials.add(MaterialTooltipCache.getDisplayName(material));
         }
       }
     }
-    return ITinkerStationDisplay.getCombinedItemName(stack, baseName, nameMaterials);
+    // if a single material, use the single material logic
+    if (nameMaterials.size() == 1) {
+      return getMaterialItemName(stack, baseName, firstMaterial);
+    }
+    // multiple means we mix them together
+    return getCombinedItemName(baseName, nameMaterials);
   }
 
   /** Replaces the world argument with the local player */
@@ -293,8 +382,8 @@ public class TooltipUtil {
       return;
     }
     // no materials is bad
-    List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
-    if (materials.isEmpty()) {
+    MaterialNBT materials = ToolStack.from(stack).getMaterials();
+    if (materials.size() == 0) {
       tooltips.add(NO_DATA);
       return;
     }
@@ -306,9 +395,9 @@ public class TooltipUtil {
     int max = components.size() - 1;
     for (int i = 0; i <= max; i++) {
       PartRequirement requirement = components.get(i);
-      IMaterial material = materials.get(i);
-      tooltips.add(requirement.nameForMaterial(material).copy().withStyle(ChatFormatting.UNDERLINE).withStyle(style -> style.withColor(material.getColor())));
-      MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
+      MaterialVariantId material = materials.get(i).getVariant();
+      tooltips.add(requirement.nameForMaterial(material).copy().withStyle(ChatFormatting.UNDERLINE).withStyle(style -> style.withColor(MaterialTooltipCache.getColor(material))));
+      MaterialRegistry.getInstance().getMaterialStats(material.getId(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
       if (i != max) {
         tooltips.add(TextComponent.EMPTY);
       }

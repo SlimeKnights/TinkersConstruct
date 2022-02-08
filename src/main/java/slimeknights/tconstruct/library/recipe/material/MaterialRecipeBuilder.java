@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "materialRecipe")
 @Accessors(chain = true)
 public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeBuilder> {
-  private final MaterialId material;
+  private final MaterialVariantId material;
   private Ingredient ingredient = Ingredient.EMPTY;
   @Setter
   private int value = 1;
@@ -64,7 +64,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
 
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, material);
+    this.save(consumerIn, material.getId());
   }
 
   @Override

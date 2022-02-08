@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
@@ -127,9 +127,9 @@ public class MaterialCastingLookup {
    * @param material  Fluid
    * @return  Recipe
    */
-  public static List<MaterialFluidRecipe> getCastingFluids(MaterialId material) {
+  public static List<MaterialFluidRecipe> getCastingFluids(MaterialVariantId material) {
     return CASTING_FLUIDS.values().stream()
-                         .filter(recipe -> material.matches(recipe.getOutput()))
+                         .filter(recipe -> material.matchesVariant(recipe.getOutput()))
                          .collect(Collectors.toList());
   }
 
@@ -138,9 +138,9 @@ public class MaterialCastingLookup {
    * @param material  Fluid
    * @return  Recipe
    */
-  public static List<MaterialFluidRecipe> getCompositeFluids(MaterialId material) {
+  public static List<MaterialFluidRecipe> getCompositeFluids(MaterialVariantId material) {
     return COMPOSITE_FLUIDS.stream()
-                           .filter(recipe -> material.matches(recipe.getOutput()))
+                           .filter(recipe -> material.matchesVariant(recipe.getOutput()))
                            .collect(Collectors.toList());
   }
 

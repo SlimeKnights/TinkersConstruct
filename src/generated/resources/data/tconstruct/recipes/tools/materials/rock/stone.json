@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": [
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "item": "minecraft:mossy_cobblestone"
+    }
+  ],
+  "value": 1,
+  "needed": 1,
+  "material": "tconstruct:rock#stone"
+}

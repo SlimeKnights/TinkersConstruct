@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.materials.definition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TextColor;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -29,9 +28,8 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int tier = buffer.readVarInt();
       int sortOrder = buffer.readVarInt();
       boolean craftable = buffer.readBoolean();
-      int color = buffer.readInt();
       boolean hidden = buffer.readBoolean();
-      this.materials.add(new Material(id, tier, sortOrder, craftable, TextColor.fromRgb(color), hidden));
+      this.materials.add(new Material(id, tier, sortOrder, craftable, hidden));
     }
     // process redirects
     int redirectCount = buffer.readVarInt();
@@ -53,7 +51,6 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
       buffer.writeBoolean(material.isCraftable());
-      buffer.writeInt(material.getColor().getValue());
       buffer.writeBoolean(material.isHidden());
     });
     buffer.writeVarInt(this.redirects.size());

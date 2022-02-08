@@ -536,7 +536,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     ToolStack newTool = ToolStack.from(newStack);
 
     // check if modifiers or materials changed
-    if (!oldTool.getMaterialsList().equals(newTool.getMaterialsList())) {
+    if (!oldTool.getMaterials().equals(newTool.getMaterials())) {
       return true;
     }
     if (!oldTool.getModifierList().equals(newTool.getModifierList())) {

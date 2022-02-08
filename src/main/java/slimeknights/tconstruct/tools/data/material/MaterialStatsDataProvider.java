@@ -37,7 +37,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT, // 1.0 to all four stats for wood, its the baseline handle
                      ExtraMaterialStats.DEFAULT);
     // vanilla stone: 131, 4f, STONE, 1f
-    addMaterialStats(MaterialIds.stone,
+    addMaterialStats(MaterialIds.rock,
                      new HeadMaterialStats(130, 4f, STONE, 1f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withMiningSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
@@ -120,7 +120,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(1040, 6f, DIAMOND, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackSpeed(0.95f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.tinkersBronze,
+    addMaterialStats(MaterialIds.bronze,
                      new HeadMaterialStats(720, 7f, DIAMOND, 2f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.10f),
                      ExtraMaterialStats.DEFAULT);
@@ -147,10 +147,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.steel,
                      new HeadMaterialStats(775, 6f, DIAMOND, 2.75f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
-                     ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.bronze,
-                     new HeadMaterialStats(760, 7f, DIAMOND, 2f),
-                     HandleMaterialStats.DEFAULT.withDurability(1.10f).withMiningSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.constantan,
                      new HeadMaterialStats(675, 7.5f, DIAMOND, 1.75f),

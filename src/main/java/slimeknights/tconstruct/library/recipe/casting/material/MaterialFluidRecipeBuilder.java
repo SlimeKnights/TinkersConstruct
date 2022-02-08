@@ -12,7 +12,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "material")
 public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFluidRecipeBuilder> {
   /** Output material ID */
-  private final MaterialId outputId;
+  private final MaterialVariantId outputId;
   /** Fluid used for casting */
   @Setter
   private FluidIngredient fluid = FluidIngredient.EMPTY;
@@ -34,7 +34,7 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
   private int temperature = -1;
   /** Material base for composite */
   @Setter @Nullable
-  private MaterialId inputId;
+  private MaterialVariantId inputId;
 
   /**
    * Sets the fluid for this recipe, and cooling time if unset.
@@ -61,7 +61,7 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, outputId);
+    save(consumer, outputId.getId());
   }
 
   @Override

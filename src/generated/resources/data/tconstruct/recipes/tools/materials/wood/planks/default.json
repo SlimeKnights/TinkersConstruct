@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "base": "minecraft:planks",
+      "subtracted": [
+        "tconstruct:wood_variants/planks"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "ingredient": {
+    "type": "mantle:difference",
+    "base": {
+      "tag": "minecraft:planks"
+    },
+    "subtracted": {
+      "tag": "tconstruct:wood_variants/planks"
+    }
+  },
+  "value": 1,
+  "needed": 1,
+  "material": "tconstruct:wood"
+}

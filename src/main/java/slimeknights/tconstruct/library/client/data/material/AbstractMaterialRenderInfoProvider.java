@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpri
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.Map;
 /** Base data generator for use in addons */
 public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProvider {
   /** Map of material ID to builder, there is at most one builder for each ID */
-  private final Map<MaterialId,RenderInfoBuilder> allRenderInfo = new HashMap<>();
+  private final Map<MaterialVariantId,RenderInfoBuilder> allRenderInfo = new HashMap<>();
   @Nullable
   private final AbstractMaterialSpriteProvider materialSprites;
 
@@ -40,17 +40,17 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   public void run(HashCache cache) {
     addMaterialRenderInfo();
     // generate
-    allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId, info.build()));
+    allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId.getLocation('/'), info.build()));
   }
 
 
   /* Helpers */
 
   /** Initializes a builder for the given material */
-  private RenderInfoBuilder getBuilder(MaterialId materialId) {
+  private RenderInfoBuilder getBuilder(ResourceLocation texture) {
     RenderInfoBuilder builder = new RenderInfoBuilder();
     if (materialSprites != null) {
-      MaterialSpriteInfo spriteInfo = materialSprites.getMaterialInfo(materialId);
+      MaterialSpriteInfo spriteInfo = materialSprites.getMaterialInfo(texture);
       if (spriteInfo != null) {
         String[] fallbacks = spriteInfo.getFallbacks();
         if (fallbacks.length > 0) {
@@ -68,8 +68,16 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   }
 
   /** Starts a builder for a general render info */
-  protected RenderInfoBuilder buildRenderInfo(MaterialId materialId) {
-    return allRenderInfo.computeIfAbsent(materialId, this::getBuilder);
+  protected RenderInfoBuilder buildRenderInfo(MaterialVariantId materialId) {
+    return allRenderInfo.computeIfAbsent(materialId, id -> getBuilder(materialId.getLocation('_')));
+  }
+
+  /**
+   * Starts a builder for a general render info with an overridden texture.
+   * Use {@link #buildRenderInfo(MaterialVariantId)} if you plan to override the texture without copying the datagen settings
+   */
+  protected RenderInfoBuilder buildRenderInfo(MaterialVariantId materialId, ResourceLocation texture) {
+    return allRenderInfo.computeIfAbsent(materialId, id -> getBuilder(texture).texture(texture));
   }
 
   @Accessors(fluent = true, chain = true)

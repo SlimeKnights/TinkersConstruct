@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,10 +32,10 @@ public class MaterialIdNBT {
 
   /** List of materials contained in this NBT */
   @Getter
-  private final List<MaterialId> materials;
+  private final List<MaterialVariantId> materials;
 
   /** Creates a new material NBT */
-  public MaterialIdNBT(List<MaterialId> materials) {
+  public MaterialIdNBT(List<? extends MaterialVariantId> materials) {
     this.materials = ImmutableList.copyOf(materials);
   }
 
@@ -43,7 +44,7 @@ public class MaterialIdNBT {
    * @param index  Index
    * @return  Material, or unknown if index is invalid
    */
-  public MaterialId getMaterial(int index) {
+  public MaterialVariantId getMaterial(int index) {
     if (index >= materials.size() || index < 0) {
       return IMaterial.UNKNOWN_ID;
     }
@@ -53,14 +54,15 @@ public class MaterialIdNBT {
   /** Resolves all redirects, replacing with material redirects */
   public MaterialIdNBT resolveRedirects() {
     boolean changed = false;
-    ImmutableList.Builder<MaterialId> builder = ImmutableList.builder();
+    ImmutableList.Builder<MaterialVariantId> builder = ImmutableList.builder();
     IMaterialRegistry registry = MaterialRegistry.getInstance();
-    for (MaterialId id : materials) {
-      MaterialId resolved = registry.resolve(id);
-      if (resolved != id) {
+    for (MaterialVariantId id : materials) {
+      MaterialId original = id.getId();
+      MaterialId resolved = registry.resolve(original);
+      if (resolved != original) {
         changed = true;
       }
-      builder.add(resolved);
+      builder.add(MaterialVariantId.create(resolved, id.getVariant()));
     }
     // return a new instance only if things changed
     if (changed) {
@@ -83,9 +85,9 @@ public class MaterialIdNBT {
       return EMPTY;
     }
 
-    List<MaterialId> materials = listNBT.stream()
+    List<MaterialVariantId> materials = listNBT.stream()
       .map(Tag::getAsString)
-      .map(MaterialId::tryParse)
+      .map(MaterialVariantId::tryParse)
       .filter(Objects::nonNull)
       .collect(Collectors.toList());
     return new MaterialIdNBT(materials);
@@ -97,7 +99,7 @@ public class MaterialIdNBT {
    */
   public ListTag serializeToNBT() {
     return materials.stream()
-                    .map(MaterialId::toString)
+                    .map(MaterialVariantId::toString)
                     .map(StringTag::valueOf)
                     .collect(Collectors.toCollection(ListTag::new));
   }

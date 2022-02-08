@@ -44,7 +44,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerClient;
 
@@ -70,7 +70,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
 
   /** If null, uses dynamic material */
   @Nullable
-  private final MaterialId material;
+  private final MaterialVariantId material;
   /** Tint index and index of part in tool */
   private final int index;
   /** Transform matrix to apply to child parts */
@@ -120,7 +120,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param textureName  Texture name to add
    * @param material     List of materials
    */
-  public static void getMaterialTextures(Collection<Material> allTextures, IModelConfiguration owner, String textureName, @Nullable MaterialId material) {
+  public static void getMaterialTextures(Collection<Material> allTextures, IModelConfiguration owner, String textureName, @Nullable MaterialVariantId material) {
     Material texture = owner.resolveTexture(textureName);
     allTextures.add(texture);
 
@@ -147,7 +147,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param material      Material to use
    * @return  Model quads
    */
-  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialId material) {
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialVariantId material) {
     return getPartQuads(quadConsumer, owner, spriteGetter, transform, name, index, material, null);
   }
 
@@ -162,7 +162,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
    * @return  Model quads
    */
-  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialId material, @Nullable ItemLayerPixels pixels) {
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialVariantId material, @Nullable ItemLayerPixels pixels) {
     return getPartQuads(quadConsumer, owner.resolveTexture(name), spriteGetter, transform, index, material, pixels);
   }
 
@@ -176,7 +176,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
    * @return  Model quads
    */
-  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, Material texture, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, int index, @Nullable MaterialId material, @Nullable ItemLayerPixels pixels) {
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, Material texture, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, int index, @Nullable MaterialVariantId material, @Nullable ItemLayerPixels pixels) {
     int color = -1;
     int light = 0;
     TextureAtlasSprite finalSprite = null;
@@ -216,7 +216,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param overrides      Override instance to use, will either be empty or {@link MaterialOverrideHandler}
    * @return  Baked model
    */
-  private static BakedModel bakeInternal(IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, @Nullable MaterialId material, int index, ItemOverrides overrides) {
+  private static BakedModel bakeInternal(IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, @Nullable MaterialVariantId material, int index, ItemOverrides overrides) {
     // small hack to reduce the need to create a second immutable list
     MutableObject<ImmutableList<BakedQuad>> mutableList = new MutableObject<>();
     TextureAtlasSprite particle = getPartQuads(mutableList::setValue, owner, spriteGetter, transform, "texture", index, material);
@@ -253,7 +253,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   private static final class MaterialOverrideHandler extends ItemOverrides {
     // contains all the baked models since they'll never change, cleared automatically as the baked model is discarded
-    private final Map<MaterialId, BakedModel> cache = new ConcurrentHashMap<>();
+    private final Map<MaterialVariantId, BakedModel> cache = new ConcurrentHashMap<>();
 
     // parameters needed for rebaking
     private final IModelConfiguration owner;
@@ -268,7 +268,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     @Override
     public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
       // fetch the material from the stack
-      MaterialId material = IMaterialItem.getMaterialIdFromStack(stack);
+      MaterialVariantId material = IMaterialItem.getMaterialFromStack(stack);
       // cache all baked material models, they will not need to be recreated as materials will not change
       return cache.computeIfAbsent(material, this::bakeDynamic);
     }
@@ -278,7 +278,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
      * @param material  New material for the model
      * @return  Baked model
      */
-    private BakedModel bakeDynamic(MaterialId material) {
+    private BakedModel bakeDynamic(MaterialVariantId material) {
       // bake internal does not require an instance to bake, we can pass in whatever material we want
       // use empty override list as the sub model never calls overrides, and already has a material
       return bakeInternal(owner, ForgeModelBakery.defaultTextureGetter(), itemTransform, material, index, ItemOverrides.EMPTY);
@@ -300,9 +300,9 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
       int index = GsonHelper.getAsInt(modelContents, "index", 0);
 
       // static material can be defined, if unset uses dynamic material
-      MaterialId material = null;
+      MaterialVariantId material = null;
       if (modelContents.has("material")) {
-        material = new MaterialId(GsonHelper.getAsString(modelContents, "material"));
+        material = MaterialVariantId.fromJson(modelContents, "material");
       }
 
       Vec2 offset = Vec2.ZERO;

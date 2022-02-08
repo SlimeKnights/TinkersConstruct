@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "minecraft:crimson_stems"
+  },
+  "value": 4,
+  "needed": 1,
+  "material": "tconstruct:wood#crimson",
+  "leftover": "minecraft:crimson_planks"
+}

@@ -2,8 +2,7 @@ package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
 import java.util.Collections;
@@ -19,14 +18,14 @@ public class MaterialItemList {
   private static List<MaterialRecipe> RECIPE_LIST = Collections.emptyList();
 
   /** Material recipes */
-  private static final Map<MaterialId,List<ItemStack>> ITEM_LISTS = new HashMap<>();
+  private static final Map<MaterialVariantId,List<ItemStack>> ITEM_LISTS = new HashMap<>();
 
   /**
    * Sets the list of recipes
    * @param recipes  Recipes
    */
   public static void setRecipes(List<MaterialRecipe> recipes) {
-    RECIPE_LIST = recipes.stream().filter(r -> r.getMaterial() != IMaterial.UNKNOWN).collect(Collectors.toList());
+    RECIPE_LIST = recipes.stream().filter(r -> !r.getMaterial().isUnknown()).collect(Collectors.toList());
     ITEM_LISTS.clear();
   }
 
@@ -35,12 +34,12 @@ public class MaterialItemList {
    * @param material  Materials
    * @return  List of items
    */
-  public static List<ItemStack> getItems(MaterialId material) {
+  public static List<ItemStack> getItems(MaterialVariantId material) {
     List<ItemStack> list = ITEM_LISTS.get(material);
     if (list == null) {
       ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
       for (MaterialRecipe recipe : RECIPE_LIST) {
-        if (material.equals(recipe.getMaterialId())) {
+        if (material.matchesVariant(recipe.getMaterial())) {
           builder.addAll(recipe.getDisplayItems());
         }
       }
