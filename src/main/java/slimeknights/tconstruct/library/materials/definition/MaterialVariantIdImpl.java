@@ -21,7 +21,7 @@ record MaterialVariantIdImpl(MaterialId material, String variant) implements Mat
 
   @Override
   public boolean matchesVariant(MaterialVariantId other) {
-    return this.getId().equals(other.getId());
+    return this.sameVariant(other);
   }
 
   @Override

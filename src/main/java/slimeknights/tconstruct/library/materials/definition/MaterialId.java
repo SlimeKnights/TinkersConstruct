@@ -59,7 +59,7 @@ public final class MaterialId extends ResourceLocation implements MaterialVarian
 
   @Override
   public boolean matchesVariant(MaterialVariantId other) {
-    return sameVariant(other);
+    return this.equals(other.getId());
   }
 
   /* Helpers */
