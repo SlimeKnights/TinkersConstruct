@@ -95,6 +95,11 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     materialMeltingCasting(consumer, material, fluid, forgeTag, FluidValues.INGOT, folder);
   }
 
+  /** Adds recipes to melt and cast a material of ingot size */
+  default void compatMeltingCasting(Consumer<FinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, String folder) {
+    materialMeltingCasting(withCondition(consumer, tagCondition("ingots/" + material.getPath())), material, fluid, true, folder);
+  }
+
   /** Adds recipes to melt and cast a material */
   default void materialMeltingCasting(Consumer<FinishedRecipe> consumer, MaterialVariantId material, FluidObject<?> fluid, int fluidAmount, String folder) {
     materialMeltingCasting(consumer, material, fluid, false, fluidAmount, folder);
@@ -106,13 +111,13 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   }
 
   /** Adds recipes to melt and cast a material of ingot size */
-  default void materialMeltingComposite(Consumer<FinishedRecipe> consumer, MaterialId input, MaterialId output, FluidObject<?> fluid, int amount, boolean forgeTag, String folder) {
+  default void materialMeltingComposite(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, FluidObject<?> fluid, boolean forgeTag, int amount, String folder) {
     materialMelting(consumer, output, fluid.get(), amount, folder);
-    materialComposite(consumer, input, output, fluid, amount, forgeTag, folder);
+    materialComposite(consumer, input, output, fluid, forgeTag, amount, folder);
   }
 
   /** Adds recipes to melt and cast a material of ingot size */
-  default void materialComposite(Consumer<FinishedRecipe> consumer, MaterialId input, MaterialId output, FluidObject<?> fluid, int amount, boolean forgeTag, String folder, String name) {
+  default void materialComposite(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, FluidObject<?> fluid, boolean forgeTag, int amount, String folder, String name) {
     MaterialFluidRecipeBuilder.material(output)
                               .setInputId(input)
                               .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount)
@@ -121,7 +126,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   }
 
   /** Adds recipes to melt and cast a material of ingot size */
-  default void materialComposite(Consumer<FinishedRecipe> consumer, MaterialId input, MaterialId output, FluidObject<?> fluid, int amount, boolean forgeTag, String folder) {
-    materialComposite(consumer, input, output, fluid, amount, forgeTag, folder, output.getPath());
+  default void materialComposite(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, FluidObject<?> fluid, boolean forgeTag, int amount, String folder) {
+    materialComposite(consumer, input, output, fluid, forgeTag, amount, folder, output.getLocation('_').getPath());
   }
 }

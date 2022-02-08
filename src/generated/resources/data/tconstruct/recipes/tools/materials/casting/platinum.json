@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/platinum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "fluid": {
     "tag": "forge:molten_platinum",
     "amount": 90

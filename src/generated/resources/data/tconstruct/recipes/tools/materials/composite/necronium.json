@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/uranium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "input": "tconstruct:necrotic_bone",
   "fluid": {
     "tag": "forge:molten_uranium",

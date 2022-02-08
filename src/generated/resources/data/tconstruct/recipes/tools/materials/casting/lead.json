@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "fluid": {
     "tag": "forge:molten_lead",
     "amount": 90
