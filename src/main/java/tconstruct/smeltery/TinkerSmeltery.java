@@ -31,6 +31,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
@@ -684,7 +685,7 @@ public class TinkerSmeltery
         goldAmount = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
         tableCasting.addCastingRecipe(new ItemStack(Items.golden_apple, 1), goldAmount, new ItemStack(Items.apple), true, 50);
         if (TinkerWorld.goldHead != null)
-            tableCasting.addCastingRecipe(new ItemStack(TinkerWorld.goldHead), goldAmount, new ItemStack(Items.skull, 1, 3), true, 50);
+            tableCasting.addCustomCastingRecipe(new CastingRecipe(new ItemStack(TinkerWorld.goldHead), goldAmount, new ItemStack(Items.skull, 1, 3), true, 50, null, true));
 
 
         // Ensure TConstruct ingots are always first. Otherwise you might get ingots from other mods from casting
