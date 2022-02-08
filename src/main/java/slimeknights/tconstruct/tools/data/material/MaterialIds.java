@@ -113,9 +113,10 @@ public final class MaterialIds {
   // TODO: flint
 
   // slimewood
-  public static final MaterialVariantId greenheart  = create(slimewood, "greenheart");
-  public static final MaterialVariantId skyroot     = create(slimewood, "skyroot");
-  public static final MaterialVariantId bloodshroom = create(slimewood, "bloodshroom");
+  public static final MaterialVariantId slimewoodComposite = create(slimewood, "composite");
+  public static final MaterialVariantId greenheart         = create(slimewood, "greenheart");
+  public static final MaterialVariantId skyroot            = create(slimewood, "skyroot");
+  public static final MaterialVariantId bloodshroom        = create(slimewood, "bloodshroom");
 
   // bronze
   public static final MaterialVariantId siliconBronze = create(bronze, "silicon");

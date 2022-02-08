@@ -1,0 +1,52 @@
+{
+  "fallbacks": [
+    "rock"
+  ],
+  "color": "646464",
+  "luminosity": 0,
+  "generator": {
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "grey": 0,
+            "color": "FF000000"
+          },
+          {
+            "grey": 63,
+            "color": "FF131316"
+          },
+          {
+            "grey": 102,
+            "color": "FF2F2F37"
+          },
+          {
+            "grey": 140,
+            "color": "FF3D3D43"
+          },
+          {
+            "grey": 178,
+            "color": "FF515151"
+          },
+          {
+            "grey": 216,
+            "color": "FF646464"
+          },
+          {
+            "grey": 255,
+            "color": "FF797979"
+          }
+        ]
+      }
+    },
+    "supportedStats": [
+      "tconstruct:head",
+      "tconstruct:handle",
+      "tconstruct:extra",
+      "tconstruct:repair_kit"
+    ],
+    "ignoreMaterialStats": false
+  }
+}

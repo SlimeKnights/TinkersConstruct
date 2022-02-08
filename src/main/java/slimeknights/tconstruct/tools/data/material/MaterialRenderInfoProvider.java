@@ -14,28 +14,39 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   protected void addMaterialRenderInfo() {
     // tier 1
     buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick", "primitive");
-    buildRenderInfo(MaterialIds.rock).color(0xB1AFAD).fallbacks("rock");
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
     buildRenderInfo(MaterialIds.leather).color(0xC65C35);
     buildRenderInfo(MaterialIds.vine).color(0x48B518).fallbacks("vine");
+    // tier 1 - stone
+    buildRenderInfo(MaterialIds.rock).materialTexture(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
+    buildRenderInfo(MaterialIds.stone).color(0xB1AFAD);
+    buildRenderInfo(MaterialIds.andesite);
+    buildRenderInfo(MaterialIds.diorite);
+    buildRenderInfo(MaterialIds.granite);
+    buildRenderInfo(MaterialIds.deepslate);
+    buildRenderInfo(MaterialIds.blackstone);
 
     // tier 2
     buildRenderInfo(MaterialIds.iron).color(0xD8D8D8).fallbacks("metal");
     buildRenderInfo(MaterialIds.copper).color(0xE77C56).fallbacks("metal");
     buildRenderInfo(MaterialIds.searedStone).color(0x4F4A47).fallbacks("rock");
     buildRenderInfo(MaterialIds.scorchedStone).color(0x5B4C43).fallbacks("rock");
-    buildRenderInfo(MaterialIds.slimewood).color(0x82c873).fallbacks("wood", "primitive");
     buildRenderInfo(MaterialIds.bloodbone).color(0xE52323).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.chain).color(0x3E4453).fallbacks("chain", "metal");
     buildRenderInfo(MaterialIds.skyslimeVine).color(0x00F4DA).fallbacks("vine");
+    // slimewood
+    buildRenderInfo(MaterialIds.slimewood).materialTexture(MaterialIds.greenheart).color(0x82c873).fallbacks("wood", "primitive");
+    buildRenderInfo(MaterialIds.greenheart);
+    buildRenderInfo(MaterialIds.skyroot);
+    buildRenderInfo(MaterialIds.bloodshroom);
 
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x46ECE7).fallbacks("slime_metal", "metal");
     // default texture is tin even though silicon is the one we provide, as it makes the names cleaner
-    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal").texture(MaterialIds.tinBronze.getLocation('_'));
+    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal").materialTexture(MaterialIds.tinBronze);
     buildRenderInfo(MaterialIds.siliconBronze).color(0xE8B465).fallbacks("metal");
     buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");

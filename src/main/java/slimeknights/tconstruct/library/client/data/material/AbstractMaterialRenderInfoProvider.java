@@ -100,6 +100,11 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
       return this;
     }
 
+    /** Sets the texture from another material variant */
+    public RenderInfoBuilder materialTexture(MaterialVariantId variantId) {
+      return texture(variantId.getLocation('_'));
+    }
+
     /** Builds the material */
     public MaterialRenderInfoJson build() {
       return new MaterialRenderInfoJson(texture, fallbacks, String.format("%06X", color), skipUniqueTexture ? Boolean.TRUE : null, luminosity, generator);

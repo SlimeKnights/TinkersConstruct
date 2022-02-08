@@ -6,5 +6,5 @@
     "amount": 250
   },
   "temperature": 50,
-  "output": "tconstruct:slimewood"
+  "output": "tconstruct:slimewood#composite"
 }
