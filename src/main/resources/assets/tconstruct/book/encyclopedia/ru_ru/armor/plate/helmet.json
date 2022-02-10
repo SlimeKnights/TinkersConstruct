@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:plate_helmet",
+  "text": [
+    { "text": "Plate Helmet is a defensive helmet, with high protection, and low upgrade slots and high defense slots." }
+  ],
+  "properties": [
+    "330 Durability",
+    "+2 Armor",
+    "1 Upgrade Slots",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

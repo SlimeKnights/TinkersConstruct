@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "Plate Chestplate is a defensive chestplate, with high protection, and low upgrade slots and high defense slots." }
+  ],
+  "properties": [
+    "480 Durability",
+    "+7 Armor",
+    "1 Upgrade Slots",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}
