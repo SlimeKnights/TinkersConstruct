@@ -8,7 +8,7 @@
   "block.tconstruct.ender_slime": "엔더슬라임 블록",
   "block.tconstruct.ender_slime.tooltip": "밀었을 때 블록에 달라붙습니다. 달라붙는 블록에는 달라붙지 않습니다.",
   "block.tconstruct.blood_slime": "피 블록",
-  "block.tconstruct.blood_slime.tooltip": "튕기지만, 달라붙지는 않습니다.",
+  "block.tconstruct.blood_slime.tooltip": "튕기지만 달라붙지는 않습니다.",
 
   "block.tconstruct.earth_congealed_slime": "굳은 슬라임 블록",
   "block.tconstruct.earth_congealed_slime.tooltip": "정말 높이 뛸 수 있게 해줍니다.",
@@ -40,8 +40,24 @@
 
   "block.tconstruct.clear_glass": "투명한 유리",
   "block.tconstruct.clear_glass_pane": "투명한 유리판",
+  "block.tconstruct.clear_tinted_glass": "투명한 차광 유리",
 
   "block.tconstruct.obsidian_pane": "흑요석 판",
+  "block.tconstruct.gold_bars": "금 창살",
+  
+  "block.tconstruct.gold_platform": "금 발판",
+  "block.tconstruct.iron_platform": "철 발판",
+  "block.tconstruct.cobalt_platform": "코발트 발판",
+  
+  "block.tconstruct.copper_platform":           "구리 발판",
+  "block.tconstruct.exposed_copper_platform":   "약간 녹슨 구리 발판",
+  "block.tconstruct.weathered_copper_platform": "녹슨 구리 발판",
+  "block.tconstruct.oxidized_copper_platform":  "산화된 구리 발판",
+  
+  "block.tconstruct.waxed_copper_platform":           "밀랍칠한 구리 발판",
+  "block.tconstruct.waxed_exposed_copper_platform":   "밀랍칠한 약간 녹슨 구리 발판",
+  "block.tconstruct.waxed_weathered_copper_platform": "밀랍칠한 녹슨 구리 발판",
+  "block.tconstruct.waxed_oxidized_copper_platform":  "밀랍칠한 산화된 구리 발판",
 
   "block.tconstruct.white_clear_stained_glass": "투명한 하얀색 색유리",
   "block.tconstruct.orange_clear_stained_glass": "투명한 주황색 색유리",
@@ -82,18 +98,16 @@
 
   "block.tconstruct.glow": "발광",
   "block.tconstruct.silky_jewel_block": "비단결 보석 블록",
-  "block.tconstruct.silky_jewel_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
 
 
   "__comment": "광석 재료",
 
-  "block.tconstruct.copper_ore": "구리 광석",
-  "block.tconstruct.copper_block": "구리 블록",
-  "block.tconstruct.copper_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
-  "item.tconstruct.copper_ingot": "구리괴",
   "item.tconstruct.copper_nugget": "구리 조각",
 
   "block.tconstruct.cobalt_ore": "네더 코발트 광석",
+  "item.tconstruct.raw_cobalt": "코발트 원석",
+  "block.tconstruct.raw_cobalt_block": "코발트 원석 블록",
+
   "block.tconstruct.cobalt_block": "코발트 블록",
   "block.tconstruct.cobalt_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
   "item.tconstruct.cobalt_ingot": "코발트괴",
@@ -103,22 +117,18 @@
   "__comment": "3등급 재료",
 
   "block.tconstruct.slimesteel_block": "슬라임강철 블록",
-  "block.tconstruct.slimesteel_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
   "item.tconstruct.slimesteel_ingot": "슬라임강철괴",
   "item.tconstruct.slimesteel_nugget": "슬라임강철 조각",
 
   "block.tconstruct.tinkers_bronze_block": "팅커스 청동 블록",
-  "block.tconstruct.tinkers_bronze_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
   "item.tconstruct.tinkers_bronze_ingot": "팅커스 청동괴",
   "item.tconstruct.tinkers_bronze_nugget": "팅커스 청동 조각",
 
   "block.tconstruct.rose_gold_block": "장밋빛 황금 블록",
-  "block.tconstruct.rose_gold_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
   "item.tconstruct.rose_gold_ingot": "장밋빛 금괴",
   "item.tconstruct.rose_gold_nugget": "장밋빛 황금 조각",
 
   "block.tconstruct.pig_iron_block": "저선철 블록",
-  "block.tconstruct.pig_iron_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
   "item.tconstruct.pig_iron_ingot": "저선철괴",
   "item.tconstruct.pig_iron_nugget": "저선철 조각",
 
@@ -147,13 +157,12 @@
 
   "item.tconstruct.netherite_nugget": "네더라이트 조각",
   "item.tconstruct.debris_nugget": "잔해 파편",
-  "item.tconstruct.debris_nugget.tooltip": "고대 네더라이트의 작은 조각, 녹여서 사용할 수 있을 것 같습니다.",
+  "item.tconstruct.debris_nugget.tooltip": "고대 네더라이트의 작은 파편입니다. 녹여서 사용할 수 있을 것 같습니다.",
 
 
   "__comment": "5등급 재료",
 
   "block.tconstruct.knightslime_block": "기사슬라임 블록",
-  "block.tconstruct.knightslime_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
   "item.tconstruct.knightslime_ingot": "기사슬라임괴",
   "item.tconstruct.knightslime_ingot.tooltip": "끈적끈적하면서 돌처럼 단단한 금속이라고요? 흥미롭군요!",
   "item.tconstruct.knightslime_nugget": "기사슬라임 조각",
@@ -181,14 +190,37 @@
 
   "item.tconstruct.bacon": "베이컨",
 
-  "item.tconstruct.earth_slime_crystal": "슬라임 수정",
-  "item.tconstruct.earth_slime_crystal.tooltip": "슬라임 도구를 제작하는데 사용할 수 있습니다.",
+  "item.tconstruct.earth_slime_crystal": "땅슬라임 수정",
+  "block.tconstruct.earth_slime_crystal_block": "땅슬라임 수정 블록",
+  "block.tconstruct.small_earth_slime_crystal_bud": "작은 땅슬라임 수정 봉오리",
+  "block.tconstruct.medium_earth_slime_crystal_bud": "중간 땅슬라임 수정 봉오리",
+  "block.tconstruct.large_earth_slime_crystal_bud": "큰 땅슬라임 수정 봉오리",
+  "block.tconstruct.earth_slime_crystal_cluster": "땅슬라임 수정 군집",
+  "block.tconstruct.budding_earth_slime_crystal": "싹 틔우는 땅슬라임 수정",
+
   "item.tconstruct.sky_slime_crystal": "하늘슬라임 수정",
-  "item.tconstruct.sky_slime_crystal.tooltip": "슬라임 도구를 제작하는데 사용할 수 있습니다.",
+  "block.tconstruct.sky_slime_crystal_block": "하늘슬라임 수정 블록",
+  "block.tconstruct.small_sky_slime_crystal_bud": "작은 하늘슬라임 수정 봉오리",
+  "block.tconstruct.medium_sky_slime_crystal_bud": "중간 하늘슬라임 수정 봉오리",
+  "block.tconstruct.large_sky_slime_crystal_bud": "큰 하늘슬라임 수정 봉오리",
+  "block.tconstruct.sky_slime_crystal_cluster": "하늘슬라임 수정 군집",
+  "block.tconstruct.budding_sky_slime_crystal": "싹 틔우는 하늘슬라임 수정",
+
   "item.tconstruct.ichor_slime_crystal": "이코르 수정",
-  "item.tconstruct.ichor_slime_crystal.tooltip": "슬라임 도구를 제작하는데 사용할 수 있습니다.",
+  "block.tconstruct.ichor_slime_crystal_block": "이코르 수정 블록",
+  "block.tconstruct.small_ichor_slime_crystal_bud": "작은 이코르 수정 봉오리",
+  "block.tconstruct.medium_ichor_slime_crystal_bud": "중간 이코르 수정 봉오리",
+  "block.tconstruct.large_ichor_slime_crystal_bud": "큰 이코르 수정 봉오리",
+  "block.tconstruct.ichor_slime_crystal_cluster": "이코르 수정 군집",
+  "block.tconstruct.budding_ichor_slime_crystal": "싹 틔우는 이코르 수정",
+
   "item.tconstruct.ender_slime_crystal": "엔더슬라임 수정",
-  "item.tconstruct.ender_slime_crystal.tooltip": "슬라임 도구를 제작하는데 사용할 수 있습니다.",
+  "block.tconstruct.ender_slime_crystal_block": "엔더슬라임 수정 블록",
+  "block.tconstruct.small_ender_slime_crystal_bud": "작은 엔더슬라임 수정 봉오리",
+  "block.tconstruct.medium_ender_slime_crystal_bud": "중간 엔더슬라임 수정 봉오리",
+  "block.tconstruct.large_ender_slime_crystal_bud": "큰 엔더슬라임 수정 봉오리",
+  "block.tconstruct.ender_slime_crystal_cluster": "엔더슬라임 수정 군집",
+  "block.tconstruct.budding_ender_slime_crystal": "싹 틔우는 엔더슬라임 수정",
 
   "item.tconstruct.iron_reinforcement": "보강용 철판",
   "item.tconstruct.iron_reinforcement.tooltip": "도구의 내구도가 닳을 확률이 감소합니다.",
@@ -251,6 +283,7 @@
   "_comment": "조임쇠 금형",
 
   "pattern.tconstruct.tool_binding": "도구 조임쇠",
+  "pattern.tconstruct.round_plate": "둥근 플레이트",
   "pattern.tconstruct.large_plate": "큰 플레이트",
 
   "_comment": "도구 손잡이 금형",
@@ -270,7 +303,7 @@
   "item.tconstruct.gear_cast": "톱니 황금 금형",
   "item.tconstruct.plate_cast": "작은 플레이트 황금 금형",
   "item.tconstruct.coin_cast": "동전 황금 금형",
-  "item.tconstruct.wire_cast": "와이어 금형",
+  "item.tconstruct.wire_cast": "와이어 황금 금형",
 
   "item.tconstruct.repair_kit_cast": "수리 키트 황금 금형",
 
@@ -291,6 +324,7 @@
   "_comment": "조임쇠 황금 금형",
 
   "item.tconstruct.tool_binding_cast": "도구 조임쇠 황금 금형",
+  "item.tconstruct.round_plate_cast": "둥근 플레이트 황금 금형",
   "item.tconstruct.large_plate_cast": "큰 플레이트 황금 금형",
 
   "_comment": "도구 손잡이 황금 금형",
@@ -331,6 +365,7 @@
   "_comment": "조임쇠 모래 거푸집",
 
   "item.tconstruct.tool_binding_sand_cast": "도구 조임쇠 모래 거푸집",
+  "item.tconstruct.round_plate_sand_cast": "둥근 플레이트 모래 거푸집",
   "item.tconstruct.large_plate_sand_cast": "큰 플레이트 모래 거푸집",
 
   "_comment": "도구 손잡이 모래 거푸집",
@@ -371,6 +406,7 @@
   "_comment": "조임쇠 붉은 모래 거푸집",
 
   "item.tconstruct.tool_binding_red_sand_cast": "도구 조임쇠 붉은 모래 거푸집",
+  "item.tconstruct.round_plate_red_sand_cast": "둥근 플레이트 붉은 모래 거푸집",
   "item.tconstruct.large_plate_red_sand_cast": "큰 플레이트 붉은 모래 거푸집",
 
   "_comment": "도구 손잡이 붉은 모래 거푸집",
@@ -459,6 +495,11 @@
   "fluid.tconstruct.molten_quartz": "녹은 석영",
   "fluid.tconstruct.flowing_molten_quartz": "흐르는 녹은 석영",
   "item.tconstruct.molten_quartz_bucket": "녹은 석영 양동이",
+
+  "block.tconstruct.molten_amethyst_fluid": "녹은 자수정",
+  "fluid.tconstruct.molten_amethyst": "녹은 자수정",
+  "fluid.tconstruct.flowing_molten_amethyst": "흐르는 녹은 자수정",
+  "item.tconstruct.molten_amethyst_bucket": "녹은 자수정 양동이",
 
   "block.tconstruct.molten_diamond_fluid": "녹은 다이아몬드",
   "fluid.tconstruct.molten_diamond": "녹은 다이아몬드",
@@ -705,13 +746,13 @@
   "block.tconstruct.magma_cake": "마그마 케이크",
 
   "item.tconstruct.earth_slime_sling": "슬라임 새총",
-  "item.tconstruct.earth_slime_sling.tooltip": "충전하고, 바닥이나 벽에 쏘면, 반대 방향으로 날아갑니다!\n목숨을 소중히 여긴다면, 슬라임부츠와 같이 사용하세요!",
+  "item.tconstruct.earth_slime_sling.tooltip": "충전하고 바닥이나 벽에 쏘면, 반대 방향으로 날아갑니다!\n목숨을 소중히 여긴다면 슬라임부츠와 같이 사용하세요!",
   "item.tconstruct.sky_slime_sling": "하늘슬라임 새총",
-  "item.tconstruct.sky_slime_sling.tooltip": "충전하고, 쏘면, 바라보는 방향으로 날아갑니다!\n목숨을 소중히 여긴다면, 슬라임부츠와 같이 사용하세요!",
+  "item.tconstruct.sky_slime_sling.tooltip": "충전하고 쏘면, 바라보는 방향으로 날아갑니다!\n목숨을 소중히 여긴다면 슬라임부츠와 같이 사용하세요!",
   "item.tconstruct.ender_slime_sling": "엔더슬라임 새총",
-  "item.tconstruct.ender_slime_sling.tooltip": "충전하고, 쏘면, 바로보는 방향으로 순간이동합니다!",
+  "item.tconstruct.ender_slime_sling.tooltip": "충전하고 쏘면, 바로보는 방향으로 순간이동합니다!",
   "item.tconstruct.ichor_slime_sling": "이코르 새총",
-  "item.tconstruct.ichor_slime_sling.tooltip": "충전하고, 생명체에게 쏘면, 생명체가 밀려 나갑니다!",
+  "item.tconstruct.ichor_slime_sling.tooltip": "충전하고 생명체에게 쏘면, 생명체가 밀려 나갑니다!",
 
   "item.tconstruct.piggy_backpack": "운반용 돼지 배낭",
   "item.tconstruct.piggy_backpack.tooltip": "생명체를 운반할 수 있습니다.",
@@ -757,6 +798,7 @@
   "item.tconstruct.vein_hammer": "광맥 망치",
 
   "item.tconstruct.mattock": "매톡",
+  "item.tconstruct.pickadze": "곡삽",
   "item.tconstruct.excavator": "야전삽",
 
   "item.tconstruct.hand_axe": "손도끼",
@@ -771,10 +813,10 @@
 
   "item.tconstruct.flint_and_bronze": "부싯돌과 청동",
 
-  "item.tconstruct.travelers_helmet": "여행자의 고글",
-  "item.tconstruct.travelers_chestplate": "여행자의 조끼",
-  "item.tconstruct.travelers_leggings": "여행자의 바지",
-  "item.tconstruct.travelers_boots": "여행자의 부츠",
+  "item.tconstruct.travelers_helmet": "여행자 고글",
+  "item.tconstruct.travelers_chestplate": "여행자 조끼",
+  "item.tconstruct.travelers_leggings": "여행자 바지",
+  "item.tconstruct.travelers_boots": "여행자 부츠",
   
   "item.tconstruct.plate_helmet": "판금 투구",
   "item.tconstruct.plate_chestplate": "판금 흉갑",
@@ -816,27 +858,29 @@
   "item.tconstruct.tool_handle": "도구 손잡이",
   "item.tconstruct.tough_handle": "두꺼운 손잡이",
   "item.tconstruct.tool_binding": "도구 조임쇠",
+  "item.tconstruct.round_plate": "둥근 플레이트",
   "item.tconstruct.large_plate": "큰 플레이트",
 
 
   "_conment": "도구 설명",
 
-  "item.tconstruct.pickaxe.description":"곡괭이는 정밀한 채굴 도구입니다. 돌과 광석을 효과적으로 채굴할 수 있습니다.\n간단히 말하면, 블록을 부수는 도구입니다.",
-  "item.tconstruct.sledge_hammer.description": "큰 망치는 광범위한 채굴 도구입니다. 넓은 범위의 블록을 채굴할 수 있습니다. \n언데드에게 효과적입니다.",
+  "item.tconstruct.pickaxe.description": "곡괭이는 정밀한 채굴 도구입니다. 돌과 광석을 효과적으로 채굴할 수 있습니다.\n간단히 말하면 블록을 부수는 도구입니다.",
+  "item.tconstruct.sledge_hammer.description": "큰 망치는 광범위한 채굴 도구입니다. 넓은 범위의 블록을 채굴할 수 있습니다.\n언데드에게 효과적입니다.",
   "item.tconstruct.vein_hammer.description": "광맥 망치는 광범위한 채굴 도구입니다. 같은 유형의 연결된 블록을 채굴하기에, 광석을 채굴할 때 효과적입니다.",
 
-  "item.tconstruct.mattock.description": "매톡은 다재다능한 농기구입니다. 나무, 흙, 모래, 자갈, 식물을 효과적으로 부술 수 있습니다.\n자기 무덤만 파지 마세요!",
+  "item.tconstruct.mattock.description": "매톡은 다재다능한 농기구입니다. 원목이나 흙, 모래, 자갈, 식물을 효과적으로 부술 수 있습니다.\n자기 무덤만 파지 마세요!",
+  "item.tconstruct.pickadze.description": "곡삽은 다용도 채굴 도구입니다. 돌이나 흙, 모래, 자갈을 효과적으로 채굴할 수 있지만, 광석 같은 단단한 암석을 채굴할 수 있을 만큼 날카롭지는 않습니다.",
   "item.tconstruct.excavator.description": "야전삽은 광범위한 굴착 도구입니다. 넓은 범위의 흙과 눈을 파낼 수 있습니다. \n지형을 평탄화하세요!",
 
   "item.tconstruct.hand_axe.description": "손도끼는 나무를 자르고 나뭇잎을 다듬을 수 있습니다. 또한, 무기로도 사용할 수 있습니다.\n벌목, 벌목!",
-  "item.tconstruct.broad_axe.description": "넓은면 도끼는 작은 나무들을 단번에 쓰러뜨리고, 큰 나무들을 재빨리 벌목할 수 있습니다. 또한, 강력한 중무기로도 사용할 수 있습니다.",
+  "item.tconstruct.broad_axe.description": "넓은면 도끼는 작은 나무들을 단번에 쓰러뜨리고 큰 나무들을 재빨리 벌목할 수 있습니다. 또한, 강력한 중무기로도 사용할 수 있습니다.",
 
-  "item.tconstruct.kama.description": "카마는 정밀한 수확 도구입니다. 농작물을 수확하고, 동물들의 털을 깎을 수 있습니다. \n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다.",
+  "item.tconstruct.kama.description": "카마는 정밀한 수확 도구입니다. 농작물을 수확하며 동물들의 털을 깎을 수 있습니다.\n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다.",
   "item.tconstruct.scythe.description": "낫은 광범위한 수확 도구입니다. 넓은 범위의 농작물을 수확할 수 있습니다.\n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다.",
 
   "item.tconstruct.dagger.description": "단검은 양손으로 적을 빠르게 공격할 수 있는 가벼운 무기입니다.",
-  "item.tconstruct.sword.description": "검은 다재다능한 무기입니다. 적에게 준수한 피해를 주고, 휩쓸기 공격을 통해 한 번에 여러 적을 쓰러뜨릴 수 있습니다.\n또한, 거미줄을 쉽게 파괴할 수 있습니다!",
-  "item.tconstruct.cleaver.description": "클리버는 팅커의 무기입니다. 높은 사거리를 가지고 있어, 강력한 적을 상대할 때 효과적입니다.",
+  "item.tconstruct.sword.description": "검은 다재다능한 무기입니다. 적에게 준수한 피해를 주고 휩쓸기 공격을 통해 한 번에 여러 적을 쓰러뜨릴 수 있습니다.\n또한, 거미줄을 쉽게 파괴할 수 있습니다!",
+  "item.tconstruct.cleaver.description": "클리버는 팅커의 무기입니다. 높은 사거리를 가지고 있어 강력한 적을 상대할 때 효과적입니다.",
 
 
   "_comment": "제련소 공유",
@@ -863,7 +907,7 @@
   "death.attack.tconstruct.self_destruct.player": "%1$s이(가) %2$s과(와) 싸우다가 자멸했습니다",
 
   "gui.tconstruct.melting.no_recipe": "이 아이템은 녹일 수 없습니다.",
-  "gui.tconstruct.melting.no_heat": "연료의 온도가 낮아, 이 아이템을 녹일 수 없습니다.",
+  "gui.tconstruct.melting.no_heat": "연료 온도가 낮아, 이 아이템을 녹일 수 없습니다.",
   "gui.tconstruct.melting.no_space": "여유 공간이 부족합니다.",
 
   "gui.tconstruct.melting.fuel.no_tank": "연료 탱크가 없습니다.",
@@ -938,9 +982,9 @@
   "block.tconstruct.seared_fuel_gauge": "그을린 연료 계기 탱크",
   "block.tconstruct.seared_fuel_gauge.tooltip": "제련소의 심장입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
   "block.tconstruct.seared_ingot_tank": "그을린 금속 탱크",
-  "block.tconstruct.seared_ingot_tank.tooltip": "주괴 32개만큼의 액체를 넣을 수 있는 금속에 적합한 탱크입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
+  "block.tconstruct.seared_ingot_tank.tooltip": "주괴 48개만큼의 액체를 넣을 수 있는 금속에 적합한 탱크입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
   "block.tconstruct.seared_ingot_gauge": "그을린 금속 계기 탱크",
-  "block.tconstruct.seared_ingot_gauge.tooltip": "주괴 32개만큼의 액체를 넣을 수 있는 금속에 적합한 탱크입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
+  "block.tconstruct.seared_ingot_gauge.tooltip": "주괴 48개만큼의 액체를 넣을 수 있는 금속에 적합한 탱크입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
   "block.tconstruct.seared_lantern": "그을린 랜턴",
   "block.tconstruct.seared_lantern.tooltip": "100 밀리양동이만큼의 액체를 넣을 수 있는 장식용 탱크입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
 
@@ -1050,12 +1094,15 @@
   "gui.tconstruct.fluid.kilobucket": "%s 킬로양동이",
   "gui.tconstruct.fluid.bucket": "%s 양동이",
   "gui.tconstruct.fluid.millibucket": "%s 밀리양동이",
+
+  "gui.tconstruct.fluid.block": "블록 %s개",
   "gui.tconstruct.fluid.ingot": "주괴 %s개",
   "gui.tconstruct.fluid.nugget": "조각 %s개",
-  "gui.tconstruct.fluid.block": "블록 %s개",
-  "gui.tconstruct.fluid.pane": "유리판 %s개",
   "gui.tconstruct.fluid.gem": "보석 %s개",
+  "gui.tconstruct.fluid.shard": "파편 %s개",
+  "gui.tconstruct.fluid.pane": "판 %s개",
   "gui.tconstruct.fluid.slimeball": "슬라임 볼 %s개",
+  "gui.tconstruct.fluid.brick": "벽돌 %s개",
 
   "gui.tconstruct.fluid.hold_shift": "§e§oShift§r§7를 누르면 모든 수치를 양동이 단위로 변경합니다",
 
@@ -1071,46 +1118,46 @@
   "item.tconstruct.terracube_spawn_egg": "점토큐브 생성 알",
 
   "block.tconstruct.earth_slime_dirt": "땅슬라임 흙",
-  "block.tconstruct.earth_slime_dirt.tooltip": "끈적끈적하지만, 높이 뛰어오를 수 있습니다.",
+  "block.tconstruct.earth_slime_dirt.tooltip": "끈적끈적하지만 높이 뛰어오를 수 있습니다.",
   "block.tconstruct.sky_slime_dirt": "하늘슬라임 흙",
-  "block.tconstruct.sky_slime_dirt.tooltip": "끈적끈적하지만, 높이 뛰어오를 수 있습니다.",
+  "block.tconstruct.sky_slime_dirt.tooltip": "끈적끈적하지만 높이 뛰어오를 수 있습니다.",
   "block.tconstruct.ichor_slime_dirt": "이코르 슬라임 흙",
-  "block.tconstruct.ichor_slime_dirt.tooltip": "끈적끈적하지만, 높이 뛰어오를 수 있습니다.",
+  "block.tconstruct.ichor_slime_dirt.tooltip": "끈적끈적하지만 높이 뛰어오를 수 있습니다.",
   "block.tconstruct.ender_slime_dirt": "엔더슬라임 흙",
-  "block.tconstruct.ender_slime_dirt.tooltip": "끈적끈적하지만, 높이 뛰어오를 수 있습니다.",
+  "block.tconstruct.ender_slime_dirt.tooltip": "끈적끈적하지만 높이 뛰어오를 수 있습니다.",
 
   "block.tconstruct.earth_vanilla_slime_grass": "땅슬라임 잔디 블록",
-  "block.tconstruct.earth_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 땅슬라임이 생성됩니다.",
+  "block.tconstruct.earth_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 땅슬라임이 생성됩니다.",
   "block.tconstruct.earth_earth_slime_grass": "땅슬라임 잔디 블록",
-  "block.tconstruct.earth_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 땅슬라임이 생성됩니다.",
+  "block.tconstruct.earth_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 땅슬라임이 생성됩니다.",
   "block.tconstruct.earth_sky_slime_grass": "땅슬라임 잔디 블록",
-  "block.tconstruct.earth_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 땅슬라임이 생성됩니다.",
+  "block.tconstruct.earth_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 땅슬라임이 생성됩니다.",
   "block.tconstruct.earth_ichor_slime_grass": "땅슬라임 잔디 블록",
-  "block.tconstruct.earth_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 땅슬라임이 생성됩니다.",
+  "block.tconstruct.earth_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 땅슬라임이 생성됩니다.",
   "block.tconstruct.earth_ender_slime_grass": "땅슬라임 잔디 블록",
-  "block.tconstruct.earth_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 땅슬라임이 생성됩니다.",
+  "block.tconstruct.earth_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 땅슬라임이 생성됩니다.",
 
   "block.tconstruct.sky_vanilla_slime_grass": "하늘슬라임 잔디 블록",
-  "block.tconstruct.sky_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 하늘슬라임이 생성됩니다.",
+  "block.tconstruct.sky_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 하늘슬라임이 생성됩니다.",
   "block.tconstruct.sky_earth_slime_grass": "하늘슬라임 잔디 블록",
-  "block.tconstruct.sky_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 하늘슬라임이 생성됩니다.",
+  "block.tconstruct.sky_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 하늘슬라임이 생성됩니다.",
   "block.tconstruct.sky_sky_slime_grass": "하늘슬라임 잔디 블록",
-  "block.tconstruct.sky_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 하늘슬라임이 생성됩니다.",
+  "block.tconstruct.sky_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 하늘슬라임이 생성됩니다.",
   "block.tconstruct.sky_ichor_slime_grass": "하늘슬라임 잔디 블록",
-  "block.tconstruct.sky_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 하늘슬라임이 생성됩니다.",
+  "block.tconstruct.sky_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 하늘슬라임이 생성됩니다.",
   "block.tconstruct.sky_ender_slime_grass": "하늘슬라임 잔디 블록",
-  "block.tconstruct.sky_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고, 오버월드에서 하늘슬라임이 생성됩니다.",
+  "block.tconstruct.sky_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고 오버월드에서 하늘슬라임이 생성됩니다.",
 
   "block.tconstruct.blood_vanilla_slime_grass": "핏빛 네사체",
-  "block.tconstruct.blood_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고, 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
+  "block.tconstruct.blood_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
   "block.tconstruct.blood_earth_slime_grass": "핏빛 네사체",
-  "block.tconstruct.blood_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고, 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
+  "block.tconstruct.blood_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
   "block.tconstruct.blood_sky_slime_grass": "핏빛 네사체",
-  "block.tconstruct.blood_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고, 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
+  "block.tconstruct.blood_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
   "block.tconstruct.blood_ichor_slime_grass": "핏빛 네사체",
-  "block.tconstruct.blood_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고, 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
+  "block.tconstruct.blood_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
   "block.tconstruct.blood_ender_slime_grass": "핏빛 네사체",
-  "block.tconstruct.blood_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고, 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
+  "block.tconstruct.blood_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고 뼛가루를 사용하면 핏빛 균이 생성됩니다.",
 
   "block.tconstruct.ichor_vanilla_slime_grass": "이코르 네사체",
   "block.tconstruct.ichor_vanilla_slime_grass.tooltip": "매우 부드럽습니다! 높이 뛰어오를 수 있습니다.",
@@ -1124,26 +1171,26 @@
   "block.tconstruct.ichor_ender_slime_grass.tooltip": "매우 부드럽습니다! 높이 뛰어오를 수 있습니다.",
 
   "block.tconstruct.ender_vanilla_slime_grass": "엔더슬라임 잔디 블록",
-  "block.tconstruct.ender_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고, 엔드에서 엔더슬라임이 생성됩니다.",
+  "block.tconstruct.ender_vanilla_slime_grass.tooltip": "높이 뛰어오를 수 있고 엔드에서 엔더슬라임이 생성됩니다.",
   "block.tconstruct.ender_earth_slime_grass": "엔더슬라임 잔디 블록",
-  "block.tconstruct.ender_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고, 엔드에서 엔더슬라임이 생성됩니다.",
+  "block.tconstruct.ender_earth_slime_grass.tooltip": "높이 뛰어오를 수 있고 엔드에서 엔더슬라임이 생성됩니다.",
   "block.tconstruct.ender_sky_slime_grass": "엔더슬라임 잔디 블록",
-  "block.tconstruct.ender_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고, 엔드에서 엔더슬라임이 생성됩니다.",
+  "block.tconstruct.ender_sky_slime_grass.tooltip": "높이 뛰어오를 수 있고 엔드에서 엔더슬라임이 생성됩니다.",
   "block.tconstruct.ender_ichor_slime_grass": "엔더슬라임 잔디 블록",
-  "block.tconstruct.ender_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고, 엔드에서 엔더슬라임이 생성됩니다.",
+  "block.tconstruct.ender_ichor_slime_grass.tooltip": "높이 뛰어오를 수 있고 엔드에서 엔더슬라임이 생성됩니다.",
   "block.tconstruct.ender_ender_slime_grass": "엔더슬라임 잔디 블록",
-  "block.tconstruct.ender_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고, 엔드에서 엔더슬라임이 생성됩니다.",
+  "block.tconstruct.ender_ender_slime_grass.tooltip": "높이 뛰어오를 수 있고 엔드에서 엔더슬라임이 생성됩니다.",
 
   "item.tconstruct.earth_slime_grass_seeds": "슬라임 씨앗",
-  "item.tconstruct.earth_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면, 슬라임 잔디가 자라납니다.",
+  "item.tconstruct.earth_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면 슬라임 잔디가 자라납니다.",
   "item.tconstruct.sky_slime_grass_seeds": "슬라임 씨앗",
-  "item.tconstruct.sky_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면, 슬라임 잔디가 자라납니다.",
+  "item.tconstruct.sky_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면 슬라임 잔디가 자라납니다.",
   "item.tconstruct.blood_slime_grass_seeds": "슬라임 씨앗",
-  "item.tconstruct.blood_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면, 슬라임 잔디가 자라납니다.",
+  "item.tconstruct.blood_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면 슬라임 잔디가 자라납니다.",
   "item.tconstruct.ichor_slime_grass_seeds": "슬라임 씨앗",
-  "item.tconstruct.ichor_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면, 슬라임 잔디가 자라납니다.",
+  "item.tconstruct.ichor_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면 슬라임 잔디가 자라납니다.",
   "item.tconstruct.ender_slime_grass_seeds": "슬라임 씨앗",
-  "item.tconstruct.ender_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면, 슬라임 잔디가 자라납니다.",
+  "item.tconstruct.ender_slime_grass_seeds.tooltip": "흙이나 슬라임 흙에 심으면 슬라임 잔디가 자라납니다.",
 
   "block.tconstruct.earth_slime_leaves": "슬라임 잎",
   "block.tconstruct.sky_slime_leaves": "슬라임 잎",
@@ -1237,7 +1284,7 @@
   "__comment": "1등급 재료",
   "material.tconstruct.wood": "나무",
   "material.tconstruct.wood.format": "나무 %s",
-  "material.tconstruct.wood.flavor": "나무 도끼로 나무를 나무낼 수 있다면 나무 도끼로 얼마나 많은 나무를 나무낼 수 있을까?",
+  "material.tconstruct.wood.flavor": "나무 도끼로 나무를 나무할 수 있다면 나무 도끼로 얼마나 많은 나무를 나무할 수 있을까?",
   "material.tconstruct.wood.encyclopedia": "부품당 수리할 때 50%만큼 더 수리됩니다",
 
   "material.tconstruct.stone": "돌",
@@ -1257,7 +1304,7 @@
   "material.tconstruct.necrotic_bone": "영골",
   "material.tconstruct.necrotic_bone.flavor": "죽음이 찾아옵니다",
   "material.tconstruct.necrotic_bone.encyclopedia": "등급당 공격 피해의 최대 5%까지 체력을 회복합니다",
-  "material.tconstruct.necrotic_bone.skull_flavor": "무시무시한 해골!",
+  "material.tconstruct.necrotic_bone.skull_flavor": "으스스한 해골!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "근접 공격이 시듦을 줍니다. 우유를 마시면 빠르게 시듦 피해를 줄 수 있습니다",
 
   "material.tconstruct.string": "실",
@@ -1265,7 +1312,7 @@
   "material.tconstruct.string.encyclopedia": "팅커 작업대나 제작대로 실을 사용하여 도구를 수리할 수 있습니다",
 
   "material.tconstruct.leather": "가죽",
-  "material.tconstruct.leather.flavor": "소를 죽이거나, 토끼 가죽을 무두질하세요",
+  "material.tconstruct.leather.flavor": "소를 죽이거나 토끼 가죽을 무두질하세요",
   "material.tconstruct.leather.encyclopedia": "동작이 도구에 1회 이상의 손상을 주지 않습니다",
 
   "material.tconstruct.vine": "덩굴",
@@ -1321,8 +1368,8 @@
 
   "__comment": "3등급 재료",
   "material.tconstruct.slimesteel": "슬라임강철",
-  "material.tconstruct.slimesteel.flavor": "슬라임을 강탈하면, 슬라임강철이 만들어 진다",
-  "material.tconstruct.slimesteel.encyclopedia": "등급당 슬라임 막이 25만큼 증가하고, 총 슬라임 막의 50%만큼 슬라임 막이 추가로 증가합니다",
+  "material.tconstruct.slimesteel.flavor": "슬라임을 강탈하면 슬라임강철이 만들어 진다",
+  "material.tconstruct.slimesteel.encyclopedia": "등급당 슬라임 막이 25만큼 증가하고 총 슬라임 막의 50%만큼 슬라임 막이 추가로 증가합니다",
 
   "material.tconstruct.nahuatl": "나후아틀",
   "material.tconstruct.nahuatl.flavor": "만약 \"흑요석\"이라고 적혀있다면, 그건 흑요석 부품이 아니다",
@@ -1334,9 +1381,9 @@
 
   "material.tconstruct.pig_iron": "저선철",
   "material.tconstruct.pig_iron.flavor": "완전 최고의 재료지, 먹을 수도 있고",
-  "material.tconstruct.pig_iron.encyclopedia": "먹으면, 등급당 1의 배고픔과 0.1의 포만감을 채울 수 있습니다",
+  "material.tconstruct.pig_iron.encyclopedia": "먹으면 등급당 1의 배고픔과 0.1의 포만감을 채울 수 있습니다",
   "material.tconstruct.pig_iron.skull_flavor": "화내면 아무도 좋아하지 않을 거야!",
-  "material.tconstruct.pig_iron.skull_encyclopedia": "몬스터에게 맞으면, 15초 동안 힘을 받습니다",
+  "material.tconstruct.pig_iron.skull_encyclopedia": "몬스터에게 맞으면 15초 동안 힘을 받습니다",
 
 
 
@@ -1347,11 +1394,11 @@
 
   "material.tconstruct.manyullyn": "마뉼린",
   "material.tconstruct.manyullyn.flavor": "별 절단 물질이라고도 해요",
-  "material.tconstruct.manyullyn.encyclopedia": "적을 연속으로 16번 공격하면, 등급당 공격 피해가 3까지 증가합니다",
+  "material.tconstruct.manyullyn.encyclopedia": "적을 연속으로 16번 공격하면 등급당 공격 피해가 3까지 증가합니다",
 
   "material.tconstruct.hepatizon": "헤파티존",
   "material.tconstruct.hepatizon.flavor": "검은 코린토스의 청동",
-  "material.tconstruct.hepatizon.encyclopedia": "블록을 연속으로 32개 채굴하면, 등급당 채굴 속도가 25%까지 빨라집니다",
+  "material.tconstruct.hepatizon.encyclopedia": "블록을 연속으로 32개 채굴하면 등급당 채굴 속도가 25%까지 빨라집니다",
 
   "material.tconstruct.queens_slime": "여왕 슬라임",
   "material.tconstruct.queens_slime.flavor": "공주들은 사악하니, 직접 여왕이 되세요",
@@ -1359,7 +1406,7 @@
 
   "material.tconstruct.blazing_bone": "화골",
   "material.tconstruct.blazing_bone.flavor": "네더 요새의 모든 힘을 활용하세요 - 뼈와 불",
-  "material.tconstruct.blazing_bone.encyclopedia": "불이 붙으면, 초당 공격 피해가 1%씩 증가하며, 용암에서 최대 15%까지 증가합니다. 화염 저항이 있다면, 추가 공격 피해가 감소합니다",
+  "material.tconstruct.blazing_bone.encyclopedia": "불이 붙으면 초당 공격 피해가 1%씩 증가하며, 용암에서 최대 15%까지 증가합니다. 화염 저항이 있다면 추가 공격 피해가 감소합니다",
   "material.tconstruct.blazing_bone.skull_flavor": "이건 엄밀히 말하면 화염구가 아닌, 화염의 숨결이지만, 내가 발명한 물건의 이름을 내가 결정할 순 없는 것 같아",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "인벤토리에 있는 화염구를 뱉을 수 있습니다. 5초의 대기시간이 있으며, 물속에서는 사용할 수 없습니다",
 
@@ -1376,20 +1423,20 @@
 
   "__comment": "슬라임 갑옷 재료",
   "material.tconstruct.gunpowder": "화약",
-  "material.tconstruct.gunpowder.skull_flavor": "누군가의 멋진 건축물이 지금 파괴되고 있니, 크리퍼야?",
+  "material.tconstruct.gunpowder.skull_flavor": "누군가의 멋진 건축물이 파괴되고 있니, 크리퍼야?",
   "material.tconstruct.gunpowder.skull_encyclopedia": "투구 상호작용 키를 누르면 착용자가 폭발합니다",
 
   "material.tconstruct.ender_pearl": "엔더 진주",
   "material.tconstruct.ender_pearl.skull_flavor": "엔더맨과 과학자는 손해를 회피하는 법을 알고 있는 것 같아. 몇 주 동안 내 인터뷰 요청을 무시했다고!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "발사체 공격을 받으면 자동으로 가까운 무작위 위치로 순간이동합니다. 30초의 대기시간이 있습니다",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "발사체 공격을 받으면 자동으로 가까운 무작위 위치로 순간이동합니다. 15초의 대기시간이 있습니다",
 
   "material.tconstruct.spider": "거미",
   "material.tconstruct.spider.skull_flavor": "거미는 물약의 달인이야, 어쩌면 거미의 비밀이 물약에 마법을 부여하는 방법을 알려줄지도 몰라...",
-  "material.tconstruct.spider.skull_encyclopedia": "긍정적인 물약 효과가 50% 더 오래 지속됩니다",
+  "material.tconstruct.spider.skull_encyclopedia": "긍정적인 물약 효과가 25% 더 오래 지속됩니다",
 
   "material.tconstruct.venom": "맹독",
-  "material.tconstruct.venom.skull_flavor": "술을 마시고, 누가 옳은지 가려내는 머리싸움에 제격이야",
-  "material.tconstruct.venom.skull_encyclopedia": "독이 제거되지는 않지만, 독에 걸리지 않을 수 있습니다",
+  "material.tconstruct.venom.skull_flavor": "술을 마시고 누가 옳은지 가려내는 머리싸움에 제격이야",
+  "material.tconstruct.venom.skull_encyclopedia": "독이 제거되지는 않지만 독에 걸리지 않을 수 있습니다",
 
   "material.tconstruct.rotten_flesh": "썩은 살점",
   "material.tconstruct.rotten_flesh.skull_flavor": "괜찮아",
@@ -1399,16 +1446,28 @@
   "material.tconstruct.gold.skull_flavor": "매우 반짝거려",
   "material.tconstruct.gold.skull_encyclopedia": "장착한 금 갑옷당 금광석이 금 조각을 추가로 떨어뜨리고, 몬스터가 4%의 확률로 금 갑옷을 떨어뜨립니다",
 
+  "material.tconstruct.netherite":  "네더라이트",
+  "material.tconstruct.earthslime": "땅슬라임",
+  "material.tconstruct.skyslime":   "하늘슬라임",
+  "material.tconstruct.blood":      "피",
+  "material.tconstruct.ichor":      "이코르",
   "material.tconstruct.enderslime": "엔더슬라임",
   "material.tconstruct.phantom": "팬텀 막",
   "material.tconstruct.chorus": "후렴과",
   "material.tconstruct.rabbit": "토끼 가죽",
 
+  "material.tconstruct.aluminum": "알루미늄",
+  "material.tconstruct.nickel":   "니켈",
+  "material.tconstruct.tin":      "주석",
+  "material.tconstruct.zinc":     "아연",
+  "material.tconstruct.brass":    "황동",
+  "material.tconstruct.uranium":  "우라늄",
+
 
   "__comment": "2등급 합금 재료",
   "material.tconstruct.osmium": "오스뮴",
   "material.tconstruct.osmium.flavor": "너무 단단해서 웬만한 농담으로는 못 뚫겠군",
-  "material.tconstruct.osmium.encyclopedia": "25%의 수리 재료를 추가로 소모하고, 33%의 손상을 막습니다. 등급이 높을수록 수치가 증가합니다",
+  "material.tconstruct.osmium.encyclopedia": "25%의 수리 재료를 추가로 소모하고 33%의 손상을 막습니다. 등급이 높을수록 수치가 증가합니다",
 
   "material.tconstruct.tungsten": "텅스텐",
   "material.tconstruct.tungsten.flavor": "헤비메탈 밴드를 시작해보지 않을래?",
@@ -1423,12 +1482,12 @@
   "material.tconstruct.lead.encyclopedia": "등급당 공격 피해가 10%만큼 증가하고, 이동 속도가 10%만큼 감소합니다",
 
   "material.tconstruct.silver": "은",
-  "material.tconstruct.silver.flavor": "며칠만 지나면, 이렇게까지 반짝거리지는 않을 거다",
+  "material.tconstruct.silver.flavor": "며칠만 지나면 이렇게까지 반짝거리지는 않을 거다",
   "material.tconstruct.silver.encyclopedia": "등급당 언데드에게 2.5만큼 추가 공격 피해를 줍니다",
 
   "material.tconstruct.whitestone": "백석",
   "material.tconstruct.whitestone.flavor": "쓸모없는 흰색 금속을 가지고 유용한 도구를 만들어라",
-  "material.tconstruct.whitestone.encyclopedia": "등급당 돌을 채굴할 때 25% 돌 방패를 5만큼 얻습니다",
+  "material.tconstruct.whitestone.encyclopedia": "등급당 돌을 채굴할 때 20% 확률로 돌 방패를 5만큼 얻습니다",
 
 
   "__comment": "3등급 합금 재료",
@@ -1463,6 +1522,7 @@
 
   "_comment": "수식어",
 
+  "key.categories.tconstruct": "팅커스 컨스트럭트",
   "key.tconstruct.helmet_interact": "투구 상호작용",
   "key.tconstruct.leggings_interact": "레깅스 상호작용",
 
@@ -1482,7 +1542,7 @@
   "modifier.tconstruct.offhanded": "방지",
   "modifier.tconstruct.offhanded.2": "제지",
   "modifier.tconstruct.offhanded.flavor": "번거롭게 생각하지 마세요",
-  "modifier.tconstruct.offhanded.description": "주로 사용하지 않는 손에 사용할 수 있는 아이템을 들고 있다면, 도구의 상호작용이 비활성화됩니다",
+  "modifier.tconstruct.offhanded.description": "다른 손에 사용할 수 있는 아이템을 들고 있다면 도구의 상호작용이 비활성화됩니다",
   "modifier.tconstruct.offhanded.description.2": "도구의 상호작용이 완전히 비활성화됩니다",
   "recipe.tconstruct.modifier.offhanded.level_2": "방지 수식어가 적용된 도구에만 적용할 수 있습니다",
 
@@ -1503,7 +1563,7 @@
   "modifier.tconstruct.diamond.description": "내구도와 능력치가 증가합니다!",
   "modifier.tconstruct.worldbound": "세계 귀속",
   "modifier.tconstruct.worldbound.flavor": "오래된 잔해!",
-  "modifier.tconstruct.worldbound.description": "네더라이트 수식어의 하위 버전, 불이나 용암에 타서 사라지지 않게 됩니다",
+  "modifier.tconstruct.worldbound.description": "네더라이트 수식어의 하위 버전입니다. 불이나 용암에 타서 사라지지 않게 됩니다",
   "modifier.tconstruct.soulbound": "영혼 귀속",
   "modifier.tconstruct.soulbound.flavor": "생명에 엮입니다!",
   "modifier.tconstruct.soulbound.description": "죽어도 도구가 인벤토리에 남아있게 됩니다!",
@@ -1531,7 +1591,7 @@
   "modifier.tconstruct.haste.4": "급박함 (IV)",
   "modifier.tconstruct.haste.5": "급격함 (V)",
   "modifier.tconstruct.haste.flavor": "더 빠르게!",
-  "modifier.tconstruct.haste.description": "마법의 붉은 가루가 도구를 더 빠르게 휘두를 수 있게 만듭니다!",
+  "modifier.tconstruct.haste.description": "마법의 붉은 가루가 도구의 채굴 속도를 더 빠르게 만듭니다!",
 
   "modifier.tconstruct.blasting": "폭파",
   "modifier.tconstruct.blasting.flavor": "터져라!",
@@ -1586,7 +1646,7 @@
   "modifier.tconstruct.cooling.attack_damage": "추위 피해",
   "modifier.tconstruct.sweeping_edge": "휩쓸기",
   "modifier.tconstruct.sweeping_edge.flavor": "사무라이!",
-  "modifier.tconstruct.sweeping_edge.description": "휩쓸기 공격이 공격 피해에 비례하여, 더 많은 피해를 줍니다",
+  "modifier.tconstruct.sweeping_edge.description": "휩쓸기 공격이 공격 피해에 비례하여 더 많은 피해를 줍니다",
   "modifier.tconstruct.sweeping_edge.attack_damage": "휩쓸기 피해",
 
   "modifier.tconstruct.sharpness": "날카로움",
@@ -1596,7 +1656,15 @@
   "modifier.tconstruct.sharpness.4": "첨리함 (IV)",
   "modifier.tconstruct.sharpness.5": "첨예함 (V)",
   "modifier.tconstruct.sharpness.flavor": "얼마나 날카로운가요?",
-  "modifier.tconstruct.sharpness.description": "도구를 더 날카롭게 만들어, 더 높은 피해를 줍니다!",
+  "modifier.tconstruct.sharpness.description": "도구를 더 날카롭게 만들어 더 높은 피해를 줍니다!",
+  "modifier.tconstruct.swiftstrike": "속공",
+  "modifier.tconstruct.swiftstrike.1": "속공 (I)",
+  "modifier.tconstruct.swiftstrike.2": "신속공 (II)",
+  "modifier.tconstruct.swiftstrike.3": "고속공 (III)",
+  "modifier.tconstruct.swiftstrike.4": "급속공 (IV)",
+  "modifier.tconstruct.swiftstrike.5": "쾌속공 (V)",
+  "modifier.tconstruct.swiftstrike.flavor": "마법!",
+  "modifier.tconstruct.swiftstrike.description": "마법의 자줏빛 보석이 무기를 더 가볍고 쉽게 휘두를 수 있게 만듭니다!",
 
   "_comment": "갑옷",
   "modifier.tconstruct.knockback_resistance": "밀치기 저항",
@@ -1604,13 +1672,22 @@
   "modifier.tconstruct.knockback_resistance.description": "모루는 무거우니까 뒤로 밀쳐지지 않게 해주겠죠?",
   "modifier.tconstruct.golden": "금빛",
   "modifier.tconstruct.golden.flavor": "금처럼 좋은",
-  "modifier.tconstruct.golden.description": "갑옷에 금빛이 추가되어, 피글린이 좋아합니다!",
+  "modifier.tconstruct.golden.description": "갑옷에 금빛이 추가되어 피글린이 좋아합니다!",
   "modifier.tconstruct.ricochet": "밀리기",
   "modifier.tconstruct.ricochet.flavor": "추가 탄성",
-  "modifier.tconstruct.ricochet.description": "공격을 받았을 때, 더 멀리 밀려 나가 효과적으로 탈출할 수 있습니다",
+  "modifier.tconstruct.ricochet.description": "공격을 받았을 때 더 멀리 밀려 나가 효과적으로 탈출할 수 있습니다",
   "modifier.tconstruct.revitalizing": "재활성",
   "modifier.tconstruct.revitalizing.flavor": "활기의 흐름을 느낄 수 있습니다",
-  "modifier.tconstruct.revitalizing.description": "심장을 강화하여, 더 많은 하트를 얻습니다.",
+  "modifier.tconstruct.revitalizing.description": "심장을 강화하여 더 많은 하트를 얻습니다.",
+
+  "modifier.tconstruct.embellishment": "장식",
+  "modifier.tconstruct.embellishment.formatted": "%s 장식",
+  "modifier.tconstruct.embellishment.flavor": "재구성!",
+  "modifier.tconstruct.embellishment.description": "다른 재료와 어울리도록 갑옷의 외형이 변경됩니다.",
+  "modifier.tconstruct.dyed": "염색",
+  "modifier.tconstruct.dyed.formatted": "색: #%s",
+  "modifier.tconstruct.dyed.flavor": "재구성!",
+  "modifier.tconstruct.dyed.description": "다른 재료와 어울리도록 갑옷의 외형이 변경됩니다.",
 
   "_comment": "갑옷 - 보호",
   "modifier.tconstruct.protection": "보호",
@@ -1760,14 +1837,14 @@
   "recipe.tconstruct.modifier.unbreakable_requirements": "네더라이트 수식어와 보강 V 수식어가 적용된 도구에만 적용할 수 있습니다",
   "modifier.tconstruct.dual_wielding": "이중 사용",
   "modifier.tconstruct.dual_wielding.flavor": "이중 동작!",
-  "modifier.tconstruct.dual_wielding.description": "들고 있는 아이템에 이중 사용이 적용되어 있다면, 주로 사용하지 않는 손에 있는 아이템으로 공격할 수 있습니다. 주로 사용하지 않는 손의 도구는 공격 속도와 공격 피해가 감소합니다",
+  "modifier.tconstruct.dual_wielding.description": "들고 있는 아이템에 이중 사용이 적용되어 있다면 주로 사용하지 다른 손으로 공격할 수 있습니다. 다른 손의 도구는 공격 속도와 공격 피해가 감소합니다",
   "recipe.tconstruct.modifier.two_handed_dual_wielding": "양손 무기는 방지 수식어가 있어야 이중 사용 수식어를 적용할 수 있습니다",
 
   "_comment": "아이템",
   "modifier.tconstruct.silky": "비단결",
   "modifier.tconstruct.silky.flavor": "비단 같은!",
   "modifier.tconstruct.silky.description": "도구가 블록을 훼손하지 않고 블록을 그대로 회수할 수 있게 됩니다",
-  "modifier.tconstruct.autosmelt": "자동제련",
+  "modifier.tconstruct.autosmelt": "자동 제련",
   "modifier.tconstruct.autosmelt.flavor": "네더 속 불꽃!",
   "modifier.tconstruct.autosmelt.description": "도구가 채굴한 아이템을 제련합니다",
   "modifier.tconstruct.luck": "운",
@@ -1809,7 +1886,7 @@
   "modifier.tconstruct.glowing.description": "웅크리고 오른쪽 버튼을 누르면, 많은 내구도를 소모하고 블록을 밝힘니다",
   "modifier.tconstruct.exchanging": "교환",
   "modifier.tconstruct.exchanging.flavor": "새것으로!",
-  "modifier.tconstruct.exchanging.description": "파괴한 블록을 주로 사용하지 않는 손에 들고 있는 블록으로 대체합니다",
+  "modifier.tconstruct.exchanging.description": "파괴한 블록을 다른 손에 들고 있는 블록으로 대체합니다",
   "modifier.tconstruct.firestarter": "점화",
   "modifier.tconstruct.firestarter.flavor": "내 가슴속에선 불이 타오르고 있다!",
   "modifier.tconstruct.firestarter.description": "도구로 불을 붙일 수 있습니다",
@@ -2150,8 +2227,8 @@
   "stat.tconstruct.head": "머리",
   "tool_stat.tconstruct.mining_speed": "채굴 속도: ",
   "tool_stat.tconstruct.mining_speed.description": "이 도구의 도구 머리의 재료가 얼마나 빨리 블록을 채굴하는지에 대한 값입니다.\n다른 도구 부품의 영향을 많이 받습니다.",
-  "tool_stat.tconstruct.harvest_level": "채굴 등급: ",
-  "tool_stat.tconstruct.harvest_level.description": "이 도구의 도구 머리의 재료가 얼마나 멀리에 있는 블록을 채굴할 수 있는지에 대한 값입니다.",
+  "tool_stat.tconstruct.harvest_tier": "수확 등급: ",
+  "tool_stat.tconstruct.harvest_tier.description": "이 도구의 도구 머리의 재료가 얼마나 멀리에 있는 블록을 채굴할 수 있는지에 대한 값입니다.",
   "tool_stat.tconstruct.attack_damage": "공격 피해: ",
   "tool_stat.tconstruct.attack_damage.description": "공격 피해 계산을 위한 기본값입니다.\n최종값은 도구에 다른 부품에 따라 크게 달라집니다.",
 
@@ -2174,11 +2251,12 @@
   "stat.tconstruct.repair_kit": "수리 키트",
   "stat.tconstruct.skull": "슬라임머리",
 
-  "stat.tconstruct.mining_level.wood": "나무",
-  "stat.tconstruct.mining_level.stone": "돌",
-  "stat.tconstruct.mining_level.iron": "철",
-  "stat.tconstruct.mining_level.diamond": "다이아몬드",
-  "stat.tconstruct.mining_level.netherite": "네더라이트",
+  "stat.tconstruct.harvest_tier.minecraft.wood": "나무",
+  "stat.tconstruct.harvest_tier.minecraft.gold": "금",
+  "stat.tconstruct.harvest_tier.minecraft.stone": "돌",
+  "stat.tconstruct.harvest_tier.minecraft.iron": "철",
+  "stat.tconstruct.harvest_tier.minecraft.diamond": "다이아몬드",
+  "stat.tconstruct.harvest_tier.minecraft.netherite": "네더라이트",
 
   "stat.tconstruct.slot.prefix.upgrades": "강화: ",
   "stat.tconstruct.slot.prefix.abilities": "능력: ",
@@ -2293,8 +2371,13 @@
   "subtitles.tconstruct.slimy_bounce": "슬라임처럼 튕겨 나감",
 
   "subtitles.tconstruct.equip.slime": "슬라임 갑옷을 끌어당김",
-  "subtitles.tconstruct.equip.travelers": "여행자의 갑옷이 바스락거림",
+  "subtitles.tconstruct.equip.travelers": "여행자 장비가 바스락거림",
   "subtitles.tconstruct.equip.plate": "판금 갑옷이 철커덕거림",
+
+  "subtitles.tconstruct.block.earth_crystal.chime": "땅슬라임 수정이 울림",
+  "subtitles.tconstruct.block.sky_crystal.chime":   "하늘슬라임 수정이 울림",
+  "subtitles.tconstruct.block.ichor_crystal.chime": "이코르 수정이 울림",
+  "subtitles.tconstruct.block.ender_crystal.chime": "엔더슬라임 수정이 울림",
 
 
   "_comment": "책",
@@ -2320,7 +2403,7 @@
   "command.tconstruct.modifiers.success.add.multiple": "%s 수식어를 %s개의 엔티티에 적용했습니다",
   "command.tconstruct.modifiers.success.remove.single": "%s 수식어를 %s의 아이템에서 제거했습니다",
   "command.tconstruct.modifiers.success.remove.multiple": "%s 수식어를 %s개의 엔티티에서 제거했습니다",
-  "command.tconstruct.modifiers.failure.too_few_levels": "%s의 아이템에서 %s 수식어를 제거할 수 없습니다",
+  "command.tconstruct.modifiers.failure.too_few_levels": "%s 수식어를 %s의 아이템에서 제거할 수 없습니다",
 
   "command.tconstruct.slots.success.add.single": "%s개의 %s 슬롯을 %s의 아이템에 추가했습니다",
   "command.tconstruct.slots.success.add.multiple": "%s개의 %s 슬롯을 %s개의 엔티티에 추가했습니다",
@@ -2332,6 +2415,7 @@
   "command.tconstruct.stats.success.bonus.modify.multiple": "%s%s을(를) %s개의 엔티티에 추가했습니다",
   "command.tconstruct.stats.success.bonus.set.single": "%s%s(으)로 %s의 아이템을 설정했습니다",
   "command.tconstruct.stats.success.bonus.set.multiple": "%s%s(으)로 %s개의 엔티티를 설정했습니다",
+  "command.tconstruct.stats.success.bonus.set.parse_fail": "%s%s 구문 분석에 실패했습니다",
 
   "command.tconstruct.stats.success.multiply.modify.single": "%s%s을(를) %s의 아이템에 곱했습니다",
   "command.tconstruct.stats.success.multiply.modify.multiple": "%s%s을(를) %s개의 엔티티에 곱했습니다",
@@ -2409,7 +2493,7 @@
   "advancements.tconstruct.tools.tinker_tool.title": "초보 팅커",
   "advancements.tconstruct.tools.tinker_tool.description": "팅커 도구를 제작하세요",
   "advancements.tconstruct.tools.travelers_gear.title": "여행자",
-  "advancements.tconstruct.tools.travelers_gear.description": "모든 여행자의 장비를 제작하세요",
+  "advancements.tconstruct.tools.travelers_gear.description": "모든 여행자 장비를 제작하세요",
   "advancements.tconstruct.tools.modified.title": "수식어",
   "advancements.tconstruct.tools.modified.description": "팅커 도구에 수식어를 적용하세요",
   "advancements.tconstruct.tools.upgrade_slots.title": "모든 강화",
@@ -2471,7 +2555,7 @@
   "advancements.tconstruct.world.ender_island.title": "엔더슬라임 섬",
   "advancements.tconstruct.world.ender_island.description": "엔드의 바깥 섬에서 엔더슬라임 섬을 찾으세요",
   "advancements.tconstruct.world.slimesuit.title": "슬라임 갑옷",
-  "advancements.tconstruct.world.slimesuit.description": "모든 슬라임갑옷을 만드세요",
+  "advancements.tconstruct.world.slimesuit.description": "모든 종류의 슬라임 갑옷을 만드세요",
   "advancements.tconstruct.world.slimeskull.title": "머리 수집가",
   "advancements.tconstruct.world.slimeskull.description": "모든 종류의 슬라임머리를 제작하세요",
   "advancements.tconstruct.world.clay_island.title": "점토 섬",
