@@ -1,0 +1,13 @@
+{
+  "title": "주조",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "진짜 팅커들은 실수로 원치 않는 도구를 주조하지 않기 위해, 주조대에 항상 금형을 놓아둬요. 금 발판과 금 창살이 놓인 주조 블록은 빈 주조 블록처럼 사용할 수 있어요."
+    }
+	]
+}
