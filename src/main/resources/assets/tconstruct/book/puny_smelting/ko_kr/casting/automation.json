@@ -1,0 +1,17 @@
+{
+  "title": "자동화",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "호퍼가 쇳물받이나 주조대에 상호작용하면 아이템을 쉽게 넣고 식힐 수 있다."
+    },
+    {
+      "text": "또한, 비교기는 쇳물받이나 주조대에 연결되면 레드스톤을 재미있는 색으로 바꾸며, 레드스톤 신호는 입력과 출력을 교환한다.",
+      "paragraph": true
+    }
+  ]
+}

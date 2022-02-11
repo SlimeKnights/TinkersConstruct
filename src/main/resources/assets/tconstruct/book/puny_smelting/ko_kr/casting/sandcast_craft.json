@@ -1,5 +1,12 @@
 {
   "title": "모래 거푸집 제작법",
-  "recipe": "tconstruct:smeltery/sand_cast",
+  "grid": [[[
+    { "item": "minecraft:sand" },
+    { "item": "minecraft:red_sand" }
+  ]]],
+  "result": [
+    { "item": "tconstruct:blank_sand_cast", "amount_needed": 4 },
+    { "item": "tconstruct:blank_red_sand_cast", "amount_needed": 4 }
+  ],
   "grid_size": "small"
 }
