@@ -1,0 +1,13 @@
+{
+  "title": "땅슬라임 섬",
+  "image": {
+    "file": "tconstruct:book/images/islands/earthslime.png",
+    "width": 180,
+    "height": 84
+  },
+  "text": [
+    {
+      "text": "땅슬라임 섬은 가끔 오버월드의 바다에서 발견돼, 다른 슬라임 섬보다 덜 생소하게 느껴져. 이 섬은 땅슬라임이 많이 생성되지만, 일반적으로 땅슬라임을 찾을 때는 찾아가지는 않아."
+    }
+  ]
+}

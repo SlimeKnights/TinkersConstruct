@@ -1,4 +1,11 @@
 {
   "title": "탐험",
-  "subText": "나는 여행하면서 슬라임이 생성되고, 흥미로운 연구용 식물이 자라나는 여러 종류의 슬라임 섬을 발견했어. 또, 다른 책에서는 다루지 않는 독특한 자원에 대한 정보를 알려줄게."
+  "subText": "많은 팅커들이 수식어나 도구 재료로 사용할 수 있는 유용한 재료를 언급하지만, 정작 얻는 방법은 알려주지 않아. 나는 여행 중에 많은 장소를 찾았기 때문에, 재료를 발견할 수 있는 위치를 알려줄 수 있어.",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "재료" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "섬" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "정동" }
+  ]
 }

@@ -1,0 +1,13 @@
+{
+  "title": "엔더슬라임 정동",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "엔더슬라임 정동은 외딴 섬 주변에서 발견할 수 있어. 이 정동은 가끔 하늘에 떠 있는 다른 바위들과 구별하기가 어려워."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "땅슬라임 정동",
+  "image": {
+	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "땅슬라임 정동은 지하 깊은 곳에 있으며, 내가 본 정동 중 가장 거대했어. 주위를 둘러싸고 있는 화강암을 통해 쉽게 알아차릴 수 있으며, 많은 양의 점토가 있어."
+    }
+  ]
+}

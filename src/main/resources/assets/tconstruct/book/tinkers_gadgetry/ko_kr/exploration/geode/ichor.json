@@ -1,0 +1,13 @@
+{
+  "title": "이코르 정동",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "이코르 정동은 희귀한 주황 슬라임을 얻을 수 있는 가장 좋은 장소야. 이 정동은 네더의 높은 장소에서 발견할 수 있으며, 수정도 빛을 내는 것 같아."
+    }
+  ]
+}
