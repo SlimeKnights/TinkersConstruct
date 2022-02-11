@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:unarmed",
   "text": [
     {
-      "text": "맨손 피해가 증가하며, 주로 사용하지 않는 손으로 공격할 수 있게 됩니다."
+      "text": "맨손 피해가 증가하며, 다른 손으로 공격할 수 있게 됩니다."
     }
   ],
   "more_text_space": true,
