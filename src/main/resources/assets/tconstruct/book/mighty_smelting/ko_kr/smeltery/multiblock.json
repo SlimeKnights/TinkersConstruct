@@ -1,3 +1,4 @@
 {
-  "data": "smeltery/smeltery_test.nbt"
+  "title": "구조물",
+  "data": "tconstruct:book/structures/smeltery.nbt"
 }

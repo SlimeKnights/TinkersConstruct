@@ -1,5 +1,3 @@
-// 섹션 - 복잡한 제련
-
 intro=소개
 entity_melting=생명체 용해
 tier_three_materials=3등급 재료
@@ -8,19 +6,6 @@ tools.subtext=넓은 도구는 팅커스 모루를 이용하여 제작할 수 �
 
 smeltery=제련소
 smeltery.features=특징
-smeltery.alloying=합금
-smeltery.controller=관리기
-smeltery.structure=구조물
-smeltery.sgui1=제련소 GUI
-smeltery.sgui2=제련소 GUI 설명
-smeltery.structurereq=구조물 조건
-smeltery.seared_tanks=그을린 탱크
-smeltery.seared_blocks=그을린 블록
-smeltery.seared_ladder=그을린 사다리
-smeltery.seared_glass=그을린 유리
-smeltery.seared_drain=그을린 배출구
-smeltery.seared_duct=그을린 송출구
-smeltery.seared_chute=그을린 전송구
 
 abilities=능력
 abilities.subtext=능력은 강화보다 강력하다만, 슬롯 수가 더 제한적이다.
