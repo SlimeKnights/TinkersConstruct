@@ -1,6 +1,5 @@
 {
   "modifier_id": "tconstruct:the_one_probe",
-  "required_mod": "theoneprobe",
   "text": [
     {
       "text": "더 원 프로브 아이템과 마찬가지로 바라보고 있는 블록에 대한 정보를 표시합니다."
