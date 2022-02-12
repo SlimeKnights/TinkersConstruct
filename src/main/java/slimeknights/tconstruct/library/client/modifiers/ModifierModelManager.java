@@ -195,9 +195,9 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
 
     // create two texture adders, so we only log on the final option if missing
     Predicate<Material> smallTextureAdder = smallModifierRoots.isEmpty() ? null
-                                                  : MaterialModel.getTextureAdder(smallModifierRoots.get(0), textures, Config.CLIENT.logMissingModifierTextures.get());
+                                                  : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
     Predicate<Material> largeTextureAdder = largeModifierRoots.isEmpty() ? null
-                                                  : MaterialModel.getTextureAdder(largeModifierRoots.get(0), textures, Config.CLIENT.logMissingModifierTextures.get());
+                                                  : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
 
     // load each modifier
     for (Modifier modifier : TinkerRegistries.MODIFIERS.getValues()) {

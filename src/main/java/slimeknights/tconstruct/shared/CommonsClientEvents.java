@@ -35,7 +35,6 @@ public class CommonsClientEvents extends ClientEventBase {
     MaterialRenderInfoLoader.addResourceListener(event);
     DomainDisplayName.addResourceListener(event);
     ResourceColorManager.init(event);
-    event.registerReloadListener(TinkerClient.textureValidator);
   }
 
   @SubscribeEvent

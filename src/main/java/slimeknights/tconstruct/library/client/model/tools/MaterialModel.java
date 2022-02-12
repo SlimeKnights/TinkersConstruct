@@ -13,6 +13,7 @@ import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -46,7 +47,6 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.Tinte
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
-import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -83,34 +83,30 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     return allTextures;
   }
 
+  /** Checks if a texture exists */
+  private static boolean textureExists(ResourceManager manager, ResourceLocation location) {
+    return manager.hasResource(new ResourceLocation(location.getNamespace(), "textures/" + location.getPath() + ".png"));
+  }
+
   /**
    * Gets a consumer to add textures to the given collection
-   * @param textureLocation  Texture base
    * @param allTextures      Collection of textures
    * @return  Texture consumer
    */
-  public static Predicate<Material> getTextureAdder(ResourceLocation textureLocation, Collection<Material> allTextures, boolean logMissingTextures) {
-    if (textureLocation.getPath().startsWith("item/tool")) {
-      return mat -> {
-        // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-        ResourceLocation loc = mat.texture();
-        if (!InventoryMenu.BLOCK_ATLAS.equals(mat.atlasLocation()) || TinkerClient.textureValidator.test(loc)) {
-          allTextures.add(mat);
-          return true;
-        } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
-          SKIPPED_TEXTURES.add(loc);
-          log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
-        }
-        return false;
-      };
-    } else {
-      // just directly add with no filter, nothing we can do
-      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", textureLocation);
-      return mat -> {
+  public static Predicate<Material> getTextureAdder(Collection<Material> allTextures, boolean logMissingTextures) {
+    ResourceManager manager = Minecraft.getInstance().getResourceManager();
+    return mat -> {
+      // either must be non-blocks, or must exist. We have fallbacks if it does not exist
+      ResourceLocation loc = mat.texture();
+      if (!InventoryMenu.BLOCK_ATLAS.equals(mat.atlasLocation()) || textureExists(manager, loc)) {
         allTextures.add(mat);
         return true;
-      };
-    }
+      } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
+        SKIPPED_TEXTURES.add(loc);
+        log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
+      }
+      return false;
+    };
   }
 
   /**
@@ -127,7 +123,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     // if the texture is missing, stop here
     if (!MissingTextureAtlasSprite.getLocation().equals(texture.texture())) {
       // texture should exist in item/tool, or the validator cannot handle them
-      Predicate<Material> textureAdder = getTextureAdder(texture.texture(), allTextures, Config.CLIENT.logMissingMaterialTextures.get());
+      Predicate<Material> textureAdder = getTextureAdder(allTextures, Config.CLIENT.logMissingMaterialTextures.get());
       // if no specific material is set, load all materials as dependencies. If just one material, use just that one
       if (material == null) {
         MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));

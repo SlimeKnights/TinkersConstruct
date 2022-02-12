@@ -2,7 +2,6 @@ package slimeknights.tconstruct.shared;
 
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import slimeknights.mantle.data.ResourceValidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
@@ -18,9 +17,6 @@ import java.util.function.Consumer;
  * This class should only be referenced on the client side
  */
 public class TinkerClient {
-  /** Validates that a texture exists for models. During model type as that is when the validator is needed */
-  public static final ResourceValidator textureValidator = new ResourceValidator("textures/item/tool", "textures", ".png");
-
   /**
    * Called by TConstruct to handle any client side logic that needs to run during the constructor
    */
