@@ -13,6 +13,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
@@ -272,7 +273,9 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
 
     // shrink the inputs
     shrinkSlot(MATERIAL_SLOT, recipe.getItemsUsed(inventoryWrapper), player);
-    shrinkSlot(PATTERN_SLOT, 1, player);
+    if (!getItem(PATTERN_SLOT).is(TinkerTags.Items.REUSABLE_PATTERNS)) {
+      shrinkSlot(PATTERN_SLOT, 1, player);
+    }
 
     // sync display, mainly for the material value
     if (level != null && !level.isClientSide) {

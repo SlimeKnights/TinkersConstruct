@@ -1,6 +1,14 @@
 {
   "type": "tconstruct:part_builder",
   "pattern": "tconstruct:hammer_head",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:hammer_head_cast"
+    }
+  ],
   "cost": 8,
   "result": {
     "item": "tconstruct:hammer_head"

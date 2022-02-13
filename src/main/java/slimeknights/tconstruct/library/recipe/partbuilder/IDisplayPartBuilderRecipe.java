@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
-import slimeknights.tconstruct.tables.TinkerTables;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +18,6 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
    * @return  Pattern items
    */
   default List<ItemStack> getPatternItems() {
-    return Collections.singletonList(new ItemStack(TinkerTables.pattern));
+    return TinkerTags.Items.DEFAULT_PATTERNS.getValues().stream().map(ItemStack::new).toList();
   }
 }

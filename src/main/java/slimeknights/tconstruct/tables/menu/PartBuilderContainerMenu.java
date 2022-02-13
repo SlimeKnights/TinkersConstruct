@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.util.sync.LambdaDataSlot;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.inventory.LazyResultContainer;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
@@ -101,8 +102,7 @@ public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlo
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-      // TODO: tag
-      return stack.getItem() == TinkerTables.pattern.get();
+      return stack.is(TinkerTags.Items.PATTERNS);
     }
   }
 }

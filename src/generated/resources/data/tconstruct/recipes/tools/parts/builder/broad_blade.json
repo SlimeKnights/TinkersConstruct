@@ -1,6 +1,14 @@
 {
   "type": "tconstruct:part_builder",
   "pattern": "tconstruct:broad_blade",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:broad_blade_cast"
+    }
+  ],
   "cost": 8,
   "result": {
     "item": "tconstruct:broad_blade"

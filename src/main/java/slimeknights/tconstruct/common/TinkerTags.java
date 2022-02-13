@@ -189,6 +189,13 @@ public class TinkerTags {
     /** Items that count as empty in a casting basin */
     public static final IOptionalNamedTag<Item> BASIN_EMPTY_CASTS = tag("casts/empty/basin");
 
+    /** Items that can be placed in the pattern slot in the part builder */
+    public static final IOptionalNamedTag<Item> PATTERNS = tag("patterns");
+    /** Items that work in all basic part builder recipes, when unspecified this tag is used for the input */
+    public static final IOptionalNamedTag<Item> DEFAULT_PATTERNS = tag("patterns/default");
+    /** Pattern items that are not consumed in the part builder */
+    public static final IOptionalNamedTag<Item> REUSABLE_PATTERNS = tag("patterns/reusable");
+
     /** All basic tinkers tanks */
     public static final IOptionalNamedTag<Item> SEARED_TANKS = tag("seared_tanks");
     public static final IOptionalNamedTag<Item> SCORCHED_TANKS = tag("scorched_tanks");

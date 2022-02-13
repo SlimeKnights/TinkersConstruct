@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:patterns/default",
+    "#tconstruct:patterns/reusable"
+  ]
+}

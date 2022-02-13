@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -18,14 +19,17 @@ import java.util.function.Consumer;
 /**
  * Builder for a material item part crafting recipe
  */
+@Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "partRecipe")
 public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> {
   private final IMaterialItem output;
   private final int outputAmount;
-  @Setter @Accessors(chain = true)
+  @Setter
   private int cost = 1;
-  @Setter @Accessors(chain = true)
+  @Setter
   private ResourceLocation pattern = null;
+  @Setter
+  private Ingredient patternItem;
 
   /**
    * Creates a new part recipe that outputs a single item
@@ -67,6 +71,9 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
         json.addProperty("group", group);
       }
       json.addProperty("pattern", pattern.toString());
+      if (patternItem != null) {
+        json.add("pattern_item", patternItem.toJson());
+      }
       json.addProperty("cost", cost);
 
       JsonObject jsonOutput = new JsonObject();

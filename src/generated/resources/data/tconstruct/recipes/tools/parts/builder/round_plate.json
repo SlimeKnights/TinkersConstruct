@@ -1,6 +1,14 @@
 {
   "type": "tconstruct:part_builder",
   "pattern": "tconstruct:round_plate",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:round_plate_cast"
+    }
+  ],
   "cost": 2,
   "result": {
     "item": "tconstruct:round_plate"
