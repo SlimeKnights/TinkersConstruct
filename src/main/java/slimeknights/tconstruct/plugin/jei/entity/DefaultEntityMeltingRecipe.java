@@ -12,20 +12,20 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * Extension of entity melting recipe for the sake of displaying entities in the default "recipe"
  */
+@SuppressWarnings("rawtypes")
 public class DefaultEntityMeltingRecipe extends EntityMeltingRecipe {
   /**
    * Gets a list of entity types, filtered by the recipe list
    * @param recipes  Recipe list
    * @return List of entity types
    */
-  private static List<EntityType<?>> getEntityList(List<EntityMeltingRecipe> recipes) {
-    List<EntityType<?>> unusedTypes = new ArrayList<>();
+  private static List<EntityType> getEntityList(List<EntityMeltingRecipe> recipes) {
+    List<EntityType> unusedTypes = new ArrayList<>();
     typeLoop:
     for (EntityType<?> type : ForgeRegistries.ENTITIES) {
       // use tag overrides for default recipe
@@ -41,14 +41,14 @@ public class DefaultEntityMeltingRecipe extends EntityMeltingRecipe {
     return ImmutableList.copyOf(unusedTypes);
   }
 
-  private final Lazy<List<EntityType<?>>> entityList;
+  private final Lazy<List<EntityType>> entityList;
   public DefaultEntityMeltingRecipe(List<EntityMeltingRecipe> recipes) {
     super(TConstruct.getResource("__default"), EntityIngredient.EMPTY, EntityMeltingModule.getDefaultFluid(), 2);
     entityList = Lazy.of(() -> getEntityList(recipes));
   }
 
   @Override
-  public Collection<EntityType<?>> getInputs() {
+  public List<EntityType> getEntityInputs() {
     return entityList.get();
   }
 }

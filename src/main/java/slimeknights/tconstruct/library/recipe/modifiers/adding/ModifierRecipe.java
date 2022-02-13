@@ -23,8 +23,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Standard recipe to add a modifier
@@ -173,10 +173,16 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   /* JEI display */
 
   @Override
-  protected void addIngredients(Consumer<List<ItemStack>> builder) {
-    for (SizedIngredient ingredient : inputs) {
-      builder.accept(ingredient.getMatchingStacks());
+  public int getInputCount() {
+    return inputs.size();
+  }
+
+  @Override
+  public List<ItemStack> getDisplayItems(int slot) {
+    if (slot >= 0 && slot < inputs.size()) {
+      return inputs.get(slot).getMatchingStacks();
     }
+    return Collections.emptyList();
   }
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<ModifierRecipe> {

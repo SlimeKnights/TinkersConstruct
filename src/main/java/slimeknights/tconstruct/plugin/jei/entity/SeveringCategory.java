@@ -2,21 +2,20 @@ package slimeknights.tconstruct.plugin.jei.entity;
 
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
-import slimeknights.tconstruct.plugin.jei.JEIPlugin;
-import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import java.util.List;
 
 public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   public static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -36,7 +35,7 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.severing;
+    return TConstructJEIConstants.SEVERING;
   }
 
   @Override
@@ -50,23 +49,13 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   }
 
   @Override
-  public void setIngredients(SeveringRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(JEIPlugin.ENTITY_TYPE, recipe.getDisplayInputs());
-    ingredients.setInputLists(VanillaTypes.ITEM, EntityMeltingRecipeCategory.getSpawnEggs(recipe.getInputs().stream()));
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
-  }
-
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void setRecipe(IRecipeLayout layout, SeveringRecipe recipe, IIngredients ingredients) {
-    IGuiIngredientGroup<EntityType> entityTypes = layout.getIngredientsGroup(JEIPlugin.ENTITY_TYPE);
-    entityTypes.init(0, true, entityRenderer, 3, 3, 32, 32, 0, 0);
-    entityTypes.set(ingredients);
-    EntityIngredientHelper.setFocus(layout, entityTypes, recipe.getInputs(), 0);
+  public void setRecipe(IRecipeLayoutBuilder builder, SeveringRecipe recipe, List<? extends IFocus<?>> focuses) {
+    builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
+           .setCustomRenderer(TConstructJEIConstants.ENTITY_TYPE, entityRenderer)
+           .addIngredients(TConstructJEIConstants.ENTITY_TYPE, EntityIngredientHelper.applyFocus(RecipeIngredientRole.INPUT, recipe.getEntityInputs(), focuses));
+    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getItemInputs());
 
     // output
-    IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(1, false, 75, 10);
-    items.set(ingredients);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 11).addItemStack(recipe.getOutput());
   }
 }

@@ -25,8 +25,8 @@ import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Recipe to add overslime to a tool
@@ -120,22 +120,27 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /* JEI display */
   /** Cache of modifier result, same for all overslime */
   private static final Lazy<ModifierEntry> RESULT = Lazy.of(() -> new ModifierEntry(TinkerModifiers.overslime.get(), 1));
-  /** Cache of tools for input, same for all overslime */
-  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> TinkerTags.Items.DURABILITY.getValues().stream().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
-
-  private List<ItemStack> toolWithModifier = null;
-  /** Cache of display outputs, value depends on recipe */
-  private List<List<ItemStack>> displayItems = null;
+  /** Cache of input and output tools for display */
+  private List<ItemStack> toolWithoutModifier, toolWithModifier = null;
 
   @Override
-  public List<List<ItemStack>> getDisplayItems() {
-    if (displayItems == null) {
-      // set cap and amount based on the restore amount for output
-      displayItems = Arrays.asList(
-        DISPLAY_TOOLS.get(),
-        Arrays.asList(ingredient.getItems()));
+  public int getInputCount() {
+    return 1;
+  }
+
+  @Override
+  public List<ItemStack> getDisplayItems(int slot) {
+    if (slot == 0) {
+      return Arrays.asList(ingredient.getItems());
     }
-    return displayItems;
+    return Collections.emptyList();
+  }
+  @Override
+  public List<ItemStack> getToolWithoutModifier() {
+    if (toolWithoutModifier == null) {
+      toolWithoutModifier = TinkerTags.Items.DURABILITY.getValues().stream().map(MAP_TOOL_FOR_RENDERING).toList();
+    }
+    return toolWithoutModifier;
   }
 
   @Override

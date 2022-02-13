@@ -11,9 +11,9 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
-import mezz.jei.api.gui.ingredient.ITooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -27,6 +27,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.plugin.jei.IRecipeTooltipReplacement;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -39,6 +40,17 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   protected static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
   protected static final String KEY_MULTIPLIER = TConstruct.makeTranslationKey("jei", "melting.multiplier");
   protected static final Component TOOLTIP_ORE = new TranslatableComponent(TConstruct.makeTranslationKey("jei", "melting.ore"));
+
+  /** Tooltip for fuel display */
+  public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) -> {
+    //noinspection SimplifyOptionalCallChains  Not for int streams
+    slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> {
+      MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
+        tooltip.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY));
+        tooltip.add(new TranslatableComponent(KEY_MULTIPLIER, temperature / 1000f).withStyle(ChatFormatting.GRAY));
+      });
+    });
+  };
 
   @Getter
   private final IDrawable background;
@@ -64,13 +76,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   }
 
   @Override
-  public void setIngredients(MeltingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutputLists(VanillaTypes.FLUID, recipe.getDisplayOutput());
-  }
-
-  @Override
-  public void draw(MeltingRecipe recipe, PoseStack matrices, double mouseX, double mouseY) {
+  public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, PoseStack matrices, double mouseX, double mouseY) {
     // draw the arrow
     cachedArrows.getUnchecked(recipe.getTime() * 5).draw(matrices, 56, 18);
     if (recipe.getOreType() != null) {
@@ -86,7 +92,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   }
 
   @Override
-  public List<Component> getTooltipStrings(MeltingRecipe recipe, double mouseXD, double mouseYD) {
+  public List<Component> getTooltipStrings(MeltingRecipe recipe, IRecipeSlotsView slots, double mouseXD, double mouseYD) {
     int mouseX = (int)mouseXD;
     int mouseY = (int)mouseYD;
     if (recipe.getOreType() != null && GuiUtil.isHovered(mouseX, mouseY, 87, 31, 16, 16)) {
@@ -101,7 +107,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
 
   /** Adds amounts to outputs and temperatures to fuels */
   @RequiredArgsConstructor
-  public static class MeltingFluidCallback implements ITooltipCallback<FluidStack> {
+  public static class MeltingFluidCallback implements IRecipeTooltipReplacement {
     public static final MeltingFluidCallback INSTANCE = new MeltingFluidCallback();
 
     /**
@@ -116,31 +122,12 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
     }
 
     @Override
-    public void onTooltip(int index, boolean input, FluidStack stack, List<Component> list) {
-      Component name = list.get(0);
-      Component modId = list.get(list.size() - 1);
-      list.clear();
-      list.add(name);
-
-      // outputs show amounts
-      if (index != -1) {
-        if (index == 0) {
-          if (appendMaterial(stack, list)) {
-            FluidTooltipHandler.appendShift(list);
-          }
-        } else {
-          FluidTooltipHandler.appendMaterial(stack, list);
+    public void addMiddleLines(IRecipeSlotView slot, List<Component> list) {
+      slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> {
+        if (appendMaterial(stack, list)) {
+          FluidTooltipHandler.appendShift(list);
         }
-      }
-
-      // fuels show temperature and quality
-      if (index == -1) {
-        MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
-          list.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY));
-          list.add(new TranslatableComponent(KEY_MULTIPLIER, temperature / 1000f).withStyle(ChatFormatting.GRAY));
-        });
-      }
-      list.add(modId);
+      });
     }
   }
 }

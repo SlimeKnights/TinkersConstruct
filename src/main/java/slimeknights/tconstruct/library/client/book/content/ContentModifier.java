@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,10 +65,6 @@ public class ContentModifier extends PageContent {
   public String[] effects;
   public boolean more_text_space = false;
 
-  @SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal"})
-  @SerializedName("required_mod")
-  private String requiredMod = "";
-
   @SerializedName("modifier_id")
   public String modifierID;
 
@@ -81,7 +78,7 @@ public class ContentModifier extends PageContent {
     return this.modifier;
   }
 
-  @Override
+  @Override @Nonnull
   public String getTitle() {
     return this.getModifier().getDisplayName().getString();
   }
@@ -151,15 +148,15 @@ public class ContentModifier extends PageContent {
    */
   public void buildAndAddRecipeDisplay(BookData book, ArrayList<BookElement> list, @Nullable IDisplayModifierRecipe recipe, @Nullable BookScreen parent) {
     if (recipe != null) {
-      List<List<ItemStack>> inputs = recipe.getDisplayItems();
-      ImageData img = IMG_SLOTS[Math.min(inputs.size() - 2, 4)];
-      if (inputs.size() > 6) {
-        TConstruct.LOG.warn("Too many inputs in recipe {}, size {}", recipe, inputs.size() - 2);
+      int inputs = recipe.getInputCount();
+      ImageData img = IMG_SLOTS[Math.min(inputs - 1, 4)];
+      if (inputs > 5) {
+        TConstruct.LOG.warn("Too many inputs in recipe {}, size {}", recipe, inputs);
       }
       int[] slotsX = SLOTS_X;
       int[] slotsY = SLOTS_Y;
 
-      if (inputs.size() == 5) {
+      if (inputs == 4) {
         slotsX = SLOTS_X_4;
         slotsY = SLOTS_Y_4;
       }
@@ -204,12 +201,9 @@ public class ContentModifier extends PageContent {
       this.parts.add(image);
       list.add(image);
 
-      for (int i = 1; i < Math.min(inputs.size(), 6); i++) {
-        TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i - 1], imgY + slotsY[i - 1], 1f, inputs.get(i));
-
-        if (parent != null)
-          part.parent = parent;
-
+      for (int i = 0; i < Math.min(inputs, 5); i++) {
+        TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i], imgY + slotsY[i], 1f, recipe.getDisplayItems(i));
+        if (parent != null) part.parent = parent;
         this.parts.add(part);
         list.add(part);
       }

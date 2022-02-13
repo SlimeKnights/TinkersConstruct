@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.recipe.melting;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.NonNullList;
@@ -37,8 +36,9 @@ public class MeltingRecipe implements IMeltingRecipe {
   private final ResourceLocation id;
   @Getter
   protected final String group;
+  @Getter
   protected final Ingredient input;
-  @Getter(AccessLevel.PROTECTED)
+  @Getter
   protected final FluidStack output;
   @Getter
   protected final int temperature;
@@ -90,11 +90,6 @@ public class MeltingRecipe implements IMeltingRecipe {
     for (FluidStack fluidStack : byproducts) {
       handler.fill(fluidStack.copy(), FluidAction.EXECUTE);
     }
-  }
-
-  /** Gets the recipe output for display in JEI */
-  public List<List<FluidStack>> getDisplayOutput() {
-    return Collections.singletonList(Collections.singletonList(output));
   }
 
   /** Gets the recipe output for display in JEI */

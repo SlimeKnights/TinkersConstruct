@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.entity;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.ingredients.IIngredientRenderer;
@@ -35,13 +36,24 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
   /** Entity types that will not render, as they either errored or are the wrong type */
   private static final Set<EntityType<?>> IGNORED_ENTITIES = new HashSet<>();
 
+  /** Square size of the renderer in pixels */
   private final int size;
 
   /** Cache of entities for each entity type */
   private final Map<EntityType<?>,Entity> ENTITY_MAP = new HashMap<>();
 
   @Override
-  public void render(PoseStack matrixStack, int x, int y, @Nullable EntityType type) {
+  public int getWidth() {
+    return size;
+  }
+
+  @Override
+  public int getHeight() {
+    return size;
+  }
+
+  @Override
+  public void render(PoseStack matrixStack, @Nullable EntityType type) {
     if (type != null) {
       Level world = Minecraft.getInstance().level;
       if (world != null && !IGNORED_ENTITIES.contains(type)) {
@@ -65,7 +77,12 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
           }
           // catch exceptions drawing the entity to be safe, any caught exceptions blacklist the entity
           try {
-            InventoryScreen.renderEntityInInventory(x + size / 2, y + size, scale, 0, 10, livingEntity);
+            PoseStack modelView = RenderSystem.getModelViewStack();
+            modelView.pushPose();
+            modelView.mulPoseMatrix(matrixStack.last().pose());
+            InventoryScreen.renderEntityInInventory(size / 2, size, scale, 0, 10, livingEntity);
+            modelView.popPose();
+            RenderSystem.applyModelViewMatrix();
             return;
           } catch (Exception e) {
             TConstruct.LOG.error("Error drawing entity " + type.getRegistryName(), e);
@@ -82,7 +99,7 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
       // fallback, draw a pink and black "spawn egg"
       RenderUtils.setup(EntityMeltingRecipeCategory.BACKGROUND_LOC);
       int offset = (size - 16) / 2;
-      Screen.blit(matrixStack, x + offset, y + offset, 149f, 58f, 16, 16, 256, 256);
+      Screen.blit(matrixStack, offset, offset, 149f, 58f, 16, 16, 256, 256);
     }
   }
 

@@ -3,13 +3,14 @@ package slimeknights.tconstruct.plugin.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
-import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
-import mezz.jei.api.gui.ingredient.ITooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -19,7 +20,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
@@ -33,10 +33,22 @@ import java.util.List;
 /**
  * Alloy recipe category for JEI display
  */
-public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, ITooltipCallback<FluidStack> {
+public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/alloy.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "alloy.title");
   private static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
+
+  /** Tooltip for fluid inputs */
+  private static final IRecipeTooltipReplacement FLUID_TOOLTIP = (slot, list) ->
+    slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
+
+  /** Tooltip for fuel display */
+  public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) -> {
+    //noinspection SimplifyOptionalCallChains  Not for int streams
+    slot.getDisplayedIngredient(VanillaTypes.FLUID)
+        .ifPresent(stack -> MeltingFuelHandler.getTemperature(stack.getFluid())
+                                              .ifPresent(temperature -> tooltip.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY))));
+  };
 
   @Getter
   private final IDrawable background;
@@ -54,7 +66,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.alloy;
+    return TConstructJEIConstants.ALLOY;
   }
 
   @Override
@@ -68,14 +80,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   }
 
   @Override
-  public void setIngredients(AlloyRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.FLUID, recipe.getDisplayInputs());
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutput());
-  }
-
-  @Override
-  public void draw(AlloyRecipe recipe, PoseStack matrices, double mouseX, double mouseY) {
+  public void draw(AlloyRecipe recipe, IRecipeSlotsView slots, PoseStack matrices, double mouseX, double mouseY) {
     arrow.draw(matrices, 90, 21);
     // temperature info
     Font fontRenderer = Minecraft.getInstance().font;
@@ -86,17 +91,18 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
 
   /**
    * Draws a variable number of fluids
-   * @param fluidGroup   JEI fluid group
+   * @param builder      Builder
+   * @param role         Role of the set of fluids in the recipe
    * @param x            X start
    * @param y            Y start
    * @param totalWidth   Total width
    * @param height       Tank height
    * @param fluids       List of fluids to draw
-   * @param indexOffset  Amount to offset the index by
    * @param minAmount    Minimum tank size
+   * @param tooltip      Tooltip callback
    * @return Max amount based on fluids
    */
-  public static int drawVariableFluids(IGuiFluidStackGroup fluidGroup, int indexOffset, boolean isInput, int x, int y, int totalWidth, int height, List<List<FluidStack>> fluids, int minAmount) {
+  public static int drawVariableFluids(IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y, int totalWidth, int height, List<List<FluidStack>> fluids, int minAmount, IRecipeSlotTooltipCallback tooltip) {
     int count = fluids.size();
     int maxAmount = minAmount;
     if (count > 0) {
@@ -113,49 +119,37 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
       int max = count - 1;
       for (int i = 0; i < max; i++) {
         int fluidX = x + i * w;
-        fluidGroup.init(i + indexOffset, isInput, fluidX, y, w, height, maxAmount, false, null);
+        builder.addSlot(role, fluidX, y)
+               .addTooltipCallback(tooltip)
+               .setFluidRenderer(maxAmount, false, w, height)
+               .addIngredients(VanillaTypes.FLUID, fluids.get(i));
       }
       // for the last, the width is the full remaining width
       int fluidX = x + max * w;
-      fluidGroup.init(max + indexOffset, isInput, fluidX, y, totalWidth - (w * max), height, maxAmount, false, null);
+      builder.addSlot(role, fluidX, y)
+             .addTooltipCallback(tooltip)
+             .setFluidRenderer(maxAmount, false, totalWidth - (w * max), height)
+             .addIngredients(VanillaTypes.FLUID, fluids.get(max));
     }
     return maxAmount;
   }
 
   @Override
-  public void setRecipe(IRecipeLayout layout, AlloyRecipe recipe, IIngredients ingredients) {
+  public void setRecipe(IRecipeLayoutBuilder builder, AlloyRecipe recipe, List<? extends IFocus<?>> focuses) {
     // inputs
-    IGuiFluidStackGroup fluids = layout.getFluidStacks();
-    fluids.addTooltipCallback(this);
-    int maxAmount = drawVariableFluids(fluids, 2, true, 19, 11, 48, 32, recipe.getDisplayInputs(), recipe.getOutput().getAmount());
+    int maxAmount = drawVariableFluids(builder, RecipeIngredientRole.INPUT, 19, 11, 48, 32, recipe.getDisplayInputs(), recipe.getOutput().getAmount(), FLUID_TOOLTIP);
 
     // output
-    fluids.init(0, false, 137, 11, 16, 32, maxAmount, false, null);
-    fluids.set(ingredients);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 137, 11)
+           .addTooltipCallback(FLUID_TOOLTIP)
+           .setFluidRenderer(maxAmount, false, 16, 32)
+           .addIngredient(VanillaTypes.FLUID, recipe.getOutput());
 
-    // show fuels that are valid for this recipe
-    fluids.init(1, true, 94, 43, 16, 16, 1, false, tank);
-    fluids.set(1, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
-  }
-
-  @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<Component> list) {
-    Fluid fluid = stack.getFluid();
-    if (fluid != null) {
-      Component name = list.get(0);
-      Component modId = list.get(list.size() - 1);
-      list.clear();
-      list.add(name);
-
-      // add amount to inputs
-      if (index != 1) {
-        FluidTooltipHandler.appendMaterial(stack, list);
-      } else {
-        // add temperature to fuels
-        MeltingFuelHandler.getTemperature(stack.getFluid())
-                          .ifPresent(temperature -> list.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY)));
-      }
-      list.add(modId);
-    }
+    // fuel
+    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 94, 43)
+           .addTooltipCallback(FUEL_TOOLTIP)
+           .setFluidRenderer(1, false, 16, 16)
+           .setOverlay(tank, 0, 0)
+           .addIngredients(VanillaTypes.FLUID, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
   }
 }

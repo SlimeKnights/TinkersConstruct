@@ -24,13 +24,13 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
   private static final String WRAPPER_KEY = "jei.tconstruct.modifier_ingredient";
 
   @Override
-  public void render(PoseStack matrixStack, int x, int y, @Nullable ModifierEntry entry) {
+  public void render(PoseStack matrixStack, @Nullable ModifierEntry entry) {
     if (entry != null) {
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderTexture(0, ModifierRecipeCategory.BACKGROUND_LOC);
-      Screen.blit(matrixStack, x, y, 224f, 0f, 16, 16, 256, 256);
+      Screen.blit(matrixStack, 0, 0, 224f, 0f, 16, 16, 256, 256);
       RenderUtils.setColorRGBA(0xFF000000 | entry.getModifier().getColor());
-      Screen.blit(matrixStack, x, y, 240f, 0f, 16, 16, 256, 256);
+      Screen.blit(matrixStack, 0, 0, 240f, 0f, 16, 16, 256, 256);
       RenderUtils.setColorRGBA(-1);
     }
   }

@@ -7,7 +7,6 @@ import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -26,7 +25,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.SerializationTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +57,6 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierR
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
-import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -81,6 +78,7 @@ import slimeknights.tconstruct.plugin.jei.partbuilder.MaterialItemList;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientRenderer;
+import slimeknights.tconstruct.plugin.jei.transfer.CraftingStationTransferInfo;
 import slimeknights.tconstruct.plugin.jei.transfer.TinkerStationTransferInfo;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -104,14 +102,9 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-  @SuppressWarnings("rawtypes")
-  public static final IIngredientType<EntityType> ENTITY_TYPE = () -> EntityType.class;
-  public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
-  public static final IIngredientType<Pattern> PATTERN_TYPE = () -> Pattern.class;
-
   @Override
   public ResourceLocation getPluginUid() {
-    return TConstructRecipeCategoryUid.pluginUid;
+    return TConstructJEIConstants.PLUGIN;
   }
 
   @Override
@@ -148,9 +141,9 @@ public class JEIPlugin implements IModPlugin {
                               .collect(Collectors.toList());
     }
 
-    registration.register(ENTITY_TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
-    registration.register(MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
-    registration.register(PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
+    registration.register(TConstructJEIConstants.ENTITY_TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
+    registration.register(TConstructJEIConstants.MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
+    registration.register(TConstructJEIConstants.PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
   }
 
   @Override
@@ -159,32 +152,32 @@ public class JEIPlugin implements IModPlugin {
     RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
     // casting
     List<IDisplayableCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, IDisplayableCastingRecipe.class);
-    register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
+    register.addRecipes(castingBasinRecipes, TConstructJEIConstants.CASTING_BASIN);
     List<IDisplayableCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, IDisplayableCastingRecipe.class);
-    register.addRecipes(castingTableRecipes, TConstructRecipeCategoryUid.castingTable);
+    register.addRecipes(castingTableRecipes, TConstructJEIConstants.CASTING_TABLE);
 
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
-    register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
-    register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.foundry);
+    register.addRecipes(meltingRecipes, TConstructJEIConstants.MELTING);
+    register.addRecipes(meltingRecipes, TConstructJEIConstants.FOUNDRY);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
 
     // entity melting
     List<EntityMeltingRecipe> entityMeltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ENTITY_MELTING, EntityMeltingRecipe.class);
     // generate a "default" recipe for all other entity types
     entityMeltingRecipes.add(new DefaultEntityMeltingRecipe(entityMeltingRecipes));
-    register.addRecipes(entityMeltingRecipes, TConstructRecipeCategoryUid.entityMelting);
+    register.addRecipes(entityMeltingRecipes, TConstructJEIConstants.ENTITY_MELTING);
 
     // alloying
     List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ALLOYING, AlloyRecipe.class);
-    register.addRecipes(alloyRecipes, TConstructRecipeCategoryUid.alloy);
+    register.addRecipes(alloyRecipes, TConstructJEIConstants.ALLOY);
 
     // molding
     List<MoldingRecipe> moldingRecipes = ImmutableList.<MoldingRecipe>builder()
       .addAll(RecipeHelper.getJEIRecipes(manager, RecipeTypes.MOLDING_TABLE, MoldingRecipe.class))
       .addAll(RecipeHelper.getJEIRecipes(manager, RecipeTypes.MOLDING_BASIN, MoldingRecipe.class))
       .build();
-    register.addRecipes(moldingRecipes, TConstructRecipeCategoryUid.molding);
+    register.addRecipes(moldingRecipes, TConstructJEIConstants.MOLDING);
 
     // modifiers
     List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class)
@@ -196,17 +189,17 @@ public class JEIPlugin implements IModPlugin {
                                                                  String n2 = t2 == null ? "zzzzzzzzzz" : t2.getName();
                                                                  return n1.compareTo(n2);
                                                                }).collect(Collectors.toList());
-    register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);
+    register.addRecipes(modifierRecipes, TConstructJEIConstants.MODIFIERS);
 
     // beheading
     List<SeveringRecipe> severingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.SEVERING, SeveringRecipe.class);
-    register.addRecipes(severingRecipes, TConstructRecipeCategoryUid.severing);
+    register.addRecipes(severingRecipes, TConstructJEIConstants.SEVERING);
 
     // part builder
     List<MaterialRecipe> materialRecipes = RecipeHelper.getRecipes(manager, RecipeTypes.MATERIAL, MaterialRecipe.class);
     MaterialItemList.setRecipes(materialRecipes);
     List<IDisplayPartBuilderRecipe> partRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.PART_BUILDER, IDisplayPartBuilderRecipe.class);
-    register.addRecipes(partRecipes, TConstructRecipeCategoryUid.partBuilder);
+    register.addRecipes(partRecipes, TConstructJEIConstants.PART_BUILDER);
   }
 
   /**
@@ -221,34 +214,34 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(stack, ownCategory);
     assert Minecraft.getInstance().level != null;
     if (!Minecraft.getInstance().level.getRecipeManager().byType(type).isEmpty()) {
-      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.molding);
+      registry.addRecipeCatalyst(stack, TConstructJEIConstants.MOLDING);
     }
   }
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
     // tables
-    registry.addRecipeCatalyst(new ItemStack(TinkerTables.partBuilder), TConstructRecipeCategoryUid.partBuilder);
-    registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
-    registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
-    registry.addRecipeCatalyst(new ItemStack(TinkerTables.scorchedAnvil), TConstructRecipeCategoryUid.modifiers);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.partBuilder), TConstructJEIConstants.PART_BUILDER);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructJEIConstants.MODIFIERS);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructJEIConstants.MODIFIERS);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.scorchedAnvil), TConstructJEIConstants.MODIFIERS);
 
     // smeltery
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructJEIConstants.MELTING);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
-    addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
-    addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
+    addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructJEIConstants.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructJEIConstants.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructJEIConstants.MELTING, TConstructJEIConstants.ALLOY, TConstructJEIConstants.ENTITY_MELTING);
 
     // foundry
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.scorchedAlloyer), TConstructRecipeCategoryUid.alloy);
-    addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
-    addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructRecipeCategoryUid.foundry);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.scorchedAlloyer), TConstructJEIConstants.ALLOY);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructJEIConstants.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructJEIConstants.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructJEIConstants.FOUNDRY);
 
     // modifiers
     for (Item item : TinkerTags.Items.MELEE.getValues()) {
-      registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructRecipeCategoryUid.severing);
+      registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructJEIConstants.SEVERING);
     }
   }
 
@@ -396,16 +389,6 @@ public class JEIPlugin implements IModPlugin {
           }
         }
         return builder.toString();
-      }
-      return NONE;
-    }
-  }
-
-  public static class RetexturedSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
-    @Override
-    public String apply(ItemStack itemStack, UidContext context) {
-      if (context == UidContext.Ingredient) {
-        return RetexturedBlockItem.getTextureName(itemStack);
       }
       return NONE;
     }

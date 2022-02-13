@@ -5,14 +5,14 @@ import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.plugin.jei.JEIPlugin;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 
 import javax.annotation.Nullable;
 
 public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry> {
   @Override
   public IIngredientType<ModifierEntry> getIngredientType() {
-    return JEIPlugin.MODIFIER_TYPE;
+    return TConstructJEIConstants.MODIFIER_TYPE;
   }
 
   @Nullable
@@ -36,16 +36,24 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
     return entry.getModifier().getId().toString();
   }
 
+  @SuppressWarnings("removal")
+  @Deprecated
   @Override
   public String getModId(ModifierEntry entry) {
     return entry.getModifier().getId().getNamespace();
   }
 
+  @SuppressWarnings("removal")
+  @Deprecated
   @Override
   public String getResourceId(ModifierEntry entry) {
     return entry.getModifier().getId().getPath();
   }
 
+  @Override
+  public ResourceLocation getResourceLocation(ModifierEntry entry) {
+    return entry.getModifier().getId();
+  }
   @Override
   public ModifierEntry copyIngredient(ModifierEntry entry) {
     return entry;

@@ -27,11 +27,18 @@ import java.util.stream.Stream;
 
 /** Common interface for modifier recipes that can show in JEI */
 public interface IDisplayModifierRecipe extends IModifierRecipe {
+  /** Gets the number of inputs for this recipe */
+  int getInputCount();
+
   /**
-   * Gets a list of ingredients to display in JEI. First entry is the tool without the modifier, then next 1-5 are items to add the modifier
+   * Gets an ingredients to display in JEI.
+   * @param  slot  Slot index to display
    * @return  Display item list
    */
-  List<List<ItemStack>> getDisplayItems();
+  List<ItemStack> getDisplayItems(int slot);
+
+  /** Gets the result tool before adding the modifier */
+  List<ItemStack> getToolWithoutModifier();
 
   /** Gets the result tool with this modifier added */
   List<ItemStack> getToolWithModifier();

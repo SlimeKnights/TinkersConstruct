@@ -261,6 +261,7 @@ def modsTomlSpec = copySpec{
             'minecraft_range': minecraft_range,
             'forge_range': forge_range,
             'mantle_range': mantle_range,
+            'jei_range': jei_range,
             'crt_range': crt_range
     }
 }

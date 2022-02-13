@@ -29,7 +29,6 @@ import slimeknights.tconstruct.library.utils.JsonUtils;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /** Shared logic between modifier and incremental modifier recipes */
@@ -131,23 +130,12 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     return displayResult;
   }
 
-  /**
-   * Add extra ingredients for display in JEI
-   * @param builder  Ingredient list builder
-   */
-  protected abstract void addIngredients(Consumer<List<ItemStack>> builder);
-
   @Override
-  public List<List<ItemStack>> getDisplayItems() {
+  public List<ItemStack> getToolWithoutModifier() {
     if (displayInputs == null) {
       displayInputs = getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList());
     }
-    // if empty requirement, assume any modifiable
-    ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-    // inputs
-    builder.add(displayInputs);
-    addIngredients(builder::add);
-    return builder.build();
+    return displayInputs;
   }
 
   @Override
