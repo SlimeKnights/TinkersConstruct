@@ -93,7 +93,7 @@ public class FaucetBlock extends Block implements EntityBlock {
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> type) {
-    return BlockEntityHelper.castTicker(type, TinkerSmeltery.faucet.get(), FaucetBlockEntity.SERVER_TICKER);
+    return BlockEntityHelper.serverTicker(pLevel, type, TinkerSmeltery.faucet.get(), FaucetBlockEntity.SERVER_TICKER);
   }
 
   @SuppressWarnings("deprecation")
