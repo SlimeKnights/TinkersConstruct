@@ -13,13 +13,22 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   @Override
   protected void addMaterialRenderInfo() {
     // tier 1
-    buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick", "primitive");
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
     buildRenderInfo(MaterialIds.leather).color(0xC65C35);
     buildRenderInfo(MaterialIds.vine).color(0x48B518).fallbacks("vine");
+    // tier 1 - wood
+    buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick", "primitive");
+    buildRenderInfo(MaterialIds.oak);
+    buildRenderInfo(MaterialIds.spruce);
+    buildRenderInfo(MaterialIds.birch);
+    buildRenderInfo(MaterialIds.jungle);
+    buildRenderInfo(MaterialIds.darkOak);
+    buildRenderInfo(MaterialIds.acacia);
+    buildRenderInfo(MaterialIds.crimson);
+    buildRenderInfo(MaterialIds.warped);
     // tier 1 - stone
     buildRenderInfo(MaterialIds.rock).materialTexture(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
     buildRenderInfo(MaterialIds.stone).color(0xB1AFAD);
