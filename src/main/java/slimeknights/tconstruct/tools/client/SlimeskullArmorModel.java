@@ -11,6 +11,7 @@ import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
@@ -52,6 +53,8 @@ public class SlimeskullArmorModel extends Model {
   /** Texture for the head */
   @Nullable
   private SkullModelBase headModel;
+  /** If true, applies the enchantment glint to extra layers */
+  private boolean hasGlint = false;
 
   private SlimeskullArmorModel() {
     super(RenderType::entityCutoutNoCull);
@@ -67,7 +70,7 @@ public class SlimeskullArmorModel extends Model {
       matrixStackIn.popPose();
 
       if (headModel != null && headTexture != null && ArmorModelHelper.buffer != null) {
-        VertexConsumer headBuilder = ArmorModelHelper.buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(headTexture));
+        VertexConsumer headBuilder = ItemRenderer.getArmorFoilBuffer(ArmorModelHelper.buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
         boolean needsPush = base.young || base.crouching;
         if (needsPush) {
           matrixStackIn.pushPose();
@@ -91,6 +94,7 @@ public class SlimeskullArmorModel extends Model {
   /** Called before the model is rendered to set the base model and the tool stack data */
   private void setup(HumanoidModel<?> base, ItemStack stack) {
     this.base = base;
+    this.hasGlint = stack.hasFoil();
     MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0).getId();
     if (!materialId.equals(IMaterial.UNKNOWN_ID)) {
       SkullModelBase model = getHeadModel(materialId);

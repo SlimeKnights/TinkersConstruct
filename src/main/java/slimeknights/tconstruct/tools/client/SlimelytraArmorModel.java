@@ -8,6 +8,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -54,6 +55,8 @@ public class SlimelytraArmorModel extends Model {
   private HumanoidModel<?> base;
   /** Material name for rendering */
   private String material = MaterialIds.enderslime.toString();
+  /** If true, applies the enchantment glint to extra layers */
+  private boolean hasGlint = false;
 
   public SlimelytraArmorModel() {
     super(RenderType::entityCutoutNoCull);
@@ -73,7 +76,7 @@ public class SlimelytraArmorModel extends Model {
       if (ArmorModelHelper.buffer != null) {
         matrixStackIn.pushPose();
         matrixStackIn.translate(0.0D, 0.0D, 0.125D);
-        VertexConsumer elytraBuffer = ArmorModelHelper.buffer.getBuffer(WING_RENDER_CACHE.computeIfAbsent(material, WING_GETTER));
+        VertexConsumer elytraBuffer = ItemRenderer.getArmorFoilBuffer(ArmorModelHelper.buffer, WING_RENDER_CACHE.computeIfAbsent(material, WING_GETTER), false, hasGlint);
         getElytraModel().renderToBuffer(matrixStackIn, elytraBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         matrixStackIn.popPose();
       }
@@ -87,5 +90,6 @@ public class SlimelytraArmorModel extends Model {
     elytraModel.setupAnim(living, 0, 0, 0, 0, 0);
     ArmorModelHelper.copyProperties(base, elytraModel);
     material = SlimesuitItem.getMaterial(stack);
+    hasGlint = stack.hasFoil();
   }
 }

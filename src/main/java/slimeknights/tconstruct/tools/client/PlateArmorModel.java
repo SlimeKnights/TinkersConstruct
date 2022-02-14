@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -61,6 +62,8 @@ public class PlateArmorModel extends Model {
   private HumanoidModel<?> base;
   private String material = "";
   private boolean isLegs = false;
+  /** If true, applies the enchantment glint to extra layers */
+  private boolean hasGlint = false;
   public PlateArmorModel() {
     super(RenderType::entityCutoutNoCull);
   }
@@ -70,7 +73,7 @@ public class PlateArmorModel extends Model {
     if (this.base != null) {
       base.renderToBuffer(matrices, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       if (!material.isEmpty() && ArmorModelHelper.buffer != null) {
-        VertexConsumer overlayBuffer = ArmorModelHelper.buffer.getBuffer(isLegs ? LEG_RENDER_CACHE.computeIfAbsent(material, LEG_GETTER) : ARMOR_RENDER_CACHE.computeIfAbsent(material, ARMOR_GETTER));
+        VertexConsumer overlayBuffer = ItemRenderer.getArmorFoilBuffer(ArmorModelHelper.buffer, isLegs ? LEG_RENDER_CACHE.computeIfAbsent(material, LEG_GETTER) : ARMOR_RENDER_CACHE.computeIfAbsent(material, ARMOR_GETTER), false, hasGlint);
         base.renderToBuffer(matrices, overlayBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       }
     }
@@ -84,5 +87,6 @@ public class PlateArmorModel extends Model {
       material = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
     }
     isLegs = slot == EquipmentSlot.LEGS;
+    hasGlint = stack.hasFoil();
   }
 }
