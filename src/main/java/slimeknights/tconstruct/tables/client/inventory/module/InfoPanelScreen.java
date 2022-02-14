@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Setter;
 import net.minecraft.ChatFormatting;
@@ -381,7 +380,7 @@ public class InfoPanelScreen extends ModuleScreen {
     //RenderSystem.scalef(1f / textScale, 1f / textScale, 1.0f);
 
     //RenderSystem.setShaderTexture(0, BACKGROUND_IMAGE);
-    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+    RenderUtils.setup(BACKGROUND_IMAGE);
     this.slider.update(mouseX, mouseY);
     this.slider.draw(matrices);
   }
