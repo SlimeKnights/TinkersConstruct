@@ -406,7 +406,7 @@ public final class TinkerWorld extends TinkerModule {
         BlockStateProvider.simple(Blocks.OBSIDIAN), BlockStateProvider.simple(Blocks.END_STONE),
         new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.45, 1.0D, 2), UniformInt.of(4, 10), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 10000));
       Registry.register(BuiltinRegistries.PLACED_FEATURE, TConstruct.getResource("ender_geode"), enderGeode.placeGeode(
-        RarityFilter.onAverageOnceEvery(196), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(16), VerticalAnchor.aboveBottom(64))));
+        RarityFilter.onAverageOnceEvery(256), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(16), VerticalAnchor.aboveBottom(64))));
     });
   }
 
