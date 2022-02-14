@@ -25,6 +25,9 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, Tiers.WOOD, 1f);
   // tooltip descriptions
   private static final List<Component> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.HARVEST_TIER.getDescription(), ToolStats.MINING_SPEED.getDescription(), ToolStats.ATTACK_DAMAGE.getDescription());
+  // default tier for invalid datapacks, prevents a hard to read crash
+  private static final ResourceLocation WOOD_TIER = new ResourceLocation("wood");
+
 
   @Getter
   private final int durability;
@@ -61,7 +64,9 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   public Tier getTier() {
     if (this.tier == null) {
       // fetch by name, fallback to the first tier
-      this.tier = TierSortingRegistry.byName(harvestTier);
+      if (this.harvestTier != null) {
+        this.tier = TierSortingRegistry.byName(harvestTier);
+      }
       if (this.tier == null) {
         TConstruct.LOG.error("Failed to find tool tier by name " + harvestTier);
         this.tier = DEFAULT.getTier();
@@ -74,7 +79,12 @@ public class HeadMaterialStats extends BaseMaterialStats implements IRepairableM
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.durability);
     buffer.writeFloat(this.miningSpeed);
-    buffer.writeResourceLocation(this.harvestTier);
+    if (this.harvestTier == null) {
+      TConstruct.LOG.error("Unset harvest tier for head stats");
+      buffer.writeResourceLocation(WOOD_TIER);
+    } else {
+      buffer.writeResourceLocation(this.harvestTier);
+    }
     buffer.writeFloat(this.attack);
   }
 
