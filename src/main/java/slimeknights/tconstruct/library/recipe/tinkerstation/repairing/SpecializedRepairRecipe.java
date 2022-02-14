@@ -56,7 +56,7 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
       }
 
       // ensure we have a material
-      if (repairMaterial.matches(TinkerStationRepairRecipe.getMaterialFrom(inv, i))) {
+      if (!repairMaterial.matches(TinkerStationRepairRecipe.getMaterialFrom(inv, i))) {
         return false;
       }
       found = true;
