@@ -6,6 +6,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -30,6 +31,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE;
@@ -335,8 +337,27 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // slime
     tagBlocks(MINEABLE_WITH_SHOVEL, TinkerWorld.congealedSlime, TinkerWorld.slimeDirt, TinkerWorld.vanillaSlimeGrass, TinkerWorld.earthSlimeGrass, TinkerWorld.skySlimeGrass, TinkerWorld.enderSlimeGrass, TinkerWorld.ichorSlimeGrass);
+    // harvest tiers on shovel blocks
+    TinkerWorld.slimeDirt.forEach((type, block) -> this.tag((Tag.Named<Block>)Objects.requireNonNull(type.getHarvestTier().getTag())).add(block));
+    for (SlimeType dirt : SlimeType.values()) {
+      for (SlimeType grass : SlimeType.values()) {
+        Tiers dirtTier = dirt.getHarvestTier();
+        Tiers grassTier = grass.getHarvestTier();
+        // cannot use tier sorting registry as its not init during datagen, stuck comparing levels and falling back to ordinal for gold
+        Tiers tier;
+        if (dirtTier.getLevel() == grassTier.getLevel()) {
+          tier = dirtTier.ordinal() > grassTier.ordinal() ? dirtTier : grassTier;
+        } else {
+          tier = dirtTier.getLevel() > grassTier.getLevel() ? dirtTier : grassTier;
+        }
+        this.tag((Tag.Named<Block>)Objects.requireNonNull(tier.getTag())).add(TinkerWorld.slimeGrass.get(dirt).get(grass));
+      }
+    }
+
     tagBlocks(MINEABLE_WITH_HOE, TinkerWorld.slimeLeaves);
-    tagLogs(MINEABLE_WITH_AXE, NEEDS_GOLD_TOOL, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom);
+    tagLogs(MINEABLE_WITH_AXE, NEEDS_GOLD_TOOL, TinkerWorld.skyroot);
+    tagLogs(MINEABLE_WITH_AXE, NEEDS_STONE_TOOL, TinkerWorld.greenheart);
+    tagLogs(MINEABLE_WITH_AXE, NEEDS_IRON_TOOL, TinkerWorld.bloodshroom);
     tagPlanks(MINEABLE_WITH_SHOVEL, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom);
     tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.skySlimeVine, TinkerWorld.enderSlimeVine);
     tagBlocks(MINEABLE_WITH_PICKAXE, TinkerWorld.earthGeode, TinkerWorld.skyGeode, TinkerWorld.ichorGeode, TinkerWorld.enderGeode);
