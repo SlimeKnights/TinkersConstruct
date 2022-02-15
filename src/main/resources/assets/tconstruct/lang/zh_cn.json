@@ -39,7 +39,7 @@
   "block.tconstruct.nahuatl_fence": "纳瓦特尔栅栏",
 
   "block.tconstruct.clear_glass": "透明玻璃",
-  "block.tconstruct.clear_glass_pane": "清除玻璃窗格",
+  "block.tconstruct.clear_glass_pane": "透明玻璃窗格",
   "block.tconstruct.clear_tinted_glass": "透明有色玻璃",
 
   "block.tconstruct.obsidian_pane": "黑曜石窗格",
@@ -55,7 +55,7 @@
   "block.tconstruct.oxidized_copper_platform": "氧化铜台",
 
   "block.tconstruct.waxed_copper_platform": "蜡铜台",
-  "block.tconstruct.waxed_exposed_copper_platform": "涂蜡裸铜台",
+  "block.tconstruct.waxed_exposed_copper_platform": "蜡质裸铜台",
   "block.tconstruct.waxed_weathered_copper_platform": "蜡质风化铜台",
   "block.tconstruct.waxed_oxidized_copper_platform": "蜡质氧化铜台",
 
@@ -78,7 +78,7 @@
 
   "block.tconstruct.white_clear_stained_glass_pane": "透明白色彩色玻璃板",
   "block.tconstruct.orange_clear_stained_glass_pane": "透明橙色染色玻璃板",
-  "block.tconstruct.magenta_clear_stained_glass_pane": "清除洋红色彩色玻璃板",
+  "block.tconstruct.magenta_clear_stained_glass_pane": "透明洋红色彩色玻璃板",
   "block.tconstruct.light_blue_clear_stained_glass_pane": "透明浅蓝色染色玻璃板",
   "block.tconstruct.yellow_clear_stained_glass_pane": "透明黄色染色玻璃板",
   "block.tconstruct.lime_clear_stained_glass_pane": "透明浅绿色染色玻璃板",
@@ -162,7 +162,7 @@
 
   "__comment": "Tier 5 Metals",
 
-  "block.tconstruct.knightslime_block": "骑士史莱姆",
+  "block.tconstruct.knightslime_block": "骑士史莱姆块",
   "item.tconstruct.knightslime_ingot": "骑士史莱姆锭",
   "item.tconstruct.knightslime_ingot.tooltip": "像金属又像石头？太迷人了！",
   "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
@@ -2521,7 +2521,7 @@
 
   "_comment": "Smeltery Advancements",
   "advancements.tconstruct.smeltery.puny_smelting.title": "冶炼新兵",
-  "advancements.tconstruct.smeltery.puny_smelting.description": "制作小冶炼指南",
+  "advancements.tconstruct.smeltery.puny_smelting.description": "制作初级冶炼指南",
   "advancements.tconstruct.smeltery.melter.title": "基本熔炼",
   "advancements.tconstruct.smeltery.melter.description": "使用熔炉、加热器或罐、浇注盆、浇注台和水龙头进行基本熔化设置",
   "advancements.tconstruct.smeltery.sand_casting.title": "沙铸",
