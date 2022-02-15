@@ -1,18 +1,56 @@
 {
-  "type": "tconstruct:incremental_modifier",
-  "input": {
-    "item": "tconstruct:ichor_slime_ball"
-  },
-  "amount_per_item": 1,
-  "needed_per_level": 72,
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/chestplate"
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "result": {
-    "name": "tconstruct:strength",
-    "level": 1
-  }
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "prop": "ichor_geodes",
+          "type": "tconstruct:config"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:incremental_modifier",
+        "input": {
+          "item": "tconstruct:ichor_slime_crystal"
+        },
+        "amount_per_item": 1,
+        "needed_per_level": 72,
+        "tools": {
+          "tag": "tconstruct:modifiable/armor/chestplate"
+        },
+        "slots": {
+          "abilities": 1
+        },
+        "result": {
+          "name": "tconstruct:strength",
+          "level": 1
+        }
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:incremental_modifier",
+        "input": {
+          "item": "tconstruct:ichor_slime_dirt"
+        },
+        "amount_per_item": 1,
+        "needed_per_level": 36,
+        "tools": {
+          "tag": "tconstruct:modifiable/armor/chestplate"
+        },
+        "slots": {
+          "abilities": 1
+        },
+        "result": {
+          "name": "tconstruct:strength",
+          "level": 1
+        }
+      }
+    }
+  ]
 }

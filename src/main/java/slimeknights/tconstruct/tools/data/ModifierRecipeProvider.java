@@ -20,7 +20,9 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.mantle.recipe.data.FluidNameIngredient;
@@ -805,12 +807,32 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.unarmed, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.unarmed, abilityFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.strength.get())
-                                    .setTools(TinkerTags.Items.CHESTPLATES)
-                                    .setInputSalvage(TinkerCommons.slimeball.get(SlimeType.ICHOR), 1, 72, false)
-                                    .setSlots(SlotType.ABILITY, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.strength, abilitySalvage))
-                                    .save(consumer, prefix(TinkerModifiers.strength, abilityFolder));
+    // if ichor geodes are disabled (sadface), use ichor dirt instead for the recipe
+    // if you are disabling both, you have a ton of recipes to fix anyways
+    IncrementalModifierRecipeBuilder geodeBuilder =
+        IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.strength.get())
+                                      .setTools(TinkerTags.Items.CHESTPLATES)
+                                      .setInputSalvage(TinkerWorld.ichorGeode.asItem(), 1, 72, false)
+                                      .setSlots(SlotType.ABILITY, 1);
+    IncrementalModifierRecipeBuilder noGeodeBuilder =
+      IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.strength.get())
+                                      .setTools(TinkerTags.Items.CHESTPLATES)
+                                      .setInputSalvage(TinkerWorld.slimeDirt.get(SlimeType.ICHOR), 1, 36, false)
+                                      .setSlots(SlotType.ABILITY, 1);
+    ConditionalRecipe.builder()
+                     .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
+                     .addRecipe(geodeBuilder::save)
+                     .addCondition(TrueCondition.INSTANCE)
+                     .addRecipe(noGeodeBuilder::save)
+                     .build(consumer, prefix(TinkerModifiers.strength, abilityFolder));
+    // salvage needs to be a second recipe
+    ConditionalRecipe.builder()
+                     .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
+                     .addRecipe(c -> geodeBuilder.saveSalvage(c, TinkerModifiers.strength.getId()))
+                     .addCondition(TrueCondition.INSTANCE)
+                     .addRecipe(c -> noGeodeBuilder.saveSalvage(c, TinkerModifiers.strength.getId()))
+                     .build(consumer, prefix(TinkerModifiers.strength, abilitySalvage));
+
     // leggings
     ModifierRecipeBuilder.modifier(TinkerModifiers.pockets.get())
                          .setTools(TinkerTags.Items.LEGGINGS)

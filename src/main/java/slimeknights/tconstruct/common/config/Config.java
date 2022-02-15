@@ -242,7 +242,7 @@ public class Config {
           .comment("If true, skyslime geodes generate above amethyst as another way to get skyslime")
           .define("sky", true);
         this.ichorGeodes = builder
-          .comment("If true, ichor geodes generate high in the nether")
+          .comment("If true, ichor geodes generate high in the nether. Strongly encouraged to keep enabled even if you disable the other geodes, as ichor crystals have some unique recipes and the fallbacks kinda suck for gameplay.")
           .define("ichor", true);
         this.enderGeodes = builder
           .comment("If true, enderslime geodes generate as additional islands in the end")

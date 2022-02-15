@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:greenheart_log",
-    "tconstruct:greenheart_wood",
+    "tconstruct:sky_slime_dirt",
+    "tconstruct:sky_sky_slime_grass",
+    "tconstruct:blood_sky_slime_grass",
+    "tconstruct:sky_vanilla_slime_grass",
     "tconstruct:skyroot_log",
     "tconstruct:skyroot_wood",
-    "tconstruct:bloodshroom_log",
-    "tconstruct:bloodshroom_wood",
     "tconstruct:seared_stone",
     "tconstruct:seared_stone_slab",
     "tconstruct:seared_stone_stairs",

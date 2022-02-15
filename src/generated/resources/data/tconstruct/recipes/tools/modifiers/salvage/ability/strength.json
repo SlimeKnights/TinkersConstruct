@@ -1,15 +1,50 @@
 {
-  "type": "tconstruct:incremental_modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/chestplate"
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "modifier": "tconstruct:strength",
-  "min_level": 1,
-  "salvage": {
-    "item": "tconstruct:ichor_slime_ball",
-    "full": false
-  }
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "prop": "ichor_geodes",
+          "type": "tconstruct:config"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:incremental_modifier_salvage",
+        "tools": {
+          "tag": "tconstruct:modifiable/armor/chestplate"
+        },
+        "slots": {
+          "abilities": 1
+        },
+        "modifier": "tconstruct:strength",
+        "min_level": 1,
+        "salvage": {
+          "item": "tconstruct:ichor_slime_crystal",
+          "full": false
+        }
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:incremental_modifier_salvage",
+        "tools": {
+          "tag": "tconstruct:modifiable/armor/chestplate"
+        },
+        "slots": {
+          "abilities": 1
+        },
+        "modifier": "tconstruct:strength",
+        "min_level": 1,
+        "salvage": {
+          "item": "tconstruct:ichor_slime_dirt",
+          "full": false
+        }
+      }
+    }
+  ]
 }

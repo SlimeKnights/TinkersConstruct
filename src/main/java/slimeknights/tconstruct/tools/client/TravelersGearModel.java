@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +35,8 @@ public class TravelersGearModel extends Model {
   private HumanoidModel<?> base;
   private int color = -1;
   private boolean isLegs = false;
+  /** If true, applies the enchantment glint to extra layers */
+  private boolean hasGlint = false;
   public TravelersGearModel() {
     super(RenderType::entityCutoutNoCull);
   }
@@ -46,7 +49,7 @@ public class TravelersGearModel extends Model {
         float newRed = (float)(color >> 16 & 255) / 255.0F;
         float newGreen = (float)(color >> 8 & 255) / 255.0F;
         float newBlue = (float)(color & 255) / 255.0F;
-        VertexConsumer overlayBuffer = ArmorModelHelper.buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(isLegs ? OVERLAY_LEGS : OVERLAY_ARMOR));
+        VertexConsumer overlayBuffer = ItemRenderer.getArmorFoilBuffer(ArmorModelHelper.buffer, RenderType.entityCutoutNoCullZOffset(isLegs ? OVERLAY_LEGS : OVERLAY_ARMOR), false, hasGlint);
         base.renderToBuffer(matrices, overlayBuffer, packedLightIn, packedOverlayIn, red * newRed, green * newGreen, blue * newBlue, alpha);
       }
     }
@@ -56,5 +59,6 @@ public class TravelersGearModel extends Model {
     this.base = base;
     color = ModifierUtil.getPersistentInt(stack, TinkerModifiers.dyed.getId(), -1);
     isLegs = slot == EquipmentSlot.LEGS;
+    hasGlint = stack.hasFoil();
   }
 }

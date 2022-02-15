@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +13,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -22,6 +25,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -45,17 +50,36 @@ import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldEvents {
+  /** Checks if the biome matches the given categories */
+  private static boolean matches(@Nullable ResourceKey<Biome> key, BiomeCategory given, @Nullable BiomeCategory check, Type type) {
+    if (key == null) {
+      // check of null means not none, the nether/end checks were done earlier
+      if (check == null) {
+        return given != BiomeCategory.NONE;
+      }
+      return given == check;
+    }
+    // we have a key, require matching all the given types
+    return BiomeDictionary.hasType(key, type);
+  }
+
   @SubscribeEvent
   static void onBiomeLoad(BiomeLoadingEvent event) {
     BiomeGenerationSettingsBuilder generation = event.getGeneration();
 
+    // setup for biome checks
     BiomeCategory category = event.getCategory();
-    if (category == BiomeCategory.NETHER) {
+    ResourceLocation name = event.getName();
+    ResourceKey<Biome> key = name == null ? null : ResourceKey.create(Registry.BIOME_REGISTRY, name);
+
+    // nether - any biome is fine
+    if (matches(key, category, BiomeCategory.NETHER, Type.NETHER)) {
       if (Config.COMMON.generateCobalt.get()) {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
@@ -65,16 +89,17 @@ public class WorldEvents {
         generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.ichorGeode.getPlacedGeode());
       }
     }
-    else if (category == BiomeCategory.THEEND) {
+    // end, mostly do stuff in the outer islands
+    else if (matches(key, category, BiomeCategory.THEEND, Type.END)) {
       // slime spawns anywhere, uses the grass
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
-      ResourceLocation name = event.getName();
       // geodes only on outer islands
-      if (Config.COMMON.enderGeodes.get() && !Biomes.THE_END.location().equals(name) && !Biomes.THE_VOID.location().equals(name)) {
+      if (Config.COMMON.enderGeodes.get() && key != null && !Biomes.THE_END.equals(key) && !Biomes.THE_VOID.equals(key)) {
         generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.enderGeode.getPlacedGeode());
       }
     }
-    else {
+    // overworld gets tricky
+    else if(matches(key, category, null, Type.OVERWORLD)) {
       // slime spawns anywhere, uses the grass
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4));
       event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4));
@@ -83,8 +108,17 @@ public class WorldEvents {
       if (Config.COMMON.earthGeodes.get()) {
         generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.earthGeode.getPlacedGeode());
       }
-      if (Config.COMMON.skyGeodes.get() && category != BiomeCategory.OCEAN && category != BiomeCategory.RIVER && category != BiomeCategory.SWAMP) {
-        generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.skyGeode.getPlacedGeode());
+      // sky spawn in non-oceans, they look funny in the ocean as they spawn so high
+      if (Config.COMMON.skyGeodes.get()) {
+        boolean add;
+        if (key == null) {
+          add = category != BiomeCategory.OCEAN && category != BiomeCategory.BEACH && category != BiomeCategory.RIVER;
+        } else {
+          add = !BiomeDictionary.hasType(key, Type.WATER) && !BiomeDictionary.hasType(key, Type.BEACH);
+        }
+        if (add) {
+          generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.skyGeode.getPlacedGeode());
+        }
       }
     }
   }
