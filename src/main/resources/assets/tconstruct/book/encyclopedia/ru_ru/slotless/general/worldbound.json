@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:worldbound",
   "text": [
     {
-      "text": "Alternative to netherite that makes tools invulnerable when dropped without requiring an upgrade slot. Does not grant any stat boosts"
+      "text": "Альтернатива незериту, которая делает инструменты неуязвимыми при выпадении, не требуя слота для улучшения. Не даёт никаких прибавок к характеристикам."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Single use",
-    "Slotless"
+    "Одноразовый",
+    "Бесслотовый"
   ]
 }
