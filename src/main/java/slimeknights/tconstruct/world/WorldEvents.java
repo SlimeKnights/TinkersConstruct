@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.world;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,13 +16,20 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
@@ -33,6 +43,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Mod;
@@ -52,6 +63,7 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.HashMap;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -225,7 +237,58 @@ public class WorldEvents {
 
   @SubscribeEvent
   static void serverStarting(ServerAboutToStartEvent event) {
-    TinkerStructures.addStructures();
+    TinkerStructures.addDefaultStructureBiomes();
+  }
+
+  /** Logic to add a value to the settings, enforcing the map is mutable */
+  private static void tryPut(StructureSettings settings, StructureFeature<?> feature, @Nullable StructureFeatureConfiguration configuration) {
+    try {
+      // following code is intentionally performing slightly redundant checks as I figure a few extra hashmap lookups is cheaper than an exception
+      if (configuration == null) {
+        settings.structureConfig.remove(feature);
+      } else {
+        settings.structureConfig.putIfAbsent(feature, configuration);
+      }
+    } catch (UnsupportedOperationException ex) {
+      settings.structureConfig = new HashMap<>(settings.structureConfig);
+      if (configuration == null) {
+        settings.structureConfig.remove(feature);
+      } else {
+        settings.structureConfig.putIfAbsent(feature, configuration);
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onWorldLoad(WorldEvent.Load event) {
+    if (event.getWorld() instanceof ServerLevel server) {
+      ChunkGenerator generator = server.getChunkSource().getGenerator();
+
+      // Skip superflat worlds to prevent issues with it. Plus, users don't want structures clogging up their superflat worlds.
+      if (server.dimension().equals(Level.OVERWORLD) && generator instanceof FlatLevelSource) {
+        return;
+      }
+      StructureSettings settings = generator.getSettings();
+
+      // always add structure biomes if needed, datapacks have no control over this
+      // assuming if they have one island, they have them all
+      if (!settings.configuredStructures.containsKey(TinkerStructures.skySlimeIsland.get())) {
+        ImmutableMap.Builder<StructureFeature<?>,ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>>> builder = ImmutableMap.builder();
+        builder.putAll(settings.configuredStructures);
+        builder.put(TinkerStructures.clayIsland.get(), TinkerStructures.getClayIslandBiomes());
+        builder.put(TinkerStructures.skySlimeIsland.get(), TinkerStructures.getSkyIslandBiomes());
+        builder.put(TinkerStructures.earthSlimeIsland.get(), TinkerStructures.getEarthIslandBiomes());
+        builder.put(TinkerStructures.bloodIsland.get(), TinkerStructures.getBloodIslandBiomes());
+        builder.put(TinkerStructures.endSlimeIsland.get(), TinkerStructures.getEnderIslandBIomes());
+        settings.configuredStructures = builder.build();
+      }
+
+      // only add placement if the config tells us to force it, there is no easy way to detect that the datapack did not want it, so let the datapack disable this part
+
+      if (Config.COMMON.forceSlimeIslands.get()) {
+        TinkerStructures.addStructureConfiguration((feature, configuration) -> tryPut(settings, feature, configuration));
+      }
+    }
   }
 
 

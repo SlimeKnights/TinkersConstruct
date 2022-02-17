@@ -54,6 +54,7 @@ public class Config {
     public final ConfigValue<Integer> veinCountCobalt;
 
     // overworld
+    public final BooleanValue forceSlimeIslands;
     public final SlimeIslandConfiguration earthslimeIslands;
     public final SlimeIslandConfiguration skyslimeIslands;
     public final SlimeIslandConfiguration clayIslands;
@@ -214,6 +215,13 @@ public class Config {
           .define("veinCountCobalt", 8);
 
         builder.comment("Options related to slime islands").push("slime_islands");
+
+        forceSlimeIslands = builder
+          .comment("If true, slime islands are forced into the world, ignoring datapacks decisions. Disable if you are making a custom datapack and want full control over island placement.",
+                   "Defaults to true because users like to pretend datapacks are mods and thus should work automatically with mods.",
+                   "Normally I would default this sort of thing to false, but with how datapacks are set up, mod support in a datapack is not practical. Honestly should just be a mod at that point, but...")
+          .define("forceAddToWorld", true);
+
         builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
         this.earthslimeIslands = new SlimeIslandConfiguration(builder, 35, 0.75, 25988585);
         builder.pop();
