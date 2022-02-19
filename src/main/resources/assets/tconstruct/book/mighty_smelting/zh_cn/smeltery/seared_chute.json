@@ -1,0 +1,10 @@
+{
+  "title": "焦黑物品通道",
+  "item": "tconstruct:seared_chute",
+  "text": [
+    {
+      "text": "焦黑物品通道是您将输出物品输入和输出冶炼厂的方式。最好放置在料斗容易到达的地方。",
+      "paragraph": true
+    }
+	]
+}

@@ -1,0 +1,17 @@
+{
+  "title": "自动化",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "浇注盆和台与料斗相互作用，可以轻松插入物品并取出冷却物品。"
+    },
+    {
+      "text": "当连接到盆或桌子时，比较器还会使红石变成有趣的颜色，并且可以使用红石脉冲来交换输入和输出。",
+      "paragraph": true
+    }
+  ]
+}

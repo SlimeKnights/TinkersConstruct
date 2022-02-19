@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "双持的决斗更加光荣。"
+    }
+  ],
+  "effects": [
+    "允许您双持使用您的工具",
+    "需要双手工具",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

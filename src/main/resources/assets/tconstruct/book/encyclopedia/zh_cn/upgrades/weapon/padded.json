@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "每级将所有对该工具的击退降低50%。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多3级",
+    "每级需要一个升级槽"
+  ]
+}

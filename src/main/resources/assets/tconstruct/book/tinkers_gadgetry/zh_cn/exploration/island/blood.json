@@ -1,0 +1,13 @@
+{
+  "title": "血岛",
+  "image": {
+	"file": "tconstruct:book/images/islands/blood.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "这些血红色的岛屿偶尔会出现在下界的熔岩海洋中。它们的岩浆块浓度往往高于下界的其他部分，并且还包括一种奇怪的真菌变体，似乎是脓液的来源。"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    { "text": "手斧是一种精确的砍砍工具，对木头、植物和树叶都很有效。" },
+    { "text": "扩展增加斧头的圆形半径。", "paragraph": true }
+  ],
+  "properties": [
+    "+6攻击伤害",
+    "0.9攻击速度",
+    "剥皮"
+  ]
+}

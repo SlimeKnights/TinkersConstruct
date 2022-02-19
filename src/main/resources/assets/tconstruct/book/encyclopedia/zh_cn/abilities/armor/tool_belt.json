@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "允许交换前4个物品栏来使用护腿互动。第二级允许交换多达8个物品栏。应用口袋链以得到所有9个物品栏。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要一个技能槽",
+    "最高等级为2"
+  ]
+}

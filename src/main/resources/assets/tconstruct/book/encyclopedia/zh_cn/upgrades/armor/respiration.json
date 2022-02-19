@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "在 1、2 、 3 级时，空气分别减少到 50%、33% 或 25%。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多3级",
+    "每级需要一个升级槽"
+  ]
+}

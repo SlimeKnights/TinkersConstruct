@@ -1,0 +1,14 @@
+{
+  "title": "工具装配站",
+  "image": {
+    "file": "tconstruct:book/images/tinkerstation.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "先放在这，再放在这。卧槽放反了，一直修修补补",
+      "paragraph": true
+    }
+	]
+}

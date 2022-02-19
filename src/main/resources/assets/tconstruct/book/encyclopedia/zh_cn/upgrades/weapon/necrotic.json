@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "有一定几率在击中时治疗一定百分比的伤害，每级治疗量在0%到5%之间。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多5级",
+    "每级需要一个升级槽"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "焦黑储罐",
+  "item": {
+    "tag": "tconstruct:seared_tanks"
+  },
+  "text": [
+    {
+      "text": "储罐非常适合储存熔化的液体或燃料。如果您想在冶炼厂中熔化金属，您将需要一个！如果您想储存东西以备后用，也可以从冶炼厂倒入储罐。",
+      "paragraph": true
+    },
+    {
+      "text": "储罐不能用于冶炼厂的地板。",
+      "paragraph": true
+    }
+  ]
+}

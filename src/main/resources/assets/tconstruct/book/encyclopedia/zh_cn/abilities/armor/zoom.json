@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "允许使用潜行加头盔热键缩放视野"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1技能槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:autosmelt",
+  "text": [
+    {
+      "text": "自动熔炼采矿掉落的物品，就像在熔炉中一样。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

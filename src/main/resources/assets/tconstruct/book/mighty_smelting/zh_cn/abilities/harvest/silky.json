@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "一个舒适的修饰符"
+    }
+  ],
+  "effects": [
+    "开采的方块会自行掉落",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

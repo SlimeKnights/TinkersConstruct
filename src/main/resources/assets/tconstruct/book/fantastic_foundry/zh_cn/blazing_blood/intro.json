@@ -1,0 +1,14 @@
+{
+  "title": "炽热之血",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "所以工匠，你在尝试制造更好的合金，却发现熔岩太弱了？为什么不将生命之火的精髓液化来激发你的欲望呢？",
+      "paragraph": true
+    }
+  ]
+}

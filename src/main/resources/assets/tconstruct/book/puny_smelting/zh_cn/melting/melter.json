@@ -1,0 +1,11 @@
+{
+  "title": "熔炉",
+  "image": {
+    "file": "tconstruct:book/images/melter.png"
+  },
+  "text": [
+    {
+      "text": "这是您最基本的熔炉，能够执行各种简单的任务。"
+    }
+  ]
+}

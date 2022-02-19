@@ -1,0 +1,36 @@
+{
+  "modifier_id": "tconstruct:bucketing",
+  "text": [
+    {
+      "text": "§o这是一个桶r"
+    },
+	{
+      "text": "\n"
+    },
+	{
+      "text": "§l我爱的神啊§r",
+	  "pargraph": true
+    },
+	{
+      "text": "\n"
+    },
+	 {
+      "text": "§o这还有更多§r",
+	  "pargraph": true
+    },
+	{
+      "text": "\n"
+    },
+	 {
+      "text": "§l不要啊§r",
+	  "pargraph": true
+    }
+	
+  ],
+  "effects": [
+    "你的工具现在是个桶了",
+	  "可以用储罐升级增加储罐大小",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

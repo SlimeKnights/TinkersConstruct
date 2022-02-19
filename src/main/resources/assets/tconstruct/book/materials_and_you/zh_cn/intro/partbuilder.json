@@ -1,0 +1,14 @@
+{
+  "title": "部件制作站",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "制作零件：只需拿着一个空白模板，将其放入模板槽中。选择您想要制作的工具零件，插入可以用手塑造的柔软材料，然后拿着您的零件。",
+      "paragraph": true
+    }
+	]
+}

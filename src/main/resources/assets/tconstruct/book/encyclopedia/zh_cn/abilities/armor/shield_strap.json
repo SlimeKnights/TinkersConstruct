@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "每级+1副手插槽，允许交换副手物品与护腿互动。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要1个技能槽"
+  ]
+}

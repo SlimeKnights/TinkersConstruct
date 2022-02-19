@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "用副手持有的方块替换开采出来的方块。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "所以首先你想把他们的头拿下来，现在你想把他们放回去？你是谁？科学怪人？"
+    }
+  ],
+  "effects": [
+    "+1升级槽",
+    "一次性的"
+  ]
+}

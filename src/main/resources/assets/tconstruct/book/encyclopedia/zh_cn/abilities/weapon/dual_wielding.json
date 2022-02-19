@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "允许工具主副手同时使用。一起使用有80%的攻击速度和伤害，单独使用有90%的攻击速度和70%的伤害。"
+    },
+    {
+      "text": "为了获得双重挥舞，两个手握的工具必须能被副手接受。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

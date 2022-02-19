@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:swiftstrike",
+  "text": [
+    {
+      "text": "每级提供+5%攻击速度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以渐进的等级",
+    "最多5级",
+    "每级需要一个升级槽"
+  ]
+}

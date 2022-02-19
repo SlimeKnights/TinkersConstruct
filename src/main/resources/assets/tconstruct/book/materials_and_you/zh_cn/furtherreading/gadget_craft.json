@@ -1,0 +1,8 @@
+{
+  "title": "制作匠魂的小工具",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "粘液在日常生活中的用途。阅读梅尔文关于如何在世界上寻找修补材料的指南。" }
+  ]
+}

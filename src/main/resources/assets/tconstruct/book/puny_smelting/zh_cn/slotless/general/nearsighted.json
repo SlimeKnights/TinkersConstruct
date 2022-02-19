@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "您最终需要从石头工具继续前进"
+    }
+  ],
+  "effects": [
+    "增加手持工具或磨损盔甲的视野",
+    "可重复应用",
+    "无需槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "下界合金的替代品，使工具在掉落时无敌，无需升级槽。无任何属性提升"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "一次性的",
+    "无槽"
+  ]
+}

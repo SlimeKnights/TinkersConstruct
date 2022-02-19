@@ -1,0 +1,13 @@
+{
+  "title": "天空史莱姆岛",
+  "image": {
+    "file": "tconstruct:book/images/islands/skyslime.png",
+    "width": 180,
+    "height": 91
+  },
+  "text": [
+    {
+      "text": "天空史莱姆岛可以在漂浮在地形上方的主世界周围找到，其中包含对天空史莱姆繁殖至关重要的草。传说天空史莱姆是来自另一个领域的入侵者，尽管它们大多局限于岛屿附近的地区。"
+    }
+  ]
+}

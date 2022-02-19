@@ -1,0 +1,10 @@
+{
+  "title": "焦赫物品通道",
+  "item": "tconstruct:scorched_chute",
+  "text": [
+    {
+      "text": "焦赫物品通道是您输入输出物品进出铸造厂的方式。最好放置在料斗容易到达的地方。",
+      "paragraph": true
+    }
+	]
+}

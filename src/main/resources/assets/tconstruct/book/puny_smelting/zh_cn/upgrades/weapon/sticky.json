@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "嗯，黏糊糊的."
+    }
+  ],
+  "more_text_space": false,
+  "effects": [
+    "命中时减速",
+    "多个级别，每个级别都会增加减速机会",
+    "每级需要1升级槽"
+  ]
+}

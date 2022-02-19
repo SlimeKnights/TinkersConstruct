@@ -1,0 +1,16 @@
+{
+  "title": "焦赫储罐",
+  "item": {
+    "tag": "tconstruct:scorched_tanks"
+  },
+  "text": [
+     {
+      "text": "储罐非常适合储存熔化的液体或燃料。如果你想在你的铸造厂熔化金属，你需要一个！如果您想储存东西以备后用，也可以从铸造厂倒入。",
+      "paragraph": true
+    },
+    {
+      "text": "储罐不能用于铸造厂的地板。",
+      "paragraph": true
+    }
+  ]
+}

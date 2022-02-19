@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "允许您在空中跳跃第二次。更高的级别增加了额外的跳跃，允许三段跳或甚至是四段跳。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要一个技能槽"
+  ]
+}

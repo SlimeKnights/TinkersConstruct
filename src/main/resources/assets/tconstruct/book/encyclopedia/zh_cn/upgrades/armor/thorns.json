@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "每级有15%的几率对攻击者造成1到4点伤害。多件将叠加效果。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多3级",
+    "每级需要一个升级槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "将青铜打火石的影响范围增加1。相当于1级扩展，但只需要一个升级槽。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要一个升级槽"
+  ]
+}

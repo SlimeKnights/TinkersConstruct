@@ -1,0 +1,11 @@
+{
+  "title": "铸模",
+  "image": {
+    "file": "tconstruct:book/images/sandcast.png"
+  },
+  "text": [
+    {
+      "text": "好吧，修补匠，你已经熔化了一些金属并想出了如何移动它。现在剩下的就是把它变成一些工具零件！"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "每级有25%的几率对攻击者施加最多1.5 秒加上每级1秒）的减速效果。从具有最大扩展的物品中应用效果。"
+    },
+    {
+      "text": "在武器上时适用于被攻击的目标。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多3级",
+    "每级需要一个升级槽"
+  ]
+}

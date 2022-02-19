@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "它不会保护你的膝盖免受箭的伤害，迫使你放弃冒险并成为一名守卫。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "减少弹丸造成的伤害",
+    "可以逐步应用级别",
+    "需要1个防御槽"
+  ]
+}

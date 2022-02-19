@@ -1,0 +1,5 @@
+{
+  "title": "制作部件制作站",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small"
+}

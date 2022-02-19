@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "阿巴阿巴阿巴阿巴"
+    },
+    {
+      "text": "工匠，你不会读龙舌？胡说八道他们这些天教的什么。也就是说，会飞的龙是致命的并且受到保护。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "空中时增加保护和攻击伤害",
+    "多个级别，每个级别进一步增加保护和伤害",
+    "需要1个防御槽"
+  ]
+}

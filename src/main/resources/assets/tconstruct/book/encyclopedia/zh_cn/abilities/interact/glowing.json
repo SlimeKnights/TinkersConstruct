@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "使目标块的侧面发光。一次会消耗10个耐久度，这会绕过了其他减少耐久度损失的修正器。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "熔炉界面",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "基本的熔炉界面！"
+    }
+	]
+}

@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "砍刀是一种高伤害、缓慢挥动的武器。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "砍掉他们的头！",
+	  "paragraph": true
+    }
+  ],
+  "properties": [
+    "强力武器",
+    "缓慢摆动",
+    "斩首 II"
+  ]
+}

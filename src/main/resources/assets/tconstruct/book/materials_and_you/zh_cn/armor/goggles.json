@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { "text": "护目镜适合国王、旅鼠或国王旅鼠。" },
+	{
+      "text": "一副好的护目镜可以提供更安全的冒险、更轻松的视线和国王的气质。", "paragraph": true
+    }
+  ],
+  "properties": [
+   "低护甲",
+	 "低耐久",
+    "3升级槽",
+    "2防御槽",
+    "1技能槽"
+  ]
+}

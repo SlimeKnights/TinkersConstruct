@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "增加玩家的最大可及距离，可以挖掘或放置方块，每级增加1格。在胸甲上时增加你手持工具的可及范围。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "没有最高等级",
+    "需要1个技能槽"
+  ]
+}

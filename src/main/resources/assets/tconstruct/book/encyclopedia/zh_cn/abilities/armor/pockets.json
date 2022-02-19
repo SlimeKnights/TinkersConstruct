@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "授予额外的9个插槽，可以通过潜行并按下护腿互动键或手持你的护腿。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要1个技能槽"
+  ]
+}

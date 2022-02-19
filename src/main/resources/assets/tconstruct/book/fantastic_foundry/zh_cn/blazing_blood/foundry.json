@@ -1,0 +1,14 @@
+{
+  "title": "铸造厂",
+  "image": {
+    "file": "tconstruct:book/images/blaze_smeltery.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "一个真正的修补匠大师只会让铸造厂打着火。添加燃料，它就会在这些傻瓜意识到发生了什么之前就将其吸收。我想你也可以用那种劣质的冶炼设备来做到这一点，但谁愿意这样做。",
+      "paragraph": true
+    }
+  ]
+}

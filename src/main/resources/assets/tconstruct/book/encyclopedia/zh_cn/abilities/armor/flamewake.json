@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "点燃你走过的地方，通过扩展可以增加范围。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高等级为1",
+    "需要1个技能槽"
+  ]
+}

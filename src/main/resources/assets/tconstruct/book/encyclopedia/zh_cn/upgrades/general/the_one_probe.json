@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "显示有关目标块的信息，就像一个探测器一样。"
+    },
+    {
+      "text": "必须佩戴头盔以获取信息，或双手握住工具。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要一个升级槽"
+  ]
+}

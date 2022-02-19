@@ -1,0 +1,12 @@
+{
+  "title": "合金技术",
+  "image": {
+    "file": "tconstruct:book/images/alloyer.png"
+  },
+  "text": [
+    {
+      "text": "合金先行！",
+      "paragraph": true
+    }
+	]
+}

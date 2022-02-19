@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "将1个技能槽换成2个升级槽"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "没有等级",
+    "需要1个技能槽"
+  ]
+}

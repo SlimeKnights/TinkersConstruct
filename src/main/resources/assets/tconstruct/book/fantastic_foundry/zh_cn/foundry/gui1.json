@@ -1,0 +1,14 @@
+{
+  "title": "铸造厂界面",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "您的基本铸造厂界面，不多不少",
+      "paragraph": true
+    }
+	]
+}

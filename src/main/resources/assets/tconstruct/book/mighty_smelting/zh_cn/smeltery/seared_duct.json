@@ -1,0 +1,14 @@
+{
+  "title": "焦黑排液道",
+  "item": "tconstruct:seared_duct",
+  "text": [
+    {
+      "text": "焦黑排液道是您将特定流体从冶炼厂中拉出的方式。通过将装满液体的铜罐或桶放入管道的过滤槽中来选择流体。",
+      "paragraph": true
+    },
+	{
+      "text": "您选择过滤的流体将显示在管道的中间。",
+      "paragraph": true
+    }
+	]
+}

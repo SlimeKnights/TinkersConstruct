@@ -1,0 +1,11 @@
+{
+  "title": "勘探",
+  "subText": "许多工匠提到了可用于修饰符或工具材料的资源，但忽略了告诉您如何获取它们 幸运的是，在我的旅行中，我找到了很多，所以我可以将我的发现传递给你。",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "Resources" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "Islands" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "Geodes" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "允许工具创建路径标记，类似于鹤嘴锄或铲。工具将在他们的正常使用时创建路径标记。"
+    },
+    {
+      "text": "如果存在，则在工具的剥离或耕耘之前触发。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

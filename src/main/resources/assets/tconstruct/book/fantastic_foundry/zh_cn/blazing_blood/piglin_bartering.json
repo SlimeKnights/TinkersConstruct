@@ -1,0 +1,14 @@
+{
+  "title": "等价交换",
+  "image": {
+    "file": "tconstruct:book/images/bartering.png",
+    "width": 128,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "什么，你是非暴力类型？嗯，我见过一些提着灯笼的猪灵，灯笼里装满了炽热的液体，它们认为是用来照明的。他们可能会为此付出代价。",
+      "paragraph": true
+    }
+  ]
+}

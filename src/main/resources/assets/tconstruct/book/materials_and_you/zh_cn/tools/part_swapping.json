@@ -1,0 +1,14 @@
+{
+  "title": "部件替换",
+  "image": {
+    "file": "tconstruct:book/images/part_swapping.png",
+    "width": 136,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "你希望能弥补过去的错误吗?幸运的是，你可以使用工具。如果你想改变其中一个零件的材料，将工具与所需的新零件放在修补工位。对于有多个相同零件的工具，尝试几个不同的槽来替换正确的那个。",
+      "paragraph": false
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "燧石手里剑",
+  "item": "tconstruct:flint_shuriken",
+  "text": [
+    {
+      "text": "将燧石磨成星形，是一种非常有效的射弹武器。虽然它远不如弓，但它仍然可以产生相当不错的击退和伤害，这可以帮助你逃离怪物。",
+      "paragraph": true
+    }
+  ]
+}

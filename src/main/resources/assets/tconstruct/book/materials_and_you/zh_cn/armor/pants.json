@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { "text": "媳妇，我裤子哪儿去了？" },
+	{
+      "text": "不穿裤子出去闯天下可不是什么好主意，不如带一条裤子保暖，助你旅行！", "paragraph": true
+    }
+  ],
+  "properties": [
+    "低护甲",
+	  "低耐久",
+    "3升级槽",
+    "2防御槽",
+    "1技能槽"
+  ]
+}

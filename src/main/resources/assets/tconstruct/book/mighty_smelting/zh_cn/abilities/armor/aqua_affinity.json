@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "与水区的迷人协调，可打消所有空气的烦恼。"
+    }
+  ],
+  "effects": [
+    "提高水下采矿速度",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

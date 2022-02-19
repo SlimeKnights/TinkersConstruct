@@ -1,0 +1,14 @@
+{
+  "title": "焦黑玻璃",
+  "item": "tconstruct:seared_glass",
+  "text": [
+    {
+      "text": "用这种玻璃可以在不使冶炼厂失效的情况下查看您对熔融材料的强大奇迹。请注意，它不像储罐那样储存液体。",
+      "paragraph": true
+    },
+	{
+      "text": "玻璃不能用于冶炼厂的地板。",
+      "paragraph": true
+    }
+  ]
+}

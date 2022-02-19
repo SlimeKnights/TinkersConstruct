@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "他是第一！"
+    },
+    {
+      "text": "右键单击带储罐的头盔会填满它", "paragraph": true
+    }
+  ],
+  "effects": [
+    "饮用储存在头盔中的液体",
+	  "快捷键是用来喝酒的",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

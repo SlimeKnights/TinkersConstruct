@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "每级有5%的几率（加上每级额外的5%运气）让怪物掉落其头部或其他身体部位。对付boss等稀有怪物，几率翻倍。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多5级",
+    "每级需要一个升级槽"
+  ]
+}

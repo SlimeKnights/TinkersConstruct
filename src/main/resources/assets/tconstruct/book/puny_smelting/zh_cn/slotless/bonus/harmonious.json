@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "音乐对灵魂和你的工具都有好处。也许你的工具有灵魂？"
+    }
+  ],
+  "effects": [
+    "+1升级槽",
+    "一次性的"
+  ]
+}

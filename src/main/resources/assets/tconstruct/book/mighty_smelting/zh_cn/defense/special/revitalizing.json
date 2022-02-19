@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "宝石苹果，多么复古。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐步应用级别",
+    "头盔或靴子上最多2个级别",
+    "胸甲或护腿上最多3级",
+    "需要1个防御槽"
+  ]
+}

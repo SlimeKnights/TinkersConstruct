@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "在灵魂沙上获得+40.5%的速度，每增加一个等级，额外增加10.5%。减少在灵魂沙上行走的减少的速度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多3级",
+    "每级需要一个升级槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "允许工具右键时点火，消耗一点耐久"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

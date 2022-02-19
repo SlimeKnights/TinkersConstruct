@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "永恒的钻石！"
+    }
+  ],
+  "effects": [
+    "增加耐久度、采矿速度和攻击伤害",
+    "只有一级",
+    "需要一个升级槽"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    { "text": "粘液胸甲是最新的飞行技术。" },
+    { "text": "通过在鞘翅上倾倒末影黏液而产生，这些翅膀也可以用幻翼膜修复。", "paragraph": true }
+  ],
+  "properties": [
+    "672 耐久值",
+    "5 升级槽",
+    "0 防御槽",
+    "1 技能槽",
+    "滑翔"
+  ]
+}

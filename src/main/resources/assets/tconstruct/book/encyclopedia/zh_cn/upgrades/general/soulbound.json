@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "使该工具在死亡和重生时保留在您的库存中。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要一个升级槽"
+  ]
+}

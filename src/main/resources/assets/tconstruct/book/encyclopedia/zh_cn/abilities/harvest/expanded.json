@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "增加工具的作用范围。具体效果将在工具页面中进行描述。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "没有最高等级",
+    "每级需要1个技能槽"
+  ]
+}

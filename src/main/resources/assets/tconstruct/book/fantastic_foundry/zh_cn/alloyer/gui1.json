@@ -1,0 +1,14 @@
+{
+  "title": "合金界面",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "你的基本合金界面，不多也不少",
+      "paragraph": true
+    }
+	]
+}

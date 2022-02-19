@@ -1,0 +1,12 @@
+{
+  "title": "焦赫方块",
+  "item": {
+    "tag": "tconstruct:scorched_blocks"
+  },
+  "text": [
+    {
+      "text": "这些块可用于铸造厂的任何部分，如地板或墙壁。它们也可用于装饰您的底座。",
+      "paragraph": true
+    }
+  ]
+}

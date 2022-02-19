@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "每级提供1击退，这会将让人弹出大约2个方块。大多数工具开始为0.4击退。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多5级",
+    "每级需要一个升级槽"
+  ]
+}

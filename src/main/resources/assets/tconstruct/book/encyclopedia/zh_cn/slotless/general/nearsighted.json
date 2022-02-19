@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "每升一级增加视野5%，当穿着这个装甲或拿着这个工具。"
+    },
+    {
+      "text": "这个修饰符是理想的状态是取消沉重工具的视野改变，但你可以找到它的其他用途。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "通用的",
+    "无槽"
+  ]
+}

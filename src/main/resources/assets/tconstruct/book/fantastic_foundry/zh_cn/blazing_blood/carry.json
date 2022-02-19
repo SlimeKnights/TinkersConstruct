@@ -1,0 +1,14 @@
+{
+  "title": "大佬带带我",
+  "image": {
+    "file": "tconstruct:book/images/carry_blaze.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "\"但是Nemea，我怎样才能让冶炼厂着火呢？\"。如果你是那个书呆子梅尔文，我可能会建议\"喝耐火，然后使用背负式的背包或粘液弹弓。\"如果你想被烧成脆皮，那就完美了。",
+      "paragraph": true
+    }
+  ]
+}

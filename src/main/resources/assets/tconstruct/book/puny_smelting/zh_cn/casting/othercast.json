@@ -1,0 +1,17 @@
+{
+  "title": "复合铸造",
+  "image": {
+    "file": "tconstruct:book/images/compositecast.png",
+    "width": 177,
+    "height": 50
+  },
+  "text": [
+    {
+      "text": "复合铸造允许您通过将流体倒在铸造台/盆中的物品/块上来制造新材料。"
+    },
+    {
+      "text": "值得注意的材料是史莱姆木和纳瓦特尔，它们分别通过将史莱姆或熔融黑曜石浇注在木制工具部件上制成。",
+      "paragraph": true
+    }
+  ]
+}

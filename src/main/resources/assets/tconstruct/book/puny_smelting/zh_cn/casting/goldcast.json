@@ -1,0 +1,13 @@
+{
+  "title": "金铸模",
+  "image": {
+    "file": "tconstruct:book/images/gold_pick.png",
+    "width": 170,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "金铸模可重复使用。要制作一个，只需将一锭价值的熔融金倒在放置在铸造台上的工具部件上。工具部分在此过程中会消耗。"
+    }
+  ]
+}

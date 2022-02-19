@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { "text": "别忘了把标签塞进去，不要带着它到处走。" },
+	{
+      "text": "胸甲，对保护您的重要胸部器官很重要。这样做的时候看起来很好。", "paragraph": true
+    }
+  ],
+  "properties": [
+    "低护甲",
+    "低耐久",
+    "3升级槽",
+    "2防御槽",
+    "1技能槽"
+  ]
+}

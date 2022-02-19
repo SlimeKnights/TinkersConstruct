@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:flint_and_bronze",
+  "text": [
+    { "text": "青铜打火石是一种手持工具，火的来源。" },
+    { "text": "扩大增加火的半径，这是进一步增加火源。", "paragraph": true }
+  ],
+  "properties": [
+    "+0 攻击伤害",
+    "1.0 攻击速度",
+    "100 耐久修正",
+    "炽热 I",
+    "打火石"
+  ]
+}

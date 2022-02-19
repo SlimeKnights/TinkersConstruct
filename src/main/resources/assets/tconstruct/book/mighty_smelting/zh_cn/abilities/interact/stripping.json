@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "等等，不是那种脱衣舞吗？ 哎呀。"
+    }
+  ],
+  "effects": [
+    "让你工具脱掉木头的衣服",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

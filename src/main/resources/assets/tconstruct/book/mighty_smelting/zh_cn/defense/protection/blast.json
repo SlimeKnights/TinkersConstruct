@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blast_protection",
+  "text": [
+    {
+      "text": "爬行者，你是个大娘们"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "减少爆炸伤害和击退",
+    "多级，每一级进一步增加抵抗力",
+    "需要1个防御槽"
+  ]
+}

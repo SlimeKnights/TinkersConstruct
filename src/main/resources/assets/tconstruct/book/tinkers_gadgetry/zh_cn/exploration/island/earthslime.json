@@ -1,0 +1,13 @@
+{
+  "title": "大地史莱姆岛",
+  "image": {
+	"file": "tconstruct:book/images/islands/earthslime.png",
+    "width": 180,
+    "height": 84
+  },
+  "text": [
+    {
+      "text": "大地史莱姆岛有时出现在主世界的海洋中，看起来不像它们的天空史莱姆表亲那么陌生。它们不是找到常见的绿色粘液变种的唯一方法，尽管粘土草使它们出现得更常见。"
+    }
+  ]
+}

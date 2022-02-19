@@ -1,0 +1,14 @@
+{
+  "title": "修复",
+  "image": {
+    "file": "tconstruct:book/images/repair.png",
+    "width": 87,
+    "height": 56
+  },
+  "text": [
+    {
+      "text": "修理你的工具是一件很重要的事情，除非你想让它坏掉。在装配台或匠魂铁砧上放置头部/板的工具和材料，然后进行修复。或者，你可以使用修复包，在制造台制作!",
+      "paragraph": true
+    }
+	]
+}

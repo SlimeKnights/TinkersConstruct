@@ -1,0 +1,14 @@
+{
+  "title": "焦赫玻璃",
+  "item": "tconstruct:scorched_glass",
+  "text": [
+    {
+      "text": "用这种玻璃可以在不破坏您奇妙的铸造厂的情况下查看您的熔融材料的强大奇迹。请注意，它不像储罐那样储存液体。",
+      "paragraph": true
+    },
+	{
+      "text": "玻璃不能用于铸造厂的地板。",
+      "paragraph": true
+    }
+  ]
+}

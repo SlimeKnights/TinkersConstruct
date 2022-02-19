@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "允许工具剥离木材，类似于手斧或宽斧。工具将使用他们的正常使用时剥离木材。"
+    },
+    {
+      "text": "如果存在，则在工具的原生耕耘或路径标记之前触发。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要1个技能槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "灵液史莱姆晶洞",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "灵液史莱姆晶洞是稀有橙色粘液的最佳来源之一。它们出现在下界的高海拔地区，而且水晶似乎也在发光。"
+    }
+  ]
+}

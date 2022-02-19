@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "允许在水下全速采矿，而不是只有20％的速度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高等级为1",
+    "需要1个技能槽"
+  ]
+}

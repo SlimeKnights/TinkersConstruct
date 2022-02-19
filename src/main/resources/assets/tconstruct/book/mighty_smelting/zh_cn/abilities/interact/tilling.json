@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "不要在锄头上浪费钻石。"
+    }
+  ],
+  "effects": [
+    "让你用你的工具耕地",
+    "只有一级",
+    "需要一个技能槽"
+  ]
+}

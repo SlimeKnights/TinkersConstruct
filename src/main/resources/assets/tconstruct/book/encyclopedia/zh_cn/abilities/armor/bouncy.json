@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "让您在跌落时反弹,给予坠落伤害90%的上升速度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最多1级",
+    "需要一个技能槽"
+  ]
+}

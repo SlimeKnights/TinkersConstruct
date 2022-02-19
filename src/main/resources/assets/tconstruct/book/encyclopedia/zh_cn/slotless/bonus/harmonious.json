@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "授予+1升级槽。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "一次性的",
+    "无槽"
+  ]
+}

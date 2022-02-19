@@ -1,0 +1,13 @@
+{
+  "title": "大地史莱姆晶洞",
+  "image": {
+	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "大地史莱姆晶洞位于地下深处，可能是我见过的一些最大的洞。您通常可以通过花岗岩的存在来识别它们，并且它们还含有大量的粘土。"
+    }
+  ]
+}

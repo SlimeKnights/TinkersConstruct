@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "比羽毛还轻，但致命性却是其两倍多。"
+    }
+  ],
+  "effects": [
+    "减少坠落伤害",
+	  "多个级别，每个级别进一步降低跌落伤害",
+	  "每级需要1升级槽"
+  ]
+}

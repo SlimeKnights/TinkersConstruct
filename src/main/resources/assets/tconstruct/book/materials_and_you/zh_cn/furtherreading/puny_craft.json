@@ -1,0 +1,8 @@
+{
+  "title": "小型冶炼",
+  "recipe": "tconstruct:common/puny_smelting",
+  "grid_size": "small",
+  "description": [
+    { "text": "适合初学者的冶炼和铸造指南。阅读Thruul关于冶炼厂的系列文章中的第一篇。" }
+  ]
+}

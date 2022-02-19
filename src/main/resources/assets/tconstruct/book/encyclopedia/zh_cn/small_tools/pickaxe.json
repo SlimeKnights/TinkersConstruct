@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    { "text": "鹤嘴锄是一种精密的采矿工具，对石头、金属和矿石有效。" },
+    { "text": "扩展器交替增加深度和高度。", "paragraph": true }
+  ],
+  "properties": [
+    "+0 攻击伤害",
+    "1.2 攻击速度",
+    "穿刺 I"
+  ]
+}
