@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.StructureSettings;
@@ -47,10 +48,13 @@ import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Contains any logic relevant to structure generation, including trees and islands
@@ -125,34 +129,64 @@ public final class TinkerStructures extends TinkerModule {
    * Structure Biomes
    */
 
-  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getClayIslandBiomes() {
-    return multimapOf(configuredClayIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.FOREST)).toList());
+  /** Gets all biomes that are not registered with the biome dictionary and matches the given predicate */
+  private static Stream<ResourceKey<Biome>> getBiomes(Registry<Biome> biomeRegistry, Predicate<BiomeCategory> categoryPredicate) {
+    return biomeRegistry.entrySet().stream().filter(biome -> !BiomeDictionary.hasAnyType(biome.getKey()) && categoryPredicate.test(biome.getValue().getBiomeCategory())).map(Entry::getKey);
   }
 
-  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getSkyIslandBiomes() {
-    return multimapOf(configuredSkySlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD));
+  /** Clay island biomes - overworld but not forest or underground */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getClayIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> !BiomeDictionary.hasType(biome, Type.FOREST) && !BiomeDictionary.hasType(biome, Type.UNDERGROUND) && !BiomeDictionary.hasType(biome, Type.JUNGLE));
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category != BiomeCategory.NETHER && category != BiomeCategory.THEEND && category != BiomeCategory.NONE && category != BiomeCategory.UNDERGROUND && category != BiomeCategory.FOREST && category != BiomeCategory.JUNGLE));
+    }
+    return multimapOf(configuredClayIsland, biomes.toList());
   }
 
-  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getEarthIslandBiomes() {
-    return multimapOf(configuredEarthSlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.OCEAN)).toList());
+  /** Sky island biomes - overworld but not underground */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getSkyIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> !BiomeDictionary.hasType(biome, Type.UNDERGROUND));
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category != BiomeCategory.NETHER && category != BiomeCategory.THEEND && category != BiomeCategory.NONE && category != BiomeCategory.UNDERGROUND));
+    }
+    return multimapOf(configuredSkySlimeIsland, biomes.toList());
   }
 
-  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getBloodIslandBiomes() {
-    return multimapOf(configuredBloodIsland, BiomeDictionary.getBiomes(Type.NETHER));
+  /** Earth island biomes - overworld ocean */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getEarthIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.OCEAN));
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category == BiomeCategory.OCEAN));
+    }
+    return multimapOf(configuredEarthSlimeIsland, biomes.toList());
   }
 
-  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getEnderIslandBIomes() {
-    return multimapOf(configuredEndSlimeIsland, BiomeDictionary.getBiomes(Type.END).stream().filter(key -> key != Biomes.THE_END).toList());
+  /** Blood island biomes - simply nether */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getBloodIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Collection<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.NETHER);
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes.stream(), getBiomes(biomeRegistry, category -> category == BiomeCategory.NETHER)).toList();
+    }
+    return multimapOf(configuredBloodIsland, biomes);
+  }
+
+  /** End island biomes - end but no the end biome */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getEnderIslandBIomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.END).stream();
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category == BiomeCategory.THEEND));
+    }
+    return multimapOf(configuredEndSlimeIsland, biomes.filter(key -> !key.equals(Biomes.THE_END)).toList());
   }
 
   /** Adds the settings to all default dimension settings */
   static void addDefaultStructureBiomes() {
     // floating islands skips earth
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = getClayIslandBiomes();
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = getSkyIslandBiomes();
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> earthIslandMap = getEarthIslandBiomes();
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> bloodIslandMap = getBloodIslandBiomes();
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> endIslandMap = getEnderIslandBIomes();
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = getClayIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = getSkyIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> earthIslandMap = getEarthIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> bloodIslandMap = getBloodIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> endIslandMap = getEnderIslandBIomes(null);
 
     // simply add to all dimensions, if the island does not belong it won't add the biome
     for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
