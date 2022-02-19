@@ -380,9 +380,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 //        xSize += guiLeft - chestLeft;
         guiLeft = chestLeft;
 
-        if (logic.doubleChest != null)
-            this.ySize = 187;
-
         border.setPosition(chestLeft, chestTop);
         border.setSize(chestWidth, chestHeight + (shouldDrawName() ? textBackground.h : 0) + 2 * border.h);
 
@@ -397,17 +394,31 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
     @Override
     protected void mouseClicked(int x, int y, int button) {
         // Hacks
+        final int height = ySize; 
+
+        if (logic.chest != null && x >= guiLeft && x <= guiLeft + chestWidth) {
+            ySize = border.height;
+        }
+
         xSize += chestWidth;
         super.mouseClicked(x, y, button);
         xSize -= chestWidth;
+        ySize = height;
     }
     
     @Override
     protected void mouseMovedOrUp(int x, int y, int button) {
         // Hacks
+        final int height = ySize; 
+
+        if (logic.chest != null && x >= guiLeft && x <= guiLeft + chestWidth) {
+            ySize = border.height;
+        }
+
         xSize += chestWidth;
         super.mouseMovedOrUp(x, y, button);
-        xSize -= chestWidth;  
+        xSize -= chestWidth;
+        ySize = height;
     }
     
     // updates slot visibility
