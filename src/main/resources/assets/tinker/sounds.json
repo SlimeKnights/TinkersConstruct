@@ -11,6 +11,12 @@
        "little_saw"
      ]
    },
+   "slimesling": {
+    "category": "player",
+    "sounds": [
+      "slimesling"
+    ]
+   },
    "launcher_clank": {
      "category": "neutral",
      "sounds": [

@@ -28,6 +28,7 @@ public class TConstructRegistry
     public static TConstructCreativeTab blockTab;
     public static TConstructCreativeTab equipableTab;
     public static TConstructCreativeTab weaponryTab;
+    public static TConstructCreativeTab gadgetsTab;
 
     /* Items */
 

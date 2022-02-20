@@ -989,6 +989,9 @@ armor.travelvest.ability=Ability: Swift Swim
 armor.travelwings.ability=Ability: High Jump
 armor.travelboots.ability=Ability: High Step
 
+item.TConstruct.slimesling.name=Slimesling
+item.TConstruct.slime_boots.name=Slime Boots
+
 tool.reinforced=Reinforced
 tool.unbreakable=Unbreakable
 
