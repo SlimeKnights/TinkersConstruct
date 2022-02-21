@@ -762,7 +762,7 @@
   "item.tconstruct.slime_helmet": "Слизечереп",
   "item.tconstruct.slime_chestplate": "Слизелитры",
   "item.tconstruct.slime_leggings": "Слизневые поножи",
-  "item.tconstruct.slime_boots": "Слизневые поножи",
+  "item.tconstruct.slime_boots": "Слизневые ботинки",
   "item.tconstruct.slime_helmet.material.tconstruct.gunpowder":     "Слизечереп крипера",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Слизечереп эндермена",
   "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Слизечереп скелета",
@@ -1225,11 +1225,15 @@
 
   "material.tconstruct.bone": "Кость",
   "material.tconstruct.bone.flavor": "Я кость своего меча",
-  "material.tconstruct.bone.encyclopedia": "Добавляет 0.75 урона за дополнительную часть",
+  "material.tconstruct.bone.encyclopedia": "Преобразует 0,5 урона в 1 пронзающий урон",
+  "material.tconstruct.bone.skull_flavor": "Принесла молоко?",
+  "material.tconstruct.bone.skull_encyclopedia": "Даёт сопротивление на 1 минуту после употребления молока",
 
   "material.tconstruct.necrotic_bone": "Некротическая кость",
   "material.tconstruct.necrotic_bone.flavor": "Вы хотите свести со мной счёты?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Исцеляет до 5% от наносимого урона за уровень",
+  "material.tconstruct.necrotic_bone.skull_flavor": "Жутко страшный скелет!",
+  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Атаки в ближнем бою вызывают иссушение. После употребления молока эффект наступает быстрее",
   
   "material.tconstruct.string": "Нить",
   "material.tconstruct.string.flavor": "Теоретически лучший материал.",
@@ -1248,6 +1252,8 @@
   "material.tconstruct.iron": "Железо",
   "material.tconstruct.iron.flavor": "Забавно. Он мог спасать других от смерти, а себя не сумел...",
   "material.tconstruct.iron.encyclopedia": "Увеличивает прочность на 10% за каждую дополнительную часть",
+  "material.tconstruct.iron.skull_flavor": "Нарушение карантина",
+  "material.tconstruct.iron.skull_encyclopedia": "Во время атаки в ближнем бою, владелец передаёт все негативные эффекты с себя на цель.",
 
   "material.tconstruct.seared_stone": "Обожжённый камень",
   "material.tconstruct.seared_stone.flavor": "Разъярённый Грут.",
@@ -1260,6 +1266,8 @@
   "material.tconstruct.copper": "Медь",
   "material.tconstruct.copper.flavor": "Не позволяйте ей испортиртить ваш день.",
   "material.tconstruct.copper.encyclopedia": "Увеличивает скорость копания на низкой глубине, до +10% за уровень",
+  "material.tconstruct.copper.skull_flavor": "Выбивает из них дух",
+  "material.tconstruct.copper.skull_encyclopedia": "Во время атаки в ближнем бою у цели забирается воздух на 3 секунды",
 
   "material.tconstruct.slimewood": "Слизедерево",
   "material.tconstruct.slimewood.flavor": "Это древесина из слизи или слизь, которая была наполнена деревом?",
@@ -1268,10 +1276,14 @@
   "material.tconstruct.bloodbone": "Кровавая кость",
   "material.tconstruct.bloodbone.flavor": "Разве кровь не должна быть внутри кости?",
   "material.tconstruct.bloodbone.encyclopedia": "Увеличивает урон при низком уровне здоровья, до +4 урона за уровень на 1 сердце",
+  "material.tconstruct.bloodbone.skull_flavor": "Пробирает до костей",
+  "material.tconstruct.bloodbone.skull_encyclopedia": "Снаряды вызывают замедление у цели. После употребления молока атаки ближнего боя вызывают замедление, а уровень становится выше.",
 
   "material.tconstruct.rose_gold": "Розовое золото",
   "material.tconstruct.rose_gold.flavor": "Оговорка: на самом деле делается не из роз.",
   "material.tconstruct.rose_gold.encyclopedia": "Добавляет 1 слот для улучшений за каждую часть",
+  "material.tconstruct.rose_gold.skull_flavor": "Использую левую руку с пользой",
+  "material.tconstruct.rose_gold.skull_encyclopedia": "Увеличивает здоровье на 1 сердце, плюс дополнительное сердце за каждую часть золотой брони.",
   
   "material.tconstruct.chain": "Цепь",
   "material.tconstruct.chain.flavor": "Теперь и вы можете использовать цепь",
@@ -1297,6 +1309,8 @@
   "material.tconstruct.pig_iron": "Свиное железо",
   "material.tconstruct.pig_iron.flavor": "Абсолютно лучший материал, никаких споров.",
   "material.tconstruct.pig_iron.encyclopedia": "Можно съесть, чтобы восстановить 1 ячейку голода и 0,1 насыщения на уровень",
+  "material.tconstruct.pig_iron.skull_flavor": "Я тебе не понравлюсь, когда разозлюсь!",
+  "material.tconstruct.pig_iron.skull_encyclopedia": "Даёт 15 секунд силы во время нанесения урона другим мобам",
 
 
 
@@ -1320,6 +1334,8 @@
   "material.tconstruct.blazing_bone": "Горящая кость",
   "material.tconstruct.blazing_bone.flavor": "Используйте всю мощь Незерской крепости - кость и пламя",
   "material.tconstruct.blazing_bone.encyclopedia": "Даёт +1% урона в секунду от огня, до +15% от 15 секунд в лаве. Бонус уменьшается с огнестойкостью.",
+  "material.tconstruct.blazing_bone.skull_flavor": "Я сказал им, что технически это брандспойт, а не огненное дыхание, но, видимо, я не могу решать, как называть вещи, которые я изобретаю.",
+  "material.tconstruct.blazing_bone.skull_encyclopedia": "Позволяет выпускать огненные заряды из инвентаря в виде огненных шаров. Имеет время перезарядки 5 секунд и не работает под водой.",
 
   "material.tconstruct.soulsteel": "Сталь душ",
 
@@ -1334,40 +1350,52 @@
   
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Порох",
-  "material.tconstruct.gunpowder.skull_encyclopedia": "Holding the helmet interact key causes the wearer to explode",
+  "material.tconstruct.gunpowder.skull_flavor": "Чьи хорошие вещи сейчас уничтожаются, крипер?",
+  "material.tconstruct.gunpowder.skull_encyclopedia": "Удержание клавиши взаимодействия со шлемом приводит к взрыву его владельца",
 
   "material.tconstruct.ender_pearl": "Эндер-жемчуг",
+  "material.tconstruct.ender_pearl.skull_flavor": "Эндермены знают, как держаться подальше от вреда, а ученые.... Они неделями игнорировали мои запросы на собеседование!",
   "material.tconstruct.ender_pearl.skull_encyclopedia": "Телепортируется автоматически при попадании снаряда случайным образом из ближнего боя. Имеет 30-секундное время перезарядки",
 
   "material.tconstruct.spider": "Паук",
-  "material.tconstruct.spider.skull_encyclopedia": "Положительные эффекты зелий действуют на 50% дольше",
+  "material.tconstruct.spider.skull_flavor": "Пауки - мастера зелий, возможно, их секрет поможет мне улучшить зелья...",
+  "material.tconstruct.spider.skull_encyclopedia": "Положительные эффекты зелий действуют на 25% дольше",
 
   "material.tconstruct.venom": "Яд",
+  "material.tconstruct.venom.skull_flavor": "Идеально подходит для битвы умов, когда нужно решиться и выпить, чтобы выяснить, кто прав.",
   "material.tconstruct.venom.skull_encyclopedia": "Делает владельца невосприимчивым к отравлению, но не убирает уже наложенный эффект.",
 
   "material.tconstruct.rotten_flesh": "Гнилая плоть",
+  "material.tconstruct.rotten_flesh.skull_flavor": "Это прекрасно",
   "material.tconstruct.rotten_flesh.skull_encyclopedia": "Атаки в ближнем бою увеличивают время горения цели, в зависимости от времени горения владельца",
-
-  "material.tconstruct.potato": "Картофель",
-  "material.tconstruct.potato.skull_encyclopedia": "Атаки в ближнем бою передают все негативные эффекты с владельца на цель",
-
-  "material.tconstruct.fish": "Рыба",
-  "material.tconstruct.fish.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
   
   "material.tconstruct.gold": "Золото",
   "material.tconstruct.gold.skull_flavor": "Так блестит",
   "material.tconstruct.gold.skull_encyclopedia": "Из некоторых золотых руд выпадут золотые кусочки, а вероятность выпадения золотых доспехов увеличится на 4%. Шанс выпадения доп. кусочков и брони увеличивается с каждой надетой частью золотой брони.",
-
+  
+  
+  "material.tconstruct.netherite":  "Незерит",
+  "material.tconstruct.earthslime": "Слизь",
+  "material.tconstruct.skyslime":   "Небесная слизь",
+  "material.tconstruct.blood":      "Кровь",
+  "material.tconstruct.ichor":      "Ихор",
   "material.tconstruct.enderslime": "Эндер-слизь",
   "material.tconstruct.phantom": "Мембрана фантома",
   "material.tconstruct.chorus": "Хорус",
   "material.tconstruct.rabbit": "Кроличья шкурка",
+  
+  "material.tconstruct.aluminum": "Алюминий",
+  "material.tconstruct.nickel":   "Никель",
+  "material.tconstruct.tin":      "Олово",
+  "material.tconstruct.zinc":     "Цинк",
+  "material.tconstruct.brass":    "Латунь",
+  "material.tconstruct.uranium":  "Уран",
 
 
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "Осмий",
   "material.tconstruct.osmium.flavor": "Слишком тупой, чтобы понять большинство шуток",
-  "material.tconstruct.osmium.encyclopedia": "Предотвращает 33% повреждений за счет дополнительных 25% затрат на ремонт на первом уровне",
+  "material.tconstruct.osmium.encyclopedia": "Предотвращает 33% повреждений за счёт дополнительных 25% затрат на ремонт на первом уровне",
 
   "material.tconstruct.tungsten": "Вольфрам",
   "material.tconstruct.tungsten.flavor": "Думали ли вы о создании хэви-метал группы?",
@@ -2100,6 +2128,13 @@
   "tool_stat.tconstruct.harvest_level.description": "Какой предел блоков может добывать инструмент с головкой из этого материала.",
   "tool_stat.tconstruct.attack_damage": "Урон: ",
   "tool_stat.tconstruct.attack_damage.description": "Базовое значение для расчета урона.\nКонечный результат зависит от самого инструмента и других используемых компонентов.",
+  
+  "tool_stat.tconstruct.armor": "Защита: ",
+  "tool_stat.tconstruct.armor.description": "Насколько это защищает Вас при ношении.",
+  "tool_stat.tconstruct.armor_toughness": "Прочность брони: ",
+  "tool_stat.tconstruct.armor_toughness.description": "Насколько эта броня сопротивляется ударам с высоким уроном.",
+  "tool_stat.tconstruct.knockback_resistance": "Сопротивление отбрасыванию: ",
+  "tool_stat.tconstruct.knockback_resistance.description": "Насколько эта броня снижает обрасывание.",
 
   "stat.tconstruct.handle": "Рукоять",
   "tool_stat.tconstruct.handle.durability.description": "Суммарная прочность инструмента будет умножена на это.",
@@ -2110,6 +2145,9 @@
   "stat.tconstruct.extra": "Дополнительно",
   "tool_stat.tconstruct.extra.no_stats": "Нет характеристик",
 
+  "stat.tconstruct.repair_kit": "Ремонтный комплект",
+  "stat.tconstruct.skull": "Слизечереп",
+  
   "stat.tconstruct.mining_level.wood": "Дерево",
   "stat.tconstruct.mining_level.stone": "Камень",
   "stat.tconstruct.mining_level.iron": "Железо",
