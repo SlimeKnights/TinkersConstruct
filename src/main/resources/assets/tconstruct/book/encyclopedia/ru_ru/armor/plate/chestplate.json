@@ -1,13 +1,13 @@
 {
   "tool": "tconstruct:plate_chestplate",
   "text": [
-    { "text": "Plate Chestplate is a defensive chestplate, with high protection, and low upgrade slots and high defense slots." }
+    { "text": "Латный нагрудник - это защитный нагрудник, с высокой защитой, низким количеством слотов для улучшений и высоким количеством защитных слотов." }
   ],
   "properties": [
-    "480 Durability",
-    "+7 Armor",
-    "1 Upgrade Slots",
-    "4 Defense Slots",
-    "1 Ability Slot"
+    "480 прочности",
+    "+7 очка защиты",
+    "1 слот для улучшений",
+    "4 защитных слота",
+    "1 слот для умений"
   ]
 }

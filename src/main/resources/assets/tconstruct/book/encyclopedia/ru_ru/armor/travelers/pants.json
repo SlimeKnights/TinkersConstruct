@@ -1,13 +1,13 @@
 {
   "tool": "tconstruct:travelers_leggings",
   "text": [
-    { "text": "Traveler's Pants are a balanced set of leggings, with medium protection, and average upgrade and defense slots." }
+    { "text": "Штаны путешественника - это сбалансированные поножи, с низкой защитой и средним количеством защитных слотов и слотов для улучшений." }
   ],
   "properties": [
-    "150 Durability",
-    "+4 Armor",
-    "3 Upgrade Slots",
-    "2 Defense Slots",
-    "1 Ability Slot"
+    "150 прочность",
+    "+4 очка защиты",
+    "3 слота для улучшений",
+    "2 защитных слота",
+    "1 слот для умений"
   ]
 }
