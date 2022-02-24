@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.tools.common.network;
 
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.network.NetHandlerPlayServer;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
-import slimeknights.tconstruct.gadgets.item.ItemSlimeBoots;
 
 public class BouncedPacket extends AbstractPacketThreadsafe {
 
@@ -21,9 +19,7 @@ public class BouncedPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    if(netHandler.player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemSlimeBoots) {
-      netHandler.player.fallDistance = 0;
-    }
+    netHandler.player.fallDistance = 0;
   }
 
   @Override

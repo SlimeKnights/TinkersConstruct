@@ -12,11 +12,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
+
+import java.util.Random;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
+
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 
 public class BlockSlimeVine extends BlockVine {
 
@@ -71,8 +73,7 @@ public class BlockSlimeVine extends BlockVine {
       PropertyBool prop = getPropertyFor(side);
       if (state.getValue(prop) && !this.canAttachTo(world, pos, side.getOpposite())) {
         IBlockState above = world.getBlockState(pos.up());
-        Block aboveBlock = above.getBlock();
-        if (!(aboveBlock instanceof BlockSlimeLeaves) && !(aboveBlock instanceof BlockVine && above.getValue(prop))) {
+        if (!(above.getBlock() instanceof BlockVine) || !above.getValue(prop)) {
           state = state.withProperty(prop, false);
         }
       }

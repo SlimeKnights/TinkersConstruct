@@ -4,10 +4,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import slimeknights.mantle.multiblock.MultiServantLogic;
-import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 
 import javax.annotation.Nonnull;
+
+import slimeknights.mantle.multiblock.MultiServantLogic;
+import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 
 public class TileSmelteryComponent extends MultiServantLogic {
 
@@ -41,11 +42,11 @@ public class TileSmelteryComponent extends MultiServantLogic {
    * Gets a tile entity at the position of the master that contains a ISmelteryTankHandler
    * @return null if the TE is not an ISmelteryTankHandler or if the master is missing
    */
-  protected ISmelteryTankHandler getSmelteryTankHandler() {
+  protected TileEntity getSmelteryTankHandler() {
     if(getHasMaster()) {
       TileEntity te = getWorld().getTileEntity(getMasterPosition());
       if(te instanceof ISmelteryTankHandler) {
-        return (ISmelteryTankHandler)te;
+        return te;
       }
     }
     return null;

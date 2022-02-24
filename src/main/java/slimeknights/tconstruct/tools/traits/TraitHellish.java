@@ -1,14 +1,18 @@
 package slimeknights.tconstruct.tools.traits;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 
 import java.util.List;
+
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitHellish extends AbstractTrait {
 
@@ -20,10 +24,16 @@ public class TraitHellish extends AbstractTrait {
 
   @Override
   public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
-    if (!target.isImmuneToFire()) {
-      newDamage += bonusDamage;
+    for(EnumCreatureType creatureType : EnumCreatureType.values()) {
+      for(Biome.SpawnListEntry spawnListEntry : Biome.REGISTRY.getObject(new ResourceLocation("hell")).getSpawnableList(creatureType)) {
+        if(spawnListEntry.entityClass.equals(target.getClass())) {
+          // nether mob
+          return super.damage(tool, player, target, damage, newDamage, isCritical);
+        }
+      }
     }
-    return super.damage(tool, player, target, damage, newDamage, isCritical);
+
+    return super.damage(tool, player, target, damage, newDamage + bonusDamage, isCritical);
   }
 
   @Override

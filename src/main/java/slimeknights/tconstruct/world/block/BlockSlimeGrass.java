@@ -1,12 +1,8 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
-import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -15,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
@@ -27,30 +22,29 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Locale;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import javax.annotation.Nonnull;
-import java.util.Locale;
-import java.util.Random;
-
-public class BlockSlimeGrass extends Block implements IGrowable {
+public class BlockSlimeGrass extends BlockGrass {
 
   public static PropertyEnum<DirtType> TYPE = PropertyEnum.create("type", DirtType.class);
   public static PropertyEnum<FoliageType> FOLIAGE = PropertyEnum.create("foliage", FoliageType.class);
-  public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
   public BlockSlimeGrass() {
-    super(Material.GRASS);
-    this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
-    this.setTickRandomly(true);
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.65f);
     this.setSoundType(SoundType.PLANT);
     this.slipperiness += 0.05f;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(FoliageType grass : FoliageType.values()) {
@@ -58,16 +52,6 @@ public class BlockSlimeGrass extends Block implements IGrowable {
         list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, grass))));
       }
     }
-  }
-
-  @Override
-  public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-    return true;
-  }
-
-  @Override
-  public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-    return true;
   }
 
   @Override
@@ -239,13 +223,6 @@ public class BlockSlimeGrass extends Block implements IGrowable {
   public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
     // can sustain both slimeplants and normal plants
     return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
-  }
-
-  @Override
-  @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer()
-  {
-    return BlockRenderLayer.CUTOUT_MIPPED;
   }
 
   public enum FoliageType implements IStringSerializable, EnumBlock.IEnumMeta {

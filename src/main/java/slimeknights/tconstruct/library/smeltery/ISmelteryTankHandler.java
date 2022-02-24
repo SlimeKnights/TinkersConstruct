@@ -4,7 +4,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public interface ISmelteryTankHandler {
@@ -19,9 +18,7 @@ public interface ISmelteryTankHandler {
 
   /**
    * Returns a copy of the SmelteryTank of the TE
-   * @return Smeltery Tank if active, null if the smeltery is inactive
    */
-  @Nullable
   SmelteryTank getTank();
 
   /**

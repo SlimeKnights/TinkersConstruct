@@ -7,9 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -18,7 +16,6 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class TinkerUtil {
 
@@ -34,21 +31,6 @@ public final class TinkerUtil {
     }
 
     return ((IMaterialItem) stack.getItem()).getMaterial(stack);
-  }
-
-  public static List<ITrait> getTraitsOrdered(ItemStack tool) {
-    List<ITrait> traits = new ArrayList<>();
-    NBTTagList list = TagUtil.getTraitsTagList(tool);
-    for(int i = 0; i < list.tagCount(); i++) {
-      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
-      if(trait != null) {
-        traits.add(trait);
-      }
-    }
-
-    traits.sort(Comparator.comparingInt(ITrait::getPriority).reversed());
-
-    return traits;
   }
 
   public static boolean hasCategory(NBTTagCompound root, Category category) {

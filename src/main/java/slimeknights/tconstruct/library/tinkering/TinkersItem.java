@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -348,7 +349,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // now do it all over again with the real items, to actually repair \o/
     ItemStack item = repairable.copy();
 
-    do {
+    while(item.getItemDamage() > 0) {
       int amount = calculateRepairAmount(materials, repairItems);
 
       // nothing to repair with, we're therefore done
@@ -361,7 +362,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       NBTTagCompound tag = TagUtil.getExtraTag(item);
       tag.setInteger(Tags.REPAIR_COUNT, tag.getInteger(Tags.REPAIR_COUNT) + 1);
       TagUtil.setExtraTag(item, tag);
-    } while(item.getItemDamage() > 0);
+    }
 
     return item;
   }

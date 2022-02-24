@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.common.client;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockEnderChest;
@@ -11,10 +12,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -38,13 +39,16 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.opengl.GL11;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class RenderEvents implements IResourceManagerReloadListener {
@@ -161,14 +165,10 @@ public class RenderEvents implements IResourceManagerReloadListener {
   public void handRenderEvent(RenderSpecificHandEvent event) {
     EntityPlayer player = Minecraft.getMinecraft().player;
 
-    // when drawing a bow or crossbow, stop the other hand from rendering like vanilla bows
-    if(player.isHandActive()) {
+    if(event.getHand() == EnumHand.OFF_HAND && player.isHandActive()) {
       ItemStack stack = player.getActiveItemStack();
       if(!stack.isEmpty() && stack.getItemUseAction() == EnumAction.BOW) {
-        if (event.getHand() != player.getActiveHand()) {
-          event.setCanceled(true);
-        }
-        return;
+        event.setCanceled(true);
       }
     }
 

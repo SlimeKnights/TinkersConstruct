@@ -11,14 +11,12 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
@@ -43,20 +41,6 @@ public class TinkerDebug {
     }
   }
 
-  @SubscribeEvent
-  public void testSmelteryIMC(Register<Item> event) {
-    if(Config.testIMC) {
-      TestIMC.integrateSmeltery();
-    }
-  }
-
-  @Subscribe
-  public void init(FMLInitializationEvent event) {
-    if(Config.testIMC) {
-      TestIMC.testAll();
-    }
-  }
-
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     if(event.getSide().isClient()) {
@@ -69,7 +53,6 @@ public class TinkerDebug {
     event.registerServerCommand(new DamageTool());
     event.registerServerCommand(new TestTool());
     event.registerServerCommand(new GenValidModifiers());
-    event.registerServerCommand(new BreakTool());
 
     if(event.getSide().isClient()) {
       ClientCommandHandler.instance.registerCommand(new LocalizationCheckCommand());

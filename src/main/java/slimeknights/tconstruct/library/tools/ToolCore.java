@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +25,16 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -49,15 +60,6 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.traits.InfiTool;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
@@ -85,10 +87,9 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
-    int max = getMaxDamage(stack);
-    super.setDamage(stack, Math.min(max, damage));
+    super.setDamage(stack, damage);
 
-    if(getDamage(stack) == max) {
+    if(getDamage(stack) == getMaxDamage(stack)) {
       ToolHelper.breakTool(stack, null);
     }
   }
@@ -181,7 +182,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public boolean canHarvestBlock(@Nonnull IBlockState state, ItemStack stack) {
-    return isEffective(state) && !ToolHelper.isBroken(stack);
+    return isEffective(state);
   }
 
   @Override
@@ -267,7 +268,13 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
-    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.getAttributeModifiers(slot, stack, multimap));
+    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traitsTagList.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
+      if(trait != null) {
+        trait.getAttributeModifiers(slot, stack, multimap);
+      }
+    }
 
     return multimap;
   }
@@ -419,7 +426,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       // only valid ones
       if(hasValidMaterials(tool)) {
         subItems.add(tool);
-        if(!Config.listAllToolMaterials) {
+        if(!Config.listAllMaterials) {
           break;
         }
       }
@@ -446,25 +453,12 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-    if(ToolHelper.isBroken(stack)) {
-      return -1;
-    }
-
     if(this.getToolClasses(stack).contains(toolClass)) {
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
 
     return super.getHarvestLevel(stack, toolClass, player, blockState);
-  }
-
-  @Override
-  public Set<String> getToolClasses(ItemStack stack) {
-    // no classes if broken
-    if(ToolHelper.isBroken(stack)) {
-      return Collections.emptySet();
-    }
-    return super.getToolClasses(stack);
   }
 
   /** A simple string identifier for the tool, used for identification in texture generation etc. */
@@ -520,10 +514,16 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   protected void onUpdateTraits(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    final boolean isSelectedOrOffhand = isSelected ||
-                                     (entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).getHeldItemOffhand() == stack);
-
-    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelectedOrOffhand));
+    if(!isSelected && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).getHeldItemOffhand() == stack) {
+      isSelected = true;
+    }
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+      }
+    }
   }
 
   @Override
@@ -559,7 +559,14 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
-    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        trait.afterBlockBreak(stack, world, state, pos, player, wasEffective);
+      }
+    }
+
     ToolHelper.damageTool(stack, damage, player);
   }
 
