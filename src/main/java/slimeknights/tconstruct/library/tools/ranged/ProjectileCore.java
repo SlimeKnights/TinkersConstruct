@@ -66,9 +66,6 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   @Override
   public int getCurrentAmmo(ItemStack stack) {
-    if(ToolHelper.isBroken(stack)) {
-      return 0;
-    }
     return ToolHelper.getCurrentDurability(stack) / durabilityPerAmmo;
   }
 

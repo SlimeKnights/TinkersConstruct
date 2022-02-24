@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.worldgen;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -11,6 +12,11 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.fml.common.IWorldGenerator;
+
+import java.awt.geom.Ellipse2D;
+import java.util.Optional;
+import java.util.Random;
+
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -19,10 +25,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeVine;
-
-import java.awt.geom.Ellipse2D;
-import java.util.Optional;
-import java.util.Random;
 
 public class SlimeIslandGenerator implements IWorldGenerator {
 
@@ -68,8 +70,8 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     lakeGenBlue = new SlimeLakeGenerator(slimeFLuidBlue, slimeBlue, slimeGreen, slimeBlue);
     lakeGenPurple = new SlimeLakeGenerator(slimeFLuidPurple, slimePurple, slimePurple);
 
-    treeGenBlue = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE), TinkerWorld.slimeVineBlue2.getDefaultState());
-    treeGenPurple = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE), TinkerWorld.slimeVinePurple2.getDefaultState());
+    treeGenBlue = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE), TinkerWorld.slimeVineBlue3.getDefaultState());
+    treeGenPurple = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE), TinkerWorld.slimeVinePurple3.getDefaultState());
 
     plantGenBlue = new SlimePlantGenerator(BlockSlimeGrass.FoliageType.BLUE, false);
     plantGenPurple = new SlimePlantGenerator(BlockSlimeGrass.FoliageType.PURPLE, false);

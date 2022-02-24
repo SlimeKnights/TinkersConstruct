@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,17 +22,22 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
+
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 
 public class BlockFaucet extends BlockContainer {
 
   // Facing == input, can be any side except bottom, because down always is output direction
-  public static final PropertyDirection FACING = PropertyDirection.create("facing", (@Nullable EnumFacing input) -> input != EnumFacing.DOWN);
+  public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+    @Override
+    public boolean apply(@Nullable EnumFacing input) {
+      return input != EnumFacing.DOWN;
+    }
+  });
 
   public BlockFaucet() {
     super(Material.ROCK);
@@ -94,21 +100,13 @@ public class BlockFaucet extends BlockContainer {
   }
 
   @Override
-  public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    if (world.isRemote) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+    if(worldIn.isRemote) {
       return;
     }
-    TileEntity te = world.getTileEntity(pos);
-    if (te instanceof TileFaucet) {
-      ((TileFaucet) te).handleRedstone(world.isBlockPowered(pos));
-    }
-  }
-
-  @Override
-  public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileFaucet) {
-      ((TileFaucet) te).activate();
+      ((TileFaucet) te).handleRedstone(worldIn.isBlockPowered(pos));
     }
   }
 
@@ -154,12 +152,6 @@ public class BlockFaucet extends BlockContainer {
   @Override
   public boolean isOpaqueCube(IBlockState state) {
     return false;
-  }
-
-  @Override
-  @Deprecated
-  public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-    return BlockFaceShape.UNDEFINED;
   }
 
   @Nonnull

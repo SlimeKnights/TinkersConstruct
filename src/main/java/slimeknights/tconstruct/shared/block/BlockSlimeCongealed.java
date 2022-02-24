@@ -15,10 +15,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 
 public class BlockSlimeCongealed extends Block {
 
@@ -33,9 +36,10 @@ public class BlockSlimeCongealed extends Block {
     this.setSoundType(SoundType.SLIME);
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-    for(SlimeType type : SlimeType.VISIBLE_COLORS) {
+    for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }
   }
@@ -70,18 +74,15 @@ public class BlockSlimeCongealed extends Block {
   @Override
   public void onLanded(World world, Entity entity) {
     if(!(entity instanceof EntityLivingBase) && !(entity instanceof EntityItem)) {
-      super.onLanded(world, entity);
       // this is mostly needed to prevent XP orbs from bouncing. which completely breaks the game.
       return;
     }
-    if(entity.motionY < -0.25) {
+    if(entity.motionY < 0) {
       entity.motionY *= -1.2F;
       entity.fallDistance = 0;
       if(entity instanceof EntityItem) {
         entity.onGround = false;
       }
-    } else {
-        super.onLanded(world, entity);
     }
   }
 

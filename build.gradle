@@ -1,35 +1,24 @@
-/*
- * Tinkers Construct
- * Master build file
- * 
- * Authors: boni, Sunstrike, ProgWML6
- * Help from AbrarSyed
- */
-
 buildscript {
     repositories {
         mavenCentral()
-		mavenLocal()
-        jcenter()
         maven {
             name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            name = "github"
+            url = "https://github.com/juanmuscaria/maven/raw/master"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle2:[2.3-1.0.0-SNAPSHOT,)'
     }
 }
-/*
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.1"
-}*/
 
 repositories {
+    flatDir {
+        dirs 'deps'
+    }
     maven {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
@@ -44,11 +33,11 @@ repositories {
     }
     maven {
         name 'forge'
-        url 'https://files.minecraftforge.net/maven'
+        url 'https://files.minecraftforge.net'
     }
     maven {
-         name "Tehnut Maven FS"
-         url "https://maven.tehnut.info"
+        name "Tehnut Maven FS"
+        url "https://maven.tehnut.info"
     }
     maven {
         name = "CoFH Maven"
@@ -60,17 +49,13 @@ repositories {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'maven'
+apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 group= "slimeknights"
 archivesBaseName = "TConstruct"
 
-// External properties
 ext.configFile = file "build.properties"
 configFile.withReader {
     // Load config.  It shall from now be referenced as simply config or project.config
@@ -82,36 +67,8 @@ configurations {
     deployerJars
 }
 
-// sets version to the slimeKnights version format
-task buildInfo {
-    try {
-        def cmd = "git rev-parse --short HEAD"
-        def proc = cmd.execute()
-        proc.waitFor()
-        if (proc.exitValue() == 0) {
-            ext.revision = proc.text.trim()
-        } else {
-            ext.revision = "GITBORK"
-        }
-    } catch(all) {
-        ext.revision = "gitgud"
-    }
-
-    if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = "${System.getenv().BUILD_NUMBER}"
-    } else {
-        ext.buildNum = "DEV.${project.buildInfo.revision}"
-    }
-}
-ext.artifact_version = 'NFG'
-if (System.getenv().ARTIFACT_VERSION == null) {
-    artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}"
-}
-if (System.getenv().ARTIFACT_VERSION != null) {
-    artifact_version = "${system.getenv().ARTIFACT_VERSION}"
-}
-
-version = "${config.minecraft_version}-${artifact_version}"
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
@@ -121,156 +78,71 @@ minecraft {
     useDepAts = true
 }
 
-dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version_short}-${config.mantle_version}"
+processResources {
 
-    // compile against the JEI API
-    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
-    // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-
-    deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
-    deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
-    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
-
-    //deobfCompile "vazkii.autoreglib:AutoRegLib:${config.arl_version}"
-    deobfCompile "vazkii.quark:Quark:${config.quark_version}:api"
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDir 'resources'
-        }
-    }
-}
-
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "MCversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'MCversion':project.minecraft.version
+//        expand 'version': project.version,
+//        'mod_id': mod_id,
+//        'mod_name': mod_name,
+//        'mod_author': mod_author,
+//        'mod_description': mod_description,
+//        'mc_version': mc_version,
+//        'mod_version': mod_version,
+//        'mod_icon': mod_icon
     }
-        
-    // copy everything else, thats not the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-// Add Access Transformers Manifest
+dependencies {
+    compile name: 'Baubles-1.12-1.5.2-dev'
+    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version_short}-${config.mantle_version}"
+//
+//    // compile against the JEI API
+    //deobfCompile "mezz:jei:jei_1.12.2:4.15.0.297:api"
+//    // at runtime, use the full JEI jar
+    //runtime "mezz:jei:jei_1.12.2:4.15.0.297"
+//
+    deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
+    deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+//
+//    //deobfCompile "vazkii.autoreglib:AutoRegLib:${config.arl_version}"
+    deobfCompile "vazkii.quark:Quark:${config.quark_version}:api"
+    compile fileTree(dir: 'libs' , include: '*.jar')
+}
+
 jar {
     manifest {
         attributes 'FMLAT': 'tconstruct_at.cfg'
     }
-    
+
     finalizedBy reobfJar
 }
 
-// Create deobf dev jars
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
-	manifest {
+    manifest {
         attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
 
+task devJar(type: Jar) {
+    classifier = 'dev'
+    from sourceSets.main.output
+}
+
 task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
     classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 artifacts {
-    archives deobfJar
+    archives devJar
     archives sourcesJar
-}
-
-// verify the properties exist.. or initialize.
-if (!project.hasProperty("keystore_location")) // keystore location
-    ext.keystore_location = "."
-    
-if (!project.hasProperty("keystore_user_alias")) // keystore user alias
-    ext.keystore_user_alias = ""
-if (!project.hasProperty("sftp_username"))
-    ext.sftp_username = ""
-if (!project.hasProperty("sftp_key"))
-    ext.sftp_key = ""
-if (!project.hasProperty("keystore_user_password")) // keystore user pass
-    ext.keystore_user_password = ""
-if (System.getenv().KSK_PW != null)
-	ext.keystore_user_password =System.getenv().KSK_PW
-
-
-task("uploadJars", dependsOn:"build") {
-    
-    description = "uploads JARs"
-
-    if (project.hasProperty("local_maven") || project.hasProperty("sftp_maven")) {
-	    apply plugin: 'maven'
-        uploadArchives {
-            repositories {
-		    	if(project.hasProperty("local_maven"))
-			    {
-                    mavenDeployer {
-                        repository(url: "file://${local_maven}")
-				    }
-                }
-				if(project.hasProperty("sftp_maven")) {
-                    repositories.mavenDeployer {
-					    configuration = configurations.deployerJars
-                        repository(url: "sftp://${sftp_maven}"){
-						authentication(userName: "${sftp_username}",privateKey: "${sftp_key}")}
-				    }
-                }
-            }
-        }    
-    }
-}
-
-task signUniversal(type: SignJar, dependsOn: 'jar') {
-    onlyIf {
-        project.hasProperty('jarsigner')
-    }
-
-    def jarsigner = [:]
-
-    if (project.hasProperty('jarsigner'))
-        jarsigner = project.jarsigner
-
-    alias = 'tcon'
-    storePass = jarsigner.storepass
-    keyPass = jarsigner.keypass
-    keyStore = jarsigner.keystore
-    inputFile = jar.archivePath
-    outputFile = jar.archivePath
-}
-uploadArchives.dependsOn signUniversal
-build.dependsOn signUniversal
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // todo: remove deobf and sources jar in 1.13
-            artifact jar
-            artifact deobfJar
-            artifact sourcesJar
-        }
-    }
-
-    repositories {
-        if (project.hasProperty('DEPLOY_DIR')) {
-            maven { url DEPLOY_DIR }
-        }
-    }
 }

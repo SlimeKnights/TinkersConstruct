@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TraitTasty extends AbstractTrait {
 
-  private static final int CHICKENWING = 2;
   public static final int NOM_COST = 5;
 
   public TraitTasty() {
@@ -39,7 +38,7 @@ public class TraitTasty extends AbstractTrait {
       return;
     }
     // more than 5 chickenwings left? we only take a bite randomly
-    else if(foodStats.getFoodLevel() > 5 * CHICKENWING) {
+    else if(foodStats.getFoodLevel() > 10) {
       // on average we take a bite every 5 seconds, 0.01 chance (1/(5s * 20 ticks))
       if(random.nextFloat() < chance) {
         nom(tool, (EntityPlayer) entity);
@@ -47,7 +46,7 @@ public class TraitTasty extends AbstractTrait {
     }
     // less than 5 chickens left? we take a bite out before the situation becomes too.. dire(wolf20)
     else {
-      chance += (5 * CHICKENWING - foodStats.getFoodLevel()) * 0.0025f;
+      chance += (5 - foodStats.getFoodLevel()) * 0.0025f;
       chance -= foodStats.getSaturationLevel() * 0.005f;
 
       if(random.nextFloat() < chance) {

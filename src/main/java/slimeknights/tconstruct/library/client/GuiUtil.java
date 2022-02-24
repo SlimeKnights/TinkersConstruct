@@ -42,7 +42,7 @@ public class GuiUtil {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   /** Renders the given texture tiled into a GUI */
-  public static void renderTiledTexture(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
+  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
     Tessellator tessellator = Tessellator.getInstance();
     BufferBuilder worldrenderer = tessellator.getBuffer();
     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
@@ -56,7 +56,7 @@ public class GuiUtil {
   public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
     TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
     RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTexture(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
+    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
   }
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
@@ -230,49 +230,6 @@ public class GuiUtil {
     amountToString(amount, text);
   }
 
-  /**
-   * Function called to show fluid tooltips in JEI. Placed in GuiUtils since it is not specific to any one handler
-   * it is easier to have access to GuiUtil internals
-   *
-   * @param slotIndex  Fluid slot index in JEI
-   * @param input      If true, this is an input, if false an output
-   * @param fluid      Input fluid stack
-   * @param text       Text to add information to.
-   */
-  public static void onFluidTooltip(int slotIndex, boolean input, FluidStack fluid, List<String> text) {
-    // first, store the original name and mod name from JEI
-    String ingredientName = text.get(0);
-    String modName = text.get(text.size() - 1);
-    text.clear();
-    text.add(ingredientName);
-
-    // next, determine smeltery amounts to show
-    int amount = fluid.amount;
-    int originalAmount = amount;
-    if(smelteryLoaded && !Util.isShiftKeyDown()) {
-      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
-      if(entries == null) {
-        entries = calcFluidGuiEntries(fluid.getFluid());
-        fluidGui.put(fluid.getFluid(), entries);
-      }
-
-      for(FluidGuiEntry entry : entries) {
-        amount = calcLiquidText(amount, entry.amount, entry.getText(), text);
-      }
-    }
-
-    // finally, show standard mb amounts
-    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
-
-    // if not just mb, state to hold shift to show buckets
-    if(!Util.isShiftKeyDown() && amount != originalAmount) {
-      text.add(Util.translate("tooltip.tank.holdShift"));
-    }
-
-    // add mod name back
-    text.add(modName);
-  }
-
   public static void amountToIngotString(int amount, List<String> text) {
     amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.ingot"), text);
     amountToString(amount, text);
@@ -352,17 +309,5 @@ public class GuiUtil {
     public String getText() {
       return Util.translate(unlocName);
     }
-  }
-
-  /*
-   * VANILLA FIX ANTI-HACK SECTION
-   * Basically vanillafix changes the method content, which causes crashes.
-   * So we renamed the methods since the author is MIA for many months now.
-   * These methods are only here to let vanillafix think their hacks still work, since the game wont start otherwise.
-   */
-
-  @Deprecated
-  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
-
   }
 }

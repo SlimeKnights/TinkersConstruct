@@ -8,11 +8,15 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
-import slimeknights.mantle.block.EnumBlock;
-import slimeknights.tconstruct.library.TinkerRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import java.util.Locale;
+
+import slimeknights.mantle.block.EnumBlock;
+import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockSlime extends net.minecraft.block.BlockSlime {
 
@@ -24,12 +28,11 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     this.setSoundType(SoundType.SLIME);
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-    for(SlimeType type : SlimeType.VISIBLE_COLORS) {
-      if (type != SlimeType.GREEN) {
-        list.add(new ItemStack(this, 1, type.meta));
-      }
+    for(SlimeType type : SlimeType.values()) {
+      list.add(new ItemStack(this, 1, type.meta));
     }
   }
 
@@ -65,8 +68,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     BLUE(0x01cbcd, 0x74c5c8),
     PURPLE(0xaf4cf6, 0xcc68ff),
     BLOOD(0xb50101, 0xb80000),
-    MAGMA(0xff970d, 0xffab49),
-    PINK(0x90708b, 0xbc9eb4);
+    MAGMA(0xff970d, 0xffab49);
 
     SlimeType(int color, int ballColor) {
       this.meta = this.ordinal();
@@ -76,13 +78,6 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
     public final int meta;
     private final int color, ballColor;
-    public static final SlimeType[] VISIBLE_COLORS = {
-        GREEN,
-        BLUE,
-        PURPLE,
-        BLOOD,
-        MAGMA
-    };
 
     public static SlimeType fromMeta(int meta) {
       if(meta < 0 || meta >= values().length) {

@@ -15,6 +15,11 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
@@ -24,10 +29,6 @@ import slimeknights.tconstruct.smeltery.inventory.ContainerTinkerTank;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockTinkerTank;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> implements ITickable, IInventoryGui, ISmelteryTankHandler {
 
@@ -67,18 +68,16 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
 
   @Override
   protected void updateStructureInfo(MultiblockDetection.MultiblockStructure structure) {
-    // we add 2 to the coordinates so we include the walls/floor/ceiling in the size calculation
+    // we add 2 to the coordinates so we include the walls/floor/ceiling in the size caculation
     // otherwise a 3x3x3 tank is way too little capacity
     int liquidSize = (structure.xd + 2) * (structure.yd + 2) * (structure.zd + 2);
     this.liquids.setCapacity(liquidSize * TileTinkerTank.CAPACITY_PER_BLOCK);
-    this.markDirtyFast();
   }
 
   /* Fluid handling */
   @Override
-  @Nullable
   public SmelteryTank getTank() {
-    return isActive() ? liquids : null;
+    return liquids;
   }
 
   @Override
@@ -133,7 +132,6 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
     if(isServerWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
-    this.markDirtyFast();
   }
 
   @Nonnull

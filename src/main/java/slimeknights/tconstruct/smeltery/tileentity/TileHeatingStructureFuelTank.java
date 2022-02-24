@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import com.google.common.collect.Lists;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,11 +9,15 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -20,9 +25,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockSearedFurnaceController;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection> extends TileHeatingStructure<T> {
 
@@ -152,7 +154,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
     int inventorySize = getUpdatedInventorySize(structure.xd, structure.yd, structure.zd);
 
     // if the new multiblock is smaller we pop out all items that don't fit in anymore
-    if(!world.isRemote && this.getSizeInventory() > inventorySize) {
+    if(this.getSizeInventory() > inventorySize) {
       for(int i = inventorySize; i < getSizeInventory(); i++) {
         if(!getStackInSlot(i).isEmpty()) {
           dropItem(getStackInSlot(i));
@@ -214,17 +216,10 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
 
     // we still have leftover fuel
     if(hasFuel()) {
-      // if the current fuel is null, something in the fluid registry changed
-      // just replace it with lava and ignore for now, it will fix next time we consume fuel
-      if(currentFuel == null) {
-        info.fluid = new FluidStack(FluidRegistry.LAVA, 0);
-        info.maxCap = 1;
-      } else {
-        info.fluid = currentFuel.copy();
-        info.fluid.amount = 0;
-        info.maxCap = currentFuel.amount;
-      }
-      info.heat = this.temperature + 300;
+      info.fluid = currentFuel.copy();
+      info.fluid.amount = 0;
+      info.heat = this.temperature;
+      info.maxCap = currentFuel.amount;
     }
     else if(currentTank != null) {
       // we need to consume fuel, check the current tank
@@ -234,7 +229,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
         FluidStack tankFluid = tank.getFluid();
         assert tankFluid != null;
         info.fluid = tankFluid.copy();
-        info.heat = temperature + 300;
+        info.heat = temperature;
         info.maxCap = tank.getCapacity();
       }
     }

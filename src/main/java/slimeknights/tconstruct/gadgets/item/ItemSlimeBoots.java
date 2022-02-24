@@ -2,6 +2,7 @@ package slimeknights.tconstruct.gadgets.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,6 +16,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -23,8 +29,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.tools.common.network.BouncedPacket;
-
-import javax.annotation.Nonnull;
 
 public class ItemSlimeBoots extends ItemArmorTooltip {
 
@@ -114,9 +118,10 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
    * returns 16 items)
    */
   @Override
+  @SideOnly(Side.CLIENT)
   public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
     if(this.isInCreativeTab(tab)) {
-      for(SlimeType type : SlimeType.VISIBLE_COLORS) {
+      for(SlimeType type : SlimeType.values()) {
         subItems.add(new ItemStack(this, 1, type.getMeta()));
       }
     }
@@ -153,13 +158,14 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
         // only slow down half as much when bouncing
         entity.motionX /= f;
         entity.motionZ /= f;
-        TinkerNetwork.sendToServer(new BouncedPacket());
       }
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
+
+      TinkerNetwork.sendToServer(new BouncedPacket());
     }
     else if(!isClient && entity.isSneaking()) {
       event.setDamageMultiplier(0.2f);

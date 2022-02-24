@@ -8,12 +8,15 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Locale;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerFluids;
-
-import java.util.Locale;
 
 public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
 
@@ -27,6 +30,7 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
     setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(MetalTypes type : MetalTypes.values()) {

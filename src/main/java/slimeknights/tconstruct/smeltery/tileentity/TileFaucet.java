@@ -15,12 +15,13 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
-
-import javax.annotation.Nonnull;
 
 public class TileFaucet extends TileEntity implements ITickable {
 
@@ -61,7 +62,7 @@ public class TileFaucet extends TileEntity implements ITickable {
     if(hasSignal != lastRedstoneState) {
       lastRedstoneState = hasSignal;
       if(hasSignal) {
-        world.scheduleUpdate(pos, this.getBlockType(), 2);
+        activate();
       }
     }
   }
@@ -100,7 +101,7 @@ public class TileFaucet extends TileEntity implements ITickable {
     if(drained != null) {
       return;
     }
-    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction.getOpposite());
+    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction);
     IFluidHandler toFill = getFluidHandler(pos.down(), EnumFacing.UP);
     if(toDrain != null && toFill != null) {
       // can we drain?

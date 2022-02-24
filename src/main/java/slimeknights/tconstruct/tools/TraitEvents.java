@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -12,11 +13,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
+import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TraitEvents {
@@ -26,7 +30,13 @@ public class TraitEvents {
     ItemStack tool = event.getEntityPlayer().inventory.getCurrentItem();
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
-      TinkerUtil.getTraitsOrdered(tool).forEach(trait -> trait.miningSpeed(tool, event));
+      NBTTagList list = TagUtil.getTraitsTagList(tool);
+      for(int i = 0; i < list.tagCount(); i++) {
+        ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+        if(trait != null) {
+          trait.miningSpeed(tool, event);
+        }
+      }
     }
   }
 
@@ -35,7 +45,13 @@ public class TraitEvents {
     ItemStack tool = event.getPlayer().inventory.getCurrentItem();
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
-      TinkerUtil.getTraitsOrdered(tool).forEach(trait -> trait.beforeBlockBreak(tool, event));
+      NBTTagList list = TagUtil.getTraitsTagList(tool);
+      for(int i = 0; i < list.tagCount(); i++) {
+        ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+        if(trait != null) {
+          trait.beforeBlockBreak(tool, event);
+        }
+      }
     }
   }
 
@@ -47,7 +63,13 @@ public class TraitEvents {
     ItemStack tool = DualToolHarvestUtils.getItemstackToUse(event.getHarvester(), event.getState());
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
-      TinkerUtil.getTraitsOrdered(tool).forEach(trait -> trait.blockHarvestDrops(tool, event));
+      NBTTagList list = TagUtil.getTraitsTagList(tool);
+      for(int i = 0; i < list.tagCount(); i++) {
+        ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+        if(trait != null) {
+          trait.blockHarvestDrops(tool, event);
+        }
+      }
     }
   }
 
@@ -78,7 +100,7 @@ public class TraitEvents {
       // we allow block traits to affect both main and offhand
       for(ItemStack tool : heldTools) {
         if(!event.isCanceled()) {
-          TinkerUtil.getTraitsOrdered(tool).forEach(trait -> trait.onBlock(tool, player, event));
+          forEachTrait(tool, trait -> trait.onBlock(tool, player, event));
         }
       }
     }
@@ -87,7 +109,7 @@ public class TraitEvents {
       // we allow block traits to affect both main and offhand
       for(ItemStack tool : heldTools) {
         if(!event.isCanceled()) {
-          TinkerUtil.getTraitsOrdered(tool).forEach(trait -> trait.onPlayerHurt(tool, player, (EntityLivingBase) attacker, event));
+          forEachTrait(tool, trait -> trait.onPlayerHurt(tool, player, (EntityLivingBase) attacker, event));
         }
       }
     }
@@ -97,7 +119,23 @@ public class TraitEvents {
   public void onRepair(TinkerToolEvent.OnRepair event) {
     ItemStack tool = event.itemStack;
 
-    TinkerUtil.getTraitsOrdered(tool).forEach(trait -> trait.onRepair(tool, event.amount));
+    NBTTagList list = TagUtil.getTraitsTagList(tool);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        trait.onRepair(tool, event.amount);
+      }
+    }
+  }
+
+  private void forEachTrait(ItemStack tool, Consumer<ITrait> action) {
+    NBTTagList list = TagUtil.getTraitsTagList(tool);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        action.accept(trait);
+      }
+    }
   }
 
   private boolean isTool(ItemStack stack) {

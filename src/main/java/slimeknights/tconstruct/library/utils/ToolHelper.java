@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -28,7 +28,6 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -38,6 +37,10 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
+
+import java.util.List;
+import java.util.function.Predicate;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -50,9 +53,6 @@ import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.common.network.ToolBreakAnimationPacket;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
-
-import java.util.List;
-import java.util.function.Predicate;
 
 public final class ToolHelper {
 
@@ -150,14 +150,14 @@ public final class ToolHelper {
     if(!stack.hasTagCompound()) {
       return 1f;
     }
-    
-    if(isBroken(stack)) {
-      return 0.3f;
-    }
 
     // check if the tool has the correct class and harvest level
     if(!canHarvest(stack, blockState)) {
-      return 1f;
+      return 0f;
+    }
+
+    if(isBroken(stack)) {
+      return 0.3f;
     }
 
     // calculate speed depending on stats
@@ -531,13 +531,16 @@ public final class ToolHelper {
     }
 
     int actualAmount = amount;
-
-    for(ITrait trait : TinkerUtil.getTraitsOrdered(stack)) {
-      if(amount > 0) {
-        actualAmount = trait.onToolDamage(stack, amount, actualAmount, entity);
-      }
-      else {
-        actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        if(amount > 0) {
+          actualAmount = trait.onToolDamage(stack, amount, actualAmount, entity);
+        }
+        else {
+          actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
+        }
       }
     }
 
@@ -569,11 +572,6 @@ public final class ToolHelper {
     TagUtil.setToolTag(stack, tag);
 
     if(entity instanceof EntityPlayerMP) {
-      entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ITEM_BREAK, entity.getSoundCategory(), 0.8F, 0.8F + entity.world.rand.nextFloat() * 0.4F);
-      // work around MC-86252, this is needed since damaging the tool does not clear the active hand, even if the player is no longer blocking
-      if(entity.isHandActive() && entity.getActiveItemStack().equals(stack)) {
-        entity.resetActiveHand();
-      }
       TinkerNetwork.sendTo(new ToolBreakAnimationPacket(stack), (EntityPlayerMP) entity);
     }
   }
@@ -605,18 +603,12 @@ public final class ToolHelper {
 
   /* Dealing tons of damage */
 
-  /**
-   * General version of attackEntity. Applies cooldowns but has no projectile entity
-   */
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
-    return attackEntity(stack, tool, attacker, targetEntity, null, true);
+    return attackEntity(stack, tool, attacker, targetEntity, null);
   }
 
-  /**
-   * Version of attackEntity for use with projectiles. Does not apply cooldowns and has a separate projectile for logic
-   */
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
-    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, false);
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, true);
   }
 
   /**
@@ -650,7 +642,14 @@ public final class ToolHelper {
     }
 
     // traits on the tool
-    List<ITrait> traits = TinkerUtil.getTraitsOrdered(stack);
+    List<ITrait> traits = Lists.newLinkedList();
+    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traitsTagList.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
+      if(trait != null) {
+        traits.add(trait);
+      }
+    }
 
     // players base damage (includes tools damage stat)
     float baseDamage = (float) attacker.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
@@ -704,10 +703,8 @@ public final class ToolHelper {
     }
 
     // apply cooldown damage decrease
-    SoundEvent sound = null;
     if(player != null) {
       float cooldown = ((EntityPlayer) attacker).getCooledAttackStrength(0.5F);
-      sound = cooldown > 0.9f ? SoundEvents.ENTITY_PLAYER_ATTACK_STRONG : SoundEvents.ENTITY_PLAYER_ATTACK_WEAK;
       damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
@@ -754,7 +751,7 @@ public final class ToolHelper {
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if(targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
-        TinkerNetwork.sendPacket(targetEntity, new SPacketEntityVelocity(targetEntity));
+        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;
@@ -765,7 +762,6 @@ public final class ToolHelper {
         // vanilla critical callback
         if(isCritical) {
           player.onCriticalHit(target);
-          sound = SoundEvents.ENTITY_PLAYER_ATTACK_CRIT;
         }
 
         // "magical" critical damage? (aka caused by modifiers)
@@ -816,12 +812,6 @@ public final class ToolHelper {
       else if(!isProjectile) {
         tool.reduceDurabilityOnHit(stack, null, damage);
       }
-    } else {
-      sound = SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE;
-    }
-
-    if (player != null && sound != null) {
-      player.world.playSound(null, player.posX, player.posY, player.posZ, sound, player.getSoundCategory(), 1.0F, 1.0F);
     }
 
     return true;
@@ -850,11 +840,7 @@ public final class ToolHelper {
   }
 
   public static float getActualDamage(ItemStack stack, EntityLivingBase player) {
-    float damage = (float) SharedMonsterAttributes.ATTACK_DAMAGE.getDefaultValue();
-    if (player != null) {
-      damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-    }
-
+    float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
     damage += ToolHelper.getActualAttack(stack);
 
     if(stack.getItem() instanceof ToolCore) {

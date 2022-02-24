@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.ranged.item;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,6 +12,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
@@ -30,12 +39,6 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.entity.EntityBolt;
 import slimeknights.tconstruct.tools.melee.item.Rapier;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Bolt extends ProjectileCore {
 
@@ -70,7 +73,7 @@ public class Bolt extends ProjectileCore {
           // only valid ones
           if(hasValidMaterials(tool)) {
             subItems.add(tool);
-            if(!Config.listAllToolMaterials) {
+            if(!Config.listAllMaterials) {
               break;
             }
           }
