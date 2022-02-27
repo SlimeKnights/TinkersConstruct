@@ -1,8 +1,6 @@
 {
   "title": "그을린 송출구",
-  "item": {
-    "id": "tconstruct:seared_duct"
-  },
+  "item": "tconstruct:seared_duct",
   "text": [
     {
       "text": "그을린 송출구는 제련소에서 특정 액체를 꺼낼 수 있다. 송출구의 필터 슬롯에 액체가 담긴 구리 깡통이나 양동이를 넣어 액체를 선택할 수 있다.",
