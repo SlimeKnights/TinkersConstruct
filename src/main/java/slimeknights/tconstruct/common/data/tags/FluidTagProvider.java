@@ -49,7 +49,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenDebris);
     // alloys
     tagLocal(TinkerFluids.moltenSlimesteel);
-    tagAll(TinkerFluids.moltenTinkersBronze);
+    tagAll(TinkerFluids.moltenAmethystBronze);
     tagAll(TinkerFluids.moltenRoseGold);
     tagLocal(TinkerFluids.moltenPigIron);
     // nether alloys
@@ -102,7 +102,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         // vanilla ores
         TinkerFluids.moltenIron.getForgeTag(), TinkerFluids.moltenGold.getForgeTag(), TinkerFluids.moltenCopper.getForgeTag(), TinkerFluids.moltenCobalt.getForgeTag(), TinkerFluids.moltenDebris.getLocalTag(),
         // base alloys
-        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenTinkersBronze.getLocalTag(), TinkerFluids.moltenRoseGold.getForgeTag(), TinkerFluids.moltenPigIron.getLocalTag(),
+        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenAmethystBronze.getLocalTag(), TinkerFluids.moltenRoseGold.getForgeTag(), TinkerFluids.moltenPigIron.getLocalTag(),
         TinkerFluids.moltenManyullyn.getForgeTag(), TinkerFluids.moltenHepatizon.getForgeTag(), TinkerFluids.moltenQueensSlime.getLocalTag(), TinkerFluids.moltenNetherite.getForgeTag(),
         TinkerFluids.moltenSoulsteel.getLocalTag(), TinkerFluids.moltenKnightslime.getLocalTag(),
         // compat ores
@@ -145,7 +145,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.moltenQuartz.getLocalTag())
         .addTag(TinkerFluids.moltenEmerald.getLocalTag())
         .addTag(TinkerFluids.moltenCobalt.getForgeTag())
-        .addTag(TinkerFluids.moltenTinkersBronze.getLocalTag())
+        .addTag(TinkerFluids.moltenAmethystBronze.getLocalTag())
         .addTag(TinkerFluids.moltenRoseGold.getForgeTag())
         .addTag(TinkerFluids.moltenSlimesteel.getLocalTag())
         .addTag(TinkerFluids.moltenBronze.getForgeTag())

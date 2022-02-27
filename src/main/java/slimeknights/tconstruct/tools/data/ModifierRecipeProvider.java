@@ -133,7 +133,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.emeraldReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.bronzeReinforcement)
-                            .setFluidAndTime(TinkerFluids.moltenTinkersBronze, true, FluidValues.NUGGET * 3)
+                            .setFluidAndTime(TinkerFluids.moltenAmethystBronze, true, FluidValues.NUGGET * 3)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.bronzeReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.cobaltReinforcement)
@@ -1069,7 +1069,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInputSalvage(Items.PISTON, 0.9f)
-                         .addInputSalvage(TinkerMaterials.tinkersBronze.getIngotTag(), 1.0f)
+                         .addInputSalvage(TinkerMaterials.amethystBronze.getIngotTag(), 1.0f)
                          .addInputSalvage(Items.PISTON, 0.9f)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
@@ -1132,7 +1132,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.glowing, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.glowing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.firestarter.get())
-                         .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.flintAndBronze)))
+                         .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.flintAndBrick)))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .addInputSalvage(Items.FLINT, 0.2f)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
@@ -1141,7 +1141,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.firestarter, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.firestarter, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.fireprimer.get())
-                         .setTools(Ingredient.of(TinkerTools.flintAndBronze))
+                         .setTools(Ingredient.of(TinkerTools.flintAndBrick))
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .addInputSalvage(Items.FLINT, 0.2f)
                          .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
@@ -1270,7 +1270,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.copper, false, folder);
     // tier 3
     plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
-    plateTexture(consumer, plate, MaterialIds.siliconBronze, "ingots/silicon_bronze", false, folder);
+    plateTexture(consumer, plate, MaterialIds.amethystBronze, false, folder);
     plateTexture(consumer, plate, MaterialIds.roseGold,      false, folder);
     plateTexture(consumer, plate, MaterialIds.pigIron,       false, folder);
     // tier 4
@@ -1290,7 +1290,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.uranium,  true, folder);
     // tier 3 compat
     plateTexture(consumer, plate, MaterialIds.steel,      true, folder);
-    plateTexture(consumer, plate, MaterialIds.tinBronze,  "ingots/bronze", true, folder);
+    plateTexture(consumer, plate, MaterialIds.bronze,     true, folder);
     plateTexture(consumer, plate, MaterialIds.constantan, true, folder);
     plateTexture(consumer, plate, MaterialIds.invar,      true, folder);
     plateTexture(consumer, plate, MaterialIds.electrum,   true, folder);

@@ -1,0 +1,9 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "tool":   "tconstruct:item/tool/flint_and_brick/tool",
+    "broken": "tconstruct:item/tool/flint_and_brick/broken"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/flint_and_bronze/modifiers/" ]
+}

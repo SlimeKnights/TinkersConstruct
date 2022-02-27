@@ -29,5 +29,5 @@ public final class ToolDefinitions {
   public static final ToolDefinition CLEAVER = ToolDefinition.builder(TinkerTools.cleaver).meleeHarvest().build();
 
   // special
-  public static final ToolDefinition FLINT_AND_BRONZE = ToolDefinition.builder(TinkerTools.flintAndBronze).noParts().build();
+  public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.builder(TinkerTools.flintAndBrick).noParts().build();
 }

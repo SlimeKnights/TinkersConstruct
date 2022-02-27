@@ -9,16 +9,10 @@
       "tag": "forge:molten_cobalt",
       "amount": 90
     },
-    [
-      {
-        "tag": "tconstruct:molten_quartz",
-        "amount": 400
-      },
-      {
-        "tag": "tconstruct:molten_amethyst",
-        "amount": 400
-      }
-    ]
+    {
+      "tag": "tconstruct:molten_quartz",
+      "amount": 400
+    }
   ],
   "result": {
     "fluid": "tconstruct:molten_hepatizon",

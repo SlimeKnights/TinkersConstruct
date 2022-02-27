@@ -33,8 +33,8 @@ public final class MaterialIds {
   public static final MaterialId skyslimeVine = id("skyslime_vine");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
+  public static final MaterialId amethystBronze = id("amethyst_bronze");
   public static final MaterialId nahuatl = id("nahuatl");
-  public static final MaterialId bronze = id("bronze");
   public static final MaterialId pigIron = id("pig_iron");
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
@@ -57,6 +57,7 @@ public final class MaterialIds {
   public static final MaterialId whitestone = id("whitestone");
   // tier 3 (mod integration)
   public static final MaterialId steel = id("steel");
+  public static final MaterialId bronze = id("bronze");
   public static final MaterialId constantan = id("constantan");
   public static final MaterialId invar = id("invar");
   public static final MaterialId necronium = id("necronium");
@@ -117,10 +118,6 @@ public final class MaterialIds {
   public static final MaterialVariantId greenheart         = create(slimewood, "greenheart");
   public static final MaterialVariantId skyroot            = create(slimewood, "skyroot");
   public static final MaterialVariantId bloodshroom        = create(slimewood, "bloodshroom");
-
-  // bronze
-  public static final MaterialVariantId siliconBronze = create(bronze, "silicon");
-  public static final MaterialVariantId tinBronze     = create(bronze, "tin");
 
   /**
    * Creates a new material ID

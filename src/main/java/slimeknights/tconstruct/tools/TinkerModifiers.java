@@ -134,6 +134,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.general.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.AirborneModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.harvest.CrumblingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.LustrousModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
@@ -431,6 +432,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<AirborneModifier> airborne = MODIFIERS.register("airborne", AirborneModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
+  public static final RegistryObject<CrumblingModifier> crumbling = MODIFIERS.register("crumbling", CrumblingModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(SlotType.UPGRADE, ModifierSource.TRAIT));

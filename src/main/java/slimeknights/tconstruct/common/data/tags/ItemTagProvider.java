@@ -104,7 +104,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.cobalt);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel);
-    addMetalTags(TinkerMaterials.tinkersBronze);
+    addMetalTags(TinkerMaterials.amethystBronze);
     addMetalTags(TinkerMaterials.roseGold);
     addMetalTags(TinkerMaterials.pigIron);
     // tier 4
@@ -213,7 +213,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, TWO_HANDED, SWORD, AOE);
     // specialized
-    addToolTags(TinkerTools.flintAndBronze, DURABILITY, MELEE, ONE_HANDED, AOE);
+    addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 
     // armor
     addArmorTags(TinkerTools.travelersGear, DURABILITY);

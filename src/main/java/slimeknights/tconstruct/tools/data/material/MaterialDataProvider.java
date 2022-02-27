@@ -45,11 +45,11 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true);
 
     // tier 3
-    addMaterial(MaterialIds.slimesteel, 3, ORDER_GENERAL, false);
-    addMaterial(MaterialIds.bronze,     3, ORDER_HARVEST, false);
-    addMaterial(MaterialIds.nahuatl,    3, ORDER_WEAPON,  false);
-    addMaterial(MaterialIds.roseGold,   3, ORDER_SPECIAL, false);
-    addMaterial(MaterialIds.pigIron,    3, ORDER_SPECIAL, false);
+    addMaterial(MaterialIds.slimesteel,     3, ORDER_GENERAL, false);
+    addMaterial(MaterialIds.amethystBronze, 3, ORDER_HARVEST, false);
+    addMaterial(MaterialIds.nahuatl,        3, ORDER_WEAPON,  false);
+    addMaterial(MaterialIds.roseGold,       3, ORDER_SPECIAL, false);
+    addMaterial(MaterialIds.pigIron,        3, ORDER_SPECIAL, false);
     // tier 3 (nether)
     addMaterial(MaterialIds.cobalt, 3, ORDER_NETHER, false);
 
@@ -79,6 +79,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.whitestone, 2, ORDER_COMPAT + ORDER_SPECIAL, false, false, condition);
     // tier 3 (mod integration)
     addCompatMetalMaterial(MaterialIds.steel,           3, ORDER_COMPAT + ORDER_GENERAL);
+    addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON);
     addCompatMetalMaterial(MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, "uranium");

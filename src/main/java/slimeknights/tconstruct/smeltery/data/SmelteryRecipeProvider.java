@@ -891,7 +891,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // ores
     this.metalTagCasting(consumer, TinkerFluids.moltenCobalt, "cobalt", metalFolder, true);
     // tier 3 alloys
-    this.metalTagCasting(consumer, TinkerFluids.moltenTinkersBronze, "silicon_bronze", metalFolder, true);
+    this.metalTagCasting(consumer, TinkerFluids.moltenAmethystBronze, "amethyst_bronze", metalFolder, true);
     this.metalTagCasting(consumer, TinkerFluids.moltenRoseGold, "rose_gold", metalFolder, true);
     this.metalCasting(consumer, TinkerFluids.moltenSlimesteel, TinkerMaterials.slimesteel, metalFolder, "slimesteel");
     this.metalCasting(consumer, TinkerFluids.moltenPigIron, TinkerMaterials.pigIron, metalFolder, "pig_iron");
@@ -1062,7 +1062,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     
     // tier 3
     metalMelting(consumer, TinkerFluids.moltenSlimesteel.get(), "slimesteel", false, metalFolder, false);
-    metalMelting(consumer, TinkerFluids.moltenTinkersBronze.get(), "silicon_bronze", false, metalFolder, false);
+    metalMelting(consumer, TinkerFluids.moltenAmethystBronze.get(), "amethyst_bronze", false, metalFolder, false);
     metalMelting(consumer, TinkerFluids.moltenRoseGold.get(), "rose_gold", false, metalFolder, false);
     metalMelting(consumer, TinkerFluids.moltenPigIron.get(), "pig_iron", false, metalFolder, false);
     // tier 4
@@ -1444,9 +1444,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerModifiers.slimesteelReinforcement), TinkerFluids.moltenSlimesteel.get(), FluidValues.NUGGET * 3)
                         .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
                         .save(consumer, modResource(metalFolder + "slimesteel/reinforcement"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerModifiers.bronzeReinforcement), TinkerFluids.moltenTinkersBronze.get(), FluidValues.NUGGET * 3)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerModifiers.bronzeReinforcement), TinkerFluids.moltenAmethystBronze.get(), FluidValues.NUGGET * 3)
                         .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
-                        .save(consumer, modResource(metalFolder + "tinkers_bronze/reinforcement"));
+                        .save(consumer, modResource(metalFolder + "amethyst_bronze/reinforcement"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerModifiers.cobaltReinforcement), TinkerFluids.moltenCobalt.get(), FluidValues.NUGGET * 3)
                         .addByproduct(new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE))
                         .save(consumer, modResource(metalFolder + "cobalt/reinforcement"));
@@ -1498,11 +1498,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.searedStone.getLocalTag(), FluidValues.BRICK)
                       .save(consumer, prefix(TinkerFluids.moltenSlimesteel, folder));
 
-    // tinker's bronze: 3 copper + 1 silicon (1/4 glass) = 4
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenTinkersBronze.get(), FluidValues.INGOT * 3)
-                      .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 3)
-                      .addInput(TinkerFluids.moltenGlass.getLocalTag(), FluidValues.GLASS_BLOCK)
-                      .save(consumer, prefix(TinkerFluids.moltenTinkersBronze, folder));
+    // amethyst bronze: 1 copper + 1 amethyst = 1
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenAmethystBronze.get(), FluidValues.INGOT)
+                      .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT)
+                      .addInput(TinkerFluids.moltenAmethyst.getLocalTag(), FluidValues.GEM)
+                      .save(consumer, prefix(TinkerFluids.moltenAmethystBronze, folder));
 
     // rose gold: 3 copper + 1 gold = 4
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenRoseGold.get(), FluidValues.INGOT * 4)
@@ -1541,7 +1541,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon.get(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCobalt.getForgeTag(), FluidValues.INGOT)
-                      .addInput(FluidIngredient.of(FluidIngredient.of(TinkerFluids.moltenQuartz.getLocalTag(), FluidValues.GEM * 4), FluidIngredient.of(TinkerFluids.moltenAmethyst.getLocalTag(), FluidValues.GEM * 4)))
+                      .addInput(TinkerFluids.moltenQuartz.getLocalTag(), FluidValues.GEM * 4)
                       .save(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)

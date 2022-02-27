@@ -120,9 +120,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(1040, 6f, DIAMOND, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackSpeed(0.95f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.bronze,
-                     new HeadMaterialStats(720, 7f, DIAMOND, 2f),
-                     HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.10f),
+    addMaterialStats(MaterialIds.amethystBronze,
+                     new HeadMaterialStats(720, 7f, DIAMOND, 1.5f),
+                     HandleMaterialStats.DEFAULT.withMiningSpeed(1.10f).withAttackSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.nahuatl,
                      new HeadMaterialStats(350, 4.5f, DIAMOND, 3f),
@@ -147,6 +147,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.steel,
                      new HeadMaterialStats(775, 6f, DIAMOND, 2.75f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.bronze,
+                     new HeadMaterialStats(760, 6.5f, DIAMOND, 2.25f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.10f).withMiningSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.constantan,
                      new HeadMaterialStats(675, 7.5f, DIAMOND, 1.75f),

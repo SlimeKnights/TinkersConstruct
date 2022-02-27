@@ -29,10 +29,5 @@
     "name": "vein_hammer",
     "type": "tconstruct:tool",
     "data": "tools/vein_hammer.json"
-  },
-  {
-    "name": "flint_and_bronze",
-    "type": "tconstruct:tool",
-    "data": "tools/flint_and_bronze.json"
   }
 ]

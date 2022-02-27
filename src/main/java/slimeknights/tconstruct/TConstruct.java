@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -156,6 +157,9 @@ public class TConstruct {
     return switch (name) {
       case "copper_block" -> Blocks.COPPER_BLOCK;
       case "copper_ore" -> Blocks.COPPER_ORE;
+      // tinker bronze -> amethyst bronze
+      case "tinkers_bronze_block" -> TinkerMaterials.amethystBronze.get();
+      case "molten_tinkers_bronze_fluid" -> TinkerFluids.moltenAmethystBronze.getBlock();
       default -> null;
     };
   }
@@ -170,6 +174,11 @@ public class TConstruct {
         case "pickaxe_head_cast": return TinkerSmeltery.pickHeadCast.get();
         case "pickaxe_head_sand_cast": return TinkerSmeltery.pickHeadCast.getSand();
         case "pickaxe_head_red_sand_cast": return TinkerSmeltery.pickHeadCast.getRedSand();
+        // tinker bronze -> amethyst bronze
+        case "tinkers_bronze_ingot": TinkerMaterials.amethystBronze.getIngot();
+        case "tinkers_bronze_nugget": TinkerMaterials.amethystBronze.getNugget();
+        case "molten_tinkers_bronze_bucket": return TinkerFluids.moltenAmethystBronze.asItem();
+        case "flint_and_bronze": TinkerTools.flintAndBrick.get();
       }
       ItemLike block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -179,6 +188,16 @@ public class TConstruct {
   @SubscribeEvent
   void missingBlocks(final MissingMappings<Block> event) {
     RegistrationHelper.handleMissingMappings(event, MOD_ID, TConstruct::missingBlock);
+  }
+
+  @SubscribeEvent
+  void missingFluid(final MissingMappings<Fluid> event) {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> switch (name) {
+      // tinker bronze -> amethyst bronze
+      case "molten_tinkers_bronze" -> TinkerFluids.moltenAmethystBronze.get();
+      case "flowing_molten_tinkers_bronze" -> TinkerFluids.moltenAmethystBronze.getFlowing();
+      default -> null;
+    });
   }
 
 

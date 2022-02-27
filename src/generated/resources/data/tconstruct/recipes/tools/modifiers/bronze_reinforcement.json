@@ -5,9 +5,9 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "forge:molten_silicon_bronze",
+    "tag": "forge:molten_amethyst_bronze",
     "amount": 30
   },
   "result": "tconstruct:bronze_reinforcement",
-  "cooling_time": 33
+  "cooling_time": 35
 }

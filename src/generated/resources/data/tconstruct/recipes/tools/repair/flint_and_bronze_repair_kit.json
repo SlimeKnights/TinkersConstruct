@@ -1,7 +1,0 @@
-{
-  "type": "tconstruct:specialized_repair_kit",
-  "tool": {
-    "item": "tconstruct:flint_and_bronze"
-  },
-  "repair_material": "tconstruct:bronze"
-}

@@ -35,6 +35,11 @@
     "data": "tools/pickaxe.json"
   },
   {
+    "name": "flint_and_bronze",
+    "type": "tconstruct:tool",
+    "data": "tools/flint_and_bronze.json"
+  },
+  {
     "name": "repairing",
     "type": "mantle:image_text",
     "data": "tools/repairing.json"

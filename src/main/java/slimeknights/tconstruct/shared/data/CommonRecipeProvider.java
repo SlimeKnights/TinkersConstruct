@@ -244,7 +244,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     metalCrafting(consumer, TinkerMaterials.cobalt, folder);
     // tier 3
     metalCrafting(consumer, TinkerMaterials.slimesteel, folder);
-    metalCrafting(consumer, TinkerMaterials.tinkersBronze, folder);
+    metalCrafting(consumer, TinkerMaterials.amethystBronze, folder);
     metalCrafting(consumer, TinkerMaterials.roseGold, folder);
     metalCrafting(consumer, TinkerMaterials.pigIron, folder);
     // tier 4

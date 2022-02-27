@@ -55,8 +55,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x46ECE7).fallbacks("slime_metal", "metal");
     // default texture is tin even though silicon is the one we provide, as it makes the names cleaner
-    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal").materialTexture(MaterialIds.tinBronze);
-    buildRenderInfo(MaterialIds.siliconBronze).color(0xE8B465).fallbacks("metal");
+    buildRenderInfo(MaterialIds.amethystBronze).color(0xE8B465).fallbacks("metal");
     buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");
     buildRenderInfo(MaterialIds.roseGold).color(0xF7CDBB).fallbacks("metal");
@@ -79,7 +78,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 3 compat
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
-    buildRenderInfo(MaterialIds.tinBronze).color(0xD49765).fallbacks("metal");
+    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0xFF8B70).fallbacks("metal");
     buildRenderInfo(MaterialIds.invar).color(0xCADBD0).fallbacks("metal");
     buildRenderInfo(MaterialIds.necronium).color(0x9CBD89).fallbacks("bone", "metal");
