@@ -3,15 +3,15 @@
     "tconstruct:extra": {},
     "tconstruct:handle": {
       "durability": 0.85,
-      "miningSpeed": 1.0,
+      "miningSpeed": 1.1,
       "attackSpeed": 1.0,
-      "attackDamage": 1.15
+      "attackDamage": 1.05
     },
     "tconstruct:head": {
       "durability": 225,
-      "miningSpeed": 5.0,
+      "miningSpeed": 6.5,
       "harvestTier": "minecraft:iron",
-      "attack": 2.25
+      "attack": 1.5
     }
   }
 }

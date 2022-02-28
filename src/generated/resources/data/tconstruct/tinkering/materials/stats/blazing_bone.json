@@ -7,9 +7,9 @@
     "tconstruct:extra": {},
     "tconstruct:handle": {
       "durability": 0.85,
-      "miningSpeed": 1.05,
+      "miningSpeed": 1.0,
       "attackSpeed": 1.2,
-      "attackDamage": 1.0
+      "attackDamage": 1.05
     },
     "tconstruct:head": {
       "durability": 530,
