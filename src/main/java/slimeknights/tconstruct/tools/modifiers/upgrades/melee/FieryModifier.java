@@ -29,7 +29,7 @@ public class FieryModifier extends IncrementalModifier {
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
-      target.setRemainingFireTicks(Math.round(getScaledLevel(tool, level) * 5));
+      target.setSecondsOnFire(Math.round(getScaledLevel(tool, level) * 5));
     }
     return 0;
   }
