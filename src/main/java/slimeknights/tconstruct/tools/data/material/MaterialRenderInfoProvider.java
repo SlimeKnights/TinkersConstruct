@@ -29,6 +29,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.acacia);
     buildRenderInfo(MaterialIds.crimson);
     buildRenderInfo(MaterialIds.warped);
+    buildRenderInfo(MaterialIds.bamboo);
     // tier 1 - stone
     buildRenderInfo(MaterialIds.rock).materialTexture(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
     buildRenderInfo(MaterialIds.stone).color(0xB1AFAD);

@@ -1291,6 +1291,7 @@
   "material.tconstruct.wood.dark_oak": "Dark Oak Wood",
   "material.tconstruct.wood.crimson":  "Crimson Hyphae",
   "material.tconstruct.wood.warped":   "Warped Hyphae",
+  "material.tconstruct.wood.bamboo":   "Bamboo",
   "material.tconstruct.wood.format": "Wooden %s",
   "material.tconstruct.wood.flavor": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
   "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",

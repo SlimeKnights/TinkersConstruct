@@ -45,7 +45,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   private void addMaterialItems(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/materials/";
     // tier 1
-    materialRecipe(consumer, MaterialIds.wood, Ingredient.of(Tags.Items.RODS_WOODEN), 1, 2, folder + "wood/sticks");
+    materialRecipe(consumer, MaterialIds.wood,   Ingredient.of(Tags.Items.RODS_WOODEN), 1, 2, folder + "wood/sticks");
+    materialRecipe(consumer, MaterialIds.bamboo, Ingredient.of(Items.BAMBOO),           1, 4, folder + "wood/bamboo");
     // planks
     materialRecipe(consumer, MaterialIds.oak,     Ingredient.of(Items.OAK_PLANKS),      1, 1, folder + "wood/planks/oak");
     materialRecipe(consumer, MaterialIds.spruce,  Ingredient.of(Items.SPRUCE_PLANKS),   1, 1, folder + "wood/planks/spruce");

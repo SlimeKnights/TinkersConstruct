@@ -102,6 +102,7 @@ public final class MaterialIds {
   public static final MaterialVariantId darkOak = create(wood, "dark_oak");
   public static final MaterialVariantId crimson = create(wood, "crimson");
   public static final MaterialVariantId warped  = create(wood, "warped");
+  public static final MaterialVariantId bamboo  = create(wood, "bamboo");
 
   // stone
   public static final MaterialVariantId stone      = create(rock, "stone");
