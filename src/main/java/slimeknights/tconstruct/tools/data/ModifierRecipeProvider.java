@@ -859,7 +859,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInputSalvage(Items.LEATHER, 0.7f)
                          .addInputSalvage(Items.LEATHER, 0.4f)
                          .addInputSalvage(Items.LEATHER, 0.4f)
-                         .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .saveSalvage(consumer, prefix(TinkerModifiers.toolBelt, abilitySalvage))
