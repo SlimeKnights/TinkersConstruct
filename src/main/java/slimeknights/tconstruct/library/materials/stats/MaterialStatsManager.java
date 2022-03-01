@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -173,7 +174,19 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @Override
   protected void parse(Map<ResourceLocation, JsonObject> builder, ResourceLocation id, JsonElement element) throws JsonSyntaxException {
     MaterialStatJson json = GSON.fromJson(element, MaterialStatJson.class);
-    builder.putAll(json.getStats());
+    // instead of simply replacing the whole JSON object, merge the two together
+    for (Entry<ResourceLocation,JsonObject> entry : json.getStats().entrySet()) {
+      ResourceLocation key = entry.getKey();
+      JsonObject value = entry.getValue();
+      JsonObject existing = builder.get(key);
+      if (existing != null) {
+        for (Entry<String,JsonElement> jsonEntry : value.entrySet()) {
+          existing.add(jsonEntry.getKey(), jsonEntry.getValue());
+        }
+      } else {
+        builder.put(key, value);
+      }
+    }
   }
 
   @Override
