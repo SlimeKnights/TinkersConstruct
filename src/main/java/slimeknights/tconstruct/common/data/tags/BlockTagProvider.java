@@ -229,6 +229,15 @@ public class BlockTagProvider extends BlockTagsProvider {
     // piglins are not a fan of zombie piglin corpses though
     this.tag(BlockTags.PIGLIN_REPELLENTS)
         .add(TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.ZOMBIFIED_PIGLIN));
+
+    // stone variants
+    this.tag(TinkerTags.Blocks.STONE).add(Blocks.STONE, Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE);
+    this.tag(TinkerTags.Blocks.GRANITE).add(Blocks.GRANITE);
+    this.tag(TinkerTags.Blocks.DIORITE).add(Blocks.DIORITE);
+    this.tag(TinkerTags.Blocks.ANDESITE).add(Blocks.ANDESITE);
+    this.tag(TinkerTags.Blocks.BLACKSTONE).add(Blocks.BLACKSTONE);
+    this.tag(TinkerTags.Blocks.DEEPSLATE).add(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+    this.tag(TinkerTags.Blocks.BASALT).add(Blocks.BASALT);
   }
 
   private void addSmeltery() {

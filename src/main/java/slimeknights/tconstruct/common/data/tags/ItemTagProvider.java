@@ -293,6 +293,15 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.DEFAULT_PATTERNS).add(TinkerTables.pattern.get());
     this.tag(TinkerTags.Items.REUSABLE_PATTERNS).addTag(TinkerTags.Items.GOLD_CASTS);
     this.tag(TinkerTags.Items.PATTERNS).addTags(TinkerTags.Items.DEFAULT_PATTERNS, TinkerTags.Items.REUSABLE_PATTERNS);
+
+    // stone
+    this.copy(TinkerTags.Blocks.STONE,      TinkerTags.Items.STONE);
+    this.copy(TinkerTags.Blocks.GRANITE,    TinkerTags.Items.GRANITE);
+    this.copy(TinkerTags.Blocks.DIORITE,    TinkerTags.Items.DIORITE);
+    this.copy(TinkerTags.Blocks.ANDESITE,   TinkerTags.Items.ANDESITE);
+    this.copy(TinkerTags.Blocks.BLACKSTONE, TinkerTags.Items.BLACKSTONE);
+    this.copy(TinkerTags.Blocks.DEEPSLATE,  TinkerTags.Items.DEEPSLATE);
+    this.copy(TinkerTags.Blocks.BASALT,     TinkerTags.Items.BASALT);
   }
 
   private void addSmeltery() {

@@ -232,6 +232,7 @@
 
     "__tier_1__": null,
     "flint":         "#696969",
+    "flint.basalt":  "#747474",
     "bone":          "#E8E5D2",
     "necrotic_bone": "#4D4D4D",
     "string":        "#FFFFFF",

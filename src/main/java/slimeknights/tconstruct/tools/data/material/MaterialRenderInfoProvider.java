@@ -13,7 +13,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   @Override
   protected void addMaterialRenderInfo() {
     // tier 1
-    buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
+    buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("crystal", "rock", "stick");
+    buildRenderInfo(MaterialIds.basalt);
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);

@@ -93,6 +93,7 @@ public final class MaterialIds {
   /*
    * Variants
    */
+  public static final MaterialVariantId basalt  = create(flint, "basalt");
   // wood
   public static final MaterialVariantId oak     = create(wood, "oak");
   public static final MaterialVariantId spruce  = create(wood, "spruce");
@@ -103,7 +104,6 @@ public final class MaterialIds {
   public static final MaterialVariantId crimson = create(wood, "crimson");
   public static final MaterialVariantId warped  = create(wood, "warped");
   public static final MaterialVariantId bamboo  = create(wood, "bamboo");
-
   // stone
   public static final MaterialVariantId stone      = create(rock, "stone");
   public static final MaterialVariantId andesite   = create(rock, "andesite");
@@ -111,9 +111,6 @@ public final class MaterialIds {
   public static final MaterialVariantId granite    = create(rock, "granite");
   public static final MaterialVariantId blackstone = create(rock, "blackstone");
   public static final MaterialVariantId deepslate  = create(rock, "deepslate");
-
-  // TODO: flint
-
   // slimewood
   public static final MaterialVariantId slimewoodComposite = create(slimewood, "composite");
   public static final MaterialVariantId greenheart         = create(slimewood, "greenheart");

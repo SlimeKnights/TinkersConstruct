@@ -1307,6 +1307,7 @@
   "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
 
   "material.tconstruct.flint": "Flint",
+  "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
   "material.tconstruct.flint.encyclopedia": "Increases damage by a quarter of the square root of the lost durability",
 

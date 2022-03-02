@@ -71,14 +71,14 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
                    IngredientDifference.difference(Ingredient.of(ItemTags.LOGS), Ingredient.of(TinkerTags.Items.VARIANT_LOGS)), 4, 1,
                    ItemOutput.fromStack(new ItemStack(Items.STICK, 2)), folder + "wood/logs/default");
     // stone
-    materialRecipe(consumer, MaterialIds.stone,      Ingredient.of(Blocks.STONE, Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE), 1, 1, folder + "rock/stone");
-    materialRecipe(consumer, MaterialIds.andesite,   Ingredient.of(Blocks.ANDESITE),                                            1, 1, folder + "rock/andesite");
-    materialRecipe(consumer, MaterialIds.diorite,    Ingredient.of(Blocks.DIORITE),                                             1, 1, folder + "rock/diorite");
-    materialRecipe(consumer, MaterialIds.granite,    Ingredient.of(Blocks.GRANITE),                                             1, 1, folder + "rock/granite");
-    materialRecipe(consumer, MaterialIds.deepslate,  Ingredient.of(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE),                 1, 1, folder + "rock/deepslate");
-    materialRecipe(consumer, MaterialIds.blackstone, Ingredient.of(Blocks.BLACKSTONE),                                          1, 1, folder + "rock/blackstone");
-    // TODO: flint and basalt
-    materialRecipe(consumer, MaterialIds.flint, Ingredient.of(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, folder + "flint");
+    materialRecipe(consumer, MaterialIds.stone,      Ingredient.of(TinkerTags.Items.STONE),      1, 1, folder + "rock/stone");
+    materialRecipe(consumer, MaterialIds.andesite,   Ingredient.of(TinkerTags.Items.ANDESITE),   1, 1, folder + "rock/andesite");
+    materialRecipe(consumer, MaterialIds.diorite,    Ingredient.of(TinkerTags.Items.DIORITE),    1, 1, folder + "rock/diorite");
+    materialRecipe(consumer, MaterialIds.granite,    Ingredient.of(TinkerTags.Items.GRANITE),    1, 1, folder + "rock/granite");
+    materialRecipe(consumer, MaterialIds.deepslate,  Ingredient.of(TinkerTags.Items.DEEPSLATE),  1, 1, folder + "rock/deepslate");
+    materialRecipe(consumer, MaterialIds.blackstone, Ingredient.of(TinkerTags.Items.BLACKSTONE), 1, 1, folder + "rock/blackstone");
+    materialRecipe(consumer, MaterialIds.flint,  Ingredient.of(Items.FLINT),             1, 1, folder + "flint");
+    materialRecipe(consumer, MaterialIds.basalt, Ingredient.of(TinkerTags.Items.BASALT), 1, 1, folder + "flint_basalt");
     // other tier 1
     materialRecipe(consumer, MaterialIds.bone, Ingredient.of(Tags.Items.BONES), 1, 1, folder + "bone");
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.of(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");

@@ -1,6 +1,8 @@
 {
   "fallbacks": [
-    "flint"
+    "crystal",
+    "rock",
+    "stick"
   ],
   "color": "3D3C3C",
   "luminosity": 0,
