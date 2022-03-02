@@ -29,7 +29,7 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "minecraft:netherite_scrap",
+      "tag": "forge:ingots/cobalt",
       "chance": 0.35
     }
   ]
