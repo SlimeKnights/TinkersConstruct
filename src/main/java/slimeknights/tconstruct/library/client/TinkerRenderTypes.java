@@ -29,14 +29,12 @@ public class TinkerRenderTypes extends RenderType {
 
   /** Render type for fluids, like {@link slimeknights.mantle.client.render.MantleRenderTypes#FLUID}, but disables cull so both sides show */
   public static final RenderType SMELTERY_FLUID = RenderType.create(
-    TConstruct.resourceString("smeltery_fluid"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, true, true,
+    TConstruct.resourceString("smeltery_fluid"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true,
     CompositeState.builder()
-                  .setTextureState(BLOCK_SHEET)
-                  .setShaderState(RENDERTYPE_TRANSLUCENT_SHADER)
                   .setLightmapState(LIGHTMAP)
+                  .setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
                   .setTextureState(BLOCK_SHEET_MIPPED)
                   .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                  .setOutputState(TRANSLUCENT_TARGET)
                   .setCullState(NO_CULL)
                   .createCompositeState(false));
 }
