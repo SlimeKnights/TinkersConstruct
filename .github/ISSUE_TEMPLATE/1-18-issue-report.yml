@@ -102,6 +102,7 @@ body:
         - 'Optifine'
         - 'Performant'
         - 'Other (specify under mods required)'
+        - 'None of the above'
     validations:
       required: true
       
