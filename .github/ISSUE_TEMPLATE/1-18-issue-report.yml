@@ -7,6 +7,7 @@ body:
       value: |
         Please note that 1.18 versions of the mod are in alpha, so are subject to change. Before submitting an issue, please search the following links to make sure your issue is not covered:
         
+        * **[Pinned Issues](/SlimeKnights/TinkersConstruct/issues)**: Some commonly reported issues are pinned
         * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
         * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.18 alphas
         * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.18 versions
@@ -45,7 +46,7 @@ body:
     validations:
       required: true
   
-  
+ 
   - type: markdown
     attributes:
       value: "## Issue Description"
@@ -65,32 +66,66 @@ body:
     validations:
       required: false
       
-  - type: dropdown
-    id: tinkers-only
-    attributes:
-      label: "Reproduced with only Tinkers' Construct?"
-      description: "We expect you to test with just Tinkers' Construct and Mantle, answering 'Yes' means you have tested and confirmed the issue with no other mods."
-      options:
-        - 'No'
-        - 'Yes'
-    validations:
-      required: true
-      
   - type: textarea
     id: required-mods
     attributes:
-      label: Other mods required
-      description: If you answered "No" above, list other mods required to reproduce this. Should be less than 10 mods.
+      label: Other mods
+      description: List the smallest set of mods you have used to reproduce this issue. Please do not list a modpack name unless the modpack is public
     validations:
-      required: false
-  
-  - type: checkboxes
-    id: confirmations
+      required: true
+        
+        
+  - type: markdown
     attributes:
-      label: Confirm the following
-      description: Check all actions you have performed
+      value: "## Confirm the following"
+      
+  - type: dropdown
+    id: just-tinkers
+    attributes:
+      label: "Tried reproducing with just Tinkers?"
+      description: "Test by removing all other mods besides Tinkers' Construct"
       options:
-        - label: "Check if you are using performance enhancers, such as optifine"
-        - label: "Check if you have searched the tracker to see if your issue already exists, notably pinned issues"
-        - label: "Check if you did not read any of the checkboxes and just checked all the boxes"
-        - label: "Check if you read FAQ to see if your issue is answered"
+        - 'Yes'
+        - 'I will go do that now'
+        - 'No'
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: performance-enhancers
+    attributes:
+      label: "Performance Enchancers"
+      description: "Select all that you were using when you reproduced the issue. Ideally reproduce with fewer performance enhancers."
+      multiple: true
+      options:
+        - 'Magnesium'
+        - 'Optifine'
+        - 'Performant'
+        - 'Other (specify under mods required)'
+        - 'None'
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: searched
+    attributes:
+      label: "Searched for an existing issue?"
+      description: "Please check [pinned issues](https://github.com/SlimeKnights/TinkersConstruct/issues) and try the [search bar](https://github.com/SlimeKnights/TinkersConstruct/issues)."
+      options:
+        - 'Checked pinned issues'
+        - 'Used the search bar'
+        - 'Checked pinned issues and used the search bar'
+        - 'I did not try to find an existing issue'
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: faq
+    attributes:
+      label: "Checked FAQ?"
+      description: "Did you check [the FAQ](https://github.com/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ) to see if your issue is covered?"
+      options:
+        - 'Yes'
+        - 'No'
+    validations:
+      required: true
