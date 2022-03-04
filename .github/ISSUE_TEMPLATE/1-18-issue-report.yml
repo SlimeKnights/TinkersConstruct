@@ -114,7 +114,8 @@ body:
       multiple: true
       options:
         - 'Checked pinned issues'
-        - 'Used the search bar'
+        - 'Searched open issues'
+        - 'Searched closed issues'
         - 'Checked the FAQ'
         - 'I did not search'
     validations:
