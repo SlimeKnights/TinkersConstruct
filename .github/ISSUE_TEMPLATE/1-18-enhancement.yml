@@ -6,8 +6,7 @@ body:
     attributes:
       value: |
         If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) instead of posting a new issue.
-        S
-        Please search the following links to make sure your issue is not covered:
+        Please search the following links to make sure your enhancement is not covered:
         
         * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
         * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.18 alphas
@@ -83,15 +82,24 @@ body:
     id: context
     attributes:
       label: Additional context
-      description: "If there is any additional context needed, such as screenshots, include them here"
+      description: "If there is any additional context needed, such as screenshots or related mods, include here"
     validations:
       required: false
-  
-  - type: checkboxes
-    id: confirmations
+        
+        
+  - type: markdown
     attributes:
-      label: Confirm the following
-      description: Check all actions you have performed
+      value: "## Confirm the following"
+      
+  - type: dropdown
+    id: searched
+    attributes:
+      label: "Searched for existing enhancement?"
+      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ) to see if your enhancement is covered."
+      multiple: true
       options:
-        - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
-          required: true
+        - 'Used the search bar'
+        - 'Checked the FAQ'
+        - 'I did not search'
+    validations:
+      required: true
