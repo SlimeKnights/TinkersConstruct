@@ -4,10 +4,16 @@
     "item": "tconstruct:obsidian_pane"
   },
   "cast_consumed": true,
-  "fluid": {
-    "tag": "tconstruct:seared_stone",
-    "amount": 250
-  },
+  "fluid": [
+    {
+      "tag": "tconstruct:seared_stone",
+      "amount": 250
+    },
+    {
+      "tag": "tconstruct:scorched_stone",
+      "amount": 250
+    }
+  ],
   "result": "tconstruct:seared_reinforcement",
   "cooling_time": 89
 }

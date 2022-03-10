@@ -235,6 +235,17 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                                                   .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
                             modResource("common/flint"));
+
+    // allow crafting the blast furnace in the nether
+    ShapedRecipeBuilder.shaped(Blocks.BLAST_FURNACE)
+                       .define('#', Blocks.SMOOTH_BASALT)
+                       .define('X', Blocks.FURNACE)
+                       .define('I', Items.IRON_INGOT)
+                       .pattern("III")
+                       .pattern("IXI")
+                       .pattern("###")
+                       .unlockedBy("has_smooth_stone", has(Blocks.SMOOTH_BASALT))
+                       .save(consumer, modResource("common/basalt_blast_furnace"));
   }
 
   private void addMaterialRecipes(Consumer<FinishedRecipe> consumer) {

@@ -121,7 +121,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.slimesteelReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.searedReinforcement)
-                            .setFluidAndTime(TinkerFluids.searedStone, false, FluidValues.BRICK)
+                            .setFluid(FluidIngredient.of(FluidIngredient.of(TinkerFluids.searedStone.getLocalTag(), FluidValues.BRICK), FluidIngredient.of(TinkerFluids.scorchedStone.getLocalTag(), FluidValues.BRICK)))
+                            .setCoolingTime(TinkerFluids.searedStone.get().getAttributes().getTemperature() - 300, FluidValues.BRICK)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.searedReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.goldReinforcement)
@@ -1005,12 +1006,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.exchanging, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.exchanging, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.autosmelt.get())
-                         .addInput(Items.FIRE_CHARGE)
-                         .addInputSalvage(Blocks.MAGMA_BLOCK, 0.4f)
-                         .addInput(Items.FIRE_CHARGE)
-                         .addInput(TinkerMaterials.blazingBone)
-                         .addInput(TinkerMaterials.blazingBone)
-                         .addSalvage(TinkerMaterials.blazingBone, 1, 2)
+                         .addInput(Tags.Items.RAW_MATERIALS)
+                         .addInputSalvage(Blocks.BLAST_FURNACE, 0.8f)
+                         .addInput(Tags.Items.INGOTS)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_COAL)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_COAL)
+                         .addSalvage(Items.COAL, 1, 18)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.HARVEST)
