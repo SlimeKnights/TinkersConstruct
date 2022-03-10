@@ -42,7 +42,7 @@ public class HasteModifier extends IncrementalArmorLevelModifier {
     float scaledLevel = getScaledLevel(context, level);
     // currently gives +5 speed per level
     // for comparison, vanilla gives +2, 5, 10, 17, 26 for efficiency I to V
-    // 5 per level gives us          +5, 10, 15, 20, 25 for 5 levels
+    // 4 per level gives us          +4, 8, 12, 16, 20 for 5 levels, but netherite boosts that up to 25
     ToolStats.MINING_SPEED.add(builder, scaledLevel * 5f);
   }
 

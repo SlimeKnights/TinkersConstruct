@@ -138,7 +138,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.harvest.CrumblingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.LustrousModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier2;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.SharpweightModifier;
@@ -200,6 +199,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.LightspeedModifi
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.BaneOfSssssModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.melee.KillagerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.LootingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PaddedModifier;
@@ -293,6 +293,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(MobType.UNDEAD));
   public static final RegistryObject<BaneOfSssssModifier> baneOfSssss = MODIFIERS.register("bane_of_sssss", BaneOfSssssModifier::new);
   public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(MobType.WATER));
+  public static final RegistryObject<KillagerModifier> killager = MODIFIERS.register("killager", KillagerModifier::new);
   public static final RegistryObject<CoolingModifier> cooling = MODIFIERS.register("cooling", CoolingModifier::new);
   public static final RegistryObject<SharpnessModifier> sharpness = MODIFIERS.register("sharpness", SharpnessModifier::new);
   public static final RegistryObject<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
@@ -434,7 +435,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final RegistryObject<CrumblingModifier> crumbling = MODIFIERS.register("crumbling", CrumblingModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
-  public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(SlotType.UPGRADE, ModifierSource.TRAIT));
   public static final RegistryObject<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
   // traits - tier 3 nether
@@ -456,7 +456,7 @@ public final class TinkerModifiers extends TinkerModule {
   // smite is also an upgrade
   // traits - mod compat tier 3
   public static final RegistryObject<DuctileModifier> ductile = MODIFIERS.register("ductile", DuctileModifier::new);
-  public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
+  public static final RegistryObject<MaintainedModifier> maintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final RegistryObject<TemperateModifier> temperate = MODIFIERS.register("temperate", TemperateModifier::new);
   public static final RegistryObject<InvariantModifier> invariant = MODIFIERS.register("invariant", InvariantModifier::new);
   public static final RegistryObject<DecayModifier> decay = MODIFIERS.register("decay", DecayModifier::new);

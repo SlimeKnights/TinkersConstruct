@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:gems/lapis"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 45,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "result": {
+    "name": "tconstruct:killager",
+    "level": 1
+  },
+  "max_level": 5
+}

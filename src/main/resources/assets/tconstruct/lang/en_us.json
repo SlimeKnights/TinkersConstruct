@@ -1345,7 +1345,7 @@
 
   "material.tconstruct.seared_stone": "Seared Stone",
   "material.tconstruct.seared_stone.flavor": "Hotter Grout.",
-  "material.tconstruct.seared_stone.encyclopedia": "Gives +7 mining speed against blocks that can be melted in a melter",
+  "material.tconstruct.seared_stone.encyclopedia": "Gives +6 mining speed against blocks that can be melted in a melter",
 
   "material.tconstruct.scorched_stone": "Scorched Stone",
   "material.tconstruct.scorched_stone.flavor": "Founders edition bonus.",
@@ -1353,7 +1353,7 @@
 
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
-  "material.tconstruct.copper.encyclopedia": "Grants more mining speed at lower depths, up to +10% per level",
+  "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +8 per 64 blocks below sea level",
   "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",
   "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
@@ -1516,11 +1516,11 @@
 
   "material.tconstruct.bronze": "Bronze",
   "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",
-  "material.tconstruct.bronze.encyclopedia": "Grants +10% to +15% mining speed per level at full durability, based on other modifiers",
+  "material.tconstruct.bronze.encyclopedia": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability",
 
   "material.tconstruct.constantan": "Constantan",
   "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
-  "material.tconstruct.constantan.encyclopedia": "Grants +12.5% mining speed in extreme heat or cold",
+  "material.tconstruct.constantan.encyclopedia": "Grants +7.5 mining speed in extreme heat or cold",
 
   "material.tconstruct.invar": "Invar",
   "material.tconstruct.invar.flavor": "Resists both temperature and arrest.",
@@ -1574,9 +1574,8 @@
   "modifier.tconstruct.overforced.flavor": "Protected by Slime!",
   "modifier.tconstruct.overforced.description": "Tool is reinforced using slime, allowing more capacity for overslime",
   "modifier.tconstruct.emerald": "Emerald",
-  "modifier.tconstruct.emerald.flavor": "Fancy!",
-  "modifier.tconstruct.emerald.description": "Increases durability depending on base durability! Illagers hate it!",
-  "modifier.tconstruct.emerald.attack_damage": "Illager Damage",
+  "modifier.tconstruct.emerald.flavor": "Villagers will want to be you!",
+  "modifier.tconstruct.emerald.description": "Increases durability depending on base durability! Boosts effectiveness of conditional damage and mining speed",
   "modifier.tconstruct.diamond": "Diamond",
   "modifier.tconstruct.diamond.flavor": "Rich!",
   "modifier.tconstruct.diamond.description": "Increased durability and stats!",
@@ -1659,6 +1658,10 @@
   "modifier.tconstruct.antiaquatic.flavor": "Basically a Fishing Rod!",
   "modifier.tconstruct.antiaquatic.description": "Tool does bonus damage to sea creatures!",
   "modifier.tconstruct.antiaquatic.attack_damage": "Antiaquatic Damage",
+  "modifier.tconstruct.killager": "Killager",
+  "modifier.tconstruct.killager.flavor": "Illagers hate it!",
+  "modifier.tconstruct.killager.description": "Increases damage against villagers, illagers, and other longnosed creatures!",
+  "modifier.tconstruct.killager.attack_damage": "Killager Damage",
   "modifier.tconstruct.cooling": "Cooling",
   "modifier.tconstruct.cooling.flavor": "Frosty!",
   "modifier.tconstruct.cooling.description": "Tool does bonus damage to fire based creatures!",
@@ -2105,7 +2108,7 @@
   "modifier.tconstruct.temperate": "Temperate",
   "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
   "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
-  "modifier.tconstruct.invariant.mining_speed": "Temperate Speed",
+  "modifier.tconstruct.temperate.mining_speed": "Temperate Speed",
   "modifier.tconstruct.invariant": "Invariant",
   "modifier.tconstruct.invariant.flavor": "Couldn't care less",
   "modifier.tconstruct.invariant.description": "Tool does more damage in neutral temperatures",

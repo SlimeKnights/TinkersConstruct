@@ -382,7 +382,12 @@ public class TinkerTags {
     public static final IOptionalNamedTag<EntityType<?>> MELTING_HIDE = tag("melting/hide_in_default");
     public static final IOptionalNamedTag<EntityType<?>> PIGGYBACKPACK_BLACKLIST = tag("piggybackpack_blacklist");
 
+    /** Entities in this tag take more damage from bane of sssss */
     public static final IOptionalNamedTag<EntityType<?>> CREEPERS = forgeTag("creepers");
+    public static final IOptionalNamedTag<EntityType<?>> VILLAGERS = forgeTag("villagers");
+    public static final IOptionalNamedTag<EntityType<?>> ILLAGERS = forgeTag("illagers");
+    /** Entities in this tag take more damage from killager */
+    public static final IOptionalNamedTag<EntityType<?>> KILLAGERS = tag("killagers");
     /** Mobs that rarely spawn, boosts drop rate of severing */
     public static final IOptionalNamedTag<EntityType<?>> RARE_MOBS = tag("rare_mobs");
 

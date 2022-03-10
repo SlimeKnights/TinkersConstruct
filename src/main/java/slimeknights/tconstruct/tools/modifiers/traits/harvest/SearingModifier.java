@@ -63,7 +63,7 @@ public class SearingModifier extends Modifier {
         // +7 per level if it has a melting recipe, cache to save lookup time
         // TODO: consider whether we should use getCloneItemStack, problem is I don't want a position based logic and its possible the result is BE based
         if (BOOSTED_BLOCKS.computeIfAbsent(item, i -> isEffective(world, i)) == Boolean.TRUE) {
-          event.setNewSpeed(event.getNewSpeed() + level * 7 * tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier);
+          event.setNewSpeed(event.getNewSpeed() + level * 6 * tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier);
         }
       }
     }

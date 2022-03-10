@@ -69,7 +69,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield.get());
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, TinkerModifiers.ductile.get());
-    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.wellMaintained.get());
+    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained.get());
     addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate.get());
     addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant.get());
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay.get());

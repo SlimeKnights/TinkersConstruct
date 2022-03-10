@@ -41,6 +41,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.TinkerBookIDs;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
@@ -198,6 +199,11 @@ public class TConstruct {
       case "flowing_molten_tinkers_bronze" -> TinkerFluids.moltenAmethystBronze.getFlowing();
       default -> null;
     });
+  }
+
+  @SubscribeEvent
+  void missingModifier(final MissingMappings<Modifier> event) {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> "maintained_2".equals(name) ? TinkerModifiers.maintained.get() : null);
   }
 
 

@@ -494,6 +494,23 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .includeUnarmed()
                                     .saveSalvage(consumer, prefix(TinkerModifiers.cooling, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.cooling, upgradeFolder));
+    // killager uses both types of lapis
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.killager.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Tags.Items.GEMS_LAPIS, 1, 45)
+                                    .setSalvage(Items.LAPIS_LAZULI, 15, false)
+                                    .setMaxLevel(5) // +12.5 illager damage
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .includeUnarmed()
+                                    .saveSalvage(consumer, prefix(TinkerModifiers.killager, upgradeSalvage))
+                                    .save(consumer, wrap(TinkerModifiers.killager, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.killager.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 45)
+                                    .setMaxLevel(5) // +12.5 illager damage
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .includeUnarmed()
+                                    .save(consumer, wrap(TinkerModifiers.killager, upgradeFolder, "_from_block"));
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
