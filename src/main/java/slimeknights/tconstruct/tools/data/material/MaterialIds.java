@@ -39,12 +39,16 @@ public final class MaterialIds {
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
   public static final MaterialId cobalt = id("cobalt");
+  // tier 3 - bindings
+  public static final MaterialId darkthread = id("darkthread");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
   public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId blazingBone = id("blazing_bone");
   //public static final MaterialId soulsteel = id("soulsteel");
+  // tier 4 - bindings
+  public static final MaterialId ancientHide = id("ancient_hide");
   // tier 5 - bindings
   public static final MaterialId enderslimeVine = id("enderslime_vine");
 

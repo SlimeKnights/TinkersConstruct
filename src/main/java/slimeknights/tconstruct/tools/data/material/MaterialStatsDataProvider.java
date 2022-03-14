@@ -142,6 +142,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(800, 6.5f, DIAMOND, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.darkthread, ExtraMaterialStats.DEFAULT);
 
     // tier 3 (mod integration)
     addMaterialStats(MaterialIds.steel,
@@ -195,6 +196,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     //                     new HeadMaterialStats(1120, 7.5f, NETHERITE, 3f),
     //                     HandleMaterialStats.DEFAULT.withAttackSpeed(1.1f).withAttackDamage(1.3f),
     //                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.ancientHide, ExtraMaterialStats.DEFAULT);
 
     // tier 5
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);

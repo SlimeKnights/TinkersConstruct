@@ -1404,6 +1404,9 @@
   "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 15 seconds of strength when damaged by another mob",
 
+  "material.tconstruct.darkthread": "Darkthread",
+  "material.tconstruct.darkthread.flavor": "Come to the dark side, we have sowing",
+  "material.tconstruct.darkthread.encyclopedia": "Increases drop chances from mobs, stacking with luck",
 
 
   "__comment": "Tier Nether Materials",
@@ -1431,6 +1434,9 @@
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
+  "material.tconstruct.ancient_hide": "Ancient Hide",
+  "material.tconstruct.ancient_hide.flavor": "Leather tanned by the oldest of stone",
+  "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
 
   "__comment": "Tier End Materials",
   "material.tconstruct.endstone": "End",
