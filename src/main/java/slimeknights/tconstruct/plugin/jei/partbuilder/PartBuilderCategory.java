@@ -7,7 +7,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,6 @@ import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.awt.Color;
-import java.util.List;
 import java.util.Objects;
 
 public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
@@ -66,7 +65,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   }
 
   @Override
-  public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, List<? extends IFocus<?>> focuses) {
+  public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
     // items
     builder.addSlot(RecipeIngredientRole.INPUT, 25, 16).addItemStacks(MaterialItemList.getItems(recipe.getMaterial().getVariant()));
     builder.addSlot(RecipeIngredientRole.INPUT,  4, 16).addItemStacks(recipe.getPatternItems());

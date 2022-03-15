@@ -18,6 +18,7 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
     return TConstructJEIConstants.PATTERN_TYPE;
   }
 
+  @SuppressWarnings("removal")
   @Nullable
   @Override
   public Pattern getMatch(Iterable<Pattern> iterable, Pattern match, UidContext context) {

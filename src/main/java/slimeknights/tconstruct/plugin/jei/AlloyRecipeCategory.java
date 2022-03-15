@@ -9,7 +9,7 @@ import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
@@ -135,7 +135,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   }
 
   @Override
-  public void setRecipe(IRecipeLayoutBuilder builder, AlloyRecipe recipe, List<? extends IFocus<?>> focuses) {
+  public void setRecipe(IRecipeLayoutBuilder builder, AlloyRecipe recipe, IFocusGroup focuses) {
     // inputs
     int maxAmount = drawVariableFluids(builder, RecipeIngredientRole.INPUT, 19, 11, 48, 32, recipe.getDisplayInputs(), recipe.getOutput().getAmount(), FLUID_TOOLTIP);
 

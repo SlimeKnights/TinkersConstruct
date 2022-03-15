@@ -15,6 +15,7 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
     return TConstructJEIConstants.MODIFIER_TYPE;
   }
 
+  @SuppressWarnings("removal")
   @Nullable
   @Override
   public ModifierEntry getMatch(Iterable<ModifierEntry> iterable, ModifierEntry check, UidContext context) {

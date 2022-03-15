@@ -12,7 +12,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
@@ -90,7 +90,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
 
   @SuppressWarnings("rawtypes")
   @Override
-  public void setRecipe(IRecipeLayoutBuilder builder, EntityMeltingRecipe recipe, List<? extends IFocus<?>> focuses) {
+  public void setRecipe(IRecipeLayoutBuilder builder, EntityMeltingRecipe recipe, IFocusGroup focuses) {
     // inputs, filtered by spawn egg item
     List<EntityType> displayTypes = EntityIngredientHelper.applyFocus(RecipeIngredientRole.INPUT, recipe.getEntityInputs(), focuses);
     builder.addSlot(RecipeIngredientRole.INPUT, 19, 11)

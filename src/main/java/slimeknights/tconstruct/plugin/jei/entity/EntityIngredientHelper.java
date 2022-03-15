@@ -3,13 +3,11 @@ package slimeknights.tconstruct.plugin.jei.entity;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 
@@ -27,6 +25,7 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
     return TConstructJEIConstants.ENTITY_TYPE;
   }
 
+  @SuppressWarnings("removal")
   @Nullable
   @Override
   public EntityType getMatch(Iterable<EntityType> iterable, EntityType type, UidContext context) {
@@ -85,21 +84,15 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
   }
 
   /** Applies the item focuses to the list of entities */
-  public static List<EntityType> applyFocus(RecipeIngredientRole role, List<EntityType> displayInputs, List<? extends IFocus<?>> focuses) {
-    for (IFocus<?> focus : focuses) {
-      if (focus.getRole() == role) {
-        ITypedIngredient<?> value = focus.getTypedValue();
-        if (value.getType() == VanillaTypes.ITEM) {
-          ItemStack stack = (ItemStack)value.getIngredient();
-          if (stack.getItem() instanceof SpawnEggItem egg) {
-            EntityType<?> type = egg.getType(null);
-            if (displayInputs.contains(type)) {
-              return Collections.singletonList(type);
-            }
-          }
-        }
-      }
-    }
-    return displayInputs;
+  public static List<EntityType> applyFocus(RecipeIngredientRole role, List<EntityType> displayInputs, IFocusGroup focuses) {
+    return focuses.getFocuses(VanillaTypes.ITEM)
+                  .filter(focus -> focus.getRole() == role)
+                  .map(focus -> focus.getTypedValue().getIngredient().getItem())
+                  .filter(item -> item instanceof SpawnEggItem)
+                  .<EntityType>map(item -> ((SpawnEggItem) item).getType(null))
+                  .filter(displayInputs::contains)
+                  .map(Collections::singletonList)
+                  .findFirst()
+                  .orElse(displayInputs);
   }
 }
