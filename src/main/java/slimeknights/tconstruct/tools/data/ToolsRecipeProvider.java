@@ -147,7 +147,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .key('m', TinkerMaterials.cobalt.getIngotTag())
                        .addCriterion("has_item", hasItem(TinkerMaterials.cobalt.getIngotTag()))
                        .build(consumer, modResource(armorFolder + "plate_boots"));
-    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.manyullyn)
+    SpecializedRepairRecipeBuilder.repair(Ingredient.fromStacks(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.cobalt)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
                                   .build(consumer, modResource(armorRepairFolder + "plate_station"));
 

@@ -13,7 +13,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   @Override
   protected void addMaterialRenderInfo() {
     // tier 1
-    buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick");
+    buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick", "primitive");
     buildRenderInfo(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
@@ -27,7 +27,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.copper).color(0xF98648).fallbacks("metal");
     buildRenderInfo(MaterialIds.searedStone).color(0x4F4A47).fallbacks("rock");
     buildRenderInfo(MaterialIds.scorchedStone).color(0x5B4C43).fallbacks("rock");
-    buildRenderInfo(MaterialIds.slimewood).color(0x82c873).fallbacks("wood", "stick");
+    buildRenderInfo(MaterialIds.slimewood).color(0x82c873).fallbacks("wood", "primitive");
     buildRenderInfo(MaterialIds.bloodbone).color(0xE52323).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.chain).color(0x3E4453).fallbacks("chain", "metal");
     buildRenderInfo(MaterialIds.skyslimeVine).color(0x00F4DA).fallbacks("vine");
@@ -35,7 +35,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x46ECE7).fallbacks("slime_metal", "metal");
     buildRenderInfo(MaterialIds.tinkersBronze).color(0xE8B465).fallbacks("metal");
-    buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("contrast");
+    buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");
     buildRenderInfo(MaterialIds.roseGold).color(0xF7CDBB).fallbacks("metal");
     buildRenderInfo(MaterialIds.cobalt).color(0x2376dd).fallbacks("metal");
@@ -76,7 +76,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.uranium);
     // slimeskull
     buildRenderInfo(MaterialIds.gunpowder);
-    buildRenderInfo(MaterialIds.enderPearl).fallbacks("contrast");
+    buildRenderInfo(MaterialIds.enderPearl);
     buildRenderInfo(MaterialIds.spider);
     buildRenderInfo(MaterialIds.venom);
     buildRenderInfo(MaterialIds.rottenFlesh);

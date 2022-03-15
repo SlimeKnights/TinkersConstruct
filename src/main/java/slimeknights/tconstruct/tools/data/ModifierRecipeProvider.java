@@ -811,7 +811,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInputSalvage(Items.LEATHER, 0.7f)
                          .addInputSalvage(Items.LEATHER, 0.4f)
                          .addInputSalvage(Items.LEATHER, 0.4f)
-                         .setMaxLevel(1)
+                         .setMaxLevel(2)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .buildSalvage(consumer, prefix(TinkerModifiers.toolBelt, abilitySalvage))
@@ -1276,7 +1276,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // tier 4
     plateTexture(consumer, plate, MaterialIds.manyullyn, false, folder);
     plateTexture(consumer, plate, MaterialIds.hepatizon, false, folder);
-    plateTexture(consumer, plate, MaterialIds.netherite, false, folder);
+    plateTexture(consumer, plate, MaterialIds.netherite, "nuggets/netherite", false, folder);
     // tier 2 compat
     plateTexture(consumer, plate, MaterialIds.osmium,   true, folder);
     plateTexture(consumer, plate, MaterialIds.tungsten, true, folder);
