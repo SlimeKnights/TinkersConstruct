@@ -26,5 +26,6 @@
   "result": {
     "name": "tconstruct:tool_belt",
     "level": 1
-  }
+  },
+  "max_level": 2
 }
