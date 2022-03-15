@@ -9,7 +9,7 @@
     }
   ],
   "effects": [
-    "Drink fluids stored in the helmlet",
+    "Drink fluids stored in the helmet",
 	"Keybind is used to drink",
     "Single level",
     "Requires 1 ability slot"
