@@ -96,6 +96,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard.get(), TinkerModifiers.piglinBruteDisguise.get());
     addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.get(), TinkerModifiers.zombifiedPiglinDisguise.get());
     // plate
+    noTraits(MaterialIds.obsidian);
+    noTraits(MaterialIds.debris);
     noTraits(MaterialIds.netherite);
     // slimesuit
     noTraits(MaterialIds.earthslime);
@@ -103,6 +105,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     noTraits(MaterialIds.blood);
     noTraits(MaterialIds.ichor);
     noTraits(MaterialIds.enderslime);
+    noTraits(MaterialIds.clay);
+    noTraits(MaterialIds.honey);
     noTraits(MaterialIds.phantom);
     noTraits(MaterialIds.chorus);
     noTraits(MaterialIds.rabbit);

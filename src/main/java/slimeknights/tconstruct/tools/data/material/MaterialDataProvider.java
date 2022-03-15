@@ -90,6 +90,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass");
 
     // plate
+    addMaterial(MaterialIds.obsidian,  6, 9, false);
+    addMaterial(MaterialIds.debris,    6, 9, false);
     addMaterial(MaterialIds.netherite, 6, 9, false);
     addCompatMetalMaterial(MaterialIds.aluminum, 6, 9);
     addCompatMetalMaterial(MaterialIds.nickel,   6, 9);
@@ -110,6 +112,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.blood,      6, 9, true);
     addMaterial(MaterialIds.ichor,      6, 9, true);
     addMaterial(MaterialIds.enderslime, 6, 9, true);
+    addMaterial(MaterialIds.clay,       6, 9, true);
+    addMaterial(MaterialIds.honey,      6, 9, true);
     // slimesuit - repair
     addMaterial(MaterialIds.phantom,    6, 9, true);
     addMaterial(MaterialIds.chorus,     6, 9, true);

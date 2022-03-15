@@ -291,6 +291,8 @@
     "plated_slimewood": "#E6D08D",
 
     "__plate__": null,
+    "obsidian":  "#271E3D",
+    "debris":    "#654740",
     "netherite": "#4C4143",
     "aluminum":  "#CDD5D8",
     "nickel":    "#EBF1DE",
@@ -313,6 +315,8 @@
     "blood":      "#b50101",
     "ichor":      "#ff970d",
     "enderslime": "#af4cf6",
+    "clay":       "#AFB9D6",
+    "honey":      "#FABF29",
 
     "__repair_kit__": null,
     "phantom": "#C3B9A1",
