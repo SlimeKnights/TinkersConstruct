@@ -203,7 +203,11 @@ public class TConstruct {
 
   @SubscribeEvent
   void missingModifier(final MissingMappings<Modifier> event) {
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> "maintained_2".equals(name) ? TinkerModifiers.maintained.get() : null);
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> switch(name) {
+      case "maintained_2" -> TinkerModifiers.maintained.get();
+      case "fractured" -> TinkerModifiers.sharpness.get();
+      default -> null;
+    });
   }
 
 
