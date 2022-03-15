@@ -44,8 +44,10 @@
 
   "block.tconstruct.obsidian_pane": "Obsidian Pane",
   "block.tconstruct.gold_bars": "Gold Bars",
+  "block.tconstruct.gold_bars.tooltip": "Acts as a empty cast in casting tables",
   
   "block.tconstruct.gold_platform": "Gold Platform",
+  "block.tconstruct.gold_platform.tooltip": "Acts as a empty cast in casting basins",
   "block.tconstruct.iron_platform": "Iron Platform",
   "block.tconstruct.cobalt_platform": "Cobalt Platform",
   
@@ -1068,9 +1070,9 @@
   "block.tconstruct.scorched_faucet": "Scorched Faucet",
   "block.tconstruct.scorched_faucet.tooltip": "Drains liquids from Foundries and Tanks",
   "block.tconstruct.scorched_basin": "Scorched Casting Basin",
-  "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry",
+  "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
-  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry",
+  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold bars to cast",
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
   "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
