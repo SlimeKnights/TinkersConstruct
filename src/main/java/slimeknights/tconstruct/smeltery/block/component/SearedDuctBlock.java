@@ -3,8 +3,10 @@ package slimeknights.tconstruct.smeltery.block.component;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -61,6 +63,12 @@ public class SearedDuctBlock extends InventoryBlock {
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block,BlockState> builder) {
     builder.add(ACTIVE, FACING);
+  }
+
+  @Nullable
+  @Override
+  public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
+    return state.get(ACTIVE) ? PathNodeType.DAMAGE_FIRE : PathNodeType.OPEN;
   }
 
   @Nullable
