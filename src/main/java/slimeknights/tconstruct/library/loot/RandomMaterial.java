@@ -35,9 +35,9 @@ public abstract class RandomMaterial {
   public static void init() {
     if (initialized) return;
     initialized = true;
-    registerDeserializer(Fixed.ID, Fixed::deserialize);
-    registerDeserializer(First.ID, First::deserialize);
-    registerDeserializer(RandomInTier.ID, RandomInTier::deserialize);
+    registerDeserializer(Fixed.ID, Fixed::fromJson);
+    registerDeserializer(First.ID, First::fromJson);
+    registerDeserializer(RandomInTier.ID, RandomInTier::fromJson);
   }
 
   /** Registers a deserializer */
@@ -99,6 +99,12 @@ public abstract class RandomMaterial {
       json.addProperty("name", materialId.toString());
       return json;
     }
+
+    /** Creates an instance from JSON */
+    public static Fixed fromJson(JsonObject json) {
+      MaterialId materialId = new MaterialId(JsonHelper.getResourceLocation(json, "name"));
+      return new Fixed(materialId);
+    }
   }
 
   /** Constant material */
@@ -130,6 +136,12 @@ public abstract class RandomMaterial {
       json.addProperty("type", ID.toString());
       json.addProperty("stat_type", statType.toString());
       return json;
+    }
+    
+    /** Creates an instance from JSON */
+    public static First fromJson(JsonObject json) {
+      MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(json, "stat_type"));
+      return new First(statType);
     }
   }
 
