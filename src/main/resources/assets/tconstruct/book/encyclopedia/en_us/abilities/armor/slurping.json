@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:slurping",
   "text": [
     {
-      "text": "Allows drinking fluid containing in the helmet to perform effects using the helmet keybind, mirroring effects from spilling."
+      "text": "Allows drinking fluid contained in the helmet to perform effects using the helmet keybind, mirroring effects from spilling."
     },
     {
       "text": "Effects may include lighting yourself on fire, potion effects such as jump boost, or clearing status effects like milk.", "paragraph": true
