@@ -29,8 +29,13 @@ public class DiamondModifier extends SingleLevelModifier {
 
   @Override
   public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+    int durabilityBonus = 500;
+    if (ARMOR.contains(item)) {
+      durabilityBonus = 250;
+      ToolStats.ARMOR.add(builder, level);
+    }
     if (item.isIn(DURABILITY)) {
-      ToolStats.DURABILITY.add(builder, level * 500);
+      ToolStats.DURABILITY.add(builder, level * durabilityBonus);
     }
     if (item.isIn(MELEE_OR_UNARMED)) {
       ToolStats.ATTACK_DAMAGE.add(builder, level * 1f);
@@ -38,9 +43,6 @@ public class DiamondModifier extends SingleLevelModifier {
     if (item.isIn(HARVEST)) {
       ToolStats.MINING_SPEED.add(builder, level * 1f);
       ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.DIAMOND);
-    }
-    if (item.isIn(ARMOR)) {
-      ToolStats.ARMOR.add(builder, level);
     }
   }
 }
