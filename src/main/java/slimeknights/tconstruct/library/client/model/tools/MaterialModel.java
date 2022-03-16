@@ -11,6 +11,7 @@ import com.google.gson.JsonParseException;
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
@@ -46,7 +47,6 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.Tinte
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
-import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -83,34 +83,31 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     return allTextures;
   }
 
+  /** Checks if a texture exists */
+  private static boolean textureExists(IResourceManager manager, ResourceLocation location) {
+    return manager.hasResource(new ResourceLocation(location.getNamespace(), "textures/" + location.getPath() + ".png"));
+  }
+
   /**
    * Gets a consumer to add textures to the given collection
-   * @param textureLocation  Texture base
+   * @param textureLocation  Unused, will be removed in 1.18
    * @param allTextures      Collection of textures
    * @return  Texture consumer
    */
   public static Predicate<RenderMaterial> getTextureAdder(ResourceLocation textureLocation, Collection<RenderMaterial> allTextures, boolean logMissingTextures) {
-    if (textureLocation.getPath().startsWith("item/tool")) {
-      return mat -> {
-        // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-        ResourceLocation loc = mat.getTextureLocation();
-        if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
-          allTextures.add(mat);
-          return true;
-        } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
-          SKIPPED_TEXTURES.add(loc);
-          log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
-        }
-        return false;
-      };
-    } else {
-      // just directly add with no filter, nothing we can do
-      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", textureLocation);
-      return mat -> {
+    IResourceManager manager = Minecraft.getInstance().getResourceManager();
+    return mat -> {
+      // either must be non-blocks, or must exist. We have fallbacks if it does not exist
+      ResourceLocation loc = mat.getTextureLocation();
+      if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || textureExists(manager, loc)) {
         allTextures.add(mat);
         return true;
-      };
-    }
+      } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
+        SKIPPED_TEXTURES.add(loc);
+        log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
+      }
+      return false;
+    };
   }
 
   /**
