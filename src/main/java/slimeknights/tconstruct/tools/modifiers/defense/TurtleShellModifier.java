@@ -48,6 +48,6 @@ public class TurtleShellModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 }

@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class LootingModifier extends SingleLevelModifier implements IArmorLootModifier {
   public LootingModifier() {
-    super(0x345EC3);
+    super(0x503572);
   }
 
   @Override

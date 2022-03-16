@@ -13,7 +13,6 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMappi
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.data.ResourceValidator;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
@@ -27,9 +26,6 @@ import java.util.function.Consumer;
  * This class should only be referenced on the client side
  */
 public class TinkerClient {
-  /** Validates that a texture exists for models. During model type as that is when the validator is needed */
-  public static final ResourceValidator textureValidator = new ResourceValidator("textures/item/tool", "textures", ".png");
-
   /**
    * Called by TConstruct to handle any client side logic that needs to run during the constructor
    */
@@ -64,7 +60,6 @@ public class TinkerClient {
     SmelteryClientEvents.addResourceListener(manager);
     MaterialRenderInfoLoader.addResourceListener(manager);
     DomainDisplayName.addResourceListener(manager);
-    manager.addReloadListener(textureValidator);
     manager.addReloadListener(HarvestLevels.INSTANCE);
     ToolClientEvents.addResourceListener(manager);
   }

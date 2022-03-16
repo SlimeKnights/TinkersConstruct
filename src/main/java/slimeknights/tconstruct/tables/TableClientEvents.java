@@ -32,7 +32,7 @@ public class TableClientEvents extends ClientEventBase {
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
-    manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
+    PatternGuiTextureLoader.init();
   }
 
   @SubscribeEvent

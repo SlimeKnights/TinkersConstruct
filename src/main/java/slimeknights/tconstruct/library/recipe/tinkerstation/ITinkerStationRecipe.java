@@ -11,6 +11,9 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
  * Main interface for all recipes in the Tinker Station
  */
 public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInventory> {
+  /** Max number of tools in the tinker station slot, if the stack size is larger than this, only some of the tool is consumed */
+  int DEFAULT_TOOL_STACK_SIZE = 16;
+
   /* Recipe data */
 
   @Override
@@ -63,6 +66,11 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    */
   default void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
     updateInputs(result, inv);
+  }
+
+  /** Gets the number to shrink the tool slot by, perfectly valid for this to be higher than the contained number of tools */
+  default int shrinkToolSlotBy() {
+    return DEFAULT_TOOL_STACK_SIZE;
   }
 
 

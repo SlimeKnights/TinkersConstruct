@@ -14,6 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -163,8 +164,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.inventoryWrapper.setPlayer(null);
 
     // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
-    if (this.isStackInSlot(TINKER_SLOT)) {
-      this.setInventorySlotContents(TINKER_SLOT, ItemStack.EMPTY);
+    ItemStack tinkerable = this.getStackInSlot(TINKER_SLOT);
+    if (!tinkerable.isEmpty()) {
+      int shrinkToolSlot = lastRecipe.shrinkToolSlotBy();
+      if (tinkerable.getCount() <= shrinkToolSlot) {
+        this.setInventorySlotContents(TINKER_SLOT, ItemStack.EMPTY);
+      } else {
+        this.setInventorySlotContents(TINKER_SLOT, ItemHandlerHelper.copyStackWithSize(tinkerable, tinkerable.getCount() - shrinkToolSlot));
+      }
     }
 
     return result;

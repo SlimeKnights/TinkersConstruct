@@ -547,6 +547,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(TinkerTags.Items.ARMOR)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.fireProtection, defenseSalvage))
                                     .build(consumer, prefix(TinkerModifiers.fireProtection, defenseFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.protection.get())
+                         .addInputSalvage(TinkerModifiers.goldReinforcement,    1, 4)
+                         .addInputSalvage(TinkerModifiers.searedReinforcement,  1, 4)
+                         .addInputSalvage(TinkerModifiers.bronzeReinforcement,  1, 4)
+                         .addInputSalvage(TinkerModifiers.emeraldReinforcement, 1, 4)
+                         .addInputSalvage(TinkerModifiers.cobaltReinforcement,  1, 4)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.ARMOR)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.protection, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.protection, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockbackResistance.get())
                          .setTools(TinkerTags.Items.ARMOR)
                          .addInput(SizedIngredient.fromItems(Blocks.ANVIL, Blocks.CHIPPED_ANVIL, Blocks.DAMAGED_ANVIL))
@@ -1217,7 +1227,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.tinkersBronze, "ingots/silicon_bronze", false, folder);
     plateTexture(consumer, plate, MaterialIds.roseGold,      false, folder);
     plateTexture(consumer, plate, MaterialIds.pigIron,       false, folder);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.obsidian.toString())
+                                  .setTools(plate)
+                                  .addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane)
+                                  .build(consumer, wrap(TinkerModifiers.embellishment, folder, "_obsidian"));
     // tier 4
+    plateTexture(consumer, plate, MaterialIds.debris, "nuggets/netherite_scrap", false, folder);
     plateTexture(consumer, plate, MaterialIds.manyullyn, false, folder);
     plateTexture(consumer, plate, MaterialIds.hepatizon, false, folder);
     plateTexture(consumer, plate, MaterialIds.netherite, "nuggets/netherite", false, folder);
@@ -1246,6 +1261,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     slimeTexture(consumer, slimesuit, MaterialIds.skyslime,   SlimeType.SKY, folder);
     slimeTexture(consumer, slimesuit, MaterialIds.blood,      SlimeType.BLOOD, folder);
     slimeTexture(consumer, slimesuit, MaterialIds.ichor,      SlimeType.ICHOR, folder);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.clay.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(Blocks.CLAY).addInput(Items.CLAY_BALL).addInput(Blocks.CLAY)
+                                  .build(consumer, wrap(TinkerModifiers.embellishment, folder, "_clay"));
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.honey.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(Blocks.HONEY_BLOCK).addInput(Items.HONEY_BOTTLE).addInput(Blocks.HONEY_BLOCK)
+                                  .build(consumer, wrap(TinkerModifiers.embellishment, folder, "_honey"));
   }
 
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {

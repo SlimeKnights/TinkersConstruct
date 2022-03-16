@@ -50,12 +50,16 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty.get());
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, TinkerModifiers.lightweight.get());
+    // tier 3 - binding
+    addDefaultTraits(MaterialIds.darkthread, TinkerModifiers.looting.get());
 
     // tier 4
     addDefaultTraits(MaterialIds.queensSlime, TinkerModifiers.overlord.get(), TinkerModifiers.overslime.get());
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum.get());
     addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable.get());
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting.get());
+    // tier 4 - binding
+    addDefaultTraits(MaterialIds.ancientHide, TinkerModifiers.fortune.get());
 
     // tier 5
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.get());
@@ -92,6 +96,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard.get(), TinkerModifiers.piglinBruteDisguise.get());
     addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.get(), TinkerModifiers.zombifiedPiglinDisguise.get());
     // plate
+    noTraits(MaterialIds.obsidian);
+    noTraits(MaterialIds.debris);
     noTraits(MaterialIds.netherite);
     // slimesuit
     noTraits(MaterialIds.earthslime);
@@ -99,6 +105,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     noTraits(MaterialIds.blood);
     noTraits(MaterialIds.ichor);
     noTraits(MaterialIds.enderslime);
+    noTraits(MaterialIds.clay);
+    noTraits(MaterialIds.honey);
     noTraits(MaterialIds.phantom);
     noTraits(MaterialIds.chorus);
     noTraits(MaterialIds.rabbit);

@@ -40,7 +40,7 @@ public class ProjectileProtectionModifier extends AbstractProtectionModifier<Mod
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
   /** Reduces visibility to mobs */

@@ -52,13 +52,16 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.pigIron,       3, ORDER_SPECIAL, false, 0xF0A8A4);
     // tier 3 (nether)
     addMaterial(MaterialIds.cobalt, 3, ORDER_NETHER, false, 0x2376dd);
+    // tier 3 - binding
+    addMaterial(MaterialIds.darkthread, 3, ORDER_BINDING, false, 0x3B2754);
 
     // tier 4
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false, 0x236c45);
     addMaterial(MaterialIds.hepatizon,   4, ORDER_HARVEST, false, 0x60496b);
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false, 0x9261cc);
     addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, false, 0xDBCC0B);
-    //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
+    // tier 4 - binding
+    addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false, 0x7E6059);
 
     // tier 5 binding, temporarily in book 4
     addMaterial(MaterialIds.enderslimeVine, 4, ORDER_BINDING, true, 0xa92dff);
@@ -87,6 +90,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, 0xE6D08D, "brass");
 
     // plate
+    addMaterial(MaterialIds.obsidian,  6, 9, false, 0x271E3D);
+    addMaterial(MaterialIds.debris,    6, 9, false, 0x654740);
     addMaterial(MaterialIds.netherite, 6, 9, false, 0x4C4143);
     addCompatMetalMaterial(MaterialIds.aluminum, 6, 9, 0xCDD5D8);
     addCompatMetalMaterial(MaterialIds.nickel,   6, 9, 0xEBF1DE);
@@ -107,6 +112,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.blood,      6, 9, true, 0xb50101);
     addMaterial(MaterialIds.ichor,      6, 9, true, 0xff970d);
     addMaterial(MaterialIds.enderslime, 6, 9, true, 0xD37CFF);
+    addMaterial(MaterialIds.clay,       6, 9, true, 0xAFB9D6);
+    addMaterial(MaterialIds.honey,      6, 9, true, 0xFABF29);
     // slimesuit - repair
     addMaterial(MaterialIds.phantom,    6, 9, true, 0xC3B9A1);
     addMaterial(MaterialIds.chorus,     6, 9, true, 0x8F648F);

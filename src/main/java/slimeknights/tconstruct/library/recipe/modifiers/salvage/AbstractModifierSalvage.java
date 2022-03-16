@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.JsonUtils;
@@ -36,6 +37,9 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
   protected final ResourceLocation id;
   /** Ingredient determining tools matched by this */
   protected final Ingredient toolIngredient;
+  /** Max size of the tool for this modifier. If the tool size is smaller, the salvage bonus will be reduced */
+  @Getter
+  protected final int maxToolSize;
   /** Modifier represented by this recipe */
   @Getter
   protected final Modifier modifier;
@@ -46,6 +50,10 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
   /** Slots restored by this recipe, if null no slots are restored */
   @Nullable
   protected final SlotCount slots;
+
+  public AbstractModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    this(id, toolIngredient, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, modifier, minLevel, maxLevel, slots);
+  }
 
   /**
    * Checks if the given tool stack and level are applicable for this salvage
@@ -92,14 +100,27 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
    */
   public static abstract class AbstractSerializer<T extends AbstractModifierSalvage> extends LoggingRecipeSerializer<T> {
     /** Finishes reading the recipe from JSON */
-    protected abstract T read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots);
+    protected T read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+      return read(id, json, toolIngredient, modifier, minLevel, maxLevel, slots);
+    }
 
     /** Finishes reading the recipe from the packet buffer */
+    protected T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+      return read(id, buffer, toolIngredient, modifier, minLevel, maxLevel, slots);
+    }
+
+    /** @deprecated use {@link #read(ResourceLocation, JsonObject, Ingredient, int, Modifier, int, int, SlotCount)} */
+    @Deprecated
+    protected abstract T read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots);
+
+    /** @deprecated use {@link #read(ResourceLocation, PacketBuffer, Ingredient, int, Modifier, int, int, SlotCount)} */
+    @Deprecated
     protected abstract T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots);
 
     @Override
     public T read(ResourceLocation id, JsonObject json) {
       Ingredient toolIngredient = Ingredient.deserialize(JsonHelper.getElement(json, "tools"));
+      int maxToolSize = JSONUtils.getInt(json, "max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
       Modifier modifier = ModifierEntry.deserializeModifier(json, "modifier");
       int minLevel = JsonUtils.getIntMin(json, "min_level", 1);
       int maxLevel = JSONUtils.getInt(json, "max_level", Integer.MAX_VALUE);
@@ -110,23 +131,25 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<IIn
       if (json.has("slots")) {
         slots = SlotCount.fromJson(JSONUtils.getJsonObject(json, "slots"));
       }
-      return read(id, json, toolIngredient, modifier, minLevel, maxLevel, slots);
+      return read(id, json, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     }
 
     @Nullable
     @Override
     protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
       Ingredient toolIngredient = Ingredient.read(buffer);
+      int maxToolSize = buffer.readVarInt();
       Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS);
       int minLevel = buffer.readVarInt();
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
-      return read(id, buffer, toolIngredient, modifier, minLevel, maxLevel, slots);
+      return read(id, buffer, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     }
 
     @Override
     protected void writeSafe(PacketBuffer buffer, T recipe) {
       recipe.toolIngredient.write(buffer);
+      buffer.writeVarInt(recipe.getMaxToolSize());
       buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, recipe.modifier);
       buffer.writeVarInt(recipe.minLevel);
       buffer.writeVarInt(recipe.maxLevel);

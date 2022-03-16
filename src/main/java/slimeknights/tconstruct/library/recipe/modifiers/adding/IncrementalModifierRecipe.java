@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -56,7 +57,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, ItemStack leftover) {
-    super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+    this(id, toolRequirement, amountPerInput, neededPerLevel, toolRequirement, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, requirements, requirementsError, result, maxLevel, slots, leftover);
+  }
+
+  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, ItemStack leftover) {
+    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     this.input = input;
     this.amountPerInput = amountPerInput;
     this.neededPerLevel = neededPerLevel;
@@ -76,7 +81,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
-    ToolStack tool = ToolStack.from(inv.getTinkerableStack());
+    ItemStack tinkerable = inv.getTinkerableStack();
+    ToolStack tool = ToolStack.from(tinkerable);
 
     // if the tool lacks the modifier, treat current as maxLevel, means we will add a new level
     Modifier modifier = result.getModifier();
@@ -118,7 +124,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     // successfully added the modifier
-    return ValidatedResult.success(tool.createStack());
+    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
   /**
@@ -284,7 +290,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {
     @Override
-    public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       Ingredient input = Ingredient.deserialize(JsonHelper.getElement(json, "input"));
       int amountPerInput = JSONUtils.getInt(json, "amount_per_item", 1);
@@ -299,17 +305,17 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       if (amountPerInput > 1 && json.has("leftover")) {
         leftover = deseralizeResultItem(json, "leftover");
       }
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, slots, leftover);
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover);
     }
 
     @Override
-    public IncrementalModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public IncrementalModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       Ingredient input = Ingredient.read(buffer);
       int amountPerInput = buffer.readVarInt();
       int neededPerLevel = buffer.readVarInt();
       ItemStack leftover = buffer.readItemStack();
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, slots, leftover);
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover);
     }
 
     @Override

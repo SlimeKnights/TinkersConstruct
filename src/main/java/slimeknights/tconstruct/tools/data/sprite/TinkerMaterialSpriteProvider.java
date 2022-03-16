@@ -169,6 +169,11 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF001944).addARGB(102, 0xFF00296D).addARGB(140, 0xFF0043A5).addARGB(178, 0xFF186ACE).addARGB(216, 0xFF338FEA).addARGB(255, 0xFF59A6EF).build());
+    IColorMapping obsidianPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF000001).addARGB(102, 0xFF06030B).addARGB(140, 0xFF100C1C).addARGB(178, 0xFF271E3D).addARGB(216, 0xFF3B2754).addARGB(255, 0xFF503572).build();
+    buildMaterial(MaterialIds.darkthread)
+      .meleeHarvest()
+      .fallbacks("primitive")
+      .colorMapper(obsidianPalette);
 
     // tier 4
     ResourceLocation baseTexture = TConstruct.getResource("item/materials/generator/queens_slime");
@@ -194,12 +199,18 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest()
       .fallbacks("bone", "rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF7F3611).addARGB(102, 0xFF934114).addARGB(140, 0xFFB5671E).addARGB(178, 0xFFE28F28).addARGB(216, 0xFFEFC62F).addARGB(255, 0xFFF4EA5A).build());
+    IColorMapping ancientDebrisPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF24110B).addARGB(102, 0xFF411E15).addARGB(140, 0xFF4A281D).addARGB(178, 0xFF654740).addARGB(216, 0xFF7E6059).addARGB(255, 0xFF95867E).build();
+    buildMaterial(MaterialIds.ancientHide)
+      .meleeHarvest()
+      .colorMapper(ancientDebrisPalette);
     buildMaterial(MaterialIds.enderslimeVine)
       .statType(ExtraMaterialStats.ID)
       .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790CC9).addARGB(140, 0xFF9727DD).addARGB(178, 0xFFA936ED).addARGB(216, 0xFFBF58F7).addARGB(255, 0xFFD37CFF).build());
 
     // plate
+    buildMaterial(MaterialIds.obsidian).statType(TinkerPartSpriteProvider.PLATE).fallbacks("rock").colorMapper(obsidianPalette);
+    buildMaterial(MaterialIds.debris).statType(TinkerPartSpriteProvider.PLATE).fallbacks("rock").colorMapper(ancientDebrisPalette);
     buildMaterial(MaterialIds.netherite)
       .statType(TinkerPartSpriteProvider.PLATE)
       .fallbacks("metal")
@@ -277,5 +288,11 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.ichor)
       .statType(TinkerPartSpriteProvider.SLIMESUIT)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB04000).addARGB(102, 0xFFD35200).addARGB(140, 0xFFEC5E00).addARGB(178, 0xFFFF8324).addARGB(216, 0xFFFFB97C).addARGB(255, 0xFFFFFFFF).build());
+    buildMaterial(MaterialIds.clay)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF55627F).addARGB(102, 0xFF5E6C8D).addARGB(140, 0xFF757D90).addARGB(178, 0xFF9499A4).addARGB(216, 0xFFA1A7B1).addARGB(255, 0xFFAFB9D6).build());
+    buildMaterial(MaterialIds.honey)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFC86A08).addARGB(102, 0xFFD87803).addARGB(140, 0xFFE88C08).addARGB(178, 0xFFFAAB1C).addARGB(216, 0xFFFFCE5D).addARGB(255, 0xFFFFE47F).build());
   }
 }

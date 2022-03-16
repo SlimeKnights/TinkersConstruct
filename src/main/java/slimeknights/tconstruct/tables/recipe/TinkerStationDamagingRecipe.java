@@ -60,6 +60,11 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
+  public int shrinkToolSlotBy() {
+    return 1;
+  }
+
+  @Override
   public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
     // how much did we actually consume?
     int damageTaken = ToolStack.from(result).getDamage() - ToolStack.from(inv.getTinkerableStack()).getDamage();

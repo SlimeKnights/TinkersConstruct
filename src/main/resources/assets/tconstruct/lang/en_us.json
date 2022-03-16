@@ -1331,6 +1331,9 @@
   "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 15 seconds of strength when damaged by another mob",
 
+  "material.tconstruct.darkthread": "Darkthread",
+  "material.tconstruct.darkthread.flavor": "Come to the dark side, we have sowing",
+  "material.tconstruct.darkthread.encyclopedia": "Increases drop chances from mobs, stacking with luck",
 
 
   "__comment": "Tier Nether Materials",
@@ -1357,6 +1360,10 @@
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Allows spitting firecharges from the inventory as fireballs. Has a cooldown of 5 seconds and does not work underwater",
 
   "material.tconstruct.soulsteel": "Soulsteel",
+
+  "material.tconstruct.ancient_hide": "Ancient Hide",
+  "material.tconstruct.ancient_hide.flavor": "Leather tanned by the oldest of stone",
+  "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
 
 
   "__comment": "Tier End Materials",
@@ -1392,12 +1399,16 @@
   "material.tconstruct.gold.skull_flavor": "So shiny",
   "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
 
+  "material.tconstruct.obsidian":   "Obsidian",
+  "material.tconstruct.debris":     "Debris",
   "material.tconstruct.netherite":  "Netherite",
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.skyslime":   "Skyslime",
   "material.tconstruct.blood":      "Blood",
   "material.tconstruct.ichor":      "Ichor",
   "material.tconstruct.enderslime": "Enderslime",
+  "material.tconstruct.clay":       "Clay",
+  "material.tconstruct.honey":      "Honey",
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.rabbit": "Rabbit Hide",
@@ -2020,6 +2031,7 @@
   "modifier.tconstruct.temperate": "Temperate",
   "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
   "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
+  "modifier.tconstruct.temperate.mining_speed": "Temperate Speed",
   "modifier.tconstruct.invariant": "Invariant",
   "modifier.tconstruct.invariant.flavor": "Couldn't care less",
   "modifier.tconstruct.invariant.description": "Tool does more damage in neutral temperatures",

@@ -12,7 +12,7 @@ import java.util.function.BiConsumer;
 
 public class FortuneModifier extends SingleLevelModifier implements IArmorLootModifier {
   public FortuneModifier() {
-    super(0xA982BC);
+    super(0x7E6059);
   }
 
   @Override

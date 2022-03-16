@@ -84,7 +84,7 @@ public class ModifiersCommand {
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setHeldItem(Hand.MAIN_HAND, tool.createStack(stack.getCount()));
       return true;
     });
 
@@ -145,14 +145,14 @@ public class ModifiersCommand {
         }
       }
       // check the modifier requirements
-      ItemStack resultStack = tool.createStack(); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
+      ItemStack resultStack = tool.createStack(stack.getCount()); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
       validated = ModifierRecipeLookup.checkRequirements(resultStack, tool);
       if (validated.hasError()) {
         throw MODIFIER_ERROR.create(validated.getMessage());
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setHeldItem(Hand.MAIN_HAND, resultStack);
       return true;
     });
 

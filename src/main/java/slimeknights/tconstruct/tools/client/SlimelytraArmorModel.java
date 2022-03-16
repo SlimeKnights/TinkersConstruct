@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.ElytraModel;
@@ -44,6 +45,7 @@ public class SlimelytraArmorModel<T extends LivingEntity> extends ArmorModelWrap
   private final ElytraModel<T> elytraModel = new ElytraModel<>();
   /** Texture to use when rendering the elytra */
   private String material = MaterialIds.enderslime.toString();
+  private boolean hasGlint = false;
 
   @Override
   public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
@@ -52,7 +54,7 @@ public class SlimelytraArmorModel<T extends LivingEntity> extends ArmorModelWrap
       this.copyModelAttributesTo(elytraModel);
       matrixStackIn.push();
       matrixStackIn.translate(0.0D, 0.0D, 0.125D);
-      IVertexBuilder elytraBuffer = buffer.getBuffer(WING_RENDER_CACHE.computeIfAbsent(material, WING_GETTER));
+      IVertexBuilder elytraBuffer = ItemRenderer.getArmorVertexBuilder(buffer, WING_RENDER_CACHE.computeIfAbsent(material, WING_GETTER), false, hasGlint);
       elytraModel.render(matrixStackIn, elytraBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       matrixStackIn.pop();
     }
@@ -63,5 +65,6 @@ public class SlimelytraArmorModel<T extends LivingEntity> extends ArmorModelWrap
     this.elytraModel.setRotationAngles(entity, 0, 0, 0, 0, 0);
     this.base = base;
     this.material = SlimesuitItem.getMaterial(stack);
+    this.hasGlint = stack.hasEffect();
   }
 }

@@ -36,12 +36,15 @@ public final class MaterialIds {
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
   public static final MaterialId cobalt = id("cobalt");
+  // tier 3 - bindings
+  public static final MaterialId darkthread = id("darkthread");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
   public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId blazingBone = id("blazing_bone");
-  //public static final MaterialId soulsteel = id("soulsteel");
+  // tier 4 - bindings
+  public static final MaterialId ancientHide = id("ancient_hide");
   // tier 5 - bindings
   public static final MaterialId enderslimeVine = id("enderslime_vine");
 
@@ -63,6 +66,8 @@ public final class MaterialIds {
 
   // plate
   public static final MaterialId gold = id("gold");
+  public static final MaterialId obsidian = id("obsidian");
+  public static final MaterialId debris = id("debris");
   public static final MaterialId netherite = id("netherite");
   // plate - compat
   public static final MaterialId aluminum = id("aluminum");
@@ -83,6 +88,8 @@ public final class MaterialIds {
   public static final MaterialId blood = id("blood");
   public static final MaterialId ichor = id("ichor");
   public static final MaterialId enderslime = id("enderslime");
+  public static final MaterialId clay = id("clay");
+  public static final MaterialId honey = id("honey");
   public static final MaterialId phantom = id("phantom");
   public static final MaterialId chorus = id("chorus");
   public static final MaterialId rabbit = id("rabbit");

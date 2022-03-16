@@ -65,7 +65,9 @@ public class MomentumModifier extends Modifier {
       } else {
         bonus = level * 0.25f;
       }
-      addPercentTooltip(MINING_SPEED, bonus, tooltip);
+      if (bonus >= 0.01f) {
+        addPercentTooltip(MINING_SPEED, bonus, tooltip);
+      }
     }
   }
 }

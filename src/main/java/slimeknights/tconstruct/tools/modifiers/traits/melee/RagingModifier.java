@@ -52,6 +52,8 @@ public class RagingModifier extends Modifier {
     if (player != null && key == TooltipKey.SHIFT) {
       bonus = getBonus(player, level);
     }
-    addDamageTooltip(tool, bonus, tooltip);
+    if (bonus > 0) {
+      addDamageTooltip(tool, bonus, tooltip);
+    }
   }
 }

@@ -125,11 +125,13 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.tinkersBronze);
       with.accept(MaterialIds.pigIron);
       with.accept(MaterialIds.cobalt);
+      with.accept(MaterialIds.darkthread);
       // tier 4
       with.accept(MaterialIds.manyullyn);
       with.accept(MaterialIds.hepatizon);
       with.accept(MaterialIds.queensSlime);
       with.accept(MaterialIds.blazingBone);
+      with.accept(MaterialIds.ancientHide);
       with.accept(MaterialIds.enderslimeVine);
     });
     builder(TinkerTools.travelersGear.get(ArmorSlotType.HELMET).getRenderTool(), resource("tools/travelers_gear"), tinkerStation, FrameType.TASK, builder ->
