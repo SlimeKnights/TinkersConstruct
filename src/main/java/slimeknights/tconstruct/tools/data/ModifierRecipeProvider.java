@@ -547,6 +547,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(TinkerTags.Items.ARMOR)
                                     .buildSalvage(consumer, prefix(TinkerModifiers.fireProtection, defenseSalvage))
                                     .build(consumer, prefix(TinkerModifiers.fireProtection, defenseFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.protection.get())
+                         .addInputSalvage(TinkerModifiers.goldReinforcement,    1, 4)
+                         .addInputSalvage(TinkerModifiers.searedReinforcement,  1, 4)
+                         .addInputSalvage(TinkerModifiers.bronzeReinforcement,  1, 4)
+                         .addInputSalvage(TinkerModifiers.emeraldReinforcement, 1, 4)
+                         .addInputSalvage(TinkerModifiers.cobaltReinforcement,  1, 4)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.ARMOR)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.protection, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.protection, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockbackResistance.get())
                          .setTools(TinkerTags.Items.ARMOR)
                          .addInput(SizedIngredient.fromItems(Blocks.ANVIL, Blocks.CHIPPED_ANVIL, Blocks.DAMAGED_ANVIL))

@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
-import slimeknights.tconstruct.tools.modifiers.defense.ProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.defense.AbstractProtectionModifier;
 
 import java.util.List;
 
@@ -26,6 +26,6 @@ public class FeatherFallingModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
-    ProtectionModifier.addResistanceTooltip(this, tool, level, 3f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 3f, tooltip);
   }
 }
