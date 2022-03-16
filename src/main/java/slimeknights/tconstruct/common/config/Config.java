@@ -38,6 +38,7 @@ public class Config {
     public final BooleanValue slimyLootChests;
     public final IntValue barterBlazingBlood;
     public final IntValue tinkerToolBonusChest;
+    public final BooleanValue dropDragonScales;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
@@ -186,6 +187,9 @@ public class Config {
                  "For comparison, vanilla wooden axes and pickaxes have a weight of 3, and stone axes/pickaxes have a weight of 1")
         .worldRestart()
         .defineInRange("tinker_tool_bonus_chest", 2, 0, 25);
+      dropDragonScales = builder
+        .comment("If true, ender dragons will drop scales when damaged by explosions")
+        .define("drop_dragon_Scales", true);
 
       builder.pop();
 
