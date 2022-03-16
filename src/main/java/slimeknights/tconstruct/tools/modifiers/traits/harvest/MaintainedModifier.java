@@ -78,7 +78,7 @@ public class MaintainedModifier extends Modifier {
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost = getTotalBoost(tool, level);
-      if (boost != 0) {
+      if (boost >= 0.01f) {
         addPercentTooltip(MINING_SPEED, boost, tooltip);
       }
     }

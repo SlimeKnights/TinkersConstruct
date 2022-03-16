@@ -2031,6 +2031,7 @@
   "modifier.tconstruct.temperate": "Temperate",
   "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
   "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
+  "modifier.tconstruct.temperate.mining_speed": "Temperate Speed",
   "modifier.tconstruct.invariant": "Invariant",
   "modifier.tconstruct.invariant.flavor": "Couldn't care less",
   "modifier.tconstruct.invariant.description": "Tool does more damage in neutral temperatures",

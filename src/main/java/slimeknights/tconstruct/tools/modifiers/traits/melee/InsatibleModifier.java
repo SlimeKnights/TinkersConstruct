@@ -48,6 +48,8 @@ public class InsatibleModifier extends Modifier {
     if (player != null && key == TooltipKey.SHIFT) {
       bonus = getBonus(player, level);
     }
-    addDamageTooltip(tool, bonus, tooltip);
+    if (bonus >= 0.01f) {
+      addDamageTooltip(tool, bonus, tooltip);
+    }
   }
 }
