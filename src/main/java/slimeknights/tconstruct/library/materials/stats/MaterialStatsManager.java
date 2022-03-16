@@ -163,8 +163,18 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @Override
   protected void parse(Map<ResourceLocation, JsonObject> builder, ResourceLocation id, JsonElement element) throws JsonSyntaxException {
     MaterialStatJson json = GSON.fromJson(element, MaterialStatJson.class);
-    for (Entry<ResourceLocation, JsonObject> entry : json.getStats().entrySet()) {
-      builder.put(entry.getKey(), entry.getValue());
+    // instead of simply replacing the whole JSON object, merge the two together
+    for (Entry<ResourceLocation,JsonObject> entry : json.getStats().entrySet()) {
+      ResourceLocation key = entry.getKey();
+      JsonObject value = entry.getValue();
+      JsonObject existing = builder.get(key);
+      if (existing != null) {
+        for (Entry<String,JsonElement> jsonEntry : value.entrySet()) {
+          existing.add(jsonEntry.getKey(), jsonEntry.getValue());
+        }
+      } else {
+        builder.put(key, value);
+      }
     }
   }
 
