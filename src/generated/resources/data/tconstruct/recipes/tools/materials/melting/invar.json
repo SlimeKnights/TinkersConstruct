@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/invar",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "input": "tconstruct:invar",
   "temperature": 900,
   "result": {

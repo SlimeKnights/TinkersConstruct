@@ -127,14 +127,14 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerTables.tinkersChest, folder));
     // cast chest
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.castChest)
-                       .key('c', TinkerSmeltery.blankCast)
+                       .key('c', TinkerTags.Items.GOLD_CASTS)
                        .key('b', TinkerSmeltery.searedBrick)
                        .key('B', TinkerSmeltery.searedBricks)
                        .key('C', Tags.Items.CHESTS_WOODEN)
                        .patternLine(" c ")
                        .patternLine("bCb")
                        .patternLine("bBb")
-                       .addCriterion("has_item", hasItem(TinkerSmeltery.blankCast))
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.GOLD_CASTS))
                        .build(consumer, prefix(TinkerTables.castChest, folder));
 
     // tinker anvil

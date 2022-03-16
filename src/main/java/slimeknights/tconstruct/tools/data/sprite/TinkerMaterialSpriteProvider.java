@@ -125,6 +125,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF684420).addARGB(102, 0xFF895D31).addARGB(140, 0xFFB98541).addARGB(178, 0xFFD79D4D).addARGB(216, 0xFFEFC275).addARGB(255, 0xFFF4D99F).build());
     buildMaterial(MaterialIds.nahuatl)
       .meleeHarvest()
+      .fallbacks("wood", "stick")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF100C1C).addARGB(102, 0xFF271E3D).addARGB(140, 0xFF49332E).addARGB(178, 0xFF543D30).addARGB(216, 0xFF664B2D).addARGB(255, 0xFF7A5C2D).build());
     buildMaterial(MaterialIds.pigIron)
       .meleeHarvest().statType(TinkerPartSpriteProvider.PLATE)
@@ -234,15 +235,18 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2D2D2D).addARGB(102, 0xFF3E3E3E).addARGB(140, 0xFF494949).addARGB(178, 0xFF545454).addARGB(216, 0xFF727272).addARGB(255, 0xFF8A8A8A).build());
     buildMaterial(MaterialIds.enderPearl)
       .statType(RepairKitStats.ID)
+      .fallbacks("rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF032620).addARGB(102, 0xFF0C3730).addARGB(140, 0xFF0B4D42).addARGB(178, 0xFF105E51).addARGB(216, 0xFF349988).addARGB(255, 0xFF8CF4E2).build());
     buildMaterial(MaterialIds.spider)
       .statType(RepairKitStats.ID)
+      .fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2A0010).addARGB(102, 0xFF550222).addARGB(140, 0xFF65062B).addARGB(178, 0xFF9D1E2D).addARGB(216, 0xFFC45F6B).addARGB(255, 0xFFE0C9CC).build());
     buildMaterial(MaterialIds.venom)
       .statType(RepairKitStats.ID)
       .colorMapper(GreyToColorMapping.builder().addARGB(0, 0xE07F7F7F).addARGB(63, 0xE59B9B9B).addARGB(102, 0xE6A1A1A1).addARGB(140, 0xE9A7A7A7).addARGB(178, 0xEDBBBBBB).addARGB(216, 0xF3D4D4D4).addARGB(255, 0xF8EFEFEF).build());
     buildMaterial(MaterialIds.rottenFlesh)
       .statType(RepairKitStats.ID)
+      .fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF28140A).addARGB(102, 0xFF522C10).addARGB(140, 0xFF6F4D1B).addARGB(178, 0xFF6A5D18).addARGB(216, 0xFFB44420).addARGB(255, 0xFFC5815A).build());
     // slimesuit
     buildMaterial(MaterialIds.enderslime)
@@ -250,12 +254,15 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790DC6).addARGB(140, 0xFFA936ED).addARGB(178, 0xFFBF58F7).addARGB(216, 0xFFD37CFF).addARGB(255, 0xFFEEBFFF).build());
     buildMaterial(MaterialIds.phantom)
       .statType(RepairKitStats.ID)
+      .fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());
     buildMaterial(MaterialIds.chorus)
       .statType(RepairKitStats.ID)
+      .fallbacks("rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4F2A4F).addARGB(102, 0xFF593559).addARGB(140, 0xFF643C64).addARGB(178, 0xFF774D77).addARGB(216, 0xFF8F648F).addARGB(255, 0xFFA47CA4).build());
     buildMaterial(MaterialIds.rabbit)
       .statType(RepairKitStats.ID)
+      .fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF3F2F1F).addARGB(102, 0xFF4E3A27).addARGB(140, 0xFF826041).addARGB(178, 0xFFA88054).addARGB(216, 0xFFB48B5B).addARGB(255, 0xFFC79E67).build());
     // slimesuit embellishments
     buildMaterial(MaterialIds.earthslime)

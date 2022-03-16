@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "input": "tconstruct:lead",
   "temperature": 330,
   "result": {

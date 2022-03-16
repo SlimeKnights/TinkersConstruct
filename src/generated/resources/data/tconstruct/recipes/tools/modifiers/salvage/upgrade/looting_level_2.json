@@ -3,6 +3,9 @@
   "tools": {
     "tag": "tconstruct:modifiable/armor/chestplate"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "modifier": "tconstruct:looting",
   "min_level": 2,
   "max_level": 2,

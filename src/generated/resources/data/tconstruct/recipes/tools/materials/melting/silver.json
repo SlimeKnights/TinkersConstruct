@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "input": "tconstruct:silver",
   "temperature": 790,
   "result": {

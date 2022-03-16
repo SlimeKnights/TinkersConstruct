@@ -1,11 +1,11 @@
 {
-  "title": "Weapon Upgrades",
+  "title": "Weapon Abilities",
   "text": [
     {
-      "text": "With these upgrades perhaps you could forge the strongest weapon of all. Of course what weapon you choose is up to you."
+      "text": "With these abilities perhaps you could forge the strongest weapon of all. Of course what weapon you choose is up to you."
     },
     {
-      "text": "These upgrades can help increase your weapon's potential, increase the damage you do overall, to specific mobs, or to both. The choice is yours.",
+      "text": "These upgrades can provide your weapon with extra effects or boost your overall rate of attack.",
       "paragraph": true
     }
   ]

@@ -3,20 +3,25 @@ package slimeknights.tconstruct.smeltery.block.controller;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
+
+import javax.annotation.Nullable;
 
 /** Shared logic for all multiblock structure controllers */
 public abstract class ControllerBlock extends InventoryBlock {
@@ -36,6 +41,12 @@ public abstract class ControllerBlock extends InventoryBlock {
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
     builder.add(FACING, ACTIVE, IN_STRUCTURE);
+  }
+
+  @Nullable
+  @Override
+  public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
+    return state.get(IN_STRUCTURE) ? PathNodeType.DAMAGE_FIRE : PathNodeType.OPEN;
   }
 
   @Override

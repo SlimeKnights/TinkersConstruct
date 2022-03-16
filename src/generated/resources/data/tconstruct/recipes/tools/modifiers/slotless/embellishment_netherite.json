@@ -2,13 +2,13 @@
   "type": "tconstruct:swappable_modifier",
   "inputs": [
     {
-      "tag": "forge:ingots/netherite"
+      "tag": "forge:nuggets/netherite"
     },
     {
-      "tag": "forge:ingots/netherite"
+      "tag": "forge:nuggets/netherite"
     },
     {
-      "tag": "forge:ingots/netherite"
+      "tag": "forge:nuggets/netherite"
     }
   ],
   "tools": [

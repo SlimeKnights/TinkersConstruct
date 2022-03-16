@@ -1,7 +1,8 @@
 {
   "fallbacks": [
     "wood",
-    "stick"
+    "stick",
+    "primitive"
   ],
   "color": "876627",
   "luminosity": 0,

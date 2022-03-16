@@ -3,7 +3,9 @@ package slimeknights.tconstruct.smeltery.block.component;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.tileentity.TileEntity;
@@ -58,5 +60,11 @@ public class SearedBlock extends Block {
     super.eventReceived(state, worldIn, pos, id, param);
     TileEntity tileentity = worldIn.getTileEntity(pos);
     return tileentity != null && tileentity.receiveClientEvent(id, param);
+  }
+
+  @Nullable
+  @Override
+  public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
+    return state.get(IN_STRUCTURE) ? PathNodeType.DAMAGE_FIRE : PathNodeType.OPEN;
   }
 }

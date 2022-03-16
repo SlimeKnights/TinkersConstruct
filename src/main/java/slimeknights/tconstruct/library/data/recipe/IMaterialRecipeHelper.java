@@ -94,6 +94,11 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     materialMeltingCasting(consumer, material, fluid, forgeTag, FluidValues.INGOT, folder);
   }
 
+  /** Adds recipes to melt and cast a material of ingot size */
+  default void compatMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, String folder) {
+    materialMeltingCasting(withCondition(consumer, tagCondition("ingots/" + material.getPath())), material, fluid, true, folder);
+  }
+
   /** Adds recipes to melt and cast a material */
   default void materialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, int fluidAmount, String folder) {
     materialMeltingCasting(consumer, material, fluid, false, fluidAmount, folder);

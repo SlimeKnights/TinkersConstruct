@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:material_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/uranium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
   "input": "tconstruct:necronium",
   "temperature": 830,
   "result": {

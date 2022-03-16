@@ -31,7 +31,7 @@
   },
   {
     "name": "repairing",
-    "type": "image with text below",
+    "type": "crafting",
     "data": "tools/repairing.json"
   },
   {
