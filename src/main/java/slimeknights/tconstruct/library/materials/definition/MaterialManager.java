@@ -137,6 +137,7 @@ public class MaterialManager extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+    long time = System.nanoTime();
     Map<MaterialId, MaterialId> redirects = new HashMap<>();
     this.materials = splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
@@ -160,7 +161,7 @@ public class MaterialManager extends JsonReloadListener {
     
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.debug("Loaded redirects: {}", Util.toIndentedStringList(redirects.keySet()));
-    log.info("{} materials loaded", materials.size());
+    log.info("Loaded {} materials in {} ms", materials.size(), (System.nanoTime() - time) / 1000000f);
   }
 
   /**

@@ -139,4 +139,13 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
     materialTraits = builder.build();
     onLoaded.run();
   }
+
+  @Override
+  public void onResourceManagerReload(IResourceManager manager) {
+    long time = System.nanoTime();
+    super.onResourceManagerReload(manager);
+    log.info("{} traits loaded for {} materials in {} ms",
+             materialTraits.values().stream().mapToInt(traits -> traits.getTraitsPerStats().size() + (traits.getDefaultTraits().isEmpty() ? 0 : 1)).sum(),
+             materialTraits.size(), (System.nanoTime() - time) / 1000000f);
+  }
 }

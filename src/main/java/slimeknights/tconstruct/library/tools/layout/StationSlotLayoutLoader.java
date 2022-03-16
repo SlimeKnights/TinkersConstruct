@@ -79,6 +79,7 @@ public class StationSlotLayoutLoader extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, IResourceManager resourceManager, IProfiler profiler) {
+    long time = System.nanoTime();
     ImmutableMap.Builder<ResourceLocation, StationSlotLayout> builder = ImmutableMap.builder();
     for (Entry<ResourceLocation,JsonElement> entry : splashList.entrySet()) {
       ResourceLocation key = entry.getKey();
@@ -101,6 +102,7 @@ public class StationSlotLayoutLoader extends JsonReloadListener {
       }
     }
     setSlots(builder.build());
+    log.info("Loaded {} station slot layouts in {} ms", layoutMap.size(), (System.nanoTime() - time) / 1000000f);
     List<String> missing = requiredLayouts.stream().filter(name -> !layoutMap.containsKey(name)).map(ResourceLocation::toString).collect(Collectors.toList());
     if (!missing.isEmpty()) {
       log.error("Failed to load the following required layouts: {}", String.join(", ", missing));
