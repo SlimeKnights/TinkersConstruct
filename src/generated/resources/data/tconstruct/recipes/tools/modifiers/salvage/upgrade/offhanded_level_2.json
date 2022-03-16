@@ -11,7 +11,7 @@
       "chance": 0.7
     },
     {
-      "item": "minecraft:netherite_scrap",
+      "tag": "forge:ingots/cobalt",
       "chance": 0.35
     }
   ]

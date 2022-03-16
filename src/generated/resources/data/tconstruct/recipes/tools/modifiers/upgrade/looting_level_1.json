@@ -28,7 +28,12 @@
     "tag": "tconstruct:modifiable/armor/chestplate"
   },
   "slots": {
-    "abilities": 1
+    "upgrades": 1
+  },
+  "requirements": {
+    "name": "tconstruct:unarmed",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.unarmed"
   },
   "result": {
     "name": "tconstruct:looting",

@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:blank_cast"
+            "tag": "tconstruct:casts/gold"
           }
         ]
       }

@@ -2,23 +2,23 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:fire_charge"
+      "tag": "forge:ingots"
     },
     {
-      "item": "minecraft:magma_block"
+      "item": "minecraft:blast_furnace"
     },
     {
-      "item": "minecraft:fire_charge"
+      "tag": "forge:ingots"
     },
     {
-      "item": "tconstruct:blazewood"
+      "tag": "forge:storage_blocks/coal"
     },
     {
-      "item": "tconstruct:blazewood"
+      "tag": "forge:storage_blocks/coal"
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/harvest/primary"
+    "tag": "tconstruct:modifiable/harvest"
   },
   "slots": {
     "abilities": 1

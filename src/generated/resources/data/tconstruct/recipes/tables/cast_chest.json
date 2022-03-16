@@ -7,7 +7,7 @@
   ],
   "key": {
     "c": {
-      "item": "tconstruct:blank_cast"
+      "tag": "tconstruct:casts/gold"
     },
     "b": {
       "item": "tconstruct:seared_brick"

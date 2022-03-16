@@ -2,32 +2,35 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "forge:ingots/rose_gold"
+      "tag": "forge:ingots/gold"
     },
     {
-      "item": "minecraft:rabbit_foot"
+      "item": "minecraft:golden_carrot"
     },
     {
-      "tag": "forge:ingots/rose_gold"
+      "tag": "forge:ingots/gold"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "forge:ender_pearls"
     },
     {
-      "item": "minecraft:name_tag"
+      "tag": "forge:ender_pearls"
     }
   ],
   "tools": {
     "tag": "tconstruct:modifiable/armor/chestplate"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "requirements": {
     "name": "tconstruct:looting",
-    "level": 2,
-    "error": "recipe.tconstruct.modifier.looting.level_3"
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.looting.level_2"
   },
   "result": {
     "name": "tconstruct:looting",
     "level": 1
   },
-  "max_level": 3
+  "max_level": 2
 }

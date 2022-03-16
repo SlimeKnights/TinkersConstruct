@@ -156,25 +156,25 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 5, false, folder);
 
     // tier 2 compat
-    materialMeltingCasting(consumer, MaterialIds.osmium,   TinkerFluids.moltenOsmium,   true, folder);
-    materialMeltingCasting(consumer, MaterialIds.tungsten, TinkerFluids.moltenTungsten, true, folder);
-    materialMeltingCasting(consumer, MaterialIds.platinum, TinkerFluids.moltenPlatinum, true, folder);
-    materialMeltingCasting(consumer, MaterialIds.silver,   TinkerFluids.moltenSilver,   true, folder);
-    materialMeltingCasting(consumer, MaterialIds.lead,     TinkerFluids.moltenLead,     true, folder);
+    compatMeltingCasting(consumer, MaterialIds.osmium,   TinkerFluids.moltenOsmium,   folder);
+    compatMeltingCasting(consumer, MaterialIds.tungsten, TinkerFluids.moltenTungsten, folder);
+    compatMeltingCasting(consumer, MaterialIds.platinum, TinkerFluids.moltenPlatinum, folder);
+    compatMeltingCasting(consumer, MaterialIds.silver,   TinkerFluids.moltenSilver,   folder);
+    compatMeltingCasting(consumer, MaterialIds.lead,     TinkerFluids.moltenLead,     folder);
     materialComposite(withCondition(consumer, tagCondition("ingots/aluminum")), MaterialIds.stone, MaterialIds.whitestone, TinkerFluids.moltenAluminum, FluidValues.INGOT, true, folder, "whitestone_from_aluminum");
     materialComposite(withCondition(consumer, tagCondition("ingots/tin")),      MaterialIds.stone, MaterialIds.whitestone, TinkerFluids.moltenTin,      FluidValues.INGOT, true, folder, "whitestone_from_tin");
     materialComposite(withCondition(consumer, tagCondition("ingots/zinc")),     MaterialIds.stone, MaterialIds.whitestone, TinkerFluids.moltenZinc,     FluidValues.INGOT, true, folder, "whitestone_from_zinc");
     // tier 3 compat
-    materialMeltingCasting(consumer, MaterialIds.steel,          TinkerFluids.moltenSteel,      true, folder);
-    materialMeltingCasting(consumer, MaterialIds.bronze,         TinkerFluids.moltenBronze,     true, folder);
-    materialMeltingCasting(consumer, MaterialIds.constantan,     TinkerFluids.moltenConstantan, true, folder);
-    materialMeltingCasting(consumer, MaterialIds.invar,          TinkerFluids.moltenInvar,      true, folder);
-    materialMeltingCasting(consumer, MaterialIds.electrum,       TinkerFluids.moltenElectrum,   true, folder);
-    materialMeltingComposite(consumer, MaterialIds.necroticBone, MaterialIds.necronium,       TinkerFluids.moltenUranium, FluidValues.INGOT, true, folder);
-    materialMeltingComposite(consumer, MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
+    compatMeltingCasting(consumer, MaterialIds.steel,          TinkerFluids.moltenSteel,      folder);
+    compatMeltingCasting(consumer, MaterialIds.bronze,         TinkerFluids.moltenBronze,     folder);
+    compatMeltingCasting(consumer, MaterialIds.constantan,     TinkerFluids.moltenConstantan, folder);
+    compatMeltingCasting(consumer, MaterialIds.invar,          TinkerFluids.moltenInvar,      folder);
+    compatMeltingCasting(consumer, MaterialIds.electrum,       TinkerFluids.moltenElectrum,   folder);
+    materialMeltingComposite(withCondition(consumer, tagCondition("ingots/uranium")), MaterialIds.necroticBone, MaterialIds.necronium,       TinkerFluids.moltenUranium, FluidValues.INGOT, true, folder);
+    materialMeltingComposite(withCondition(consumer, tagCondition("ingots/brass")),   MaterialIds.slimewood,    MaterialIds.platedSlimewood, TinkerFluids.moltenBrass,   FluidValues.INGOT, true, folder);
 
     // slimesuit
-    materialMeltingCasting(consumer, MaterialIds.gold, TinkerFluids.moltenGold, FluidValues.INGOT, folder);
+    materialMeltingCasting(consumer, MaterialIds.gold, TinkerFluids.moltenGold, true, folder);
     materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.venom, TinkerFluids.venom, FluidAttributes.BUCKET_VOLUME / 4, folder);
   }
