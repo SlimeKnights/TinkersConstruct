@@ -14,6 +14,7 @@ import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -29,7 +30,11 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   private final ItemOutput result;
   private final boolean fullSalvage;
   public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
-    super(id, toolIngredient, modifier, minLevel, maxLevel, slots);
+    this(id, toolIngredient, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+  }
+
+  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
+    super(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     this.result = result;
     this.fullSalvage = fullSalvage;
     ModifierRecipeLookup.addSalvage(this);
@@ -70,21 +75,31 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   /** Serializer instance */
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<IncrementalModifierSalvage> {
     @Override
-    protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       JsonElement salvageElement = JsonHelper.getElement(json, "salvage");
       ItemOutput result = ItemOutput.fromJson(salvageElement);
       boolean fullSalvage = false;
       if (salvageElement.isJsonObject()) {
         fullSalvage = JSONUtils.getBoolean(salvageElement.getAsJsonObject(), "full", false);
       }
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+      return new IncrementalModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+    }
+
+    @Override
+    protected IncrementalModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+      ItemOutput result = ItemOutput.read(buffer);
+      boolean fullSalvage = buffer.readBoolean();
+      return new IncrementalModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+    }
+
+    @Override
+    protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+      throw new UnsupportedOperationException();
     }
 
     @Override
     protected IncrementalModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
-      ItemOutput result = ItemOutput.read(buffer);
-      boolean fullSalvage = buffer.readBoolean();
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
+      throw new UnsupportedOperationException();
     }
 
     @Override

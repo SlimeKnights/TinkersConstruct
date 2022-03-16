@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -50,7 +51,11 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   }
 
   public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-    super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+    this(id, inputs, toolRequirement, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, requirements, requirementsError, result, maxLevel, slots);
+  }
+
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     this.inputs = inputs;
     // add all inputs to the modifier listing
     for (SizedIngredient ingredient : inputs) {
@@ -130,7 +135,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
-    ToolStack tool = ToolStack.from(inv.getTinkerableStack());
+    ItemStack tinkerable = inv.getTinkerableStack();
+    ToolStack tool = ToolStack.from(tinkerable);
 
     // common errors
     ValidatedResult commonError = validatePrerequisites(tool);
@@ -155,7 +161,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       return toolValidation;
     }
 
-    return ValidatedResult.success(tool.createStack());
+    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
   /**
@@ -196,21 +202,21 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<ModifierRecipe> {
     @Override
-    public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      return new ModifierRecipe(id, ingredients, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+      return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override
-    public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       int size = buffer.readVarInt();
       ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
-      return new ModifierRecipe(id, builder.build(), toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+      return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override

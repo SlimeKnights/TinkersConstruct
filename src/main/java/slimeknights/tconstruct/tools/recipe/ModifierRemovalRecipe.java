@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.util.JsonHelper;
@@ -72,6 +73,11 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       removeIndex = modifiers.size() - removeIndex - 1;
     }
     return modifiers.get(removeIndex);
+  }
+
+  @Override
+  public int shrinkToolSlotBy() {
+    return 64;
   }
 
   @Override
@@ -147,7 +153,36 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       if (toRemove != null) {
         AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getModifier(), toRemove.getLevel());
         if (salvage != null) {
-          salvage.acceptItems(tool, inv::giveItem, TConstruct.RANDOM);
+          int salvageMax = Math.min(toolStack.getMaxStackSize(), salvage.getMaxToolSize());
+          int currentSize = result.getCount();
+          Consumer<ItemStack> consumer;
+          // if the size is smaller than 16, shrink all salvage stack sizes to prevent a salvage dupe
+          if (currentSize < salvageMax) {
+            consumer = stack -> {
+              int newSize = stack.getCount() * currentSize / salvageMax;
+              if (newSize > 0) {
+                stack.setCount(newSize);
+                inv.giveItem(stack);
+              }
+            };
+            // if larger, grow salvage
+          } else if (currentSize > salvageMax) {
+            consumer = stack -> {
+              int newSize = stack.getCount() * currentSize / salvageMax;
+              int maxStackSize = stack.getMaxStackSize();
+              while (newSize > maxStackSize) {
+                inv.giveItem(ItemHandlerHelper.copyStackWithSize(stack, maxStackSize));
+                newSize -= maxStackSize;
+              }
+              if (newSize > 0) {
+                stack.setCount(newSize);
+                inv.giveItem(stack);
+              }
+            };
+          } else {
+            consumer = inv::giveItem;
+          }
+          salvage.acceptItems(tool, consumer, TConstruct.RANDOM);
         }
       }
     }

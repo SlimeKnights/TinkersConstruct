@@ -126,7 +126,7 @@ public class StatsCommand {
       }
 
       // if successful, update held item
-      living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+      living.setHeldItem(Hand.MAIN_HAND, tool.createStack(stack.getCount()));
       return true;
     });
 
@@ -172,7 +172,7 @@ public class StatsCommand {
         }
 
         // if successful, update held item
-        living.setHeldItem(Hand.MAIN_HAND, tool.createStack());
+        living.setHeldItem(Hand.MAIN_HAND, tool.createStack(stack.getCount()));
       }
       return true;
     });

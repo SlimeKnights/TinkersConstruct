@@ -154,6 +154,11 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
+  public int shrinkToolSlotBy() {
+    return 1;
+  }
+
+  @Override
   public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     if (tool.getDefinition() == ToolDefinition.EMPTY) {
