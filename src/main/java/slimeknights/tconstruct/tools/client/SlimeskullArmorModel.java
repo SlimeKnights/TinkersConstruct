@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.client;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.GenericHeadModel;
@@ -41,6 +42,7 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrap
   /** Texture for the head */
   @Nullable
   private GenericHeadModel headModel;
+  private boolean hasGlint = false;
 
   @Override
   public void render(MatrixStack matrixStackIn, IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
@@ -53,7 +55,7 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrap
       matrixStackIn.pop();
     }
     if (headModel != null && headTexture != null && buffer != null) {
-      IVertexBuilder headBuilder = buffer.getBuffer(RenderType.getEntityCutoutNoCullZOffset(headTexture));
+      IVertexBuilder headBuilder = ItemRenderer.getArmorVertexBuilder(buffer, RenderType.getEntityCutoutNoCullZOffset(headTexture), false, hasGlint);
       boolean needsPush = this.isChild || (this.isSneak && base != null);
       if (needsPush) {
         matrixStackIn.push();
@@ -87,6 +89,7 @@ public class SlimeskullArmorModel<T extends LivingEntity> extends ArmorModelWrap
     }
     headTexture = null;
     headModel = null;
+    hasGlint = stack.hasEffect();
   }
 
 

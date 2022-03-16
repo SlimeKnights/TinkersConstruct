@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.LivingEntity;
@@ -55,6 +56,7 @@ public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T
 
   private String material = "";
   private boolean isLegs = false;
+  private boolean hasGlint = false;
 
   @Override
   public void render(MatrixStack matrices, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
@@ -62,7 +64,7 @@ public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T
       copyToBase();
       base.render(matrices, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       if (!material.isEmpty() && buffer != null) {
-        IVertexBuilder overlayBuffer = buffer.getBuffer(isLegs ? LEG_RENDER_CACHE.computeIfAbsent(material, LEG_GETTER) : ARMOR_RENDER_CACHE.computeIfAbsent(material, ARMOR_GETTER));
+        IVertexBuilder overlayBuffer = ItemRenderer.getArmorVertexBuilder(buffer, isLegs ? LEG_RENDER_CACHE.computeIfAbsent(material, LEG_GETTER) : ARMOR_RENDER_CACHE.computeIfAbsent(material, ARMOR_GETTER), false, hasGlint);
         base.render(matrices, overlayBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       }
     }
@@ -76,5 +78,6 @@ public class PlateArmorModel<T extends LivingEntity> extends ArmorModelWrapper<T
       this.material = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
     }
     this.isLegs = slot == EquipmentSlotType.LEGS;
+    hasGlint = stack.hasEffect();
   }
 }
