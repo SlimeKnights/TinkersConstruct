@@ -66,6 +66,8 @@ public final class MaterialIds {
 
   // plate
   public static final MaterialId gold = id("gold");
+  public static final MaterialId obsidian = id("obsidian");
+  public static final MaterialId debris = id("debris");
   public static final MaterialId netherite = id("netherite");
   // plate - compat
   public static final MaterialId aluminum = id("aluminum");
@@ -86,6 +88,8 @@ public final class MaterialIds {
   public static final MaterialId blood = id("blood");
   public static final MaterialId ichor = id("ichor");
   public static final MaterialId enderslime = id("enderslime");
+  public static final MaterialId clay = id("clay");
+  public static final MaterialId honey = id("honey");
   public static final MaterialId phantom = id("phantom");
   public static final MaterialId chorus = id("chorus");
   public static final MaterialId rabbit = id("rabbit");

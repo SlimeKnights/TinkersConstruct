@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:obsidian_pane"
+    },
+    {
+      "item": "tconstruct:obsidian_pane"
+    },
+    {
+      "item": "tconstruct:obsidian_pane"
+    }
+  ],
+  "tools": [
+    {
+      "item": "tconstruct:plate_boots"
+    },
+    {
+      "item": "tconstruct:plate_leggings"
+    },
+    {
+      "item": "tconstruct:plate_chestplate"
+    },
+    {
+      "item": "tconstruct:plate_helmet"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:obsidian"
+  }
+}

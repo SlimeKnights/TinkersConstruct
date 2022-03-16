@@ -217,11 +217,15 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.chorus,     new RepairKitStats( 65));
     addMaterialStats(MaterialIds.rabbit,     new RepairKitStats(150));
     // crafting
+    addMaterialStats(MaterialIds.obsidian);
+    addMaterialStats(MaterialIds.debris);
     addMaterialStats(MaterialIds.netherite);
     addMaterialStats(MaterialIds.earthslime);
     addMaterialStats(MaterialIds.skyslime);
     addMaterialStats(MaterialIds.blood);
     addMaterialStats(MaterialIds.ichor);
+    addMaterialStats(MaterialIds.clay);
+    addMaterialStats(MaterialIds.honey);
     // compat
     addMaterialStats(MaterialIds.aluminum);
     addMaterialStats(MaterialIds.nickel);

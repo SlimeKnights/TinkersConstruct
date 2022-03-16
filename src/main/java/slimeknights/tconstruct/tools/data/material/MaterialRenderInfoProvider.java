@@ -68,6 +68,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // plate
     buildRenderInfo(MaterialIds.gold).color(0xFDF55F).fallbacks("metal");
+    buildRenderInfo(MaterialIds.obsidian);
+    buildRenderInfo(MaterialIds.debris);
     buildRenderInfo(MaterialIds.netherite).color(0x4C4143).fallbacks("metal");
     // compat plate
     buildRenderInfo(MaterialIds.aluminum);
@@ -88,6 +90,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.blood);
     buildRenderInfo(MaterialIds.ichor);
     buildRenderInfo(MaterialIds.enderslime);
+    buildRenderInfo(MaterialIds.clay);
+    buildRenderInfo(MaterialIds.honey);
     buildRenderInfo(MaterialIds.phantom);
     buildRenderInfo(MaterialIds.chorus);
     buildRenderInfo(MaterialIds.rabbit);
