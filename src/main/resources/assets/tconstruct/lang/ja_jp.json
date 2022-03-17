@@ -1353,13 +1353,17 @@
   "material.tconstruct.pig_iron.skull_flavor": "私を怒らせると、あなたは私のことが嫌いになるだろう！",
   "material.tconstruct.pig_iron.skull_encyclopedia": "他のMobからダメージを受けると、15秒間攻撃力上昇効果を得る",
 
+  "material.tconstruct.darkthread": "暗黒糸",
+  "material.tconstruct.darkthread.flavor": "暗黒面に落ち、我々は種を蒔く",
+  "material.tconstruct.darkthread.encyclopedia": "Mobからのドロップ率が上がり、運が良ければ複数落ちる",
+
   "__comment": "Format definition to make tool names natural in Japanese",
   "__comment": "日本語で道具名を自然な表記にするためのフォーマット定義",
   "material.tconstruct.slimesteel.format": "スライムスチールの%s",
   "material.tconstruct.nahuatl.format": "ナワトルの%s",
   "material.tconstruct.tinkers_bronze.format": "ティンカー青銅の%s",
   "material.tconstruct.pig_iron.format": "銑鉄の%s",
-
+  "material.tconstruct.darkthread.format": "暗黒糸の%s",
 
 
   "__comment": "Tier Nether Materials",
@@ -1387,6 +1391,10 @@
 
   "material.tconstruct.soulsteel": "ソウルスチール",
 
+  "material.tconstruct.ancient_hide": "古代の革",
+  "material.tconstruct.ancient_hide.flavor": "最古の石でなめした革",
+  "material.tconstruct.ancient_hide.encyclopedia": "ブロックからのドロップ率が上昇し、運が良ければ複数落ちる",
+
   "__comment": "Format definition to make tool names natural in Japanese",
   "__comment": "日本語で道具名を自然な表記にするためのフォーマット定義",
   "material.tconstruct.cobalt.format": "コバルトの%s",
@@ -1395,6 +1403,7 @@
   "material.tconstruct.queens_slime.format": "クイーンスライムの%s",
   "material.tconstruct.blazing_bone.format": "ブレイズボーンの%s",
   "material.tconstruct.soulsteel.format": "ソウルスチールの%s",
+  "material.tconstruct.ancient_hide.format": "古代の革の%s",
 
 
   "__comment": "Tier End Materials",
@@ -1436,12 +1445,16 @@
   "material.tconstruct.gold.skull_flavor": "何という輝き",
   "material.tconstruct.gold.skull_encyclopedia": "金鉱石を採掘すると追加の金塊がドロップされることがあり、また金の防具をドロップする確率が4%増加する。金塊や防具のドロップ確率は、金装備をしている部位の個数によって更に増加する。",
 
+  "material.tconstruct.obsidian":   "黒曜石",
+  "material.tconstruct.debris":     "残骸",
   "material.tconstruct.netherite":  "ネザライト",
   "material.tconstruct.earthslime": "アーススライム",
   "material.tconstruct.skyslime":   "スカイスライム",
   "material.tconstruct.blood":      "血",
   "material.tconstruct.ichor":      "イコル",
   "material.tconstruct.enderslime": "エンダースライム",
+  "material.tconstruct.clay":       "粘土",
+  "material.tconstruct.honey":      "ハチミツ",
   "material.tconstruct.phantom": "ファントムの皮膜",
   "material.tconstruct.chorus": "コーラス",
   "material.tconstruct.rabbit": "ウサギの革",
@@ -1455,6 +1468,8 @@
 
   "__comment": "Format definition to make tool names natural in Japanese",
   "__comment": "日本語で道具名を自然な表記にするためのフォーマット定義",
+  "material.tconstruct.obsidian.format":   "黒曜石の%s",
+  "material.tconstruct.debris.format":     "残骸の%s",
   "material.tconstruct.gunpowder.format": "火薬の%s",
   "material.tconstruct.ender_pearl.format": "エンダーパールの%s",
   "material.tconstruct.spider.format": "クモの%s",
@@ -1467,6 +1482,8 @@
   "material.tconstruct.blood.format":      "血の%s",
   "material.tconstruct.ichor.format":      "イコルの%s",
   "material.tconstruct.enderslime.format": "エンダースライムの%s",
+  "material.tconstruct.clay.format":       "粘土の%s",
+  "material.tconstruct.honey.format":      "ハチミツの%s",
   "material.tconstruct.phantom.format": "ファントムの皮膜の%s",
   "material.tconstruct.chorus.format": "コーラスの%s",
   "material.tconstruct.rabbit.format": "ウサギの革の%s",
@@ -1555,6 +1572,7 @@
 
   "_comment": "Modifiers",
 
+  "key.categories.tconstruct": "Tinkers' Construct",
   "key.tconstruct.helmet_interact": "ヘルメットのアクション",
   "key.tconstruct.leggings_interact": "レギンスのアクション",
 
@@ -2106,6 +2124,7 @@
   "modifier.tconstruct.temperate": "加減",
   "modifier.tconstruct.temperate.flavor": "極端な採掘！",
   "modifier.tconstruct.temperate.description": "極端な温度環境下で、道具の採掘速度が上がる",
+  "modifier.tconstruct.temperate.mining_speed": "温度速度補正",
   "modifier.tconstruct.invariant": "普遍",
   "modifier.tconstruct.invariant.flavor": "どうでもいい",
   "modifier.tconstruct.invariant.description": "中性温度環境下で、道具の攻撃力が上がる",
