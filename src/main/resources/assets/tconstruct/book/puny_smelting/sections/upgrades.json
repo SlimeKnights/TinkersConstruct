@@ -5,34 +5,42 @@
     "data": "upgrades/general.json"
   },
   {
+    "name": "diamond",
     "type": "modifier",
     "data": "upgrades/general/diamond.json"
   },
   {
+    "name": "emerald",
     "type": "modifier",
     "data": "upgrades/general/emerald.json"
   },
   {
+    "name": "experienced",
     "type": "modifier",
     "data": "upgrades/general/experienced.json"
   },
   {
+    "name": "netherite",
     "type": "modifier",
     "data": "upgrades/general/netherite.json"
   },
   {
+    "name": "overforced",
     "type": "modifier",
     "data": "upgrades/general/overforced.json"
   },
   {
+    "name": "reinforced",
     "type": "modifier",
     "data": "upgrades/general/reinforced.json"
   },
   {
+    "name": "soulbound",
     "type": "modifier",
     "data": "upgrades/general/soulbound.json"
   },
   {
+    "name": "tank",
     "type": "modifier",
     "data": "upgrades/general/tank.json"
   },
@@ -43,30 +51,37 @@
     "data": "upgrades/weapon.json"
   },
   {
+    "name": "fiery",
     "type": "modifier",
     "data": "upgrades/weapon/fiery.json"
   },
   {
+    "name": "knockback",
     "type": "modifier",
     "data": "upgrades/weapon/knockback.json"
   },
   {
+    "name": "necrotic",
     "type": "modifier",
     "data": "upgrades/weapon/necrotic.json"
   },
   {
+    "name": "padded",
     "type": "modifier",
     "data": "upgrades/weapon/padded.json"
   },
   {
+    "name": "severing",
     "type": "modifier",
     "data": "upgrades/weapon/severing.json"
   },
   {
+    "name": "sticky",
     "type": "modifier",
     "data": "upgrades/weapon/sticky.json"
   },
   {
+    "name": "sweeping_edge",
     "type": "modifier",
     "data": "upgrades/weapon/sweeping_edge.json"
   },
@@ -74,26 +89,32 @@
     "name": "group_damage"
   },
   {
+    "name": "antiaquatic",
     "type": "modifier",
     "data": "upgrades/weapon/antiaquatic.json"
   },
   {
+    "name": "baneofsssss",
     "type": "modifier",
     "data": "upgrades/weapon/baneofsssss.json"
   },
   {
+    "name": "cooling",
     "type": "modifier",
     "data": "upgrades/weapon/cooling.json"
   },
   {
+    "name": "piercing",
     "type": "modifier",
     "data": "upgrades/weapon/piercing.json"
   },
   {
+    "name": "sharpness",
     "type": "modifier",
     "data": "upgrades/weapon/sharpness.json"
   },
   {
+    "name": "smite",
     "type": "modifier",
     "data": "upgrades/weapon/smite.json"
   },
@@ -104,22 +125,27 @@
     "data": "upgrades/harvest.json"
   },
   {
+    "name": "blasting",
     "type": "modifier",
     "data": "upgrades/harvest/blasting.json"
   },
   {
+    "name": "haste",
     "type": "modifier",
     "data": "upgrades/harvest/haste.json"
   },
   {
+    "name": "hydraulic",
     "type": "modifier",
     "data": "upgrades/harvest/hydraulic.json"
   },
    {
+    "name": "lightspeed",
     "type": "modifier",
     "data": "upgrades/harvest/lightspeed.json"
   },
   {
+    "name": "magnetic",
     "type": "modifier",
     "data": "upgrades/harvest/magnetic.json"
   },
@@ -135,42 +161,52 @@
     "data": "upgrades/armor/feather_falling.json"
   },
   {
+    "name": "knockback_armor",
     "type": "modifier",
     "data": "upgrades/armor/knockback.json"
   },
   {
+    "name": "item_frame",
     "type": "modifier",
     "data": "upgrades/armor/item_frame.json"
   },
   {
+    "name": "leaping",
     "type": "modifier",
     "data": "upgrades/armor/leaping.json"
   },
   {
+    "name": "lightspeed",
     "type": "modifier",
     "data": "upgrades/armor/lightspeed.json"
   },
   {
+    "name": "respiration",
     "type": "modifier",
     "data": "upgrades/armor/respiration.json"
   },
   {
+    "name": "ricochet",
     "type": "modifier",
     "data": "upgrades/armor/ricochet.json"
   },
   {
+    "name": "soulspeed",
     "type": "modifier",
     "data": "upgrades/armor/soulspeed.json"
   },
   {
+    "name": "speedy",
     "type": "modifier",
     "data": "upgrades/armor/speedy.json"
   },
   {
+    "name": "springy",
     "type": "modifier",
     "data": "upgrades/armor/springy.json"
   },
   {
+    "name": "thorns",
     "type": "modifier",
     "data": "upgrades/armor/thorns.json"
   }

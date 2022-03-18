@@ -5,18 +5,22 @@
     "data": "abilities/general.json"
   },
   {
+    "name": "gilded",
     "type": "modifier",
     "data": "abilities/general/gilded.json"
   },
   {
+    "name": "luck",
     "type": "modifier",
     "data": "abilities/general/luck.json"
   },
   {
+    "name": "reach",
     "type": "modifier",
     "data": "abilities/general/reach.json"
   },
   {
+    "name": "unbreakable",
     "type": "modifier",
     "data": "abilities/general/unbreakable.json"
   },
@@ -27,14 +31,17 @@
     "data": "abilities/weapon.json"
   },
   {
+    "name": "dual_wielding",
     "type": "modifier",
     "data": "abilities/weapon/dual_wielding.json"
   },
   {
+    "name": "melting",
     "type": "modifier",
     "data": "abilities/weapon/melting.json"
   },
   {
+    "name": "spilling",
     "type": "modifier",
     "data": "abilities/weapon/spilling.json"
   },
@@ -45,18 +52,22 @@
     "data": "abilities/harvest.json"
   },
   {
+    "name": "autosmelt",
     "type": "modifier",
     "data": "abilities/harvest/autosmelt.json"
   },
   {
+    "name": "exchanging",
     "type": "modifier",
     "data": "abilities/harvest/exchanging.json"
   },
   {
+    "name": "expanded",
     "type": "modifier",
     "data": "abilities/harvest/expanded.json"
   },
   {
+    "name": "silky",
     "type": "modifier",
     "data": "abilities/harvest/silky.json"
   },
@@ -67,26 +78,32 @@
     "data": "abilities/interact.json"
   },
   {
+    "name": "bucketing",
     "type": "modifier",
     "data": "abilities/interact/bucketing.json"
   },
   {
+    "name": "firestarter",
     "type": "modifier",
     "data": "abilities/interact/firestarter.json"
   },
   {
+    "name": "glowing",
     "type": "modifier",
     "data": "abilities/interact/glowing.json"
   },
   {
+    "name": "pathing",
     "type": "modifier",
     "data": "abilities/interact/pathing.json"
   },
   {
+    "name": "stripping",
     "type": "modifier",
     "data": "abilities/interact/stripping.json"
   },
   {
+    "name": "tilling",
     "type": "modifier",
     "data": "abilities/interact/tilling.json"
   },
@@ -97,62 +114,77 @@
     "data": "abilities/armor.json"
   },
   {
+    "name": "aqua_affinity",
     "type": "modifier",
     "data": "abilities/armor/aqua_affinity.json"
   },
   {
+    "name": "bouncy",
     "type": "modifier",
     "data": "abilities/armor/bouncy.json"
   },
   {
+    "name": "double_jump",
     "type": "modifier",
     "data": "abilities/armor/double_jump.json"
   },
   {
+    "name": "flamewake",
     "type": "modifier",
     "data": "abilities/armor/flamewake.json"
   },
   {
+    "name": "frost_walker",
     "type": "modifier",
     "data": "abilities/armor/frost_walker.json"
   },
   {
+    "name": "looting",
     "type": "modifier",
     "data": "abilities/armor/looting.json"
   },
   {
+    "name": "path_maker",
     "type": "modifier",
     "data": "abilities/armor/path_maker.json"
   },
   {
+    "name": "plowing",
     "type": "modifier",
     "data": "abilities/armor/plowing.json"
   },
   {
+    "name": "pockets",
     "type": "modifier",
     "data": "abilities/armor/pockets.json"
   },
   {
+    "name": "shield_strap",
     "type": "modifier",
     "data": "abilities/armor/shield_strap.json"
   },
   {
+    "name": "slurping",
     "type": "modifier",
     "data": "abilities/armor/slurping.json"
   },
   {
+    "name": "snowdrift",
     "type": "modifier",
     "data": "abilities/armor/snowdrift.json"
   },
   {
+    "name": "strength",
     "type": "modifier",
     "data": "abilities/armor/strength.json"
   },
   {
+    "name": "spilling",
     "type": "modifier",
     "data": "abilities/weapon/spilling.json"
   },
   {
+    "name": "tool_belt",
     "type": "modifier",
     "data": "abilities/armor/tool_belt.json"
   },
@@ -162,6 +194,7 @@
     "data": "abilities/armor/unarmed_attack.json"
   },
   {
+    "name": "zoom",
     "type": "modifier",
     "data": "abilities/armor/zoom.json"
   }

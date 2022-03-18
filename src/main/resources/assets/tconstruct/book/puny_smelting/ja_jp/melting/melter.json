@@ -1,0 +1,11 @@
+{
+  "title": "溶融器",
+  "image": {
+    "file": "tconstruct:book/images/melter.png"
+  },
+  "text": [
+    {
+      "text": "これは、様々な簡単な作業を実行できる最も基本的な溶融器です。"
+    }
+  ]
+}

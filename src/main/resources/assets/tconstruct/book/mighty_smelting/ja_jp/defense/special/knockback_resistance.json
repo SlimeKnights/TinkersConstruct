@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "私はここに立っています、戦車でさえ私を移動させることはできません。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "ノックバック距離を減らす",
+    "単一レベル",
+    "防御スロットが1つ必要"
+  ]
+}

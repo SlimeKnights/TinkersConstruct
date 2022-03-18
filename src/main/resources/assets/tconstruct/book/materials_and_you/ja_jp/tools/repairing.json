@@ -1,0 +1,48 @@
+{
+  "title": "修理",  "grid_size": "small",
+  "grid": [
+    [
+      {
+        "id": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 70,
+          "tic_materials": [
+            "tconstruct:ui_render_head",
+            "tconstruct:ui_render_handle",
+            "tconstruct:ui_render_extra"
+          ],
+          "tic_stats": {
+            "tconstruct:durability": 100
+          }
+        }
+      },
+      {
+        "id": "tconstruct:repair_kit"
+      }
+    ]
+  ],
+  "result": {
+    "id": "tconstruct:pickaxe",
+    "nbt": {
+      "tic_broken": false,
+      "tic_display": true,
+      "Damage": 10,
+      "tic_materials": [
+        "tconstruct:ui_render_head",
+        "tconstruct:ui_render_handle",
+        "tconstruct:ui_render_extra"
+      ],
+      "tic_stats": {
+        "tconstruct:durability": 100
+      }
+    }
+  },
+  "description": [
+    {
+      "text": "道具を壊したくないのであれば、道具を修理することはとても重要なことです。ティンカー台またはティンカー金床に道具とヘッド部または板部の素材を置くと修理できます。また、作業台で修理できるリペアキットを使うこともできます！",
+      "paragraph": true
+    }
+	]
+}

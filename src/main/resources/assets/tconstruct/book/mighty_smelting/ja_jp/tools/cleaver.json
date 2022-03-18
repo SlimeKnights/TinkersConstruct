@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "大剣は攻撃力が高く、スイングが遅い武器です。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "頭を刈り取ります！",
+	  "paragraph": true
+    }
+  ],
+  "properties": [
+    "強力な武器",
+    "スイングは遅い",
+    "切断II"
+  ]
+}

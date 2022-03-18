@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "道具の効果範囲が広がります。具体的な効果については、各道具のページに記載されています。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大レベルなし",
+    "レベルごとにアビリティスロットが1つ必要"
+  ]
+}

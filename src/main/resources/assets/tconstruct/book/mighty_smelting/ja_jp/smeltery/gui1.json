@@ -1,0 +1,14 @@
+{
+  "title": "乾式精錬炉のGUI",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "基本的な乾式精錬炉のGUIです。それ以上でもそれ以下でもありません。",
+      "paragraph": true
+    }
+	]
+}

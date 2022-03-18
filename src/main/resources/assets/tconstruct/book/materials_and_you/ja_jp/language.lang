@@ -1,0 +1,22 @@
+// Sections - Materials And you
+
+intro=はじめに
+
+tier_one_materials=Tier 1 の素材
+tier_one_materials.subtext=以下の素材は任意の道具を作るための最初の部品になります。これらの素材を部品作成台に置いて道具の部品を作れます。
+
+tools=道具
+tools.part_swapping=部品の交換
+tools.repairing=修理
+
+armor=旅行者の装備
+armor.subtext=旅行者の装備は改良作業台でクラフトします！これらの防具の防御力は高くはありませんが、防具をアップグレードする機会はまだたくさんあります。ああ、どんな素敵なものを作りますか？
+
+modifiers=改造
+modifiers.traits=能力
+modifiers.upgrades=アップグレード
+modifiers.slotless=スロット不要
+modifiers.abilities=アビリティ
+modifiers.defense=防御
+
+further_reading=参考文献

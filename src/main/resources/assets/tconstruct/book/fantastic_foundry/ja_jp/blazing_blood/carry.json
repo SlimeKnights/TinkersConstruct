@@ -1,0 +1,14 @@
+{
+  "title": "運搬",
+  "image": {
+    "file": "tconstruct:book/images/carry_blaze.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "「でもNemea、乾式精錬炉にどうやってブレイズを入れるの？」あなたがあのオタクのMelvinなら、「耐火のポーションを飲んでピギーバッグパックやイコルスリングを使えばいいのでは。」と提案するかもしれません。丸焦げになってもいいならそれもいいでしょう。",
+      "paragraph": true
+    }
+  ]
+}

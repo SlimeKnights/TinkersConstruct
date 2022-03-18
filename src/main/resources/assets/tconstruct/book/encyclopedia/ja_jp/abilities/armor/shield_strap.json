@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "レベルごとに、オフハンドスロットが+1されます。レギンスのアクションボタンを押すと、オフハンドのアイテムと交換できます。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "アビリティスロットが1つ必要"
+  ]
+}

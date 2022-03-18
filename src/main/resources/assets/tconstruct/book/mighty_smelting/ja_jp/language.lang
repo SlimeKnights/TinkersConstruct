@@ -1,0 +1,35 @@
+// Sections - Mighty Smelting
+intro=はじめに
+entity_melting=エンティティ溶融
+tier_three_materials=Tier 3 の素材
+tools=大型道具
+tools.subtext=大型道具を作成するためにはティンカー金床が必要です
+
+smeltery=乾式精錬炉
+smeltery.features=特徴
+smeltery.alloying=合金化
+smeltery.controller=コントローラー
+smeltery.structure=構造
+smeltery.structurereq=構造要件
+smeltery.sgui1=乾式精錬炉のGUI
+smeltery.sgui2=乾式精錬炉のGUIの説明
+smeltery.seared_tanks=焼成石のタンク
+smeltery.seared_blocks=焼成ブロック
+smeltery.seared_ladder=焼成石のはしご
+smeltery.seared_glass=焼成ガラス
+smeltery.seared_drain=焼成石のドレン
+smeltery.seared_duct=焼成石のダクト
+smeltery.seared_chute=焼成石のシュート
+
+abilities=アビリティ
+abilities.subtext=アビリティはアップグレードより強力ですが、スロットの数も限られています。
+abilities.group_general=一般
+abilities.group_harvest=収穫
+abilities.group_weapon=武器
+abilities.group_interact=アクション
+abilities.group_armor=防具
+
+defense=防御
+defense.subtext=防御の改造は防具に適用でき、防御スロットを消費します。
+defense.group_protection=耐性
+defense.group_special=特別
