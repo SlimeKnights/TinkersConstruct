@@ -28,7 +28,7 @@ abilities.group_harvest=Для копания
 abilities.group_weapon=Для оружия
 abilities.group_interact=Для взаимод.
 abilities.group_armor=Для брони
-abilities.unarmed=Безоружная атака
+abilities.unarmed=Безоружные
 upgrades.subtext=Инструменты могут быть усилены с помощью улучшений, хотя к каждому инструменту можно применить только их ограниченное количество.
 
 defense=Защита
