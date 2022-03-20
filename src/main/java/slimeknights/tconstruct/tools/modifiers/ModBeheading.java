@@ -2,7 +2,9 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -13,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
@@ -96,6 +99,12 @@ public class ModBeheading extends ToolModifier {
     if(shouldDropHead(level)) {
       ItemStack head = TinkerRegistry.getHeadDrop(event.getEntityLiving());
       if(!head.isEmpty() && !alreadyContainsDrop(event, head)) {
+        if(!Config.beheadingAffectsWitherSkeleSkulls
+                && (event.getEntityLiving() instanceof EntityWitherSkeleton
+                || (head.getItem().equals(Items.SKULL) && head.getMetadata() == 1))) {
+          return;
+        }
+
         EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
         entityitem.setDefaultPickupDelay();
         event.getDrops().add(entityitem);

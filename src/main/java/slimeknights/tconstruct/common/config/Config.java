@@ -46,6 +46,7 @@ public final class Config {
   public static double oreToIngotRatio = 2;
   public static boolean matchVanillaSlimeblock = false;
   public static boolean limitPiggybackpack = false;
+  public static boolean beheadingAffectsWitherSkeleSkulls = true;
   private static String[] craftingStationBlacklistArray = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };
@@ -220,6 +221,11 @@ public final class Config {
       prop = configFile.get(cat, "limitPiggybackpack", limitPiggybackpack);
       prop.setComment("If true, piggybackpacks can only pick up players and mobs that can be leashed in vanilla. If false any mob can be picked up.");
       limitPiggybackpack = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "beheadingAffectsWitherSkeleSkulls", beheadingAffectsWitherSkeleSkulls);
+      prop.setComment("If true, the Beheading modifier increases Wither Skeleton Skull drop rates. If false, Wither Skeleton Skulls drop rates will not be affected.");
+      beheadingAffectsWitherSkeleSkulls = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklistArray);
