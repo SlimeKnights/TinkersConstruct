@@ -6,10 +6,14 @@ casting=Литьё
 tier_two_materials=Материалы 2-го уровня
 
 upgrades=Улучшения
-upgrades.general=§1§lОсновные§r
-upgrades.harvest=§1§lДля копания§r
-upgrades.weapon=§1§lДля оружия§r
+upgrades.subtext=Инструменты могут быть усилены с помощью улучшений, хотя к каждому инструменту может быть применено только ограниченное их количество.
+upgrades.group_general=Основные
+upgrades.group_harvest=Для копания
+upgrades.group_weapon=Для оружия
+upgrades.group_damage=Увелич. урон
+upgrades.group_armor=Для брони
 
 slotless=Бесслотовые модификаторы
-slotless.slotless=§1§lБесслотовые§r
-slotless.bonus_upgrades=§1§lУлучшения++§r
+slotless.subtext=Эти модификаторы не требуют слотов для применения, Вы можете иметь их все, если хотите.
+slotless.group_slotless=Бесслотовые
+slotless.group_bonus_upgrades=Улучшения++
