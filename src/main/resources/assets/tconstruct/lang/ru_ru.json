@@ -222,7 +222,7 @@
   "item.tconstruct.creative_slot.upgrades": "Творческое улучшение",
   "item.tconstruct.creative_slot.abilities": "Творческое умение",
   "item.tconstruct.creative_slot.souls": "Творческий слот души",
-  "item.tconstruct.ccreative_slot.defense": "Творческий защитный слот",
+  "item.tconstruct.creative_slot.defense": "Творческий защитный слот",
   "item.tconstruct.creative_slot.missing": "NBT определяющий тип слота, отсутствует или недействителен",
   "item.tconstruct.creative_slot.tooltip": "Добавляет дополнительный слот %s на инструмент",
 
@@ -1211,7 +1211,7 @@
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Дерево",
-  "material.tconstruct.wood.format": "Деревянный %s",
+  "material.tconstruct.wood.format": "Деревянн. %s",
   "material.tconstruct.wood.flavor": "Сколько дров мог бы наколоть сурок, если бы сурок мог колоть дрова?",
   "material.tconstruct.wood.encyclopedia": "Повышает эффективность починок на 50% за каждую детать",
 
@@ -1467,8 +1467,8 @@
   "modifier.tconstruct.overforced.description": "Инструмент укрепляется с помощью слизи, что позволяет увеличить ёмкость слизневого покрытия",
   "modifier.tconstruct.emerald": "Изумруд",
   "modifier.tconstruct.emerald.flavor": "Шикарный!",
-  "modifier.tconstruct.emerald.description": "Увеличивает прочность инструмента в зависимости от исходной прочности! Зловреды ненавидят это!",
-  "modifier.tconstruct.emerald.attack_damage": "Урон зловредам",
+  "modifier.tconstruct.emerald.description": "Увеличивает прочность инструмента в зависимости от исходной прочности! Разбойники ненавидят это!",
+  "modifier.tconstruct.emerald.attack_damage": "Урон по разбойникам",
   "modifier.tconstruct.diamond": "Алмаз",
   "modifier.tconstruct.diamond.flavor": "Богатый!",
   "modifier.tconstruct.diamond.description": "Увеличивает прочность и характеристики!",
@@ -2020,7 +2020,7 @@
   "modifier.tconstruct.plague": "Чума",
   "modifier.tconstruct.plague.flavor": "Очень заразен",
   "modifier.tconstruct.plague.description": "Цели во время атаки в ближнем бою получают все имеющиеся у Вас негативные эффекты",
-  "modifier.tconstruct.breathtaking": "Захватывающе",
+  "modifier.tconstruct.breathtaking": "Захватывающий",
   "modifier.tconstruct.breathtaking.flavor": "Просто удивительно",
   "modifier.tconstruct.breathtaking.description": "Атаки в ближнем бою забирают у врагов воздух",
   "modifier.tconstruct.firebreath": "Огнедышащий",
@@ -2228,11 +2228,11 @@
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Стол слишком мал для замены частей на этом инструменте",
 
-  "recipe.tconstruct.modifier.not_enough_slot": "Для добавления этого модификатора требуется не менее 1 %s слота",
+  "recipe.tconstruct.modifier.not_enough_slot": "Для добавления этого модификатора требуется не менее 1 слота %s",
   "recipe.tconstruct.modifier.not_enough_slots": "Необходимо не менее %s %s слотов для добавления этого модификатора",
   "recipe.tconstruct.modifier.validate_slots": "С этой заменой инструмент останется с малым количеством %s слотов",
-  "recipe.tconstruct.modifier.max_level": "%s уровень не может быть выше %s",
-  "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
+  "recipe.tconstruct.modifier.max_level": "Уровень %s не может быть выше %s",
+  "recipe.tconstruct.modifier.requirements_error": "Состояние инструмента недопустимо для одного из модификаторов. Свяжитесь с создателем мод-пака и запросите более подробное описание ошибки",
 
 
   "_comment": "GUIs Messages",
@@ -2380,7 +2380,7 @@
   "advancements.tconstruct.tools.modified.title": "Модификация",
   "advancements.tconstruct.tools.modified.description": "Примените модификатор к литейному инструменту",
   "advancements.tconstruct.tools.upgrade_slots.title": "Все улучшения",
-  "advancements.tconstruct.tools.upgrade_slots.description": "Откройте инструменту 6 дополнительных слотов для улучшений, использовав перезаписываемые, обезглавленный, гармоничные, возрождающие, и позолоченные улучшения",
+  "advancements.tconstruct.tools.upgrade_slots.description": "Откройте инструменту 6 дополнительных слотов для улучшений, использовав улучшения: перезаписываемый, обезглавленный, гармоничный, возрождающий и позолоченный",
   "advancements.tconstruct.tools.glass_cannon.title": "Стеклянная пушка",
   "advancements.tconstruct.tools.glass_cannon.description": "Создайте инструмент, наносящий более 20 урона с прочностью не более 100 единиц",
   "advancements.tconstruct.tools.tool_smith.title": "Кузнец-инструментальщик",
