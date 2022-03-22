@@ -1350,6 +1350,11 @@
   "material.tconstruct.pig_iron.encyclopedia": "Kan ätas för att återställa 1 hunger och 0,1 mättnad per nivå",
   "material.tconstruct.pig_iron.skull_flavor": "Du kommer inte gilla mig när jag är arg!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Ger extra styrka i 15 sekunder när man tar skada från en annan varelse",
+
+  "material.tconstruct.darkthread": "Mörkertråd",
+  "material.tconstruct.darkthread.format": "%s av mörkertråd",
+  "material.tconstruct.darkthread.flavor": "Kom till den mörka sidan, vi kan olda",
+  "material.tconstruct.darkthread.encyclopedia": "Ökar chansen att få föremål från varelser, kan kombineras med \"Tur\"",
   
   
   
@@ -1382,6 +1387,11 @@
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Låter dig spotta eldladdningar från förrådet som om det vore eldklot. Har en väntetid på 5 sekunder och fungerar inte under vatten",
   
   "material.tconstruct.soulsteel": "Själstål",
+
+  "material.tconstruct.ancient_hide": "Forntida skinn",
+  "material.tconstruct.ancient_hide.format": "%s av forntida skinn",
+  "material.tconstruct.ancient_hide.flavor": "Läder som har garvats av uråldrig sten",
+  "material.tconstruct.ancient_hide.encyclopedia": "Ökar chansen att få föremål från block, kan kombineras med \"Tur\"",
   
   
   "__comment": "Tier End Materials",
@@ -1424,12 +1434,16 @@
   "material.tconstruct.gold.skull_flavor": "Så glänsande",
   "material.tconstruct.gold.skull_encyclopedia": "Får en del guldmalm att avge några extra guldklimpar och ökar chansen att få guldrustning med 4 %. Chansen att få klimpar och rustningar ökas ytterligare för varje rustningsdel av guld som bärs.",
   
+  "material.tconstruct.obsidian":   "Obsidian",
+  "material.tconstruct.debris":     "Spillror",
   "material.tconstruct.netherite":  "Netherit",
   "material.tconstruct.earthslime": "Jordslem",
   "material.tconstruct.skyslime":   "Himmelslem",
   "material.tconstruct.blood":      "Blod",
   "material.tconstruct.ichor":      "Ichor",
   "material.tconstruct.enderslime": "Enderslem",
+  "material.tconstruct.clay":       "Lera",
+  "material.tconstruct.honey":      "Honung",
   "material.tconstruct.enderslime.format": "%s av enderslem",
   "material.tconstruct.phantom": "Fantommembran",
   "material.tconstruct.phantom.format": "%s av fantommembran",
@@ -1517,6 +1531,7 @@
   
   "_comment": "Modifiers",
   
+  "key.categories.tconstruct": "Tinkers' Construct",
   "key.tconstruct.helmet_interact": "Hjälminteraktion",
   "key.tconstruct.leggings_interact": "Byxinteraktion",
   
@@ -2068,6 +2083,7 @@
   "modifier.tconstruct.temperate": "Tempererad",
   "modifier.tconstruct.temperate.flavor": "Extrem grävning!",
   "modifier.tconstruct.temperate.description": "Verktyget gräver snabbare i extrema temperaturer",
+  "modifier.tconstruct.temperate.mining_speed": "tempererad hastighet",
   "modifier.tconstruct.invariant": "Lagomtempererad",
   "modifier.tconstruct.invariant.flavor": "Varken för varmt eller kallt",
   "modifier.tconstruct.invariant.description": "Verktyget utdelar mer skada i neutrala temperaturer",
