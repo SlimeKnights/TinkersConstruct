@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:bane_of_sssss",
   "text": [
     {
-      "text": "Grants +2.5 damage per level against arthropods and creepers."
+      "text": "Grants +2 damage per level against arthropods and creepers."
     },
     {
       "text": "In addition to arthropods and creepers, applies Slowness IV for 1 second, plus a a possible bonus half second per level.",

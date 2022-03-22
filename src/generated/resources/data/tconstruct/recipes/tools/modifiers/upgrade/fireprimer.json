@@ -2,14 +2,14 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "forge:ingots/netherite_scrap"
+      "tag": "forge:ingots/cobalt"
     },
     {
       "item": "minecraft:flint"
     }
   ],
   "tools": {
-    "item": "tconstruct:flint_and_bronze"
+    "item": "tconstruct:flint_and_brick"
   },
   "slots": {
     "upgrades": 1

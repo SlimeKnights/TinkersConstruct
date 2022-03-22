@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/amethyst_bronze"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_amethyst_bronze",
+    "amount": 810
+  },
+  "temperature": 820,
+  "time": 182
+}

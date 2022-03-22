@@ -6,14 +6,14 @@ import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
-import mezz.jei.api.gui.ingredient.ITooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -23,20 +23,19 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.plugin.jei.IRecipeTooltipReplacement;
 
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCastingCategory implements IRecipeCategory<IDisplayableCastingRecipe>, ITooltipCallback<FluidStack> {
-  private static final int INPUT_SLOT = 0;
-  private static final int OUTPUT_SLOT = 1;
+/** Shared base logic for the two casting recipe types */
+public abstract class AbstractCastingCategory implements IRecipeCategory<IDisplayableCastingRecipe>, IRecipeTooltipReplacement {
   private static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "time");
   private static final String KEY_CAST_KEPT = TConstruct.makeTranslationKey("jei", "casting.cast_kept");
   private static final String KEY_CAST_CONSUMED = TConstruct.makeTranslationKey("jei", "casting.cast_consumed");
@@ -78,14 +77,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public void setIngredients(IDisplayableCastingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(recipe.getCastItems()));
-    ingredients.setInputLists(VanillaTypes.FLUID, Collections.singletonList(recipe.getFluids()));
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
-  }
-
-  @Override
-  public void draw(IDisplayableCastingRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+  public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
     cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(matrixStack, 58, 18);
     block.draw(matrixStack, 38, 35);
     if (recipe.hasCast()) {
@@ -100,7 +92,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public List<Component> getTooltipStrings(IDisplayableCastingRecipe recipe, double mouseX, double mouseY) {
+  public List<Component> getTooltipStrings(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
     if (recipe.hasCast() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
       return Collections.singletonList(new TranslatableComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
@@ -108,32 +100,35 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public void setRecipe(IRecipeLayout recipeLayout, IDisplayableCastingRecipe recipe, IIngredients ingredients) {
-    IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-    guiItemStacks.init(INPUT_SLOT, true, 37, 18);
-    guiItemStacks.init(OUTPUT_SLOT, false, 92, 17);
-    guiItemStacks.set(ingredients);
+  public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
+    // items
+    List<ItemStack> casts = recipe.getCastItems();
+    if (!casts.isEmpty()) {
+      builder.addSlot(recipe.isConsumed() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 38, 19).addItemStacks(casts);
+    }
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 18).addItemStack(recipe.getOutput());
 
-    IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
-    fluidStacks.addTooltipCallback(this);
+    // fluids
+    // tank fluids
     int capacity = FluidValues.METAL_BLOCK;
-    fluidStacks.init(0, true, 3, 3, 32, 32, capacity, false, tankOverlay);
-    fluidStacks.set(ingredients);
+    builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
+           .addTooltipCallback(this)
+           .setFluidRenderer(capacity, false, 32, 32)
+           .setOverlay(tankOverlay, 0, 0)
+           .addIngredients(VanillaTypes.FLUID, recipe.getFluids());
+    // pouring fluid
     int h = 11;
     if (!recipe.hasCast()) {
       h += 16;
     }
-    fluidStacks.init(1, true, 43, 8, 6, h, 1, false, null);
-    fluidStacks.set(1, recipe.getFluids());
+    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 43, 8)
+           .addTooltipCallback(this)
+           .setFluidRenderer(1, false, 6, h)
+           .addIngredients(VanillaTypes.FLUID, recipe.getFluids());
   }
 
   @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<Component> list) {
-    Component name = list.get(0);
-    Component modId = list.get(list.size() - 1);
-    list.clear();
-    list.add(name);
-    FluidTooltipHandler.appendMaterial(stack, list);
-    list.add(modId);
+  public void addMiddleLines(IRecipeSlotView slot, List<Component> list) {
+    slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
   }
 }

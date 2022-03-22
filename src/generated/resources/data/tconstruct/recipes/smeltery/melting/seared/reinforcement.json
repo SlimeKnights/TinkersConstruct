@@ -4,15 +4,9 @@
     "item": "tconstruct:seared_reinforcement"
   },
   "result": {
-    "fluid": "tconstruct:seared_stone",
+    "fluid": "tconstruct:molten_obsidian",
     "amount": 250
   },
-  "temperature": 600,
-  "time": 89,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_obsidian",
-      "amount": 250
-    }
-  ]
+  "temperature": 1000,
+  "time": 111
 }

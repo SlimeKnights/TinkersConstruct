@@ -1,6 +1,22 @@
 {
+  "condition": {
+    "values": [
+      {
+        "prop": "force_integration_materials",
+        "type": "tconstruct:config"
+      },
+      {
+        "value": {
+          "tag": "forge:ingots/bronze",
+          "type": "forge:tag_empty"
+        },
+        "type": "forge:not"
+      }
+    ],
+    "type": "forge:or"
+  },
   "craftable": false,
   "tier": 3,
-  "sortOrder": 1,
+  "sortOrder": 6,
   "hidden": false
 }

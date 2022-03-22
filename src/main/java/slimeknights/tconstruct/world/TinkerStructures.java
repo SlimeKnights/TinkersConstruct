@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.StructureSettings;
@@ -45,10 +46,15 @@ import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeFungusFeature;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Contains any logic relevant to structure generation, including trees and islands
@@ -118,29 +124,69 @@ public final class TinkerStructures extends TinkerModule {
     slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, resource("slime_island_piece"), (StructureTemplateType)SlimeIslandPiece::new);
   }
 
-  /** Adds the settings to the given dimension */
-  private static void addStructureSettings(ImmutableMap.Builder<StructureFeature<?>, StructureFeatureConfiguration> defaultSettings, StructureFeature<?> structure, StructureFeatureConfiguration settings) {
-    defaultSettings.put(structure, settings);
-    for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
-      dimensionSettings.structureSettings().structureConfig().put(structure, settings);
-    }
+
+  /*
+   * Structure Biomes
+   */
+
+  /** Gets all biomes that are not registered with the biome dictionary and matches the given predicate */
+  private static Stream<ResourceKey<Biome>> getBiomes(Registry<Biome> biomeRegistry, Predicate<BiomeCategory> categoryPredicate) {
+    return biomeRegistry.entrySet().stream().filter(biome -> !BiomeDictionary.hasAnyType(biome.getKey()) && categoryPredicate.test(biome.getValue().getBiomeCategory())).map(Entry::getKey);
   }
 
-  /** Adds the settings to the given dimension */
-  private static void removeStructureSettings(StructureFeature<?> structure) {
-    for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
-      dimensionSettings.structureSettings().structureConfig().remove(structure);
+  /** Clay island biomes - overworld but not forest or underground */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getClayIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> !BiomeDictionary.hasType(biome, Type.FOREST) && !BiomeDictionary.hasType(biome, Type.UNDERGROUND) && !BiomeDictionary.hasType(biome, Type.JUNGLE));
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category != BiomeCategory.NETHER && category != BiomeCategory.THEEND && category != BiomeCategory.NONE && category != BiomeCategory.UNDERGROUND && category != BiomeCategory.FOREST && category != BiomeCategory.JUNGLE));
     }
+    return multimapOf(configuredClayIsland, biomes.toList());
   }
 
-  /** Adds the settings to the given dimension */
-  static void addStructures() {
+  /** Sky island biomes - overworld but not underground */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getSkyIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> !BiomeDictionary.hasType(biome, Type.UNDERGROUND));
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category != BiomeCategory.NETHER && category != BiomeCategory.THEEND && category != BiomeCategory.NONE && category != BiomeCategory.UNDERGROUND));
+    }
+    return multimapOf(configuredSkySlimeIsland, biomes.toList());
+  }
+
+  /** Earth island biomes - overworld ocean */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getEarthIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.OCEAN));
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category == BiomeCategory.OCEAN));
+    }
+    return multimapOf(configuredEarthSlimeIsland, biomes.toList());
+  }
+
+  /** Blood island biomes - simply nether */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getBloodIslandBiomes(@Nullable Registry<Biome> biomeRegistry) {
+    Collection<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.NETHER);
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes.stream(), getBiomes(biomeRegistry, category -> category == BiomeCategory.NETHER)).toList();
+    }
+    return multimapOf(configuredBloodIsland, biomes);
+  }
+
+  /** End island biomes - end but no the end biome */
+  static ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> getEnderIslandBIomes(@Nullable Registry<Biome> biomeRegistry) {
+    Stream<ResourceKey<Biome>> biomes = BiomeDictionary.getBiomes(Type.END).stream();
+    if (biomeRegistry != null) {
+      biomes = Stream.concat(biomes, getBiomes(biomeRegistry, category -> category == BiomeCategory.THEEND));
+    }
+    return multimapOf(configuredEndSlimeIsland, biomes.filter(key -> !key.equals(Biomes.THE_END)).toList());
+  }
+
+  /** Adds the settings to all default dimension settings */
+  static void addDefaultStructureBiomes() {
     // floating islands skips earth
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = multimapOf(configuredClayIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.FOREST)).toList());
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = multimapOf(configuredSkySlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD));
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> earthIslandMap = multimapOf(configuredEarthSlimeIsland, BiomeDictionary.getBiomes(Type.OVERWORLD).stream().filter(biome -> BiomeDictionary.hasType(biome, Type.OCEAN)).toList());
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> bloodIslandMap = multimapOf(configuredBloodIsland, BiomeDictionary.getBiomes(Type.NETHER));
-    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> endIslandMap = multimapOf(configuredEndSlimeIsland, BiomeDictionary.getBiomes(Type.END).stream().filter(key -> key != Biomes.THE_END).toList());
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> clayIslandMap = getClayIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> skyIslandMap = getSkyIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> earthIslandMap = getEarthIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> bloodIslandMap = getBloodIslandBiomes(null);
+    ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>> endIslandMap = getEnderIslandBIomes(null);
 
     // simply add to all dimensions, if the island does not belong it won't add the biome
     for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
@@ -164,6 +210,55 @@ public final class TinkerStructures extends TinkerModule {
     StructureFeature.STRUCTURES_REGISTRY.put(Objects.requireNonNull(structure.getRegistryName()).toString(), structure);
   }
 
+  /** Adds the settings to the given dimension */
+  private static void addDefaultConfiguration(ImmutableMap.Builder<StructureFeature<?>, StructureFeatureConfiguration> defaultSettings, StructureFeature<?> structure, @Nullable StructureFeatureConfiguration settings) {
+    if (settings == null) {
+      for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
+        dimensionSettings.structureSettings().structureConfig().remove(structure);
+      }
+    } else {
+      defaultSettings.put(structure, settings);
+      for (NoiseGeneratorSettings dimensionSettings : BuiltinRegistries.NOISE_GENERATOR_SETTINGS) {
+        dimensionSettings.structureSettings().structureConfig().put(structure, settings);
+      }
+    }
+  }
+
+  /** Adds the structure settings to the given consumer */
+  static void addStructureConfiguration(BiConsumer<StructureFeature<?>,StructureFeatureConfiguration> consumer) {
+    if (Config.COMMON.earthslimeIslands.doesGenerate()) {
+      consumer.accept(earthSlimeIsland.get(), Config.COMMON.earthslimeIslands.makeConfiguration());
+    } else {
+      consumer.accept(earthSlimeIsland.get(), null);
+    }
+    // sky
+    if (Config.COMMON.skyslimeIslands.doesGenerate()) {
+      consumer.accept(skySlimeIsland.get(), Config.COMMON.skyslimeIslands.makeConfiguration());
+    } else {
+      consumer.accept(skySlimeIsland.get(), null);
+    }
+    // clay
+    if (Config.COMMON.clayIslands.doesGenerate()) {
+      consumer.accept(clayIsland.get(), Config.COMMON.clayIslands.makeConfiguration());
+    } else {
+      consumer.accept(clayIsland.get(), null);
+    }
+
+    // nether //
+    if (Config.COMMON.bloodIslands.doesGenerate()) {
+      consumer.accept(bloodIsland.get(), Config.COMMON.bloodIslands.makeConfiguration());
+    } else {
+      consumer.accept(bloodIsland.get(), null);
+    }
+
+    // end //
+    if (Config.COMMON.endslimeIslands.doesGenerate()) {
+      consumer.accept(endSlimeIsland.get(), Config.COMMON.endslimeIslands.makeConfiguration());
+    } else {
+      consumer.accept(endSlimeIsland.get(), null);
+    }
+  }
+
   /** Adds all structure separation settings to the relevant maps */
   public static void addStructureSeparation() {
     if (!structureSettingsReady) {
@@ -174,41 +269,8 @@ public final class TinkerStructures extends TinkerModule {
     // skip old values that match one of the islands, we are replacing those
     Set<StructureFeature<?>> ignore = Sets.newHashSet(earthSlimeIsland.get(), skySlimeIsland.get(), clayIsland.get(), bloodIsland.get(), endSlimeIsland.get());
     defaultSettings.putAll(StructureSettings.DEFAULTS.entrySet().stream().filter(entry -> !ignore.contains(entry.getKey())).collect(Collectors.toList()));
-
-    // overworld //
-    // earth
-    if (Config.COMMON.earthslimeIslands.doesGenerate()) {
-      addStructureSettings(defaultSettings, earthSlimeIsland.get(), Config.COMMON.earthslimeIslands.makeConfiguration());
-    } else {
-      removeStructureSettings(earthSlimeIsland.get());
-    }
-    // sky
-    if (Config.COMMON.skyslimeIslands.doesGenerate()) {
-      addStructureSettings(defaultSettings, skySlimeIsland.get(), Config.COMMON.skyslimeIslands.makeConfiguration());
-    } else {
-      removeStructureSettings(skySlimeIsland.get());
-    }
-    // clay
-    if (Config.COMMON.clayIslands.doesGenerate()) {
-      addStructureSettings(defaultSettings, clayIsland.get(), Config.COMMON.clayIslands.makeConfiguration());
-    } else {
-      removeStructureSettings(clayIsland.get());
-    }
-
-    // nether //
-    if (Config.COMMON.bloodIslands.doesGenerate()) {
-      addStructureSettings(defaultSettings, bloodIsland.get(), Config.COMMON.bloodIslands.makeConfiguration());
-    } else {
-      removeStructureSettings(bloodIsland.get());
-    }
-
-    // end //
-    if (Config.COMMON.endslimeIslands.doesGenerate()) {
-      addStructureSettings(defaultSettings, endSlimeIsland.get(), Config.COMMON.endslimeIslands.makeConfiguration());
-    } else {
-      removeStructureSettings(endSlimeIsland.get());
-    }
-
+    // add to all instances in the registry
+    addStructureConfiguration((feature, config) -> addDefaultConfiguration(defaultSettings, feature, config));
     // build default settings
     StructureSettings.DEFAULTS = defaultSettings.build();
   }

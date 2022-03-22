@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:tools/building/flint_and_brick"
+    ]
+  },
+  "criteria": {
+    "has_seared": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:seared_brick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_scorched": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:scorched_brick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:tools/building/flint_and_brick"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_seared",
+      "has_scorched",
+      "has_the_recipe"
+    ]
+  ]
+}

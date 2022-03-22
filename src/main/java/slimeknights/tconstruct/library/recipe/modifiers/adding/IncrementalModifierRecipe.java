@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -29,8 +30,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class IncrementalModifierRecipe extends AbstractModifierRecipe {
@@ -153,29 +154,51 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     return true;
   }
 
-  @Override
-  protected void addIngredients(Consumer<List<ItemStack>> builder) {
-    // fill extra item slots
-    List<ItemStack> items = Arrays.asList(input.getItems());
-    int maxStackSize = items.stream().mapToInt(ItemStack::getMaxStackSize).min().orElse(64);
+  /** Cache of the list of items for each slot */
+  private List<List<ItemStack>> slotCache;
 
-    // split the stacks out if we need more than 1
-    int needed = neededPerLevel / amountPerInput;
-    if (neededPerLevel % amountPerInput > 0) {
-      needed++;
+  /** Gets the list of input stacks for display */
+  private List<List<ItemStack>> getInputs() {
+    if (slotCache == null) {
+      ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
+
+      // fill extra item slots
+      List<ItemStack> items = Arrays.asList(input.getItems());
+      int maxStackSize = items.stream().mapToInt(ItemStack::getMaxStackSize).min().orElse(64);
+
+      // split the stacks out if we need more than 1
+      int needed = neededPerLevel / amountPerInput;
+      if (neededPerLevel % amountPerInput > 0) {
+        needed++;
+      }
+      Lazy<List<ItemStack>> fullSize = Lazy.of(() -> items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, maxStackSize)).collect(Collectors.toList()));
+      while (needed > maxStackSize) {
+        builder.add(fullSize.get());
+        needed -= maxStackSize;
+      }
+      // set proper stack size on remaining
+      if (needed > 0) {
+        int remaining = needed;
+        builder.add(items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, remaining)).collect(Collectors.toList()));
+      }
+      slotCache = builder.build();
     }
-    Lazy<List<ItemStack>> fullSize = Lazy.of(() -> items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, maxStackSize)).collect(Collectors.toList()));
-    while (needed > maxStackSize) {
-      builder.accept(fullSize.get());
-      needed -= maxStackSize;
-    }
-    // set proper stack size on remaining
-    if (needed > 0) {
-      int remaining = needed;
-      builder.accept(items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, remaining)).collect(Collectors.toList()));
-    }
+    return slotCache;
   }
 
+  @Override
+  public int getInputCount() {
+    return getInputs().size();
+  }
+
+  @Override
+  public List<ItemStack> getDisplayItems(int slot) {
+    List<List<ItemStack>> inputs = getInputs();
+    if (slot >= 0 && slot < inputs.size()) {
+      return inputs.get(slot);
+    }
+    return Collections.emptyList();
+  }
 
   /* Helpers */
 

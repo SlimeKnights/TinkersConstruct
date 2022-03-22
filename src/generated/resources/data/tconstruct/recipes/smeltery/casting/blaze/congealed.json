@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "tconstruct:congealed_slime"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:blazing_blood",
+    "amount": 200
+  },
+  "result": "minecraft:magma_block",
+  "cooling_time": 120
+}

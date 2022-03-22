@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.world;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,13 +16,20 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
@@ -28,11 +38,13 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Mod;
@@ -52,13 +64,14 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.HashMap;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldEvents {
   /** Checks if the biome matches the given categories */
-  private static boolean matches(@Nullable ResourceKey<Biome> key, BiomeCategory given, @Nullable BiomeCategory check, Type type) {
-    if (key == null) {
+  private static boolean matches(boolean hasNoTypes, @Nullable ResourceKey<Biome> key, BiomeCategory given, @Nullable BiomeCategory check, Type type) {
+    if (hasNoTypes || key == null) {
       // check of null means not none, the nether/end checks were done earlier
       if (check == null) {
         return given != BiomeCategory.NONE;
@@ -72,14 +85,16 @@ public class WorldEvents {
   @SubscribeEvent
   static void onBiomeLoad(BiomeLoadingEvent event) {
     BiomeGenerationSettingsBuilder generation = event.getGeneration();
+    MobSpawnSettingsBuilder spawns = event.getSpawns();
 
     // setup for biome checks
     BiomeCategory category = event.getCategory();
     ResourceLocation name = event.getName();
     ResourceKey<Biome> key = name == null ? null : ResourceKey.create(Registry.BIOME_REGISTRY, name);
+    boolean hasNoTypes = key == null || !BiomeDictionary.hasAnyType(key);
 
     // nether - any biome is fine
-    if (matches(key, category, BiomeCategory.NETHER, Type.NETHER)) {
+    if (matches(hasNoTypes, key, category, BiomeCategory.NETHER, Type.NETHER)) {
       if (Config.COMMON.generateCobalt.get()) {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
@@ -90,19 +105,19 @@ public class WorldEvents {
       }
     }
     // end, mostly do stuff in the outer islands
-    else if (matches(key, category, BiomeCategory.THEEND, Type.END)) {
+    else if (matches(hasNoTypes, key, category, BiomeCategory.THEEND, Type.END)) {
       // slime spawns anywhere, uses the grass
-      event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
+      spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
       // geodes only on outer islands
-      if (Config.COMMON.enderGeodes.get() && key != null && !Biomes.THE_END.equals(key) && !Biomes.THE_VOID.equals(key)) {
+      if (Config.COMMON.enderGeodes.get() && key != null && !Biomes.THE_END.equals(key)) {
         generation.addFeature(Decoration.LOCAL_MODIFICATIONS, TinkerWorld.enderGeode.getPlacedGeode());
       }
     }
     // overworld gets tricky
-    else if(matches(key, category, null, Type.OVERWORLD)) {
+    else if (matches(hasNoTypes, key, category, null, Type.OVERWORLD)) {
       // slime spawns anywhere, uses the grass
-      event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4));
-      event.getSpawns().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4));
+      spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4));
+      spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4));
 
       // earth spawns anywhere, sky does not spawn in ocean (looks weird)
       if (Config.COMMON.earthGeodes.get()) {
@@ -111,7 +126,7 @@ public class WorldEvents {
       // sky spawn in non-oceans, they look funny in the ocean as they spawn so high
       if (Config.COMMON.skyGeodes.get()) {
         boolean add;
-        if (key == null) {
+        if (hasNoTypes) {
           add = category != BiomeCategory.OCEAN && category != BiomeCategory.BEACH && category != BiomeCategory.RIVER;
         } else {
           add = !BiomeDictionary.hasType(key, Type.WATER) && !BiomeDictionary.hasType(key, Type.BEACH);
@@ -225,7 +240,59 @@ public class WorldEvents {
 
   @SubscribeEvent
   static void serverStarting(ServerAboutToStartEvent event) {
-    TinkerStructures.addStructures();
+    TinkerStructures.addDefaultStructureBiomes();
+  }
+
+  /** Logic to add a value to the settings, enforcing the map is mutable */
+  private static void tryPut(StructureSettings settings, StructureFeature<?> feature, @Nullable StructureFeatureConfiguration configuration) {
+    try {
+      // following code is intentionally performing slightly redundant checks as I figure a few extra hashmap lookups is cheaper than an exception
+      if (configuration == null) {
+        settings.structureConfig.remove(feature);
+      } else {
+        settings.structureConfig.putIfAbsent(feature, configuration);
+      }
+    } catch (UnsupportedOperationException ex) {
+      settings.structureConfig = new HashMap<>(settings.structureConfig);
+      if (configuration == null) {
+        settings.structureConfig.remove(feature);
+      } else {
+        settings.structureConfig.putIfAbsent(feature, configuration);
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onWorldLoad(WorldEvent.Load event) {
+    if (event.getWorld() instanceof ServerLevel server) {
+      ChunkGenerator generator = server.getChunkSource().getGenerator();
+
+      // Skip superflat worlds to prevent issues with it. Plus, users don't want structures clogging up their superflat worlds.
+      if (server.dimension().equals(Level.OVERWORLD) && generator instanceof FlatLevelSource) {
+        return;
+      }
+      StructureSettings settings = generator.getSettings();
+
+      // always add structure biomes if needed, datapacks have no control over this
+      // assuming if they have one island, they have them all
+      if (!settings.configuredStructures.containsKey(TinkerStructures.skySlimeIsland.get())) {
+        ImmutableMap.Builder<StructureFeature<?>,ImmutableMultimap<ConfiguredStructureFeature<?,?>,ResourceKey<Biome>>> builder = ImmutableMap.builder();
+        builder.putAll(settings.configuredStructures);
+        Registry<Biome> registry = server.registryAccess().ownedRegistry(Registry.BIOME_REGISTRY).orElse(null);
+        builder.put(TinkerStructures.clayIsland.get(), TinkerStructures.getClayIslandBiomes(registry));
+        builder.put(TinkerStructures.skySlimeIsland.get(), TinkerStructures.getSkyIslandBiomes(registry));
+        builder.put(TinkerStructures.earthSlimeIsland.get(), TinkerStructures.getEarthIslandBiomes(registry));
+        builder.put(TinkerStructures.bloodIsland.get(), TinkerStructures.getBloodIslandBiomes(registry));
+        builder.put(TinkerStructures.endSlimeIsland.get(), TinkerStructures.getEnderIslandBIomes(registry));
+        settings.configuredStructures = builder.build();
+      }
+
+      // only add placement if the config tells us to force it, there is no easy way to detect that the datapack did not want it, so let the datapack disable this part
+
+      if (Config.COMMON.forceSlimeIslands.get()) {
+        TinkerStructures.addStructureConfiguration((feature, configuration) -> tryPut(settings, feature, configuration));
+      }
+    }
   }
 
 

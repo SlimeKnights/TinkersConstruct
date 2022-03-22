@@ -3,12 +3,12 @@ package slimeknights.tconstruct.plugin.jei.partbuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -20,13 +20,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.ResourceColorManager;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
-import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.plugin.jei.JEIPlugin;
-import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.awt.Color;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
@@ -45,7 +42,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.partBuilder;
+    return TConstructJEIConstants.PART_BUILDER;
   }
 
   @Override
@@ -59,14 +56,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   }
 
   @Override
-  public void setIngredients(IDisplayPartBuilderRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(MaterialItemList.getItems(recipe.getMaterial().getVariant()), recipe.getPatternItems()));
-    ingredients.setInput(JEIPlugin.PATTERN_TYPE, recipe.getPattern());
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-  }
-
-  @Override
-  public void draw(IDisplayPartBuilderRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+  public void draw(IDisplayPartBuilderRecipe recipe, IRecipeSlotsView slots, PoseStack matrixStack, double mouseX, double mouseY) {
     Font fontRenderer = Minecraft.getInstance().font;
     Component name = MaterialTooltipCache.getColoredDisplayName(recipe.getMaterial().getVariant());
     fontRenderer.drawShadow(matrixStack, name.getString(), 3, 2, Objects.requireNonNullElse(name.getStyle().getColor(), ResourceColorManager.WHITE).getValue());
@@ -75,15 +65,15 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   }
 
   @Override
-  public void setRecipe(IRecipeLayout layout, IDisplayPartBuilderRecipe recipe, IIngredients ingredients) {
-    IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(0, true, 24, 15);
-    items.init(1, true,  3, 15);
-    items.init(2, false, 95, 14);
-    items.set(ingredients);
+  public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
+    // items
+    builder.addSlot(RecipeIngredientRole.INPUT, 25, 16).addItemStacks(MaterialItemList.getItems(recipe.getMaterial().getVariant()));
+    builder.addSlot(RecipeIngredientRole.INPUT,  4, 16).addItemStacks(recipe.getPatternItems());
+    // patterns
+    builder.addSlot(RecipeIngredientRole.INPUT, 46, 16).addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern());
+    // TODO: material input?
 
-    IGuiIngredientGroup<Pattern> patterns = layout.getIngredientsGroup(JEIPlugin.PATTERN_TYPE);
-    patterns.init(0, true, 46, 16);
-    patterns.set(ingredients);
+    // output
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 15).addItemStack(recipe.getResultItem());
   }
 }

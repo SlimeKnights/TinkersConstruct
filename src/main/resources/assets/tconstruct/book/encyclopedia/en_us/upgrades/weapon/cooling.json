@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:cooling",
   "text": [
     {
-      "text": "Grants +2 damage per level against mobs immune to fire."
+      "text": "Grants +1.6 damage per level against mobs immune to fire."
     }
   ],
   "more_text_space": true,

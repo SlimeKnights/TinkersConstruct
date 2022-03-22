@@ -4,13 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -25,19 +24,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.client.model.NBTKeyModel;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
-import slimeknights.tconstruct.plugin.jei.JEIPlugin;
-import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
@@ -59,7 +54,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private static final String KEY_SLOTS = TConstruct.makeTranslationKey("jei", "modifiers.slots");
   private static final String KEY_MAX = TConstruct.makeTranslationKey("jei", "modifiers.max");
 
-  private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124);
+  private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124, 10);
 
   @Getter
   private final IDrawable background;
@@ -83,7 +78,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.modifiers;
+    return TConstructJEIConstants.MODIFIERS;
   }
 
   @Override
@@ -96,17 +91,12 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     return IDisplayModifierRecipe.class;
   }
 
-  @Override
-  public void setIngredients(IDisplayModifierRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.ITEM, recipe.getDisplayItems());
-    ingredients.setOutput(JEIPlugin.MODIFIER_TYPE, recipe.getDisplayResult());
-  }
-
   /** Draws a single slot icon */
-  private void drawSlot(PoseStack matrices, List<List<ItemStack>> inputs, int slot, int x, int y) {
-    if (slot >= inputs.size() || inputs.get(slot).isEmpty()) {
+  private void drawSlot(PoseStack matrices, IDisplayModifierRecipe recipe, int slot, int x, int y) {
+    List<ItemStack> stacks = recipe.getDisplayItems(slot);
+    if (stacks.isEmpty()) {
       // -1 as the item list includes the output slot, we skip that
-      slotIcons[slot - 1].draw(matrices, x + 1, y + 1);
+      slotIcons[slot].draw(matrices, x + 1, y + 1);
     }
   }
 
@@ -136,13 +126,12 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   @Override
-  public void draw(IDisplayModifierRecipe recipe, PoseStack matrices, double mouseX, double mouseY) {
-    List<List<ItemStack>> inputs = recipe.getDisplayItems();
-    drawSlot(matrices, inputs, 1,  2, 32);
-    drawSlot(matrices, inputs, 2, 24, 14);
-    drawSlot(matrices, inputs, 3, 46, 32);
-    drawSlot(matrices, inputs, 4, 42, 57);
-    drawSlot(matrices, inputs, 5,  6, 57);
+  public void draw(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrices, double mouseX, double mouseY) {
+    drawSlot(matrices, recipe, 0,  2, 32);
+    drawSlot(matrices, recipe, 1, 24, 14);
+    drawSlot(matrices, recipe, 2, 46, 32);
+    drawSlot(matrices, recipe, 3, 42, 57);
+    drawSlot(matrices, recipe, 4,  6, 57);
 
     // draw info icons
     if (recipe.hasRequirements()) {
@@ -172,7 +161,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   @Override
-  public List<Component> getTooltipStrings(IDisplayModifierRecipe recipe, double mouseX, double mouseY) {
+  public List<Component> getTooltipStrings(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
     int checkX = (int) mouseX;
     int checkY = (int) mouseY;
     if (recipe.hasRequirements() && GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
@@ -198,40 +187,36 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   @Override
-  public void setRecipe(IRecipeLayout layout, IDisplayModifierRecipe recipe, IIngredients ingredients) {
-    IGuiIngredientGroup<ModifierEntry> modifiers = layout.getIngredientsGroup(JEIPlugin.MODIFIER_TYPE);
+  public void setRecipe(IRecipeLayoutBuilder builder, IDisplayModifierRecipe recipe, IFocusGroup focuses) {
+    // inputs
+    builder.addSlot(RecipeIngredientRole.INPUT,  3, 33).addItemStacks(recipe.getDisplayItems(0));
+    builder.addSlot(RecipeIngredientRole.INPUT, 25, 15).addItemStacks(recipe.getDisplayItems(1));
+    builder.addSlot(RecipeIngredientRole.INPUT, 47, 33).addItemStacks(recipe.getDisplayItems(2));
+    builder.addSlot(RecipeIngredientRole.INPUT, 43, 58).addItemStacks(recipe.getDisplayItems(3));
+    builder.addSlot(RecipeIngredientRole.INPUT,  7, 58).addItemStacks(recipe.getDisplayItems(4));
+    // modifiers
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 3, 3)
+           .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
+           .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
+    // tool
+    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38).addItemStacks(recipe.getToolWithoutModifier());
+    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34).addItemStacks(recipe.getToolWithModifier());
 
-    // set items for display
-    IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(0, true, 24, 37);
-    items.init(1, true,  2, 32);
-    items.init(2, true, 24, 14);
-    items.init(3, true, 46, 32);
-    items.init(4, true, 42, 57);
-    items.init(5, true,  6, 57);
-    items.set(ingredients);
-
-    // start up the output slot
-    items.init(-1, false, 104, 33);
-
+    // TODO: still needed?
     // if focusing on a tool, filter out other tools
-    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
-    List<ItemStack> output = recipe.getToolWithModifier();
-    items.set(-1, output);
-    if (focus != null) {
-      Item item = focus.getValue().getItem();
-      if (TinkerTags.Items.MODIFIABLE.contains(item)) {
-        List<List<ItemStack>> allItems = recipe.getDisplayItems();
-        if (allItems.size() >= 1) {
-          allItems.get(0).stream().filter(stack -> stack.getItem() == item)
-                  .findFirst().ifPresent(stack -> items.set(0, stack));
-        }
-        output.stream().filter(stack -> stack.getItem() == item).findFirst().ifPresent(stack -> items.set(-1, stack));
-      }
-    }
-
-    // set modifiers for display
-    modifiers.init(6, false, modifierRenderer, 2, 2, 124, 10, 0, 0);
-    modifiers.set(ingredients);
+//    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
+//    List<ItemStack> output = recipe.getToolWithModifier();
+//    items.set(-1, output);
+//    if (focus != null) {
+//      Item item = focus.getValue().getItem();
+//      if (TinkerTags.Items.MODIFIABLE.contains(item)) {
+//        List<List<ItemStack>> allItems = recipe.getDisplayItems();
+//        if (allItems.size() >= 1) {
+//          allItems.get(0).stream().filter(stack -> stack.getItem() == item)
+//                  .findFirst().ifPresent(stack -> items.set(0, stack));
+//        }
+//        output.stream().filter(stack -> stack.getItem() == item).findFirst().ifPresent(stack -> items.set(-1, stack));
+//      }
+//    }
   }
 }

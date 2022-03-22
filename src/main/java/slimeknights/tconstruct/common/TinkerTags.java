@@ -30,6 +30,24 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
+    /** Compat: allows other mods to add normal stone variants which can be used to create stone tools.
+     * Note this tag includes both stone and cobblestone, unlike the default forge/vanilla tags that include one or the other
+     * Also does not include other items that can be used as stone in crafting */
+    public static final IOptionalNamedTag<Block> STONE = forgeTag("normal_stone");
+    /** Compat: allows other mods to add granite variants which can be used to create granite tools */
+    public static final IOptionalNamedTag<Block> GRANITE = forgeTag("granite");
+    /** Compat: allows other mods to add diorite variants which can be used to create diorite tools */
+    public static final IOptionalNamedTag<Block> DIORITE = forgeTag("diorite");
+    /** Compat: allows other mods to add andesite variants which can be used to create andesite tools */
+    public static final IOptionalNamedTag<Block> ANDESITE = forgeTag("andesite");
+    /** Compat: allows other mods to add blackstone variants which can be used to create blackstone tools */
+    public static final IOptionalNamedTag<Block> BLACKSTONE = forgeTag("blackstone");
+    /** Compat: allows other mods to add deepslate variants which can be used to create deepslate tools */
+    public static final IOptionalNamedTag<Block> DEEPSLATE = forgeTag("deepslate");
+    /** Compat: allows other mods to add basalt variants which can be used to create basalt tools */
+    public static final IOptionalNamedTag<Block> BASALT = forgeTag("basalt");
+
+
     /** Materials that can be used to craft wooden tool tables */
     public static final IOptionalNamedTag<Block> PLANKLIKE = tag("planklike");
     /** Metals that can be used to craft the anvil */
@@ -142,6 +160,23 @@ public class TinkerTags {
     private static void init() {}
     public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Item> TABLES = tag("tables");
+
+    /** Compat: allows other mods to add normal stone variants which can be used to create stone tools.
+     * Note this tag includes both stone and cobblestone, unlike the default forge/vanilla tags that include one or the other
+     * Also does not include other items that can be used as stone in crafting */
+    public static final IOptionalNamedTag<Item> STONE = forgeTag("normal_stone");
+    /** Compat: allows other mods to add granite variants which can be used to create granite tools */
+    public static final IOptionalNamedTag<Item> GRANITE = forgeTag("granite");
+    /** Compat: allows other mods to add diorite variants which can be used to create diorite tools */
+    public static final IOptionalNamedTag<Item> DIORITE = forgeTag("diorite");
+    /** Compat: allows other mods to add andesite variants which can be used to create andesite tools */
+    public static final IOptionalNamedTag<Item> ANDESITE = forgeTag("andesite");
+    /** Compat: allows other mods to add blackstone variants which can be used to create blackstone tools */
+    public static final IOptionalNamedTag<Item> BLACKSTONE = forgeTag("blackstone");
+    /** Compat: allows other mods to add deepslate variants which can be used to create deepslate tools */
+    public static final IOptionalNamedTag<Item> DEEPSLATE = forgeTag("deepslate");
+    /** Compat: allows other mods to add basalt variants which can be used to create basalt tools */
+    public static final IOptionalNamedTag<Item> BASALT = forgeTag("basalt");
 
     /** Materials that can be used to craft wooden tool tables */
     public static final IOptionalNamedTag<Item> PLANKLIKE = tag("planklike");
@@ -347,7 +382,12 @@ public class TinkerTags {
     public static final IOptionalNamedTag<EntityType<?>> MELTING_HIDE = tag("melting/hide_in_default");
     public static final IOptionalNamedTag<EntityType<?>> PIGGYBACKPACK_BLACKLIST = tag("piggybackpack_blacklist");
 
+    /** Entities in this tag take more damage from bane of sssss */
     public static final IOptionalNamedTag<EntityType<?>> CREEPERS = forgeTag("creepers");
+    public static final IOptionalNamedTag<EntityType<?>> VILLAGERS = forgeTag("villagers");
+    public static final IOptionalNamedTag<EntityType<?>> ILLAGERS = forgeTag("illagers");
+    /** Entities in this tag take more damage from killager */
+    public static final IOptionalNamedTag<EntityType<?>> KILLAGERS = tag("killagers");
     /** Mobs that rarely spawn, boosts drop rate of severing */
     public static final IOptionalNamedTag<EntityType<?>> RARE_MOBS = tag("rare_mobs");
 

@@ -44,8 +44,10 @@
 
   "block.tconstruct.obsidian_pane": "Obsidian Pane",
   "block.tconstruct.gold_bars": "Gold Bars",
+  "block.tconstruct.gold_bars.tooltip": "Acts as a empty cast in casting tables",
   
   "block.tconstruct.gold_platform": "Gold Platform",
+  "block.tconstruct.gold_platform.tooltip": "Acts as a empty cast in casting basins",
   "block.tconstruct.iron_platform": "Iron Platform",
   "block.tconstruct.cobalt_platform": "Cobalt Platform",
   
@@ -120,9 +122,9 @@
   "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
   "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
 
-  "block.tconstruct.tinkers_bronze_block": "Block of Tinker's Bronze",
-  "item.tconstruct.tinkers_bronze_ingot": "Tinker's Bronze Ingot",
-  "item.tconstruct.tinkers_bronze_nugget": "Tinker's Bronze Nugget",
+  "block.tconstruct.amethyst_bronze_block": "Block of Amethyst Bronze",
+  "item.tconstruct.amethyst_bronze_ingot": "Amethyst Bronze Ingot",
+  "item.tconstruct.amethyst_bronze_nugget": "Amethyst Bronze Nugget",
 
   "block.tconstruct.rose_gold_block": "Block of Rose Gold",
   "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
@@ -228,7 +230,7 @@
   "item.tconstruct.slimesteel_reinforcement.tooltip": "Increases slimesteel capacity",
   "item.tconstruct.seared_reinforcement": "Seared Reinforcement",
   "item.tconstruct.seared_reinforcement.tooltip": "Increases armor resistance against fire",
-  "item.tconstruct.bronze_reinforcement": "Bronze Reinforcement",
+  "item.tconstruct.bronze_reinforcement": "Amethyst Bronze Reinforcement",
   "item.tconstruct.bronze_reinforcement.tooltip": "Increases armor resistance against projectiles",
   "item.tconstruct.gold_reinforcement": "Gold Reinforcement",
   "item.tconstruct.gold_reinforcement.tooltip": "Increases armor resistance against magic",
@@ -550,10 +552,10 @@
   "fluid.tconstruct.flowing_molten_slimesteel": "Flowing Molten Slimesteel",
   "item.tconstruct.molten_slimesteel_bucket": "Molten Slimesteel Bucket",
 
-  "block.tconstruct.molten_tinkers_bronze_fluid": "Molten Tinker's Bronze",
-  "fluid.tconstruct.molten_tinkers_bronze": "Molten Tinker's Bronze",
-  "fluid.tconstruct.flowing_molten_tinkers_bronze": "Flowing Molten Tinker's Bronze",
-  "item.tconstruct.molten_tinkers_bronze_bucket": "Molten Tinker's Bronze Bucket",
+  "block.tconstruct.molten_amethyst_bronze_fluid": "Molten Amethyst Bronze",
+  "fluid.tconstruct.molten_amethyst_bronze": "Molten Amethyst Bronze",
+  "fluid.tconstruct.flowing_molten_amethyst_bronze": "Flowing Molten Amethyst Bronze",
+  "item.tconstruct.molten_amethyst_bronze_bucket": "Molten Amethyst Bronze Bucket",
 
   "block.tconstruct.molten_rose_gold_fluid": "Molten Rose Gold",
   "fluid.tconstruct.molten_rose_gold": "Molten Rose Gold",
@@ -811,7 +813,7 @@
   "item.tconstruct.sword": "Sword",
   "item.tconstruct.cleaver": "Cleaver",
 
-  "item.tconstruct.flint_and_bronze": "Flint and Bronze",
+  "item.tconstruct.flint_and_brick": "Flint and Brick",
   
   "item.tconstruct.travelers_helmet": "Traveler's Goggles",
   "item.tconstruct.travelers_chestplate": "Traveler's Vest",
@@ -1068,9 +1070,9 @@
   "block.tconstruct.scorched_faucet": "Scorched Faucet",
   "block.tconstruct.scorched_faucet.tooltip": "Drains liquids from Foundries and Tanks",
   "block.tconstruct.scorched_basin": "Scorched Casting Basin",
-  "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry",
+  "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
-  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry",
+  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold bars to cast",
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
   "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
@@ -1291,6 +1293,7 @@
   "material.tconstruct.wood.dark_oak": "Dark Oak Wood",
   "material.tconstruct.wood.crimson":  "Crimson Hyphae",
   "material.tconstruct.wood.warped":   "Warped Hyphae",
+  "material.tconstruct.wood.bamboo":   "Bamboo",
   "material.tconstruct.wood.format": "Wooden %s",
   "material.tconstruct.wood.flavor": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
   "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",
@@ -1306,6 +1309,7 @@
   "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
 
   "material.tconstruct.flint": "Flint",
+  "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
   "material.tconstruct.flint.encyclopedia": "Increases damage by a quarter of the square root of the lost durability",
 
@@ -1343,7 +1347,7 @@
 
   "material.tconstruct.seared_stone": "Seared Stone",
   "material.tconstruct.seared_stone.flavor": "Hotter Grout.",
-  "material.tconstruct.seared_stone.encyclopedia": "Gives +2.5 damage per level in heat, or -2.5 in cold areas",
+  "material.tconstruct.seared_stone.encyclopedia": "Gives +6 mining speed against blocks that can be melted in a melter",
 
   "material.tconstruct.scorched_stone": "Scorched Stone",
   "material.tconstruct.scorched_stone.flavor": "Founders edition bonus.",
@@ -1351,7 +1355,7 @@
 
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
-  "material.tconstruct.copper.encyclopedia": "Grants more mining speed at lower depths, up to +10% per level",
+  "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +8 per 64 blocks below sea level",
   "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",
   "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
@@ -1392,10 +1396,9 @@
   "material.tconstruct.nahuatl.flavor": "This is not an obsidian part, if it was it would say \"Obsidian.\"",
   "material.tconstruct.nahuatl.encyclopedia": "Has a 50% chance of doing up to 5 damage over time, more damage at higher levels",
 
-  "material.tconstruct.bronze": "Bronze",
-  "material.tconstruct.bronze.silicon": "Tinker's Bronze",
-  "material.tconstruct.bronze.flavor": "Not to be confused with bronze.",
-  "material.tconstruct.bronze.encyclopedia": "Grants +10% to +15% mining speed per level at full durability, based on other modifiers",
+  "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
+  "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +0.25 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
@@ -1403,6 +1406,9 @@
   "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 15 seconds of strength when damaged by another mob",
 
+  "material.tconstruct.darkthread": "Darkthread",
+  "material.tconstruct.darkthread.flavor": "Come to the dark side, we have sowing",
+  "material.tconstruct.darkthread.encyclopedia": "Increases drop chances from mobs, stacking with luck",
 
 
   "__comment": "Tier Nether Materials",
@@ -1430,6 +1436,9 @@
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
+  "material.tconstruct.ancient_hide": "Ancient Hide",
+  "material.tconstruct.ancient_hide.flavor": "Leather tanned by the oldest of stone",
+  "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
 
   "__comment": "Tier End Materials",
   "material.tconstruct.endstone": "End",
@@ -1464,12 +1473,16 @@
   "material.tconstruct.gold.skull_flavor": "So shiny",
   "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
 
+  "material.tconstruct.obsidian":   "Obsidian",
+  "material.tconstruct.debris":     "Debris",
   "material.tconstruct.netherite":  "Netherite",
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.skyslime":   "Skyslime",
   "material.tconstruct.blood":      "Blood",
   "material.tconstruct.ichor":      "Ichor",
   "material.tconstruct.enderslime": "Enderslime",
+  "material.tconstruct.clay":       "Clay",
+  "material.tconstruct.honey":      "Honey",
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.rabbit": "Rabbit Hide",
@@ -1513,9 +1526,13 @@
   "material.tconstruct.steel.flavor": "Basically 90% of material science",
   "material.tconstruct.steel.encyclopedia": "Grants +4% durability, damage, and speed per level",
 
+  "material.tconstruct.bronze": "Bronze",
+  "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",
+  "material.tconstruct.bronze.encyclopedia": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability",
+
   "material.tconstruct.constantan": "Constantan",
   "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
-  "material.tconstruct.constantan.encyclopedia": "Grants +12.5% mining speed in extreme heat or cold",
+  "material.tconstruct.constantan.encyclopedia": "Grants +7.5 mining speed in extreme heat or cold",
 
   "material.tconstruct.invar": "Invar",
   "material.tconstruct.invar.flavor": "Resists both temperature and arrest.",
@@ -1569,9 +1586,8 @@
   "modifier.tconstruct.overforced.flavor": "Protected by Slime!",
   "modifier.tconstruct.overforced.description": "Tool is reinforced using slime, allowing more capacity for overslime",
   "modifier.tconstruct.emerald": "Emerald",
-  "modifier.tconstruct.emerald.flavor": "Fancy!",
-  "modifier.tconstruct.emerald.description": "Increases durability depending on base durability! Illagers hate it!",
-  "modifier.tconstruct.emerald.attack_damage": "Illager Damage",
+  "modifier.tconstruct.emerald.flavor": "Villagers will want to be you!",
+  "modifier.tconstruct.emerald.description": "Increases durability depending on base durability! Boosts effectiveness of conditional damage and mining speed",
   "modifier.tconstruct.diamond": "Diamond",
   "modifier.tconstruct.diamond.flavor": "Rich!",
   "modifier.tconstruct.diamond.description": "Increased durability and stats!",
@@ -1654,6 +1670,10 @@
   "modifier.tconstruct.antiaquatic.flavor": "Basically a Fishing Rod!",
   "modifier.tconstruct.antiaquatic.description": "Tool does bonus damage to sea creatures!",
   "modifier.tconstruct.antiaquatic.attack_damage": "Antiaquatic Damage",
+  "modifier.tconstruct.killager": "Killager",
+  "modifier.tconstruct.killager.flavor": "Illagers hate it!",
+  "modifier.tconstruct.killager.description": "Increases damage against villagers, illagers, and other longnosed creatures!",
+  "modifier.tconstruct.killager.attack_damage": "Killager Damage",
   "modifier.tconstruct.cooling": "Cooling",
   "modifier.tconstruct.cooling.flavor": "Frosty!",
   "modifier.tconstruct.cooling.description": "Tool does bonus damage to fire based creatures!",
@@ -1980,9 +2000,6 @@
   "modifier.tconstruct.stonebound": "Stonebound",
   "modifier.tconstruct.stonebound.flavor": "Your tool absolutely loves stone!",
   "modifier.tconstruct.stonebound.description": "The tool mines faster as it wears out, but does less damage",
-  "modifier.tconstruct.fractured": "Fractured",
-  "modifier.tconstruct.fractured.flavor": "Break a Leg!",
-  "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
   "modifier.tconstruct.stringy": "Stringy",
   "modifier.tconstruct.stringy.flavor": "Like cheese, but less tasty",
   "modifier.tconstruct.stringy.description": "Tool can be repaired using string",
@@ -1999,8 +2016,8 @@
   "modifier.tconstruct.sturdy.description": "Made from the strongest iron",
   "modifier.tconstruct.searing": "Searing",
   "modifier.tconstruct.searing.flavor": "Harness the Smeltery!",
-  "modifier.tconstruct.searing.description": "Tool does bonus damage in hot areas, but less damage in cold ones",
-  "modifier.tconstruct.searing.attack_damage": "Heat Damage",
+  "modifier.tconstruct.searing.description": "Tool mines meltable blocks such as metal ores faster",
+  "modifier.tconstruct.searing.mining_speed": "Searing Speed",
   "modifier.tconstruct.scorching": "Scorching",
   "modifier.tconstruct.scorching.flavor": "Harness the Foundry!",
   "modifier.tconstruct.scorching.description": "Tool does bonus damage to targets that are on fire",
@@ -2030,10 +2047,10 @@
   "modifier.tconstruct.lacerating": "Lacerating",
   "modifier.tconstruct.lacerating.flavor": "Sharp Edges!",
   "modifier.tconstruct.lacerating.description": "Causes the target to bleed, dealing additional damage",
-  "modifier.tconstruct.maintained": "Maintained",
-  "modifier.tconstruct.maintained.flavor": "Stays Sharper, Longer!",
-  "modifier.tconstruct.maintained.description": "Tool mines faster when at higher durability",
-  "modifier.tconstruct.maintained.mining_speed": "Maintained Mining",
+  "modifier.tconstruct.crumbling": "Crumbling",
+  "modifier.tconstruct.crumbling.flavor": "Hold yourself together!",
+  "modifier.tconstruct.crumbling.description": "Tool mines blocks that don't require a tool faster",
+  "modifier.tconstruct.crumbling.mining_speed": "Crumbling Speed",
   "modifier.tconstruct.lightweight": "Lightweight",
   "modifier.tconstruct.lightweight.flavor": "Like a Shardblade!",
   "modifier.tconstruct.lightweight.description": "Tool is incredibly light for its size, allowing you to attack and mine faster",
@@ -2090,12 +2107,17 @@
   "modifier.tconstruct.ductile": "Ductile",
   "modifier.tconstruct.ductile.flavor": "Reshapes well!",
   "modifier.tconstruct.ductile.description": "Tool is longer lasting, mines faster, and damages more",
+  "modifier.tconstruct.maintained": "Maintained",
+  "modifier.tconstruct.maintained.flavor": "Stays Sharper, Longer!",
+  "modifier.tconstruct.maintained.description": "Tool mines faster when at higher durability",
+  "modifier.tconstruct.maintained.mining_speed": "Maintained Mining",
   "modifier.tconstruct.maintained_2": "Maintained",
   "modifier.tconstruct.maintained_2.flavor": "Gets Sharp Easier!",
   "modifier.tconstruct.maintained_2.description": "Tool mines faster when at higher durability",
   "modifier.tconstruct.temperate": "Temperate",
   "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
   "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
+  "modifier.tconstruct.temperate.mining_speed": "Temperate Speed",
   "modifier.tconstruct.invariant": "Invariant",
   "modifier.tconstruct.invariant.flavor": "Couldn't care less",
   "modifier.tconstruct.invariant.description": "Tool does more damage in neutral temperatures",

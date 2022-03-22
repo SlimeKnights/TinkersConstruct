@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:silky",
   "text": [
     {
-      "text": "Causes mined blocks to drop themselves unmodified. Additionally allows shearing mobs for swords, cleavers, scythes, and daggers."
+	"text": "Causes mined blocks to drop themselves unmodified. For swords, cleavers, scythes, and daggers, additionally allows shearing mobs."
     }
   ],
   "more_text_space": true,

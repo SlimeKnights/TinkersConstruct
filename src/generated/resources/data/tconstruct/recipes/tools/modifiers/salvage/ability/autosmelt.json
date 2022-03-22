@@ -10,13 +10,13 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "minecraft:magma_block",
-      "chance": 0.4
+      "item": "minecraft:blast_furnace",
+      "chance": 0.8
     },
     {
-      "item": "tconstruct:blazing_bone",
+      "item": "minecraft:coal",
       "min": 1,
-      "max": 2
+      "max": 18
     }
   ]
 }

@@ -238,6 +238,7 @@ dependencies {
 
     // runtimeOnly fg.deobf("curse.maven:terrablender-563928:3619749")
     // runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:3616582")
+    // runtimeOnly fg.deobf("curse.maven:terralith-513688:3606078")
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
@@ -260,6 +261,7 @@ def modsTomlSpec = copySpec{
             'minecraft_range': minecraft_range,
             'forge_range': forge_range,
             'mantle_range': mantle_range,
+            'jei_range': jei_range,
             'crt_range': crt_range
     }
 }

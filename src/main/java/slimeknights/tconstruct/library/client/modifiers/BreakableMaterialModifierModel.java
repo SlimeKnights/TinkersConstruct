@@ -11,7 +11,7 @@ import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -66,10 +66,10 @@ public class BreakableMaterialModifierModel implements IBakedModifierModel {
   }
 
   @Nullable
-  private static MaterialId getMaterial(IToolStackView tool, Modifier modifier) {
+  private static MaterialVariantId getMaterial(IToolStackView tool, Modifier modifier) {
     String material = tool.getPersistentData().getString(modifier.getId());
     if (!material.isEmpty()) {
-      return MaterialId.tryParse(material);
+      return MaterialVariantId.tryParse(material);
     }
     return null;
   }

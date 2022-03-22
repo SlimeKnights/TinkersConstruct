@@ -7,13 +7,13 @@
     "tconstruct:extra": {},
     "tconstruct:handle": {
       "durability": 0.6,
-      "miningSpeed": 1.25,
-      "attackSpeed": 1.25,
+      "miningSpeed": 1.2,
+      "attackSpeed": 1.2,
       "attackDamage": 1.0
     },
     "tconstruct:head": {
       "durability": 175,
-      "miningSpeed": 10.0,
+      "miningSpeed": 9.0,
       "harvestTier": "minecraft:gold",
       "attack": 1.0
     }

@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:incremental_modifier_salvage",
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:killager",
+  "min_level": 1,
+  "salvage": {
+    "item": "minecraft:lapis_lazuli",
+    "count": 15
+  }
+}

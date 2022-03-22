@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:common/basalt_blast_furnace"
+    ]
+  },
+  "criteria": {
+    "has_smooth_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:smooth_basalt"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:common/basalt_blast_furnace"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_stone",
+      "has_the_recipe"
+    ]
+  ]
+}

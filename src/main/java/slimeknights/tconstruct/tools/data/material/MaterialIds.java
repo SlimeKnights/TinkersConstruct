@@ -33,18 +33,22 @@ public final class MaterialIds {
   public static final MaterialId skyslimeVine = id("skyslime_vine");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
+  public static final MaterialId amethystBronze = id("amethyst_bronze");
   public static final MaterialId nahuatl = id("nahuatl");
-  public static final MaterialId bronze = id("bronze");
   public static final MaterialId pigIron = id("pig_iron");
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
   public static final MaterialId cobalt = id("cobalt");
+  // tier 3 - bindings
+  public static final MaterialId darkthread = id("darkthread");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
   public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId blazingBone = id("blazing_bone");
   //public static final MaterialId soulsteel = id("soulsteel");
+  // tier 4 - bindings
+  public static final MaterialId ancientHide = id("ancient_hide");
   // tier 5 - bindings
   public static final MaterialId enderslimeVine = id("enderslime_vine");
 
@@ -57,6 +61,7 @@ public final class MaterialIds {
   public static final MaterialId whitestone = id("whitestone");
   // tier 3 (mod integration)
   public static final MaterialId steel = id("steel");
+  public static final MaterialId bronze = id("bronze");
   public static final MaterialId constantan = id("constantan");
   public static final MaterialId invar = id("invar");
   public static final MaterialId necronium = id("necronium");
@@ -65,6 +70,8 @@ public final class MaterialIds {
 
   // plate
   public static final MaterialId gold = id("gold");
+  public static final MaterialId obsidian = id("obsidian");
+  public static final MaterialId debris = id("debris");
   public static final MaterialId netherite = id("netherite");
   // plate - compat
   public static final MaterialId aluminum = id("aluminum");
@@ -85,6 +92,8 @@ public final class MaterialIds {
   public static final MaterialId blood = id("blood");
   public static final MaterialId ichor = id("ichor");
   public static final MaterialId enderslime = id("enderslime");
+  public static final MaterialId clay = id("clay");
+  public static final MaterialId honey = id("honey");
   public static final MaterialId phantom = id("phantom");
   public static final MaterialId chorus = id("chorus");
   public static final MaterialId rabbit = id("rabbit");
@@ -92,6 +101,7 @@ public final class MaterialIds {
   /*
    * Variants
    */
+  public static final MaterialVariantId basalt  = create(flint, "basalt");
   // wood
   public static final MaterialVariantId oak     = create(wood, "oak");
   public static final MaterialVariantId spruce  = create(wood, "spruce");
@@ -101,7 +111,7 @@ public final class MaterialIds {
   public static final MaterialVariantId darkOak = create(wood, "dark_oak");
   public static final MaterialVariantId crimson = create(wood, "crimson");
   public static final MaterialVariantId warped  = create(wood, "warped");
-
+  public static final MaterialVariantId bamboo  = create(wood, "bamboo");
   // stone
   public static final MaterialVariantId stone      = create(rock, "stone");
   public static final MaterialVariantId andesite   = create(rock, "andesite");
@@ -109,18 +119,11 @@ public final class MaterialIds {
   public static final MaterialVariantId granite    = create(rock, "granite");
   public static final MaterialVariantId blackstone = create(rock, "blackstone");
   public static final MaterialVariantId deepslate  = create(rock, "deepslate");
-
-  // TODO: flint
-
   // slimewood
   public static final MaterialVariantId slimewoodComposite = create(slimewood, "composite");
   public static final MaterialVariantId greenheart         = create(slimewood, "greenheart");
   public static final MaterialVariantId skyroot            = create(slimewood, "skyroot");
   public static final MaterialVariantId bloodshroom        = create(slimewood, "bloodshroom");
-
-  // bronze
-  public static final MaterialVariantId siliconBronze = create(bronze, "silicon");
-  public static final MaterialVariantId tinBronze     = create(bronze, "tin");
 
   /**
    * Creates a new material ID

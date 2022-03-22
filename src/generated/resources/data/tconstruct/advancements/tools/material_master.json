@@ -289,6 +289,19 @@
         ]
       }
     },
+    "darkthread": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:darkthread"
+            ]
+          }
+        ]
+      }
+    },
     "manyullyn": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -336,6 +349,19 @@
             "type": "tconstruct:tool",
             "materials": [
               "tconstruct:blazing_bone"
+            ]
+          }
+        ]
+      }
+    },
+    "ancient_hide": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:ancient_hide"
             ]
           }
         ]
@@ -420,6 +446,9 @@
       "cobalt"
     ],
     [
+      "darkthread"
+    ],
+    [
       "manyullyn"
     ],
     [
@@ -430,6 +459,9 @@
     ],
     [
       "blazing_bone"
+    ],
+    [
+      "ancient_hide"
     ],
     [
       "enderslime_vine"

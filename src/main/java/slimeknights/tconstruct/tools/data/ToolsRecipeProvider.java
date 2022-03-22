@@ -72,14 +72,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     toolBuilding(consumer, TinkerTools.cleaver, folder);
 
     // specialized
-    ShapelessRecipeBuilder.shapeless(TinkerTools.flintAndBronze)
+    ShapelessRecipeBuilder.shapeless(TinkerTools.flintAndBrick)
                           .requires(Items.FLINT)
-                          .requires(TinkerMaterials.tinkersBronze.getIngotTag())
-                          .unlockedBy("has_bronze", has(TinkerMaterials.tinkersBronze.getIngotTag()))
-                          .save(consumer, prefix(TinkerTools.flintAndBronze, folder));
-    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBronze, MaterialIds.bronze)
-                                  .buildRepairKit(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_repair_kit"))
-                                  .save(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_station"));
+                          .requires(Ingredient.of(TinkerSmeltery.searedBrick, TinkerSmeltery.scorchedBrick))
+                          .unlockedBy("has_seared", has(TinkerSmeltery.searedBrick))
+                          .unlockedBy("has_scorched", has(TinkerSmeltery.scorchedBrick))
+                          .save(consumer, prefix(TinkerTools.flintAndBrick, folder));
+    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBrick, MaterialIds.searedStone)
+                                  .buildRepairKit(consumer, wrap(TinkerTools.flintAndBrick, repairFolder, "_seared_repair_kit"))
+                                  .save(consumer, wrap(TinkerTools.flintAndBrick, repairFolder, "_seared_station"));
+    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBrick, MaterialIds.scorchedStone)
+                                  .buildRepairKit(consumer, wrap(TinkerTools.flintAndBrick, repairFolder, "_scorched_repair_kit"))
+                                  .save(consumer, wrap(TinkerTools.flintAndBrick, repairFolder, "_scorched_station"));
 
     // travelers gear
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.HELMET))

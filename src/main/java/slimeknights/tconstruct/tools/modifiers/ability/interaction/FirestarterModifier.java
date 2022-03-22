@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
@@ -37,12 +38,20 @@ import java.util.Collections;
  */
 @RequiredArgsConstructor
 public class FirestarterModifier extends InteractionModifier.SingleUse {
+  /** Compat with mods adding custom campfires */
+  private static final ToolAction LIGHT_CAMPFIRE = ToolAction.get("light_campfire");
+
   @Getter
   private final int priority;
 
   @Override
   public boolean shouldDisplay(boolean advanced) {
     return priority > Short.MIN_VALUE;
+  }
+
+  @Override
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+    return toolAction == LIGHT_CAMPFIRE;
   }
 
   @Override

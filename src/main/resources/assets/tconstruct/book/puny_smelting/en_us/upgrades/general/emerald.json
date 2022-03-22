@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Increases tool durability depending on base durability",
-    "Increases damage towards illagers",
+    "Increases conditional damage and mining speed",
     "Single Level",
     "Requires 1 Upgrade Slot"
   ]

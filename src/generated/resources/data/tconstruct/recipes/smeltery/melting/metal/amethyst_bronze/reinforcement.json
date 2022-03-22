@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:bronze_reinforcement"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_amethyst_bronze",
+    "amount": 30
+  },
+  "temperature": 820,
+  "time": 35,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_obsidian",
+      "amount": 250
+    }
+  ]
+}

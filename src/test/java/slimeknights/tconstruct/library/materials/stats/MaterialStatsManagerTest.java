@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 import slimeknights.mantle.data.MergingJsonFileLoader;
 import slimeknights.tconstruct.TConstruct;
@@ -102,7 +103,10 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
     Optional<ComplexTestStats> stats = materialStatsManager.getStats(material, STATS_ID_SIMPLE);
     assertThat(stats).isNotEmpty();
+    // top pack value replaces the bottom one
     assertThat(stats.get().getNum()).isEqualTo(321);
+    // top pack unspecified value defaults to the bottom one
+    assertThat(stats.get().getFloating()).isCloseTo(12.34f, Offset.strictOffset(0.01f));
   }
 
   @Test

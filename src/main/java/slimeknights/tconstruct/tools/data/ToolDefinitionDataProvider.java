@@ -345,7 +345,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .attack(new SweepWeaponAttack(2));
 
     // special
-    define(ToolDefinitions.FLINT_AND_BRONZE)
+    define(ToolDefinitions.FLINT_AND_BRICK)
       // stats
       .stat(ToolStats.DURABILITY, 100)
       .startingSlots(SlotType.UPGRADE, 1)

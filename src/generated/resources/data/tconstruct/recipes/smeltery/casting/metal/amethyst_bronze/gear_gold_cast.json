@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:gears/amethyst_bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "fluid": {
+    "tag": "forge:molten_amethyst_bronze",
+    "amount": 360
+  },
+  "result": {
+    "tag": "forge:gears/amethyst_bronze"
+  },
+  "cooling_time": 122
+}

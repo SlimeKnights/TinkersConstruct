@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 public abstract class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
   @Getter
   private final ResourceLocation id;
+  @Getter
   private final Ingredient material;
   @Getter
   private final Ingredient pattern;

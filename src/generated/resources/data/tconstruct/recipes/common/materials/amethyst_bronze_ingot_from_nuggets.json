@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:amethyst_bronze_ingot",
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:nuggets/amethyst_bronze"
+    },
+    "*": {
+      "item": "tconstruct:amethyst_bronze_nugget"
+    }
+  },
+  "result": {
+    "item": "tconstruct:amethyst_bronze_ingot"
+  }
+}

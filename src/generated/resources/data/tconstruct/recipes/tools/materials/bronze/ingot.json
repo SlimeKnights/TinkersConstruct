@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/bronze"
+  },
+  "value": 1,
+  "needed": 1,
+  "material": "tconstruct:bronze"
+}

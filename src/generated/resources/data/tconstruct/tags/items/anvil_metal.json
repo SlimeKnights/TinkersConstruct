@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "#forge:storage_blocks/slimesteel",
-    "#forge:storage_blocks/silicon_bronze",
+    "#forge:storage_blocks/amethyst_bronze",
     "#forge:storage_blocks/rose_gold",
     "#forge:storage_blocks/pig_iron",
     "#forge:storage_blocks/queens_slime",

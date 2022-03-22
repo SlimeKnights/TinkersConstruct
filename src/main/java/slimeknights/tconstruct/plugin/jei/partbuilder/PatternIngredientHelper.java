@@ -3,8 +3,9 @@ package slimeknights.tconstruct.plugin.jei.partbuilder;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.plugin.jei.JEIPlugin;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 
 import javax.annotation.Nullable;
 
@@ -14,9 +15,10 @@ import javax.annotation.Nullable;
 public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
   @Override
   public IIngredientType<Pattern> getIngredientType() {
-    return JEIPlugin.PATTERN_TYPE;
+    return TConstructJEIConstants.PATTERN_TYPE;
   }
 
+  @SuppressWarnings("removal")
   @Nullable
   @Override
   public Pattern getMatch(Iterable<Pattern> iterable, Pattern match, UidContext context) {
@@ -38,14 +40,23 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
     return pattern.toString();
   }
 
+  @SuppressWarnings("removal")
+  @Deprecated
   @Override
   public String getModId(Pattern pattern) {
     return pattern.getNamespace();
   }
 
+  @SuppressWarnings("removal")
+  @Deprecated
   @Override
   public String getResourceId(Pattern pattern) {
     return pattern.getPath();
+  }
+
+  @Override
+  public ResourceLocation getResourceLocation(Pattern pattern) {
+    return pattern;
   }
 
   @Override

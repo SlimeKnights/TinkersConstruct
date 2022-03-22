@@ -33,10 +33,10 @@ public class DiamondModifier extends SingleLevelModifier {
       ToolStats.DURABILITY.add(builder, level * durabilityBonus);
     }
     if (MELEE_OR_UNARMED.contains(item)) {
-      ToolStats.ATTACK_DAMAGE.add(builder, level * 1f);
+      ToolStats.ATTACK_DAMAGE.add(builder, level * 0.5f);
     }
     if (HARVEST.contains(item)) {
-      ToolStats.MINING_SPEED.add(builder, level * 1f);
+      ToolStats.MINING_SPEED.add(builder, level * 2f);
       ToolStats.HARVEST_TIER.update(builder, Tiers.DIAMOND);
     }
   }

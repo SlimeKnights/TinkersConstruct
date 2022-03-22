@@ -40,8 +40,8 @@
     "data": "small_tools/pickaxe.json"
   },
   {
-    "name": "flint_and_bronze",
+    "name": "flint_and_brick",
     "type": "tconstruct:tool",
-    "data": "small_tools/flint_and_bronze.json"
+    "data": "small_tools/flint_and_brick.json"
   }
 ]

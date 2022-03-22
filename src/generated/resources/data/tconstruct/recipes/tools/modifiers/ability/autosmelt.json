@@ -2,19 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:fire_charge"
+      "tag": "forge:raw_materials"
     },
     {
-      "item": "minecraft:magma_block"
+      "item": "minecraft:blast_furnace"
     },
     {
-      "item": "minecraft:fire_charge"
+      "tag": "forge:ingots"
     },
     {
-      "item": "tconstruct:blazing_bone"
+      "tag": "forge:storage_blocks/coal"
     },
     {
-      "item": "tconstruct:blazing_bone"
+      "tag": "forge:storage_blocks/coal"
     }
   ],
   "tools": {

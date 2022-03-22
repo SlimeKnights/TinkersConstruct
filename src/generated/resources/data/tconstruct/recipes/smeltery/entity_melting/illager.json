@@ -1,13 +1,7 @@
 {
   "type": "tconstruct:entity_melting",
   "entity": {
-    "types": [
-      "minecraft:evoker",
-      "minecraft:illusioner",
-      "minecraft:pillager",
-      "minecraft:vindicator",
-      "minecraft:witch"
-    ]
+    "tag": "forge:illagers"
   },
   "result": {
     "fluid": "tconstruct:molten_emerald",

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "forge:slimeballs"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:blazing_blood",
+    "amount": 50
+  },
+  "result": "minecraft:magma_cream",
+  "cooling_time": 60
+}

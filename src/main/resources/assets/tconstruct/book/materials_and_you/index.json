@@ -21,7 +21,7 @@
         "item": "tconstruct:pickaxe",
         "nbt": {
           "tic_broken": false,
-          "tic_display_tool": true,
+          "tic_display": true,
           "Damage": 0,
           "tic_materials": [
             "tconstruct:ui_render_head",
@@ -41,7 +41,7 @@
         "item": "tconstruct:travelers_chestplate",
         "nbt": {
           "tic_broken": false,
-          "tic_display_tool": true,
+          "tic_display": true,
           "Damage": 0
         }
       }

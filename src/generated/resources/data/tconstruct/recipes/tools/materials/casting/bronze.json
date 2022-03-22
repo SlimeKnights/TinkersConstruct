@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "tag": "forge:molten_bronze",
+    "amount": 90
+  },
+  "temperature": 700,
+  "output": "tconstruct:bronze"
+}

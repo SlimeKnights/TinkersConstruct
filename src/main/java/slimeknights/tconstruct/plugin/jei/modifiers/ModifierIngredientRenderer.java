@@ -14,15 +14,24 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public record ModifierIngredientRenderer(int width) implements IIngredientRenderer<ModifierEntry> {
+public record ModifierIngredientRenderer(int width, int height) implements IIngredientRenderer<ModifierEntry> {
+  @Override
+  public int getWidth() {
+    return width;
+  }
 
   @Override
-  public void render(PoseStack matrices, int x, int y, @Nullable ModifierEntry entry) {
+  public int getHeight() {
+    return height;
+  }
+
+  @Override
+  public void render(PoseStack matrices, @Nullable ModifierEntry entry) {
     if (entry != null) {
       Component name = entry.getModifier().getDisplayName(entry.getLevel());
       Font fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
-      x += (width - fontRenderer.width(name)) / 2;
-      fontRenderer.drawShadow(matrices, name, x, y + 1, -1);
+      int x = (width - fontRenderer.width(name)) / 2;
+      fontRenderer.drawShadow(matrices, name, x, 1, -1);
     }
   }
 

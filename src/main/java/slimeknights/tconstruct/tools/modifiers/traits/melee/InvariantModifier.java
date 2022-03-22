@@ -15,12 +15,13 @@ import java.util.List;
 
 public class InvariantModifier extends Modifier {
   private static final float BASELINE_TEMPERATURE = 0.75f;
+  private static final float MAX_TEMPERATURE = 1.25f;
 
   /** Gets the bonus for this modifier */
   private static float getBonus(LivingEntity living, int level) {
     // temperature ranges from 0 to 1.25. multiplication makes it go from 0 to 2.5
     BlockPos pos = living.blockPosition();
-    return (Math.abs(BASELINE_TEMPERATURE - living.level.getBiome(pos).getTemperature(pos)) * level * 2f);
+    return ((MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level.getBiome(pos).getTemperature(pos))) * level * 2f);
   }
 
   @Override
@@ -36,6 +37,8 @@ public class InvariantModifier extends Modifier {
     } else {
       bonus = level * 2.5f;
     }
-    addDamageTooltip(tool, bonus, tooltip);
+    if (bonus > 0.01f) {
+      addDamageTooltip(tool, bonus, tooltip);
+    }
   }
 }

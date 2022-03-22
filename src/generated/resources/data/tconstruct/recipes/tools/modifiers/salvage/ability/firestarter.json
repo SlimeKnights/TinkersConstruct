@@ -14,7 +14,7 @@
       ]
     },
     "subtracted": {
-      "item": "tconstruct:flint_and_bronze"
+      "item": "tconstruct:flint_and_brick"
     }
   },
   "slots": {
@@ -24,12 +24,12 @@
   "min_level": 1,
   "salvage": [
     {
-      "item": "minecraft:flint",
-      "chance": 0.2
+      "tag": "forge:ingots/cobalt",
+      "chance": 0.35
     },
     {
-      "item": "minecraft:netherite_scrap",
-      "chance": 0.35
+      "item": "minecraft:flint",
+      "chance": 0.2
     }
   ]
 }

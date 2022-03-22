@@ -16,13 +16,13 @@ public class CoolingModifier extends IncrementalModifier {
   @Override
   public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     if (context.getTarget().fireImmune()) {
-      damage += getScaledLevel(tool, level) * 2f * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
+      damage += getScaledLevel(tool, level) * 1.6f * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;
   }
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    addDamageTooltip(tool, level, 2f, tooltip);
+    addDamageTooltip(tool, level, 1.6f, tooltip);
   }
 }

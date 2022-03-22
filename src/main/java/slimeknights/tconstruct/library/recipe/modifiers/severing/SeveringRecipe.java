@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -22,8 +23,8 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Recipe to convert an entity into a head or other item for the severing modifier
@@ -36,7 +37,8 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   protected final ItemOutput output;
 
   @SuppressWarnings("rawtypes")
-  private List<List<EntityType>> displayInputs;
+  private List<EntityType> entityInputs;
+  private List<ItemStack> itemInputs;
 
   /**
    * Checks if the recipe matches the given type
@@ -64,21 +66,31 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
     return getOutput().copy();
   }
 
-  /** Gets a list of inputs for display */
-  public Collection<EntityType<?>> getInputs() {
-    return ingredient.getTypes();
-  }
-
   /**
    * Gets a list of inputs for display in JEI
    * @return  Entity type inputs
    */
   @SuppressWarnings("rawtypes")
-  public List<List<EntityType>> getDisplayInputs() {
-    if (displayInputs == null) {
-      displayInputs = ImmutableList.of(ImmutableList.copyOf(getInputs()));
+  public List<EntityType> getEntityInputs() {
+    if (entityInputs == null) {
+      entityInputs = ImmutableList.copyOf(ingredient.getTypes());
     }
-    return displayInputs;
+    return entityInputs;
+  }
+
+  /**
+   * Gets a list of item inputs for recipe lookup in JEI
+   * @return  Item inputs
+   */
+  public List<ItemStack> getItemInputs() {
+    if (itemInputs == null) {
+      itemInputs = getEntityInputs().stream()
+                                    .map(ForgeSpawnEggItem::fromEntityType)
+                                    .filter(Objects::nonNull)
+                                    .map(ItemStack::new)
+                                    .toList();
+    }
+    return itemInputs;
   }
 
   @Override

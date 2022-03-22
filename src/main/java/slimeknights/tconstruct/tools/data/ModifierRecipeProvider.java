@@ -121,7 +121,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.slimesteelReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.searedReinforcement)
-                            .setFluidAndTime(TinkerFluids.searedStone, false, FluidValues.BRICK)
+                            .setFluid(FluidIngredient.of(FluidIngredient.of(TinkerFluids.searedStone.getLocalTag(), FluidValues.BRICK), FluidIngredient.of(TinkerFluids.scorchedStone.getLocalTag(), FluidValues.BRICK)))
+                            .setCoolingTime(TinkerFluids.searedStone.get().getAttributes().getTemperature() - 300, FluidValues.BRICK)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.searedReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.goldReinforcement)
@@ -133,7 +134,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.emeraldReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.bronzeReinforcement)
-                            .setFluidAndTime(TinkerFluids.moltenTinkersBronze, true, FluidValues.NUGGET * 3)
+                            .setFluidAndTime(TinkerFluids.moltenAmethystBronze, true, FluidValues.NUGGET * 3)
                             .setCast(TinkerCommons.obsidianPane, true)
                             .save(consumer, prefix(TinkerModifiers.bronzeReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.cobaltReinforcement)
@@ -322,9 +323,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded.get())
                          .setTools(TinkerTags.Items.HELD)
                          .addInputSalvage(Items.LEATHER, 0.7f)
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.35f)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
-                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(2)
                          .setMinSalvageLevel(2)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded.get(), 1))
@@ -494,6 +494,23 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .includeUnarmed()
                                     .saveSalvage(consumer, prefix(TinkerModifiers.cooling, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.cooling, upgradeFolder));
+    // killager uses both types of lapis
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.killager.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Tags.Items.GEMS_LAPIS, 1, 45)
+                                    .setSalvage(Items.LAPIS_LAZULI, 15, false)
+                                    .setMaxLevel(5) // +12.5 illager damage
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .includeUnarmed()
+                                    .saveSalvage(consumer, prefix(TinkerModifiers.killager, upgradeSalvage))
+                                    .save(consumer, wrap(TinkerModifiers.killager, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.killager.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 45)
+                                    .setMaxLevel(5) // +12.5 illager damage
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .includeUnarmed()
+                                    .save(consumer, wrap(TinkerModifiers.killager, upgradeFolder, "_from_block"));
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
@@ -859,9 +876,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInputSalvage(Items.LEATHER, 0.7f)
                          .addInputSalvage(Items.LEATHER, 0.4f)
                          .addInputSalvage(Items.LEATHER, 0.4f)
-                         .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.LEGGINGS)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(TinkerModifiers.toolBelt, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.toolBelt, abilityFolder));
     // boots
@@ -1007,12 +1024,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.exchanging, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.exchanging, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.autosmelt.get())
-                         .addInput(Items.FIRE_CHARGE)
-                         .addInputSalvage(Blocks.MAGMA_BLOCK, 0.4f)
-                         .addInput(Items.FIRE_CHARGE)
-                         .addInput(TinkerMaterials.blazingBone)
-                         .addInput(TinkerMaterials.blazingBone)
-                         .addSalvage(TinkerMaterials.blazingBone, 1, 2)
+                         .addInput(Tags.Items.RAW_MATERIALS)
+                         .addInputSalvage(Blocks.BLAST_FURNACE, 0.8f)
+                         .addInput(Tags.Items.INGOTS)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_COAL)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_COAL)
+                         .addSalvage(Items.COAL, 1, 18)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.HARVEST)
@@ -1069,7 +1086,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInputSalvage(Items.PISTON, 0.9f)
-                         .addInputSalvage(TinkerMaterials.tinkersBronze.getIngotTag(), 1.0f)
+                         .addInputSalvage(TinkerMaterials.amethystBronze.getIngotTag(), 1.0f)
                          .addInputSalvage(Items.PISTON, 0.9f)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
@@ -1093,9 +1110,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
                          .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.excavator)))
                          .addInput(roundPlate)
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.35f)
                          .addInput(toolBinding)
-                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.pathing, abilitySalvage))
@@ -1103,9 +1119,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.stripping.get())
                          .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.35f)
                          .addInput(toolBinding)
-                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.stripping, abilitySalvage))
@@ -1113,9 +1128,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.tilling.get())
                          .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.kama, TinkerTools.scythe)))
                          .addInput(smallBlade)
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.35f)
                          .addInput(toolBinding)
-                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.tilling, abilitySalvage))
@@ -1132,19 +1146,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.glowing, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.glowing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.firestarter.get())
-                         .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.flintAndBronze)))
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .setTools(IngredientDifference.difference(heldWithDurability, Ingredient.of(TinkerTools.flintAndBrick)))
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.35f)
                          .addInputSalvage(Items.FLINT, 0.2f)
-                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.firestarter, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.firestarter, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.fireprimer.get())
-                         .setTools(Ingredient.of(TinkerTools.flintAndBronze))
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .setTools(Ingredient.of(TinkerTools.flintAndBrick))
+                         .addInputSalvage(TinkerMaterials.cobalt.getIngotTag(), 0.35f)
                          .addInputSalvage(Items.FLINT, 0.2f)
-                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.fireprimer, upgradeSalvage))
@@ -1270,10 +1282,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.copper, false, folder);
     // tier 3
     plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
-    plateTexture(consumer, plate, MaterialIds.siliconBronze, "ingots/silicon_bronze", false, folder);
+    plateTexture(consumer, plate, MaterialIds.amethystBronze, false, folder);
     plateTexture(consumer, plate, MaterialIds.roseGold,      false, folder);
     plateTexture(consumer, plate, MaterialIds.pigIron,       false, folder);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.obsidian.toString())
+                                  .setTools(plate)
+                                  .addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_obsidian"));
     // tier 4
+    plateTexture(consumer, plate, MaterialIds.debris, "nuggets/netherite_scrap", false, folder);
     plateTexture(consumer, plate, MaterialIds.manyullyn, false, folder);
     plateTexture(consumer, plate, MaterialIds.hepatizon, false, folder);
     plateTexture(consumer, plate, MaterialIds.netherite, "nuggets/netherite", false, folder);
@@ -1290,7 +1307,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     plateTexture(consumer, plate, MaterialIds.uranium,  true, folder);
     // tier 3 compat
     plateTexture(consumer, plate, MaterialIds.steel,      true, folder);
-    plateTexture(consumer, plate, MaterialIds.tinBronze,  "ingots/bronze", true, folder);
+    plateTexture(consumer, plate, MaterialIds.bronze,     true, folder);
     plateTexture(consumer, plate, MaterialIds.constantan, true, folder);
     plateTexture(consumer, plate, MaterialIds.invar,      true, folder);
     plateTexture(consumer, plate, MaterialIds.electrum,   true, folder);
@@ -1302,6 +1319,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     slimeTexture(consumer, slimesuit, MaterialIds.skyslime,   SlimeType.SKY, folder);
     slimeTexture(consumer, slimesuit, MaterialIds.blood,      SlimeType.BLOOD, folder);
     slimeTexture(consumer, slimesuit, MaterialIds.ichor,      SlimeType.ICHOR, folder);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.clay.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(Blocks.CLAY).addInput(Items.CLAY_BALL).addInput(Blocks.CLAY)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_clay"));
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment.get(), MaterialIds.honey.toString())
+                                  .setTools(slimesuit)
+                                  .addInput(Blocks.HONEY_BLOCK).addInput(Items.HONEY_BOTTLE).addInput(Blocks.HONEY_BLOCK)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_honey"));
   }
 
   private void addHeadRecipes(Consumer<FinishedRecipe> consumer) {

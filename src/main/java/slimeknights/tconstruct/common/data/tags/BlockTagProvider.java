@@ -66,7 +66,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     addMetalTags(TinkerMaterials.cobalt, true);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel, false);
-    addMetalTags(TinkerMaterials.tinkersBronze, false);
+    addMetalTags(TinkerMaterials.amethystBronze, false);
     addMetalTags(TinkerMaterials.roseGold, false);
     addMetalTags(TinkerMaterials.pigIron, false);
     // tier 4
@@ -94,7 +94,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     TagsProvider.TagAppender<Block> builder = this.tag(TinkerTags.Blocks.ANVIL_METAL)
         // tier 3
         .addTag(TinkerMaterials.slimesteel.getBlockTag())
-        .addTag(TinkerMaterials.tinkersBronze.getBlockTag())
+        .addTag(TinkerMaterials.amethystBronze.getBlockTag())
         .addTag(TinkerMaterials.roseGold.getBlockTag())
         .addTag(TinkerMaterials.pigIron.getBlockTag())
         // tier 4
@@ -229,6 +229,15 @@ public class BlockTagProvider extends BlockTagsProvider {
     // piglins are not a fan of zombie piglin corpses though
     this.tag(BlockTags.PIGLIN_REPELLENTS)
         .add(TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), TinkerWorld.wallHeads.get(TinkerHeadType.ZOMBIFIED_PIGLIN));
+
+    // stone variants
+    this.tag(TinkerTags.Blocks.STONE).add(Blocks.STONE, Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE);
+    this.tag(TinkerTags.Blocks.GRANITE).add(Blocks.GRANITE);
+    this.tag(TinkerTags.Blocks.DIORITE).add(Blocks.DIORITE);
+    this.tag(TinkerTags.Blocks.ANDESITE).add(Blocks.ANDESITE);
+    this.tag(TinkerTags.Blocks.BLACKSTONE).add(Blocks.BLACKSTONE);
+    this.tag(TinkerTags.Blocks.DEEPSLATE).add(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+    this.tag(TinkerTags.Blocks.BASALT).add(Blocks.BASALT);
   }
 
   private void addSmeltery() {
@@ -331,7 +340,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // materials
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.nahuatl);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.tinkersBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.amethystBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel, TinkerModifiers.silkyJewelBlock);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_NETHERITE_TOOL, TinkerMaterials.knightslime);
 
@@ -366,7 +375,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_SHOVEL, TinkerSmeltery.grout, TinkerSmeltery.netherGrout);
     // seared
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedStone, TinkerSmeltery.searedPaver, TinkerSmeltery.searedCobble, TinkerSmeltery.searedBricks);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedCrackedBricks, TinkerSmeltery.searedFancyBricks, TinkerSmeltery.searedLadder, TinkerSmeltery.searedGlass, TinkerSmeltery.searedGlassPane);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedCrackedBricks, TinkerSmeltery.searedFancyBricks, TinkerSmeltery.searedTriangleBricks, TinkerSmeltery.searedLadder, TinkerSmeltery.searedGlass, TinkerSmeltery.searedGlassPane);
     // scorched
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedBricks, TinkerSmeltery.scorchedRoad);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedStone, TinkerSmeltery.polishedScorchedStone, TinkerSmeltery.chiseledScorchedBricks, TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedGlass, TinkerSmeltery.scorchedGlassPane);
@@ -378,7 +387,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     // tough seared + scorched
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerSmeltery.scorchedDrain, TinkerSmeltery.scorchedDuct, TinkerSmeltery.foundryController);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerSmeltery.scorchedDrain, TinkerSmeltery.scorchedChute, TinkerSmeltery.foundryController);
 
     // tables
     tagBlocks(MINEABLE_WITH_AXE, TinkerTables.craftingStation, TinkerTables.tinkerStation, TinkerTables.partBuilder, TinkerTables.tinkersChest, TinkerTables.partChest);

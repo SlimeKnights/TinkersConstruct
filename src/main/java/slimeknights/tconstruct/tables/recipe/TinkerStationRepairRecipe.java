@@ -145,7 +145,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
         if (getRepairIndex(tool, material) < 0) {
           return false;
         }
-      } else if (material != inputMaterial) {
+      } else if (!material.equals(inputMaterial)) {
         return false;
       }
     }

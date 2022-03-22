@@ -3,16 +3,18 @@ package slimeknights.tconstruct.plugin.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -44,7 +46,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.molding;
+    return TConstructJEIConstants.MOLDING;
   }
 
   @Override
@@ -58,7 +60,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   }
 
   @Override
-  public void draw(MoldingRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+  public void draw(MoldingRecipe recipe, IRecipeSlotsView slots, PoseStack matrixStack, double mouseX, double mouseY) {
     // draw the main block
     IDrawable block = recipe.getType() == RecipeTypes.MOLDING_BASIN ? basin : table;
     block.draw(matrixStack, 3, 40);
@@ -73,7 +75,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   }
 
   @Override
-  public List<Component> getTooltipStrings(MoldingRecipe recipe, double mouseX, double mouseY) {
+  public List<Component> getTooltipStrings(MoldingRecipe recipe, IRecipeSlotsView slots, double mouseX, double mouseY) {
     if (recipe.isPatternConsumed() && !recipe.getPattern().isEmpty() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
       return Collections.singletonList(TOOLTIP_PATTERN_CONSUMED);
     }
@@ -81,28 +83,18 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   }
 
   @Override
-  public void setIngredients(MoldingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-  }
-
-  @Override
-  public void setRecipe(IRecipeLayout layout, MoldingRecipe recipe, IIngredients ingredients) {
-    IGuiItemStackGroup guiItemStacks = layout.getItemStacks();
-    // main item
-    guiItemStacks.init(0, true, 2, 23);
-    guiItemStacks.init(1, false, 50, 23);
+  public void setRecipe(IRecipeLayoutBuilder builder, MoldingRecipe recipe, IFocusGroup focuses) {
+    // basic input output
+    builder.addSlot(RecipeIngredientRole.INPUT, 3, 24).addIngredients(recipe.getMaterial());
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 51, 24).addItemStack(recipe.getResultItem());
 
     // if we have a mold, we are pressing into the table, so draw pressed item on input and output
-    if (!recipe.getPattern().isEmpty()) {
-      guiItemStacks.init(2, true, 2, 0);
-      guiItemStacks.set(ingredients);
+    Ingredient pattern = recipe.getPattern();
+    if (!pattern.isEmpty()) {
+      builder.addSlot(RecipeIngredientRole.INPUT, 3, 1).addIngredients(pattern);
       if (!recipe.isPatternConsumed()) {
-        guiItemStacks.init(3, true, 50, 7);
-        guiItemStacks.set(3, ingredients.getInputs(VanillaTypes.ITEM).get(1));
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 51, 8).addIngredients(pattern);
       }
-    } else {
-      guiItemStacks.set(ingredients);
     }
   }
 }

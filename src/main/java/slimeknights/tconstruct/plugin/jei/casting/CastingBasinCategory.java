@@ -4,7 +4,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class CastingBasinCategory extends AbstractCastingCategory {
@@ -15,7 +15,7 @@ public class CastingBasinCategory extends AbstractCastingCategory {
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.castingBasin;
+    return TConstructJEIConstants.CASTING_BASIN;
   }
 
   @Override

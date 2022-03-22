@@ -13,7 +13,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   @Override
   protected void addMaterialRenderInfo() {
     // tier 1
-    buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("flint");
+    buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("crystal", "rock", "stick");
+    buildRenderInfo(MaterialIds.basalt);
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
@@ -29,6 +30,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.acacia);
     buildRenderInfo(MaterialIds.crimson);
     buildRenderInfo(MaterialIds.warped);
+    buildRenderInfo(MaterialIds.bamboo);
     // tier 1 - stone
     buildRenderInfo(MaterialIds.rock).materialTexture(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
     buildRenderInfo(MaterialIds.stone).color(0xB1AFAD);
@@ -55,18 +57,19 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x46ECE7).fallbacks("slime_metal", "metal");
     // default texture is tin even though silicon is the one we provide, as it makes the names cleaner
-    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal").materialTexture(MaterialIds.tinBronze);
-    buildRenderInfo(MaterialIds.siliconBronze).color(0xE8B465).fallbacks("metal");
+    buildRenderInfo(MaterialIds.amethystBronze).color(0xE8B465).fallbacks("metal");
     buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");
     buildRenderInfo(MaterialIds.roseGold).color(0xF7CDBB).fallbacks("metal");
     buildRenderInfo(MaterialIds.cobalt).color(0x2376dd).fallbacks("metal");
+    buildRenderInfo(MaterialIds.darkthread);
 
     // tier 4
     buildRenderInfo(MaterialIds.queensSlime).color(0x809912).fallbacks("slime_metal", "metal").luminosity(9);
     buildRenderInfo(MaterialIds.hepatizon).color(0x60496b).fallbacks("metal");
     buildRenderInfo(MaterialIds.manyullyn).color(0x9261cc).fallbacks("metal");
     buildRenderInfo(MaterialIds.blazingBone).color(0xF2D500).fallbacks("bone", "rock").luminosity(15);
+    buildRenderInfo(MaterialIds.ancientHide);
     buildRenderInfo(MaterialIds.enderslimeVine).color(0xa92dff).fallbacks("vine");
 
     // tier 2 compat
@@ -79,7 +82,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 3 compat
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
-    buildRenderInfo(MaterialIds.tinBronze).color(0xD49765).fallbacks("metal");
+    buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0xFF8B70).fallbacks("metal");
     buildRenderInfo(MaterialIds.invar).color(0xCADBD0).fallbacks("metal");
     buildRenderInfo(MaterialIds.necronium).color(0x9CBD89).fallbacks("bone", "metal");
@@ -88,6 +91,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // plate
     buildRenderInfo(MaterialIds.gold).color(0xFDF55F).fallbacks("metal");
+    buildRenderInfo(MaterialIds.obsidian);
+    buildRenderInfo(MaterialIds.debris);
     buildRenderInfo(MaterialIds.netherite).color(0x4C4143).fallbacks("metal");
     // compat plate
     buildRenderInfo(MaterialIds.aluminum);
@@ -108,6 +113,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.blood);
     buildRenderInfo(MaterialIds.ichor);
     buildRenderInfo(MaterialIds.enderslime);
+    buildRenderInfo(MaterialIds.clay);
+    buildRenderInfo(MaterialIds.honey);
     buildRenderInfo(MaterialIds.phantom);
     buildRenderInfo(MaterialIds.chorus);
     buildRenderInfo(MaterialIds.rabbit);

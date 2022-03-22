@@ -3,13 +3,12 @@ package slimeknights.tconstruct.plugin.jei.melting;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
-import mezz.jei.api.gui.ingredient.ITooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +20,7 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.AlloyRecipeCategory;
-import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.List;
@@ -31,8 +30,8 @@ public class FoundryCategory extends AbstractMeltingCategory {
   private static final Component TITLE = TConstruct.makeTranslation("jei", "foundry.title");
 
   /** Tooltip callback for fluids */
-  private static final ITooltipCallback<FluidStack> METAL_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.METAL);
-  private static final ITooltipCallback<FluidStack> GEM_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.GEM);
+  private static final IRecipeSlotTooltipCallback METAL_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.METAL);
+  private static final IRecipeSlotTooltipCallback GEM_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.GEM);
   @Getter
   private final IDrawable icon;
 
@@ -43,7 +42,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
 
   @Override
   public ResourceLocation getUid() {
-    return TConstructRecipeCategoryUid.foundry;
+    return TConstructJEIConstants.FOUNDRY;
   }
 
   @Override
@@ -52,36 +51,27 @@ public class FoundryCategory extends AbstractMeltingCategory {
   }
 
   @Override
-  public void setIngredients(MeltingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutputLists(VanillaTypes.FLUID, recipe.getOutputWithByproducts());
-  }
-
-  @Override
-  public void setRecipe(IRecipeLayout layout, MeltingRecipe recipe, IIngredients ingredients) {
+  public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
     // input
-    IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(0, true, 23, 17);
-    items.set(ingredients);
+    builder.addSlot(RecipeIngredientRole.INPUT, 24, 18).addIngredients(recipe.getInput());
 
-    // outputs
-    IGuiFluidStackGroup fluids = layout.getFluidStacks();
-    AlloyRecipeCategory.drawVariableFluids(fluids, 0, false, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK);
-    fluids.set(ingredients);
-
-    // liquid fuel
-    fluids.init(-1, true, 4, 4, 12, 32, 1, false, null);
-    fluids.set(-1, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
-
-    // change tooltip for ore boosted recipes
+    // output fluid
     OreRateType oreType = recipe.getOreType();
+    IRecipeSlotTooltipCallback tooltip;
     if (oreType == OreRateType.METAL) {
-      fluids.addTooltipCallback(METAL_ORE_TOOLTIP);
+      tooltip = METAL_ORE_TOOLTIP;
     } else if (oreType == OreRateType.GEM) {
-      fluids.addTooltipCallback(GEM_ORE_TOOLTIP);
+      tooltip = GEM_ORE_TOOLTIP;
     } else {
-      fluids.addTooltipCallback(MeltingFluidCallback.INSTANCE);
+      tooltip = MeltingFluidCallback.INSTANCE;
     }
+    AlloyRecipeCategory.drawVariableFluids(builder, RecipeIngredientRole.OUTPUT, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK, tooltip);
+
+    // fuel
+    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 4, 4)
+           .addTooltipCallback(FUEL_TOOLTIP)
+           .setFluidRenderer(1, false, 12, 32)
+           .addIngredients(VanillaTypes.FLUID, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
   }
 
   /** Adds amounts to outputs and temperatures to fuels */

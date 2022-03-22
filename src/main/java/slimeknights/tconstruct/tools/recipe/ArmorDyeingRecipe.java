@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.recipe;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +27,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +37,6 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   @Getter
   private final ResourceLocation id;
   private final Ingredient toolRequirement;
-
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
@@ -230,22 +229,34 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
       return TINT_COLORS[id];
     }
 
+    private final List<ItemStack> dyes;
     @Getter
     private final ModifierEntry displayResult;
     @Getter
-    private final List<List<ItemStack>> displayItems;
+    private final List<ItemStack> toolWithoutModifier;
     @Getter
     private final List<ItemStack> toolWithModifier;
     public DisplayRecipe(ModifierEntry result, List<ItemStack> tools, DyeColor color) {
       this.displayResult = result;
-      ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-      builder.add(tools);
-      builder.add(color.getTag().getValues().stream().map(ItemStack::new).toList());
-      displayItems = builder.build();
+      this.toolWithoutModifier = tools;
+      this.dyes = color.getTag().getValues().stream().map(ItemStack::new).toList();
 
       ResourceLocation id = result.getModifier().getId();
       int tintColor = getTintColor(color);
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, result, data -> data.putInt(id, tintColor))).toList();
+    }
+
+    @Override
+    public int getInputCount() {
+      return 1;
+    }
+
+    @Override
+    public List<ItemStack> getDisplayItems(int slot) {
+      if (slot == 0) {
+        return dyes;
+      }
+      return Collections.emptyList();
     }
 
     @Override

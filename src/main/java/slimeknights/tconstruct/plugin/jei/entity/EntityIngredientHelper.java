@@ -1,31 +1,31 @@
 package slimeknights.tconstruct.plugin.jei.entity;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
-import slimeknights.tconstruct.plugin.jei.JEIPlugin;
+import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /** Handler for working with entity types as ingredients */
 @SuppressWarnings("rawtypes")
 public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
+
   @Override
   public IIngredientType<EntityType> getIngredientType() {
-    return JEIPlugin.ENTITY_TYPE;
+    return TConstructJEIConstants.ENTITY_TYPE;
   }
 
+  @SuppressWarnings("removal")
   @Nullable
   @Override
   public EntityType getMatch(Iterable<EntityType> iterable, EntityType type, UidContext context) {
@@ -47,14 +47,23 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
     return Objects.requireNonNull(type.getRegistryName()).toString();
   }
 
+  @SuppressWarnings("removal")
+  @Deprecated
   @Override
   public String getModId(EntityType type) {
-    return Objects.requireNonNull(type.getRegistryName()).getNamespace();
+    return getResourceLocation(type).getNamespace();
+  }
+
+  @SuppressWarnings("removal")
+  @Deprecated
+  @Override
+  public String getResourceId(EntityType type) {
+    return getResourceLocation(type).getPath();
   }
 
   @Override
-  public String getResourceId(EntityType type) {
-    return Objects.requireNonNull(type.getRegistryName()).getPath();
+  public ResourceLocation getResourceLocation(EntityType type) {
+    return Objects.requireNonNull(type.getRegistryName());
   }
 
   @Override
@@ -74,18 +83,16 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
     return name.toString();
   }
 
-  /**
-   * Sets the entity focus based on the item list
-   * @param layout       Recipe layout
-   * @param group        Entity type group
-   * @param entities     Entities to focus
-   * @param index        Index of entity slot
-   */
-  public static void setFocus(IRecipeLayout layout, IGuiIngredientGroup<EntityType> group, Collection<EntityType<?>> entities, int index) {
-    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
-    if (focus != null && focus.getValue().getItem() instanceof SpawnEggItem) {
-      EntityType<?> type = ((SpawnEggItem) focus.getValue().getItem()).getType(null);
-      group.set(index, entities.stream().filter(type::equals).collect(Collectors.toList()));
-    }
+  /** Applies the item focuses to the list of entities */
+  public static List<EntityType> applyFocus(RecipeIngredientRole role, List<EntityType> displayInputs, IFocusGroup focuses) {
+    return focuses.getFocuses(VanillaTypes.ITEM)
+                  .filter(focus -> focus.getRole() == role)
+                  .map(focus -> focus.getTypedValue().getIngredient().getItem())
+                  .filter(item -> item instanceof SpawnEggItem)
+                  .<EntityType>map(item -> ((SpawnEggItem) item).getType(null))
+                  .filter(displayInputs::contains)
+                  .map(Collections::singletonList)
+                  .findFirst()
+                  .orElse(displayInputs);
   }
 }

@@ -134,7 +134,7 @@ public abstract class TinkerModule {
   /** Builder that pre-supplies glass properties */
   protected static BlockBehaviour.Properties glassBuilder(MaterialColor color) {
     return builder(Material.GLASS, color, SoundType.GLASS)
-      .requiresCorrectToolForDrops().strength(0.3F).noOcclusion().isValidSpawn(Blocks::never)
+      .strength(0.3F).noOcclusion().isValidSpawn(Blocks::never)
       .isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
   }
 
