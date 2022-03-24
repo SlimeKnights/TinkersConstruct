@@ -1,8 +1,6 @@
 {
   "title": "Кузня",
-  "item": {
-    "id": "tconstruct:tinkers_anvil"
-},
+  "item": "tconstruct:tinkers_anvil",
   "text": [
     {
       "text": "\n"
