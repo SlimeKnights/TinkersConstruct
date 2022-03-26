@@ -1194,9 +1194,9 @@
   "block.tconstruct.skyroot_planks_slab": "Himmelrotsplatta",
   "block.tconstruct.skyroot_planks_stairs": "Himmelrotstrappa",
   "block.tconstruct.skyroot_log": "Himmelrotsstam",
-  "block.tconstruct.stripped_skyroot_log": "Avbarkad himmelsrotsstam",
+  "block.tconstruct.stripped_skyroot_log": "Avbarkad himmelrotsstam",
   "block.tconstruct.skyroot_wood": "Himmelrotsträ",
-  "block.tconstruct.stripped_skyroot_wood": "Avbarkat himmelsrotsträ",
+  "block.tconstruct.stripped_skyroot_wood": "Avbarkat himmelrotsträ",
   
   "block.tconstruct.skyroot_fence": "Himmelrotsstaket",
   "block.tconstruct.skyroot_fence_gate": "Himmelrotsgrind",
@@ -2285,7 +2285,7 @@
   
   "tooltip.tconstruct.part.added_by": "Materialet lades till av %s",
   "tooltip.tconstruct.part.missing_material": "Material som saknas: %s",
-  "tooltip.tconstruct.part.missing_stats": "Material saknar nödvändiga värden:\n{0}",
+  "tooltip.tconstruct.part.missing_stats": "Materialet saknar nödvändiga värden:\n{0}",
   "tooltip.tconstruct.part.missing_info": "Delen har ingen data",
   
   "_comment": "GUIs",
@@ -2318,7 +2318,7 @@
   "gui.tconstruct.tinker_station.repair": "Reparera och modifiera",
   "gui.tconstruct.tinker_station.repair.description": "Skapa både små och breda verktyg och modifiera befintliga verktyg för att uppfylla dina drömmar! Välj en layout bland knapparna till vänster för att komma igång.",
   "gui.tconstruct.tinker_station.modifiers": "Modifierare",
-  "gui.tconstruct.tinker_station.upgrades": "Uppgraderingar och förmågor",
+  "gui.tconstruct.tinker_station.upgrades": "Uppgrad. & förmågor",
   "gui.tconstruct.tinker_station.traits": "Attribut",
   "gui.tconstruct.tinker_station.components": "Komponenter",
   "gui.tconstruct.tinker_station.info": "Det primära sättet att reparera eller ändra dina verktyg. Placera ett verktyg och ett material till vänster för att komma igång.",
