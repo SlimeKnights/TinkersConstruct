@@ -1,0 +1,11 @@
+{
+  "title": "Исследования",
+  "subText": "Многие литейщики упоминают ресурсы, полезные для модификаторов или материалов для инструментов, но забывают рассказать, как их получить. К счастью, в своих путешествиях я нашел многие из них, поэтому могу передать вам свои находки.",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "Ресурсы" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "Острова" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "Жеоды" }
+  ]
+}
