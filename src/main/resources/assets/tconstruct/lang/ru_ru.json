@@ -216,7 +216,7 @@
   "item.tconstruct.bloodbone": "Кровавая кость",
   "item.tconstruct.blazing_bone": "Огненная кость",
   "item.tconstruct.dragon_scale": "Чешуя Дракона",
-  "item.tconstruct.dragon_scale.tooltip": "Выпадает из Эндер-дракона",
+  "item.tconstruct.dragon_scale.tooltip": "Выбивается взрывом из Эндер-дракона",
 
   "item.tconstruct.creative_slot": "Творческий слот",
   "item.tconstruct.creative_slot.upgrades": "Творческое улучшение",
@@ -413,6 +413,11 @@
   "fluid.tconstruct.ender_slime": "Эндер-слизь",
   "fluid.tconstruct.flowing_ender_slime": "Текучая эндер-слизь",
   "item.tconstruct.ender_slime_bucket": "Ведро эндер-слизи",
+  
+  "block.tconstruct.venom_fluid": "Яд",
+  "fluid.tconstruct.venom": "Яд",
+  "fluid.tconstruct.flowing_venom": "Текучий яд",
+  "item.tconstruct.venom_bucket": "Ведро яда",
 
   "_comment": "Rock",
 
@@ -640,6 +645,35 @@
   "fluid.tconstruct.molten_steel": "Расплавленная сталь",
   "fluid.tconstruct.flowing_molten_steel": "Текучая расплавленная сталь",
   "item.tconstruct.molten_steel_bucket": "Ведро расплавленной стали",
+  
+   "_comment": "Thermal Alloys",
+
+  "block.tconstruct.molten_enderium_fluid": "Расплавленный эндерий",
+  "fluid.tconstruct.molten_enderium": "Расплавленный эндерий",
+  "fluid.tconstruct.flowing_molten_enderium": "Текучий расплавленный эндерий",
+  "item.tconstruct.molten_enderium_bucket": "Ведро расплавленного эндерия",
+
+  "block.tconstruct.molten_lumium_fluid": "Расплавленный люмий",
+  "fluid.tconstruct.molten_lumium": "Расплавленный люмий",
+  "fluid.tconstruct.flowing_molten_lumium": "Текучий расплавленный люмий",
+  "item.tconstruct.molten_lumium_bucket": "Ведро расплавленного люмия",
+
+  "block.tconstruct.molten_signalum_fluid": "Расплавленный сигнал",
+  "fluid.tconstruct.molten_signalum": "Расплавленный сигнал",
+  "fluid.tconstruct.flowing_molten_signalum": "Текучий расплавленный сигнал",
+  "item.tconstruct.molten_signalum_bucket": "Ведро расплавленного сигнала",
+
+  "_comment": "Mekanism Alloys",
+
+  "block.tconstruct.molten_refined_glowstone_fluid": "Расплавленный очищенный светокамень",
+  "fluid.tconstruct.molten_refined_glowstone": "Расплавленный очищенный светокамень",
+  "fluid.tconstruct.flowing_molten_refined_glowstone": "Текучий расплавленный очищенный светокамень",
+  "item.tconstruct.molten_refined_glowstone_bucket": "Ведро расплавленного очищенного светокамня",
+
+  "block.tconstruct.molten_refined_obsidian_fluid": "Расплавленный очищенный обсидиан",
+  "fluid.tconstruct.molten_refined_obsidian": "Расплавленный очищенный обсидиан",
+  "fluid.tconstruct.flowing_molten_refined_obsidian": "Текучий расплавленный очищенный обсидиан",
+  "item.tconstruct.molten_refined_obsidian_bucket": "Ведро расплавленного очищенного обсидиана",
 
 
   "_comment": "Tinkers Gadgets",
@@ -732,7 +766,7 @@
 
   "item.tconstruct.pickaxe": "Кирка",
   "item.tconstruct.sledge_hammer": "Молот",
-  "item.tconstruct.vein_hammer": "Жильный мопот",
+  "item.tconstruct.vein_hammer": "Жильный молот",
 
   "item.tconstruct.mattock": "Киркомотыга",
   "item.tconstruct.excavator": "Землекоп",
@@ -1311,6 +1345,10 @@
   "material.tconstruct.pig_iron.encyclopedia": "Можно съесть, чтобы восстановить 1 ячейку голода и 0,1 насыщения на уровень",
   "material.tconstruct.pig_iron.skull_flavor": "Я тебе не понравлюсь, когда разозлюсь!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Даёт 15 секунд силы во время нанесения урона другим мобам",
+  
+  "material.tconstruct.darkthread": "Тёмная нить",
+  "material.tconstruct.darkthread.flavor": "Переходите на тёмную сторону, у нас есть семена",
+  "material.tconstruct.darkthread.encyclopedia": "Увеличивает шансы выпадения добычи с мобов, суммируется с удачей",
 
 
 
@@ -1338,6 +1376,10 @@
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Позволяет выпускать огненные заряды из инвентаря в виде огненных шаров. Имеет время перезарядки 5 секунд и не работает под водой.",
 
   "material.tconstruct.soulsteel": "Сталь душ",
+  
+  "material.tconstruct.ancient_hide": "Древняя кожа",
+  "material.tconstruct.ancient_hide.flavor": "Кожа, выделанная древнейшим из камней",
+  "material.tconstruct.ancient_hide.encyclopedia": "Увеличивает шанс выпадения из блоков, складываясь с удачей",
 
 
   "__comment": "Tier End Materials",
@@ -1374,16 +1416,20 @@
   "material.tconstruct.gold.skull_encyclopedia": "Из некоторых золотых руд выпадут золотые кусочки, а вероятность выпадения золотых доспехов увеличится на 4%. Шанс выпадения доп. кусочков и брони увеличивается с каждой надетой частью золотой брони.",
   
   
+  "material.tconstruct.obsidian":   "Обсидиан",
+  "material.tconstruct.debris":     "Обломки",
   "material.tconstruct.netherite":  "Незерит",
   "material.tconstruct.earthslime": "Слизь",
   "material.tconstruct.skyslime":   "Небесная слизь",
   "material.tconstruct.blood":      "Кровь",
   "material.tconstruct.ichor":      "Ихор",
   "material.tconstruct.enderslime": "Эндер-слизь",
-  "material.tconstruct.phantom": "Мембрана фантома",
-  "material.tconstruct.chorus": "Хорус",
-  "material.tconstruct.rabbit": "Кроличья шкурка",
-  
+  "material.tconstruct.clay":       "Глина",
+  "material.tconstruct.honey":      "Мёд",
+  "material.tconstruct.phantom":    "Мембрана фантома",
+  "material.tconstruct.chorus":     "Хорус",
+  "material.tconstruct.rabbit":     "Кроличья шкурка",
+
   "material.tconstruct.aluminum": "Алюминий",
   "material.tconstruct.nickel":   "Никель",
   "material.tconstruct.tin":      "Олово",
@@ -1393,17 +1439,18 @@
 
 
   "__comment": "Tier 2 Integration Materials",
+  
   "material.tconstruct.osmium": "Осмий",
   "material.tconstruct.osmium.flavor": "Слишком тупой, чтобы понять большинство шуток",
   "material.tconstruct.osmium.encyclopedia": "Предотвращает 33% повреждений за счёт дополнительных 25% затрат на ремонт на первом уровне",
 
   "material.tconstruct.tungsten": "Вольфрам",
   "material.tconstruct.tungsten.flavor": "Думали ли вы о создании хэви-метал группы?",
-  "material.tconstruct.tungsten.encyclopedia": "Даёт +10% к скорости добычи и -10% к скорости передвижения за уровень",
+  "material.tconstruct.tungsten.encyclopedia": "Даёт +10% к скорости копания и -10% к скорости передвижения за уровень",
 
   "material.tconstruct.platinum": "Платина",
   "material.tconstruct.platinum.flavor": "Это то, что используют победители!",
-  "material.tconstruct.platinum.encyclopedia": "Даёт +8 к скорости добычи руд",
+  "material.tconstruct.platinum.encyclopedia": "Даёт +8 к скорости копания руд",
   
   "material.tconstruct.lead": "Свинец",
   "material.tconstruct.lead.flavor": "Можно попробовать сделать из этого сэндвич.",
@@ -1411,11 +1458,11 @@
 
   "material.tconstruct.silver": "Серебро",
   "material.tconstruct.silver.flavor": "Знайте, что через несколько дней этот инструмент не будет выглядеть таким блестящим.",
-  "material.tconstruct.silver.encyclopedia": "Дёет +2,5 урона против нежити за уровень",
+  "material.tconstruct.silver.encyclopedia": "Даёт +2,5 урона против нежити за уровень",
 
-  "material.tconstruct.electrum": "Электрум",
-  "material.tconstruct.electrum.flavor": "Хорош для электронных компонентов.",
-  "material.tconstruct.electrum.encyclopedia": "Даёт +50% опыта за уровень с добытых блоков и монстров",
+  "material.tconstruct.whitestone": "Белый камень",
+  "material.tconstruct.whitestone.flavor": "Возьмите бесполезные белые металлы и сделайте из них полезный инструмент",
+  "material.tconstruct.whitestone.encyclopedia": "Увеличивает скорость копания камня на 20% за уровень, даёт +3 каменных щита",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -1431,10 +1478,27 @@
   "material.tconstruct.constantan.flavor": "Константантантантантан... Извините, это забавно добавлять больше \"тан.\"",
   "material.tconstruct.constantan.encyclopedia": "Даёт +12,5% к скорости копания в экстремальных условиях жары или холода",
 
+  "material.tconstruct.invar": "Инвар",
+  "material.tconstruct.invar.flavor": "Устойчив как к температуре, так и к сопротивлению при аресте.",
+  "material.tconstruct.invar.encyclopedia": "Даёт +2,5 урона в биомах с нейтральной температурой",
+
+  "material.tconstruct.electrum": "Электрум",
+  "material.tconstruct.electrum.flavor": "Хорош для электронных компонентов.",
+  "material.tconstruct.electrum.encyclopedia": "Даёт +50% опыта за уровень с добытых блоков и монстров",
+
+  "material.tconstruct.necronium": "Некроний",
+  "material.tconstruct.necronium.flavor": "Такое сильное разложение, вероятно, оставляет ему только четверть жизни.",
+  "material.tconstruct.necronium.encyclopedia": "Наносит не менее 5 секунд иссушения вашей цели и с вероятностью 25% вам.",
+
+  "material.tconstruct.plated_slimewood": "Покрытое слизедерево",
+  "material.tconstruct.plated_slimewood.flavor": "Всё блестит латунью с хлюпаньем слизи",
+  "material.tconstruct.plated_slimewood.encyclopedia": "Даёт +100% ко всем методам восстановления слизневого покрытия",
+
 
 
   "_comment": "Modifiers",
   
+  "key.categories.tconstruct": "Tinkers' Construct",
   "key.tconstruct.helmet_interact": "Взаимодействие со шлемом",
   "key.tconstruct.leggings_interact": "Взаимодействие с поножами",
 
