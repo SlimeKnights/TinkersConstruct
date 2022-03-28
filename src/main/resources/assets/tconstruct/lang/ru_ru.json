@@ -259,7 +259,7 @@
   "item.tconstruct.bloodbone": "Кровавая кость",
   "item.tconstruct.blazing_bone": "Огненная кость",
   "item.tconstruct.dragon_scale": "Чешуя Дракона",
-  "item.tconstruct.dragon_scale.tooltip": "Выпадает из Эндер-дракона",
+  "item.tconstruct.dragon_scale.tooltip": "Выбивается взрывом из Эндер-дракона",
 
   "item.tconstruct.creative_slot": "Творческий слот",
   "item.tconstruct.creative_slot.upgrades": "Творческое улучшение",
@@ -697,6 +697,35 @@
   "fluid.tconstruct.molten_steel": "Расплавленная сталь",
   "fluid.tconstruct.flowing_molten_steel": "Текучая расплавленная сталь",
   "item.tconstruct.molten_steel_bucket": "Ведро расплавленной стали",
+  
+  "_comment": "Thermal Alloys",
+
+  "block.tconstruct.molten_enderium_fluid": "Расплавленный эндерий",
+  "fluid.tconstruct.molten_enderium": "Расплавленный эндерий",
+  "fluid.tconstruct.flowing_molten_enderium": "Текучий расплавленный эндерий",
+  "item.tconstruct.molten_enderium_bucket": "Ведро расплавленного эндерия",
+
+  "block.tconstruct.molten_lumium_fluid": "Расплавленный люмий",
+  "fluid.tconstruct.molten_lumium": "Расплавленный люмий",
+  "fluid.tconstruct.flowing_molten_lumium": "Текучий расплавленный люмий",
+  "item.tconstruct.molten_lumium_bucket": "Ведро расплавленного люмия",
+
+  "block.tconstruct.molten_signalum_fluid": "Расплавленный сигнал",
+  "fluid.tconstruct.molten_signalum": "Расплавленный сигнал",
+  "fluid.tconstruct.flowing_molten_signalum": "Текучий расплавленный сигнал",
+  "item.tconstruct.molten_signalum_bucket": "Ведро расплавленного сигнала",
+
+  "_comment": "Mekanism Alloys",
+
+  "block.tconstruct.molten_refined_glowstone_fluid": "Расплавленный очищенный светокамень",
+  "fluid.tconstruct.molten_refined_glowstone": "Расплавленный очищенный светокамень",
+  "fluid.tconstruct.flowing_molten_refined_glowstone": "Текучий расплавленный очищенный светокамень",
+  "item.tconstruct.molten_refined_glowstone_bucket": "Ведро расплавленного очищенного светокамня",
+
+  "block.tconstruct.molten_refined_obsidian_fluid": "Расплавленный очищенный обсидиан",
+  "fluid.tconstruct.molten_refined_obsidian": "Расплавленный очищенный обсидиан",
+  "fluid.tconstruct.flowing_molten_refined_obsidian": "Текучий расплавленный очищенный обсидиан",
+  "item.tconstruct.molten_refined_obsidian_bucket": "Ведро расплавленного очищенного обсидиана",
 
 
   "_comment": "Tinkers Gadgets",
@@ -1507,9 +1536,9 @@
   "material.tconstruct.silver.flavor": "Знайте, что через несколько дней этот инструмент не будет выглядеть таким блестящим.",
   "material.tconstruct.silver.encyclopedia": "Дёет +2,5 урона против нежити за уровень",
   
-  "material.tconstruct.whitestone": "Whitestone",
+  "material.tconstruct.whitestone": "Белый камень",
   "material.tconstruct.whitestone.flavor": "Возьмите бесполезные белые металлы и сделайте из них полезный инструмент",
-  "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% per level of granting +3 stoneshield",
+  "material.tconstruct.whitestone.encyclopedia": "Увеличивает скорость копания камня на 20% за уровень, даёт +3 каменных щита",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -1530,7 +1559,7 @@
   "material.tconstruct.electrum.flavor": "Хорош для электронных компонентов.",
   "material.tconstruct.electrum.encyclopedia": "Даёт +50% опыта за уровень с добытых блоков и монстров",
 
-  "material.tconstruct.necronium": "Некрониевый",
+  "material.tconstruct.necronium": "Некроний",
   "material.tconstruct.necronium.flavor": "Такое сильное разложение, вероятно, оставляет ему только четверть жизни.",
   "material.tconstruct.necronium.encyclopedia": "Наносит не менее 5 секунд иссушения вашей цели и с вероятностью 25% вам.",
 
