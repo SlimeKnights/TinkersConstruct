@@ -11,10 +11,11 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
 {
     public FluidTank tank;
     public int renderOffset;
+    public final static int tankCapacity = FluidContainerRegistry.BUCKET_VOLUME * 4;
 
     public LavaTankLogic()
     {
-        tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4);
+        tank = new FluidTank(tankCapacity);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     /*
      * @Override public IFluidTank[] getTanks (ForgeDirection direction) {
      * return new IFluidTank[] { tank }; }
-     * 
+     *
      * @Override public IFluidTank getTank (ForgeDirection direction, FluidStack
      * type) { return tank; }
      */
