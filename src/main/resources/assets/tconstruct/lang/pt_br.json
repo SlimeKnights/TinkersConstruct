@@ -953,7 +953,7 @@
   "block.tconstruct.seared_cobble.tooltip": "Parte da fundição. Seguro para decoração.",
   "block.tconstruct.seared_cobble_slab": "Laje de Pedregulho Carbonizado",
   "block.tconstruct.seared_cobble_stairs": "Escadas de Pedregulho Carbonizado",
-  "block.tconstruct.seared_cobble_wall": "Parede de Pedregulho Carbonizado,
+  "block.tconstruct.seared_cobble_wall": "Parede de Pedregulho Carbonizado",
 
   "item.tconstruct.seared_brick": "Tijolo Carbonizado",
   "block.tconstruct.seared_bricks": "Tijolos Carbonizados",
@@ -1317,7 +1317,7 @@
   "material.tconstruct.flint.encyclopedia": "Aumenta os danos em um quarto da raiz quadrada da durabilidade perdida",
 
   "material.tconstruct.bone": "Osso",
-  "material.tconstruct.bone.flavor": "Eu sou o osso da minha espada,
+  "material.tconstruct.bone.flavor": "Eu sou o osso da minha espada",
   "material.tconstruct.bone.encyclopedia": "Converte 0.5 do dano em 1 de dano perfurante",
   "material.tconstruct.bone.skull_flavor": "Tomou leite?",
   "material.tconstruct.bone.skull_encyclopedia": "Concede resistencia por 1 minuto após beber leite",
@@ -2115,7 +2115,7 @@
   "modifier.tconstruct.maintained": "Mantido",
   "modifier.tconstruct.maintained.flavor": "Permanece mais afiado, mais longo!",
   "modifier.tconstruct.maintained.description": "A ferramenta minera mais rápido quanto com maior durabilidade",
-  "modifier.tconstruct.maintained.mining_speed": "Mineração Mantida,
+  "modifier.tconstruct.maintained.mining_speed": "Mineração Mantida",
   "modifier.tconstruct.maintained_2": "Mantido 2",
   "modifier.tconstruct.maintained_2.flavor": "Consegue ser mais afiado!",
   "modifier.tconstruct.maintained_2.description": "A ferramenta minera mais rápido quanto maior a velocidade",
