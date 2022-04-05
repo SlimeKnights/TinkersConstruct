@@ -282,8 +282,8 @@
   "_comment": "Moldes de Ouro para Cabeças Grandes",
 
   "pattern.tconstruct.hammer_head": "Cabeça de Martelo",
-  "pattern.tconstruct.broad_axe_head": "Cabeça de Machado Larga",
-  "pattern.tconstruct.broad_blade": "Lâmina Larga",
+  "pattern.tconstruct.broad_axe_head": "Cabeça de Machado Grande",
+  "pattern.tconstruct.broad_blade": "Lâmina Grande",
 
   "_comment": "Moldes de Ouro para Ligamento",
 
@@ -323,8 +323,8 @@
   "_comment": "Molde de Ouro para Cabeças Grandes",
 
   "item.tconstruct.hammer_head_cast": "Molde de Ouro para Cabeça de Martelo",
-  "item.tconstruct.broad_axe_head_cast": "Molde de Ouro para Cabeça de Machado Largo",
-  "item.tconstruct.broad_blade_cast": "Molde de Ouro para Lâmina Larga",
+  "item.tconstruct.broad_axe_head_cast": "Molde de Ouro para Cabeça de Machado Grande",
+  "item.tconstruct.broad_blade_cast": "Molde de Ouro para Lâmina Grande",
 
   "_comment": "Moldes de Ouro para Ligamentos",
 
@@ -361,11 +361,11 @@
   "item.tconstruct.sign_head_sand_cast": "Molde de Areia para Cabeça de Placa",
   "item.tconstruct.bow_limb_sand_cast": "Molde de Areia para Membro de Arco",
 
-  "_comment": "Moldes de Areia para Cabeças Largas",
+  "_comment": "Moldes de Areia para Cabeças Grandes",
 
   "item.tconstruct.hammer_head_sand_cast": "Molde de Areia para Cabeça de Martelo",
-  "item.tconstruct.broad_axe_head_sand_cast": "Molde de Areia para Cabeça de Machado Largo",
-  "item.tconstruct.broad_blade_sand_cast": "Molde de Areia para Lâmina Larga",
+  "item.tconstruct.broad_axe_head_sand_cast": "Molde de Areia para Cabeça de Machado Grande",
+  "item.tconstruct.broad_blade_sand_cast": "Molde de Areia para Lâmina Grande",
 
   "_comment": "Moldes de Areia para Ligamentos",
 
@@ -402,11 +402,11 @@
   "item.tconstruct.sign_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Placa",
   "item.tconstruct.bow_limb_red_sand_cast": "Molde de Areia Vermelha para Membro de Arco",
 
-  "_comment": "Moldes de Areia Vermelha para Cabeças Largas",
+  "_comment": "Moldes de Areia Vermelha para Cabeças Grandes",
 
   "item.tconstruct.hammer_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Martelo",
-  "item.tconstruct.broad_axe_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Machado Largo",
-  "item.tconstruct.broad_blade_red_sand_cast": "Molde de Areia Vermelha para Lâmina Larga",
+  "item.tconstruct.broad_axe_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Machado Grande",
+  "item.tconstruct.broad_blade_red_sand_cast": "Molde de Areia Vermelha para Lâmina Grande",
 
   "_comment": "Moldes de Areia Vermelha para Ligamentos",
 
@@ -855,10 +855,10 @@
   "item.tconstruct.hammer_head": "Cabeça de Martelo",
 
   "item.tconstruct.small_axe_head": "Cabeça de Machado Pequeno",
-  "item.tconstruct.broad_axe_head": "Cabeça de Machado Largo",
+  "item.tconstruct.broad_axe_head": "Cabeça de Machado Grande",
 
   "item.tconstruct.small_blade": "Lâmina Pequena",
-  "item.tconstruct.broad_blade": "Lâmina Larga",
+  "item.tconstruct.broad_blade": "Lâmina Grande",
 
   "item.tconstruct.tool_handle": "Cabo de Ferramenta",
   "item.tconstruct.tough_handle": "Cabo Robusto",
@@ -870,18 +870,18 @@
   "_conment": "Descrições das Ferramentas",
 
   "item.tconstruct.pickaxe.description": "A picareta é uma ferramenta de mineração. Ela é muito efetiva para minerar pedras e minérios.\nIsso quebra blocos, Certo?",
-  "item.tconstruct.sledge_hammer.description": "A Marreta é uma ferramenta de mineração ampla. Ela coleta blocos em grande escala.\nTambém eficaz contra mortos-vivos.",
-  "item.tconstruct.vein_hammer.description": "O Martelo de Mineração é uma ferramenta para mineração ampla. Ela consegue coletar blocos conectados, contanto que sejam do mesmo tipo, perfeito para minérios.",
+  "item.tconstruct.sledge_hammer.description": "A Marreta é uma ferramenta grande muito útil para a mineração. Ela coleta blocos em larga escala.\nTambém eficaz contra mortos-vivos.",
+  "item.tconstruct.vein_hammer.description": "O Martelo de Mineração é uma ferramenta grande muito útil para a mineração. Ele consegue coletar blocos conectados, contanto que sejam do mesmo tipo, perfeito para minérios.",
 
   "item.tconstruct.mattock.description": "A Chibanca é uma ferramenta agrícola muito versátil. Ela serve para coletar madeira, terra, areia, cascalho, e plantas.\nApenas não cave sua própria cova!",
-  "item.tconstruct.pickadze.description": "O Picaretron é uma ferramenta de mineração versátil. Ela server para coletar pedra, terra, areia e cascalho, mas não é afiado o suficiente para minerar blocos de pedra mais duros como certos minérios.",
-  "item.tconstruct.excavator.description": "A Escavadora é uma ampla ferramenta de escavação. Ele escava grandes áreas de solo e neve em larga escala.\nTerraformando!",
+  "item.tconstruct.pickadze.description": "O Picaretron é uma ferramenta de mineração versátil. Ela serve para coletar pedra, terra, areia e cascalho, mas não é afiado o suficiente para minerar blocos de pedra mais duros como certos minérios.",
+  "item.tconstruct.excavator.description": "A Escavadora é uma ferramenta grande muito útil para a escavação. Ele escava grandes áreas de solo e neve em larga escala.\nTerraformando!",
 
   "item.tconstruct.hand_axe.description": "O Machado de Mão corta madeira e também faz um ótimo trabalho com as folhas. Ele também é uma arma bem eficaz.\nCortar Cortar Cortar!",
-  "item.tconstruct.broad_axe.description": "O Machado Largo derruba árvores pequenas em um único golpe, e também faz um bom trabalho em árvores grandes. É uma arma poderosa e pesada.\nMadeiraaaaaa!",
+  "item.tconstruct.broad_axe.description": "O Machado Grande derruba árvores pequenas em um único golpe, e também faz um bom trabalho em árvores grandes. É uma arma poderosa e pesada.\nMadeiraaaaaa!",
 
   "item.tconstruct.kama.description": "A Kama é uma ferramenta de colheita precisa, corta plantas e tosquia lã de animais.\nClique direito: Colhe e replanta as plantações",
-  "item.tconstruct.scythe.description": "A Foice é uma ampla ferramenta de colheita, corta plantas em larga escala.\nClique direito: Colhe e replanta as plantações",
+  "item.tconstruct.scythe.description": "A Foice é uma ferramenta grande muito útil para a colheita, corta plantas em larga escala.\nClique direito: Colhe e replanta as plantações",
 
   "item.tconstruct.dagger.description": "A Adaga é uma arma branca, capaz de realizar golpes rapidos com qualquer mão",
   "item.tconstruct.sword.description": "A Espada é uma arma universal. Ataques afiados mantêm as hordas inimigas à distância.\n Muito bom contra teias de aranha!",
@@ -1902,7 +1902,7 @@
   "recipe.tconstruct.modifier.looting.level_3": "Saque III requer uma receita diferente para os dois primeiros niveis",
 
   "_comment": "Expansores",
-  "modifier.tconstruct.expanded": "Expandido",
+  "modifier.tconstruct.expanded": "Expansor",
   "modifier.tconstruct.expanded.flavor": "Não faltou o dia das pernas!",
   "modifier.tconstruct.expanded.description": "A área de efeito da ferramenta é maior do que antes",
   "modifier.tconstruct.reach": "Alcance",
@@ -2356,7 +2356,7 @@
   "gui.tconstruct.tinker_station.repair_limited": "Repare & Modifique",
   "gui.tconstruct.tinker_station.repair_limited.description": "Permite criar todas as ferramentas básicas e aplicar a maioria dos modificadores. Selecione um layout a partir dos botões à esquerda para começar.",
   "gui.tconstruct.tinker_station.repair": "Repare & Modifique",
-  "gui.tconstruct.tinker_station.repair.description": "Crie ferramentas tanto pequenas quanto largas e modifique as ferramentas existentes para realizar seus sonhos! Selecione um layout a partir dos botões à esquerda para começar.",
+  "gui.tconstruct.tinker_station.repair.description": "Crie ferramentas tanto pequenas quanto grandes e modifique as ferramentas existentes para realizar seus sonhos! Selecione um layout a partir dos botões à esquerda para começar.",
   "gui.tconstruct.tinker_station.modifiers": "Modificadores",
   "gui.tconstruct.tinker_station.upgrades": "Melhorias & Habilidades",
   "gui.tconstruct.tinker_station.traits": "Atributos",
@@ -2564,7 +2564,7 @@
   "advancements.tconstruct.smeltery.tinkers_anvil.title": "Fabricação avançada de ferramentas",
   "advancements.tconstruct.smeltery.tinkers_anvil.description": "Crie uma bigorna Tinker usando ligas da fundição!",
   "advancements.tconstruct.smeltery.tool_forge.title": "Forja de ferramentas",
-  "advancements.tconstruct.smeltery.tool_forge.description": "Forje uma de todas as ferramentas largas da bigorna",
+  "advancements.tconstruct.smeltery.tool_forge.description": "Forje uma de todas as ferramentas grandes da bigorna",
   "advancements.tconstruct.smeltery.abilities.title": "Mestre de Habilidades",
   "advancements.tconstruct.smeltery.abilities.description": "Aplicar todos os modificadores de habilidade padrão a uma ferramenta pelo menos uma vez",
 
