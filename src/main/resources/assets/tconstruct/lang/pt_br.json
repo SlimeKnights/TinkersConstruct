@@ -2,7 +2,7 @@
   "_translators_comment": "Translated by Abiel",
 
 
-  "_comment": "Caderno Tinkers",
+  "_comment": "Tinkers Common",
 
   "block.tconstruct.sky_slime": "Bloco de Slime-do-Céu",
   "block.tconstruct.sky_slime.tooltip": "Gruda tanto no slime quanto no mel",
@@ -105,7 +105,7 @@
   "block.tconstruct.silky_jewel_block": "Bloco de Jóias de Seda",
 
 
-  "__comment": "Metais",
+  "__comment": "Ore Metals",
 
   "item.tconstruct.copper_nugget": "Pepita de Cobre",
 
@@ -119,7 +119,7 @@
   "item.tconstruct.cobalt_nugget": "Pepita de Cobalto",
 
 
-  "__comment": "Metais Nivel 3",
+  "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "Bloco de Aço-Slime",
   "item.tconstruct.slimesteel_ingot": "Lingote de Aço-Slime",
@@ -138,7 +138,7 @@
   "item.tconstruct.pig_iron_nugget": "Pepita de Ferro-Porco",
 
 
-  "__comment": "Metais Nivel 4",
+  "__comment": "Tier 4 Metals",
 
   "block.tconstruct.manyullyn_block": "Bloco de Manyullyn",
   "block.tconstruct.manyullyn_block.tooltip": "Pode ser usado como base para um beacon",
@@ -165,7 +165,7 @@
   "item.tconstruct.debris_nugget.tooltip": "Pequeno pedaço de netherita antigo, possivelmente pode ser derretido para sua restauração",
 
 
-  "__comment": "Metais Nivel 5",
+  "__comment": "Tier 5 Metals",
 
   "block.tconstruct.knightslime_block": "Bloco de Cavaleiro-Slime",
   "item.tconstruct.knightslime_ingot": "Lingote de Cavaleiro-Slime",
@@ -254,11 +254,11 @@
   "item.tconstruct.dragon_scale": "Escamas de Dragão",
   "item.tconstruct.dragon_scale.tooltip": "Removido de um ender dragon",
 
-  "item.tconstruct.creative_slot": "Slot Criativo",
-  "item.tconstruct.creative_slot.upgrades": "Upgrade Criativo",
-  "item.tconstruct.creative_slot.abilities": "Habilidade Criativa",
-  "item.tconstruct.creative_slot.souls": "Slot de Alma Criativo",
-  "item.tconstruct.creative_slot.defense": "Slot de Defesa Criativo",
+  "item.tconstruct.creative_slot": "Slot",
+  "item.tconstruct.creative_slot.upgrades": "Slot Criativo de Melhoria",
+  "item.tconstruct.creative_slot.abilities": "Slot Criativo de Habilidade",
+  "item.tconstruct.creative_slot.souls": "Slot Criativo de Alma",
+  "item.tconstruct.creative_slot.defense": "Slot Criativo de Defesa",
   "item.tconstruct.creative_slot.missing": "NBT em falta ou inválido definindo o tipo de slot",
   "item.tconstruct.creative_slot.tooltip": "Adiciona um slot %s adicional a ferramenta",
 
@@ -267,11 +267,11 @@
   "item.tconstruct.copper_can.contents": "Contém: 1 lingote %s",
 
 
-  "_comment": "Moldes do Tinkers",
+  "_comment": "Tinkers Patterns",
 
   "pattern.tconstruct.repair_kit": "Kit de Reparos",
 
-  "_comment": "Moldes de Ouro para Cabeças Pequenas",
+  "_comment": "Small Head Gold Casts",
 
   "pattern.tconstruct.pick_head": "Cabeça de Picareta",
   "pattern.tconstruct.small_axe_head": "Cabeça Pequena de Machado",
@@ -279,25 +279,25 @@
   "pattern.tconstruct.sign_head": "Cabeça de Placa",
   "pattern.tconstruct.bow_limb": "Limbo do Arco",
 
-  "_comment": "Moldes de Ouro para Cabeças Grandes",
+  "_comment": "Large Head Gold Casts",
 
   "pattern.tconstruct.hammer_head": "Cabeça de Martelo",
   "pattern.tconstruct.broad_axe_head": "Cabeça de Machado Grande",
   "pattern.tconstruct.broad_blade": "Lâmina Grande",
 
-  "_comment": "Moldes de Ouro para Ligamento",
+  "_comment": "Binding Gold Casts",
 
   "pattern.tconstruct.tool_binding": "Ligamento de Ferramenta",
   "pattern.tconstruct.round_plate": "Placa Redonda",
   "pattern.tconstruct.large_plate": "Placa Larga",
 
-  "_comment": "Moldes de Ouro para Cabos de Ferramentas",
+  "_comment": "Tool Handle Gold Casts",
 
   "pattern.tconstruct.tool_handle": "Cabo de Ferramenta",
   "pattern.tconstruct.tough_handle": "Cabo Robusto",
 
 
-  "_comment": "Moldes de Ouro",
+  "_comment": "Tinkers Gold Casts",
 
   "item.tconstruct.blank_cast": "Molde de Ouro Vazio",
   "item.tconstruct.ingot_cast": "Molde de Ouro para Lingote",
@@ -312,7 +312,7 @@
 
   "item.tconstruct.repair_kit_cast": "Molde de Ouro para Kit de Reparos",
 
-  "_comment": "Molde de Ouro para Cabeças Pequenas",
+  "_comment": "Small Head Gold Casts",
 
   "item.tconstruct.pick_head_cast": "Molde de ouro para cabeça de picareta",
   "item.tconstruct.small_axe_head_cast": "Molde de ouro para cabeça de machado pequena",
@@ -320,25 +320,25 @@
   "item.tconstruct.sign_head_cast": "Molde de ouro para cabeça de placa",
   "item.tconstruct.bow_limb_cast": "Molde de ouro para membro de arco",
 
-  "_comment": "Molde de Ouro para Cabeças Grandes",
+  "_comment": "Large Head Gold Casts",
 
   "item.tconstruct.hammer_head_cast": "Molde de Ouro para Cabeça de Martelo",
   "item.tconstruct.broad_axe_head_cast": "Molde de Ouro para Cabeça de Machado Grande",
   "item.tconstruct.broad_blade_cast": "Molde de Ouro para Lâmina Grande",
 
-  "_comment": "Moldes de Ouro para Ligamentos",
+  "_comment": "Binding Gold Casts",
 
   "item.tconstruct.tool_binding_cast": "Molde de Ouro para Ligamento de Ferramenta",
   "item.tconstruct.round_plate_cast": "Molde de Ouro para Placa Redonda",
   "item.tconstruct.large_plate_cast": "Molde de Ouro para Placa Parga",
 
-  "_comment": "Moldes de Ouro para Cabos de Ferramentas",
+  "_comment": "Tool Handle Gold Casts",
 
   "item.tconstruct.tool_handle_cast": "Molde de Ouro para Cabo de Ferramenta",
   "item.tconstruct.tough_handle_cast": "Molde de Ouro para Cabo Robusto",
 
 
-  "_comment": "Moldes de Areia",
+  "_comment": "Tinkers Sand Casts",
 
   "item.tconstruct.blank_sand_cast": "Molde de Areia Vazio",
   "item.tconstruct.ingot_sand_cast": "Molde de Areia para Lingotes",
@@ -353,7 +353,7 @@
 
   "item.tconstruct.repair_kit_sand_cast": "Molde de Areia para Kit de Reparos",
 
-  "_comment": "Moldes de Areia para Cabeças Pequenas",
+  "_comment": "Small Head Sand Casts",
 
   "item.tconstruct.pick_head_sand_cast": "Molde de Areia para Cabeça de Picareta",
   "item.tconstruct.small_axe_head_sand_cast": "Molde de Areia para Cabeça de Machado Pequeno",
@@ -361,25 +361,25 @@
   "item.tconstruct.sign_head_sand_cast": "Molde de Areia para Cabeça de Placa",
   "item.tconstruct.bow_limb_sand_cast": "Molde de Areia para Membro de Arco",
 
-  "_comment": "Moldes de Areia para Cabeças Grandes",
+  "_comment": "Large Head Sand Casts",
 
   "item.tconstruct.hammer_head_sand_cast": "Molde de Areia para Cabeça de Martelo",
   "item.tconstruct.broad_axe_head_sand_cast": "Molde de Areia para Cabeça de Machado Grande",
   "item.tconstruct.broad_blade_sand_cast": "Molde de Areia para Lâmina Grande",
 
-  "_comment": "Moldes de Areia para Ligamentos",
+  "_comment": "Binding Sand Casts",
 
   "item.tconstruct.tool_binding_sand_cast": "Molde de Areia para Ligamento de Ferramenta",
   "item.tconstruct.round_plate_sand_cast": "Molde de Areia para Placa Redonda",
   "item.tconstruct.large_plate_sand_cast": "Molde de Areia para Placa Larga ",
 
-  "_comment": "Moldes de Areia para Cabos de Ferramentas",
+  "_comment": "Tool Handle Sand Casts",
 
   "item.tconstruct.tool_handle_sand_cast": "Molde de Areia para Cabo de Ferramenta",
   "item.tconstruct.tough_handle_sand_cast": "Molde de Areia para Cabo Robusto",
 
 
-  "_comment": "Moldes de Areia Vermelha",
+  "_comment": "Tinkers Red Sand Casts",
 
   "item.tconstruct.blank_red_sand_cast": "Molde de Areia Vermelha Vazio",
   "item.tconstruct.ingot_red_sand_cast": "Molde de Areia Vermelha para Lingote",
@@ -394,7 +394,7 @@
 
   "item.tconstruct.repair_kit_red_sand_cast": "Molde de Areia Vermelha para Kit de Reparos",
 
-  "_comment": "Moldes de Areia Vermelha para Cabeças Pequenas",
+  "_comment": "Small Head Red Sand Casts",
 
   "item.tconstruct.pick_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Picareta",
   "item.tconstruct.small_axe_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Machado Pequena",
@@ -402,25 +402,25 @@
   "item.tconstruct.sign_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Placa",
   "item.tconstruct.bow_limb_red_sand_cast": "Molde de Areia Vermelha para Membro de Arco",
 
-  "_comment": "Moldes de Areia Vermelha para Cabeças Grandes",
+  "_comment": "Large Head Red Sand Casts",
 
   "item.tconstruct.hammer_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Martelo",
   "item.tconstruct.broad_axe_head_red_sand_cast": "Molde de Areia Vermelha para Cabeça de Machado Grande",
   "item.tconstruct.broad_blade_red_sand_cast": "Molde de Areia Vermelha para Lâmina Grande",
 
-  "_comment": "Moldes de Areia Vermelha para Ligamentos",
+  "_comment": "Binding Red Sand Casts",
 
   "item.tconstruct.tool_binding_red_sand_cast": "Molde de Areia Vermelha para Ligamento de Ferramenta",
   "item.tconstruct.round_plate_red_sand_cast": "Molde de Areia Vermelha para Placa Redonda",
   "item.tconstruct.large_plate_red_sand_cast": "Molde de Areia Vermelha para Placa Larga",
 
-  "_comment": "Moldes de Areia Vermelha para Cabos de Ferramentas",
+  "_comment": "Tool Handle Red Sand Casts",
 
   "item.tconstruct.tool_handle_red_sand_cast": "Molde de Areia Vermelha para Cabo de Ferramenta",
   "item.tconstruct.tough_handle_red_sand_cast": "Molde de Areia Vermelha para Cabo Robusto",
 
 
-  "_comment": "Fluidos Tinkers",
+  "_comment": "Tinkers Fluids",
 
   "block.tconstruct.blazing_blood_fluid": "Sangue de Blaze",
   "fluid.tconstruct.blazing_blood": "Sangue de Blaze",
@@ -459,7 +459,7 @@
   "fluid.tconstruct.flowing_venom": "Fluido de Veneno",
   "item.tconstruct.venom_bucket": "Balde de Veneno",
 
-  "_comment": "Pedras",
+  "_comment": "Rock",
 
   "block.tconstruct.seared_stone_fluid": "Pedra Carbonizada",
   "fluid.tconstruct.seared_stone": "Pedra Carbonizada",
@@ -521,7 +521,7 @@
   "fluid.tconstruct.flowing_molten_porcelain": "Fluido de Porcelana Derretida",
   "item.tconstruct.molten_porcelain_bucket": "Balde de Porcelana Derretida",
 
-  "_comment": "Minérios",
+  "_comment": "Ores",
 
   "block.tconstruct.molten_iron_fluid": "Ferro Derretido",
   "fluid.tconstruct.molten_iron": "Ferro Derretido",
@@ -548,7 +548,7 @@
   "fluid.tconstruct.flowing_molten_debris": "Fluido de Detrito Derretido",
   "item.tconstruct.molten_debris_bucket": "Balde de Detrito Derretido",
 
-  "_comment": "Ligas Nivel 3",
+  "_comment": "Tier 3 Alloys",
 
   "block.tconstruct.molten_slimesteel_fluid": "Aço-Slime Derretido",
   "fluid.tconstruct.molten_slimesteel": "Aço-Slime Derretido",
@@ -570,7 +570,7 @@
   "fluid.tconstruct.flowing_molten_pig_iron": "Fluido de Ferro-Porco Derretido",
   "item.tconstruct.molten_pig_iron_bucket": "Balde de Ferro-Porco Derretido",
 
-  "_comment": "Ligas Nivel 4",
+  "_comment": "Tier 4 Alloys",
 
   "block.tconstruct.molten_manyullyn_fluid": "Manyullyn Derretida",
   "fluid.tconstruct.molten_manyullyn": "Manyullyn Derretida",
@@ -602,7 +602,7 @@
   "fluid.tconstruct.flowing_molten_knightslime": "Fluido de Cavaleiro-Slime Derretido",
   "item.tconstruct.molten_knightslime_bucket": "Balde de Cavaleiro-Slime Derretido",
 
-  "_comment": "Minérios Compativeis",
+  "_comment": "Compat Ores",
 
   "block.tconstruct.molten_tin_fluid": "Estanho Derretido",
   "fluid.tconstruct.molten_tin": "Estanho Derretido",
@@ -654,7 +654,7 @@
   "fluid.tconstruct.flowing_molten_uranium": "Fluido de Uranio Derretido",
   "item.tconstruct.molten_uranium_bucket": "Balde de Uranio Derretido",
 
-  "_comment": "Ligas Compativeis",
+  "_comment": "Compat Alloys",
 
   "block.tconstruct.molten_bronze_fluid": "Bronze Derretido",
   "fluid.tconstruct.molten_bronze": "Bronze Derretido",
@@ -691,7 +691,7 @@
   "fluid.tconstruct.flowing_molten_steel": "Fluido de Aço Derretido",
   "item.tconstruct.molten_steel_bucket": "Balde de Aço Derretido",
 
-  "_comment": "Ligas Thermais",
+  "_comment": "Thermal Alloys",
 
   "block.tconstruct.molten_enderium_fluid": "Enderium Derretido",
   "fluid.tconstruct.molten_enderium": "Enderium Derretido",
@@ -708,7 +708,7 @@
   "fluid.tconstruct.flowing_molten_signalum": "Fluido de Sinálio Derretido",
   "item.tconstruct.molten_signalum_bucket": "Balde de Sinálio Derretido",
 
-  "_comment": "Ligas do Mekanism",
+  "_comment": "Mekanism Alloys",
 
   "block.tconstruct.molten_refined_glowstone_fluid": "Pedra Luminosa Refinada Derretida",
   "fluid.tconstruct.molten_refined_glowstone": "Pedra Luminosa Refinada Derretida",
@@ -721,7 +721,7 @@
   "item.tconstruct.molten_refined_obsidian_bucket": "Balde de Obsidian Refinada Derretida",
 
 
-  "_comment": "Engenhocas do Tinkers",
+  "_comment": "Tinkers Gadgets",
 
   "block.tconstruct.punji": "Gravetos Punji",
   "block.tconstruct.punji.tooltip": "Pontiagudo! Também gruda nas paredes.",
@@ -775,7 +775,7 @@
   "block.tconstruct.zombified_piglin_head": "Cabeça de Piglin Zumbificado",
 
 
-  "_comment": "Mesas do Tinkers",
+  "_comment": "Tinkers Tables",
 
   "block.tconstruct.crafting_station": "Estação de Fabricação",
 
@@ -796,7 +796,7 @@
 
   "item.tconstruct.pattern": "Moldes",
 
-  "_comment": "Ferramentas Tinkers",
+  "_comment": "Tinkers Tools",
 
   "item.tconstruct.pickaxe": "Picareta",
   "item.tconstruct.sledge_hammer": "Marreta",
@@ -847,7 +847,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.pig_iron":      "Caveira-Slime de Piglin Zumbificado",
 
 
-  "_comment": "Peças de Ferramentas Tinkers",
+  "_comment": "Tinkers Tool Parts",
 
   "item.tconstruct.repair_kit": "Kit de Reparos",
 
@@ -867,7 +867,7 @@
   "item.tconstruct.large_plate": "Placa Larga",
 
 
-  "_conment": "Descrições das Ferramentas",
+  "_conment": "Tool Descriptions",
 
   "item.tconstruct.pickaxe.description": "A picareta é uma ferramenta de mineração. Ela é muito efetiva para minerar pedras e minérios.\nIsso quebra blocos, Certo?",
   "item.tconstruct.sledge_hammer.description": "A Marreta é uma ferramenta grande muito útil para a mineração. Ela coleta blocos em larga escala.\nTambém eficaz contra mortos-vivos.",
@@ -888,7 +888,7 @@
   "item.tconstruct.cleaver.description": "O Cutelo é uma arma para um mestre de fundição. Ataques de alto alcance continuam a cortar através do mais duro dos inimigos.",
 
 
-  "_comment": "Fundição Partilhada",
+  "_comment": "Smeltery shared",
 
   "block.tconstruct.tank.fluid": "Liquido %s",
   "block.tconstruct.tank.mb": "%d ml",
@@ -939,7 +939,7 @@
   "multiblock.tconstruct.tiny.no_fuel_tank": "Deve ser colocado acima de um tanque de combustível ou de um aquecedor para funcionar",
 
 
-  "_comment": "Fundição Tinkers",
+  "_comment": "Tinkers Smeltery",
 
   "block.tconstruct.grout": "Grout",
   "block.tconstruct.grout.tooltip": "Eu sou Grout!",
@@ -1026,7 +1026,7 @@
   "block.tconstruct.seared_chute.tooltip": "Serve para a entrada e saide de itens da fundição",
 
 
-  "_comment": "Fundição Tinkers",
+  "_comment": "Tinkers Foundry",
 
   "block.tconstruct.nether_grout": "Nether Grout",
   "block.tconstruct.nether_grout.tooltip": "Nós Somos Grout!",
@@ -1112,7 +1112,7 @@
   "gui.tconstruct.fluid.hold_shift": "Segure §e§oShift§r§7 com os baldes",
 
 
-  "_comment": "Mundo Tinkers",
+  "_comment": "Tinkers World",
 
   "entity.tconstruct.earth_slime": "Slime",
   "entity.tconstruct.sky_slime": "Slime-Do-Céu",
@@ -1230,7 +1230,7 @@
   "block.tconstruct.sky_slime_vine": "Vinha Escorregadia",
 
 
-  "_comment": "Madeira",
+  "_comment": "Wood",
 
   "block.tconstruct.greenheart_planks":        "Tábuas de Coração-Verde",
   "block.tconstruct.greenheart_planks_slab":   "Laje de Coração-Verde",
@@ -1286,7 +1286,7 @@
 
   "material.tconstruct.unknown": "Desconhecido",
 
-  "__comment": "Materiais Nivel 1",
+  "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Madeira",
   "material.tconstruct.wood.oak":      "Madeira de Carvalho",
   "material.tconstruct.wood.spruce":   "Madeira de Pinheiro",
@@ -1341,7 +1341,7 @@
   "material.tconstruct.vine.encyclopedia": "A ferramenta tem até 75% de chance de resistir a danos em enquanto estiver exposto a luz solar",
 
 
-  "__comment": "Materiais Nivel 2",
+  "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Ferro",
   "material.tconstruct.iron.flavor": "Irônico. Ele pode salvar outros da morte, mas não a si mesmo.",
   "material.tconstruct.iron.encyclopedia": "Proporciona uma durabilidade extra de 10% por peça",
@@ -1377,7 +1377,7 @@
 
   "material.tconstruct.rose_gold": "Rosa Dourada",
   "material.tconstruct.rose_gold.flavor": "Isenção de responsabilidade: Na verdade, não é feito com rosas.",
-  "material.tconstruct.rose_gold.encyclopedia": "Concede 1 slot de atualização extra por peça",
+  "material.tconstruct.rose_gold.encyclopedia": "Concede 1 slot de melhoria extra por peça",
   "material.tconstruct.rose_gold.skull_flavor": "Colocando esse escudo de braço em bom uso",
   "material.tconstruct.rose_gold.skull_encyclopedia": "Aumenta a saúde em 1 coração, mais um coração adicional por peça de armadura dourada.",
 
@@ -1390,7 +1390,7 @@
   "material.tconstruct.skyslime_vine.encyclopedia": "Cancela a redução da velocidade de mineração quando não está no solo",
 
 
-  "__comment": "Materiais Nivel 3",
+  "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Aço-Slime",
   "material.tconstruct.slimesteel.flavor": "Você deve roubar um Slime para conseguir um Aço-Slime",
   "material.tconstruct.slimesteel.encyclopedia": "Concede 25 de Slimebilidade, +50% do total por nível",
@@ -1414,7 +1414,7 @@
   "material.tconstruct.darkthread.encyclopedia": "Aumenta as chances de drops das criaturas, empilhadas com sorte",
 
 
-  "__comment": "Materiais Nivel Nether",
+  "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Cobalto",
   "material.tconstruct.cobalt.flavor": "Cobalto. O material do Exercito Vermelho.",
   "material.tconstruct.cobalt.encyclopedia": "Aumenta a mineração e a velocidade de ataque em 7% por nível",
@@ -1443,7 +1443,7 @@
   "material.tconstruct.ancient_hide.flavor": "Couro curtido pela pedra mais antiga",
   "material.tconstruct.ancient_hide.encyclopedia": "Aumenta as chances de drops dos blocos, empilhados com sorte",
 
-  "__comment": "Materiais Nivel End",
+  "__comment": "Tier End Materials",
   "material.tconstruct.endstone": "Fim",
   "material.tconstruct.knightslime": "Cavaleiro-Slime",
 
@@ -1451,7 +1451,7 @@
   "material.tconstruct.enderslime_vine.flavor": "O Fim?",
   "material.tconstruct.enderslime_vine.encyclopedia": "Teletransporta o portador para a localização de blocos minerados ou monstros mortos",
 
-  "__comment": "Materiais Traje-Slime",
+  "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Pólvora",
   "material.tconstruct.gunpowder.skull_flavor": "De quem são as coisas legais que estão sendo destruídas agora, creeper?",
   "material.tconstruct.gunpowder.skull_encyclopedia": "Segurar a chave de interação do capacete faz com que o usuário exploda",
@@ -1498,7 +1498,7 @@
   "material.tconstruct.uranium":  "Uranio",
 
 
-  "__comment": "Materiais de Integração Nivel 2",
+  "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "Ósmio",
   "material.tconstruct.osmium.flavor": "Seriamente denso para conseguir a maioria das piadas",
   "material.tconstruct.osmium.encyclopedia": "Previne 33% de danos ao custo extra de 25% custo de reparo no primeiro nível",
@@ -1524,7 +1524,7 @@
   "material.tconstruct.whitestone.encyclopedia": "A mineração de pedras tem 20% de por nível de concessão +3 Escudo de pedra",
 
 
-  "__comment": "Materiais de Integração Nivel 3",
+  "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "Aço",
   "material.tconstruct.steel.flavor": "Basicamente 90% da ciência dos materiais",
   "material.tconstruct.steel.encyclopedia": "Concede +4% de durabilidade, danos e velocidade por nível",
@@ -1554,7 +1554,7 @@
   "material.tconstruct.plated_slimewood.encyclopedia": "Concede +100% a todos os métodos de restauração de Slimebilidade",
 
 
-  "_comment": "Modificadores",
+  "_comment": "Modifiers",
 
   "key.categories.tconstruct": "Tinkers' Construct",
   "key.tconstruct.helmet_interact": "Interação do capacete",
@@ -1581,7 +1581,7 @@
   "recipe.tconstruct.modifier.offhanded.level_2": "Não-Portado precisa da mão secundária para aplicar",
 
 
-  "_comment": "Durabilidade",
+  "_comment": "Durability",
   "modifier.tconstruct.reinforced": "Reforçado",
   "modifier.tconstruct.reinforced.flavor": "Longa duração!",
   "modifier.tconstruct.reinforced.description": "É menos provável que a ferramenta sofra danos",
@@ -1609,7 +1609,7 @@
   "modifier.tconstruct.overslime.flavor": "Escorregadio!",
   "modifier.tconstruct.overslime.description": "Ferramenta consome Slimebilidade em vez de durabilidade, até que se esgote! Não é benéfico a ferramentas desprovidas de slime",
 
-  "_comment": "Ferramenta ou colheita",
+  "_comment": "Tool or harvest",
   "modifier.tconstruct.experienced": "Especializado",
   "modifier.tconstruct.experienced.flavor": "Aprendiz rápido!",
   "modifier.tconstruct.experienced.description": "Ganhe XP de bônus por matar criaturas e blocos de mineração",
@@ -1639,7 +1639,7 @@
   "modifier.tconstruct.lightspeed.description": "Ferramentas de mineração bem iluminadas quebram blocos mais rápidamente!",
   "modifier.tconstruct.lightspeed.mining_speed": "Mineirando na luz",
 
-  "_comment": "Armas",
+  "_comment": "Weapon",
   "modifier.tconstruct.knockback": "Repulsão",
   "modifier.tconstruct.knockback.flavor": "Weeeeee!",
   "modifier.tconstruct.knockback.description": "Bater nas coisas as faz voar bem longe!",
@@ -1656,7 +1656,7 @@
   "modifier.tconstruct.necrotic.flavor": "Vampirico!",
   "modifier.tconstruct.necrotic.description": "Atingir inimigos drena a vida deles para curar você",
 
-  "_comment": "Aumento de danos",
+  "_comment": "Damage boost",
   "modifier.tconstruct.piercing": "Perfurante",
   "modifier.tconstruct.piercing.flavor": "Torne-se um cacto!",
   "modifier.tconstruct.piercing.description": "Ferramenta oferece bônus de danos que causam maior dano em armaduras!",
@@ -1703,7 +1703,7 @@
   "modifier.tconstruct.swiftstrike.flavor": "Magico!",
   "modifier.tconstruct.swiftstrike.description": "Gemas mágicas roxas tornam a arma mais leve e fácil de balançar!",
 
-  "_comment": "Armadura",
+  "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Resistência a repulsão",
   "modifier.tconstruct.knockback_resistance.flavor": "Um sujeito de peso",
   "modifier.tconstruct.knockback_resistance.description": "Bigornas são pesadas, então isso deve evitar que você seja empurrado, certo?",
@@ -1726,7 +1726,7 @@
   "modifier.tconstruct.dyed.flavor": "Redecorar!",
   "modifier.tconstruct.dyed.description": "A aparência da armadura mudou para combinar com um material diferente",
 
-  "_comment": "Armadura - Proteção",
+  "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "Proteção",
   "modifier.tconstruct.protection.flavor": "A carta secreta de todos os combates!",
   "modifier.tconstruct.protection.description": "Aumenta a proteção para todos os tipos de danos",
@@ -1760,7 +1760,7 @@
   "modifier.tconstruct.dragonborn.description": "Aumenta a proteção e o ataque quando transmitido pelo ar ",
   "modifier.tconstruct.dragonborn.resistance": "Resistência Aérea",
 
-  "_comment": "Armadura - Contra-Ataque",
+  "_comment": "Armor - counterattack",
   "modifier.tconstruct.thorns": "Espinhos",
   "modifier.tconstruct.thorns.flavor": "Bastante metálico",
   "modifier.tconstruct.thorns.description": "Aproveitar o poder do guardião, fazendo com que às vezes os atacantes sofram danos",
@@ -1772,7 +1772,7 @@
   "modifier.tconstruct.springy.flavor": "Ka-boing!",
   "modifier.tconstruct.springy.description": "Os atacantes podem ricochetear em sua armadura",
 
-  "_comment": "Armadura - Capacete",
+  "_comment": "Armor - Helmet",
   "modifier.tconstruct.respiration": "Respiração",
   "modifier.tconstruct.respiration.flavor": "Água tem oxigênio também",
   "modifier.tconstruct.respiration.description": "Aumenta a capacidade pulmonar",
@@ -1789,7 +1789,7 @@
   "modifier.tconstruct.item_frame.flavor": "Eu vejo tudo",
   "modifier.tconstruct.item_frame.description": "Adiciona slots de inventário ao capacete para itens a serem observados. Perfeito para relógios e bússolas",
 
-  "_comment": "Armadura - Peitoral",
+  "_comment": "Armor - Chestplate",
   "modifier.tconstruct.knockback_armor": "Repulsão",
   "modifier.tconstruct.knockback_armor.flavor": "Wolololo!",
   "modifier.tconstruct.knockback_armor.description": "Atingir as coisas com qualquer arma as faz voar bem longe!",
@@ -1807,7 +1807,7 @@
   "modifier.tconstruct.wings.flavor": "O céu é seu",
   "modifier.tconstruct.wings.description": "Permite voar pelo ar através de pulos enquanto está no meio do ar",
 
-  "_comment": "Armadura - Perneiras",
+  "_comment": "Armor - leggings",
   "modifier.tconstruct.speedy": "Velocidade",
   "modifier.tconstruct.speedy.flavor": "Continue andando e andando e andando...",
   "modifier.tconstruct.speedy.description": "Alcança velocidades parecidas com as dos coelhos",
@@ -1830,7 +1830,7 @@
 
   "modifier.tconstruct.inventory_cannot_remove": "Fazer esta mudança faria com que um item armazenado nesta ferramenta fosse excluído.",
 
-  "_comment": "Armadura - Botas",
+  "_comment": "Armor - boots",
   "modifier.tconstruct.feather_falling": "Peso Pena",
   "modifier.tconstruct.feather_falling.flavor": "Floof",
   "modifier.tconstruct.feather_falling.description": "Suaviza as quedas causando danos reduzidos",
@@ -1867,7 +1867,7 @@
   "modifier.tconstruct.flamewake.description": "Deixa uma trilha de fogo por onde você andar",
 
 
-  "_comment": "Habilidades",
+  "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "Inquebravel",
   "modifier.tconstruct.unbreakable.flavor": "Estado Preservado!",
   "modifier.tconstruct.unbreakable.description": "A ferramenta não toma mais danos por usos normais",
@@ -1901,7 +1901,7 @@
   "recipe.tconstruct.modifier.looting.level_2": "Saque II requer uma receita diferente para o primeiro nivel",
   "recipe.tconstruct.modifier.looting.level_3": "Saque III requer uma receita diferente para os dois primeiros niveis",
 
-  "_comment": "Expansores",
+  "_comment": "Expanders",
   "modifier.tconstruct.expanded": "Expansor",
   "modifier.tconstruct.expanded.flavor": "Não faltou o dia das pernas!",
   "modifier.tconstruct.expanded.description": "A área de efeito da ferramenta é maior do que antes",
@@ -1909,7 +1909,7 @@
   "modifier.tconstruct.reach.flavor": "Telecinésia!",
   "modifier.tconstruct.reach.description": "Pode alcançar mais blocos e criaturas enquanto segura esta ferramenta!",
 
-  "_comment": "Transformação de blocos",
+  "_comment": "Block transform",
   "modifier.tconstruct.pathing": "Caminhando",
   "modifier.tconstruct.pathing.flavor": "Por onde nós andarmos, nós precisaremos de estradas!",
   "modifier.tconstruct.pathing.description": "Ferramentas podem fazer caminhos",
@@ -1932,7 +1932,7 @@
   "modifier.tconstruct.fireprimer.flavor": "Despejando chamas!",
   "modifier.tconstruct.fireprimer.description": "Aumenta a area de fogo da ferramenta",
 
-  "_comment": "Fluidos",
+  "_comment": "Fluids",
   "modifier.tconstruct.melting": "Fundição",
   "modifier.tconstruct.melting.flavor": "O poder de um fundidor em um graveto!",
   "modifier.tconstruct.melting.description": "Entidades atacadas e itens dropados são derretidos",
@@ -1948,7 +1948,7 @@
   "modifier.tconstruct.spilling.flavor": "Derrama, Respinga!",
   "modifier.tconstruct.spilling.description": "O fluido contido na arma derrama sobre alvos atacados, ou quando atacado pela armadura, causando efeitos com base no fluido",
 
-  "_comment": "Slots modificadores de bônus",
+  "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Slot criativo",
   "modifier.tconstruct.creative_slot.flavor": "Traidor Sujo!",
   "modifier.tconstruct.creative_slot.description": "Traiu com slots adicionais de modificadores",
@@ -1958,7 +1958,7 @@
   "modifier.tconstruct.stat_override.bonuses": "Bonús:",
   "modifier.tconstruct.stat_override.multipliers": "Multiplicadores:",
 
-  "__comment": "Modificadores livres",
+  "__comment": "Free Modifiers",
   "modifier.tconstruct.writable": "Escrevível",
   "modifier.tconstruct.writable.flavor": "Intelectual!",
   "modifier.tconstruct.writable.description": "Mais palavras. Mais melhorias. É apenas lógica!",
@@ -1978,7 +1978,7 @@
   "modifier.tconstruct.draconic.flavor": "Conquistou O FIM!",
   "modifier.tconstruct.draconic.description": "A cabeça da grande besta permite que sua ferramenta tenha um segundo slot de habilidade!",
 
-  "__comment": "Mais três +1 modificadores de atualização para modpacks",
+  "__comment": "Three more +1 upgrade modifiers for modpacks",
   "modifier.tconstruct.red_extra_upgrade": "Melhoria Extra Vermelha",
   "modifier.tconstruct.red_extra_upgrade.flavor": "Para modpacks!",
   "modifier.tconstruct.red_extra_upgrade.description": "Peça ao autor do seu modpack para fornecer um pacote de recursos que dê um melhor conhecimento sobre o assunto",
@@ -1993,7 +1993,7 @@
   "modifier.tconstruct.extra_ability.description": "Peça ao autor do seu modpack para fornecer um pacote de recursos que dê um melhor conhecimento sobre o assunto",
 
 
-  "__comment": "Atributos Nivel 1",
+  "__comment": "Tier 1 Traits",
   "modifier.tconstruct.fake_attribute.mining_speed": "Velocidade de Mineração",
 
   "modifier.tconstruct.cultivated": "Cultivador",
@@ -2015,7 +2015,7 @@
   "modifier.tconstruct.solar_powered.flavor": "Bom para o meio ambiente",
   "modifier.tconstruct.solar_powered.description": "A ferramenta resiste aos danos causados enquanto estiver sob luz solar",
 
-  "__comment": "Atributos Nivel 2",
+  "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "Robusto",
   "modifier.tconstruct.sturdy.flavor": "Bem Feito!",
   "modifier.tconstruct.sturdy.description": "Feito com o ferro mais forte",
@@ -2045,7 +2045,7 @@
   "modifier.tconstruct.airborne.flavor": "Para os céus!",
   "modifier.tconstruct.airborne.description": "A ferramenta não é mais penalizada quando há mineração no ar",
 
-  "__comment": "Atributos Nivel 3",
+  "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "Encoberto",
   "modifier.tconstruct.overcast.flavor": "Cobertura espessa!",
   "modifier.tconstruct.overcast.description": "Slimebilidade pode ser feito mais denso sobre esta ferramenta",
@@ -2066,7 +2066,7 @@
   "death.attack.tconstruct.bleed": "%1$s Sangrou até a morte",
   "death.attack.tconstruct.bleed.item": "%1$s sangrou até a morte devido a ferimentos causados por %2$s",
 
-  "__comment": "Atributos Nivel 4",
+  "__comment": "Tier 4 Traits",
   "modifier.tconstruct.overlord": "Lorde Supremo",
   "modifier.tconstruct.overlord.flavor": "Soberano!",
   "modifier.tconstruct.overlord.description": "A ferramenta recebe um pouco da durabilidade dos novos sujeitos da Slimebilidade",
@@ -2083,13 +2083,13 @@
   "modifier.tconstruct.conducting.description": "A ferramenta causa danos multiplicados quando você esta em chamas",
   "modifier.tconstruct.conducting.attack_damage": "Danos em Chamas Max",
 
-  "__comment": "Atributos Nivel 5",
+  "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporte",
   "modifier.tconstruct.enderporting.flavor": "Aproveite o poder do EnderSlime",
   "modifier.tconstruct.enderporting.description": "A ferramenta teleporta o portador para blocos minerados ou entidades mortas",
 
 
-  "__comment": "Atributos Nivel 2 De mods compativeis",
+  "__comment": "Tier 2 Mod Compat Traits",
   "modifier.tconstruct.dense": "Denso",
   "modifier.tconstruct.dense.flavor": "Quase não perde sua forma",
   "modifier.tconstruct.dense.description": "A ferramenta dura mais tempo, mas é mais difícil de reparar",
@@ -2108,7 +2108,7 @@
   "modifier.tconstruct.stoneshield.description": "A pedra minerada protege a ferramenta de danos futuros",
 
 
-  "__comment": "Atributos Nivel 3 De mods compativeis",
+  "__comment": "Tier 3 Mod Compat Traits",
   "modifier.tconstruct.ductile": "Dútil",
   "modifier.tconstruct.ductile.flavor": "Remodela bem!",
   "modifier.tconstruct.ductile.description": "A ferramenta é mais duradoura, minera mais rápido, e danifica mais",
@@ -2134,7 +2134,7 @@
   "modifier.tconstruct.overworked.flavor": "Mal pago",
   "modifier.tconstruct.overworked.description": "Aumenta a quantidade de Slimebilidade restaurada por meio todas as formas",
 
-  "_comment": "Atributos Slimeskull",
+  "_comment": "Slimeskull traits",
   "modifier.tconstruct.self_destructive": "Auto Destrutivo",
   "modifier.tconstruct.self_destructive.flavor": "Não é muito saudavel",
   "modifier.tconstruct.self_destructive.description": "Pode explodir quando interage com o capacete enquanto estiver agachado",
@@ -2222,12 +2222,12 @@
   "modifier.tconstruct.zombified_piglin_disguise.flavor": "Isso é um porco? Um homem? Um zumbi?",
   "modifier.tconstruct.zombified_piglin_disguise.description": "Faz você se parecer mais como um piglin zumbificado para outros piglins zumbificados",
 
-  "_comment": "Modificadores Compativeis",
+  "_comment": "Compat Modifiers",
   "modifier.tconstruct.the_one_probe": "The One Probe",
   "modifier.tconstruct.the_one_probe.flavor": "Ciência!",
   "modifier.tconstruct.the_one_probe.description": "Mostra informações sobre o bloco alvo quando segurado ou sobre um capacete.",
 
-  "_comment": "Efeitos Internos",
+  "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Sangramento",
   "effect.tconstruct.magnetic": "Magnético",
   "effect.tconstruct.momentum": "Momentum",
@@ -2236,7 +2236,7 @@
   "effect.tconstruct.fireball_cooldown": "Tempo de recarga para cargas de fogo",
   "effect.tconstruct.calcified": "Calcificado",
 
-  "_comment": "Numerais Romanos",
+  "_comment": "Roman Numerals",
   "roman_numeral.value.1": "I",
   "roman_numeral.value.2": "II",
   "roman_numeral.value.3": "III",
@@ -2258,7 +2258,7 @@
   "roman_numeral.value.19": "XIX",
   "roman_numeral.value.20": "XX",
 
-  "_comment": "Estatisticas",
+  "_comment": "Stats",
 
   "tool_stat.tconstruct.attack_speed": "Velocidade de ataque: ",
   "tool_stat.tconstruct.attack_speed.description": "Valor base para cálculos de velocidade de ataque.\nAtaques de força por segundo.",
@@ -2310,7 +2310,7 @@
   "stat.tconstruct.slot.display.defense": "Defesa",
 
 
-  "_comment": "Dicas Úteis",
+  "_comment": "Tooltips",
 
   "key.tconstruct.shift": "Shift",
   "key.tconstruct.ctrl": "Ctrl",
@@ -2380,7 +2380,7 @@
   "recipe.tconstruct.modifier.requirements_error": "Estado da ferramenta inválida para um dos modificadores. Entre em contato com o autor modpack e solicite um erro mais descritivo.",
 
 
-  "_comment": "Mensagens GUIs",
+  "_comment": "GUIs Messages",
 
   "gui.tconstruct.caption": "Legenda",
   "gui.tconstruct.error": "ERRO",
@@ -2393,7 +2393,7 @@
   "gui.tconstruct.error.not_enough_durability": "Não há durabilidade suficiente para substituir peças!\n%d",
 
 
-  "_comment": "Legendas para sons",
+  "_comment": "Subtitles for sounds",
 
   "subtitles.tconstruct.little_saw": "Serra utilizada",
   "subtitles.tconstruct.item_frame_click": "Moldura de item cliques de relógio",
@@ -2421,7 +2421,7 @@
   "subtitles.tconstruct.block.ender_crystal.chime": "Sinos de Crystal de ender",
 
 
-  "_comment": "Cordas de livros",
+  "_comment": "Book Strings",
 
   "book.tconstruct.material.part_builder": "Pode ser feito no montador de peças",
   "book.tconstruct.material.cast_from": "Pode ser fundido a partir de %s em fundições",
@@ -2431,7 +2431,7 @@
   "book.tconstruct.tool.properties": "Propiedades:",
 
 
-  "_comment": "Comandos",
+  "_comment": "Commands",
 
   "command.tconstruct.slot_type.not_found": "Tipo de slot desconhecido %s",
   "command.tconstruct.fluid.not_found": "Fluido desconhecido %s",
@@ -2522,7 +2522,7 @@
   "jei.tconstruct.part_builder.cost": "Custo: %s",
 
 
-  "_comment": "Conquistas das Ferramentas",
+  "_comment": "Tool Advancements",
   "advancements.tconstruct.tools.materials_and_you.title": "Tinker em Treinamento",
   "advancements.tconstruct.tools.materials_and_you.description": "Fabrique o Materials and You, o livro de introdução ao Tinkers' Construct",
   "advancements.tconstruct.tools.part_builder.title": "Montador de Peças",
@@ -2546,7 +2546,7 @@
   "advancements.tconstruct.tools.material_master.title": "Mestre de Materiais",
   "advancements.tconstruct.tools.material_master.description": "Use cada material padrão pelo menos uma vez",
 
-  "_comment": "Conquistas da Fundição",
+  "_comment": "Smeltery Advancements",
   "advancements.tconstruct.smeltery.puny_smelting.title": "Aprendiz em Fundição",
   "advancements.tconstruct.smeltery.puny_smelting.description": "Fabrique o guia de fundição",
   "advancements.tconstruct.smeltery.melter.title": "Fundição Básica",
@@ -2568,7 +2568,7 @@
   "advancements.tconstruct.smeltery.abilities.title": "Mestre de Habilidades",
   "advancements.tconstruct.smeltery.abilities.description": "Aplicar todos os modificadores de habilidade padrão a uma ferramenta pelo menos uma vez",
 
-  "_comment": "Conquistas da Fusão",
+  "_comment": "Foundry Advancements",
   "advancements.tconstruct.foundry.fantastic_foundry.title": "Fusão Nether",
   "advancements.tconstruct.foundry.fantastic_foundry.description": "Crie uma fundição fantástica, o guia de fundição do nether",
   "advancements.tconstruct.foundry.alloyer.title": "Base da Fundição de Ligas",
@@ -2584,7 +2584,7 @@
   "advancements.tconstruct.foundry.encyclopedia.title": "Enciclopedia",
   "advancements.tconstruct.foundry.encyclopedia.description": "Crie a enciclopédia de materiais com seu conhecimento de todos os livros",
 
-  "_comment": "Conquistas das Engenhocas",
+  "_comment": "Gadget Advancements",
   "advancements.tconstruct.world.tinkers_gadgetry.title": "Engenhocas Tinkers",
   "advancements.tconstruct.world.tinkers_gadgetry.description": "Construa um aparelhos tinkers para começar a explorar o mundo",
   "advancements.tconstruct.world.earth_island.title": "Ilha de Slime-Terra",
