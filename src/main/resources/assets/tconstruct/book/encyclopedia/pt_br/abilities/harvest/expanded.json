@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "Aumenta a área de efeito da ferramenta. Os efeitos específicos são descritos nas páginas da ferramenta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Não possui nivel máximo",
+    "Requer 1 slot de habilidade por nivel"
+  ]
+}
