@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Concede 5% de chance por nivel (mais um extra 5% por nivel de sorte) para que uma criatura deixe cair sua cabeça ou outras partes do corpo. Contra criaturas raras, como chefes por exemplo, a chance é duplicada."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}
