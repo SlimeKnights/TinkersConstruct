@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "Slimebilidade concede a ferramenta uma segunda barra de durabilidade, que é consumido antes da barra principal de durabilidade. Por padrão, as ferramentas começam com um máximo de 50 de slimebilidade, multiplicado pelo seu modificador de durabilidade."
+    },
+    {
+      "text": "As ferramentas que não são baseada em peças de slime tem seu dano e velocidade de mineração reduzidos em 10%.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-usos",
+    "Sem Slots"
+  ]
+}
