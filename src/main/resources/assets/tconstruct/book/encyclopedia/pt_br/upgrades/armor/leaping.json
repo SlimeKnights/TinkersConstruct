@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "Concede +0.5 blocos de altura para salto por nível, e aumenta a distância de queda segura em 1 bloco por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}
