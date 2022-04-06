@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Reduz a quantidade de repulsão recebida em 10%."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel por peça",
+    "Requer 1 slot de defesa"
+  ]
+}

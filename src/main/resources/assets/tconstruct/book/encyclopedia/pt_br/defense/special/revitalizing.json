@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "Aumenta a vida máxima em 1 coração por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 2 niveis em capacetes ou botas",
+    "Máximo de 3 niveis em peitorais ou perneiras",
+    "Requer 1 slot de defesa"
+  ]
+}
