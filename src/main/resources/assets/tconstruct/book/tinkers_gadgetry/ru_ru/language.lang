@@ -1,0 +1,32 @@
+// Sections
+intro=Вступление
+
+gadgets=Гаджеты
+gadgets.slimesling=Слизневые рогатки
+gadgets.cake=Слизневые торты
+gadgets.piggybackpack=Свино-рюкзак
+gadgets.flint_shuriken=Кремневый сюрикен
+gadgets.quartz_shuriken=Кварцевый сюрикен
+gadgets.efln=EFLN
+gadgets.glowball=Светошарик
+gadgets.fancy_frames=Причудливые рамки
+
+modifiers=Странные модификаторы
+modifiers.remove_modifiers=Удаление модификаторов
+modifiers.damage_tools=Поломка инструментов
+
+exploration=Исследование
+exploration.skyslime=Небесный остров
+exploration.earthslime=Эндер остров
+exploration.clay=Глиняный остров
+exploration.grass_seeds=Слизневые семена
+exploration.blood=Кровавый остров
+exploration.necrotic_bones=Некротические кости
+exploration.enderslime=Эндер остров
+exploration.dragon_scales=Чешуя Дракона
+
+armor=Броня
+armor.subtext=Объединяя слизь с различными частями мобов, можно получить интересный набор брони. Она не самая защищённая, но может значительно усилить ваши способности.
+
+skull_materials=Слизечерепа
+skull_materials.subtext=Поместив один из ваших черепов в литейный резервуар и добавив эндер-слизь, можно усилить его способности в качестве шлема.

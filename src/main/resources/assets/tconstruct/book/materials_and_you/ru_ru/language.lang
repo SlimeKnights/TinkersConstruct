@@ -1,11 +1,21 @@
 // Sections - Materials And you
 
+intro=Вступление
+
 tier_one_materials=Материалы 1-го уровня
 tier_one_materials.subtext=Из данных материалов изготавливаются начальные части ваших первых инструментов в формирователе частей.
 
-intro=Вступление
 tools=Инструменты
 tools.part_swapping=Замена частей
 tools.repairing=Починка
+
+armor=Снаряжение путешественника
+armor.subtext=Снаряжение путешественника создаётся с помощью станции создания! Этот костюм обеспечивает не самую лучшую защиту, но есть ещё много возможностей улучшить свой доспех! А какие забавные вещи вы создадите?
+
+modifiers=Модификаторы
+modifiers.traits=Особенности
+modifiers.upgrades=Улучшения
+modifiers.slotless=Бесслотовые
+modifiers.abilities=Умения
+modifiers.defense=Защита
 further_reading=Дополнительно
-terminology=Терминология
