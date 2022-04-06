@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "Concede mais velocidade de mineração em blocos com menor resistência a explosão, até +10 por nível em blocos com menor resistência a explosão. Por exemplo, concede +1 velocidade de mineração por nível em blocos como pedra, +3 por nível em blocos como terracota, e +9 por nível em blocos macios, como minérios."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}
