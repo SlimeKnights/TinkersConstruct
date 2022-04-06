@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Adiciona +1 slot para a mão secundária por nível, permitindo a troca do item da mão secundária, através da interação com as perneiras."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de habilidade"
+  ]
+}
