@@ -1,0 +1,10 @@
+{
+  "title": "Habilidades de Armadura",
+  "text": [
+    { "text": "As habilidades de armadura são tipicamente eficazes em um único tipo de armadura. Cada tipo de armadura tem um atributo especial diferente:" },
+    { "text": "\n- Os Capacetes podem ser controlados usando uma tecla de atalho para ativar efeitos especiais." },
+    { "text": "\n- Os Peitorais podem receber habilidades de interação que são usadas quando as mãos estão vazias. A maioria é abordada na seção de interação." },
+    { "text": "\n- As Perneiras têm habilidades baseadas no inventário e melhorias passivas para o jogador." },
+    { "text": "\n- As Botas proporcionam habilidades baseadas em movimentação e saltos." }
+  ]
+}
