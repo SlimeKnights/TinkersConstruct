@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_leggings",
+  "text": [
+    { "text": "A Calça de Slime aproveita o poder do shulker, aumentando o inventário e a defesa." },
+    { "text": "Eles são criados despejando calda de enderslime sobre uma casca de shulker, é reparado com fruta do coro.", "paragraph": true }
+  ],
+  "properties": [
+    "630 Durabilidade",
+    "5 Slots de Melhoria",
+    "0 Slots de Defesa",
+    "1 Slot de Habilidade",
+    "Proteção I"
+  ]
+}

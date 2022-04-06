@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    { "text": "O Peitoral de Slime é o que há de mais moderno na tecnologia de vôo." },
+    { "text": "É criado despejando calda de enderslime em uma elytra, essas asas podem ser reparadas com membranas de phantom.", "paragraph": true }
+  ],
+  "properties": [
+    "672 Durabilidade",
+    "5 Slots de Melhoria",
+    "0 Slots de Defesa",
+    "1 Slot de Habilidade",
+    "Asas"
+  ]
+}
