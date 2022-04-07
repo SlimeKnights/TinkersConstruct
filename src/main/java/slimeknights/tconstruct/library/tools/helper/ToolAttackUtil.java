@@ -386,7 +386,7 @@ public class ToolAttackUtil {
     }
 
     // damage the tool
-    if (!TinkerTags.Items.MELEE_PRIMARY.contains(tool.getItem())) {
+    if (!tool.hasTag(TinkerTags.Items.MELEE_PRIMARY)) {
       durabilityLost *= 2;
     }
     ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);

@@ -51,7 +51,7 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
         continue;
       }
       // repair kit - update material
-      if (TinkerTags.Items.DURABILITY.contains(stack.getItem())) {
+      if (stack.is(TinkerTags.Items.DURABILITY)) {
         // cannot repair multiple tools
         if (tool != null) {
           return null;

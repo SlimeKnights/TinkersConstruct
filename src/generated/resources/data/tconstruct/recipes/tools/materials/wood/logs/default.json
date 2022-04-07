@@ -2,6 +2,7 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "registry": "minecraft:item",
       "base": "minecraft:logs",
       "subtracted": [
         "tconstruct:wood_variants/logs"
@@ -10,7 +11,7 @@
     }
   ],
   "ingredient": {
-    "type": "mantle:difference",
+    "type": "forge:difference",
     "base": {
       "tag": "minecraft:logs"
     },

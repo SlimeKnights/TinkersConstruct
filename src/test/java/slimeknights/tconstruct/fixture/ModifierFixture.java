@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.fixture;
 
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
@@ -12,8 +10,8 @@ public class ModifierFixture {
   public static final ModifierId TEST_2 = new ModifierId("test", "modifier_2");
 
 
-  protected static final IForgeRegistry<Modifier> MODIFIER_REGISTRY = new RegistryBuilder<Modifier>()
-			.setType(Modifier.class).setName(TConstruct.getResource("modifiers")).setDefaultKey(EMPTY_ID).create();
+  protected static final IForgeRegistry<Modifier> MODIFIER_REGISTRY = null; // TODO new RegistryBuilder<Modifier>().setType(Modifier.class).setName(TConstruct.getResource("modifiers")).setDefaultKey(EMPTY_ID);
+
 
   public static final Modifier EMPTY = new Modifier().setRegistryName(EMPTY_ID);
   public static final Modifier TEST_MODIFIER_1 = new Modifier().setRegistryName(TEST_1);

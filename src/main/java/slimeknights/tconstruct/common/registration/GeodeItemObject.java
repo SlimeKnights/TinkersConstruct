@@ -2,28 +2,13 @@ package slimeknights.tconstruct.common.registration;
 
 import lombok.Getter;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.GeodeBlockSettings;
-import net.minecraft.world.level.levelgen.GeodeCrackSettings;
-import net.minecraft.world.level.levelgen.GeodeLayerSettings;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.RegistryObject;
@@ -32,12 +17,9 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.world.block.BuddingCrystalBlock;
 import slimeknights.tconstruct.world.block.CrystalBlock;
 import slimeknights.tconstruct.world.block.CrystalClusterBlock;
-import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
@@ -51,8 +33,6 @@ public class GeodeItemObject extends ItemObject<Item> {
   private final Supplier<? extends Block> smallBud;
   private final Supplier<? extends Block> mediumBud;
   private final Supplier<? extends Block> largeBud;
-  private ConfiguredFeature<GeodeConfiguration,?> configuredGeode;
-  private PlacedFeature placedGeode;
   public GeodeItemObject(RegistryObject<? extends Item> shard, BlockDeferredRegister register, MaterialColor color, SoundType blockSound, SoundEvent chimeSound, Map<BudSize,SoundType> clusterSounds, int baseLight, Properties props) {
     super(shard);
     // allow the crystals to glow optionally
@@ -91,43 +71,6 @@ public class GeodeItemObject extends ItemObject<Item> {
       case LARGE -> largeBud.get();
       case CLUSTER -> cluster.get();
     };
-  }
-
-  /** Creates the configured geode feature */
-  public ConfiguredFeature<GeodeConfiguration, ?> configureGeode(BlockStateProvider middleLayer, BlockStateProvider outerLayer, GeodeLayerSettings layerSettings, GeodeCrackSettings crackSettings,
-                                                                 IntProvider outerWall, IntProvider distributionPoints, IntProvider pointOffset, int genOffset, int invalidBlocks) {
-    if (configuredGeode != null) {
-      throw new IllegalStateException("Geode is already configured");
-    }
-    configuredGeode = Feature.GEODE.configured(
-      new GeodeConfiguration(
-        new GeodeBlockSettings(BlockStateProvider.simple(Blocks.AIR),
-                               SupplierBlockStateProvider.ofBlock(block),
-                               SupplierBlockStateProvider.ofBlock(budding),
-                               middleLayer, outerLayer,
-                               List.of(smallBud.get().defaultBlockState(), mediumBud.get().defaultBlockState(), largeBud.get().defaultBlockState(), cluster.get().defaultBlockState()),
-                               BlockTags.FEATURES_CANNOT_REPLACE.getName(), BlockTags.GEODE_INVALID_BLOCKS.getName()),
-        layerSettings, crackSettings, 0.335, 0.083, true, outerWall, distributionPoints, pointOffset, -genOffset, genOffset, 0.05D, invalidBlocks));
-    return configuredGeode;
-  }
-
-  /** Gets the configured geode, must already be configured */
-  public ConfiguredFeature<GeodeConfiguration, ?> getConfiguredGeode() {
-    return Objects.requireNonNull(configuredGeode);
-  }
-
-  /** Creates the placed geode feature */
-  public PlacedFeature placeGeode(RarityFilter rarity, HeightRangePlacement height) {
-    if (placedGeode != null) {
-      throw new IllegalStateException("Geode is already placed");
-    }
-    placedGeode = getConfiguredGeode().placed(rarity, InSquarePlacement.spread(), height, BiomeFilter.biome());
-    return placedGeode;
-  }
-
-  /** Gets the configured geode, must already be placed and configured */
-  public PlacedFeature getPlacedGeode() {
-    return Objects.requireNonNull(placedGeode);
   }
 
   /** Variants for the bud */

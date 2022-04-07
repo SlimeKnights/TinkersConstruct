@@ -124,7 +124,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
     protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolIngredient = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
-      Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS);
+      Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get());
       int minLevel = buffer.readVarInt();
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
@@ -135,7 +135,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
     protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       recipe.toolIngredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.getMaxToolSize());
-      buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, recipe.modifier);
+      buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get(), recipe.modifier);
       buffer.writeVarInt(recipe.minLevel);
       buffer.writeVarInt(recipe.maxLevel);
       SlotCount.write(recipe.slots, buffer);

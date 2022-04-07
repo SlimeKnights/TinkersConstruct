@@ -269,7 +269,7 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
   }
 
   private static boolean isSlimySoilAt(LevelSimulatedReader reader, BlockPos blockPos) {
-    return reader.isStateAtPosition(blockPos, state -> TinkerTags.Blocks.SLIMY_SOIL.contains(state.getBlock()));
+    return reader.isStateAtPosition(blockPos, state -> state.is(TinkerTags.Blocks.SLIMY_SOIL));
   }
 
   private static boolean isTallPlantAt(LevelSimulatedReader reader, BlockPos blockPos) {

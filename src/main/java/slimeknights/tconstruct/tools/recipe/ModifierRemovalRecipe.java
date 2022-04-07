@@ -45,7 +45,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
-    if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
+    if (!inv.getTinkerableStack().is(TinkerTags.Items.MODIFIABLE)) {
       return false;
     }
     return IncrementalModifierRecipe.containsOnlyIngredient(inv, ingredient);

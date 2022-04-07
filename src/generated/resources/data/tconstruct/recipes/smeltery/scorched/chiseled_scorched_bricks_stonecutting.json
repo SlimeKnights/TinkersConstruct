@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "type": "mantle:difference",
+    "type": "forge:difference",
     "base": {
       "tag": "tconstruct:scorched_blocks"
     },

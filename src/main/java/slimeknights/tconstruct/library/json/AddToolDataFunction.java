@@ -57,7 +57,7 @@ public class AddToolDataFunction extends LootItemConditionalFunction {
 
   @Override
   protected ItemStack run(ItemStack stack, LootContext context) {
-    if (TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
+    if (stack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(stack);
       ToolDefinition definition = tool.getDefinition();
       if (definition.isMultipart() && !materials.isEmpty()) {

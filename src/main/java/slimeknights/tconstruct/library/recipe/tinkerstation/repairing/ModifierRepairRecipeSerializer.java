@@ -34,7 +34,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   @Nullable
   @Override
   protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-    Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS);
+    Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get());
     Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int repairAmount = buffer.readVarInt();
     return factory.create(id, modifier, ingredient, repairAmount);
@@ -42,7 +42,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Override
   protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
-    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, recipe.getModifier());
+    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get(), recipe.getModifier());
     recipe.getIngredient().toNetwork(buffer);
     buffer.writeVarInt(recipe.getRepairAmount());
   }

@@ -38,7 +38,7 @@ public class SoulboundModifier extends SingleUseModifier {
         ItemEntity itemEntity = iter.next();
         ItemStack stack = itemEntity.getItem();
         // find tools with soulbound
-        if (TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
+        if (stack.is(TinkerTags.Items.MODIFIABLE)) {
           ToolStack tool = ToolStack.from(stack);
           if (tool.getModifierLevel(this) > 0) {
             inventory.add(stack);
@@ -66,7 +66,7 @@ public class SoulboundModifier extends SingleUseModifier {
     for(int i = 0; i < originalInv.getContainerSize(); i++) {
       // find tools with soulbound
       ItemStack stack = originalInv.getItem(i);
-      if (!stack.isEmpty() && TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
+      if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE)) {
         ToolStack tool = ToolStack.from(stack);
         if (tool.getModifierLevel(this) > 0) {
           cloneInv.add(stack);

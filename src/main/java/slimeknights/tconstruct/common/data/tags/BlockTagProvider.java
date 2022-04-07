@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.common.data.tags;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -347,7 +348,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     // slime
     tagBlocks(MINEABLE_WITH_SHOVEL, TinkerWorld.congealedSlime, TinkerWorld.slimeDirt, TinkerWorld.vanillaSlimeGrass, TinkerWorld.earthSlimeGrass, TinkerWorld.skySlimeGrass, TinkerWorld.enderSlimeGrass, TinkerWorld.ichorSlimeGrass);
     // harvest tiers on shovel blocks
-    TinkerWorld.slimeDirt.forEach((type, block) -> this.tag((Tag.Named<Block>)Objects.requireNonNull(type.getHarvestTier().getTag())).add(block));
+    TinkerWorld.slimeDirt.forEach((type, block) -> this.tag(Objects.requireNonNull(type.getHarvestTier().getTag())).add(block));
     for (SlimeType dirt : SlimeType.values()) {
       for (SlimeType grass : SlimeType.values()) {
         Tiers dirtTier = dirt.getHarvestTier();
@@ -359,7 +360,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         } else {
           tier = dirtTier.getLevel() > grassTier.getLevel() ? dirtTier : grassTier;
         }
-        this.tag((Tag.Named<Block>)Objects.requireNonNull(tier.getTag())).add(TinkerWorld.slimeGrass.get(dirt).get(grass));
+        this.tag(Objects.requireNonNull(tier.getTag())).add(TinkerWorld.slimeGrass.get(dirt).get(grass));
       }
     }
 
@@ -426,7 +427,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Applies a tag to a set of suppliers */
   @SafeVarargs
-  private void tagBlocks(Tag.Named<Block> tag, Supplier<? extends Block>... blocks) {
+  private void tagBlocks(TagKey<Block> tag, Supplier<? extends Block>... blocks) {
     TagAppender<Block> appender = this.tag(tag);
     for (Supplier<? extends Block> block : blocks) {
       appender.add(block.get());
@@ -434,7 +435,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   /** Applies a tag to a set of suppliers */
-  private void tagBlocks(Tag.Named<Block> tag, GeodeItemObject... blocks) {
+  private void tagBlocks(TagKey<Block> tag, GeodeItemObject... blocks) {
     TagAppender<Block> appender = this.tag(tag);
     for (GeodeItemObject geode : blocks) {
       appender.add(geode.getBlock());
@@ -447,14 +448,14 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Applies a set of tags to a block */
   @SuppressWarnings("SameParameterValue")
-  private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, Supplier<? extends Block>... blocks) {
+  private void tagBlocks(TagKey<Block> tag1, TagKey<Block> tag2, Supplier<? extends Block>... blocks) {
     tagBlocks(tag1, blocks);
     tagBlocks(tag2, blocks);
   }
 
   /** Applies a tag to a set of blocks */
   @SafeVarargs
-  private void tagBlocks(Tag.Named<Block> tag, EnumObject<?,? extends Block>... blocks) {
+  private void tagBlocks(TagKey<Block> tag, EnumObject<?,? extends Block>... blocks) {
     TagAppender<Block> appender = this.tag(tag);
     for (EnumObject<?,? extends Block> block : blocks) {
       block.forEach(b -> appender.add(b));
@@ -463,13 +464,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Applies a tag to a set of blocks */
   @SafeVarargs
-  private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, EnumObject<?,? extends Block>... blocks) {
+  private void tagBlocks(TagKey<Block> tag1, TagKey<Block> tag2, EnumObject<?,? extends Block>... blocks) {
     tagBlocks(tag1, blocks);
     tagBlocks(tag2, blocks);
   }
 
   /** Applies a set of tags to a block */
-  private void tagBlocks(Tag.Named<Block> tag, BuildingBlockObject... blocks) {
+  private void tagBlocks(TagKey<Block> tag, BuildingBlockObject... blocks) {
     TagAppender<Block> appender = this.tag(tag);
     for (BuildingBlockObject block : blocks) {
       block.values().forEach(appender::add);
@@ -478,14 +479,14 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Applies a set of tags to a block */
   @SuppressWarnings("SameParameterValue")
-  private void tagBlocks(Tag.Named<Block> tag1, Tag.Named<Block> tag2, BuildingBlockObject... blocks) {
+  private void tagBlocks(TagKey<Block> tag1, TagKey<Block> tag2, BuildingBlockObject... blocks) {
     tagBlocks(tag1, blocks);
     tagBlocks(tag2, blocks);
   }
 
   /** Applies a set of tags to either wood or logs from a block */
   @SuppressWarnings("SameParameterValue")
-  private void tagLogs(Tag.Named<Block> tag1, Tag.Named<Block> tag2, WoodBlockObject... blocks) {
+  private void tagLogs(TagKey<Block> tag1, TagKey<Block> tag2, WoodBlockObject... blocks) {
     for (WoodBlockObject block : blocks) {
       tag(tag1).add(block.getLog(), block.getWood());
       tag(tag2).add(block.getLog(), block.getWood());
@@ -494,7 +495,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Applies a set of tags to either wood or logs from a block */
   @SuppressWarnings("SameParameterValue")
-  private void tagPlanks(Tag.Named<Block> tag, WoodBlockObject... blocks) {
+  private void tagPlanks(TagKey<Block> tag, WoodBlockObject... blocks) {
     for (WoodBlockObject block : blocks) {
       tag(tag).add(block.get(), block.getSlab(), block.getStairs(), block.getFence(),
                    block.getStrippedLog(), block.getStrippedWood(), block.getFenceGate(), block.getDoor(), block.getTrapdoor(),
@@ -518,7 +519,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void addGlass(EnumObject<GlassColor,? extends Block> blockObj, String tagPrefix, TagAppender<Block> blockTag) {
     blockObj.forEach((color, block) -> {
       blockTag.add(block);
-      this.tag(BlockTags.createOptional(new ResourceLocation("forge", tagPrefix + color.getSerializedName()))).add(block);
+      this.tag(TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", tagPrefix + color.getSerializedName()))).add(block);
     });
   }
 

@@ -139,7 +139,7 @@ public class ModifierNBT {
         ModifierId id = ModifierId.tryCreate(tag.getString(TAG_MODIFIER));
         int level = tag.getInt(TAG_LEVEL);
         if (id != null && level > 0) {
-          Modifier modifier = TinkerRegistries.MODIFIERS.getValue(id);
+          Modifier modifier = TinkerRegistries.MODIFIERS.get().getValue(id);
           if (modifier != null && !TinkerRegistries.EMPTY.equals(modifier.getRegistryName())) {
             builder.add(new ModifierEntry(modifier, level));
           }

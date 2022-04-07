@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -38,7 +38,7 @@ public class ClientInteractionHandler {
     // figure out if we have a chestplate making us care
     Player player = event.getPlayer();
     ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-    if (!player.isSpectator() && TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
+    if (!player.isSpectator() && chestplate.is(TinkerTags.Items.CHESTPLATES)) {
       // found an interaction, time to notify the server and run logic for the client
       InteractionHand hand = event.getHand();
       TinkerNetwork.getInstance().sendToServer(OnChestplateUsePacket.from(hand));

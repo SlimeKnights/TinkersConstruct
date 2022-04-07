@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.common.registration;
 
 import lombok.Getter;
-import net.minecraft.world.item.Item;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.Tags.IOptionalNamedTag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import slimeknights.mantle.registration.object.ItemObject;
 
 import java.util.Arrays;
@@ -21,9 +21,9 @@ public class CastItemObject extends ItemObject<Item> {
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
   @Getter
-  private final IOptionalNamedTag<Item> singleUseTag;
+  private final TagKey<Item> singleUseTag;
   @Getter
-  private final IOptionalNamedTag<Item> multiUseTag;
+  private final TagKey<Item> multiUseTag;
 
   public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
     super(gold);
@@ -47,8 +47,8 @@ public class CastItemObject extends ItemObject<Item> {
    * Gets the single use tag for this object
    * @return  Single use tag
    */
-  protected IOptionalNamedTag<Item> makeTag(String type) {
-    return ItemTags.createOptional(new ResourceLocation(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
+  protected TagKey<Item> makeTag(String type) {
+    return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
   }
 
   /**

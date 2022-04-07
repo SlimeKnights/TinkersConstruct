@@ -329,10 +329,10 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Inventory
    */
-  public static final RegistryObject<MenuType<MelterContainerMenu>> melterContainer = CONTAINERS.register("melter", MelterContainerMenu::new);
-  public static final RegistryObject<MenuType<HeatingStructureContainerMenu>> smelteryContainer = CONTAINERS.register("smeltery", HeatingStructureContainerMenu::new);
-  public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainerMenu::new);
-  public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = CONTAINERS.register("alloyer", AlloyerContainerMenu::new);
+  public static final RegistryObject<MenuType<MelterContainerMenu>> melterContainer = MENUS.register("melter", MelterContainerMenu::new);
+  public static final RegistryObject<MenuType<HeatingStructureContainerMenu>> smelteryContainer = MENUS.register("smeltery", HeatingStructureContainerMenu::new);
+  public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = MENUS.register("single_item", SingleItemContainerMenu::new);
+  public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = MENUS.register("alloyer", AlloyerContainerMenu::new);
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

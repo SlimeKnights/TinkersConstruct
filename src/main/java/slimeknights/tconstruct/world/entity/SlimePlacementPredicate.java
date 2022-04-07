@@ -2,7 +2,7 @@ package slimeknights.tconstruct.world.entity;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -16,7 +16,7 @@ import java.util.Random;
 /** Placement predicate using a slime type */
 @RequiredArgsConstructor
 public class SlimePlacementPredicate<T extends Slime> implements SpawnPredicate<T> {
-  private final Tag<Block> tag;
+  private final TagKey<Block> tag;
 
   @Override
   public boolean test(EntityType<T> type, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {

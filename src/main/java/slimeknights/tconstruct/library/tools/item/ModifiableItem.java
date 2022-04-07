@@ -356,7 +356,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
     // two handed tools cannot be used in the offhand without offhanded
     if (hand == InteractionHand.OFF_HAND) {
-      return deferOffhand || !toolStack.is(TinkerTags.Items.TWO_HANDED);
+      return deferOffhand || !toolStack.hasTag(TinkerTags.Items.TWO_HANDED);
     }
 
     // if mainhand is told to defer, offhand must be empty to run

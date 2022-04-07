@@ -139,7 +139,7 @@ public final class TinkerTools extends TinkerModule {
                       .fireImmune());
 
   /* Containers */
-  public static final RegistryObject<MenuType<ToolContainerMenu>> toolContainer = CONTAINERS.register("tool_container", ToolContainerMenu::forClient);
+  public static final RegistryObject<MenuType<ToolContainerMenu>> toolContainer = MENUS.register("tool_container", ToolContainerMenu::forClient);
 
 
   /*

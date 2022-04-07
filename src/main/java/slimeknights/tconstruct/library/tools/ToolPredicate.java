@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,8 +11,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.SerializationTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +41,7 @@ public class ToolPredicate extends ItemPredicate {
   @Nullable
   protected final Item item;
   @Nullable
-  protected final Tag<Item> tag;
+  protected final TagKey<Item> tag;
   protected final List<MaterialId> materials;
   protected final boolean hasUpgrades;
   protected final ModifierMatch upgrades;
@@ -53,7 +51,7 @@ public class ToolPredicate extends ItemPredicate {
   @Override
   public boolean matches(ItemStack stack) {
     // first validate item and tag
-    if (this.tag != null && !this.tag.contains(stack.getItem())) {
+    if (this.tag != null && !stack.is(tag)) {
       return false;
     }
     if (this.item != null && stack.getItem() != this.item) {
@@ -116,7 +114,7 @@ public class ToolPredicate extends ItemPredicate {
       json.addProperty("item", Objects.requireNonNull(item.getRegistryName()).toString());
     }
     if (this.tag != null) {
-      json.addProperty("tag", SerializationTags.getInstance().getIdOrThrow(Registry.ITEM_REGISTRY, this.tag, () -> new IllegalStateException("Unknown item tag")).toString());
+      json.addProperty("tag", this.tag.location().toString());
     }
     if (!materials.isEmpty()) {
       json.add("materials", toArray(materials, mat -> new JsonPrimitive(mat.toString())));
@@ -144,10 +142,9 @@ public class ToolPredicate extends ItemPredicate {
       item = RecipeHelper.deserializeItem(GsonHelper.getAsString(json, "item"), "item", Item.class);
     }
     // tag
-    Tag<Item> tag = null;
+    TagKey<Item> tag = null;
     if (json.has("tag")) {
-      ResourceLocation tagName = new ResourceLocation(GsonHelper.getAsString(json, "tag"));
-      tag = SerializationTags.getInstance().getTagOrThrow(Registry.ITEM_REGISTRY, tagName, name -> new JsonSyntaxException("Unknown item tag '" + name + '\''));
+      tag = TagKey.create(Registry.ITEM_REGISTRY, JsonHelper.getResourceLocation(json, "tag"));
     }
     // materials
     List<MaterialId> materials = Collections.emptyList();
@@ -179,7 +176,7 @@ public class ToolPredicate extends ItemPredicate {
   }
 
   /** Creates a new builder instance for a tag */
-  public static Builder builder(Tag<Item> tag) {
+  public static Builder builder(TagKey<Item> tag) {
     return new Builder(null, tag);
   }
 
@@ -197,7 +194,7 @@ public class ToolPredicate extends ItemPredicate {
     protected final Item item;
     /** Tag that must match */
     @Nullable
-    protected final Tag<Item> tag;
+    protected final TagKey<Item> tag;
     /** Materials that must be contained in the tool */
     protected final List<MaterialId> materials = new ArrayList<>();
     /** If true, the tool must have at least 1 upgrade */
@@ -208,7 +205,7 @@ public class ToolPredicate extends ItemPredicate {
     protected ModifierMatch modifiers = ModifierMatch.ALWAYS;
     protected final List<StatPredicate> stats = new ArrayList<>();
 
-    protected Builder(@Nullable Item item, @Nullable Tag<Item> tag) {
+    protected Builder(@Nullable Item item, @Nullable TagKey<Item> tag) {
       this.item = item;
       this.tag = tag;
     }

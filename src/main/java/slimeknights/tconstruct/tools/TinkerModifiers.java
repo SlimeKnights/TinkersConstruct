@@ -224,7 +224,7 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class TinkerModifiers extends TinkerModule {
-  protected static final Supplier<IForgeRegistry<Modifier>> MODIFIER_REGISTRY = MODIFIERS.makeRegistry("modifiers", () -> new RegistryBuilder<Modifier>().setType(Modifier.class).setDefaultKey(TConstruct.getResource("empty")));
+  private static final Supplier<IForgeRegistry<Modifier>> MODIFIER_REGISTRY = MODIFIERS.makeRegistry(Modifier.class, () -> new RegistryBuilder<Modifier>().setDefaultKey(TConstruct.getResource("empty")));
 
   /*
    * Blocks

@@ -22,8 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.SerializationTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
@@ -36,6 +35,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITag;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -97,6 +98,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
@@ -240,7 +242,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructJEIConstants.FOUNDRY);
 
     // modifiers
-    for (Item item : TinkerTags.Items.MELEE.getValues()) {
+    for (Item item : Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(TinkerTags.Items.MELEE)) {
       registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructJEIConstants.SEVERING);
     }
   }
@@ -269,14 +271,14 @@ public class JEIPlugin implements IModPlugin {
     };
 
     // parts
-    for (Item item : TinkerTags.Items.TOOL_PARTS.getValues()) {
+    for (Item item : getTag(TinkerTags.Items.TOOL_PARTS)) {
       registry.registerSubtypeInterpreter(item, toolPartInterpreter);
     }
 
     // tools
     Item slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
     registry.registerSubtypeInterpreter(slimeskull, ToolSubtypeInterpreter.ALWAYS);
-    for (Item item : TinkerTags.Items.MULTIPART_TOOL.getValues()) {
+    for (Item item : getTag(TinkerTags.Items.MULTIPART_TOOL)) {
       if (item != slimeskull) {
         registry.registerSubtypeInterpreter(item, ToolSubtypeInterpreter.INGREDIENT);
       }
@@ -312,6 +314,16 @@ public class JEIPlugin implements IModPlugin {
     manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singleton(new ItemStack(bucket)));
   }
 
+  /** Helper to get an item tag */
+  private static ITag<Item> getTag(ResourceLocation name) {
+    return getTag(TagKey.create(Registry.ITEM_REGISTRY, name));
+  }
+
+  /** Helper to get an item tag */
+  private static ITag<Item> getTag(TagKey<Item> name) {
+    return Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(name);
+  }
+
   /**
    * Hides an item if the related tag is empty
    * @param manager  Ingredient manager
@@ -320,8 +332,8 @@ public class JEIPlugin implements IModPlugin {
    */
   @SuppressWarnings("SameParameterValue")
   private static void optionalItem(IIngredientManager manager, ItemLike item, String tagName) {
-    Tag<Item> tag = SerializationTags.getInstance().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("forge", tagName));
-    if (tag == null || tag.getValues().isEmpty()) {
+    ITag<Item> tag = getTag(new ResourceLocation("forge", tagName));
+    if (tag.isEmpty()) {
       manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singletonList(new ItemStack(item)));
     }
   }
@@ -332,8 +344,8 @@ public class JEIPlugin implements IModPlugin {
    * @param cast     Cast instance
    */
   private static void optionalCast(IIngredientManager manager, CastItemObject cast) {
-    Tag<Item> tag = SerializationTags.getInstance().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("forge", cast.getName().getPath() + "s"));
-    if (tag == null || tag.getValues().isEmpty()) {
+    ITag<Item> tag = getTag(new ResourceLocation("forge", cast.getName().getPath() + "s"));
+    if (tag.isEmpty()) {
       manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, cast.values().stream().map(ItemStack::new).collect(Collectors.toList()));
     }
   }
@@ -347,8 +359,8 @@ public class JEIPlugin implements IModPlugin {
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
     // hide compat that is not present
     for (SmelteryCompat compat : SmelteryCompat.values()) {
-      Tag<Item> ingot = SerializationTags.getInstance().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("forge", "ingots/" + compat.getName()));
-      if (ingot == null || ingot.getValues().isEmpty()) {
+      ITag<Item> ingot = getTag(new ResourceLocation("forge", "ingots/" + compat.getName()));
+      if (ingot.isEmpty()) {
         removeFluid(manager, compat.getFluid().get(), compat.getBucket());
       }
     }

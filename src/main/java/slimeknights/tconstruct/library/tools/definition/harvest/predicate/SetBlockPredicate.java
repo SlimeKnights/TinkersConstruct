@@ -37,6 +37,7 @@ class SetBlockPredicate implements BlockPredicate {
   }
 
   public static final IGenericLoader<SetBlockPredicate> LOADER = new IGenericLoader<SetBlockPredicate>() {
+    @SuppressWarnings("deprecation")
     @Override
     public SetBlockPredicate deserialize(JsonObject json) {
       Set<Block> blocks = ImmutableSet.copyOf(JsonHelper.parseList(json, "blocks", (element, key) -> {

@@ -11,7 +11,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -1078,7 +1078,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount     Amount to show, before scaling by the tool's modifier
    * @param tooltip    Tooltip list
    */
-  protected void addStatTooltip(IToolStackView tool, FloatToolStat stat, Tag<Item> condition, float amount, List<Component> tooltip) {
+  protected void addStatTooltip(IToolStackView tool, FloatToolStat stat, TagKey<Item> condition, float amount, List<Component> tooltip) {
     if (tool.hasTag(condition)) {
       addFlatBoost(new TranslatableComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getMultiplier(stat), tooltip);
     }

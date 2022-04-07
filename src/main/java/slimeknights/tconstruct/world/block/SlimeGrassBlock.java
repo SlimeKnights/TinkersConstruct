@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -63,7 +63,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements BonemealableBlock
    * @param includeSapling   If true, sapling may be grown
    * @param spread           If true, spreads foliage to relevant dirt blocks
    */
-  public static void growGrass(ServerLevel world, Random rand, BlockPos pos, Tag<Block> validBase, SlimeType foliageType, boolean includeSapling, boolean spread) {
+  public static void growGrass(ServerLevel world, Random rand, BlockPos pos, TagKey<Block> validBase, SlimeType foliageType, boolean includeSapling, boolean spread) {
     // based on vanilla logic, reimplemented to switch plant types
     BlockPos up = pos.above();
     mainLoop:

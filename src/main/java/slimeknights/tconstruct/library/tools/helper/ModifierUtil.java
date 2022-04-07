@@ -71,7 +71,7 @@ public final class ModifierUtil {
       // lucky pants
       if (player != null) {
         ItemStack pants = player.getItemBySlot(EquipmentSlot.LEGS);
-        if (TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
+        if (pants.is(TinkerTags.Items.LEGGINGS)) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
             IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
@@ -135,7 +135,7 @@ public final class ModifierUtil {
    */
   public static int getLeggingsLootingLevel(LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int toolLooting) {
     ItemStack pants = holder.getItemBySlot(EquipmentSlot.LEGS);
-    if (!pants.isEmpty() && TinkerTags.Items.LEGGINGS.contains(pants.getItem())) {
+    if (!pants.isEmpty() && pants.is(TinkerTags.Items.LEGGINGS)) {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
         for (ModifierEntry entry : pantsTool.getModifierList()) {
@@ -169,7 +169,7 @@ public final class ModifierUtil {
    * @return  Modifier level, or 0 if not present or the stack is not modifiable
    */
   public static int getModifierLevel(ItemStack stack, Modifier modifier) {
-    if (!stack.isEmpty() && TinkerTags.Items.MODIFIABLE.contains(stack.getItem()) && !ToolDamageUtil.isBroken(stack)) {
+    if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE) && !ToolDamageUtil.isBroken(stack)) {
       CompoundTag nbt = stack.getTag();
       if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, Tag.TAG_LIST)) {
         ListTag list = nbt.getList(ToolStack.TAG_MODIFIERS, Tag.TAG_COMPOUND);

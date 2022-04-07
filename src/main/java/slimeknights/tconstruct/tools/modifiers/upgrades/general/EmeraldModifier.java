@@ -24,17 +24,17 @@ public class EmeraldModifier extends SingleLevelModifier {
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     Item item = context.getItem();
-    if (DURABILITY.contains(item)) {
+    if (context.hasTag(DURABILITY)) {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.5f));
     }
-    if (MELEE.contains(item)) {
+    if (context.hasTag(MELEE)) {
       builder.multiplier(ToolStats.ATTACK_DAMAGE, 1 + (level * 0.25f));
     }
-    if (HARVEST.contains(item)) {
+    if (context.hasTag(HARVEST)) {
       ToolStats.HARVEST_TIER.update(builder, Tiers.IRON);
       builder.multiplier(ToolStats.MINING_SPEED, 1 + (level * 0.25f));
     }
-    if (ARMOR.contains(item)) {
+    if (context.hasTag(ARMOR)) {
       ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
     }
   }

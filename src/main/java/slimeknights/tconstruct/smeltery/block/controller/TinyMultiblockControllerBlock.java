@@ -34,7 +34,7 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
    * @return  True if its a valid fuel source
    */
   protected boolean isValidFuelSource(BlockState state) {
-    return TinkerTags.Blocks.FUEL_TANKS.contains(state.getBlock());
+    return state.is(TinkerTags.Blocks.FUEL_TANKS);
   }
 
   @Override

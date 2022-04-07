@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -55,7 +55,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
    * @param consumed  If true, cast is consumed
    * @return  Builder instance
    */
-  public MaterialCastingRecipeBuilder setCast(Tag<Item> tag, boolean consumed) {
+  public MaterialCastingRecipeBuilder setCast(TagKey<Item> tag, boolean consumed) {
     return this.setCast(Ingredient.of(tag), consumed);
   }
 

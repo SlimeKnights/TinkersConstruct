@@ -1,20 +1,19 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.FungusBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.FungusBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
 import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.function.Supplier;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 /** Update of fungus that grows on slime soil instead */
 public class SlimeFungusBlock extends FungusBlock {
-  public SlimeFungusBlock(Properties properties, Supplier<ConfiguredFeature<HugeFungusConfiguration,?>> fungusFeature) {
+  public SlimeFungusBlock(Properties properties, Supplier<Holder<ConfiguredFeature<HugeFungusConfiguration,?>>> fungusFeature) {
     super(properties, fungusFeature);
   }
 

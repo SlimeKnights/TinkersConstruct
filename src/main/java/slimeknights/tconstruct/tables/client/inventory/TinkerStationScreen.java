@@ -252,7 +252,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     // if the contained stack is modifiable, display some information
-    if (TinkerTags.Items.MODIFIABLE.contains(toolStack.getItem())) {
+    if (toolStack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(toolStack);
       if (toolStack.getItem() instanceof ITinkerStationDisplay display) {
         this.tinkerInfo.setCaption(display.getLocalizedName());

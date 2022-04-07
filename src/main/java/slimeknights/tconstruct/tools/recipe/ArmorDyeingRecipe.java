@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.recipe;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags.Items;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
@@ -49,7 +51,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack input = inv.getInput(i);
       if (!input.isEmpty()) {
-        if (!Items.DYES.contains(input.getItem())) {
+        if (!input.is(Items.DYES)) {
           return false;
         }
         found = true;
@@ -239,7 +241,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     public DisplayRecipe(ModifierEntry result, List<ItemStack> tools, DyeColor color) {
       this.displayResult = result;
       this.toolWithoutModifier = tools;
-      this.dyes = color.getTag().getValues().stream().map(ItemStack::new).toList();
+      this.dyes = RegistryHelper.getTagValueStream(Registry.ITEM, color.getTag()).map(ItemStack::new).toList();
 
       ResourceLocation id = result.getModifier().getId();
       int tintColor = getTintColor(color);

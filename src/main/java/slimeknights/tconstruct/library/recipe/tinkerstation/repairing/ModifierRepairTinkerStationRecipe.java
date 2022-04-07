@@ -34,7 +34,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
-    if (!TinkerTags.Items.DURABILITY.contains(tinkerable.getItem())) {
+    if (!tinkerable.is(TinkerTags.Items.DURABILITY)) {
       return false;
     }
     ToolStack tool = ToolStack.from(tinkerable);

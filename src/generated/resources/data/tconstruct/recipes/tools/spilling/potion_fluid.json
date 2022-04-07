@@ -3,8 +3,9 @@
   "conditions": [
     {
       "value": {
+        "registry": "minecraft:fluid",
         "tag": "forge:potion",
-        "type": "mantle:fluid_tag_empty"
+        "type": "mantle:tag_empty"
       },
       "type": "forge:not"
     }

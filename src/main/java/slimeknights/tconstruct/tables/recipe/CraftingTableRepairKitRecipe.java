@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.recipe;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -36,8 +35,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
    * @return  True if valid
    */
   protected boolean toolMatches(ItemStack stack) {
-    Item item = stack.getItem();
-    return TinkerTags.Items.MULTIPART_TOOL.contains(item) && TinkerTags.Items.DURABILITY.contains(item);
+    return stack.is(TinkerTags.Items.MULTIPART_TOOL) && stack.is(TinkerTags.Items.DURABILITY);
   }
 
   /**

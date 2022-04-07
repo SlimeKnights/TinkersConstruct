@@ -2,16 +2,16 @@
   "type": "minecraft:stonecutting",
   "ingredient": [
     {
-      "item": "tconstruct:seared_stone"
-    },
-    {
-      "type": "mantle:difference",
+      "type": "forge:difference",
       "base": {
         "tag": "tconstruct:seared_bricks"
       },
       "subtracted": {
         "item": "tconstruct:seared_bricks"
       }
+    },
+    {
+      "item": "tconstruct:seared_stone"
     }
   ],
   "result": "tconstruct:seared_bricks",

@@ -128,7 +128,7 @@ public class EntityMeltingModule {
       // only can melt living, ensure its not immune to our damage
       // if canMelt is already found as false, skip instance checks, we only care about items now
       // if the type is hidden, skip as well, I suppose thats your blacklist if you must have one
-      else if (canMelt != Boolean.FALSE && !EntityTypes.MELTING_HIDE.contains(type) && entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
+      else if (canMelt != Boolean.FALSE && !type.is(EntityTypes.MELTING_HIDE) && entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
         // only fetch boolean once, its not the fastest as it tries to consume fuel
         if (canMelt == null) canMelt = canMeltEntities.getAsBoolean();
 

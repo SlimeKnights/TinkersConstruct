@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
@@ -60,14 +60,12 @@ public class ModifierLootingHandler {
       return;
     }
     Entity source = damageSource.getEntity();
-    if (source instanceof LivingEntity) {
+    if (source instanceof LivingEntity holder) {
       // TODO: consider bow usage, as the attack time is not the same as the death time
-      // TODO: extend to armor eventually
-      LivingEntity holder = ((LivingEntity)source);
       EquipmentSlot slotType = getLootingSlot(holder);
       ItemStack held = holder.getItemBySlot(slotType);
       int level = event.getLootingLevel();
-      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
+      if (held.is(TinkerTags.Items.MODIFIABLE)) {
         ToolStack tool = ToolStack.from(held);
         level = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
         // ignore default looting if we are looting from another slot

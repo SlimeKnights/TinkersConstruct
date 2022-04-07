@@ -21,7 +21,7 @@ public class InvariantModifier extends Modifier {
   private static float getBonus(LivingEntity living, int level) {
     // temperature ranges from 0 to 1.25. multiplication makes it go from 0 to 2.5
     BlockPos pos = living.blockPosition();
-    return ((MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level.getBiome(pos).getTemperature(pos))) * level * 2f);
+    return ((MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level.getBiome(pos).value().getTemperature(pos))) * level * 2f);
   }
 
   @Override

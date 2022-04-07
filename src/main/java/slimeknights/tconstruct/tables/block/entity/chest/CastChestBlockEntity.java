@@ -32,7 +32,7 @@ public class CastChestBlockEntity extends AbstractChestBlockEntity {
           return i == slot;
         }
       }
-      return TinkerTags.Items.GOLD_CASTS.contains(stack.getItem());
+      return stack.is(TinkerTags.Items.GOLD_CASTS);
     }
   }
 }

@@ -1,8 +1,8 @@
 {
   "type": "tconstruct:modifier_salvage",
   "tools": {
-    "type": "mantle:intersection",
-    "ingredients": [
+    "type": "forge:intersection",
+    "children": [
       {
         "tag": "tconstruct:modifiable/durability"
       },

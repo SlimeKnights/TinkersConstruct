@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -18,6 +19,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.utils.Util;
@@ -64,6 +66,9 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   private Map<MaterialId,MaterialId> redirects = Collections.emptyMap();
   /** Sorted list of visible materials */
   private List<IMaterial> sortedMaterials = Collections.emptyList();
+  /** Context for conditions */
+  @Setter
+  private IContext conditionContext = IContext.EMPTY;
 
   public MaterialManager(Runnable onLoaded) {
     super(GSON, FOLDER);
@@ -178,7 +183,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
       // condition
       ICondition condition = materialJson.getCondition();
-      if (condition != null && !condition.test()) {
+      if (condition != null && !condition.test(conditionContext)) {
         log.debug("Skipped loading material {} as it did not match the condition", materialId);
         return null;
       }
@@ -188,7 +193,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
       if (redirectsJson != null) {
         for (MaterialJson.Redirect redirect : redirectsJson) {
           ICondition redirectCondition = redirect.getCondition();
-          if (redirectCondition == null || redirectCondition.test()) {
+          if (redirectCondition == null || redirectCondition.test(conditionContext)) {
             MaterialId redirectTarget = new MaterialId(redirect.getId());
             log.debug("Redirecting material {} to {}", materialId, redirectTarget);
             redirects.put(new MaterialId(materialId), redirectTarget);

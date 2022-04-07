@@ -40,7 +40,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
-    if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
+    if (!inv.getTinkerableStack().is(TinkerTags.Items.DURABILITY)) {
       return false;
     }
     // must find at least one input, but multiple is fine, as is empty slots

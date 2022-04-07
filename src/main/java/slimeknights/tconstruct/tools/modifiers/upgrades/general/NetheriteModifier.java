@@ -25,17 +25,17 @@ public class NetheriteModifier extends SingleLevelModifier {
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     Item item = context.getItem();
-    if (DURABILITY.contains(item)) {
+    if (context.hasTag(DURABILITY)) {
       ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.20f));
     }
-    if (MELEE_OR_UNARMED.contains(item)) {
+    if (context.hasTag(MELEE_OR_UNARMED)) {
       ToolStats.ATTACK_DAMAGE.multiply(builder, 1 + (level * 0.20f));
     }
-    if (HARVEST.contains(item)) {
+    if (context.hasTag(HARVEST)) {
       ToolStats.MINING_SPEED.multiply(builder, 1 + (level * 0.25f));
       ToolStats.HARVEST_TIER.update(builder, Tiers.NETHERITE);
     }
-    if (ARMOR.contains(item)) {
+    if (context.hasTag(ARMOR)) {
       ToolStats.ARMOR_TOUGHNESS.add(builder, level);
       ToolStats.KNOCKBACK_RESISTANCE.add(builder, level * 0.05f);
     }

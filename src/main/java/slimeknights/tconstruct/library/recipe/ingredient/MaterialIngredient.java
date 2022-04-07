@@ -7,7 +7,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 /**
  * Extension of the vanilla ingredient to display materials on items and support matching by materials
+ * TODO: abstract ingredient
  */
 public class MaterialIngredient extends Ingredient {
   /** Material ID meaning any material matches */
@@ -65,7 +66,7 @@ public class MaterialIngredient extends Ingredient {
    * @param material  Material value
    * @return  Material with tag
    */
-  public static MaterialIngredient fromTag(Tag<Item> tag, MaterialId material) {
+  public static MaterialIngredient fromTag(TagKey<Item> tag, MaterialId material) {
     return new MaterialIngredient(Stream.of(new TagValue(tag)), material);
   }
 
@@ -74,7 +75,7 @@ public class MaterialIngredient extends Ingredient {
    * @param tag       Tag instance
    * @return  Material with tag
    */
-  public static MaterialIngredient fromTag(Tag<Item> tag) {
+  public static MaterialIngredient fromTag(TagKey<Item> tag) {
     return fromTag(tag, WILDCARD);
   }
 

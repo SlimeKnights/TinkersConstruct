@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -12,9 +13,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -22,21 +25,24 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries.Keys;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.mantle.registration.deferred.BlockEntityTypeDeferredRegister;
-import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
+import slimeknights.mantle.registration.deferred.MenuTypeDeferredRegister;
 import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
+import slimeknights.tconstruct.common.registration.ConfiguredFeatureDeferredRegister;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
+import slimeknights.tconstruct.common.registration.PlacedFeatureDeferredRegister;
+import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import javax.annotation.Nonnull;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -53,20 +59,29 @@ public abstract class TinkerModule {
   }
 
   // deferred register instances
+  // gameplay singleton
   protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.MOD_ID);
   protected static final ItemDeferredRegisterExtension ITEMS = new ItemDeferredRegisterExtension(TConstruct.MOD_ID);
   protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.MOD_ID);
+  protected static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TConstruct.MOD_ID);
+  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.MOD_ID);
+  protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(TinkerRegistries.MODIFIER_REGISTRY, TConstruct.MOD_ID);
+  // gameplay instances
   protected static final BlockEntityTypeDeferredRegister BLOCK_ENTITIES = new BlockEntityTypeDeferredRegister(TConstruct.MOD_ID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.MOD_ID);
-  protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.MOD_ID);
-  protected static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TConstruct.MOD_ID);
-  protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.MOD_ID);
-  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.MOD_ID);
-  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.MOD_ID);
+  protected static final MenuTypeDeferredRegister MENUS = new MenuTypeDeferredRegister(TConstruct.MOD_ID);
+  // datapacks
   protected static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.MOD_ID);
-  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.MOD_ID);
-  protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.MOD_ID);
-  protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.MOD_ID);
+  protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(Keys.LOOT_MODIFIER_SERIALIZERS, TConstruct.MOD_ID);
+  // worldgen
+  protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.MOD_ID);
+  protected static final ConfiguredFeatureDeferredRegister CONFIGURED_FEATURES = new ConfiguredFeatureDeferredRegister(TConstruct.MOD_ID);
+  protected static final PlacedFeatureDeferredRegister PLACED_FEATURES = new PlacedFeatureDeferredRegister(TConstruct.MOD_ID);
+  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.MOD_ID);
+  protected static final DeferredRegister<ConfiguredStructureFeature<?,?>> CONFIGURED_STRUCTURE_FEATURES = DeferredRegister.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, TConstruct.MOD_ID);
+  protected static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE = DeferredRegister.create(Registry.STRUCTURE_PIECE_REGISTRY, TConstruct.MOD_ID);
+  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.MOD_ID);
+
 
   /** Creative tab for items that do not fit in another tab */
   @SuppressWarnings("WeakerAccess")
@@ -83,32 +98,26 @@ public abstract class TinkerModule {
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    // gameplay singleton
     BLOCKS.register(bus);
     ITEMS.register(bus);
     FLUIDS.register(bus);
-    BLOCK_ENTITIES.register(bus);
-    ENTITIES.register(bus);
-    CONTAINERS.register(bus);
     MOB_EFFECTS.register(bus);
-    FEATURES.register(bus);
-    STRUCTURE_FEATURES.register(bus);
-    BLOCK_STATE_PROVIDER_TYPES.register(bus);
-    RECIPE_SERIALIZERS.register(bus);
     PARTICLE_TYPES.register(bus);
     MODIFIERS.register(bus);
+    // gameplay instance
+    BLOCK_ENTITIES.register(bus);
+    ENTITIES.register(bus);
+    MENUS.register(bus);
+    // datapacks
+    RECIPE_SERIALIZERS.register(bus);
     GLOBAL_LOOT_MODIFIERS.register(bus);
-  }
-
-  /**
-   * This is a function that returns null, despite being nonnull. It is used on object holder fields to remove IDE warnings about constant null as it will be nonnull
-   * TODO: migrate to mantle version then remove
-   * @param <T>  Field type
-   * @return  Null
-   */
-  @Nonnull
-  @SuppressWarnings("ConstantConditions")
-  public static <T> T injected() {
-    return null;
+    // worldgen
+    FEATURES.register(bus);
+    CONFIGURED_FEATURES.register(bus);
+    STRUCTURE_FEATURES.register(bus);
+    CONFIGURED_STRUCTURE_FEATURES.register(bus);
+    BLOCK_STATE_PROVIDER_TYPES.register(bus);
   }
 
   /**

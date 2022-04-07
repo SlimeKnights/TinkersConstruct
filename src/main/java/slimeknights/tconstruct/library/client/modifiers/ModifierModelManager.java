@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistries;
@@ -98,6 +99,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     // get a list of files from all namespaces
     List<JsonObject> jsonFiles = JsonUtils.getFileInAllDomainsAndPacks(manager, VISIBLE_MODIFIERS);
     // first object is bottom most pack, so upper resource packs will replace it
+    IForgeRegistry<Modifier> modifiers = TinkerRegistries.MODIFIERS.get();
     for (int i = jsonFiles.size() - 1; i >= 0; i--) {
       JsonObject json = jsonFiles.get(i);
       // right now just do simply key value pairs
@@ -109,7 +111,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
           log.error("Skipping invalid modifier key " + key + " as it is not a valid resource location");
         } else {
           // ensure its a valid modifier and not already parsed
-          Modifier modifier = TinkerRegistries.MODIFIERS.getValue(name);
+          Modifier modifier = modifiers.getValue(name);
           if (modifier == null || modifier == TinkerModifiers.empty.get()) {
             log.error("Skipping unknown modifier " + key);
           } else if (!models.containsKey(modifier)) {
@@ -200,7 +202,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
                                                   : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
 
     // load each modifier
-    for (Modifier modifier : TinkerRegistries.MODIFIERS.getValues()) {
+    for (Modifier modifier : TinkerRegistries.MODIFIERS.get().getValues()) {
       IUnbakedModifierModel model = modifierModels.get(modifier);
       if (model != null) {
         IBakedModifierModel toolModel = model.forTool(

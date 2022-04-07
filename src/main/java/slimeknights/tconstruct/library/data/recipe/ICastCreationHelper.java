@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.data.recipe;
 
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.tags.Tag.Named;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -26,8 +26,8 @@ public interface ICastCreationHelper extends IRecipeHelper {
    * @param cast      Produced cast
    * @param folder    Output folder
    */
-  default void castCreation(Consumer<FinishedRecipe> consumer, Named<Item> input, CastItemObject cast, String folder) {
-    castCreation(consumer, Ingredient.of(input), cast, folder, input.getName().getPath());
+  default void castCreation(Consumer<FinishedRecipe> consumer, TagKey<Item> input, CastItemObject cast, String folder) {
+    castCreation(consumer, Ingredient.of(input), cast, folder, input.location().getPath());
   }
 
   /**

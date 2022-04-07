@@ -9,23 +9,27 @@ public class FoundryMultiblock extends HeatingStructureMultiblock<FoundryBlockEn
     super(foundry, true, true, false);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected boolean isValidBlock(Block block) {
-    return TinkerTags.Blocks.FOUNDRY.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.FOUNDRY);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected boolean isValidFloor(Block block) {
-    return TinkerTags.Blocks.FOUNDRY_FLOOR.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.FOUNDRY_FLOOR);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected boolean isValidTank(Block block) {
-    return TinkerTags.Blocks.FOUNDRY_TANKS.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.FOUNDRY_TANKS);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected boolean isValidWall(Block block) {
-    return TinkerTags.Blocks.FOUNDRY_WALL.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.FOUNDRY_WALL);
   }
 }

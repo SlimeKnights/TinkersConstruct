@@ -76,7 +76,7 @@ public class PiggyBackPackItem extends TooltipItem {
   }
 
   private boolean pickupEntity(Player player, Entity target) {
-    if (player.getCommandSenderWorld().isClientSide || TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST.contains(target.getType())) {
+    if (player.getCommandSenderWorld().isClientSide || target.getType().is(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST)) {
       return false;
     }
     // silly players, clicking on entities they're already carrying or riding
@@ -141,6 +141,7 @@ public class PiggyBackPackItem extends TooltipItem {
     }
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
     return ImmutableMultimap.of(); // no attributes, the potion effect handles them

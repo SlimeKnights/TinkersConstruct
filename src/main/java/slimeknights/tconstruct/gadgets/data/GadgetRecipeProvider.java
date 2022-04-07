@@ -7,7 +7,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -206,7 +206,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param edges     Edge item
    * @param type      Frame type
    */
-  private void frameCrafting(Consumer<FinishedRecipe> consumer, Tag<Item> edges, FrameType type) {
+  private void frameCrafting(Consumer<FinishedRecipe> consumer, TagKey<Item> edges, FrameType type) {
     ShapedRecipeBuilder.shaped(TinkerGadgets.itemFrame.get(type))
                        .define('e', edges)
                        .define('M', TinkerCommons.obsidianPane)

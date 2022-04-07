@@ -40,7 +40,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
 
 
   private SlimeIslandPiece(StructureManager manager, IIslandVariant variant, ResourceLocation templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
-    super(TinkerStructures.slimeIslandPiece, 0, manager, templateName, templateName.toString(), makeSettings(rotation, mirror), templatePos);
+    super(TinkerStructures.slimeIslandPiece.get(), 0, manager, templateName, templateName.toString(), makeSettings(rotation, mirror), templatePos);
     this.variant = variant;
     this.numberOfTreesPlaced = 0;
     this.tree = tree;
@@ -51,7 +51,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   public SlimeIslandPiece(StructureManager templateManager, CompoundTag nbt) {
-    super(TinkerStructures.slimeIslandPiece, nbt, templateManager, context -> makeSettings(Rotation.valueOf(nbt.getString("Rot")), Mirror.valueOf(nbt.getString("Mi"))));
+    super(TinkerStructures.slimeIslandPiece.get(), nbt, templateManager, context -> makeSettings(Rotation.valueOf(nbt.getString("Rot")), Mirror.valueOf(nbt.getString("Mi"))));
     this.variant = IslandVariants.getVariantFromIndex(nbt.getInt("Variant"));
     this.numberOfTreesPlaced = nbt.getInt("NumberOfTreesPlaced");
     this.tree = Optional.of(nbt.getString("Tree"))

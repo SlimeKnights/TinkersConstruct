@@ -48,7 +48,7 @@ public class ToolHarvestLogic {
       return (!state.is(BlockTags.FIRE) && ModifierUtil.canPerformAction(tool, ToolActions.SHEARS_DIG)) ? 1 : 0;
     }
     // if it lacks the harvest tag, it takes double damage (swords for instance)
-    return tool.is(TinkerTags.Items.HARVEST_PRIMARY) ? 1 : 2;
+    return tool.hasTag(TinkerTags.Items.HARVEST_PRIMARY) ? 1 : 2;
   }
 
   /**

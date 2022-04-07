@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
@@ -68,7 +68,7 @@ public final class TinkerTables extends TinkerModule {
    */
   private static final Block.Properties WOOD_TABLE = builder(Material.WOOD, SoundType.WOOD).strength(1.0F, 5.0F).noOcclusion();
   /** Call with .apply to set the tag type for a block item provider */
-  private static final BiFunction<Tag<Item>,BooleanSupplier,Function<Block,RetexturedBlockItem>> RETEXTURED_BLOCK_ITEM = (tag, cond) -> block -> new TableBlockItem(block, tag, GENERAL_PROPS, cond);
+  private static final BiFunction<TagKey<Item>,BooleanSupplier,Function<Block,RetexturedBlockItem>> RETEXTURED_BLOCK_ITEM = (tag, cond) -> block -> new TableBlockItem(block, tag, GENERAL_PROPS, cond);
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.LOGS, Config.COMMON.showAllTableVariants::get));
   public static final ItemObject<TableBlock> tinkerStation = BLOCKS.register("tinker_station", () -> new TinkerStationBlock(WOOD_TABLE, 4), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
   public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
@@ -101,10 +101,10 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Containers
    */
-  public static final RegistryObject<MenuType<CraftingStationContainerMenu>> craftingStationContainer = CONTAINERS.register("crafting_station", CraftingStationContainerMenu::new);
-  public static final RegistryObject<MenuType<TinkerStationContainerMenu>> tinkerStationContainer = CONTAINERS.register("tinker_station", TinkerStationContainerMenu::new);
-  public static final RegistryObject<MenuType<PartBuilderContainerMenu>> partBuilderContainer = CONTAINERS.register("part_builder", PartBuilderContainerMenu::new);
-  public static final RegistryObject<MenuType<TinkerChestContainerMenu>> tinkerChestContainer = CONTAINERS.register("tinker_chest", TinkerChestContainerMenu::new);
+  public static final RegistryObject<MenuType<CraftingStationContainerMenu>> craftingStationContainer = MENUS.register("crafting_station", CraftingStationContainerMenu::new);
+  public static final RegistryObject<MenuType<TinkerStationContainerMenu>> tinkerStationContainer = MENUS.register("tinker_station", TinkerStationContainerMenu::new);
+  public static final RegistryObject<MenuType<PartBuilderContainerMenu>> partBuilderContainer = MENUS.register("part_builder", PartBuilderContainerMenu::new);
+  public static final RegistryObject<MenuType<TinkerChestContainerMenu>> tinkerChestContainer = MENUS.register("tinker_chest", TinkerChestContainerMenu::new);
 
   /*
    * Recipes

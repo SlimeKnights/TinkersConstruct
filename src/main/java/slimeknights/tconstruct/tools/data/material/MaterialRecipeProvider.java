@@ -8,10 +8,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidContainerIngredient;
-import slimeknights.mantle.recipe.ingredient.IngredientDifference;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -56,8 +56,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.acacia,  Ingredient.of(Items.ACACIA_PLANKS),   1, 1, folder + "wood/planks/acacia");
     materialRecipe(consumer, MaterialIds.crimson, Ingredient.of(Items.CRIMSON_PLANKS),  1, 1, folder + "wood/planks/crimson");
     materialRecipe(consumer, MaterialIds.warped,  Ingredient.of(Items.WARPED_PLANKS),   1, 1, folder + "wood/planks/warped");
-    materialRecipe(withCondition(consumer, new TagDifferencePresentCondition(ItemTags.PLANKS.getName(), TinkerTags.Items.VARIANT_PLANKS.getName())), MaterialIds.wood,
-                   IngredientDifference.difference(Ingredient.of(ItemTags.PLANKS), Ingredient.of(TinkerTags.Items.VARIANT_PLANKS)), 1, 1, folder + "wood/planks/default");
+    materialRecipe(withCondition(consumer, TagDifferencePresentCondition.ofKeys(ItemTags.PLANKS, TinkerTags.Items.VARIANT_PLANKS)), MaterialIds.wood,
+                   DifferenceIngredient.of(Ingredient.of(ItemTags.PLANKS), Ingredient.of(TinkerTags.Items.VARIANT_PLANKS)), 1, 1, folder + "wood/planks/default");
     // logs
     materialRecipe(consumer, MaterialIds.oak,     Ingredient.of(ItemTags.OAK_LOGS),      4, 1, ItemOutput.fromStack(new ItemStack(Blocks.OAK_PLANKS)),      folder + "wood/logs/oak");
     materialRecipe(consumer, MaterialIds.spruce,  Ingredient.of(ItemTags.SPRUCE_LOGS),   4, 1, ItemOutput.fromStack(new ItemStack(Blocks.SPRUCE_PLANKS)),   folder + "wood/logs/spruce");
@@ -67,8 +67,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.acacia,  Ingredient.of(ItemTags.ACACIA_LOGS),   4, 1, ItemOutput.fromStack(new ItemStack(Blocks.ACACIA_PLANKS)),   folder + "wood/logs/acacia");
     materialRecipe(consumer, MaterialIds.crimson, Ingredient.of(ItemTags.CRIMSON_STEMS), 4, 1, ItemOutput.fromStack(new ItemStack(Blocks.CRIMSON_PLANKS)),  folder + "wood/logs/crimson");
     materialRecipe(consumer, MaterialIds.warped,  Ingredient.of(ItemTags.WARPED_STEMS),  4, 1, ItemOutput.fromStack(new ItemStack(Blocks.WARPED_PLANKS)),   folder + "wood/logs/warped");
-    materialRecipe(withCondition(consumer, new TagDifferencePresentCondition(ItemTags.LOGS.getName(), TinkerTags.Items.VARIANT_LOGS.getName())), MaterialIds.wood,
-                   IngredientDifference.difference(Ingredient.of(ItemTags.LOGS), Ingredient.of(TinkerTags.Items.VARIANT_LOGS)), 4, 1,
+    materialRecipe(withCondition(consumer, TagDifferencePresentCondition.ofKeys(ItemTags.LOGS, TinkerTags.Items.VARIANT_LOGS)), MaterialIds.wood,
+                   DifferenceIngredient.of(Ingredient.of(ItemTags.LOGS), Ingredient.of(TinkerTags.Items.VARIANT_LOGS)), 4, 1,
                    ItemOutput.fromStack(new ItemStack(Items.STICK, 2)), folder + "wood/logs/default");
     // stone
     materialRecipe(consumer, MaterialIds.stone,      Ingredient.of(TinkerTags.Items.STONE),      1, 1, folder + "rock/stone");

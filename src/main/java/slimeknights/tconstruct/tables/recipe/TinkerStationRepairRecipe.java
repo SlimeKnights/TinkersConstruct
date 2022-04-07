@@ -114,8 +114,8 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     // must be repairable and multipart to use this recipe
     // if its not multipart, different recipe will be used to repair it (as it has a dedicated repair item)
     if (tinkerable.isEmpty()
-        || !TinkerTags.Items.MULTIPART_TOOL.contains(tinkerable.getItem())
-        || !TinkerTags.Items.DURABILITY.contains(tinkerable.getItem())) {
+        || !tinkerable.is(TinkerTags.Items.MULTIPART_TOOL)
+        || !tinkerable.is(TinkerTags.Items.DURABILITY)) {
       return false;
     }
 

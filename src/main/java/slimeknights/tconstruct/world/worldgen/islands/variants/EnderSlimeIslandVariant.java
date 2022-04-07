@@ -43,6 +43,6 @@ public class EnderSlimeIslandVariant extends AbstractSlimeIslandVariant {
   @Nullable
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
-    return TinkerStructures.enderSlimeIslandTree;
+    return TinkerStructures.enderSlimeIslandTree.get();
   }
 }

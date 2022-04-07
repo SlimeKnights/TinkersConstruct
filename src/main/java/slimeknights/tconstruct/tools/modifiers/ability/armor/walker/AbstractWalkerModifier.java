@@ -35,7 +35,7 @@ public abstract class AbstractWalkerModifier extends SingleUseModifier implement
       Vec3 posVec = living.position();
       BlockPos center = new BlockPos(posVec.x, posVec.y + 0.5, posVec.z);
       for (BlockPos pos : BlockPos.betweenClosed(center.offset(-radius, 0, -radius), center.offset(radius, 0, radius))) {
-        if (pos.closerThan(living.position(), radius)) {
+        if (pos.closerToCenterThan(living.position(), radius)) {
           walkOn(tool, level, living, world, pos, mutable);
           if (tool.isBroken()) {
             break;

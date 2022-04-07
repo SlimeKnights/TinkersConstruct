@@ -267,6 +267,7 @@ public class TooltipUtil {
    * @param tool       Tool instance
    * @param tooltips   Tooltip list
    */
+  @SuppressWarnings("deprecation")
   public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().shouldDisplay(false)) {
@@ -316,16 +317,15 @@ public class TooltipUtil {
    */
   public static List<Component> getDefaultStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
-    Item item = tool.getItem();
-    if (TinkerTags.Items.DURABILITY.contains(item)) {
+    if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
-    if (TinkerTags.Items.MELEE.contains(item)) {
+    if (tool.hasTag(TinkerTags.Items.MELEE)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
     }
-    if (TinkerTags.Items.HARVEST.contains(item)) {
-      if (TinkerTags.Items.HARVEST_PRIMARY.contains(tool.getItem())) {
+    if (tool.hasTag(TinkerTags.Items.HARVEST)) {
+      if (tool.hasTag(TinkerTags.Items.HARVEST_PRIMARY)) {
         builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
@@ -348,16 +348,15 @@ public class TooltipUtil {
    */
   public static List<Component> getArmorStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
-    Item item = tool.getItem();
-    if (TinkerTags.Items.DURABILITY.contains(item)) {
+    if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
-    if (TinkerTags.Items.ARMOR.contains(item)) {
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
       builder.add(ToolStats.ARMOR);
       builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
       builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }
-    if (TinkerTags.Items.CHESTPLATES.contains(item) && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
+    if (tool.hasTag(TinkerTags.Items.CHESTPLATES) && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
     }
 

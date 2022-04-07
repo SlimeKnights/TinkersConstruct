@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -61,7 +61,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param result  Recipe result
    * @return  Builder instance
    */
-  public static ItemCastingRecipeBuilder basinRecipe(Tag<Item> result) {
+  public static ItemCastingRecipeBuilder basinRecipe(TagKey<Item> result) {
     return basinRecipe(ItemOutput.fromTag(result, 1));
   }
 
@@ -88,7 +88,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param result  Recipe result
    * @return  Builder instance
    */
-  public static ItemCastingRecipeBuilder tableRecipe(Tag<Item> result) {
+  public static ItemCastingRecipeBuilder tableRecipe(TagKey<Item> result) {
     return tableRecipe(ItemOutput.fromTag(result, 1));
   }
 
@@ -101,7 +101,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param amount  amount of fluid
    * @return  Builder instance
    */
-  public ItemCastingRecipeBuilder setFluid(Tag<Fluid> tagIn, int amount) {
+  public ItemCastingRecipeBuilder setFluid(TagKey<Fluid> tagIn, int amount) {
     return this.setFluid(FluidIngredient.of(tagIn, amount));
   }
 
@@ -143,7 +143,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param temperature  fluid temperature
    * @param amount       amount of fluid
    */
-  public ItemCastingRecipeBuilder setFluidAndTime(int temperature, Tag<Fluid> tagIn, int amount) {
+  public ItemCastingRecipeBuilder setFluidAndTime(int temperature, TagKey<Fluid> tagIn, int amount) {
     setFluid(tagIn, amount);
     setCoolingTime(temperature, amount);
     return this;
@@ -178,7 +178,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param consumed  If true, the cast is consumed
    * @return  Builder instance
    */
-  public ItemCastingRecipeBuilder setCast(Tag<Item> tagIn, boolean consumed) {
+  public ItemCastingRecipeBuilder setCast(TagKey<Item> tagIn, boolean consumed) {
     return this.setCast(Ingredient.of(tagIn), consumed);
   }
 

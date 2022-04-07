@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:modifier_salvage",
   "tools": {
-    "type": "mantle:difference",
+    "type": "forge:difference",
     "base": [
       {
         "tag": "tconstruct:modifiable/melee"

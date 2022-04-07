@@ -14,10 +14,10 @@
     }
   ],
   "tools": {
-    "type": "mantle:difference",
+    "type": "forge:difference",
     "base": {
-      "type": "mantle:intersection",
-      "ingredients": [
+      "type": "forge:intersection",
+      "children": [
         {
           "tag": "tconstruct:modifiable/durability"
         },

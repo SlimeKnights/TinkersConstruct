@@ -28,7 +28,7 @@ public class FirebreathModifier extends SingleUseModifier implements IArmorInter
         Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
           ItemStack stack = inventory.getItem(i);
-          if (!stack.isEmpty() && TinkerTags.Items.FIREBALLS.contains(stack.getItem())) {
+          if (!stack.isEmpty() && stack.is(TinkerTags.Items.FIREBALLS)) {
             hasFireball = true;
             if (!player.level.isClientSide) {
               stack.shrink(1);

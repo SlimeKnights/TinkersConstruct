@@ -2,6 +2,7 @@
   "type": "tconstruct:ore_melting",
   "conditions": [
     {
+      "registry": "minecraft:item",
       "tags": [
         "forge:ores/osmium",
         "forge:ore_rates/dense"
@@ -11,8 +12,8 @@
   ],
   "rate": "metal",
   "ingredient": {
-    "type": "mantle:intersection",
-    "ingredients": [
+    "type": "forge:intersection",
+    "children": [
       {
         "tag": "forge:ores/osmium"
       },

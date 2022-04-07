@@ -18,7 +18,6 @@ import slimeknights.tconstruct.test.BlockHarvestLogic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO: update
 class ToolHarvestLogicTest extends ToolItemTest {
 
   private final ModifiableItem pickaxeTool = new ModifiableItem(

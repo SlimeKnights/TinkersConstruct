@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +26,7 @@ import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
@@ -333,8 +336,8 @@ public class ContentMaterial extends PageContent {
     if (displayTools.size() < 9) {
       MaterialId materialId = materialVariant.getId();
       toolLoop:
-      for (Item item : TinkerTags.Items.MULTIPART_TOOL.getValues()) {
-        if (item instanceof IModifiable tool) {
+      for (Holder<Item> item : Registry.ITEM.getTagOrEmpty(TinkerTags.Items.MULTIPART_TOOL)) {
+        if (item.value() instanceof IModifiable tool) {
           List<PartRequirement> requirements = tool.getToolDefinition().getData().getParts();
           // start building the tool with the given material
           MaterialNBT.Builder materials = MaterialNBT.builder();
@@ -381,9 +384,9 @@ public class ContentMaterial extends PageContent {
 
   /** Gets a list of all tool parts */
   private List<IToolPart> getToolParts() {
-    return TinkerTags.Items.TOOL_PARTS.getValues().stream()
-                                      .filter(item -> item instanceof IToolPart)
-                                      .map(item -> (IToolPart) item)
-                                      .collect(Collectors.toList());
+    return RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.TOOL_PARTS)
+                         .filter(item -> item instanceof IToolPart)
+                         .map(item -> (IToolPart) item)
+                         .collect(Collectors.toList());
   }
 }

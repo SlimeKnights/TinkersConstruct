@@ -10,7 +10,7 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.resources.SimpleReloadableResourceManager;
+import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
@@ -34,7 +34,7 @@ public class StructureUpdater implements DataProvider {
   private final String basePath;
   private final String modid;
   private final DataGenerator gen;
-  private final SimpleReloadableResourceManager resources;
+  private final MultiPackResourceManager resources;
 
   public StructureUpdater(DataGenerator gen, ExistingFileHelper helper, String modid, PackType packType, String basePath) {
     this.gen = gen;
@@ -44,7 +44,7 @@ public class StructureUpdater implements DataProvider {
     try {
       Field resourceManager = ExistingFileHelper.class.getDeclaredField(packType == PackType.SERVER_DATA ? "serverData" : "clientResources");
       resourceManager.setAccessible(true);
-      resources = (SimpleReloadableResourceManager)resourceManager.get(helper);
+      resources = (MultiPackResourceManager)resourceManager.get(helper);
     } catch (NoSuchFieldException|IllegalAccessException e) {
       throw new RuntimeException(e);
     }

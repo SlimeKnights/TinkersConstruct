@@ -3,10 +3,10 @@ package slimeknights.tconstruct.plugin;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler.ChemthrowerEffect_Potion;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler.ChemthrowerEffect_RandomTeleport;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.tags.Tag;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -28,7 +28,7 @@ public class ImmersiveEngineeringPlugin {
   }
 
   /** Shorthand to register a chemical potion effect */
-  private static void registerChemEffect(Tag<Fluid> tag, MobEffect effect, int duration) {
+  private static void registerChemEffect(TagKey<Fluid> tag, MobEffect effect, int duration) {
     ChemthrowerHandler.registerEffect(tag, new ChemthrowerEffect_Potion(null, 0, effect, duration, 0));
   }
 }

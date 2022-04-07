@@ -40,7 +40,7 @@ public enum OnChestplateUsePacket implements IThreadsafePacket {
     ServerPlayer player = context.getSender();
     if (player != null && !player.isSpectator()) {
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem()) && player.getItemInHand(hand).isEmpty()) {
+      if (chestplate.is(TinkerTags.Items.CHESTPLATES) && player.getItemInHand(hand).isEmpty()) {
         InteractionResult result = InteractionHandler.onChestplateUse(player, chestplate, hand);
         // TODO: needed?
 //        if (!player.isHandActive()) {

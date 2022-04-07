@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.world.worldgen.trees;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
@@ -25,26 +25,26 @@ public class SlimeTree extends AbstractTreeGrower {
   @Deprecated
   @Nullable
   @Override
-  protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
+  protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random randomIn, boolean largeHive) {
     return null;
   }
 
   /**
-   * Get a {@link net.minecraft.world.gen.feature.ConfiguredFeature} of tree
+   * Get a {@link ConfiguredFeature} of tree
    */
   @Nullable
   private ConfiguredFeature<?, ?> getSlimeTreeFeature() {
     switch (this.foliageType) {
       case EARTH:
-        return TinkerStructures.earthSlimeTree;
+        return TinkerStructures.earthSlimeTree.get();
       case SKY:
-        return TinkerStructures.skySlimeTree;
+        return TinkerStructures.skySlimeTree.get();
       case ENDER:
-        return TinkerStructures.enderSlimeTree;
+        return TinkerStructures.enderSlimeTree.get();
       case BLOOD:
-        return TinkerStructures.bloodSlimeFungus;
+        return TinkerStructures.bloodSlimeFungus.get();
       case ICHOR:
-        return TinkerStructures.ichorSlimeFungus;
+        return TinkerStructures.ichorSlimeFungus.get();
     }
 
     return null;

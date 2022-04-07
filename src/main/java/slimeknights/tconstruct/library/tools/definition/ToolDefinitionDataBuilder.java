@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -188,7 +188,7 @@ public class ToolDefinitionDataBuilder {
   /* Harvest */
 
   /** Makes the tool effective on the given blocks */
-  public ToolDefinitionDataBuilder effective(Tag.Named<Block> tag) {
+  public ToolDefinitionDataBuilder effective(TagKey<Block> tag) {
     return harvestLogic(new TagHarvestLogic(tag));
   }
 

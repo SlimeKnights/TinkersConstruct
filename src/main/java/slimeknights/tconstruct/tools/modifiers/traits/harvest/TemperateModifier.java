@@ -24,7 +24,7 @@ public class TemperateModifier extends Modifier {
   /** Gets the bonus for the given position */
   private static float getBonus(Player player, BlockPos pos, int level) {
     // temperature ranges from 0 to 1.25
-    return Math.abs(player.level.getBiome(pos).getTemperature(pos) - BASELINE_TEMPERATURE) * level * MAX_BOOST / 1.25f;
+    return Math.abs(player.level.getBiome(pos).value().getTemperature(pos) - BASELINE_TEMPERATURE) * level * MAX_BOOST / 1.25f;
   }
 
   @Override

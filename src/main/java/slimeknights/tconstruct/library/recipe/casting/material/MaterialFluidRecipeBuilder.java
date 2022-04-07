@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -54,7 +54,7 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
    * @param tagIn   Tag<Fluid> instance
    * @param amount  Fluid amount
    */
-  public MaterialFluidRecipeBuilder setFluid(Tag<Fluid> tagIn, int amount) {
+  public MaterialFluidRecipeBuilder setFluid(TagKey<Fluid> tagIn, int amount) {
     setFluid(FluidIngredient.of(tagIn, amount));
     return this;
   }

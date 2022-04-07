@@ -7,14 +7,13 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag.Named;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.TierSortingRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.json.LazyTag;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
@@ -26,12 +25,8 @@ import java.util.Objects;
 public class FixedTierHarvestLogic implements IHarvestLogic {
   public static final Loader LOADER = new Loader();
 
-  protected final LazyTag<Block> tag;
+  protected final TagKey<Block> tag;
   protected final Tier tier;
-  public FixedTierHarvestLogic(Named<Block> tag, Tier tier) {
-    this.tag = LazyTag.of(tag);
-    this.tier = tier;
-  }
 
   @Override
   public boolean isEffective(IToolStackView tool, BlockState state) {
@@ -51,7 +46,7 @@ public class FixedTierHarvestLogic implements IHarvestLogic {
   private static class Loader implements IGenericLoader<FixedTierHarvestLogic> {
     @Override
     public FixedTierHarvestLogic deserialize(JsonObject json) {
-      LazyTag<Block> tag = LazyTag.fromJson(Registry.BLOCK_REGISTRY, json, "effective");
+      TagKey<Block> tag = TagKey.create(Registry.BLOCK_REGISTRY, JsonHelper.getResourceLocation(json, "effective"));
       ResourceLocation tierName = JsonHelper.getResourceLocation(json, "tier");
       Tier tier = TierSortingRegistry.byName(tierName);
       if (tier == null) {
@@ -62,7 +57,7 @@ public class FixedTierHarvestLogic implements IHarvestLogic {
 
     @Override
     public FixedTierHarvestLogic fromNetwork(FriendlyByteBuf buffer) {
-      LazyTag<Block> tag = LazyTag.fromNetwork(Registry.BLOCK_REGISTRY, buffer);
+      TagKey<Block> tag = TagKey.create(Registry.BLOCK_REGISTRY, buffer.readResourceLocation());
       ResourceLocation name = buffer.readResourceLocation();
       Tier tier = TierSortingRegistry.byName(name);
       if (tier == null) {
@@ -78,13 +73,13 @@ public class FixedTierHarvestLogic implements IHarvestLogic {
 
     @Override
     public void serialize(FixedTierHarvestLogic object, JsonObject json) {
-      json.addProperty("effective", object.tag.getName().toString());
+      json.addProperty("effective", object.tag.location().toString());
       json.addProperty("tier", getTierName(object.tier).toString());
     }
 
     @Override
     public void toNetwork(FixedTierHarvestLogic object, FriendlyByteBuf buffer) {
-      object.tag.toNetwork(buffer);
+      buffer.writeResourceLocation(object.tag.location());
       buffer.writeResourceLocation(getTierName(object.tier));
     }
   }

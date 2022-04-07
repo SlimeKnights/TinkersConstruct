@@ -75,7 +75,7 @@ public class AutosmeltModifier extends SingleUseModifier {
    */
   private ItemStack smeltItem(ItemStack stack, Level world) {
     // skip blacklisted entries
-    if (TinkerTags.Items.AUTOSMELT_BLACKLIST.contains(stack.getItem())) {
+    if (stack.is(TinkerTags.Items.AUTOSMELT_BLACKLIST)) {
       return stack;
     }
     SmeltingRecipe recipe = findCachedRecipe(stack, world);

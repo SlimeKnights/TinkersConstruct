@@ -22,7 +22,7 @@ import slimeknights.tconstruct.smeltery.block.entity.multiblock.SmelteryMultiblo
 import javax.annotation.Nullable;
 
 public class SmelteryBlockEntity extends HeatingStructureBlockEntity {
-  /** Fluid capacity per internal block TODO: adjust size */
+  /** Fluid capacity per internal block */
   private static final int CAPACITY_PER_BLOCK = FluidValues.INGOT * 12;
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 15;
@@ -50,7 +50,7 @@ public class SmelteryBlockEntity extends HeatingStructureBlockEntity {
 
   @Override
   protected boolean isDebugItem(ItemStack stack) {
-    return Items.SMELTERY_DEBUG.contains(stack.getItem());
+    return stack.is(Items.SMELTERY_DEBUG);
   }
 
   @Override

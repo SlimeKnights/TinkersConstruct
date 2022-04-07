@@ -44,7 +44,7 @@ public class FoundryBlockEntity extends HeatingStructureBlockEntity {
 
   @Override
   protected boolean isDebugItem(ItemStack stack) {
-    return Items.FOUNDRY_DEBUG.contains(stack.getItem());
+    return stack.is(Items.FOUNDRY_DEBUG);
   }
 
   @Override

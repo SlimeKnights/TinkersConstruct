@@ -1,24 +1,18 @@
 package slimeknights.tconstruct.common.config;
 
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.IConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent.Reloading;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.world.TinkerHeadType;
-import slimeknights.tconstruct.world.TinkerStructures;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -54,12 +48,6 @@ public class Config {
     public final ConfigValue<Integer> veinCountCobalt;
 
     // overworld
-    public final BooleanValue forceSlimeIslands;
-    public final SlimeIslandConfiguration earthslimeIslands;
-    public final SlimeIslandConfiguration skyslimeIslands;
-    public final SlimeIslandConfiguration clayIslands;
-    public final SlimeIslandConfiguration bloodIslands;
-    public final SlimeIslandConfiguration endslimeIslands;
     public final BooleanValue earthGeodes;
     public final BooleanValue skyGeodes;
     public final BooleanValue ichorGeodes;
@@ -214,34 +202,6 @@ public class Config {
           .worldRestart()
           .define("veinCountCobalt", 8);
 
-        builder.comment("Options related to slime islands").push("slime_islands");
-
-        forceSlimeIslands = builder
-          .comment("If true, slime islands are forced into the world, ignoring datapacks decisions. Disable if you are making a custom datapack and want full control over island placement.",
-                   "Defaults to true because users like to pretend datapacks are mods and thus should work automatically with mods.",
-                   "Normally I would default this sort of thing to false, but with how datapacks are set up, mod support in a datapack is not practical. Honestly should just be a mod at that point, but...")
-          .define("forceAddToWorld", true);
-
-        builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
-        this.earthslimeIslands = new SlimeIslandConfiguration(builder, 35, 0.75, 25988585);
-        builder.pop();
-
-        builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
-        this.skyslimeIslands = new SlimeIslandConfiguration(builder, 40, 0.35, 14357800);
-        builder.pop();
-
-        builder.comment("Settings for clay islands in the overworld sky").push("clay");
-        this.clayIslands = new SlimeIslandConfiguration(builder, 125, 0.65, 162976988);
-        builder.pop();
-
-        builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
-        this.bloodIslands = new SlimeIslandConfiguration(builder, 15, 0.6, 65245622);
-        builder.pop();
-
-        builder.comment("Settings for end slime islands in the outer end islands").push("end");
-        this.endslimeIslands = new SlimeIslandConfiguration(builder, 25, 0.5, 368963602);
-        builder.pop(2);
-
         builder.comment("Options related to slime geodes").push("geodes");
         this.earthGeodes = builder
           .comment("If true, earthslime geodes generate deep in the world as another way to get slime")
@@ -387,52 +347,6 @@ public class Config {
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    bus.addListener(Config::configChanged);
-  }
-
-  /** Called when config reloaded to update cached settings */
-  private static void configChanged(Reloading event) {
-    ModConfig config = event.getConfig();
-    if (config.getModId().equals(TConstruct.MOD_ID)) {
-      IConfigSpec<?> spec = config.getSpec();
-      if (spec == Config.commonSpec) {
-        TinkerStructures.addStructureSeparation();
-      }
-    }
-  }
-
-  /** Configuration settings for the island */
-  public static class SlimeIslandConfiguration {
-    private final BooleanValue generate;
-    private final IntValue spacing;
-    private final DoubleValue separationPercent;
-    private final int salt;
-    public SlimeIslandConfiguration(ForgeConfigSpec.Builder builder, int defaultSpacing, double defaultSeparation, int salt) {
-      this.salt = salt;
-      this.generate = builder
-        .comment("If true, this island generates")
-        .worldRestart()
-        .define("generate", true);
-      this.spacing = builder
-        .comment("How many chunks on average between islands")
-        .worldRestart()
-        .defineInRange("spacing", defaultSpacing, 10, 500);
-      this.separationPercent = builder
-        .comment("Percentage of spacing to use for separation")
-        .worldRestart()
-        .defineInRange("separationPercent", defaultSeparation, 0.0, 1.0);
-    }
-
-    /** If true, this island generates */
-    public boolean doesGenerate() {
-      return generate.get();
-    }
-
-    /** Creates the actual configuration object */
-    public StructureFeatureConfiguration makeConfiguration() {
-      int spacing = this.spacing.get();
-      return new StructureFeatureConfiguration(spacing, (int)(this.separationPercent.get() * spacing), salt);
-    }
   }
 
   /** Configuration for an ore rate, such as melter or foundry */

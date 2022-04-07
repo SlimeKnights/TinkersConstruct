@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.common.data.tags;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -124,9 +125,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(Tags.Blocks.STAINED_GLASS_PANES, Tags.Items.STAINED_GLASS_PANES);
     for (DyeColor color : DyeColor.values()) {
       ResourceLocation name = new ResourceLocation("forge", "glass/" + color.getSerializedName());
-      copy(BlockTags.createOptional(name), ItemTags.createOptional(name));
+      copy(TagKey.create(Registry.BLOCK_REGISTRY, name), TagKey.create(Registry.ITEM_REGISTRY, name));
       name = new ResourceLocation("forge", "glass_panes/" + color.getSerializedName());
-      copy(BlockTags.createOptional(name), ItemTags.createOptional(name));
+      copy(TagKey.create(Registry.BLOCK_REGISTRY, name), TagKey.create(Registry.ITEM_REGISTRY, name));
     }
 
     copy(TinkerTags.Blocks.WORKBENCHES, TinkerTags.Items.WORKBENCHES);
@@ -411,14 +412,14 @@ public class ItemTagProvider extends ItemTagsProvider {
   }
 
   @SafeVarargs
-  private void addToolTags(ItemLike tool, Tag.Named<Item>... tags) {
+  private void addToolTags(ItemLike tool, TagKey<Item>... tags) {
     Item item = tool.asItem();
-    for (Tag.Named<Item> tag : tags) {
+    for (TagKey<Item> tag : tags) {
       this.tag(tag).add(item);
     }
   }
 
-  private Tag.Named<Item> getArmorTag(ArmorSlotType slotType) {
+  private TagKey<Item> getArmorTag(ArmorSlotType slotType) {
     return switch (slotType) {
       case BOOTS -> BOOTS;
       case LEGGINGS -> LEGGINGS;
@@ -428,9 +429,9 @@ public class ItemTagProvider extends ItemTagsProvider {
   }
 
   @SafeVarargs
-  private void addArmorTags(EnumObject<ArmorSlotType,? extends Item> armor, Tag.Named<Item>... tags) {
+  private void addArmorTags(EnumObject<ArmorSlotType,? extends Item> armor, TagKey<Item>... tags) {
     armor.forEach((type, item) -> {
-      for (Tag.Named<Item> tag : tags) {
+      for (TagKey<Item> tag : tags) {
         this.tag(tag).add(item);
       }
       this.tag(getArmorTag(type)).add(item);

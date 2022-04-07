@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -39,7 +39,7 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
   }
 
   /** Creates a builder for a tag and amount */
-  public static SpillingRecipeBuilder forFluid(Tag<Fluid> fluid, int amount) {
+  public static SpillingRecipeBuilder forFluid(TagKey<Fluid> fluid, int amount) {
     return new SpillingRecipeBuilder(FluidIngredient.of(fluid, amount));
   }
 

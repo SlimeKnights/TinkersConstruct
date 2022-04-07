@@ -8,15 +8,15 @@
   ],
   "ingredient": [
     {
-      "tag": "ceramics:terracotta_cisterns"
-    },
-    {
       "type": "forge:nbt",
       "item": "ceramics:clay_bucket"
     },
     {
       "type": "forge:nbt",
       "item": "ceramics:cracked_clay_bucket"
+    },
+    {
+      "tag": "ceramics:terracotta_cisterns"
     }
   ],
   "result": {

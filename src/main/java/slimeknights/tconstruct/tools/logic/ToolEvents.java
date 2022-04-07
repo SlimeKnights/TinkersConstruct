@@ -80,7 +80,7 @@ public class ToolEvents {
 
     // tool break speed hook
     ItemStack stack = player.getMainHandItem();
-    if (TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+    if (stack.is(TinkerTags.Items.HARVEST)) {
       ToolStack tool = ToolStack.from(stack);
       if (!tool.isBroken()) {
         List<ModifierEntry> modifiers = tool.getModifierList();
@@ -336,7 +336,7 @@ public class ToolEvents {
     BlockPos pos = living.blockPosition();
     if (!living.isSpectator() && !living.level.isClientSide() && living.isAlive() && !Objects.equals(living.lastPos, pos)) {
       ItemStack boots = living.getItemBySlot(EquipmentSlot.FEET);
-      if (!boots.isEmpty() && TinkerTags.Items.BOOTS.contains(boots.getItem())) {
+      if (!boots.isEmpty() && boots.is(TinkerTags.Items.BOOTS)) {
         ToolStack tool = ToolStack.from(boots);
         for (ModifierEntry entry : tool.getModifierList()) {
           IArmorWalkModifier hook = entry.getModifier().getModule(IArmorWalkModifier.class);

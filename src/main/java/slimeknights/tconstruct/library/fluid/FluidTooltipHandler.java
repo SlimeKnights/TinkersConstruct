@@ -110,6 +110,7 @@ public class FluidTooltipHandler {
    * @param tooltip    Tooltip to append information
    * @return  True if the amount is not in buckets
    */
+  @SuppressWarnings("deprecation")
   public static boolean appendMaterialNoShift(Fluid fluid, int original, List<Component> tooltip) {
     int amount = original;
 

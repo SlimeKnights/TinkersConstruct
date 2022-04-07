@@ -7,16 +7,16 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
-import slimeknights.mantle.registration.object.MetalItemObject;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -61,7 +61,7 @@ public interface ICommonRecipeHelper extends IRecipeHelper {
    * @param smallName  Small name
    * @param folder     Recipe folder
    */
-  default void packingRecipe(Consumer<FinishedRecipe> consumer, String largeName, ItemLike largeItem, String smallName, ItemLike smallItem, Tag<Item> smallTag, String folder) {
+  default void packingRecipe(Consumer<FinishedRecipe> consumer, String largeName, ItemLike largeItem, String smallName, ItemLike smallItem, TagKey<Item> smallTag, String folder) {
     // ingot to block
     // note our item is in the center, any mod allowed around the edges
     ShapedRecipeBuilder.shaped(largeItem)

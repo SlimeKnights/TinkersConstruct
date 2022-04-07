@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
-import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -13,11 +12,10 @@ public class TOPModifier extends SingleUseModifier {
 
   @Override
   public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {
-    Item item = tool.getItem();
-    if (TinkerTags.Items.HELD.contains(item)) {
+    if (tool.hasTag(TinkerTags.Items.HELD)) {
       tag.putBoolean(TOP_NBT_HAND, true);
     }
-    if (TinkerTags.Items.HELMETS.contains(item)) {
+    if (tool.hasTag(TinkerTags.Items.HELMETS)) {
       tag.putBoolean(TOP_NBT_HELMET, true);
     }
   }

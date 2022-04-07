@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -30,7 +30,7 @@ public class EquipmentContext {
   /** Gets a tool stack if the stack is modifiable, null otherwise */
   @Nullable
   protected static IToolStackView getToolStackIfModifiable(ItemStack stack) {
-    if (!stack.isEmpty() && MODIFIABLE.contains(stack.getItem())) {
+    if (!stack.isEmpty() && stack.is(MODIFIABLE)) {
       return ToolStack.from(stack);
     }
     return null;

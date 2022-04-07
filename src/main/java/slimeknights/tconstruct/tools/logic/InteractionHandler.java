@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.logic;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -47,11 +48,11 @@ public class InteractionHandler {
     Player player = event.getPlayer();
     InteractionHand hand = event.getHand();
     EquipmentSlot slotType = Util.getSlotType(hand);
-    if (!TinkerTags.Items.HELD.contains(stack.getItem())) {
+    if (!stack.is(TinkerTags.Items.HELD)) {
       // if the hand is empty, allow performing chestplate interaction (assuming a modifiable chestplate)
       if (stack.isEmpty()) {
         stack = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (TinkerTags.Items.CHESTPLATES.contains(stack.getItem())) {
+        if (stack.is(TinkerTags.Items.CHESTPLATES)) {
           slotType = EquipmentSlot.CHEST;
         } else {
           return;
@@ -80,7 +81,7 @@ public class InteractionHandler {
     Player player = event.getPlayer();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
+      if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
         // from this point on, we are taking over interaction logic, to ensure chestplate hooks run in the right order
         event.setCanceled(true);
 
@@ -121,7 +122,7 @@ public class InteractionHandler {
     Player player = context.getPlayer();
     Level world = context.getLevel();
     BlockInWorld info = new BlockInWorld(world, context.getClickedPos(), false);
-    if (player != null && !player.getAbilities().mayBuild && !stack.hasAdventureModePlaceTagForBlock(world.getTagManager(), info)) {
+    if (player != null && !player.getAbilities().mayBuild && !stack.hasAdventureModePlaceTagForBlock(Registry.BLOCK, info)) {
       return InteractionResult.PASS;
     }
 
@@ -146,7 +147,7 @@ public class InteractionHandler {
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       // item must be a chestplate
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
+      if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
         // no turning back, from this point we are fully in charge of interaction logic (since we need to ensure order of the hooks)
 
         // begin interaction
@@ -230,7 +231,7 @@ public class InteractionHandler {
     Player attacker = event.getPlayer();
     if (attacker.getMainHandItem().isEmpty()) {
       ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
-      if (TinkerTags.Items.CHESTPLATES.contains(chestplate.getItem())) {
+      if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
         ToolStack tool = ToolStack.from(chestplate);
         if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
           ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
@@ -248,7 +249,7 @@ public class InteractionHandler {
   public static boolean startArmorInteract(Player player, EquipmentSlot slotType) {
     if (!player.isSpectator()) {
       ItemStack helmet = player.getItemBySlot(slotType);
-      if (TinkerTags.Items.ARMOR.contains(helmet.getItem())) {
+      if (helmet.is(TinkerTags.Items.ARMOR)) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
           IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
@@ -270,7 +271,7 @@ public class InteractionHandler {
   public static boolean stopArmorInteract(Player player, EquipmentSlot slotType) {
     if (!player.isSpectator()) {
       ItemStack helmet = player.getItemBySlot(slotType);
-      if (TinkerTags.Items.ARMOR.contains(helmet.getItem())) {
+      if (helmet.is(TinkerTags.Items.ARMOR)) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
           IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);

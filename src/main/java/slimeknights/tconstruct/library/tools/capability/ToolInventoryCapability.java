@@ -86,7 +86,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
 
   /** If true, the given stack is blacklisted from being stored in a tool */
   public static boolean isBlacklisted(ItemStack stack) {
-    return TinkerTags.Items.TOOL_INVENTORY_BLACKLIST.contains(stack.getItem()) || stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent();
+    return stack.is(TinkerTags.Items.TOOL_INVENTORY_BLACKLIST) || stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent();
   }
 
   @Override

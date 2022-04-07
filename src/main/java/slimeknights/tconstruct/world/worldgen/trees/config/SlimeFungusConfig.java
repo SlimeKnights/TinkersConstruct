@@ -5,8 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.SerializationTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
  */
 public class SlimeFungusConfig extends HugeFungusConfiguration {
   public static final Codec<HugeFungusConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-    Tag.codec(() -> SerializationTags.getInstance().getOrEmpty(Registry.BLOCK_REGISTRY)).fieldOf("valid_base").forGetter(
+    TagKey.codec(Registry.BLOCK_REGISTRY).fieldOf("valid_base").forGetter(
       config -> config instanceof SlimeFungusConfig ? ((SlimeFungusConfig)config).getGroundTag() : BlockTags.NYLIUM),
     BlockState.CODEC.fieldOf("stem_state").forGetter(config -> config.stemState),
     BlockState.CODEC.fieldOf("hat_state").forGetter(config -> config.hatState),
@@ -26,8 +25,8 @@ public class SlimeFungusConfig extends HugeFungusConfiguration {
   ).apply(instance, SlimeFungusConfig::new));
 
   @Getter
-  private final Tag<Block> groundTag;
-  public SlimeFungusConfig(Tag<Block> groundTag, BlockState stem, BlockState hat, BlockState decor, boolean planted) {
+  private final TagKey<Block> groundTag;
+  public SlimeFungusConfig(TagKey<Block> groundTag, BlockState stem, BlockState hat, BlockState decor, boolean planted) {
     super(Blocks.AIR.defaultBlockState(), stem, hat, decor, planted);
     this.groundTag = groundTag;
   }

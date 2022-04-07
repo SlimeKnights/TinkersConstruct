@@ -17,7 +17,7 @@ public interface ISmelteryTankHandler {
    * Gets the smeltery tank
    * @return  Tank instance
    */
-  SmelteryTank getTank();
+  SmelteryTank<?> getTank();
 
   /**
    * Gets the fluid capability for this smeltery. Provided here as the smeltery itself does not expose this

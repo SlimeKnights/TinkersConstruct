@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
@@ -21,6 +22,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.EmptyItemHandler;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainerMenu;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -158,7 +160,7 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
    */
   private static boolean isUsable(BlockEntity tileEntity, Player player) {
     // must not be blacklisted and be usable
-    return !TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST.contains(tileEntity.getType())
+    return !RegistryHelper.contains(Registry.BLOCK_ENTITY_TYPE, TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST, tileEntity.getType())
            && (!(tileEntity instanceof Container) || ((Container)tileEntity).stillValid(player));
   }
 

@@ -29,10 +29,10 @@ public class ModifierArgument implements ArgumentType<Modifier> {
   @Override
   public Modifier parse(StringReader reader) throws CommandSyntaxException {
     ResourceLocation loc = ResourceLocation.read(reader);
-    if (!TinkerRegistries.MODIFIERS.containsKey(loc)) {
+    if (!TinkerRegistries.MODIFIERS.get().containsKey(loc)) {
       throw MODIFIER_NOT_FOUND.create(loc);
     }
-    return Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(loc));
+    return Objects.requireNonNull(TinkerRegistries.MODIFIERS.get().getValue(loc));
   }
 
   /** Gets a modifier from the command context */
@@ -42,7 +42,7 @@ public class ModifierArgument implements ArgumentType<Modifier> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return SharedSuggestionProvider.suggestResource(TinkerRegistries.MODIFIERS.getKeys(), builder);
+    return SharedSuggestionProvider.suggestResource(TinkerRegistries.MODIFIERS.get().getKeys(), builder);
   }
 
   @Override

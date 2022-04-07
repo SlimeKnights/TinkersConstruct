@@ -580,7 +580,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       // modifiers first
       List<Modifier> firstModifiers = Collections.emptyList();
       if (modelContents.has("first_modifiers")) {
-        firstModifiers = JsonHelper.parseList(modelContents, "first_modifiers", (element, key) -> JsonUtils.convertToEntry(TinkerRegistries.MODIFIERS, element, key));
+        firstModifiers = JsonHelper.parseList(modelContents, "first_modifiers", (element, key) -> JsonUtils.convertToEntry(TinkerRegistries.MODIFIERS.get(), element, key));
       }
       return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots, firstModifiers);
     }

@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.SetTag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -39,7 +39,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
    * @param tag  Tag input
    * @return  Builder instance
    */
-  public MaterialRecipeBuilder setIngredient(SetTag<Item> tag) {
+  public MaterialRecipeBuilder setIngredient(TagKey<Item> tag) {
     return this.setIngredient(Ingredient.of(tag));
   }
 

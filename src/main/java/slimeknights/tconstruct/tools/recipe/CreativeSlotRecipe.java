@@ -63,7 +63,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     // must be modifiable
-    if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
+    if (!inv.getTinkerableStack().is(TinkerTags.Items.MODIFIABLE)) {
       return false;
     }
     return findSlotType(inv, false) != null;

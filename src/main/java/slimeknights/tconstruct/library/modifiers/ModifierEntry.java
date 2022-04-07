@@ -44,7 +44,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
 
   /** Deserializes a modifier from JSON */
   public static Modifier deserializeModifier(JsonObject parent, String key) {
-    return JsonUtils.getAsEntry(TinkerRegistries.MODIFIERS, parent, key);
+    return JsonUtils.getAsEntry(TinkerRegistries.MODIFIERS.get(), parent, key);
   }
 
   /**
@@ -73,7 +73,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Read entry
    */
   public static ModifierEntry read(FriendlyByteBuf buffer) {
-    return new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS), buffer.readVarInt());
+    return new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get()), buffer.readVarInt());
   }
 
   /**
@@ -81,7 +81,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    */
   public void write(FriendlyByteBuf buffer) {
-    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, modifier);
+    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get(), modifier);
     buffer.writeVarInt(level);
   }
 

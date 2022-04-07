@@ -45,6 +45,6 @@ public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
   @Nullable
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
-    return TinkerStructures.skySlimeIslandTree;
+    return TinkerStructures.skySlimeIslandTree.get();
   }
 }

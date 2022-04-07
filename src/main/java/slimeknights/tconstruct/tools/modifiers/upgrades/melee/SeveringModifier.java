@@ -26,14 +26,14 @@ public class SeveringModifier extends Modifier {
     Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
     if (entity != null) {
       // ensure no head so far
-      if (generatedLoot.stream().noneMatch(stack -> Tags.Items.HEADS.contains(stack.getItem()))) {
+      if (generatedLoot.stream().noneMatch(stack -> stack.is(Tags.Items.HEADS))) {
         // find proper recipe
         List<SeveringRecipe> recipes = SeveringRecipeCache.findRecipe(context.getLevel().getRecipeManager(), entity.getType());
         if (!recipes.isEmpty()) {
           // 5% chance per level, bonus 5% per level of looting
           float chance = (level + context.getLootingModifier()) * 0.05f;
           // double chance for mobs such as ender dragons and the wither
-          if (TinkerTags.EntityTypes.RARE_MOBS.contains(entity.getType())) {
+          if (entity.getType().is(TinkerTags.EntityTypes.RARE_MOBS)) {
             chance *= 2;
           }
           for (SeveringRecipe recipe : recipes) {

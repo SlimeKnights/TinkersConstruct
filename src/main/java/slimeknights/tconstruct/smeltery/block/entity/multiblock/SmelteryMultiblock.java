@@ -11,21 +11,21 @@ public class SmelteryMultiblock extends HeatingStructureMultiblock<SmelteryBlock
 
   @Override
   protected boolean isValidBlock(Block block) {
-    return TinkerTags.Blocks.SMELTERY.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.SMELTERY);
   }
 
   @Override
   protected boolean isValidFloor(Block block) {
-    return TinkerTags.Blocks.SMELTERY_FLOOR.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.SMELTERY_FLOOR);
   }
 
   @Override
   protected boolean isValidTank(Block block) {
-    return TinkerTags.Blocks.SMELTERY_TANKS.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.SMELTERY_TANKS);
   }
 
   @Override
   protected boolean isValidWall(Block block) {
-    return TinkerTags.Blocks.SMELTERY_WALL.contains(block);
+    return block.builtInRegistryHolder().is(TinkerTags.Blocks.SMELTERY_WALL);
   }
 }

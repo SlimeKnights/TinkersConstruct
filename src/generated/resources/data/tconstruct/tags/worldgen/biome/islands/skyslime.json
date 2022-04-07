@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_deep_ocean",
+    "#minecraft:is_ocean",
+    "#minecraft:is_beach",
+    "#minecraft:is_river",
+    "#minecraft:is_mountain",
+    "#minecraft:is_badlands",
+    "#minecraft:is_hill",
+    "#minecraft:is_taiga",
+    "#minecraft:is_forest"
+  ]
+}

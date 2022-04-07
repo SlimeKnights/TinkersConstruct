@@ -23,7 +23,7 @@
     }
   ],
   "tools": {
-    "type": "mantle:difference",
+    "type": "forge:difference",
     "base": {
       "tag": "tconstruct:modifiable/armor/boots"
     },

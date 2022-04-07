@@ -2,6 +2,7 @@
   "type": "forge:conditional",
   "conditions": [
     {
+      "registry": "minecraft:item",
       "base": "forge:ores/tungsten",
       "subtracted": [
         "forge:ore_rates/sparse",
@@ -25,7 +26,7 @@
         "type": "tconstruct:ore_melting",
         "rate": "metal",
         "ingredient": {
-          "type": "mantle:difference",
+          "type": "forge:difference",
           "base": {
             "tag": "forge:ores/tungsten"
           },
@@ -62,7 +63,7 @@
         "type": "tconstruct:ore_melting",
         "rate": "metal",
         "ingredient": {
-          "type": "mantle:difference",
+          "type": "forge:difference",
           "base": {
             "tag": "forge:ores/tungsten"
           },

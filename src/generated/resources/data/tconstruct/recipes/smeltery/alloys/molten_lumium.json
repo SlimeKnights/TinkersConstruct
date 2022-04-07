@@ -24,8 +24,9 @@
     },
     {
       "value": {
+        "registry": "minecraft:fluid",
         "tag": "forge:glowstone",
-        "type": "mantle:fluid_tag_empty"
+        "type": "mantle:tag_empty"
       },
       "type": "forge:not"
     }

@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -96,7 +96,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param amount  Amount required
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInput(Tag<Item> tag, int amount) {
+  public ModifierRecipeBuilder addInput(TagKey<Item> tag, int amount) {
     return addInput(SizedIngredient.fromTag(tag, amount));
   }
 
@@ -105,7 +105,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param tag     Tag input
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInput(Tag<Item> tag) {
+  public ModifierRecipeBuilder addInput(TagKey<Item> tag) {
     return addInput(tag, 1);
   }
 
@@ -158,7 +158,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param tag  Salvage item
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addSalvage(Tag<Item> tag, int minAmount, int maxAmount) {
+  public ModifierRecipeBuilder addSalvage(TagKey<Item> tag, int minAmount, int maxAmount) {
     return addSalvage(RandomItem.range(ItemOutput.fromTag(tag, maxAmount), minAmount));
   }
 
@@ -206,7 +206,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param maxAmount  Max amount for salvage
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInputSalvage(Tag<Item> tag, int minAmount, int maxAmount) {
+  public ModifierRecipeBuilder addInputSalvage(TagKey<Item> tag, int minAmount, int maxAmount) {
     addInput(SizedIngredient.fromTag(tag, maxAmount));
     addSalvage(tag, minAmount, maxAmount);
     return this;
@@ -218,7 +218,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param amount  Amount required
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInputSalvage(Tag<Item> tag, int amount) {
+  public ModifierRecipeBuilder addInputSalvage(TagKey<Item> tag, int amount) {
     return addInputSalvage(tag, 0, amount);
   }
 
@@ -228,7 +228,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param salvageChance  Chance of the input to be salvaged
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInputSalvage(Tag<Item> tag, float salvageChance) {
+  public ModifierRecipeBuilder addInputSalvage(TagKey<Item> tag, float salvageChance) {
     addInput(SizedIngredient.fromTag(tag, 1));
     addSalvage(RandomItem.chance(ItemOutput.fromTag(tag, 1), salvageChance));
     return this;

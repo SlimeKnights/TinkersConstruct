@@ -98,7 +98,7 @@ public class TastyModifier extends Modifier {
 
     // must have an entity
     Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
-    if (entity != null && TinkerTags.EntityTypes.BACON_PRODUCER.contains(entity.getType())) {
+    if (entity != null && entity.getType().is(TinkerTags.EntityTypes.BACON_PRODUCER)) {
       // at tasty 1, 2, 3, and 4 its a 2%, 4.15%, 6.25%, 8% per level
       int looting = context.getLootingModifier();
       if (RANDOM.nextInt(48 / level) <= looting) {

@@ -2,6 +2,7 @@
   "type": "forge:conditional",
   "conditions": [
     {
+      "registry": "minecraft:item",
       "tags": [
         "forge:ores/nickel",
         "forge:ore_rates/dense"
@@ -24,8 +25,8 @@
         "type": "tconstruct:ore_melting",
         "rate": "metal",
         "ingredient": {
-          "type": "mantle:intersection",
-          "ingredients": [
+          "type": "forge:intersection",
+          "children": [
             {
               "tag": "forge:ores/nickel"
             },
@@ -58,8 +59,8 @@
         "type": "tconstruct:ore_melting",
         "rate": "metal",
         "ingredient": {
-          "type": "mantle:intersection",
-          "ingredients": [
+          "type": "forge:intersection",
+          "children": [
             {
               "tag": "forge:ores/nickel"
             },

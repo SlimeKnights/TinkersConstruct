@@ -9,7 +9,7 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "type": "mantle:difference",
+      "type": "forge:difference",
       "base": [
         {
           "tag": "forge:workbenches"

@@ -50,15 +50,15 @@ public class ClayIslandVariant implements IIslandVariant {
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
     return switch (random.nextInt(10)) {
       // 40% oak
-      case 0, 1, 2, 3 -> TreeFeatures.OAK;
+      case 0, 1, 2, 3 -> TreeFeatures.OAK.value();
       // 30% birch
-      case 4, 5, 6 -> TreeFeatures.BIRCH;
+      case 4, 5, 6 -> TreeFeatures.BIRCH.value();
       // 10% spruce
-      case 7 -> TreeFeatures.SPRUCE;
+      case 7 -> TreeFeatures.SPRUCE.value();
       // 10% acacia
-      case 8 -> TreeFeatures.ACACIA;
+      case 8 -> TreeFeatures.ACACIA.value();
       // 10% jungle
-      case 9 -> TreeFeatures.JUNGLE_TREE_NO_VINE;
+      case 9 -> TreeFeatures.JUNGLE_TREE_NO_VINE.value();
       default -> null;
     };
   }

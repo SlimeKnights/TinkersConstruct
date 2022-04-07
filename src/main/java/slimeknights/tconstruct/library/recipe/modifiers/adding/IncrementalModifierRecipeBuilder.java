@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -98,7 +98,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @param neededPerLevel Total number needed for this modifier
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setInput(Tag<Item> tag, int amountPerItem, int neededPerLevel) {
+  public IncrementalModifierRecipeBuilder setInput(TagKey<Item> tag, int amountPerItem, int neededPerLevel) {
     return setInput(Ingredient.of(tag), amountPerItem, neededPerLevel);
   }
 
@@ -160,7 +160,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @param fullOutput  If true, salvaging returns the full item amount. If false, salvaging grants between 0 and the full amount
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setInputSalvage(Tag<Item> tag, int amountPerItem, int neededPerLevel, boolean fullOutput) {
+  public IncrementalModifierRecipeBuilder setInputSalvage(TagKey<Item> tag, int amountPerItem, int neededPerLevel, boolean fullOutput) {
     setInput(tag, amountPerItem, neededPerLevel);
     setSalvage(ItemOutput.fromTag(tag, amountPerItem), fullOutput);
     return this;

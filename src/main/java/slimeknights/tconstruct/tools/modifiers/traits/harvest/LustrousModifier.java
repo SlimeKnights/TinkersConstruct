@@ -4,7 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -24,8 +24,8 @@ public class LustrousModifier extends Modifier {
 
   @Override
   public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
-    Block block = event.getState().getBlock();
-    if (isEffective && (Tags.Blocks.ORES.contains(block) || Tags.Blocks.STORAGE_BLOCKS.contains(block))) {
+    BlockState block = event.getState();
+    if (isEffective && (block.is(Tags.Blocks.ORES) || block.is(Tags.Blocks.STORAGE_BLOCKS))) {
       // grants +8 mining speed per level against ores
       event.setNewSpeed(event.getNewSpeed() + (level * 8 * tool.getMultiplier(ToolStats.MINING_SPEED)));
     }

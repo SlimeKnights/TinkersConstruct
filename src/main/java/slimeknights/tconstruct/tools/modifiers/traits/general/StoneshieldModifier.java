@@ -32,7 +32,7 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
     while (iterator.hasNext()) {
       ItemStack stack = iterator.next();
       // if the item is a stone, num time
-      if (TinkerTags.Items.STONESHIELDS.contains(stack.getItem())) {
+      if (stack.is(TinkerTags.Items.STONESHIELDS)) {
         // 100% chance? just add the full count
         if (chance >= 1.0f) {
           addedShield += stack.getCount();

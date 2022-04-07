@@ -149,7 +149,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
             // update the heater below
             BlockPos down = pos.below();
             BlockState downState = level.getBlockState(down);
-            if (TinkerTags.Blocks.FUEL_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.getValue(ControllerBlock.ACTIVE) != hasFuel) {
+            if (downState.is(TinkerTags.Blocks.FUEL_TANKS) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.getValue(ControllerBlock.ACTIVE) != hasFuel) {
               level.setBlockAndUpdate(down, downState.setValue(ControllerBlock.ACTIVE, hasFuel));
             }
           }

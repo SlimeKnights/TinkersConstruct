@@ -6,10 +6,12 @@ import com.mojang.brigadier.context.CommandContext;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.util.TablePrinter;
 import slimeknights.mantle.command.MantleCommand;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.TinkerRegistries;
@@ -87,11 +89,11 @@ public class ModifierUsageCommand {
                                          .map(ModifierEntry::getModifier)
                                          .collect(Collectors.toSet());
     // finally, tool traits we limit to anything in the modifiable tag
-    Set<Modifier> toolTraits = TinkerTags.Items.MODIFIABLE.getValues().stream()
-                                                          .filter(item -> item instanceof IModifiable)
-                                                          .flatMap(item -> ((IModifiable) item).getToolDefinition().getData().getTraits().stream())
-                                                          .map(ModifierEntry::getModifier)
-                                                          .collect(Collectors.toSet());
+    Set<Modifier> toolTraits = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.MODIFIABLE)
+                                             .filter(item -> item instanceof IModifiable)
+                                             .flatMap(item -> ((IModifiable) item).getToolDefinition().getData().getTraits().stream())
+                                             .map(ModifierEntry::getModifier)
+                                             .collect(Collectors.toSet());
 
     // next, get our list of modifiers
     Stream<Modifier> modifierStream;
@@ -111,7 +113,7 @@ public class ModifierUsageCommand {
         modifierStream = toolTraits.stream();
         break;
       default:
-        modifierStream = TinkerRegistries.MODIFIERS.getValues().stream();
+        modifierStream = TinkerRegistries.MODIFIERS.get().getValues().stream();
         break;
     }
     // if requested, filter out all

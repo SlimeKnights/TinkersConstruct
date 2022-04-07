@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.shared.block;
 
 import lombok.Getter;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.Locale;
@@ -45,11 +45,11 @@ public enum SlimeType implements StringRepresentable {
 
   /* Tags */
   /** Tag for dirt blocks of this type, including blocks with grass on top */
-  private final IOptionalNamedTag<Block> dirtBlockTag;
+  private final TagKey<Block> dirtBlockTag;
   /** Tag for grass blocks with this foliage type */
-  private final IOptionalNamedTag<Block> grassBlockTag;
+  private final TagKey<Block> grassBlockTag;
   /** Tag for slime balls of this type */
-  private final IOptionalNamedTag<Item> slimeballTag;
+  private final TagKey<Item> slimeballTag;
 
   SlimeType(int color, int defaultFoliageColor, Tiers harvestTier, MaterialColor mapColor, boolean nether, int lightLevel) {
     this.color = color;

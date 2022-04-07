@@ -8,7 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -97,7 +97,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private final boolean requireCast;
   /** Items that count as empty in the casting table */
   @Getter
-  private final Tag<Item> emptyCastTag;
+  private final TagKey<Item> emptyCastTag;
 
   /* Molding recipes */
   /** Recipe type for molding recipes, may be basin or table */
@@ -111,7 +111,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   /** Last analog signal strength */
   private int lastAnalogSignal;
 
-  protected CastingBlockEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType, Tag<Item> emptyCastTag) {
+  protected CastingBlockEntity(BlockEntityType<?> beType, BlockPos pos, BlockState state, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType, TagKey<Item> emptyCastTag) {
     super(beType, pos, state, NAME, 2, 1);
     this.requireCast = state.getBlock() instanceof AbstractCastingBlock casting && casting.isRequireCast();
     this.emptyCastTag = emptyCastTag;

@@ -39,8 +39,14 @@ public class ConfigEnabledCondition implements ICondition, LootItemCondition {
     return ID;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public boolean test() {
+    return supplier.getAsBoolean();
+  }
+
+  @Override
+  public boolean test(IContext context) {
     return supplier.getAsBoolean();
   }
 

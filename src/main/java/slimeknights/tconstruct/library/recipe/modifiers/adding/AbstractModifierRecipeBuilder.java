@@ -5,12 +5,12 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -76,7 +76,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @param tag  Tag
    * @return  Builder instance
    */
-  public T setTools(Tag<Item> tag) {
+  public T setTools(TagKey<Item> tag) {
     return this.setTools(Ingredient.of(tag));
   }
 
@@ -182,7 +182,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
       ingredient = Ingredient.of(TinkerTags.Items.CHESTPLATES);
       // if null, both
     } else if (unarmed == null) {
-      ingredient = CompoundIngredient.from(ingredient, Ingredient.of(TinkerTags.Items.CHESTPLATES));
+      ingredient = CompoundIngredient.of(ingredient, Ingredient.of(TinkerTags.Items.CHESTPLATES));
     }
     json.add("tools", ingredient.toJson());
     if (maxToolSize != ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE) {

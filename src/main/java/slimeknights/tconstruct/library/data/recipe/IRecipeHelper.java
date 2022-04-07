@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.library.data.recipe;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.world.item.Item;
-import net.minecraft.tags.Tag.Named;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
@@ -93,8 +94,18 @@ public interface IRecipeHelper {
    * @param name   Tag name
    * @return  Tag instance
    */
-  default Named<Item> getTag(String modId, String name) {
-    return ItemTags.bind(modId + ":" + name);
+  default TagKey<Item> getItemTag(String modId, String name) {
+    return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(modId, name));
+  }
+
+  /**
+   * Gets a tag by name
+   * @param modId  Mod ID for tag
+   * @param name   Tag name
+   * @return  Tag instance
+   */
+  default TagKey<Fluid> getFluidTag(String modId, String name) {
+    return TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(modId, name));
   }
 
   /**

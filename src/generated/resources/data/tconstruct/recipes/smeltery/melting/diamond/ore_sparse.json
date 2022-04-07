@@ -2,6 +2,7 @@
   "type": "tconstruct:ore_melting",
   "conditions": [
     {
+      "registry": "minecraft:item",
       "tags": [
         "forge:ores/diamond",
         "forge:ore_rates/sparse"
@@ -11,8 +12,8 @@
   ],
   "rate": "gem",
   "ingredient": {
-    "type": "mantle:intersection",
-    "ingredients": [
+    "type": "forge:intersection",
+    "children": [
       {
         "tag": "forge:ores/diamond"
       },

@@ -1,22 +1,20 @@
 package slimeknights.tconstruct.gadgets.item.slimesling;
 
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.block.SlimeType;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -27,11 +25,10 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (worldIn.isClientSide || !(entityLiving instanceof Player)) {
+    if (worldIn.isClientSide || !(entityLiving instanceof Player player)) {
       return;
     }
 
-    Player player = (Player) entityLiving;
     float f = getForce(stack, timeLeft) / 2;
 
     float range = 5F;
@@ -47,7 +44,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
       // cancel if there's a block in the way
       BlockHitResult mop = getPlayerPOVHitResult(worldIn, player, ClipContext.Fluid.NONE);
-      double blockDist = mop.getBlockPos().distSqr(start.x, start.y, start.z, true);
+      double blockDist = mop.getBlockPos().distToCenterSqr(start);
       if (mop.getType() == HitResult.Type.BLOCK && targetDist > blockDist) {
         playMissSound(player);
         return;
@@ -55,8 +52,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
       player.getCooldowns().addCooldown(stack.getItem(), 3);
       target.knockback(f , -look.x, -look.z);
-      if (player instanceof ServerPlayer) {
-        ServerPlayer playerMP = (ServerPlayer) player;
+      if (player instanceof ServerPlayer playerMP) {
         TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(player), playerMP);
       }
       onSuccess(player, stack);

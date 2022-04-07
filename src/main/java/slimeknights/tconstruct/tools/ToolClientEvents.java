@@ -67,7 +67,7 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Listener to clear modifier cache */
   private static final ISafeManagerReloadListener MODIFIER_RELOAD_LISTENER = manager -> {
-    for (Modifier modifier : TinkerRegistries.MODIFIERS.getValues()) {
+    for (Modifier modifier : TinkerRegistries.MODIFIERS.get().getValues()) {
       modifier.clearCache(PackType.CLIENT_RESOURCES);
     }
   };

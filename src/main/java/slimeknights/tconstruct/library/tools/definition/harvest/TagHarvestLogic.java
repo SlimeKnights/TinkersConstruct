@@ -4,12 +4,12 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.TierSortingRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.json.LazyTag;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -18,10 +18,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 public class TagHarvestLogic implements IHarvestLogic {
   public static final Loader LOADER = new Loader();
 
-  protected final LazyTag<Block> tag;
-  public TagHarvestLogic(Tag.Named<Block> tag) {
-    this.tag = LazyTag.of(tag);
-  }
+  protected final TagKey<Block> tag;
 
   @Override
   public boolean isEffective(IToolStackView tool, BlockState state) {
@@ -42,24 +39,24 @@ public class TagHarvestLogic implements IHarvestLogic {
   private static class Loader implements IGenericLoader<TagHarvestLogic> {
     @Override
     public TagHarvestLogic deserialize(JsonObject json) {
-      LazyTag<Block> tag = LazyTag.fromJson(Registry.BLOCK_REGISTRY, json, "effective");
+      TagKey<Block> tag = TagKey.create(Registry.BLOCK_REGISTRY, JsonHelper.getResourceLocation(json, "effective"));
       return new TagHarvestLogic(tag);
     }
 
     @Override
     public TagHarvestLogic fromNetwork(FriendlyByteBuf buffer) {
-      LazyTag<Block> tag = LazyTag.fromNetwork(Registry.BLOCK_REGISTRY, buffer);
+      TagKey<Block> tag = TagKey.create(Registry.BLOCK_REGISTRY, buffer.readResourceLocation());
       return new TagHarvestLogic(tag);
     }
 
     @Override
     public void serialize(TagHarvestLogic object, JsonObject json) {
-      json.addProperty("effective", object.tag.getName().toString());
+      json.addProperty("effective", object.tag.location().toString());
     }
 
     @Override
     public void toNetwork(TagHarvestLogic object, FriendlyByteBuf buffer) {
-      object.tag.toNetwork(buffer);
+      buffer.writeResourceLocation(object.tag.location());
     }
   }
 }

@@ -4,7 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
@@ -23,7 +22,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 /** Common interface for modifier recipes that can show in JEI */
 public interface IDisplayModifierRecipe extends IModifierRecipe {
@@ -92,11 +90,6 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
 
 
   /* Helpers */
-
-  /** Gets a stream of all modifiable items for display */
-  static Stream<Item> getAllModifiable() {
-    return TinkerTags.Items.MODIFIABLE.getValues().stream();
-  }
 
   /** Maps the stream from tool items to applicable tool stacks */
   Function<Item,ItemStack> MAP_TOOL_FOR_RENDERING = IModifiableDisplay::getDisplayStack;

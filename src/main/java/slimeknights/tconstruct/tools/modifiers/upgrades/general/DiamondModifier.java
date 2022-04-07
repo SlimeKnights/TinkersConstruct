@@ -25,17 +25,17 @@ public class DiamondModifier extends SingleLevelModifier {
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     Item item = context.getItem();
     int durabilityBonus = 500;
-    if (ARMOR.contains(item)) {
+    if (context.hasTag(ARMOR)) {
       durabilityBonus = 250;
       ToolStats.ARMOR.add(builder, level);
     }
-    if (DURABILITY.contains(item)) {
+    if (context.hasTag(DURABILITY)) {
       ToolStats.DURABILITY.add(builder, level * durabilityBonus);
     }
-    if (MELEE_OR_UNARMED.contains(item)) {
+    if (context.hasTag(MELEE_OR_UNARMED)) {
       ToolStats.ATTACK_DAMAGE.add(builder, level * 0.5f);
     }
-    if (HARVEST.contains(item)) {
+    if (context.hasTag(HARVEST)) {
       ToolStats.MINING_SPEED.add(builder, level * 2f);
       ToolStats.HARVEST_TIER.update(builder, Tiers.DIAMOND);
     }

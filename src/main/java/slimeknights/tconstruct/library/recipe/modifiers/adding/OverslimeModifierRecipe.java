@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -47,7 +49,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
-    if (!TinkerTags.Items.DURABILITY.contains(inv.getTinkerableStack().getItem())) {
+    if (!inv.getTinkerableStack().is(TinkerTags.Items.DURABILITY)) {
       return false;
     }
     // must find at least one slime, but multiple is fine, as is empty slots
@@ -138,7 +140,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (toolWithoutModifier == null) {
-      toolWithoutModifier = TinkerTags.Items.DURABILITY.getValues().stream().map(MAP_TOOL_FOR_RENDERING).toList();
+      toolWithoutModifier = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.DURABILITY).map(MAP_TOOL_FOR_RENDERING).toList();
     }
     return toolWithoutModifier;
   }
@@ -147,10 +149,10 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      toolWithModifier = TinkerTags.Items.DURABILITY.getValues().stream()
-                                                    .map(MAP_TOOL_FOR_RENDERING)
-                                                    .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setShield(data, restoreAmount)))
-                                                    .toList();
+      toolWithModifier = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.DURABILITY)
+                                       .map(MAP_TOOL_FOR_RENDERING)
+                                       .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setShield(data, restoreAmount)))
+                                       .toList();
     }
     return toolWithModifier;
   }
