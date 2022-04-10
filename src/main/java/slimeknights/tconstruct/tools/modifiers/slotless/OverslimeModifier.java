@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools.modifiers.slotless;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.TinkerTags.Items;
 import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -38,8 +40,15 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
     if (!context.getVolatileData().getBoolean(KEY_OVERSLIME_FRIEND)) {
-      ToolStats.ATTACK_DAMAGE.multiply(builder, 0.9f);
-      ToolStats.MINING_SPEED.multiply(builder, 0.9f);
+      if (context.hasTag(Items.MELEE)) {
+        ToolStats.ATTACK_DAMAGE.multiply(builder, 0.9f);
+      }
+      if (context.hasTag(Items.HARVEST)) {
+        ToolStats.MINING_SPEED.multiply(builder, 0.9f);
+      }
+      if (context.hasTag(TinkerTags.Items.ARMOR)) {
+        ToolStats.ARMOR.add(builder, 0.5f);
+      }
     }
   }
 
