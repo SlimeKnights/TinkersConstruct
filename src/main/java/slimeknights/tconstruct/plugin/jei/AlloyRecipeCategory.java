@@ -11,6 +11,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -64,14 +65,21 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     this.tank = helper.createDrawable(BACKGROUND_LOC, 172, 17, 16, 16);
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
-    return TConstructJEIConstants.ALLOY;
+    return TConstructJEIConstants.ALLOY.getUid();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends AlloyRecipe> getRecipeClass() {
     return AlloyRecipe.class;
+  }
+
+  @Override
+  public RecipeType<AlloyRecipe> getRecipeType() {
+    return TConstructJEIConstants.ALLOY;
   }
 
   @Override

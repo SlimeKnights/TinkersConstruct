@@ -9,6 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -40,8 +41,14 @@ public class FoundryCategory extends AbstractMeltingCategory {
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerSmeltery.foundryController));
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
+    return TConstructJEIConstants.FOUNDRY.getUid();
+  }
+
+  @Override
+  public RecipeType<MeltingRecipe> getRecipeType() {
     return TConstructJEIConstants.FOUNDRY;
   }
 

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.plugin.jei;
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -154,32 +154,32 @@ public class JEIPlugin implements IModPlugin {
     RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
     // casting
     List<IDisplayableCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.CASTING_BASIN.get(), IDisplayableCastingRecipe.class);
-    register.addRecipes(castingBasinRecipes, TConstructJEIConstants.CASTING_BASIN);
+    register.addRecipes(TConstructJEIConstants.CASTING_BASIN, castingBasinRecipes);
     List<IDisplayableCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.CASTING_TABLE.get(), IDisplayableCastingRecipe.class);
-    register.addRecipes(castingTableRecipes, TConstructJEIConstants.CASTING_TABLE);
+    register.addRecipes(TConstructJEIConstants.CASTING_TABLE, castingTableRecipes);
 
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.MELTING.get(), MeltingRecipe.class);
-    register.addRecipes(meltingRecipes, TConstructJEIConstants.MELTING);
-    register.addRecipes(meltingRecipes, TConstructJEIConstants.FOUNDRY);
+    register.addRecipes(TConstructJEIConstants.MELTING, meltingRecipes);
+    register.addRecipes(TConstructJEIConstants.FOUNDRY, meltingRecipes);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, TinkerRecipeTypes.FUEL.get(), MeltingFuel.class));
 
     // entity melting
     List<EntityMeltingRecipe> entityMeltingRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.ENTITY_MELTING.get(), EntityMeltingRecipe.class);
     // generate a "default" recipe for all other entity types
     entityMeltingRecipes.add(new DefaultEntityMeltingRecipe(entityMeltingRecipes));
-    register.addRecipes(entityMeltingRecipes, TConstructJEIConstants.ENTITY_MELTING);
+    register.addRecipes(TConstructJEIConstants.ENTITY_MELTING, entityMeltingRecipes);
 
     // alloying
     List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.ALLOYING.get(), AlloyRecipe.class);
-    register.addRecipes(alloyRecipes, TConstructJEIConstants.ALLOY);
+    register.addRecipes(TConstructJEIConstants.ALLOY, alloyRecipes);
 
     // molding
     List<MoldingRecipe> moldingRecipes = ImmutableList.<MoldingRecipe>builder()
       .addAll(RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.MOLDING_TABLE.get(), MoldingRecipe.class))
       .addAll(RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.MOLDING_BASIN.get(), MoldingRecipe.class))
       .build();
-    register.addRecipes(moldingRecipes, TConstructJEIConstants.MOLDING);
+    register.addRecipes(TConstructJEIConstants.MOLDING, moldingRecipes);
 
     // modifiers
     List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class)
@@ -191,17 +191,17 @@ public class JEIPlugin implements IModPlugin {
                                                                  String n2 = t2 == null ? "zzzzzzzzzz" : t2.getName();
                                                                  return n1.compareTo(n2);
                                                                }).collect(Collectors.toList());
-    register.addRecipes(modifierRecipes, TConstructJEIConstants.MODIFIERS);
+    register.addRecipes(TConstructJEIConstants.MODIFIERS, modifierRecipes);
 
     // beheading
     List<SeveringRecipe> severingRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.SEVERING.get(), SeveringRecipe.class);
-    register.addRecipes(severingRecipes, TConstructJEIConstants.SEVERING);
+    register.addRecipes(TConstructJEIConstants.SEVERING, severingRecipes);
 
     // part builder
     List<MaterialRecipe> materialRecipes = RecipeHelper.getRecipes(manager, TinkerRecipeTypes.MATERIAL.get(), MaterialRecipe.class);
     MaterialItemList.setRecipes(materialRecipes);
     List<IDisplayPartBuilderRecipe> partRecipes = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.PART_BUILDER.get(), IDisplayPartBuilderRecipe.class);
-    register.addRecipes(partRecipes, TConstructJEIConstants.PART_BUILDER);
+    register.addRecipes(TConstructJEIConstants.PART_BUILDER, partRecipes);
   }
 
   /**
@@ -211,7 +211,7 @@ public class JEIPlugin implements IModPlugin {
    * @param ownCategory  Category to always add
    * @param type         Molding recipe type
    */
-  private static <T extends Recipe<C>, C extends Container> void addCastingCatalyst(IRecipeCatalystRegistration registry, ItemLike item, ResourceLocation ownCategory, RecipeType<T> type) {
+  private static <T extends Recipe<C>, C extends Container> void addCastingCatalyst(IRecipeCatalystRegistration registry, ItemLike item, mezz.jei.api.recipe.RecipeType<IDisplayableCastingRecipe> ownCategory, RecipeType<MoldingRecipe> type) {
     ItemStack stack = new ItemStack(item);
     registry.addRecipeCatalyst(stack, ownCategory);
     assert Minecraft.getInstance().level != null;
@@ -230,7 +230,7 @@ public class JEIPlugin implements IModPlugin {
 
     // smeltery
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructJEIConstants.MELTING);
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), RecipeTypes.FUELING);
     addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructJEIConstants.CASTING_TABLE, TinkerRecipeTypes.MOLDING_TABLE.get());
     addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructJEIConstants.CASTING_BASIN, TinkerRecipeTypes.MOLDING_BASIN.get());
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructJEIConstants.MELTING, TConstructJEIConstants.ALLOY, TConstructJEIConstants.ENTITY_MELTING);

@@ -14,6 +14,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -62,14 +63,21 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     this.tank = helper.createDrawable(BACKGROUND_LOC, 150, 74, 16, 16);
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
-    return TConstructJEIConstants.ENTITY_MELTING;
+    return TConstructJEIConstants.ENTITY_MELTING.getUid();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends EntityMeltingRecipe> getRecipeClass() {
     return EntityMeltingRecipe.class;
+  }
+
+  @Override
+  public RecipeType<EntityMeltingRecipe> getRecipeType() {
+    return TConstructJEIConstants.ENTITY_MELTING;
   }
 
   @Override

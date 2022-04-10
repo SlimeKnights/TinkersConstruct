@@ -71,6 +71,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
     return true;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends IDisplayableCastingRecipe> getRecipeClass() {
     return IDisplayableCastingRecipe.class;

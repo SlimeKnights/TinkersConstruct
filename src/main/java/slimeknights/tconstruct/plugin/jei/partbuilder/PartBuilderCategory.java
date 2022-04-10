@@ -9,6 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -40,14 +41,21 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerTables.partBuilder));
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
-    return TConstructJEIConstants.PART_BUILDER;
+    return TConstructJEIConstants.PART_BUILDER.getUid();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends IDisplayPartBuilderRecipe> getRecipeClass() {
     return IDisplayPartBuilderRecipe.class;
+  }
+
+  @Override
+  public RecipeType<IDisplayPartBuilderRecipe> getRecipeType() {
+    return TConstructJEIConstants.PART_BUILDER;
   }
 
   @Override

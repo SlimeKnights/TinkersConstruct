@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.transfer;
 
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
@@ -13,6 +15,7 @@ import java.util.List;
 /**
  * Class to dynamically provide the right slot count to JEI
  */
+@SuppressWarnings("removal")
 public class CraftingStationTransferInfo implements IRecipeTransferInfo<CraftingStationContainerMenu, CraftingRecipe> {
 
   @Override
@@ -28,6 +31,11 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   @Override
   public ResourceLocation getRecipeCategoryUid() {
     return VanillaRecipeCategoryUid.CRAFTING;
+  }
+
+  @Override
+  public RecipeType<CraftingRecipe> getRecipeType() {
+    return RecipeTypes.CRAFTING;
   }
 
   @Override

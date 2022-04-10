@@ -70,6 +70,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
     });
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends MeltingRecipe> getRecipeClass() {
     return MeltingRecipe.class;

@@ -12,6 +12,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -62,8 +63,14 @@ public class MeltingCategory extends AbstractMeltingCategory {
     this.solidFuel = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 18, 20).build();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
+    return TConstructJEIConstants.MELTING.getUid();
+  }
+
+  @Override
+  public RecipeType<MeltingRecipe> getRecipeType() {
     return TConstructJEIConstants.MELTING;
   }
 

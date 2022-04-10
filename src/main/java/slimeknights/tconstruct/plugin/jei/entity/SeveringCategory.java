@@ -7,6 +7,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -31,14 +32,20 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, TinkerTools.cleaver.get().getRenderTool());
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
-    return TConstructJEIConstants.SEVERING;
+    return TConstructJEIConstants.SEVERING.getUid();
   }
 
   @Override
   public Class<? extends SeveringRecipe> getRecipeClass() {
     return SeveringRecipe.class;
+  }
+
+  @Override
+  public RecipeType<SeveringRecipe> getRecipeType() {
+    return TConstructJEIConstants.SEVERING;
   }
 
   @Override

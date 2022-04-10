@@ -9,6 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -44,14 +45,21 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     this.upArrow = helper.createDrawable(BACKGROUND_LOC, 76, 55, 6, 6);
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getUid() {
-    return TConstructJEIConstants.MOLDING;
+    return TConstructJEIConstants.MOLDING.getUid();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends MoldingRecipe> getRecipeClass() {
     return MoldingRecipe.class;
+  }
+
+  @Override
+  public RecipeType<MoldingRecipe> getRecipeType() {
+    return TConstructJEIConstants.MOLDING;
   }
 
   @Override
