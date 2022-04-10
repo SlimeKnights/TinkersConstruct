@@ -6,7 +6,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /**
@@ -45,7 +45,7 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingContainer> {
 
   @Override
   default RecipeType<?> getType() {
-    return RecipeTypes.MELTING;
+    return TinkerRecipeTypes.MELTING.get();
   }
 
   @Override

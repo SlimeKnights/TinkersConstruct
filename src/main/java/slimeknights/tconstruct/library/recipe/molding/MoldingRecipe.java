@@ -16,7 +16,7 @@ import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -62,7 +62,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingContainer> 
 
     @Override
     public RecipeType<?> getType() {
-      return RecipeTypes.MOLDING_TABLE;
+      return TinkerRecipeTypes.MOLDING_TABLE.get();
     }
   }
 
@@ -79,7 +79,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingContainer> 
 
     @Override
     public RecipeType<?> getType() {
-      return RecipeTypes.MOLDING_BASIN;
+      return TinkerRecipeTypes.MOLDING_BASIN.get();
     }
   }
 

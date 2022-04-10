@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -67,7 +67,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
   /** Basin implementation */
   public static class Basin extends CompositeCastingRecipe {
     public Basin(ResourceLocation id, String group, IMaterialItem result, int itemCost) {
-      super(RecipeTypes.CASTING_BASIN, id, group, result, itemCost);
+      super(TinkerRecipeTypes.CASTING_BASIN.get(), id, group, result, itemCost);
     }
 
     @Override
@@ -79,7 +79,7 @@ public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
   /** Table implementation */
   public static class Table extends CompositeCastingRecipe {
     public Table(ResourceLocation id, String group, IMaterialItem result, int itemCost) {
-      super(RecipeTypes.CASTING_TABLE, id, group, result, itemCost);
+      super(TinkerRecipeTypes.CASTING_TABLE.get(), id, group, result, itemCost);
     }
 
     @Override

@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICommonRecipe;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 
 /**
  * Main interface for all recipes in the Tinker Station
@@ -18,7 +18,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
 
   @Override
   default RecipeType<?> getType() {
-    return RecipeTypes.TINKER_STATION;
+    return TinkerRecipeTypes.TINKER_STATION.get();
   }
 
   /** If true, this recipe matches the given inputs, ignoring current tool state */

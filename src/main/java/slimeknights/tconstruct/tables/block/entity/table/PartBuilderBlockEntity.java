@@ -14,7 +14,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -81,12 +81,12 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
         sortedButtons = Collections.emptyList();
       } else {
         // fetch all recipes that can match these inputs, the map ensures the patterns are unique
-        recipes = level.getRecipeManager().byType(RecipeTypes.PART_BUILDER).values().stream()
-                       .filter(r -> r instanceof IPartBuilderRecipe)
-                       .map(r -> (IPartBuilderRecipe)r)
-                       .filter(r -> r.partialMatch(inventoryWrapper))
-                       .sorted(Comparator.comparing(Recipe::getId))
-                       .collect(Collectors.toMap(IPartBuilderRecipe::getPattern, Function.identity(), (a, b) -> a));
+        recipes = level.getRecipeManager().byType(TinkerRecipeTypes.PART_BUILDER.get()).values().stream()
+											 .filter(r -> r instanceof IPartBuilderRecipe)
+											 .map(r -> (IPartBuilderRecipe)r)
+											 .filter(r -> r.partialMatch(inventoryWrapper))
+											 .sorted(Comparator.comparing(Recipe::getId))
+											 .collect(Collectors.toMap(IPartBuilderRecipe::getPattern, Function.identity(), (a, b) -> a));
         sortedButtons = recipes.values().stream()
                                .sorted((a, b) -> {
                                  if (a.getCost() != b.getCost()) {

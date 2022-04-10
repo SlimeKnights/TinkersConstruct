@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -69,10 +69,10 @@ public class ModifierUsageCommand {
 
   private static int runForType(CommandContext<CommandSourceStack> context, ModifierUsages filter, @Nullable OptionalSlotType slotFilter) {
     // recipe modifiers are used in a displayable modifier recipe
-    HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getLevel().getRecipeManager().byType(RecipeTypes.TINKER_STATION).values().stream()
-                                                             .filter(r -> r instanceof IModifierRecipe)
-                                                             .map(r -> (IModifierRecipe) r)
-                                                             .collect(Collector.of(HashMultimap::create, (map, r) -> map.put(r.getSlotType(), r.getModifier()), (m1, m2) -> {
+    HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getLevel().getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
+																														 .filter(r -> r instanceof IModifierRecipe)
+																														 .map(r -> (IModifierRecipe) r)
+																														 .collect(Collector.of(HashMultimap::create, (map, r) -> map.put(r.getSlotType(), r.getModifier()), (m1, m2) -> {
                                                                m1.putAll(m2);
                                                                return m1;
                                                              }));

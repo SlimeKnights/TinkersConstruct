@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -77,7 +77,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
 
   @Override
   public RecipeType<?> getType() {
-    return RecipeTypes.MATERIAL;
+    return TinkerRecipeTypes.MATERIAL.get();
   }
 
   @Override

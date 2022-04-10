@@ -6,7 +6,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class SpillingRecipeLookup {
     }
 
     // find all severing recipes for the entity
-    for (SpillingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.SPILLING, SpillingRecipe.class)) {
+    for (SpillingRecipe recipe : RecipeHelper.getRecipes(manager, TinkerRecipeTypes.SPILLING.get(), SpillingRecipe.class)) {
       if (recipe.matches(fluid)) {
         CACHE.put(fluid, recipe);
         return recipe;

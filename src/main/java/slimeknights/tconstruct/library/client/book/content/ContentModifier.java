@@ -23,7 +23,7 @@ import slimeknights.tconstruct.library.client.book.elements.CycleRecipeElement;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -91,7 +91,7 @@ public class ContentModifier extends PageContent {
       if (modifier == TinkerModifiers.empty.get()) {
         this.recipes = Collections.emptyList();
       } else {
-        this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == modifier).collect(Collectors.toList());
+        this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == modifier).collect(Collectors.toList());
       }
     }
   }

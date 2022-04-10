@@ -21,7 +21,7 @@ import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -106,7 +106,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer>
 
   @Override
   public RecipeType<?> getType() {
-    return RecipeTypes.ENTITY_MELTING;
+    return TinkerRecipeTypes.ENTITY_MELTING.get();
   }
 
   /** @deprecated use {@link #matches(EntityType)}*/

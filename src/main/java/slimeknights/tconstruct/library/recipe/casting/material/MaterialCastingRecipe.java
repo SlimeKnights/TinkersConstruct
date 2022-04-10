@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
@@ -133,7 +133,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   /** Basin implementation */
   public static class Basin extends MaterialCastingRecipe {
     public Basin(ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
-      super(RecipeTypes.CASTING_BASIN, id, group, cast, itemCost, result, consumed, switchSlots);
+      super(TinkerRecipeTypes.CASTING_BASIN.get(), id, group, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override
@@ -145,7 +145,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
   /** Table implementation */
   public static class Table extends MaterialCastingRecipe {
     public Table(ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
-      super(RecipeTypes.CASTING_TABLE, id, group, cast, itemCost, result, consumed, switchSlots);
+      super(TinkerRecipeTypes.CASTING_TABLE.get(), id, group, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override

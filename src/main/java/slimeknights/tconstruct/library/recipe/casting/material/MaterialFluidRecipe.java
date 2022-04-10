@@ -15,7 +15,7 @@ import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -83,7 +83,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
 
   @Override
   public RecipeType<?> getType() {
-    return RecipeTypes.DATA;
+    return TinkerRecipeTypes.DATA.get();
   }
 
   public static class Serializer extends LoggingRecipeSerializer<MaterialFluidRecipe> {

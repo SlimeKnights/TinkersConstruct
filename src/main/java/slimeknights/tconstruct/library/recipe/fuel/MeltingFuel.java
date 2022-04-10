@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
@@ -93,7 +93,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
 
   @Override
   public RecipeType<?> getType() {
-    return RecipeTypes.FUEL;
+    return TinkerRecipeTypes.FUEL.get();
   }
 
   @Override

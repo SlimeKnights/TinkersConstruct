@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables.block.entity.inventory;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderContainer;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
@@ -52,7 +52,7 @@ public class PartBuilderContainerWrapper implements IPartBuilderContainer {
         this.material = null;
       } else {
         Level world = getWorld();
-        this.material = world.getRecipeManager().getRecipeFor(RecipeTypes.MATERIAL, this, world).orElse(null);
+        this.material = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MATERIAL.get(), this, world).orElse(null);
       }
     }
     return this.material;

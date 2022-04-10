@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
@@ -53,7 +53,7 @@ public class MeltingModifier extends TankModifier {
     // first, update inventory
     IMeltingRecipe recipe = lastRecipe;
     if (recipe == null || !recipe.matches(inventory, world)) {
-      recipe = world.getRecipeManager().getRecipeFor(RecipeTypes.MELTING, inventory, world).orElse(null);
+      recipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), inventory, world).orElse(null);
       if (recipe == null) {
         inventory.setStack(ItemStack.EMPTY);
         return FluidStack.EMPTY;

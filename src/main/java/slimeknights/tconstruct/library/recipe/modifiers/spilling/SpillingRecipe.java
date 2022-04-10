@@ -16,7 +16,7 @@ import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -71,7 +71,7 @@ public class SpillingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
 
   @Override
   public RecipeType<?> getType() {
-    return RecipeTypes.SPILLING;
+    return TinkerRecipeTypes.SPILLING.get();
   }
 
   /** @deprecated use {@link #matches(Fluid)} */

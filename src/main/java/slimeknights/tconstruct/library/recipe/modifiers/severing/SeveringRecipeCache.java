@@ -6,7 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.RecipeManager;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class SeveringRecipeCache {
 
     // find all severing recipes for the entity
     List<SeveringRecipe> list = new ArrayList<>();
-    for (SeveringRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.SEVERING, SeveringRecipe.class)) {
+    for (SeveringRecipe recipe : RecipeHelper.getRecipes(manager, TinkerRecipeTypes.SEVERING.get(), SeveringRecipe.class)) {
       if (recipe.matches(type)) {
         list.add(recipe);
       }

@@ -17,11 +17,11 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 
 import java.util.Collections;
 import java.util.List;
@@ -118,7 +118,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   /** Basin implementation */
   public static class Basin extends ContainerFillingRecipe {
     public Basin(ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {
-      super(RecipeTypes.CASTING_BASIN, idIn, groupIn, fluidAmount, containerIn);
+      super(TinkerRecipeTypes.CASTING_BASIN.get(), idIn, groupIn, fluidAmount, containerIn);
     }
 
     @Override
@@ -131,7 +131,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
   public static class Table extends ContainerFillingRecipe {
 
     public Table(ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {
-      super(RecipeTypes.CASTING_TABLE, idIn, groupIn, fluidAmount, containerIn);
+      super(TinkerRecipeTypes.CASTING_TABLE.get(), idIn, groupIn, fluidAmount, containerIn);
     }
 
     @Override

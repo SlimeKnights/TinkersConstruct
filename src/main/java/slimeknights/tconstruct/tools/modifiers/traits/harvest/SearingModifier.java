@@ -17,7 +17,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -48,7 +48,7 @@ public class SearingModifier extends Modifier {
   /** Checks if the modifier is effective on the given block state */
   private static boolean isEffective(Level world, Item item) {
     CONTAINER.setStack(new ItemStack(item));
-    boolean effective = world.getRecipeManager().getRecipeFor(RecipeTypes.MELTING, CONTAINER, world).isPresent();
+    boolean effective = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), CONTAINER, world).isPresent();
     CONTAINER.setStack(ItemStack.EMPTY);
     return effective;
   }

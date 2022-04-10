@@ -40,6 +40,7 @@ import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension
 import slimeknights.tconstruct.common.registration.PlacedFeatureDeferredRegister;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -112,10 +113,13 @@ public abstract class TinkerModule {
     // datapacks
     RECIPE_SERIALIZERS.register(bus);
     GLOBAL_LOOT_MODIFIERS.register(bus);
+    TinkerRecipeTypes.init(bus);
     // worldgen
     FEATURES.register(bus);
     CONFIGURED_FEATURES.register(bus);
+    PLACED_FEATURES.register(bus);
     STRUCTURE_FEATURES.register(bus);
+    STRUCTURE_PIECE.register(bus);
     CONFIGURED_STRUCTURE_FEATURES.register(bus);
     BLOCK_STATE_PROVIDER_TYPES.register(bus);
   }

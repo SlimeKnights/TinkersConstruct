@@ -18,7 +18,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -82,7 +82,7 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
 
   @Override
   public RecipeType<?> getType() {
-    return RecipeTypes.DATA;
+    return TinkerRecipeTypes.DATA.get();
   }
 
   /** @deprecated Use {@link #matches(ItemStack, IToolStackView, int)} */

@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -53,15 +53,15 @@ public class ContentMaterialSkull extends ContentMaterial {
   private IDisplayableCastingRecipe getSkullRecipe() {
     Level world = Minecraft.getInstance().level;
     if (!searchedSkullRecipe && world != null) {
-      skullRecipe = world.getRecipeManager().getAllRecipesFor(RecipeTypes.CASTING_BASIN).stream()
-                         .filter(recipe -> recipe instanceof IDisplayableCastingRecipe)
-                         .map(recipe -> (IDisplayableCastingRecipe)recipe)
-                         .filter(recipe -> {
+      skullRecipe = world.getRecipeManager().getAllRecipesFor(TinkerRecipeTypes.CASTING_BASIN.get()).stream()
+												 .filter(recipe -> recipe instanceof IDisplayableCastingRecipe)
+												 .map(recipe -> (IDisplayableCastingRecipe)recipe)
+												 .filter(recipe -> {
                            ItemStack output = recipe.getOutput();
                            return output.getItem() == TinkerTools.slimesuit.get(ArmorSlotType.HELMET) && MaterialIdNBT.from(output).getMaterial(0).getId().toString().equals(materialName);
                          })
-                         .findFirst()
-                         .orElse(null);
+												 .findFirst()
+												 .orElse(null);
       searchedSkullRecipe = true;
     }
     return skullRecipe;

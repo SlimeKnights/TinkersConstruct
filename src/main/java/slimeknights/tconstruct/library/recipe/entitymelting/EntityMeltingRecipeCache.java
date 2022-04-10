@@ -6,7 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.RecipeManager;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class EntityMeltingRecipeCache {
     }
 
     // find a recipe if none exist
-    for (EntityMeltingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.ENTITY_MELTING, EntityMeltingRecipe.class)) {
+    for (EntityMeltingRecipe recipe : RecipeHelper.getRecipes(manager, TinkerRecipeTypes.ENTITY_MELTING.get(), EntityMeltingRecipe.class)) {
       if (recipe.matches(type)) {
         CACHE.put(type, recipe);
         return recipe;

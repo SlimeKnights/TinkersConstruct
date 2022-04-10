@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -62,7 +62,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   @Override
   public void draw(MoldingRecipe recipe, IRecipeSlotsView slots, PoseStack matrixStack, double mouseX, double mouseY) {
     // draw the main block
-    IDrawable block = recipe.getType() == RecipeTypes.MOLDING_BASIN ? basin : table;
+    IDrawable block = recipe.getType() == TinkerRecipeTypes.MOLDING_BASIN.get() ? basin : table;
     block.draw(matrixStack, 3, 40);
 
     // if no mold, we "pickup" the item, so draw no table
