@@ -33,13 +33,15 @@ import java.util.stream.Collectors;
 public final class ToolBuildHandler {
   private ToolBuildHandler() {}
 
+  private static final MaterialId RENDER_MATERIAL = new MaterialId(TConstruct.MOD_ID, "ui_render");
+
   /** Materials for use in multipart tool rendering */
-  private static final List<MaterialId> RENDER_MATERIALS = Arrays.asList(
-    new MaterialId(TConstruct.MOD_ID, "ui_render_head"),
-    new MaterialId(TConstruct.MOD_ID, "ui_render_handle"),
-    new MaterialId(TConstruct.MOD_ID, "ui_render_extra"),
-    new MaterialId(TConstruct.MOD_ID, "ui_render_large"),
-    new MaterialId(TConstruct.MOD_ID, "ui_render_extra_large"));
+  private static final List<MaterialVariantId> RENDER_MATERIALS = Arrays.asList(
+    MaterialVariantId.create(RENDER_MATERIAL, "head"),
+    MaterialVariantId.create(RENDER_MATERIAL, "handle"),
+    MaterialVariantId.create(RENDER_MATERIAL, "extra"),
+    MaterialVariantId.create(RENDER_MATERIAL, "large"),
+    MaterialVariantId.create(RENDER_MATERIAL, "extra_large"));
 
   /**
    * Builds a tool stack from a material list and a given tool definition
@@ -56,7 +58,7 @@ public final class ToolBuildHandler {
    * @param index  Index
    * @return  Render material
    */
-  public static MaterialId getRenderMaterial(int index) {
+  public static MaterialVariantId getRenderMaterial(int index) {
     return RENDER_MATERIALS.get(index % RENDER_MATERIALS.size());
   }
 

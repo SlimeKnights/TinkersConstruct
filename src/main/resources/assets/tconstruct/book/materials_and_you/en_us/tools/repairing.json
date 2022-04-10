@@ -11,9 +11,9 @@
           "tic_display": true,
           "Damage": 70,
           "tic_materials": [
-            "tconstruct:ui_render_head",
-            "tconstruct:ui_render_handle",
-            "tconstruct:ui_render_extra"
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
           ],
           "tic_stats": {
             "tconstruct:durability": 100
@@ -31,9 +31,9 @@
       "tic_display": true,
       "Damage": 10,
       "tic_materials": [
-        "tconstruct:ui_render_head",
-        "tconstruct:ui_render_handle",
-        "tconstruct:ui_render_extra"
+        "tconstruct:ui_render#head",
+        "tconstruct:ui_render#handle",
+        "tconstruct:ui_render#extra"
       ],
       "tic_stats": { "tconstruct:durability": 100 }
     }

@@ -2,7 +2,7 @@
   "translation_key": "item.tconstruct.sledge_hammer",
   "icon": {
     "item": "tconstruct:sledge_hammer",
-    "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\",\"tconstruct:ui_render_extra_large\"]}"
+    "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
   "sortIndex": 12,
   "input_slots": [
