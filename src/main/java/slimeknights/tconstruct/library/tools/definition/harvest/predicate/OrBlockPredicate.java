@@ -28,7 +28,7 @@ public class OrBlockPredicate implements BlockPredicate {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends BlockPredicate> getLoader() {
     return LOADER;
   }
 }

@@ -32,7 +32,7 @@ public class VeiningAOEIterator implements IAreaOfEffectIterator {
   private final int maxDistance;
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
     return LOADER;
   }
 

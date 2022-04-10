@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.function.Predicate;
 
 /** Logic for iterating over a set of blocks */
-public interface IAreaOfEffectIterator extends IHaveLoader {
+public interface IAreaOfEffectIterator extends IHaveLoader<IAreaOfEffectIterator> {
   /** Default iterator, no blocks */
   IAreaOfEffectIterator DEFAULT = new IAreaOfEffectIterator() {
     @Override
@@ -25,7 +25,7 @@ public interface IAreaOfEffectIterator extends IHaveLoader {
     }
 
     @Override
-    public IGenericLoader<?> getLoader() {
+    public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
       throw new UnsupportedOperationException("Attempt to serialize empty AOE iterator");
     }
   };

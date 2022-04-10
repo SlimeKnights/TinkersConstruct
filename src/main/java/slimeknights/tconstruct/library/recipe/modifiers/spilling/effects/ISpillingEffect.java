@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 /**
  * Interface to allow multiple effects for a spilling recipe
  */
-public interface ISpillingEffect extends IHaveLoader {
+public interface ISpillingEffect extends IHaveLoader<ISpillingEffect> {
   /** Registry for spilling effect loaders */
   GenericLoaderRegistry<ISpillingEffect> LOADER = new GenericLoaderRegistry<>();
 
@@ -23,5 +23,5 @@ public interface ISpillingEffect extends IHaveLoader {
 
   /** Gets the loader for this spilling effect */
   @Override
-  IGenericLoader<?> getLoader();
+  IGenericLoader<? extends ISpillingEffect> getLoader();
 }

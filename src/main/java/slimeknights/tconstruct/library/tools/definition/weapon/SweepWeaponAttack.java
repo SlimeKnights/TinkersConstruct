@@ -61,7 +61,7 @@ public class SweepWeaponAttack implements IWeaponAttack {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IWeaponAttack> getLoader() {
     return LOADER;
   }
 

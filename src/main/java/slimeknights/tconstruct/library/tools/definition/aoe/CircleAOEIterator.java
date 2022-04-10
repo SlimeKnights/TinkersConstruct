@@ -35,7 +35,7 @@ public class CircleAOEIterator implements IAreaOfEffectIterator {
   protected final boolean is3D;
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
     return LOADER;
   }
 

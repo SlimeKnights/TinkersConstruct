@@ -18,7 +18,7 @@ public class InvertedBlockPredicate implements BlockPredicate {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends BlockPredicate> getLoader() {
     return LOADER;
   }
 

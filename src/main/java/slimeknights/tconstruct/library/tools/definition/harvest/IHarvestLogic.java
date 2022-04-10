@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 /** Logic to determine the harvest speed of a block */
-public interface IHarvestLogic extends IHaveLoader {
+public interface IHarvestLogic extends IHaveLoader<IHarvestLogic> {
   /** Default harvest logic instance */
   IHarvestLogic DEFAULT = new IHarvestLogic() {
     @Override
@@ -18,7 +18,7 @@ public interface IHarvestLogic extends IHaveLoader {
     }
 
     @Override
-    public IGenericLoader<?> getLoader() {
+    public IGenericLoader<? extends IHarvestLogic> getLoader() {
       throw new UnsupportedOperationException("Cannot serialize the default harvest logic");
     }
   };

@@ -29,7 +29,7 @@ public class RestoreHungerSpillingEffect implements ISpillingEffect {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends ISpillingEffect> getLoader() {
     return LOADER;
   }
 

@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** Attack logic for a modifiable weapon */
-public interface IWeaponAttack extends IHaveLoader {
+public interface IWeaponAttack extends IHaveLoader<IWeaponAttack> {
   /** Default weapon attack */
   IWeaponAttack DEFAULT = new IWeaponAttack() {
     @Override
@@ -17,7 +17,7 @@ public interface IWeaponAttack extends IHaveLoader {
     }
 
     @Override
-    public IGenericLoader<?> getLoader() {
+    public IGenericLoader<? extends IWeaponAttack> getLoader() {
       throw new UnsupportedOperationException("Attempt to serialize empty AOE iterator");
     }
   };

@@ -7,7 +7,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 /**
  * Simple serializable block predicate
  */
-public interface BlockPredicate extends IHaveLoader {
+public interface BlockPredicate extends IHaveLoader<BlockPredicate> {
   GenericLoaderRegistry<BlockPredicate> LOADER = new GenericLoaderRegistry<>();
 
   /**

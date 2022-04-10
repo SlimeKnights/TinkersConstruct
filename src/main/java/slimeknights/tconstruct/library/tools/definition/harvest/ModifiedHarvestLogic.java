@@ -37,7 +37,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IHarvestLogic> getLoader() {
     return LOADER;
   }
 

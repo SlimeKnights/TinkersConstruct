@@ -39,7 +39,7 @@ public class FixedTierHarvestLogic implements IHarvestLogic {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IHarvestLogic> getLoader() {
     return LOADER;
   }
 

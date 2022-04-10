@@ -54,7 +54,7 @@ public class PotionFluidEffect implements ISpillingEffect {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends ISpillingEffect> getLoader() {
     return LOADER;
   }
 

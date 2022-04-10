@@ -35,7 +35,7 @@ public class TreeAOEIterator implements IAreaOfEffectIterator {
   private final int depth;
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
     return LOADER;
   }
 

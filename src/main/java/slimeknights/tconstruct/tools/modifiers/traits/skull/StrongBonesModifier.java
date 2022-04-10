@@ -78,7 +78,7 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
     }
 
     @Override
-    public IGenericLoader<?> getLoader() {
+    public IGenericLoader<? extends ISpillingEffect> getLoader() {
       return SPILLING_EFFECT_LOADER;
     }
   }

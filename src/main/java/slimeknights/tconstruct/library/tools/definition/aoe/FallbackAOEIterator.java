@@ -30,7 +30,7 @@ public class FallbackAOEIterator implements IAreaOfEffectIterator {
   private final IAreaOfEffectIterator fallbackIterator;
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
     return LOADER;
   }
 

@@ -47,7 +47,7 @@ public class BoxAOEIterator implements IAreaOfEffectIterator {
   }
 
   @Override
-  public IGenericLoader<?> getLoader() {
+  public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
     return LOADER;
   }
 
