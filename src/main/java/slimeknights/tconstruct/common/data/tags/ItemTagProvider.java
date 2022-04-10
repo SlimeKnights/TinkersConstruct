@@ -219,7 +219,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 
     // armor
-    addArmorTags(TinkerTools.travelersGear, DURABILITY);
+    addArmorTags(TinkerTools.travelersGear, DURABILITY, ItemTags.FREEZE_IMMUNE_WEARABLES);
     addArmorTags(TinkerTools.plateArmor,    DURABILITY);
     addArmorTags(TinkerTools.slimesuit,     DURABILITY);
     addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);

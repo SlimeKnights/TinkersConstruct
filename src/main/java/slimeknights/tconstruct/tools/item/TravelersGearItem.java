@@ -28,6 +28,11 @@ public class TravelersGearItem extends ModifiableArmorItem {
     super(material, slotType, properties);
   }
 
+  @Override
+  public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+    return slot == EquipmentSlot.FEET;
+  }
+
   @Nullable
   @Override
   public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
