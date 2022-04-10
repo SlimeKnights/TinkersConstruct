@@ -2,19 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "forge:glass_panes"
+      "item": "minecraft:spyglass"
     },
     {
-      "tag": "forge:storage_blocks/redstone"
+      "tag": "forge:string"
     },
     {
-      "tag": "forge:glass_panes"
+      "item": "minecraft:spyglass"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "forge:dusts/redstone"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "forge:dusts/redstone"
     }
   ],
   "tools": {

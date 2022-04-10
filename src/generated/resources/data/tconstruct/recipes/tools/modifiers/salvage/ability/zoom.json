@@ -12,16 +12,11 @@
     {
       "item": "minecraft:redstone",
       "min": 0,
-      "max": 9
-    },
-    {
-      "item": "minecraft:glass_pane",
-      "min": 0,
       "max": 2
     },
     {
-      "item": "minecraft:copper_ingot",
-      "min": 1,
+      "item": "minecraft:spyglass",
+      "min": 0,
       "max": 2
     }
   ]
