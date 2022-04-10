@@ -12,7 +12,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -99,8 +98,6 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
     this.tag(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
     this.tag(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
-    // vanilla made cut copper dumb, so untag it in forge
-    this.tag(Tags.Items.STORAGE_BLOCKS_COPPER).remove(Blocks.CUT_COPPER.asItem());
 
     // ores
     addMetalTags(TinkerMaterials.cobalt);
