@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -47,7 +48,6 @@ import java.util.function.Supplier;
 public class WorldClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent event) {
-    event.registerReloadListener(SkullModelHelper.LISTENER);
     for (SlimeType type : SlimeType.values()) {
       event.registerReloadListener(new SlimeColorReloadListener(type));
     }
@@ -83,6 +83,12 @@ public class WorldClientEvents extends ClientEventBase {
     registerLayerDefinition(event, TinkerHeadType.PIGLIN, piglinHead);
     registerLayerDefinition(event, TinkerHeadType.PIGLIN_BRUTE, piglinHead);
     registerLayerDefinition(event, TinkerHeadType.ZOMBIFIED_PIGLIN, piglinHead);
+  }
+
+  @SubscribeEvent
+  static void registerSkullModels(EntityRenderersEvent.CreateSkullModels event) {
+    EntityModelSet modelSet = event.getEntityModelSet();
+    SkullModelHelper.HEAD_LAYERS.forEach((type, layer) -> event.registerSkullModel(type, new SkullModel(modelSet.bakeLayer(layer))));
   }
 
   @SubscribeEvent
