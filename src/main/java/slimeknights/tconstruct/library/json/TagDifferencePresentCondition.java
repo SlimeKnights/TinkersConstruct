@@ -76,7 +76,7 @@ public class TagDifferencePresentCondition<T> implements ICondition {
       // find the first item contained in no subtracted tags
       for (TagKey<T> tag : subtracted) {
         // TODO: will this work?
-        if (entry.containsTag(tag)) {
+        if (context.getTag(tag).getValues().contains(entry)) {
           continue itemLoop;
         }
       }

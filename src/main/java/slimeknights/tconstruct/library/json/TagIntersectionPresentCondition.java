@@ -57,25 +57,24 @@ public class TagIntersectionPresentCondition<T> implements ICondition {
   @Override
   public boolean test(IContext context) {
     // if there is just one tag, just needs to be filled
-    Tag<Holder<T>> firstTag = context.getTag(names.get(0));
-    if (names.size() == 1) {
-      return !firstTag.getValues().isEmpty();
+    List<Tag<Holder<T>>> tags = names.stream().map(context::getTag).toList();
+    if (tags.size() == 1) {
+      return !tags.get(0).getValues().isEmpty();
     }
     // if any remaining tag is empty, give up
-    int count = names.size();
+    int count = tags.size();
     for (int i = 1; i < count; i++) {
-      if (context.getTag(names.get(i)).getValues().isEmpty()) {
+      if (tags.get(i).getValues().isEmpty()) {
         return false;
       }
     }
 
     // all tags have something, so find the first item that is in all tags
     itemLoop:
-    for (Holder<T> entry : firstTag.getValues()) {
+    for (Holder<T> entry : tags.get(0).getValues()) {
       // find the first item contained in all other intersection tags
       for (int i = 1; i < count; i++) {
-        // TODO: will this work?
-        if (!entry.containsTag(names.get(i))) {
+        if (!tags.get(i).getValues().contains(entry)) {
           continue itemLoop;
         }
       }
