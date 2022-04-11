@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Adiciona slots no capacete que serão feitas na UI quando o capacete for usado."
+    },
+    {
+      "text": "O inventário do capacete pode ser aberto interagindo com ele enquanto equipado.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

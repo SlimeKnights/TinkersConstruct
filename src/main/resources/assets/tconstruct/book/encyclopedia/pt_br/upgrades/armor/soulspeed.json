@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Concede +40.5% velocidade na areia das almas, mais um adicional de 10,5% adicionado por cada nível adicional. Diminui a lentidão recebida ao caminhar sobre a areia das almas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "Reduz o consumo de ar em 50%, 33%, ou 25% nos niveis 1, 2, e 3 respectivamente."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}
