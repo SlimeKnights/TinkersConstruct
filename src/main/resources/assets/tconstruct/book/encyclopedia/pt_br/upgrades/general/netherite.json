@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "Concede +20% durabilidade, +20% Ataque, +25% de velocidade de mineração, +5% resistência contra repulsão, e +1 resistência da armadura. Aumenta o nivel de mineração para o nivel da Netherita, e torna as ferramentas invulneráveis quando estiverem dropadas."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer diamante ou esmeralda para ser aplicada",
+    "Requer 1 slot de melhoria"
+  ]
+}

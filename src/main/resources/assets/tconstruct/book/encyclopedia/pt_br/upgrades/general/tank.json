@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "Aumenta a capacidade do tanque da ferramenta em 1 balde por nível. Útil junto a habilidades como baldeamento ou fundição. As ferramentas com tanques podem ser enchidas e drenadas pela interação com tanques de fluido. Na armadura a peça deve ser segurada para encher ou esvaziar um tanque."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

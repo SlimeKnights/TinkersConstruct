@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Aumenta a área de efeito do Isqueiro Tinker em 1. Equivelente a 1 nivel de expansor, mas requer apenas um slot de melhoria."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de melhoria"
+  ]
+}
