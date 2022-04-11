@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Já viu um metal tão bonito que você gostaria que fosse uma armadura? Agora qualquer metal é uma armadura."
+    }
+  ],
+  "effects": [
+    "Muda a aparência da armadura",
+    "Use lingotes para embelezar a placa",
+    "Use slime congelado para embelezar o traje de slime",
+    "Multi-uso",
+    "Sem Slots"
+  ]
+}
