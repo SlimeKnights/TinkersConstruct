@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "Concede +1 velocidade de mineração por nível caso o nível de iluminação seja nível 5, +3 velocidade de mineração por nível caso o nível de iluminação seja nível 10 e +9 velocidade de mineração por nível caso o nível de iluminação seja no nível 15."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}
