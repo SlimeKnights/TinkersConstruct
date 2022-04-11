@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "Se você tiver que usar isto você não é um bom feiticeiro Harry. Use mais feitiços de deflexão."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Diminui o dano mágico",
+    "Múltiplos níveis, cada nível diminui ainda mais o dano mágico",
+    "Requer 1 slot de defesa"
+  ]
+}

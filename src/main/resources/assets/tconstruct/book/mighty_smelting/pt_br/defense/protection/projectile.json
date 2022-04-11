@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "Isto não protegerá seus joelhos de flechas, forçando-o a desistir de se aventurar e se tornar um guarda."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Diminui os danos dos projéteis",
+    "Pode aplicar níveis progressivamente",
+    "Requer 1 slot de defesa"
+  ]
+}
