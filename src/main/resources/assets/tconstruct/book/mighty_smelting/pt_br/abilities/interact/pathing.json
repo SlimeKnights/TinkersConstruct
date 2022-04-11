@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Se você não consegue encontrar a estrada de tijolos dourados, faça seu próprio caminho de terra."
+    }
+  ],
+  "effects": [
+     "Permite que você faça caminhos com suas ferramentas",
+    "Nível único",
+    "Requer 1 Slot de Habilidade"
+  ]
+}
