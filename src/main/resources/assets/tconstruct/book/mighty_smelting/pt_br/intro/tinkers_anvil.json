@@ -1,0 +1,13 @@
+{
+  "title": "Bigorna Tinker",
+  "item": "tconstruct:tinkers_anvil",
+  "text": [
+    {
+      "text": "Muito bem Tinker, está na hora de guardar essa pequena estação e criar a poderosa bigorna Tinker. A habilidade de criar as maiores e melhores ferramentas está simplesmente a um martelo de distância."
+    },
+    {
+      "text": "Esta bigorna só pode ser feita com a mais fina das ligas, mas trará a você a mais ampla das ferramentas.",	
+	  "paragraph": true
+    }
+  ]
+}
