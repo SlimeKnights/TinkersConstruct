@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Cansado de segurar seu relógio e bússola? Por que não vesti-lo em vez disso?"
+    }
+  ],
+  "effects": [
+    "Adiciona slots ao capacete, interaja para acessar",
+    "O capacete dará itens quando usado",
+    "Requer 1 Slot de melhoria por nível"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:looting",
+  "text": [
+    {
+      "text": "Golpeia tão forte que vem mais saques como brinde."
+    }
+  ],
+  "effects": [
+    "Aumenta os drops de criaturas para ataques desarmados",
+    "Máximo de 3 níveis, receita diferente para cada nível",
+    "Requer desarmado e 1 slot de melhoria por nível"
+  ]
+}

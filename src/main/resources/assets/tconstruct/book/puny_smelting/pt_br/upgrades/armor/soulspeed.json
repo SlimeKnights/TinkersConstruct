@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Aparentemente, as almas são ideais para correr mais rápido. Isto é eticamente correto?"
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade de movimento na areia das almas",
+    "Múltiplos níveis, cada nível aumenta ainda mais a velocidade",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}
