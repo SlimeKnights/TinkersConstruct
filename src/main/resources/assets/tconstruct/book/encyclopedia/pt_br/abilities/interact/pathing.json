@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Permite que a ferramenta crie caminhos, de forma semelhante a Chibanca ou Escavadora. As ferramentas usarão sua área normal de mineração para a colocação de caminhos."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

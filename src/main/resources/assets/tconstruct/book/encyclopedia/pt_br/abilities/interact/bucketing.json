@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bucketing",
+  "text": [
+    {
+      "text": "Permite que a ferramenta colete fluidos ao ser usada e também permite colocar os fluidos ao se esgueirar. Também aumenta a capacidade do tanque de ferramentas em 1000 ml."
+    },
+    {
+      "text": "As ferramentas com baldeamento têm a capacidade de serem preenchidas e drenadas através da interação com tanques de fluido.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

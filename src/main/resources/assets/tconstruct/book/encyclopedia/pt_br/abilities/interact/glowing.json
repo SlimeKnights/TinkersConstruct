@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Faz com que o lado do bloco visado brilhe, emitindo luz. A aplicação de um brilho consome 10 de durabilidade, o que ultrapassa outros modificadores que reduzem a perda de durabilidade."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}
