@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    { "text": "O Picaretron é uma ferramenta multiuso para mineração de pedras e terra, eficaz em uma variedade de blocos, mas incapaz de melhorar os níveis de colheita." },
+    { "text": "Os expansores aumentam a altura minerada, permitindo escadarias eficazes.", "paragraph": true }
+  ],
+  "properties": [
+    "+0.5 Dano de Ataque",
+    "115% Modificador de Ataque",
+    "1.4 Vel de Ataque",
+    "75% De Mineração",
+    "130% De Durabilidade",
+    "Faz caminhos",
+    "Nivel de coleta limitada a madeira"
+  ]
+}

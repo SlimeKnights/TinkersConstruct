@@ -1,0 +1,8 @@
+{
+  "title": "Informações sobre Ferramentas",
+  "text": [
+    { "text": "Todas as ferramentas pequenas podem ser criadas tanto na Estação Tinker quanto na Bigorna Tinker. 
+Elas requerem entre 2 a 3 partes, garantindo 2 a 3 atributos. A maioria das ferramentas pequenas começa com 1 slot de habilidade e 3 slots de melhoria." },
+    { "text": "A maioria das ferramentas tem um bônus de ataque, que é adicionado às estatísticas da cabeça e multiplicado pelas estatísticas do cabo. Além disso, algumas ferramentas têm um modificador de ataque, que multiplica o dano de ataque de todas as fontes na ferramenta, incluindo modificadores. Algumas ferramentas também começam com atributos, que são aplicadas a ferramentas totalmente construídas de forma semelhante às características materiais.", "paragraph": true }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    { "text": "A picareta é uma ferramenta de mineração precisa, efetiva em pedra, metais, e minérios." },
+    { "text": "Os expansores se alternam entre o aumento da profundidade e o aumento da altura.", "paragraph": true }
+  ],
+  "properties": [
+    "+0 Dano de Ataque",
+    "1.2 Velocidade de Ataque",
+    "Perfurante I"
+  ]
+}
