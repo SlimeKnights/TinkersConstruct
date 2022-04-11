@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "Deixa um rastro de neve em biomas frios semelhantes a um golem de neve. O raio da trilha pode ser aumentado usando a melhoria de expansão."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

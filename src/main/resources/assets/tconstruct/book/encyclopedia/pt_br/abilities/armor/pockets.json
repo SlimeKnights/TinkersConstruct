@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "Concede 9 slots adicionais que podem ser acessados se agachando ou pressionando a tecla de interação das perneiras ou segurando a perneira."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de habilidade"
+  ]
+}

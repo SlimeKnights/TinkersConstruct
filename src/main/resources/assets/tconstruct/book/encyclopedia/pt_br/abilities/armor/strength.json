@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "Concede +10% de dano de ataque para todas as armas por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar níveis progressivamente",
+    "Requer 1 slot de habilidade por nivel "
+  ]
+}

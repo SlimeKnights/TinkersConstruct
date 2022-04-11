@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Permite a troca dos 4 primeiros slots da hotbar usando a interação das perneiras. O segundo nível permite a troca de até 8 slots da hotbar. Também é possível aplicar o bolso de corrente para obter todos os 9 slots."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de habilidade",
+    "Máximo de 2 niveis"
+  ]
+}

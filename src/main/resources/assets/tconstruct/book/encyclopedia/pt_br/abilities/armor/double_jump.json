@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "Permite que você pule uma segunda vez no meio do ar. Níveis mais altos adicionam pulos adicionais, permitindo saltos triplos ou até mesmo quádruplos."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de habilidade"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "Ignora o fogo por onde você pisa. A área de efeito pode aumentar através de expansão."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

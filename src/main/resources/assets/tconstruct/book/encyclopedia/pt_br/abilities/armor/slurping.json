@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Permite beber os líquidos contidos no capacete para que possam ativar efeitos, para beber basta pressionar a tecla de atalho do capacete."
+    },
+    {
+      "text": "Os efeitos podem incluir acender fogo em você mesmo, efeitos de poção, como o super salto, ou efeitos de limpeza, como o leite.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de habilidade"
+  ]
+}
