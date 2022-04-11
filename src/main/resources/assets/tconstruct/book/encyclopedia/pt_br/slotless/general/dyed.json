@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Muda a cor das peças de couro do equipamento do viajante."
+    },
+    {
+      "text": "Múltiplos corantes podem ser misturados e os corantes podem ser misturados com a cor anterior da roupa.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-usos",
+    "Sem Slots"
+  ]
+}

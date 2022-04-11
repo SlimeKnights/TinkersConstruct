@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "Aumenta o campo de visão em 5% por nivel enquanto usando esta armadura ou segurando esta ferramenta."
+    },
+    {
+      "text": "Esse modificador é util para anular a mudança do campo de visão das ferramentas pesadas, mas você pode achar outros usos para ele.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-usos",
+    "Sem Slots"
+  ]
+}

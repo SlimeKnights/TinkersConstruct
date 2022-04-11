@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "Alternativa à netherita que torna as ferramentas invulneráveis quando dropadas sem a necessidade de um slot de melhoria. Não concede nenhum bônus de status"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Uso Único",
+    "Sem Slots"
+  ]
+}
