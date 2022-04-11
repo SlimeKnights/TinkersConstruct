@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    { "text": "O Cutelo é uma arma de alto dano, porem com pouca velocidade." },
+    { "text": "Os expansores aumentam a área do ataque, e a seda garante o tosqueamento de todas as entidades.", "paragraph": true }
+  ],
+  "properties": [
+    "+3.5 Dano de Ataque",
+    "150% Modificador de Ataque",
+    "0.9 Vel de Ataque",
+    "+1 Alcance",
+    "350% De Durabilidade",
+    "Decapitação II"
+  ]
+}
