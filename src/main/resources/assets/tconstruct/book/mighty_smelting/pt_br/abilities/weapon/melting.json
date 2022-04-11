@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "A fundição não é portátil o suficiente? Tente transformar sua ferramenta em uma fundição portátil!"
+    }
+  ],
+  "effects": [
+    "Derrete criaturas atacadas no tanque da ferramenta",
+    "Itens dropados também são derretidos, se possível",
+    "A ferramenta pode ser esvaziada em um tanque ou em um dreno de fundição",
+    "Requer 1 Slot de Habilidade, nível único"
+  ]
+}
