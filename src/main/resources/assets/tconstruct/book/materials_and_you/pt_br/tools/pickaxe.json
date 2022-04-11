@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    {
+      "text": "A picareta é uma ferramenta de mineração. Ela é efetiva em pedras e minérios."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Isso quebra blocos, CERTO?"
+    }
+  ],
+  "properties": [
+    "Ferramenta de mineração básica",
+    "É uma picareta",
+    "Quebra blocos de pedra e similares",
+    "Dano perfurante bônus"
+  ]
+}

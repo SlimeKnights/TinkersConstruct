@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "O nome apropriado para esta ferramenta seria um picarechibanca, mas as pessoas preferem o nome atual."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Ele pode criar caminhos para a glória."
+    }
+  ],
+  "properties": [
+    "Cria Caminhos",
+    "Quebra blocos de pedra e similares",
+    "Quebra terras e cascalho",
+    "Limitado ao nivel da madeira"
+  ]
+}
