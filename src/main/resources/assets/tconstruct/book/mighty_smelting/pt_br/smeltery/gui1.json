@@ -1,0 +1,14 @@
+{
+  "title": "Guia de Fundição",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "Seu guia básico de fundição. Nem mais, nem menos.",
+      "paragraph": true
+    }
+	]
+}

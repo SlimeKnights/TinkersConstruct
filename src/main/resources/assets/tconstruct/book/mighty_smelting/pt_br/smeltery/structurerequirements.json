@@ -1,0 +1,16 @@
+{
+  "title": "Requisitos de estrutura",
+  "text": [
+    {
+      "text": "Sua fundição tem algumas exigências. Fazê-la muito grande pode torna-la tão ineficiente que você precisaria de uma torre de tanques de combustível maior que a fundição para operá-la."
+    },
+    {
+      "text": "Sua fundição deve ter um piso feito de blocos de fundição aceitáveis, excluindo o vidro. Os blocos aceitáveis serão mostrados em algumas páginas! Sua fundição também deve ser retangular, não pode ter a forma de L, círculo ou dodecaedro.",
+      "paragraph": true
+    },
+    {
+      "text": "O tamanho máximo para a sua fundição é de 16x16x65 externo, ou de 14x14x64 interno.",
+      "paragraph": true
+    }
+  ]
+}
