@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Usar isto pode ou não fazer com que um pedregulho gigante comece a persegui-lo, já que você não pode trocar as coisas direito."
+    }
+  ],
+  "effects": [
+     "Blocos quebrados são substituídos por blocos da mão secundária.",
+    "Nivel Único",
+    "Requer 1 slot de habilidade"
+  ]
+}

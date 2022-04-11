@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "Um modificador agradável e confortável."
+    }
+  ],
+  "effects": [
+    "Os blocos minerados dropam eles mesmos",
+    "Nivel Único",
+    "Requer 1 Slot de Habilidade"
+  ]
+}
