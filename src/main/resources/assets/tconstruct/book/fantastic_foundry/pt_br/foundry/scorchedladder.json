@@ -1,0 +1,10 @@
+{
+  "title": "Escada de Mão Chamuscada",
+  "item": "tconstruct:scorched_ladder",
+  "text": [
+    {
+      "text": "A escada de mão chamuscada pode ser usada para facilmente subir ou sair de sua fundição sem invalidar a estrutura, útil caso você planeje aumenta-la mais tarde!",
+      "paragraph": true
+    }
+  ]
+}
