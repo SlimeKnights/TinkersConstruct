@@ -1,0 +1,13 @@
+{
+  "title": "Ferramentas para Danos",
+  "image": {
+    "file": "tconstruct:book/images/damage_tools.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Aparentemente, as ferramentas não reagem bem a certas poções. Poções espessas e mundanas parecem causar pequenos danos à ferramenta, enquanto poções nocivas, especialmente poções arremesáveis, causam um pouco mais de dano à ferramenta. Agora, se eu pudesse encontrar um pouco de bafo de dragão para testar como uma poção de dano nociva..."
+    }
+  ]
+}
