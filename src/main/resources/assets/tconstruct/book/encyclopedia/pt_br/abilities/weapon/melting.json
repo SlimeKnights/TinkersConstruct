@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "Faz com que itens caidos e entidades atacadas sejam derretidas no tanque da ferramentas. A quantidade máxima de fluido produzido por golpe é de 4 de dano para a maioria dos mobs. Também aumenta a capacidade do tanque em 1000 ml. "
+    },
+    {
+      "text": "Ferramentas com fundição podem ser enchidas e drenadas pela interação com tanques de fluido."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}
