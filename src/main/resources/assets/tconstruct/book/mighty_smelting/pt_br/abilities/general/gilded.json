@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "Promoção! é 2 por 1"
+    }
+  ],
+  "effects": [
+    "Troca 1 slot de habilidade por 2 slots de melhoria",
+    "Multipos niveis",
+    "Requer 1 slot de habilidade"
+  ]
+}

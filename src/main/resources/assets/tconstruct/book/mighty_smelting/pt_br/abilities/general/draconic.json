@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:draconic",
+  "text": [
+    {
+      "text": "É hora de ser a§ocabeça§r da competição!"
+    }
+  ],
+  "effects": [
+    "Adiciona um outro slot de habilidade",
+    "Nivel Único",
+    "Não requer nenhum slot de habilidade"
+  ]
+}
