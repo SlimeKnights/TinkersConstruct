@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:draconic",
+  "text": [
+    {
+      "text": "Concede +1 slot de habilidade."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "Uso único",
+    "Sem Slots"
+  ]
+}
