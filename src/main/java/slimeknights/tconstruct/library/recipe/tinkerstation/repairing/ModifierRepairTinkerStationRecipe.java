@@ -8,8 +8,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -25,7 +25,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   @Getter
   private final ResourceLocation id;
   @Getter
-  private final Modifier modifier;
+  private final ModifierId modifier;
   @Getter
   private final Ingredient ingredient;
   @Getter

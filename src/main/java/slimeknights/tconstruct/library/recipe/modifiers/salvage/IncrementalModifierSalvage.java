@@ -12,7 +12,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   private final ItemOutput result;
   private final boolean fullSalvage;
-  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
+  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
     super(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     this.result = result;
     this.fullSalvage = fullSalvage;
@@ -39,18 +39,18 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   public void updateTool(IToolStackView tool) {
     super.updateTool(tool);
     // remove the incremental modifier tag so we don't partially remove the next level
-    tool.getPersistentData().remove(getModifier().getId());
+    tool.getPersistentData().remove(getModifier());
   }
 
   @Override
   public void acceptItems(IToolStackView tool, Consumer<ItemStack> stackConsumer, Random random) {
-    ResourceLocation key = getModifier().getId();
+    ModifierId key = getModifier();
     int maxValue;
     // if the tag is missing, return the needed per level (assume its being treated as non-incremental)
     if (tool.getPersistentData().contains(key, Tag.TAG_ANY_NUMERIC)) {
-      maxValue = tool.getPersistentData().getInt(getModifier().getId());
+      maxValue = tool.getPersistentData().getInt(key);
     } else {
-      maxValue = ModifierRecipeLookup.getNeededPerLevel(getModifier());
+      maxValue = ModifierRecipeLookup.getNeededPerLevel(key);
     }
     // add the items returned
     if (maxValue > 0) {
@@ -70,7 +70,7 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   /** Serializer instance */
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<IncrementalModifierSalvage> {
     @Override
-    protected IncrementalModifierSalvage fromJson(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected IncrementalModifierSalvage fromJson(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       JsonElement salvageElement = JsonHelper.getElement(json, "salvage");
       ItemOutput result = ItemOutput.fromJson(salvageElement);
       boolean fullSalvage = false;
@@ -81,7 +81,7 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
     }
 
     @Override
-    protected IncrementalModifierSalvage fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, int maxToolSize, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    protected IncrementalModifierSalvage fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ItemOutput result = ItemOutput.read(buffer);
       boolean fullSalvage = buffer.readBoolean();
       return new IncrementalModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, result, fullSalvage, slots);

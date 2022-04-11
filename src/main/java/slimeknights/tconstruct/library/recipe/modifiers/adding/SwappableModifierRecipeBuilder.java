@@ -4,8 +4,9 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -15,14 +16,19 @@ import java.util.function.Consumer;
 /** Builder for a modifier with a swappable string key */
 public class SwappableModifierRecipeBuilder extends ModifierRecipeBuilder {
   private final String value;
-  protected SwappableModifierRecipeBuilder(Modifier modifier, String value) {
+  protected SwappableModifierRecipeBuilder(ModifierId modifier, String value) {
     super(new ModifierEntry(modifier, 1));
     this.value = value;
   }
 
   /** Creates a new builder */
-  public static SwappableModifierRecipeBuilder modifier(Modifier modifier, String value) {
+  public static SwappableModifierRecipeBuilder modifier(ModifierId modifier, String value) {
     return new SwappableModifierRecipeBuilder(modifier, value);
+  }
+
+  /** Creates a new builder */
+  public static SwappableModifierRecipeBuilder modifier(LazyModifier modifier, String value) {
+    return modifier(modifier.getId(), value);
   }
 
   @Override

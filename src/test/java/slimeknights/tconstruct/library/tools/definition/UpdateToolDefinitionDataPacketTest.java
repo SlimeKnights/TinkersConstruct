@@ -9,8 +9,8 @@ import net.minecraftforge.common.ToolActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
-import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierFixture;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
@@ -64,7 +64,7 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
       .startingSlots(SlotType.UPGRADE, 5)
       .startingSlots(SlotType.ABILITY, 8)
       // traits
-      .trait(ModifierFixture.TEST_MODIFIER_1, 10)
+      .trait(ModifierFixture.TEST_1, 10)
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_FLATTEN)
       // behavior

@@ -9,8 +9,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Harvest;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Stats;
@@ -149,7 +150,7 @@ public class ToolDefinitionDataBuilder {
   /**
    * Adds a base trait to the tool
    */
-  public ToolDefinitionDataBuilder trait(Modifier modifier, int level) {
+  public ToolDefinitionDataBuilder trait(ModifierId modifier, int level) {
     traits.add(new ModifierEntry(modifier, level));
     return this;
   }
@@ -157,21 +158,21 @@ public class ToolDefinitionDataBuilder {
   /**
    * Adds a base trait to the tool
    */
-  public ToolDefinitionDataBuilder trait(Supplier<? extends Modifier> modifier, int level) {
-    return trait(modifier.get(), level);
+  public ToolDefinitionDataBuilder trait(LazyModifier modifier, int level) {
+    return trait(modifier.getId(), level);
   }
 
   /**
    * Adds a base trait to the tool
    */
-  public ToolDefinitionDataBuilder trait(Modifier modifier) {
+  public ToolDefinitionDataBuilder trait(ModifierId modifier) {
     return trait(modifier, 1);
   }
 
   /**
    * Adds a base trait to the tool
    */
-  public ToolDefinitionDataBuilder trait(Supplier<? extends Modifier> modifier) {
+  public ToolDefinitionDataBuilder trait(LazyModifier modifier) {
     return trait(modifier, 1);
   }
 

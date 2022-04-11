@@ -5,9 +5,10 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierFixture;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.Arrays;
@@ -24,7 +25,7 @@ class ModifierMatchTest extends BaseMcTest {
   }
 
   private static void testSingle(Function<ModifierMatch, ModifierMatch> encodeDecode) {
-    ModifierMatch match = ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_1, 2);
+    ModifierMatch match = ModifierMatch.entry(ModifierFixture.TEST_1, 2);
 
     ModifierMatch decoded = encodeDecode.apply(match);
 
@@ -52,7 +53,7 @@ class ModifierMatchTest extends BaseMcTest {
   }
 
   private static void testList(Function<ModifierMatch, ModifierMatch> encodeDecode) {
-    ModifierMatch match = ModifierMatch.list(2, ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_1), ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_2));
+    ModifierMatch match = ModifierMatch.list(2, ModifierMatch.entry(ModifierFixture.TEST_1), ModifierMatch.entry(ModifierFixture.TEST_2));
 
     ModifierMatch decoded = encodeDecode.apply(match);
 
@@ -91,7 +92,7 @@ class ModifierMatchTest extends BaseMcTest {
 
   @Test
   void single_matchSimple() {
-    ModifierMatch match = ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_1, 1);
+    ModifierMatch match = ModifierMatch.entry(ModifierFixture.TEST_1, 1);
 
     // matches right one
     assertThat(match.test(entryList(ModifierFixture.TEST_MODIFIER_1, 1))).isTrue();
@@ -101,7 +102,7 @@ class ModifierMatchTest extends BaseMcTest {
 
   @Test
   void single_matchLevel() {
-    ModifierMatch match = ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_1, 2);
+    ModifierMatch match = ModifierMatch.entry(ModifierFixture.TEST_1, 2);
 
     // too low
     assertThat(match.test(entryList(ModifierFixture.TEST_MODIFIER_1, 1))).isFalse();
@@ -125,22 +126,22 @@ class ModifierMatchTest extends BaseMcTest {
 
   @Test
   void list_matchOne() {
-    ModifierMatch match = ModifierMatch.list(1, ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_1), ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_2));
+    ModifierMatch match = ModifierMatch.list(1, ModifierMatch.entry(ModifierFixture.TEST_1), ModifierMatch.entry(ModifierFixture.TEST_2));
 
     // match if either
     assertThat(match.test(entryList(ModifierFixture.TEST_MODIFIER_1, 1))).isTrue();
     assertThat(match.test(entryList(ModifierFixture.TEST_MODIFIER_2, 1))).isTrue();
     // not in list
-    assertThat(match.test(entryList(ModifierFixture.EMPTY, 1))).isFalse();
+    assertThat(match.test(entryList(ModifierManager.INSTANCE.getDefaultValue(), 1))).isFalse();
     // matches if both
-    assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_MODIFIER_2, 1)))).isTrue();
+    assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_2, 1)))).isTrue();
     // matches with 3
-    assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_MODIFIER_2, 1), new ModifierEntry(ModifierFixture.EMPTY, 1)))).isTrue();
+    assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_2, 1), new ModifierEntry(ModifierManager.EMPTY, 1)))).isTrue();
   }
 
   @Test
   void list_matchAll() {
-    ModifierMatch match = ModifierMatch.list(2, ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_1), ModifierMatch.entry(ModifierFixture.TEST_MODIFIER_2));
+    ModifierMatch match = ModifierMatch.list(2, ModifierMatch.entry(ModifierFixture.TEST_1), ModifierMatch.entry(ModifierFixture.TEST_2));
 
     // neither alone is enough
     assertThat(match.test(entryList(ModifierFixture.TEST_MODIFIER_1, 1))).isFalse();
@@ -148,7 +149,7 @@ class ModifierMatchTest extends BaseMcTest {
     // matches if both
     assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_MODIFIER_2, 1)))).isTrue();
     // matches with 3
-    assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_MODIFIER_2, 1), new ModifierEntry(ModifierFixture.EMPTY, 1)))).isTrue();
+    assertThat(match.test(Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 1), new ModifierEntry(ModifierFixture.TEST_MODIFIER_2, 1), new ModifierEntry(ModifierManager.INSTANCE.getDefaultValue(), 1)))).isTrue();
   }
 
   /** Creates a list for matching from the given entry */

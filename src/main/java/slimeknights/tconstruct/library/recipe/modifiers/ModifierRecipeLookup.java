@@ -9,8 +9,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -27,11 +27,11 @@ public class ModifierRecipeLookup {
   public static final ValidatedResult DEFAULT_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
 
   /** Map of requirements for each modifier */
-  private static final Multimap<Modifier,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
+  private static final Multimap<ModifierId,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
   /** Map of the number needed for each incremental modifier */
-  private static final Object2IntMap<Modifier> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
+  private static final Object2IntMap<ModifierId> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
   /** Map of salvage recipes for each modifier */
-  private static final Multimap<Modifier, AbstractModifierSalvage> SALVAGE = HashMultimap.create();
+  private static final Multimap<ModifierId, AbstractModifierSalvage> SALVAGE = HashMultimap.create();
 
   /** Listener for clearing the caches on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
@@ -68,13 +68,13 @@ public class ModifierRecipeLookup {
       } else {
         error = ValidatedResult.failure(errorMessage);
       }
-      Modifier modifier = entry.getModifier();
+      ModifierId modifier = entry.getId();
       addRequirements(new ModifierRequirements(ingredient, modifier, requirements.getMinLevel(modifier) + entry.getLevel(), requirements, error));
     }
   }
 
   /** Gets the requirements for the given modifier */
-  public static Collection<ModifierRequirements> getRequirements(Modifier modifier) {
+  public static Collection<ModifierRequirements> getRequirements(ModifierId modifier) {
     return REQUIREMENTS.get(modifier);
   }
 
@@ -87,7 +87,7 @@ public class ModifierRecipeLookup {
   public static ValidatedResult checkRequirements(ItemStack stack, IToolStackView tool) {
     List<ModifierEntry> modifiers = tool.getModifierList();
     for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
-      for (ModifierRequirements requirements : getRequirements(entry.getModifier())) {
+      for (ModifierRequirements requirements : getRequirements(entry.getId())) {
         ValidatedResult result = requirements.check(stack, entry.getLevel(), modifiers);
         if (result.hasError()) {
           return result;
@@ -105,7 +105,7 @@ public class ModifierRecipeLookup {
    * @param modifier        Modifier
    * @param neededPerLevel  Amount needed per level
    */
-  public static void setNeededPerLevel(Modifier modifier, int neededPerLevel) {
+  public static void setNeededPerLevel(ModifierId modifier, int neededPerLevel) {
     if (INCREMENTAL_PER_LEVEL.containsKey(modifier)) {
       int original = INCREMENTAL_PER_LEVEL.getInt(modifier);
       if (original != neededPerLevel) {
@@ -125,7 +125,7 @@ public class ModifierRecipeLookup {
    * @param modifier  Modifier
    * @return  Amount needed per level
    */
-  public static int getNeededPerLevel(Modifier modifier) {
+  public static int getNeededPerLevel(ModifierId modifier) {
     return INCREMENTAL_PER_LEVEL.getOrDefault(modifier, 0);
   }
 
@@ -149,7 +149,7 @@ public class ModifierRecipeLookup {
    * @return  Salvage recipe, or null if no salvage is found
    */
   @Nullable
-  public static AbstractModifierSalvage getSalvage(ItemStack stack, IToolStackView tool, Modifier modifier, int modifierLevel) {
+  public static AbstractModifierSalvage getSalvage(ItemStack stack, IToolStackView tool, ModifierId modifier, int modifierLevel) {
     for (AbstractModifierSalvage salvage : SALVAGE.get(modifier)) {
       if (salvage.matches(stack, tool, modifierLevel)) {
         return salvage;

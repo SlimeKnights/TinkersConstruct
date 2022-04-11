@@ -29,7 +29,7 @@ public class CircleWeaponAttack implements IWeaponAttack {
     // only need fully charged for scythe sweep, easier than sword sweep
     if (context.isFullyCharged()) {
       // basically sword sweep logic, just deals full damage to all entities
-      double range = radius + tool.getModifierLevel(TinkerModifiers.expanded.get());
+      double range = radius + tool.getModifierLevel(TinkerModifiers.expanded.getId());
       // allow having no range until modified with range
       if (radius > 0) {
         double rangeSq = range * range;

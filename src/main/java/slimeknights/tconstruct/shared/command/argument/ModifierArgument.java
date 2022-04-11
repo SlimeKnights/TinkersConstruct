@@ -12,12 +12,12 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /** Argument type for a modifier */
@@ -28,11 +28,11 @@ public class ModifierArgument implements ArgumentType<Modifier> {
 
   @Override
   public Modifier parse(StringReader reader) throws CommandSyntaxException {
-    ResourceLocation loc = ResourceLocation.read(reader);
-    if (!TinkerRegistries.MODIFIERS.get().containsKey(loc)) {
+    ModifierId loc = new ModifierId(ResourceLocation.read(reader));
+    if (!ModifierManager.INSTANCE.contains(loc)) {
       throw MODIFIER_NOT_FOUND.create(loc);
     }
-    return Objects.requireNonNull(TinkerRegistries.MODIFIERS.get().getValue(loc));
+    return ModifierManager.getValue(loc);
   }
 
   /** Gets a modifier from the command context */
@@ -42,7 +42,7 @@ public class ModifierArgument implements ArgumentType<Modifier> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return SharedSuggestionProvider.suggestResource(TinkerRegistries.MODIFIERS.get().getKeys(), builder);
+    return SharedSuggestionProvider.suggestResource(ModifierManager.INSTANCE.getAllLocations(), builder);
   }
 
   @Override

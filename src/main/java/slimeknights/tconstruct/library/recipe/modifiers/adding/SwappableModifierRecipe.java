@@ -10,8 +10,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class SwappableModifierRecipe extends ModifierRecipe {
   /** Value of the modifier being swapped, distinguishing this recipe from others for the same modifier */
   private final String value;
-  public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, Modifier result, String value, @Nullable SlotCount slots) {
+  public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierId result, String value, @Nullable SlotCount slots) {
     super(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, new ModifierEntry(result, 1), 1, slots);
     this.value = value;
   }
@@ -45,7 +45,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     ToolStack tool = ToolStack.from(tinkerable);
 
     // if the tool has the modifier already, can skip most requirements
-    Modifier modifier = result.getModifier();
+    ModifierId modifier = result.getId();
 
     ValidatedResult commonError;
     boolean needsModifier;
@@ -71,11 +71,11 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     }
 
     // set the new value to the modifier
-    persistentData.putString(modifier.getId(), value);
+    persistentData.putString(modifier, value);
 
     // add modifier if needed
     if (needsModifier) {
-      tool.addModifier(result.getModifier(), 1);
+      tool.addModifier(result.getId(), 1);
     } else {
       tool.rebuildStats();
     }
@@ -100,7 +100,8 @@ public class SwappableModifierRecipe extends ModifierRecipe {
   @Override
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
-      ResourceLocation id = result.getModifier().getId();
+      ResourceLocation id = result.getId();
+      toolWithModifier = getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result, data -> data.putString(id, value))).collect(Collectors.toList());
       toolWithModifier = getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result, data -> data.putString(id, value))).collect(Collectors.toList());
     }
     return toolWithModifier;
@@ -111,7 +112,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     @Override
     protected ModifierEntry readResult(JsonObject json) {
       JsonObject result = GsonHelper.getAsJsonObject(json, "result");
-      return new ModifierEntry(ModifierEntry.deserializeModifier(result, "name"), 1);
+      return new ModifierEntry(ModifierId.getFromJson(result, "name"), 1);
     }
 
     @Override
@@ -119,7 +120,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
 																				String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
       String value = GsonHelper.getAsString(GsonHelper.getAsJsonObject(json, "result"), "value");
-      return new SwappableModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result.getModifier(), value, slots);
+      return new SwappableModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots);
     }
 
     @Override
@@ -131,7 +132,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
         builder.add(SizedIngredient.read(buffer));
       }
       String value = buffer.readUtf();
-      return new SwappableModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result.getModifier(), value, slots);
+      return new SwappableModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots);
     }
 
     @Override

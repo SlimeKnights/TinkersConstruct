@@ -20,7 +20,7 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
   @Override
   public ModifierEntry getMatch(Iterable<ModifierEntry> iterable, ModifierEntry check, UidContext context) {
     for (ModifierEntry entry : iterable) {
-      if (entry.getModifier() == check.getModifier()) {
+      if (entry.matches(check.getId())) {
         return entry;
       }
     }
@@ -34,26 +34,26 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
 
   @Override
   public String getUniqueId(ModifierEntry entry, UidContext context) {
-    return entry.getModifier().getId().toString();
+    return entry.getId().toString();
   }
 
   @SuppressWarnings("removal")
   @Deprecated
   @Override
   public String getModId(ModifierEntry entry) {
-    return entry.getModifier().getId().getNamespace();
+    return entry.getId().getNamespace();
   }
 
   @SuppressWarnings("removal")
   @Deprecated
   @Override
   public String getResourceId(ModifierEntry entry) {
-    return entry.getModifier().getId().getPath();
+    return entry.getId().getPath();
   }
 
   @Override
   public ResourceLocation getResourceLocation(ModifierEntry entry) {
-    return entry.getModifier().getId();
+    return entry.getId();
   }
   @Override
   public ModifierEntry copyIngredient(ModifierEntry entry) {
@@ -65,7 +65,6 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
     if (entry == null) {
       return "null";
     }
-    ResourceLocation id = entry.getModifier().getRegistryName();
-    return id == null ? "unregistered" : id.toString();
+    return entry.getId().toString();
   }
 }

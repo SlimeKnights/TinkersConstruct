@@ -14,8 +14,8 @@ import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -460,7 +460,7 @@ public class ToolStack implements IToolStackView {
    * @param modifier  Modifier to add
    * @param level     Level to add
    */
-  public void addModifier(Modifier modifier, int level) {
+  public void addModifier(ModifierId modifier, int level) {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above 0");
     }
@@ -475,7 +475,7 @@ public class ToolStack implements IToolStackView {
    * @param modifier  Modifier to remove
    * @param level     Level to remove
    */
-  public void removeModifier(Modifier modifier, int level) {
+  public void removeModifier(ModifierId modifier, int level) {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above 0");
     }

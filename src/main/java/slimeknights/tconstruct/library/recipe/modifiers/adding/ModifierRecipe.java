@@ -84,7 +84,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     // ensure this modifier can be applied
-    if (!this.toolRequirement.test(inv.getTinkerableStack())) {
+    if (!result.isBound() || !this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
     }
 
@@ -132,7 +132,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     // add modifier
-    tool.addModifier(result.getModifier(), result.getLevel());
+    tool.addModifier(result.getId(), result.getLevel());
 
     // ensure no modifier problems
     ValidatedResult toolValidation = tool.validate();

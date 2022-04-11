@@ -58,7 +58,7 @@ public class ThornsModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    if (tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
+    if (tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
       addDamageTooltip(tool, getScaledLevel(tool, level) * 0.75f, tooltip);
     }
   }

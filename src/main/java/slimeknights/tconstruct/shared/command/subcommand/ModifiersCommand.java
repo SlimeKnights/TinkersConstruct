@@ -68,14 +68,14 @@ public class ModifiersCommand {
       // first, see if we can add the modifier
       int currentLevel = tool.getModifierLevel(modifier);
       List<ModifierEntry> modifiers = tool.getModifierList();
-      for (ModifierRequirements requirements : ModifierRecipeLookup.getRequirements(modifier)) {
+      for (ModifierRequirements requirements : ModifierRecipeLookup.getRequirements(modifier.getId())) {
         ValidatedResult result = requirements.check(stack, level + currentLevel, modifiers);
         if (result.hasError()) {
           throw MODIFIER_ERROR.create(result.getMessage());
         }
       }
       tool = tool.copy();
-      tool.addModifier(modifier, level);
+      tool.addModifier(modifier.getId(), level);
 
       // ensure no modifier problems after adding
       ValidatedResult toolValidation = tool.validate();
@@ -108,7 +108,7 @@ public class ModifiersCommand {
       ToolStack tool = ToolStack.from(stack);
 
       // first, see if the modifier exists
-      int currentLevel = tool.getUpgrades().getLevel(modifier);
+      int currentLevel = tool.getUpgrades().getLevel(modifier.getId());
       if (currentLevel == 0) {
         throw CANNOT_REMOVE.create(modifier.getDisplayName(level), living.getName());
       }
@@ -125,7 +125,7 @@ public class ModifiersCommand {
       }
 
       // remove the actual modifier
-      tool.removeModifier(modifier, removeLevel);
+      tool.removeModifier(modifier.getId(), removeLevel);
 
       // ensure the tool is still valid
       ValidatedResult validated = tool.validate();

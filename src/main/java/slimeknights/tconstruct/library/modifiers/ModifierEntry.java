@@ -7,27 +7,67 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.With;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
-import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.utils.JsonUtils;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 /**
  * Data class holding a modifier with a level
- * TODO: convert to record
  */
-@Data
-@EqualsAndHashCode
+@RequiredArgsConstructor
 public class ModifierEntry implements Comparable<ModifierEntry> {
   /** JSON serializer instance for GSON */
   public static final Serializer SERIALIZER = new Serializer();
 
-  private final Modifier modifier;
+  /** Modifier instance */
+  private final LazyModifier modifier;
+  /** Current level */
+  @Getter @With
   private final int level;
+
+  public ModifierEntry(ModifierId id, int level) {
+    this(new LazyModifier(id), level);
+  }
+
+  public ModifierEntry(Modifier modifier, int level) {
+    this(new LazyModifier(modifier), level);
+  }
+
+  /** Checks if the given modifier is bound */
+  public boolean isBound() {
+    return modifier.isBound();
+  }
+
+  /** Gets the contained modifier ID, prevents resolving the lazy modifier if not needed */
+  public ModifierId getId() {
+    return modifier.getId();
+  }
+
+  /** Gets the contained modifier */
+  public Modifier getModifier() {
+    return modifier.get();
+  }
+
+  /** Helper for efficiency, returns the lazy modifier instance directly, which can then be copied along */
+  public LazyModifier getLazyModifier() {
+    return modifier;
+  }
+
+  /** Checks if this entry matches the given modifier */
+  public boolean matches(ModifierId id) {
+    return modifier.getId().equals(id);
+  }
+
+  /** Checks if this entry matches the given modifier */
+  public boolean matches(Modifier modifier) {
+    return modifier.getId().equals(modifier.getId());
+  }
 
   @Override
   public int compareTo(ModifierEntry other) {
@@ -42,18 +82,13 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
     return mod1.getId().getPath().compareTo(mod2.getId().getPath());
   }
 
-  /** Deserializes a modifier from JSON */
-  public static Modifier deserializeModifier(JsonObject parent, String key) {
-    return JsonUtils.getAsEntry(TinkerRegistries.MODIFIERS.get(), parent, key);
-  }
-
   /**
    * Parses a modifier entry from JSON
    * @param json  JSON object
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    return new ModifierEntry(deserializeModifier(json, "name"), GsonHelper.getAsInt(json, "level", 1));
+    return new ModifierEntry(ModifierId.getFromJson(json, "name"), GsonHelper.getAsInt(json, "level", 1));
   }
 
   /**
@@ -62,7 +97,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    */
   public JsonObject toJson() {
     JsonObject json = new JsonObject();
-    json.addProperty("name", modifier.getId().toString());
+    json.addProperty("name", getId().toString());
     json.addProperty("level", level);
     return json;
   }
@@ -73,7 +108,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Read entry
    */
   public static ModifierEntry read(FriendlyByteBuf buffer) {
-    return new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get()), buffer.readVarInt());
+    return new ModifierEntry(ModifierId.fromNetwork(buffer), buffer.readVarInt());
   }
 
   /**
@@ -81,8 +116,26 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    */
   public void write(FriendlyByteBuf buffer) {
-    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get(), modifier);
+    getId().toNetwork(buffer);
     buffer.writeVarInt(level);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ModifierEntry entry = (ModifierEntry)o;
+    return this.matches(entry.getId()) && level == entry.level;
+  }
+
+  @Override
+  public int hashCode() {
+    return 31 * modifier.hashCode() + Objects.hash(level);
+  }
+
+  @Override
+  public String toString() {
+    return "ModifierEntry{" + modifier.getId() + ",level=" + level + '}';
   }
 
   private static class Serializer implements JsonDeserializer<ModifierEntry>, JsonSerializer<ModifierEntry> {

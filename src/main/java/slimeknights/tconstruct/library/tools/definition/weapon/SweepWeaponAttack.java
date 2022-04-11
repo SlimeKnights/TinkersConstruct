@@ -36,7 +36,7 @@ public class SweepWeaponAttack implements IWeaponAttack {
     LivingEntity attacker = context.getAttacker();
     if (hit && context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && attacker.isOnGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
       // loop through all nearby entities
-      double range = this.range + tool.getModifierLevel(TinkerModifiers.expanded.get());
+      double range = this.range + tool.getModifierLevel(TinkerModifiers.expanded.getId());
       double rangeSq = (2 + range);
       rangeSq *= rangeSq;
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this

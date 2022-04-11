@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 import java.util.Arrays;
@@ -29,7 +30,17 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    * @param level     Level required
    * @return  Match instance
    */
-  public static ModifierMatch entry(Modifier modifier, int level) {
+  public static ModifierMatch entry(ModifierId modifier, int level) {
+    return new EntryMatch(new ModifierEntry(modifier, level));
+  }
+
+  /**
+   * Creates a new match from a single entry
+   * @param modifier  Modifier
+   * @param level     Level required
+   * @return  Match instance
+   */
+  public static ModifierMatch entry(LazyModifier modifier, int level) {
     return new EntryMatch(new ModifierEntry(modifier, level));
   }
 
@@ -38,7 +49,16 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    * @param modifier  Modifier
    * @return  Match instance
    */
-  public static ModifierMatch entry(Modifier modifier) {
+  public static ModifierMatch entry(ModifierId modifier) {
+    return new EntryMatch(new ModifierEntry(modifier, 1));
+  }
+
+  /**
+   * Creates a new match from a modifier with level 1
+   * @param modifier  Modifier
+   * @return  Match instance
+   */
+  public static ModifierMatch entry(LazyModifier modifier) {
     return new EntryMatch(new ModifierEntry(modifier, 1));
   }
 
@@ -99,7 +119,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
   public abstract void apply(ModifierNBT.Builder tool);
 
   /** Gets the minimum level of this modifier needed for this match. Considers all possible paths, returning the smallest */
-  public abstract int getMinLevel(Modifier modifier);
+  public abstract int getMinLevel(ModifierId modifier);
 
   /**
    * Serializes this entry as JSON
@@ -121,15 +141,15 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
     @Override
     public boolean test(List<ModifierEntry> modifiers) {
       for (ModifierEntry entry : modifiers) {
-        if (entry.getModifier() == this.entry.getModifier()) {
+        if (entry.matches(this.entry.getId())) {
           return entry.getLevel() >= this.entry.getLevel();
         }
       }
       return false;
     }
     @Override
-    public int getMinLevel(Modifier modifier) {
-      if (modifier == entry.getModifier()) {
+    public int getMinLevel(ModifierId modifier) {
+      if (entry.matches(modifier)) {
         return entry.getLevel();
       }
       return 0;
@@ -170,7 +190,7 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
     }
 
     @Override
-    public int getMinLevel(Modifier modifier) {
+    public int getMinLevel(ModifierId modifier) {
       // if we need none, or more than possible, skip
       // second is a safety check
       if (required == 0 || required >= options.size()) {

@@ -37,7 +37,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
 
   @Override
   public int getSlots(IToolContext tool, int level) {
-    return Math.min(9, level * 4 + tool.getModifierLevel(TinkerModifiers.pocketChain.get()));
+    return Math.min(9, level * 4 + tool.getModifierLevel(TinkerModifiers.pocketChain.getId()));
   }
 
   @Override

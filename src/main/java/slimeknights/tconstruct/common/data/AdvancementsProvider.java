@@ -45,7 +45,7 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -74,7 +74,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class AdvancementsProvider extends GenericDataProvider {
 
@@ -161,11 +160,11 @@ public class AdvancementsProvider extends GenericDataProvider {
     //                                                                                                  .build())));
     builder(Items.WRITABLE_BOOK, resource("tools/upgrade_slots"), modified, FrameType.CHALLENGE, builder ->
       builder.addCriterion("has_modified", InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().upgrades(
-        ModifierMatch.list(5, ModifierMatch.entry(TinkerModifiers.writable.get()),
-                           ModifierMatch.entry(TinkerModifiers.recapitated.get()),
-                           ModifierMatch.entry(TinkerModifiers.harmonious.get()),
-                           ModifierMatch.entry(TinkerModifiers.resurrected.get()),
-                           ModifierMatch.entry(TinkerModifiers.gilded.get()))).build()))
+        ModifierMatch.list(5, ModifierMatch.entry(TinkerModifiers.writable),
+                           ModifierMatch.entry(TinkerModifiers.recapitated),
+                           ModifierMatch.entry(TinkerModifiers.harmonious),
+                           ModifierMatch.entry(TinkerModifiers.resurrected),
+                           ModifierMatch.entry(TinkerModifiers.gilded))).build()))
     );
 
     // smeltery path
@@ -225,7 +224,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.cleaver.get());
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
-      Consumer<Supplier<? extends Modifier>> with = modifier -> builder.addCriterion(modifier.get().getId().getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier.get())).build()));
+      Consumer<LazyModifier> with = modifier -> builder.addCriterion(modifier.getId().getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier)).build()));
       // general
       with.accept(TinkerModifiers.gilded);
       with.accept(TinkerModifiers.luck);

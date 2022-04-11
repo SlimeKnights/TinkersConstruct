@@ -9,9 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer.IModifierRepairRecipe;
 
 import javax.annotation.Nullable;
@@ -25,7 +23,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Override
   public T fromJson(ResourceLocation id, JsonObject json) {
-    Modifier modifier = ModifierEntry.deserializeModifier(json, "modifier");
+    ModifierId modifier = ModifierId.getFromJson(json, "modifier");
     Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
     int repairAmount = GsonHelper.getAsInt(json, "repair_amount");
     return factory.create(id, modifier, ingredient, repairAmount);
@@ -34,7 +32,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   @Nullable
   @Override
   protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-    Modifier modifier = buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get());
+    ModifierId modifier = ModifierId.fromNetwork(buffer);
     Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int repairAmount = buffer.readVarInt();
     return factory.create(id, modifier, ingredient, repairAmount);
@@ -42,7 +40,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Override
   protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
-    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS.get(), recipe.getModifier());
+    recipe.getModifier().toNetwork(buffer);
     recipe.getIngredient().toNetwork(buffer);
     buffer.writeVarInt(recipe.getRepairAmount());
   }
@@ -50,7 +48,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   /** Interface for serializing the recipe */
   public interface IModifierRepairRecipe {
     /** Gets the modifier needed to perform this recipe */
-    Modifier getModifier();
+    ModifierId getModifier();
     /** Gets the ingredient used to repair this item */
     Ingredient getIngredient();
     /** Gets the amount repaired per item */
@@ -60,6 +58,6 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   /** Factory constructor for this serializer */
   @FunctionalInterface
   public interface IFactory<T extends Recipe<?> & IModifierRepairRecipe> {
-    T create(ResourceLocation id, Modifier modifier, Ingredient ingredient, int repairAmount);
+    T create(ResourceLocation id, ModifierId modifier, Ingredient ingredient, int repairAmount);
   }
 }

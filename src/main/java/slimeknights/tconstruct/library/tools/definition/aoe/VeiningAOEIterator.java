@@ -38,7 +38,7 @@ public class VeiningAOEIterator implements IAreaOfEffectIterator {
 
   @Override
   public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
     return calculate(state, world, origin, maxDistance + expanded);
   }
 

@@ -15,14 +15,11 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.utils.JsonUtils;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -51,7 +48,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   private static final Map<ResourceLocation,IUnbakedModifierModel> MODIFIER_MODEL_OPTIONS = new HashMap<>();
 
   /** Map of models for each modifier */
-  private static Map<Modifier,IUnbakedModifierModel> modifierModels = Collections.emptyMap();
+  private static Map<ModifierId,IUnbakedModifierModel> modifierModels = Collections.emptyMap();
 
   /**
    * Initializes this manager, registering it with the resource manager
@@ -94,47 +91,43 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     }
 
     // start building the model map
-    Map<Modifier,IUnbakedModifierModel> models = new HashMap<>();
+    Map<ModifierId,IUnbakedModifierModel> models = new HashMap<>();
 
     // get a list of files from all namespaces
     List<JsonObject> jsonFiles = JsonUtils.getFileInAllDomainsAndPacks(manager, VISIBLE_MODIFIERS);
     // first object is bottom most pack, so upper resource packs will replace it
-    IForgeRegistry<Modifier> modifiers = TinkerRegistries.MODIFIERS.get();
     for (int i = jsonFiles.size() - 1; i >= 0; i--) {
       JsonObject json = jsonFiles.get(i);
       // right now just do simply key value pairs
       for (Entry<String,JsonElement> entry : json.entrySet()) {
         // get a valid name
         String key = entry.getKey();
-        ResourceLocation name = ResourceLocation.tryParse(key);
+        ModifierId name = ModifierId.tryParse(key);
         if (name == null) {
           log.error("Skipping invalid modifier key " + key + " as it is not a valid resource location");
         } else {
-          // ensure its a valid modifier and not already parsed
-          Modifier modifier = modifiers.getValue(name);
-          if (modifier == null || modifier == TinkerModifiers.empty.get()) {
-            log.error("Skipping unknown modifier " + key);
-          } else if (!models.containsKey(modifier)) {
+          // ensure it's not already parsed
+          if (!models.containsKey(name)) {
             // get a valid element, remove if null, error if not primitive
             JsonElement element = entry.getValue();
             if (element.isJsonNull()) {
-              models.remove(modifier);
+              models.remove(name);
               // object means we configure the unbaked model
             } else if (element.isJsonObject()) {
               JsonObject object = element.getAsJsonObject();
               IUnbakedModifierModel model = getLoader(key, GsonHelper.getAsString(object, "type"));
               // configure the model with the given JSON data
               if (model != null) {
-                models.put(modifier, model.configure(object));
+                models.put(name, model.configure(object));
               }
               // primitive means a string loader name
             } else if (element.isJsonPrimitive()) {
               IUnbakedModifierModel model = getLoader(key, element.getAsString());
               if (model != null) {
-                models.put(modifier, model);
+                models.put(name, model);
               }
             } else {
-              log.error("Skipping key " + key + " as the value is not a string");
+              log.error("Skipping key " + key + " as the value is not a string or object");
             }
           }
         }
@@ -186,14 +179,14 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    * @param largeModifierRoots  List of modifier roots for large tools, null if the tool is not large
    * @return  Map of models
    */
-  public static Map<Modifier,IBakedModifierModel> getModelsForTool(List<ResourceLocation> smallModifierRoots, List<ResourceLocation> largeModifierRoots, Collection<Material> textures) {
+  public static Map<ModifierId,IBakedModifierModel> getModelsForTool(List<ResourceLocation> smallModifierRoots, List<ResourceLocation> largeModifierRoots, Collection<Material> textures) {
     // if we have no modifier models, or both lists of modifier roots are empty, nothing to do
     if (modifierModels.isEmpty() || (smallModifierRoots.isEmpty() && largeModifierRoots.isEmpty())) {
       return Collections.emptyMap();
     }
 
     // start building the map
-    ImmutableMap.Builder<Modifier,IBakedModifierModel> modelMap = ImmutableMap.builder();
+    ImmutableMap.Builder<ModifierId,IBakedModifierModel> modelMap = ImmutableMap.builder();
 
     // create two texture adders, so we only log on the final option if missing
     Predicate<Material> smallTextureAdder = smallModifierRoots.isEmpty() ? null
@@ -202,15 +195,14 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
                                                   : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
 
     // load each modifier
-    for (Modifier modifier : TinkerRegistries.MODIFIERS.get().getValues()) {
-      IUnbakedModifierModel model = modifierModels.get(modifier);
-      if (model != null) {
-        IBakedModifierModel toolModel = model.forTool(
-          name -> getTexture(smallModifierRoots, smallTextureAdder, modifier.getId(), name),
-          name -> getTexture(largeModifierRoots, largeTextureAdder, modifier.getId(), name));
-        if (toolModel != null) {
-          modelMap.put(modifier, toolModel);
-        }
+    for (Entry<ModifierId, IUnbakedModifierModel> entry : modifierModels.entrySet()) {
+      ModifierId id = entry.getKey();
+      IUnbakedModifierModel model = entry.getValue();
+      IBakedModifierModel toolModel = model.forTool(
+        name -> getTexture(smallModifierRoots, smallTextureAdder, id, name),
+        name -> getTexture(largeModifierRoots, largeTextureAdder, id, name));
+      if (toolModel != null) {
+        modelMap.put(id, toolModel);
       }
     }
 

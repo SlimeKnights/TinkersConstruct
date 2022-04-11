@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 
 import java.util.List;
@@ -62,8 +63,17 @@ public interface IToolContext {
    * @param modifier  Modifier
    * @return  Level of modifier, 0 if the modifier is not on the tool
    */
-  default int getModifierLevel(Modifier modifier) {
+  default int getModifierLevel(ModifierId modifier) {
     return getModifiers().getLevel(modifier);
+  }
+
+  /**
+   * Gets the level of a modifier on this tool. Will consider both raw modifiers and material traits
+   * @param modifier  Modifier
+   * @return  Level of modifier, 0 if the modifier is not on the tool
+   */
+  default int getModifierLevel(Modifier modifier) {
+    return getModifiers().getLevel(modifier.getId());
   }
 
 

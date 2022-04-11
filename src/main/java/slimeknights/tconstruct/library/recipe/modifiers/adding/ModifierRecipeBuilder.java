@@ -12,8 +12,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.RandomItem;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -45,8 +46,17 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param modifier  Modifier
    * @return  Recipe for 1 level of the modifier
    */
-  public static ModifierRecipeBuilder modifier(Modifier modifier) {
+  public static ModifierRecipeBuilder modifier(ModifierId modifier) {
     return modifier(new ModifierEntry(modifier, 1));
+  }
+
+  /**
+   * Creates a new recipe for 1 level of a modifier
+   * @param modifier  Modifier
+   * @return  Recipe for 1 level of the modifier
+   */
+  public static ModifierRecipeBuilder modifier(LazyModifier modifier) {
+    return modifier(modifier.getId());
   }
 
 

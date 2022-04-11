@@ -23,7 +23,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 public class FrostWalkerModifier extends AbstractWalkerModifier implements IArmorWalkModifier {
   @Override
   protected float getRadius(IToolStackView tool, int level) {
-    return 3 + tool.getModifierLevel(TinkerModifiers.expanded.get());
+    return 3 + tool.getModifierLevel(TinkerModifiers.expanded.getId());
   }
 
   @Override

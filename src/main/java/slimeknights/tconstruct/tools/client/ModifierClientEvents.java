@@ -81,7 +81,7 @@ public class ModifierClientEvents {
       IModDataView volatileData = tool.getVolatileData();
       boolean noInteraction = volatileData.getBoolean(IModifiable.NO_INTERACTION);
       if (!noInteraction && !volatileData.getBoolean(IModifiable.DEFER_OFFHAND)) {
-        if (!(offhand.getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
+        if (!(offhand.getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.getId()) == 0) {
           event.setCanceled(true);
           return;
         }

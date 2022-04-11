@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
-import slimeknights.tconstruct.fixture.ModifierFixture;
+import slimeknights.tconstruct.library.modifiers.ModifierFixture;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
@@ -81,9 +81,9 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(data.getStartingSlots(SlotType.ABILITY)).isEqualTo(1);
     // traits
     assertThat(data.getTraits()).hasSize(2);
-    assertThat(data.getTraits().get(0).getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_1);
+    assertThat(data.getTraits().get(0).getId()).isEqualTo(ModifierFixture.TEST_1);
     assertThat(data.getTraits().get(0).getLevel()).isEqualTo(1);
-    assertThat(data.getTraits().get(1).getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_2);
+    assertThat(data.getTraits().get(1).getId()).isEqualTo(ModifierFixture.TEST_2);
     assertThat(data.getTraits().get(1).getLevel()).isEqualTo(3);
     // actions
     assertThat(data.actions).isNotNull();

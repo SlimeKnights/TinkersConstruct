@@ -18,6 +18,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
@@ -92,8 +93,8 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
 
     // salvage
     tool = tool.copy();
-    Modifier modifier = toRemove.getModifier();
-    AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, modifier, toRemove.getLevel());
+    ModifierId id = toRemove.getId();
+    AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, id, toRemove.getLevel());
 
     // restore the slots
     if (salvage != null) {
@@ -101,13 +102,14 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     }
 
     // first remove hook, primarily for removing raw NBT which is highly discouraged using
-    int newLevel = tool.getModifierLevel(modifier) - 1;
+    int newLevel = tool.getModifierLevel(id) - 1;
+    Modifier modifier = toRemove.getModifier();
     if (newLevel <= 0) {
       modifier.beforeRemoved(tool, tool.getRestrictedNBT());
     }
 
     // remove the actual modifier
-    tool.removeModifier(modifier, 1);
+    tool.removeModifier(id, 1);
 
     // second remove hook, useful for removing modifier specific state data
     if (newLevel <= 0) {
@@ -151,7 +153,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       ToolStack tool = ToolStack.from(toolStack);
       ModifierEntry toRemove = getModifierToRemove(inv, tool.getUpgrades().getModifiers());
       if (toRemove != null) {
-        AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getModifier(), toRemove.getLevel());
+        AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getId(), toRemove.getLevel());
         if (salvage != null) {
           int salvageMax = Math.min(toolStack.getMaxStackSize(), salvage.getMaxToolSize());
           int currentSize = result.getCount();

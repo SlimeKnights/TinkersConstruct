@@ -90,12 +90,12 @@ public class StatsCommand {
       boolean needsModifier = updateAction.test(tool, stats);
 
       // ensure the modifier is present if needed/not present if not needed
-      int level = tool.getUpgrades().getLevel(stats);
+      int level = tool.getUpgrades().getLevel(stats.getId());
       boolean hasModifier = level > 0;
       if (needsModifier && !hasModifier) {
-        tool.addModifier(stats, 1);
+        tool.addModifier(stats.getId(), 1);
       } else if (hasModifier && !needsModifier) {
-        tool.removeModifier(stats, level);
+        tool.removeModifier(stats.getId(), level);
       } else {
         tool.rebuildStats();
       }
@@ -194,7 +194,7 @@ public class StatsCommand {
       int level = tool.getModifierLevel(stats);
       if (level > 0) {
         tool = tool.copy();
-        tool.removeModifier(stats, level);
+        tool.removeModifier(stats.getId(), level);
         stats.onRemoved(tool);
 
         // ensure the tool is still valid

@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -50,9 +50,9 @@ public class ModifierNBT {
    * @param modifier  Modifier to check
    * @return  Modifier level, or 0 if modifier is missing
    */
-  public int getLevel(Modifier modifier) {
+  public int getLevel(ModifierId modifier) {
     for (ModifierEntry entry : modifiers) {
-      if (entry.getModifier() == modifier) {
+      if (entry.matches(modifier)) {
         return entry.getLevel();
       }
     }
@@ -66,7 +66,7 @@ public class ModifierNBT {
    * @param level     Levels of the modifier to add
    * @return  Instance with the given modifier
    */
-  public ModifierNBT withModifier(Modifier modifier, int level) {
+  public ModifierNBT withModifier(ModifierId modifier, int level) {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above zero");
     }
@@ -78,8 +78,8 @@ public class ModifierNBT {
     for (ModifierEntry entry : this.modifiers) {
       // first match increases the level
       // shouldn't be a second match (all the methods are protected), but just in case we prevent modifier duplication
-      if (!found && entry.getModifier() == modifier) {
-        builder.add(new ModifierEntry(modifier, entry.getLevel() + level));
+      if (!found && entry.matches(modifier)) {
+        builder.add(entry.withLevel(entry.getLevel() + level));
         found = true;
       } else {
         builder.add(entry);
@@ -98,7 +98,7 @@ public class ModifierNBT {
    * @param level     Level to remove
    * @return  ModifierNBT without the given modifier
    */
-  public ModifierNBT withoutModifier(Modifier modifier, int level) {
+  public ModifierNBT withoutModifier(ModifierId modifier, int level) {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above zero");
     }
@@ -107,9 +107,9 @@ public class ModifierNBT {
     // easier for adding a single entry, and the cases that call this method don't care about sorting
     ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
     for (ModifierEntry entry : this.modifiers) {
-      if (entry.getModifier() == modifier && level > 0) {
+      if (entry.matches(modifier) && level > 0) {
         if (entry.getLevel() > level) {
-          builder.add(new ModifierEntry(modifier, entry.getLevel() - level));
+          builder.add(entry.withLevel(entry.getLevel() - level));
           level = 0;
         } else {
           level -= entry.getLevel();
@@ -136,13 +136,10 @@ public class ModifierNBT {
     for (int i = 0; i < listNBT.size(); i++) {
       CompoundTag tag = listNBT.getCompound(i);
       if (tag.contains(TAG_MODIFIER) && tag.contains(TAG_LEVEL)) {
-        ModifierId id = ModifierId.tryCreate(tag.getString(TAG_MODIFIER));
+        ModifierId id = ModifierId.tryParse(tag.getString(TAG_MODIFIER));
         int level = tag.getInt(TAG_LEVEL);
         if (id != null && level > 0) {
-          Modifier modifier = TinkerRegistries.MODIFIERS.get().getValue(id);
-          if (modifier != null && !TinkerRegistries.EMPTY.equals(modifier.getRegistryName())) {
-            builder.add(new ModifierEntry(modifier, level));
-          }
+          builder.add(new ModifierEntry(id, level));
         }
       }
     }
@@ -154,7 +151,7 @@ public class ModifierNBT {
     ListTag list = new ListTag();
     for (ModifierEntry entry : modifiers) {
       CompoundTag tag = new CompoundTag();
-      tag.putString(TAG_MODIFIER, entry.getModifier().getId().toString());
+      tag.putString(TAG_MODIFIER, entry.getId().toString());
       tag.putShort(TAG_LEVEL, (short)entry.getLevel());
       list.add(tag);
     }
@@ -174,6 +171,7 @@ public class ModifierNBT {
    */
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
+    /** Intentionally using modifiers to ensure they are resolved */
     private final Map<Modifier, Integer> modifiers = new LinkedHashMap<>();
 
     /**
@@ -186,11 +184,14 @@ public class ModifierNBT {
       if (level <= 0) {
         throw new IllegalArgumentException("Level must be above 0");
       }
-      Integer value = modifiers.get(modifier);
-      if (value != null) {
-        level += value;
+      // skip if its the empty modifier, no sense tracking
+      if (modifier != ModifierManager.INSTANCE.getDefaultValue()) {
+        Integer value = modifiers.get(modifier);
+        if (value != null) {
+          level += value;
+        }
+        modifiers.put(modifier, level);
       }
-      modifiers.put(modifier, level);
       return this;
     }
 

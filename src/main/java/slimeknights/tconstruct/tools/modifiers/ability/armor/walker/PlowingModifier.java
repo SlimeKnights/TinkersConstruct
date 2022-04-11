@@ -35,7 +35,7 @@ public class PlowingModifier extends AbstractWalkerModifier {
 
   @Override
   protected float getRadius(IToolStackView tool, int level) {
-    return 1.5f + tool.getModifierLevel(TinkerModifiers.expanded.get());
+    return 1.5f + tool.getModifierLevel(TinkerModifiers.expanded.getId());
   }
 
   @Override

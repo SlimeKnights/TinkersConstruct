@@ -59,7 +59,7 @@ public class FluidModifierModel extends NormalModifierModel {
         return new FluidModifierCacheKey(tank, fluid.getFluid());
       }
     }
-    return entry.getModifier();
+    return entry.getId();
   }
 
   @Nullable

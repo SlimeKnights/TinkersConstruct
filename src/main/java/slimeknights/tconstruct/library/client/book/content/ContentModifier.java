@@ -18,21 +18,19 @@ import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.book.elements.CycleRecipeElement;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ContentModifier extends PageContent {
@@ -73,7 +71,7 @@ public class ContentModifier extends PageContent {
       if (this.modifierID == null) {
         this.modifierID = this.parent.name;
       }
-      this.modifier = Objects.requireNonNull(TinkerRegistries.MODIFIERS.get().getValue(new ModifierId(this.modifierID)));
+      this.modifier = ModifierManager.getValue(new ModifierId(this.modifierID));
     }
     return this.modifier;
   }
@@ -88,10 +86,10 @@ public class ContentModifier extends PageContent {
     if (this.recipes == null) {
       assert Minecraft.getInstance().level != null;
       Modifier modifier = getModifier();
-      if (modifier == TinkerModifiers.empty.get()) {
+      if (modifier == ModifierManager.INSTANCE.getDefaultValue()) {
         this.recipes = Collections.emptyList();
       } else {
-        this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == modifier).collect(Collectors.toList());
+        this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().level.getRecipeManager(), TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().matches(modifier)).collect(Collectors.toList());
       }
     }
   }
@@ -99,7 +97,7 @@ public class ContentModifier extends PageContent {
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean brightSide) {
     Modifier modifier = getModifier();
-    if (modifier == TinkerModifiers.empty.get() || this.recipes.isEmpty()) {
+    if (modifier == ModifierManager.INSTANCE.getDefaultValue() || this.recipes.isEmpty()) {
       list.add(new ImageElement(0, 0, 32, 32, ImageData.MISSING));
       System.out.println("Modifier with id " + modifierID + " not found");
       return;

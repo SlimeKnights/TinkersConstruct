@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class ModifierRequirements {
   private final Ingredient ingredient;
   /** Modifier to check, level must be equal or greater for this to be attempted */
   @Getter
-  private final Modifier modifier;
+  private final ModifierId modifier;
   /** The minimum level for which this requirement applies */
   private final int minLevel;
   /** Actual requirements to attempt */

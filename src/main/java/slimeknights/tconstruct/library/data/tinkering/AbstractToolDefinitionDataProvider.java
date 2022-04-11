@@ -8,7 +8,8 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -28,7 +29,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /** Base datagenerator to generate tool definition data */
@@ -245,23 +245,23 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
     /* Traits */
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(ArmorSlotType slotType, Modifier modifier, int level) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, ModifierId modifier, int level) {
       getBuilder(slotType).trait(modifier, level);
       return this;
     }
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(ArmorSlotType slotType, Supplier<? extends Modifier> modifier, int level) {
-      return trait(slotType, modifier.get(), level);
+    public ArmorDataBuilder trait(ArmorSlotType slotType, LazyModifier modifier, int level) {
+      return trait(slotType, modifier.getId(), level);
     }
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(ArmorSlotType slotType, Modifier modifier) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, ModifierId modifier) {
       return trait(slotType, modifier, 1);
     }
 
     /** Adds a base trait to the tool */
-    public ArmorDataBuilder trait(ArmorSlotType slotType, Supplier<? extends Modifier> modifier) {
+    public ArmorDataBuilder trait(ArmorSlotType slotType, LazyModifier modifier) {
       return trait(slotType, modifier, 1);
     }
   }

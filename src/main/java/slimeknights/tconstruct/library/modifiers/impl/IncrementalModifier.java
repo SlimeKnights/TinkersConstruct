@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.impl;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -11,11 +12,14 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import java.util.List;
 
-/** Modifier which can take just part of an input instead of the whole input */
+/**
+ * Modifier which can take just part of an input instead of the whole input
+ * TODO: consider moving incremental max to a field, serialized in JSON
+ */
 public class IncrementalModifier extends Modifier {
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
-    int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
+    int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this.getId());
     Component name = this.getDisplayName(level);
     if (neededPerLevel > 0) {
       int amount = getAmount(tool);
@@ -40,9 +44,9 @@ public class IncrementalModifier extends Modifier {
    * @param modifier        Modifier instance
    * @return  Amount applied to the tool
    */
-  public static int getAmount(IModDataView persistentData, Modifier modifier) {
-    if (persistentData.contains(modifier.getId(), Tag.TAG_ANY_NUMERIC)) {
-      return persistentData.getInt(modifier.getId());
+  public static int getAmount(IModDataView persistentData, ModifierId modifier) {
+    if (persistentData.contains(modifier, Tag.TAG_ANY_NUMERIC)) {
+      return persistentData.getInt(modifier);
     }
     return ModifierRecipeLookup.getNeededPerLevel(modifier);
   }
@@ -53,7 +57,7 @@ public class IncrementalModifier extends Modifier {
    * @param modifier  Modifier instance
    * @return  Amount applied to the tool
    */
-  public static int getAmount(IToolContext tool, Modifier modifier) {
+  public static int getAmount(IToolContext tool, ModifierId modifier) {
     return getAmount(tool.getPersistentData(), modifier);
   }
 
@@ -63,7 +67,7 @@ public class IncrementalModifier extends Modifier {
    * @return  Amount
    */
   public int getAmount(IModDataView persistentData) {
-    return getAmount(persistentData, this);
+    return getAmount(persistentData, this.getId());
   }
 
   /**
@@ -72,7 +76,7 @@ public class IncrementalModifier extends Modifier {
    * @return  Amount
    */
   public int getAmount(IToolContext tool) {
-    return getAmount(tool, this);
+    return getAmount(tool, this.getId());
   }
 
   /**
@@ -85,7 +89,7 @@ public class IncrementalModifier extends Modifier {
     if (level <= 0) {
       return 0;
     }
-    int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
+    int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this.getId());
     if (neededPerLevel > 0) {
       // if amount == needed per level, returns level
       // if amount == 0, returns level - 1, otherwise returns some fractional amount
@@ -110,8 +114,8 @@ public class IncrementalModifier extends Modifier {
    * @param modifier        Modifier to set
    * @param amount          New amount
    */
-  public static void setAmount(ModDataNBT persistentData, Modifier modifier, int amount) {
-    persistentData.putInt(modifier.getId(), amount);
+  public static void setAmount(ModDataNBT persistentData, ModifierId modifier, int amount) {
+    persistentData.putInt(modifier, amount);
   }
 
   /**

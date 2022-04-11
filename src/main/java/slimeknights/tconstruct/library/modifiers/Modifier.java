@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import lombok.Getter;
+import com.google.gson.JsonObject;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -34,11 +34,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import org.apache.logging.log4j.LogManager;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.ResourceColorManager;
+import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -70,7 +70,29 @@ import java.util.function.BiConsumer;
  * Any behavior special to either one is handled elsewhere.
  */
 @SuppressWarnings("unused")
-public class Modifier implements IForgeRegistryEntry<Modifier> {
+public class Modifier implements IHaveLoader<Modifier> {
+  /** Default loader instance for a modifier with no properties */
+  public static final IGenericLoader<Modifier> DEFAULT_LOADER = new IGenericLoader<>() {
+    @Override
+    public Modifier deserialize(JsonObject json) {
+      return new Modifier();
+    }
+
+    @Override
+    public Modifier fromNetwork(FriendlyByteBuf buffer) {
+      return new Modifier();
+    }
+
+    @Override
+    public void serialize(Modifier object, JsonObject json) {
+      if (object.getClass() != Modifier.class) {
+        throw new IllegalStateException("Attempting to serialize a subclass of Modifier using the default modifier loader, this likely means the modifier did not override getLoader()");
+      }
+    }
+
+    @Override
+    public void toNetwork(Modifier object, FriendlyByteBuf buffer) {}
+  };
 
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
@@ -79,8 +101,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public static final int DEFAULT_PRIORITY = 100;
 
   /** Registry name of this modifier, null before fully registered */
-  @Getter @Nullable
-  private ModifierId registryName;
+  private ModifierId id;
 
   /** Cached key used for translations */
   @Nullable
@@ -95,6 +116,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   @Nullable
   private Component description;
 
+  @Override
+  public IGenericLoader<? extends Modifier> getLoader() {
+    return DEFAULT_LOADER;
+  }
+
   /**
    * Override this method to make your modifier run earlier or later.
    * Higher numbers run earlier, 100 is default
@@ -107,32 +133,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /* Registry methods */
 
-  @Override
-  public final Modifier setRegistryName(ResourceLocation name) {
-    if (registryName != null) {
-      throw new IllegalStateException("Attempted to set registry name with existing registry name! New: " + name + " Old: " + registryName);
+  /** Sets the modifiers ID. Internal as ID is set through {@link ModifierRegistrationEvent} or the dynamic loader */
+  final void setId(ModifierId name) {
+    if (id != null) {
+      throw new IllegalStateException("Attempted to set registry name with existing registry name! New: " + name + " Old: " + id);
     }
-    // check mod container, should be the active mod
-    // don't want mods registering stuff in Tinkers namespace, or Minecraft
-    String activeMod = ModLoadingContext.get().getActiveNamespace();
-    if (!name.getNamespace().equals(activeMod)) {
-      LogManager.getLogger().info("Potentially Dangerous alternative prefix for name `{}`, expected `{}`. This could be a intended override, but in most cases indicates a broken mod.", name, activeMod);
-    }
-    this.registryName = new ModifierId(name);
-    return this;
+    this.id = name;
   }
 
   /**
-   * Gets the modifier ID. Unlike {@link #getRegistryName()}, this method must be nonnull
+   * Gets the modifier ID
    * @return  Modifier ID
    */
   public ModifierId getId() {
-    return Objects.requireNonNull(registryName, "Modifier has null registry name");
-  }
-
-  @Override
-  public Class<Modifier> getRegistryType() {
-    return Modifier.class;
+    return Objects.requireNonNull(id, "Modifier has null registry name");
   }
 
 
@@ -163,7 +177,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Translation key
    */
   protected String makeTranslationKey() {
-    return Util.makeTranslationKey("modifier", Objects.requireNonNull(registryName));
+    return Util.makeTranslationKey("modifier", Objects.requireNonNull(id));
   }
 
   /**
@@ -985,7 +999,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   @Override
   public String toString() {
-    return "Modifier{" + registryName + '}';
+    return "Modifier{" + id + '}';
   }
 
 

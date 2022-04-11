@@ -15,8 +15,8 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -50,13 +50,13 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     this.amountPerInput = amountPerInput;
     this.neededPerLevel = neededPerLevel;
     this.leftover = leftover;
-    ModifierRecipeLookup.setNeededPerLevel(result.getModifier(), neededPerLevel);
+    ModifierRecipeLookup.setNeededPerLevel(result.getId(), neededPerLevel);
   }
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level level) {
     // ensure this modifier can be applied
-    if (!this.toolRequirement.test(inv.getTinkerableStack())) {
+    if (!result.isBound() || !this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
     }
     return containsOnlyIngredient(inv, input);
@@ -68,7 +68,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     ToolStack tool = ToolStack.from(tinkerable);
 
     // if the tool lacks the modifier, treat current as maxLevel, means we will add a new level
-    Modifier modifier = result.getModifier();
+    ModifierId modifier = result.getId();
     int current;
     if (tool.getUpgrades().getLevel(modifier) == 0) {
       current = neededPerLevel;
@@ -99,7 +99,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
       // add up to 1 level of this to the tool
       IncrementalModifier.setAmount(persistentData, modifier, Math.min(available + current - neededPerLevel, neededPerLevel));
-      tool.addModifier(result.getModifier(), result.getLevel());
+      tool.addModifier(result.getId(), result.getLevel());
     } else {
       // boost original based on the new level, and rebuild data so stats adjust
       IncrementalModifier.setAmount(persistentData, modifier, Math.min(current + available, neededPerLevel));
@@ -121,7 +121,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     ToolStack resultTool = ToolStack.from(result);
 
     // start by checking amount
-    Modifier modifier = this.result.getModifier();
+    ModifierId modifier = this.result.getId();
     int needed = IncrementalModifier.getAmount(resultTool, modifier);
     // if we had this modifier before, we can exclude what the original tool had
     int originalLevel = inputTool.getModifierLevel(modifier);

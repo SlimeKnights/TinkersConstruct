@@ -12,8 +12,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer.IModifierRepairRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -23,12 +23,12 @@ import javax.annotation.Nullable;
 
 public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModifierRepairRecipe {
   @Getter
-  private final Modifier modifier;
+  private final ModifierId modifier;
   @Getter
   private final Ingredient ingredient;
   @Getter
   private final int repairAmount;
-  public ModifierRepairCraftingRecipe(ResourceLocation idIn, Modifier modifier, Ingredient ingredient, int repairAmount) {
+  public ModifierRepairCraftingRecipe(ResourceLocation idIn, ModifierId modifier, Ingredient ingredient, int repairAmount) {
     super(idIn);
     this.modifier = modifier;
     this.ingredient = ingredient;

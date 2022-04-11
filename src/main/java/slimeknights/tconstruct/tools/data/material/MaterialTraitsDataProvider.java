@@ -19,82 +19,82 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
   @Override
   protected void addMaterialTraits() {
     // tier 1
-    addDefaultTraits(MaterialIds.wood, TinkerModifiers.cultivated.get());
-    addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound.get());
-    addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged.get());
-    addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing.get());
+    addDefaultTraits(MaterialIds.wood, TinkerModifiers.cultivated);
+    addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound);
+    addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
+    addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing);
     // tier 1 - nether
-    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic.get());
+    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
     // tier 1 - binding
-    addDefaultTraits(MaterialIds.string, TinkerModifiers.stringy.get());
-    addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned.get());
-    addDefaultTraits(MaterialIds.vine, TinkerModifiers.solarPowered.get());
+    addDefaultTraits(MaterialIds.string, TinkerModifiers.stringy);
+    addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned);
+    addDefaultTraits(MaterialIds.vine, TinkerModifiers.solarPowered);
 
     // tier 2
-    addDefaultTraits(MaterialIds.iron, TinkerModifiers.sturdy.get());
-    addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven.get());
-    addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing.get());
-    addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth.get(), TinkerModifiers.overslime.get());
-    addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging.get());
+    addDefaultTraits(MaterialIds.iron, TinkerModifiers.sturdy);
+    addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
+    addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
+    addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
     // tier 2 - nether
-    addDefaultTraits(MaterialIds.scorchedStone, TinkerModifiers.scorching.get());
+    addDefaultTraits(MaterialIds.scorchedStone, TinkerModifiers.scorching);
     // tier 2 - binding
-    addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced.get());
-    addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne.get());
+    addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced);
+    addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
 
     // tier 3
-    addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast.get(), TinkerModifiers.overslime.get());
-    addDefaultTraits(MaterialIds.amethystBronze, TinkerModifiers.crumbling.get());
-    addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating.get());
-    addDefaultTraits(MaterialIds.roseGold, TinkerModifiers.enhanced.get());
-    addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty.get());
+    addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.amethystBronze, TinkerModifiers.crumbling);
+    addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
+    addDefaultTraits(MaterialIds.roseGold, TinkerModifiers.enhanced);
+    addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
     // tier 3 - nether
-    addDefaultTraits(MaterialIds.cobalt, TinkerModifiers.lightweight.get());
+    addDefaultTraits(MaterialIds.cobalt, TinkerModifiers.lightweight);
     // tier 3 - binding
-    addDefaultTraits(MaterialIds.darkthread, TinkerModifiers.looting.get());
+    addDefaultTraits(MaterialIds.darkthread, TinkerModifiers.looting);
 
     // tier 4
-    addDefaultTraits(MaterialIds.queensSlime, TinkerModifiers.overlord.get(), TinkerModifiers.overslime.get());
-    addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum.get());
-    addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable.get());
-    addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting.get());
+    addDefaultTraits(MaterialIds.queensSlime, TinkerModifiers.overlord, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum);
+    addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable);
+    addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting);
     // tier 4 - binding
-    addDefaultTraits(MaterialIds.ancientHide, TinkerModifiers.fortune.get());
+    addDefaultTraits(MaterialIds.ancientHide, TinkerModifiers.fortune);
 
     // tier 5
-    addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.get());
+    addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
 
     // tier 2 - mod compat
-    addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense.get());
-    addDefaultTraits(MaterialIds.tungsten, TinkerModifiers.sharpweight.get());
-    addDefaultTraits(MaterialIds.platinum, TinkerModifiers.lustrous.get());
-    addDefaultTraits(MaterialIds.lead, TinkerModifiers.heavy.get());
-    addDefaultTraits(MaterialIds.silver, TinkerModifiers.smite.get());
-    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield.get());
+    addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense);
+    addDefaultTraits(MaterialIds.tungsten, TinkerModifiers.sharpweight);
+    addDefaultTraits(MaterialIds.platinum, TinkerModifiers.lustrous);
+    addDefaultTraits(MaterialIds.lead, TinkerModifiers.heavy);
+    addDefaultTraits(MaterialIds.silver, TinkerModifiers.smite);
+    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 3 - mod compat
-    addDefaultTraits(MaterialIds.steel, TinkerModifiers.ductile.get());
-    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained.get());
-    addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate.get());
-    addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant.get());
-    addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay.get());
-    addDefaultTraits(MaterialIds.electrum, TinkerModifiers.experienced.get());
-    addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked.get(), TinkerModifiers.overslime.get());
+    addDefaultTraits(MaterialIds.steel, TinkerModifiers.ductile);
+    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained);
+    addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate);
+    addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant);
+    addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);
+    addDefaultTraits(MaterialIds.electrum, TinkerModifiers.experienced);
+    addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked, TinkerModifiers.overslime);
 
     // slimeskull
-    addTraits(MaterialIds.gunpowder,    SkullStats.ID, TinkerModifiers.selfDestructive.get(), TinkerModifiers.creeperDisguise.get());
-    addTraits(MaterialIds.enderPearl,   SkullStats.ID, TinkerModifiers.enderdodging.get(), TinkerModifiers.endermanDisguise.get());
-    addTraits(MaterialIds.bone,         SkullStats.ID, TinkerModifiers.strongBones.get(), TinkerModifiers.skeletonDisguise.get());
-    addTraits(MaterialIds.bloodbone,    SkullStats.ID, TinkerModifiers.frosttouch.get(), TinkerModifiers.strayDisguise.get());
-    addTraits(MaterialIds.necroticBone, SkullStats.ID, TinkerModifiers.withered.get(), TinkerModifiers.witherSkeletonDisguise.get());
-    addTraits(MaterialIds.spider,       SkullStats.ID, TinkerModifiers.boonOfSssss.get(), TinkerModifiers.spiderDisguise.get());
-    addTraits(MaterialIds.venom,        SkullStats.ID, TinkerModifiers.mithridatism.get(), TinkerModifiers.caveSpiderDisguise.get());
-    addTraits(MaterialIds.rottenFlesh,  SkullStats.ID, TinkerModifiers.wildfire.get(), TinkerModifiers.zombieDisguise.get());
-    addTraits(MaterialIds.iron,         SkullStats.ID, TinkerModifiers.plague.get(), TinkerModifiers.huskDisguise.get());
-    addTraits(MaterialIds.copper,       SkullStats.ID, TinkerModifiers.breathtaking.get(), TinkerModifiers.drownedDisguise.get());
-    addTraits(MaterialIds.blazingBone,  SkullStats.ID, TinkerModifiers.firebreath.get(), TinkerModifiers.blazeDisguise.get());
-    addTraits(MaterialIds.gold,         SkullStats.ID, TinkerModifiers.chrysophilite.get(), TinkerModifiers.piglinDisguise.get());
-    addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard.get(), TinkerModifiers.piglinBruteDisguise.get());
-    addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.get(), TinkerModifiers.zombifiedPiglinDisguise.get());
+    addTraits(MaterialIds.gunpowder,    SkullStats.ID, TinkerModifiers.selfDestructive, TinkerModifiers.creeperDisguise);
+    addTraits(MaterialIds.enderPearl,   SkullStats.ID, TinkerModifiers.enderdodging, TinkerModifiers.endermanDisguise);
+    addTraits(MaterialIds.bone,         SkullStats.ID, TinkerModifiers.strongBones, TinkerModifiers.skeletonDisguise);
+    addTraits(MaterialIds.bloodbone,    SkullStats.ID, TinkerModifiers.frosttouch, TinkerModifiers.strayDisguise);
+    addTraits(MaterialIds.necroticBone, SkullStats.ID, TinkerModifiers.withered, TinkerModifiers.witherSkeletonDisguise);
+    addTraits(MaterialIds.spider,       SkullStats.ID, TinkerModifiers.boonOfSssss, TinkerModifiers.spiderDisguise);
+    addTraits(MaterialIds.venom,        SkullStats.ID, TinkerModifiers.mithridatism, TinkerModifiers.caveSpiderDisguise);
+    addTraits(MaterialIds.rottenFlesh,  SkullStats.ID, TinkerModifiers.wildfire, TinkerModifiers.zombieDisguise);
+    addTraits(MaterialIds.iron,         SkullStats.ID, TinkerModifiers.plague, TinkerModifiers.huskDisguise);
+    addTraits(MaterialIds.copper,       SkullStats.ID, TinkerModifiers.breathtaking, TinkerModifiers.drownedDisguise);
+    addTraits(MaterialIds.blazingBone,  SkullStats.ID, TinkerModifiers.firebreath, TinkerModifiers.blazeDisguise);
+    addTraits(MaterialIds.gold,         SkullStats.ID, TinkerModifiers.chrysophilite, TinkerModifiers.piglinDisguise);
+    addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard, TinkerModifiers.piglinBruteDisguise);
+    addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge, TinkerModifiers.zombifiedPiglinDisguise);
     // plate
     noTraits(MaterialIds.obsidian);
     noTraits(MaterialIds.debris);

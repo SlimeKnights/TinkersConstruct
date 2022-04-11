@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -97,8 +98,9 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
     }
 
     // add the modifier if needed
-    if (toolStack.getModifierLevel(TinkerModifiers.creativeSlot.get()) == 0) {
-      toolStack.addModifier(TinkerModifiers.creativeSlot.get(), 1);
+    ModifierId creative = TinkerModifiers.creativeSlot.getId();
+    if (toolStack.getModifierLevel(creative) == 0) {
+      toolStack.addModifier(creative, 1);
     } else {
       toolStack.rebuildStats();
     }

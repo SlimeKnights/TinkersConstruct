@@ -9,8 +9,8 @@ import net.minecraft.world.item.Tiers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
-import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
+import slimeknights.tconstruct.library.modifiers.ModifierFixture;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -307,26 +307,26 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void modifiers_addModifier() {
     ToolStack toolStack = ToolStack.from(testItemStack);
-    assertThat(toolStack.getUpgrades().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(0);
-    toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 1);
-    assertThat(toolStack.getUpgrades().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(1);
+    assertThat(toolStack.getUpgrades().getLevel(ModifierFixture.TEST_1)).isEqualTo(0);
+    toolStack.addModifier(ModifierFixture.TEST_1, 1);
+    assertThat(toolStack.getUpgrades().getLevel(ModifierFixture.TEST_1)).isEqualTo(1);
   }
 
   @Test
   void modifiers_serialize() {
     ToolStack toolStack = ToolStack.from(testItemStack);
-    toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 1);
+    toolStack.addModifier(ModifierFixture.TEST_1, 1);
 
     CompoundTag nbt = toolStack.getNbt();
     assertThat(nbt.contains(ToolStack.TAG_UPGRADES)).isTrue();
     ModifierNBT readModifiers = ModifierNBT.readFromNBT(nbt.get(ToolStack.TAG_UPGRADES));
     assertThat(readModifiers).isNotEqualTo(ModifierNBT.EMPTY);
-    assertThat(readModifiers).isEqualTo(ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1));
+    assertThat(readModifiers).isEqualTo(ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_1, 1));
   }
 
   @Test
   void modifiers_deserialize() {
-    ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1);
+    ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_1, 1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_UPGRADES, setModifiers.serializeToNBT());
 
     ToolStack tool = ToolStack.from(testItemStack);
@@ -338,7 +338,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void allMods_serialize() {
     ToolStack toolStack = ToolStack.from(testItemStack);
-    ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1);
+    ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_1, 1);
     toolStack.setModifiers(setModifiers);
 
     CompoundTag nbt = toolStack.getNbt();
@@ -350,7 +350,7 @@ class ToolStackTest extends ToolItemTest {
 
   @Test
   void allMods_deserialize() {
-    ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1);
+    ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_1, 1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_MODIFIERS, setModifiers.serializeToNBT());
 
     ToolStack tool = ToolStack.from(testItemStack);
@@ -429,8 +429,8 @@ class ToolStackTest extends ToolItemTest {
     toolStack.setVolatileModData(volatileData);
     assertThat(toolStack.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
 
-    toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 2);
+    toolStack.addModifier(ModifierFixture.TEST_1, 2);
     assertThat(toolStack.getVolatileData()).isNotEqualTo(volatileData);
-    assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(2);
+    assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_1)).isEqualTo(2);
   }
 }

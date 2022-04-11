@@ -40,7 +40,7 @@ public record ModifierIngredientRenderer(int width, int height) implements IIngr
     List<Component> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
     if (flag.isAdvanced()) {
       tooltip = new ArrayList<>(tooltip);
-      tooltip.add((new TextComponent(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+      tooltip.add((new TextComponent(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
     }
     return tooltip;
   }

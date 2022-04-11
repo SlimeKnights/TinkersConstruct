@@ -186,7 +186,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   public void addOverslime(IToolStackView tool, int amount) {
     // yeah, I am hardcoding overworked. If you need something similar, put in an issue request on github
     // grants +100% restoring per level
-    int overworked = tool.getModifierLevel(TinkerModifiers.overworked.get());
+    int overworked = tool.getModifierLevel(TinkerModifiers.overworked.getId());
     addShield(tool, 0, amount * (1 + overworked));
   }
 }

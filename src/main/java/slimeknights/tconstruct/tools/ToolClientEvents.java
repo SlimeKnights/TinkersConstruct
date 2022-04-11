@@ -29,7 +29,6 @@ import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
@@ -41,7 +40,7 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
@@ -67,9 +66,7 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Listener to clear modifier cache */
   private static final ISafeManagerReloadListener MODIFIER_RELOAD_LISTENER = manager -> {
-    for (Modifier modifier : TinkerRegistries.MODIFIERS.get().getValues()) {
-      modifier.clearCache(PackType.CLIENT_RESOURCES);
-    }
+    ModifierManager.INSTANCE.getAllValues().forEach(modifier -> modifier.clearCache(PackType.CLIENT_RESOURCES));
   };
 
   @SubscribeEvent

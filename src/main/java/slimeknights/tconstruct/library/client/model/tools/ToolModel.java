@@ -49,19 +49,18 @@ import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.ReversedListBuilder;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -134,10 +133,10 @@ public class ToolModel implements IModelGeometry<ToolModel> {
   /** Location to fetch modifier textures for large variant */
   private final List<ResourceLocation> largeModifierRoots;
   /** Modifiers that show first on tools, bypassing normal sort order */
-  private final List<Modifier> firstModifiers;
+  private final List<ModifierId> firstModifiers;
 
   /** Models for the relevant modifiers */
-  private Map<Modifier,IBakedModifierModel> modifierModels = Collections.emptyMap();
+  private Map<ModifierId,IBakedModifierModel> modifierModels = Collections.emptyMap();
 
   @Override
   public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
@@ -197,7 +196,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    * @param transforms      Transforms to apply
    * @param isLarge         If true, the quads are for a large tool
    */
-  private static void addModifierQuads(Function<Material, TextureAtlasSprite> spriteGetter, Map<Modifier,IBakedModifierModel> modifierModels, List<Modifier> firstModifiers, IToolStackView tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, ItemLayerPixels pixels, Transformation transforms, boolean isLarge) {
+  private static void addModifierQuads(Function<Material, TextureAtlasSprite> spriteGetter, Map<ModifierId,IBakedModifierModel> modifierModels, List<ModifierId> firstModifiers, IToolStackView tool, Consumer<ImmutableList<BakedQuad>> quadConsumer, ItemLayerPixels pixels, Transformation transforms, boolean isLarge) {
     if (!modifierModels.isEmpty()) {
       // keep a running tint index so models know where they should start, currently starts at 0 as the main model does not use tint indexes
       int modelIndex = 0;
@@ -208,7 +207,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
         FirstModifier[] firsts = new FirstModifier[firstModifiers.size()];
         for (int i = modifiers.size() - 1; i >= 0; i--) {
           ModifierEntry entry = modifiers.get(i);
-          Modifier modifier = entry.getModifier();
+          ModifierId modifier = entry.getModifier().getId();
           IBakedModifierModel model = modifierModels.get(modifier);
           if (model != null) {
             // if the modifier is in the list, delay adding its quads, but keep the expected tint index
@@ -248,7 +247,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    * @return  Baked model
    */
   private static BakedModel bakeInternal(IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, @Nullable Transformation largeTransforms,
-                                         List<ToolPart> parts, Map<Modifier,IBakedModifierModel> modifierModels, List<Modifier> firstModifiers,
+                                         List<ToolPart> parts, Map<ModifierId,IBakedModifierModel> modifierModels, List<ModifierId> firstModifiers,
                                          List<MaterialVariantId> materials, @Nullable IToolStackView tool, ItemOverrides overrides) {
     boolean isBroken = tool != null && tool.isBroken();
     TextureAtlasSprite particle = null;
@@ -392,12 +391,12 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     // parameters needed for rebaking
     private final IModelConfiguration owner;
     private final List<ToolPart> toolParts;
-    private final List<Modifier> firstModifiers;
+    private final List<ModifierId> firstModifiers;
     @Nullable
     private final Transformation largeTransforms;
-    private final Map<Modifier,IBakedModifierModel> modifierModels;
+    private final Map<ModifierId,IBakedModifierModel> modifierModels;
 
-    private MaterialOverrideHandler(IModelConfiguration owner, List<ToolPart> toolParts, List<Modifier> firstModifiers, @Nullable Transformation largeTransforms, Map<Modifier,IBakedModifierModel> modifierModels) {
+    private MaterialOverrideHandler(IModelConfiguration owner, List<ToolPart> toolParts, List<ModifierId> firstModifiers, @Nullable Transformation largeTransforms, Map<ModifierId,IBakedModifierModel> modifierModels) {
       this.owner = owner;
       this.toolParts = toolParts;
       this.firstModifiers = firstModifiers;
@@ -412,7 +411,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
      */
     @Nullable
     public IBakedModifierModel getModifierModel(Modifier modifier) {
-      return modifierModels.get(modifier);
+      return modifierModels.get(modifier.getId());
     }
 
     /**
@@ -439,10 +438,10 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       }
 
       // build the cache key for the modifiers, based on what the modifier requests
-      // for many, it is just the modifer entry, but they can have more complex keys if needed
+      // for many, it is just the modifier entry, but they can have more complex keys if needed
       ImmutableList.Builder<Object> builder = ImmutableList.builder();
       for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
-        IBakedModifierModel model = modifierModels.get(entry.getModifier());
+        IBakedModifierModel model = getModifierModel(entry.getModifier());
         if (model != null) {
           Object cacheKey = model.getCacheKey(tool, entry);
           if (cacheKey != null) {
@@ -578,9 +577,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
         }
       }
       // modifiers first
-      List<Modifier> firstModifiers = Collections.emptyList();
+      List<ModifierId> firstModifiers = Collections.emptyList();
       if (modelContents.has("first_modifiers")) {
-        firstModifiers = JsonHelper.parseList(modelContents, "first_modifiers", (element, key) -> JsonUtils.convertToEntry(TinkerRegistries.MODIFIERS.get(), element, key));
+        firstModifiers = JsonHelper.parseList(modelContents, "first_modifiers", ModifierId::convertFromJson);
       }
       return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots, firstModifiers);
     }

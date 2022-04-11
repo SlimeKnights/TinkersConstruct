@@ -356,7 +356,7 @@ public class TooltipUtil {
       builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
       builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }
-    if (tool.hasTag(TinkerTags.Items.CHESTPLATES) && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
+    if (tool.hasTag(TinkerTags.Items.CHESTPLATES) && tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
     }
 

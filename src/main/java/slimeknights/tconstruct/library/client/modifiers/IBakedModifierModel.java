@@ -25,7 +25,7 @@ public interface IBakedModifierModel {
    */
   @Nullable
   default Object getCacheKey(IToolStackView tool, ModifierEntry modifier) {
-    return modifier.getModifier();
+    return modifier.getId();
   }
 
   /**

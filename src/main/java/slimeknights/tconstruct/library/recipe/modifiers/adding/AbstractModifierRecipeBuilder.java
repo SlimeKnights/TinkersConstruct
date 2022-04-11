@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.of(TinkerTags.Items.MODIFIABLE));
-  protected static final Lazy<ModifierMatch> UNARMED_MODIFIER = Lazy.of(() -> ModifierMatch.entry(TinkerModifiers.unarmed.get()));
+  protected static final Lazy<ModifierMatch> UNARMED_MODIFIER = Lazy.of(() -> ModifierMatch.entry(TinkerModifiers.unarmed));
   protected static final String UNARMED_ERROR = TConstruct.makeTranslationKey("recipe", "modifier.unarmed");
   // shared
   protected final ModifierEntry result;
@@ -161,7 +161,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, result.getModifier().getId());
+    save(consumer, result.getId());
   }
 
   /**
@@ -235,7 +235,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     @Override
     public void serializeRecipeData(JsonObject json) {
       writeCommon(json, includeUnarmed ? null : false);
-      json.addProperty("modifier", result.getModifier().getId().toString());
+      json.addProperty("modifier", result.getId().toString());
       json.addProperty("min_level", salvageMinLevel);
       if (salvageMaxLevel != 0) {
         json.addProperty("max_level", salvageMaxLevel);

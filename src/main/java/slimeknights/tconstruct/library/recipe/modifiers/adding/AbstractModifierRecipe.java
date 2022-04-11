@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -120,9 +120,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public ModifierEntry getDisplayResult() {
     if (displayResult == null) {
       // if the recipe has a minimum level of this modifier, add that min level to the display result
-      int min = requirements.getMinLevel(result.getModifier());
+      int min = requirements.getMinLevel(result.getId());
       if (min > 0) {
-        displayResult = new ModifierEntry(result.getModifier(), result.getLevel() + min);
+        displayResult = new ModifierEntry(result.getId(), result.getLevel() + min);
       } else {
         displayResult = result;
       }
@@ -167,15 +167,15 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     ImmutableList.Builder<ModifierEntry> finalList = ImmutableList.builder();
     IModDataView persistentData = toolStack.getPersistentData();
     for (ModifierEntry entry : toolStack.getModifierList()) {
-      Modifier modifier = entry.getModifier();
+      ModifierId modifier = entry.getId();
       // if the modifier is not incremental, or does not has the key set, nothing to do
       int needed = ModifierRecipeLookup.getNeededPerLevel(modifier);
-      if (needed == 0 || !persistentData.contains(modifier.getId(), Tag.TAG_ANY_NUMERIC)) {
+      if (needed == 0 || !persistentData.contains(modifier, Tag.TAG_ANY_NUMERIC)) {
         finalList.add(entry);
       } else {
         // if the modifier has enough, nothing to do
         // if not enough, decrease level by 1, skipping if now at 0
-        int has = persistentData.getInt(modifier.getId());
+        int has = persistentData.getInt(modifier);
         if (has >= needed) {
           finalList.add(entry);
         } else if (entry.getLevel() > 1) {
@@ -206,7 +206,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       return requirements;
     }
     // max level of modifier
-    if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getModifier()) + result.getLevel() > maxLevel) {
+    if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getId()) + result.getLevel() > maxLevel) {
       return ValidatedResult.failure(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
     }
     // ensure we have enough slots

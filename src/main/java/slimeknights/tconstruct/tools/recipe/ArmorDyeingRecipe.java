@@ -17,8 +17,8 @@ import net.minecraftforge.common.Tags.Items;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.RegistryHelper;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -121,7 +121,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     persistentData.putInt(key, finalColor);
 
     // add the modifier if missing
-    Modifier modifier = TinkerModifiers.dyed.get();
+    ModifierId modifier = TinkerModifiers.dyed.getId();
     if (tool.getModifierLevel(modifier) == 0) {
       tool.addModifier(modifier, 1);
     }

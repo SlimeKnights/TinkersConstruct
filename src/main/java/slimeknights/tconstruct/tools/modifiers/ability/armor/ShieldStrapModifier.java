@@ -43,7 +43,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Override
   public int getSlots(IToolContext tool, int level) {
-    return level + tool.getModifierLevel(TinkerModifiers.pocketChain.get());
+    return level + tool.getModifierLevel(TinkerModifiers.pocketChain.getId());
   }
 
   @Override

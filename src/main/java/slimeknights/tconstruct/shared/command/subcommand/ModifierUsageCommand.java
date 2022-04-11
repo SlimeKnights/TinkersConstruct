@@ -14,13 +14,13 @@ import slimeknights.mantle.command.MantleCommand;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -113,7 +113,7 @@ public class ModifierUsageCommand {
         modifierStream = toolTraits.stream();
         break;
       default:
-        modifierStream = TinkerRegistries.MODIFIERS.get().getValues().stream();
+        modifierStream = ModifierManager.INSTANCE.getAllValues();
         break;
     }
     // if requested, filter out all

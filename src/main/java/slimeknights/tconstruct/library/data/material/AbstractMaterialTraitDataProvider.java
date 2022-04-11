@@ -10,8 +10,9 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraits;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -93,8 +94,17 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
    * @param location  Material ID
    * @param traits    Traits to add
    */
-  protected void addDefaultTraits(MaterialId location, Modifier... traits) {
+  protected void addDefaultTraits(MaterialId location, ModifierId... traits) {
     getOrCreateMaterialTraits(location).setDefaultTraits(Arrays.stream(traits).map(trait -> new ModifierEntry(trait, 1)).collect(Collectors.toList()));
+  }
+
+  /**
+   * Adds a set of material stats for the given material ID
+   * @param location  Material ID
+   * @param traits    Traits to add
+   */
+  protected void addDefaultTraits(MaterialId location, LazyModifier... traits) {
+    getOrCreateMaterialTraits(location).setDefaultTraits(Arrays.stream(traits).map(trait -> new ModifierEntry(trait.getId(), 1)).collect(Collectors.toList()));
   }
 
   /**
@@ -113,7 +123,17 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
    * @param statsId   Stats to add the trait for
    * @param traits    Traits to add
    */
-  protected void addTraits(MaterialId location, MaterialStatsId statsId, Modifier... traits) {
+  protected void addTraits(MaterialId location, MaterialStatsId statsId, ModifierId... traits) {
     getOrCreateMaterialTraits(location).setTraits(statsId, Arrays.stream(traits).map(trait -> new ModifierEntry(trait, 1)).collect(Collectors.toList()));
+  }
+
+  /**
+   * Adds a set of material stats for the given material ID
+   * @param location  Material ID
+   * @param statsId   Stats to add the trait for
+   * @param traits    Traits to add
+   */
+  protected void addTraits(MaterialId location, MaterialStatsId statsId, LazyModifier... traits) {
+    getOrCreateMaterialTraits(location).setTraits(statsId, Arrays.stream(traits).map(trait -> new ModifierEntry(trait.getId(), 1)).collect(Collectors.toList()));
   }
 }

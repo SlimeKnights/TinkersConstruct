@@ -9,8 +9,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -41,12 +41,11 @@ public class BreakableDyedModifierModel implements IBakedModifierModel {
   @Nullable
   @Override
   public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
-    Modifier modifier = entry.getModifier();
-    ResourceLocation key = modifier.getId();
+    ModifierId modifier = entry.getId();
     IModDataView data = tool.getPersistentData();
     int color = -1;
-    if (data.contains(key, Tag.TAG_INT)) {
-      color = data.getInt(modifier.getId());
+    if (data.contains(modifier, Tag.TAG_INT)) {
+      color = data.getInt(modifier);
     }
     return new CacheKey(modifier, color);
   }
@@ -56,7 +55,7 @@ public class BreakableDyedModifierModel implements IBakedModifierModel {
     Material texture = textures[(isLarge ? 2 : 0) | (tool.isBroken() ? 1 : 0)];
     if (texture != null) {
       IModDataView data = tool.getPersistentData();
-      ResourceLocation key = modifier.getModifier().getId();
+      ResourceLocation key = modifier.getId();
       if (data.contains(key, Tag.TAG_INT)) {
         return MantleItemLayerModel.getQuadsForSprite(0xFF000000 | data.getInt(key), -1, spriteGetter.apply(texture), transforms, 0, pixels);
       }
@@ -65,5 +64,5 @@ public class BreakableDyedModifierModel implements IBakedModifierModel {
   }
 
   /** Data class to cache a colored texture */
-  private record CacheKey(Modifier modifier, int color) {}
+  private record CacheKey(ModifierId modifier, int color) {}
 }

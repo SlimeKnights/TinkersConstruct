@@ -233,7 +233,7 @@ public class InteractionHandler {
       ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
       if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
         ToolStack tool = ToolStack.from(chestplate);
-        if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.get()) > 0) {
+        if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
           ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
           event.setCanceled(true);
         }
