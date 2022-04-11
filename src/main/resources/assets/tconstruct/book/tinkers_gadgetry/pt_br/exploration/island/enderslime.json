@@ -1,0 +1,13 @@
+{
+  "title": "Ilhas de Enderslime",
+  "image": {
+    "file": "tconstruct:book/images/islands/enderslime.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "As ilhas de Enderslime podem ser encontradas ao redor de ilhas siderais do the end como um local de reprodução para os slimes do ender. Acredito que os Slimes-Do-Céu e os enderslimes já foram os mesmos antes de chegarem ao nosso mundo, mas viver em ambientes separados os mudou."
+    }
+  ]
+}

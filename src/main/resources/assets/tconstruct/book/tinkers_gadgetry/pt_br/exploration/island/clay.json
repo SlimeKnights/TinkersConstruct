@@ -1,0 +1,13 @@
+{
+  "title": "Ilhas de Argila",
+  "image": {
+	"file": "tconstruct:book/images/islands/clay.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "As ilhas de argila são estranhas em comparação com as outras, já que as ilhas parecem mais mundanas do que o slime. Essas ilhas produzem, às vezes, uma estranha lama de barro que denominei de terracubos. Elas não podem saltar muito alto, e parecem ligadas à escuridão como muitos outros monstros no mundo inteiro."
+    }
+  ]
+}
