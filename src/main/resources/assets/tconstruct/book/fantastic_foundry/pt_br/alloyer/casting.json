@@ -1,0 +1,13 @@
+{
+  "title": "Moldagem",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Um verdadeiro Tinkers sempre usa um molde para evitar o vazamento acidental de coisas erradas, por isso a mesa chamuscada sempre exigirá um. As plataformas e barras de ouro podem ser usadas como um substituto para um bloco de fundição vazio."
+    }
+	]
+}
