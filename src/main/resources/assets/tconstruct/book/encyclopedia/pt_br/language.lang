@@ -1,0 +1,45 @@
+intro=Introdução
+
+small_tools=Ferramentas Pequenas
+large_tools=Ferramentas Grandes
+armor=Armadura
+
+tier_one_materials=Materiais Nivel 1
+tier_one_materials.subtext=Estes materiais são fáceis de encontrar, e podem ser colocados no montador de peças para criar peças de ferramentas
+tier_two_materials=Materiais Nivel 2
+tier_two_materials.subtext=Estes materiais requerem fundição e moldagem para sua fabricação, e podem ser um pouco mais raros
+tier_three_materials=Materiais Nivel 3
+tier_three_materials.subtext=Estes materiais requerem ligas, seja através de um fundidor de ligas ou de uma fundição
+tier_four_materials=Materiais Nivel 4
+tier_four_materials.subtext=Estes materiais não podem ser encontrados sem viajar para o Nether
+skull_materials=Slimeskulls
+skull_materials.subtext=Este capitulo descreve os efeitos de todos os tipos de caveiras na criação de um slimeskull
+
+upgrades=Melhorias
+upgrades.subtext=Cada ferramenta tem uma quantidade máxima de slots para melhorias.
+upgrades.group_general=Geral
+upgrades.group_harvest=Coleta
+upgrades.group_weapon=Arma
+upgrades.group_damage=Dano
+upgrades.group_armor=Armardura
+upgrades.feather_falling=Peso Pena
+
+defense=Defesa
+defense.subtext=Em vez de atributos materiais, a armadura incluirá slots de defesa para melhorar a proteção.
+defense.group_protection=Proteção
+defense.group_special=Especial
+
+slotless=Sem Slots
+slotless.subtext=Modificadores Sem Slots não requerem nenhum slot	.
+slotless.group_general=Geral
+slotless.group_bonus=Bonús
+
+abilities=Habilidade
+abilities.subtext=Os modificadores de habilidades têm menos slots do que as melhorias, mas são mais fortes para cada slot.
+abilities.group_general=Geral
+abilities.group_harvest=Colheita
+abilities.group_weapon=Arma
+abilities.group_interact=Interação
+abilities.group_armor=Armadura
+abilities.unarmed=Desarmado
+
