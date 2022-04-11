@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    { "text": "O Capacete de Slime é um capacete que copia as habilidades dos monstros . Ele é criado a partir do despejo de enderslime em uma cabeça de mob, com o tipo de cabeça determinando os efeitos." },
+  ],
+  "properties": [
+    "+362 Durabilidade Bônus",
+    "5 Slots de Melhorias",
+    "0 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}
