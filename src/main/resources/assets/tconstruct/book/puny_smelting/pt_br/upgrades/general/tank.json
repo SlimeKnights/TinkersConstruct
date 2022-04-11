@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "Este bebê tem um canhão de 120mm, uma máquina montada gu... espere, não é esse tipo de tanque...? Isso é decepcionante, eu preferia ter o veículo."
+    }
+  ],
+  "effects": [
+    "Aumenta o tamanho do tanque da ferramenta",
+    "Ferramenta se torna um recipiente portátil de fluido",
+    "Múltiplos níveis, cada nível aumenta ainda mais o tamanho do tanque",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

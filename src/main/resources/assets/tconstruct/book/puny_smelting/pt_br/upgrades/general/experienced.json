@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Você se sente um pouco mais esperto com alguma experiência escondida na sua ferramenta."
+    }
+  ],
+  "effects": [
+    "Aumenta o ganho de XP de blocos e mobs",
+    "Múltiplos níveis, aumenta a experiência adquirida em cada nível",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "O melhor amigo de um aldeão, não deixe que os aldeões o vejam aplicando isto! Estes não são seus amuletos da sorte."
+    }
+  ],
+  "effects": [
+    "Aumenta a durabilidade da ferramenta, dependendo da durabilidade base",
+    "Aumenta o dano condicional e a velocidade de mineração",
+    "Nível Único",
+    "Requer 1 Slot de melhoria"
+  ]
+}
