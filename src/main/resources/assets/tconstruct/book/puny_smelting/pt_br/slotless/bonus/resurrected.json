@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:resurrected",
+  "text": [
+    {
+      "text": "A vida do dragão flui através de sua ferramenta. Bem, se você a usasse para convocá-lo. Em vez disso, você a usou em sua ferramenta."
+    }
+  ],
+  "effects": [
+    "Adiciona um slot de melhoria",
+    "Uso único"
+  ]
+}
