@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import com.google.gson.JsonSyntaxException;
+import io.netty.handler.codec.DecoderException;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 
@@ -76,6 +78,16 @@ public class ToolStats {
       return stat;
     }
     throw new JsonSyntaxException("Invalid tool stat " + key + ", must be a numeric stat");
+  }
+
+  /** Reads a stat from the network */
+  public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
+    ToolStatId id = new ToolStatId(buffer.readUtf(Short.MAX_VALUE));
+    IToolStat<?> stat = ToolStats.getToolStat(id);
+    if (stat == null) {
+      throw new DecoderException("Invalid stat type name " + id);
+    }
+    return stat;
   }
 
   /**

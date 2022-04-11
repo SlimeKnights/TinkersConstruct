@@ -81,7 +81,7 @@ public class PlateArmorModel extends Model {
 
   private void setup(HumanoidModel<?> base, ItemStack stack, EquipmentSlot slot) {
     this.base = base;
-    if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.get()) > 0) {
+    if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.getId()) > 0) {
       material = MaterialIds.gold.toString();
     } else {
       material = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());

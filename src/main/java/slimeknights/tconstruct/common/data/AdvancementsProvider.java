@@ -45,6 +45,7 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
@@ -63,6 +64,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerStructures;
@@ -160,11 +162,11 @@ public class AdvancementsProvider extends GenericDataProvider {
     //                                                                                                  .build())));
     builder(Items.WRITABLE_BOOK, resource("tools/upgrade_slots"), modified, FrameType.CHALLENGE, builder ->
       builder.addCriterion("has_modified", InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().upgrades(
-        ModifierMatch.list(5, ModifierMatch.entry(TinkerModifiers.writable),
-                           ModifierMatch.entry(TinkerModifiers.recapitated),
-                           ModifierMatch.entry(TinkerModifiers.harmonious),
-                           ModifierMatch.entry(TinkerModifiers.resurrected),
-                           ModifierMatch.entry(TinkerModifiers.gilded))).build()))
+        ModifierMatch.list(5, ModifierMatch.entry(ModifierIds.writable),
+                           ModifierMatch.entry(ModifierIds.recapitated),
+                           ModifierMatch.entry(ModifierIds.harmonious),
+                           ModifierMatch.entry(ModifierIds.resurrected),
+                           ModifierMatch.entry(ModifierIds.gilded))).build()))
     );
 
     // smeltery path
@@ -224,45 +226,47 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.cleaver.get());
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
-      Consumer<LazyModifier> with = modifier -> builder.addCriterion(modifier.getId().getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier)).build()));
+      Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier)).build()));
+      Consumer<LazyModifier> withL = modifier -> with.accept(modifier.getId());
+
       // general
-      with.accept(TinkerModifiers.gilded);
-      with.accept(TinkerModifiers.luck);
-      with.accept(TinkerModifiers.reach);
-      with.accept(TinkerModifiers.unbreakable);
+      with.accept(ModifierIds.gilded);
+      withL.accept(TinkerModifiers.luck);
+      withL.accept(TinkerModifiers.reach);
+      withL.accept(TinkerModifiers.unbreakable);
       // armor
-      with.accept(TinkerModifiers.aquaAffinity);
-      with.accept(TinkerModifiers.bouncy);
-      with.accept(TinkerModifiers.doubleJump);
-      with.accept(TinkerModifiers.flamewake);
-      with.accept(TinkerModifiers.frostWalker);
-      with.accept(TinkerModifiers.looting);
-      with.accept(TinkerModifiers.pathMaker);
-      with.accept(TinkerModifiers.plowing);
-      with.accept(TinkerModifiers.pockets);
-      with.accept(TinkerModifiers.shieldStrap);
-      with.accept(TinkerModifiers.slurping);
-      with.accept(TinkerModifiers.snowdrift);
-      with.accept(TinkerModifiers.strength);
-      with.accept(TinkerModifiers.toolBelt);
-      with.accept(TinkerModifiers.unarmed);
-      with.accept(TinkerModifiers.zoom);
+      withL.accept(TinkerModifiers.aquaAffinity);
+      withL.accept(TinkerModifiers.bouncy);
+      withL.accept(TinkerModifiers.doubleJump);
+      withL.accept(TinkerModifiers.flamewake);
+      withL.accept(TinkerModifiers.frostWalker);
+      withL.accept(TinkerModifiers.looting);
+      withL.accept(TinkerModifiers.pathMaker);
+      withL.accept(TinkerModifiers.plowing);
+      withL.accept(TinkerModifiers.pockets);
+      withL.accept(TinkerModifiers.shieldStrap);
+      withL.accept(TinkerModifiers.slurping);
+      withL.accept(TinkerModifiers.snowdrift);
+      withL.accept(TinkerModifiers.strength);
+      withL.accept(TinkerModifiers.toolBelt);
+      withL.accept(TinkerModifiers.unarmed);
+      withL.accept(TinkerModifiers.zoom);
       // harvest
-      with.accept(TinkerModifiers.autosmelt);
-      with.accept(TinkerModifiers.exchanging);
-      with.accept(TinkerModifiers.expanded);
-      with.accept(TinkerModifiers.silky);
+      withL.accept(TinkerModifiers.autosmelt);
+      withL.accept(TinkerModifiers.exchanging);
+      withL.accept(TinkerModifiers.expanded);
+      withL.accept(TinkerModifiers.silky);
       // interact
-      with.accept(TinkerModifiers.bucketing);
-      with.accept(TinkerModifiers.firestarter);
-      with.accept(TinkerModifiers.glowing);
-      with.accept(TinkerModifiers.pathing);
-      with.accept(TinkerModifiers.stripping);
-      with.accept(TinkerModifiers.tilling);
+      withL.accept(TinkerModifiers.bucketing);
+      withL.accept(TinkerModifiers.firestarter);
+      withL.accept(TinkerModifiers.glowing);
+      withL.accept(TinkerModifiers.pathing);
+      withL.accept(TinkerModifiers.stripping);
+      withL.accept(TinkerModifiers.tilling);
       // weapon
-      with.accept(TinkerModifiers.dualWielding);
-      with.accept(TinkerModifiers.melting);
-      with.accept(TinkerModifiers.spilling);
+      withL.accept(TinkerModifiers.dualWielding);
+      withL.accept(TinkerModifiers.melting);
+      withL.accept(TinkerModifiers.spilling);
     });
 
     // foundry path

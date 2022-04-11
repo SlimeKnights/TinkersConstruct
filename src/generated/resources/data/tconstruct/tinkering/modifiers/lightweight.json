@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:stat_boost",
+  "stats": [
+    {
+      "stat": "tconstruct:attack_speed",
+      "type": "multiply_base",
+      "value": 0.07,
+      "tags": [
+        "tconstruct:modifiable/melee"
+      ]
+    },
+    {
+      "stat": "tconstruct:mining_speed",
+      "type": "multiply_base",
+      "value": 0.07,
+      "tags": [
+        "tconstruct:modifiable/harvest"
+      ]
+    }
+  ]
+}

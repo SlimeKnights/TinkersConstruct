@@ -17,7 +17,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     int size = buffer.readVarInt();
     ImmutableList.Builder<Modifier> builder = ImmutableList.builder();
     for (int i = 0; i < size; i++) {
-      builder.add(ModifierManager.INSTANCE.modifierSerializers.fromNetwork(buffer));
+      builder.add(ModifierManager.MODIFIER_LOADERS.fromNetwork(buffer));
     }
     this.modifiers = builder.build();
   }
@@ -26,7 +26,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeVarInt(modifiers.size());
     for (Modifier modifier : modifiers) {
-      ModifierManager.INSTANCE.modifierSerializers.toNetwork(modifier, buffer);
+      ModifierManager.MODIFIER_LOADERS.toNetwork(modifier, buffer);
     }
   }
 

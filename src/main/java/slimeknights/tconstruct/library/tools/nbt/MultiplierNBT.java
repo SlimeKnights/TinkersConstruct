@@ -119,7 +119,7 @@ public class MultiplierNBT {
     Builder builder = builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
-      IToolStat<?> stat = StatsNBT.statIdFromNetwork(buffer);
+      IToolStat<?> stat = ToolStats.fromNetwork(buffer);
       float value = buffer.readFloat();
       if (stat instanceof INumericToolStat<?> numericStat) {
         builder.set(numericStat, value);

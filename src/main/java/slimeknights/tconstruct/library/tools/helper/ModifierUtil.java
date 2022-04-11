@@ -18,8 +18,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -168,14 +168,14 @@ public final class ModifierUtil {
    * @param modifier  Modifier to search for
    * @return  Modifier level, or 0 if not present or the stack is not modifiable
    */
-  public static int getModifierLevel(ItemStack stack, Modifier modifier) {
+  public static int getModifierLevel(ItemStack stack, ModifierId modifier) {
     if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE) && !ToolDamageUtil.isBroken(stack)) {
       CompoundTag nbt = stack.getTag();
       if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, Tag.TAG_LIST)) {
         ListTag list = nbt.getList(ToolStack.TAG_MODIFIERS, Tag.TAG_COMPOUND);
         int size = list.size();
         if (size > 0) {
-          String key = modifier.getId().toString();
+          String key = modifier.toString();
           for (int i = 0; i < size; i++) {
             CompoundTag entry = list.getCompound(i);
             if (key.equals(entry.getString(ModifierNBT.TAG_MODIFIER))) {

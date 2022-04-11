@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:stat_boost",
+  "stats": [
+    {
+      "stat": "tconstruct:durability",
+      "type": "multiply_base",
+      "value": 0.15,
+      "tags": [
+        "tconstruct:modifiable/durability"
+      ]
+    }
+  ]
+}

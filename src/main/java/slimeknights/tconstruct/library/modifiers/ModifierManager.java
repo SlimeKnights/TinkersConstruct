@@ -33,7 +33,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.PacketDistributor.PacketTarget;
 import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -44,6 +43,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -73,7 +73,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** Map of all modifier types that are expected to load in datapacks */
   private final Map<ModifierId,Class<?>> expectedDynamicModifiers = new HashMap<>();
   /** Map of all modifier types that are expected to load in datapacks */
-  final GenericLoaderRegistry<Modifier> modifierSerializers = new GenericLoaderRegistry<>();
+  public static final GenericLoaderRegistry<Modifier> MODIFIER_LOADERS = new GenericLoaderRegistry<>();
 
   /** Modifiers loaded from JSON */
   private Map<ModifierId,Modifier> dynamicModifiers = Collections.emptyMap();
@@ -152,6 +152,16 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
                                       .filter(Objects::nonNull)
                                       .collect(Collectors.toMap(Modifier::getId, mod -> mod));
 
+    // validate required modifiers
+    for (Entry<ModifierId,Class<?>> entry : expectedDynamicModifiers.entrySet()) {
+      Modifier modifier = dynamicModifiers.get(entry.getKey());
+      if (modifier == null) {
+        log.error("Missing expected modifier '" + entry.getKey() + "'");
+      } else if (!entry.getValue().isInstance(modifier)) {
+        log.error("Modifier '" + entry.getKey() + "' was loaded with the wrong class type. Expected " + entry.getValue().getName() + ", got " + modifier.getClass().getName());
+      }
+    }
+
     // TODO: this should be set back to false at some point
     log.info("Loaded {} dynamic modifiers in {} ms", dynamicModifiers.size(), (System.nanoTime() - time) / 1000000f);
     dynamicModifiersLoaded = true;
@@ -161,13 +171,12 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** Loads a modifier from JSON */
   @Nullable
   private Modifier loadModifier(ResourceLocation key, JsonObject json) {
-    // TODO: redirects?
-    if (CraftingHelper.getCondition(GsonHelper.convertToJsonObject(json, "condition")).test(conditionContext)) {
-      Modifier modifier = modifierSerializers.deserialize(json);
-      modifier.setId(new ModifierId(key));
-      return modifier;
+    if (json.has("condition") && !CraftingHelper.getCondition(GsonHelper.getAsJsonObject(json, "condition")).test(conditionContext)) {
+      return null;
     }
-    return null;
+    Modifier modifier = MODIFIER_LOADERS.deserialize(json);
+    modifier.setId(new ModifierId(key));
+    return modifier;
   }
 
   /** Updates the modifiers from the server */
@@ -321,17 +330,6 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       if (existing != null) {
         throw new IllegalArgumentException("Attempting to register a duplicate expected modifier, this is not supported. Original value " + existing);
       }
-    }
-
-    /**
-     * Registers a new modifier serializer with the manager
-     * @param name        Modifier name
-     * @param serializer  Serializer instance
-     */
-    public void registerSerializer(ResourceLocation name, IGenericLoader<? extends Modifier> serializer) {
-      checkModNamespace(name);
-      // register it
-      modifierSerializers.register(name, serializer);
     }
   }
 

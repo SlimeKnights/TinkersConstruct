@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:extra_slot",
+  "slots": {
+    "abilities": 1
+  },
+  "single_level": true,
+  "always_show": false
+}

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:extra_slot",
+  "slots": {
+    "upgrades": 2
+  },
+  "single_level": false,
+  "always_show": false
+}

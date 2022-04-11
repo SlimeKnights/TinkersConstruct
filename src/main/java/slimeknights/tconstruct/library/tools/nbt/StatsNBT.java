@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import io.netty.handler.codec.DecoderException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -173,22 +172,12 @@ public class StatsNBT {
     }
   }
 
-  /** Reads a stat from the network */
-  static IToolStat<?> statIdFromNetwork(FriendlyByteBuf buffer) {
-    ToolStatId id = new ToolStatId(buffer.readUtf(Short.MAX_VALUE));
-    IToolStat<?> stat = ToolStats.getToolStat(id);
-    if (stat == null) {
-      throw new DecoderException("Invalid stat type name " + id);
-    }
-    return stat;
-  }
-
   /** Reads a tool definition stat object from a packet buffer */
   public static StatsNBT fromNetwork(FriendlyByteBuf buffer) {
     ImmutableMap.Builder<IToolStat<?>, Object> builder = ImmutableMap.builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
-      IToolStat<?> stat = statIdFromNetwork(buffer);
+      IToolStat<?> stat = ToolStats.fromNetwork(buffer);
       builder.put(stat, stat.fromNetwork(buffer));
     }
     return new StatsNBT(builder.build());

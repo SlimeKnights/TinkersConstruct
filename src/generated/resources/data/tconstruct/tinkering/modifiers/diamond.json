@@ -1,0 +1,54 @@
+{
+  "type": "tconstruct:stat_boost",
+  "rarity": "uncommon",
+  "stats": [
+    {
+      "stat": "tconstruct:durability",
+      "type": "add",
+      "value": 500.0,
+      "tags": [
+        "tconstruct:modifiable/durability"
+      ]
+    },
+    {
+      "stat": "tconstruct:durability",
+      "type": "add",
+      "value": -250.0,
+      "tags": [
+        "tconstruct:modifiable/durability",
+        "tconstruct:modifiable/armor"
+      ]
+    },
+    {
+      "stat": "tconstruct:armor",
+      "type": "add",
+      "value": 1.0,
+      "tags": [
+        "tconstruct:modifiable/armor"
+      ]
+    },
+    {
+      "stat": "tconstruct:attack_damage",
+      "type": "add",
+      "value": 0.5,
+      "tags": [
+        "tconstruct:modifiable/melee_or_unarmed"
+      ]
+    },
+    {
+      "stat": "tconstruct:mining_speed",
+      "type": "add",
+      "value": 2.0,
+      "tags": [
+        "tconstruct:modifiable/harvest"
+      ]
+    },
+    {
+      "stat": "tconstruct:harvest_tier",
+      "value": "minecraft:diamond",
+      "tags": [
+        "tconstruct:modifiable/harvest"
+      ]
+    }
+  ]
+}

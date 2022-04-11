@@ -45,13 +45,22 @@ public interface IRecipeHelper {
 
   /**
    * Prefixes the resource location path with the given value
+   * @param loc     Name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  default ResourceLocation wrap(ResourceLocation loc, String prefix, String suffix) {
+    return modResource(prefix + loc.getPath() + suffix);
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
    * @param entry    Item registry name to use
    * @param prefix  Prefix value
    * @return  Resource location path
    */
   default ResourceLocation wrap(IForgeRegistryEntry<?> entry, String prefix, String suffix) {
-    ResourceLocation loc = Objects.requireNonNull(entry.getRegistryName());
-    return modResource(prefix + loc.getPath() + suffix);
+    return wrap(Objects.requireNonNull(entry.getRegistryName()), prefix, suffix);
   }
 
   /**
@@ -66,13 +75,22 @@ public interface IRecipeHelper {
 
   /**
    * Prefixes the resource location path with the given value
+   * @param location  Entry registry name to use
+   * @param prefix    Prefix value
+   * @return  Resource location path
+   */
+  default ResourceLocation prefix(ResourceLocation location, String prefix) {
+    return modResource(prefix + location.getPath());
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
    * @param entry   Entry registry name to use
    * @param prefix  Prefix value
    * @return  Resource location path
    */
   default ResourceLocation prefix(IForgeRegistryEntry<?> entry, String prefix) {
-    ResourceLocation loc = Objects.requireNonNull(entry.getRegistryName());
-    return modResource(prefix + loc.getPath());
+    return prefix(Objects.requireNonNull(entry.getRegistryName()), prefix);
   }
 
   /**
