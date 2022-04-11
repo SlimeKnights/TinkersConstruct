@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    {
+      "text": "A foice é muito útil para aventureiros. Prefere aventurar-se pelas selvas, ou mergulhar em cavernas de aranhas? A foice sempre estará em suas costas para cortar o que for preciso. "
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "É ideal para a colheita de plantações, folhas, fardos de feno, teias de aranha."
+    }
+  ],
+  "properties": [
+    "Ferramenta avançada de colheita",
+    "Area de efeito 3x3",
+    "Eficaz em todos os tipos de folhagem",
+    "Capaz de atacar na area de efeito"
+  ]
+}

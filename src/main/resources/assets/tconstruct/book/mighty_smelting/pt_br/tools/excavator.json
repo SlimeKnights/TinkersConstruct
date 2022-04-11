@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    {
+      "text": "A Escavadora é uma ferramenta grande focada na escavação. Ela recolhe o solo e a neve em grande escala."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Útil para quando você precisa cavar muitas sepulturas."
+    }
+  ],
+  "properties": [
+    "Ferramenta avançada de escavação",
+    "Escavação de area 3x3",
+    "Eficaz na terra, areia e cascalho",
+    "Pode criar caminhos",
+    "Começa com Repulsão II"
+  ]
+}
