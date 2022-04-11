@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Ele protege, ele ataca, mas o mais importante é ele traz as tochas de volta."
+    }
+  ],
+  "effects": [
+    "Concede um slot extra para a mão secundária",
+    "A interação das calças permite a troca de itens na mão secundária",
+    "Multiplos niveis, cada nivel concede +1 slot",
+    "Requer 1 slot de habilidade"
+  ]
+}

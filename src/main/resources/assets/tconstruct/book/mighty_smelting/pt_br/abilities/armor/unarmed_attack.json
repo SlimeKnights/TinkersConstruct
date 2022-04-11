@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:unarmed",
+  "text": [
+    {
+      "text": "Todo mundo junto: KUNG FU FIGHTING."
+    }
+  ],
+  "effects": [
+    "Aumenta o dano desarmado",
+    "Nivel Único",
+    "Requer 1 slot de habilidade"
+  ]
+}

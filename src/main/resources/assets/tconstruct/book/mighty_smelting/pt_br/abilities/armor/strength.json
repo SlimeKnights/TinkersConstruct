@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "Com grandes poderes, vem grandes quantidades de dano."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aumenta o dano de ataque de armas",
+    "Multiplos niveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

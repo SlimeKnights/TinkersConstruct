@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pocket_chain",
+  "text": [
+    {
+      "text": "É sempre muito difícil encontrar coisas no seu bolso?"
+    }
+  ],
+  "effects": [
+    "Acesse o inventário das perneiras por meio de se agachar e interagir com a calça",
+    "Requer cinto de ferramentas ou cinto de proteção",
+    "Concede +1 slot para os cintos",
+    "Requer 1 slot de melhoria"
+  ]
+}
