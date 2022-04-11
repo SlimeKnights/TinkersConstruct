@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "Troca 1 slot de habilidade por 2 slots de melhoria"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Não possui nivel máximo",
+    "Requer 1 slot de habilidade por nivel"
+  ]
+}

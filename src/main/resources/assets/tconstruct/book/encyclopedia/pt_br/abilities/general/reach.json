@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "O jogador com esta ferramenta terá sua distancia máxima para a extração e colocação de blocos aumentada em 1 bloco por nível. No peitoral aumenta o alcance da ferramenta equipada.  "
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Não possui nivel máximo",
+    "Requer 1 slot de habilidade por nivel"
+  ]
+}
