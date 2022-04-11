@@ -1,0 +1,19 @@
+// Sections - Puny Smelting
+intro=Introdução
+melter=Fusão
+moving_fluids=Fluidos em movimento
+casting=Fundição
+tier_two_materials=Materiais Nivel 2
+
+upgrades=Melhorias
+upgrades.subtext=Ferramentas podem ser aprimoradas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.
+upgrades.group_general=Gerais
+upgrades.group_harvest=Colheita
+upgrades.group_weapon=Arma
+upgrades.group_damage=Dano Bônus
+upgrades.group_armor=Armadura
+
+slotless=Modificador Sem Slots
+slotless.subtext=Estes modificadores não querem slots para serem aplicados, você pode tê-los todos se desejar.
+slotless.group_slotless=Sem Slots
+slotless.group_bonus_upgrades=Melhorias++
