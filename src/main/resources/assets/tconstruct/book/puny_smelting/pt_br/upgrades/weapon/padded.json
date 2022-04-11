@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Um pouco de flutuação nunca fez mal a ninguém."
+    }
+  ],
+  "effects": [
+    "Reduz a repulsão da ferramenta",
+    "Múltiplos níveis, cada nível diminui ainda mais a repulsão",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

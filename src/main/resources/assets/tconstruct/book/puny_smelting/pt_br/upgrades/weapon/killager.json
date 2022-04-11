@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:killager",
+  "text": [
+    {
+      "text": "A mais nova banda de death metal do Minecraft. Chegando em breve a uma vila perto de você."
+    }
+  ],
+  "effects": [
+    "Aumenta o dano contra aldeões e illagers",
+    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

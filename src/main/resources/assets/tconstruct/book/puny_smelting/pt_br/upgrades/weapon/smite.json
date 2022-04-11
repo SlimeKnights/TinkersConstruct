@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "Temam-me mortos-vivos..."
+    },
+    {
+      "text": "Pois eu empunho o poder do venom extreme infundido em ouro! Talvez a armadura dourada do venom os fizesse ficar longe de mim.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Aumenta o dano aos mortos-vivos",
+    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}
