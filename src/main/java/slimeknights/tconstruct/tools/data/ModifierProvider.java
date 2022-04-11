@@ -16,10 +16,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
-import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
-import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
-import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
-import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
 
 public class ModifierProvider extends AbstractModifierProvider {
   public ModifierProvider(DataGenerator generator) {
@@ -29,45 +25,45 @@ public class ModifierProvider extends AbstractModifierProvider {
   @Override
   protected void addModifiers() {
     // extra modifier slots
-    addModifier(ModifierIds.writable, ExtraModifier.builder(SlotType.UPGRADE).build());
+    addModifier(ModifierIds.writable,    ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.recapitated, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.harmonious, ExtraModifier.builder(SlotType.UPGRADE).build());
+    addModifier(ModifierIds.harmonious,  ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.resurrected, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.gilded, ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).multiLevel().build());
-    addModifier(ModifierIds.draconic, ExtraModifier.builder(SlotType.ABILITY).build());
+    addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).multiLevel().build());
+    addModifier(ModifierIds.draconic,    ExtraModifier.builder(SlotType.ABILITY).build());
     // TODO: redirect red_extra_upgrade, green_extra_upgrade, blue_extra_upgrade, extra_ability
 
     // tier upgrades
     // emerald
     addModifier(ModifierIds.emerald, StatBoostModifier.builder()
       .rarity(Rarity.UNCOMMON)
-      .multiplyBase(ToolStats.DURABILITY, 0.5f, DURABILITY)
-      .multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f, MELEE)
-      .multiplyConditional(ToolStats.MINING_SPEED,  0.25f, HARVEST)
-      .update(ToolStats.HARVEST_TIER, Tiers.IRON, HARVEST)
-      .add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f, ARMOR)
+      .multiplyBase(ToolStats.DURABILITY, 0.5f)
+      .multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f)
+      .multiplyConditional(ToolStats.MINING_SPEED,  0.25f)
+      .update(ToolStats.HARVEST_TIER, Tiers.IRON)
+      .add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f)
       .build());
     // diamond
     addModifier(ModifierIds.diamond, StatBoostModifier.builder()
       .rarity(Rarity.UNCOMMON)
-      .add(ToolStats.DURABILITY,  500,    DURABILITY)
+      .add(ToolStats.DURABILITY,  500)
       // armor grants less durability boost
-      .add(ToolStats.DURABILITY, -250,    DURABILITY, ARMOR)
-      .add(ToolStats.ARMOR,         1,    ARMOR)
-      .add(ToolStats.ATTACK_DAMAGE, 0.5f, MELEE_OR_UNARMED)
-      .add(ToolStats.MINING_SPEED,  2,    HARVEST)
-      .update(ToolStats.HARVEST_TIER, Tiers.DIAMOND, HARVEST)
+      .add(ToolStats.DURABILITY, -250, ARMOR)
+      .add(ToolStats.ARMOR,         1)
+      .add(ToolStats.ATTACK_DAMAGE, 0.5f)
+      .add(ToolStats.MINING_SPEED,  2)
+      .update(ToolStats.HARVEST_TIER, Tiers.DIAMOND)
       .build());
     // netherite
     addModifier(ModifierIds.netherite, StatBoostModifier.builder()
       .rarity(Rarity.RARE)
       .addFlag(IModifiable.INDESTRUCTIBLE_ENTITY)
-      .multiplyBase(ToolStats.DURABILITY,    0.2f,  DURABILITY)
-      .add(ToolStats.ARMOR_TOUGHNESS,        1,     ARMOR)
-      .add(ToolStats.KNOCKBACK_RESISTANCE,   0.05f, ARMOR)
-      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.2f,  MELEE_OR_UNARMED)
-      .multiplyBase(ToolStats.MINING_SPEED,  0.25f, HARVEST)
-      .update(ToolStats.HARVEST_TIER, Tiers.NETHERITE, HARVEST)
+      .multiplyBase(ToolStats.DURABILITY,    0.2f)
+      .add(ToolStats.ARMOR_TOUGHNESS,        1)
+      .add(ToolStats.KNOCKBACK_RESISTANCE,   0.05f)
+      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.2f)
+      .multiplyBase(ToolStats.MINING_SPEED,  0.25f)
+      .update(ToolStats.HARVEST_TIER, Tiers.NETHERITE)
       .build());
 
     // general
@@ -77,24 +73,24 @@ public class ModifierProvider extends AbstractModifierProvider {
     // armor
     addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).build());
     addModifier(ModifierIds.wings,  StatBoostModifier.builder().addFlag(ModifiableArmorItem.ELYTRA).build());
-    addModifier(ModifierIds.knockbackResistance, StatBoostModifier.builder().add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f, ARMOR).build());
+    addModifier(ModifierIds.knockbackResistance, StatBoostModifier.builder().add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f).build());
 
     // traits - tier 1
     addModifier(ModifierIds.stringy, new Modifier());
     // traits - tier 2
-    addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f, DURABILITY).build());
+    addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f).build());
     // traits - tier 3
     addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().multiLevel().build());
     // traits - tier 3 nether
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f, MELEE)
-      .multiplyBase(ToolStats.MINING_SPEED, 0.07f, HARVEST)
+      .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f)
+      .multiplyBase(ToolStats.MINING_SPEED, 0.07f)
       .build());
     // traits - tier 3 compat
     addModifier(ModifierIds.ductile, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.DURABILITY,    0.04f, DURABILITY)
-      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.04f, MELEE)
-      .multiplyBase(ToolStats.MINING_SPEED,  0.04f, HARVEST)
+      .multiplyBase(ToolStats.DURABILITY,    0.04f)
+      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.04f)
+      .multiplyBase(ToolStats.MINING_SPEED,  0.04f)
       .build());
 
     // mob disguise

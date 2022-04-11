@@ -10,8 +10,11 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -35,13 +38,25 @@ public class FloatToolStat implements INumericToolStat<Float> {
   /** Max value for this stat */
   @Getter
   private final float maxValue;
+  @Nullable
+  private final TagKey<Item> tag;
 
-  public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue) {
+  public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue, @Nullable TagKey<Item> tag) {
     this.name = name;
     this.color = TextColor.fromRgb(color);
     this.defaultValue = defaultValue;
     this.minValue = minValue;
     this.maxValue = maxValue;
+    this.tag = tag;
+  }
+
+  public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue) {
+    this(name, color, defaultValue, minValue, maxValue, null);
+  }
+
+  @Override
+  public boolean supports(Item item) {
+    return tag == null || RegistryHelper.contains(tag, item);
   }
 
   @Override

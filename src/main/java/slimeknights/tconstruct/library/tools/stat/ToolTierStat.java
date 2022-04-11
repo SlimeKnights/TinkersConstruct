@@ -13,9 +13,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraftforge.common.TierSortingRegistry;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.RegistryHelper;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -28,6 +31,11 @@ import java.util.Objects;
 public class ToolTierStat implements IToolStat<Tier> {
   /** Name of this tool stat */
   private final ToolStatId name;
+
+  @Override
+  public boolean supports(Item item) {
+    return RegistryHelper.contains(TinkerTags.Items.HARVEST, item);
+  }
 
   @Override
   public Tier getDefaultValue() {

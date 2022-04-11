@@ -5,6 +5,7 @@ import io.netty.handler.codec.DecoderException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -21,27 +22,27 @@ public class ToolStats {
   private static final Map<ToolStatId,IToolStat<?>> ALL_STATS = new HashMap<>();
 
   /** Tools durability, determines how long it lasts */
-  public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE));
+  public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
 
   // melee
   /** Tools attack damage for melee */
-  public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f));
+  public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f, TinkerTags.Items.MELEE_OR_UNARMED));
   /** Equivalent to the vanilla attack speed. 4 is equal to any standard item */
-  public static final FloatToolStat ATTACK_SPEED = register(new FloatToolStat(name("attack_speed"), 0xFF8547CC, 1, 0, 1024f));
+  public static final FloatToolStat ATTACK_SPEED = register(new FloatToolStat(name("attack_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.MELEE));
 
   // harvest
   /** How fast the tool breaks blocks */
-  public static final FloatToolStat MINING_SPEED = register(new FloatToolStat(name("mining_speed"), 0xFF78A0CD, 1, 0, 2048f));
+  public static final FloatToolStat MINING_SPEED = register(new FloatToolStat(name("mining_speed"), 0xFF78A0CD, 1, 0, 2048f, TinkerTags.Items.HARVEST));
   /** Mining level for breaking blocks */
   public static final ToolTierStat HARVEST_TIER = register(new ToolTierStat(name("harvest_tier")));
 
   // armor
   /** Main armor value */
-  public static final FloatToolStat ARMOR = register(new FloatToolStat(name("armor"), 0xFF8547CC, 0, 0, 30));
+  public static final FloatToolStat ARMOR = register(new FloatToolStat(name("armor"), 0xFF8547CC, 0, 0, 30, TinkerTags.Items.ARMOR));
   /** Hidden toughness value */
-  public static final FloatToolStat ARMOR_TOUGHNESS = register(new FloatToolStat(name("armor_toughness"), 0xFF8547CC, 0, 0, 20));
+  public static final FloatToolStat ARMOR_TOUGHNESS = register(new FloatToolStat(name("armor_toughness"), 0xFF8547CC, 0, 0, 20, TinkerTags.Items.ARMOR));
   /** Knockback resistance percentage */
-  public static final FloatToolStat KNOCKBACK_RESISTANCE = register(new FloatToolStat(name("knockback_resistance"), 0xFF8547CC, 0, 0, 1));
+  public static final FloatToolStat KNOCKBACK_RESISTANCE = register(new FloatToolStat(name("knockback_resistance"), 0xFF8547CC, 0, 0, 1, TinkerTags.Items.ARMOR));
   
 
   /**

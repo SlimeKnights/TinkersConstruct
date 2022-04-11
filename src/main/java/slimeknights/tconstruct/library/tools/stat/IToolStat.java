@@ -9,6 +9,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -28,6 +29,15 @@ public interface IToolStat<T> {
   /** Clamps the value into a valid range */
   default T clamp(T value) {
     return value;
+  }
+
+  /**
+   * Checks if the given item supports this stat. Typically is just a tag check
+   * @param item  Item to validate
+   * @return  True if the stat is supported
+   */
+  default boolean supports(Item item) {
+    return true;
   }
 
 

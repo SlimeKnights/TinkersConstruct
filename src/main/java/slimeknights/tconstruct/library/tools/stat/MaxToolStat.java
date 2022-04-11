@@ -10,8 +10,11 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -21,13 +24,23 @@ import java.util.function.IntFunction;
 /**
  * Tool stat that keeps the largest integer value given
  */
-@SuppressWarnings("ClassCanBeRecord")
 @AllArgsConstructor
 public class MaxToolStat implements IToolStat<Integer> {
   @Getter
   private final ToolStatId name;
   private final int defaultValue;
   private final IntFunction<Component> displayName;
+  @Nullable
+  private final TagKey<Item> tag;
+
+  public MaxToolStat(ToolStatId name, int defaultValue, IntFunction<Component> displayName) {
+    this(name, defaultValue, displayName, null);
+  }
+
+  @Override
+  public boolean supports(Item item) {
+    return tag == null || RegistryHelper.contains(tag, item);
+  }
 
   @Override
   public Integer getDefaultValue() {

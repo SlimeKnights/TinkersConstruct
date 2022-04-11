@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class TinkerTags {
   /** Called on mod construct to set up tags */
@@ -285,33 +286,33 @@ public class TinkerTags {
     public static final TagKey<Item> ONE_HANDED = tag("modifiable/one_handed");
     /** Modifiable items that prevent usage of the offhand */
     public static final TagKey<Item> TWO_HANDED = tag("modifiable/two_handed");
-    /** Tools that use durability and can be repaired */
+    /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
     /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
     public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
-    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES} */
     public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
     /** Anything that is used in the player's hand */
     public static final TagKey<Item> HELD = tag("modifiable/held");
     /** Anything that can use interaction modifiers */
     public static final TagKey<Item> INTERACTABLE = tag("modifiable/interactable");
 
-    /** Modifiable items that support melee attacks */
+    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}). */
     public static final TagKey<Item> MELEE = tag("modifiable/melee");
     /** Modifiable items that specifically are designed for melee, removes melee penalties */
     public static final TagKey<Item> MELEE_PRIMARY = tag("modifiable/melee/primary");
     /** Modifiable items that are also swords, typically no use outside of combat */
     public static final TagKey<Item> SWORD = tag("modifiable/melee/sword");
 
-    /** Modifiable items that can break blocks */
+    /** Modifiable items that can break blocks. Items in this tag support the {@link ToolStats#MINING_SPEED} and {@link ToolStats#HARVEST_TIER} stats. */
     public static final TagKey<Item> HARVEST = tag("modifiable/harvest");
     /** Modifiable items that are specifically designed for harvest, removes harvest penalties */
     public static final TagKey<Item> HARVEST_PRIMARY = tag("modifiable/harvest/primary");
     /** Modifiable items that can break stone blocks */
     public static final TagKey<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
 
-    /** Modifiable items that are worn as armor */
+    /** Modifiable items that are worn as armor. Items in this tag support the {@link ToolStats#ARMOR}, {@link ToolStats#ARMOR_TOUGHNESS} and {@link ToolStats#KNOCKBACK_RESISTANCE} stats. */
     public static final TagKey<Item> ARMOR = tag("modifiable/armor");
     /** Modifiable items that are worn as boots */
     public static final TagKey<Item> BOOTS = tag("modifiable/armor/boots");

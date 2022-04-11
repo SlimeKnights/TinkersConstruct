@@ -4,26 +4,17 @@
     {
       "stat": "tconstruct:durability",
       "type": "multiply_base",
-      "value": 0.04,
-      "tags": [
-        "tconstruct:modifiable/durability"
-      ]
+      "value": 0.04
     },
     {
       "stat": "tconstruct:attack_damage",
       "type": "multiply_base",
-      "value": 0.04,
-      "tags": [
-        "tconstruct:modifiable/melee"
-      ]
+      "value": 0.04
     },
     {
       "stat": "tconstruct:mining_speed",
       "type": "multiply_base",
-      "value": 0.04,
-      "tags": [
-        "tconstruct:modifiable/harvest"
-      ]
+      "value": 0.04
     }
   ]
 }

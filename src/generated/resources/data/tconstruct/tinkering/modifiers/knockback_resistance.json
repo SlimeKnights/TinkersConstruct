@@ -4,10 +4,7 @@
     {
       "stat": "tconstruct:knockback_resistance",
       "type": "add",
-      "value": 0.1,
-      "tags": [
-        "tconstruct:modifiable/armor"
-      ]
+      "value": 0.1
     }
   ]
 }

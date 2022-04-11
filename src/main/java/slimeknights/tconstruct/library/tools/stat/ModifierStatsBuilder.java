@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import lombok.NoArgsConstructor;
+import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -54,11 +56,12 @@ public class ModifierStatsBuilder {
   }
 
   /**
-   * Builds the stats
-   * @param base  Base stats
+   * Builds the stats with a filter
+   * @param base    Base stats
+   * @param filter  Item the stats must match to be included
    * @return  Built stats
    */
-  public StatsNBT build(StatsNBT base) {
+  public StatsNBT build(StatsNBT base, @Nullable Item filter) {
     if (!dirty) {
       return base;
     }
@@ -73,8 +76,8 @@ public class ModifierStatsBuilder {
 
     // next, iterate any stats we have that are not in base
     for (IToolStat<?> stat : map.keySet()) {
-      if (!existing.contains(stat)) {
-       buildStat(builder, stat);
+      if (!existing.contains(stat) && (filter == null || stat.supports(filter))) {
+        buildStat(builder, stat);
       }
     }
 
@@ -82,14 +85,35 @@ public class ModifierStatsBuilder {
   }
 
   /**
+   * Builds the stats unfiltered
+   * @param base  Base stats
+   * @return  Built stats
+   */
+  public StatsNBT build(StatsNBT base) {
+    return build(base, null);
+  }
+
+  /**
    * Builds the stat multiplier object for global stat multipliers
+   * @param filter  Item the stats must match to be included
+   * @return  Multipliers stats
+   */
+  public MultiplierNBT buildMultipliers(@Nullable Item filter) {
+    MultiplierNBT.Builder builder = MultiplierNBT.builder();
+    for (Entry<INumericToolStat<?>,Float> entry : multipliers.entrySet()) {
+      INumericToolStat<?> stat = entry.getKey();
+      if (filter == null || stat.supports(filter)) {
+        builder.set(stat, entry.getValue());
+      }
+    }
+    return builder.build();
+  }
+
+  /**
+   * Builds the stat multiplier object for global stat multipliers unfiltered
    * @return  Multipliers stats
    */
   public MultiplierNBT buildMultipliers() {
-    MultiplierNBT.Builder builder = MultiplierNBT.builder();
-    for (Entry<INumericToolStat<?>,Float> entry : multipliers.entrySet()) {
-      builder.set(entry.getKey(), entry.getValue());
-    }
-    return builder.build();
+    return buildMultipliers(null);
   }
 }

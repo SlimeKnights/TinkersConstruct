@@ -640,8 +640,8 @@ public class ToolStack implements IToolStackView {
       setVolatileModData(volatileData);
     }
     // build stats from the tool stats
-    setStats(statBuilder.build(stats));
-    setMultipliers(statBuilder.buildMultipliers());
+    setStats(statBuilder.build(stats, item));
+    setMultipliers(statBuilder.buildMultipliers(item));
 
     // finally, update raw data, called last to make the parameters more convenient mostly, plus no other hooks should be responding to this data
     for (ModifierEntry entry : modifierList) {
