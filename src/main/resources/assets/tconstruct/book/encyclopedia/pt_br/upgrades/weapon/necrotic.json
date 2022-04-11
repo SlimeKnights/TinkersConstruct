@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Tem uma chance de curar uma porcentagem do dano causado, curando entre 0% e 5% por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

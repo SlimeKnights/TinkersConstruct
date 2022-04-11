@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:piercing",
+  "text": [
+    {
+      "text": "Adiciona +1 de dano perfurante por nivel, ao custo de -0.5 do dano padrão por nivel. Ganho geral de +0.5 de dano por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

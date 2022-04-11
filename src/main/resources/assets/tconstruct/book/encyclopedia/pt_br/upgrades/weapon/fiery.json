@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Faz com que as criaturas atacadas queimem, durante 5 segundos por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}
