@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Substitui os blocos minerados pelo bloco mantido na mão secundária."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}
