@@ -1,0 +1,16 @@
+{
+  "title": "Modificadores Sem Slots",
+  "text": [
+    {
+      "text": "Os modificadores sem slots não exigem slots, ao contrário de todos os outros tipos de modificadores. Isto tipicamente significa que o modificador ou tem algum algum conflito significativo ou o efeito é menor."
+    },
+    {
+      "text": "Um tipo notável de modificadores sem slots são os modificadores de bônus, que concedem slots adicionais de modificadores. Existem muitos que concedem mais slots de melhoria, e no que me diz respeito, alguns existem até mesmo para conceder mais slots de habilidade.",
+      "paragraph": true
+    },
+    {
+      "text": "O livro Fundições Frágeis de Thruul M'Gony tem uma lista completa de modificadores sem slots disponíveis em ferramentas, juntamente com a Enciclopédia.",
+      "paragraph": true
+    }
+  ]
+}
