@@ -1,0 +1,14 @@
+{
+  "title": "Transportando",
+  "image": {
+    "file": "tconstruct:book/images/carry_blaze.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "\"Mas Nemea, como eu vou botar um blaze numa fundição?\". Se você fosse aquele nerd do Melvin, você responderia \"Beba resistência contra fogo e depois use uma Mochila-Porco ou um estilingue de icor.\" Perfeito caso você queira se queimar até ficar crocante.",
+      "paragraph": true
+    }
+  ]
+}
