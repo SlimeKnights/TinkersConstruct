@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:stat_boost",
+  "stats": [
+    {
+      "stat": "tconstruct:attack_damage",
+      "type": "multiply_base",
+      "value": 0.1
+    }
+  ],
+  "attributes": [
+    {
+      "unique": "tconstruct.modifier.heavy",
+      "attribute": "minecraft:generic.movement_speed",
+      "operation": "multiply_base",
+      "amount": -0.1,
+      "slots": [
+        "mainhand",
+        "offhand"
+      ]
+    }
+  ]
+}

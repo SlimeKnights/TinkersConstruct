@@ -66,7 +66,6 @@ import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.DragonScaleItem;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
@@ -74,7 +73,6 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.PocketsModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.StrengthModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.UnarmedModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
@@ -106,7 +104,6 @@ import slimeknights.tconstruct.tools.modifiers.defense.FireProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.MagicProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.MeleeProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.RevitalizingModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.TurtleShellModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
@@ -139,11 +136,9 @@ import slimeknights.tconstruct.tools.modifiers.traits.harvest.LustrousModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.SearingModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.harvest.SharpweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.TemperateModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.ConductingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.DecayModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.melee.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.InsatibleModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.InvariantModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
@@ -164,8 +159,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModif
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorKnockbackModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ArmorPowerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LeapingModifier;
@@ -174,7 +167,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.armor.PocketChainModifie
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RespirationModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RicochetModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SoulSpeedModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SpeedyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SpringyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.StickyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ThornsModifier;
@@ -302,7 +294,6 @@ public final class TinkerModifiers extends TinkerModule {
   // general
   public static final DynamicModifier<Modifier> golden = MODIFIERS.registerDynamic("golden", Modifier.class);
   public static final StaticModifier<RicochetModifier> ricochet = MODIFIERS.register("ricochet", RicochetModifier::new);
-  public static final StaticModifier<RevitalizingModifier> revitalizing = MODIFIERS.register("revitalizing", RevitalizingModifier::new);
   public static final StaticModifier<EmbellishmentModifier> embellishment = MODIFIERS.register("embellishment", EmbellishmentModifier::new);
   public static final StaticModifier<DyedModifier> dyed = MODIFIERS.register("dyed", DyedModifier::new);
   // counterattack
@@ -316,12 +307,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
   public static final StaticModifier<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(TinkerDataKeys.AQUA_AFFINITY, true));
   // chestplate
-  public static final StaticModifier<ArmorKnockbackModifier> armorKnockback = MODIFIERS.register("knockback_armor", ArmorKnockbackModifier::new);
   public static final StaticModifier<UnarmedModifier> unarmed = MODIFIERS.register("unarmed", UnarmedModifier::new);
-  public static final StaticModifier<ArmorPowerModifier> armorPower = MODIFIERS.register("armor_power", ArmorPowerModifier::new);
-  public static final StaticModifier<StrengthModifier> strength = MODIFIERS.register("strength", StrengthModifier::new);
   // leggings
-  public static final StaticModifier<SpeedyModifier> speedy = MODIFIERS.register("speedy", SpeedyModifier::new);
   public static final StaticModifier<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);
   public static final StaticModifier<PocketsModifier> pockets = MODIFIERS.register("pockets", PocketsModifier::new);
   public static final StaticModifier<ShieldStrapModifier> shieldStrap = MODIFIERS.register("shield_strap", ShieldStrapModifier::new);
@@ -341,7 +328,6 @@ public final class TinkerModifiers extends TinkerModule {
 
   // abilities
   public static final StaticModifier<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
-  public static final StaticModifier<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
   public static final StaticModifier<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
   // weapon
   public static final StaticModifier<DuelWieldingModifier> dualWielding = MODIFIERS.register("dual_wielding", DuelWieldingModifier::new);
@@ -414,9 +400,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final StaticModifier<DenseModifier> dense = MODIFIERS.register("dense", DenseModifier::new);
-  public static final StaticModifier<SharpweightModifier> sharpweight = MODIFIERS.register("sharpweight", SharpweightModifier::new);
   public static final StaticModifier<LustrousModifier> lustrous = MODIFIERS.register("lustrous", LustrousModifier::new);
-  public static final StaticModifier<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
   public static final StaticModifier<StoneshieldModifier> stoneshield = MODIFIERS.register("stoneshield", StoneshieldModifier::new);
   // smite is also an upgrade
   // traits - mod compat tier 3

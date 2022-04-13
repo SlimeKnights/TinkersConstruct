@@ -2,14 +2,19 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
+import net.minecraftforge.common.ForgeMod;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -24,6 +29,9 @@ public class ModifierProvider extends AbstractModifierProvider {
 
   @Override
   protected void addModifiers() {
+    EquipmentSlot[] handSlots = {EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
+    EquipmentSlot[] armorSlots = ModifiableArmorMaterial.ARMOR_SLOTS;
+
     // extra modifier slots
     addModifier(ModifierIds.writable,    ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.recapitated, ExtraModifier.builder(SlotType.UPGRADE).build());
@@ -69,16 +77,37 @@ public class ModifierProvider extends AbstractModifierProvider {
     // general
     addModifier(ModifierIds.worldbound, StatBoostModifier.builder().addFlag(IModifiable.INDESTRUCTIBLE_ENTITY).build());
     addModifier(ModifierIds.shiny,      StatBoostModifier.builder().addFlag(IModifiable.SHINY).rarity(Rarity.EPIC).build());
+    // general abilities
+    addModifier(ModifierIds.reach, StatBoostModifier.builder().attribute("tconstruct.modifier.reach", ForgeMod.REACH_DISTANCE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET).build());
 
     // armor
     addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).build());
     addModifier(ModifierIds.wings,  StatBoostModifier.builder().addFlag(ModifiableArmorItem.ELYTRA).build());
     addModifier(ModifierIds.knockbackResistance, StatBoostModifier.builder().add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f).build());
+    // defense
+    // TODO: floor?
+    addModifier(ModifierIds.revitalizing, StatBoostModifier.builder().attribute("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots).build());
+    // chestplate
+    addModifier(ModifierIds.knockbackArmor, StatBoostModifier.builder().attribute("tconstruct.modifier.armor_knockback", Attributes.ATTACK_KNOCKBACK, Operation.ADDITION, 1, armorSlots).build());
+    addModifier(ModifierIds.strength, StatBoostModifier.builder().attribute("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
+    // TODO: migrate armor_power to strength
+    // leggings
+    addModifier(ModifierIds.speedy, StatBoostModifier.builder().attribute("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
 
     // traits - tier 1
     addModifier(ModifierIds.stringy, new Modifier());
     // traits - tier 2
     addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f).build());
+    // traits - tier 2 compat
+    addModifier(ModifierIds.sharpweight, StatBoostModifier.builder()
+      .multiplyBase(ToolStats.MINING_SPEED, 0.1f)
+      .attribute("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
+      .build());
+    addModifier(ModifierIds.heavy, StatBoostModifier.builder()
+      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.1f)
+      .attribute("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
+      .build());
+
     // traits - tier 3
     addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().multiLevel().build());
     // traits - tier 3 nether

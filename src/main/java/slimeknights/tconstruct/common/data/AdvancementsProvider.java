@@ -232,7 +232,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       // general
       with.accept(ModifierIds.gilded);
       withL.accept(TinkerModifiers.luck);
-      withL.accept(TinkerModifiers.reach);
+      with.accept(ModifierIds.reach);
       withL.accept(TinkerModifiers.unbreakable);
       // armor
       withL.accept(TinkerModifiers.aquaAffinity);
@@ -247,7 +247,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.shieldStrap);
       withL.accept(TinkerModifiers.slurping);
       withL.accept(TinkerModifiers.snowdrift);
-      withL.accept(TinkerModifiers.strength);
+      with.accept(ModifierIds.strength);
       withL.accept(TinkerModifiers.toolBelt);
       withL.accept(TinkerModifiers.unarmed);
       withL.accept(TinkerModifiers.zoom);

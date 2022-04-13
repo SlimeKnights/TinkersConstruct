@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:stat_boost",
+  "attributes": [
+    {
+      "unique": "tconstruct.modifier.strength",
+      "attribute": "minecraft:generic.attack_damage",
+      "operation": "multiply_total",
+      "amount": 0.1,
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ]
+}

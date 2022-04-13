@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -105,6 +106,28 @@ public class JsonUtils {
       TConstruct.LOG.error("Failed to load JSON from resource " + resource.getLocation(), e);
       return null;
     }
+  }
+
+  /** Parses an enum from its name */
+  private static <T extends Enum<T>> T enumByName(String name, Class<T> enumClass) {
+    for (T value : enumClass.getEnumConstants()) {
+      if (value.name().toLowerCase(Locale.ROOT).equals(name)) {
+        return value;
+      }
+    }
+    throw new JsonSyntaxException("Invalid " + enumClass.getSimpleName() + " " + name);
+  }
+
+  /** Gets an enum value from its string name */
+  public static <T extends Enum<T>> T convertToEnum(JsonElement element, String key, Class<T> enumClass) {
+    String name = GsonHelper.convertToString(element, key);
+    return enumByName(name, enumClass);
+  }
+
+  /** Gets an enum value from its string name */
+  public static <T extends Enum<T>> T getAsEnum(JsonObject json, String key, Class<T> enumClass) {
+    String name = GsonHelper.getAsString(json, key);
+    return enumByName(name, enumClass);
   }
 
   /** Gets a list of JSON objects for a single path in all domains and packs, for a language file like loader */

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:stat_boost",
+  "attributes": [
+    {
+      "unique": "tconstruct.modifier.armor_knockback",
+      "attribute": "minecraft:generic.attack_knockback",
+      "operation": "addition",
+      "amount": 1.0,
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ]
+}

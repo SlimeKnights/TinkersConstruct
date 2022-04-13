@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers.dynamic;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,10 @@ import lombok.experimental.Accessors;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
@@ -22,28 +24,34 @@ import slimeknights.tconstruct.library.modifiers.util.IStatBoost;
 import slimeknights.tconstruct.library.modifiers.util.IStatBoost.BoostType;
 import slimeknights.tconstruct.library.modifiers.util.IStatBoost.StatBoost;
 import slimeknights.tconstruct.library.modifiers.util.IStatBoost.StatUpdate;
+import slimeknights.tconstruct.library.modifiers.util.ModifierAttribute;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.BiConsumer;
 
 /**
  * Modifier that applies generic stat boosts
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class StatBoostModifier extends IncrementalModifier {
-  /** List of boosts to apply */
-  private final List<IStatBoost> stats;
   /** Rarity to display */
   @Nullable
   private final Rarity rarity;
+  /** List of boosts to apply */
+  private final List<IStatBoost> stats;
+  /** List of attribute modifiers to apply */
+  private final List<ModifierAttribute> attributes;
   /** List of flags to set */
   private final List<ResourceLocation> flags;
 
@@ -71,42 +79,39 @@ public class StatBoostModifier extends IncrementalModifier {
   }
 
   @Override
-  public IGenericLoader<? extends Modifier> getLoader() {
-    return LOADER;
+  public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+    float scaledLevel = getScaledLevel(tool, level);
+    for (ModifierAttribute attribute : attributes) {
+      attribute.apply(tool, scaledLevel, slot, consumer);
+    }
   }
 
-  /** Gets a rarity from a string */
-  @Nullable
-  private static Rarity getRarity(String name) {
-    for (Rarity rarity : Rarity.values()) {
-      if (rarity.name().toLowerCase(Locale.ROOT).equals(name)) {
-        return rarity;
-      }
-    }
-    return null;
+  @Override
+  public IGenericLoader<? extends Modifier> getLoader() {
+    return LOADER;
   }
 
   /** Loader for this modifier */
   public static final IGenericLoader<StatBoostModifier> LOADER = new IGenericLoader<>() {
     @Override
     public StatBoostModifier deserialize(JsonObject json) {
+      Rarity rarity = null;
+      if (json.has("rarity")) {
+        rarity = JsonUtils.getAsEnum(json, "rarity", Rarity.class);
+      }
       List<IStatBoost> stats = Collections.emptyList();
       if (json.has("stats")) {
         stats = JsonHelper.parseList(json, "stats", IStatBoost::fromJson);
       }
-      Rarity rarity = null;
-      if (json.has("rarity")) {
-        String rarityName = GsonHelper.getAsString(json, "rarity");
-        rarity = getRarity(rarityName);
-        if (rarity == null) {
-          throw new JsonSyntaxException("Unknown rarity '" + rarityName + "'");
-        }
+      List<ModifierAttribute> attributes = Collections.emptyList();
+      if (json.has("attributes")) {
+        attributes = JsonHelper.parseList(json, "attributes", ModifierAttribute::fromJson);
       }
       List<ResourceLocation> flags = Collections.emptyList();
       if (json.has("flags")) {
         flags = JsonHelper.parseList(json, "flags", JsonHelper::convertToResourceLocation);
       }
-      return new StatBoostModifier(stats, rarity, flags);
+      return new StatBoostModifier(rarity, stats, attributes, flags);
     }
 
     @Override
@@ -121,6 +126,13 @@ public class StatBoostModifier extends IncrementalModifier {
         }
         json.add("stats", stats);
       }
+      if (!object.attributes.isEmpty()) {
+        JsonArray attributes = new JsonArray();
+        for (ModifierAttribute attribute : object.attributes) {
+          attributes.add(attribute.toJson());
+        }
+        json.add("attributes", attributes);
+      }
       if (!object.flags.isEmpty()) {
         JsonArray stats = new JsonArray();
         for (ResourceLocation flag : object.flags) {
@@ -132,34 +144,43 @@ public class StatBoostModifier extends IncrementalModifier {
 
     @Override
     public StatBoostModifier fromNetwork(FriendlyByteBuf buffer) {
+      Rarity rarity = null;
+      if (buffer.readBoolean()) {
+        rarity = buffer.readEnum(Rarity.class);
+      }
       int size = buffer.readVarInt();
       ImmutableList.Builder<IStatBoost> stats = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         stats.add(IStatBoost.fromNetwork(buffer));
       }
-      Rarity rarity = null;
-      if (buffer.readBoolean()) {
-        rarity = buffer.readEnum(Rarity.class);
+      size = buffer.readVarInt();
+      ImmutableList.Builder<ModifierAttribute> attributes = ImmutableList.builder();
+      for (int i = 0; i < size; i++) {
+        attributes.add(ModifierAttribute.fromNetwork(buffer));
       }
       size = buffer.readVarInt();
       ImmutableList.Builder<ResourceLocation> flags = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         flags.add(buffer.readResourceLocation());
       }
-      return new StatBoostModifier(stats.build(), rarity, flags.build());
+      return new StatBoostModifier(rarity, stats.build(), attributes.build(), flags.build());
     }
 
     @Override
     public void toNetwork(StatBoostModifier object, FriendlyByteBuf buffer) {
-      buffer.writeVarInt(object.stats.size());
-      for (IStatBoost boost : object.stats) {
-        boost.toNetwork(buffer);
-      }
       if (object.rarity != null) {
         buffer.writeBoolean(true);
         buffer.writeEnum(object.rarity);
       } else {
         buffer.writeBoolean(false);
+      }
+      buffer.writeVarInt(object.stats.size());
+      for (IStatBoost boost : object.stats) {
+        boost.toNetwork(buffer);
+      }
+      buffer.writeVarInt(object.attributes.size());
+      for (ModifierAttribute attribute : object.attributes) {
+        attribute.toNetwork(buffer);
       }
       buffer.writeVarInt(object.flags.size());
       for (ResourceLocation flag : object.flags) {
@@ -171,61 +192,57 @@ public class StatBoostModifier extends IncrementalModifier {
   /** Builder for a stat boost modifier */
   @Accessors(fluent = true)
   public static class Builder {
-    /** List of all boosts to apply */
-    private final ImmutableList.Builder<IStatBoost> boosts = ImmutableList.builder();
-    /** List of flags to set */
-    private final ImmutableList.Builder<ResourceLocation> flags = ImmutableList.builder();
     /** Rarity for the tool to show */
     @Setter
     private Rarity rarity = null;
+    /** List of all boosts to apply */
+    private final ImmutableList.Builder<IStatBoost> boosts = ImmutableList.builder();
+    /** List of all attributes to apply */
+    private final ImmutableList.Builder<ModifierAttribute> attributes = ImmutableList.builder();
+    /** List of flags to set */
+    private final ImmutableList.Builder<ResourceLocation> flags = ImmutableList.builder();
 
-    /**
-     * Updates a stat in the builder
-     */
+    /** Updates a stat in the builder */
     @SafeVarargs
     public final <T> Builder update(IToolStat<T> stat, T value, TagKey<Item>... tagRequirements) {
       boosts.add(new StatUpdate<>(stat, value, List.of(tagRequirements)));
       return this;
     }
 
-    /**
-     * Adds a general boost
-     */
+    /** Adds a general boost */
     private Builder boost(INumericToolStat<?> stat, BoostType type, float amount, TagKey<Item>[] tagRequirements) {
       boosts.add(new StatBoost(stat, type, amount, List.of(tagRequirements)));
       return this;
     }
 
-    /**
-     * Adds a numeric boost
-     */
+    /** Adds a numeric boost */
     @SafeVarargs
     public final Builder add(INumericToolStat<?> stat, float amount, TagKey<Item>... tagRequirements) {
       return boost(stat, IStatBoost.BoostType.ADD, amount, tagRequirements);
     }
 
-    /**
-     * Multiplies the base value of a stat
-     */
+    /** Multiplies the base value of a stat */
     @SafeVarargs
     public final Builder multiplyBase(INumericToolStat<?> stat, float amount, TagKey<Item>... tagRequirements) {
       return boost(stat, IStatBoost.BoostType.MULTIPLY_BASE, amount, tagRequirements);
     }
 
-    /**
-     * Multiplies conditional boosts
-     */
+    /** Multiplies conditional boosts */
     @SafeVarargs
     public final Builder multiplyConditional(INumericToolStat<?> stat, float amount, TagKey<Item>... tagRequirements) {
       return boost(stat, IStatBoost.BoostType.MULTIPLY_CONDITIONAL, amount, tagRequirements);
     }
 
-    /**
-     * Multiplies both base and conditional boosts
-     */
+    /** Multiplies both base and conditional boosts */
     @SafeVarargs
     public final Builder multiplyAll(INumericToolStat<?> stat, float amount, TagKey<Item>... tagRequirements) {
       return boost(stat, IStatBoost.BoostType.MULTIPLY_ALL, amount, tagRequirements);
+    }
+
+    /** Adds an attribute to the builder */
+    public Builder attribute(String unique, Attribute attribute, Operation operation, float amount, EquipmentSlot... slots) {
+      this.attributes.add(new ModifierAttribute(unique, attribute, operation, amount, slots));
+      return this;
     }
 
     /** Adds the given flag to the builder */
@@ -236,7 +253,7 @@ public class StatBoostModifier extends IncrementalModifier {
 
     /** Builds the final modifier */
     public StatBoostModifier build() {
-      return new StatBoostModifier(boosts.build(), rarity, flags.build());
+      return new StatBoostModifier(rarity, boosts.build(), attributes.build(), flags.build());
     }
   }
 }

@@ -9,7 +9,7 @@
   "modifier": "tconstruct:revitalizing",
   "min_level": 1,
   "salvage": {
-    "item": "minecraft:ghast_tear",
-    "full": false
+    "item": "tconstruct:jeweled_apple",
+    "count": 2
   }
 }

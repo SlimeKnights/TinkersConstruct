@@ -24,10 +24,19 @@ public class ModifierIds {
   // general
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
+  // general abilities
+  public static final ModifierId reach = id("reach");
 
   // armor
-  public static final ModifierId wings  = id("wings");
+  public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
+  // defense
+  public static final ModifierId revitalizing = id("revitalizing");
+  // chestplate
+  public static final ModifierId knockbackArmor = id("knockback_armor");
+  public static final ModifierId strength = id("strength");
+  // leggings
+  public static final ModifierId speedy = id("speedy");
 
 
 
@@ -35,6 +44,9 @@ public class ModifierIds {
   public static final ModifierId stringy = id("stringy");
   // traits - tier 2
   public static final ModifierId sturdy = id("sturdy");
+  // traits - tier 2 compat
+  public static final ModifierId sharpweight = id("sharpweight");
+  public static final ModifierId heavy = id("heavy");
   // traits - tier 3
   public static final ModifierId enhanced = id("enhanced");
   public static final ModifierId lightweight = id("lightweight");

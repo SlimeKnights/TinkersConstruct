@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:stat_boost",
+  "attributes": [
+    {
+      "unique": "tconstruct.modifier.reach",
+      "attribute": "forge:reach_distance",
+      "operation": "addition",
+      "amount": 1.0,
+      "slots": [
+        "mainhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ]
+}
