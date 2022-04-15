@@ -13,9 +13,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.tools.definition.harvest.predicate.BlockPredicate;
-import slimeknights.tconstruct.library.tools.definition.harvest.predicate.SetBlockPredicate;
-import slimeknights.tconstruct.library.tools.definition.harvest.predicate.TagBlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
     private final List<SpeedModifier> speedModifiers = new ArrayList<>();
 
     /** Base method to add a modifier */
-    public Builder addModifier(float modifier, BlockPredicate predicate) {
+    public Builder addModifier(float modifier, IJsonPredicate<BlockState> predicate) {
       speedModifiers.add(new SpeedModifier(modifier, predicate));
       return this;
     }
@@ -133,7 +134,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
   @RequiredArgsConstructor
   private static class SpeedModifier {
     protected final float modifier;
-    protected final BlockPredicate predicate;
+    protected final IJsonPredicate<BlockState> predicate;
 
     /** Writes this object to JSON */
     public JsonObject toJson() {
@@ -152,14 +153,14 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
     /** Parses a speed modifier from JSON */
     private static SpeedModifier fromJson(JsonObject json) {
       float modifier = GsonHelper.getAsFloat(json, "modifier");
-      BlockPredicate predicate = BlockPredicate.LOADER.deserialize(GsonHelper.getAsJsonObject(json, "predicate"));
+      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.deserialize(GsonHelper.getAsJsonObject(json, "predicate"));
       return new SpeedModifier(modifier, predicate);
     }
 
     /** Parses a speed modifier from the packet buffer */
     private static SpeedModifier fromNetwork(FriendlyByteBuf buffer) {
       float modifier = buffer.readFloat();
-      BlockPredicate predicate = BlockPredicate.LOADER.fromNetwork(buffer);
+      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.fromNetwork(buffer);
       return new SpeedModifier(modifier, predicate);
     }
   }

@@ -31,12 +31,16 @@ import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
 import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
+import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -149,6 +153,12 @@ public final class TinkerCommons extends TinkerModule {
 
     CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
     CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
+    // block predicates
+    BlockPredicate.LOADER.register(TConstruct.getResource("and"), BlockPredicate.AND);
+    BlockPredicate.LOADER.register(TConstruct.getResource("or"), BlockPredicate.OR);
+    BlockPredicate.LOADER.register(TConstruct.getResource("inverted"), BlockPredicate.INVERTED);
+    BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
   }
 
   @SubscribeEvent

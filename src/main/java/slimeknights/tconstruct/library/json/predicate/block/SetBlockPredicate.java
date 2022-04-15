@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools.definition.harvest.predicate;
+package slimeknights.tconstruct.library.json.predicate.block;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools.definition.harvest.predicate;
+package slimeknights.tconstruct.library.json.predicate.block;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;

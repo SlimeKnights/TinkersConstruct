@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.tools.definition.harvest.predicate;
+package slimeknights.tconstruct.library.json.predicate;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 
