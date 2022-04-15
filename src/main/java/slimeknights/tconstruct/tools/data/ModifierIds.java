@@ -27,6 +27,13 @@ public class ModifierIds {
   // general abilities
   public static final ModifierId reach = id("reach");
 
+  // damage boost
+  public static final ModifierId smite       = id("smite");
+  public static final ModifierId baneOfSssss = id("bane_of_sssss");
+  public static final ModifierId antiaquatic = id("antiaquatic");
+  public static final ModifierId killager    = id("killager");
+  public static final ModifierId cooling     = id("cooling");
+
   // armor
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");

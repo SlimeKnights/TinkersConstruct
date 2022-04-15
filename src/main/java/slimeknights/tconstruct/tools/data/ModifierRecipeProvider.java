@@ -466,55 +466,55 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.piercing, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.piercing, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.smite)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInputSalvage(Items.GLISTERING_MELON_SLICE, 1, 5, false)
                                     .setMaxLevel(5) // +12.5 undead damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.smite, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.smite, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.baneOfSssss)
+                                    .saveSalvage(consumer, prefix(ModifierIds.smite, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.smite, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.baneOfSssss)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInputSalvage(Items.FERMENTED_SPIDER_EYE, 1, 15, false)
                                     .setMaxLevel(5) // +12.5 spider damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.baneOfSssss, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.baneOfSssss, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.antiaquatic)
+                                    .saveSalvage(consumer, prefix(ModifierIds.baneOfSssss, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.baneOfSssss, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.antiaquatic)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInputSalvage(Items.PUFFERFISH, 1, 20, false)
                                     .setMaxLevel(5) // +12.5 fish damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.antiaquatic, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.antiaquatic, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.cooling)
+                                    .saveSalvage(consumer, prefix(ModifierIds.antiaquatic, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.antiaquatic, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.cooling)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInputSalvage(Items.PRISMARINE_CRYSTALS, 1, 25, false)
                                     .setMaxLevel(5) // +10 fire mob damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.cooling, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.cooling, upgradeFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.cooling, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.cooling, upgradeFolder));
     // killager uses both types of lapis
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.killager)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.killager)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.GEMS_LAPIS, 1, 45)
                                     .setSalvage(Items.LAPIS_LAZULI, 15, false)
                                     .setMaxLevel(5) // +12.5 illager damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.killager, upgradeSalvage))
-                                    .save(consumer, wrap(TinkerModifiers.killager, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.killager)
+                                    .saveSalvage(consumer, prefix(ModifierIds.killager, upgradeSalvage))
+                                    .save(consumer, wrap(ModifierIds.killager, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.killager)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 45)
                                     .setMaxLevel(5) // +12.5 illager damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .save(consumer, wrap(TinkerModifiers.killager, upgradeFolder, "_from_block"));
+                                    .save(consumer, wrap(ModifierIds.killager, upgradeFolder, "_from_block"));
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness)
                                     .setTools(TinkerTags.Items.MELEE)

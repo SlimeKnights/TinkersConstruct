@@ -70,7 +70,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
     addDefaultTraits(MaterialIds.platinum, TinkerModifiers.lustrous);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
-    addDefaultTraits(MaterialIds.silver, TinkerModifiers.smite);
+    addDefaultTraits(MaterialIds.silver, ModifierIds.smite);
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);

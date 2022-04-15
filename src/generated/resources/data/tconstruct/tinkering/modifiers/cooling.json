@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:conditional_damage",
+  "predicate": {
+    "type": "tconstruct:fire_immune"
+  },
+  "damage": 1.6
+}

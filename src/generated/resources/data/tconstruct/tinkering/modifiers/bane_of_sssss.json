@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:conditional_damage",
+  "predicate": {
+    "type": "tconstruct:or",
+    "predicates": [
+      {
+        "type": "tconstruct:mob_type",
+        "mobs": "minecraft:arthropod"
+      },
+      {
+        "type": "tconstruct:tag",
+        "tag": "forge:creepers"
+      }
+    ]
+  },
+  "damage": 2.0,
+  "effect": {
+    "name": "minecraft:slowness",
+    "level": 4
+  }
+}

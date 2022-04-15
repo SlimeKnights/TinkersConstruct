@@ -83,7 +83,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 4f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.smite, 2)
+      .trait(ModifierIds.smite, 2)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -153,7 +153,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
       .trait(TinkerModifiers.shovelFlatten)
-      .trait(TinkerModifiers.baneOfSssss)
+      .trait(ModifierIds.baneOfSssss)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .action(ToolActions.SHOVEL_DIG)

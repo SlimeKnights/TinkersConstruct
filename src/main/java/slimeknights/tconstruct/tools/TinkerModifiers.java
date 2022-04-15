@@ -5,7 +5,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -29,6 +28,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
@@ -183,15 +183,11 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.FortuneModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HydraulicModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.LightspeedModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.melee.BaneOfSssssModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.melee.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.melee.KillagerModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.LootingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PaddedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.melee.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
@@ -274,11 +270,6 @@ public final class TinkerModifiers extends TinkerModule {
 
   // damage boost
   public static final StaticModifier<PiercingModifier> piercing = MODIFIERS.register("piercing", PiercingModifier::new);
-  public static final StaticModifier<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(MobType.UNDEAD));
-  public static final StaticModifier<BaneOfSssssModifier> baneOfSssss = MODIFIERS.register("bane_of_sssss", BaneOfSssssModifier::new);
-  public static final StaticModifier<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(MobType.WATER));
-  public static final StaticModifier<KillagerModifier> killager = MODIFIERS.register("killager", KillagerModifier::new);
-  public static final StaticModifier<CoolingModifier> cooling = MODIFIERS.register("cooling", CoolingModifier::new);
   public static final StaticModifier<SharpnessModifier> sharpness = MODIFIERS.register("sharpness", SharpnessModifier::new);
   public static final StaticModifier<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
 
@@ -496,6 +487,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("stat_boost"), StatBoostModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("extra_slot"), ExtraModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_disguise"), MobDisguiseModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModifier.LOADER);
   }
 
   @SubscribeEvent
