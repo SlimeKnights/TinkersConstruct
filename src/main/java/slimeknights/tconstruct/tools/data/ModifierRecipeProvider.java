@@ -11,6 +11,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -43,6 +45,9 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
@@ -61,7 +66,6 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeB
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.DamageType;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.LivingEntityPredicate;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
@@ -1406,14 +1410,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
   private void addSpillingRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "tools/spilling/";
+    IJsonPredicate<LivingEntity> notFireImmune = LivingEntityPredicate.FIRE_IMMUNE.inverted();
 
     // vanilla
     SpillingRecipeBuilder.forFluid(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.WATER_SENSITIVE, DamageType.PIERCING, 2f))
+                         .addEffect(LivingEntityPredicate.WATER_SENSITIVE, new DamageSpillingEffect(DamageType.PIERCING, 2f))
                          .addEffect(ExtinguishSpillingEffect.INSTANCE)
                          .save(consumer, modResource(folder + "water"));
     SpillingRecipeBuilder.forFluid(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 2f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 2f))
                          .addEffect(new SetFireSpillingEffect(10))
                          .save(consumer, modResource(folder + "lava"));
     SpillingRecipeBuilder.forFluid(Tags.Fluids.MILK, FluidAttributes.BUCKET_VOLUME / 10)
@@ -1422,7 +1427,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, modResource(folder + "milk"));
     // blaze - more damage, less fire
     SpillingRecipeBuilder.forFluid(TinkerFluids.blazingBlood.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 3f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 3f))
                          .addEffect(new SetFireSpillingEffect(5))
                          .save(consumer, prefix(TinkerFluids.blazingBlood, folder));
     // slime
@@ -1469,29 +1474,29 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // multi-recipes
     SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.GLASS_SPILLING, FluidAttributes.BUCKET_VOLUME / 10)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1f))
                          .addEffect(new SetFireSpillingEffect(3))
                          .save(consumer, modResource(folder + "glass"));
     SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.CLAY_SPILLING, FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1.5f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1.5f))
                          .addEffect(new SetFireSpillingEffect(3))
                          .save(consumer, modResource(folder + "clay"));
 
     SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.CHEAP_METAL_SPILLING, FluidValues.NUGGET)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1.5f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1.5f))
                          .addEffect(new SetFireSpillingEffect(7))
                          .save(consumer, modResource(folder + "metal_cheap"));
     SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.AVERAGE_METAL_SPILLING, FluidValues.NUGGET)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 2f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 2f))
                          .addEffect(new SetFireSpillingEffect(7))
                          .save(consumer, modResource(folder + "metal_average"));
     SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING, FluidValues.NUGGET)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 2.5f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 2.5f))
                          .addEffect(new SetFireSpillingEffect(7))
                          .save(consumer, modResource(folder + "metal_expensive"));
     // gold applies magic
     SpillingRecipeBuilder.forFluid(TinkerFluids.moltenGold.getForgeTag(), FluidValues.NUGGET)
-                         .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 2f))
+                         .addEffect(new MobTypePredicate(MobType.UNDEAD), new DamageSpillingEffect(DamageType.MAGIC, 2f))
                          .addEffect(new SetFireSpillingEffect(3))
                          .save(consumer, prefix(TinkerFluids.moltenGold, folder));
     // pig iron fills you up magic
@@ -1501,7 +1506,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerFluids.moltenPigIron, folder));
     // uranium also does poison
     SpillingRecipeBuilder.forFluid(TinkerFluids.moltenUranium.getLocalTag(), FluidValues.NUGGET)
-                         .addEffect(new DamageSpillingEffect(LivingEntityPredicate.NOT_FIRE_IMMUNE, DamageType.FIRE, 1.5f))
+                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1.5f))
                          .addEffect(new EffectSpillingEffect(MobEffects.POISON, 10, 1))
                          .addEffect(new SetFireSpillingEffect(3))
                          .save(consumer, prefix(TinkerFluids.moltenUranium, folder));

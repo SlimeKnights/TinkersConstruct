@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.salvage.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ConditionalSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
@@ -480,6 +481,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   @SubscribeEvent
   void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
+    ISpillingEffect.LOADER.register(TConstruct.getResource("conditional"),    ConditionalSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("cure_effects"),   CureEffectsSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("damage"),         DamageSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("effect"),         EffectSpillingEffect.LOADER);

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.json.predicate;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 
@@ -40,7 +39,7 @@ public class InvertedJsonPredicate<I> implements IJsonPredicate<I> {
 
     @Override
     public InvertedJsonPredicate<I> deserialize(JsonObject json) {
-      return create(loader.deserialize(GsonHelper.getAsJsonObject(json, "predicate")));
+      return create(loader.getAndDeserialize(json, "predicate"));
     }
 
     @Override

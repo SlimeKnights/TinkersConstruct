@@ -6,10 +6,18 @@
   },
   "effects": [
     {
-      "type": "tconstruct:damage",
-      "entity": "not_fire_immune",
-      "damage_type": "fire",
-      "damage_amount": 3.0
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": {
+          "type": "tconstruct:fire_immune"
+        }
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 3.0
+      }
     },
     {
       "type": "tconstruct:set_fire",

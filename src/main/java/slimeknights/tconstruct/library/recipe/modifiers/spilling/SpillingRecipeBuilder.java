@@ -6,11 +6,14 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
+import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ConditionalSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -47,6 +50,11 @@ public class SpillingRecipeBuilder extends AbstractRecipeBuilder<SpillingRecipeB
   public SpillingRecipeBuilder addEffect(ISpillingEffect effect) {
     effects.add(effect);
     return this;
+  }
+
+  /** Adds a effect to the given fluid that only matches if the entity matches the predicate */
+  public SpillingRecipeBuilder addEffect(IJsonPredicate<LivingEntity> predicate, ISpillingEffect effect) {
+    return addEffect(new ConditionalSpillingEffect(predicate, effect));
   }
 
   @Override
