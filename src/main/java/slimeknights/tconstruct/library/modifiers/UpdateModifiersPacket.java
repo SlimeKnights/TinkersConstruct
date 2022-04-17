@@ -17,7 +17,10 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     int size = buffer.readVarInt();
     ImmutableList.Builder<Modifier> builder = ImmutableList.builder();
     for (int i = 0; i < size; i++) {
-      builder.add(ModifierManager.MODIFIER_LOADERS.fromNetwork(buffer));
+      ModifierId id = new ModifierId(buffer.readUtf(Short.MAX_VALUE));
+      Modifier modifier = ModifierManager.MODIFIER_LOADERS.fromNetwork(buffer);
+      modifier.setId(id);
+      builder.add(modifier);
     }
     this.modifiers = builder.build();
   }
@@ -26,6 +29,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeVarInt(modifiers.size());
     for (Modifier modifier : modifiers) {
+      buffer.writeUtf(modifier.getId().toString());
       ModifierManager.MODIFIER_LOADERS.toNetwork(modifier, buffer);
     }
   }
