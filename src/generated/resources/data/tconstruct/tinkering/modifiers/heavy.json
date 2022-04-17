@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:default",
   "stats": [
     {
       "stat": "tconstruct:attack_damage",

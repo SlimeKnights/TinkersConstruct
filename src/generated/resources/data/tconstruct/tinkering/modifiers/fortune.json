@@ -1,8 +1,8 @@
 {
   "type": "tconstruct:loot",
+  "level_display": "tconstruct:default",
   "enchantment": {
     "name": "minecraft:fortune",
     "level": 1
-  },
-  "single_level": false
+  }
 }

@@ -25,7 +25,7 @@ import java.util.Locale;
 /**
  * Stat boost to apply
  */
-public interface IStatBoost {
+public interface ModifierStatBoost {
   /**
    * Checks if all tags match
    */
@@ -62,7 +62,7 @@ public interface IStatBoost {
   /**
    * Parses the object from JSON
    */
-  static IStatBoost fromJson(JsonObject json) {
+  static ModifierStatBoost fromJson(JsonObject json) {
     IToolStat<?> stat = ToolStats.fromJson(GsonHelper.getAsString(json, "stat"));
     List<TagKey<Item>> tagRequirements = Collections.emptyList();
     if (json.has("tags")) {
@@ -77,7 +77,7 @@ public interface IStatBoost {
   /**
    * Reads this to the network
    */
-  static IStatBoost fromNetwork(FriendlyByteBuf buffer) {
+  static ModifierStatBoost fromNetwork(FriendlyByteBuf buffer) {
     IToolStat<?> stat = ToolStats.fromNetwork(buffer);
     ImmutableList.Builder<TagKey<Item>> tagRequirements = ImmutableList.builder();
     int size = buffer.readVarInt();
@@ -147,7 +147,7 @@ public interface IStatBoost {
   }
 
   /** Record representing a single stat boost */
-  record StatBoost(INumericToolStat<?> stat, BoostType type, float amount, List<TagKey<Item>> tagRequirements) implements IStatBoost {
+  record StatBoost(INumericToolStat<?> stat, BoostType type, float amount, List<TagKey<Item>> tagRequirements) implements ModifierStatBoost {
     /** Applies the given boost */
     @Override
     public void apply(ToolRebuildContext context, float level, ModifierStatsBuilder builder) {
@@ -199,7 +199,7 @@ public interface IStatBoost {
   }
 
   /** Performs a generic stat update */
-  record StatUpdate<T>(IToolStat<T> stat, T value, List<TagKey<Item>> tagRequirements) implements IStatBoost {
+  record StatUpdate<T>(IToolStat<T> stat, T value, List<TagKey<Item>> tagRequirements) implements ModifierStatBoost {
     @Override
     public void apply(ToolRebuildContext context, float level, ModifierStatsBuilder builder) {
       stat.update(builder, value);

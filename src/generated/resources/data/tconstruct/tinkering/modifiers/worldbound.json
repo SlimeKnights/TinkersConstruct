@@ -1,5 +1,7 @@
 {
   "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:no_levels",
+  "rarity": "uncommon",
   "flags": [
     "tconstruct:indestructible"
   ]

@@ -517,23 +517,23 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .includeUnarmed()
                                     .save(consumer, wrap(ModifierIds.killager, upgradeFolder, "_from_block"));
     // sharpness can use shards or blocks
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.sharpness)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.GEMS_QUARTZ, 1, 36)
                                     .setSalvage(Items.QUARTZ, false)
                                     .setMaxLevel(5) // +5 damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .includeUnarmed()
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.sharpness, upgradeSalvage))
-                                    .save(consumer, wrap(TinkerModifiers.sharpness, upgradeFolder, "_from_shard"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness)
+                                    .saveSalvage(consumer, prefix(ModifierIds.sharpness, upgradeSalvage))
+                                    .save(consumer, wrap(ModifierIds.sharpness, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.sharpness)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
                                     .setLeftover(new ItemStack(Items.QUARTZ))
                                     .setMaxLevel(5)
                                     .includeUnarmed()
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .save(consumer, wrap(TinkerModifiers.sharpness, upgradeFolder, "_from_block"));
+                                    .save(consumer, wrap(ModifierIds.sharpness, upgradeFolder, "_from_block"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sweeping)
                                     .setTools(TinkerTags.Items.SWORD)
                                     .setInputSalvage(Blocks.CHAIN, 1, 18, true) // every 9 is 11 ingots, so this is 22 ingots
@@ -542,21 +542,21 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .saveSalvage(consumer, prefix(TinkerModifiers.sweeping, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.sweeping, upgradeFolder));
     // swiftstrike works on blocks too, we are nice
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.swiftstrike)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.swiftstrike)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.AMETHYST_SHARD, 1, 72)
                                     .setSalvage(Items.AMETHYST_SHARD, false)
                                     .setMaxLevel(5)
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.swiftstrike, upgradeSalvage))
-                                    .save(consumer, wrap(TinkerModifiers.swiftstrike, upgradeFolder, "_from_shard"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.swiftstrike)
+                                    .saveSalvage(consumer, prefix(ModifierIds.swiftstrike, upgradeSalvage))
+                                    .save(consumer, wrap(ModifierIds.swiftstrike, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.swiftstrike)
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Blocks.AMETHYST_BLOCK, 4, 72)
                                     .setLeftover(new ItemStack(Items.AMETHYST_SHARD))
                                     .setMaxLevel(5)
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .save(consumer, wrap(TinkerModifiers.swiftstrike, upgradeFolder, "_from_block"));
+                                    .save(consumer, wrap(ModifierIds.swiftstrike, upgradeFolder, "_from_block"));
     /*
      * armor
      */
@@ -985,9 +985,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.gilded, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes, similar for both so pulled into a function
-    luckRecipes(consumer, TinkerModifiers.luck.getId(), TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
+    luckRecipes(consumer, ModifierIds.luck, TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
     luckRecipes(consumer, ModifierIds.looting, TinkerTags.Items.CHESTPLATES, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
-    ModifierRecipeBuilder.modifier(TinkerModifiers.luck)
+    ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
                          .addInputSalvage(Items.RABBIT_FOOT, 0.15f)
@@ -998,8 +998,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(Items.CARROT, 0.75f) // all the magic is gone, its just a carrot now
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, wrap(TinkerModifiers.luck, abilitySalvage, "_pants"))
-                         .save(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_pants"));
+                         .saveSalvage(consumer, wrap(ModifierIds.luck, abilitySalvage, "_pants"))
+                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_pants"));
     // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky)
                          .addInput(TinkerModifiers.silkyCloth)

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:single_level",
   "rarity": "uncommon",
   "stats": [
     {

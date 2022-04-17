@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": {
+    "type": "tconstruct:unique",
+    "unique_until": 5
+  },
+  "stats": [
+    {
+      "stat": "tconstruct:attack_speed",
+      "type": "multiply_base",
+      "value": 0.05
+    }
+  ]
+}

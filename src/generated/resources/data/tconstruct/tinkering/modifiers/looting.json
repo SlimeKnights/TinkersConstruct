@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:loot",
-  "looting": 1,
-  "single_level": false
+  "level_display": "tconstruct:default",
+  "looting": 1
 }

@@ -39,6 +39,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.ResourceColorManager;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -53,7 +54,6 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
-import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -225,9 +225,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @return  Display name
    */
   public Component getDisplayName(int level) {
-    return applyStyle(new TranslatableComponent(getTranslationKey())
-                        .append(" ")
-                        .append(RomanNumeralHelper.getNumeral(level)));
+    return ModifierLevelDisplay.DEFAULT.nameForLevel(this, level);
   }
 
   /**

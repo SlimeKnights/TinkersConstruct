@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
@@ -28,22 +29,19 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
   private final Enchantment enchantment;
   private final int enchantmentLevel;
   private final int lootingLevel;
-  private final boolean singleLevel;
+  private final ModifierLevelDisplay levelDisplay;
 
-  public LootModifier(Enchantment enchantment, int level, boolean singleLevel) {
-    this(enchantment, level, 0, singleLevel);
+  public LootModifier(Enchantment enchantment, int level, ModifierLevelDisplay levelDisplay) {
+    this(enchantment, level, 0, levelDisplay);
   }
 
-  public LootModifier(int lootingLevel, boolean singleLevel) {
-    this(null, 0, lootingLevel, singleLevel);
+  public LootModifier(int lootingLevel, ModifierLevelDisplay levelDisplay) {
+    this(null, 0, lootingLevel, levelDisplay);
   }
 
   @Override
   public Component getDisplayName(int level) {
-    if (singleLevel && level == 1) {
-      return getDisplayName();
-    }
-    return super.getDisplayName(level);
+    return levelDisplay.nameForLevel(this, level);
   }
 
   @Override
@@ -81,12 +79,13 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
         enchantmentLevel = GsonHelper.getAsInt(enchantmentJson, "level");
       }
       int looting = GsonHelper.getAsInt(json, "looting", 0);
-      boolean singleLevel = GsonHelper.getAsBoolean(json, "single_level", false);
-      return new LootModifier(enchantment, enchantmentLevel, looting, singleLevel);
+      ModifierLevelDisplay display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");
+      return new LootModifier(enchantment, enchantmentLevel, looting, display);
     }
 
     @Override
     public void serialize(LootModifier object, JsonObject json) {
+      json.add("level_display", ModifierLevelDisplay.LOADER.serialize(object.levelDisplay));
       if (object.enchantmentLevel > 0 && object.enchantment != null) {
         JsonObject enchantment = new JsonObject();
         enchantment.addProperty("name", Objects.requireNonNull(object.enchantment.getRegistryName()).toString());
@@ -96,7 +95,6 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
       if (object.lootingLevel > 0) {
         json.addProperty("looting", object.lootingLevel);
       }
-      json.addProperty("single_level", object.singleLevel);
     }
 
     @Override
@@ -107,8 +105,8 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
         enchantment = buffer.readRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS);
       }
       int lootingLevel = buffer.readVarInt();
-      boolean singleLevel = buffer.readBoolean();
-      return new LootModifier(enchantment, enchantmentLevel, lootingLevel, singleLevel);
+      ModifierLevelDisplay display = ModifierLevelDisplay.LOADER.fromNetwork(buffer);
+      return new LootModifier(enchantment, enchantmentLevel, lootingLevel, display);
     }
 
     @Override
@@ -120,7 +118,7 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
         buffer.writeVarInt(0);
       }
       buffer.writeVarInt(object.lootingLevel);
-      buffer.writeBoolean(object.singleLevel);
+      ModifierLevelDisplay.LOADER.toNetwork(object.levelDisplay, buffer);
     }
   };
 }

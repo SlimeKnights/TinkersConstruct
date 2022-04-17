@@ -61,7 +61,7 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
 
   /** Converts the given object to json */
   private static JsonObject convert(Result result) {
-    JsonObject json = ModifierManager.MODIFIER_LOADERS.serialize(result.modifier());
+    JsonObject json = ModifierManager.MODIFIER_LOADERS.serialize(result.modifier()).getAsJsonObject();
     if (result.condition != null) {
       json.add("condition", CraftingHelper.serialize(result.condition));
     }

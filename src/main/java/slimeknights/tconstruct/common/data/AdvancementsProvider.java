@@ -231,7 +231,7 @@ public class AdvancementsProvider extends GenericDataProvider {
 
       // general
       with.accept(ModifierIds.gilded);
-      withL.accept(TinkerModifiers.luck);
+      with.accept(ModifierIds.luck);
       with.accept(ModifierIds.reach);
       withL.accept(TinkerModifiers.unbreakable);
       // armor

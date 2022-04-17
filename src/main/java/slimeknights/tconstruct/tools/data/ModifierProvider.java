@@ -22,6 +22,8 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -46,13 +48,14 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.recapitated, ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.harmonious,  ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.resurrected, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).multiLevel().build());
+    addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).display(ModifierLevelDisplay.DEFAULT).build());
     addModifier(ModifierIds.draconic,    ExtraModifier.builder(SlotType.ABILITY).build());
     // TODO: redirect red_extra_upgrade, green_extra_upgrade, blue_extra_upgrade, extra_ability
 
     // tier upgrades
     // emerald
     addModifier(ModifierIds.emerald, StatBoostModifier.builder()
+      .display(ModifierLevelDisplay.SINGLE_LEVEL)
       .rarity(Rarity.UNCOMMON)
       .multiplyBase(ToolStats.DURABILITY, 0.5f)
       .multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f)
@@ -62,6 +65,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .build());
     // diamond
     addModifier(ModifierIds.diamond, StatBoostModifier.builder()
+      .display(ModifierLevelDisplay.SINGLE_LEVEL)
       .rarity(Rarity.UNCOMMON)
       .add(ToolStats.DURABILITY,  500)
       // armor grants less durability boost
@@ -73,6 +77,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .build());
     // netherite
     addModifier(ModifierIds.netherite, StatBoostModifier.builder()
+      .display(ModifierLevelDisplay.SINGLE_LEVEL)
       .rarity(Rarity.RARE)
       .addFlag(IModifiable.INDESTRUCTIBLE_ENTITY)
       .multiplyBase(ToolStats.DURABILITY,    0.2f)
@@ -84,17 +89,24 @@ public class ModifierProvider extends AbstractModifierProvider {
       .build());
 
     // general
-    addModifier(ModifierIds.worldbound, StatBoostModifier.builder().addFlag(IModifiable.INDESTRUCTIBLE_ENTITY).build());
-    addModifier(ModifierIds.shiny,      StatBoostModifier.builder().addFlag(IModifiable.SHINY).rarity(Rarity.EPIC).build());
+    addModifier(ModifierIds.worldbound, StatBoostModifier.builder().addFlag(IModifiable.INDESTRUCTIBLE_ENTITY).rarity(Rarity.UNCOMMON).display(ModifierLevelDisplay.NO_LEVELS).build());
+    addModifier(ModifierIds.shiny,      StatBoostModifier.builder().addFlag(IModifiable.SHINY).rarity(Rarity.EPIC).display(ModifierLevelDisplay.NO_LEVELS).build());
     // general abilities
     addModifier(ModifierIds.reach, StatBoostModifier.builder().attribute("tconstruct.modifier.reach", ForgeMod.REACH_DISTANCE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET).build());
 
     // loot
-    addModifier(TinkerModifiers.silky, new LootModifier(Enchantments.SILK_TOUCH, 1, true));
-    addModifier(ModifierIds.fortune, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, false));
-    addModifier(ModifierIds.looting, new LootModifier(1, false));
+    addModifier(TinkerModifiers.silky, new LootModifier(Enchantments.SILK_TOUCH, 1, ModifierLevelDisplay.NO_LEVELS));
+    addModifier(ModifierIds.luck, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, 1, new UniqueForLevels(3)));
+    addModifier(ModifierIds.fortune, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, ModifierLevelDisplay.DEFAULT));
+    addModifier(ModifierIds.looting, new LootModifier(1, ModifierLevelDisplay.DEFAULT));
+
+    /// attack
 
     // damage boost
+    // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
+    // we instead do +0.75, +1.5, +2.25, +3, +3.75
+    addModifier(ModifierIds.sharpness,   StatBoostModifier.builder().add(ToolStats.ATTACK_DAMAGE, 0.75f).display(new UniqueForLevels(5)).build());
+    addModifier(ModifierIds.swiftstrike, StatBoostModifier.builder().multiplyBase(ToolStats.ATTACK_SPEED, 0.05f).display(new UniqueForLevels(5)).build());
     addModifier(ModifierIds.smite,       new ConditionalDamageModifier(new MobTypePredicate(MobType.UNDEAD), 2.0f));
     addModifier(ModifierIds.antiaquatic, new ConditionalDamageModifier(new MobTypePredicate(MobType.WATER),  2.0f));
     addModifier(ModifierIds.cooling,     new ConditionalDamageModifier(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
@@ -105,7 +117,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ILLAGER), new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)), 2.0f));
 
     // armor
-    addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).build());
+    addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).display(ModifierLevelDisplay.NO_LEVELS).build());
     addModifier(ModifierIds.wings,  StatBoostModifier.builder().addFlag(ModifiableArmorItem.ELYTRA).build());
     addModifier(ModifierIds.knockbackResistance, StatBoostModifier.builder().add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f).build());
     // defense
@@ -133,7 +145,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .build());
 
     // traits - tier 3
-    addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().multiLevel().build());
+    addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().display(ModifierLevelDisplay.DEFAULT).build());
     // traits - tier 3 nether
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f)

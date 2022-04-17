@@ -28,10 +28,13 @@ public class ModifierIds {
   public static final ModifierId reach = id("reach");
 
   // loot
+  public static final ModifierId luck    = id("luck");
   public static final ModifierId looting = id("looting");
   public static final ModifierId fortune = id("fortune");
 
   // damage boost
+  public static final ModifierId sharpness   = id("sharpness");
+  public static final ModifierId swiftstrike = id("swiftstrike");
   public static final ModifierId smite       = id("smite");
   public static final ModifierId baneOfSssss = id("bane_of_sssss");
   public static final ModifierId antiaquatic = id("antiaquatic");
@@ -48,7 +51,6 @@ public class ModifierIds {
   public static final ModifierId strength = id("strength");
   // leggings
   public static final ModifierId speedy = id("speedy");
-
 
 
   // traits - tier 1
