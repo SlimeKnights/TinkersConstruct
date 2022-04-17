@@ -240,7 +240,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.doubleJump);
       withL.accept(TinkerModifiers.flamewake);
       withL.accept(TinkerModifiers.frostWalker);
-      withL.accept(TinkerModifiers.looting);
+      with.accept(ModifierIds.looting);
       withL.accept(TinkerModifiers.pathMaker);
       withL.accept(TinkerModifiers.plowing);
       withL.accept(TinkerModifiers.pockets);

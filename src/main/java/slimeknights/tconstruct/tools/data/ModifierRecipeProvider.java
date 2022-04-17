@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredica
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RandomItem;
@@ -984,8 +985,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.gilded, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes, similar for both so pulled into a function
-    luckRecipes(consumer, TinkerModifiers.luck, TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
-    luckRecipes(consumer, TinkerModifiers.looting, TinkerTags.Items.CHESTPLATES, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
+    luckRecipes(consumer, TinkerModifiers.luck.getId(), TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
+    luckRecipes(consumer, ModifierIds.looting, TinkerTags.Items.CHESTPLATES, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
     ModifierRecipeBuilder.modifier(TinkerModifiers.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
@@ -1571,8 +1572,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   /** Common logic to add recipes for luck and unarmed looting */
-  private void luckRecipes(Consumer<FinishedRecipe> consumer, LazyModifier modifier, TagKey<Item> tools, SlotType slotType, boolean unarmed, String folder, String salvage) {
-    String key = modifier.getId().getPath();
+  private void luckRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, TagKey<Item> tools, SlotType slotType, boolean unarmed, String folder, String salvage) {
+    String key = modifier.getPath();
     // level 1 always requires a slot
     ModifierRecipeBuilder builder1 = ModifierRecipeBuilder.modifier(modifier)
                          .setTools(tools)

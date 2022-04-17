@@ -52,7 +52,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, ModifierIds.lightweight);
     // tier 3 - binding
-    addDefaultTraits(MaterialIds.darkthread, TinkerModifiers.looting);
+    addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
 
     // tier 4
     addDefaultTraits(MaterialIds.queensSlime, TinkerModifiers.overlord, TinkerModifiers.overslime);
@@ -60,7 +60,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable);
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting);
     // tier 4 - binding
-    addDefaultTraits(MaterialIds.ancientHide, TinkerModifiers.fortune);
+    addDefaultTraits(MaterialIds.ancientHide, ModifierIds.fortune);
 
     // tier 5
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);

@@ -27,6 +27,10 @@ public class ModifierIds {
   // general abilities
   public static final ModifierId reach = id("reach");
 
+  // loot
+  public static final ModifierId looting = id("looting");
+  public static final ModifierId fortune = id("fortune");
+
   // damage boost
   public static final ModifierId smite       = id("smite");
   public static final ModifierId baneOfSssss = id("bane_of_sssss");
