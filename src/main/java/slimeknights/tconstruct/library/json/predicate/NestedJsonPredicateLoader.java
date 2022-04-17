@@ -34,7 +34,7 @@ public class NestedJsonPredicateLoader<I, T extends IJsonPredicate<I>> implement
 
   @Override
   public T deserialize(JsonObject json) {
-    return constructor.apply(this, JsonHelper.parseList(json, "predicates", loader::deserialize));
+    return constructor.apply(this, JsonHelper.parseList(json, "predicates", (e, s) -> loader.deserialize(e)));
   }
 
   @Override

@@ -82,7 +82,7 @@ public class ConditionalDamageModifier extends IncrementalModifier {
   public static final IGenericLoader<ConditionalDamageModifier> LOADER = new IGenericLoader<>() {
     @Override
     public ConditionalDamageModifier deserialize(JsonObject json) {
-      IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.getAndDeserialize(json, "predicate");
+      IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.getAndDeserialize(json, "entity");
       float damage = GsonHelper.getAsFloat(json, "damage");
       MobEffect effect = null;
       int level = 0;
@@ -96,7 +96,7 @@ public class ConditionalDamageModifier extends IncrementalModifier {
 
     @Override
     public void serialize(ConditionalDamageModifier object, JsonObject json) {
-      json.add("predicate", LivingEntityPredicate.LOADER.serialize(object.predicate));
+      json.add("entity", LivingEntityPredicate.LOADER.serialize(object.predicate));
       json.addProperty("damage", object.damage);
       if (object.effect != null && object.effectLevel > 0) {
         JsonObject effectJson = new JsonObject();

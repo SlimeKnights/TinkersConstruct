@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:conditional_damage",
-  "predicate": {
+  "entity": {
     "type": "tconstruct:mob_type",
     "mobs": "minecraft:water"
   },

@@ -7,9 +7,7 @@
   "effects": [
     {
       "type": "tconstruct:conditional",
-      "entity": {
-        "type": "tconstruct:water_sensitive"
-      },
+      "entity": "tconstruct:water_sensitive",
       "effect": {
         "type": "tconstruct:damage",
         "damage_type": "piercing",

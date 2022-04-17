@@ -9,9 +9,7 @@
       "type": "tconstruct:conditional",
       "entity": {
         "type": "tconstruct:inverted",
-        "predicate": {
-          "type": "tconstruct:fire_immune"
-        }
+        "predicate": "tconstruct:fire_immune"
       },
       "effect": {
         "type": "tconstruct:damage",
