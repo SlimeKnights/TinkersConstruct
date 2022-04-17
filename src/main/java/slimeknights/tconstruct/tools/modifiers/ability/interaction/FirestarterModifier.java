@@ -37,7 +37,7 @@ import java.util.Collections;
  * Modifier that starts a fire at the given position
  */
 @RequiredArgsConstructor
-public class FirestarterModifier extends InteractionModifier.SingleUse {
+public class FirestarterModifier extends InteractionModifier.NoLevels {
   /** Compat with mods adding custom campfires */
   private static final ToolAction LIGHT_CAMPFIRE = ToolAction.get("light_campfire");
 

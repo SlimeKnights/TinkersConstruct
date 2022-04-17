@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.general;
 
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 /** Modifier for compatability with TOP */
-public class TOPModifier extends SingleUseModifier {
+public class TOPModifier extends NoLevelsModifier {
   private static final String TOP_NBT_HELMET = "theoneprobe";
   private static final String TOP_NBT_HAND = "theoneprobe_hand";
 

@@ -5,11 +5,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-public class DyedModifier extends SingleUseModifier {
+public class DyedModifier extends NoLevelsModifier {
   private static final String FORMAT_KEY = TConstruct.makeTranslationKey("modifier", "dyed.formatted");
 
   @Override

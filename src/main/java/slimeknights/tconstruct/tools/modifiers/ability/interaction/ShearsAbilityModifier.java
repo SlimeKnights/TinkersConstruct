@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 @RequiredArgsConstructor
-public class ShearsAbilityModifier extends InteractionModifier.SingleUse {
+public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
   private final int range;
   @Getter
   private final int priority;

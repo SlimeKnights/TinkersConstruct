@@ -9,7 +9,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Modifier to directly modify a tool's stats */
-public class StatOverrideModifier extends SingleUseModifier {
+public class StatOverrideModifier extends NoLevelsModifier {
   /** Key of all stats added to the tool */
   private static final ResourceLocation KEY_BONUS = TConstruct.getResource("override_bonus");
   /** Key of all stats multiplied by the tool */

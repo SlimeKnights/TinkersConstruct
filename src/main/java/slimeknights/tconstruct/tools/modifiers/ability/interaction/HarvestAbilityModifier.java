@@ -38,7 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HarvestAbilityModifier extends InteractionModifier.SingleUse {
+public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
   @Getter
   private final int priority;
 

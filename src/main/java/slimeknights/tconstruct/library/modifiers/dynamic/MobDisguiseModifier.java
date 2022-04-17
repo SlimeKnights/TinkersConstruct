@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -21,7 +21,7 @@ import java.util.Objects;
 
 /** Modifier that makes the player less visible to a certain mob type */
 @RequiredArgsConstructor
-public class MobDisguiseModifier extends SingleUseModifier {
+public class MobDisguiseModifier extends NoLevelsModifier {
   /** Loader instance */
   public static final IGenericLoader<MobDisguiseModifier> LOADER = new IGenericLoader<MobDisguiseModifier>() {
     @Override

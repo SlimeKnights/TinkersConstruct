@@ -5,10 +5,10 @@ import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class EmbellishmentModifier extends SingleUseModifier {
+public class EmbellishmentModifier extends NoLevelsModifier {
   private static final String FORMAT_KEY = TConstruct.makeTranslationKey("modifier", "embellishment.formatted");
 
   @Override

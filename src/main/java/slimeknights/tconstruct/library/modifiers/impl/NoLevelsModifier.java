@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
  *
  * If the modifier is only single level by design, {@link SingleLevelModifier} is better.
  */
-public class SingleUseModifier extends Modifier {
+public class NoLevelsModifier extends Modifier {
   @Override
   public Component getDisplayName(int level) {
     // display name without the level

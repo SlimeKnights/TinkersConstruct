@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.recipe.SingleItemContainer;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class AutosmeltModifier extends SingleUseModifier {
+public class AutosmeltModifier extends NoLevelsModifier {
   /** Cache of relevant smelting recipes */
   private final Cache<Item,Optional<SmeltingRecipe>> recipeCache = CacheBuilder
     .newBuilder()

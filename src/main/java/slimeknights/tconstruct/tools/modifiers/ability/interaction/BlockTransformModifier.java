@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 import java.util.Iterator;
 
 @RequiredArgsConstructor
-public class BlockTransformModifier extends InteractionModifier.SingleUse {
+public class BlockTransformModifier extends InteractionModifier.NoLevels {
   @Getter
   private final int priority;
   private final ToolAction action;

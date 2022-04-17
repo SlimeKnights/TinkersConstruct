@@ -5,7 +5,7 @@ import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.events.teleport.EnderdodgingTeleportEvent;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class EnderdodgingModifier extends SingleUseModifier {
+public class EnderdodgingModifier extends NoLevelsModifier {
   private static final ITeleportEventFactory FACTORY = EnderdodgingTeleportEvent::new;
 
   @Override

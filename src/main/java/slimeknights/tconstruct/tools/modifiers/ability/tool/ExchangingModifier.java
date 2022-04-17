@@ -13,12 +13,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
 
-public class ExchangingModifier extends SingleUseModifier {
+public class ExchangingModifier extends NoLevelsModifier {
   @Override
   public int getPriority() {
     // super low because we need to run after the shears ability modifier, and any other similar hooks

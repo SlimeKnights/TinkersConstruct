@@ -8,12 +8,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier.NoLevels;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-public class GlowingModifier extends InteractionModifier.SingleUse {
+public class GlowingModifier extends NoLevels {
   @Override
   public int getPriority() {
     return 70; // after bucketing

@@ -24,7 +24,7 @@ public class InteractionModifier extends Modifier {
     }
   }
 
-  public static class SingleUse extends InteractionModifier {
+  public static class NoLevels extends InteractionModifier {
     @Override
     public Component getDisplayName(int level) {
       // display name without the level

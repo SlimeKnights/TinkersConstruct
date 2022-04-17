@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Modifier that adds a variable number of slots to a tool. Could easily be done via Tag editing, but this makes it easier */
-public class CreativeSlotModifier extends SingleUseModifier {
+public class CreativeSlotModifier extends NoLevelsModifier {
   /** Key representing the slots object in the modifier */
   public static final ResourceLocation KEY_SLOTS = TConstruct.getResource("creative");
 

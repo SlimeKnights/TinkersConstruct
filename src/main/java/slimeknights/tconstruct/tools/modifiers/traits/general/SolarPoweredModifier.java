@@ -3,12 +3,12 @@ package slimeknights.tconstruct.tools.modifiers.traits.general;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import slimeknights.tconstruct.library.modifiers.impl.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
-public class SolarPoweredModifier extends SingleUseModifier {
+public class SolarPoweredModifier extends NoLevelsModifier {
   @Override
   public int getPriority() {
     return 185; // after tanned, before stoneshield
