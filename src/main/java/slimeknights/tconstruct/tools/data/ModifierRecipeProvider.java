@@ -90,6 +90,7 @@ import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -342,22 +343,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      */
 
     // haste can use redstone or blocks
-    Ingredient chestplateHarvest = ingredientFromTags(TinkerTags.Items.HARVEST, TinkerTags.Items.CHESTPLATES);
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste)
-                                    .setTools(chestplateHarvest)
-                                    .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
-                                    .setSalvage(Items.REDSTONE, false)
-                                    .setMaxLevel(5) // +25 mining speed, vanilla +26, +50% mining speed on chestplates
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.haste, upgradeSalvage))
-                                    .save(consumer, wrap(TinkerModifiers.haste, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste)
-                                    .setTools(chestplateHarvest)
-                                    .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
-                                    .setLeftover(new ItemStack(Items.REDSTONE))
-                                    .setMaxLevel(5)
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .save(consumer, wrap(TinkerModifiers.haste, upgradeFolder, "_from_block"));
+    hasteRecipes(consumer, TinkerModifiers.haste.getId(), Ingredient.of(TinkerTags.Items.HARVEST), 5, upgradeFolder, null);
+    // migration for 1.16 worlds
+    hasteRecipes(consumer, TinkerModifiers.haste.getId(), ingredientFromTags(TinkerTags.Items.HARVEST, TinkerTags.Items.CHESTPLATES), 5, null, upgradeSalvage);
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blasting)
                                     .setTools(TinkerTags.Items.STONE_HARVEST)
                                     .setInput(Tags.Items.GUNPOWDER, 1, 20)
@@ -694,6 +682,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.itemFrame, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.itemFrame, upgradeFolder));
     // upgrade - chestplate
+    hasteRecipes(consumer, TinkerModifiers.hasteArmor.getId(), Ingredient.of(TinkerTags.Items.CHESTPLATES), 5, upgradeFolder, upgradeSalvage);
     ModifierRecipeBuilder.modifier(ModifierIds.knockbackArmor)
                          .setTools(TinkerTags.Items.CHESTPLATES)
                          .addInputSalvage(Items.PISTON, 0.9f)
@@ -703,20 +692,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.knockbackArmor, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.knockbackArmor, upgradeFolder));
     // upgrade - leggings
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.speedy)
-                                    .setTools(TinkerTags.Items.LEGGINGS)
-                                    .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
-                                    .setSalvage(Items.REDSTONE, false)
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .setMaxLevel(3)
-                                    .saveSalvage(consumer, prefix(ModifierIds.speedy, upgradeSalvage))
-                                    .save(consumer, wrap(ModifierIds.speedy, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.speedy)
-                                    .setTools(TinkerTags.Items.LEGGINGS)
-                                    .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .setMaxLevel(3)
-                                    .save(consumer, wrap(ModifierIds.speedy, upgradeFolder, "_from_block"));
+    hasteRecipes(consumer, ModifierIds.speedy, Ingredient.of(TinkerTags.Items.LEGGINGS), 3, upgradeFolder, upgradeSalvage);
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .setInputSalvage(Items.RABBIT_FOOT, 1, 5, false)
@@ -1627,6 +1603,30 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     }
     builder2.saveSalvage(consumer, wrap(modifier, salvage, "_level_2")).save(consumer, wrap(modifier, folder, "_level_2"));
     builder3.saveSalvage(consumer, wrap(modifier, salvage, "_level_3")).save(consumer, wrap(modifier, folder, "_level_3"));
+  }
+
+  /** Adds haste like recipes using redstone */
+  public void hasteRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, Ingredient tools, int maxLevel, @Nullable String recipeFolder, @Nullable String salvageFolder) {
+    IncrementalModifierRecipeBuilder builder = IncrementalModifierRecipeBuilder
+      .modifier(modifier)
+      .setTools(tools)
+      .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
+      .setSalvage(Items.REDSTONE, false)
+      .setMaxLevel(maxLevel)
+      .setSlots(SlotType.UPGRADE, 1);
+    if (salvageFolder != null) {
+      builder.saveSalvage(consumer, prefix(modifier, salvageFolder));
+    }
+    if (recipeFolder != null) {
+      builder.save(consumer, wrap(modifier, recipeFolder, "_from_dust"));
+      IncrementalModifierRecipeBuilder.modifier(modifier)
+                                      .setTools(tools)
+                                      .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
+                                      .setLeftover(new ItemStack(Items.REDSTONE))
+                                      .setMaxLevel(maxLevel)
+                                      .setSlots(SlotType.UPGRADE, 1)
+                                      .save(consumer, wrap(modifier, recipeFolder, "_from_block"));
+    }
   }
 
   /** Prefixes the modifier ID with the given prefix */

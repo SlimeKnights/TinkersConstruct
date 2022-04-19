@@ -120,6 +120,7 @@
     "__upgrade_armor__": null,
     "armor_power":      "#EAA727",
     "feather_falling":  "#ffffff",
+    "haste_armor":      "#7F0901",
     "knockback_armor":  "#BC9862",
     "leaping":          "#D8B281",
     "lightspeed_armor": "#FFBC5E",

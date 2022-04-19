@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": {
+    "type": "tconstruct:unique",
+    "unique_until": 5
+  },
+  "stats": [
+    {
+      "stat": "tconstruct:mining_speed",
+      "type": "add",
+      "value": 4.0
+    }
+  ]
+}

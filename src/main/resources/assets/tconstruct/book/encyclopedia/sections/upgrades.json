@@ -157,7 +157,7 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "upgrades/harvest/haste.json"
+    "data": "upgrades/armor/haste.json"
   },
   {
     "type": "tconstruct:modifier",

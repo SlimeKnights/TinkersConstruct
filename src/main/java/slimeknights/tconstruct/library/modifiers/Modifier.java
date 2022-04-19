@@ -212,7 +212,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * Gets the display name for this modifier
    * @return  Display name for this modifier
    */
-  public final Component getDisplayName() {
+  public Component getDisplayName() {
     if (displayName == null) {
       displayName = new TranslatableComponent(getTranslationKey()).withStyle(style -> style.withColor(getTextColor()));
     }

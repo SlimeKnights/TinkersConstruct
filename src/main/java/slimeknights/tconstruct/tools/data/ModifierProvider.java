@@ -120,6 +120,9 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.killager, new ConditionalDamageModifier(
       LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ILLAGER), new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)), 2.0f));
 
+    // harvest
+    addModifier(TinkerModifiers.haste, StatBoostModifier.builder().add(ToolStats.MINING_SPEED, 4f).display(new UniqueForLevels(5)).build());
+
     // armor
     addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).display(ModifierLevelDisplay.NO_LEVELS).build());
     addModifier(ModifierIds.wings,  StatBoostModifier.builder().addFlag(ModifiableArmorItem.ELYTRA).build());

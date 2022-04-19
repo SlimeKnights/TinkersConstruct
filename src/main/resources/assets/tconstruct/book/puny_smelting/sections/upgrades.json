@@ -148,6 +148,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "upgrades/armor/haste.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "upgrades/armor/item_frame.json"
   },
   {

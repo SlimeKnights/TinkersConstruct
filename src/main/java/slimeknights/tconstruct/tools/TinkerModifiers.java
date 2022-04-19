@@ -160,6 +160,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.FeatherFallingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteArmorModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LeapingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LightspeedArmorModifier;
@@ -178,7 +179,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifi
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.SoulboundModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.TOPModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.BlastingModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HydraulicModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
@@ -249,7 +249,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<NearsightedModifier> nearsighted = MODIFIERS.register("nearsighted", NearsightedModifier::new);
 
   // harvest
-  public static final StaticModifier<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
+  public static final DynamicModifier<Modifier> haste = MODIFIERS.registerDynamic("haste", Modifier.class);
   public static final StaticModifier<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
   public static final StaticModifier<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
   public static final StaticModifier<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
@@ -290,6 +290,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
   public static final StaticModifier<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(TinkerDataKeys.AQUA_AFFINITY, true));
   // chestplate
+  public static final StaticModifier<HasteArmorModifier> hasteArmor = MODIFIERS.register("haste_armor", HasteArmorModifier::new);
   public static final StaticModifier<UnarmedModifier> unarmed = MODIFIERS.register("unarmed", UnarmedModifier::new);
   // leggings
   public static final StaticModifier<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);

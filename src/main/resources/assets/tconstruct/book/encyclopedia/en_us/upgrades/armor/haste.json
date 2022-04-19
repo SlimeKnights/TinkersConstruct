@@ -1,8 +1,8 @@
 {
-  "modifier_id": "tconstruct:haste",
+  "modifier_id": "tconstruct:haste_armor",
   "text": [
     {
-      "text": "On harvest tools grants +5 mining speed per level."
+      "text": "Grants +10% mining speed per level for all held tools."
     }
   ],
   "more_text_space": true,

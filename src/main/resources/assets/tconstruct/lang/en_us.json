@@ -1622,6 +1622,9 @@
   "modifier.tconstruct.haste.5": "Hastiestest",
   "modifier.tconstruct.haste.flavor": "Science!",
   "modifier.tconstruct.haste.description": "Magic red dust makes tool mine faster!",
+  "modifier.tconstruct.haste_armor": "Haste",
+  "modifier.tconstruct.haste_armor.flavor": "Science!",
+  "modifier.tconstruct.haste_armor.description": "Magic red dust makes all held tools mine faster!",
 
   "modifier.tconstruct.blasting": "Blasting",
   "modifier.tconstruct.blasting.flavor": "Explosive Mining!",
