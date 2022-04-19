@@ -1,0 +1,5 @@
+{
+  "type": "tconstruct:conditional_damage",
+  "entity": "tconstruct:on_fire",
+  "damage": 2.0
+}

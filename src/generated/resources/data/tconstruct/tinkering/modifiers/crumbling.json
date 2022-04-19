@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:conditional_mining_speed",
+  "blocks": {
+    "type": "tconstruct:inverted",
+    "predicate": "tconstruct:requires_tool"
+  },
+  "require_effective": false,
+  "bonus": 0.5
+}

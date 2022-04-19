@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:conditional_mining_speed",
+  "blocks": {
+    "type": "tconstruct:or",
+    "predicates": [
+      {
+        "type": "tconstruct:tag",
+        "tag": "forge:ores"
+      },
+      {
+        "type": "tconstruct:tag",
+        "tag": "forge:storage_blocks"
+      }
+    ]
+  },
+  "require_effective": true,
+  "bonus": 8.0
+}

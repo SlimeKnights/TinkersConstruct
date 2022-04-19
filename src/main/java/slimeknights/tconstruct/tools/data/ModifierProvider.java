@@ -11,13 +11,17 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
+import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
@@ -134,7 +138,9 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.stringy, new Modifier());
     // traits - tier 2
     addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f).build());
+    addModifier(ModifierIds.scorching, new ConditionalDamageModifier(LivingEntityPredicate.ON_FIRE, 2f));
     // traits - tier 2 compat
+    addModifier(ModifierIds.lustrous, new ConditionalMiningSpeedModifier(BlockPredicate.OR.create(new TagBlockPredicate(Tags.Blocks.ORES), new TagBlockPredicate(Tags.Blocks.STORAGE_BLOCKS)), true, 8));
     addModifier(ModifierIds.sharpweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.MINING_SPEED, 0.1f)
       .attribute("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
@@ -145,6 +151,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .build());
 
     // traits - tier 3
+    addModifier(ModifierIds.crumbling, new ConditionalMiningSpeedModifier(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
     addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().display(ModifierLevelDisplay.DEFAULT).build());
     // traits - tier 3 nether
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()

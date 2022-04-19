@@ -162,6 +162,7 @@ public final class TinkerCommons extends TinkerModule {
     BlockPredicate.LOADER.register(TConstruct.getResource("and"), BlockPredicate.AND);
     BlockPredicate.LOADER.register(TConstruct.getResource("or"), BlockPredicate.OR);
     BlockPredicate.LOADER.register(TConstruct.getResource("inverted"), BlockPredicate.INVERTED);
+    BlockPredicate.LOADER.register(TConstruct.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
     BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
     BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
     // entity predicates
@@ -171,6 +172,7 @@ public final class TinkerCommons extends TinkerModule {
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("any"), LivingEntityPredicate.ANY.getLoader());
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
+    LivingEntityPredicate.LOADER.register(TConstruct.getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("tag"), TagEntityPredicate.LOADER);
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("mob_type"), MobTypePredicate.LOADER);
     // register mob types

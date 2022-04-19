@@ -57,10 +57,13 @@ public class ModifierIds {
   public static final ModifierId stringy = id("stringy");
   // traits - tier 2
   public static final ModifierId sturdy = id("sturdy");
+  public static final ModifierId scorching = id("scorching");
   // traits - tier 2 compat
+  public static final ModifierId lustrous = id("lustrous");
   public static final ModifierId sharpweight = id("sharpweight");
   public static final ModifierId heavy = id("heavy");
   // traits - tier 3
+  public static final ModifierId crumbling = id("crumbling");
   public static final ModifierId enhanced = id("enhanced");
   public static final ModifierId lightweight = id("lightweight");
   // traits - tier 3 compat

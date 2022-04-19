@@ -68,4 +68,17 @@ public interface LivingEntityPredicate extends IJsonPredicate<LivingEntity> {
       return loader;
     }
   });
+
+  /** Predicate that matches fire immune entities */
+  LivingEntityPredicate ON_FIRE = singleton(loader -> new LivingEntityPredicate() {
+    @Override
+    public boolean matches(LivingEntity input) {
+      return input.isOnFire();
+    }
+
+    @Override
+    public IGenericLoader<? extends IJsonPredicate<LivingEntity>> getLoader() {
+      return loader;
+    }
+  });
 }

@@ -24,6 +24,9 @@ public class NestedJsonPredicateLoader<I, T extends IJsonPredicate<I>> implement
   /** Creates a new instance of the relevant predicate */
   @SafeVarargs
   public final T create(IJsonPredicate<I>... children) {
+    if (children.length < 2) {
+      throw new IllegalStateException("Too few children for nested predicate loader");
+    }
     return constructor.apply(this, ImmutableList.copyOf(children));
   }
 

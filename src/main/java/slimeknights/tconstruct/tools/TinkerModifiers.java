@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
@@ -132,9 +133,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifie
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.AirborneModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.harvest.CrumblingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.harvest.LustrousModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.SearingModifier;
@@ -146,7 +145,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.InvariantModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.melee.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BoonOfSssssModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BreathtakingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
@@ -364,14 +362,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SolarPoweredModifier> solarPowered = MODIFIERS.register("solar_powered", SolarPoweredModifier::new);
   // traits - tier 2
   public static final StaticModifier<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
-  public static final StaticModifier<ScorchingModifier> scorching = MODIFIERS.register("scorching", ScorchingModifier::new);
   public static final StaticModifier<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final StaticModifier<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   public static final StaticModifier<RagingModifier> raging = MODIFIERS.register("raging", RagingModifier::new);
   public static final StaticModifier<AirborneModifier> airborne = MODIFIERS.register("airborne", AirborneModifier::new);
   // traits - tier 3
   public static final StaticModifier<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
-  public static final StaticModifier<CrumblingModifier> crumbling = MODIFIERS.register("crumbling", CrumblingModifier::new);
   public static final StaticModifier<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final StaticModifier<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
   // traits - tier 4
@@ -384,9 +380,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final StaticModifier<DenseModifier> dense = MODIFIERS.register("dense", DenseModifier::new);
-  public static final StaticModifier<LustrousModifier> lustrous = MODIFIERS.register("lustrous", LustrousModifier::new);
   public static final StaticModifier<StoneshieldModifier> stoneshield = MODIFIERS.register("stoneshield", StoneshieldModifier::new);
-  // smite is also an upgrade
   // traits - mod compat tier 3
   public static final StaticModifier<MaintainedModifier> maintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final StaticModifier<TemperateModifier> temperate = MODIFIERS.register("temperate", TemperateModifier::new);
@@ -480,6 +474,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("extra_slot"), ExtraModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_disguise"), MobDisguiseModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("loot"), LootModifier.LOADER);
     // modifier names, sometimes I wonder if I have too many registries for tiny JSON pieces
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("default"), ModifierLevelDisplay.DEFAULT.getLoader());

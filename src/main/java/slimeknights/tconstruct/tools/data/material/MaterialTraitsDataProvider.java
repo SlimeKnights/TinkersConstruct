@@ -38,14 +38,14 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
     addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
     // tier 2 - nether
-    addDefaultTraits(MaterialIds.scorchedStone, TinkerModifiers.scorching);
+    addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced);
     addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
-    addDefaultTraits(MaterialIds.amethystBronze, TinkerModifiers.crumbling);
+    addDefaultTraits(MaterialIds.amethystBronze, ModifierIds.crumbling);
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
     addDefaultTraits(MaterialIds.roseGold, ModifierIds.enhanced);
     addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
@@ -68,7 +68,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense);
     addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
-    addDefaultTraits(MaterialIds.platinum, TinkerModifiers.lustrous);
+    addDefaultTraits(MaterialIds.platinum, ModifierIds.lustrous);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
     addDefaultTraits(MaterialIds.silver, ModifierIds.smite);
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
