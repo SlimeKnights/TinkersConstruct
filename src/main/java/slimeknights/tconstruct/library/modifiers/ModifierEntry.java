@@ -66,7 +66,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
 
   /** Checks if this entry matches the given modifier */
   public boolean matches(Modifier modifier) {
-    return modifier.getId().equals(modifier.getId());
+    return matches(modifier.getId());
   }
 
   @Override
