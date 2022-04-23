@@ -41,22 +41,23 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
   public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent) {
     this.parent = parent;
 
-    this.imageWidth = ACTIVE_TAB_C_ELEMENT.w;
+    this.imageWidth = 0;
     this.imageHeight = ACTIVE_TAB_C_ELEMENT.h;
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
     this.tabs.tabsResource = TAB_IMAGE;
 
-    this.leftPos = parent.cornerX;
+    this.leftPos = parent.cornerX + 4;
     this.topPos = parent.cornerY - this.imageHeight;
 
-    this.tabs.setPosition(this.leftPos + 4, this.topPos);
+    this.tabs.setPosition(this.leftPos, this.topPos);
   }
 
   public void addTab(ItemStack icon, BlockPos data) {
     this.tabData.add(data);
     this.tabs.addTab(icon);
-    this.imageWidth += ACTIVE_TAB_C_ELEMENT.w + this.tabs.spacing;
+    int count = tabData.size();
+    this.imageWidth = count * ACTIVE_TAB_C_ELEMENT.w + (count - 1) * this.tabs.spacing;
   }
 
   @Override
