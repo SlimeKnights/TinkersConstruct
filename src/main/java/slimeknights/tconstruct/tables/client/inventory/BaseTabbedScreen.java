@@ -65,11 +65,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
       }
 
       // preselect the correct tab
-      for (int i = 0; i < this.tabsScreen.tabData.size(); i++) {
-        if (this.tabsScreen.tabData.get(i).equals(this.tile.getBlockPos())) {
-          this.tabsScreen.tabs.selected = i;
-        }
-      }
+      tabsScreen.selectTabForPos(this.tile.getBlockPos());
     }
   }
 
@@ -90,10 +86,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
     this.drawIcon(matrices, slot, element);
   }
 
-  public void onTabSelection(int selection) {
-    if (selection < 0 || selection > this.tabsScreen.tabData.size()) {
-      return;
-    }
+  public void onTabSelection(BlockPos pos) {
 
     Level world = this.tile.getLevel();
 
@@ -101,7 +94,6 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
       return;
     }
 
-    BlockPos pos = this.tabsScreen.tabData.get(selection);
     BlockState state = world.getBlockState(pos);
 
     if (state.getBlock() instanceof ITabbedBlock) {

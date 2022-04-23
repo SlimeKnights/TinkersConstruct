@@ -34,8 +34,8 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
   private int imageWidth;
   private final int imageHeight;
 
-  public final TabsWidget tabs;
-  public final List<BlockPos> tabData = Lists.newArrayList();
+  private final TabsWidget tabs;
+  private final List<BlockPos> tabData = Lists.newArrayList();
   private final BaseTabbedScreen<?, ?> parent;
 
   public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent) {
@@ -58,6 +58,15 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
     this.tabs.addTab(icon);
     int count = tabData.size();
     this.imageWidth = count * ACTIVE_TAB_C_ELEMENT.w + (count - 1) * this.tabs.spacing;
+  }
+
+  public void selectTabForPos(BlockPos pos) {
+    for (int i = 0; i < this.tabData.size(); i++) {
+      if (this.tabData.get(i).equals(pos)) {
+        this.tabs.selected = i;
+        return;
+      }
+    }
   }
 
   @Override
@@ -103,7 +112,8 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
 
     // new selection
     if (sel != this.tabs.selected) {
-      this.parent.onTabSelection(this.tabs.selected);
+      if (0 <= this.tabs.selected && this.tabs.selected < this.tabData.size())
+        this.parent.onTabSelection(this.tabData.get(this.tabs.selected));
     }
 
     renterTooltip(poseStack, mouseX, mouseY);
