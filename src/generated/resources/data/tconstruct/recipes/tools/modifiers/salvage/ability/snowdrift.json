@@ -7,12 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:snowdrift",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:snowball",
-      "min": 0,
-      "max": 16
-    }
-  ]
+  "min_level": 1
 }

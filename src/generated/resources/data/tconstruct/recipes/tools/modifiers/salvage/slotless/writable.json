@@ -4,8 +4,5 @@
     "tag": "tconstruct:modifiable"
   },
   "modifier": "tconstruct:writable",
-  "min_level": 1,
-  "salvage": [
-    "minecraft:writable_book"
-  ]
+  "min_level": 1
 }

@@ -12,18 +12,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:reach",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    },
-    {
-      "tag": "forge:ingots/queens_slime"
-    },
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    }
-  ]
+  "min_level": 1
 }

@@ -12,12 +12,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:spilling",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:copper_ingot",
-      "min": 1,
-      "max": 2
-    }
-  ]
+  "min_level": 1
 }

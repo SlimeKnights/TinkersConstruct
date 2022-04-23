@@ -15,20 +15,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:glowing",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:daylight_detector",
-      "chance": 0.9
-    },
-    {
-      "item": "minecraft:shroomlight",
-      "chance": 0.4
-    },
-    {
-      "item": "minecraft:glowstone_dust",
-      "min": 1,
-      "max": 4
-    }
-  ]
+  "min_level": 1
 }

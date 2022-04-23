@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:incremental_modifier_salvage",
+  "type": "tconstruct:modifier_salvage",
   "tools": {
     "tag": "tconstruct:modifiable/harvest"
   },
@@ -7,9 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:hydraulic",
-  "min_level": 1,
-  "salvage": {
-    "item": "minecraft:prismarine_shard",
-    "full": false
-  }
+  "min_level": 1
 }

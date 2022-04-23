@@ -7,32 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:protection",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "tconstruct:gold_reinforcement",
-      "min": 1,
-      "max": 4
-    },
-    {
-      "item": "tconstruct:seared_reinforcement",
-      "min": 1,
-      "max": 4
-    },
-    {
-      "item": "tconstruct:bronze_reinforcement",
-      "min": 1,
-      "max": 4
-    },
-    {
-      "item": "tconstruct:emerald_reinforcement",
-      "min": 1,
-      "max": 4
-    },
-    {
-      "item": "tconstruct:cobalt_reinforcement",
-      "min": 1,
-      "max": 4
-    }
-  ]
+  "min_level": 1
 }

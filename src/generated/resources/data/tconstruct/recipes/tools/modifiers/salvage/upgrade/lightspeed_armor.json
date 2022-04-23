@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:incremental_modifier_salvage",
+  "type": "tconstruct:modifier_salvage",
   "tools": {
     "tag": "tconstruct:modifiable/armor/boots"
   },
@@ -7,9 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:lightspeed_armor",
-  "min_level": 1,
-  "salvage": {
-    "item": "minecraft:glowstone_dust",
-    "full": false
-  }
+  "min_level": 1
 }

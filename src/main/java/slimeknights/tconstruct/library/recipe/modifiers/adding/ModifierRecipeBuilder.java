@@ -6,16 +6,13 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
-import slimeknights.tconstruct.library.recipe.RandomItem;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -27,7 +24,6 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<ModifierRecipeBuilder> {
   protected final List<SizedIngredient> inputs = new ArrayList<>();
-  private final List<RandomItem> salvage = new ArrayList<>();
   protected ModifierRecipeBuilder(ModifierEntry result) {
     super(result);
   }
@@ -119,131 +115,6 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     return addInput(tag, 1);
   }
 
-  /* Salvage */
-
-  /**
-   * Adds a salvage item to the builder
-   * @param item  Salvage item
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addSalvage(RandomItem item) {
-    salvage.add(item);
-    return this;
-  }
-
-  /**
-   * Adds a salvage item to the builder with a chance to salvage
-   * @param item    Salvage item
-   * @param chance  Salvage chance
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addSalvage(ItemLike item, float chance) {
-    return addSalvage(RandomItem.chance(ItemOutput.fromItem(item), chance));
-  }
-
-  /**
-   * Adds a salvage item to the builder
-   * @param item       Salvage item
-   * @param minAmount  Min amount to salvage
-   * @param maxAmount  Max amount to salvage
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addSalvage(ItemLike item, int minAmount, int maxAmount) {
-    return addSalvage(RandomItem.range(ItemOutput.fromStack(new ItemStack(item, maxAmount)), minAmount));
-  }
-
-  /**
-   * Adds a salvage item to the builder with a min amount of 0
-   * @param item       Salvage item
-   * @param maxAmount  Max amount to salvage
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addSalvage(ItemLike item, int maxAmount) {
-    return addSalvage(item, 0, maxAmount);
-  }
-
-
-  /**
-   * Adds a salvage item to the builder
-   * @param tag  Salvage item
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addSalvage(TagKey<Item> tag, int minAmount, int maxAmount) {
-    return addSalvage(RandomItem.range(ItemOutput.fromTag(tag, maxAmount), minAmount));
-  }
-
-
-  /* Both */
-
-  /**
-   * Adds an input to the recipe and a salvage
-   * @param item       Item input
-   * @param minAmount  Minimum salvage amount
-   * @param maxAmount  Maximum salvage amount and recipe cost
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addInputSalvage(ItemLike item, int minAmount, int maxAmount) {
-    addInput(item, maxAmount);
-    addSalvage(item, minAmount, maxAmount);
-    return this;
-  }
-
-  /**
-   * Adds an input to the recipe, and a salvage with a chance from 0 to amount
-   * @param item    Item input
-   * @param amount  Amount required
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addInputSalvage(ItemLike item, int amount) {
-    return addInputSalvage(item, 0, amount);
-  }
-
-  /**
-   * Adds an input to the recipe with a chance of salvage
-   * @param item    Item input
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addInputSalvage(ItemLike item, float salvageChance) {
-    addInput(item);
-    addSalvage(item, salvageChance);
-    return this;
-  }
-
-  /**
-   * Adds an input to the recipe
-   * @param tag        Tag input
-   * @param minAmount  Min amount for salvage
-   * @param maxAmount  Max amount for salvage
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addInputSalvage(TagKey<Item> tag, int minAmount, int maxAmount) {
-    addInput(SizedIngredient.fromTag(tag, maxAmount));
-    addSalvage(tag, minAmount, maxAmount);
-    return this;
-  }
-
-  /**
-   * Adds an input to the recipe
-   * @param tag     Tag input
-   * @param amount  Amount required
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addInputSalvage(TagKey<Item> tag, int amount) {
-    return addInputSalvage(tag, 0, amount);
-  }
-
-  /**
-   * Adds an input to the recipe
-   * @param tag            Tag input
-   * @param salvageChance  Chance of the input to be salvaged
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder addInputSalvage(TagKey<Item> tag, float salvageChance) {
-    addInput(SizedIngredient.fromTag(tag, 1));
-    addSalvage(RandomItem.chance(ItemOutput.fromTag(tag, 1), salvageChance));
-    return this;
-  }
-
 
   /* Building */
 
@@ -268,7 +139,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
       throw new IllegalStateException("Max level must be greater than min level");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new FinishedSalvage(id, advancementId));
+    consumer.accept(new SalvageFinishedRecipe(id, advancementId));
     return this;
   }
 
@@ -290,29 +161,6 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     @Override
     public RecipeSerializer<?> getType() {
       return TinkerModifiers.modifierSerializer.get();
-    }
-  }
-
-  private class FinishedSalvage extends SalvageFinishedRecipe {
-    public FinishedSalvage(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      super.serializeRecipeData(json);
-      if (!salvage.isEmpty()) {
-        JsonArray array = new JsonArray();
-        for (RandomItem randomItem : salvage) {
-          array.add(randomItem.serialize());
-        }
-        json.add("salvage", array);
-      }
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerModifiers.modifierSalvageSerializer.get();
     }
   }
 }

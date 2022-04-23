@@ -7,18 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:expanded",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    },
-    {
-      "tag": "forge:ingots/amethyst_bronze"
-    },
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    }
-  ]
+  "min_level": 1
 }

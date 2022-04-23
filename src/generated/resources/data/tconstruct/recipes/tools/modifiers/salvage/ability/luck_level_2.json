@@ -5,26 +5,5 @@
   },
   "modifier": "tconstruct:luck",
   "min_level": 2,
-  "max_level": 2,
-  "salvage": [
-    {
-      "item": "minecraft:gold_ingot",
-      "min": 2,
-      "max": 3
-    },
-    {
-      "item": "minecraft:gold_nugget",
-      "min": 1,
-      "max": 8
-    },
-    {
-      "item": "minecraft:carrot",
-      "chance": 0.75
-    },
-    {
-      "item": "minecraft:ender_pearl",
-      "min": 0,
-      "max": 2
-    }
-  ]
+  "max_level": 2
 }

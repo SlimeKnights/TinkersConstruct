@@ -4,8 +4,5 @@
     "tag": "tconstruct:modifiable"
   },
   "modifier": "tconstruct:resurrected",
-  "min_level": 1,
-  "salvage": [
-    "minecraft:ender_eye"
-  ]
+  "min_level": 1
 }

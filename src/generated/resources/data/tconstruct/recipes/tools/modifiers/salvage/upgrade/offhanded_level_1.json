@@ -8,15 +8,5 @@
   },
   "modifier": "tconstruct:offhanded",
   "min_level": 1,
-  "max_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:leather",
-      "chance": 0.7
-    },
-    {
-      "item": "minecraft:phantom_membrane",
-      "chance": 0.3
-    }
-  ]
+  "max_level": 1
 }

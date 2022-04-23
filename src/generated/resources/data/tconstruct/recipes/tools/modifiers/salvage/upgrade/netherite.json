@@ -7,11 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:netherite",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:netherite_ingot",
-      "chance": 0.6
-    }
-  ]
+  "min_level": 1
 }

@@ -7,11 +7,5 @@
     "defense": 1
   },
   "modifier": "tconstruct:knockback_resistance",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:damaged_anvil",
-      "chance": 0.5
-    }
-  ]
+  "min_level": 1
 }

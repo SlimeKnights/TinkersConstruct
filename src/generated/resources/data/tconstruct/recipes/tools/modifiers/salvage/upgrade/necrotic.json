@@ -12,11 +12,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:necrotic",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:wither_rose",
-      "chance": 0.1
-    }
-  ]
+  "min_level": 1
 }

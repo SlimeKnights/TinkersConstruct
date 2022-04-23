@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
@@ -227,7 +228,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   }
 
   /** Base logic to write all relevant builder fields to JSON */
-  protected abstract class SalvageFinishedRecipe extends AbstractFinishedRecipe {
+  protected class SalvageFinishedRecipe extends AbstractFinishedRecipe {
     public SalvageFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       super(ID, advancementID);
     }
@@ -240,6 +241,11 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
       if (salvageMaxLevel != 0) {
         json.addProperty("max_level", salvageMaxLevel);
       }
+    }
+
+    @Override
+    public RecipeSerializer<?> getType() {
+      return TinkerModifiers.modifierSalvageSerializer.get();
     }
   }
 }

@@ -4,16 +4,5 @@
     "tag": "tconstruct:modifiable"
   },
   "modifier": "tconstruct:draconic",
-  "min_level": 1,
-  "salvage": [
-    "tconstruct:dragon_scale",
-    {
-      "item": "tconstruct:dragon_scale",
-      "chance": 0.5
-    },
-    {
-      "item": "tconstruct:dragon_scale",
-      "chance": 0.25
-    }
-  ]
+  "min_level": 1
 }

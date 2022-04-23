@@ -7,17 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:zoom",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:redstone",
-      "min": 0,
-      "max": 2
-    },
-    {
-      "item": "minecraft:spyglass",
-      "min": 0,
-      "max": 2
-    }
-  ]
+  "min_level": 1
 }

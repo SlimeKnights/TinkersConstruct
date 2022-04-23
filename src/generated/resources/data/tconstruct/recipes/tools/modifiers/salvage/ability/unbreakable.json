@@ -7,17 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:unbreakable",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:netherite_ingot",
-      "min": 2,
-      "max": 2
-    },
-    {
-      "item": "minecraft:shulker_shell",
-      "min": 0,
-      "max": 2
-    }
-  ]
+  "min_level": 1
 }

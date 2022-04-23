@@ -4,15 +4,5 @@
     "tag": "tconstruct:modifiable/held"
   },
   "modifier": "tconstruct:offhanded",
-  "min_level": 2,
-  "salvage": [
-    {
-      "item": "minecraft:leather",
-      "chance": 0.7
-    },
-    {
-      "tag": "forge:ingots/cobalt",
-      "chance": 0.35
-    }
-  ]
+  "min_level": 2
 }

@@ -7,16 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:aqua_affinity",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:heart_of_the_sea",
-      "chance": 0.65
-    },
-    {
-      "item": "minecraft:prismarine_shard",
-      "min": 8,
-      "max": 34
-    }
-  ]
+  "min_level": 1
 }

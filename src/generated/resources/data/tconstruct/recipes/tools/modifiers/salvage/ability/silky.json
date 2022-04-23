@@ -7,12 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:silky",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "tconstruct:silky_cloth",
-      "min": 3,
-      "max": 5
-    }
-  ]
+  "min_level": 1
 }

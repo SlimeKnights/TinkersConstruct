@@ -7,27 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:tool_belt",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:leather",
-      "chance": 0.7
-    },
-    {
-      "tag": "forge:ingots/hepatizon",
-      "chance": 0.7
-    },
-    {
-      "item": "minecraft:leather",
-      "chance": 0.7
-    },
-    {
-      "item": "minecraft:leather",
-      "chance": 0.4
-    },
-    {
-      "item": "minecraft:leather",
-      "chance": 0.4
-    }
-  ]
+  "min_level": 1
 }

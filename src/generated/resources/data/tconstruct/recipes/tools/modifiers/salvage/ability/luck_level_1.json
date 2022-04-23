@@ -8,17 +8,5 @@
   },
   "modifier": "tconstruct:luck",
   "min_level": 1,
-  "max_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:copper_ingot",
-      "min": 2,
-      "max": 2
-    },
-    {
-      "item": "minecraft:lapis_lazuli",
-      "min": 3,
-      "max": 18
-    }
-  ]
+  "max_level": 1
 }

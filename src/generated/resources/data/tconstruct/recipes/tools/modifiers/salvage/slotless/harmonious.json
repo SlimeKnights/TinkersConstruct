@@ -4,8 +4,5 @@
     "tag": "tconstruct:modifiable"
   },
   "modifier": "tconstruct:harmonious",
-  "min_level": 1,
-  "salvage": [
-    "minecraft:music_disc_11"
-  ]
+  "min_level": 1
 }

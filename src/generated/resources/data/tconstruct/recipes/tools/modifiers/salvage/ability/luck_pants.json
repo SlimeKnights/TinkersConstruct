@@ -7,23 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:luck",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:rabbit_foot",
-      "chance": 0.15
-    },
-    {
-      "item": "minecraft:name_tag",
-      "chance": 0.1
-    },
-    {
-      "item": "minecraft:diamond",
-      "chance": 0.65
-    },
-    {
-      "item": "minecraft:carrot",
-      "chance": 0.75
-    }
-  ]
+  "min_level": 1
 }

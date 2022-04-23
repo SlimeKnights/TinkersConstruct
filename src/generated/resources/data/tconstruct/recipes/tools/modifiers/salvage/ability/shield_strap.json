@@ -7,19 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:shield_strap",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "tconstruct:sky_slime_vine",
-      "chance": 0.25
-    },
-    {
-      "tag": "forge:ingots/slimesteel",
-      "chance": 0.7
-    },
-    {
-      "item": "tconstruct:sky_slime_vine",
-      "chance": 0.25
-    }
-  ]
+  "min_level": 1
 }

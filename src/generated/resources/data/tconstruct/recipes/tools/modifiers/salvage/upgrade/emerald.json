@@ -7,11 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:emerald",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:emerald",
-      "chance": 0.5
-    }
-  ]
+  "min_level": 1
 }

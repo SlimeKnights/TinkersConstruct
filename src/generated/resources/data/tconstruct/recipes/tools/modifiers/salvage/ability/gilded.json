@@ -7,16 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:gilded",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:apple",
-      "chance": 0.75
-    },
-    {
-      "item": "minecraft:gold_ingot",
-      "min": 1,
-      "max": 8
-    }
-  ]
+  "min_level": 1
 }

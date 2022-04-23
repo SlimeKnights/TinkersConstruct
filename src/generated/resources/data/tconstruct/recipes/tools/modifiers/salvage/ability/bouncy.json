@@ -13,22 +13,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:bouncy",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:slime_ball",
-      "min": 4,
-      "max": 32
-    },
-    {
-      "item": "tconstruct:sky_slime_ball",
-      "min": 4,
-      "max": 32
-    },
-    {
-      "item": "tconstruct:ichor_slime_ball",
-      "min": 4,
-      "max": 16
-    }
-  ]
+  "min_level": 1
 }

@@ -7,28 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:double_jump",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    },
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    },
-    {
-      "item": "minecraft:phantom_membrane",
-      "chance": 0.3
-    },
-    {
-      "item": "minecraft:phantom_membrane",
-      "chance": 0.3
-    },
-    {
-      "item": "tconstruct:sky_slime_ball",
-      "min": 2,
-      "max": 9
-    }
-  ]
+  "min_level": 1
 }

@@ -11,7 +11,6 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.recipe.modifiers.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -31,7 +30,7 @@ public class ModifierRecipeLookup {
   /** Map of the number needed for each incremental modifier */
   private static final Object2IntMap<ModifierId> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
   /** Map of salvage recipes for each modifier */
-  private static final Multimap<ModifierId, AbstractModifierSalvage> SALVAGE = HashMultimap.create();
+  private static final Multimap<ModifierId,ModifierSalvage> SALVAGE = HashMultimap.create();
 
   /** Listener for clearing the caches on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
@@ -136,7 +135,7 @@ public class ModifierRecipeLookup {
    * Stores a salvage recipe
    * @param salvage  Salvage recipe
    */
-  public static void addSalvage(AbstractModifierSalvage salvage) {
+  public static void addSalvage(ModifierSalvage salvage) {
     LISTENER.checkClear();
     SALVAGE.put(salvage.getModifier(), salvage);
   }
@@ -149,8 +148,8 @@ public class ModifierRecipeLookup {
    * @return  Salvage recipe, or null if no salvage is found
    */
   @Nullable
-  public static AbstractModifierSalvage getSalvage(ItemStack stack, IToolStackView tool, ModifierId modifier, int modifierLevel) {
-    for (AbstractModifierSalvage salvage : SALVAGE.get(modifier)) {
+  public static ModifierSalvage getSalvage(ItemStack stack, IToolStackView tool, ModifierId modifier, int modifierLevel) {
+    for (ModifierSalvage salvage : SALVAGE.get(modifier)) {
       if (salvage.matches(stack, tool, modifierLevel)) {
         return salvage;
       }

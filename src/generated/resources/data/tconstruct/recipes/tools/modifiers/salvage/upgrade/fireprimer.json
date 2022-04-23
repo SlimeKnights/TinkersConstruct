@@ -7,15 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:fireprimer",
-  "min_level": 1,
-  "salvage": [
-    {
-      "tag": "forge:ingots/cobalt",
-      "chance": 0.35
-    },
-    {
-      "item": "minecraft:flint",
-      "chance": 0.2
-    }
-  ]
+  "min_level": 1
 }

@@ -1,15 +1,15 @@
-package slimeknights.tconstruct.library.recipe.modifiers.salvage;
+package slimeknights.tconstruct.library.recipe.modifiers;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
@@ -21,16 +21,14 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.Random;
-import java.util.function.Consumer;
 
 /**
  * Shared logic for main types of salvage recipes
  */
-@RequiredArgsConstructor
-public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Container> {
+public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   @Getter
   protected final ResourceLocation id;
   /** Ingredient determining tools matched by this */
@@ -48,6 +46,17 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
   /** Slots restored by this recipe, if null no slots are restored */
   @Nullable
   protected final SlotCount slots;
+
+  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
+    this.id = id;
+    this.toolIngredient = toolIngredient;
+    this.maxToolSize = maxToolSize;
+    this.modifier = modifier;
+    this.minLevel = minLevel;
+    this.maxLevel = maxLevel;
+    this.slots = slots;
+    ModifierRecipeLookup.addSalvage(this);
+  }
 
   /**
    * Checks if the given tool stack and level are applicable for this salvage
@@ -71,13 +80,6 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
     }
   }
 
-  /**
-   * Adds items from this salvage to the given consumer
-   * @param tool          Tool instance before the modifier was removed. If you need to change the tool, use {@link #updateTool(IToolStackView)}
-   * @param stackConsumer Consumer for items
-   */
-  public abstract void acceptItems(IToolStackView tool, Consumer<ItemStack> stackConsumer, Random random);
-
   @Override
   public RecipeType<?> getType() {
     return TinkerRecipeTypes.DATA.get();
@@ -90,18 +92,17 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
     return false;
   }
 
+  @Override
+  public RecipeSerializer<?> getSerializer() {
+    return TinkerModifiers.modifierSalvageSerializer.get();
+  }
+
   /**
    * Serializer instance
    */
-  public static abstract class AbstractSerializer<T extends AbstractModifierSalvage> extends LoggingRecipeSerializer<T> {
-    /** Finishes reading the recipe from JSON */
-    protected abstract T fromJson(ResourceLocation id, JsonObject json, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, int minLevel, int maxLevel, @Nullable SlotCount slots);
-
-    /** Finishes reading the recipe from the packet buffer */
-    protected abstract T fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, int minLevel, int maxLevel, @Nullable SlotCount slots);
-
+  public static class Serializer extends LoggingRecipeSerializer<ModifierSalvage> {
     @Override
-    public T fromJson(ResourceLocation id, JsonObject json) {
+    public ModifierSalvage fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolIngredient = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
       int maxToolSize = GsonHelper.getAsInt(json, "max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
       ModifierId modifier = ModifierId.getFromJson(json, "modifier");
@@ -114,23 +115,23 @@ public abstract class AbstractModifierSalvage implements ICustomOutputRecipe<Con
       if (json.has("slots")) {
         slots = SlotCount.fromJson(GsonHelper.getAsJsonObject(json, "slots"));
       }
-      return fromJson(id, json, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
+      return new ModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     }
 
     @Nullable
     @Override
-    protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    protected ModifierSalvage fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolIngredient = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
       ModifierId modifier = ModifierId.fromNetwork(buffer);
       int minLevel = buffer.readVarInt();
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
-      return fromNetwork(id, buffer, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
+      return new ModifierSalvage(id, toolIngredient, maxToolSize, modifier, minLevel, maxLevel, slots);
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
+    protected void toNetworkSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
       recipe.toolIngredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.getMaxToolSize());
       recipe.modifier.toNetwork(buffer);

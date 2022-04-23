@@ -7,16 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:autosmelt",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:blast_furnace",
-      "chance": 0.8
-    },
-    {
-      "item": "minecraft:coal",
-      "min": 1,
-      "max": 18
-    }
-  ]
+  "min_level": 1
 }

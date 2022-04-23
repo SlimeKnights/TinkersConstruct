@@ -26,11 +26,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:pathing",
-  "min_level": 1,
-  "salvage": [
-    {
-      "tag": "forge:ingots/cobalt",
-      "chance": 0.35
-    }
-  ]
+  "min_level": 1
 }

@@ -7,19 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:unarmed",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:leather",
-      "chance": 0.5
-    },
-    {
-      "item": "minecraft:leather",
-      "chance": 0.5
-    },
-    {
-      "item": "minecraft:diamond",
-      "chance": 0.25
-    }
-  ]
+  "min_level": 1
 }

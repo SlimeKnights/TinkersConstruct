@@ -15,27 +15,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:flamewake",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:flint",
-      "chance": 0.2
-    },
-    {
-      "item": "minecraft:flint",
-      "chance": 0.2
-    },
-    {
-      "item": "minecraft:flint",
-      "chance": 0.2
-    },
-    {
-      "item": "minecraft:flint",
-      "chance": 0.2
-    },
-    {
-      "item": "minecraft:netherite_scrap",
-      "chance": 0.35
-    }
-  ]
+  "min_level": 1
 }

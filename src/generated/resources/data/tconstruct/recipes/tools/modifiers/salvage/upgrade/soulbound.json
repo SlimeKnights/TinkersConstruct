@@ -7,11 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:soulbound",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:totem_of_undying",
-      "chance": 0.7
-    }
-  ]
+  "min_level": 1
 }

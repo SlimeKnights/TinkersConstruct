@@ -12,11 +12,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:magnetic",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:compass",
-      "chance": 0.5
-    }
-  ]
+  "min_level": 1
 }

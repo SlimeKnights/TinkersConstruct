@@ -12,16 +12,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:severing",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:lightning_rod",
-      "chance": 0.75
-    },
-    {
-      "item": "tconstruct:necrotic_bone",
-      "min": 0,
-      "max": 2
-    }
-  ]
+  "min_level": 1
 }

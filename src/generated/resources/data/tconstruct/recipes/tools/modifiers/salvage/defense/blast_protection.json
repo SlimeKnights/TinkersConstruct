@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:incremental_modifier_salvage",
+  "type": "tconstruct:modifier_salvage",
   "tools": {
     "tag": "tconstruct:modifiable/armor"
   },
@@ -7,9 +7,5 @@
     "defense": 1
   },
   "modifier": "tconstruct:blast_protection",
-  "min_level": 1,
-  "salvage": {
-    "item": "tconstruct:emerald_reinforcement",
-    "full": false
-  }
+  "min_level": 1
 }

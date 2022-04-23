@@ -7,11 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:ricochet",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:piston",
-      "chance": 0.9
-    }
-  ]
+  "min_level": 1
 }

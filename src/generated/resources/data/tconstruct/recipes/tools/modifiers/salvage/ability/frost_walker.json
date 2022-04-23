@@ -7,11 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:frost_walker",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "tconstruct:stray_head",
-      "chance": 0.5
-    }
-  ]
+  "min_level": 1
 }

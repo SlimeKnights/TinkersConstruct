@@ -18,16 +18,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:dual_wielding",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:nautilus_shell",
-      "chance": 0.95
-    },
-    {
-      "tag": "forge:ingots/manyullyn",
-      "min": 2,
-      "max": 2
-    }
-  ]
+  "min_level": 1
 }

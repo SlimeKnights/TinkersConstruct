@@ -7,13 +7,5 @@
     "abilities": 1
   },
   "modifier": "tconstruct:bucketing",
-  "min_level": 1,
-  "salvage": [
-    "minecraft:bucket",
-    {
-      "item": "minecraft:ender_pearl",
-      "min": 0,
-      "max": 2
-    }
-  ]
+  "min_level": 1
 }

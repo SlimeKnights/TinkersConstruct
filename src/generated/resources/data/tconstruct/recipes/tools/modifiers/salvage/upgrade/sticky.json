@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:incremental_modifier_salvage",
+  "type": "tconstruct:modifier_salvage",
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -12,9 +12,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:sticky",
-  "min_level": 1,
-  "salvage": {
-    "item": "minecraft:cobweb",
-    "full": false
-  }
+  "min_level": 1
 }

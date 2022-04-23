@@ -18,11 +18,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:the_one_probe",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "theoneprobe:probe",
-      "chance": 0.9
-    }
-  ]
+  "min_level": 1
 }

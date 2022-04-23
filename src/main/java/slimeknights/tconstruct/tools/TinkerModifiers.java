@@ -41,12 +41,11 @@ import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.salvage.IncrementalModifierSalvage;
-import slimeknights.tconstruct.library.recipe.modifiers.salvage.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
@@ -430,7 +429,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", ModifierRemovalRecipe.Serializer::new);
   public static final RegistryObject<ModifierSalvage.Serializer> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", ModifierSalvage.Serializer::new);
-  public static final RegistryObject<IncrementalModifierSalvage.Serializer> incrementalModifierSalvageSerializer = RECIPE_SERIALIZERS.register("incremental_modifier_salvage", IncrementalModifierSalvage.Serializer::new);
   public static final RegistryObject<ArmorDyeingRecipe.Serializer> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", ArmorDyeingRecipe.Serializer::new);
   public static final RegistryObject<SimpleRecipeSerializer<CreativeSlotRecipe>> creativeSlotSerializer = RECIPE_SERIALIZERS.register("creative_slot_modifier", () -> new SimpleRecipeSerializer<>(CreativeSlotRecipe::new));
   // modifiers

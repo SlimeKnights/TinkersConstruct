@@ -7,15 +7,5 @@
     "upgrades": 1
   },
   "modifier": "tconstruct:respiration",
-  "min_level": 1,
-  "salvage": [
-    {
-      "item": "minecraft:kelp",
-      "chance": 0.5
-    },
-    {
-      "item": "minecraft:kelp",
-      "chance": 0.5
-    }
-  ]
+  "min_level": 1
 }

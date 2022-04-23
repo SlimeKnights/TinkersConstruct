@@ -9,7 +9,7 @@
         }
       ],
       "recipe": {
-        "type": "tconstruct:incremental_modifier_salvage",
+        "type": "tconstruct:modifier_salvage",
         "tools": {
           "tag": "tconstruct:modifiable/armor/chestplate"
         },
@@ -17,11 +17,7 @@
           "abilities": 1
         },
         "modifier": "tconstruct:strength",
-        "min_level": 1,
-        "salvage": {
-          "item": "tconstruct:ichor_slime_crystal",
-          "full": false
-        }
+        "min_level": 1
       }
     },
     {
@@ -31,7 +27,7 @@
         }
       ],
       "recipe": {
-        "type": "tconstruct:incremental_modifier_salvage",
+        "type": "tconstruct:modifier_salvage",
         "tools": {
           "tag": "tconstruct:modifiable/armor/chestplate"
         },
@@ -39,11 +35,7 @@
           "abilities": 1
         },
         "modifier": "tconstruct:strength",
-        "min_level": 1,
-        "salvage": {
-          "item": "tconstruct:ichor_slime_dirt",
-          "full": false
-        }
+        "min_level": 1
       }
     }
   ]
