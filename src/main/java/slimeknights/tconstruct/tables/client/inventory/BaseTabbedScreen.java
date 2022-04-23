@@ -24,7 +24,7 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.block.ITabbedBlock;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
-import slimeknights.tconstruct.tables.client.inventory.module.TinkerTabsScreen;
+import slimeknights.tconstruct.tables.client.inventory.widget.TinkerTabsWidget;
 import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
@@ -39,7 +39,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
 
   protected final TILE tile;
   protected final CONTAINER container;
-  protected TinkerTabsScreen tabsScreen;
+  protected TinkerTabsWidget tabsScreen;
 
   public BaseTabbedScreen(CONTAINER container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
@@ -50,7 +50,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   @Override
   protected void init() {
     super.init();
-    this.tabsScreen = addRenderableWidget(new TinkerTabsScreen(this));
+    this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this));
 
     if (this.tile != null) {
       Level world = this.tile.getLevel();

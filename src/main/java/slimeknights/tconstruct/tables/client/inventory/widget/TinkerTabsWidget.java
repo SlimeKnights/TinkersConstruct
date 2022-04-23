@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.client.inventory.module;
+package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -22,7 +22,7 @@ import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 
 import java.util.List;
 
-public class TinkerTabsScreen implements Widget, GuiEventListener, NarratableEntry {
+public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEntry {
   private static final ResourceLocation TAB_IMAGE = TConstruct.getResource("textures/gui/icons.png");
   protected static final ElementScreen TAB_ELEMENT = new ElementScreen(0, 18, 26, 30, 256, 256);
   protected static final ElementScreen ACTIVE_TAB_L_ELEMENT = new ElementScreen(26, 18, 26, 30, 256, 256);
@@ -38,7 +38,7 @@ public class TinkerTabsScreen implements Widget, GuiEventListener, NarratableEnt
   public final List<BlockPos> tabData = Lists.newArrayList();
   private final BaseTabbedScreen<?, ?> parent;
 
-  public TinkerTabsScreen(BaseTabbedScreen<?, ?> parent) {
+  public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent) {
     this.parent = parent;
 
     this.imageWidth = ACTIVE_TAB_C_ELEMENT.w;
