@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tables.client.inventory.widget;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -20,6 +21,7 @@ import slimeknights.mantle.client.screen.TabsWidget;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEntry {
@@ -31,40 +33,40 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
 
   private final int leftPos;
   private final int topPos;
-  private int imageWidth;
+  private final int imageWidth;
   private final int imageHeight;
 
   private final TabsWidget tabs;
-  private final List<BlockPos> tabData = Lists.newArrayList();
+  private final List<BlockPos> tabData;
   private final BaseTabbedScreen<?, ?> parent;
 
-  public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent) {
+  public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent, Builder builder) {
     this.parent = parent;
-
-    this.imageWidth = 0;
-    this.imageHeight = ACTIVE_TAB_C_ELEMENT.h;
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
     this.tabs.tabsResource = TAB_IMAGE;
+
+    int count = builder.tabs.size();
+    this.imageWidth = count * ACTIVE_TAB_C_ELEMENT.w + (count - 1) * this.tabs.spacing;
+    this.imageHeight = ACTIVE_TAB_C_ELEMENT.h;
 
     this.leftPos = parent.cornerX + 4;
     this.topPos = parent.cornerY - this.imageHeight;
 
     this.tabs.setPosition(this.leftPos, this.topPos);
+
+    builder.tabs.stream().map(Pair::getFirst).forEach(this.tabs::addTab);
+    tabData = builder.tabs.stream().map(Pair::getSecond).toList();
+
   }
 
-  public void addTab(ItemStack icon, BlockPos data) {
-    this.tabData.add(data);
-    this.tabs.addTab(icon);
-    int count = tabData.size();
-    this.imageWidth = count * ACTIVE_TAB_C_ELEMENT.w + (count - 1) * this.tabs.spacing;
-  }
-
-  public void selectTabForPos(BlockPos pos) {
-    for (int i = 0; i < this.tabData.size(); i++) {
-      if (this.tabData.get(i).equals(pos)) {
-        this.tabs.selected = i;
-        return;
+  public void selectTabForPos(@Nullable BlockPos pos) {
+    if (pos != null) {
+      for (int i = 0; i < this.tabData.size(); i++) {
+        if (this.tabData.get(i).equals(pos)) {
+          this.tabs.selected = i;
+          return;
+        }
       }
     }
   }
@@ -144,4 +146,11 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
 
   @Override
   public void updateNarration(NarrationElementOutput pNarrationElementOutput) {}
+
+  public static class Builder {
+    private final List<Pair<ItemStack, BlockPos>> tabs = Lists.newArrayList();
+    public void addTab(ItemStack icon, BlockPos data) {
+      tabs.add(new Pair<>(icon, data));
+    }
+  }
 }

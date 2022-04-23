@@ -50,7 +50,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   @Override
   protected void init() {
     super.init();
-    this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this));
+    TinkerTabsWidget.Builder tabsBuilder = new TinkerTabsWidget.Builder();
 
     if (this.tile != null) {
       Level world = this.tile.getLevel();
@@ -60,13 +60,14 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
           BlockState state = pair.getRight();
           BlockPos blockPos = pair.getLeft();
           ItemStack stack = state.getBlock().getCloneItemStack(state, null, world, blockPos, this.getMinecraft().player);
-          this.tabsScreen.addTab(stack, blockPos);
+          tabsBuilder.addTab(stack, blockPos);
         }
       }
-
-      // preselect the correct tab
-      tabsScreen.selectTabForPos(this.tile.getBlockPos());
     }
+
+    this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this, tabsBuilder));
+    // preselect the correct tab
+    tabsScreen.selectTabForPos(this.tile != null ? this.tile.getBlockPos() : null);
   }
 
   public TILE getTileEntity() {
