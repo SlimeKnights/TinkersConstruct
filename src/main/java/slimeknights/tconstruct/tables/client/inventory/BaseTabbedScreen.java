@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.client.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -28,6 +29,8 @@ import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
+import java.util.List;
+
 public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends TabbedContainerMenu<TILE>> extends MultiModuleScreen<CONTAINER> {
   protected static final Component COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
   protected static final Component COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
@@ -42,9 +45,12 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
     super(container, playerInventory, title);
     this.tile = container.getTile();
     this.container = container;
+  }
 
-    this.tabsScreen = new TinkerTabsScreen(this, container, playerInventory, title);
-    this.addModule(this.tabsScreen);
+  @Override
+  protected void init() {
+    super.init();
+    this.tabsScreen = addRenderableWidget(new TinkerTabsScreen(this));
 
     if (this.tile != null) {
       Level world = this.tile.getLevel();
@@ -53,7 +59,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
         for (Pair<BlockPos, BlockState> pair : container.stationBlocks) {
           BlockState state = pair.getRight();
           BlockPos blockPos = pair.getLeft();
-          ItemStack stack = state.getBlock().getCloneItemStack(state, null, world, blockPos, playerInventory.player);
+          ItemStack stack = state.getBlock().getCloneItemStack(state, null, world, blockPos, this.getMinecraft().player);
           this.tabsScreen.addTab(stack, blockPos);
         }
       }
@@ -129,5 +135,18 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
 
       this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, inventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
     }
+  }
+
+  @Override
+  public List<Rect2i> getModuleAreas() {
+    List<Rect2i> areas = super.getModuleAreas();
+    areas.add(tabsScreen.getArea());
+    return areas;
+  }
+
+  @Override
+  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
+      && !tabsScreen.isMouseOver(mouseX, mouseY);
   }
 }
