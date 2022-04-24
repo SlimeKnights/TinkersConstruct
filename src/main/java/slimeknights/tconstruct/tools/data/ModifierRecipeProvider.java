@@ -68,6 +68,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageS
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RemoveEffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
@@ -1395,6 +1396,21 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 1f))
                          .addEffect(TeleportSpillingEffect.INSTANCE)
                          .save(consumer, prefix(TinkerFluids.moltenEnder, folder));
+
+    // foods
+    SpillingRecipeBuilder.forFluid(TinkerFluids.honey.getForgeTag(), slimeballPiece)
+                         .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
+                         .addEffect(new RemoveEffectSpillingEffect(MobEffects.POISON))
+                         .save(consumer, prefix(TinkerFluids.honey, folder));
+    SpillingRecipeBuilder.forFluid(TinkerFluids.beetrootSoup.getForgeTag(), slimeballPiece)
+                         .addEffect(new RestoreHungerSpillingEffect(1, 1.5f))
+                         .save(consumer, prefix(TinkerFluids.beetrootSoup, folder));
+    SpillingRecipeBuilder.forFluid(TinkerFluids.mushroomStew.getForgeTag(), slimeballPiece)
+                         .addEffect(new RestoreHungerSpillingEffect(1, 1.5f))
+                         .save(consumer, prefix(TinkerFluids.mushroomStew, folder));
+    SpillingRecipeBuilder.forFluid(TinkerFluids.rabbitStew.getForgeTag(), slimeballPiece)
+                         .addEffect(new RestoreHungerSpillingEffect(2, 2.4f))
+                         .save(consumer, prefix(TinkerFluids.rabbitStew, folder));
 
     // multi-recipes
     SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.GLASS_SPILLING, FluidAttributes.BUCKET_VOLUME / 10)

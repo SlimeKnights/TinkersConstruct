@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
@@ -30,13 +29,10 @@ import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.PacketDistributor.PacketTarget;
 import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -90,13 +86,12 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     staticModifiers.put(EMPTY, defaultValue);
   }
 
-
   /** For internal use only */
   @Deprecated
   public void init() {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, FMLCommonSetupEvent.class, e -> e.enqueueWork(this::fireRegistryEvent));
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, this::onDatapackSync);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateModifiersPacket(this.dynamicModifiers.values())));
   }
 
   /** Fires the modifier registry event */
@@ -111,43 +106,12 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     conditionContext = new ConditionContext(event.getServerResources().tagManager);
   }
 
-  /** Sends the packet to the given player */
-  private void sendPackets(ServerPlayer player, ISimplePacket packet) {
-    // on an integrated server, the modifier registries have a single instance on both the client and the server thread
-    // this means syncing is unneeded, and has the side-effect of recreating all the modifier instances (which can lead to unexpected behavior)
-    // as a result, integrated servers just mark fullyLoaded as true without syncing anything, side-effect is listeners may run twice on single player
-
-    // on a dedicated server, the client is running a separate game instance, this is where we send packets, plus fully loaded should already be true
-    // this event is not fired when connecting to a server
-    if (!player.connection.getConnection().isMemoryConnection()) {
-      TinkerNetwork network = TinkerNetwork.getInstance();
-      PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
-      network.send(target, packet);
-    }
-  }
-
-  /** Called when the player logs in to send packets */
-  private void onDatapackSync(OnDatapackSyncEvent event) {
-    // send to single player
-    ServerPlayer targetedPlayer = event.getPlayer();
-    ISimplePacket packet = new UpdateModifiersPacket(dynamicModifiers.values());
-    if (targetedPlayer != null) {
-      sendPackets(targetedPlayer, packet);
-    } else {
-      // send to all players
-      for (ServerPlayer player : event.getPlayerList().getPlayers()) {
-        sendPackets(player, packet);
-      }
-    }
-  }
-
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
     long time = System.nanoTime();
 
     // load modifiers from JSON
     this.dynamicModifiers = splashList.entrySet().stream()
-                                      .filter(entry -> entry.getValue().isJsonObject())
                                       .map(entry -> loadModifier(entry.getKey(), entry.getValue().getAsJsonObject()))
                                       .filter(Objects::nonNull)
                                       .collect(Collectors.toMap(Modifier::getId, mod -> mod));
@@ -170,13 +134,19 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
 
   /** Loads a modifier from JSON */
   @Nullable
-  private Modifier loadModifier(ResourceLocation key, JsonObject json) {
-    if (json.has("condition") && !CraftingHelper.getCondition(GsonHelper.getAsJsonObject(json, "condition")).test(conditionContext)) {
+  private Modifier loadModifier(ResourceLocation key, JsonElement element) {
+    try {
+      JsonObject json = GsonHelper.convertToJsonObject(element, "modifier");
+      if (json.has("condition") && !CraftingHelper.getCondition(GsonHelper.getAsJsonObject(json, "condition")).test(conditionContext)) {
+        return null;
+      }
+      Modifier modifier = MODIFIER_LOADERS.deserialize(json);
+      modifier.setId(new ModifierId(key));
+      return modifier;
+    } catch (JsonSyntaxException e) {
+      log.error("Failed to load modifier {}", key, e);
       return null;
     }
-    Modifier modifier = MODIFIER_LOADERS.deserialize(json);
-    modifier.setId(new ModifierId(key));
-    return modifier;
   }
 
   /** Updates the modifiers from the server */

@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
@@ -28,6 +29,9 @@ import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.library.fluid.transfer.EmptyFluidContainerTransfer;
+import slimeknights.tconstruct.library.fluid.transfer.FillFluidContainerTransfer;
+import slimeknights.tconstruct.library.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
@@ -81,6 +85,7 @@ import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEnti
 import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryBlockEntity;
+import slimeknights.tconstruct.smeltery.data.FluidContainerTransferProvider;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -334,11 +339,22 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = MENUS.register("single_item", SingleItemContainerMenu::new);
   public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = MENUS.register("alloyer", AlloyerContainerMenu::new);
 
+  public TinkerSmeltery() {
+    FluidContainerTransferManager.INSTANCE.init();
+  }
+
+  @SubscribeEvent
+  void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
+    FluidContainerTransferManager.TRANSFER_LOADERS.register(TConstruct.getResource("empty_item"), EmptyFluidContainerTransfer.LOADER);
+    FluidContainerTransferManager.TRANSFER_LOADERS.register(TConstruct.getResource("fill_item"), FillFluidContainerTransfer.LOADER);
+  }
+
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
       datagenerator.addProvider(new SmelteryRecipeProvider(datagenerator));
+      datagenerator.addProvider(new FluidContainerTransferProvider(datagenerator));
     }
   }
 }

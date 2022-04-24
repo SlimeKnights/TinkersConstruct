@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_table",
+  "fluid": {
+    "tag": "forge:mushroom_stew",
+    "amount": 250
+  },
+  "result": "minecraft:mushroom_stew",
+  "cooling_time": 1
+}

@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectS
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
+import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RemoveEffectSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
@@ -459,6 +460,7 @@ public final class TinkerModifiers extends TinkerModule {
   void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
     ISpillingEffect.LOADER.register(TConstruct.getResource("conditional"),    ConditionalSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("cure_effects"),   CureEffectsSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.register(TConstruct.getResource("remove_effect"),  RemoveEffectSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("damage"),         DamageSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("effect"),         EffectSpillingEffect.LOADER);
     ISpillingEffect.LOADER.register(TConstruct.getResource("extinguish"),     ExtinguishSpillingEffect.LOADER);

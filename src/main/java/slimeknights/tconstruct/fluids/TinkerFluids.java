@@ -40,6 +40,12 @@ public final class TinkerFluids extends TinkerModule {
     slime.put(SlimeType.BLOOD, blood);
   }
 
+  // foods
+  public static FluidObject<ForgeFlowingFluid> honey        = FLUIDS.register("honey",         coolBuilder().temperature(301), Material.WATER, 0);
+  public static FluidObject<ForgeFlowingFluid> beetrootSoup = FLUIDS.register("beetroot_soup", coolBuilder().temperature(400), Material.WATER, 0);
+  public static FluidObject<ForgeFlowingFluid> mushroomStew = FLUIDS.register("mushroom_stew", coolBuilder().temperature(400), Material.WATER, 0);
+  public static FluidObject<ForgeFlowingFluid> rabbitStew   = FLUIDS.register("rabbit_stew",   coolBuilder().temperature(400), Material.WATER, 0);
+
   // base molten fluids
   public static final FluidObject<ForgeFlowingFluid> searedStone   = FLUIDS.register("seared_stone",   hotBuilder().temperature( 900), Material.LAVA,  6);
   public static final FluidObject<ForgeFlowingFluid> scorchedStone = FLUIDS.register("scorched_stone", hotBuilder().temperature( 800), Material.LAVA,  4);

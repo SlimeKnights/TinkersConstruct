@@ -151,14 +151,22 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   /**
    * Sets the fluid for this recipe, and cooling time
+   * @param fluid        Fluid for time calculations
+   * @param tag          Tag<Fluid> instance
+   * @param amount       amount of fluid
+   */
+  public ItemCastingRecipeBuilder setFluidAndTime(Fluid fluid, TagKey<Fluid> tag, int amount) {
+    return setFluidAndTime(fluid.getAttributes().getTemperature() - 300, tag, amount);
+  }
+
+  /**
+   * Sets the fluid for this recipe, and cooling time
    * @param fluid      Fluid object instance
    * @param forgeTag   If true, uses the forge tag
    * @param amount     amount of fluid
    */
   public ItemCastingRecipeBuilder setFluidAndTime(FluidObject<?> fluid, boolean forgeTag, int amount) {
-    setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount);
-    setCoolingTime(fluid.get().getAttributes().getTemperature() - 300, amount);
-    return this;
+    return setFluidAndTime(fluid.get(), forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount);
   }
 
   /**

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:honey_block"
+  },
+  "result": {
+    "fluid": "tconstruct:honey",
+    "amount": 1000
+  },
+  "temperature": 1,
+  "time": 94
+}

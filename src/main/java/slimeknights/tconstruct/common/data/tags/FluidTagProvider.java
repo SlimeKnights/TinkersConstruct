@@ -86,6 +86,11 @@ public class FluidTagProvider extends FluidTagsProvider {
     // mekanism compat alloys
     tagAll(TinkerFluids.moltenRefinedGlowstone);
     tagAll(TinkerFluids.moltenRefinedObsidian);
+    // unplacable fluids
+    tagAll(TinkerFluids.honey);
+    tagAll(TinkerFluids.beetrootSoup);
+    tagAll(TinkerFluids.mushroomStew);
+    tagAll(TinkerFluids.rabbitStew);
 
     /* Normal tags */
     this.tag(TinkerTags.Fluids.SLIME)

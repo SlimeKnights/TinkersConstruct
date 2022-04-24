@@ -963,6 +963,29 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(TinkerTags.Items.WITHER_BONES, true)
                             .save(consumer, modResource(folder + "blaze/bone"));
 
+    // honey
+    ItemCastingRecipeBuilder.tableRecipe(Items.HONEY_BOTTLE)
+                            .setFluid(TinkerFluids.honey.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCoolingTime(1)
+                            .setCast(Items.GLASS_BOTTLE, true)
+                            .save(consumer, modResource(folder + "honey/bottle"));
+    ItemCastingRecipeBuilder.basinRecipe(Items.HONEY_BLOCK)
+                            .setFluidAndTime(TinkerFluids.honey, true, FluidValues.SLIME_CONGEALED)
+                            .save(consumer, modResource(folder + "honey/block"));
+    // soup
+    ItemCastingRecipeBuilder.tableRecipe(Items.BEETROOT_SOUP)
+                            .setFluid(TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCoolingTime(1)
+                            .save(consumer, modResource(folder + "soup/beetroot"));
+    ItemCastingRecipeBuilder.tableRecipe(Items.MUSHROOM_STEW)
+                            .setFluid(TinkerFluids.mushroomStew.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCoolingTime(1)
+                            .save(consumer, modResource(folder + "soup/mushroom"));
+    ItemCastingRecipeBuilder.tableRecipe(Items.RABBIT_STEW)
+                            .setFluid(TinkerFluids.rabbitStew.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCoolingTime(1)
+                            .save(consumer, modResource(folder + "soup/rabbit"));
+
     String castFolder = "smeltery/casts/";
     this.castCreation(consumer, Tags.Items.INGOTS, TinkerSmeltery.ingotCast, castFolder);
     this.castCreation(consumer, Tags.Items.NUGGETS, TinkerSmeltery.nuggetCast, castFolder);
@@ -1484,6 +1507,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(slimeFolder + "sky/sapling"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(SlimeType.ENDER)), TinkerFluids.enderSlime.get(), FluidValues.SLIMEBALL)
                         .save(consumer, modResource(slimeFolder + "ender/sapling"));
+
+    // honey
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.HONEY_BLOCK), TinkerFluids.honey.get(), FluidValues.SLIME_CONGEALED)
+                        .save(consumer, modResource(slimeFolder + "honey_block"));
 
     // fuels
     MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)

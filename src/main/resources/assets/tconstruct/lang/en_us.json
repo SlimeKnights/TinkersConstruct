@@ -424,6 +424,30 @@
   "fluid.tconstruct.flowing_blazing_blood": "Flowing Blazing Blood",
   "item.tconstruct.blazing_blood_bucket": "Blazing Blood Bucket",
 
+
+  "_comment": "Food",
+
+  "block.tconstruct.honey_fluid": "Honey",
+  "fluid.tconstruct.honey": "Honey",
+  "fluid.tconstruct.flowing_honey": "Flowing Honey",
+  "item.tconstruct.honey_bucket": "Honey Bucket",
+
+  "block.tconstruct.beetroot_soup_fluid": "Beetroot Soup",
+  "fluid.tconstruct.beetroot_soup": "Beetroot Soup",
+  "fluid.tconstruct.flowing_beetroot_soup": "Flowing Beetroot Soup",
+  "item.tconstruct.beetroot_soup_bucket": "Beetroot Soup Bucket",
+
+  "block.tconstruct.mushroom_stew_fluid": "Mushroom Stew",
+  "fluid.tconstruct.mushroom_stew": "Mushroom Stew",
+  "fluid.tconstruct.flowing_mushroom_stew": "Flowing Mushroom Stew",
+  "item.tconstruct.mushroom_stew_bucket": "Mushroom Stew Bucket",
+
+  "block.tconstruct.rabbit_stew_fluid": "Rabbit Stew",
+  "fluid.tconstruct.rabbit_stew": "Rabbit Stew",
+  "fluid.tconstruct.flowing_rabbit_stew": "Flowing Rabbit Stew",
+  "item.tconstruct.rabbit_stew_bucket": "Rabbit Stew Bucket",
+
+
   "_comment": "Slime",
 
   "block.tconstruct.blood_fluid": "Blood",

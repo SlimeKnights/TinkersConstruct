@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:empty_item",
+  "input": {
+    "item": "minecraft:rabbit_stew"
+  },
+  "filled": "minecraft:bowl",
+  "fluid": {
+    "fluid": "tconstruct:rabbit_stew",
+    "amount": 250
+  }
+}

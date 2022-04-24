@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:empty_item",
+  "input": {
+    "item": "minecraft:beetroot_soup"
+  },
+  "filled": "minecraft:bowl",
+  "fluid": {
+    "fluid": "tconstruct:beetroot_soup",
+    "amount": 250
+  }
+}
