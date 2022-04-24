@@ -209,7 +209,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   public void updateLayout() {
     int stillFilled = 0;
     for (int i = 0; i <= maxInputs; i++) {
-      Slot slot = this.container.getSlot(i);
+      Slot slot = this.getMenu().getSlot(i);
       LayoutSlot layoutSlot = currentLayout.getSlot(i);
       if (layoutSlot.isHidden()) {
         // put the position in the still filled line
@@ -237,7 +237,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       return;
     }
 
-    ItemStack toolStack = this.container.getResult();
+    ItemStack toolStack = this.getMenu().getResult();
 
     // if we have a message, display instead of refreshing the tool
     ValidatedResult currentError = tile.getCurrentError();
@@ -248,7 +248,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     // normal refresh
     if (toolStack.isEmpty()) {
-      toolStack = this.container.getSlot(TINKER_SLOT).getItem();
+      toolStack = this.getMenu().getSlot(TINKER_SLOT).getItem();
     }
 
     // if the contained stack is modifiable, display some information
@@ -321,7 +321,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
         if (!layout.isHidden() && !key.isEmpty()) {
           hasComponents = true;
           MutableComponent textComponent = new TextComponent(" * ");
-          ItemStack slotStack = this.container.getSlot(i).getItem();
+          ItemStack slotStack = this.getMenu().getSlot(i).getItem();
           if (!layout.isValid(slotStack)) {
             textComponent.withStyle(ChatFormatting.RED);
           }
@@ -411,18 +411,18 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // slot backgrounds, are transparent
     RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 0.28f);
     if (!this.currentLayout.getToolSlot().isHidden()) {
-      Slot slot = this.container.getSlot(TINKER_SLOT);
+      Slot slot = this.getMenu().getSlot(TINKER_SLOT);
       SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
     }
     for (int i = 0; i < this.activeInputs; i++) {
-      Slot slot = this.container.getSlot(i + INPUT_SLOT);
+      Slot slot = this.getMenu().getSlot(i + INPUT_SLOT);
       SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
     }
 
     // slot borders, are opaque
     RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     for (int i = 0; i <= maxInputs; i++) {
-      Slot slot = this.container.getSlot(i);
+      Slot slot = this.getMenu().getSlot(i);
       if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.hasItem()))) {
         SLOT_BORDER.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
       }
@@ -461,7 +461,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // render slot background icons
     RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
     for (int i = 0; i <= maxInputs; i++) {
-      Slot slot = this.container.getSlot(i);
+      Slot slot = this.getMenu().getSlot(i);
       if (!slot.hasItem()) {
         Pattern icon = currentLayout.getSlot(i).getIcon();
         if (icon != null) {

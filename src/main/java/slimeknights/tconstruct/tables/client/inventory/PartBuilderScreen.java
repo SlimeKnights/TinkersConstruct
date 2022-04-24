@@ -74,8 +74,8 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     this.drawRecipesBackground(matrices, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
 
     // draw slot icons
-    this.drawIconEmpty(matrices, this.container.getPatternSlot(), Icons.PATTERN);
-    this.drawIconEmpty(matrices, this.container.getInputSlot(), Icons.INGOT);
+    this.drawIconEmpty(matrices, this.getMenu().getPatternSlot(), Icons.PATTERN);
+    this.drawIconEmpty(matrices, this.getMenu().getInputSlot(), Icons.INGOT);
     this.drawRecipesItems(matrices, this.cornerX + 51, this.cornerY + 15);
 
     super.renderBg(matrices, partialTicks, mouseX, mouseY);
@@ -267,10 +267,10 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       // handle button click
       int index = getButtonAt((int)mouseX, (int)mouseY);
       assert this.minecraft != null && this.minecraft.player != null;
-      if (index >= 0 && this.container.clickMenuButton(this.minecraft.player, index)) {
+      if (index >= 0 && this.getMenu().clickMenuButton(this.minecraft.player, index)) {
         this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
         assert this.minecraft.gameMode != null;
-        this.minecraft.gameMode.handleInventoryButtonClick(this.container.containerId, index);
+        this.minecraft.gameMode.handleInventoryButtonClick(this.getMenu().containerId, index);
         return true;
       }
 

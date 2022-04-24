@@ -30,13 +30,11 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
 
   @Nullable
   protected final TILE tile;
-  protected final CONTAINER container;
   protected TinkerTabsWidget tabsScreen;
 
   public BaseTabbedScreen(CONTAINER container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
     this.tile = container.getTile();
-    this.container = container;
   }
 
   @Override
@@ -74,7 +72,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   }
 
   protected void addChestSideInventory(Inventory inventory) {
-    SideInventoryContainer<?> sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
+    SideInventoryContainer<?> sideInventoryContainer = getMenu().getSubContainer(SideInventoryContainer.class);
     if (sideInventoryContainer != null) {
       // no title if missing one
       Component sideInventoryName = TextComponent.EMPTY;
