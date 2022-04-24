@@ -3,31 +3,21 @@ package slimeknights.tconstruct.tables.client.inventory;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.tables.block.ITabbedBlock;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.client.inventory.widget.TinkerTabsWidget;
 import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
-import slimeknights.tconstruct.tables.network.StationTabPacket;
 
 import java.util.List;
 
@@ -50,24 +40,8 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   @Override
   protected void init() {
     super.init();
-    TinkerTabsWidget.Builder tabsBuilder = new TinkerTabsWidget.Builder();
 
-    if (this.tile != null) {
-      Level world = this.tile.getLevel();
-
-      if (world != null) {
-        for (Pair<BlockPos, BlockState> pair : container.stationBlocks) {
-          BlockState state = pair.getRight();
-          BlockPos blockPos = pair.getLeft();
-          ItemStack stack = state.getBlock().getCloneItemStack(state, null, world, blockPos, this.getMinecraft().player);
-          tabsBuilder.addTab(stack, blockPos);
-        }
-      }
-    }
-
-    this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this, tabsBuilder));
-    // preselect the correct tab
-    tabsScreen.selectTabForPos(this.tile != null ? this.tile.getBlockPos() : null);
+    this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this));
   }
 
   public TILE getTileEntity() {
@@ -85,26 +59,6 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
     }
 
     this.drawIcon(matrices, slot, element);
-  }
-
-  public void onTabSelection(BlockPos pos) {
-
-    Level world = this.tile.getLevel();
-
-    if (world == null) {
-      return;
-    }
-
-    BlockState state = world.getBlockState(pos);
-
-    if (state.getBlock() instanceof ITabbedBlock) {
-//      BlockEntity te = this.tile.getLevel().getBlockEntity(pos);
-      TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
-
-      // sound!
-      assert this.minecraft != null;
-      this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-    }
   }
 
   public void error(Component message) {
