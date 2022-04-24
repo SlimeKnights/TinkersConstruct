@@ -186,5 +186,5 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
   }
 
   @Override
-  public void updateNarration(NarrationElementOutput pNarrationElementOutput) {}
+  public void updateNarration(NarrationElementOutput narrationOutput) {}
 }
