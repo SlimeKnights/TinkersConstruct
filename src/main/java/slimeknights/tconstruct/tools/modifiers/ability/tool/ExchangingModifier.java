@@ -32,7 +32,7 @@ public class ExchangingModifier extends NoLevelsModifier {
     BlockState state = context.getState();
     Level world = context.getWorld();
     BlockPos pos = context.getPos();
-    if ((!context.isEffective() && state.getDestroySpeed(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem blockItem)) {
+    if (offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem blockItem)) {
       return null;
     }
 
