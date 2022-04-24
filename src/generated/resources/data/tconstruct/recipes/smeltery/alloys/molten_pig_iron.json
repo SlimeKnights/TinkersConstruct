@@ -7,10 +7,10 @@
     },
     {
       "tag": "tconstruct:blood",
-      "amount": 250
+      "amount": 500
     },
     {
-      "tag": "tconstruct:molten_clay",
+      "tag": "forge:honey",
       "amount": 250
     }
   ],

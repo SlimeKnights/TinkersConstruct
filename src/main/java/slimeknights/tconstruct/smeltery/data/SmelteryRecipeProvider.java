@@ -1545,11 +1545,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 3)
                       .addInput(TinkerFluids.moltenGold.getForgeTag(), FluidValues.INGOT)
                       .save(consumer, prefix(TinkerFluids.moltenRoseGold, folder));
-    // pig iron: 1 iron + 1 blood + 1 clay = 2
+    // pig iron: 1 iron + 2 blood + 1 honey = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenPigIron.get(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenIron.getForgeTag(), FluidValues.INGOT)
-                      .addInput(TinkerFluids.blood.getLocalTag(), FluidValues.SLIMEBALL)
-                      .addInput(TinkerFluids.moltenClay.getLocalTag(), FluidValues.BRICK)
+                      .addInput(TinkerFluids.blood.getLocalTag(), FluidValues.SLIMEBALL * 2)
+                      .addInput(TinkerFluids.honey.getForgeTag(), FluidValues.SLIMEBALL)
                       .save(consumer, prefix(TinkerFluids.moltenPigIron, folder));
     // obsidian: 1 water + 1 lava = 2
     // note this is not a progression break, as the same tier lets you combine glass and copper for same mining level
