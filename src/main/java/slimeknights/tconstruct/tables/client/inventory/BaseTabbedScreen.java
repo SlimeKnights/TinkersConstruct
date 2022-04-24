@@ -19,6 +19,7 @@ import slimeknights.tconstruct.tables.client.inventory.widget.TinkerTabsWidget;
 import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends TabbedContainerMenu<TILE>> extends MultiModuleScreen<CONTAINER> {
@@ -27,6 +28,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
 
   public static final ResourceLocation BLANK_BACK = TConstruct.getResource("textures/gui/blank.png");
 
+  @Nullable
   protected final TILE tile;
   protected final CONTAINER container;
   protected TinkerTabsWidget tabsScreen;
@@ -44,6 +46,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
     this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this));
   }
 
+  @Nullable
   public TILE getTileEntity() {
     return this.tile;
   }
