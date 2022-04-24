@@ -29,7 +29,6 @@ import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEntry {
@@ -69,8 +68,9 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
     tabData = tabs.stream().map(Pair::getRight).toList();
 
     // preselect the correct tab
-    BlockEntity tile = this.parent.getTileEntity();
-    selectTabForPos(tile != null ? tile.getBlockPos() : null);
+    BlockEntity blockEntity = this.parent.getTileEntity();
+    if (blockEntity != null)
+      selectTabForPos(blockEntity.getBlockPos());
   }
 
   private static List<Pair<ItemStack, BlockPos>> collectTabs(Minecraft minecraft, TabbedContainerMenu<?> menu) {
@@ -88,13 +88,11 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
     return tabs;
   }
 
-  private void selectTabForPos(@Nullable BlockPos pos) {
-    if (pos != null) {
-      for (int i = 0; i < this.tabData.size(); i++) {
-        if (this.tabData.get(i).equals(pos)) {
-          this.tabs.selected = i;
-          return;
-        }
+  private void selectTabForPos(BlockPos pos) {
+    for (int i = 0; i < this.tabData.size(); i++) {
+      if (this.tabData.get(i).equals(pos)) {
+        this.tabs.selected = i;
+        return;
       }
     }
   }
