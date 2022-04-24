@@ -32,7 +32,7 @@ public class FluidContainerTransferManager extends SimpleJsonResourceReloadListe
   /** Map of all modifier types that are expected to load in datapacks */
   public static final GenericLoaderRegistry<IFluidContainerTransfer> TRANSFER_LOADERS = new GenericLoaderRegistry<>();
   /** Folder for saving the logic */
-  public static final String FOLDER = "tinkering/materials/fluid_transfer";
+  public static final String FOLDER = "tinkering/fluid_transfer";
   /** GSON instance */
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
