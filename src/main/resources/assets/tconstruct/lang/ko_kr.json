@@ -1305,7 +1305,7 @@
 
   "__comment": "3등급 재료",
   "material.tconstruct.slimesteel": "슬라임강철",
-  "material.tconstruct.slimesteel.flavor": "슬라임을 강탈하면, 슬라임강철이 만들어 진다",
+  "material.tconstruct.slimesteel.flavor": "슬라임을 강탈하면, 슬라임강철이 됩니다!",
   "material.tconstruct.slimesteel.encyclopedia": "등급당 슬라임 막이 25만큼 증가하고, 총 슬라임 막의 50%만큼 슬라임 막이 추가로 증가합니다",
 
   "material.tconstruct.nahuatl": "나후아틀",
@@ -1602,8 +1602,8 @@
   "modifier.tconstruct.ricochet": "밀리기",
   "modifier.tconstruct.ricochet.flavor": "추가 탄성",
   "modifier.tconstruct.ricochet.description": "공격을 받았을 때, 더 멀리 밀려 나가 효과적으로 탈출할 수 있습니다",
-  "modifier.tconstruct.revitalizing": "재활성",
-  "modifier.tconstruct.revitalizing.flavor": "활기의 흐름을 느낄 수 있습니다",
+  "modifier.tconstruct.revitalizing": "활력",
+  "modifier.tconstruct.revitalizing.flavor": "활력 증가!",
   "modifier.tconstruct.revitalizing.description": "심장을 강화하여, 더 많은 하트를 얻습니다.",
 
   "_comment": "갑옷 - 보호",
@@ -1733,7 +1733,7 @@
   "modifier.tconstruct.frost_walker": "차가운 걸음",
   "modifier.tconstruct.frost_walker.flavor": "내 히어로 슈트 어딨어?",
   "modifier.tconstruct.frost_walker.description": "물 블록이 일시적으로 얼어붙습니다",
-  "modifier.tconstruct.path_maker": "길 제작",
+  "modifier.tconstruct.path_maker": "패스 메이커",
   "modifier.tconstruct.path_maker.flavor": "앞장서시죠",
   "modifier.tconstruct.path_maker.description": "밟은 장소에 길을 냅니다",
   "modifier.tconstruct.plowing": "괭이질",
@@ -1936,7 +1936,7 @@
   "modifier.tconstruct.maintained.flavor": "날카로움을 더 오래 유지하세요!",
   "modifier.tconstruct.maintained.description": "내구도가 높을수록 채굴 속도가 증가합니다",
   "modifier.tconstruct.lightweight": "가벼움",
-  "modifier.tconstruct.lightweight.flavor": "마법의 검 같습니다!",
+  "modifier.tconstruct.lightweight.flavor": "마법 처럼!",
   "modifier.tconstruct.lightweight.description": "도구가 크기에 비해 매우 가벼워져, 공격 속도와 채굴 속도가 증가합니다",
   "modifier.tconstruct.tasty": "식욕",
   "modifier.tconstruct.tasty.flavor": "옴뇸뇸",
