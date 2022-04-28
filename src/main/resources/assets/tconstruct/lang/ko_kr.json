@@ -117,10 +117,10 @@
   "item.tconstruct.rose_gold_ingot": "장밋빛 금괴",
   "item.tconstruct.rose_gold_nugget": "장밋빛 황금 조각",
 
-  "block.tconstruct.pig_iron_block": "저선철 블록",
+  "block.tconstruct.pig_iron_block": "돼지 선철 블록",
   "block.tconstruct.pig_iron_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
-  "item.tconstruct.pig_iron_ingot": "저선철괴",
-  "item.tconstruct.pig_iron_nugget": "저선철 조각",
+  "item.tconstruct.pig_iron_ingot": "돼지 선철괴",
+  "item.tconstruct.pig_iron_nugget": "돼지 선철 조각",
 
 
   "__comment": "4등급 재료",
@@ -519,10 +519,10 @@
   "fluid.tconstruct.flowing_molten_rose_gold": "흐르는 녹은 장밋빛 황금",
   "item.tconstruct.molten_rose_gold_bucket": "녹은 장밋빛 황금 양동이",
 
-  "block.tconstruct.molten_pig_iron_fluid": "녹은 저선철",
-  "fluid.tconstruct.molten_pig_iron": "녹은 저선철",
-  "fluid.tconstruct.flowing_molten_pig_iron": "흐르는 녹은 저선철",
-  "item.tconstruct.molten_pig_iron_bucket": "녹은 저선철 양동이",
+  "block.tconstruct.molten_pig_iron_fluid": "녹은 돼지 선철",
+  "fluid.tconstruct.molten_pig_iron": "녹은 돼지 선철",
+  "fluid.tconstruct.flowing_molten_pig_iron": "흐르는 녹은 돼지 선철",
+  "item.tconstruct.molten_pig_iron_bucket": "녹은 돼지 선철 양동이",
 
   "_comment": "4등급 합금",
 
@@ -887,7 +887,7 @@
   "_comment": "팅커스 제련소",
 
   "block.tconstruct.grout": "그라우트",
-  "block.tconstruct.grout.tooltip": "나는 그라우트다!",
+  "block.tconstruct.grout.tooltip": "아이 엠 그라우트!",
 
   "block.tconstruct.seared_stone": "그을린 돌",
   "block.tconstruct.seared_stone.tooltip": "제련소의 일부로 사용할 수 있습니다.",
@@ -974,7 +974,7 @@
   "_comment": "팅커스 용해소",
 
   "block.tconstruct.nether_grout": "네더 그라우트",
-  "block.tconstruct.nether_grout.tooltip": "우리는 그라우트다!",
+  "block.tconstruct.nether_grout.tooltip": "위 아 그라우트!",
 
   "block.tconstruct.scorched_stone": "타오른 돌",
   "block.tconstruct.scorched_stone.tooltip": "용해소의 일부로 사용할 수 있습니다.",
@@ -1295,7 +1295,7 @@
   "material.tconstruct.bloodbone.skull_encyclopedia": "발사체가 대상에게 속도 감소를 줍니다. 우유를 마시면 근접 공격으로도 속도 감소를 주고, 속도 감소의 등급이 증가합니다",
 
   "material.tconstruct.chain": "사슬",
-  "material.tconstruct.chain.flavor": "이제 사슬잡이가 될 수 있다",
+  "material.tconstruct.chain.flavor": "사슬낫의 제니가 상대해 드리죠!",
   "material.tconstruct.chain.encyclopedia": "도구가 받는 손상이 25% 감소합니다",
 
   "material.tconstruct.skyslime_vine": "슬라임 덩굴",
@@ -1316,7 +1316,7 @@
   "material.tconstruct.tinkers_bronze.flavor": "청동과 혼동하지 말라",
   "material.tconstruct.tinkers_bronze.encyclopedia": "내구도가 최대일 때 등급당 채굴 속도가 10%에서 15%만큼 빨라집니다",
 
-  "material.tconstruct.pig_iron": "저선철",
+  "material.tconstruct.pig_iron": "돼지 선철",
   "material.tconstruct.pig_iron.flavor": "완전 최고의 재료지, 먹을 수도 있고",
   "material.tconstruct.pig_iron.encyclopedia": "먹으면, 등급당 1의 배고픔과 0.1의 포만감을 채울 수 있습니다",
 
@@ -1564,12 +1564,16 @@
   "modifier.tconstruct.smite.attack_damage": "언데드 피해",
   "modifier.tconstruct.bane_of_sssss": "살ㄱ거미!",
   "modifier.tconstruct.bane_of_sssss.flavor": "징그러워!",
-  "modifier.tconstruct.bane_of_sssss.description": "거미와 절지동물에게 추가 피해를 줍니다!",
+  "modifier.tconstruct.bane_of_sssss.description": "거미나 크리퍼같이 소름돋는 몹에게 주는 피해량이 증가합니다!",
   "modifier.tconstruct.bane_of_sssss.attack_damage": "ㄱ거미 피해",
   "modifier.tconstruct.antiaquatic": "반수생",
   "modifier.tconstruct.antiaquatic.flavor": "낚였어!",
   "modifier.tconstruct.antiaquatic.description": "수생 생물에게 추가 피해를 줍니다!",
   "modifier.tconstruct.antiaquatic.attack_damage": "수생 피해",
+  "modifier.tconstruct.killager": "징징대지 마!",
+  "modifier.tconstruct.killager.flavor": "징징이(?) 가 이 글을 싫어합니다",
+  "modifier.tconstruct.killager.description": "주민이나 우민같이 코가 긴 생물체들에게 주는 피해량이 증가합니다!",
+  "modifier.tconstruct.killager.attack_damage": "우민 피해",
   "modifier.tconstruct.cooling": "냉각",
   "modifier.tconstruct.cooling.flavor": "차가워!",
   "modifier.tconstruct.cooling.description": "불을 기반으로 한 생명체에게 추가 피해를 줍니다!",
