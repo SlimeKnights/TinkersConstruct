@@ -1938,8 +1938,8 @@
   "modifier.tconstruct.stat_override.multipliers": "배수:",
 
   "__comment": "기타 수식어",
-  "modifier.tconstruct.writable": "쓰기",
-  "modifier.tconstruct.writable.flavor": "작가!",
+  "modifier.tconstruct.writable": "글쓰기",
+  "modifier.tconstruct.writable.flavor": "작가가 되어보자!",
   "modifier.tconstruct.writable.description": "더 많은 단어를 쓸 수 있다면, 더 많이 강화할 수 있습니다. 참 논리적이죠?",
   "modifier.tconstruct.harmonious": "조화",
   "modifier.tconstruct.harmonious.flavor": "수식어를 교향곡처럼!",
