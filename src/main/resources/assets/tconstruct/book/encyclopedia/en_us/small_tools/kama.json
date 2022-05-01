@@ -6,9 +6,10 @@
   ],
   "properties": [
     "+1 Attack Damage",
-    "75% Attack Modifier",
-    "1.8 Attack Speed",
+    "50% Attack Modifier",
+    "1.6 Attack Speed",
     "Shears plants and animals",
+    "Small AOE Attack",
     "Harvest plants"
   ]
 }

@@ -8,6 +8,7 @@
   "properties": [
     "Interact with crops to harvest them",
     "Shears blocks and animals",
-    "Effective on plants"
+    "Effective on plants",
+    "AoE attack capabilities"
   ]
 }

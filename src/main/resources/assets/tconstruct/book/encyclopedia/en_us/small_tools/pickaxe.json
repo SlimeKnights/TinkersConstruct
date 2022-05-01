@@ -5,7 +5,7 @@
     { "text": "Expanders alternate between increasing depth and increasing height.", "paragraph": true }
   ],
   "properties": [
-    "+0 Attack Damage",
+    "+0.5 Attack Damage",
     "1.2 Attack Speed",
     "Piercing I"
   ]
