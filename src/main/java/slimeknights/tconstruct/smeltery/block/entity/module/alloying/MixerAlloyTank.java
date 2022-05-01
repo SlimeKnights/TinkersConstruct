@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.LazyOptional;
@@ -16,7 +15,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
-import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.alloying.IMutableAlloyTank;
@@ -165,15 +163,6 @@ public class MixerAlloyTank implements IMutableAlloyTank {
         }
       }
       needsRefresh = false;
-
-      // close the UI for any players in this UI
-      if (!world.isClientSide) {
-        for (Player player : world.players()) {
-          if (player.containerMenu instanceof BaseContainerMenu<?> base && base.getTile() == parent) {
-            player.closeContainer();
-          }
-        }
-      }
     }
   }
 
