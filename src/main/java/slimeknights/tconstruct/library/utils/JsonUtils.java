@@ -157,7 +157,7 @@ public class JsonUtils {
   }
 
   /** Sends the packet to the given player */
-  private static void sendPackets(ServerPlayer player, ISimplePacket[] packet) {
+  private static void sendPackets(ServerPlayer player, ISimplePacket[] packets) {
     // on an integrated server, the modifier registries have a single instance on both the client and the server thread
     // this means syncing is unneeded, and has the side-effect of recreating all the modifier instances (which can lead to unexpected behavior)
     // as a result, integrated servers just mark fullyLoaded as true without syncing anything, side-effect is listeners may run twice on single player
@@ -167,7 +167,9 @@ public class JsonUtils {
     if (!player.connection.getConnection().isMemoryConnection()) {
       TinkerNetwork network = TinkerNetwork.getInstance();
       PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
-      network.send(target, packet);
+      for (ISimplePacket packet : packets) {
+        network.send(target, packet);
+      }
     }
   }
 
