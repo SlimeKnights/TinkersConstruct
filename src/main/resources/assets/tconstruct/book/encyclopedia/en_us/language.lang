@@ -1,7 +1,8 @@
 intro=Introduction
 
-small_tools=Small Tools
-large_tools=Broad Tools
+tools=Tools
+tools.group_small=Small Tools
+tools.group_large=Broad Tools
 armor=Armor
 
 tier_one_materials=Tier 1 Materials

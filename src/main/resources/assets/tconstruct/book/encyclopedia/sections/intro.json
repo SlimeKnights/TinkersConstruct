@@ -1,10 +1,12 @@
 [
   {
-    "type": "mantle:blank"
+    "name": "forward",
+    "type": "mantle:text",
+    "data": "intro/forward.json"
   },
   {
-    "name": "intro",
+    "name": "updates",
     "type": "mantle:text",
-    "data": "intro/text.json"
+    "data": "intro/updates.json"
   }
 ]

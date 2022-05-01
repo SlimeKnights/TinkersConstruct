@@ -1,7 +1,14 @@
 [
   {
-    "name": "small_tools",
-    "data": "sections/small_tools.json",
+    "name": "intro",
+    "data": "sections/intro.json",
+    "icon": {
+      "item": "minecraft:paper"
+    }
+  },
+  {
+    "name": "tools",
+    "data": "sections/tools.json",
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -14,27 +21,6 @@
             "tconstruct:ui_render#head",
             "tconstruct:ui_render#handle",
             "tconstruct:ui_render#extra"
-          ]
-        }
-      }
-    }
-  },
-  {
-    "name": "large_tools",
-    "data": "sections/large_tools.json",
-    "icon": {
-      "item": {
-        "type": "forge:nbt",
-        "item": "tconstruct:cleaver",
-        "nbt": {
-          "tic_broken": false,
-          "tic_display": true,
-          "Damage": 0,
-          "tic_materials": [
-            "tconstruct:ui_render#head",
-            "tconstruct:ui_render#handle",
-            "tconstruct:ui_render#extra",
-            "tconstruct:ui_render#large"
           ]
         }
       }
@@ -57,30 +43,40 @@
   },
   {
     "name": "tier_one_materials",
+    "requirements": [ "tconstruct:tools/materials_and_you" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": "minecraft:stone"
     }
   },
   {
     "name": "tier_two_materials",
+    "requirements": [ "tconstruct:smeltery/puny_smelting" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": "minecraft:iron_ingot"
     }
   },
   {
     "name": "tier_three_materials",
+    "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": "tconstruct:slimesteel_ingot"
     }
   },
   {
     "name": "tier_four_materials",
+    "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": "tconstruct:manyullyn_ingot"
     }
   },
   {
     "name": "skull_materials",
+    "requirements": [ "tconstruct:world/tinkers_gadgetry" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": "minecraft:skeleton_skull"
     }
@@ -88,6 +84,8 @@
   {
     "name": "upgrades",
     "data": "sections/upgrades.json",
+    "requirements": [ "tconstruct:smeltery/puny_smelting" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -101,6 +99,8 @@
   {
     "name": "defense",
     "data": "sections/defense.json",
+    "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -114,6 +114,8 @@
   {
     "name": "slotless",
     "data": "sections/slotless.json",
+    "requirements": [ "tconstruct:smeltery/puny_smelting" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -127,6 +129,8 @@
   {
     "name": "abilities",
     "data": "sections/abilities.json",
+    "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
+    "hideWhenLocked": true,
     "icon": {
       "item": {
         "type": "forge:nbt",

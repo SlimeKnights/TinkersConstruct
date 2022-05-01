@@ -1,0 +1,83 @@
+[
+  {
+    "name": "group_small",
+    "type": "mantle:text",
+    "data": "tools/small.json"
+  },
+  {
+    "name": "sword",
+    "type": "tconstruct:tool",
+    "data": "tools/small/sword.json"
+  },
+  {
+    "name": "dagger",
+    "type": "tconstruct:tool",
+    "data": "tools/small/dagger.json"
+  },
+  {
+    "name": "axe",
+    "type": "tconstruct:tool",
+    "data": "tools/small/hand_axe.json"
+  },
+  {
+    "name": "kama",
+    "type": "tconstruct:tool",
+    "data": "tools/small/kama.json"
+  },
+  {
+    "name": "mattock",
+    "type": "tconstruct:tool",
+    "data": "tools/small/mattock.json"
+  },
+  {
+    "name": "pickadze",
+    "type": "tconstruct:tool",
+    "data": "tools/small/pickadze.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tconstruct:tool",
+    "data": "tools/small/pickaxe.json"
+  },
+  {
+    "name": "flint_and_brick",
+    "type": "tconstruct:tool",
+    "data": "tools/small/flint_and_brick.json"
+  },
+
+  {
+    "name": "group_large",
+    "type": "mantle:text",
+    "data": "tools/large.json"
+  },
+  {
+    "name": "cleaver",
+    "type": "tconstruct:tool",
+    "data": "tools/large/cleaver.json"
+  },
+  {
+    "name": "broad_axe",
+    "type": "tconstruct:tool",
+    "data": "tools/large/broad_axe.json"
+  },
+  {
+    "name": "scythe",
+    "type": "tconstruct:tool",
+    "data": "tools/large/scythe.json"
+  },
+  {
+    "name": "excavator",
+    "type": "tconstruct:tool",
+    "data": "tools/large/excavator.json"
+  },
+  {
+    "name": "sledge_hammer",
+    "type": "tconstruct:tool",
+    "data": "tools/large/sledge_hammer.json"
+  },
+  {
+    "name": "vein_hammer",
+    "type": "tconstruct:tool",
+    "data": "tools/large/vein_hammer.json"
+  }
+]

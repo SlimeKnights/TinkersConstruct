@@ -141,13 +141,10 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                           .requires(TinkerSmeltery.netherGrout)
                           .unlockedBy("has_item", has(TinkerSmeltery.netherGrout))
                           .save(consumer, prefix(TinkerCommons.fantasticFoundry, "common/"));
-    ShapelessRecipeBuilder.shapeless(TinkerCommons.encyclopedia)
-                          .requires(TinkerCommons.materialsAndYou)
-                          .requires(TinkerCommons.punySmelting)
-                          .requires(TinkerCommons.mightySmelting)
-                          .requires(TinkerCommons.fantasticFoundry)
-                          .unlockedBy("has_item", has(TinkerCommons.fantasticFoundry))
-                          .save(consumer, prefix(TinkerCommons.encyclopedia, "common/"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.encyclopedia)
+                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.INGOT)
+                            .setCast(Items.BOOK, true)
+                            .save(consumer, prefix(TinkerCommons.encyclopedia, "common/"));
 
     // glass
     folder = "common/glass/";
