@@ -1,5 +1,9 @@
 {
   "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:bowl"
+  },
+  "cast_consumed": true,
   "fluid": {
     "tag": "forge:rabbit_stew",
     "amount": 250

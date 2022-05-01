@@ -975,14 +975,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // soup
     ItemCastingRecipeBuilder.tableRecipe(Items.BEETROOT_SOUP)
                             .setFluid(TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, modResource(folder + "soup/beetroot"));
     ItemCastingRecipeBuilder.tableRecipe(Items.MUSHROOM_STEW)
                             .setFluid(TinkerFluids.mushroomStew.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, modResource(folder + "soup/mushroom"));
     ItemCastingRecipeBuilder.tableRecipe(Items.RABBIT_STEW)
                             .setFluid(TinkerFluids.rabbitStew.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, modResource(folder + "soup/rabbit"));
 
