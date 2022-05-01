@@ -84,7 +84,6 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.BlockTransformWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.PlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.FirestarterModifier;
@@ -92,7 +91,6 @@ import slimeknights.tconstruct.tools.modifiers.ability.interaction.HarvestAbilit
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.PathingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.SilkyShearsAbilityModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.TillingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.BucketingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.DuelWieldingModifier;
@@ -306,7 +304,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
   public static final StaticModifier<FrostWalkerModifier> frostWalker = MODIFIERS.register("frost_walker", FrostWalkerModifier::new);
   public static final StaticModifier<BlockTransformWalkerModifier> pathMaker = MODIFIERS.register("path_maker", () -> new BlockTransformWalkerModifier(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN));
-  public static final StaticModifier<PlowingModifier> plowing = MODIFIERS.register("plowing", PlowingModifier::new);
+  public static final StaticModifier<BlockTransformWalkerModifier> plowing = MODIFIERS.register("plowing", () -> new BlockTransformWalkerModifier(ToolActions.HOE_TILL, SoundEvents.HOE_TILL));
   public static final StaticModifier<SnowdriftModifier> snowdrift = MODIFIERS.register("snowdrift", SnowdriftModifier::new);
   public static final StaticModifier<FlamewakeModifier> flamewake = MODIFIERS.register("flamewake", FlamewakeModifier::new);
 
@@ -330,7 +328,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
   public static final StaticModifier<BlockTransformModifier> pathing = MODIFIERS.register("pathing", () -> new PathingModifier(75));
   public static final StaticModifier<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(75, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
-  public static final StaticModifier<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new TillingModifier(75));
+  public static final StaticModifier<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new BlockTransformModifier(75, ToolActions.HOE_TILL, SoundEvents.HOE_TILL, false));
   public static final StaticModifier<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(70));
   public static final StaticModifier<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", SingleLevelModifier::new);
 
@@ -339,7 +337,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<BlockTransformModifier> axeStrip = MODIFIERS.register("axe_strip", () -> new BlockTransformModifier(Integer.MIN_VALUE + 50, ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false));
   public static final StaticModifier<BlockTransformModifier> axeScrape = MODIFIERS.register("axe_scrape", () -> new BlockTransformModifier(Integer.MIN_VALUE + 49, ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005));
   public static final StaticModifier<BlockTransformModifier> axeWaxOff = MODIFIERS.register("axe_wax_off", () -> new BlockTransformModifier(Integer.MIN_VALUE + 48, ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF, false, 3004));
-  public static final StaticModifier<BlockTransformModifier> hoeTill = MODIFIERS.register("hoe_till", () -> new TillingModifier(Integer.MIN_VALUE + 50));
+  public static final StaticModifier<BlockTransformModifier> hoeTill = MODIFIERS.register("hoe_till", () -> new BlockTransformModifier(Integer.MIN_VALUE + 50, ToolActions.HOE_TILL, SoundEvents.HOE_TILL, false));
   public static final StaticModifier<FirestarterModifier> firestarterHidden = MODIFIERS.register("firestarter_hidden", () -> new FirestarterModifier(Integer.MIN_VALUE + 50));
 
   public static final StaticModifier<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0, Short.MIN_VALUE));
