@@ -1,26 +1,39 @@
 package slimeknights.tconstruct.library.fluid.transfer;
 
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
+import java.util.function.Consumer;
+
 /** Fluid transfer info that fills a fluid into an item */
 @RequiredArgsConstructor
 public class FillFluidContainerTransfer implements IFluidContainerTransfer {
+  public static final ResourceLocation ID = TConstruct.getResource("fill_item");
+
   private final Ingredient input;
   private final ItemOutput filled;
   private final FluidIngredient fluid;
+
+  @Override
+  public void addRepresentativeItems(Consumer<Item> consumer) {
+    for (ItemStack stack : input.getItems()) {
+      consumer.accept(stack.getItem());
+    }
+  }
 
   @Override
   public boolean matches(ItemStack stack, FluidStack fluid) {
@@ -44,40 +57,23 @@ public class FillFluidContainerTransfer implements IFluidContainerTransfer {
   }
 
   @Override
-  public IGenericLoader<? extends IFluidContainerTransfer> getLoader() {
-    return LOADER;
+  public JsonObject serialize(JsonSerializationContext context) {
+    JsonObject json = new JsonObject();
+    json.addProperty("type", ID.toString());
+    json.add("input", input.toJson());
+    json.add("filled", filled.serialize());
+    json.add("fluid", fluid.serialize());
+    return json;
   }
 
-  /** Unique loader instance */
-  public static final IGenericLoader<FillFluidContainerTransfer> LOADER = new IGenericLoader<>() {
-    @Override
-    public FillFluidContainerTransfer deserialize(JsonObject json) {
-      Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
-      ItemOutput filled = ItemOutput.fromJson(JsonHelper.getElement(json, "filled"));
-      FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-      return new FillFluidContainerTransfer(input, filled, fluid);
-    }
-
-    @Override
-    public void serialize(FillFluidContainerTransfer object, JsonObject json) {
-      json.add("input", object.input.toJson());
-      json.add("filled", object.filled.serialize());
-      json.add("fluid", object.fluid.serialize());
-    }
-
-    @Override
-    public FillFluidContainerTransfer fromNetwork(FriendlyByteBuf buffer) {
-      Ingredient input = Ingredient.fromNetwork(buffer);
-      ItemOutput filled = ItemOutput.read(buffer);
-      FluidIngredient fluid = FluidIngredient.read(buffer);
-      return new FillFluidContainerTransfer(input, filled, fluid);
-    }
-
-    @Override
-    public void toNetwork(FillFluidContainerTransfer object, FriendlyByteBuf buffer) {
-      object.input.toNetwork(buffer);
-      object.filled.write(buffer);
-      object.fluid.write(buffer);
-    }
+  /**
+   * Unique loader instance
+   */
+  public static final JsonDeserializer<FillFluidContainerTransfer> DESERIALIZER = (element, typeOfT, context) -> {
+    JsonObject json = element.getAsJsonObject();
+    Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
+    ItemOutput filled = ItemOutput.fromJson(JsonHelper.getElement(json, "filled"));
+    FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
+    return new FillFluidContainerTransfer(input, filled, fluid);
   };
 }

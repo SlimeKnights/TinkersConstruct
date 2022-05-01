@@ -30,8 +30,6 @@ import slimeknights.tconstruct.library.fluid.transfer.FluidContainerTransferMana
 import slimeknights.tconstruct.library.fluid.transfer.IFluidContainerTransfer;
 import slimeknights.tconstruct.library.fluid.transfer.IFluidContainerTransfer.TransferResult;
 
-import javax.annotation.Nullable;
-
 /**
  * Alternative to {@link net.minecraftforge.fluids.FluidUtil} since no one has time to make the forge util not a buggy mess
  */
@@ -67,22 +65,6 @@ public class FluidTransferUtil {
       }
     }
     return FluidStack.EMPTY;
-  }
-
-  /**
-   * Attempts to transfer fluid
-   * @param stack    Input stack
-   * @param maxFill  Maximum to transfer
-   * @return  True if transfer succeeded
-   */
-  @Nullable
-  public static TransferResult tryTransfer(ItemStack stack, IFluidHandler handler, int maxFill) {
-    FluidStack currentFluid = handler.drain(maxFill, FluidAction.SIMULATE);
-    IFluidContainerTransfer transfer = FluidContainerTransferManager.INSTANCE.getTransfer(stack, currentFluid);
-    if (transfer != null) {
-      return transfer.transfer(stack, currentFluid, handler);
-    }
-    return null;
   }
 
   /**
@@ -153,18 +135,18 @@ public class FluidTransferUtil {
     // fetch capability before copying, bit more work when its a fluid handler, but saves copying time when its not
     if (!stack.isEmpty()) {
       // only server needs to transfer stuff
-      if (!world.isClientSide) {
-        BlockEntity te = world.getBlockEntity(pos);
-        if (te != null) {
-          // TE must have a capability
-          LazyOptional<IFluidHandler> teCapability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
-          if (teCapability.isPresent()) {
-            IFluidHandler teHandler = teCapability.orElse(EmptyFluidHandler.INSTANCE);
-            ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
+      BlockEntity te = world.getBlockEntity(pos);
+      if (te != null) {
+        // TE must have a capability
+        LazyOptional<IFluidHandler> teCapability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
+        if (teCapability.isPresent()) {
+          IFluidHandler teHandler = teCapability.orElse(EmptyFluidHandler.INSTANCE);
+          ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
 
-            // if the item has a capability, do a direct transfer
-            LazyOptional<IFluidHandlerItem> itemCapability = copy.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
-            if (itemCapability.isPresent()) {
+          // if the item has a capability, do a direct transfer
+          LazyOptional<IFluidHandlerItem> itemCapability = copy.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+          if (itemCapability.isPresent()) {
+            if (!world.isClientSide) {
               IFluidHandlerItem itemHandler = itemCapability.resolve().orElseThrow();
               // first, try filling the TE from the item
               FluidStack transferred = tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE);
@@ -181,22 +163,32 @@ public class FluidTransferUtil {
               if (!transferred.isEmpty()) {
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, itemHandler.getContainer()));
               }
-            } else {
-              // fallback to JSON based transfer
-              TransferResult result = tryTransfer(stack, teHandler, Integer.MAX_VALUE);
-              if (result != null) {
-                if (result.didFill()) {
-                  playFillSound(world, pos, player, result.fluid());
-                } else {
-                  playEmptySound(world, pos, player, result.fluid());
+            }
+            return true;
+          }
+
+          // fallback to JSON based transfer
+          if (FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack)) {
+            // only actually transfer on the serverside, client just has items
+            if (!world.isClientSide) {
+              FluidStack currentFluid = teHandler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE);
+              IFluidContainerTransfer transfer = FluidContainerTransferManager.INSTANCE.getTransfer(stack, currentFluid);
+              if (transfer != null) {
+                TransferResult result = transfer.transfer(stack, currentFluid, teHandler);
+                if (result != null) {
+                  if (result.didFill()) {
+                    playFillSound(world, pos, player, result.fluid());
+                  } else {
+                    playEmptySound(world, pos, player, result.fluid());
+                  }
+                  player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, result.stack()));
                 }
-                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, result.stack()));
               }
             }
+            return true;
           }
         }
       }
-      return true;
     }
     return false;
   }

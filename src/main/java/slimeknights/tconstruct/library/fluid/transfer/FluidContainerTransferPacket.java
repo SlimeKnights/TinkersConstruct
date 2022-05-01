@@ -1,37 +1,39 @@
 package slimeknights.tconstruct.library.fluid.transfer;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
-import java.util.List;
+import java.util.Set;
 
 /** Packet to sync fluid container transfer */
 @RequiredArgsConstructor
 public class FluidContainerTransferPacket implements IThreadsafePacket {
-  private final List<IFluidContainerTransfer> transfers;
+  private final Set<Item> items;
 
   public FluidContainerTransferPacket(FriendlyByteBuf buffer) {
-    ImmutableList.Builder<IFluidContainerTransfer> builder = ImmutableList.builder();
+    ImmutableSet.Builder<Item> builder = ImmutableSet.builder();
     int size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
-      builder.add(FluidContainerTransferManager.TRANSFER_LOADERS.fromNetwork(buffer));
+      builder.add(buffer.readRegistryIdUnsafe(ForgeRegistries.ITEMS));
     }
-    this.transfers = builder.build();
+    this.items = builder.build();
   }
 
   @Override
   public void encode(FriendlyByteBuf buffer) {
-    buffer.writeInt(transfers.size());
-    for (IFluidContainerTransfer transfer : transfers) {
-      FluidContainerTransferManager.TRANSFER_LOADERS.toNetwork(transfer, buffer);
+    buffer.writeInt(items.size());
+    for (Item item : items) {
+      buffer.writeRegistryIdUnsafe(ForgeRegistries.ITEMS, item);
     }
   }
 
   @Override
   public void handleThreadsafe(Context context) {
-    FluidContainerTransferManager.INSTANCE.setTransfers(transfers);
+    FluidContainerTransferManager.INSTANCE.setContainerItems(items);
   }
 }

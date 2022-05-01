@@ -345,8 +345,8 @@ public final class TinkerSmeltery extends TinkerModule {
 
   @SubscribeEvent
   void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    FluidContainerTransferManager.TRANSFER_LOADERS.register(TConstruct.getResource("empty_item"), EmptyFluidContainerTransfer.LOADER);
-    FluidContainerTransferManager.TRANSFER_LOADERS.register(TConstruct.getResource("fill_item"), FillFluidContainerTransfer.LOADER);
+    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyFluidContainerTransfer.ID, EmptyFluidContainerTransfer.DESERIALIZER);
+    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(FillFluidContainerTransfer.ID, FillFluidContainerTransfer.DESERIALIZER);
   }
 
   @SubscribeEvent

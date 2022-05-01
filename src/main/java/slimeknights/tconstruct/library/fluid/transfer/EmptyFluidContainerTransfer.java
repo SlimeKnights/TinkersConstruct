@@ -1,26 +1,39 @@
 package slimeknights.tconstruct.library.fluid.transfer;
 
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
+import java.util.function.Consumer;
+
 /** Fluid transfer info that empties a fluid from an item */
 @RequiredArgsConstructor
 public class EmptyFluidContainerTransfer implements IFluidContainerTransfer {
+  public static final ResourceLocation ID = TConstruct.getResource("empty_item");
+
   private final Ingredient input;
   private final ItemOutput filled;
   private final FluidStack fluid;
+
+  @Override
+  public void addRepresentativeItems(Consumer<Item> consumer) {
+    for (ItemStack stack : input.getItems()) {
+      consumer.accept(stack.getItem());
+    }
+  }
 
   @Override
   public boolean matches(ItemStack stack, FluidStack fluid) {
@@ -43,40 +56,21 @@ public class EmptyFluidContainerTransfer implements IFluidContainerTransfer {
   }
 
   @Override
-  public IGenericLoader<? extends IFluidContainerTransfer> getLoader() {
-    return LOADER;
+  public JsonObject serialize(JsonSerializationContext context) {
+    JsonObject json = new JsonObject();
+    json.addProperty("type", ID.toString());
+    json.add("input", input.toJson());
+    json.add("filled", filled.serialize());
+    json.add("fluid", RecipeHelper.serializeFluidStack(fluid));
+    return json;
   }
 
   /** Unique loader instance */
-  public static final IGenericLoader<EmptyFluidContainerTransfer> LOADER = new IGenericLoader<>() {
-    @Override
-    public EmptyFluidContainerTransfer deserialize(JsonObject json) {
-      Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
-      ItemOutput filled = ItemOutput.fromJson(JsonHelper.getElement(json, "filled"));
-      FluidStack fluid = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid"));
-      return new EmptyFluidContainerTransfer(input, filled, fluid);
-    }
-
-    @Override
-    public void serialize(EmptyFluidContainerTransfer object, JsonObject json) {
-      json.add("input", object.input.toJson());
-      json.add("filled", object.filled.serialize());
-      json.add("fluid", RecipeHelper.serializeFluidStack(object.fluid));
-    }
-
-    @Override
-    public EmptyFluidContainerTransfer fromNetwork(FriendlyByteBuf buffer) {
-      Ingredient input = Ingredient.fromNetwork(buffer);
-      ItemOutput filled = ItemOutput.read(buffer);
-      FluidStack fluid = buffer.readFluidStack();
-      return new EmptyFluidContainerTransfer(input, filled, fluid);
-    }
-
-    @Override
-    public void toNetwork(EmptyFluidContainerTransfer object, FriendlyByteBuf buffer) {
-      object.input.toNetwork(buffer);
-      object.filled.write(buffer);
-      buffer.writeFluidStack(object.fluid);
-    }
+  public static final JsonDeserializer<EmptyFluidContainerTransfer> DESERIALIZER = (element, typeOfT, context) -> {
+    JsonObject json = element.getAsJsonObject();
+    Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
+    ItemOutput filled = ItemOutput.fromJson(JsonHelper.getElement(json, "filled"));
+    FluidStack fluid = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid"));
+    return new EmptyFluidContainerTransfer(input, filled, fluid);
   };
 }
