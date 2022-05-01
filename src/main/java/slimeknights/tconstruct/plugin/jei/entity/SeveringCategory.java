@@ -38,6 +38,7 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
     return TConstructJEIConstants.SEVERING.getUid();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<? extends SeveringRecipe> getRecipeClass() {
     return SeveringRecipe.class;

@@ -17,11 +17,13 @@ public class TinkerStationTransferInfo implements IRecipeTransferInfo<TinkerStat
     return TinkerStationContainerMenu.class;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public Class<IDisplayModifierRecipe> getRecipeClass() {
     return IDisplayModifierRecipe.class;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public ResourceLocation getRecipeCategoryUid() {
     return TConstructJEIConstants.MODIFIERS.getUid();
