@@ -47,7 +47,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   /** Gets the material fluid recipe for the given recipe */
   protected Optional<MaterialFluidRecipe> getMaterialFluid(ICastingContainer inv) {
-    return MaterialCastingLookup.getCastingFluid(inv.getFluid());
+    return MaterialCastingLookup.getCastingFluid(inv);
   }
 
   /** Gets the cached fluid recipe if it still matches, refetches if not */

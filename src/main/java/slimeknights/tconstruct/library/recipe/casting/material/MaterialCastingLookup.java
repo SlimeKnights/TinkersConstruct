@@ -6,8 +6,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
@@ -17,9 +15,7 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,7 +28,7 @@ public class MaterialCastingLookup {
   private static final Object2IntMap<IMaterialItem> ITEM_COST_LOOKUP = new Object2IntOpenHashMap<>(50);
 
   /** Fluids that cast into materials */
-  private static final Map<Fluid,MaterialFluidRecipe> CASTING_FLUIDS = new HashMap<>();
+  private static final List<MaterialFluidRecipe> CASTING_FLUIDS = new ArrayList<>();
   /** Fluids that composite into materials */
   private static final List<MaterialFluidRecipe> COMPOSITE_FLUIDS = new ArrayList<>();
 
@@ -65,9 +61,7 @@ public class MaterialCastingLookup {
   public static void registerFluid(MaterialFluidRecipe recipe) {
     LISTENER.checkClear();
     if (recipe.getInput() == null) {
-      for (FluidStack fluidStack : recipe.getFluids()) {
-        CASTING_FLUIDS.put(fluidStack.getFluid(), recipe);
-      }
+      CASTING_FLUIDS.add(recipe);
     } else {
       COMPOSITE_FLUIDS.add(recipe);
     }
@@ -101,11 +95,17 @@ public class MaterialCastingLookup {
 
   /**
    * Gets the material the given fluid casts into
-   * @param fluid  Fluid
+   * @param inventory  Inventory
    * @return  Recipe
    */
-  public static Optional<MaterialFluidRecipe> getCastingFluid(Fluid fluid) {
-    return Optional.ofNullable(CASTING_FLUIDS.get(fluid));
+  public static Optional<MaterialFluidRecipe> getCastingFluid(ICastingContainer inventory) {
+    // TODO: reconsider cache
+    for (MaterialFluidRecipe recipe : CASTING_FLUIDS) {
+      if (recipe.matches(inventory)) {
+        return Optional.of(recipe);
+      }
+    }
+    return Optional.empty();
   }
 
   /**
@@ -128,7 +128,7 @@ public class MaterialCastingLookup {
    * @return  Recipe
    */
   public static List<MaterialFluidRecipe> getCastingFluids(MaterialVariantId material) {
-    return CASTING_FLUIDS.values().stream()
+    return CASTING_FLUIDS.stream()
                          .filter(recipe -> material.matchesVariant(recipe.getOutput()))
                          .collect(Collectors.toList());
   }
@@ -149,7 +149,7 @@ public class MaterialCastingLookup {
    * @return  Collection of all recipes
    */
   public static Collection<MaterialFluidRecipe> getAllCastingFluids() {
-    return CASTING_FLUIDS.values();
+    return CASTING_FLUIDS;
   }
 
   /**
