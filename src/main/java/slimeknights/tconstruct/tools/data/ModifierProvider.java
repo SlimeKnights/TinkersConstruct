@@ -12,6 +12,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
@@ -20,6 +21,7 @@ import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredica
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
@@ -54,7 +56,10 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.resurrected, ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).display(ModifierLevelDisplay.DEFAULT).build());
     addModifier(ModifierIds.draconic,    ExtraModifier.builder(SlotType.ABILITY).build());
-    // TODO: redirect red_extra_upgrade, green_extra_upgrade, blue_extra_upgrade, extra_ability
+    addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
+    addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
+    addRedirect(id("blue_extra_upgrade"),  redirect(ModifierIds.harmonious));
+    addRedirect(id("extra_ability"),       redirect(ModifierIds.draconic));
 
     // tier upgrades
     // emerald
@@ -119,6 +124,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       2.0f, MobEffects.MOVEMENT_SLOWDOWN, 4));
     addModifier(ModifierIds.killager, new ConditionalDamageModifier(
       LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ILLAGER), new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)), 2.0f));
+    addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
 
     // harvest
     addModifier(TinkerModifiers.haste, StatBoostModifier.builder().add(ToolStats.MINING_SPEED, 4f).display(new UniqueForLevels(5)).build());
@@ -133,7 +139,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     // chestplate
     addModifier(ModifierIds.knockbackArmor, StatBoostModifier.builder().attribute("tconstruct.modifier.armor_knockback", Attributes.ATTACK_KNOCKBACK, Operation.ADDITION, 1, armorSlots).build());
     addModifier(ModifierIds.strength, StatBoostModifier.builder().attribute("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
-    // TODO: migrate armor_power to strength
+    addRedirect(id("armor_power"), redirect(ModifierIds.strength));
     // leggings
     addModifier(ModifierIds.speedy, StatBoostModifier.builder().attribute("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
 
@@ -156,6 +162,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     // traits - tier 3
     addModifier(ModifierIds.crumbling, new ConditionalMiningSpeedModifier(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
     addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().display(ModifierLevelDisplay.DEFAULT).build());
+    addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
     // traits - tier 3 nether
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f)
@@ -183,11 +190,15 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.piglinDisguise,          new MobDisguiseModifier(EntityType.PIGLIN));
     addModifier(ModifierIds.piglinBruteDisguise,     new MobDisguiseModifier(EntityType.PIGLIN_BRUTE));
     addModifier(ModifierIds.zombifiedPiglinDisguise, new MobDisguiseModifier(EntityType.ZOMBIFIED_PIGLIN));
-
   }
 
   @Override
   public String getName() {
     return "Tinkers' Construct Modifiers";
+  }
+
+  /** Short helper to get a modifier ID */
+  private static ModifierId id(String name) {
+    return new ModifierId(TConstruct.MOD_ID, name);
   }
 }

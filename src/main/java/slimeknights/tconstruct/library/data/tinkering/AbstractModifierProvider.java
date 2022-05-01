@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.data.tinkering;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
@@ -7,6 +8,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -31,26 +33,51 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   protected abstract void addModifiers();
 
   /** Adds a modifier to be saved */
-  protected void addModifier(ModifierId id, @Nullable ICondition condition, Modifier result) {
-    Result previous = allModifiers.putIfAbsent(id, new Result(result, condition));
+  protected void addModifier(ModifierId id, @Nullable ICondition condition, @Nullable Modifier result, JsonRedirect... redirects) {
+    if (result == null && redirects.length == 0) {
+      throw new IllegalArgumentException("Must hae either a modifier or a redirect");
+    }
+    if (redirects.length == 0) {
+      redirects = null;
+    }
+
+    Result previous = allModifiers.putIfAbsent(id, new Result(result, condition, redirects));
     if (previous != null) {
       throw new IllegalArgumentException("Duplicate modifier " + id);
     }
   }
 
   /** Adds a modifier to be saved */
-  protected void addModifier(ModifierId id, Modifier result) {
-    addModifier(id, null, result);
+  protected void addModifier(ModifierId id, @Nullable Modifier result, JsonRedirect... redirects) {
+    addModifier(id, null, result, redirects);
   }
 
   /** Adds a modifier to be saved */
-  protected void addModifier(DynamicModifier<?> id, @Nullable ICondition condition, Modifier result) {
-    addModifier(id.getId(), condition, result);
+  protected void addModifier(DynamicModifier<?> id, @Nullable ICondition condition, @Nullable Modifier result, JsonRedirect... redirects) {
+    addModifier(id.getId(), condition, result, redirects);
   }
 
   /** Adds a modifier to be saved */
-  protected void addModifier(DynamicModifier<?> id, Modifier result) {
-    addModifier(id, null, result);
+  protected void addModifier(DynamicModifier<?> id, @Nullable Modifier result, JsonRedirect... redirects) {
+    addModifier(id, null, result, redirects);
+  }
+
+  /** Adds a modifier redirect */
+  protected void addRedirect(ModifierId id, JsonRedirect... redirects) {
+    addModifier(id, null, null, redirects);
+  }
+
+
+  /* Redirect helpers */
+
+  /** Makes a conditional redirect to the given ID */
+  protected JsonRedirect conditionalRedirect(ModifierId id, @Nullable ICondition condition) {
+    return new JsonRedirect(id, condition);
+  }
+
+  /** Makes an unconditional redirect to the given ID */
+  protected JsonRedirect redirect(ModifierId id) {
+    return conditionalRedirect(id, null);
   }
 
   @Override
@@ -61,7 +88,19 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
 
   /** Converts the given object to json */
   private static JsonObject convert(Result result) {
-    JsonObject json = ModifierManager.MODIFIER_LOADERS.serialize(result.modifier()).getAsJsonObject();
+    JsonObject json;
+    if (result.modifier != null) {
+      json = ModifierManager.MODIFIER_LOADERS.serialize(result.modifier).getAsJsonObject();
+    } else {
+      json = new JsonObject();
+    }
+    if (result.redirects != null) {
+      JsonArray array = new JsonArray();
+      for (JsonRedirect redirect : result.redirects) {
+        array.add(redirect.toJson());
+      }
+      json.add("redirects", array);
+    }
     if (result.condition != null) {
       json.add("condition", CraftingHelper.serialize(result.condition));
     }
@@ -69,5 +108,5 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   }
 
   /** Result record, as its nicer than a pair */
-  private record Result(Modifier modifier, @Nullable ICondition condition) {}
+  private record Result(@Nullable Modifier modifier, @Nullable ICondition condition, JsonRedirect[] redirects) {}
 }

@@ -19,6 +19,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ConditionContext;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
@@ -32,6 +33,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
@@ -111,10 +113,25 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     long time = System.nanoTime();
 
     // load modifiers from JSON
+    Map<ModifierId,ModifierId> redirects = new HashMap<>();
     this.dynamicModifiers = splashList.entrySet().stream()
-                                      .map(entry -> loadModifier(entry.getKey(), entry.getValue().getAsJsonObject()))
+                                      .map(entry -> loadModifier(entry.getKey(), entry.getValue().getAsJsonObject(), redirects))
                                       .filter(Objects::nonNull)
                                       .collect(Collectors.toMap(Modifier::getId, mod -> mod));
+
+    // process redirects
+    Map<ModifierId,Modifier> resolvedRedirects = new HashMap<>(); // handled as a separate map to prevent redirects depending on order (no double redirects)
+    for (Entry<ModifierId, ModifierId> redirect : redirects.entrySet()) {
+      ModifierId from = redirect.getKey();
+      ModifierId to = redirect.getValue();
+      if (!contains(to)) {
+        log.error("Invalid modifier redirect {} as modifier {} does not exist", from, to);
+      } else {
+        resolvedRedirects.put(from, get(to));
+      }
+    }
+    int modifierSize = this.dynamicModifiers.size();
+    this.dynamicModifiers.putAll(resolvedRedirects);
 
     // validate required modifiers
     for (Entry<ModifierId,Class<?>> entry : expectedDynamicModifiers.entrySet()) {
@@ -127,19 +144,37 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     }
 
     // TODO: this should be set back to false at some point
-    log.info("Loaded {} dynamic modifiers in {} ms", dynamicModifiers.size(), (System.nanoTime() - time) / 1000000f);
     dynamicModifiersLoaded = true;
+    log.info("Loaded {} dynamic modifiers and {} modifier redirects in {} ms", modifierSize, redirects.size(), (System.nanoTime() - time) / 1000000f);
+
     MinecraftForge.EVENT_BUS.post(new ModifiersLoadedEvent());
   }
 
   /** Loads a modifier from JSON */
   @Nullable
-  private Modifier loadModifier(ResourceLocation key, JsonElement element) {
+  private Modifier loadModifier(ResourceLocation key, JsonElement element, Map<ModifierId, ModifierId> redirects) {
     try {
       JsonObject json = GsonHelper.convertToJsonObject(element, "modifier");
+
+      // processed first so a modifier can both conditionally redirect and fallback to a conditional modifier
+      if (json.has("redirects")) {
+        for (JsonRedirect redirect : JsonHelper.parseList(json, "redirects", JsonRedirect::fromJson)) {
+          ICondition redirectCondition = redirect.getCondition();
+          if (redirectCondition == null || redirectCondition.test(conditionContext)) {
+            ModifierId redirectTarget = new ModifierId(redirect.getId());
+            log.debug("Redirecting modifier {} to {}", key, redirectTarget);
+            redirects.put(new ModifierId(key), redirectTarget);
+            return null;
+          }
+        }
+      }
+
+      // conditions
       if (json.has("condition") && !CraftingHelper.getCondition(GsonHelper.getAsJsonObject(json, "condition")).test(conditionContext)) {
         return null;
       }
+
+      // fallback to actual modifier
       Modifier modifier = MODIFIER_LOADERS.deserialize(json);
       modifier.setId(new ModifierId(key));
       return modifier;
@@ -182,12 +217,15 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
 
   /** Gets a list of all modifier IDs */
   public Stream<ResourceLocation> getAllLocations() {
-    return Stream.concat(staticModifiers.keySet().stream(), dynamicModifiers.keySet().stream());
+    // filter out redirects (redirects are any modifiers where the ID does not match the key
+    return Stream.concat(staticModifiers.entrySet().stream(), dynamicModifiers.entrySet().stream())
+                 .filter(entry -> entry.getKey().equals(entry.getValue().getId()))
+                 .map(Entry::getKey);
   }
 
   /** Gets a stream of all modifier values */
   public Stream<Modifier> getAllValues() {
-    return Stream.concat(staticModifiers.values().stream(), dynamicModifiers.values().stream());
+    return Stream.concat(staticModifiers.values().stream(), dynamicModifiers.values().stream()).distinct();
   }
 
 

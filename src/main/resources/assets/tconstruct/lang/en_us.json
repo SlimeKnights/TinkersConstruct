@@ -2462,6 +2462,7 @@
   "command.tconstruct.stat_type.not_found": "Unknown stat type %s",
   "command.tconstruct.stat_type.wrong_type": "Invalid stat type %s, must inherit from %s",
   "command.tconstruct.material.not_found": "Unknown material %s",
+  "command.tconstruct.modifier.not_found": "Unknown modifier %s",
   "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
 
   "command.tconstruct.modifiers.success.add.single": "Applied modifier %s to %s's item",

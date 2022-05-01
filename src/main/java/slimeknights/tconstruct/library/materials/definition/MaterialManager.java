@@ -21,6 +21,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
+import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -181,17 +182,12 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject, Map<MaterialId, MaterialId> redirects) {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
-      // condition
-      ICondition condition = materialJson.getCondition();
-      if (condition != null && !condition.test(conditionContext)) {
-        log.debug("Skipped loading material {} as it did not match the condition", materialId);
-        return null;
-      }
 
       // if defined, the material will redirect to another material
-      MaterialJson.Redirect[] redirectsJson = materialJson.getRedirect();
+      // processed first so a material can both conditionally redirect and fallback to a conditional material
+      JsonRedirect[] redirectsJson = materialJson.getRedirect();
       if (redirectsJson != null) {
-        for (MaterialJson.Redirect redirect : redirectsJson) {
+        for (JsonRedirect redirect : redirectsJson) {
           ICondition redirectCondition = redirect.getCondition();
           if (redirectCondition == null || redirectCondition.test(conditionContext)) {
             MaterialId redirectTarget = new MaterialId(redirect.getId());
@@ -200,6 +196,13 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
             return null;
           }
         }
+      }
+
+      // condition
+      ICondition condition = materialJson.getCondition();
+      if (condition != null && !condition.test(conditionContext)) {
+        log.debug("Skipped loading material {} as it did not match the condition", materialId);
+        return null;
       }
 
       if (materialJson.getCraftable() == null) {

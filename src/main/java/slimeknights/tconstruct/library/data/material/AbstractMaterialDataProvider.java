@@ -8,6 +8,7 @@ import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.Material;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -90,17 +91,17 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   /* Base methods */
 
   /** Adds a material to be generated with a condition and redirect data */
-  protected void addMaterial(IMaterial material, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+  protected void addMaterial(IMaterial material, @Nullable ICondition condition, JsonRedirect... redirect) {
     allMaterials.put(material.getIdentifier(), new DataMaterial(material, condition, redirect));
   }
 
   /** Adds JSON to redirect an ID to another ID */
-  protected void addRedirect(MaterialId id, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+  protected void addRedirect(MaterialId id, @Nullable ICondition condition, JsonRedirect... redirect) {
     allMaterials.put(id, new DataMaterial(null, condition, redirect));
   }
 
   /** Adds JSON to redirect an ID to another ID */
-  protected void addRedirect(MaterialId id, MaterialJson.Redirect... redirect) {
+  protected void addRedirect(MaterialId id, JsonRedirect... redirect) {
     addRedirect(id, null, redirect);
   }
 
@@ -112,7 +113,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   /** Creates a normal material with a condition and a redirect */
-  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, boolean hidden, @Nullable ICondition condition, MaterialJson.Redirect... redirect) {
+  protected void addMaterial(MaterialId location, int tier, int order, boolean craftable, boolean hidden, @Nullable ICondition condition, JsonRedirect... redirect) {
     addMaterial(new Material(location, tier, order, craftable, hidden), condition, redirect);
   }
 
@@ -136,12 +137,12 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   /* Redirect helpers */
 
   /** Makes a conditional redirect to the given ID */
-  protected MaterialJson.Redirect conditionalRedirect(MaterialId id, @Nullable ICondition condition) {
-    return new MaterialJson.Redirect(id, condition);
+  protected JsonRedirect conditionalRedirect(MaterialId id, @Nullable ICondition condition) {
+    return new JsonRedirect(id, condition);
   }
 
   /** Makes an unconditional redirect to the given ID */
-  protected MaterialJson.Redirect redirect(MaterialId id) {
+  protected JsonRedirect redirect(MaterialId id) {
     return conditionalRedirect(id, null);
   }
 
@@ -155,7 +156,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
    */
   private MaterialJson convert(DataMaterial data) {
     IMaterial material = data.material;
-    MaterialJson.Redirect[] redirect = data.redirect;
+    JsonRedirect[] redirect = data.redirect;
     if (redirect != null && redirect.length == 0) {
       redirect = null;
     }
@@ -165,5 +166,5 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     return new MaterialJson(data.condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.isHidden(), redirect);
   }
 
-  private record DataMaterial(@Nullable IMaterial material, @Nullable ICondition condition, MaterialJson.Redirect[] redirect) {}
+  private record DataMaterial(@Nullable IMaterial material, @Nullable ICondition condition, JsonRedirect[] redirect) {}
 }
