@@ -7,8 +7,9 @@
     }
   ],
   "properties": [
-   "Low Armor",
-	"Low Durability",
+    "Low Armor",
+    "Low Durability",
+    "Great in snow",
     "3 Upgrade Slots",
     "2 Defense Slots",
     "1 Ability Slot"
