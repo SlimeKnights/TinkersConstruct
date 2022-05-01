@@ -9,7 +9,6 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
@@ -27,21 +26,21 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
 
   @Override
   protected void addTransfers() {
-    addFillEmpty("honey_bottle_",  Items.HONEY_BOTTLE,  Items.GLASS_BOTTLE, TinkerFluids.honey.get(),        TinkerFluids.honey.getForgeTag(),        FluidValues.SLIMEBALL);
-    addFillEmpty("beetroot_soup_", Items.BEETROOT_SOUP, Items.BOWL,         TinkerFluids.beetrootSoup.get(), TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.SLIMEBALL);
-    addFillEmpty("mushroom_stew_", Items.MUSHROOM_STEW, Items.BOWL,         TinkerFluids.mushroomStew.get(), TinkerFluids.mushroomStew.getForgeTag(), FluidValues.SLIMEBALL);
-    addFillEmpty("rabbit_stew_",   Items.RABBIT_STEW,   Items.BOWL,         TinkerFluids.rabbitStew.get(),   TinkerFluids.rabbitStew.getForgeTag(),   FluidValues.SLIMEBALL);
+    addFillEmpty("honey_bottle_",  Items.HONEY_BOTTLE,  Items.GLASS_BOTTLE, TinkerFluids.honey.get(),        TinkerFluids.honey.getForgeTag(),        FluidValues.BOTTLE);
+    addFillEmpty("beetroot_soup_", Items.BEETROOT_SOUP, Items.BOWL,         TinkerFluids.beetrootSoup.get(), TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.BOWL);
+    addFillEmpty("mushroom_stew_", Items.MUSHROOM_STEW, Items.BOWL,         TinkerFluids.mushroomStew.get(), TinkerFluids.mushroomStew.getForgeTag(), FluidValues.BOWL);
+    addFillEmpty("rabbit_stew_",   Items.RABBIT_STEW,   Items.BOWL,         TinkerFluids.rabbitStew.get(),   TinkerFluids.rabbitStew.getForgeTag(),   FluidValues.BOWL);
     // water bottles are 1/3 of a bucket, to prevent water dupes we round up on fill and down on empty
     ItemStack waterBottle = PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER);
     assert waterBottle.getTag() != null;
     addTransfer("water_bottle_empty", new EmptyFluidContainerTransfer(
       PartialNBTIngredient.of(waterBottle.getTag(), Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION),
       ItemOutput.fromItem(Items.GLASS_BOTTLE),
-      new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 4)));
+      new FluidStack(Fluids.WATER, FluidValues.BOTTLE)));
     addTransfer("water_bottle_fill",  new FillFluidContainerTransfer(
       Ingredient.of(Items.GLASS_BOTTLE),
       ItemOutput.fromStack(waterBottle),
-      FluidIngredient.of(FluidTags.WATER, FluidAttributes.BUCKET_VOLUME / 2)));
+      FluidIngredient.of(FluidTags.WATER, FluidValues.BOTTLE * 2)));
   }
 
   @Override

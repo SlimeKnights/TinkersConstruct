@@ -965,26 +965,26 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // honey
     ItemCastingRecipeBuilder.tableRecipe(Items.HONEY_BOTTLE)
-                            .setFluid(TinkerFluids.honey.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setFluid(TinkerFluids.honey.getForgeTag(), FluidValues.BOTTLE)
                             .setCoolingTime(1)
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(consumer, modResource(folder + "honey/bottle"));
     ItemCastingRecipeBuilder.basinRecipe(Items.HONEY_BLOCK)
-                            .setFluidAndTime(TinkerFluids.honey, true, FluidValues.SLIME_CONGEALED)
+                            .setFluidAndTime(TinkerFluids.honey, true, FluidValues.BOTTLE * 4)
                             .save(consumer, modResource(folder + "honey/block"));
     // soup
     ItemCastingRecipeBuilder.tableRecipe(Items.BEETROOT_SOUP)
-                            .setFluid(TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setFluid(TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.BOWL)
                             .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, modResource(folder + "soup/beetroot"));
     ItemCastingRecipeBuilder.tableRecipe(Items.MUSHROOM_STEW)
-                            .setFluid(TinkerFluids.mushroomStew.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setFluid(TinkerFluids.mushroomStew.getForgeTag(), FluidValues.BOWL)
                             .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, modResource(folder + "soup/mushroom"));
     ItemCastingRecipeBuilder.tableRecipe(Items.RABBIT_STEW)
-                            .setFluid(TinkerFluids.rabbitStew.getForgeTag(), FluidValues.SLIMEBALL)
+                            .setFluid(TinkerFluids.rabbitStew.getForgeTag(), FluidValues.BOWL)
                             .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, modResource(folder + "soup/rabbit"));
@@ -1512,7 +1512,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(slimeFolder + "ender/sapling"));
 
     // honey
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.HONEY_BLOCK), TinkerFluids.honey.get(), FluidValues.SLIME_CONGEALED)
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.HONEY_BLOCK), TinkerFluids.honey.get(), FluidValues.BOTTLE * 4)
                         .save(consumer, modResource(slimeFolder + "honey_block"));
 
     // fuels
@@ -1552,7 +1552,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenPigIron.get(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenIron.getForgeTag(), FluidValues.INGOT)
                       .addInput(TinkerFluids.blood.getLocalTag(), FluidValues.SLIMEBALL * 2)
-                      .addInput(TinkerFluids.honey.getForgeTag(), FluidValues.SLIMEBALL)
+                      .addInput(TinkerFluids.honey.getForgeTag(), FluidValues.BOTTLE)
                       .save(consumer, prefix(TinkerFluids.moltenPigIron, folder));
     // obsidian: 1 water + 1 lava = 2
     // note this is not a progression break, as the same tier lets you combine glass and copper for same mining level
@@ -1725,7 +1725,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                               .save(consumer, prefix(TinkerWorld.terracubeEntity, folder));
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidStack(TinkerFluids.magma.get(), FluidValues.SLIMEBALL / 10))
                               .save(consumer, prefix(EntityType.MAGMA_CUBE, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.BEE), new FluidStack(TinkerFluids.honey.get(), FluidValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.BEE), new FluidStack(TinkerFluids.honey.get(), FluidValues.BOTTLE / 10))
                               .save(consumer, prefix(EntityType.BEE, folder));
 
     // iron golems can be healed using an iron ingot 25 health

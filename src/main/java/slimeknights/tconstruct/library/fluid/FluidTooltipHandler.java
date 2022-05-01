@@ -18,12 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.BOTTLE_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.CLAY_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.GLASS_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.LARGE_GEM_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.METAL_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SLIME_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SMALL_GEM_TOOLTIPS;
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.SOUP_TOOLTIPS;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
@@ -53,6 +55,9 @@ public class FluidTooltipHandler {
   // glass
   private static final FluidGuiEntry GLASS_BLOCK = new FluidGuiEntry("block", FluidValues.GLASS_BLOCK);
   private static final FluidGuiEntry PANE = new FluidGuiEntry("pane", FluidValues.GLASS_PANE);
+  // misc
+  private static final FluidGuiEntry BOTTLE = new FluidGuiEntry("bottle", FluidValues.BOTTLE);
+  private static final FluidGuiEntry BOWL = new FluidGuiEntry("bowl", FluidValues.BOWL);
 
   /**
    * Gets the tooltip for a fluid stack
@@ -116,6 +121,7 @@ public class FluidTooltipHandler {
 
     // if holding shift, skip specific units
     if(SafeClientAccess.getTooltipKey() != TooltipKey.SHIFT) {
+      // TODO: consider extracting these to JSON
       if (fluid.is(METAL_TOOLTIPS)) {
         amount = METAL_BLOCK.getText(tooltip, amount);
         amount = INGOT.getText(tooltip, amount);
@@ -137,6 +143,11 @@ public class FluidTooltipHandler {
       } else if (fluid.is(CLAY_TOOLTIPS)) {
         amount = BRICK_BLOCK.getText(tooltip, amount);
         amount = BRICK.getText(tooltip, amount);
+      } else if (fluid.is(BOTTLE_TOOLTIPS)) {
+        amount = BUCKET.getText(tooltip, amount);
+        amount = BOTTLE.getText(tooltip, amount);
+      } else if (fluid.is(SOUP_TOOLTIPS)) {
+        amount = BOWL.getText(tooltip, amount);
       }
     }
 

@@ -1129,6 +1129,8 @@
   "gui.tconstruct.fluid.pane": "%s Panes",
   "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
   "gui.tconstruct.fluid.brick": "%s Bricks",
+  "gui.tconstruct.fluid.bowl": "%s Bowls",
+  "gui.tconstruct.fluid.bottle": "%s Bottles",
 
   "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
 

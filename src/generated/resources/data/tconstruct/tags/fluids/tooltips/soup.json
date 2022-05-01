@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:beetroot_soup",
+    "#tconstruct:mushroom_stew",
+    "#tconstruct:rabbit_stew"
+  ]
+}

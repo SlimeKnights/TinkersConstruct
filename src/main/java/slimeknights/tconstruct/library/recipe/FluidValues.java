@@ -48,6 +48,12 @@ public final class FluidValues {
   /** Value of a block worth 9 slime */
   public static final int SLIME_BLOCK = SLIMEBALL * 9;
 
+  // soup
+  /** Value of a single bowl of soup */
+  public static final int BOWL = 250;
+  /** Value of a single bottle of a potion */
+  public static final int BOTTLE = 250;
+
   // tank capacities
   /** Capacity of a seared or scorched lantern */
   public static final int LANTERN_CAPACITY = 50;
