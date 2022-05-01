@@ -121,6 +121,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
 
     // legacy
     addRedirect(new MaterialId(TConstruct.MOD_ID, "stone"), redirect(MaterialIds.rock));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "tinkers_bronze"), redirect(MaterialIds.bronze));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "tinkers_bronze"), conditionalRedirect(MaterialIds.bronze, tagExistsCondition("ingots/bronze")), redirect(MaterialIds.copper));
   }
 }
