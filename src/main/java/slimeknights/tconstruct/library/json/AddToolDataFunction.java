@@ -19,7 +19,6 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -59,8 +58,8 @@ public class AddToolDataFunction extends LootItemConditionalFunction {
   protected ItemStack run(ItemStack stack, LootContext context) {
     if (stack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(stack);
-      ToolDefinition definition = tool.getDefinition();
-      if (definition.isMultipart() && !materials.isEmpty()) {
+      tool.ensureSlotsBuilt();
+      if (tool.getDefinition().isMultipart() && !materials.isEmpty()) {
         MaterialNBT.Builder builder = MaterialNBT.builder();
         Random random = context.getRandom();
         for (RandomMaterial material : materials) {

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -41,6 +42,8 @@ import java.util.Set;
 public class ToolStack implements IToolStackView {
   /** Error messages for when there are not enough remaining modifiers */
   private static final String KEY_VALIDATE_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.validate_slots");
+  /** flag to set in persistent data to mark a tool as needing persistent data, by default any tools with no persistent data are initialized */
+  public static final ResourceLocation NEEDS_SLOTS_BUILT = TConstruct.getResource("needs_slots_built");
 
   // persistent NBT
   /** Tag for list of materials */
@@ -575,18 +578,33 @@ public class ToolStack implements IToolStackView {
     return ValidatedResult.PASS;
   }
 
-  /** Called on inventory tick to ensure the tool has all required data, prevents tools with no stats from existing */
-  public void ensureHasData() {
-    // no stats but definition ready? rebuild time
-    if (definition.isDataLoaded() && !nbt.contains(TAG_STATS, Tag.TAG_COMPOUND)) {
-      // add starting modifier slots
-      definition.getData().buildSlots(getPersistentData());
-      // do we need materials?
-      if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
-        setMaterialsRaw(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false));
-      }
-      rebuildStats();
+  /** Initializes modifier slots on the tool if needed */
+  public void ensureSlotsBuilt() {
+    // no persistent data means no slots added yet, so time to build them
+    // note that empty persistent data will not trigger this, which is important when a tool has no slots remaining
+    if (!nbt.contains(TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND) || getPersistentData().getBoolean(NEEDS_SLOTS_BUILT)) {
+      ModDataNBT persistentData = getPersistentData();
+      persistentData.remove(NEEDS_SLOTS_BUILT);
+      definition.getData().buildSlots(persistentData);
     }
+  }
+
+  /** Called on inventory tick to ensure the tool has all required data including materials, prevents tools with no stats from existing */
+  public void ensureHasData() {
+    if (!definition.isDataLoaded()) {
+      return;
+    }
+    ensureSlotsBuilt();
+
+    // if the tool has stats already, nothing more to do
+    if (isInitialized(nbt)) {
+      return;
+    }
+    // need materials to build stats, randomize them if missing
+    if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
+      setMaterialsRaw(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false));
+    }
+    rebuildStats();
   }
 
   /**
@@ -658,8 +676,17 @@ public class ToolStack implements IToolStackView {
    * @return  True if initialized
    */
   public static boolean isInitialized(ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
-    return nbt != null && nbt.contains(TAG_STATS, Tag.TAG_COMPOUND);
+    CompoundTag tag = stack.getTag();
+    return tag != null && isInitialized(tag);
+  }
+
+  /**
+   * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
+   * @param tag  Tag to check
+   * @return  True if initialized
+   */
+  public static boolean isInitialized(CompoundTag tag) {
+    return tag.contains(TAG_STATS, Tag.TAG_COMPOUND);
   }
 
   /**
@@ -670,29 +697,6 @@ public class ToolStack implements IToolStackView {
   public static boolean hasMaterials(ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     return nbt != null && nbt.contains(TAG_MATERIALS, Tag.TAG_LIST);
-  }
-
-  /**
-   * Checks if the given tool NBT needs initialization
-   * @param nbt         NBT instance
-   * @param definition  Tool definition
-   * @return  If true, initialization is needed
-   */
-  private static boolean needsInitialization(@Nullable CompoundTag nbt, ToolDefinition definition) {
-    // cannot initialize if datapacks are not loaded
-    if (!definition.isDataLoaded()) {
-      return false;
-    }
-    // no NBT? initialize if we don't need more data
-    if (nbt == null) {
-      return !definition.isMultipart();
-    }
-    // have data but no materials? cannot initialize yet
-    if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
-      return false;
-    }
-    // no stats? not initialized
-    return !nbt.contains(TAG_STATS, Tag.TAG_COMPOUND);
   }
 
   /**
@@ -711,14 +715,17 @@ public class ToolStack implements IToolStackView {
    * @param toolDefinition  Tool definition
    */
   public static void ensureInitialized(ItemStack stack, ToolDefinition toolDefinition) {
-    if (!ToolStack.isInitialized(stack)) {
-      // if the tool is multipart, do nothing without materials
-      if (needsInitialization(stack.getTag(), toolDefinition)) {
-        ToolStack tool = ToolStack.from(stack);
-        toolDefinition.getData().buildSlots(tool.getPersistentData());
-        tool.rebuildStats();
-      }
+    // must be loaded
+    if (!toolDefinition.isDataLoaded()) {
+      return;
     }
+    CompoundTag tag = stack.getTag();
+    // already initialized? nothing to do
+    if (tag != null && isInitialized(tag)) {
+      return;
+    }
+    // time to initialize
+    ToolStack.from(stack).ensureHasData();
   }
 
   /**
@@ -729,23 +736,22 @@ public class ToolStack implements IToolStackView {
    * @param definition  Tool definition
    */
   public static void verifyTag(Item item, CompoundTag tag, ToolDefinition definition) {
-    // skip if no definition data loaded
-    if (definition.isDataLoaded() && !tag.getBoolean(TooltipUtil.KEY_DISPLAY)) {
-      // if the stack has materials, resolve all material redirects
-      if (tag.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
-        MaterialIdNBT stored = MaterialIdNBT.readFromNBT(tag.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
-        MaterialIdNBT resolved = stored.resolveRedirects();
-        if (resolved != stored) {
-          resolved.updateNBT(tag);
-        }
-      }
-      ToolStack tool = ToolStack.from(item, definition, tag);
-      // if uninitialized, add slots
-      if (needsInitialization(tag, definition)) {
-        definition.getData().buildSlots(tool.getPersistentData());
-      }
-      // build stats regardless
-      tool.rebuildStats();
+    // this function is sometimes called before datapack contents load, do nothing then
+    if (!definition.isDataLoaded() || tag.getBoolean(TooltipUtil.KEY_DISPLAY)) {
+      return;
     }
+
+    // resolve all material redirects
+    if (tag.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
+      MaterialIdNBT stored = MaterialIdNBT.readFromNBT(tag.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
+      MaterialIdNBT resolved = stored.resolveRedirects();
+      if (resolved != stored) {
+        resolved.updateNBT(tag);
+      }
+    }
+    // rebuild stats
+    ToolStack tool = ToolStack.from(item, definition, tag);
+    tool.ensureSlotsBuilt();
+    tool.rebuildStats();
   }
 }

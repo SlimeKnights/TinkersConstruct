@@ -40,7 +40,6 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.AbstractCastingBlock;
@@ -289,7 +288,6 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
 
         // actual recipe result
         ItemStack output = currentRecipe.assemble(castingInventory);
-        ToolStack.ensureInitialized(output); // its possible we are casting a modifiable tool
         if (currentRecipe.switchSlots() != lastRedstone) {
           if (!currentRecipe.isConsumed()) {
             setItem(OUTPUT, getItem(INPUT));
