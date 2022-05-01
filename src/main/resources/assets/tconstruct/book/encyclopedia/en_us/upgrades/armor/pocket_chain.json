@@ -11,7 +11,7 @@
   "more_text_space": true,
   "effects": [
     "Maximum of 1 level",
-    "Slotless",
+    "Requires 1 upgrade slot",
     "Requires tool belt or shield strap"
   ]
 }
