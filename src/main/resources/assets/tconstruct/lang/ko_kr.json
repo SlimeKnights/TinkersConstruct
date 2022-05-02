@@ -1411,21 +1411,21 @@
   "material.tconstruct.cobalt.encyclopedia": "등급당 채굴 속도와 공격 속도가 7%만큼 증가합니다",
 
   "material.tconstruct.manyullyn": "마뉼린",
-  "material.tconstruct.manyullyn.flavor": "대부분의 대장장이가 제대로 부를 일 없을 겁니다. 별 절단 물질이라고도 합니다.",
-  "material.tconstruct.manyullyn.encyclopedia": "적을 연속으로 16번 공격하면, 등급당 공격 피해가 3까지 증가합니다",
+  "material.tconstruct.manyullyn.flavor": "대부분의 대장장이가 제대로 부를 일이 없을 겁니다. 별을 자르는 물질이라고도 합니다.",
+  "material.tconstruct.manyullyn.encyclopedia": "적을 연속으로 8번 타격한 이후, 등급당 공격 피해가 2 증가합니다",
 
   "material.tconstruct.hepatizon": "헤파티존",
-  "material.tconstruct.hepatizon.flavor": "헤-파-티-존 - 끓이고, 떄리고, 스튜에 넣어라.",
+  "material.tconstruct.hepatizon.flavor": "과몰입은 채광할때 좋습니다.",
   "material.tconstruct.hepatizon.encyclopedia": "블록을 연속으로 32개 채굴하면, 등급당 채굴 속도가 25%까지 빨라집니다",
 
   "material.tconstruct.queens_slime": "여왕의 슬라임",
-  "material.tconstruct.queens_slime.flavor": "공주들은 사악하니, 직접 여왕이 되세요.",
+  "material.tconstruct.queens_slime.flavor": "백성들의 노래가 들려오네, 옛 왕은 죽었으니 새 여왕이시여 영원하라.",
   "material.tconstruct.queens_slime.encyclopedia": "등급당 내구도의 15%가 감소하며, 그중 66%가 슬라임 막으로 전환됩니다",
 
   "material.tconstruct.blazing_bone": "화골",
-  "material.tconstruct.blazing_bone.flavor": "네더 요새의 모든 힘을 활용하세요 - 뼈와 불",
+  "material.tconstruct.blazing_bone.flavor": "파이어 앤드 저스티스!",
   "material.tconstruct.blazing_bone.encyclopedia": "불이 붙으면, 초당 공격 피해가 1%씩 증가하며, 용암에서 초당 최대 15%까지 증가할 수 있습니다. 화염 저항이 있다면, 추가 공격 피해가 감소합니다",
-  "material.tconstruct.blazing_bone.skull_flavor": "이건 엄밀히 말하면 화염구가 아닌, 화염의 숨결이지만, 내가 발명한 물건의 이름을 내가 결정할 순 없는 것 같아",
+  "material.tconstruct.blazing_bone.skull_flavor": "원래 이름은 화염의 숨결이지만, 알 필요는 없어. 시간이 지나면 어차피 화염구라고 부를텐데 뭐.",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "인벤토리에 있는 화염구를 뱉을 수 있습니다. 5초의 대기시간이 있으며, 물속에서는 사용할 수 없습니다",
 
   "material.tconstruct.soulsteel": "영혼강철",
@@ -1441,7 +1441,7 @@
 
   "__comment": "슬라임 갑옷 재료",
   "material.tconstruct.gunpowder": "화약",
-  "material.tconstruct.gunpowder.skull_flavor": "누군가의 멋진 건축물이 지금 파괴되고 있니, 크리퍼야?",
+  "material.tconstruct.gunpowder.skull_flavor": "이제 누가 크리퍼지?",
   "material.tconstruct.gunpowder.skull_encyclopedia": "투구 상호작용 키를 누르면 착용자가 폭발합니다",
 
   "material.tconstruct.ender_pearl": "엔더 진주",
@@ -1457,7 +1457,7 @@
   "material.tconstruct.venom.skull_encyclopedia": "독이 제거되지는 않지만, 독에 걸리지 않을 수 있습니다",
 
   "material.tconstruct.rotten_flesh": "썩은 살점",
-  "material.tconstruct.rotten_flesh.skull_flavor": "괜찮아",
+  "material.tconstruct.rotten_flesh.skull_flavor": "???: this is fine.",
   "material.tconstruct.rotten_flesh.skull_encyclopedia": "착용자가 타오르는 시간에 따라 근접 공격이 대상의 타오르는 시간을 늘립니다",
 
   "material.tconstruct.gold": "금",
@@ -1500,7 +1500,7 @@
   "material.tconstruct.lead.encyclopedia": "등급당 공격 피해가 10%만큼 증가하고, 이동 속도가 10%만큼 감소합니다",
 
   "material.tconstruct.silver": "은",
-  "material.tconstruct.silver.flavor": "며칠만 지나면, 이렇게까지 반짝거리지는 않을 거다.",
+  "material.tconstruct.silver.flavor": "며칠만 지나면 이렇게까지 반짝거리지는 않을 거다.",
   "material.tconstruct.silver.encyclopedia": "등급당 언데드에게 2.5만큼 추가 공격 피해를 줍니다",
 
   "material.tconstruct.whitestone": "백석",
