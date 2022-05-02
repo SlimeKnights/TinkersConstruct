@@ -1307,7 +1307,7 @@
 
   "material.tconstruct.flint": "부싯돌",
   "material.tconstruct.flint.flavor": "대장장이의 심장에 불꽃을 튀깁니다!",
-  "material.tconstruct.flint.encyclopedia": "공격 피해가 감소한 내구도의 제곱근만큼 증가합니다",
+  "material.tconstruct.flint.encyclopedia": "공격 피해가, 감소한 내구도의 제곱근 / 4 만큼 증가합니다",
 
   "material.tconstruct.bone": "뼈",
   "material.tconstruct.bone.flavor": "이 검은 제 뼈를 갈아 만들었습니다",
