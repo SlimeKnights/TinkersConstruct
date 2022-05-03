@@ -72,8 +72,7 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Blocks
    */
-  // TODO: moving to natura
-  public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANT, SoundType.GRASS).strength(3.0F).noOcclusion()), HIDDEN_BLOCK_ITEM);
+  public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANT, SoundType.GRASS).strength(3.0F).speedFactor(0.4F).noOcclusion()), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Items

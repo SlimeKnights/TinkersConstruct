@@ -100,6 +100,12 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .pattern("S")
                        .unlockedBy("has_item", has(Items.SADDLE))
                        .save(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
+    ShapedRecipeBuilder.shaped(TinkerGadgets.punji)
+                       .define('b', Items.BAMBOO)
+                       .pattern(" b ")
+                       .pattern("bbb")
+                       .unlockedBy("has_item", has(Items.BAMBOO))
+                       .save(consumer, prefix(TinkerGadgets.punji, folder));
 
     // frames
     folder = "gadgets/fancy_frame/";
