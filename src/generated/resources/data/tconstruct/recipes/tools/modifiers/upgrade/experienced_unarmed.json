@@ -12,7 +12,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/armor/chestplate"
+    "tag": "tconstruct:modifiable/unarmed"
   },
   "slots": {
     "upgrades": 1

@@ -58,6 +58,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.ONE_HANDED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TWO_HANDED;
+import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
 
 @SuppressWarnings("unchecked")
 public class ItemTagProvider extends ItemTagsProvider {
@@ -228,7 +229,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(MELEE).addTag(MELEE_PRIMARY).addTag(SWORD);
     // modifier helper tags
     this.tag(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
-    this.tag(MELEE_OR_UNARMED).addTag(MELEE).addTag(CHESTPLATES);
+    this.tag(MELEE_OR_UNARMED).addTag(MELEE).addTag(UNARMED);
+    this.tag(UNARMED).addTag(CHESTPLATES);
     this.tag(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
     this.tag(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
     this.tag(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);

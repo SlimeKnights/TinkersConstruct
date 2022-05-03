@@ -771,7 +771,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
     // chestplate
     ModifierRecipeBuilder.modifier(TinkerModifiers.unarmed)
-                         .setTools(TinkerTags.Items.CHESTPLATES)
+                         .setTools(TinkerTags.Items.UNARMED)
                          .addInput(Items.LEATHER)
                          .addInput(Tags.Items.GEMS_DIAMOND)
                          .addInput(Items.LEATHER)
@@ -929,7 +929,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes, similar for both so pulled into a function
     luckRecipes(consumer, ModifierIds.luck, TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
-    luckRecipes(consumer, ModifierIds.looting, TinkerTags.Items.CHESTPLATES, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
+    luckRecipes(consumer, ModifierIds.looting, TinkerTags.Items.UNARMED, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
@@ -1001,7 +1001,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.bucketing, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bucketing, abilityFolder));
     SizedIngredient channels = SizedIngredient.fromItems(TinkerSmeltery.searedChannel, TinkerSmeltery.scorchedChannel);
-    Ingredient meleeChestplate = ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES);
     ModifierRecipeBuilder.modifier(TinkerModifiers.spilling)
                          .addInput(channels)
                          .addInput(TinkerTags.Items.TANKS)
@@ -1009,7 +1008,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(meleeChestplate)
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES))
                          .saveSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank) // TODO: armor does not interact with chestplates for tanks, is that bad?
@@ -1137,7 +1136,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.dualWielding)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(DifferenceIngredient.of(meleeChestplate, Ingredient.of(TinkerTools.dagger)))
+                         .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTools.dagger)))
                          .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage));
     /*
      * extra modifiers

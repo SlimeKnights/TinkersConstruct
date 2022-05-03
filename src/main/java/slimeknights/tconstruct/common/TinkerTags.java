@@ -322,6 +322,8 @@ public class TinkerTags {
     public static final TagKey<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
     /** Modifiable items that are worn as helmets */
     public static final TagKey<Item> HELMETS = tag("modifiable/armor/helmets");
+    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change */
+    public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final TagKey<Item> RANGED = tag("modifiable/ranged");
 

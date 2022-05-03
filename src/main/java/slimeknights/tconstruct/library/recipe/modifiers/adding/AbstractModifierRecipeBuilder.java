@@ -180,10 +180,10 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     }
     // if true, only chestplates
     if (unarmed == Boolean.TRUE) {
-      ingredient = Ingredient.of(TinkerTags.Items.CHESTPLATES);
+      ingredient = Ingredient.of(TinkerTags.Items.UNARMED);
       // if null, both
     } else if (unarmed == null) {
-      ingredient = CompoundIngredient.of(ingredient, Ingredient.of(TinkerTags.Items.CHESTPLATES));
+      ingredient = CompoundIngredient.of(ingredient, Ingredient.of(TinkerTags.Items.UNARMED));
     }
     json.add("tools", ingredient.toJson());
     if (maxToolSize != ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE) {

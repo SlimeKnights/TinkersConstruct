@@ -231,7 +231,7 @@ public class InteractionHandler {
     Player attacker = event.getPlayer();
     if (attacker.getMainHandItem().isEmpty()) {
       ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
+      if (chestplate.is(TinkerTags.Items.UNARMED)) {
         ToolStack tool = ToolStack.from(chestplate);
         if (!tool.isBroken() && tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
           ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
