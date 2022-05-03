@@ -2,7 +2,7 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:wither_rose"
+      "item": "tconstruct:necrotic_bone"
     },
     {
       "item": "tconstruct:blood_congealed_slime"

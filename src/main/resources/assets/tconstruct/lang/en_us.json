@@ -1347,7 +1347,7 @@
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
-  "material.tconstruct.necrotic_bone.encyclopedia": "Heals up to 5% of damage dealt per level",
+  "material.tconstruct.necrotic_bone.encyclopedia": "Heals a percentage of damage dealt from critical hits",
   "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
 
@@ -1680,7 +1680,8 @@
   "modifier.tconstruct.fiery.description": "Ignites targets",
   "modifier.tconstruct.necrotic": "Necrotic",
   "modifier.tconstruct.necrotic.flavor": "Vampiric!",
-  "modifier.tconstruct.necrotic.description": "Hitting enemies drains their life to heal you",
+  "modifier.tconstruct.necrotic.description": "Critical hits on enemies drains their life to heal you",
+  "modifier.tconstruct.necrotic.lifesteal": "Life Steal",
 
   "_comment": "Damage boost",
   "modifier.tconstruct.piercing": "Piercing",
