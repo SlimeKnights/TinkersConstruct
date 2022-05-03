@@ -80,6 +80,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.UnarmedModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.WettingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.BlockTransformWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
@@ -296,6 +297,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<ShieldStrapModifier> shieldStrap = MODIFIERS.register("shield_strap", ShieldStrapModifier::new);
   public static final StaticModifier<ToolBeltModifier> toolBelt = MODIFIERS.register("tool_belt", ToolBeltModifier::new);
   public static final StaticModifier<PocketChainModifier> pocketChain = MODIFIERS.register("pocket_chain", PocketChainModifier::new);
+  public static final StaticModifier<WettingModifier> wetting = MODIFIERS.register("wetting", WettingModifier::new);
+
   // boots
   public static final StaticModifier<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
   public static final StaticModifier<SoulSpeedModifier> soulspeed = MODIFIERS.register("soulspeed", SoulSpeedModifier::new);

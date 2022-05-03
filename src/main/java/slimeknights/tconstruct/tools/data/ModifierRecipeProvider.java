@@ -838,6 +838,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(TinkerModifiers.toolBelt, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.toolBelt, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.wetting)
+                         .addInput(Tags.Items.DUSTS_REDSTONE)
+                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(Tags.Items.DUSTS_REDSTONE)
+                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.wetting, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.wetting, abilityFolder));
     // boots
     ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump)
                          .setTools(TinkerTags.Items.BOOTS)
@@ -1011,11 +1021,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES))
                          .saveSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.tank) // TODO: armor does not interact with chestplates for tanks, is that bad?
+    ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
                          .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS))
+                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.LEGGINGS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
     // expanders
