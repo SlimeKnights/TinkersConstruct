@@ -47,7 +47,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
         ToolStats.MINING_SPEED.multiply(builder, 0.9f);
       }
       if (context.hasTag(TinkerTags.Items.ARMOR)) {
-        ToolStats.ARMOR.add(builder, 0.5f);
+        ToolStats.ARMOR.add(builder, -0.5f);
       }
     }
   }
