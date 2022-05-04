@@ -37,7 +37,6 @@ import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,7 +92,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   public void init() {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, FMLCommonSetupEvent.class, e -> e.enqueueWork(this::fireRegistryEvent));
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateModifiersPacket(this.dynamicModifiers.values())));
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateModifiersPacket(this.dynamicModifiers)));
   }
 
   /** Fires the modifier registry event */
@@ -185,8 +184,8 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Updates the modifiers from the server */
-  void updateModifiersFromServer(Collection<Modifier> modifiers) {
-    this.dynamicModifiers = modifiers.stream().collect(Collectors.toMap(Modifier::getId, mod -> mod));
+  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers) {
+    this.dynamicModifiers = modifiers;
     this.dynamicModifiersLoaded = true;
     MinecraftForge.EVENT_BUS.post(new ModifiersLoadedEvent());
   }
