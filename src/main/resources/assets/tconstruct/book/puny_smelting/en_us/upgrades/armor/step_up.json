@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Put one foot in front of the other, except higher."
+    }
+  ],
+  "effects": [
+    "Allows climbing taller blocks like stairs",
+    "Multiple levels, increases step height with each level",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

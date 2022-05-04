@@ -683,6 +683,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(TinkerModifiers.leaping, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.leaping, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.stepUp)
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .addInput(Items.LEATHER)
+                         .addInput(Items.GOLDEN_CARROT)
+                         .addInput(Items.LEATHER)
+                         .addInput(Items.SCAFFOLDING)
+                         .addInput(Items.SCAFFOLDING)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(2)
+                         .saveSalvage(consumer, prefix(ModifierIds.stepUp, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.stepUp, upgradeFolder));
     // half of pockets as a slotless
     ModifierRecipeBuilder.modifier(TinkerModifiers.pocketChain)
                          .setTools(TinkerTags.Items.LEGGINGS)

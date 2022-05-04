@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:default",
+  "attributes": [
+    {
+      "unique": "tconstruct.modifier.step_up",
+      "attribute": "forge:step_height_addition",
+      "operation": "addition",
+      "amount": 0.5,
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ]
+}

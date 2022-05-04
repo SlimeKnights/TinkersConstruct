@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:step_up",
+  "min_level": 1
+}
