@@ -34,15 +34,20 @@ public class WettingModifier extends TankModifier {
   }
 
   /** Overridable method to create the attack context and spawn particles */
-  public ToolAttackContext createContext(LivingEntity self, @Nullable Player player, Entity attacker, FluidStack fluid) {
+  public ToolAttackContext createContext(LivingEntity self, @Nullable Player player, @Nullable Entity attacker, FluidStack fluid) {
     spawnParticles(self, fluid);
     return new ToolAttackContext(self, player, InteractionHand.MAIN_HAND, self, self, false, 1.0f, false);
+  }
+
+  /** Checks if the modifier triggers */
+  protected boolean doesTrigger(DamageSource source, boolean isDirectDamage) {
+    return !source.isBypassMagic() && !source.isBypassInvul();
   }
 
   @Override
   public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
-    if (isDirectDamage && attacker != null) {
+    if (doesTrigger(source, isDirectDamage)) {
       // 25% chance of working per level
       if (RANDOM.nextInt(4) < level) {
         FluidStack fluid = getFluid(tool);
