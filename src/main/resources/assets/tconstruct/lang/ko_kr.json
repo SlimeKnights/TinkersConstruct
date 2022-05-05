@@ -1416,7 +1416,7 @@
 
   "material.tconstruct.hepatizon": "헤파티존",
   "material.tconstruct.hepatizon.flavor": "과몰입은 채광할때 좋습니다.",
-  "material.tconstruct.hepatizon.encyclopedia": "블록을 연속으로 32개 채굴하면, 등급당 채굴 속도가 25%까지 빨라집니다",
+  "material.tconstruct.hepatizon.encyclopedia": "연속으로 채굴한 블럭이 32개에 가까워질수록, 등급당 채굴 속도가 25%까지 점차 빨라집니다",
 
   "material.tconstruct.queens_slime": "여왕의 슬라임",
   "material.tconstruct.queens_slime.flavor": "백성들의 노래가 들려오네, 옛 왕은 죽었으니 새 여왕이시여 영원하라.",
