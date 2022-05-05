@@ -1381,7 +1381,7 @@
 
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
-  "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +8 per 64 blocks below sea level",
+  "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +6 per 64 blocks below 64",
   "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",
   "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
