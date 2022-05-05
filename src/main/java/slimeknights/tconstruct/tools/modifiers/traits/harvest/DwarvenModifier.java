@@ -36,9 +36,9 @@ public class DwarvenModifier extends Modifier {
     }
 
     // start the debuff 128 blocks below the top, but for short worlds start it 128 blocks above the full boost (so we have 64 blocks of neutral)
-    // in the overworld, debuff is between 320 and 128. In the nether, its between 256 and 128
+    // in the overworld, debuff is between 320 and 128. In the nether, its between 256 and 96
     // the method to get the world's sea level is not reliable, so just using absolute bounds of the world
-    float baselineDebuff = Math.max(world.getMaxBuildHeight() - (DEBUFF_RANGE + BOOST_DISTANCE), DEBUFF_RANGE);
+    float baselineDebuff = Math.max(world.getMaxBuildHeight() - (DEBUFF_RANGE + BOOST_DISTANCE), 96);
     if (y > baselineDebuff) {
       // range of 64 blocks for the regular debuff, anything above is full debuff
       if (y >= baselineDebuff + DEBUFF_RANGE) {
