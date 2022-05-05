@@ -2,12 +2,10 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +24,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
@@ -37,6 +34,18 @@ import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.ConditionalSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.CureEffectsSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.DamageSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.EffectSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.ExtinguishSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.PotionFluidEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.RemoveEffectSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.RestoreHungerSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFireSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -48,18 +57,6 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifier
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ConditionalSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RemoveEffectSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairCraftingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
@@ -68,6 +65,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.tools.data.ModifierProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
+import slimeknights.tconstruct.tools.data.SpillingFluidProvider;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.DragonScaleItem;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
@@ -206,6 +204,7 @@ public final class TinkerModifiers extends TinkerModule {
   public TinkerModifiers() {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
+    SpillingFluidManager.INSTANCE.init();
   }
 
   /*
@@ -434,8 +433,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ArmorDyeingRecipe.Serializer> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", ArmorDyeingRecipe.Serializer::new);
   public static final RegistryObject<SimpleRecipeSerializer<CreativeSlotRecipe>> creativeSlotSerializer = RECIPE_SERIALIZERS.register("creative_slot_modifier", () -> new SimpleRecipeSerializer<>(CreativeSlotRecipe::new));
   // modifiers
-  public static final RegistryObject<SpillingRecipe.Serializer> spillingSerializer = RECIPE_SERIALIZERS.register("spilling", SpillingRecipe.Serializer::new);
-  public static final RegistryObject<ModifierRepairRecipeSerializer<?>> modifierRepair = RECIPE_SERIALIZERS.register("modifier_repair", () -> new ModifierRepairRecipeSerializer<>((ResourceLocation id, ModifierId modifier, Ingredient ingredient, int repairAmount) -> new ModifierRepairTinkerStationRecipe(id, modifier, ingredient, repairAmount)));
+  public static final RegistryObject<ModifierRepairRecipeSerializer<?>> modifierRepair = RECIPE_SERIALIZERS.register("modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairTinkerStationRecipe::new));
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> craftingModifierRepair = RECIPE_SERIALIZERS.register("crafting_modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairCraftingRecipe::new));
   // severing
   public static final RegistryObject<SeveringRecipe.Serializer> severingSerializer = RECIPE_SERIALIZERS.register("severing", SeveringRecipe.Serializer::new);
@@ -459,17 +457,17 @@ public final class TinkerModifiers extends TinkerModule {
 
   @SubscribeEvent
   void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    ISpillingEffect.LOADER.register(TConstruct.getResource("conditional"),    ConditionalSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("cure_effects"),   CureEffectsSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("remove_effect"),  RemoveEffectSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("damage"),         DamageSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("effect"),         EffectSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("extinguish"),     ExtinguishSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("potion_fluid"),   PotionFluidEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("restore_hunger"), RestoreHungerSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("set_fire"),       SetFireSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("teleport"),       TeleportSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.register(TConstruct.getResource("calcified"),      StrongBonesModifier.SPILLING_EFFECT_LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(ConditionalSpillingEffect.ID,   ConditionalSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(CureEffectsSpillingEffect.ID,   CureEffectsSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(RemoveEffectSpillingEffect.ID,  RemoveEffectSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(DamageSpillingEffect.ID,        DamageSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(EffectSpillingEffect.ID,        EffectSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(ExtinguishSpillingEffect.ID,    ExtinguishSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(PotionFluidEffect.ID,           PotionFluidEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(RestoreHungerSpillingEffect.ID, RestoreHungerSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(SetFireSpillingEffect.ID,       SetFireSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(TeleportSpillingEffect.ID,      TeleportSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(StrongBonesModifier.SPILLING_EFFECT_ID, StrongBonesModifier.SPILLING_EFFECT_LOADER);
     // modifier loaders
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("default"), Modifier.DEFAULT_LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("stat_boost"), StatBoostModifier.LOADER);
@@ -503,6 +501,7 @@ public final class TinkerModifiers extends TinkerModule {
     if (event.includeServer()) {
       generator.addProvider(new ModifierProvider(generator));
       generator.addProvider(new ModifierRecipeProvider(generator));
+      generator.addProvider(new SpillingFluidProvider(generator));
     }
   }
 }

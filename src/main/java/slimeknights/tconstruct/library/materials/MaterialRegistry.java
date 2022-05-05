@@ -4,7 +4,6 @@ import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.conditions.ConditionContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.network.PacketDistributor;
@@ -193,7 +192,7 @@ public final class MaterialRegistry {
   /** Adds the managers as datapack listeners */
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(materialManager);
-    materialManager.setConditionContext(new ConditionContext(event.getServerResources().tagManager));
+    materialManager.setConditionContext(event.getConditionContext());
     event.addListener(materialStatsManager);
     event.addListener(materialTraitsManager);
   }

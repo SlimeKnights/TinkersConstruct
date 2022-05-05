@@ -1,0 +1,17 @@
+{
+  "fluid": {
+    "tag": "tconstruct:molten_pig_iron",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:restore_hunger",
+      "hunger": 2,
+      "saturation": 0.3
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 2
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "condition": {
+    "value": {
+      "registry": "minecraft:fluid",
+      "tag": "forge:potion",
+      "type": "mantle:tag_empty"
+    },
+    "type": "forge:not"
+  },
+  "fluid": {
+    "tag": "forge:potion",
+    "amount": 125
+  },
+  "effects": [
+    {
+      "type": "tconstruct:potion_fluid",
+      "scale": 0.5
+    }
+  ]
+}

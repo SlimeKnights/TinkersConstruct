@@ -18,7 +18,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ConditionContext;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -104,7 +103,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** Adds the managers as datapack listeners */
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(this);
-    conditionContext = new ConditionContext(event.getServerResources().tagManager);
+    conditionContext = event.getConditionContext();
   }
 
   @Override

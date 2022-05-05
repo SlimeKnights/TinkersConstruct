@@ -1,0 +1,24 @@
+{
+  "fluid": {
+    "tag": "tconstruct:spilling/metal/expensive",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 2.5
+      }
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 7
+    }
+  ]
+}

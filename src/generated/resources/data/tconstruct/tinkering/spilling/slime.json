@@ -1,0 +1,20 @@
+{
+  "fluid": {
+    "tag": "forge:slime",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:luck",
+      "time": 15,
+      "level": 1
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:slowness",
+      "time": 15,
+      "level": 1
+    }
+  ]
+}

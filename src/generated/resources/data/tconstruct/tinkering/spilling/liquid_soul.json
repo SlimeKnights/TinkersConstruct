@@ -1,0 +1,20 @@
+{
+  "fluid": {
+    "tag": "tconstruct:liquid_soul",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:slowness",
+      "time": 25,
+      "level": 2
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:blindness",
+      "time": 5,
+      "level": 1
+    }
+  ]
+}

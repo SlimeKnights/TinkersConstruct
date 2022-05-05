@@ -1,0 +1,13 @@
+{
+  "fluid": {
+    "tag": "forge:rabbit_stew",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:restore_hunger",
+      "hunger": 2,
+      "saturation": 2.4
+    }
+  ]
+}

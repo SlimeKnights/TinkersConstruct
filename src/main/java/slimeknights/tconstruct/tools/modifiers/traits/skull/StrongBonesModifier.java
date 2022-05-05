@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,21 +14,18 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ISpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class StrongBonesModifier extends TotalArmorLevelModifier {
-  public static final SpillingEffect SPILLING_EFFECT = new SpillingEffect();
-  public static final IGenericLoader<SpillingEffect> SPILLING_EFFECT_LOADER = new SingletonLoader<>(SPILLING_EFFECT);
   private static final TinkerDataKey<Integer> STRONG_BONES = TConstruct.createKey("strong_bones");
   /** Key for modifiers that are boosted by drinking milk */
   public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
@@ -65,10 +66,14 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
     }
   }
 
-  /** Spilling effect hook */
-  public static class SpillingEffect implements ISpillingEffect {
-    private SpillingEffect() {}
 
+  /* Spilling effect */
+
+  /** ID for the spilling effect */
+  public static final ResourceLocation SPILLING_EFFECT_ID = TConstruct.getResource("calcified");
+
+  /** Singleton instance the spilling effect */
+  public static final ISpillingEffect SPILLING_EFFECT = new ISpillingEffect() {
     @Override
     public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {
       LivingEntity target = context.getLivingTarget();
@@ -78,8 +83,11 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
     }
 
     @Override
-    public IGenericLoader<? extends ISpillingEffect> getLoader() {
-      return SPILLING_EFFECT_LOADER;
+    public JsonObject serialize(JsonSerializationContext context) {
+      return JsonUtils.withType(SPILLING_EFFECT_ID);
     }
-  }
+  };
+
+  /** Loader for the spilling effect */
+  public static final JsonDeserializer<ISpillingEffect> SPILLING_EFFECT_LOADER = (json, type, context) -> SPILLING_EFFECT;
 }

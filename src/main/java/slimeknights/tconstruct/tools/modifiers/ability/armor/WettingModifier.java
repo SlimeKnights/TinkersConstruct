@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -49,8 +49,8 @@ public class WettingModifier extends TankModifier {
         if (!fluid.isEmpty()) {
           LivingEntity self = context.getEntity();
           Player player = self instanceof Player p ? p : null;
-          SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(self.level.getRecipeManager(), fluid.getFluid());
-          if (recipe != null) {
+          SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+          if (recipe.hasEffects()) {
             FluidStack remaining = recipe.applyEffects(fluid, level, createContext(self, player, attacker, fluid));
             if (player == null || !player.isCreative()) {
               setFluid(tool, remaining);

@@ -5,38 +5,27 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
-import net.minecraftforge.fluids.FluidAttributes;
-import slimeknights.mantle.recipe.data.FluidNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.mantle.recipe.helper.TagEmptyCondition;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -44,15 +33,11 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
-import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
-import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
@@ -61,17 +46,6 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBui
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.CureEffectsSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.DamageSpillingEffect.DamageType;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.EffectSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.ExtinguishSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.PotionFluidEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RemoveEffectSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.RestoreHungerSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.SetFireSpillingEffect;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -83,7 +57,6 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.world.TinkerHeadType;
@@ -92,7 +65,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class ModifierRecipeProvider extends BaseRecipeProvider {
   public ModifierRecipeProvider(DataGenerator generator) {
@@ -1354,142 +1326,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addSpillingRecipes(Consumer<FinishedRecipe> consumer) {
-    String folder = "tools/spilling/";
-    IJsonPredicate<LivingEntity> notFireImmune = LivingEntityPredicate.FIRE_IMMUNE.inverted();
-
-    // vanilla
-    SpillingRecipeBuilder.forFluid(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(LivingEntityPredicate.WATER_SENSITIVE, new DamageSpillingEffect(DamageType.PIERCING, 2f))
-                         .addEffect(ExtinguishSpillingEffect.INSTANCE)
-                         .save(consumer, modResource(folder + "water"));
-    SpillingRecipeBuilder.forFluid(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 2f))
-                         .addEffect(new SetFireSpillingEffect(10))
-                         .save(consumer, modResource(folder + "lava"));
-    SpillingRecipeBuilder.forFluid(Tags.Fluids.MILK, FluidAttributes.BUCKET_VOLUME / 10)
-                         .addEffect(new CureEffectsSpillingEffect(new ItemStack(Items.MILK_BUCKET)))
-                         .addEffect(StrongBonesModifier.SPILLING_EFFECT)
-                         .save(consumer, modResource(folder + "milk"));
-    // blaze - more damage, less fire
-    SpillingRecipeBuilder.forFluid(TinkerFluids.blazingBlood.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 3f))
-                         .addEffect(new SetFireSpillingEffect(5))
-                         .save(consumer, prefix(TinkerFluids.blazingBlood, folder));
-    // slime
-    int slimeballPiece = FluidValues.SLIMEBALL / 5;
-    // earth - lucky
-    SpillingRecipeBuilder.forFluid(TinkerFluids.earthSlime.getForgeTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(MobEffects.LUCK, 15, 1))
-                         .addEffect(new EffectSpillingEffect(MobEffects.MOVEMENT_SLOWDOWN, 15, 1))
-                         .save(consumer, prefix(TinkerFluids.earthSlime, folder));
-    // sky - jump boost
-    SpillingRecipeBuilder.forFluid(TinkerFluids.skySlime.getLocalTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(MobEffects.JUMP, 20, 1))
-                         .addEffect(new EffectSpillingEffect(MobEffects.MOVEMENT_SLOWDOWN, 15, 1))
-                         .save(consumer, prefix(TinkerFluids.skySlime, folder));
-    // ender - levitation
-    SpillingRecipeBuilder.forFluid(TinkerFluids.enderSlime.getLocalTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(MobEffects.LEVITATION, 5, 1))
-                         .addEffect(new EffectSpillingEffect(MobEffects.MOVEMENT_SLOWDOWN, 15, 1))
-                         .save(consumer, prefix(TinkerFluids.enderSlime, folder));
-    // slimelike
-    // blood - food
-    SpillingRecipeBuilder.forFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
-                         .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
-                         .addEffect(new EffectSpillingEffect(MobEffects.DIG_SLOWDOWN, 10, 1))
-                         .save(consumer, prefix(TinkerFluids.blood, folder));
-    // venom - poison
-    SpillingRecipeBuilder.forFluid(TinkerFluids.venom.getLocalTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(MobEffects.POISON, 25, 1))
-                         .save(consumer, prefix(TinkerFluids.venom, folder));
-    // magma - fire resistance
-    SpillingRecipeBuilder.forFluid(TinkerFluids.magma.getForgeTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(MobEffects.FIRE_RESISTANCE, 25, 1))
-                         .save(consumer, prefix(TinkerFluids.magma, folder));
-    // soul - slowness and blindness
-    SpillingRecipeBuilder.forFluid(TinkerFluids.liquidSoul.getLocalTag(), slimeballPiece)
-                         .addEffect(new EffectSpillingEffect(MobEffects.MOVEMENT_SLOWDOWN, 25, 2))
-                         .addEffect(new EffectSpillingEffect(MobEffects.BLINDNESS, 5, 1))
-                         .save(consumer, prefix(TinkerFluids.liquidSoul, folder));
-    // ender - teleporting
-    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenEnder.getForgeTag(), FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 1f))
-                         .addEffect(TeleportSpillingEffect.INSTANCE)
-                         .save(consumer, prefix(TinkerFluids.moltenEnder, folder));
-
-    // foods
-    SpillingRecipeBuilder.forFluid(TinkerFluids.honey.getForgeTag(), slimeballPiece)
-                         .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
-                         .addEffect(new RemoveEffectSpillingEffect(MobEffects.POISON))
-                         .save(consumer, prefix(TinkerFluids.honey, folder));
-    SpillingRecipeBuilder.forFluid(TinkerFluids.beetrootSoup.getForgeTag(), slimeballPiece)
-                         .addEffect(new RestoreHungerSpillingEffect(1, 1.5f))
-                         .save(consumer, prefix(TinkerFluids.beetrootSoup, folder));
-    SpillingRecipeBuilder.forFluid(TinkerFluids.mushroomStew.getForgeTag(), slimeballPiece)
-                         .addEffect(new RestoreHungerSpillingEffect(1, 1.5f))
-                         .save(consumer, prefix(TinkerFluids.mushroomStew, folder));
-    SpillingRecipeBuilder.forFluid(TinkerFluids.rabbitStew.getForgeTag(), slimeballPiece)
-                         .addEffect(new RestoreHungerSpillingEffect(2, 2.4f))
-                         .save(consumer, prefix(TinkerFluids.rabbitStew, folder));
-
-    // multi-recipes
-    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.GLASS_SPILLING, FluidAttributes.BUCKET_VOLUME / 10)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1f))
-                         .addEffect(new SetFireSpillingEffect(3))
-                         .save(consumer, modResource(folder + "glass"));
-    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.CLAY_SPILLING, FluidAttributes.BUCKET_VOLUME / 20)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1.5f))
-                         .addEffect(new SetFireSpillingEffect(3))
-                         .save(consumer, modResource(folder + "clay"));
-
-    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.CHEAP_METAL_SPILLING, FluidValues.NUGGET)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1.5f))
-                         .addEffect(new SetFireSpillingEffect(7))
-                         .save(consumer, modResource(folder + "metal_cheap"));
-    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.AVERAGE_METAL_SPILLING, FluidValues.NUGGET)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 2f))
-                         .addEffect(new SetFireSpillingEffect(7))
-                         .save(consumer, modResource(folder + "metal_average"));
-    SpillingRecipeBuilder.forFluid(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING, FluidValues.NUGGET)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 2.5f))
-                         .addEffect(new SetFireSpillingEffect(7))
-                         .save(consumer, modResource(folder + "metal_expensive"));
-    // gold applies magic
-    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenGold.getForgeTag(), FluidValues.NUGGET)
-                         .addEffect(new MobTypePredicate(MobType.UNDEAD), new DamageSpillingEffect(DamageType.MAGIC, 2f))
-                         .addEffect(new SetFireSpillingEffect(3))
-                         .save(consumer, prefix(TinkerFluids.moltenGold, folder));
-    // pig iron fills you up magic
-    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenPigIron.getLocalTag(), FluidValues.NUGGET)
-                         .addEffect(new RestoreHungerSpillingEffect(2, 0.3f))
-                         .addEffect(new SetFireSpillingEffect(2))
-                         .save(consumer, prefix(TinkerFluids.moltenPigIron, folder));
-    // uranium also does poison
-    SpillingRecipeBuilder.forFluid(TinkerFluids.moltenUranium.getLocalTag(), FluidValues.NUGGET)
-                         .addEffect(notFireImmune, new DamageSpillingEffect(DamageType.FIRE, 1.5f))
-                         .addEffect(new EffectSpillingEffect(MobEffects.POISON, 10, 1))
-                         .addEffect(new SetFireSpillingEffect(3))
-                         .save(consumer, prefix(TinkerFluids.moltenUranium, folder));
-
-    // potion fluid compat
-    TagKey<Fluid> potionTag = getFluidTag("forge", "potion");
-    // standard potion is 250 mb, but we want a smaller number. For the effects, we really want to divide into 4 pieces
-    SpillingRecipeBuilder.forFluid(FluidIngredient.of(potionTag, FluidAttributes.BUCKET_VOLUME / 8))
-                         .addEffect(new PotionFluidEffect(0.5f, TagPredicate.ANY))
-                         .save(withCondition(consumer, new NotCondition(new TagEmptyCondition<>(potionTag))), modResource(folder + "potion_fluid"));
-
-    // create has three types of bottles stored on their fluid, react to it to boost
-    Function<String,TagPredicate> createBottle = value -> {
-      CompoundTag compound = new CompoundTag();
-      compound.putString("Bottle", value);
-      return new TagPredicate(compound);
-    };
-    String create = "create";
-    SpillingRecipeBuilder.forFluid(FluidNameIngredient.of(new ResourceLocation(create, "potion"), FluidAttributes.BUCKET_VOLUME / 8))
-                         .addEffect(new PotionFluidEffect(0.25f, createBottle.apply("REGULAR")))
-                         .addEffect(new PotionFluidEffect(0.5f, createBottle.apply("SPLASH")))
-                         .addEffect(new PotionFluidEffect(1f, createBottle.apply("LINGERING")))
-                         .save(withCondition(consumer, modLoaded(create)), modResource(folder + "create_potion_fluid"));
 
   }
 
@@ -1517,17 +1353,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(tool)
                                   .addInput(congealed).addInput(TinkerWorld.slime.get(slime)).addInput(congealed)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + slime.getSerializedName()));
-  }
-
-  private void burningSpilling(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time) {
-    burningSpilling(consumer, fluid, damage, time, FluidValues.NUGGET);
-  }
-
-  private void burningSpilling(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, float damage, int time, int amount) {
-    SpillingRecipeBuilder.forFluid(fluid.getLocalTag(), amount)
-                         .addEffect(new DamageSpillingEffect(DamageType.FIRE, damage))
-                         .addEffect(new SetFireSpillingEffect(time))
-                         .save(consumer, prefix(fluid, "tools/spilling/"));
   }
 
   /** Common logic to add recipes for luck and unarmed looting */

@@ -14,8 +14,8 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -41,8 +41,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
         // if we have a recipe, start drinking
-        SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getCommandSenderWorld().getRecipeManager(), fluid.getFluid());
-        if (recipe != null) {
+        if (SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
           player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.tickCount + 20)));
           return true;
         }
@@ -88,13 +87,13 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
           addFluidParticles(player, info.fluid, 16);
 
           // only server needs to drink
-          if (!player.getCommandSenderWorld().isClientSide) {
+          if (!player.level.isClientSide) {
             ToolStack tool = ToolStack.from(player.getItemBySlot(EquipmentSlot.HEAD));
             FluidStack fluid = getFluid(tool);
             if (!fluid.isEmpty()) {
               // find the recipe
-              SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(player.getCommandSenderWorld().getRecipeManager(), fluid.getFluid());
-              if (recipe != null) {
+              SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+              if (recipe.hasEffects()) {
                 ToolAttackContext context = new ToolAttackContext(player, player, InteractionHand.MAIN_HAND, player, player, false, 1.0f, false);
                 FluidStack remaining = recipe.applyEffects(fluid, tool.getModifierLevel(this), context);
                 if (!player.isCreative()) {

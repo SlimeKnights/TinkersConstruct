@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.definition.UpdateMaterialsPacke
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
 import slimeknights.tconstruct.library.modifiers.UpdateModifiersPacket;
+import slimeknights.tconstruct.library.modifiers.spilling.UpdateSpillingFluidsPacket;
 import slimeknights.tconstruct.library.tools.definition.UpdateToolDefinitionDataPacket;
 import slimeknights.tconstruct.library.tools.layout.UpdateTinkerSlotLayoutsPacket;
 import slimeknights.tconstruct.shared.network.GeneratePartTexturesPacket;
@@ -91,6 +92,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(TinkerControlPacket.class, TinkerControlPacket::read, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(OnChestplateUsePacket.class, OnChestplateUsePacket::read, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateModifiersPacket.class, UpdateModifiersPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateSpillingFluidsPacket.class, UpdateSpillingFluidsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // smeltery
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);

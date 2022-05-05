@@ -1,0 +1,19 @@
+{
+  "fluid": {
+    "tag": "tconstruct:blood",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:restore_hunger",
+      "hunger": 1,
+      "saturation": 0.2
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:mining_fatigue",
+      "time": 10,
+      "level": 1
+    }
+  ]
+}

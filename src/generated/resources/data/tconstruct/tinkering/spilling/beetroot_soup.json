@@ -1,0 +1,13 @@
+{
+  "fluid": {
+    "tag": "forge:beetroot_soup",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:restore_hunger",
+      "hunger": 1,
+      "saturation": 1.5
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "fluid": {
+    "tag": "tconstruct:spilling/glass",
+    "amount": 100
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 1.0
+      }
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 3
+    }
+  ]
+}

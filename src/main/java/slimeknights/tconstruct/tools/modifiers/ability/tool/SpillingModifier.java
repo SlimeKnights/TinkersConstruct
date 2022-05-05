@@ -5,8 +5,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.spilling.SpillingRecipeLookup;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
+import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.WettingModifier;
@@ -27,8 +27,8 @@ public class SpillingModifier extends WettingModifier {
     if (damageDealt > 0 && context.isFullyCharged()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
-        SpillingRecipe recipe = SpillingRecipeLookup.findRecipe(context.getAttacker().level.getRecipeManager(), fluid.getFluid());
-        if (recipe != null) {
+        SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+        if (recipe.hasEffects()) {
           FluidStack remaining = recipe.applyEffects(fluid, level, context);
           spawnParticles(context.getTarget(), fluid);
           Player player = context.getPlayerAttacker();

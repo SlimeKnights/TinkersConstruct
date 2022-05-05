@@ -1,0 +1,17 @@
+{
+  "fluid": {
+    "tag": "forge:honey",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:restore_hunger",
+      "hunger": 1,
+      "saturation": 0.2
+    },
+    {
+      "type": "tconstruct:remove_effect",
+      "effect": "minecraft:poison"
+    }
+  ]
+}

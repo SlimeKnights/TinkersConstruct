@@ -1,0 +1,13 @@
+{
+  "fluid": {
+    "tag": "forge:milk",
+    "amount": 100
+  },
+  "effects": [
+    {
+      "type": "tconstruct:cure_effects",
+      "item": "minecraft:milk_bucket"
+    },
+    null
+  ]
+}

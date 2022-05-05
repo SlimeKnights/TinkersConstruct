@@ -1,0 +1,30 @@
+{
+  "fluid": {
+    "tag": "forge:molten_uranium",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 1.5
+      }
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 3
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:poison",
+      "time": 10,
+      "level": 1
+    }
+  ]
+}

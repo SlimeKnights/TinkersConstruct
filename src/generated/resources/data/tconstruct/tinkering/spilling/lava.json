@@ -1,0 +1,24 @@
+{
+  "fluid": {
+    "name": "minecraft:lava",
+    "amount": 50
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 10
+    }
+  ]
+}
