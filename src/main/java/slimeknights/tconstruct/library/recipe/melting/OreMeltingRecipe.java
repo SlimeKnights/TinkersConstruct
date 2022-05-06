@@ -20,10 +20,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
   @Getter
   private final OreRateType oreType;
   public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, OreRateType oreType) {
-    // multiply byproducts by the config amount, this runs on recipe parse so config is loaded by then
-    super(id, group, input, output, temperature, time, byproducts.stream()
-                                                                 .map(fluid -> Config.COMMON.foundryByproductRate.applyOreBoost(oreType, fluid))
-                                                                 .toList());
+    super(id, group, input, output, temperature, time, byproducts);
     this.oreType = oreType;
   }
 
@@ -42,6 +39,8 @@ public class OreMeltingRecipe extends MeltingRecipe {
     @Override
     protected OreMeltingRecipe createFromJson(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, JsonObject json) {
       OreRateType rate = OreRateType.parse(json, "rate");
+      // multiply byproducts by the config amount, config is loaded, and this prevents running it twice (once on read from network)
+      byproducts = byproducts.stream().map(fluid -> Config.COMMON.foundryByproductRate.applyOreBoost(rate, fluid)).toList();
       return new OreMeltingRecipe(id, group, input, output, temperature, time, byproducts, rate);
     }
 
