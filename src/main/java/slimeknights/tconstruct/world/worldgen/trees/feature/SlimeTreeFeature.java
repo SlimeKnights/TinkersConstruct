@@ -54,10 +54,7 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     return false;
   }
 
-  private boolean place(LevelSimulatedRW generationReader, Random rand, BlockPos positionIn, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> foliagePositions, BoundingBox boundingBoxIn, SlimeTreeConfig configIn) {
-    if (!(generationReader instanceof LevelAccessor)) {
-      return false;
-    }
+  private boolean place(WorldGenLevel level, Random rand, BlockPos positionIn, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> foliagePositions, BoundingBox boundingBoxIn, SlimeTreeConfig configIn) {
     // determine tree height
     int height = rand.nextInt(configIn.randomHeight) + configIn.baseHeight;
     if (configIn.canDoubleHeight && rand.nextInt(10) == 0) {
@@ -74,20 +71,17 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
 //      blockpos = positionIn;
 //    }
 
-    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= 256 && isSlimySoilAt(generationReader, positionIn.below())) {
-      this.setDirtAt(generationReader, positionIn.below(), positionIn);
-      this.placeTrunk(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
-      this.placeCanopy(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
+    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= level.getMaxBuildHeight() && isSlimySoilAt(level, positionIn.below())) {
+      this.setDirtAt(level, positionIn.below(), positionIn);
+      this.placeTrunk(level, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
+      this.placeCanopy(level, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
       return true;
     }
     return false;
   }
 
-  protected void setDirtAt(LevelSimulatedRW reader, BlockPos pos, BlockPos origin) {
-    if (!(reader instanceof LevelAccessor)) {
-      return;
-    }
-    BlockState state = ((LevelAccessor)reader).getBlockState(pos);
+  protected void setDirtAt(WorldGenLevel reader, BlockPos pos, BlockPos origin) {
+    BlockState state = reader.getBlockState(pos);
     if (state.is(BlockTags.DIRT)) {
       reader.setBlock(pos, Blocks.DIRT.defaultBlockState(), 2);
     }
