@@ -3,9 +3,6 @@
   "tools": {
     "tag": "tconstruct:modifiable/held"
   },
-  "slots": {
-    "upgrades": 1
-  },
   "modifier": "tconstruct:offhanded",
   "min_level": 1,
   "max_level": 1

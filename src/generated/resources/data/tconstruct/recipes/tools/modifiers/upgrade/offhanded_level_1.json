@@ -14,9 +14,6 @@
   "tools": {
     "tag": "tconstruct:modifiable/held"
   },
-  "slots": {
-    "upgrades": 1
-  },
   "result": {
     "name": "tconstruct:offhanded",
     "level": 1

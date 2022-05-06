@@ -288,7 +288,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .setMaxLevel(1)
                          .setSalvageLevelRange(1, 1)
-                         .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_1"))
                          .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_1"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded)
