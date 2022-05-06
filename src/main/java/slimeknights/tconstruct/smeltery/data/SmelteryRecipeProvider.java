@@ -362,7 +362,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // smeltery controller
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.smelteryController)
-                            .setCast(TinkerSmeltery.searedHeater, true)
+                            .setCast(TinkerSmeltery.searedBricks, true)
                             .setFluidAndTime(TinkerFluids.moltenCopper, true, FluidValues.INGOT * 4)
                             .save(consumer, prefix(TinkerSmeltery.smelteryController, castingFolder));
 
@@ -445,7 +445,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedHeater), TinkerFluids.searedStone.get(), FluidValues.BRICK * 8, 3f)
                         .save(consumer, modResource(meltingFolder + "heater"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.smelteryController), TinkerFluids.moltenCopper.get(), FluidValues.INGOT * 4, 3.5f)
-                        .addByproduct(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.BRICK * 8))
+                        .addByproduct(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.BRICK * 4))
                         .save(consumer, modResource("smeltery/melting/metal/copper/smeltery_controller"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute), TinkerFluids.moltenCopper.get(), FluidValues.INGOT * 2, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.BRICK * 4))
@@ -691,7 +691,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     scorchedCasting(consumer, TinkerSmeltery.polishedScorchedStone, Ingredient.of(Blocks.POLISHED_BASALT), castingFolder + "polished_from_magma");
     // foundry controller
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.foundryController)
-                            .setCast(TinkerSmeltery.scorchedBricks, true) // TODO: can I find a "heater" for the nether?
+                            .setCast(TinkerSmeltery.scorchedBricks, true)
                             .setFluidAndTime(TinkerFluids.moltenObsidian, false, FluidValues.GLASS_BLOCK)
                             .save(consumer, prefix(TinkerSmeltery.foundryController, castingFolder));
 

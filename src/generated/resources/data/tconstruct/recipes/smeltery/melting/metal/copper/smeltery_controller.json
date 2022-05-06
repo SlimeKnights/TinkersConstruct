@@ -12,7 +12,7 @@
   "byproducts": [
     {
       "fluid": "tconstruct:seared_stone",
-      "amount": 2000
+      "amount": 1000
     }
   ]
 }
