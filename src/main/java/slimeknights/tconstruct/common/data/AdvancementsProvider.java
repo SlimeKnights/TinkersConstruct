@@ -344,18 +344,18 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("used_pack", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY, ItemPredicate.Builder.item().of(TinkerGadgets.piggyBackpack), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.PIG).build()))));
     Advancement slimesuit = builder(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE).getRenderTool(), resource("world/slimesuit"), enderslimeIsland, FrameType.GOAL, builder ->
       TinkerTools.slimesuit.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getSerializedName(), hasItem(armor))));
-    builder(new MaterialIdNBT(Collections.singletonList(MaterialIds.gunpowder)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET))),
+    builder(new MaterialIdNBT(Collections.singletonList(MaterialIds.glass)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET))),
             resource("world/slimeskull"), slimesuit, FrameType.CHALLENGE, builder -> {
       Item helmet = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
       Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder(helmet).withMaterial(mat).build()));
-      with.accept(MaterialIds.gunpowder);
+      with.accept(MaterialIds.glass);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);
       with.accept(MaterialIds.rottenFlesh);
       with.accept(MaterialIds.enderPearl);
       with.accept(MaterialIds.bloodbone);
-      with.accept(MaterialIds.spider);
-      with.accept(MaterialIds.venom);
+      with.accept(MaterialIds.string);
+      with.accept(MaterialIds.darkthread);
       with.accept(MaterialIds.iron);
       with.accept(MaterialIds.copper);
       with.accept(MaterialIds.blazingBone);

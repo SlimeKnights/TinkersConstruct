@@ -305,10 +305,8 @@
 
     "__slimeskull__": null,
     "gold":         "#FDF55F",
-    "gunpowder":    "#95D78E",
+    "glass":        "#D0EAE9",
     "rotten_flesh": "#6F4D1B",
-    "spider":       "#9D1E2D",
-    "venom":        "#EDEDED",
     "ender_pearl":  "#349988",
 
     "__slimesuit__": null,
@@ -319,11 +317,11 @@
     "enderslime": "#af4cf6",
     "clay":       "#AFB9D6",
     "honey":      "#FABF29",
+    "venom":      "#EDEDED",
 
     "__repair_kit__": null,
     "phantom": "#C3B9A1",
-    "chorus":  "#8F648F",
-    "rabbit":  "#C79E67"
+    "chorus":  "#8F648F"
   },
 
   "harvest_tier.minecraft": {

@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "tconstruct:slime_helmet",
-      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:gunpowder\"]}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:glass\"]}"
     },
     "title": {
       "translate": "advancements.tconstruct.world.slimeskull.title"
@@ -17,7 +17,7 @@
     "hidden": false
   },
   "criteria": {
-    "gunpowder": {
+    "glass": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
             "type": "tconstruct:tool",
             "item": "tconstruct:slime_helmet",
             "materials": [
-              "tconstruct:gunpowder"
+              "tconstruct:glass"
             ]
           }
         ]
@@ -101,7 +101,7 @@
         ]
       }
     },
-    "spider": {
+    "string": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -109,13 +109,13 @@
             "type": "tconstruct:tool",
             "item": "tconstruct:slime_helmet",
             "materials": [
-              "tconstruct:spider"
+              "tconstruct:string"
             ]
           }
         ]
       }
     },
-    "venom": {
+    "darkthread": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -123,7 +123,7 @@
             "type": "tconstruct:tool",
             "item": "tconstruct:slime_helmet",
             "materials": [
-              "tconstruct:venom"
+              "tconstruct:darkthread"
             ]
           }
         ]
@@ -216,7 +216,7 @@
   },
   "requirements": [
     [
-      "gunpowder"
+      "glass"
     ],
     [
       "bone"
@@ -234,10 +234,10 @@
       "bloodbone"
     ],
     [
-      "spider"
+      "string"
     ],
     [
-      "venom"
+      "darkthread"
     ],
     [
       "iron"

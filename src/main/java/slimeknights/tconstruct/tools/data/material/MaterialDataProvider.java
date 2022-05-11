@@ -90,37 +90,39 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass");
 
     // plate
-    addMaterial(MaterialIds.obsidian,  6, 9, false);
-    addMaterial(MaterialIds.debris,    6, 9, false);
-    addMaterial(MaterialIds.netherite, 6, 9, false);
-    addCompatMetalMaterial(MaterialIds.aluminum, 6, 9);
-    addCompatMetalMaterial(MaterialIds.nickel,   6, 9);
-    addCompatMetalMaterial(MaterialIds.tin,      6, 9);
-    addCompatMetalMaterial(MaterialIds.zinc,     6, 9);
-    addCompatMetalMaterial(MaterialIds.brass,    6, 9);
-    addCompatMetalMaterial(MaterialIds.uranium,  6, 9);
-    // slimeskull - marked tier 6 to push to tne end of repair kits
-    addMaterial(MaterialIds.gold,        6, 0, false);
-    addMaterial(MaterialIds.gunpowder,   6, 1, true);
-    addMaterial(MaterialIds.rottenFlesh, 6, 2, true);
-    addMaterial(MaterialIds.spider,      6, 4, true);
-    addMaterial(MaterialIds.venom,       6, 5, true);
-    addMaterial(MaterialIds.enderPearl,  6, 6, true);
+    addMaterial(MaterialIds.obsidian,  3, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.debris,    3, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.netherite, 4, ORDER_REPAIR, false);
+    addCompatMetalMaterial(MaterialIds.aluminum, 2, ORDER_REPAIR);
+    addCompatMetalMaterial(MaterialIds.nickel,   2, ORDER_REPAIR);
+    addCompatMetalMaterial(MaterialIds.tin,      2, ORDER_REPAIR);
+    addCompatMetalMaterial(MaterialIds.zinc,     2, ORDER_REPAIR);
+    addCompatMetalMaterial(MaterialIds.brass,    3, ORDER_REPAIR);
+    addCompatMetalMaterial(MaterialIds.uranium,  2, ORDER_REPAIR);
+    // slimeskull - put in the most appropriate tier
+    addMaterial(MaterialIds.gold,        2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.glass,       2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.rottenFlesh, 1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.enderPearl,  2, ORDER_REPAIR, false);
     // slimesuit - textures
-    addMaterial(MaterialIds.earthslime, 6, 9, true);
-    addMaterial(MaterialIds.skyslime,   6, 9, true);
-    addMaterial(MaterialIds.blood,      6, 9, true);
-    addMaterial(MaterialIds.ichor,      6, 9, true);
-    addMaterial(MaterialIds.enderslime, 6, 9, true);
-    addMaterial(MaterialIds.clay,       6, 9, true);
-    addMaterial(MaterialIds.honey,      6, 9, true);
+    addMaterial(MaterialIds.earthslime, 1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.skyslime,   1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.blood,      2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.ichor,      3, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.enderslime, 4, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.clay,       1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.honey,      1, ORDER_REPAIR, true);
+    //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);
     // slimesuit - repair
-    addMaterial(MaterialIds.phantom,    6, 9, true);
-    addMaterial(MaterialIds.chorus,     6, 9, true);
-    addMaterial(MaterialIds.rabbit,     6, 9, true);
+    addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.chorus,     3, ORDER_REPAIR, true);
 
     // legacy
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "stone"), redirect(MaterialIds.rock));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "stone"),     redirect(MaterialIds.rock));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "gunpowder"), redirect(MaterialIds.glass));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "spider"),    redirect(MaterialIds.string));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "venom"),     redirect(MaterialIds.darkthread));
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "rabbit"),    redirect(MaterialIds.leather));
     addRedirect(new MaterialId(TConstruct.MOD_ID, "tinkers_bronze"), conditionalRedirect(MaterialIds.bronze, tagExistsCondition("ingots/bronze")), redirect(MaterialIds.copper));
   }
 }

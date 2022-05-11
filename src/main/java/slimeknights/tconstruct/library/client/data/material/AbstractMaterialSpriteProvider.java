@@ -139,6 +139,12 @@ public abstract class AbstractMaterialSpriteProvider {
       return this;
     }
 
+    /** Adds a stat type as supported */
+    public MaterialSpriteInfoBuilder statType(MaterialStatsId... statsId) {
+      statTypes.add(statsId);
+      return this;
+    }
+
     /** Adds stat types for melee and harvest tools - head, handle and extra */
     public MaterialSpriteInfoBuilder meleeHarvest() {
       statType(HeadMaterialStats.ID);

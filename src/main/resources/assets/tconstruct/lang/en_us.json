@@ -853,12 +853,13 @@
   "item.tconstruct.slime_chestplate": "Slimelytra",
   "item.tconstruct.slime_leggings": "Slimeshell",
   "item.tconstruct.slime_boots": "Slimeboots",
-  "item.tconstruct.slime_helmet.material.tconstruct.gunpowder":     "Creeper Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.glass":         "Creeper Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Enderman Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Skeleton Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.bloodbone":     "Stray Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Wither Skeleton Slimeskull",
-  "item.tconstruct.slime_helmet.material.tconstruct.venom":         "Cave Spider Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.string":        "Spider Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.darkthread":    "Cave Spider Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh":  "Zombie Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.iron":          "Husk Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.copper":        "Drowned Slimeskull",
@@ -1354,6 +1355,8 @@
   "material.tconstruct.string": "String",
   "material.tconstruct.string.flavor": "Theoretically the best material.",
   "material.tconstruct.string.encyclopedia": "Allows the tool to be repaired using string in the tinker station or crafting table",
+  "material.tconstruct.string.skull_flavor": "Spiders are a master of potions, maybe their secret can help me enhance potions...",
+  "material.tconstruct.string.skull_encyclopedia": "Causes positive potion effects to last 25% longer",
 
   "material.tconstruct.leather": "Leather",
   "material.tconstruct.leather.flavor": "Killed a cow, tanned it's hide.",
@@ -1435,6 +1438,8 @@
   "material.tconstruct.darkthread": "Darkthread",
   "material.tconstruct.darkthread.flavor": "Come to the dark side, we have sowing",
   "material.tconstruct.darkthread.encyclopedia": "Increases drop chances from mobs, stacking with luck",
+  "material.tconstruct.darkthread.skull_flavor": "Perfect for battles of wits, when you have to decide and drink to find out who is right.",
+  "material.tconstruct.darkthread.skull_encyclopedia": "Makes the wearer immune to poison, though will not remove existing poison",
 
 
   "__comment": "Tier Nether Materials",
@@ -1475,21 +1480,13 @@
   "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or killed monsters",
 
   "__comment": "Slimesuit materials",
-  "material.tconstruct.gunpowder": "Gunpowder",
-  "material.tconstruct.gunpowder.skull_flavor": "Whose nice things are being destroyed now, creeper?",
-  "material.tconstruct.gunpowder.skull_encyclopedia": "Holding the helmet interact key causes the wearer to explode",
+  "material.tconstruct.glass": "Glass",
+  "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
+  "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key causes the wearer to explode",
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
   "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
   "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 15 second cooldown",
-
-  "material.tconstruct.spider": "Spider",
-  "material.tconstruct.spider.skull_flavor": "Spiders are a master of potions, maybe their secret can help me enhance potions...",
-  "material.tconstruct.spider.skull_encyclopedia": "Causes positive potion effects to last 25% longer",
-
-  "material.tconstruct.venom": "Venom",
-  "material.tconstruct.venom.skull_flavor": "Perfect for battles of wits, when you have to decide and drink to find out who is right.",
-  "material.tconstruct.venom.skull_encyclopedia": "Makes the wearer immune to poison, though will not remove existing poison",
 
   "material.tconstruct.rotten_flesh": "Rotten Flesh",
   "material.tconstruct.rotten_flesh.skull_flavor": "This is fine",
@@ -1509,9 +1506,9 @@
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.clay":       "Clay",
   "material.tconstruct.honey":      "Honey",
-  "material.tconstruct.phantom": "Phantom Membrane",
-  "material.tconstruct.chorus": "Chorus",
-  "material.tconstruct.rabbit": "Rabbit Hide",
+  "material.tconstruct.venom":      "Venom",
+  "material.tconstruct.phantom":    "Phantom Membrane",
+  "material.tconstruct.chorus":     "Chorus",
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.nickel":   "Nickel",

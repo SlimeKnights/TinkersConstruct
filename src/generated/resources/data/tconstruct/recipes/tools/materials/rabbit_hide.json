@@ -4,6 +4,6 @@
     "item": "minecraft:rabbit_hide"
   },
   "value": 1,
-  "needed": 1,
-  "material": "tconstruct:rabbit"
+  "needed": 2,
+  "material": "tconstruct:leather"
 }

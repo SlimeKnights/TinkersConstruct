@@ -39,6 +39,7 @@
       }
     },
     "supportedStats": [
+      "tconstruct:repair_kit",
       "tconstruct:extra"
     ],
     "ignoreMaterialStats": false

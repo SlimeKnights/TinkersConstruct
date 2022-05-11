@@ -1,6 +1,7 @@
 {
-  "craftable": true,
-  "tier": 6,
-  "sortOrder": 1,
-  "hidden": false
+  "redirect": [
+    {
+      "id": "tconstruct:glass"
+    }
+  ]
 }

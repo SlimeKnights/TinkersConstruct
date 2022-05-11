@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material_fluid",
-  "fluid": {
-    "tag": "tconstruct:venom",
-    "amount": 250
-  },
-  "temperature": 10,
-  "output": "tconstruct:venom"
-}

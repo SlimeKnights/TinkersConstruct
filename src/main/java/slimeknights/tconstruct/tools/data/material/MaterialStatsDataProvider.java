@@ -55,7 +55,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     // tier 1 - binding
     addMaterialStats(MaterialIds.string, ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT, new RepairKitStats(150));
     addMaterialStats(MaterialIds.vine, ExtraMaterialStats.DEFAULT);
 
     // tier 2
@@ -202,13 +202,13 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
 
     // slimeskull
-    addMaterialStats(MaterialIds.gunpowder,    new SkullStats( 90, 0));
+    addMaterialStats(MaterialIds.glass,        new SkullStats( 90, 0));
     addMaterialStats(MaterialIds.enderPearl,   new SkullStats(180, 0));
     addMaterialStats(MaterialIds.bone,         new SkullStats(100, 0));
     addMaterialStats(MaterialIds.bloodbone,    new SkullStats(175, 1));
     addMaterialStats(MaterialIds.necroticBone, new SkullStats(125, 0));
-    addMaterialStats(MaterialIds.spider,       new SkullStats(140, 0));
-    addMaterialStats(MaterialIds.venom,        new SkullStats(200, 0));
+    addMaterialStats(MaterialIds.string,       new SkullStats(140, 0));
+    addMaterialStats(MaterialIds.darkthread,   new SkullStats(200, 1));
     addMaterialStats(MaterialIds.rottenFlesh,  new SkullStats( 45, 2));
     addMaterialStats(MaterialIds.iron,         new SkullStats(165, 2));
     addMaterialStats(MaterialIds.copper,       new SkullStats(145, 2));
@@ -220,7 +220,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.enderslime, new RepairKitStats( 30));
     addMaterialStats(MaterialIds.phantom,    new RepairKitStats(324));
     addMaterialStats(MaterialIds.chorus,     new RepairKitStats( 65));
-    addMaterialStats(MaterialIds.rabbit,     new RepairKitStats(150));
     // crafting
     addMaterialStats(MaterialIds.obsidian);
     addMaterialStats(MaterialIds.debris);
@@ -231,6 +230,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.ichor);
     addMaterialStats(MaterialIds.clay);
     addMaterialStats(MaterialIds.honey);
+    //addMaterialStats(MaterialIds.venom);
     // compat
     addMaterialStats(MaterialIds.aluminum);
     addMaterialStats(MaterialIds.nickel);

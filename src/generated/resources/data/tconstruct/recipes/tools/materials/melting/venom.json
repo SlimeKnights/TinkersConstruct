@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material_melting",
-  "input": "tconstruct:venom",
-  "temperature": 10,
-  "result": {
-    "fluid": "tconstruct:venom",
-    "amount": 250
-  }
-}

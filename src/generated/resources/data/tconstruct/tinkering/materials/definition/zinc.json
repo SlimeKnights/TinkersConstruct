@@ -16,7 +16,7 @@
     "type": "forge:or"
   },
   "craftable": false,
-  "tier": 6,
-  "sortOrder": 9,
+  "tier": 2,
+  "sortOrder": 25,
   "hidden": false
 }

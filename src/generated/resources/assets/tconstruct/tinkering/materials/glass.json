@@ -1,8 +1,8 @@
 {
   "fallbacks": [
-    "primitive"
+    "crystal"
   ],
-  "color": "FFFFFF",
+  "color": "000000",
   "luminosity": 0,
   "generator": {
     "transformer": {
@@ -16,33 +16,28 @@
           },
           {
             "grey": 63,
-            "color": "FF2F4547"
+            "color": "FF7BAEB7"
           },
           {
             "grey": 102,
-            "color": "FF4D5859"
+            "color": "FFA8D0D9"
           },
           {
             "grey": 140,
-            "color": "FF838B8C"
-          },
-          {
-            "grey": 178,
-            "color": "FFAFB3B5"
+            "color": "00000000"
           },
           {
             "grey": 216,
-            "color": "FFDBDBDB"
+            "color": "00000000"
           },
           {
             "grey": 255,
-            "color": "FFF7F7F7"
+            "color": "FFD0EAE9"
           }
         ]
       }
     },
     "supportedStats": [
-      "tconstruct:extra",
       "tconstruct:repair_kit"
     ],
     "ignoreMaterialStats": false

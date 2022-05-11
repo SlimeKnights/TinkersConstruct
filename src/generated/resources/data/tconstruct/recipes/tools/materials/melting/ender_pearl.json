@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:ender_pearl",
+  "temperature": 477,
+  "result": {
+    "fluid": "tconstruct:molten_ender",
+    "amount": 250
+  }
+}

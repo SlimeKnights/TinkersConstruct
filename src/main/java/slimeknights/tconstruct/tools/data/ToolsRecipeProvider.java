@@ -118,9 +118,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('l', Tags.Items.LEATHER)
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, modResource(armorFolder + "travelers_boots"));
-    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.copper)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "travelers_station"));
+    Ingredient travelers = Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new));
+    SpecializedRepairRecipeBuilder.repair(travelers, MaterialIds.copper)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_copper_repair_kit"))
+                                  .save(consumer, modResource(armorRepairFolder + "travelers_copper_station"));
+    SpecializedRepairRecipeBuilder.repair(travelers, MaterialIds.leather)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_leather_repair_kit"))
+                                  .save(consumer, modResource(armorRepairFolder + "travelers_leather_station"));
 
     // plate armor
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))
@@ -157,14 +161,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .save(consumer, modResource(armorRepairFolder + "plate_station"));
 
     // slimeskull
-    slimeskullCasting(consumer, MaterialIds.gunpowder,    Items.CREEPER_HEAD,          armorFolder);
+    slimeskullCasting(consumer, MaterialIds.glass,        Items.CREEPER_HEAD,          armorFolder);
     slimeskullCasting(consumer, MaterialIds.bone,         Items.SKELETON_SKULL,        armorFolder);
     slimeskullCasting(consumer, MaterialIds.necroticBone, Items.WITHER_SKELETON_SKULL, armorFolder);
     slimeskullCasting(consumer, MaterialIds.rottenFlesh,  Items.ZOMBIE_HEAD,           armorFolder);
     slimeskullCasting(consumer, MaterialIds.enderPearl,  TinkerWorld.heads.get(TinkerHeadType.ENDERMAN),         armorFolder);
     slimeskullCasting(consumer, MaterialIds.bloodbone,   TinkerWorld.heads.get(TinkerHeadType.STRAY),            armorFolder);
-    slimeskullCasting(consumer, MaterialIds.spider,      TinkerWorld.heads.get(TinkerHeadType.SPIDER),           armorFolder);
-    slimeskullCasting(consumer, MaterialIds.venom,       TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER),      armorFolder);
+    slimeskullCasting(consumer, MaterialIds.string,      TinkerWorld.heads.get(TinkerHeadType.SPIDER),           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.darkthread,  TinkerWorld.heads.get(TinkerHeadType.CAVE_SPIDER),      armorFolder);
     slimeskullCasting(consumer, MaterialIds.iron,        TinkerWorld.heads.get(TinkerHeadType.HUSK),             armorFolder);
     slimeskullCasting(consumer, MaterialIds.copper,      TinkerWorld.heads.get(TinkerHeadType.DROWNED),          armorFolder);
     slimeskullCasting(consumer, MaterialIds.blazingBone, TinkerWorld.heads.get(TinkerHeadType.BLAZE),            armorFolder);
@@ -195,7 +199,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
                             .save(consumer, modResource(armorFolder + "slime_boots"));
-    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.rabbit)
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.leather)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
                                   .save(consumer, modResource(armorRepairFolder + "slime_boots_station"));
 

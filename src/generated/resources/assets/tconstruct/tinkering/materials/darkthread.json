@@ -42,8 +42,6 @@
       }
     },
     "supportedStats": [
-      "tconstruct:head",
-      "tconstruct:handle",
       "tconstruct:extra",
       "tconstruct:repair_kit"
     ],

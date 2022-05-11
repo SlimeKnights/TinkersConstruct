@@ -102,10 +102,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.brass);
     buildRenderInfo(MaterialIds.uranium);
     // slimeskull
-    buildRenderInfo(MaterialIds.gunpowder);
+    buildRenderInfo(MaterialIds.glass);
     buildRenderInfo(MaterialIds.enderPearl);
-    buildRenderInfo(MaterialIds.spider);
-    buildRenderInfo(MaterialIds.venom);
     buildRenderInfo(MaterialIds.rottenFlesh);
     // slimesuit
     buildRenderInfo(MaterialIds.earthslime);
@@ -115,9 +113,10 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.enderslime);
     buildRenderInfo(MaterialIds.clay);
     buildRenderInfo(MaterialIds.honey);
+    //buildRenderInfo(MaterialIds.venom);
+
     buildRenderInfo(MaterialIds.phantom);
     buildRenderInfo(MaterialIds.chorus);
-    buildRenderInfo(MaterialIds.rabbit);
 
     // UI internal
     buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");
