@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -99,9 +100,10 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     // if we have a mold, we are pressing into the table, so draw pressed item on input and output
     Ingredient pattern = recipe.getPattern();
     if (!pattern.isEmpty()) {
-      builder.addSlot(RecipeIngredientRole.INPUT, 3, 1).addIngredients(pattern);
+      IRecipeSlotBuilder inputSlot = builder.addSlot(RecipeIngredientRole.INPUT, 3, 1).addIngredients(pattern);
       if (!recipe.isPatternConsumed()) {
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 51, 8).addIngredients(pattern);
+        IRecipeSlotBuilder preservedSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 51, 8).addIngredients(pattern);
+        builder.createFocusLink(inputSlot, preservedSlot);
       }
     }
   }
