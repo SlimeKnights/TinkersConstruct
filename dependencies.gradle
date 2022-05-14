@@ -3,10 +3,10 @@
 dependencies {
     compile("com.github.GTNewHorizons:Mantle:0.3.4:dev")
     compile("com.github.GTNewHorizons:ForgeMultipart:1.2.7:dev")
-    compile("com.github.GTNewHorizons:NotEnoughItems:2.2.3-GTNH:dev")
-    compile("com.github.GTNewHorizons:CodeChickenLib:1.1.5.2:dev")
+    compile("com.github.GTNewHorizons:NotEnoughItems:2.2.12-GTNH:dev")
+    compile("com.github.GTNewHorizons:CodeChickenLib:1.1.5.3:dev")
     compileOnly("com.github.GTNewHorizons:inventory-tweaks:1.5.13:api")
-    compileOnly("com.github.GTNewHorizons:waila:1.5.18:api")
+    compileOnly("com.github.GTNewHorizons:waila:1.5.20:api")
     compileOnly("com.github.GTNewHorizons:Battlegear2:master-SNAPSHOT:api") {
         transitive = false
     }

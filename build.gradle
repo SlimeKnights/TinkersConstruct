@@ -1,4 +1,4 @@
-//version: 1646409286
+//version: 1650343995
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -187,9 +187,9 @@ try {
 }
 catch (Exception ignored) {
     out.style(Style.Failure).text(
-            'This mod must be version controlled by Git AND the repository must provide at least one tag,\n' +
-                    'or the VERSION override must be set! ').style(Style.SuccessHeader).text('(Do NOT download from GitHub using the ZIP option, instead\n' +
-            'clone the repository, see ').style(Style.Info).text('https://gtnh.miraheze.org/wiki/Development').style(Style.SuccessHeader).println(' for details.)'
+        'This mod must be version controlled by Git AND the repository must provide at least one tag,\n' +
+        'or the VERSION override must be set! ').style(Style.SuccessHeader).text('(Do NOT download from GitHub using the ZIP option, instead\n' +
+        'clone the repository, see ').style(Style.Info).text('https://gtnh.miraheze.org/wiki/Development').style(Style.SuccessHeader).println(' for details.)'
     )
     versionOverride = 'NO-GIT-TAG-SET'
     identifiedVersion = versionOverride
@@ -216,13 +216,13 @@ def jvmArguments = []
 
 if (usesMixins.toBoolean()) {
     arguments += [
-            "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
+        "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
     ]
     if (usesMixinDebug.toBoolean()) {
         jvmArguments += [
-                "-Dmixin.debug.countInjections=true",
-                "-Dmixin.debug.verbose=true",
-                "-Dmixin.debug.export=true"
+            "-Dmixin.debug.countInjections=true",
+            "-Dmixin.debug.verbose=true",
+            "-Dmixin.debug.export=true"
         ]
     }
 }
@@ -431,9 +431,9 @@ processResources {
 
         // replace modVersion and minecraftVersion
         expand "minecraftVersion": project.minecraft.version,
-                "modVersion": modVersion,
-                "modId": modId,
-                "modName": modName
+            "modVersion": modVersion,
+            "modId": modId,
+            "modName": modName
     }
 
     if(usesMixins.toBoolean()) {
@@ -568,7 +568,7 @@ publishing {
                 artifact source: shadowJar, classifier: ""
             }
             if(!noPublishedSources) {
-                artifact source: sourcesJar, classifier: "src"
+                artifact source: sourcesJar, classifier: "sources"
             }
             artifact source: usesShadowedDependencies.toBoolean() ? shadowDevJar : devJar, classifier: "dev"
             if (apiPackage) {

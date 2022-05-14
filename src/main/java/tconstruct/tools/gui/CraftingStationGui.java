@@ -325,13 +325,12 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
     
     public boolean shouldDrawSlot(Slot slot) {
         if(!(slot instanceof ChestSlot)) return true;
-
-        if(slot.getSlotIndex() >= chestSlotCount) return false;
+        ChestSlot chestSlot = (ChestSlot) slot;
 
         // all visible
         if(!slider.isEnabled()) return true;
 
-        return firstSlotId <= slot.getSlotIndex() && lastSlotId > slot.getSlotIndex();
+        return firstSlotId <= chestSlot.getVisualIndex() && lastSlotId > chestSlot.getVisualIndex();
     }
 
     @Override
@@ -445,7 +444,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             if(shouldDrawSlot(slot)) {
                 slot.enable();
                 // calc position of the slot
-                final int offset = slot.getSlotIndex() + (slot.inventory == secondInventory ? 27 : 0) - firstSlotId;
+                final int offset = slot.getVisualIndex();
                 final int x = (offset % logic.invColumns) * CraftingStationGui.slotElement.w;
                 final int y = (offset / logic.invColumns) * CraftingStationGui.slotElement.h;
 
