@@ -32,29 +32,29 @@ public class ConditionalDamageModifier extends IncrementalModifier {
   /** Requirement for entities to match */
   private final IJsonPredicate<LivingEntity> predicate;
   /** Damage bonus */
-  private final float damage;
+  private final float damageBonus;
   /** Optional effect to add */
   @Nullable
   private final MobEffect effect;
   /** Optional effect level */
   private final int effectLevel;
 
-  public ConditionalDamageModifier(IJsonPredicate<LivingEntity> predicate, float damage) {
-    this(predicate, damage, null, 0);
+  public ConditionalDamageModifier(IJsonPredicate<LivingEntity> predicate, float damageBonus) {
+    this(predicate, damageBonus, null, 0);
   }
 
   @Override
   public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     LivingEntity target = context.getLivingTarget();
     if (target != null && predicate.matches(target)) {
-      damage += getScaledLevel(tool, level) * damage * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
+      damage += getScaledLevel(tool, level) * this.damageBonus * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;
   }
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    addDamageTooltip(tool, level, damage, tooltip);
+    addDamageTooltip(tool, level, damageBonus, tooltip);
   }
 
   @Override
@@ -97,7 +97,7 @@ public class ConditionalDamageModifier extends IncrementalModifier {
     @Override
     public void serialize(ConditionalDamageModifier object, JsonObject json) {
       json.add("entity", LivingEntityPredicate.LOADER.serialize(object.predicate));
-      json.addProperty("damage", object.damage);
+      json.addProperty("damage", object.damageBonus);
       if (object.effect != null && object.effectLevel > 0) {
         JsonObject effectJson = new JsonObject();
         effectJson.addProperty("name", Objects.requireNonNull(object.effect.getRegistryName()).toString());
@@ -121,7 +121,7 @@ public class ConditionalDamageModifier extends IncrementalModifier {
     @Override
     public void toNetwork(ConditionalDamageModifier object, FriendlyByteBuf buffer) {
       LivingEntityPredicate.LOADER.toNetwork(object.predicate, buffer);
-      buffer.writeFloat(object.damage);
+      buffer.writeFloat(object.damageBonus);
       if (object.effectLevel > 0 && object.effect != null) {
         buffer.writeVarInt(object.effectLevel);
         buffer.writeRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS, object.effect);
