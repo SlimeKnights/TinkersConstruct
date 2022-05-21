@@ -27,13 +27,14 @@ public class EntityLootTableProvider extends EntityLoot {
   @Override
   protected Iterable<EntityType<?>> getKnownEntities() {
     return ForgeRegistries.ENTITIES.getValues().stream()
-                                   .filter((block) -> TConstruct.MOD_ID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
+                                   // remove earth slime entity, we redirect to the vanilla loot table
+                                   .filter((entity) -> TConstruct.MOD_ID.equals(Objects.requireNonNull(entity.getRegistryName()).getNamespace())
+                                                       && entity != TinkerWorld.earthSlimeEntity.get())
                                    .collect(Collectors.toList());
   }
 
   @Override
   protected void addTables() {
-    this.add(TinkerWorld.earthSlimeEntity.get(), dropSlimeballs(SlimeType.EARTH));
     this.add(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
     this.add(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
     this.add(TinkerWorld.terracubeEntity.get(),
