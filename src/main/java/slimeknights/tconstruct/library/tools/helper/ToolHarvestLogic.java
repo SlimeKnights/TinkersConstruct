@@ -212,8 +212,9 @@ public class ToolHarvestLogic {
     // if broken, clear the item stack temporarily then break
     if (tool.isBroken()) {
       // no harvest context
-      ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit, false, false);
       player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+      ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
+                                                          !player.isCreative() && state.canHarvestBlock(world, pos, player), false);
       breakBlock(tool, ItemStack.EMPTY, context);
       player.setItemInHand(InteractionHand.MAIN_HAND, stack);
     } else {
