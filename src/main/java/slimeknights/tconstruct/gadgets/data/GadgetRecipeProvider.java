@@ -20,6 +20,8 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -93,13 +95,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     // piggybackpack
     folder = "gadgets/";
-    ShapedRecipeBuilder.shaped(TinkerGadgets.piggyBackpack.get())
-                       .define('P', TinkerMaterials.pigIron.getIngotTag())
-                       .define('S', Items.SADDLE)
-                       .pattern("P")
-                       .pattern("S")
-                       .unlockedBy("has_item", has(Items.SADDLE))
-                       .save(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerGadgets.piggyBackpack)
+                            .setCast(Items.SADDLE, true)
+                            .setFluidAndTime(TinkerFluids.blood, false, FluidValues.SLIME_CONGEALED)
+                            .save(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
     ShapedRecipeBuilder.shaped(TinkerGadgets.punji)
                        .define('b', Items.BAMBOO)
                        .pattern(" b ")

@@ -1,18 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "P",
-    "S"
-  ],
-  "key": {
-    "P": {
-      "tag": "forge:ingots/pig_iron"
-    },
-    "S": {
-      "item": "minecraft:saddle"
-    }
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:saddle"
   },
-  "result": {
-    "item": "tconstruct:piggy_backpack"
-  }
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:blood",
+    "amount": 1000
+  },
+  "result": "tconstruct:piggy_backpack",
+  "cooling_time": 100
 }
