@@ -5,7 +5,8 @@
   },
   "result": {
     "fluid": "tconstruct:molten_iron",
-    "amount": 130
+    "amount": 130,
+    "unit_size": 10
   },
   "temperature": 800,
   "time": 72

@@ -5,7 +5,8 @@
   },
   "result": {
     "fluid": "tconstruct:molten_gold",
-    "amount": 450
+    "amount": 450,
+    "unit_size": 10
   },
   "temperature": 700,
   "time": 127

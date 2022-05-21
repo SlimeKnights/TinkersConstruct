@@ -1086,8 +1086,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metalMelting(consumer, TinkerFluids.moltenCobalt.get(), "cobalt", true, metalFolder, false, Byproduct.IRON);
 
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), FluidValues.INGOT, 2.0f)
-                        .setOre(OreRateType.METAL)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 3))
+                        .setOre(OreRateType.METAL, OreRateType.GEM, OreRateType.METAL)
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM))
                         .addByproduct(new FluidStack(TinkerFluids.moltenGold.get(), FluidValues.INGOT * 3))
                         .save(consumer, modResource(metalFolder + "molten_debris/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.INGOTS_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), FluidValues.INGOT, 1.0f)
@@ -1273,29 +1273,29 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(metalFolder + "iron/reinforcement"));
     // armor
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_HELMET), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 5)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/helmet"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_CHESTPLATE), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 8)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/chestplate"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_LEGGINGS), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 7)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/leggings"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_BOOTS), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 4)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/boots"));
     // tools
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_AXE, Items.IRON_PICKAXE), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 3)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/axes"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_SWORD, Items.IRON_HOE, Items.SHEARS), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 2)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/weapon"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_SHOVEL, Items.FLINT_AND_STEEL, Items.SHIELD), TinkerFluids.moltenIron.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/small"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CROSSBOW), TinkerFluids.moltenIron.get(), FluidValues.NUGGET * 13) // tripwire hook is 4 nuggets, ingot is 9 nuggets
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "iron/crossbow"));
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_HORSE_ARMOR), TinkerFluids.moltenIron.get(), FluidValues.INGOT * 7)
@@ -1324,26 +1324,26 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(metalFolder + "gold/platform"));
     // armor
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_HELMET), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 5)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/helmet"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_CHESTPLATE), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 8)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/chestplate"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_LEGGINGS), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 7)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/leggings"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_BOOTS), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 4)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/boots"));
     // tools
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_AXE, Items.GOLDEN_PICKAXE), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 3)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/axes"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_SWORD, Items.GOLDEN_HOE), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 2)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/weapon"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_SHOVEL), TinkerFluids.moltenGold.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(FluidValues.NUGGET)
                         .save(consumer, modResource(metalFolder + "gold/shovel"));
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_HORSE_ARMOR), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 7)
@@ -1396,26 +1396,26 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(folder + "diamond/enchanting_table"));
     // armor
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_HELMET), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 5)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/helmet"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_CHESTPLATE), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 8)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/chestplate"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_LEGGINGS), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 7)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/leggings"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_BOOTS), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 4)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/boots"));
     // tools
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_AXE, Items.DIAMOND_PICKAXE), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 3)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/axes"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_SWORD, Items.DIAMOND_HOE), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 2)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/weapon"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_SHOVEL), TinkerFluids.moltenDiamond.get(), FluidValues.GEM)
-                        .setDamagable()
+                        .setDamagable(FluidValues.GEM_SHARD)
                         .save(consumer, modResource(folder + "diamond/shovel"));
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_HORSE_ARMOR), TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 7)
@@ -1425,33 +1425,34 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.LODESTONE), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
                         .save(consumer, modResource(metalFolder + "netherite/lodestone"));
     // armor
+    int[] netheriteSizes = {FluidValues.NUGGET, FluidValues.GEM_SHARD};
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_HELMET), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 5))
                         .save(consumer, modResource(metalFolder + "netherite/helmet"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_CHESTPLATE), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 8))
                         .save(consumer, modResource(metalFolder + "netherite/chestplate"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_LEGGINGS), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 7))
                         .save(consumer, modResource(metalFolder + "netherite/leggings"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_BOOTS), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 4))
                         .save(consumer, modResource(metalFolder + "netherite/boots"));
     // tools
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_AXE, Items.NETHERITE_PICKAXE), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 3))
                         .save(consumer, modResource(metalFolder + "netherite/axes"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_SWORD, Items.NETHERITE_HOE), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM * 2))
                         .save(consumer, modResource(metalFolder + "netherite/weapon"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_SHOVEL), TinkerFluids.moltenNetherite.get(), FluidValues.INGOT)
-                        .setDamagable()
+                        .setDamagable(netheriteSizes)
                         .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), FluidValues.GEM))
                         .save(consumer, modResource(metalFolder + "netherite/shovel"));
 
@@ -1493,7 +1494,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     TinkerGadgets.slimeSling.forEach((type, sling) -> {
       if (type != SlimeType.ICHOR) { // no ichor fluid
         MeltingRecipeBuilder.melting(Ingredient.of(sling), TinkerFluids.slime.get(type).get(), FluidValues.SLIMEBALL * 3 + FluidValues.SLIME_CONGEALED)
-                            .setDamagable()
+                            .setDamagable(FluidValues.SLIMEBALL / 5)
                             .save(consumer, modResource(slimeFolder + type.getSerializedName() + "/sling"));
       }
     });
@@ -1862,17 +1863,18 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_PANE / 4))
                         .save(ceramicsConsumer, modResource(clayFolder + "gauge"));
     // clay armor
+    int slimeballPart = FluidValues.SLIMEBALL / 5;
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(ceramicsId.apply("clay_helmet")), new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL * 5), 2.25f)
-                        .setDamagable()
+                        .setDamagable(slimeballPart)
                         .save(ceramicsConsumer, modResource(clayFolder + "clay_helmet"));
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(ceramicsId.apply("clay_chestplate")), new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL * 8), 3f)
-                        .setDamagable()
+                        .setDamagable(slimeballPart)
                         .save(ceramicsConsumer, modResource(clayFolder + "clay_chestplate"));
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(ceramicsId.apply("clay_leggings")), new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL * 7), 2.75f)
-                        .setDamagable()
+                        .setDamagable(slimeballPart)
                         .save(ceramicsConsumer, modResource(clayFolder + "clay_leggings"));
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(ceramicsId.apply("clay_boots")), new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL * 4), 2f)
-                        .setDamagable()
+                        .setDamagable(slimeballPart)
                         .save(ceramicsConsumer, modResource(clayFolder + "clay_boots"));
 
     // melting porcelain

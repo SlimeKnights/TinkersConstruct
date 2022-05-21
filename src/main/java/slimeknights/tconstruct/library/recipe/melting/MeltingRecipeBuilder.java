@@ -32,7 +32,10 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   private final int time;
   @Nullable
   private OreRateType oreRate = null;
-  private boolean isDamagable = false;
+  @Nullable
+  private OreRateType[] byproductRates = null;
+  @Nullable
+  private int[] unitSizes;
   private final List<FluidStack> byproducts = new ArrayList<>();
 
   /**
@@ -88,8 +91,9 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * Sets this recipe as an ore recipe, output multiplied based on the melter
    * @return  Builder instance
    */
-  public MeltingRecipeBuilder setOre(OreRateType rate) {
+  public MeltingRecipeBuilder setOre(OreRateType rate, OreRateType... byproductRates) {
     this.oreRate = rate;
+    this.byproductRates = byproductRates.length == 0 ? null : byproductRates;
     return this;
   }
 
@@ -97,8 +101,8 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * Marks this item as damagable, the output should scale based on the input damage
    * @return  Builder instance
    */
-  public MeltingRecipeBuilder setDamagable() {
-    this.isDamagable = true;
+  public MeltingRecipeBuilder setDamagable(int... unitSizes) {
+    this.unitSizes = unitSizes;
     return this;
   }
 
@@ -119,7 +123,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    if (oreRate != null && isDamagable) {
+    if (oreRate != null && unitSizes != null) {
       throw new IllegalStateException("Builder cannot be both ore and damagable");
     }
     // only build JSON if needed
@@ -141,13 +145,31 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
         json.addProperty("group", group);
       }
       json.add("ingredient", input.toJson());
-      json.add("result", RecipeHelper.serializeFluidStack(output));
+      JsonObject result = RecipeHelper.serializeFluidStack(output);
+      if (unitSizes != null) {
+        if (unitSizes.length > 0) {
+          result.addProperty("unit_size", unitSizes[0]);
+        } else {
+          result.addProperty("unit_size", 1);
+        }
+      }
+      json.add("result", result);
       json.addProperty("temperature", temperature);
       json.addProperty("time", time);
       if (!byproducts.isEmpty()) {
         JsonArray array = new JsonArray();
-        for (FluidStack fluidStack : byproducts) {
-          array.add(RecipeHelper.serializeFluidStack(fluidStack));
+        for (int i = 0; i < byproducts.size(); i++) {
+          FluidStack fluidStack = byproducts.get(i);
+          JsonObject byproduct = RecipeHelper.serializeFluidStack(fluidStack);
+          if (unitSizes != null && i <= unitSizes.length) {
+            byproduct.addProperty("unit_size", unitSizes[i+1]);
+          } else if (oreRate != null && byproductRates != null && i < byproductRates.length) {
+            OreRateType rate = byproductRates[i];
+            if (rate != null) {
+              byproduct.addProperty("rate", rate.getName());
+            }
+          }
+          array.add(byproduct);
         }
         json.add("byproducts", array);
       }
@@ -158,7 +180,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
       if (oreRate != null) {
         return TinkerSmeltery.oreMeltingSerializer.get();
       }
-      if (isDamagable) {
+      if (unitSizes != null) {
         return TinkerSmeltery.damagableMeltingSerializer.get();
       }
       return TinkerSmeltery.meltingSerializer.get();

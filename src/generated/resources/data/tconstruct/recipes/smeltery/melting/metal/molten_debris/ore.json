@@ -13,11 +13,13 @@
   "byproducts": [
     {
       "fluid": "tconstruct:molten_diamond",
-      "amount": 300
+      "amount": 100,
+      "rate": "gem"
     },
     {
       "fluid": "tconstruct:molten_gold",
-      "amount": 270
+      "amount": 270,
+      "rate": "metal"
     }
   ]
 }

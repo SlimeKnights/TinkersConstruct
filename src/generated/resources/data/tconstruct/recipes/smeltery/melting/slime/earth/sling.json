@@ -5,7 +5,8 @@
   },
   "result": {
     "fluid": "tconstruct:earth_slime",
-    "amount": 1750
+    "amount": 1750,
+    "unit_size": 50
   },
   "temperature": 50,
   "time": 136
