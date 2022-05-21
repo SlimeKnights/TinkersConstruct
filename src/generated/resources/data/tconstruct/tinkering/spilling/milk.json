@@ -8,6 +8,8 @@
       "type": "tconstruct:cure_effects",
       "item": "minecraft:milk_bucket"
     },
-    null
+    {
+      "type": "tconstruct:calcified"
+    }
   ]
 }

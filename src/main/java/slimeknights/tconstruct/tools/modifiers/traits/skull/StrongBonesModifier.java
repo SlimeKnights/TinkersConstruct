@@ -72,8 +72,8 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
   /** ID for the spilling effect */
   public static final ResourceLocation SPILLING_EFFECT_ID = TConstruct.getResource("calcified");
 
-  /** Singleton instance the spilling effect */
-  public static final ISpillingEffect SPILLING_EFFECT = new ISpillingEffect() {
+  /** GSON does not support anonymous classes */
+  private static class SpillingEffect implements ISpillingEffect {
     @Override
     public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {
       LivingEntity target = context.getLivingTarget();
@@ -86,7 +86,9 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
     public JsonObject serialize(JsonSerializationContext context) {
       return JsonUtils.withType(SPILLING_EFFECT_ID);
     }
-  };
+  }
+  /** Singleton instance the spilling effect */
+  public static final ISpillingEffect SPILLING_EFFECT = new SpillingEffect();
 
   /** Loader for the spilling effect */
   public static final JsonDeserializer<ISpillingEffect> SPILLING_EFFECT_LOADER = (json, type, context) -> SPILLING_EFFECT;
