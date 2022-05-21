@@ -24,7 +24,7 @@ public class BouncyModifier extends TotalArmorLevelModifier {
   private static void onFall(LivingFallEvent event) {
     LivingEntity living = event.getEntityLiving();
     // using fall distance as the event distance could be reduced by jump boost
-    if (living == null || living.fallDistance <= 2f) {
+    if (living == null || (living.getDeltaMovement().y > -0.3 && living.fallDistance < 3)) {
       return;
     }
     // can the entity bounce?
@@ -47,7 +47,7 @@ public class BouncyModifier extends TotalArmorLevelModifier {
       double gravity = living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get());
       double time = Math.sqrt(living.fallDistance / gravity);
       double velocity = gravity * time;
-      living.setDeltaMovement(motion.x / 0.95f, velocity, motion.z / 0.95f);
+      living.setDeltaMovement(motion.x / 0.975f, velocity, motion.z / 0.975f);
       living.hurtMarked = true;
 
       // preserve momentum
@@ -55,8 +55,9 @@ public class BouncyModifier extends TotalArmorLevelModifier {
     } else {
       // for non-players, need to defer the bounce
       // only slow down half as much when bouncing
-      living.setDeltaMovement(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
-      SlimeBounceHandler.addBounceHandler(living, living.getDeltaMovement().y);
+      float factor = living.fallDistance < 2 ? -0.7f : -0.9f;
+      living.setDeltaMovement(motion.x / 0.975f, motion.y * factor, motion.z / 0.975f);
+      SlimeBounceHandler.addBounceHandler(living, living.getDeltaMovement());
     }
     // update airborn status
     event.setDistance(0.0F);

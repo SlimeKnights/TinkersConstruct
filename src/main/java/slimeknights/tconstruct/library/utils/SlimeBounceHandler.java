@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import slimeknights.tconstruct.common.Sounds;
 
+import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 
 /** Logic for entities bouncing */
@@ -28,7 +29,7 @@ public class SlimeBounceHandler {
    * @param entity  Entity to bounce
    */
   public static void addBounceHandler(LivingEntity entity) {
-    addBounceHandler(entity, 0d);
+    addBounceHandler(entity, null);
   }
 
   /**
@@ -36,7 +37,7 @@ public class SlimeBounceHandler {
    * @param entity  Entity to bounce
    * @param bounce  Bounce amount
    */
-  public static void addBounceHandler(LivingEntity entity, double bounce) {
+  public static void addBounceHandler(LivingEntity entity, @Nullable Vec3 bounce) {
     // no fake players PlayerTick event
     if (entity instanceof FakePlayer) {
       return;
@@ -45,7 +46,7 @@ public class SlimeBounceHandler {
     BounceInfo info = BOUNCING_ENTITIES.get(entity);
     if (info == null) {
       BOUNCING_ENTITIES.put(entity, new BounceInfo(entity, bounce));
-    } else if (bounce != 0) {
+    } else if (bounce != null) {
       // updated bounce if needed
       info.bounce = bounce;
       // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
@@ -71,8 +72,10 @@ public class SlimeBounceHandler {
 
       // if its the bounce tick, time to bounce. This is to circumvent the logic that resets y motion after landing
       if (entity.tickCount == info.bounceTick) {
-        Vec3 motion = entity.getDeltaMovement();
-        entity.setDeltaMovement(motion.x, info.bounce, motion.z);
+        if (info.bounce != null) {
+          entity.setDeltaMovement(info.bounce);
+          info.bounce = null;
+        }
         info.bounceTick = 0;
       }
 
@@ -93,11 +96,11 @@ public class SlimeBounceHandler {
         } else if (motionSq < info.lastMagSq) {
           info.stopMagTick = 0;
           // preserve 95% of former speed
-          double boost = Math.sqrt(info.lastMagSq / motionSq) * 0.95f;
+          double boost = Math.sqrt(info.lastMagSq / motionSq) * 0.975f;
           if (boost > 1) {
             entity.setDeltaMovement(motion.x * boost, motion.y, motion.z * boost);
             entity.hasImpulse = true;
-            info.lastMagSq = info.lastMagSq * 0.95f * 0.95f;
+            info.lastMagSq = info.lastMagSq * 0.975f * 0.975f;
             // play sound if we had a big angle change
             double newAngle = Mth.atan2(motion.z, motion.x);
             if (Math.abs(newAngle - info.lastAngle) > 1) {
@@ -132,8 +135,9 @@ public class SlimeBounceHandler {
 
   /** Data class to keep track of bouncing info for an entity */
   private static class BounceInfo {
-    /** Velocity the entity should have, unused if 0 */
-    private double bounce;
+    /** Velocity the entity should have, unused if null */
+    @Nullable
+    private Vec3 bounce;
     /** Time to update the entities velocity */
     private int bounceTick;
     /** Tick to stop entity magnitude changes */
@@ -147,9 +151,9 @@ public class SlimeBounceHandler {
     /** Last angle of motion, used for sound effects */
     private double lastAngle;
 
-    public BounceInfo(LivingEntity entity, double bounce) {
+    public BounceInfo(LivingEntity entity, @Nullable Vec3 bounce) {
       this.bounce = bounce;
-      if (bounce != 0) {
+      if (bounce != null) {
         // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
         this.bounceTick = entity.tickCount + 1;
       } else {
