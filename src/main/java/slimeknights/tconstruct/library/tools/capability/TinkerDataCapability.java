@@ -74,9 +74,11 @@ public class TinkerDataCapability {
 
     @Override
     public void run() {
-      // called when capabilities invalidate, create a new cap just in case they are revived later
+      // called when capabilities invalidate, just invalidate but preserve the old data
+      // (as if they revive the equipment change event does not fire again, see dimension change)
+      Holder oldData = data.orElse(new Holder());
       data.invalidate();
-      data = LazyOptional.of(Holder::new);
+      data = LazyOptional.of(() -> oldData);
     }
   }
 
