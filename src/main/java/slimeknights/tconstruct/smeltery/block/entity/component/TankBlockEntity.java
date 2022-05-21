@@ -70,7 +70,9 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   private int lastStrength = -1;
 
   public TankBlockEntity(BlockPos pos, BlockState state) {
-    this(pos, state, TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
+    this(pos, state, state.getBlock() instanceof ITankBlock tank
+                     ? tank
+                     : TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
   }
 
   /** Main constructor */
