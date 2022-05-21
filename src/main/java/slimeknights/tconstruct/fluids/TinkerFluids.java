@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.fluids;
 
+import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import slimeknights.mantle.registration.ModelFluidAttributes;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -122,5 +125,13 @@ public final class TinkerFluids extends TinkerModule {
   /** Creates a builder for a hot fluid */
   private static FluidAttributes.Builder hotBuilder() {
     return ModelFluidAttributes.builder().density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.BUCKET_FILL_LAVA, SoundEvents.BUCKET_EMPTY_LAVA);
+  }
+
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeClient()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new FluidTooltipProvider(datagenerator));
+    }
   }
 }

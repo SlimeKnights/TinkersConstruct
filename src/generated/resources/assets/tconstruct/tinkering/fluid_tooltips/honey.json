@@ -1,0 +1,13 @@
+{
+  "tag": "forge:honey",
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.block",
+      "needed": 1000
+    },
+    {
+      "key": "gui.tconstruct.fluid.bottle",
+      "needed": 250
+    }
+  ]
+}

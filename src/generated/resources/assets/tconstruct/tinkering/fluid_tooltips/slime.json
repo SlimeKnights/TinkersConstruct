@@ -1,0 +1,13 @@
+{
+  "tag": "tconstruct:tooltips/slime",
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.block",
+      "needed": 2250
+    },
+    {
+      "key": "gui.tconstruct.fluid.slimeball",
+      "needed": 250
+    }
+  ]
+}

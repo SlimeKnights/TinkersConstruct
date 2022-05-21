@@ -2,11 +2,11 @@ package slimeknights.tconstruct.smeltery.client.screen.module;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -20,13 +20,23 @@ import java.util.function.BiConsumer;
 /**
  * Module handling the melter tank UI display
  */
-@RequiredArgsConstructor
 public class GuiTankModule {
   private static final int TANK_INDEX = 0;
   private final AbstractContainerScreen<?> screen;
   private final IFluidHandler tank;
   @Getter
   private final int x, y, width, height;
+  private final BiConsumer<Integer,List<Component>> formatter;
+
+  public GuiTankModule(AbstractContainerScreen<?> screen, IFluidHandler tank, int x, int y, int width, int height, ResourceLocation tooltipId) {
+    this.screen = screen;
+    this.tank = tank;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.formatter = (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
+  }
 
   /**
    * Checks if the tank is hovered over
@@ -98,8 +108,8 @@ public class GuiTankModule {
       } else {
         // function to call for amounts
         BiConsumer<Integer, List<Component>> formatter = Screen.hasShiftDown()
-                                                              ? FluidTooltipHandler::appendBuckets
-                                                              : FluidTooltipHandler::appendIngots;
+                                                              ? FluidTooltipHandler.BUCKET_FORMATTER
+                                                              : this.formatter;
 
         // add tooltips
         tooltip = new ArrayList<>();

@@ -1,0 +1,13 @@
+{
+  "tag": "tconstruct:tooltips/glass",
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.block",
+      "needed": 1000
+    },
+    {
+      "key": "gui.tconstruct.fluid.pane",
+      "needed": 250
+    }
+  ]
+}

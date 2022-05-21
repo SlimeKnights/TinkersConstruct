@@ -356,10 +356,10 @@ public class TinkerTags {
     public static final TagKey<Fluid> SMALL_GEM_TOOLTIPS = tag("tooltips/gem_small");
     /** Causes the fluid to be formatted like glass in tooltips */
     public static final TagKey<Fluid> GLASS_TOOLTIPS = tag("tooltips/glass");
-    /** Causes the fluid to be formatted with 4 bottles per bucket, closest value to water bottles */
-    public static final TagKey<Fluid> BOTTLE_TOOLTIPS = tag("tooltips/bottle");
     /** Causes the fluid to be formatted like soup in tooltips, with bowls. Similar to slime, but no blocks */
     public static final TagKey<Fluid> SOUP_TOOLTIPS = tag("tooltips/soup");
+    /** Causes the fluid to be formatted like water, with bottles and buckets */
+    public static final TagKey<Fluid> WATER_TOOLTIPS = tag("tooltips/water");
 
     // spilling tags - used to reduce the number of spilling recipes
     public static final TagKey<Fluid> CLAY_SPILLING = tag("spilling/clay");

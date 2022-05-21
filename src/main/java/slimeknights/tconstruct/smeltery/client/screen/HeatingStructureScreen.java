@@ -19,6 +19,7 @@ import slimeknights.tconstruct.smeltery.client.screen.module.HeatingStructureSid
 import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureContainerMenu> implements IScreenWithFluidTank {
   public static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/smeltery.png");
@@ -36,7 +37,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
     HeatingStructureBlockEntity te = container.getTile();
     if (te != null) {
       this.te = te;
-      this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h);
+      this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h, Objects.requireNonNull(te.getType().getRegistryName()));
       int slots = te.getMeltingInventory().getSlots();
       this.sideInventory = new HeatingStructureSideInventoryScreen(this, container.getSideInventory(), playerInventory, slots, HeatingStructureContainerMenu.calcColumns(slots));
       addModule(sideInventory);

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.menu;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 import slimeknights.mantle.util.sync.ValidZeroDataSlot;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.inventory.TriggeringBaseContainerMenu;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -21,6 +23,8 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlockEntity> {
+  public static final ResourceLocation TOOLTIP_FORMAT = TConstruct.getResource("melter");
+
   @SuppressWarnings("MismatchedReadAndWriteOfArray")
   @Getter
   private final Slot[] inputs;

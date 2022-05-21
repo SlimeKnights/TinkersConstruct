@@ -1,0 +1,17 @@
+{
+  "tag": "tconstruct:tooltips/gem_small",
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.block",
+      "needed": 400
+    },
+    {
+      "key": "gui.tconstruct.fluid.gem",
+      "needed": 100
+    },
+    {
+      "key": "gui.tconstruct.fluid.shard",
+      "needed": 25
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.kilobucket",
+      "needed": 1000000
+    },
+    {
+      "key": "gui.tconstruct.fluid.bucket",
+      "needed": 1000
+    }
+  ]
+}

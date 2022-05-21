@@ -3,6 +3,7 @@ package slimeknights.tconstruct.fluids;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -10,9 +11,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class FluidClientEvents extends ClientEventBase {
+  @SubscribeEvent
+  static void addResourceListeners(RegisterClientReloadListenersEvent event) {
+    FluidTooltipHandler.init(event);
+  }
+
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     setTranslucent(TinkerFluids.honey);

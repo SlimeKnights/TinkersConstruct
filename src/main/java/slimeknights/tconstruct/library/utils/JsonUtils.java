@@ -187,10 +187,15 @@ public class JsonUtils {
     }
   }
 
+  /** Creates a JSON object with the given key set to a resource location */
+  public static JsonObject withLocation(String key, ResourceLocation value) {
+    JsonObject json = new JsonObject();
+    json.addProperty(key, value.toString());
+    return json;
+  }
+
   /** Creates a JSON object with the given type set, makes using {@link slimeknights.mantle.data.GenericRegisteredSerializer} eaiser */
   public static JsonObject withType(ResourceLocation type) {
-    JsonObject json = new JsonObject();
-    json.addProperty("type", type.toString());
-    return json;
+    return withLocation("type", type);
   }
 }

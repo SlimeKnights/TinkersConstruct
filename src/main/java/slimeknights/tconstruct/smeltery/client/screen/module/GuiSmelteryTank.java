@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.smeltery.client.screen.module;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -22,7 +22,6 @@ import java.util.function.BiConsumer;
 /**
  * Helper class to draw the smeltery tank in UIs
  */
-@RequiredArgsConstructor
 public class GuiSmelteryTank {
   // fluid tooltips
   public static final String TOOLTIP_CAPACITY = TConstruct.makeTranslationKey("gui", "melting.capacity");
@@ -32,8 +31,19 @@ public class GuiSmelteryTank {
   private final AbstractContainerScreen<?> parent;
   private final SmelteryTank<?> tank;
   private final int x, y, width, height;
+  private final BiConsumer<Integer,List<Component>> formatter;
 
   private int[] liquidHeights;
+
+  public GuiSmelteryTank(AbstractContainerScreen<?> parent, SmelteryTank<?> tank, int x, int y, int width, int height, ResourceLocation tooltipId) {
+    this.parent = parent;
+    this.tank = tank;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.formatter = (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
+  }
 
   /**
    * Calculates the heights of the liquids
@@ -150,7 +160,7 @@ public class GuiSmelteryTank {
       int hovered = tank.getContained() == 0 ? -1 : getFluidFromMouse(calcLiquidHeights(false), checkY);
       List<Component> tooltip;
       if (hovered == -1) {
-        BiConsumer<Integer, List<Component>> formatter = Screen.hasShiftDown() ? FluidTooltipHandler::appendBuckets : FluidTooltipHandler::appendIngots;
+        BiConsumer<Integer, List<Component>> formatter = Screen.hasShiftDown() ? FluidTooltipHandler.BUCKET_FORMATTER : this.formatter;
 
         tooltip = new ArrayList<>();
         tooltip.add(new TranslatableComponent(TOOLTIP_CAPACITY));

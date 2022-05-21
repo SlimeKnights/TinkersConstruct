@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:water",
-    "minecraft:flowing_water",
-    "#tconstruct:honey"
+    "minecraft:flowing_water"
   ]
 }

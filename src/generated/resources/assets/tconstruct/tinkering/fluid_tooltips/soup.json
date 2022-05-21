@@ -1,0 +1,9 @@
+{
+  "tag": "tconstruct:tooltips/soup",
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.bowl",
+      "needed": 250
+    }
+  ]
+}

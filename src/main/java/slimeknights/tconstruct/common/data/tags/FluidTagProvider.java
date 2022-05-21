@@ -125,7 +125,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag());
     this.tag(TinkerTags.Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getLocalTag(), TinkerFluids.moltenAmethyst.getLocalTag());
     this.tag(TinkerTags.Fluids.SOUP_TOOLTIPS).addTags(TinkerFluids.beetrootSoup.getLocalTag(), TinkerFluids.mushroomStew.getLocalTag(), TinkerFluids.rabbitStew.getLocalTag());
-    this.tag(TinkerTags.Fluids.BOTTLE_TOOLTIPS).add(Fluids.WATER, Fluids.FLOWING_WATER).addTags(TinkerFluids.honey.getLocalTag());
+    this.tag(TinkerTags.Fluids.WATER_TOOLTIPS).add(Fluids.WATER, Fluids.FLOWING_WATER); // the water tag contains too many non-water things
 
     // spilling tags - reduces the number of recipes generated //
     this.tag(TinkerTags.Fluids.CLAY_SPILLING)
