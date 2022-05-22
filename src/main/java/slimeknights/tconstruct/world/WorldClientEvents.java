@@ -12,7 +12,6 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
-import net.minecraft.client.renderer.entity.SlimeRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -93,7 +92,7 @@ public class WorldClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-    event.registerEntityRenderer(TinkerWorld.earthSlimeEntity.get(), SlimeRenderer::new);
+    event.registerEntityRenderer(TinkerWorld.earthSlimeEntity.get(), TinkerSlimeRenderer.EARTH_SLIME_FACTORY);
     event.registerEntityRenderer(TinkerWorld.skySlimeEntity.get(), TinkerSlimeRenderer.SKY_SLIME_FACTORY);
     event.registerEntityRenderer(TinkerWorld.enderSlimeEntity.get(), TinkerSlimeRenderer.ENDER_SLIME_FACTORY);
     event.registerEntityRenderer(TinkerWorld.terracubeEntity.get(), TerracubeRenderer::new);

@@ -65,28 +65,25 @@ public class SlimeskullArmorModel extends Model {
     if (base != null) {
       matrixStackIn.pushPose();
       matrixStackIn.translate(0.0D, base.young ? -0.015D : -0.02D, 0.0D);
-      matrixStackIn.scale(1.01f, 1.0f, 1.01f);
+      matrixStackIn.scale(1.01f, 1.1f, 1.01f);
       base.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       matrixStackIn.popPose();
 
       if (headModel != null && headTexture != null && ArmorModelHelper.buffer != null) {
         VertexConsumer headBuilder = ItemRenderer.getArmorFoilBuffer(ArmorModelHelper.buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
-        boolean needsPush = base.young || base.crouching;
-        if (needsPush) {
-          matrixStackIn.pushPose();
-          if (base.young) {
-            matrixStackIn.scale(0.75F, 0.75F, 0.75F);
-            matrixStackIn.translate(0.0D, 1.0D, 0.0D);
-          }
-          if (base.crouching) {
-            matrixStackIn.translate(0, base.head.y / 16.0F, 0);
-          }
+        matrixStackIn.pushPose();
+        if (base.crouching) {
+          matrixStackIn.translate(0, base.head.y / 16.0F, 0);
+        }
+        if (base.young) {
+          matrixStackIn.scale(0.85F, 0.85F, 0.85F);
+          matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+        } else {
+          matrixStackIn.scale(1.115f, 1.115f, 1.115f);
         }
         headModel.setupAnim(0, base.head.yRot * 180f / (float)(Math.PI), base.head.xRot * 180f / (float)(Math.PI));
         headModel.renderToBuffer(matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, red, green * 0.5f, blue, alpha * 0.8f);
-        if (needsPush) {
-          matrixStackIn.popPose();
-        }
+        matrixStackIn.popPose();
       }
     }
   }
