@@ -1,18 +1,23 @@
 package slimeknights.tconstruct.world.entity;
 
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.events.teleport.EnderSlimeTeleportEvent;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-public class EnderSlimeEntity extends Slime {
+public class EnderSlimeEntity extends ArmoredSlimeEntity {
   /** Predicate for this ender slime to allow teleporting */
   private final ITeleportEventFactory teleportPredicate = (entity, x, y, z) -> new EnderSlimeTeleportEvent(entity, x, y, z, this);
 
@@ -39,6 +44,21 @@ public class EnderSlimeEntity extends Slime {
     super.actuallyHurt(damageSrc, damageAmount);
     if (isAlive() && getHealth() < oldHealth) {
       TeleportHelper.randomNearbyTeleport(this, teleportPredicate);
+    }
+  }
+
+  @Override
+  protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+    // ender slime spawns with slimeskulls with a random material
+    // vanilla logic but simplified down to just helmets
+    float multiplier = difficulty.getSpecialMultiplier();
+    if (this.random.nextFloat() < 0.15F * difficulty.getSpecialMultiplier()) {
+      // 2.5% chance of plate
+      ItemStack helmet = new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET));
+      // just init stats, will set random material
+      ToolStack.from(helmet).ensureHasData();
+      // finally, give the slime the helmet
+      this.setItemSlot(EquipmentSlot.HEAD, helmet);
     }
   }
 }

@@ -1138,7 +1138,8 @@
 
   "_comment": "Tinkers World",
 
-  "entity.tconstruct.earth_slime": "Slime",
+  "entity.tconstruct.earth_slime": "Earthslime",
+  "item.tconstruct.earth_slime_spawn_egg": "Earthslime Spawn Egg",
   "entity.tconstruct.sky_slime": "Skyslime",
   "item.tconstruct.sky_slime_spawn_egg": "Skyslime Spawn Egg",
   "entity.tconstruct.ender_slime": "Enderslime",

@@ -461,6 +461,16 @@ public class ToolStack implements IToolStackView {
   }
 
   /**
+   * Updates the upgrades list on the tool
+   * @param modifiers  New upgrades
+   */
+  public void setUpgrades(ModifierNBT modifiers) {
+    this.upgrades = modifiers;
+    nbt.put(TAG_UPGRADES, modifiers.serializeToNBT());
+    rebuildStats();
+  }
+
+  /**
    * Adds a single modifier to this tool
    * @param modifier  Modifier to add
    * @param level     Level to add
@@ -469,10 +479,7 @@ public class ToolStack implements IToolStackView {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above 0");
     }
-    ModifierNBT newModifiers = getUpgrades().withModifier(modifier, level);
-    this.upgrades = newModifiers;
-    nbt.put(TAG_UPGRADES, newModifiers.serializeToNBT());
-    rebuildStats();
+    setUpgrades(getUpgrades().withModifier(modifier, level));
   }
 
   /**
