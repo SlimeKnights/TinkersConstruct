@@ -102,6 +102,7 @@ public class ArmoredSlimeEntity extends Slime {
       }
 
       // spawn all children
+      float dropChance = getEquipmentDropChance(EquipmentSlot.HEAD);
       for(int i = 0; i < count; ++i) {
         float x = ((i % 2) - 0.5F) * offset;
         float z = ((i / 2) - 0.5F) * offset;
@@ -115,9 +116,10 @@ public class ArmoredSlimeEntity extends Slime {
         slime.setInvulnerable(invulnerable);
         slime.setSize(newSize, true);
         if (i == helmetIndex) {
-          slime.setItemSlot(EquipmentSlot.HEAD, helmet);
+          slime.setItemSlot(EquipmentSlot.HEAD, helmet.copy());
           setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-          helmet = ItemStack.EMPTY;
+        } else if (dropChance < 1 && random.nextFloat() < 0.25) {
+          slime.setItemSlot(EquipmentSlot.HEAD, helmet.copy());
         }
         slime.moveTo(this.getX() + x, this.getY() + 0.5D, this.getZ() + z, this.random.nextFloat() * 360.0F, 0.0F);
         this.level.addFreshEntity(slime);
