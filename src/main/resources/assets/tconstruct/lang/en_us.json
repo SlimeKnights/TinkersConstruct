@@ -2264,6 +2264,8 @@
   "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",
   "effect.tconstruct.fireball_cooldown": "Fireball Cooldown",
   "effect.tconstruct.calcified": "Calcified",
+  "effect.tconstruct.self_destructing": "Self Destructing",
+
 
   "_comment": "Roman numerals",
   "roman_numeral.value.1": "I",

@@ -153,6 +153,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.MithridatismModifier
 import slimeknights.tconstruct.tools.modifiers.traits.skull.PlagueModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.RevengeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier.SelfDestructiveEffect;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
@@ -420,6 +421,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static RegistryObject<TinkerEffect> teleportCooldownEffect = MOB_EFFECTS.register("teleport_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xCC00FA, true));
   public static RegistryObject<TinkerEffect> fireballCooldownEffect = MOB_EFFECTS.register("fireball_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xFC9600, true));
   public static RegistryObject<TinkerEffect> calcifiedEffect = MOB_EFFECTS.register("calcified", () -> new NoMilkEffect(MobEffectCategory.BENEFICIAL, -1, true));
+  public static RegistryObject<TinkerEffect> selfDestructiveEffect = MOB_EFFECTS.register("self_destructing", SelfDestructiveEffect::new);
+
 
   /*
    * Recipes
