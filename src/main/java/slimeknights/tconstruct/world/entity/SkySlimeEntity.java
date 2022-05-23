@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -91,6 +92,7 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
         modifiers = modifiers.withModifier(TinkerModifiers.dyed.getId(), 1);
       }
 
+      // TODO: make this less hardcoded?
       // add some random defense modifiers
       int max = tool.getFreeSlots(SlotType.DEFENSE);
       for (int i = 0; i < max; i++) {
@@ -100,6 +102,12 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
         persistentData.addSlots(SlotType.DEFENSE, -1);
         modifiers = modifiers.withModifier(randomDefense(random.nextInt(6)), 1);
       }
+      // chance of diamond or emerald
+      if (tool.getFreeSlots(SlotType.UPGRADE) > 0 && random.nextFloat() < 0.5f * multiplier) {
+        persistentData.addSlots(SlotType.UPGRADE, -1);
+        modifiers = modifiers.withModifier(random.nextBoolean() ? ModifierIds.emerald : ModifierIds.diamond, 1);
+      }
+
       tool.setUpgrades(modifiers);
 
       // finally, give the slime the helmet
