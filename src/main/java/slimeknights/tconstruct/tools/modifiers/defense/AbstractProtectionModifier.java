@@ -74,7 +74,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
    */
   public static void addResistanceTooltip(IncrementalModifier modifier, IToolStackView tool, int level, float multiplier, List<Component> tooltip) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
-      tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(modifier.getScaledLevel(tool, level) * multiplier / 25f))
+      tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(Math.min(modifier.getScaledLevel(tool, level) * multiplier / 25f, 0.8f)))
                                         .append(" ")
                                         .append(new TranslatableComponent(modifier.getTranslationKey() + ".resistance"))));
     }
