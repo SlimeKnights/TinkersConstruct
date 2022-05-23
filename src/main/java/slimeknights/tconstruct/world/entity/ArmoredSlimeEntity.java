@@ -9,6 +9,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -24,6 +29,19 @@ import java.time.temporal.ChronoField;
 public class ArmoredSlimeEntity extends Slime {
   public ArmoredSlimeEntity(EntityType<? extends Slime> type, Level world) {
     super(type, world);
+    if (!world.isClientSide) {
+      tryAddAttribute(Attributes.ARMOR, new AttributeModifier("tconstruct.small_armor_bonus", 3, Operation.MULTIPLY_TOTAL));
+      tryAddAttribute(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("tconstruct.small_toughness_bonus", 3, Operation.MULTIPLY_TOTAL));
+      tryAddAttribute(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("tconstruct.small_resistence_bonus", 3, Operation.MULTIPLY_TOTAL));
+    }
+  }
+
+  /** Adds an attribute if possible */
+  private void tryAddAttribute(Attribute attribute, AttributeModifier modifier) {
+    AttributeInstance instance = getAttribute(attribute);
+    if (instance != null) {
+      instance.addTransientModifier(modifier);
+    }
   }
 
   @Nullable

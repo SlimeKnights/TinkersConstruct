@@ -394,7 +394,8 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> KILLAGERS = tag("killagers");
     /** Mobs that rarely spawn, boosts drop rate of severing */
     public static final TagKey<EntityType<?>> RARE_MOBS = tag("rare_mobs");
-
+    /** Mobs that get the 4x protection boost due to only 1 armor piece */
+    public static final TagKey<EntityType<?>> SMALL_ARMOR = forgeTag("small_armor");
 
     private static TagKey<EntityType<?>> tag(String name) {
       return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, TConstruct.getResource(name));

@@ -44,6 +44,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -57,7 +58,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteArmorModifier;
 
 import java.util.List;
@@ -266,29 +266,37 @@ public class ToolEvents {
 
     // determine if there is any modifiable armor, if not nothing to do
     // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
-    EquipmentContext context = new EquipmentContext(entity);
-    if (!context.hasModifiableArmor()) {
-      return;
-    }
-
-    // first, fetch vanilla enchant level, assuming its not bypassed in vanilla
     DamageSource source = event.getSource();
+    EquipmentContext context = new EquipmentContext(entity);
     int vanillaModifier = 0;
-    if (!source.isBypassMagic()) {
-      vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
-    }
-
-    // next, determine how much tinkers armor wants to change it
-    // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
-    float modifierValue = vanillaModifier;
+    float modifierValue = 0;
     float originalDamage = event.getAmount();
-    for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      IToolStackView tool = context.getToolInSlot(slotType);
-      if (tool != null && !tool.isBroken()) {
-        for (ModifierEntry entry : tool.getModifierList()) {
-          modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+
+    // for our own armor, we have boosts from modifiers to consider
+    if (context.hasModifiableArmor()) {
+      // first, fetch vanilla enchant level, assuming its not bypassed in vanilla
+      if (!source.isBypassMagic()) {
+        modifierValue = vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
+      }
+
+      // next, determine how much tinkers armor wants to change it
+      // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
+      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
+        IToolStackView tool = context.getToolInSlot(slotType);
+        if (tool != null && !tool.isBroken()) {
+          for (ModifierEntry entry : tool.getModifierList()) {
+            modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+          }
         }
       }
+
+      // give slimes a 4x armor boost
+      if (entity.getType().is(TinkerTags.EntityTypes.SMALL_ARMOR)) {
+        modifierValue *= 4;
+      }
+    } else if (!source.isBypassMagic() && entity.getType().is(TinkerTags.EntityTypes.SMALL_ARMOR)) {
+      vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
+      modifierValue = vanillaModifier * 4;
     }
 
     // TODO: consider hook for modifiers to change damage directly
