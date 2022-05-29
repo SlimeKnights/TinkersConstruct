@@ -26,13 +26,13 @@
   "block.tconstruct.mud_bricks_slab": "Плита из грязевых кирпичей",
   "block.tconstruct.mud_bricks_stairs": "Ступеньки из грязевых кирпичей",
 
-  "block.tconstruct.lavawood": "Лавадерево",
-  "block.tconstruct.lavawood_slab": "Плита из лавадерева",
-  "block.tconstruct.lavawood_stairs": "Ступеньки из лавадерева",
+  "block.tconstruct.lavawood": "Лавадрево",
+  "block.tconstruct.lavawood_slab": "Плита из лавадрева",
+  "block.tconstruct.lavawood_stairs": "Ступеньки из лавадрева",
 
-  "block.tconstruct.blazewood": "Огнедерево",
-  "block.tconstruct.blazewood_slab": "Плита из огнедерева",
-  "block.tconstruct.blazewood_stairs": "Ступеньки из огнедерева",
+  "block.tconstruct.blazewood": "Огнедрево",
+  "block.tconstruct.blazewood_slab": "Плита из огнедрева",
+  "block.tconstruct.blazewood_stairs": "Ступеньки из огнедрева",
 
   "block.tconstruct.nahuatl": "Доски дерева туле",
   "block.tconstruct.nahuatl_slab": "Плита из дерева туле",
@@ -217,7 +217,6 @@
   "item.tconstruct.copper_can": "Медный сосуд",
   "item.tconstruct.copper_can.tooltip": "Стакающийся контейнер, вмещающий 1 слиток жидкости",
   "item.tconstruct.copper_can.contents": "Содержит: 1 слиток %s",
-
 
   "_comment": "Tinkers Patterns",
 
