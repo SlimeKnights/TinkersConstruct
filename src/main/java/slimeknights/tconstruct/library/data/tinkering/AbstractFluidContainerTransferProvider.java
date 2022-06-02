@@ -13,7 +13,9 @@ import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.fluid.transfer.EmptyFluidContainerTransfer;
+import slimeknights.tconstruct.library.fluid.transfer.EmptyFluidWithNBTTransfer;
 import slimeknights.tconstruct.library.fluid.transfer.FillFluidContainerTransfer;
+import slimeknights.tconstruct.library.fluid.transfer.FillFluidWithNBTTransfer;
 import slimeknights.tconstruct.library.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.tconstruct.library.fluid.transfer.IFluidContainerTransfer;
 
@@ -51,6 +53,12 @@ public abstract class AbstractFluidContainerTransferProvider extends GenericData
   protected void addFillEmpty(String prefix, ItemLike item, ItemLike container, Fluid fluid, TagKey<Fluid> tag, int amount) {
     addTransfer(prefix + "empty",  new EmptyFluidContainerTransfer(Ingredient.of(item), ItemOutput.fromItem(container), new FluidStack(fluid, amount)));
     addTransfer(prefix + "fill", new FillFluidContainerTransfer(Ingredient.of(container), ItemOutput.fromItem(item), FluidIngredient.of(tag, amount)));
+  }
+
+  /** Adds generic fill and empty for a container */
+  protected void addFillEmptyNBT(String prefix, ItemLike item, ItemLike container, Fluid fluid, TagKey<Fluid> tag, int amount) {
+    addTransfer(prefix + "empty",  new EmptyFluidWithNBTTransfer(Ingredient.of(item), ItemOutput.fromItem(container), new FluidStack(fluid, amount)));
+    addTransfer(prefix + "fill", new FillFluidWithNBTTransfer(Ingredient.of(container), ItemOutput.fromItem(item), FluidIngredient.of(tag, amount)));
   }
 
   @Override

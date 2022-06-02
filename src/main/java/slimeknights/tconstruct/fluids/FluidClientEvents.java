@@ -2,7 +2,9 @@ package slimeknights.tconstruct.fluids;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -36,6 +38,11 @@ public class FluidClientEvents extends ClientEventBase {
     setTranslucent(TinkerFluids.liquidSoul);
     setTranslucent(TinkerFluids.moltenSoulsteel);
     setTranslucent(TinkerFluids.moltenAmethyst);
+  }
+
+  @SubscribeEvent
+  static void itemColors(final ColorHandlerEvent.Item event) {
+    event.getItemColors().register((stack, index) -> index > 0 ? -1 : PotionUtils.getColor(stack), TinkerFluids.potionBucket.asItem());
   }
 
   private static void setTranslucent(FluidObject<?> fluid) {

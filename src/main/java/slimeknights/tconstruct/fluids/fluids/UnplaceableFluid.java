@@ -1,25 +1,24 @@
 package slimeknights.tconstruct.fluids.fluids;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.item.Item;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidAttributes;
 
 import java.util.function.Supplier;
 
 @AllArgsConstructor
 public class UnplaceableFluid extends Fluid {
-
   private final Supplier<? extends Item> bucket;
   private final FluidAttributes.Builder builder;
 
@@ -29,12 +28,12 @@ public class UnplaceableFluid extends Fluid {
   }
 
   @Override
-  protected boolean canBeReplacedWith(FluidState p_215665_1_, BlockGetter p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
+  protected boolean canBeReplacedWith(FluidState state, BlockGetter world, BlockPos pos, Fluid fluid, Direction side) {
     return false;
   }
 
   @Override
-  public int getTickDelay(LevelReader p_205569_1_) {
+  public int getTickDelay(LevelReader world) {
     return 5;
   }
 
@@ -57,8 +56,8 @@ public class UnplaceableFluid extends Fluid {
   /* Required methods */
 
   @Override
-  protected Vec3 getFlow(BlockGetter p_215663_1_, BlockPos p_215663_2_, FluidState p_215663_3_) {
-    return new Vec3(0, 0, 0);
+  protected Vec3 getFlow(BlockGetter world, BlockPos pos, FluidState state) {
+    return Vec3.ZERO;
   }
 
   @Override
@@ -72,17 +71,17 @@ public class UnplaceableFluid extends Fluid {
   }
 
   @Override
-  public float getHeight(FluidState p_215662_1_, BlockGetter p_215662_2_, BlockPos p_215662_3_) {
+  public float getHeight(FluidState state, BlockGetter world, BlockPos pos) {
     return 1;
   }
 
   @Override
-  public int getAmount(FluidState p_207192_1_) {
+  public int getAmount(FluidState state) {
     return 0;
   }
 
   @Override
-  public VoxelShape getShape(FluidState p_215664_1_, BlockGetter p_215664_2_, BlockPos p_215664_3_) {
+  public VoxelShape getShape(FluidState state, BlockGetter world, BlockPos pos) {
     return Shapes.block();
   }
 }

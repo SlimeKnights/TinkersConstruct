@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:fill_nbt",
+  "input": {
+    "item": "minecraft:glass_bottle"
+  },
+  "filled": "minecraft:potion",
+  "fluid": {
+    "tag": "forge:potion",
+    "amount": 250
+  }
+}

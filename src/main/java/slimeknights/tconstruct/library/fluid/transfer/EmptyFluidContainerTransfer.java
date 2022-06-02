@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.library.fluid.transfer;
 
+import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
@@ -12,11 +15,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import org.apache.commons.lang3.function.TriFunction;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
+import java.lang.reflect.Type;
 import java.util.function.Consumer;
 
 /** Fluid transfer info that empties a fluid from an item */
@@ -26,7 +31,7 @@ public class EmptyFluidContainerTransfer implements IFluidContainerTransfer {
 
   private final Ingredient input;
   private final ItemOutput filled;
-  private final FluidStack fluid;
+  protected final FluidStack fluid;
 
   @Override
   public void addRepresentativeItems(Consumer<Item> consumer) {
@@ -40,16 +45,22 @@ public class EmptyFluidContainerTransfer implements IFluidContainerTransfer {
     return input.test(stack);
   }
 
+  /** Gets the contained fluid in the given stack */
+  protected FluidStack getFluid(ItemStack stack) {
+    return fluid;
+  }
+
   @Override
   public TransferResult transfer(ItemStack stack, FluidStack fluid, IFluidHandler handler) {
-    int simulated = handler.fill(this.fluid.copy(), FluidAction.SIMULATE);
+    FluidStack contained = getFluid(stack);
+    int simulated = handler.fill(contained.copy(), FluidAction.SIMULATE);
     if (simulated == this.fluid.getAmount()) {
-      int actual = handler.fill(this.fluid.copy(), FluidAction.EXECUTE);
+      int actual = handler.fill(contained.copy(), FluidAction.EXECUTE);
       if (actual > 0) {
         if (actual != this.fluid.getAmount()) {
           TConstruct.LOG.error("Wrong amount filled from {}, expected {}, filled {}", stack.getItem().getRegistryName(), this.fluid.getAmount(), actual);
         }
-        return new TransferResult(filled.get().copy(), this.fluid, false);
+        return new TransferResult(filled.get().copy(), contained, false);
       }
     }
     return null;
@@ -66,11 +77,19 @@ public class EmptyFluidContainerTransfer implements IFluidContainerTransfer {
   }
 
   /** Unique loader instance */
-  public static final JsonDeserializer<EmptyFluidContainerTransfer> DESERIALIZER = (element, typeOfT, context) -> {
-    JsonObject json = element.getAsJsonObject();
-    Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
-    ItemOutput filled = ItemOutput.fromJson(JsonHelper.getElement(json, "filled"));
-    FluidStack fluid = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid"));
-    return new EmptyFluidContainerTransfer(input, filled, fluid);
-  };
+  public static final JsonDeserializer<EmptyFluidContainerTransfer> DESERIALIZER = new Deserializer<>(EmptyFluidContainerTransfer::new);
+
+  /**
+   * Generic deserializer
+   */
+  public record Deserializer<T extends EmptyFluidContainerTransfer>(TriFunction<Ingredient,ItemOutput,FluidStack,T> factory) implements JsonDeserializer<T> {
+    @Override
+    public T deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+      JsonObject json = element.getAsJsonObject();
+      Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
+      ItemOutput filled = ItemOutput.fromJson(JsonHelper.getElement(json, "filled"));
+      FluidStack fluid = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid"));
+      return factory.apply(input, filled, fluid);
+    }
+  }
 }

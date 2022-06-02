@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:empty_potion",
+  "input": {
+    "item": "minecraft:splash_potion"
+  },
+  "filled": "tconstruct:splash_bottle",
+  "fluid": {
+    "fluid": "tconstruct:potion",
+    "amount": 250
+  }
+}

@@ -448,6 +448,18 @@
   "item.tconstruct.rabbit_stew_bucket": "Rabbit Stew Bucket",
 
 
+  "_comment": "Potion",
+
+  "fluid.tconstruct.potion": "Potion",
+
+  "item.tconstruct.potion_bucket": "Uncraftable Potion Bucket",
+  "item.tconstruct.potion_bucket.effect.water": "Water Bucket",
+  "item.tconstruct.potion_bucket.contents": "%s Bucket",
+
+  "item.tconstruct.splash_bottle": "Splash Bottle",
+  "item.tconstruct.lingering_bottle": "Lingering Bottle",
+
+
   "_comment": "Slime",
 
   "block.tconstruct.blood_fluid": "Blood",

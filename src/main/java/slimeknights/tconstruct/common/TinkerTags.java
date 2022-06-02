@@ -330,6 +330,10 @@ public class TinkerTags {
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");
 
+    /** Tag for others adding empty potion bottles */
+    public static final TagKey<Item> SPLASH_BOTTLE = forgeTag("bottles/splash");
+    public static final TagKey<Item> LINGERING_BOTTLE = forgeTag("bottles/lingering");
+
     /** Makes a tag in the tinkers domain */
     private static TagKey<Item> tag(String name) {
       return TagKey.create(Registry.ITEM_REGISTRY, TConstruct.getResource(name));
@@ -367,6 +371,8 @@ public class TinkerTags {
     public static final TagKey<Fluid> CHEAP_METAL_SPILLING = tag("spilling/metal/cheap");
     public static final TagKey<Fluid> AVERAGE_METAL_SPILLING = tag("spilling/metal/average");
     public static final TagKey<Fluid> EXPENSIVE_METAL_SPILLING = tag("spilling/metal/expensive");
+
+    public static final TagKey<Fluid> POTION = forgeTag("potion");
 
     private static TagKey<Fluid> tag(String name) {
       return TagKey.create(Registry.FLUID_REGISTRY, TConstruct.getResource(name));

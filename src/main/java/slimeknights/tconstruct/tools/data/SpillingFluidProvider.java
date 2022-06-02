@@ -3,20 +3,15 @@ package slimeknights.tconstruct.tools.data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.data.FluidNameIngredient;
-import slimeknights.mantle.recipe.helper.TagEmptyCondition;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -125,11 +120,8 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
       .addEffect(new EffectSpillingEffect(MobEffects.POISON, 10, 1));
 
     // potion fluid compat
-    TagKey<Fluid> potionTag = FluidTags.create(new ResourceLocation("forge", "potion"));
     // standard potion is 250 mb, but we want a smaller number. For the effects, we really want to divide into 4 pieces
-    addFluid("potion_fluid", potionTag, FluidValues.BOTTLE / 2)
-      .condition(new NotCondition(new TagEmptyCondition<>(potionTag)))
-      .addEffect(new PotionFluidEffect(0.5f, TagPredicate.ANY));
+    addFluid("potion_fluid", TinkerTags.Fluids.POTION, FluidValues.BOTTLE / 2).addEffect(new PotionFluidEffect(0.5f, TagPredicate.ANY));
 
     // create has three types of bottles stored on their fluid, react to it to boost
     Function<String,TagPredicate> createBottle = value -> {

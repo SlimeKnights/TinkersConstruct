@@ -1,0 +1,9 @@
+{
+  "tag": "forge:potion",
+  "units": [
+    {
+      "key": "gui.tconstruct.fluid.bottle",
+      "needed": 250
+    }
+  ]
+}

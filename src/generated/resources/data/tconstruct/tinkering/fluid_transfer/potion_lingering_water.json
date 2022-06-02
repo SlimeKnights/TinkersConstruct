@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:fill_item",
+  "input": {
+    "tag": "forge:bottles/lingering"
+  },
+  "filled": {
+    "item": "minecraft:lingering_potion",
+    "nbt": "{Potion:\"minecraft:water\"}"
+  },
+  "fluid": {
+    "tag": "minecraft:water",
+    "amount": 500
+  }
+}

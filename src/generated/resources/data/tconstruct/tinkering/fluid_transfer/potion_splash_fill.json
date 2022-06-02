@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:fill_nbt",
+  "input": {
+    "tag": "forge:bottles/splash"
+  },
+  "filled": "minecraft:splash_potion",
+  "fluid": {
+    "tag": "forge:potion",
+    "amount": 250
+  }
+}

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.fluids;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.data.AbstractFluidTooltipProvider;
 import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -71,6 +72,9 @@ public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
       .addUnit("bottle", FluidValues.BOTTLE);
     add("soup", SOUP_TOOLTIPS)
       .addUnit("bowl", FluidValues.BOWL);
+
+    add("potion", TinkerTags.Fluids.POTION)
+      .addUnit("bottle", FluidValues.BOTTLE);
   }
 
   @Override
