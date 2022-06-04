@@ -126,7 +126,7 @@ public class Config {
         .define("witherBoneConversion", true);
 
       this.slimeRecipeFix = builder
-        .comment("Slimealls not being usable in vanilla recipes that require slimeballs. Config option exists to disable easily in case this fix is redundant to another mod")
+        .comment("Slimeballs not being usable in vanilla recipes that require slimeballs. Config option exists to disable easily in case this fix is redundant to another mod")
         .worldRestart()
         .define("slimeRecipeFix", true);
 

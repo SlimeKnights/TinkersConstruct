@@ -2,7 +2,7 @@
   "title": "Features",
   "text": [
     { "text": "• Early smeltery" },
-    { "text": "\n• Gives +3 nuggets per ore" },
+    { "text": "\n• Gives +3 nuggets or +1 gem per ore (by default)" },
     { "text": "\n• Heater can be replaced with seared tank which can increase temperature\n" },
     { "text": "\n• Internal capacity of 9 ingots" },
     { "text": "\n• Melts 3 items at once" },
