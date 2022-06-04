@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -88,7 +89,7 @@ public class ConditionalDamageModifier extends IncrementalModifier {
       int level = 0;
       if (json.has("effect")) {
         JsonObject effectJson = GsonHelper.getAsJsonObject(json, "effect");
-        effect = JsonUtils.getAsEntry(ForgeRegistries.MOB_EFFECTS, effectJson, "name");
+        effect = JsonHelper.getAsEntry(ForgeRegistries.MOB_EFFECTS, effectJson, "name");
         level = JsonUtils.getIntMin(effectJson, "level", 1);
       }
       return new ConditionalDamageModifier(predicate, damage, effect, level);

@@ -11,12 +11,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -75,7 +75,7 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
       int enchantmentLevel = 0;
       if (json.has("enchantment")) {
         JsonObject enchantmentJson = GsonHelper.getAsJsonObject(json, "enchantment");
-        enchantment = JsonUtils.getAsEntry(ForgeRegistries.ENCHANTMENTS, enchantmentJson, "name");
+        enchantment = JsonHelper.getAsEntry(ForgeRegistries.ENCHANTMENTS, enchantmentJson, "name");
         enchantmentLevel = GsonHelper.getAsInt(enchantmentJson, "level");
       }
       int looting = GsonHelper.getAsInt(json, "looting", 0);

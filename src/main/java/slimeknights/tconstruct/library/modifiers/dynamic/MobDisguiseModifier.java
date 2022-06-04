@@ -9,13 +9,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ public class MobDisguiseModifier extends NoLevelsModifier {
   public static final IGenericLoader<MobDisguiseModifier> LOADER = new IGenericLoader<MobDisguiseModifier>() {
     @Override
     public MobDisguiseModifier deserialize(JsonObject json) {
-      return new MobDisguiseModifier(JsonUtils.getAsEntry(ForgeRegistries.ENTITIES, json, "entity"));
+      return new MobDisguiseModifier(JsonHelper.getAsEntry(ForgeRegistries.ENTITIES, json, "entity"));
     }
 
     @Override

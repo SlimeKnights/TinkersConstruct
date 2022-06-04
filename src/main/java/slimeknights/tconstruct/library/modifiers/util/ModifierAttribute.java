@@ -13,7 +13,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import java.util.List;
 import java.util.Locale;
@@ -87,8 +86,8 @@ public class ModifierAttribute {
   /** Parses the modifier attribute from JSON */
   public static ModifierAttribute fromJson(JsonObject json) {
     String unique = GsonHelper.getAsString(json, "unique");
-    Attribute attribute = JsonUtils.getAsEntry(ForgeRegistries.ATTRIBUTES, json, "attribute");
-    Operation op = JsonUtils.getAsEnum(json, "operation", Operation.class);
+    Attribute attribute = JsonHelper.getAsEntry(ForgeRegistries.ATTRIBUTES, json, "attribute");
+    Operation op = JsonHelper.getAsEnum(json, "operation", Operation.class);
     float amount = GsonHelper.getAsFloat(json, "amount");
     List<EquipmentSlot> slots = JsonHelper.parseList(json, "slots", (element, string) -> EquipmentSlot.byName(GsonHelper.convertToString(element, string)));
     return new ModifierAttribute(unique, attribute, op, amount, slots);

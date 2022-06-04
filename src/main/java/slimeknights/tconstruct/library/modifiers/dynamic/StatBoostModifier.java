@@ -34,7 +34,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -106,7 +105,7 @@ public class StatBoostModifier extends IncrementalModifier {
     public StatBoostModifier deserialize(JsonObject json) {
       Rarity rarity = null;
       if (json.has("rarity")) {
-        rarity = JsonUtils.getAsEnum(json, "rarity", Rarity.class);
+        rarity = JsonHelper.getAsEnum(json, "rarity", Rarity.class);
       }
       List<ModifierStatBoost> stats = Collections.emptyList();
       if (json.has("stats")) {
