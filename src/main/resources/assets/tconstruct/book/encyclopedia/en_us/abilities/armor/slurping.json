@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:slurping",
   "text": [
     {
-      "text": "Allows drinking fluid contained in the helmet to perform effects using the helmet keybind, mirroring effects from spilling."
+      "text": "Allows drinking fluid contained in the helmet to perform effects using the helmet keybind, such as lighting yourself on fire, clearing status effects, or restoring hunger."
     },
     {
-      "text": "Effects may include lighting yourself on fire, potion effects such as jump boost, or clearing status effects like milk.", "paragraph": true
+      "text": "Helmet can be filled with fluid by interacting with a tank or drain while holding it.", "paragraph": true
     }
   ],
   "more_text_space": true,

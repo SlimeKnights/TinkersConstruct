@@ -7,8 +7,8 @@
   ],
   "effects": [
     "Adds an overslime bar which is consumed before durability",
-    "Recharged with slime crystals",
-    "Different slime crystals recharge different amounts",
+    "Recharged with slimeballs, amount varies from crystal",
+    "Capacity is boosted by many tool materials",
     "Applies debuff to tools without slimy materials"
   ]
 }

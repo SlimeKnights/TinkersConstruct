@@ -1,4 +1,3 @@
-// Sections - Puny Smelting
 intro=Introduction
 melter=Melter
 moving_fluids=Moving Fluids
@@ -6,7 +5,7 @@ casting=Casting
 tier_two_materials=Tier 2 Materials
 
 upgrades=Upgrades
-upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied to each tool.
+upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied per tool.
 upgrades.group_general=General
 upgrades.group_harvest=Harvest
 upgrades.group_weapon=Weapon

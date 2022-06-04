@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "Grants +6% resistance against all damage for the first level, and +4% at consecutive levels. Caps at 80% across the whole set, or 10 levels."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requires 1 ability slot per level"
+  ]
+}

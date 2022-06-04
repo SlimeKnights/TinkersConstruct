@@ -7,7 +7,7 @@
   ],
   "more_text_space": false,
   "effects": [
-    "Applies slowdown on hit",
+    "Applies slowdown on hit, or on counterattack for armor",
     "Multiple levels, each level increases slowdown chance",
     "Requires 1 upgrade slot per level"
   ]

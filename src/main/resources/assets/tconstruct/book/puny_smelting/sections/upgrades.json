@@ -18,6 +18,14 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "upgrades/general/fireprimer.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/magnetic.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "upgrades/general/netherite.json"
   },
   {
@@ -35,6 +43,14 @@
   {
     "type": "tconstruct:modifier",
     "data": "upgrades/general/tank.json"
+  },
+  {
+    "condition": {
+      "type": "forge:mod_loaded",
+      "modid": "theoneprobe"
+    },
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/the_one_probe.json"
   },
 
   {
@@ -126,10 +142,6 @@
    {
     "type": "tconstruct:modifier",
     "data": "upgrades/harvest/lightspeed.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/harvest/magnetic.json"
   },
   
   {

@@ -15,11 +15,6 @@
     "data": "blazing_blood/carry.json"
   },
   {
-    "name": "piggy_backpack_craft",
-    "type": "mantle:crafting",
-    "data": "blazing_blood/piggy_backpack_craft.json"
-  },
-  {
     "name": "foundry",
     "type": "mantle:image_text",
     "data": "blazing_blood/foundry.json"

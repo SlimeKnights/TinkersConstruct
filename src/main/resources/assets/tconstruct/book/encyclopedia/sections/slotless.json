@@ -20,7 +20,11 @@
     "type": "tconstruct:modifier",
     "data": "slotless/general/nearsighted.json"
   },
-   {
+  {
+    "type": "tconstruct:modifier",
+    "data": "slotless/general/offhanded.json"
+  },
+  {
     "type": "tconstruct:modifier",
     "data": "slotless/general/overslime.json"
   },

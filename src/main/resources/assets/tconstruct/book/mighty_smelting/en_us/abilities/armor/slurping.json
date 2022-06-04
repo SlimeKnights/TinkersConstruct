@@ -5,12 +5,12 @@
       "text": "He was number one!"
     },
     {
-      "text": "Right clicking a tank with helmet fills it", "paragraph": true
+      "text": "Right clicking a tank while holding the helmet to fill with fluid.", "paragraph": true
     }
   ],
   "effects": [
     "Drink fluids stored in the helmet",
-	"Keybind is used to drink",
+    "Keybind is used to drink",
     "Single level",
     "Requires 1 ability slot"
   ]

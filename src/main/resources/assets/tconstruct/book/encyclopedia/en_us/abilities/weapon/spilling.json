@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:spilling",
   "text": [
     {
-      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) to boost attacks with special effects, or in counterattack when applied on a chestplate. "
+      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) to boost attacks or counterattacks with special effects, such as fire, bonus damage, or potion effects. "
     },
     {
-      "text": "Effects may include lighting the target on fire, bonus damage, mob effects such as poison, or clearing status effects like milk."
+      "text": "Tool can be filled with fluid by interacting with a tank or drain while holding the tool."
     }
   ],
   "more_text_space": true,

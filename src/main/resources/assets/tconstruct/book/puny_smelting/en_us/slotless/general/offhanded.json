@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "The most nonchalant modifier."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Disables tool's interaction when offhand is occupied",
+    "Second level fully disables interactions",
+    "Maximum of 2 levels",
+    "Different recipe for each level"
+  ]
+}

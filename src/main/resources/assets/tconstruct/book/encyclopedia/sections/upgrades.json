@@ -30,10 +30,6 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "upgrades/general/offhanded.json"
-  },
-  {
-    "type": "tconstruct:modifier",
     "data": "upgrades/general/overforced.json"
   },
   {
@@ -73,6 +69,10 @@
   {
     "type": "tconstruct:modifier",
     "data": "upgrades/weapon/necrotic.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/weapon/padded.json"
   },
   {
     "type": "tconstruct:modifier",

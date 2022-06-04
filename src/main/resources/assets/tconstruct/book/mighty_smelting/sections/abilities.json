@@ -134,6 +134,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/armor/protection.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/armor/reach.json"
   },
   {

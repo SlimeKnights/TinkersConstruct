@@ -3,10 +3,13 @@
   "text": [
     {
       "text": "The strength of the nether flows intensely through your tool."
+    },
+    {
+      "text": "So much that the tool cannot be harmed by external damage such as lava.", "paragraph": true
     }
   ],
   "effects": [
-    "Boosts durability, attack damage, mining speed, and makes it immune to external damage such as fire and lava",
+    "Boosts durability, attack damage, mining speed, toughness, and knockback resistance",
     "Requires Diamond or Emerald to be applied",
     "Single Level",
     "Requires 1 Upgrade Slot"

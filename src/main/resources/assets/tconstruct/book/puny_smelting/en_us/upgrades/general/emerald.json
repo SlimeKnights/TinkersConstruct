@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Increases tool durability depending on base durability",
-    "Increases conditional damage and mining speed",
+    "Increases conditional damage, mining speed, and knockback resistance",
     "Single Level",
     "Requires 1 Upgrade Slot"
   ]
