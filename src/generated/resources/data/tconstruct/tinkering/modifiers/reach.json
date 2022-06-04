@@ -14,6 +14,19 @@
         "chest",
         "head"
       ]
+    },
+    {
+      "unique": "tconstruct.modifier.range",
+      "attribute": "forge:attack_range",
+      "operation": "addition",
+      "amount": 1.0,
+      "slots": [
+        "mainhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
     }
   ]
 }
