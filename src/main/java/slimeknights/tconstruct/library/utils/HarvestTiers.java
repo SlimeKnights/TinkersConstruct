@@ -7,9 +7,9 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.ResourceColorManager;
 
 import java.util.List;
 import java.util.Map;

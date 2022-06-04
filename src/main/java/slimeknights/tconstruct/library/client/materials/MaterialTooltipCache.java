@@ -5,8 +5,8 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
-import slimeknights.tconstruct.library.client.ResourceColorManager;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.utils.Util;
 

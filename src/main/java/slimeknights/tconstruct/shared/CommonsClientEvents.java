@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.library.client.ResourceColorManager;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
@@ -34,7 +33,6 @@ public class CommonsClientEvents extends ClientEventBase {
   static void addResourceListeners(RegisterClientReloadListenersEvent event) {
     MaterialRenderInfoLoader.addResourceListener(event);
     DomainDisplayName.addResourceListener(event);
-    ResourceColorManager.init(event);
   }
 
   @SubscribeEvent
