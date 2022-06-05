@@ -1,3 +1,6 @@
 {
-    "parent": "tconstruct:block/frame/clear"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "tconstruct:item/clear_frame"
+    }
 }
