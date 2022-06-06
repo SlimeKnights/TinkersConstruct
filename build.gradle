@@ -203,7 +203,7 @@ minecraft {
             environment 'assetIndex', '{asset_index}'
             environment 'assetDirectory', '{assets_root}'
 
-            args '--mod', 'tconstruct', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'tconstruct', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'mantle'
 
             mods {
                 tconstruct {

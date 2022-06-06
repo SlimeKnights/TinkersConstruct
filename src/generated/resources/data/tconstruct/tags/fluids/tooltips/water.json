@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:water",
-    "minecraft:flowing_water"
+    "#mantle:water"
   ]
 }

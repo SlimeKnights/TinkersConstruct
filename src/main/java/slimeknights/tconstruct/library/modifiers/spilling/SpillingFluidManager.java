@@ -22,7 +22,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.ConditionSerializer;
-import slimeknights.tconstruct.library.json.FluidIngredientSerializer;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
@@ -41,7 +40,7 @@ public class SpillingFluidManager extends SimpleJsonResourceReloadListener {
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ICondition.class, ConditionSerializer.INSTANCE)
     .registerTypeHierarchyAdapter(ISpillingEffect.class, ISpillingEffect.LOADER)
-    .registerTypeAdapter(FluidIngredient.class, FluidIngredientSerializer.INSTANCE)
+    .registerTypeAdapter(FluidIngredient.class, FluidIngredient.SERIALIZER)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();

@@ -362,7 +362,8 @@ public class TinkerTags {
     public static final TagKey<Fluid> GLASS_TOOLTIPS = tag("tooltips/glass");
     /** Causes the fluid to be formatted like soup in tooltips, with bowls. Similar to slime, but no blocks */
     public static final TagKey<Fluid> SOUP_TOOLTIPS = tag("tooltips/soup");
-    /** Causes the fluid to be formatted like water, with bottles and buckets */
+    /** @deprecated use {@link slimeknights.mantle.datagen.MantleTags.Fluids#WATER} or make a separate fluid transfer instance */
+    @Deprecated
     public static final TagKey<Fluid> WATER_TOOLTIPS = tag("tooltips/water");
 
     // spilling tags - used to reduce the number of spilling recipes
