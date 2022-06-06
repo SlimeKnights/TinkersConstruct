@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:empty_item",
+  "type": "mantle:empty_item",
   "input": {
     "item": "minecraft:beetroot_soup"
   },

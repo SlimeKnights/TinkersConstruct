@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
+import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -30,11 +31,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.item.EmptyPotionTransfer;
-import slimeknights.tconstruct.library.fluid.transfer.EmptyFluidContainerTransfer;
-import slimeknights.tconstruct.library.fluid.transfer.EmptyFluidWithNBTTransfer;
-import slimeknights.tconstruct.library.fluid.transfer.FillFluidContainerTransfer;
-import slimeknights.tconstruct.library.fluid.transfer.FillFluidWithNBTTransfer;
-import slimeknights.tconstruct.library.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
@@ -341,18 +337,9 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = MENUS.register("single_item", SingleItemContainerMenu::new);
   public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = MENUS.register("alloyer", AlloyerContainerMenu::new);
 
-  public TinkerSmeltery() {
-    FluidContainerTransferManager.INSTANCE.init();
-  }
-
   @SubscribeEvent
   void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyFluidContainerTransfer.ID, EmptyFluidContainerTransfer.DESERIALIZER);
-    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(FillFluidContainerTransfer.ID, FillFluidContainerTransfer.DESERIALIZER);
-    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyFluidWithNBTTransfer.ID, EmptyFluidWithNBTTransfer.DESERIALIZER);
-    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(FillFluidWithNBTTransfer.ID, FillFluidWithNBTTransfer.DESERIALIZER);
     FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyPotionTransfer.ID, EmptyPotionTransfer.DESERIALIZER);
-
   }
 
   @SubscribeEvent

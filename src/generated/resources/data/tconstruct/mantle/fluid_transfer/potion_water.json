@@ -1,10 +1,10 @@
 {
-  "type": "tconstruct:fill_item",
+  "type": "mantle:fill_item",
   "input": {
-    "tag": "forge:bottles/splash"
+    "item": "minecraft:glass_bottle"
   },
   "filled": {
-    "item": "minecraft:splash_potion",
+    "item": "minecraft:potion",
     "nbt": "{Potion:\"minecraft:water\"}"
   },
   "fluid": {

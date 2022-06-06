@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:fill_item",
+  "type": "mantle:fill_item",
   "input": {
     "item": "minecraft:bowl"
   },

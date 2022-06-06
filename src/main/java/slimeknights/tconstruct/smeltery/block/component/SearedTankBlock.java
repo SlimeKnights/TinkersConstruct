@@ -18,8 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
@@ -52,7 +52,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
+    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {
       return InteractionResult.SUCCESS;
     }
     return super.use(state, world, pos, player, hand, hit);

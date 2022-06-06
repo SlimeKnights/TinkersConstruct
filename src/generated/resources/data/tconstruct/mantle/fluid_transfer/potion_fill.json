@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:fill_nbt",
+  "type": "mantle:fill_nbt",
   "input": {
     "item": "minecraft:glass_bottle"
   },
