@@ -11,13 +11,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
-import slimeknights.tconstruct.library.utils.SafeClientAccess;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 
 import javax.annotation.Nullable;
@@ -60,6 +60,7 @@ public class TankItem extends BlockTooltipItem {
     if (stack.hasTag()) {
       FluidTank tank = getFluidTank(stack);
       if (tank.getFluidAmount() > 0) {
+        // TODO: migrate to a fluid tooltip JSON?
         tooltip.add(new TranslatableComponent(KEY_FLUID, tank.getFluid().getDisplayName()).withStyle(ChatFormatting.GRAY));
         int amount = tank.getFluidAmount();
         TooltipKey key = SafeClientAccess.getTooltipKey();

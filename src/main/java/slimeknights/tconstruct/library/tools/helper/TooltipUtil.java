@@ -21,6 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
@@ -38,8 +40,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.SafeClientAccess;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -204,10 +204,22 @@ public class TooltipUtil {
     return getCombinedItemName(baseName, nameMaterials);
   }
 
+  /** @deprecated use {@link #addInformation(IModifiableDisplay, ItemStack, Level, List, TooltipKey, TooltipFlag)} */
+  @Deprecated
+  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Level world, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    addInformation(item, stack, world, tooltip, tooltipKey.asMantle(), tooltipFlag);
+  }
+
   /** Replaces the world argument with the local player */
   public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     Player player = world == null ? null : SafeClientAccess.getPlayer();
     TooltipUtil.addInformation(item, stack, player, tooltip, tooltipKey, tooltipFlag);
+  }
+
+  /** @deprecated use {@link #addInformation(IModifiableDisplay, ItemStack, Player, List, TooltipKey, TooltipFlag)} */
+  @Deprecated
+  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    addInformation(item, stack, player, tooltip, tooltipKey.asMantle(), tooltipFlag);
   }
 
   /**
@@ -307,6 +319,12 @@ public class TooltipUtil {
     }
   }
 
+  /** @deprecated use {@link #getDefaultStats(IToolStackView, Player, List, TooltipKey, TooltipFlag)} */
+  @Deprecated
+  public static List<Component> getDefaultStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey key, TooltipFlag flag) {
+    return getDefaultStats(tool, player, tooltip, key.asMantle(), flag);
+  }
+
   /**
    * Gets the  default information for the given tool stack
    *
@@ -336,6 +354,12 @@ public class TooltipUtil {
       entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
     }
     return builder.getTooltips();
+  }
+
+  /** @deprecated use {@link #getArmorStats(IToolStackView, Player, List, TooltipKey, TooltipFlag)} */
+  @Deprecated
+  public static List<Component> getArmorStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey key, TooltipFlag flag) {
+    return getArmorStats(tool, player, tooltip, key.asMantle(), flag);
   }
 
   /**
