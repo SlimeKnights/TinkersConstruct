@@ -9,8 +9,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.fluid.FluidTooltipHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

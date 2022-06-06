@@ -2,11 +2,11 @@
   "tag": "tconstruct:tooltips/water",
   "units": [
     {
-      "key": "gui.tconstruct.fluid.kilobucket",
+      "key": "gui.mantle.fluid.kilobucket",
       "needed": 1000000
     },
     {
-      "key": "gui.tconstruct.fluid.bucket",
+      "key": "gui.mantle.fluid.bucket",
       "needed": 1000
     },
     {
