@@ -7,7 +7,7 @@
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 1,
-      "saturation": 0.2
+      "saturation": 0.02
     },
     {
       "type": "tconstruct:remove_effect",

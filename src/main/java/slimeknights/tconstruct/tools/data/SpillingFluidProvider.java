@@ -91,14 +91,14 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
 
     // foods
     addFluid(TinkerFluids.honey.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.02f))
       .addEffect(new RemoveEffectSpillingEffect(MobEffects.POISON));
     addFluid(TinkerFluids.beetrootSoup.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 1.5f));
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f));
     addFluid(TinkerFluids.mushroomStew.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 1.5f));
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f));
     addFluid(TinkerFluids.rabbitStew.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(2, 2.4f));
+      .addEffect(new RestoreHungerSpillingEffect(2, 0.10f));
 
     // multi-recipes
     burningFluid("glass",           TinkerTags.Fluids.GLASS_SPILLING,           FluidAttributes.BUCKET_VOLUME / 10, 1f,   3);

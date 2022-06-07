@@ -7,7 +7,7 @@
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 1,
-      "saturation": 1.5
+      "saturation": 0.15
     }
   ]
 }
