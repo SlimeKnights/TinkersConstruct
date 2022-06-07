@@ -1549,9 +1549,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenAmethyst.getLocalTag(), FluidValues.GEM)
                       .save(consumer, prefix(TinkerFluids.moltenAmethystBronze, folder));
 
-    // rose gold: 3 copper + 1 gold = 4
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenRoseGold.get(), FluidValues.INGOT * 4)
-                      .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT * 3)
+    // rose gold: 1 copper + 1 gold = 2
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenRoseGold.get(), FluidValues.INGOT * 2)
+                      .addInput(TinkerFluids.moltenCopper.getForgeTag(), FluidValues.INGOT)
                       .addInput(TinkerFluids.moltenGold.getForgeTag(), FluidValues.INGOT)
                       .save(consumer, prefix(TinkerFluids.moltenRoseGold, folder));
     // pig iron: 1 iron + 2 blood + 1 honey = 2
