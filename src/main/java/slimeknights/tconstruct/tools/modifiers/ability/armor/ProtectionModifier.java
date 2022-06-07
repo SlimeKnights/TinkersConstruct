@@ -31,7 +31,7 @@ public class ProtectionModifier extends IncrementalModifier {
   @Override
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul()) {
-      modifierValue += getScaledLevel(tool, level);
+      modifierValue += getProtectionValue(tool, level);
     }
     return modifierValue;
   }
