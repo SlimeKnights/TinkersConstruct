@@ -104,6 +104,7 @@ import slimeknights.tconstruct.tools.modifiers.defense.FireProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.MagicProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.MeleeProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
+import slimeknights.tconstruct.tools.modifiers.defense.ShulkingModifier;
 import slimeknights.tconstruct.tools.modifiers.defense.TurtleShellModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
@@ -272,6 +273,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);
   public static final StaticModifier<ProjectileProtectionModifier> projectileProtection = MODIFIERS.register("projectile_protection", ProjectileProtectionModifier::new);
   public static final StaticModifier<TurtleShellModifier> turtleShell = MODIFIERS.register("turtle_shell", TurtleShellModifier::new);
+  public static final StaticModifier<ShulkingModifier> shulking = MODIFIERS.register("shulking", ShulkingModifier::new);
   public static final StaticModifier<DragonbornModifier> dragonborn = MODIFIERS.register("dragonborn", DragonbornModifier::new);
   // general
   public static final DynamicModifier<Modifier> golden = MODIFIERS.registerDynamic("golden", Modifier.class);

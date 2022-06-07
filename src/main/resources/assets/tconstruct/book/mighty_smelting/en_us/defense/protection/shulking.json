@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shulking",
+  "text": [
+    {
+      "text": "Home is where the shell is."
+    }
+  ],
+  "effects": [
+    "Reduces damage given and received while sneaking",
+    "Multiple levels, each level further increases effect",
+    "Can apply levels incrementally",
+    "Requires 1 defense slot"
+  ]
+}

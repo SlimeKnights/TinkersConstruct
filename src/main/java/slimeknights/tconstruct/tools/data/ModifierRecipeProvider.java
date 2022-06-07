@@ -567,6 +567,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(TinkerTags.Items.ARMOR)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.turtleShell, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.turtleShell, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.shulking)
+                                    .setInput(Items.SHULKER_SHELL, 1, 5)
+                                    .setSlots(SlotType.DEFENSE, 1)
+                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .saveSalvage(consumer, prefix(TinkerModifiers.shulking, defenseSalvage))
+                                    .save(consumer, prefix(TinkerModifiers.shulking, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.dragonborn)
                                     .setInput(TinkerModifiers.dragonScale, 1, 10)
                                     .setSlots(SlotType.DEFENSE, 1)

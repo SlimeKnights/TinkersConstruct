@@ -1794,8 +1794,12 @@
   "modifier.tconstruct.turtle_shell.resistance": "Underwater Resistance",
   "modifier.tconstruct.dragonborn": "Dragonborn",
   "modifier.tconstruct.dragonborn.flavor": "Become Strixiki",
-  "modifier.tconstruct.dragonborn.description": "Increases protection and attack when airborne ",
+  "modifier.tconstruct.dragonborn.description": "Increases protection and attack when airborne",
   "modifier.tconstruct.dragonborn.resistance": "Airborne Resistance",
+  "modifier.tconstruct.shulking": "Shulking",
+  "modifier.tconstruct.shulking.flavor": "This shell is my home",
+  "modifier.tconstruct.shulking.description": "Increases resistance while sneaking, but also decreases damage",
+  "modifier.tconstruct.shulking.resistance": "Shell Resistance",
 
   "_comment": "Armor - counterattack",
   "modifier.tconstruct.thorns": "Thorns",
