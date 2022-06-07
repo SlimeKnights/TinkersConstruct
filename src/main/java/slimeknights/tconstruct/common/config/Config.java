@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common.config;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -15,6 +17,7 @@ import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.world.TinkerHeadType;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class Config {
@@ -24,6 +27,7 @@ public class Config {
   public static class Common {
 
     public final BooleanValue shouldSpawnWithTinkersBook;
+    public final List<ConfigurableAction> damageSourceTweaks;
 
     // recipes
     public final BooleanValue addGravelToFlintRecipe;
@@ -68,6 +72,20 @@ public class Config {
         .translation("tconstruct.configgui.shouldSpawnWithTinkersBook")
         .worldRestart()
         .define("shouldSpawnWithTinkersBook", true);
+
+      builder.comment("Tweaks to vanilla damage sources to better work with armor").push("damageTweaks");
+      ImmutableList.Builder<ConfigurableAction> actions = ImmutableList.builder();
+      actions.add(new ConfigurableAction(builder, "wither", true, "Makes withering damage count as magic", DamageSource.WITHER::setMagic));
+      actions.add(new ConfigurableAction(builder, "dragon_breath", true, "Makes dragons breath count as magic", DamageSource.DRAGON_BREATH::setMagic));
+      actions.add(new ConfigurableAction(builder, "falling_block", false, "Makes falling blocks count as projectile", () -> {
+        DamageSource.FALLING_BLOCK.setProjectile();
+        DamageSource.ANVIL.setProjectile();
+        DamageSource.FALLING_STALACTITE.setProjectile();
+      }));
+      actions.add(new ConfigurableAction(builder, "lightning", true, "Makes lightning count as fire damage", DamageSource.LIGHTNING_BOLT::setIsFire));
+      damageSourceTweaks = actions.build();
+
+      builder.pop();
 
 //      this.chestsKeepInventory = builder
 //        .comment("Pattern and Part chests keep their inventory when harvested.")
