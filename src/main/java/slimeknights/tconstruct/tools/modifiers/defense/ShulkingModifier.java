@@ -35,14 +35,14 @@ public class ShulkingModifier extends AbstractProtectionModifier<ModifierMaxLeve
   @Override
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (context.getEntity().isCrouching() && !source.isBypassMagic() && !source.isBypassInvul()) {
-      modifierValue += getScaledLevel(tool, level) * 1.5;
+      modifierValue += getScaledLevel(tool, level) * 2;
     }
     return modifierValue;
   }
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 1.5f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
   }
 
   private static void onAttack(LivingHurtEvent event) {
