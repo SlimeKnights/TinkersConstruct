@@ -1,9 +1,8 @@
 {
   "loader": "mantle:fluid_texture",
   "textures": {
-    "still": "tconstruct:block/fluid/molten_shiny/still",
-    "flowing": "tconstruct:block/fluid/molten_shiny/flowing"
-  },
-  "color": "FB6114"
+    "still": "tconstruct:block/fluid/signalum/still",
+    "flowing": "tconstruct:block/fluid/signalum/flowing"
+  }
 }
 

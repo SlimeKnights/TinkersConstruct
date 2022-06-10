@@ -1,9 +1,8 @@
 {
   "loader": "mantle:fluid_texture",
   "textures": {
-    "still": "tconstruct:block/fluid/stone/still",
-    "flowing": "tconstruct:block/fluid/stone/flowing"
-  },
-  "color": "E6EFEF"
+    "still": "tconstruct:block/fluid/porcelain/still",
+    "flowing": "tconstruct:block/fluid/porcelain/flowing"
+  }
 }
 
