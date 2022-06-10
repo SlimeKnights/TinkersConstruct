@@ -1,9 +1,8 @@
 {
   "loader": "mantle:fluid_texture",
   "textures": {
-    "still": "tconstruct:block/fluid/molten/still",
-    "flowing": "tconstruct:block/fluid/molten/flowing"
-  },
-  "color": "3c3232"
+    "still": "tconstruct:block/fluid/netherite/still",
+    "flowing": "tconstruct:block/fluid/netherite/flowing"
+  }
 }
 

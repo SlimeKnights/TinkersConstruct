@@ -1,9 +1,8 @@
 {
   "loader": "mantle:fluid_texture",
   "textures": {
-    "still": "tconstruct:block/fluid/molten/still",
-    "flowing": "tconstruct:block/fluid/molten/flowing"
-  },
-  "color": "575E79"
+    "still": "tconstruct:block/fluid/lead/still",
+    "flowing": "tconstruct:block/fluid/lead/flowing"
+  }
 }
 
