@@ -5,7 +5,7 @@
       "text": "Grants +8% resistance against melee damage, such as from zombies, swords, and falling. Caps at 80% across the whole set, or 10 levels."
     },
     {
-      "text": "Melee damage is defined as any damage that is not blast, fire, magic, or projectile and is not entirely unblockable.",
+      "text": "Melee damage is mainly caused by non-projectile entities, but some other sources such as fall damage also count as melee.",
       "paragraph": true
     }
   ],
