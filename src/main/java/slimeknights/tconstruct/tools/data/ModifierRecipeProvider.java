@@ -659,11 +659,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
                                       .setTools(TinkerTags.Items.LEGGINGS)
                                       .setInput(TinkerWorld.skyGeode.asItem(), 1, 36)
+                                      .setMaxLevel(2)
                                       .setSlots(SlotType.UPGRADE, 1);
     IncrementalModifierRecipeBuilder leapNoGeodeBuilder =
       IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
                                       .setTools(TinkerTags.Items.LEGGINGS)
                                       .setInput(TinkerWorld.slimeDirt.get(SlimeType.SKY), 1, 18)
+                                      .setMaxLevel(2)
                                       .setSlots(SlotType.UPGRADE, 1);
     ConditionalRecipe.builder()
                      .addCondition(ConfigEnabledCondition.SKY_GEODES)

@@ -24,7 +24,8 @@
         "result": {
           "name": "tconstruct:leaping",
           "level": 1
-        }
+        },
+        "max_level": 2
       }
     },
     {
@@ -49,7 +50,8 @@
         "result": {
           "name": "tconstruct:leaping",
           "level": 1
-        }
+        },
+        "max_level": 2
       }
     }
   ]
