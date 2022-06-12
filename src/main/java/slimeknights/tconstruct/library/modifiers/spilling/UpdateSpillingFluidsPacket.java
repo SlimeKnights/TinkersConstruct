@@ -1,12 +1,17 @@
 package slimeknights.tconstruct.library.modifiers.spilling;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -19,8 +24,9 @@ public class UpdateSpillingFluidsPacket implements ISimplePacket {
   public UpdateSpillingFluidsPacket(FriendlyByteBuf buf) {
     int size = buf.readVarInt();
     ImmutableList.Builder<SpillingFluid> fluids = ImmutableList.builder();
+    List<ISpillingEffect> effects = Collections.singletonList(NoEffect.INSTANCE); // list with a single effect for the client
     for (int i = 0; i < size; i++) {
-      fluids.add(new SpillingFluid(FluidIngredient.read(buf)));
+      fluids.add(new SpillingFluid(FluidIngredient.read(buf), effects));
     }
     this.fluids = fluids.build();
   }
@@ -36,5 +42,17 @@ public class UpdateSpillingFluidsPacket implements ISimplePacket {
   @Override
   public void handle(Supplier<Context> context) {
     SpillingFluidManager.INSTANCE.updateFromServer(fluids);
+  }
+
+  private static class NoEffect implements ISpillingEffect {
+    private static final ISpillingEffect INSTANCE = new NoEffect();
+
+    @Override
+    public void applyEffects(FluidStack fluid, float scale, ToolAttackContext context) {}
+
+    @Override
+    public JsonObject serialize(JsonSerializationContext context) {
+      throw new UnsupportedOperationException("Cannot serialize spilling fluids on the client");
+    }
   }
 }
