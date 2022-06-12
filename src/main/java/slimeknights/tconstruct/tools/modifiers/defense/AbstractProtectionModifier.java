@@ -8,12 +8,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
-import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 
 import java.util.List;
 

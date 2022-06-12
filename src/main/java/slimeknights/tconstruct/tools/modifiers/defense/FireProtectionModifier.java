@@ -14,6 +14,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.library.modifiers.data.VanillaMaxLevel;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -22,8 +24,6 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
-import slimeknights.tconstruct.tools.logic.VanillaMaxLevel;
 
 import javax.annotation.Nullable;
 import java.util.List;

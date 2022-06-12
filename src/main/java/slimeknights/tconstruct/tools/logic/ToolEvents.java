@@ -44,6 +44,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;

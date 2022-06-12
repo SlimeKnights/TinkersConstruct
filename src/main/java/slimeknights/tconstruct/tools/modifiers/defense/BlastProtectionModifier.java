@@ -15,12 +15,12 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.tools.logic.ModifierMaxLevel;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier.BlastData;
 
 import javax.annotation.Nullable;
