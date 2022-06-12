@@ -201,7 +201,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.worldbound, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.worldbound, slotlessFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.soulbound)
-                         .addInput(Items.TOTEM_OF_UNDYING)
+                         .addInput(Ingredient.of(Items.TOTEM_OF_UNDYING, Items.NETHER_STAR))
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.soulbound, upgradeSalvage))
@@ -284,7 +284,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded)
                          .setTools(TinkerTags.Items.HELD)
                          .addInput(Items.LEATHER)
-                         .addInput(Items.PHANTOM_MEMBRANE)
+                         .addInput(Items.FIRE_CHARGE)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .setMaxLevel(1)
                          .setSalvageLevelRange(1, 1)
@@ -653,13 +653,25 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.knockbackArmor, upgradeFolder));
     // upgrade - leggings
     hasteRecipes(consumer, ModifierIds.speedy, Ingredient.of(TinkerTags.Items.LEGGINGS), 3, upgradeFolder, upgradeSalvage);
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
-                         .setTools(TinkerTags.Items.LEGGINGS)
-                         .setInput(Items.RABBIT_FOOT, 1, 5)
-                         .setSlots(SlotType.UPGRADE, 1)
-                         .setMaxLevel(2)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.leaping, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.leaping, upgradeFolder));
+    // leaping lets you disable skyslime geodes in case you don't like fun
+    // if you are disabling both, you have a ton of recipes to fix anyways
+    IncrementalModifierRecipeBuilder leapGeodeBuilder =
+      IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
+                                      .setTools(TinkerTags.Items.LEGGINGS)
+                                      .setInput(TinkerWorld.skyGeode.asItem(), 1, 36)
+                                      .setSlots(SlotType.UPGRADE, 1);
+    IncrementalModifierRecipeBuilder leapNoGeodeBuilder =
+      IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
+                                      .setTools(TinkerTags.Items.LEGGINGS)
+                                      .setInput(TinkerWorld.slimeDirt.get(SlimeType.SKY), 1, 18)
+                                      .setSlots(SlotType.UPGRADE, 1);
+    ConditionalRecipe.builder()
+                     .addCondition(ConfigEnabledCondition.SKY_GEODES)
+                     .addRecipe(leapGeodeBuilder::save)
+                     .addCondition(TrueCondition.INSTANCE)
+                     .addRecipe(leapNoGeodeBuilder::save)
+                     .build(consumer, prefix(TinkerModifiers.leaping, upgradeFolder));
+    leapGeodeBuilder.saveSalvage(consumer, prefix(TinkerModifiers.leaping, upgradeSalvage));
     ModifierRecipeBuilder.modifier(ModifierIds.stepUp)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(Items.LEATHER)
@@ -771,29 +783,23 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.unarmed, abilityFolder));
     // if ichor geodes are disabled (sadface), use ichor dirt instead for the recipe
     // if you are disabling both, you have a ton of recipes to fix anyways
-    IncrementalModifierRecipeBuilder geodeBuilder =
+    IncrementalModifierRecipeBuilder strengthGeodeBuilder =
         IncrementalModifierRecipeBuilder.modifier(ModifierIds.strength)
                                       .setTools(TinkerTags.Items.CHESTPLATES)
                                       .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
                                       .setSlots(SlotType.ABILITY, 1);
-    IncrementalModifierRecipeBuilder noGeodeBuilder =
+    IncrementalModifierRecipeBuilder strengthNoGeodeBuilder =
       IncrementalModifierRecipeBuilder.modifier(ModifierIds.strength)
                                       .setTools(TinkerTags.Items.CHESTPLATES)
                                       .setInput(TinkerWorld.slimeDirt.get(SlimeType.ICHOR), 1, 36)
                                       .setSlots(SlotType.ABILITY, 1);
     ConditionalRecipe.builder()
                      .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
-                     .addRecipe(geodeBuilder::save)
+                     .addRecipe(strengthGeodeBuilder::save)
                      .addCondition(TrueCondition.INSTANCE)
-                     .addRecipe(noGeodeBuilder::save)
+                     .addRecipe(strengthNoGeodeBuilder::save)
                      .build(consumer, prefix(ModifierIds.strength, abilityFolder));
-    // salvage needs to be a second recipe
-    ConditionalRecipe.builder()
-                     .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
-                     .addRecipe(c -> geodeBuilder.saveSalvage(c, ModifierIds.strength))
-                     .addCondition(TrueCondition.INSTANCE)
-                     .addRecipe(c -> noGeodeBuilder.saveSalvage(c, ModifierIds.strength))
-                     .build(consumer, prefix(ModifierIds.strength, abilitySalvage));
+    strengthGeodeBuilder.saveSalvage(consumer, prefix(ModifierIds.strength, abilitySalvage));
 
     // leggings
     ModifierRecipeBuilder.modifier(TinkerModifiers.pockets)
@@ -1166,7 +1172,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_head"));
     ModifierRecipeBuilder.modifier(ModifierIds.draconic)
-                         .addInput(Items.SHULKER_SHELL)
+                         .addInput(Blocks.WITHER_ROSE)
                          .addInput(TinkerModifiers.dragonScale) // you can apply the modifier in two ways, but scales are cheap so give them
                          .addInput(Blocks.WITHER_ROSE)
                          .addInput(TinkerModifiers.dragonScale)

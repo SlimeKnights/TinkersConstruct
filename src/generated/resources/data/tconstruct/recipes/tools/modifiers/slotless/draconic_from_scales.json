@@ -2,7 +2,7 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:shulker_shell"
+      "item": "minecraft:wither_rose"
     },
     {
       "item": "tconstruct:dragon_scale"

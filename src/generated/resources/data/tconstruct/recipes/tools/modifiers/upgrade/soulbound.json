@@ -2,7 +2,14 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:totem_of_undying"
+      "ingredient": [
+        {
+          "item": "minecraft:totem_of_undying"
+        },
+        {
+          "item": "minecraft:nether_star"
+        }
+      ]
     }
   ],
   "tools": {

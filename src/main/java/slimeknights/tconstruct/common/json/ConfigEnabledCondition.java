@@ -129,4 +129,5 @@ public class ConfigEnabledCondition implements ICondition, LootItemCondition {
   public static final ConfigEnabledCondition GLASS_RECIPE_FIX = add("glass_recipe_fix", Config.COMMON.glassRecipeFix);
   public static final ConfigEnabledCondition FORCE_INTEGRATION_MATERIALS = add("force_integration_materials", Config.COMMON.forceIntegrationMaterials);
   public static final ConfigEnabledCondition ICHOR_GEODES = add("ichor_geodes", Config.COMMON.ichorGeodes);
+  public static final ConfigEnabledCondition SKY_GEODES = add("sky_geodes", Config.COMMON.skyGeodes);
 }
