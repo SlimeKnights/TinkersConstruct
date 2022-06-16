@@ -272,7 +272,7 @@
 
   "pattern.tconstruct.pick_head": "Kepala Beliung",
   "pattern.tconstruct.small_axe_head": "Kepala Kapak kecil",
-  "pattern.tconstruct.small_blade": "Bilah Kecil",
+  "pattern.tconstruct.small_blade": "Bilah Pedang Kecil",
   "pattern.tconstruct.sign_head": "Kepala Tanda",
   "pattern.tconstruct.bow_limb": "Bagian Busur",
 
@@ -280,7 +280,7 @@
 
   "pattern.tconstruct.hammer_head": "Kepala Palu",
   "pattern.tconstruct.broad_axe_head": "Kepala Kapak Lebar",
-  "pattern.tconstruct.broad_blade": "Bilah Besar",
+  "pattern.tconstruct.broad_blade": "Bilah Pedang Besar",
 
   "_comment": "Binding Gold Casts",
 
