@@ -444,7 +444,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             if(shouldDrawSlot(slot)) {
                 slot.enable();
                 // calc position of the slot
-                final int offset = slot.getVisualIndex();
+                final int offset = slot.getVisualIndex() - firstSlotId;
                 final int x = (offset % logic.invColumns) * CraftingStationGui.slotElement.w;
                 final int y = (offset / logic.invColumns) * CraftingStationGui.slotElement.h;
 
