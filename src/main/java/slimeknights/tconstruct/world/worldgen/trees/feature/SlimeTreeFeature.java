@@ -71,7 +71,7 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
 //      blockpos = positionIn;
 //    }
 
-    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= level.getMaxBuildHeight() && isSlimySoilAt(level, positionIn.below())) {
+    if (positionIn.getY() >= level.getMinBuildHeight() + 1 && positionIn.getY() + height + 1 <= level.getMaxBuildHeight() && isSlimySoilAt(level, positionIn.below())) {
       this.setDirtAt(level, positionIn.below(), positionIn);
       this.placeTrunk(level, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
       this.placeCanopy(level, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
