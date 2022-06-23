@@ -3,22 +3,22 @@
 
   "block.tconstruct.sky_slime": "Blok Lendir Angkasa",
   "block.tconstruct.sky_slime.tooltip": "Menempel ke blok lendir dan madu",
-  "block.tconstruct.ichor_slime": "Blok Nanah",
-  "block.tconstruct.ichor_slime.tooltip": "Menempel ke semua blok lengeket selain nanah",
+  "block.tconstruct.ichor_slime": "Blok Ichor",
+  "block.tconstruct.ichor_slime.tooltip": "Menempel ke semua blok lengket selain ichor",
   "block.tconstruct.ender_slime": "Blok Lendir Ender",
-  "block.tconstruct.ender_slime.tooltip": "Menempel ketika didorong, tapi tidak jika berdekatan dengan blok lengkt lain",
+  "block.tconstruct.ender_slime.tooltip": "Menempel ketika didorong, tapi tidak jika berdekatan dengan blok lengket lain",
   "block.tconstruct.blood_slime": "Blok Darah",
   "block.tconstruct.blood_slime.tooltip": "Kenyal, tapi tidak lengket",
 
-  "block.tconstruct.earth_congealed_slime": "Blok Lendir Mengental",
+  "block.tconstruct.earth_congealed_slime": "Gumpalan Lendir",
   "block.tconstruct.earth_congealed_slime.tooltip": "Membuatmu melompat sangat tinggi",
-  "block.tconstruct.sky_congealed_slime": "Blok Lendir Angkasa Mengental",
+  "block.tconstruct.sky_congealed_slime": "Gumpalan Lendir Angkasa",
   "block.tconstruct.sky_congealed_slime.tooltip": "Membuatmu melompat sangat tinggi",
-  "block.tconstruct.ender_congealed_slime": "Blok Lendir Ender Mengental",
+  "block.tconstruct.ender_congealed_slime": "Gumpalan Lendir Ender",
   "block.tconstruct.ender_congealed_slime.tooltip": "Membuatmu melompat sangat tinggi",
-  "block.tconstruct.blood_congealed_slime": "Blok Darah Mengental",
+  "block.tconstruct.blood_congealed_slime": "Gumpalan darah",
   "block.tconstruct.blood_congealed_slime.tooltip": "Membuatmu melompat sangat tinggi",
-  "block.tconstruct.ichor_congealed_slime": "Nanah Mengental",
+  "block.tconstruct.ichor_congealed_slime": "Gumpalan Ichor",
   "block.tconstruct.ichor_congealed_slime.tooltip": "Membuatmu melompat sangat tinggi",
 
   "block.tconstruct.mud_bricks": "Bata Lumpur",
@@ -29,9 +29,9 @@
   "block.tconstruct.lavawood_slab": "Lempeng Kayu Lava",
   "block.tconstruct.lavawood_stairs": "Tanga Kayu Lava",
 
-  "block.tconstruct.blazewood": "Kayu Api",
-  "block.tconstruct.blazewood_slab": "Lempeng Kayu Api",
-  "block.tconstruct.blazewood_stairs": "Tangga Kayu Api",
+  "block.tconstruct.blazewood": "Kayu Berapi",
+  "block.tconstruct.blazewood_slab": "Lempeng Kayu Berapi",
+  "block.tconstruct.blazewood_stairs": "Tangga Kayu Berapi",
 
   "block.tconstruct.nahuatl": "Papan Nahuatl",
   "block.tconstruct.nahuatl_slab": "Lempeng Nahuatl",
@@ -44,10 +44,10 @@
 
   "block.tconstruct.obsidian_pane": "Panel Obsidian",
   "block.tconstruct.gold_bars": "Panel Batangan Emas",
-  "block.tconstruct.gold_bars.tooltip": "Berfungsi sebagai tuangan kosong di meja pendinginan",
+  "block.tconstruct.gold_bars.tooltip": "Berfungsi sebagai tuangan kosong di meja pengecoran",
 
   "block.tconstruct.gold_platform": "Platform Emas",
-  "block.tconstruct.gold_platform.tooltip": "Berfungsi sebagai tuangan kosong di baskom pendinginan",
+  "block.tconstruct.gold_platform.tooltip": "Berfungsi sebagai tuangan kosong di baskom pengecoran",
   "block.tconstruct.iron_platform": "Platform Besi",
   "block.tconstruct.cobalt_platform": "Platform Kobalt",
 
@@ -188,7 +188,7 @@
   "item.tconstruct.sky_slime_ball": "Bola Lendir Angkasa",
   "item.tconstruct.ender_slime_ball": "Bola Lendir Ender",
   "item.tconstruct.blood_slime_ball": "Bola Darah Mengental",
-  "item.tconstruct.ichor_slime_ball": "Bola Nanah",
+  "item.tconstruct.ichor_slime_ball": "Bola Ichor",
 
   "item.tconstruct.bacon": "Bacon",
 
@@ -208,13 +208,13 @@
   "block.tconstruct.sky_slime_crystal_cluster": "Kluster Kristal Lendir Angkasa",
   "block.tconstruct.budding_sky_slime_crystal": "Kristal Lendir Angkasa Bertumbuh",
 
-  "item.tconstruct.ichor_slime_crystal": "Kristal Nanah",
-  "block.tconstruct.ichor_slime_crystal_block": "Blok Kristal Nanah",
-  "block.tconstruct.small_ichor_slime_crystal_bud": "Kuncup Kecil Kristal Nanah",
-  "block.tconstruct.medium_ichor_slime_crystal_bud": "Kuncup Sedang Kristal Nanah",
-  "block.tconstruct.large_ichor_slime_crystal_bud": "Kuncup Besar Kristal Nanah",
-  "block.tconstruct.ichor_slime_crystal_cluster": "Kluster Kristal Nanah",
-  "block.tconstruct.budding_ichor_slime_crystal": "Kristal Nanah Bertumbuh",
+  "item.tconstruct.ichor_slime_crystal": "Kristal Ichor",
+  "block.tconstruct.ichor_slime_crystal_block": "Blok Kristal Ichor",
+  "block.tconstruct.small_ichor_slime_crystal_bud": "Kuncup Kecil Kristal Ichor",
+  "block.tconstruct.medium_ichor_slime_crystal_bud": "Kuncup Sedang Kristal Ichor",
+  "block.tconstruct.large_ichor_slime_crystal_bud": "Kuncup Besar Kristal Ichor",
+  "block.tconstruct.ichor_slime_crystal_cluster": "Kluster Kristal Ichor",
+  "block.tconstruct.budding_ichor_slime_crystal": "Kristal Ichor Bertumbuh",
 
   "item.tconstruct.ender_slime_crystal": "Kristal Lendir Ender",
   "block.tconstruct.ender_slime_crystal_block": "Blok Kristal Lendir Ender",
@@ -228,7 +228,7 @@
   "item.tconstruct.iron_reinforcement.tooltip": "Mengurangi kemungkinan alat mengambil kerusakan",
   "item.tconstruct.slimesteel_reinforcement": "Penguatan Slimesteel",
   "item.tconstruct.slimesteel_reinforcement.tooltip": "Meningkatkan kapasitas overslime",
-  "item.tconstruct.seared_reinforcement": "Penguatan Hangus",
+  "item.tconstruct.seared_reinforcement": "Penguatan Batu Hangus",
   "item.tconstruct.seared_reinforcement.tooltip": "Meningkatkan ketahanan armor terhadap api",
   "item.tconstruct.bronze_reinforcement": "Penguatan Perunggu Kecubung",
   "item.tconstruct.bronze_reinforcement.tooltip": "Meningkatkan ketahanan armor terhadap proyektil",
@@ -303,7 +303,7 @@
   "item.tconstruct.rod_cast": "Tuangan Tongkat Emas",
 
   "item.tconstruct.gear_cast": "Tuangan Gir Emas",
-  "item.tconstruct.plate_cast": "Tuangan Piringan Bulat Emas",
+  "item.tconstruct.plate_cast": "Tuangan Plat Emas",
   "item.tconstruct.coin_cast": "Tuangan Koin Emas",
   "item.tconstruct.wire_cast": "Tuangan Kawat Emas",
 
@@ -337,43 +337,43 @@
 
   "_comment": "Tinkers Sand Casts",
 
-  "item.tconstruct.blank_sand_cast": "Blank Sand Cast",
-  "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
-  "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
-  "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
-  "item.tconstruct.rod_sand_cast": "Rod Sand Cast",
+  "item.tconstruct.blank_sand_cast": "Tuangan Pasir Kosong",
+  "item.tconstruct.ingot_sand_cast": "Tuangan Batangan Pasir",
+  "item.tconstruct.nugget_sand_cast": "Tuangan Nugget Pasir",
+  "item.tconstruct.gem_sand_cast": "Tuangan Permata Pasir",
+  "item.tconstruct.rod_sand_cast": "Tuangan Tongkat Pasir",
 
-  "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
-  "item.tconstruct.plate_sand_cast": "Small Plate Sand Cast",
-  "item.tconstruct.coin_sand_cast": "Coin Sand Cast",
-  "item.tconstruct.wire_sand_cast": "Wire Sand Cast",
+  "item.tconstruct.gear_sand_cast": "Tuangan Gir Pasir",
+  "item.tconstruct.plate_sand_cast": "Tuangan Plat Pasir",
+  "item.tconstruct.coin_sand_cast": "Tuangan Koin Pasir",
+  "item.tconstruct.wire_sand_cast": "Tuangan Kawat Pasir",
 
-  "item.tconstruct.repair_kit_sand_cast": "Repair Kit Sand Cast",
+  "item.tconstruct.repair_kit_sand_cast": "Tuangan Kotak Perbaikan Pasir",
 
   "_comment": "Small Head Sand Casts",
 
-  "item.tconstruct.pick_head_sand_cast": "Pick Head Sand Cast",
-  "item.tconstruct.small_axe_head_sand_cast": "Small Axe Head Sand Cast",
-  "item.tconstruct.small_blade_sand_cast": "Small Blade Sand Cast",
-  "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
-  "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
+  "item.tconstruct.pick_head_sand_cast": "Tuangan Kepala Beliung Pasir",
+  "item.tconstruct.small_axe_head_sand_cast": "Tuangan Kepala Kapak Pasir",
+  "item.tconstruct.small_blade_sand_cast": "Tuangan Bilah Kecil Pasir",
+  "item.tconstruct.sign_head_sand_cast": "Tuangan Kepala Tanda Pasir",
+  "item.tconstruct.bow_limb_sand_cast": "Tuangan Bagian Busur Pasir",
 
   "_comment": "Large Head Sand Casts",
 
-  "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
-  "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
-  "item.tconstruct.broad_blade_sand_cast": "Broad Blade Sand Cast",
+  "item.tconstruct.hammer_head_sand_cast": "Tuangan Kepala Palu Pasir",
+  "item.tconstruct.broad_axe_head_sand_cast": "Tuangan Kepala Kapak Lebar Pasir",
+  "item.tconstruct.broad_blade_sand_cast": "Tuangan Bilah Besar Pasir",
 
   "_comment": "Binding Sand Casts",
 
-  "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
-  "item.tconstruct.round_plate_sand_cast": "Round Plate Sand Cast",
-  "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
+  "item.tconstruct.tool_binding_sand_cast": "Tuangan Pengikat Alat Pasir",
+  "item.tconstruct.round_plate_sand_cast": "Tuangan Piringan Bulat Pasir",
+  "item.tconstruct.large_plate_sand_cast": "Tuangan Piringan Besar Pasir",
 
   "_comment": "Tool Handle Sand Casts",
 
-  "item.tconstruct.tool_handle_sand_cast": "Tool Handle Sand Cast",
-  "item.tconstruct.tough_handle_sand_cast": "Tough Handle Sand Cast",
+  "item.tconstruct.tool_handle_sand_cast": "Tuangan Pegangan Alat Pasir",
+  "item.tconstruct.tough_handle_sand_cast": "Tuangan Pegangan Kuat Pasir",
 
 
   "_comment": "Tinkers Red Sand Casts",
@@ -490,17 +490,17 @@
   "block.tconstruct.scorched_stone_fluid": "Batu Gosong Leleh",
   "fluid.tconstruct.scorched_stone": "Batu Gosong Leleh",
   "fluid.tconstruct.flowing_scorched_stone": "Batu Gosong Leleh Mengalir",
-  "item.tconstruct.scorched_stone_bucket": "Ember Batu Gosng Leleh",
+  "item.tconstruct.scorched_stone_bucket": "Ember Batu Gosong Leleh",
 
   "block.tconstruct.molten_clay_fluid": "Terakota Leleh",
   "fluid.tconstruct.molten_clay": "Terakota Leleh",
   "fluid.tconstruct.flowing_molten_clay": "Terakota Leleh Mengalir",
   "item.tconstruct.molten_clay_bucket": "Ember Terakota Leleh",
 
-  "block.tconstruct.molten_glass_fluid": "Molten Glass",
-  "fluid.tconstruct.molten_glass": "Molten Glass",
-  "fluid.tconstruct.flowing_molten_glass": "Flowing Molten Glass",
-  "item.tconstruct.molten_glass_bucket": "Molten Glass Bucket",
+  "block.tconstruct.molten_glass_fluid": "Kaca Leleh",
+  "fluid.tconstruct.molten_glass": "Kaca Leleh",
+  "fluid.tconstruct.flowing_molten_glass": "Kaca Leleh Mengalir",
+  "item.tconstruct.molten_glass_bucket": "Ember Kaca Leleh",
 
   "block.tconstruct.liquid_soul_fluid": "Liquid Soul",
   "fluid.tconstruct.liquid_soul": "Liquid Soul",
