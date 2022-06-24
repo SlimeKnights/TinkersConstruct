@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.client.data.util.ResourceManagerSpriteRea
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.shared.network.GeneratePartTexturesPacket.Operation;
 
@@ -83,7 +83,8 @@ public class ClientGeneratePartTexturesCommand {
     }
 
     // Predicate to check if a material ID is valid
-    Predicate<ResourceLocation> validMaterialId = loc -> (modId.isEmpty() || modId.equals(loc.getNamespace())) && (materialPath.isEmpty() || materialPath.equals(loc.getPath()));
+    // TODO: variant filter?
+    Predicate<MaterialVariantId> validMaterialId = loc -> (modId.isEmpty() || modId.equals(loc.getId().getNamespace())) && (materialPath.isEmpty() || materialPath.equals(loc.getId().getPath()));
 
     // get all materials, filtered by the given parameters
     List<MaterialSpriteInfo> materialSprites = loadMaterialRenderInfoGenerators(manager, validMaterialId);
@@ -218,14 +219,23 @@ public class ClientGeneratePartTexturesCommand {
    * @param validMaterialId  Predicate to check if a material ID should be considered
    * @return List of material sprites loaded
    */
-  private static List<MaterialSpriteInfo> loadMaterialRenderInfoGenerators(ResourceManager manager, Predicate<ResourceLocation> validMaterialId) {
+  private static List<MaterialSpriteInfo> loadMaterialRenderInfoGenerators(ResourceManager manager, Predicate<MaterialVariantId> validMaterialId) {
     ImmutableList.Builder<MaterialSpriteInfo> builder = ImmutableList.builder();
 
     int trim = MaterialRenderInfoLoader.FOLDER.length() + 1;
     for(ResourceLocation location : manager.listResources(MaterialRenderInfoLoader.FOLDER, loc -> loc.endsWith(".json"))) {
       // clean up ID by trimming off the extension
       String path = location.getPath();
-      MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));
+      String localPath = path.substring(trim, path.length() - 5);
+
+      // locate variant as a subfolder, and create final ID
+      String variant = "";
+      int slashIndex = localPath.lastIndexOf('/');
+      if (slashIndex >= 0) {
+        variant = localPath.substring(slashIndex + 1);
+        localPath = localPath.substring(0, slashIndex);
+      }
+      MaterialVariantId id = MaterialVariantId.create(location.getNamespace(), localPath, variant);
 
       // ensure its a material we care about
       if (validMaterialId.test(id)) {
@@ -238,7 +248,7 @@ public class ClientGeneratePartTexturesCommand {
           MaterialRenderInfoJson json = MaterialRenderInfoLoader.GSON.fromJson(reader, MaterialRenderInfoJson.class);
           MaterialGeneratorJson generator = json.getGenerator();
           if (generator != null) {
-            builder.add(new MaterialSpriteInfo(Objects.requireNonNullElse(json.getTexture(), id), Objects.requireNonNullElse(json.getFallbacks(), new String[0]), generator));
+            builder.add(new MaterialSpriteInfo(Objects.requireNonNullElse(json.getTexture(), id.getLocation('_')), Objects.requireNonNullElse(json.getFallbacks(), new String[0]), generator));
           }
         } catch (JsonSyntaxException e) {
           log.error("Failed to read tool part texture generator info for {}", id, e);
