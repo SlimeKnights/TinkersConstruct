@@ -379,10 +379,10 @@
   "_comment": "Tinkers Red Sand Casts",
 
   "item.tconstruct.blank_red_sand_cast": "Tuangan Pasir Merah Kosong",
-  "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
-  "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
-  "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
-  "item.tconstruct.rod_red_sand_cast": "Rod Red Sand Cast",
+  "item.tconstruct.ingot_red_sand_cast": "Tuangan Batangan Pasir Merah",
+  "item.tconstruct.nugget_red_sand_cast": "Tuangan Nugget Pasir Merah",
+  "item.tconstruct.gem_red_sand_cast": "Tuangan Permata Pasir Merah",
+  "item.tconstruct.rod_red_sand_cast": "Tuangan Tongkat Pasir Merah",
 
   "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
   "item.tconstruct.plate_red_sand_cast": "Small Plate Red Sand Cast",
@@ -544,10 +544,10 @@
 
   "_comment": "Ores",
 
-  "block.tconstruct.molten_iron_fluid": "Molten Iron",
-  "fluid.tconstruct.molten_iron": "Molten Iron",
-  "fluid.tconstruct.flowing_molten_iron": "Flowing Molten Iron",
-  "item.tconstruct.molten_iron_bucket": "Molten Iron Bucket",
+  "block.tconstruct.molten_iron_fluid": "Besi Leleh",
+  "fluid.tconstruct.molten_iron": "Besi Leleh",
+  "fluid.tconstruct.flowing_molten_iron": "Besi Leleh Mengalir",
+  "item.tconstruct.molten_iron_bucket": "Ember Besi Leleh",
 
   "block.tconstruct.molten_gold_fluid": "Molten Gold",
   "fluid.tconstruct.molten_gold": "Molten Gold",
