@@ -10,6 +10,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -17,14 +20,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 
-import javax.annotation.Nullable;
-
 public class SelfDestructiveModifier extends NoLevelsModifier implements IArmorInteractModifier {
   /** Self damage source */
   private static final DamageSource SELF_DESTRUCT = (new DamageSource(TConstruct.prefix("self_destruct"))).bypassArmor().setExplosion();
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
     if (player.isShiftKeyDown()) {
       TinkerModifiers.selfDestructiveEffect.get().apply(player, 30, 2, true);
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
@@ -34,7 +35,7 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements IArmorI
   }
 
   @Override
-  public void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public void stopArmorInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
     player.removeEffect(TinkerModifiers.selfDestructiveEffect.get());
   }
 
@@ -43,10 +44,9 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements IArmorI
     context.getEntity().removeEffect(TinkerModifiers.selfDestructiveEffect.get());
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IArmorInteractModifier.class, this);
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == ModifierHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 
   /** Internal potion effect handling the explosion */

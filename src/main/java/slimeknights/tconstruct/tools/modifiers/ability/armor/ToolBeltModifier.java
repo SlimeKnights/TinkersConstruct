@@ -11,6 +11,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -41,14 +44,14 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot) {
+  public boolean startArmorInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot) {
     if (!player.isShiftKeyDown()) {
       if (player.level.isClientSide) {
         return false; // TODO: see below
       }
 
       boolean didChange = false;
-      int slots = getSlots(tool, level);
+      int slots = getSlots(tool, modifier.getLevel());
       ModDataNBT persistentData = tool.getPersistentData();
       ListTag list = new ListTag();
       boolean[] swapped = new boolean[slots];
@@ -106,13 +109,8 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
     return PATTERN;
   }
 
-  @SuppressWarnings("unchecked")
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
-    }
-    return super.getModule(type);
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == ModifierHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 }

@@ -14,6 +14,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Objects;
 
@@ -37,6 +38,23 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
 
   public ModifierEntry(Modifier modifier, int level) {
     this(new LazyModifier(modifier), level);
+  }
+
+  /* Helper for commonly used methods */
+
+  /** Gets the given hook from the modifier, returning null if not present */
+  @Nullable
+  public final <T> T getHookOrNull(ModifierHook<T> hook) {
+    return modifier.get().getHook(hook);
+  }
+
+  /** Gets the given hook from the modifier, returning default instance if not present */
+  public final <T> T getHookOrDefault(ModifierHook<T> hook) {
+    T instance = modifier.get().getHook(hook);
+    if (instance != null) {
+      return instance;
+    }
+    return hook.getDefaultInstance();
   }
 
   /** Checks if the given modifier is bound */

@@ -9,16 +9,17 @@ import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import javax.annotation.Nullable;
-
 public class FirebreathModifier extends NoLevelsModifier implements IArmorInteractModifier {
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
     // stopped by water and by cooldown
     if (!player.isShiftKeyDown() && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubble()) {
       // if not creative, this costs a fire charge
@@ -56,9 +57,8 @@ public class FirebreathModifier extends NoLevelsModifier implements IArmorIntera
     return false;
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IArmorInteractModifier.class, this);
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == ModifierHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 }

@@ -29,7 +29,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.common.ToolAction;
@@ -689,31 +688,6 @@ public class Modifier implements IHaveLoader<Modifier> {
   public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
   /**
-   * Adds harvest loot table related enchantments from this modifier's effect, called before breaking a block.
-   * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed.
-   * For looting, see {@link #getLootingValue(IToolStackView, int, LivingEntity, Entity, DamageSource, int)}
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   * @param consumer  Consumer accepting any enchantments
-   */
-  public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
-
-  /**
-   * Gets the amount of luck contained in this tool
-   * @param tool          Tool instance
-   * @param level         Modifier level
-   * @param holder        Entity holding the tool
-   * @param target        Entity being looted
-   * @param damageSource  Damage source that killed the entity. May be null if this hook is called without attacking anything (e.g. shearing)
-   * @param looting          Luck value set from previous modifiers
-   * @return New luck value
-   */
-  public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
-    return looting;
-  }
-
-  /**
    * Removes the block from the world
    * <br>
    * Alternatives:
@@ -1005,6 +979,29 @@ public class Modifier implements IHaveLoader<Modifier> {
    */
   @Nullable
   public <T> T getModule(Class<T> type) {
+    return null;
+  }
+
+  /**
+   * Helper for common usecase of the current class implementing a hook.
+   * Only return true if {@link ModifierHook#isValid(Object)} would return true on this. It is not needed to call that method, just implement the proper interface. */
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return false;
+  }
+
+  /**
+   * Gets a hook of this modifier.
+   *
+   * Submodules will contain tool stack sensitive hooks, and do not contain storage. Generally returning the same instance each time is preferred.
+   * @param hook  Hook to fetch
+   * @param <T>   Module return type
+   * @return  Module, or null if the module is not contained
+   */
+  @Nullable
+  public <T> T getHook(ModifierHook<T> hook) {
+    if (isSelfHook(hook)) {
+      return hook.cast(this);
+    }
     return null;
   }
 

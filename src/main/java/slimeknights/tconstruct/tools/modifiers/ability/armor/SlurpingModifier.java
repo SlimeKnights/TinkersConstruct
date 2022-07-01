@@ -12,6 +12,9 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
@@ -36,7 +39,7 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startArmorInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
     if (!player.isShiftKeyDown()) {
       FluidStack fluid = getFluid(tool);
       if (!fluid.isEmpty()) {
@@ -116,18 +119,17 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
   }
 
   @Override
-  public void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public void stopArmorInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.remove(SLURP_FINISH_TIME));
   }
 
-  @SuppressWarnings("unchecked")
   @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
+  public <T> T getHook(ModifierHook<T> hook) {
+    if (hook == ModifierHooks.ARMOR_INTERACT) {
+      return hook.cast(this);
     }
-    return super.getModule(type);
+    return super.getHook(hook);
   }
 
   private record SlurpingInfo(FluidStack fluid, int finishTime) {}
