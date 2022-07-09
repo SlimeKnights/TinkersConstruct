@@ -44,9 +44,9 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -348,10 +348,7 @@ public class ToolEvents {
       if (!boots.isEmpty() && boots.is(TinkerTags.Items.BOOTS)) {
         ToolStack tool = ToolStack.from(boots);
         for (ModifierEntry entry : tool.getModifierList()) {
-          IArmorWalkModifier hook = entry.getModifier().getModule(IArmorWalkModifier.class);
-          if (hook != null) {
-            hook.onWalk(tool, entry.getLevel(), living, living.lastPos, pos);
-          }
+          entry.getHook(TinkerHooks.BOOT_WALK).onWalk(tool, entry, living, living.lastPos, pos);
         }
       }
     }

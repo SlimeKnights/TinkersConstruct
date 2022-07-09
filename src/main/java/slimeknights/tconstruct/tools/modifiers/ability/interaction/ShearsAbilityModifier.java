@@ -17,7 +17,7 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -108,10 +108,7 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
   /** Runs the hook after shearing an entity */
   private static void runShearHook(IToolStackView tool, Player player, Entity entity, boolean isTarget) {
     for (ModifierEntry entry : tool.getModifierList()) {
-      IShearModifier shearModifier = entry.getModifier().getModule(IShearModifier.class);
-      if (shearModifier != null) {
-        shearModifier.afterShearEntity(tool, entry.getLevel(), player, entity, isTarget);
-      }
+      entry.getHook(TinkerHooks.SHEAR_ENTITY).afterShearEntity(tool, entry, player, entity, isTarget);
     }
   }
 

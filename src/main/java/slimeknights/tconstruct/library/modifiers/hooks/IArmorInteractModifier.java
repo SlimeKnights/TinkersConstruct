@@ -1,10 +1,16 @@
 package slimeknights.tconstruct.library.modifiers.hooks;
 
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Hooks for interacting on a helmet, left generic for addonss to use for other armor pieces */
+/**
+ * Hooks for interacting on a helmet, left generic for addonss to use for other armor pieces
+ * @deprecated use {@link InteractModifierHook}
+ */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public interface IArmorInteractModifier {
   /**
    * Called when the helmet keybinding is pressed to interact with this helmet modifier

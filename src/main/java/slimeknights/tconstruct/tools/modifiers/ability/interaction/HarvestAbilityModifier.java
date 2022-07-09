@@ -26,7 +26,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -216,10 +216,7 @@ public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
     // if we successfully harvested, run the modifier hook
     if (didHarvest) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        IHarvestModifier harvest = entry.getModifier().getModule(IHarvestModifier.class);
-        if (harvest != null) {
-          harvest.afterHarvest(tool, entry.getLevel(), context, world, state, pos);
-        }
+        entry.getHook(TinkerHooks.PLANT_HARVEST).afterHarvest(tool, entry, context, world, state, pos);
       }
     }
 
