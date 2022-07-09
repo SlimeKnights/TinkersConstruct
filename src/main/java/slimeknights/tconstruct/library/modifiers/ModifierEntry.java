@@ -13,6 +13,7 @@ import lombok.With;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
 import java.lang.reflect.Type;
 import java.util.Objects;
@@ -57,6 +58,15 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   /** Helper for efficiency, returns the lazy modifier instance directly, which can then be copied along */
   public LazyModifier getLazyModifier() {
     return modifier;
+  }
+
+  /**
+   * Gets the level scaled based on attributes of modifier data. Used mainly for incremental modifiers.
+   * @param tool  Tool context
+   * @return  Entry level, possibly adjusted by tool properties
+   */
+  public float getEffectiveLevel(IToolContext tool) {
+    return modifier.get().getEffectiveLevel(tool, level);
   }
 
   /** Checks if this entry matches the given modifier */
