@@ -1002,11 +1002,40 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param type  Module type to fetch
    * @param <T>   Module return type
    * @return  Module, or null if the module is not contained
+   * @deprecated use {@link #getHook(ModifierHook)}
    */
-  @Nullable
+  @Nullable @Deprecated
   public <T> T getModule(Class<T> type) {
     return null;
   }
+
+  /**
+   * Helper for common usecase of the modifier itself implementing a hook.
+   * Only return true if {@link ModifierHook#isValid(Object)} would return true on this, in other words you implement the proper interface.
+   * It is not needed to call {@link ModifierHook#isValid(Object)}, just know it will not be validatd by the API.
+   */
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return false;
+  }
+
+  /**
+   * Gets a hook of this modifier. For a given hook, you should return the same instance every time this method is called for consistency and to save memory.
+   * This means any randomness and conditional behavior is the job of the hook itself.
+   *
+   * This method is intentionally protected, if you need to fetch a hook use {@link ModifierEntry#getHook(ModifierHook)}.
+   * Please open an issue if you need a modifier hook in a place that does not use {@link ModifierEntry}
+   * @param hook  Hook to fetch
+   * @param <T>   Hook return type
+   * @return  Submodule implementing the hook, or null if the hook is unsupported
+   */
+  @Nullable
+  protected <T> T getHook(ModifierHook<T> hook) {
+    if (isSelfHook(hook)) {
+      return hook.cast(this);
+    }
+    return null;
+  }
+
 
   @Override
   public String toString() {

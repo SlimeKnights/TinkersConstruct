@@ -59,6 +59,15 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
     return modifier;
   }
 
+  /** Gets the given hook from the modifier, returning default instance if not present */
+  public final <T> T getHook(ModifierHook<T> hook) {
+    T instance = modifier.get().getHook(hook);
+    if (instance != null) {
+      return instance;
+    }
+    return hook.getDefaultInstance();
+  }
+
   /** Checks if this entry matches the given modifier */
   public boolean matches(ModifierId id) {
     return modifier.getId().equals(id);
