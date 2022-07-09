@@ -13,6 +13,7 @@ import lombok.With;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
 import java.lang.reflect.Type;
 import java.util.Objects;
@@ -59,6 +60,9 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
     return modifier;
   }
 
+
+  /* Redirects to commonly used methods on modifier */
+
   /** Gets the given hook from the modifier, returning default instance if not present */
   public final <T> T getHook(ModifierHook<T> hook) {
     T instance = modifier.get().getHook(hook);
@@ -66,6 +70,15 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
       return instance;
     }
     return hook.getDefaultInstance();
+  }
+
+  /**
+   * Gets the level scaled based on attributes of modifier data. Used mainly for incremental modifiers.
+   * @param tool  Tool context
+   * @return  Entry level, possibly adjusted by tool properties
+   */
+  public float getEffectiveLevel(IToolContext tool) {
+    return modifier.get().getEffectiveLevel(tool, level);
   }
 
   /** Checks if this entry matches the given modifier */

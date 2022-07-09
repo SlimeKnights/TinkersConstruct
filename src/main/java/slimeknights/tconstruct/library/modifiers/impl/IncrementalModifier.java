@@ -84,7 +84,9 @@ public class IncrementalModifier extends Modifier {
    * @param persistentData  Tool persistent mod NBT
    * @param level  Modifier level
    * @return  Level, possibly reduced by an incomplete level
+   * @deprecated use {@link #getEffectiveLevel(IToolContext, int)}
    */
+  @Deprecated
   public float getScaledLevel(IModDataView persistentData, int level) {
     if (level <= 0) {
       return 0;
@@ -96,6 +98,11 @@ public class IncrementalModifier extends Modifier {
       return level + (getAmount(persistentData) - neededPerLevel) / (float)neededPerLevel;
     }
     return level;
+  }
+
+  @Override
+  public float getEffectiveLevel(IToolContext tool, int level) {
+    return getScaledLevel(tool.getPersistentData(), level);
   }
 
   /**
