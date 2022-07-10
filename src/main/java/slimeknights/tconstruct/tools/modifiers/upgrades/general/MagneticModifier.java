@@ -13,6 +13,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
@@ -73,6 +75,11 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
       return (T) this;
     }
     return null;
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.PLANT_HARVEST || hook == TinkerHooks.SHEAR_ENTITY || super.isSelfHook(hook);
   }
 
 

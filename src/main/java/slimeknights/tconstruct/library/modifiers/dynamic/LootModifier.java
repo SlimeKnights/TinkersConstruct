@@ -13,6 +13,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -60,6 +62,13 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorLootModifier.class, this);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.TOOL_LOOTING || hook == TinkerHooks.TOOL_HARVEST_ENCHANTMENTS
+           || hook == TinkerHooks.LEGGINGS_LOOTING || hook == TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS
+           || super.isSelfHook(hook);
   }
 
   @Override

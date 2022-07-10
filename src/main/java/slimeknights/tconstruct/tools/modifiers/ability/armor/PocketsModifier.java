@@ -4,6 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
@@ -33,5 +35,10 @@ public class PocketsModifier extends InventoryModifier implements IArmorInteract
       return (T) this;
     }
     return super.getModule(type);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 }

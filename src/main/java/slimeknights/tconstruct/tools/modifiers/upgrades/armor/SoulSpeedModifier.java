@@ -18,6 +18,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -124,6 +126,11 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorWalkModifier.class, this);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.BOOT_WALK || super.isSelfHook(hook);
   }
 
   @Override

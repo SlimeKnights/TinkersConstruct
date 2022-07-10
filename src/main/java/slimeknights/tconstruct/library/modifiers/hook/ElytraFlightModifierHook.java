@@ -22,7 +22,7 @@ public interface ElytraFlightModifierHook {
    * @param modifier     Entry calling this hook
    * @param entity       Entity flying
    * @param flightTicks  Number of ticks the elytra has been in the air
-   * @return  True if the elytra should stop flying
+   * @return  True if the elytra should *stop* flying
    */
   boolean elytraFlightTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int flightTicks);
 

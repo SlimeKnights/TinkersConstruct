@@ -5,6 +5,8 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -49,5 +51,10 @@ public abstract class AbstractWalkerModifier extends NoLevelsModifier implements
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorWalkModifier.class, this);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.BOOT_WALK || super.isSelfHook(hook);
   }
 }

@@ -9,6 +9,8 @@ import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -60,5 +62,10 @@ public class FirebreathModifier extends NoLevelsModifier implements IArmorIntera
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorInteractModifier.class, this);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 }

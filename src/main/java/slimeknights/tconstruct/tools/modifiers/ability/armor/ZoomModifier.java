@@ -4,6 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -45,5 +47,10 @@ public class ZoomModifier extends NoLevelsModifier implements IArmorInteractModi
   @Override
   public <T> T getModule(Class<T> type) {
     return tryModuleMatch(type, IArmorInteractModifier.class, this);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 }

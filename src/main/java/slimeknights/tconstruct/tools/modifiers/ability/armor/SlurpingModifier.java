@@ -12,6 +12,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
@@ -128,6 +130,11 @@ public class SlurpingModifier extends TankModifier implements IArmorInteractModi
       return (T) this;
     }
     return super.getModule(type);
+  }
+
+  @Override
+  protected boolean isSelfHook(ModifierHook<?> hook) {
+    return hook == TinkerHooks.ARMOR_INTERACT || super.isSelfHook(hook);
   }
 
   private record SlurpingInfo(FluidStack fluid, int finishTime) {}
