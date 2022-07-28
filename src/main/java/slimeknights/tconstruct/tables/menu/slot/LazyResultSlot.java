@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.tables.menu.slot;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.tables.block.entity.inventory.LazyResultContainer;
 
 /**
@@ -12,9 +15,18 @@ import slimeknights.tconstruct.tables.block.entity.inventory.LazyResultContainer
 public class LazyResultSlot extends Slot {
   protected final LazyResultContainer inventory;
   protected int amountCrafted = 0;
-  public LazyResultSlot(LazyResultContainer inventory, int xPosition, int yPosition) {
+  @Nullable
+  protected Player player;
+
+  public LazyResultSlot(LazyResultContainer inventory, @Nullable Player player, int xPosition, int yPosition) {
     super(inventory, 0, xPosition, yPosition);
     this.inventory = inventory;
+    this.player = player;
+  }
+
+  @Override
+  public ItemStack getItem() {
+    return inventory.getResult(player);
   }
 
   @Override

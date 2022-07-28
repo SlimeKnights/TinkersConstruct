@@ -19,6 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.events.TinkerEventFactory;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -129,7 +130,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
         // try for UI errors
         ValidatedResult validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
         if (validatedResult.isSuccess()) {
-          result = validatedResult.getResult();
+          result = TinkerEventFactory.onTinkerToolCrafting(player, validatedResult.getResult(), false);
         } else if (validatedResult.hasError()) {
           this.currentError = validatedResult;
         }
@@ -143,7 +144,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, level)) {
       ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
       if (validatedResult.isSuccess()) {
-        result = validatedResult.getResult();
+        result = TinkerEventFactory.onTinkerToolCrafting(player, validatedResult.getResult(), false);
       } else if (validatedResult.hasError()) {
         this.currentError = validatedResult;
       }
