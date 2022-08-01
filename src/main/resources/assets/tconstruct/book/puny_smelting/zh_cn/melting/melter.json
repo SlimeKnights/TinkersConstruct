@@ -1,0 +1,11 @@
+{
+  "title": "焦黑熔化炉",
+  "image": {
+    "file": "tconstruct:book/images/melter.png"
+  },
+  "text": [
+    {
+      "text": "上图就是最基础的熔化炉，它能完成许多简单任务。"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "劈刀是一种高伤害，低攻速的武器。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "砍掉它们的头！",
+	    "paragraph": true
+    }
+  ],
+  "properties": [
+    "强力武器",
+    "挥动速度慢",
+    "自带肢解 II"
+  ]
+}

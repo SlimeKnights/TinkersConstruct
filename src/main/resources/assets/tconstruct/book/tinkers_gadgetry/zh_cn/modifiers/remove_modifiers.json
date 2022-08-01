@@ -1,0 +1,13 @@
+{
+  "title": "移除强化",
+  "image": {
+    "file": "tconstruct:book/images/remove_modifiers.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "我发现用湿海绵可以去除工具上的强化。去除原有的强化会留下增加新强化的空间，有些用于强化的物品也可以回收。擦洗工具的位置和所用海绵的数量不同，能够去除的强化效果也有所不同。"
+    }
+  ]
+}

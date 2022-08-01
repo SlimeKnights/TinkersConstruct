@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "Dovah ko krif dilos ahrk qah."
+    },
+    {
+  "text": "工匠，你不会龙语吗？他们最近都在教些什么啊。这句话是说，飞翔于天际的龙十分致命，并且防御力极高。", "paragraph": true
+    }
+  ],
+  "effects": [
+    "处于空中时增加防御能力与攻击伤害",
+    "多个等级，每级进一步增加防御能力与攻击伤害",
+    "需要1个防御槽"
+  ]
+}

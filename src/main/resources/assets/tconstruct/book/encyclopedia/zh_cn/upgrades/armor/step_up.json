@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "每级为玩家增加0.5格可直接迈步走上去的方块高度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高2级",
+    "每级需要1个升级槽"
+  ]
+}

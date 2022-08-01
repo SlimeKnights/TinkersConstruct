@@ -1,0 +1,13 @@
+{
+  "title": "灵浆水晶洞",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "灵浆水晶洞是稀有橙色粘液的最佳来源之一。它们出现在下界的高海拔地区，并且这些水晶似乎还会发光。"
+    }
+  ]
+}

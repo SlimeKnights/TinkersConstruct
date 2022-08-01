@@ -1,0 +1,10 @@
+{
+  "title": "熔铸炉",
+  "subText": "再没有什么东西能比这熔铸炉更加“奇异”了。",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "详细信息" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "方块" }
+  ]
+}

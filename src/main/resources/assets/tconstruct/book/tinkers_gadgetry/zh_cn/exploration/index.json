@@ -1,0 +1,11 @@
+{
+  "title": "探索",
+  "subText": "许多工匠提到过可用于工具材料或强化的资源，但忘了告诉你如何获取它们。幸运的是，我在旅行中找到了它们中的大部分，所以我可以将我的发现传授给你。",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "资源" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "岛屿" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "晶洞" }
+  ]
+}

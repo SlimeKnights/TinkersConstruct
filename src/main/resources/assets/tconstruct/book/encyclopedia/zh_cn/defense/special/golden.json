@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "使猪灵不再与你敌对。只需穿一件具有该强化的盔甲即可。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "每件盔甲最高1级",
+    "需要1个防御槽"
+  ]
+}

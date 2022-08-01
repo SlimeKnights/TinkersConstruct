@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blast_protection",
+  "text": [
+    {
+      "text": "Creeper~Awwwww man~♪"
+    }
+  ],
+  "effects": [
+    "减少爆炸伤害和被击退距离",
+    "多个等级，每级进一步增加防御能力",
+    "需要1个防御槽"
+  ]
+}

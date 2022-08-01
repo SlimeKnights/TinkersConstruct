@@ -1,0 +1,13 @@
+{
+  "title": "末影黏液水晶洞",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "末影黏液水晶洞可以在末地外岛找到，有的埋藏于地下，有的悬浮于空中。有时候你很难将其与空中的其他大型岩石区分开。"
+    }
+  ]
+}

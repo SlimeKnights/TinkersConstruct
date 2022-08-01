@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:unarmed",
+  "text": [
+    {
+      "text": "人人都是功夫高手~♪"
+    }
+  ],
+  "effects": [
+    "增加空手造成的伤害",
+    "单个等级",
+    "需要1个能力槽"
+  ]
+}

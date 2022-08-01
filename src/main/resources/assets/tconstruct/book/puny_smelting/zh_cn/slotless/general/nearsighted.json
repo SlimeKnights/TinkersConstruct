@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "你总是要抛弃石工具的。"
+    }
+  ],
+  "effects": [
+    "手持工具或穿戴盔甲时增大视场角",
+    "多次使用",
+    "无需槽位"
+  ]
+}
