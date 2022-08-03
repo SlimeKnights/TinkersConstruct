@@ -1968,7 +1968,7 @@
   "modifier.tconstruct.glowing.description": "持握者潜行时可放置荧光球，会消耗工具耐久",
   "modifier.tconstruct.exchanging": "置换",
   "modifier.tconstruct.exchanging.flavor": "！了转反",
-  "modifier.tconstruct.exchanging.description": "若有可能，副手持握的方块将会在该工具采掘方块后，立即填补被挖空的位置",
+  "modifier.tconstruct.exchanging.description": "若有可能，副手持握的方块将会在该工具挖掘方块后，立即填补被挖空的位置",
   "modifier.tconstruct.firestarter": "纵火",
   "modifier.tconstruct.firestarter.flavor": "熊熊火焰燃烧了我！",
   "modifier.tconstruct.firestarter.description": "工具右击可生成火焰",
