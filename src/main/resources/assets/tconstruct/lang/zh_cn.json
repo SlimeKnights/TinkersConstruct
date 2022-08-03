@@ -905,11 +905,11 @@
   "_conment": "Tool Descriptions",
 
   "item.tconstruct.pickaxe.description": "镐是一种精准型采矿工具，能够高效挖掘石头、矿石等石类方块。\n挖方块用的，懂？",
-  "item.tconstruct.sledge_hammer.description": "大锤是一种范围型采矿工具，能单次开采一整片区域内的方块。\n攻击亡灵生物有奇效。",
-  "item.tconstruct.vein_hammer.description": "矿脉锤是一种范围型采矿工具，能一次采掘多块相连的同类型方块，用以采矿收效甚佳。",
+  "item.tconstruct.sledge_hammer.description": "大锤是一种范围型采矿工具，能单次挖掘一整片区域内的方块。\n攻击亡灵生物有奇效。",
+  "item.tconstruct.vein_hammer.description": "矿脉锤是一种范围型采矿工具，能一次挖掘多块相连的同类型方块，用以采矿收效甚佳。",
 
-  "item.tconstruct.mattock.description": "鹤嘴锄是一种多用途农耕工具，适用于采掘木头、泥土、沙子、沙砾等方块，亦可用以收割作物。\n请勿自掘坟墓！",
-  "item.tconstruct.pickadze.description": "凿石锹是一种多用途采掘工具，适用于采掘岩石、泥土、沙子和沙砾，但是其锐利程度不足以开采更硬的石质方块，比如各种矿石。",
+  "item.tconstruct.mattock.description": "鹤嘴锄是一种多用途农耕工具，适用于挖掘木头、泥土、沙子、沙砾等方块，亦可用以收割作物。\n请勿自掘坟墓！",
+  "item.tconstruct.pickadze.description": "凿石锹是一种多用途采掘工具，适用于挖掘岩石、泥土、沙子和沙砾，但是其锐利程度不足以挖掘更硬的石质方块，比如各种矿石。",
   "item.tconstruct.excavator.description": "开掘铲是一种范围型挖掘工具，能单次开采一整片区域内的泥土和雪。\n改天换地！",
 
   "item.tconstruct.hand_axe.description": "短柄斧能砍伐木材，也能高效清理树叶，更是一件趁手的兵器。\n快劈，快！",
