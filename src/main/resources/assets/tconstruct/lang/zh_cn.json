@@ -904,7 +904,7 @@
 
   "_conment": "Tool Descriptions",
 
-  "item.tconstruct.pickaxe.description": "镐是一种精准型采矿工具，能够高效采掘石头、矿石等石类方块。\n挖方块用的，懂？",
+  "item.tconstruct.pickaxe.description": "镐是一种精准型采矿工具，能够高效挖掘石头、矿石等石类方块。\n挖方块用的，懂？",
   "item.tconstruct.sledge_hammer.description": "大锤是一种范围型采矿工具，能单次开采一整片区域内的方块。\n攻击亡灵生物有奇效。",
   "item.tconstruct.vein_hammer.description": "矿脉锤是一种范围型采矿工具，能一次采掘多块相连的同类型方块，用以采矿收效甚佳。",
 
