@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:exchanging",
   "text": [
     {
-      "text": "会将采掘的方块和副手的方块交换。"
+      "text": "会将挖掘的方块和副手的方块交换。"
     }
   ],
   "more_text_space": true,
