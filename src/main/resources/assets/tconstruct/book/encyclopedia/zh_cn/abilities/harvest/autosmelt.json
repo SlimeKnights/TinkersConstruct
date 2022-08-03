@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:autosmelt",
   "text": [
     {
-      "text": "自动烧炼工具所采掘的方块，和放在熔炉里烧炼效果相同。"
+      "text": "自动烧炼工具所挖掘的方块，和放在熔炉里烧炼效果相同。"
     }
   ],
   "more_text_space": true,
