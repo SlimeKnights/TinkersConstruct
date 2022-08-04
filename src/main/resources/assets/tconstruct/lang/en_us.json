@@ -1991,7 +1991,7 @@
   "modifier.tconstruct.spilling.description": "Fluid contained in the weapon spills onto attacked targets, or when attacked for armor, causing effects based on the fluid",
   "modifier.tconstruct.wetting": "Wetting",
   "modifier.tconstruct.wetting.flavor": "Not that kind of wetting",
-  "modifier.tconstruct.wetting.description": "Causes you to wet yourself when damaged, applying diifferent effects based on the contained fluid",
+  "modifier.tconstruct.wetting.description": "Causes you to wet yourself when damaged, applying different effects based on the contained fluid",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",
