@@ -42,6 +42,23 @@
   "block.tconstruct.clear_glass_pane": "Чиста скляна панель",
 
   "block.tconstruct.obsidian_pane": "Обсидіанова панель",
+  "block.tconstruct.gold_bars": "Золоті ґрати",
+  "block.tconstruct.gold_bars.tooltip": "Поводяться як пуста форма в ливарних столах",
+  
+  "block.tconstruct.gold_platform": "Золота платформа",
+  "block.tconstruct.gold_platform.tooltip": "Поводиться як пуста форма в ливарних столах",
+  "block.tconstruct.iron_platform": "Залізна платформа",
+  "block.tconstruct.cobalt_platform": "Кобальтова платформа",
+  
+  "block.tconstruct.copper_platform":           "Мідна платформа",
+  "block.tconstruct.exposed_copper_platform":   "Наражена мідна платформа",
+  "block.tconstruct.weathered_copper_platform": "Вивітрена мідна платформа",
+  "block.tconstruct.oxidized_copper_platform":  "Окиснена мідна платформа",
+  
+  "block.tconstruct.waxed_copper_platform":           "Вощена мідна платформа",
+  "block.tconstruct.waxed_exposed_copper_platform":   "Вощена наражена мідна платформа",
+  "block.tconstruct.waxed_weathered_copper_platform": "Вощена вивітрена мідна платформа",
+  "block.tconstruct.waxed_oxidized_copper_platform":  "Вощена окиснена мідна платформа",
 
   "block.tconstruct.white_clear_stained_glass": "Чисте біле скло",
   "block.tconstruct.orange_clear_stained_glass": "Чисте помаранчеве скло",
@@ -86,12 +103,12 @@
 
   "__comment": "Ore Metals",
 
-  "block.tconstruct.copper_ore": "Мідна руда",
-  "block.tconstruct.copper_block": "Мідний блок",
-  "item.tconstruct.copper_ingot": "Мідний злиток",
   "item.tconstruct.copper_nugget": "Мідний самородок",
 
   "block.tconstruct.cobalt_ore": "Кобальтова руда Незеру",
+  "item.tconstruct.raw_cobalt": "Необроблений кобальт",
+  "block.tconstruct.raw_cobalt_block": "Блок необробленого кобальту",
+  
   "block.tconstruct.cobalt_block": "Кобальтовий блок",
   "block.tconstruct.cobalt_block.tooltip": "Можна використати як основу для маяка",
   "item.tconstruct.cobalt_ingot": "Кобальтовий злиток",
@@ -104,9 +121,9 @@
   "item.tconstruct.slimesteel_ingot": "Слизосталевий злиток",
   "item.tconstruct.slimesteel_nugget": "Шматочок слизосталі",
 
-  "block.tconstruct.tinkers_bronze_block": "Блок інженерової бронзи",
-  "item.tconstruct.tinkers_bronze_ingot": "Злиток інженерової бронзи",
-  "item.tconstruct.tinkers_bronze_nugget": "Шматочок інженерової бронзи",
+  "block.tconstruct.amethyst_bronze_block": "Блок аметистової бронзи",
+  "item.tconstruct.amethyst_bronze_ingot": "Злиток аметистової бронзи",
+  "item.tconstruct.amethyst_bronze_nugget": "Шматочок аметистової бронзи",
 
   "block.tconstruct.rose_gold_block": "Блок рожевого золота",
   "item.tconstruct.rose_gold_ingot": "Злиток рожевого золота",
