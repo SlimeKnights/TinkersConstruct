@@ -1,8 +1,8 @@
 package tconstruct.library.weaponry;
 
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.CustomMaterial;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.entity.ArrowEntity;
 import net.minecraft.enchantment.Enchantment;
@@ -175,8 +175,12 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
     @Override
     protected int getDefaultColor(int renderPass, int materialID) {
         // bowstring uses custom material
-        if(renderPass == 0)
-            return TConstructRegistry.getCustomMaterial(materialID, BowstringMaterial.class).color;
+        if (renderPass == 0) {
+            CustomMaterial material = TConstructRegistry.getCustomMaterial(materialID, BowstringMaterial.class);
+            if (material != null) {
+                return material.color;
+            }
+        }
 
         return super.getDefaultColor(renderPass, materialID);
     }
