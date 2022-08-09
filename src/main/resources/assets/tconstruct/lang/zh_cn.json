@@ -1934,7 +1934,7 @@
   "modifier.tconstruct.luck.2": "幸运+",
   "modifier.tconstruct.luck.3": "幸运++",
   "modifier.tconstruct.luck.flavor": "鸿运当头！",
-  "modifier.tconstruct.luck.description": "采掘与击杀生物时，能提升获得高品质战利品的几率！",
+  "modifier.tconstruct.luck.description": "挖掘方块与击杀生物时，能提升获得高品质战利品的几率！",
   "recipe.tconstruct.modifier.luck.level_2": "“幸运+”的合成与前一级不同",
   "recipe.tconstruct.modifier.luck.level_3": "“幸运++”的合成与前两级不同",
   "modifier.tconstruct.fortune": "时运",
