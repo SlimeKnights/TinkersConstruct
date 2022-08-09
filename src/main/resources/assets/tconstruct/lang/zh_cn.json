@@ -1665,7 +1665,7 @@
 
   "modifier.tconstruct.blasting": "爆裂",
   "modifier.tconstruct.blasting.flavor": "爆破采矿！",
-  "modifier.tconstruct.blasting.description": "你的工具能以更快的速度采掘矿石等爆炸抗性不佳的方块！",
+  "modifier.tconstruct.blasting.description": "你的工具能以更快的速度挖掘矿石等爆炸抗性不佳的方块！",
   "modifier.tconstruct.blasting.mining_speed": "爆裂采掘速度",
   "modifier.tconstruct.hydraulic": "水力驱动",
   "modifier.tconstruct.hydraulic.flavor": "龙王助我！",
