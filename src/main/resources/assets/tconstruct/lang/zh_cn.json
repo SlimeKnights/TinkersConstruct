@@ -2144,7 +2144,7 @@
   "modifier.tconstruct.sharpweight.description": "采掘速度更快，但是移动变得更加困难",
   "modifier.tconstruct.lustrous": "光泽",
   "modifier.tconstruct.lustrous.flavor": "闪闪亮的矿石！",
-  "modifier.tconstruct.lustrous.description": "采掘矿石速度更快",
+  "modifier.tconstruct.lustrous.description": "挖掘矿石速度更快",
   "modifier.tconstruct.lustrous.mining_speed": "矿石采掘",
   "modifier.tconstruct.heavy": "沉重",
   "modifier.tconstruct.heavy.flavor": "密度超大！",
