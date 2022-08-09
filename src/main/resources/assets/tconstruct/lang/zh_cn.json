@@ -1555,7 +1555,7 @@
 
   "material.tconstruct.whitestone": "白石",
   "material.tconstruct.whitestone.flavor": "拿走你那毫无用处的白色金属，做个有用的工具吧。",
-  "material.tconstruct.whitestone.encyclopedia": "采掘石头时有几率获得+3石盾，每级增加20%概率。",
+  "material.tconstruct.whitestone.encyclopedia": "挖掘石头时有几率获得+3石盾，每级增加20%概率。",
 
 
   "__comment": "Tier 3 Integration Materials",
