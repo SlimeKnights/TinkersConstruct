@@ -2100,7 +2100,7 @@
   "modifier.tconstruct.lacerating.description": "使攻击目标流血，造成更多伤害",
   "modifier.tconstruct.crumbling": "粉碎",
   "modifier.tconstruct.crumbling.flavor": "不要粉身碎骨！",
-  "modifier.tconstruct.crumbling.description": "工具在采掘无需工具的方块时速度更快",
+  "modifier.tconstruct.crumbling.description": "工具在挖掘无需工具的方块时速度更快",
   "modifier.tconstruct.crumbling.mining_speed": "粉碎速度",
   "modifier.tconstruct.lightweight": "轻便",
   "modifier.tconstruct.lightweight.flavor": "就像碎片之刃！",
