@@ -1483,7 +1483,7 @@
 
   "material.tconstruct.ancient_hide": "远古兽皮",
   "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革。",
-  "material.tconstruct.ancient_hide.encyclopedia": "增加采掘方块时的掉落几率，可与“幸运”强化同时存在",
+  "material.tconstruct.ancient_hide.encyclopedia": "增加挖掘方块时的掉落几率，可与“幸运”强化同时存在",
 
   "__comment": "Tier End Materials",
   "material.tconstruct.endstone": "末地石",
