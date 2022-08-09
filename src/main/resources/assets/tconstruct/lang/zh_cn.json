@@ -2132,7 +2132,7 @@
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "末影传送",
   "modifier.tconstruct.enderporting.flavor": "继承了末影史莱姆的力量",
-  "modifier.tconstruct.enderporting.description": "工具能够将持有者传送至采掘的方块或杀死的生物的位置",
+  "modifier.tconstruct.enderporting.description": "工具能够将持有者传送至挖掘的方块或杀死的生物的位置",
 
 
   "__comment": "Tier 2 Mod Compat Traits",
