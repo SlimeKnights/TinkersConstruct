@@ -1673,7 +1673,7 @@
   "modifier.tconstruct.hydraulic.mining_speed": "水中采掘速度",
   "modifier.tconstruct.lightspeed": "光照提速",
   "modifier.tconstruct.lightspeed.flavor": "更亮，更快！",
-  "modifier.tconstruct.lightspeed.description": "工具能以更快的速度采掘良好光照条件下的方块！",
+  "modifier.tconstruct.lightspeed.description": "工具能以更快的速度挖掘良好光照条件下的方块！",
   "modifier.tconstruct.lightspeed.mining_speed": "光照下采掘速度",
 
   "_comment": "Weapon",
