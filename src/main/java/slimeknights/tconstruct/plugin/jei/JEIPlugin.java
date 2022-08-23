@@ -5,6 +5,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
@@ -259,12 +260,12 @@ public class JEIPlugin implements IModPlugin {
       }
       return IIngredientSubtypeInterpreter.NONE;
     };
-    registry.registerSubtypeInterpreter(TinkerTables.craftingStation.asItem(), tables);
-    registry.registerSubtypeInterpreter(TinkerTables.partBuilder.asItem(), tables);
-    registry.registerSubtypeInterpreter(TinkerTables.tinkerStation.asItem(), tables);
-    registry.registerSubtypeInterpreter(TinkerTables.tinkersAnvil.asItem(), tables);
-    registry.registerSubtypeInterpreter(TinkerTables.scorchedAnvil.asItem(), tables);
-    registry.registerSubtypeInterpreter(TinkerFluids.potionBucket.asItem(), (stack, context) -> {
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.craftingStation.asItem(), tables);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.partBuilder.asItem(), tables);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkerStation.asItem(), tables);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkersAnvil.asItem(), tables);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.scorchedAnvil.asItem(), tables);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerFluids.potionBucket.asItem(), (stack, context) -> {
       if (!stack.hasTag()) {
         return IIngredientSubtypeInterpreter.NONE;
       }
@@ -288,20 +289,20 @@ public class JEIPlugin implements IModPlugin {
 
     // parts
     for (Item item : getTag(TinkerTags.Items.TOOL_PARTS)) {
-      registry.registerSubtypeInterpreter(item, toolPartInterpreter);
+      registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item, toolPartInterpreter);
     }
 
     // tools
     Item slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
-    registry.registerSubtypeInterpreter(slimeskull, ToolSubtypeInterpreter.ALWAYS);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, slimeskull, ToolSubtypeInterpreter.ALWAYS);
     for (Item item : getTag(TinkerTags.Items.MULTIPART_TOOL)) {
       if (item != slimeskull) {
-        registry.registerSubtypeInterpreter(item, ToolSubtypeInterpreter.INGREDIENT);
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item, ToolSubtypeInterpreter.INGREDIENT);
       }
     }
 
-    registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), (stack, context) -> CopperCanItem.getSubtype(stack));
-    registry.registerSubtypeInterpreter(TinkerModifiers.creativeSlotItem.get(), (stack, context) -> {
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.copperCan.get(), (stack, context) -> CopperCanItem.getSubtype(stack));
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerModifiers.creativeSlotItem.get(), (stack, context) -> {
       SlotType slotType = CreativeSlotItem.getSlot(stack);
       return slotType != null ? slotType.getName() : "";
     });
@@ -326,8 +327,8 @@ public class JEIPlugin implements IModPlugin {
    * @param bucket   Fluid bucket to remove
    */
   private static void removeFluid(IIngredientManager manager, Fluid fluid, Item bucket) {
-    manager.removeIngredientsAtRuntime(VanillaTypes.FLUID, Collections.singleton(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME)));
-    manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singleton(new ItemStack(bucket)));
+    manager.removeIngredientsAtRuntime(ForgeTypes.FLUID_STACK, Collections.singleton(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME)));
+    manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, Collections.singleton(new ItemStack(bucket)));
   }
 
   /** Helper to get an item tag */
@@ -350,7 +351,7 @@ public class JEIPlugin implements IModPlugin {
   private static void optionalItem(IIngredientManager manager, ItemLike item, String tagName) {
     ITag<Item> tag = getTag(new ResourceLocation("forge", tagName));
     if (tag.isEmpty()) {
-      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singletonList(new ItemStack(item)));
+      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, Collections.singletonList(new ItemStack(item)));
     }
   }
 
@@ -362,7 +363,7 @@ public class JEIPlugin implements IModPlugin {
   private static void optionalCast(IIngredientManager manager, CastItemObject cast) {
     ITag<Item> tag = getTag(new ResourceLocation("forge", cast.getName().getPath() + "s"));
     if (tag.isEmpty()) {
-      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, cast.values().stream().map(ItemStack::new).collect(Collectors.toList()));
+      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, cast.values().stream().map(ItemStack::new).collect(Collectors.toList()));
     }
   }
 

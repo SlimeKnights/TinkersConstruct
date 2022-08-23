@@ -6,6 +6,7 @@ import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -53,7 +54,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, IDrawable block) {
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
-    this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(icon));
+    this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(icon));
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
@@ -116,7 +117,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
            .addTooltipCallback(this)
            .setFluidRenderer(capacity, false, 32, 32)
            .setOverlay(tankOverlay, 0, 0)
-           .addIngredients(VanillaTypes.FLUID, recipe.getFluids());
+           .addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluids());
     // pouring fluid
     int h = 11;
     if (!recipe.hasCast()) {
@@ -125,11 +126,11 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
     builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 43, 8)
            .addTooltipCallback(this)
            .setFluidRenderer(1, false, 6, h)
-           .addIngredients(VanillaTypes.FLUID, recipe.getFluids());
+           .addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluids());
   }
 
   @Override
   public void addMiddleLines(IRecipeSlotView slot, List<Component> list) {
-    slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
+    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
   }
 }

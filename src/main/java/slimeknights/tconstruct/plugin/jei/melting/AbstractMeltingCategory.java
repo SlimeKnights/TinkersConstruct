@@ -6,7 +6,7 @@ import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
@@ -44,7 +44,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   /** Tooltip for fuel display */
   public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) -> {
     //noinspection SimplifyOptionalCallChains  Not for int streams
-    slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> {
+    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> {
       MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
         tooltip.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY));
         tooltip.add(new TranslatableComponent(KEY_MULTIPLIER, temperature / 1000f).withStyle(ChatFormatting.GRAY));
@@ -124,7 +124,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
 
     @Override
     public void addMiddleLines(IRecipeSlotView slot, List<Component> list) {
-      slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> {
+      slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> {
         if (appendMaterial(stack, list)) {
           FluidTooltipHandler.appendShift(list);
         }

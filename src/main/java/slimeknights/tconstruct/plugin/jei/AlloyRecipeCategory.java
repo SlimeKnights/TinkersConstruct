@@ -3,6 +3,7 @@ package slimeknights.tconstruct.plugin.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
@@ -41,12 +42,12 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
 
   /** Tooltip for fluid inputs */
   private static final IRecipeTooltipReplacement FLUID_TOOLTIP = (slot, list) ->
-    slot.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
+    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
 
   /** Tooltip for fuel display */
   public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) -> {
     //noinspection SimplifyOptionalCallChains  Not for int streams
-    slot.getDisplayedIngredient(VanillaTypes.FLUID)
+    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK)
         .ifPresent(stack -> MeltingFuelHandler.getTemperature(stack.getFluid())
                                               .ifPresent(temperature -> tooltip.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY))));
   };
@@ -60,7 +61,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
 
   public AlloyRecipeCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 172, 62);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerSmeltery.smelteryController));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.smelteryController));
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 172, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 172, 17, 16, 16);
   }
@@ -130,14 +131,14 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
         builder.addSlot(role, fluidX, y)
                .addTooltipCallback(tooltip)
                .setFluidRenderer(maxAmount, false, w, height)
-               .addIngredients(VanillaTypes.FLUID, fluids.get(i));
+               .addIngredients(ForgeTypes.FLUID_STACK, fluids.get(i));
       }
       // for the last, the width is the full remaining width
       int fluidX = x + max * w;
       builder.addSlot(role, fluidX, y)
              .addTooltipCallback(tooltip)
              .setFluidRenderer(maxAmount, false, totalWidth - (w * max), height)
-             .addIngredients(VanillaTypes.FLUID, fluids.get(max));
+             .addIngredients(ForgeTypes.FLUID_STACK, fluids.get(max));
     }
     return maxAmount;
   }
@@ -151,13 +152,13 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     builder.addSlot(RecipeIngredientRole.OUTPUT, 137, 11)
            .addTooltipCallback(FLUID_TOOLTIP)
            .setFluidRenderer(maxAmount, false, 16, 32)
-           .addIngredient(VanillaTypes.FLUID, recipe.getOutput());
+           .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
 
     // fuel
     builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 94, 43)
            .addTooltipCallback(FUEL_TOOLTIP)
            .setFluidRenderer(1, false, 16, 16)
            .setOverlay(tank, 0, 0)
-           .addIngredients(VanillaTypes.FLUID, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
+           .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
   }
 }

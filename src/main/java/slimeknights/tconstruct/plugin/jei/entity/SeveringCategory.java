@@ -29,7 +29,7 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   private final IDrawable icon;
   public SeveringCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 78, 100, 38);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, TinkerTools.cleaver.get().getRenderTool());
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, TinkerTools.cleaver.get().getRenderTool());
   }
 
   @SuppressWarnings("removal")

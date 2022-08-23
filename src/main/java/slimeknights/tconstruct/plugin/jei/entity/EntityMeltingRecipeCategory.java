@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
@@ -111,14 +111,14 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     builder.addSlot(RecipeIngredientRole.OUTPUT, 115, 11)
            .setFluidRenderer(FluidValues.INGOT * 2, false, 16, 32)
            .addTooltipCallback(TOOLTIP_MAP.computeIfAbsent(recipe.getDamage(), FluidTooltip::new))
-           .addIngredient(VanillaTypes.FLUID, recipe.getOutput());
+           .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
 
     // show fuels that are valid for this recipe
     builder.addSlot(RecipeIngredientRole.CATALYST, 75, 43)
            .setFluidRenderer(1, false, 16, 16)
            .setOverlay(tank, 0, 0)
            .addTooltipCallback(IRecipeTooltipReplacement.EMPTY)
-           .addIngredients(VanillaTypes.FLUID, MeltingFuelHandler.getUsableFuels(1));
+           .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(1));
   }
 
   /** Tooltip for relevant damage on the fluid */
@@ -126,7 +126,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     @Override
     public void addMiddleLines(IRecipeSlotView recipeSlotView, List<Component> list) {
       // add fluid units
-      recipeSlotView.getDisplayedIngredient(VanillaTypes.FLUID).ifPresent(fluid -> FluidTooltipHandler.appendMaterial(fluid, list));
+      recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(fluid -> FluidTooltipHandler.appendMaterial(fluid, list));
       // output rate
       if (damage == 2) {
         list.add(TOOLTIP_PER_HEART);
