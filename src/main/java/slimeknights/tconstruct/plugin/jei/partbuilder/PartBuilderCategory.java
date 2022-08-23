@@ -38,7 +38,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   private final IDrawable icon;
   public PartBuilderCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 117, 121, 46);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerTables.partBuilder));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerTables.partBuilder));
   }
 
   @SuppressWarnings("removal")

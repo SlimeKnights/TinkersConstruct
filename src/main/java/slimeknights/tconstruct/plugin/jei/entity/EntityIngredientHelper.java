@@ -85,7 +85,7 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
 
   /** Applies the item focuses to the list of entities */
   public static List<EntityType> applyFocus(RecipeIngredientRole role, List<EntityType> displayInputs, IFocusGroup focuses) {
-    return focuses.getFocuses(VanillaTypes.ITEM)
+    return focuses.getFocuses(VanillaTypes.ITEM_STACK)
                   .filter(focus -> focus.getRole() == role)
                   .map(focus -> focus.getTypedValue().getIngredient().getItem())
                   .filter(item -> item instanceof SpawnEggItem)

@@ -39,7 +39,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   private final IDrawable table, basin, downArrow, upArrow;
   public MoldingRecipeCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 55, 70, 57);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerSmeltery.blankSandCast.get()));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.blankSandCast.get()));
     this.table = helper.createDrawable(BACKGROUND_LOC, 117, 0, 16, 16);
     this.basin = helper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16);
     this.downArrow = helper.createDrawable(BACKGROUND_LOC, 70, 55, 6, 6);

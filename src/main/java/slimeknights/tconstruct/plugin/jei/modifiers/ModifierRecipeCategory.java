@@ -68,7 +68,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   public ModifierRecipeCategory(IGuiHelper helper) {
     this.maxPrefix = ForgeI18n.getPattern(KEY_MAX);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
@@ -212,7 +212,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
     // TODO: still needed?
     // if focusing on a tool, filter out other tools
-//    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
+//    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM_STACK);
 //    List<ItemStack> output = recipe.getToolWithModifier();
 //    items.set(-1, output);
 //    if (focus != null) {

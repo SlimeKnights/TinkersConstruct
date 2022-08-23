@@ -3,6 +3,7 @@ package slimeknights.tconstruct.plugin.jei.melting;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
@@ -38,7 +39,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
 
   public FoundryCategory(IGuiHelper helper) {
     super(helper);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(TinkerSmeltery.foundryController));
+    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.foundryController));
   }
 
   @SuppressWarnings("removal")
@@ -78,7 +79,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
     builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 4, 4)
            .addTooltipCallback(FUEL_TOOLTIP)
            .setFluidRenderer(1, false, 12, 32)
-           .addIngredients(VanillaTypes.FLUID, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
+           .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
   }
 
   /** Adds amounts to outputs and temperatures to fuels */
