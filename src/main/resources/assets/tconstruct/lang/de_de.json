@@ -268,7 +268,7 @@
 
 "_comment": "Goldgüsse für kleine Köpfe",
 
-"pattern.tconstruct.pick_head": "Kopf auswählen",
+"pattern.tconstruct.pick_head": "Pickaxtkopf",
 "pattern.tconstruct.small_axe_head": "Kleiner Axtkopf",
 "pattern.tconstruct.small_blade": "Kleine Klinge",
 "pattern.tconstruct.sign_head": "Kopfzeichen",
@@ -721,12 +721,12 @@
 "block.tconstruct.punji": "Punji-Sticks",
 "block.tconstruct.punji.tooltip": "Spitz! Klebt auch an Wänden.",
 
-"item.tconstruct.clear_item_frame": "Gegenstandsrahmen löschen",
-"item.tconstruct.gold_item_frame": "Goldener Gegenstandsrahmen",
-"item.tconstruct.reversed_gold_item_frame": "Umgekehrter goldener Gegenstandsrahmen",
+"item.tconstruct.clear_item_frame": "Rahmen löschen",
+"item.tconstruct.gold_item_frame": "Goldener Rahmen",
+"item.tconstruct.reversed_gold_item_frame": "Invertierter goldener Rahmen",
 "item.tconstruct.diamond_item_frame": "Diamantgegenstandsrahmen",
-"item.tconstruct.manyullyn_item_frame": "Manyullyn-Gegenstandsrahmen",
-"item.tconstruct.netherite_item_frame": "Netherite-Gegenstandsrahmen",
+"item.tconstruct.manyullyn_item_frame": "Manyullyn-Rahmen",
+"item.tconstruct.netherite_item_frame": "Netherite-Rahmen",
 
 "item.tconstruct.glow_ball": "Glühkugel",
 "item.tconstruct.glow_ball.tooltip": "Nicht zum Verzehr geeignet.",
@@ -1762,7 +1762,7 @@
 "modifier.tconstruct.aqua_affinity": "Aqua-Affinität",
 "modifier.tconstruct.aqua_affinity.flavor": "Werde eins mit dem Meer!",
 "modifier.tconstruct.aqua_affinity.description": "Entfernt die Mining-Strafe vom Mining unter Wasser",
-"modifier.tconstruct.item_frame": "Gegenstandsrahmen",
+"modifier.tconstruct.item_frame": "Rahmen",
 "modifier.tconstruct.item_frame.flavor": "Ich sehe alles",
 "modifier.tconstruct.item_frame.description": "Fügt dem Helm Inventarplätze für zu beobachtende Gegenstände hinzu. Perfekt für Uhren und Kompasse",
 
@@ -2233,24 +2233,24 @@
 
 "_comment": "Statistiken",
 
-"tool_stat.tconstruct.attack_speed": "Angriffsgeschwindigkeit: ",
+"tool_stat.tconstruct.attack_speed": "Angr.-Geschw.: ",
 "tool_stat.tconstruct.attack_speed.description": "Basiswert für die Berechnung der Angriffsgeschwindigkeit.\nUngefähr volle Angriffsstärke pro Sekunde.",
 "tool_stat.tconstruct.durability": "Haltbarkeit: ",
 "tool_stat.tconstruct.durability.description": "Der Basiswert für Haltbarkeitsberechnungen.\nNormalerweise ein integraler Bestandteil der Gesamthaltbarkeit eines Werkzeugs.",
 
 "stat.tconstruct.head": "Kopf",
-"tool_stat.tconstruct.mining_speed": "Mining-Geschwindigkeit: ",
+"tool_stat.tconstruct.mining_speed": "Mining-Geschw.: ",
 "tool_stat.tconstruct.mining_speed.description": "Wie schnell ein Werkzeug mit einem Werkzeugkopf aus diesem Material Blöcke abbauen kann.\nKann durch andere Werkzeugteile beeinflusst werden.",
 "tool_stat.tconstruct.harvest_tier": "Erntestufe: ",
 "tool_stat.tconstruct.harvest_tier.description": "Welche Blöcke kann ein Werkzeug mit einem Werkzeugkopf aus diesem Material abbauen.",
-"tool_stat.tconstruct.attack_damage": "Angriffsschaden: ",
+"tool_stat.tconstruct.attack_damage": "Angr.-Schaden: ",
 "tool_stat.tconstruct.attack_damage.description": "Basiswert für Angriffsberechnungen.\nDas Endergebnis hängt vom Tool selbst und den anderen verwendeten Komponenten ab.",
 
 "tool_stat.tconstruct.armor": "Rüstung: ",
 "tool_stat.tconstruct.armor.description": "Wie sehr dich das beim Tragen schützt.",
 "tool_stat.tconstruct.armor_toughness": "Rüstungshärte: ",
 "tool_stat.tconstruct.armor_toughness.description": "Wie sehr diese Rüstung Schlägen mit hohem Schaden widersteht.",
-"tool_stat.tconstruct.knockback_resistance": "Rückstoßwiderstand: ",
+"tool_stat.tconstruct.knockback_resistance": "Rückstoß-Res.: ",
 "tool_stat.tconstruct.knockback_resistance.description": "Um wie viel diese Rüstung den Rückstoß reduziert.",
 
 "stat.tconstruct.handle": "Handle",
