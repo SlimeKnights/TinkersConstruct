@@ -284,6 +284,9 @@ public class JEIPlugin implements IModPlugin {
       if (materialId.equals(IMaterial.UNKNOWN_ID)) {
         return IIngredientSubtypeInterpreter.NONE;
       }
+      if (context == UidContext.Ingredient) {
+        return materialId.toString();
+      }
       return materialId.getId().toString();
     };
 
