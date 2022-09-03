@@ -123,6 +123,9 @@ public final class MaterialIds {
   public static final MaterialVariantId greenheart         = create(slimewood, "greenheart");
   public static final MaterialVariantId skyroot            = create(slimewood, "skyroot");
   public static final MaterialVariantId bloodshroom        = create(slimewood, "bloodshroom");
+  // oxidized
+  public static final MaterialVariantId oxidizedIron = create(iron, "oxidized");
+  public static final MaterialVariantId oxidizedCopper = create(copper, "oxidized");
 
   /**
    * Creates a new material ID

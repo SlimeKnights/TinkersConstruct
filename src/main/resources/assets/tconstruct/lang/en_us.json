@@ -1382,6 +1382,7 @@
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Iron",
+  "material.tconstruct.iron.oxidized": "Raw Iron",
   "material.tconstruct.iron.flavor": "Ironic. He could save others from death, but not himself.",
   "material.tconstruct.iron.encyclopedia": "Gives an extra 10% durability per part",
   "material.tconstruct.iron.skull_flavor": "Violation of quarantine",
@@ -1396,6 +1397,7 @@
   "material.tconstruct.scorched_stone.encyclopedia": "Gives +2 damage per level against burning targets",
 
   "material.tconstruct.copper": "Copper",
+  "material.tconstruct.copper.oxidized": "Oxidized Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
   "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +6 per 64 blocks below 64",
   "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",

@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "tag": "forge:raw_materials/copper"
+    },
+    {
+      "tag": "forge:raw_materials/copper"
+    },
+    {
+      "tag": "forge:raw_materials/copper"
+    }
+  ],
+  "tools": [
+    {
+      "item": "tconstruct:plate_boots"
+    },
+    {
+      "item": "tconstruct:plate_leggings"
+    },
+    {
+      "item": "tconstruct:plate_chestplate"
+    },
+    {
+      "item": "tconstruct:plate_helmet"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:copper#oxidized"
+  }
+}

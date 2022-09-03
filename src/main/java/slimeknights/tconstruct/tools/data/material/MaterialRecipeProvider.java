@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.fluids.FluidAttributes;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -169,6 +171,17 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.wood,  MaterialIds.slimewoodComposite, TinkerFluids.earthSlime, true,  FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone,      TinkerFluids.magma,      true,  FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.bone,  MaterialIds.bloodbone,          TinkerFluids.blood,      false, FluidValues.SLIMEBALL, folder);
+    // oxidize copper and iron via water, it does not rust iron because magic
+    MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedIron)
+                              .setInputId(MaterialIds.iron)
+                              .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
+                              .setTemperature(1)
+                              .save(consumer, modResource(folder + "composite/iron_oxidized"));
+    MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedCopper)
+                              .setInputId(MaterialIds.copper)
+                              .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
+                              .setTemperature(1)
+                              .save(consumer, modResource(folder + "composite/copper_oxidized"));
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel,     TinkerFluids.moltenSlimesteel,     false, folder);

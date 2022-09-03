@@ -1215,7 +1215,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     Ingredient plate = Ingredient.of(TinkerTools.plateArmor.values().stream().map(ItemStack::new));
     // tier 2
     plateTexture(consumer, plate, MaterialIds.iron,   false, folder);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.oxidizedIron.toString())
+                                  .setTools(plate)
+                                  .addInput(Tags.Items.RAW_MATERIALS_IRON).addInput(Tags.Items.RAW_MATERIALS_IRON).addInput(Tags.Items.RAW_MATERIALS_IRON)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_iron_oxidized"));
     plateTexture(consumer, plate, MaterialIds.copper, false, folder);
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.oxidizedCopper.toString())
+                                  .setTools(plate)
+                                  .addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_copper_oxidized"));
     // tier 3
     plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
     plateTexture(consumer, plate, MaterialIds.amethystBronze, false, folder);
