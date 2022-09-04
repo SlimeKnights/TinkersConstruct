@@ -167,7 +167,7 @@ public abstract class RandomMaterial {
     public static RandomInTier fromJson(JsonObject json) {
       MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(json, "stat_type"));
       int minTier = GsonHelper.getAsInt(json, "min_tier", 0);
-      int maxTier = GsonHelper.getAsInt(json, "min_tier", Integer.MAX_VALUE);
+      int maxTier = GsonHelper.getAsInt(json, "max_tier", Integer.MAX_VALUE);
       boolean allowHidden = GsonHelper.getAsBoolean(json, "allow_hidden", false);
       return new RandomInTier(statType, minTier, maxTier, allowHidden);
     }
