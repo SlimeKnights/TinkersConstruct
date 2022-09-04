@@ -19,8 +19,11 @@ import javax.annotation.Nullable;
 public class OverslimeModifier extends DurabilityShieldModifier {
   /** Key for max overslime on a tool */
   private static final ResourceLocation KEY_OVERSLIME_CAP = TConstruct.getResource("overslime_cap");
-  /** Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs */
-  private static final ResourceLocation KEY_OVERSLIME_FRIEND = TConstruct.getResource("overslime_friend");
+  /**
+   * Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs.
+   * Use {@link #getFriendKey()} when possible
+   */
+  public static final ResourceLocation KEY_OVERSLIME_FRIEND = TConstruct.getResource("overslime_friend");
 
   @Override
   public Component getDisplayName(int level) {

@@ -14,5 +14,11 @@
     "upgrades": 5,
     "defense": 0,
     "abilities": 1
-  }
+  },
+  "traits": [
+    {
+      "name": "tconstruct:overslime_friend",
+      "level": 1
+    }
+  ]
 }

@@ -53,6 +53,9 @@ public class ModifierIds {
   public static final ModifierId stepUp = id("step_up");
   public static final ModifierId speedy = id("speedy");
 
+  // internal
+  public static final ModifierId overslimeFriend = id("overslime_friend");
+
 
   // traits - tier 1
   public static final ModifierId stringy = id("stringy");

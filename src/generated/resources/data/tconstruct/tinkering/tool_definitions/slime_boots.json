@@ -12,6 +12,10 @@
   },
   "traits": [
     {
+      "name": "tconstruct:overslime_friend",
+      "level": 1
+    },
+    {
       "name": "tconstruct:bouncy",
       "level": 1
     },

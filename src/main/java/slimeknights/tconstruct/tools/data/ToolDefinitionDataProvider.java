@@ -380,6 +380,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.DEFENSE, 0)
       .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
       .part(ArmorSlotType.HELMET, SkullStats.ID, 1)
+      .trait(ModifierIds.overslimeFriend)
       .trait(ArmorSlotType.CHESTPLATE, ModifierIds.wings)
       .trait(ArmorSlotType.LEGGINGS, TinkerModifiers.pockets, 1)
       .trait(ArmorSlotType.LEGGINGS, TinkerModifiers.shulking, 1)

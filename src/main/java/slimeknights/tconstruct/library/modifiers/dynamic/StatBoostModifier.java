@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -57,6 +58,8 @@ public class StatBoostModifier extends IncrementalModifier {
   private final List<ResourceLocation> flags;
   /** Way to display each level of the modifier */
   private final ModifierLevelDisplay levelDisplay;
+  /** Determines if this modifier displays */
+  private final ModifierDisplay modifierDisplay;
 
   /** Creates a new builder instance */
   public static Builder builder() {
@@ -99,6 +102,29 @@ public class StatBoostModifier extends IncrementalModifier {
     return LOADER;
   }
 
+  @Override
+  public boolean shouldDisplay(boolean advanced) {
+    return modifierDisplay.shouldDisplay(advanced);
+  }
+
+  /** Determines if the modifier should display */
+  @RequiredArgsConstructor
+  public enum ModifierDisplay {
+    ALWAYS(true, true),
+    TABLE(true, false),
+    NEVER(false, false);
+
+    private final boolean normal;
+    private final boolean advanced;
+    @Getter
+    private final String name = name().toLowerCase(Locale.ROOT);
+
+    /** Determines if the modifier should display under the condition */
+    public boolean shouldDisplay(boolean isAdvanced) {
+      return isAdvanced ? advanced : normal;
+    }
+  }
+
   /** Loader for this modifier */
   public static final IGenericLoader<StatBoostModifier> LOADER = new IGenericLoader<>() {
     @Override
@@ -120,7 +146,11 @@ public class StatBoostModifier extends IncrementalModifier {
         flags = JsonHelper.parseList(json, "flags", JsonHelper::convertToResourceLocation);
       }
       ModifierLevelDisplay display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");
-      return new StatBoostModifier(rarity, stats, attributes, flags, display);
+      ModifierDisplay modifierDisplay = ModifierDisplay.ALWAYS;
+      if (json.has("modifier_display")) {
+        modifierDisplay = JsonHelper.getAsEnum(json, "modifier_display", ModifierDisplay.class);
+      }
+      return new StatBoostModifier(rarity, stats, attributes, flags, display, modifierDisplay);
     }
 
     @Override
@@ -150,6 +180,9 @@ public class StatBoostModifier extends IncrementalModifier {
         }
         json.add("flags", stats);
       }
+      if (object.modifierDisplay != ModifierDisplay.ALWAYS) {
+        json.addProperty("modifier_display", object.modifierDisplay.getName());
+      }
     }
 
     @Override
@@ -174,7 +207,8 @@ public class StatBoostModifier extends IncrementalModifier {
         flags.add(buffer.readResourceLocation());
       }
       ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.LOADER.fromNetwork(buffer);
-      return new StatBoostModifier(rarity, stats.build(), attributes.build(), flags.build(), levelDisplay);
+      ModifierDisplay modifierDisplay = buffer.readEnum(ModifierDisplay.class);
+      return new StatBoostModifier(rarity, stats.build(), attributes.build(), flags.build(), levelDisplay, modifierDisplay);
     }
 
     @Override
@@ -198,6 +232,7 @@ public class StatBoostModifier extends IncrementalModifier {
         buffer.writeResourceLocation(flag);
       }
       ModifierLevelDisplay.LOADER.toNetwork(object.levelDisplay, buffer);
+      buffer.writeEnum(object.modifierDisplay);
     }
   };
 
@@ -216,6 +251,9 @@ public class StatBoostModifier extends IncrementalModifier {
     /** Display for the level */
     @Setter
     private ModifierLevelDisplay display = ModifierLevelDisplay.DEFAULT;
+    /** Display for the level */
+    @Setter
+    private ModifierDisplay modifierDisplay = ModifierDisplay.ALWAYS;
 
     /** Updates a stat in the builder */
     @SafeVarargs
@@ -268,7 +306,7 @@ public class StatBoostModifier extends IncrementalModifier {
 
     /** Builds the final modifier */
     public StatBoostModifier build() {
-      return new StatBoostModifier(rarity, boosts.build(), attributes.build(), flags.build(), display);
+      return new StatBoostModifier(rarity, boosts.build(), attributes.build(), flags.build(), display, modifierDisplay);
     }
   }
 }

@@ -244,6 +244,29 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
 
     /* Traits */
 
+    /** Adds a base trait to all variants of the tool */
+    public ArmorDataBuilder trait(ModifierId modifier, int level) {
+      for (ArmorSlotType armorSlot : slotTypes) {
+        trait(armorSlot, modifier, level);
+      }
+      return this;
+    }
+
+    /** Adds a base trait to the tool */
+    public ArmorDataBuilder trait(LazyModifier modifier, int level) {
+      return trait(modifier.getId(), level);
+    }
+
+    /** Adds a base trait to the tool */
+    public ArmorDataBuilder trait(ModifierId modifier) {
+      return trait(modifier, 1);
+    }
+
+    /** Adds a base trait to the tool */
+    public ArmorDataBuilder trait(LazyModifier modifier) {
+      return trait(modifier, 1);
+    }
+
     /** Adds a base trait to the tool */
     public ArmorDataBuilder trait(ArmorSlotType slotType, ModifierId modifier, int level) {
       getBuilder(slotType).trait(modifier, level);
