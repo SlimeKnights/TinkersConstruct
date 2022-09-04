@@ -1,0 +1,13 @@
+{
+  "title": "铸件",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "真正的工匠总是使用铸件来防止意外浇注错东西，所以焦褐铸件台总是需要一个铸件才能工作。金平台和金栏杆则作为空铸模的替代品。"
+    }
+	]
+}

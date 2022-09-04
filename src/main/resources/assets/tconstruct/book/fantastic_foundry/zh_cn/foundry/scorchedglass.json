@@ -1,0 +1,14 @@
+{
+  "title": "焦褐玻璃",
+  "item": "tconstruct:scorched_glass",
+  "text": [
+    {
+      "text": "这种玻璃允许你在不破坏熔铸炉结构的情况下，欣赏你那由熔融材料构成的伟大奇迹。注意，它不能像储罐那样储存流体。",
+      "paragraph": true
+    },
+	{
+      "text": "焦褐玻璃不能用于搭建熔铸炉底板。",
+      "paragraph": true
+    }
+  ]
+}

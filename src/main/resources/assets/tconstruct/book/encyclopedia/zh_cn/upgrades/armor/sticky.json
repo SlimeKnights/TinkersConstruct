@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "有一定几率对攻击者造成最多1.5秒（每级增加1秒）的减速效果，每级增加25%的几率。效果由强化等级最高的盔甲决定。"
+    },
+    {
+      "text": "应用于武器时，效果作用于攻击目标。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高3级",
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "合成沙子铸模",
+  "grid": [[[
+    { "item": "minecraft:sand" },
+    { "item": "minecraft:red_sand" }
+  ]]],
+  "result": [
+    { "item": "tconstruct:blank_sand_cast", "amount_needed": 4 },
+    { "item": "tconstruct:blank_red_sand_cast", "amount_needed": 4 }
+  ],
+  "grid_size": "small"
+}

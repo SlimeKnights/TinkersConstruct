@@ -1,0 +1,11 @@
+{
+  "title": "熔铸炉控制器",
+  "image": {
+    "file": "tconstruct:book/images/fcontroller.png"
+  },
+  "text": [
+    {
+      "text": "将1块量的熔融黑曜石浇注到焦褐石砖上，你就能获得这个神秘的熔铸炉控制器。"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "可以在水下以满速挖掘方块，而不是20%的速度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1级",
+    "需要1个能力槽"
+  ]
+}

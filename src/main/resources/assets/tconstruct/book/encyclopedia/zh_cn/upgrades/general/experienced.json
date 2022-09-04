@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "增加击杀生物和破坏方块获得的经验值，每级增加50%。"
+    },
+    {
+      "text": "应用于胸甲时，这个升级只会增加空手击杀怪物时获得的经验值。应用于护腿时，这个升级会对所有工具有加成。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

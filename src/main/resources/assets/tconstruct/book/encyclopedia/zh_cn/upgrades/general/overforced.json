@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "每级+75黏液覆层。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

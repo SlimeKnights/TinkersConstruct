@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "当穿戴该盔甲或手持该工具时，每级缩小5%视场角。"
+    },
+    {
+      "text": "这个升级可以用来抵消“迅捷”强化带来的视场角变化，不过没准你可以发现一些别的用途。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "多次使用",
+    "无需槽位"
+  ]
+}

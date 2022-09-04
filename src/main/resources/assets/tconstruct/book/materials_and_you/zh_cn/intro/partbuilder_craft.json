@@ -1,0 +1,5 @@
+{
+  "title": "合成部件制造台",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small"
+}

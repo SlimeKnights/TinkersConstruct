@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "谁呼吸还需要空气啊。"
+    }
+  ],
+  "effects": [
+    "减少水下空气消耗", 
+    "多个等级，每级进一步减少空气消耗",
+    "每级需要1个升级槽"
+  ]
+}

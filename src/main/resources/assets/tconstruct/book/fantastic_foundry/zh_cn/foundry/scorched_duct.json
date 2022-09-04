@@ -1,0 +1,14 @@
+{
+  "title": "焦褐输导孔",
+  "item": "tconstruct:scorched_duct",
+  "text": [
+    {
+      "text": "焦褐输导孔是限定某种流体排出的设备。将装满特定流体的铜罐或桶放入其过滤槽以限定流体。",
+      "paragraph": true
+    },
+	{
+      "text": "限定的流体会显示在输导孔的中央。",
+      "paragraph": true
+    }
+	]
+}

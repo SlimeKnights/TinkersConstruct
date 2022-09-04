@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "每级增加1格玩家手持的工具挖掘、放置方块和攻击怪物的最大距离。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "无等级上限",
+    "每级需要1个能力槽"
+  ]
+}
