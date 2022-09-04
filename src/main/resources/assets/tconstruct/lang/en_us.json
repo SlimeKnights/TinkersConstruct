@@ -1377,14 +1377,14 @@
 
   "material.tconstruct.vine": "Vine",
   "material.tconstruct.vine.flavor": "Keeps living, unlike the social network.",
-  "material.tconstruct.vine.encyclopedia": "Tool has up to a 75%% chance to resist damage in full sunlight",
+  "material.tconstruct.vine.encyclopedia": "Tool has up to a 75% chance to resist damage in full sunlight",
 
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Iron",
   "material.tconstruct.iron.oxidized": "Raw Iron",
   "material.tconstruct.iron.flavor": "Ironic. He could save others from death, but not himself.",
-  "material.tconstruct.iron.encyclopedia": "Gives an extra 10% durability per part",
+  "material.tconstruct.iron.encyclopedia": "Gives an extra 15% durability per part",
   "material.tconstruct.iron.skull_flavor": "Violation of quarantine",
   "material.tconstruct.iron.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
 
@@ -1442,7 +1442,7 @@
 
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +0.25 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +0.5 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
@@ -1993,7 +1993,7 @@
   "modifier.tconstruct.spilling.description": "Fluid contained in the weapon spills onto attacked targets, or when attacked for armor, causing effects based on the fluid",
   "modifier.tconstruct.wetting": "Wetting",
   "modifier.tconstruct.wetting.flavor": "Not that kind of wetting",
-  "modifier.tconstruct.wetting.description": "Causes you to wet yourself when damaged, applying diifferent effects based on the contained fluid",
+  "modifier.tconstruct.wetting.description": "Causes you to wet yourself when damaged, applying different effects based on the contained fluid",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",

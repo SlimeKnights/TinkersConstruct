@@ -1,8 +1,8 @@
 [
   {
-    "name": "forward",
+    "name": "foreward",
     "type": "mantle:text",
-    "data": "intro/forward.json"
+    "data": "intro/foreward.json"
   },
   {
     "name": "updates",
