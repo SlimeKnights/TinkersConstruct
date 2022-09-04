@@ -1398,7 +1398,7 @@
   "material.tconstruct.scorched_stone.encyclopedia": "每级对着火目标+2点伤害",
 
   "material.tconstruct.copper": "铜",
-  "material.tconstruct.copper.oxidized": "Oxidized Copper",
+  "material.tconstruct.copper.oxidized": "氧化铜",
   "material.tconstruct.copper.flavor": "不要被铜锈锈到了。",
   "material.tconstruct.copper.encyclopedia": "在低海拔时增加工具的采掘速度，每低于海平面64格获得+6采掘速度",
   "material.tconstruct.copper.skull_flavor": "你的攻击令人窒息。",
