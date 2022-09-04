@@ -18,6 +18,12 @@
     ],
     "subtitle": "subtitles.tconstruct.casting_cools"
   },
+  "casting_clicks": {
+    "sounds": [
+      "random/click"
+    ],
+    "subtitle": "subtitles.tconstruct.casting.click"
+  },
 
   "slime_sling": {
     "category": "player",

@@ -241,6 +241,9 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       ItemStack output = getItem(OUTPUT);
       setItem(OUTPUT, getItem(INPUT));
       setItem(INPUT, output);
+      if (level != null) {
+        level.playSound(null, getBlockPos(), Sounds.CASTING_CLICKS.getSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+      }
     }
   }
   
@@ -293,13 +296,14 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
             setItem(OUTPUT, getItem(INPUT));
           }
           setItem(INPUT, output);
+          level.playSound(null, getBlockPos(), Sounds.CASTING_CLICKS.getSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         } else {
           if (currentRecipe.isConsumed()) {
             setItem(INPUT, ItemStack.EMPTY);
           }
           setItem(OUTPUT, output);
         }
-        level.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundSource.AMBIENT, 0.5f, 4f);
+        level.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundSource.BLOCKS, 0.5f, 4f);
         reset();
       } else {
         updateAnalogSignal();

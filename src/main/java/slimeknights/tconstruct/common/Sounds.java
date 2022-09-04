@@ -22,6 +22,7 @@ public enum Sounds {
   SAW("little_saw"),
   ITEM_FRAME_CLICK,
   CASTING_COOLS,
+  CASTING_CLICKS,
 
   // earth crystals
   EARTH_CRYSTAL_CHIME("block.earth_crystal.chime"),

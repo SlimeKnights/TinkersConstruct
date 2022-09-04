@@ -2447,6 +2447,7 @@
   "subtitles.tconstruct.little_saw": "Saw used",
   "subtitles.tconstruct.item_frame_click": "Item Frame clock clicks",
   "subtitles.tconstruct.casting_cools": "Cast item cools",
+  "subtitles.tconstruct.casting.click": "Casting block clicks",
 
   "subtitles.tconstruct.slime_sling": "Slime Sling bounces",
   "subtitles.tconstruct.slime_sling.teleport": "Slime Sling teleports",
