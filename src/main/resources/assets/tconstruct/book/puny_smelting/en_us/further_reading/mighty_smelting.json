@@ -1,0 +1,13 @@
+{
+  "title": "Mighty Smelting",
+  "image": {
+    "file": "tconstruct:book/images/book_mighty_smelting.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "There was just too much awesomeness to fit in a single book so I had to write a second book. After you have mastered the melter, go melt down some grout and pour it on a book to make the sequel."
+    }
+  ]
+}

@@ -1,7 +1,9 @@
 {
   "title": "Smeltery Controller",
   "image": {
-    "file": "tconstruct:book/images/scontroller.png"
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
   },
   "text": [
     {

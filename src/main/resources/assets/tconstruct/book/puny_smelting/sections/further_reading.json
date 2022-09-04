@@ -1,0 +1,12 @@
+[
+  {
+    "name": "mighty_smelting",
+    "type": "mantle:image_text",
+    "data": "further_reading/mighty_smelting.json"
+  },
+  {
+    "name": "encyclopedia",
+    "type": "mantle:image_text",
+    "data": "further_reading/encyclopedia.json"
+  }
+]

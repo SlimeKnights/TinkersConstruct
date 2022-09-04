@@ -1,6 +1,12 @@
 {
   "title": "Further Reading",
   "text": [
-      { "text": "The idiots who decided to advertise in the front of my book because of stupid publishing deals have informed you wrong. These books will not appear on bookshelves, you will have to make them yourselves." }
+    {
+      "text": "Now that you understand the basics of tinkering, take some time to use what you learned and create a few basic tools. Once you are comfortable with the basics, some of my colleagues have written their own books covering more advanced topics."
+    },
+    {
+      "text": "A tip for managing these books: since most of us only have two arms, consider taking advantage of a lectern to hold your books near your workstation.",
+      "paragraph": true
+    }
   ]
 }

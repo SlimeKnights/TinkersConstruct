@@ -1,18 +1,8 @@
 [
   {
-    "name": "advertisements",
-    "type": "mantle:text",
-    "data": "intro/advertisements.json"
-  },
-  {
     "name": "introduction",
     "type": "mantle:text",
     "data": "intro/welcome.json"
-  },
-  {
-    "name": "partbuilder",
-    "type": "mantle:image_text",
-    "data": "intro/partbuilder.json"
   },
   {
     "name": "pattern_craft",
@@ -23,6 +13,11 @@
     "name": "partbuilder_craft",
     "type": "mantle:crafting",
     "data": "intro/partbuilder_craft.json"
+  },
+  {
+    "name": "partbuilder",
+    "type": "mantle:image_text",
+    "data": "intro/partbuilder.json"
   },
   {
     "name": "tinkerstation",
