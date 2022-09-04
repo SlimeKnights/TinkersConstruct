@@ -16,7 +16,7 @@ public class TotalArmorLevelModifier extends Modifier {
   private final boolean singleUse;
 
   public TotalArmorLevelModifier(TinkerDataKey<Integer> key, boolean singleUse) {
-    this(key, singleUse, false);
+    this(key, false, singleUse);
   }
 
   public TotalArmorLevelModifier(TinkerDataKey<Integer> key) {
