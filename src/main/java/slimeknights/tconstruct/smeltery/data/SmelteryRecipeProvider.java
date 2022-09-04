@@ -1126,9 +1126,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // glass
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.SAND), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK, 1.5f)
                         .save(consumer, modResource(folder + "glass/sand"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GLASS), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK, 1.0f)
+    MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GLASS_SILICA), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK, 1.0f)
                         .save(consumer, modResource(folder + "glass/block"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.GLASS_PANES), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_PANE, 0.5f)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.GLASS_PANES_SILICA), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_PANE, 0.5f)
                         .save(consumer, modResource(folder + "glass/pane"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GLASS_BOTTLE), TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK, 1.25f)
                         .save(consumer, modResource(folder + "glass/bottle"));

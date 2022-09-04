@@ -863,6 +863,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.bouncy, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bouncy, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.frostWalker)

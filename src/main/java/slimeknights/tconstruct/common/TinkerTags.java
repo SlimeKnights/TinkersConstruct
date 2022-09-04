@@ -27,6 +27,7 @@ public class TinkerTags {
     private static void init() {}
     public static final TagKey<Block> WORKBENCHES = forgeTag("workbenches");
     public static final TagKey<Block> TABLES = tag("tables");
+    public static final TagKey<Block> GLASS_PANES_SILICA = forgeTag("glass_panes/silica");
 
     /** Compat: allows other mods to add normal stone variants which can be used to create stone tools.
      * Note this tag includes both stone and cobblestone, unlike the default forge/vanilla tags that include one or the other
@@ -158,6 +159,7 @@ public class TinkerTags {
     private static void init() {}
     public static final TagKey<Item> WORKBENCHES = forgeTag("workbenches");
     public static final TagKey<Item> TABLES = tag("tables");
+    public static final TagKey<Item> GLASS_PANES_SILICA = forgeTag("glass_panes/silica");
 
     /** Compat: allows other mods to add normal stone variants which can be used to create stone tools.
      * Note this tag includes both stone and cobblestone, unlike the default forge/vanilla tags that include one or the other

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:glass_panes"
+    "tag": "forge:glass_panes/silica"
   },
   "result": {
     "fluid": "tconstruct:molten_glass",

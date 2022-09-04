@@ -59,7 +59,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     // tier 3
     buildRenderInfo(MaterialIds.slimesteel).color(0x46ECE7).fallbacks("slime_metal", "metal");
     // default texture is tin even though silicon is the one we provide, as it makes the names cleaner
-    buildRenderInfo(MaterialIds.amethystBronze).color(0xE8B465).fallbacks("metal");
+    buildRenderInfo(MaterialIds.amethystBronze).color(0xD9A2D0).fallbacks("metal");
     buildRenderInfo(MaterialIds.nahuatl).color(0x3B2754).fallbacks("wood", "stick");
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");
     buildRenderInfo(MaterialIds.roseGold).color(0xF7CDBB).fallbacks("metal");
