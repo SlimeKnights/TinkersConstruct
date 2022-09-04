@@ -1383,6 +1383,7 @@
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "铁",
+  "material.tconstruct.iron.oxidized": "Raw Iron",
   "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺。",
   "material.tconstruct.iron.encyclopedia": "每级给予工具10%的额外耐久",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例。",
@@ -1397,6 +1398,7 @@
   "material.tconstruct.scorched_stone.encyclopedia": "每级对着火目标+2点伤害",
 
   "material.tconstruct.copper": "铜",
+  "material.tconstruct.copper.oxidized": "Oxidized Copper",
   "material.tconstruct.copper.flavor": "不要被铜锈锈到了。",
   "material.tconstruct.copper.encyclopedia": "在低海拔时增加工具的采掘速度，每低于海平面64格获得+6采掘速度",
   "material.tconstruct.copper.skull_flavor": "你的攻击令人窒息。",
