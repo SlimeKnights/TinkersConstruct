@@ -1383,7 +1383,7 @@
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "铁",
-  "material.tconstruct.iron.oxidized": "Raw Iron",
+  "material.tconstruct.iron.oxidized": "粗铁",
   "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺。",
   "material.tconstruct.iron.encyclopedia": "每级给予工具10%的额外耐久",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例。",
