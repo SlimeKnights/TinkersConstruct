@@ -98,6 +98,17 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
   }
 
   @Override
+  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
+    if (tool.isBroken()) {
+      return InteractionResult.PASS;
+    }
+    if (context.getLevel().getBlockState(context.getClickedPos()).is(BlockTags.CANDLE_CAKES)) {
+      return afterBlockUse(tool, level, context, slotType);
+    }
+    return InteractionResult.PASS;
+  }
+
+  @Override
   public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
     if (tool.isBroken()) {
       return InteractionResult.PASS;
