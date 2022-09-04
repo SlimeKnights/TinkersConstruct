@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:resurrected",
+  "text": [
+    {
+      "text": "Даёт +1 слот для улучшений."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Одноразовый",
+    "Бесслотовый"
+  ]
+}

@@ -1,0 +1,25 @@
+intro=Вступление
+
+gadgets=Гаджеты
+
+modifiers=Странные модификаторы
+
+exploration=Исследование
+exploration.necrotic_bones=Некротическая кость
+
+exploration.skyslime_island=Небесные
+exploration.earthslime_island=Обычные
+exploration.clay_island=Глиняные
+exploration.blood_island=Кровавые
+exploration.enderslime_island=Эндер
+
+exploration.skyslime_geode=Небесные
+exploration.earthslime_geode=Обычные
+exploration.ichor_geode=Ихоровые
+exploration.enderslime_geode=Эндер
+
+armor=Броня
+armor.subtext=Объединяя слизь с различными частями мобов, можно получить интересный набор брони. Она не самая защищённая, но может значительно усилить ваши способности.
+
+skull_materials=Слизечерепа
+skull_materials.subtext=Поместив один из ваших черепов в литейный резервуар и добавив эндер-слизь, можно усилить его способности в качестве шлема.

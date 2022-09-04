@@ -1,8 +1,8 @@
- {
-  "title":"Графический интерфейс Смешивателя",
-    "image": {
-     "file": "tconstruct:book/images/alloyergui.png",
-	 "width": 166,
+{
+  "title": "Графический интерфейс Смешивателя",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
     "height": 78
   },
   "text": [
