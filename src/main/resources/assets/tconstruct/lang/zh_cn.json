@@ -909,7 +909,7 @@
   "item.tconstruct.vein_hammer.description": "矿脉锤是一种范围型采矿工具，能一次挖掘多块相连的同类型方块，用以采矿收效甚佳。",
 
   "item.tconstruct.mattock.description": "鹤嘴锄是一种多用途农耕工具，适用于挖掘木头、泥土、沙子、沙砾等方块，亦可用以收割作物。\n请勿自掘坟墓！",
-  "item.tconstruct.pickadze.description": "凿石锹是一种多用途采掘工具，适用于挖掘岩石、泥土、沙子和沙砾，但是其锐利程度不足以挖掘更硬的石质方块，比如各种矿石。",
+  "item.tconstruct.pickadze.description": "凿石锹是一种多用途挖掘工具，适用于挖掘岩石、泥土、沙子和沙砾，但是其锐利程度不足以挖掘更硬的石质方块，比如各种矿石。",
   "item.tconstruct.excavator.description": "开掘铲是一种范围型挖掘工具，能单次开采一整片区域内的泥土和雪。\n改天换地！",
 
   "item.tconstruct.hand_axe.description": "短柄斧能砍伐木材，也能高效清理树叶，更是一件趁手的兵器。\n快劈，快！",
@@ -1391,7 +1391,7 @@
 
   "material.tconstruct.seared_stone": "焦黑石",
   "material.tconstruct.seared_stone.flavor": "……赴汤蹈火在所不辞！",
-  "material.tconstruct.seared_stone.encyclopedia": "采掘可以在冶炼炉中熔化的方块时每级+6采掘速度",
+  "material.tconstruct.seared_stone.encyclopedia": "挖掘可以在冶炼炉中熔化的方块时每级+6采掘速度",
 
   "material.tconstruct.scorched_stone": "焦褐石",
   "material.tconstruct.scorched_stone.flavor": "焦黑石（创始人典藏版）。",
@@ -1443,7 +1443,7 @@
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "采掘不需要工具开采的方块时，每级+0.25采掘速度，工具种类不匹配时也有效。",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具开采的方块时，每级+0.25挖掘速度，工具种类不匹配时也有效。",
 
   "material.tconstruct.pig_iron": "生铁",
   "material.tconstruct.pig_iron.flavor": "这是最强材料，不允许反驳。",
@@ -1469,7 +1469,7 @@
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "在连续采掘32个方块后，每级增加25%采掘速度",
+  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后，每级增加25%挖掘速度",
 
   "material.tconstruct.queens_slime": "皇后史莱姆",
   "material.tconstruct.queens_slime.flavor": "公主都不是什么善茬，去找个皇后吧。",
@@ -1545,7 +1545,7 @@
 
   "material.tconstruct.platinum": "铂",
   "material.tconstruct.platinum.flavor": "它是胜利者的专属。",
-  "material.tconstruct.platinum.encyclopedia": "矿石采掘速度+8",
+  "material.tconstruct.platinum.encyclopedia": "矿石挖掘速度+8",
 
   "material.tconstruct.lead": "铅",
   "material.tconstruct.lead.flavor": "可以试试用这东西做个三明治。",
@@ -1579,7 +1579,7 @@
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件。",
-  "material.tconstruct.electrum.encyclopedia": "采掘方块和击杀怪物时，每级+50%经验掉落",
+  "material.tconstruct.electrum.encyclopedia": "挖掘方块和击杀怪物时，每级+50%经验掉落",
 
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了。",
@@ -1648,7 +1648,7 @@
   "_comment": "Tool or harvest",
   "modifier.tconstruct.experienced": "阅历",
   "modifier.tconstruct.experienced.flavor": "学啥都快！",
-  "modifier.tconstruct.experienced.description": "击杀生物、采掘方块时，能获取更多经验值",
+  "modifier.tconstruct.experienced.description": "击杀生物、挖掘方块时，能获取更多经验值",
   "modifier.tconstruct.magnetic": "磁性",
   "modifier.tconstruct.magnetic.flavor": "引力人格！",
   "modifier.tconstruct.magnetic.description": "进行攻击时吸引周围的物品？！",
@@ -1668,14 +1668,14 @@
   "modifier.tconstruct.blasting": "爆裂",
   "modifier.tconstruct.blasting.flavor": "爆破采矿！",
   "modifier.tconstruct.blasting.description": "你的工具能以更快的速度挖掘矿石等爆炸抗性不佳的方块！",
-  "modifier.tconstruct.blasting.mining_speed": "爆裂采掘速度",
+  "modifier.tconstruct.blasting.mining_speed": "爆裂挖掘速度",
   "modifier.tconstruct.hydraulic": "水力驱动",
   "modifier.tconstruct.hydraulic.flavor": "龙王助我！",
   "modifier.tconstruct.hydraulic.description": "使工具在水下或雨中时获得采掘速度加成！",
   "modifier.tconstruct.hydraulic.mining_speed": "水中采掘速度",
   "modifier.tconstruct.lightspeed": "光照提速",
   "modifier.tconstruct.lightspeed.flavor": "更亮，更快！",
-  "modifier.tconstruct.lightspeed.description": "工具能以更快的速度挖掘良好光照条件下的方块！",
+  "modifier.tconstruct.lightspeed.description": "工具能以更快的速度开采良好光照条件下的方块！",
   "modifier.tconstruct.lightspeed.mining_speed": "光照下采掘速度",
 
   "_comment": "Weapon",
@@ -1828,7 +1828,7 @@
   "modifier.tconstruct.slurping.description": "按下“头盔交互”键时能饮用头盔内的流体",
   "modifier.tconstruct.aqua_affinity": "水下速掘",
   "modifier.tconstruct.aqua_affinity.flavor": "与大海融为一体！",
-  "modifier.tconstruct.aqua_affinity.description": "在水下采掘时不再受到采掘速度影响",
+  "modifier.tconstruct.aqua_affinity.description": "在水下挖掘方块时不再受到采掘速度影响",
   "modifier.tconstruct.item_frame": "物品展示框",
   "modifier.tconstruct.item_frame.flavor": "我能目清一切",
   "modifier.tconstruct.item_frame.description": "为头盔增加物品栏，从而便于查看。非常适合放置时钟或指南针",
@@ -1930,7 +1930,7 @@
   "modifier.tconstruct.silky.description": "工具所开采的方块将掉落其自身",
   "modifier.tconstruct.autosmelt": "自动烧炼",
   "modifier.tconstruct.autosmelt.flavor": "下界之火蕴于工具之中！",
-  "modifier.tconstruct.autosmelt.description": "自动烧炼工具所采掘的方块",
+  "modifier.tconstruct.autosmelt.description": "自动烧炼工具所挖掘的方块",
   "modifier.tconstruct.luck": "幸运",
   "modifier.tconstruct.luck.1": "幸运",
   "modifier.tconstruct.luck.2": "幸运+",
@@ -1941,7 +1941,7 @@
   "recipe.tconstruct.modifier.luck.level_3": "“幸运++”的合成与前两级不同",
   "modifier.tconstruct.fortune": "时运",
   "modifier.tconstruct.fortune.flavor": "采矿幸运儿！",
-  "modifier.tconstruct.fortune.description": "采掘矿石时获得更多掉落物！",
+  "modifier.tconstruct.fortune.description": "开采矿石时获得更多掉落物！",
   "modifier.tconstruct.looting": "抢夺",
   "modifier.tconstruct.looting.flavor": "战利幸运儿！",
   "modifier.tconstruct.looting.description": "击杀生物后获得更多战利品！",
@@ -2069,7 +2069,7 @@
   "modifier.tconstruct.sturdy.description": "选用最为长效持久的铁料打造而成",
   "modifier.tconstruct.searing": "焦黑",
   "modifier.tconstruct.searing.flavor": "掌控冶炼炉！",
-  "modifier.tconstruct.searing.description": "开采能在冶炼炉中熔化的方块时，工具的采掘速度更快",
+  "modifier.tconstruct.searing.description": "挖掘能在冶炼炉中熔化的方块时，工具的采掘速度更快",
   "modifier.tconstruct.searing.mining_speed": "焦黑速度",
   "modifier.tconstruct.scorching": "焦褐",
   "modifier.tconstruct.scorching.flavor": "掌控熔铸炉！",
@@ -2146,14 +2146,14 @@
   "modifier.tconstruct.sharpweight.description": "采掘速度更快，但是移动变得更加困难",
   "modifier.tconstruct.lustrous": "光泽",
   "modifier.tconstruct.lustrous.flavor": "闪闪亮的矿石！",
-  "modifier.tconstruct.lustrous.description": "挖掘矿石速度更快",
+  "modifier.tconstruct.lustrous.description": "开采矿石速度更快",
   "modifier.tconstruct.lustrous.mining_speed": "矿石采掘",
   "modifier.tconstruct.heavy": "沉重",
   "modifier.tconstruct.heavy.flavor": "密度超大！",
   "modifier.tconstruct.heavy.description": "持握时减缓移动速度，但工具的重量也使其攻击伤害得以增强",
   "modifier.tconstruct.stoneshield": "石盾",
   "modifier.tconstruct.stoneshield.flavor": "大师级的制石工艺",
-  "modifier.tconstruct.stoneshield.description": "采掘的石头有几率保护工具免受之后的耐久损失",
+  "modifier.tconstruct.stoneshield.description": "挖掘的石头有几率保护工具免受之后的耐久损失",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2396,7 +2396,7 @@
   "gui.tconstruct.part_builder.cost": "模具消耗：%s",
   "gui.tconstruct.part_builder.trait": "属性",
   "gui.tconstruct.part_builder.uncraftable": "无法打造",
-  "gui.tconstruct.part_builder.uncraftable.tooltip": "部件制造台无法打造该材料。需使用浇铸等方式进行部件成型。",
+  "gui.tconstruct.part_builder.uncraftable.tooltip": "部件制造台无法打造该材料。需使用浇注等方式进行部件成型。",
 
   "gui.tconstruct.tinkers_chest": "工匠箱",
   "gui.tconstruct.cast_chest": "铸模箱",
@@ -2474,9 +2474,9 @@
   "_comment": "Book Strings",
 
   "book.tconstruct.material.part_builder": "可在部件制造台中制作",
-  "book.tconstruct.material.cast_from": "可由%s浇铸而成",
+  "book.tconstruct.material.cast_from": "可由%s浇注而成",
   "book.tconstruct.material.composite_from": "可由%s在%s部件上浇铸而成",
-  "book.tconstruct.material.skull_from": "可在浇铸盆中由%s浇铸上末影黏液来制作",
+  "book.tconstruct.material.skull_from": "可在铸造盆中由%s浇注上末影黏液来制作",
   "book.tconstruct.modifiers.effect": "效果：",
   "book.tconstruct.tool.properties": "属性：",
 
@@ -2538,8 +2538,8 @@
   "jei.tconstruct.temperature": "%s℃",
   "jei.tconstruct.modifier_ingredient": "%s强化",
 
-  "jei.tconstruct.casting.basin": "浇铸盆",
-  "jei.tconstruct.casting.table": "浇铸台",
+  "jei.tconstruct.casting.basin": "铸造盆",
+  "jei.tconstruct.casting.table": "铸件台",
   "jei.tconstruct.casting.cast_kept": "不消耗铸模",
   "jei.tconstruct.casting.cast_consumed": "消耗铸模",
 
